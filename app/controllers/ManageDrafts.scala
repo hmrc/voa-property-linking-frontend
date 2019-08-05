@@ -18,7 +18,7 @@ package controllers
 
 import config.ApplicationConfig
 import javax.inject.Inject
-import connectors.{DraftCases, MessagesConnector}
+import connectors.{DraftCases}
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import views.helpers.Errors
 import akka.actor.Status.{Failure, Success}
@@ -33,11 +33,8 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.Future
 
 class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
-                             propertyLinks: PropertyLinkConnector,
-                             messagesConnector: MessagesConnector)
-                            (implicit val messagesApi: MessagesApi,
-                             val config: ApplicationConfig,
-                             draftCases: DraftCases) extends PropertyLinkingController {
+                             propertyLinks: PropertyLinkConnector
+                            )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig, draftCases: DraftCases) extends PropertyLinkingController {
 
   val draftCaseForm: Form[DeleteDraftCase] = Form(
     mapping(

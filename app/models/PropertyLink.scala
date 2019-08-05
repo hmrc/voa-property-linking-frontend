@@ -32,13 +32,14 @@ object PropertyLink {
 }
 
 case class ApiAssessments(
-                           submissionId: String,
-                           uarn: Long,
-                           address: String,
-                           pending: Boolean,
-                           capacity: Option[String],
-                           assessments: Seq[ApiAssessment],
-                           agents: Seq[Party]
+                         authorisationId: Long,
+                         submissionId: String,
+                         uarn: Long,
+                         address: String,
+                         pending: Boolean,
+                         capacity: Option[String],
+                         assessments: Seq[ApiAssessment],
+                         agents: Seq[Party]
                          )
 
 object ApiAssessments {

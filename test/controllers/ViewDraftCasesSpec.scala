@@ -25,7 +25,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{Formatters, StubAuthentication, StubMessagesConnector, StubPropertyLinkConnector}
+import utils.{Formatters, StubAuthentication, StubPropertyLinkConnector}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future

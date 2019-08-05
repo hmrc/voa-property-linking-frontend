@@ -15,11 +15,12 @@
  *@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
+@import controllers.detailedValuationRequest.RequestDetailedValuationWithoutForm
 @import models.dvr._
 @import helpers._
 @import config.ApplicationConfig
 
-@(model: RequestDetailedValuationWithoutForm, owner: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
     @main_template(Messages("auto.requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = request.headers.get("Referer")) {
         <div class="grid-row">
@@ -30,6 +31,7 @@
                 <h2 class="heading-large">@model.address</h2>
 
                 <p>@Html(Messages("auto.requestDetailedValuation.effectiveDate", model.effectiveDate))</p>
+
                 @if(model.rateableValue.nonEmpty){
                     <p>@Html(Messages("auto.requestDetailedValuation.rateableValue", model.rateableValue.get))</p>
                 }
@@ -40,13 +42,17 @@
 
                 <p>@Html(Messages("auto.requestDetailedValuation.p.3", routes.Dashboard.home()))</p>
 
-                @form(routes.DvrController.requestDetailedValuation(model.authId, model.assessmentRef, model.baRef, owner)) {
+                @form(
+                    if (owner)
+                            controllers.detailedValuationRequest.routes.DvrController.myOrganisationRequestDetailValuation(submissionId, model.assessmentRef)
+                    else
+                            controllers.detailedValuationRequest.routes.DvrController.myClientsRequestDetailValuation(submissionId, model.assessmentRef)
+                ) {
 
                     <p>
                         <button type="submit" class="button" id="continue" name="continue_button">@Messages("auto.requestDetailedValuation.button")</button>
                     </p>
                 }
-
 
                 <h2 class="heading-medium">@Messages("auto.requestDetailedValuation.heading.challenge")</h2>
 
@@ -54,8 +60,8 @@
 
                 <p>@Messages("auto.requestDetailedValuation.challenge.p2")</p>
 
-                <a href="@routes.Assessments.startChallengeFromDVR(model.authId, model.assessmentRef, model.baRef, owner).url">@Messages("requestDetailedValuation.challenge.start")</a>
+                <a href="@routes.Assessments.startChallengeFromDVR(submissionId, model.assessmentRef, owner).url">@Messages("requestDetailedValuation.challenge.start")</a>
 
             </div>
         </div>
-    }
+}

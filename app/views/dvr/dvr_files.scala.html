@@ -15,23 +15,24 @@
  *@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
+@import controllers.detailedValuationRequest.AvailableRequestDetailedValuation
 @import models.dvr._
 @import helpers._
 @import config.ApplicationConfig
 
 @(model: AvailableRequestDetailedValuation, submissionId: String, owner: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(Messages("available.requestvaluation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(routes.Assessments.assessments(model.authId, submissionId, owner).url)) {
+@main_template(Messages("available.requestvaluation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(routes.Assessments.assessments(submissionId, owner).url)) {
 <div class="grid-row">
     <div class="column-two-thirds">
 
         <h1 class="heading-xlarge">@Messages("available.requestvaluation.title")</h1>
 
-        <p>@Html(Messages("available.requestvaluation.p1", routes.DvrController.requestDvrFile(submissionId, model.valuationId, model.authId, model.valuation, owner), model.address))</p>
+        <p>@Html(Messages("available.requestvaluation.p1", evaluateRoute(model.valuation), model.address))</p>
         <p>@Html(Messages("available.requestvaluation.p2"))</p>
 
         <h1 class="heading-medium">@Messages("available.requestvaluation.check.title")</h1>
-        <p>@Html(Messages("available.requestvaluation.check.p1", routes.DvrController.requestDvrFile(submissionId, model.valuationId, model.authId, model.check, owner)))</p>
+        <p>@Html(Messages("available.requestvaluation.check.p1", evaluateRoute(model.check)))</p>
         <p>@Html(Messages("available.requestvaluation.check.p2"))</p>
         <p>@Html(Messages("available.requestvaluation.address"))</p>
 
@@ -41,10 +42,18 @@
 
         <p>@Messages("auto.requestDetailedValuation.challenge.p2")</p>
 
-        <p><a href="@routes.Assessments.startChallengeFromDVR(model.authId, model.valuationId, model.baRef, owner).url">@Messages("auto.requestDetailedValuation.challenge.start")</a></p>
+        <p><a href="@routes.Assessments.startChallengeFromDVR(submissionId, model.valuationId, owner).url">@Messages("auto.requestDetailedValuation.challenge.start")</a></p>
 
         <a href="@routes.Dashboard.home()">@Messages("link.return.home")</a>
 
     </div>
 </div>
+}
+
+@evaluateRoute(t: String) = {
+    @{if(owner) {
+        controllers.detailedValuationRequest.routes.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId, model.valuationId, model.valuation).url
+    } else {
+        controllers.detailedValuationRequest.routes.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId, model.valuationId, model.check).url
+    }}
 }

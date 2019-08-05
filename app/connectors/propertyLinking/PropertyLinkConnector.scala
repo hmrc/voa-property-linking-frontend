@@ -116,20 +116,20 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
     http.GET[Option[ClientProperty]](url) recover { case _: NotFoundException => None }
   }
 
-  def getOwnerAssessmentsWithCapacity(submissionId: String, organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
-      http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId/$organisationId")
+  def getOwnerAssessmentsWithCapacity(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
+      http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId")
     }
 
-  def getClientAssessmentsWithCapacity(submissionId: String, organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
-    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId/$organisationId")
+  def getClientAssessmentsWithCapacity(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
+    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId")
   }
 
   def getOwnerAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
-    http.GET[Option[ApiAssessments]](s"$baseUrl/owner/dashboard/assessments/$submissionId")
+    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId")
   }
 
   def getClientAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
-    http.GET[Option[ApiAssessments]](s"$baseUrl/agent/dashboard/assessments/$submissionId")
+    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId")
   }
 
   override def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]= {
@@ -171,8 +171,8 @@ trait PropertyLinksConnector {
                             pagination: AgentPropertiesParameters)
                            (implicit hc: HeaderCarrier): Future[OwnerAuthResult]
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]]
-  def getOwnerAssessmentsWithCapacity(submissionId: String, organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]]
-  def getClientAssessmentsWithCapacity(submissionId: String, organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]]
+  def getOwnerAssessmentsWithCapacity(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]]
+  def getClientAssessmentsWithCapacity(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]]
   def getOwnerAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]]
   def getClientAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]]
   def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]

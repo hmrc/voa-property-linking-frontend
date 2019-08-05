@@ -30,33 +30,18 @@ GET         /managed-properties/:agentCode/revoke                               
 
 GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long)
 GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
-GET         /messages                                                                         @controllers.Dashboard.viewMessages()
-GET         /message/:id                                                                      @controllers.Dashboard.viewMessage(id)
-GET         /message/:id/pdf                                                                  @controllers.Dashboard.viewMessageAsPdf(id)
-GET         /message-count/json                                                               @controllers.Dashboard.messageCountJson
+
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  @controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        @controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 
-GET         /property-link/:linkId/assessments/:submissionId                                  @controllers.Assessments.assessments(linkId: Long, submissionId: String, owner: Boolean ?= true)
-GET         /property-link/clients/all/:linkId/assessments/:submissionId                      @controllers.Assessments.assessments(linkId: Long, submissionId: String, owner: Boolean ?= false)
-
+GET         /property-link/:submissionId/assessments                                          @controllers.Assessments.assessments(submissionId: String, owner: Boolean ?= true)
+GET         /property-link/clients/all/:submissionId/assessments                              @controllers.Assessments.assessments(submissionId: String, owner: Boolean ?= false)
 
 GET         /summary/:uarn                                                                    @controllers.Assessments.viewSummary(uarn: Long, isPending: Boolean ?= false)
 GET         /detailed/:authorisationId/:assessmentRef                                         @controllers.Assessments.viewDetailedAssessment(submissionId: String, authorisationId: Long, assessmentRef: Long, baRef, owner: Boolean ?= true)
-GET         /request-detailed/:authorisationId/:assessmentRef                                 @controllers.Assessments.requestDetailedValuation(authorisationId: Long, assessmentRef: Long, baRef, owner: Boolean ?= true)
-GET         /already-requested-detailed                                                       @controllers.Assessments.duplicateRequestDetailedValuation(authorisationId: Long, assessmentRef: Long)
-GET         /request-detailed/start-challenge                                                 @controllers.Assessments.startChallengeFromDVR(authorisationId: Long, assessmentRef: Long, baRef: String, owner: Boolean ?= true)
-POST        /details-requested/:authorisationId/:assessmentRef                                @controllers.Assessments.detailedValuationRequested(authorisationId: Long, assessmentRef: Long, baRef, owner: Boolean ?= true)
-GET         /details-requested/:submissionId                                                  @controllers.Assessments.dvRequestConfirmation(submissionId, authorisationId: Long, owner: Boolean ?= true)
-#POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment(authorisationId: Long)
+GET         /property-link/:submissionId/valuations/:valuationId/start-challenge              @controllers.Assessments.startChallengeFromDVR(submissionId: String, valuationId: Long, owner: Boolean ?= true)
 POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean ?= true)
 
-
-GET         /detailed-valuation/:valuationId/property/:authId/billing/:baRef/exists           @controllers.DvrController.alreadySubmittedDetailedValuationRequest(submissionId: String, authId: Long, valuationId: Long, baRef: String, address: String, effectiveDate: String, rateableValue: Option[Long], owner: Boolean)
-GET         /detailed-valuation/:valuationId/property/:authId/file/:ref                       @controllers.DvrController.requestDvrFile(submissionId: String, authId: Long, valuationId: Long, ref: String, owner: Boolean ?= true)
-GET         /detailed-valuation/:valuationId/property/:authId/billing/:baRef                  @controllers.DvrController.detailedValuationRequestCheck(submissionId: String, authId: Long, valuationId: Long, baRef: String, owner: Boolean ?= true)
-POST        /detailed-valuation/:valuationId/property/:authId/billing/:baRef/request          @controllers.DvrController.requestDetailedValuation(authId: Long, valuationId: Long, baRef: String, owner: Boolean ?= true)
-GET         /detailed-valuation/property/:authId/confirmation/:submissionId                   @controllers.DvrController.confirmation(authId: Long, submissionId: String, owner: Boolean ?= true)
 
 #Search and Link
 GET         /property-search                                                                  @controllers.propertyLinking.ClaimProperty.show()
@@ -136,3 +121,22 @@ GET         /manage-business-tax-account                                        
 GET         /assets/*file                                                                     @controllers.Assets.at(path="/public", file)
 
 GET         /keep-alive                                                                       @controllers.KeepAliveController.keepAlive()
+
+
+
+#DVR
+#Owner Routes
+GET         /property-link/:propertyLinkSubmissionId/valuations/confirmation                              @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
+GET         /property-link/:submissionId/valuations/:valuationId                                          @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuationCheck(submissionId: String, valuationId: Long)
+POST        /property-link/:submissionId/valuations/:valuationId                                          @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuation(submissionId: String, valuationId: Long)
+GET         /property-link/:submissionId/valuations/:valuationId/exists                                   @controllers.detailedValuationRequest.DvrController.myOrganisationAlreadyRequestedDetailValuation(submissionId: String, valuationId: Long)
+GET         /property-link/:submissionId/valuations/:valuationId/file/:ref                                @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId: String, valuationId: Long, ref: String)
+
+#Agent Routes
+GET         /property-link/clients/all/:propertyLinkSubmissionId/valuations/confirmation                  @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
+GET         /property-link/clients/all/:submissionId/valuations/:valuationId                              @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuationCheck(submissionId: String, valuationId: Long)
+POST        /property-link/clients/all/:submissionId/valuations/:valuationId                              @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuation(submissionId: String, valuationId: Long)
+GET         /property-link/clients/all/:submissionId/valuations/:valuationId/exists                       @controllers.detailedValuationRequest.DvrController.myClientsAlreadyRequestedDetailValuation(submissionId: String, valuationId: Long)
+GET         /property-link/clients/all/:submissionId/valuations/:valuationId/file/:ref                    @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId: String, valuationId: Long, ref: String)
+
+

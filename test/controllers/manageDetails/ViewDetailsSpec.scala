@@ -17,28 +17,22 @@
 package controllers.manageDetails
 
 import config.ApplicationConfig
-import connectors.{Addresses, MessagesConnector, VPLAuthConnector}
+import connectors.{Addresses, VPLAuthConnector, _}
 import controllers.VoaPropertyLinkingSpec
-import controllers.manageDetails.{ViewDetails, VoaDetails}
-import org.scalatest.mockito.MockitoSugar
-import play.api.test.FakeRequest
-import utils.StubAuthentication
-import com.builtamont.play.pdf.PdfGenerator
-import connectors._
 import models._
-import models.messages.{Message, MessageCount, MessagePagination, MessageSearchResults}
+import models.messages.MessageCount
 import models.registration.{UserDetails, UserInfo}
-import org.mockito.{AdditionalMatchers, ArgumentMatchers}
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
+import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole, User}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
+import uk.gov.hmrc.auth.core.User
 import uk.gov.hmrc.http.HeaderCarrier
-import utils._
+import utils.StubAuthentication
 
 import scala.concurrent.Future
 
@@ -47,14 +41,12 @@ class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar{
   implicit val request = FakeRequest()
 
   val addressesConnector = mock[Addresses]
-  val messagesConnector = mock[MessagesConnector]
   val authConnector = mock[VPLAuthConnector]
   val mockConfig = mock[ApplicationConfig]
 
   object TestViewDetails extends ViewDetails(
     addressesConnector,
     StubAuthentication,
-    messagesConnector,
     authConnector,
     new VoaDetails(){
       override val config = mockConfig
@@ -72,7 +64,6 @@ class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar{
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
     when(addressesConnector.findById(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Some(personalAddress)))
-    when(messagesConnector.countUnread(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(messageCount))
     when(mockConfig.pingdomToken).thenReturn(Some("token"))
     when(mockConfig.editNameEnabled).thenReturn(true)
     when(mockConfig.loggedInUser).thenReturn(Some("loggedInUser"))
