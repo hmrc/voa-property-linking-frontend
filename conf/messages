@@ -1157,3 +1157,6 @@ challengeRules.rules.1=had a decision in the last 4 months
 challengeRules.rules.2=haven’t had a decision in the last 12 months
 challengeRules.rules.3=told us about a change in the local area of a property less than 16 months ago
 challengeRules.rules.paper=If no valid check cases are shown but you still think you have the right to challenge, you will need to <a href="{0}">download and complete a challenge form</a>.
+
+## TIME OUT DIALOG
+timeout.dialog.title = You are about to be timed out
