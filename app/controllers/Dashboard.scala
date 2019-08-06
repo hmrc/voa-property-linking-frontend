@@ -112,16 +112,6 @@ class Dashboard @Inject()(draftCases: DraftCases,
   def viewMessage(messageId: String) = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("inbox"))
   }
-
-  private def withValidMessagePagination(pagination: MessagePagination)
-                                        (f: => Future[Result])
-                                        (implicit request: Request[_]): Future[Result] = {
-    if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 100) {
-      f
-    } else {
-      BadRequest(Global.badRequestTemplate)
-    }
-  }
 }
 
 case class ManagePropertiesVM(organisationId: Long,

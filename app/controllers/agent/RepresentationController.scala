@@ -194,11 +194,11 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
     }
 
     if (data.action.toLowerCase == "accept-confirm") {
-      Ok(views.html.propertyRepresentation.requestAccepted(
+      Ok(views.html.propertyrepresentation.requestAccepted(
         BulkActionsForm.form,
         getModel))
     } else if (data.action.toLowerCase == "reject-confirm") {
-      Ok(views.html.propertyRepresentation.requestRejected(
+      Ok(views.html.propertyrepresentation.requestRejected(
         BulkActionsForm.form,
         getModel))
     } else if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size > 0) {
@@ -225,7 +225,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
 
   def revokeClient(authorisationId: Long, clientOrganisationId: Long) = authenticated.asAgent { implicit request =>
     propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id) map {
-      case Some(property) => Ok(views.html.propertyRepresentation.revokeClient(property))
+      case Some(property) => Ok(views.html.propertyrepresentation.revokeClient(property))
       case None => notFound
     }
   }

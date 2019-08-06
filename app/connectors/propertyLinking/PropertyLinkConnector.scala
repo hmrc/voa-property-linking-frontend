@@ -18,24 +18,22 @@ package connectors.propertyLinking
 
 import java.time.Instant
 
-import javax.inject.{Inject, Singleton}
 import actions.BasicAuthenticatedRequest
 import binders.GetPropertyLinksParameters
 import com.google.inject.ImplementedBy
 import config.WSHttp
 import connectors.fileUpload.FileMetadata
-import controllers.{Pagination, PaginationParams, PaginationSearchSort}
+import controllers.PaginationParams
+import javax.inject.{Inject, Singleton}
 import models.OwnerOrAgent.OwnerOrAgent
 import models._
-import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
-import play.api
+import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
 import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.ws.WSHttpResponse
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -72,20 +70,29 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
     http.POST[PropertyLinkRequest, HttpResponse](url, linkRequest) map { _ => () }
   }
 
-  def linkedPropertiesSearchAndSort(searchParams: GetPropertyLinksParameters,
-                                    pagination: PaginationParams,
-                                    representationStatusFilter: Seq[RepresentationStatus] =
-                                        Seq(RepresentationApproved, RepresentationPending),
-                                    ownerOrAgent: OwnerOrAgent)
+  def linkedPropertiesSearchAndSort(
+                                     searchParams: GetPropertyLinksParameters,
+                                     pagination: PaginationParams,
+                                     representationStatusFilter: Seq[RepresentationStatus] = Seq(RepresentationApproved, RepresentationPending),
+                                     ownerOrAgent: OwnerOrAgent)
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
 
-    val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/$ownerOrAgent/property-links", List(searchParams.address.map("searchParams.address" -> _),
-      searchParams.baref.map("searchParams.baref" -> _), searchParams.agent.map("searchParams.agent" -> _),searchParams.status.map("searchParams.status" -> _),
-      searchParams.status.map("searchParams.status" -> _), searchParams.sortfield.map("searchParams.sortfield" -> _),searchParams.sortorder.map("searchParams.sortorder" -> _)).flatten ++
-      Seq("params.startPoint" -> pagination.startPoint.toString,
-          "params.pageSize" -> pagination.startPoint.toString,
-          "params.requestTotalRowCount" -> pagination.requestTotalRowCount.toString))
+    val ownerAuthResult = http.GET[OwnerAuthResult](
+      s"$baseUrl/$ownerOrAgent/property-links",
+      List(
+        searchParams.address.map("address" -> _),
+        searchParams.baref.map("baref" -> _),
+        searchParams.agent.map("agent" -> _),
+        searchParams.status.map("status" -> _),
+        searchParams.sortfield.map("sortfield" -> _),
+        searchParams.sortorder.map("sortorder" -> _)
+      ).flatten ++
+      List(
+        "startPoint" -> pagination.startPoint.toString,
+        "pageSize" -> pagination.startPoint.toString,
+        "requestTotalRowCount" -> pagination.requestTotalRowCount.toString)
+    )
 
     def validAgent(agent: OwnerAuthAgent): Boolean =
       agent.status.fold(false) { status =>
