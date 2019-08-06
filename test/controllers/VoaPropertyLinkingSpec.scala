@@ -40,6 +40,5 @@ trait VoaPropertyLinkingSpec extends FlatSpec with MustMatchers with FutureAwait
     StubBusinessRatesValuation.reset()
     StubSubmissionIdConnector.reset()
     StubPropertyRepresentationConnector.reset()
-    StubMessagesConnector.reset()
   }
 }

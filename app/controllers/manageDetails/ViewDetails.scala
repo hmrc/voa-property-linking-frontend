@@ -22,7 +22,7 @@ import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import cats.data.OptionT
 import cats.implicits._
 import config.ApplicationConfig
-import connectors.{Addresses, MessagesConnector, VPLAuthConnector}
+import connectors.{Addresses, VPLAuthConnector}
 import controllers.PropertyLinkingController
 import models.registration.UserDetails
 import models.{Address, DetailedIndividualAccount}
@@ -33,44 +33,11 @@ import uk.gov.hmrc.auth.core.AffinityGroup._
 
 class ViewDetails @Inject()(addressesConnector: Addresses,
                             authenticated: AuthenticatedAction,
-                            messagesConnector: MessagesConnector,
-                            authConnector: VPLAuthConnector,
-                            details: Details
+                            authConnector: VPLAuthConnector
                            )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
   def show() = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("your-details"))
   }
 
-}
-
-
-trait Details extends Results {
-
-  def view(
-            affinityGroup: AffinityGroup,
-            person: DetailedIndividualAccount,
-            personalAddress: Address,
-            businessAddress: Address,
-            userDetails: UserDetails)
-          (implicit request: BasicAuthenticatedRequest[AnyContent], messages: Messages): Result
-}
-
-class VoaDetails @Inject()(implicit val messagesApi: MessagesApi, implicit val config: ApplicationConfig) extends Details {
-
-  def view(
-            affinityGroup: AffinityGroup,
-            person: DetailedIndividualAccount,
-            personalAddress: Address,
-            businessAddress: Address,
-            userDetails: UserDetails
-          )
-          (implicit request: BasicAuthenticatedRequest[AnyContent], messages: Messages): Result = {
-    affinityGroup match {
-      case Individual =>
-        Ok(views.html.details.viewDetails_individual(person, request.organisationAccount, personalAddress, businessAddress))
-      case Organisation =>
-        Ok(views.html.details.viewDetails_organisation(person, request.organisationAccount, personalAddress, businessAddress, userDetails))
-    }
-  }
 }

@@ -60,10 +60,8 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
   }
 
   private object TestDashboardController extends Dashboard(
-
     mock[DraftCases],
     StubPropertyLinkConnector,
-    StubMessagesConnector,
     mock[AgentsConnector],
     mock[GroupAccounts],
     StubAuthentication,

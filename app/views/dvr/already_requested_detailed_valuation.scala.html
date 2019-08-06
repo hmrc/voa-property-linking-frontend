@@ -17,7 +17,7 @@
 @import helpers._
 @import config.ApplicationConfig
 
-@(authId: Long, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(Messages("requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backLink)) {
 <div class="grid-row">

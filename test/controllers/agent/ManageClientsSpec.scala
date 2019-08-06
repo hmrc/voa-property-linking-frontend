@@ -68,8 +68,7 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
   object TestController extends RepresentationController(
     StubPropertyRepresentationConnector,
     StubAuthentication,
-    StubPropertyLinkConnector,
-    StubMessagesConnector
+    StubPropertyLinkConnector
   )
 
 }

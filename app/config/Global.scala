@@ -26,7 +26,6 @@ import com.google.inject.AbstractModule
 import com.google.inject.name.Names
 import com.typesafe.config.Config
 import connectors.VPLAuthConnector
-import controllers.manageDetails.{Details, VoaDetails}
 import javax.inject.{Inject, Provider}
 import net.ceedubs.ficus.Ficus._
 import play.api.Mode.Mode
@@ -125,7 +124,6 @@ class GuiceModule(environment: Environment,
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
-    bind(classOf[Details]).to(classOf[VoaDetails])
     bind(classOf[VoaAction]).to(classOf[GgAction])
     bind(classOf[Auth]).to(classOf[VoaAuth])
     bind(classOf[ManageDetails]).to(classOf[ManageVoaDetails])

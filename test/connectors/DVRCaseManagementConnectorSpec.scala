@@ -69,7 +69,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
         submissionId = "submission1",
         assessmentRef = 24680,
         agents = Nil,
-        billingAuthorityReferenceNumber = "barn1"
+        billingAuthorityReferenceNumber = ""
       )
 
       val result: Unit = await(connector.requestDetailedValuation(dvr))

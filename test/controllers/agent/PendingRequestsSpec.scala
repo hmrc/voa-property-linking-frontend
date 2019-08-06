@@ -172,7 +172,6 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
   private object TestRepresentationController extends RepresentationController(
     StubPropertyRepresentationConnector,
     StubAuthentication,
-    StubPropertyLinkConnector,
-    StubMessagesConnector
+    StubPropertyLinkConnector
   )
 }

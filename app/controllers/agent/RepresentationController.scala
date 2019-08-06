@@ -22,7 +22,7 @@ import cats.instances.future._
 import com.google.inject.{Inject, Singleton}
 import config.{ApplicationConfig, Global}
 import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{AgentsConnector, MessagesConnector, PropertyRepresentationConnector}
+import connectors.PropertyRepresentationConnector
 import controllers.agent.RepresentationController.ManagePropertiesVM
 import controllers.agentAppointment.AppointAgentVM
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
@@ -46,9 +46,8 @@ import scala.util.{Failure, Success, Try}
 @Singleton()
 class RepresentationController @Inject()(reprConnector: PropertyRepresentationConnector,
                                          authenticated: AuthenticatedAction,
-                                         propertyLinkConnector: PropertyLinkConnector,
-                                         messagesConnector: MessagesConnector)
-                                        (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+                                         propertyLinkConnector: PropertyLinkConnector
+                                        )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
   def viewClientProperties() = authenticated.asAgent { implicit request =>

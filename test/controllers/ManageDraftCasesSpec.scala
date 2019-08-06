@@ -28,7 +28,7 @@ import play.api.http.Status._
 import resources._
 import resources.randomDraftCase
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{StubAuthentication, StubMessagesConnector, StubPropertyLinkConnector, StubSubmissionIdConnector}
+import utils.{StubAuthentication, StubPropertyLinkConnector, StubSubmissionIdConnector}
 
 import scala.concurrent.Future
 
@@ -93,8 +93,7 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar {
 
   private lazy val testController = new ManageDrafts(
     StubAuthentication,
-    StubPropertyLinkConnector,
-    StubMessagesConnector
+    StubPropertyLinkConnector
   )
 
 }

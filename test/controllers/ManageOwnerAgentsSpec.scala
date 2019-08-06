@@ -34,7 +34,6 @@ class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
   object TestDashboardController extends Dashboard(
     mock[DraftCases],
     mock[PropertyLinkConnector],
-    StubMessagesConnector,
     StubAgentConnector,
     mock[GroupAccounts],
     StubAuthentication,

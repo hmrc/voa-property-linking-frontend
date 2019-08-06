@@ -43,7 +43,6 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
   object TestDashboard extends Dashboard(
     mockDraftCases,
     StubPropertyLinkConnector,
-    StubMessagesConnector,
     StubAgentConnector,
     StubGroupAccountConnector,
     StubAuthentication,
@@ -138,8 +137,6 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
 
     StubIndividualAccountConnector.stubAccount(clientPerson)
     StubGroupAccountConnector.stubAccount(clientGroup)
-
-    StubMessagesConnector.stubMessage(message)
 
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
 

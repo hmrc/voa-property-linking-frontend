@@ -18,19 +18,16 @@ package controllers
 
 import java.time.LocalDate
 
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
-import form.EnumMapping
 import javax.inject.Inject
 import models._
-import models.dvr.{DetailedValuationRequest, DetailedValuationRequestTypes, EmailRequest, PostRequest}
 import play.api.data.Forms.text
 import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.Action
 
 import scala.concurrent.Future
 
@@ -40,43 +37,37 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
                             businessRatesAuthorisation: BusinessRatesAuthorisation)
                            (implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
-  def assessments(authorisationId: Long, submissionId: String, owner: Boolean) = authenticated.toViewAssessmentsFor(authorisationId) { implicit request =>
+  def assessments(submissionId: String, owner: Boolean) = authenticated { implicit request =>
     val refererOpt = request.headers.get("Referer")
 
-    val pLink = if(owner) propertyLinks.getOwnerAssessmentsWithCapacity(submissionId, authorisationId) else propertyLinks.getClientAssessmentsWithCapacity(submissionId, authorisationId)
+    val pLink = if(owner) propertyLinks.getOwnerAssessmentsWithCapacity(submissionId) else propertyLinks.getClientAssessmentsWithCapacity(submissionId)
 
-    println(request.headers)
-
-    pLink flatMap {
-        case Some(ApiAssessments(_,_, _, _,_,Seq(), _)) => notFound
-        case Some(link) => {
-          for {
-            isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-          } yield {
-            if(!link.pending && link.assessments.size == 1){
-              Redirect(routes.Assessments.viewDetailedAssessment(submissionId, authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference, owner))
+        pLink flatMap {
+          case Some(ApiAssessments(authorisationId, _, _, _, _, _, Seq(), _)) => notFound
+          case Some(link) => {
+              if (!link.pending && link.assessments.size == 1) {
+                Redirect(routes.Assessments.viewDetailedAssessment(submissionId, link.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference, owner))
+              }
+              else if (link.pending && link.assessments.size == 1) {
+                Redirect(routes.Assessments.viewSummary(link.uarn, link.pending))
+              }
+              else {
+                Ok(
+                  views.html.dashboard.assessments(
+                    model = AssessmentsVM(
+                      form = viewAssessmentForm,
+                      assessments = link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)).reverse,
+                      backLink = calculateBackLink(refererOpt, owner),
+                      linkPending = link.pending,
+                      plSubmissionId = link.submissionId,
+                      isAgentOwnProperty = owner,
+                      capacity = link.capacity),
+                    owner = owner
+                  ))
+              }
             }
-            else if(link.pending && link.assessments.size == 1){
-              Redirect(routes.Assessments.viewSummary(link.uarn, link.pending))
-            }
-            else {
-              Ok(
-                views.html.dashboard.assessments(
-                  model = AssessmentsVM(
-                    form = viewAssessmentForm,
-                    assessments = link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)).reverse,
-                    backLink = calculateBackLink(refererOpt, isAgentOwnProperty),
-                    linkPending = link.pending,
-                    plSubmissionId = link.submissionId,
-                    isAgentOwnProperty = isAgentOwnProperty,
-                    capacity = link.capacity), owner
-                ))
-            }
-          }
+          case None => notFound
         }
-        case None => notFound
-      }
-
   }
 
   private def calculateBackLink(refererOpt: Option[String], agentOwnsProperty: Boolean): String = refererOpt match {
@@ -88,7 +79,13 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
   }
 
-  def viewDetailedAssessment(submissionId: String, authorisationId: Long, assessmentRef: Long, baRef: String, owner: Boolean) = authenticated { implicit request =>
+  def viewDetailedAssessment(
+                              submissionId: String,
+                              authorisationId: Long,
+                              assessmentRef: Long,
+                              baRef: String,
+                              owner: Boolean
+                            ) = authenticated { implicit request =>
     businessRatesValuations.isViewable(authorisationId, assessmentRef) map {
       case true =>
         if (owner) {
@@ -98,11 +95,13 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
           Redirect(config.businessRatesValuationUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
         }
       case false =>
-        if (config.dvrEnabled){
-          Redirect(routes.DvrController.detailedValuationRequestCheck(submissionId, authorisationId, assessmentRef, baRef, owner))
-        } else {
-          Redirect(routes.Assessments.requestDetailedValuation(authorisationId, assessmentRef, baRef, owner))
-        }
+        Redirect(
+          if (owner)
+            controllers.detailedValuationRequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
+          else
+            controllers.detailedValuationRequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
+        )
+
     }
   }
 
@@ -114,10 +113,10 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
 
     viewAssessmentForm.bindFromRequest().fold(
       errors => {
-        val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessmentsWithCapacity(submissionId, authorisationId) else propertyLinks.getOwnerAssessmentsWithCapacity(submissionId, authorisationId)
+        val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessmentsWithCapacity(submissionId) else propertyLinks.getOwnerAssessmentsWithCapacity(submissionId)
 
         pLink flatMap {
-            case Some(ApiAssessments(_,_, _, _,_,Seq(), _)) => notFound
+            case Some(ApiAssessments(_, _, _, _, _,_,Seq(), _)) => notFound
             case Some(link) => {
               for {
                 isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
@@ -144,7 +143,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
             case _ =>
               val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessments(submissionId) else propertyLinks.getOwnerAssessments(submissionId)
               pLink flatMap {
-                case Some(ApiAssessments(_,_, _, _,_,Seq(), _)) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
+                case Some(ApiAssessments(_, _, _, _, _, _,Seq(), _)) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
                 case Some(link) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, link.pending)))
                 case None => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
               }
@@ -153,53 +152,9 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     )
   }
 
-  def requestDetailedValuation(authId: Long, assessmentRef: Long, baRef: String, owner: Boolean) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
-    Ok(views.html.dvr.requestDetailedValuation(RequestDetailedValuationVM(dvRequestForm, authId, assessmentRef, baRef), owner))
+  def startChallengeFromDVR(submissionId: String, valuationId: Long, owner: Boolean) = authenticated { implicit request =>
+    Ok(views.html.dvr.challenge_valuation(submissionId, valuationId, owner))
   }
-
-  def duplicateRequestDetailedValuation(authId: Long, assessmentRef: Long) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
-    Ok(views.html.dvr.duplicateRequestDetailedValuation())
-  }
-
-  def startChallengeFromDVR(authorisationId: Long, assessmentRef: Long, baRef: String, owner: Boolean) = authenticated { implicit request =>
-    Ok(views.html.dvr.challenge_valuation(authorisationId, assessmentRef, baRef, owner))
-  }
-
-  def detailedValuationRequested(authId: Long, assessmentRef: Long, baRef: String, owner: Boolean) = authenticated.toViewAssessment(authId, assessmentRef) { implicit request =>
-    dvRequestForm.bindFromRequest().fold(
-      errs => BadRequest(views.html.dvr.requestDetailedValuation(RequestDetailedValuationVM(errs, authId, assessmentRef, baRef), owner)),
-      preference => {
-        val prefix = preference match {
-          case EmailRequest => "EMAIL"
-          case PostRequest => "POST"
-        }
-
-        for {
-          submissionId <- submissionIds.get(prefix)
-          dvr = DetailedValuationRequest(authId, request.organisationId, request.personId, submissionId, assessmentRef, Nil, baRef)
-          dvrExists <- dvrCaseManagement.dvrExists(request.organisationId, assessmentRef)
-          _ <- if (!dvrExists) dvrCaseManagement.requestDetailedValuation(dvr)
-        } yield {
-          if (dvrExists) {
-            Redirect(routes.Assessments.duplicateRequestDetailedValuation(authId, assessmentRef))
-          } else {
-            Redirect(routes.Assessments.dvRequestConfirmation(submissionId, authId, owner))
-          }
-        }
-      }
-    )
-  }
-
-  def dvRequestConfirmation(submissionId: String, authorisationId: Long, owner: Boolean) = Action.async { implicit request =>
-    val preference = if (submissionId.startsWith("EMAIL")) "email" else "post"
-     val pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
-     pLink map {
-      case Some(link) => Ok(views.html.dvr.detailedValuationRequested(submissionId, preference, link.address))
-      case None => notFound
-    }
-  }
-
-  lazy val dvRequestForm = Form(Forms.single("requestType" -> EnumMapping(DetailedValuationRequestTypes)))
 }
 
 case class AssessmentsVM(form: Form[_], assessments: Seq[ApiAssessment], backLink: String, linkPending: Boolean, plSubmissionId: String, isAgentOwnProperty: Boolean, capacity: Option[String])

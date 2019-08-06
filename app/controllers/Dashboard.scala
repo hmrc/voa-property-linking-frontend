@@ -37,7 +37,6 @@ import scala.concurrent.Future
 
 class Dashboard @Inject()(draftCases: DraftCases,
                           propertyLinks: PropertyLinkConnector,
-                          messagesConnector: MessagesConnector,
                           agentsConnector: AgentsConnector,
                           groupAccounts: GroupAccounts,
                           authenticated: AuthenticatedAction,
@@ -112,21 +111,6 @@ class Dashboard @Inject()(draftCases: DraftCases,
 
   def viewMessage(messageId: String) = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("inbox"))
-  }
-
-  def viewMessageAsPdf(messageId: String) = authenticated { implicit request =>
-    for {
-      message <- messagesConnector.getMessage(request.organisationId, messageId)
-    } yield {
-      message match {
-        case Some(m) => pdfGen.ok(views.html.dashboard.messages.viewMessagePdf(m), config.serviceUrl)
-        case None => NotFound(Global.notFoundTemplate)
-      }
-    }
-  }
-
-  def messageCountJson() = authenticated { implicit request =>
-    messagesConnector.countUnread(request.organisationId).map(messageCount => Ok(Json.toJson(messageCount)))
   }
 
   private def withValidMessagePagination(pagination: MessagePagination)
