@@ -47,7 +47,7 @@
 
   <logger name="application" level="DEBUG"/>
 
-  <logger name="connector" level="INFO">
+  <logger name="connector" level="DEBUG">
     <appender-ref ref="STDOUT"/>
   </logger>
 

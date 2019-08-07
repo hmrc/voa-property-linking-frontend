@@ -23,6 +23,7 @@ import play.api.data.validation.ValidationError
 import utils.Cats
 
 import scala.language.implicitConversions
+import scala.util.Try
 
 
 trait ValidationUtils extends Cats {
@@ -30,8 +31,15 @@ trait ValidationUtils extends Cats {
   def readOption(implicit key: String, params: Params): ValidatedNel[ValidationError, Option[String]] =
     params.get(key).flatMap(_.headOption).validNel
 
+  def readWithDefault(
+                       default: => String)(implicit key: String, params: Params): ValidatedNel[ValidationError, String] =
+    params.get(key).fold(default)(_.headOption.getOrElse(default)).validNel
+
   def maxLength(maxBound: Int)(value: String)(implicit key: String): ValidatedNel[ValidationError, String] =
     Validated.condNel(value.length <= maxBound, value, ValidationError(key, maxBound))
+
+  def asInt(value: String)(implicit key: String): ValidatedNel[ValidationError, Int] =
+    Validated.fromTry(Try(value.toInt)).leftMap(_ => ValidationError(key, "value cannot be parsed to an int")).toValidatedNel
 
   private[validation] class ValidatedOptional[E, A](validated: Validated[E, Option[A]]) {
 

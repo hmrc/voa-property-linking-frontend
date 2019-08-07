@@ -21,12 +21,26 @@ import play.api.mvc.QueryStringBindable
 import utils.Cats
 import utils.QueryParamUtils.toQueryString
 import cats.Show
+import play.api.Logger
 
-case class GetPropertyLinksParameters(address: Option[String] = None, baref: Option[String] = None, agent: Option[String] = None,
-                                      status: Option[String] = None, sortfield: Option[String] = None, sortorder: Option[String] = None)
+case class GetPropertyLinksParameters(
+                                       address: Option[String] = None,
+                                       baref: Option[String] = None,
+                                       agent: Option[String] = None,
+                                       status: Option[String] = None,
+                                       sortfield: Option[String] = None,
+                                       sortorder: Option[String] = None
+                                     ) {
+
+  def reverseSorting: GetPropertyLinksParameters = this.copy(sortorder = sortorder.map {
+    case "ASC"  => "DESC"
+    case "DESC" => "ASC"
+  })
+}
 
 object GetPropertyLinksParameters extends ValidationUtils {
 
+  private val logger = Logger(this.getClass.getName)
   implicit object Binder extends QueryStringBindable[GetPropertyLinksParameters] with Cats {
 
     override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, GetPropertyLinksParameters]] =
@@ -35,8 +49,17 @@ object GetPropertyLinksParameters extends ValidationUtils {
     override def unbind(key: String, value: GetPropertyLinksParameters): String = toQueryString(value)
 
     private def validate(params: Params): ValidationResult[GetPropertyLinksParameters] =
-      (validateString("address", params), validateString("baref", params), validateString("agent", params), validateString("status", params), validateString("sortfield", params), validateString("sortorder", params))
-        .mapN(GetPropertyLinksParameters.apply)
+      (
+        validateString("address", params),
+        validateString("baref", params),
+        validateString("agent", params),
+        validateString("status", params),
+        validateString("sortfield", params),
+        validateString("sortorder", params)
+      ).mapN{
+        logger.debug("validation of get property links parameters")
+        GetPropertyLinksParameters.apply _
+      }
 
     def validateString(implicit key: String, params: Params): ValidationResult[Option[String]] =
       readOption(key, params) ifPresent maxLength(1000)

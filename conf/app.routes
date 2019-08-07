@@ -69,12 +69,16 @@ GET         /no-evidence-uploaded                                               
 GET         /manual-verification-required                                                     @controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                                                 @controllers.LinkErrors.conflict()
 
-GET         /appoint-agent/select-properties-search                                           @controllers.agentAppointment.AppointAgentController.selectPropertiesSearchSort(pagination: AgentPropertiesParameters)
-GET         /appoint-agent/select-properties-with-no-agent                                    @controllers.agentAppointment.AppointAgentController.selectPropertiesWithNoAgent(pagination: AgentPropertiesParameters)
-POST        /appoint-agent/select-properties                                                  @controllers.agentAppointment.AppointAgentController.selectProperties()
-GET         /appoint-agent/show-all-properties                                                @controllers.agentAppointment.AppointAgentController.showAllProperties(pagination: AgentPropertiesParameters)
+GET         /my-organisation/clients/appoint/properties                                       @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinks(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String)
+GET         /appoint-agent/select-properties-with-no-agent                                    @controllers.agentAppointment.AppointAgentController.selectPropertiesWithNoAgent(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String, agentAppointed: String)
+
+#GET         /appoint-agent/select-properties-search                                           @controllers.agentAppointment.AppointAgentController.selectPropertiesSearchSort(pagination: AgentPropertiesParameters)
+#GET         /appoint-agent/show-all-properties                                                @controllers.agentAppointment.AppointAgentController.showAllProperties(pagination: AgentPropertiesParameters)
+
+#POST        /appoint-agent/select-properties                                                 @controllers.agentAppointment.AppointAgentController.selectProperties()
 POST        /appoint-agent/agent-summary                                                      @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 GET         /appoint-agent/multiple-properties                                                @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
+POST        /appoint-agent/multiple-properties                                                @controllers.agentAppointment.AppointAgentController.submitAppointMultipleProperties()
 
 GET         /revoke-agent/multiple-properties                                                 @controllers.agentAppointment.AppointAgentController.getAgentsForRemove()
 POST        /revoke-agent/select-properties                                                   @controllers.agentAppointment.AppointAgentController.selectAgentProperties()
@@ -121,8 +125,6 @@ GET         /manage-business-tax-account                                        
 GET         /assets/*file                                                                     @controllers.Assets.at(path="/public", file)
 
 GET         /keep-alive                                                                       @controllers.KeepAliveController.keepAlive()
-
-
 
 #DVR
 #Owner Routes

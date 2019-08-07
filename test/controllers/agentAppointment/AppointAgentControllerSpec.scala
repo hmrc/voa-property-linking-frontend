@@ -31,6 +31,7 @@ import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubGroupAccountConnector}
 import org.scalacheck.Arbitrary._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 
