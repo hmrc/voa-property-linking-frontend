@@ -90,7 +90,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
       ).flatten ++
       List(
         "startPoint" -> pagination.startPoint.toString,
-        "pageSize" -> pagination.startPoint.toString,
+        "pageSize" -> pagination.pageSize.toString,
         "requestTotalRowCount" -> pagination.requestTotalRowCount.toString)
     )
 
