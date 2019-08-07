@@ -16,7 +16,7 @@
 
 package connectors
 
-import binders.GetPropertyLinksParameters
+import binders.propertylinks.GetPropertyLinksParameters
 import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{PaginationParams, PaginationSearchSort, VoaPropertyLinkingSpec}
@@ -45,7 +45,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     val propertyLink = arbitrary[PropertyLink].sample.get.copy()
 
     mockHttpGETOption[PropertyLink]("tst-url", propertyLink)
-    whenReady(connector.getOwnerLink("11111"))(_ mustBe Some(propertyLink))
+    whenReady(connector.getMyOrganisationPropertyLink("11111"))(_ mustBe Some(propertyLink))
   }
 
 //  "get" must "return None if no property link is found for the given organisation ID" in new Setup {
@@ -65,7 +65,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     val fileMetadata = FileMetadata(linkBasis = RatesBillFlag, fileInfo = Some(FileInfo("file.jpg", Lease)))
 
     mockHttpPOST[PropertyLinkRequest, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.linkToProperty(fileMetadata)
+    whenReady(connector.createPropertyLink(fileMetadata)
     (LinkingSessionRequest(linkingSession,
       individualAccount.organisationId,
       individualAccount,
@@ -118,7 +118,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     val propertyLink = arbitrary[PropertyLink].sample.get
 
     mockHttpGETOption[PropertyLink]("tst-url", propertyLink)
-    whenReady(connector.getOwnerLink("1"))(_ mustBe Some(propertyLink))
+    whenReady(connector.getMyOrganisationPropertyLink("1"))(_ mustBe Some(propertyLink))
   }
 
 //  "getLink" must "return None if the property link is not found" in new Setup {

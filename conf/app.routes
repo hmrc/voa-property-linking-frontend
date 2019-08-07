@@ -24,11 +24,8 @@ GET         /identity-verification/success                                      
 GET         /home                                                                             @controllers.Dashboard.home()
 GET         /your-details                                                                     @controllers.Dashboard.yourDetails()
 GET         /properties                                                                       @controllers.Dashboard.manageProperties()
-GET         /properties/json                                                                  @controllers.Dashboard.getProperties(page: Int, pageSize: Int, requestTotalRowCount: Boolean, sortfield: Option[String], sortorder: Option[String], status: Option[String], address: Option[String], baref: Option[String], agent: Option[String])
 GET         /managed-properties/:agentCode                                                    @controllers.Dashboard.viewManagedProperties(agentCode: Long, owner: Boolean ?= true)
-GET         /managed-properties/:agentCode/revoke                                             @controllers.agentAppointment.RevokeAgentController.revokeAgent(submissionId: String, authorisedPartyId: Long, agentCode: Long)
 
-GET         /managed-properties/:agentCode/revoke/confirmed                                   @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long)
 GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
 
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  @controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
@@ -69,17 +66,6 @@ GET         /no-evidence-uploaded                                               
 GET         /manual-verification-required                                                     @controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                                                 @controllers.LinkErrors.conflict()
 
-GET         /my-organisation/clients/appoint/properties                                       @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinks(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String)
-GET         /appoint-agent/select-properties-with-no-agent                                    @controllers.agentAppointment.AppointAgentController.selectPropertiesWithNoAgent(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String, agentAppointed: String)
-
-#GET         /appoint-agent/select-properties-search                                           @controllers.agentAppointment.AppointAgentController.selectPropertiesSearchSort(pagination: AgentPropertiesParameters)
-#GET         /appoint-agent/show-all-properties                                                @controllers.agentAppointment.AppointAgentController.showAllProperties(pagination: AgentPropertiesParameters)
-
-#POST        /appoint-agent/select-properties                                                 @controllers.agentAppointment.AppointAgentController.selectProperties()
-POST        /appoint-agent/agent-summary                                                      @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
-GET         /appoint-agent/multiple-properties                                                @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
-POST        /appoint-agent/multiple-properties                                                @controllers.agentAppointment.AppointAgentController.submitAppointMultipleProperties()
-
 GET         /revoke-agent/multiple-properties                                                 @controllers.agentAppointment.AppointAgentController.getAgentsForRemove()
 POST        /revoke-agent/select-properties                                                   @controllers.agentAppointment.AppointAgentController.selectAgentProperties()
 GET         /revoke-agent/select-properties-search                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: AgentPropertiesParameters)
@@ -89,12 +75,6 @@ POST        /revoke-agent/agent-summary                                         
 #Dashboard
 #TODO: Move to dashboard
 GET         /manage-clients                                                                   @controllers.agent.RepresentationController.viewClientProperties()
-
-GET         /manage-clients/pending-requests                                                  @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
-POST        /representation-request/confirm                                                   @controllers.agent.RepresentationController.confirm(page: Int, pageSize: Int)
-POST        /representation-request/cancel                                                    @controllers.agent.RepresentationController.cancel(page: Int, pageSize: Int)
-POST        /representation-request/continue                                                  @controllers.agent.RepresentationController.continue(page: Int, pageSize: Int)
-POST        /representation-request/bulkActions                                               @controllers.agent.RepresentationController.bulkActions
 
 GET         /add-user-to-gg                                                                   @controllers.Application.addUserToGG
 
@@ -126,19 +106,42 @@ GET         /assets/*file                                                       
 
 GET         /keep-alive                                                                       @controllers.KeepAliveController.keepAlive()
 
+#AGENT REPRESENTATION
+#OWNER ONLY
+#APPOINT
+GET         /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
+POST        /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.submitAppointMultipleProperties()
+GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String, agentAppointed: Option[String])
+POST        /my-organisation/appoint/properties/create                                                                    @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
+
+#REVOKE
+GET         /my-organisation/property-links/:submissionId/revoke/:agentCode                                               @controllers.agentAppointment.RevokeAgentController.revokeAgent(submissionId: String, authorisedPartyId: Long, agentCode: Long)
+POST        /my-organisation/property-links/:submissionId/revoke/:agentCode                                               @controllers.agentAppointment.RevokeAgentController.revokeAgentSubmit(submissionId: String, agentCode: Long)
+
+GET         /my-organisation/property-links/:submissionId/revoke/:agentCode/confirmed                                     @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long)
+
+#AGENT ONLY
+GET         /my-organisation/clients/requests                                                 @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
+#POST        /my-organisation/clients/requests                                                @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
+POST         /my-organisation/clients/requests/confirm                                         @controllers.agent.RepresentationController.confirm(page: Int, pageSize: Int)
+POST        /representation-request/cancel                                                    @controllers.agent.RepresentationController.cancel(page: Int, pageSize: Int)
+POST        /representation-request/continue                                                  @controllers.agent.RepresentationController.continue(page: Int, pageSize: Int)
+POST        /representation-request/bulkActions                                               @controllers.agent.RepresentationController.bulkActions
+
+
 #DVR
 #Owner Routes
-GET         /property-link/:propertyLinkSubmissionId/valuations/confirmation                              @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
-GET         /property-link/:submissionId/valuations/:valuationId                                          @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuationCheck(submissionId: String, valuationId: Long)
-POST        /property-link/:submissionId/valuations/:valuationId                                          @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuation(submissionId: String, valuationId: Long)
-GET         /property-link/:submissionId/valuations/:valuationId/exists                                   @controllers.detailedValuationRequest.DvrController.myOrganisationAlreadyRequestedDetailValuation(submissionId: String, valuationId: Long)
-GET         /property-link/:submissionId/valuations/:valuationId/file/:ref                                @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId: String, valuationId: Long, ref: String)
+GET         /my-organisation/property-link/:submissionId/valuations/:valuationId                                          @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuationCheck(submissionId: String, valuationId: Long)
+POST        /my-organisation/property-link/:submissionId/valuations/:valuationId                                          @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuation(submissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/:submissionId/valuations/:valuationId/exists                                   @controllers.detailedValuationRequest.DvrController.myOrganisationAlreadyRequestedDetailValuation(submissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/:submissionId/valuations/:valuationId/file/:ref                                @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId: String, valuationId: Long, ref: String)
+GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/confirmation                              @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
 
 #Agent Routes
-GET         /property-link/clients/all/:propertyLinkSubmissionId/valuations/confirmation                  @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
-GET         /property-link/clients/all/:submissionId/valuations/:valuationId                              @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuationCheck(submissionId: String, valuationId: Long)
-POST        /property-link/clients/all/:submissionId/valuations/:valuationId                              @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuation(submissionId: String, valuationId: Long)
-GET         /property-link/clients/all/:submissionId/valuations/:valuationId/exists                       @controllers.detailedValuationRequest.DvrController.myClientsAlreadyRequestedDetailValuation(submissionId: String, valuationId: Long)
-GET         /property-link/clients/all/:submissionId/valuations/:valuationId/file/:ref                    @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId: String, valuationId: Long, ref: String)
+GET         /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId                              @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuationCheck(submissionId: String, valuationId: Long)
+POST        /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId                              @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuation(submissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId/exists                       @controllers.detailedValuationRequest.DvrController.myClientsAlreadyRequestedDetailValuation(submissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId/file/:ref                    @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId: String, valuationId: Long, ref: String)
+GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/confirmation                  @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
 
 

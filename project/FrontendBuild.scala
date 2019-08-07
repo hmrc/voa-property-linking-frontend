@@ -15,12 +15,12 @@ object FrontendBuild extends Build with MicroService {
   override val defaultPort: Int = 9523
 
   override lazy val playSettings: Seq[Setting[_]] = Seq(
-    routesImport ++= Seq("binders._", "binders.pagination._", "models.SortOrder", "models.messages.MessagePagination", "models.searchApi.AgentPropertiesParameters"),
+    routesImport ++= Seq("binders.propertylinks._", "binders.pagination._", "models.SortOrder", "models.messages.MessagePagination", "models.searchApi.AgentPropertiesParameters"),
     // Add the views to the dist
     unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
     // Dont include the source assets in the dist package (public folder)
     excludeFilter in Assets := "fonts" || "tasks" || "karma.conf.js" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
-  )  ++ JavaScriptBuild.javaScriptUiSettings
+  )  //++ JavaScriptBuild.javaScriptUiSettings
 
 }
 

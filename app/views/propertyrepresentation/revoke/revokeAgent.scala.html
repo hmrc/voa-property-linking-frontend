@@ -15,6 +15,7 @@
  *@
 
 @import config.ApplicationConfig
+@import uk.gov.hmrc.play.views.html.helpers.form
 
 @(agentCode: Long, submissionId: String, authorisedPartyId: Long, agentName: String, owner: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -32,12 +33,13 @@
             </h1>
 
             <p>@Messages("propertyRepresentation.revokeAgent.message", agentName)
-            <p>
-                <a id="confirm" href="@agentAppointment.routes.RevokeAgentController.revokeAgentConfirmed(submissionId, authorisedPartyId, agentCode)" class="button">
-                    @Messages("propertyRepresentation.revokeAgent.button")
-                </a>
-            </p>
 
+            @form(agentAppointment.routes.RevokeAgentController.revokeAgentSubmit(submissionId, agentCode)){
+
+                <input type="hidden" name="authorisedPartyId" value="@authorisedPartyId">
+
+                <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.revokeAgent.button")</button>
+            }
         </div>
     </div>
 }

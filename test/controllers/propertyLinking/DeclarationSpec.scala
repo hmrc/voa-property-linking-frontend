@@ -73,7 +73,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
 
-    verify(mockPropertyLinkConnector, times(1)).linkToProperty(matching(metadata))(any[LinkingSessionRequest[_]])
+    verify(mockPropertyLinkConnector, times(1)).createPropertyLink(matching(metadata))(any[LinkingSessionRequest[_]])
   }
 
   it should "display the normal confirmation page when the user has uploaded a rates bill" in {
@@ -166,7 +166,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   lazy val mockPropertyLinkConnector = {
     val m = mock[PropertyLinkConnector]
-    when(m.linkToProperty(any[FileMetadata])(any[LinkingSessionRequest[_]])).thenReturn(Future.successful(()))
+    when(m.createPropertyLink(any[FileMetadata])(any[LinkingSessionRequest[_]])).thenReturn(Future.successful(()))
     m
   }
 
