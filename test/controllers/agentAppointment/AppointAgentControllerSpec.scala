@@ -155,7 +155,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       authorisations = Seq(testOwnerAuth))
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockPropertyLinkConnector.getMyClientsPropertyLinks(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
 
     val res = testController.selectAgentProperties()(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
@@ -180,7 +180,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       authorisations = Seq(testOwnerAuth))
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockPropertyLinkConnector.getMyClientsPropertyLinks(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
 
     val res = testController.selectAgentProperties()(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
@@ -204,7 +204,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testPagination = AgentPropertiesParameters(1l)
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockPropertyLinkConnector.getMyClientsPropertyLinks(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
 
     val res = testController.selectAgentPropertiesSearchSort(testPagination)(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
@@ -229,7 +229,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testPagination = AgentPropertiesParameters(1l)
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockPropertyLinkConnector.getMyClientsPropertyLinks(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
 
     val res = testController.selectAgentPropertiesSearchSort(testPagination)(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",

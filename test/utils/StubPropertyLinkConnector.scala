@@ -16,7 +16,7 @@
 
 package utils
 
-import binders.GetPropertyLinksParameters
+import binders.propertylinks.GetPropertyLinksParameters
 import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{Pagination, PaginationParams, PaginationSearchSort}
@@ -39,13 +39,12 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
 
   def stubOwnerAuthResult(reps: OwnerAuthResult) = { stubbedOwnerAuthResult = reps }
 
-  override def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
+  override def createPropertyLink(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
-  override def linkedPropertiesSearchAndSort(searchParams: GetPropertyLinksParameters,
+  override def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters,
                                     pagination: PaginationParams,
                                     representationStatusFilter: Seq[RepresentationStatus] =
-                                    Seq(RepresentationApproved, RepresentationPending),
-                                    ownerOrAgent: OwnerOrAgent)
+                                    Seq(RepresentationApproved, RepresentationPending))
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
     Future.successful(stubbedOwnerAuthResult)

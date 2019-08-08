@@ -76,7 +76,7 @@ class Declaration @Inject()(envelopes: EnvelopeConnector,
 
   private def submitLinkingRequest(info: FileMetadata)(implicit request: LinkingSessionRequest[_]) = {
     for {
-      _ <- propertyLinks.linkToProperty(info)
+      _ <- propertyLinks.createPropertyLink(info)
       _ <- envelopes.closeEnvelope(request.ses.envelopeId)
     } yield ()
   }

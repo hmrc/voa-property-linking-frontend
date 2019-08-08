@@ -18,7 +18,7 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import binders.pagination.PaginationParameters
-@import binders.GetPropertyLinksParameters
+@import binders.propertylinks.GetPropertyLinksParameters
 
 @import models.searchApi.AgentPropertiesParameters
 @(action: AgentAppointBulkAction, agentOrganisation: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
@@ -44,7 +44,7 @@
             <p class="lede">@Messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString, perms)</p>
         }
 
-        <a class="button" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinks(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.checkPermission.name, action.challengePermission.name).url">@Messages("propertyRepresentation.agentSummary.select.more")</a>
+        <a class="button" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.checkPermission.name, action.challengePermission.name, None).url">@Messages("propertyRepresentation.agentSummary.select.more")</a>
 
     </div>
 

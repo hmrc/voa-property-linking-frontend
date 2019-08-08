@@ -31,6 +31,12 @@ trait ValidationUtils extends Cats {
   def readOption(implicit key: String, params: Params): ValidatedNel[ValidationError, Option[String]] =
     params.get(key).flatMap(_.headOption).validNel
 
+  def enumValue[T <: Enumeration](t: T)(value: String)(implicit key: String): ValidatedNel[ValidationError, t.Value] =
+    Validated
+      .fromTry(Try(t.withName(value)))
+      .leftMap(_ => ValidationError(key, t.values.map(_.toString).toList: _*))
+      .toValidatedNel
+
   def readWithDefault(
                        default: => String)(implicit key: String, params: Params): ValidatedNel[ValidationError, String] =
     params.get(key).fold(default)(_.headOption.getOrElse(default)).validNel

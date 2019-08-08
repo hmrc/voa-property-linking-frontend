@@ -20,7 +20,7 @@ import java.time.LocalDate
 
 import javax.inject.{Inject, Named}
 import actions.{AuthenticatedAction, AuthenticatedRequest}
-import binders.GetPropertyLinksParameters
+import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
@@ -61,14 +61,8 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
 
   def checkPropertyLinks() = authenticated { implicit request =>
 
-    val pLinks = if(request.organisationAccount.isAgent) {
-      propertyLinksConnector.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
-        PaginationParams(1, 20, false), ownerOrAgent = OwnerOrAgent.AGENT)
-    }
-    else {
-      propertyLinksConnector.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
-        PaginationParams(1, 20, false), ownerOrAgent = OwnerOrAgent.OWNER)
-    }
+    val pLinks = propertyLinksConnector.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(), PaginationParams(1, 20, false))
+
     pLinks.map {
     res =>
       if(res.authorisations.nonEmpty){
