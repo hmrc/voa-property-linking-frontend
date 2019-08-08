@@ -26,9 +26,10 @@
         <div class="grid-row">
             <div class="column-two-thirds">
 
-                <br/>
-                <h1 class="heading-secondary">@Messages("auto.requestDetailedValuation.smallTitle")</h1>
-                <h2 class="heading-large">@model.address</h2>
+                <h1 class="heading-large margin-top-20" id="assessment-address">
+                    <span class="heading-secondary">@Messages("auto.requestDetailedValuation.smallTitle")</span>
+                    <span class="heading-main">@model.address</span>
+                </h1>
 
                 <p>@Html(Messages("auto.requestDetailedValuation.effectiveDate", model.effectiveDate))</p>
 
