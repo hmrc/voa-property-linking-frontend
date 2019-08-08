@@ -123,7 +123,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
               } yield {
                 Ok(views.html.dashboard.assessments(
                   AssessmentsVM(
-                    viewAssessmentForm,
+                    errors,
                     link.assessments,
                     calculateBackLink(request.headers.get("Referer"), isAgentOwnProperty),
                     link.pending,
