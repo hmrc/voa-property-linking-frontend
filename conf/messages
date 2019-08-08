@@ -721,7 +721,7 @@ auto.requestDetailedValuation.p.2=Once your request is approved, it will be avai
 auto.requestDetailedValuation.p.3=If you don’t want to request this, you can <a href={0}>return to your home page.</a>
 auto.requestDetailedValuation.button=Request a valuation
 auto.requestDetailedValuation.effectiveDate=<b>Effective date:</b> {0}
-auto.requestDetailedValuation.rateableValue=<b>Rateable Value:</b> {0}
+auto.requestDetailedValuation.rateableValue=<b>Rateable Value:</b> £{0}
 
 requestDetailedValuation.heading.challenge=Already completed a check?
 requestDetailedValuation.challenge.p=Once you’ve completed a check, the VOA will contact you with the outcome. If you disagree with the outcome of the check or you believe the rateable value of your property is incorrect, you can let us know. Doing this is known as a challenge. (You can’t start a challenge until you’ve received the outcome for your check)
