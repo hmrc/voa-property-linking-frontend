@@ -15,11 +15,16 @@
  *@
 
 @import actions.AuthenticatedRequest
+@import binders.pagination._
+@import binders.propertylinks._
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
 
 @import models.searchApi.AgentPropertiesParameters
-@(action: AgentRevokeBulkAction, agentOrganisation: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(
+ action: AgentRevokeBulkAction,
+ agentOrganisation: String
+)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{ Messages("propertyRepresentation.agentRemoveSummary.heading") }
 
@@ -35,12 +40,10 @@ contentHeaderHidden = true
 
  <p class="lede">@Messages("propertyRepresentation.agentRemoveSummary.removed", action.agentCode.toString, action.propertyLinkIds.size)</p>
 
- @form(agentAppointment.routes.AppointAgentController.selectAgentProperties()) {
 
- <input type="hidden" id="agent-radio-1" name="agentCodeRadio" value="@action.agentCode">
+ <a class="button" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode)" >@Messages("propertyRepresentation.agentSummary.select.more")</a>
 
- <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.agentSummary.select.more")</button>
- }
 </div>
 
 }
+A
