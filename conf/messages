@@ -249,7 +249,7 @@ dashboard.home.draft.cases=Draft cases {0}
 dashboard.home.draft.cases.text=Continue editing checks that have not yet been submitted.
 dashboard.home.plannedFeatures=Coming soon
 dashboard.home.usefulLinks=Useful information
-dashboard.home.addAnotherUser.link=I want to add another user from my business
+dashboard.home.addAnotherUser.link=I want to add or delete a user from my business
 dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to add them to your Government Gateway account.
 
 #DASHBOARD MANAGE PROPERTIES
