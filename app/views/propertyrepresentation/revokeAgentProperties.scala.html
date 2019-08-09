@@ -19,14 +19,20 @@
 @import models.searchApi.{AgentPropertiesSortField, AgentPropertiesParameters}
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
+@import binders.pagination._
+@import binders.propertylinks._
 @import models._
 
-@(f: Option[Form[_]], model: AppointAgentPropertiesVM,
-pagination: AgentPropertiesParameters
+@(
+    f: Option[Form[_]],
+    model: AppointAgentPropertiesVM,
+    pagination: PaginationParameters,
+    params: GetPropertyLinksParameters,
+    agentCode: Long
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{
-Messages("propertyRepresentation.removeAgentProperties.title")
+    Messages("propertyRepresentation.removeAgentProperties.title")
 }
 
 @main_template(
@@ -34,12 +40,12 @@ heading,
 contentHeaderText = Some(heading),
 contentHeaderHidden = true,
 topBackLink = true,
-backLinkUrl = Some(agentAppointment.routes.AppointAgentController.getAgentsForRemove().url)
+backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultipleProperties().url)
 ) {
 
 <div id="linkIdsGroup"  class="column-whole">
     <h1 class="heading-large">@Messages("propertyRepresentation.removeAgentProperties.title")</h1>
-    <p class="lede">@Messages("propertyRepresentation.removeAgentProperties.message.p1", model.agentGroup.companyName, pagination.agentCode.toString)</p>
+    <p class="lede">@Messages("propertyRepresentation.removeAgentProperties.message.p1", model.agentGroup.companyName, agentCode.toString)</p>
 
 
     @if(f.isDefined){ @includes.errorSummary(f.get) }
@@ -48,14 +54,11 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.getAgentsForRe
         <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
     </div>
 
-    <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination)">
-        <input type="hidden" name="agentCode" value="@pagination.agentCode">
-        <input type="hidden" name="checkPermission" value="@pagination.checkPermission.name">
-        <input type="hidden" name="challengePermission" value="@pagination.challengePermission.name">
-        <input type="hidden" name="pageNumber" value="@pagination.pageNumber">
+    <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params, agentCode)">
+        <input type="hidden" name="pageNumber" value="@pagination.page">
         <input type="hidden" name="pageSize" value="@pagination.pageSize">
-        <input type="hidden" name="sortField" value="@pagination.sortField">
-        <input type="hidden" name="sortOrder" value="@pagination.sortOrder">
+        <input type="hidden" name="sortField" value="@params.sortfield">
+        <input type="hidden" name="sortOrder" value="@params.sortorder">
         <table  id="agentPropertiesTable" class="margin-bottom-0 dataTable table-font-xsmall no-footer">
             <colgroup>
                 <col style="width: 8%">
@@ -72,10 +75,10 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.getAgentsForRe
             </tr>
             <tr>
                 <th></th>
-                <th>@searchField("address", pagination.address)</th>
+                <th>@searchField("address", params.address)</th>
                 <th>
 
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.clear)"
+                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)"
                        id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
                 </th>
                 <th></th>
@@ -90,7 +93,7 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.getAgentsForRe
     <h2 class="heading-secondary margin-top-30">@Messages("dashboard.manageProperties.noProperties")</h2>
     } else {
     @form(agentAppointment.routes.AppointAgentController.revokeAgentSummary()) {
-    <input type="hidden" name="agentCode" value="@pagination.agentCode">
+    <input type="hidden" name="agentCode" value="@agentCode">
 
     <table id="agentPropertiesTableBody" class="dataTable table-font-xsmall margin-bottom-20 no-footer">
         <colgroup>
@@ -153,7 +156,7 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.getAgentsForRe
         <span class="page-size-option-current">@len</span>
         } else {
 
-        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.copy(pageSize = len, pageNumber = 1)).url">
+        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.copy(pageSize = len, page = 1), params, agentCode).url">
             @len</a>
         }
         }
@@ -174,14 +177,14 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.getAgentsForRe
 }
 
 @sortingControl(field: AgentPropertiesSortField) = {
-@if(pagination.sortField == field) {
-<div id="sort-by-@field" class="sorting_@pagination.sortOrder">
-    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.reverseSorting)">
+@if(params.sortfield == field) {
+<div id="sort-by-@field" class="sorting_@params.sortorder">
+    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting, agentCode)">
         @Messages(s"propertyRepresentation.th.$field")</a>
 </div>
 } else {
 <div id="sort-by-@field" class="sorting">
-    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.copy(sortField = field, sortOrder = SortOrder.Ascending))">
+    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(field.name.toUpperCase)), agentCode)">
         @Messages(s"propertyRepresentation.th.$field")</a>
 </div>
 }
