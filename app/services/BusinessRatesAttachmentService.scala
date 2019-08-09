@@ -26,7 +26,7 @@ class BusinessRatesAttachmentService @Inject()(
     for {
       initiateAttachmentResult <- businessRatesAttachmentConnector.initiateAttachmentUpload(initiateAttachmentRequest)
       updatedSessionData = updateSessionData(request.ses.updateBillsFiles, initiateAttachmentRequest, initiateAttachmentResult)
-      _ <- sessionRepository.saveOrUpdate[LinkingSession](request.ses.copy(updateBillsFiles = Some(updatedSessionData)))
+      _ <- persistSessionData(request, Some(updatedSessionData))
     } yield {
         AuditingService.sendEvent("property link rates bill upload", Json.obj(
           "organisationId" -> request.organisationId,
@@ -43,6 +43,10 @@ class BusinessRatesAttachmentService @Inject()(
                         initiateAttachmentResult: PreparedUpload): Map[String, UploadedFileDetails] = {
      sessionData.getOrElse(Map()) +
       (initiateAttachmentResult.reference.value -> UploadedFileDetails(FileMetadata(initiateAttachmentRequest.fileName, initiateAttachmentRequest.mimeType), initiateAttachmentResult))
+  }
+
+  def persistSessionData(request: LinkingSessionRequest, updatedSessionData: Option[Map[String, UploadedFileDetails]]) = {
+    sessionRepository.saveOrUpdate[LinkingSession](request.ses.copy(updateBillsFiles = updatedSessionData))
   }
 
   def submitFiles(submissionId: String, uploadedFilesData: Option[Map[String, UploadedFileDetails]])(implicit request: DataRequest[_], hc: HeaderCarrier): Future[List[Option[Attachment]]] = {

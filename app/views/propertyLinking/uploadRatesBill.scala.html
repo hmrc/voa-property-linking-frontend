@@ -18,8 +18,8 @@
 @import helpers._
 @import controllers.propertyLinking._
 @import config.ApplicationConfig
-
-@(model: UploadRatesBillVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@import models.upscan._
+@(submissionId: String, errors: List[String] = Nil, uploadedFiles: Map[String, UploadedFileDetails] = Map())(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
     @main_template(title = Messages("uploadRatesBill.show.title"),
         topBackLink = true,
@@ -50,7 +50,7 @@
                     </details>
                     <br />
 
-                    @form(action = ProvideEvidenceController.initiate(), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+                    @form(action = UploadRatesBill.initiate(), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
 
                         <div>
 
@@ -74,7 +74,7 @@
                                 <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
 
                                 <span class="upload-list-file-remove">
-                                    <button type="submit" class="button-link" formaction="@ProvideEvidenceController.removeFile(fileReference)">@Messages("remove.file")</button>
+                                    <button type="submit" class="button-link" formaction="@UploadRatesBill.removeFile(fileReference)">@Messages("remove.file")</button>
                             </span>
                             </li>
                             }
@@ -83,18 +83,19 @@
 
 
                     }
-                    @form(model.call, 'enctype -> "multipart/form-data") {
-
-                        @includes.errorSummary(model.form)
-
-                        <input name="evidenceType" type="hidden" value="@RatesBillType.name"/>
 
                         <p>
                             <button id="uploadFile" class="button">@Messages("uploadRatesBill.show.button")</button>
                         </p>
-                    }
+
                 </div>
             </div>
-
+    <span id="businessRatesAttachmentsRemoveFileURL" class="label-span visuallyhidden">@{s"${config.baseUrl}/business-rates-challenge/provide-evidence-remove?fileName="}</span>
+    <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${config.baseUrl}${UploadRatesBill.initiate()}"}</span>
+    <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${config.baseUrl}${UploadRatesBill.show()}"}</span>
+    <span id="errorsUpscan" class="label-span visuallyhidden">@Messages("error.upscan.unavailable")</span>
+    <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.does.not.support.file.types")</span>
+    <span id="errorsBusinessRatesAttachmentUnavailable" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.unavailable")</span>
+    <span id="submissionId" class="label-span visuallyhidden">@submissionId</span>
         }
     }

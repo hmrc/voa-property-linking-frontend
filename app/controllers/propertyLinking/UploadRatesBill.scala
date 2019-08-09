@@ -38,44 +38,21 @@ import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
 import uk.gov.hmrc.play.bootstrap.controller.BaseController
 import uk.gov.hmrc.play.frontend.controller.Utf8MimeTypes
+import uk.gov.voa.businessrates.challenge.models.journey.Mode
+import uk.gov.voa.businessrates.challenge.models.upscan.UploadedFileDetails
 import views.html.propertyLinking.uploadRatesBill
 
 class UploadRatesBill @Inject()(val withLinkingSession: WithLinkingSession, val sessionRepository: SessionRepo, businessRatesAttachmentService: BusinessRatesAttachmentService)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with BaseController with Utf8MimeTypes {
 
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
-    withCircuitBreaker {
-      errorCode match {
-        case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadRatesBill(UploadRatesBillVM(fileTooLargeError, submissionCall)))
-        case Some(NOT_FOUND) => NotFound(Global.notFoundTemplate)
-        case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall)))
-        // this assumes BAD_REQUEST is caused by "Envelope does not allow zero length files, and submitted file has length 0"
-        case Some(BAD_REQUEST) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall)))
-        //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
-        case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
-        case None => {
-          val envelopeId = request.ses.envelopeId
-          fileUploadConnector.getFileMetadata(envelopeId).map(fileMetaData =>
-            AuditingService.sendEvent("property link rates bill upload", Json.obj(
-              "organisationId" -> request.organisationId,
-              "individualId" -> request.individualAccount.individualId,
-              "propertyLinkSubmissionId" -> request.ses.submissionId,
-              "fileName" -> fileMetaData.fileInfo.fold("")(_.name)).toString
-            ))
-          Ok(uploadRatesBill(UploadRatesBillVM(form, submissionCall)))
-        }
-      }
-    } recover {
-      case _: UnhealthyServiceException => ServiceUnavailable(views.html.errors.serviceUnavailable())
-    }
-  }
+    Ok(uploadRatesBill(request.ses.submissionId, List.empty, request.ses.updateBillsFiles.getOrElse(Map())))  }
 
   def initiate(): Action[JsValue] = withLinkingSession { implicit request =>
-    withJsonBody[InitiateAttachmentRequest] { initiateRequest =>{
+    withJsonBody[InitiateAttachmentRequest] { initiateRequest => {
       Logger.debug(s"Processing request: [$initiateRequest].")
       val submissionId: String  = request.ses.submissionId
-      (
-
+       (
         for {
           sessionData <- request.ses
           initiateAttachmentResult <- businessRatesAttachmentService.initiateAttachmentUpload(initiateRequest.copy(destination = Some(ChallengeCaseEvidence.destination)))
@@ -93,6 +70,13 @@ class UploadRatesBill @Inject()(val withLinkingSession: WithLinkingSession, val 
     }
   }
 
-}
 
-case class UploadRatesBillVM(form: Form[_], call: Call)
+  def removeFile(fileReference: String) = withLinkingSession { implicit request =>
+    val updatedSessionData: Map[String, UploadedFileDetails] = request.ses.updateBillsFiles.fold(Map[String, UploadedFileDetails]())(map => map - fileReference)
+     for{
+        - <- businessRatesAttachmentService.persistSessionData(request, Some(updatedSessionData))
+      }yield (Ok(uploadRatesBill(request.ses.submissionId, List.empty, request.ses.updateBillsFiles.getOrElse(Map()))))
+  }
+
+
+}

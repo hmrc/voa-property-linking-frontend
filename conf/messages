@@ -255,7 +255,7 @@ dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=My properties
 dashboard.manageProperties.expectDelays=It may take several hours for your property to display here once you have claimed it.
-dashboard.manageProperties.noPropertiesMessage1=You haven't claimed any properties yet. You need to 
+dashboard.manageProperties.noPropertiesMessage1=You haven't claimed any properties yet. You need to
 dashboard.manageProperties.noPropertiesMessagelink=claim a property
 dashboard.manageProperties.noPropertiesMessage2=before you can check or challenge the rateable value.
 dashboard.manageProperties.noProperties=There are no properties to display.
@@ -294,6 +294,7 @@ managedByAgentsProperties.table.4=Appointed Agents
 managedByAgentsProperties.table.5=Actions
 dashboard.managedByAgentsProperties.status.approved=Approved
 dashboard.managedByAgentsProperties.status.pending=Pending
+dashboard.managedByAgentsProperties.status.declined=Declined
 dashboard.managedByAgentsProperties.noAgent=None
 managedByAgentsProperties.viewAssessments=View valuations
 managedByAgentsProperties.no.properties=This agent is not appointed to any properties
@@ -344,7 +345,7 @@ label.viewAssessmentRadio=Valuation
 label.help=Help with {0}
 rv.na=Rateable value is N/A
 rv.na.p.1=This property has been removed from the rating list. This could be because it has a new address, the description has changed or it has been split or merged with another property.
-rv.na.p.2=If you want to view the detailed valuation or check or challenge this property, you’ll need to claim the new entry. You should only claim the property if you are eligible to do so as the owner or occupier for the period of time that the new entry relates to. 
+rv.na.p.2=If you want to view the detailed valuation or check or challenge this property, you’ll need to claim the new entry. You should only claim the property if you are eligible to do so as the owner or occupier for the period of time that the new entry relates to.
 rv.na.p.3=If you are looking to view the detailed valuation or check or challenge the previous entry, you should contact the VOA on 03000 501 501 or by emailing ccaservice@voa.gsi.gov.uk.
 
 #DASHBOARD DRAFT CASES
@@ -414,8 +415,8 @@ propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent
 propertyRepresentation.appointAgentProperties.selectDeselect=Select all / deselect all
 propertyRepresentation.appointAgents.table.select=Select
 propertyRepresentation.appointAgents.table.actions=Actions
-propertyRepresentation.th.address=Address
-propertyRepresentation.th.agent=Appointed agents
+propertyRepresentation.th.ADDRESS=Address
+propertyRepresentation.th.AGENT=Appointed agents
 propertyRepresentation.search=Search for {0}
 propertyRepresentation.pageSize.showing=Showing
 label.linkIds=Select one or more properties
@@ -720,7 +721,7 @@ auto.requestDetailedValuation.p.2=Once your request is approved, it will be avai
 auto.requestDetailedValuation.p.3=If you don’t want to request this, you can <a href={0}>return to your home page.</a>
 auto.requestDetailedValuation.button=Request a valuation
 auto.requestDetailedValuation.effectiveDate=<b>Effective date:</b> {0}
-auto.requestDetailedValuation.rateableValue=<b>Rateable Value:</b> {0}
+auto.requestDetailedValuation.rateableValue=<b>Rateable Value:</b> £{0}
 
 requestDetailedValuation.heading.challenge=Already completed a check?
 requestDetailedValuation.challenge.p=Once you’ve completed a check, the VOA will contact you with the outcome. If you disagree with the outcome of the check or you believe the rateable value of your property is incorrect, you can let us know. Doing this is known as a challenge. (You can’t start a challenge until you’ve received the outcome for your check)
