@@ -20,22 +20,28 @@ import javax.inject.Inject
 
 import auditing.AuditingService
 import config.{ApplicationConfig, Global}
+import connectors.FileAttachmentFailed
 import connectors.fileUpload.FileUploadConnector
 import controllers._
+import models.attachment.InitiateAttachmentRequest
+import models.attachment.SubmissionTypesValues.ChallengeCaseEvidence
+import models.upscan.UploadedFileDetails
+import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
-import play.api.mvc.Call
+import play.api.libs.json.{JsValue, Json}
+import play.api.mvc.{Action, Call}
+import repositories.SessionRepo
+import services.BusinessRatesAttachmentService
 import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
+import uk.gov.hmrc.play.bootstrap.controller.BaseController
+import uk.gov.hmrc.play.frontend.controller.Utf8MimeTypes
 import views.html.propertyLinking.uploadRatesBill
 
-class UploadRatesBill @Inject()(override val withLinkingSession: WithLinkingSession,
-                                withCircuitBreaker: FileUploadCircuitBreaker, fileUploadConnector: FileUploadConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
-  extends PropertyLinkingController with FileUploadHelpers {
-
-  override val successUrl: String = routes.UploadRatesBill.fileUploaded().url
+class UploadRatesBill @Inject()(val withLinkingSession: WithLinkingSession, val sessionRepository: SessionRepo, businessRatesAttachmentService: BusinessRatesAttachmentService)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+  extends PropertyLinkingController with BaseController with Utf8MimeTypes {
 
   def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
     withCircuitBreaker {
@@ -64,15 +70,29 @@ class UploadRatesBill @Inject()(override val withLinkingSession: WithLinkingSess
     }
   }
 
-  lazy val form = Form(single("ratesBill[]" -> text))
-  lazy val fileTooLargeError = form.withError("ratesBill[]", "error.fileUpload.tooLarge")
-  lazy val invalidFileTypeError = form.withError("ratesBill[]", "error.fileUpload.invalidFileType")
+  def initiate(): Action[JsValue] = withLinkingSession { implicit request =>
+    withJsonBody[InitiateAttachmentRequest] { initiateRequest =>{
+      Logger.debug(s"Processing request: [$initiateRequest].")
+      val submissionId: String  = request.ses.submissionId
+      (
 
-  private def submissionCall(implicit request: LinkingSessionRequest[_]) = if (config.fileUploadEnabled) {
-    Call("POST", fileUploadUrl(routes.UploadRatesBill.show().url))
-  } else {
-    Call("GET", routes.Declaration.show().url)
+        for {
+          sessionData <- request.ses
+          initiateAttachmentResult <- businessRatesAttachmentService.initiateAttachmentUpload(initiateRequest.copy(destination = Some(ChallengeCaseEvidence.destination)))
+        } yield
+          Ok(Json.toJson(initiateAttachmentResult))
+        ) recover {
+        case fileAttachmentFailed: FileAttachmentFailed =>
+          Logger.warn("FileAttachmentFailed Bad Request Exception:" + fileAttachmentFailed.errorMessage)
+          BadRequest(uploadRatesBill(submissionId, List("error.businessRatesAttachment.does.not.support.file.types"), Map()))
+        case ex: Exception =>
+          Logger.warn("FileAttachmentFailed Exception:" + ex.getMessage)
+          InternalServerError("500 INTERNAL_SERVER_ERROR")
+      }
+    }
+    }
   }
+
 }
 
 case class UploadRatesBillVM(form: Form[_], call: Call)

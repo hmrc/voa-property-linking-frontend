@@ -29,7 +29,8 @@ private object AppDependencies {
   import play.sbt.PlayImport._
 
   private val playReactivemongoVersion = "5.2.0"
-  
+  private val bootstrapVersion = "4.8.0"
+
   val compile = Seq(
     filters,
     ws,
@@ -40,6 +41,7 @@ private object AppDependencies {
     "com.google.guava" % "guava" % "18.0",
     "joda-time" % "joda-time" % "2.8.2",
     "uk.gov.hmrc" %% "frontend-bootstrap" % "12.4.0",
+    "uk.gov.hmrc" %% "bootstrap-play-25" % bootstrapVersion,
     "uk.gov.hmrc" %% "http-caching-client" % "7.0.0",
     "org.typelevel" %% "cats-core" % "1.0.1",
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % "0.2.0",

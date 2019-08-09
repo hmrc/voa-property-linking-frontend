@@ -16,10 +16,11 @@
 
 package models
 
+import models.upscan.UploadedFileDetails
 import play.api.libs.json.Json
 
 case class LinkingSession(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long,
-                          declaration: CapacityDeclaration)
+                          declaration: CapacityDeclaration, updateBillsFiles: Option[Map[String, UploadedFileDetails]])
 
 object LinkingSession {
   implicit val format = Json.format[LinkingSession]

@@ -26,7 +26,6 @@
         bottomBackLink = true,
         backLinkUrl = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url)
 ) {
-        @form(model.call, 'enctype -> "multipart/form-data") {
 
             <div class="grid-row">
                 <div class="column-two-thirds">
@@ -51,21 +50,49 @@
                     </details>
                     <br />
 
-                    @includes.errorSummary(model.form)
+                    @form(action = ProvideEvidenceController.initiate(), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
 
-                    @inputFile(
-                        field = model.form("ratesBill[]"),
-                        '_labelSpanClass -> "visuallyhidden",
-                        'class -> "filer_input",
-                        '_fieldsetClass -> "file-input-group",
-                        '_label -> Messages("label.ratesBill")
-                    )
+                        <div>
 
-                    <input name="evidenceType" type="hidden" value="@RatesBillType.name"/>
+                            @if(uploadedFiles.size < 9){
+                                <div id="newFileGroup" class="form-group  ">
+                                    <label class="" for="newFile">
+                                        <span class="label-span visuallyhidden">Choose file to upload</span>
+                                    </label>
+                                    <input type="file" id="newFile" name="newFile" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999">
+                                    <a id="newFileButton" href="#" class="button-secondary">Choose a file to upload</a>
+                                </div>
+                            }else{
+                                <h3>@messages("businessRatesAttachment.file.size.reached.max.limit")</h3>
+                            }
 
-                    <p>
-                        <button id="uploadFile" class="button">@Messages("uploadRatesBill.show.button")</button>
-                    </p>
+                            <ul class="upload-list">
+                            @uploadedFiles.map { case (fileReference, upload) =>
+                            <li>
+                                <span class="upload-list-file-name">@{upload.fileMetadata.toDisplayFileName}</span>
+
+                                <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
+
+                                <span class="upload-list-file-remove">
+                                    <button type="submit" class="button-link" formaction="@ProvideEvidenceController.removeFile(fileReference)">@Messages("remove.file")</button>
+                            </span>
+                            </li>
+                            }
+                            </ul>
+                        </div>
+
+
+                    }
+                    @form(model.call, 'enctype -> "multipart/form-data") {
+
+                        @includes.errorSummary(model.form)
+
+                        <input name="evidenceType" type="hidden" value="@RatesBillType.name"/>
+
+                        <p>
+                            <button id="uploadFile" class="button">@Messages("uploadRatesBill.show.button")</button>
+                        </p>
+                    }
                 </div>
             </div>
 
