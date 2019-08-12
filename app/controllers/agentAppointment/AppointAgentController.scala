@@ -242,28 +242,6 @@ class AppointAgentController @Inject()(
       }
   }
 
-//  def submitAppointMultipleProperties(): Action[AnyContent] = authenticated { implicit request =>
-//    appointAgentForm.bindFromRequest().fold(
-//      hasErrors = errors => {
-//        agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
-//          BadRequest(views.html.propertyrepresentation.appoint.appointAgent(AppointAgentVM(errors, None, ownerAgents.agents),
-//            Some(config.newDashboardUrl("your-agents"))))
-//        }
-//      },
-//      success = (agent: AppointAgent) => {
-//        accounts.withAgentCode(agent.getAgentCode().toString) flatMap {
-//          case Some(group)  =>
-//            Future.successful(Redirect(routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), agent.getAgentCode(), agent.canCheck.name, agent.canChallenge.name, None)))
-//          case None         =>
-//            val errors: List[FormError] = List(invalidAgentCode)
-//            agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
-//              val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
-//              invalidAppointment(formWithErrors, None, ownerAgents.agents)
-//            }
-//        }
-//      })
-//  }
-
   def revokeAgentSummary() = authenticated { implicit request =>
     revokeAgentBulkActionForm.bindFromRequest().fold(
       hasErrors = errors => {

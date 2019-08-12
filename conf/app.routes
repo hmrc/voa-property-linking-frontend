@@ -128,8 +128,7 @@ GET         /my-organisation/property-links/:submissionId/revoke/:agentCode/conf
 GET         /my-organisation/clients/requests                                                 @controllers.agent.RepresentationController.getMyClientsPropertyLinkRequests(page: Int ?= 1, pageSize: Int ?= 15)
 #POST        /my-organisation/clients/requests                                                @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
 POST         /my-organisation/clients/requests                                                @controllers.agent.RepresentationController.submitMyClientsPropertyLinkRequestResponse(page: Int, pageSize: Int)
-GET         /my-organisation/clients/requests/confirm                                         @controllers.agent.RepresentationController.confirm(page: Int, pageSize: Int)
-GET        /my-organisation/clients/requests/continue                                        @controllers.agent.RepresentationController.continue(page: Int, pageSize: Int)
+GET        /my-organisation/clients/requests/continue                                         @controllers.agent.RepresentationController.continue(page: Int, pageSize: Int)
 POST        /representation-request/bulkActions                                               @controllers.agent.RepresentationController.bulkActions
 
 

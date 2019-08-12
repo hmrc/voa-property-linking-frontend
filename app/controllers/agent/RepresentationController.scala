@@ -102,27 +102,19 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
       data => {
         data.action match {
           case "reject" => Future.successful(Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form)))
-        }
-        if (data.action == "reject") {
-          Future.successful(Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form)))
-        } else {
-          withValidPagination(page, pageSize) { pagination =>
-            reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
-              val futureListOfSuccesses = getFutureListOfActions(data, request.personId).map(_.filter(_.isSuccess))
-              futureListOfSuccesses.map(successes =>
-                routePendingRequests(successes.size, data.copy(action = "accept-confirm"), pagination, reprs)(request))
+          case "accept" =>
+            withValidPagination(page, pageSize) { pagination =>
+              reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
+                val futureListOfSuccesses = getFutureListOfActions(data, request.personId).map(_.filter(_.isSuccess))
+                futureListOfSuccesses.map(successes =>
+                  routePendingRequests(successes.size, data.copy(action = "accept-confirm"), pagination, reprs)(request))
+              }
             }
-          }
-        }
+         }
       })
   }
 
-  def confirm(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
-    //    Future.successful(Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(RepresentationBulkAction(), BulkActionsForm.form)))
-  ???
-  }
-
-  def cancel(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+  def cancel(page: Int, pageSize: Int): Action[AnyContent] = authenticated.asAgent { implicit request =>
 
     BulkActionsForm.form.bindFromRequest().fold(
       errors => {
