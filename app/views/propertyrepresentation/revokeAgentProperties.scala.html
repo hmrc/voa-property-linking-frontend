@@ -180,7 +180,7 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
 @if(params.sortfield == field) {
 <div id="sort-by-@field" class="sorting_@params.sortorder">
     <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting, agentCode)">
-        @Messages(s"propertyRepresentation.th.$field")</a>
+        @Messages(s"propertyRepresentation.th.$field.toUpperCase")</a>
 </div>
 } else {
 <div id="sort-by-@field" class="sorting">
