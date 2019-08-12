@@ -15,14 +15,14 @@
  *@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
-@import controllers.detailedValuationRequest.RequestDetailedValuationWithoutForm
+@import controllers.detailedvaluationrequest.RequestDetailedValuationWithoutForm
 @import models.dvr._
 @import helpers._
 @import config.ApplicationConfig
 
-@(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-    @main_template(Messages("auto.requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = request.headers.get("Referer")) {
+    @main_template(Messages("auto.requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backUrl)) {
         <div class="grid-row">
             <div class="column-two-thirds">
 
@@ -44,9 +44,9 @@
 
                 @form(
                     if (owner)
-                            controllers.detailedValuationRequest.routes.DvrController.myOrganisationRequestDetailValuation(submissionId, model.assessmentRef)
+                            controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuation(submissionId, model.assessmentRef)
                     else
-                            controllers.detailedValuationRequest.routes.DvrController.myClientsRequestDetailValuation(submissionId, model.assessmentRef)
+                            controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuation(submissionId, model.assessmentRef)
                 ) {
 
                     <p>

@@ -22,9 +22,9 @@
 
 @main_template(Messages("challenge.valuation.heading"), topBackLink = true, bottomBackLink = true,
     backLinkUrl = Some(if (owner)
-                            controllers.detailedValuationRequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, valuationId).url
+                            controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, valuationId).url
                         else
-                            controllers.detailedValuationRequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, valuationId).url)) {
+                            controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, valuationId).url)) {
     <script>
             function showChallengeContent(){
                 document.getElementById('challengeContent').style.display ='block';

@@ -135,17 +135,17 @@ POST        /representation-request/bulkActions                                 
 
 #DVR
 #Owner Routes
-GET         /my-organisation/property-link/:submissionId/valuations/:valuationId                                          @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuationCheck(submissionId: String, valuationId: Long)
-POST        /my-organisation/property-link/:submissionId/valuations/:valuationId                                          @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuation(submissionId: String, valuationId: Long)
-GET         /my-organisation/property-link/:submissionId/valuations/:valuationId/exists                                   @controllers.detailedValuationRequest.DvrController.myOrganisationAlreadyRequestedDetailValuation(submissionId: String, valuationId: Long)
-GET         /my-organisation/property-link/:submissionId/valuations/:valuationId/file/:ref                                @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId: String, valuationId: Long, ref: String)
-GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/confirmation                              @controllers.detailedValuationRequest.DvrController.myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
+GET         /my-organisation/property-link/:submissionId/valuations/:valuationId                                          @controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuationCheck(submissionId: String, valuationId: Long)
+POST        /my-organisation/property-link/:submissionId/valuations/:valuationId                                          @controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuation(submissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/:submissionId/valuations/:valuationId/exists                                   @controllers.detailedvaluationrequest.DvrController.myOrganisationAlreadyRequestedDetailValuation(submissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/:submissionId/valuations/:valuationId/file/:ref                                @controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId: String, valuationId: Long, ref: String)
+GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/confirmation                              @controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
 
 #Agent Routes
-GET         /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId                              @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuationCheck(submissionId: String, valuationId: Long)
-POST        /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId                              @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuation(submissionId: String, valuationId: Long)
-GET         /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId/exists                       @controllers.detailedValuationRequest.DvrController.myClientsAlreadyRequestedDetailValuation(submissionId: String, valuationId: Long)
-GET         /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId/file/:ref                    @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId: String, valuationId: Long, ref: String)
-GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/confirmation                  @controllers.detailedValuationRequest.DvrController.myClientsRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
+GET         /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId                              @controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuationCheck(submissionId: String, valuationId: Long)
+POST        /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId                              @controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuation(submissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId/exists                       @controllers.detailedvaluationrequest.DvrController.myClientsAlreadyRequestedDetailValuation(submissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/clients/all/:submissionId/valuations/:valuationId/file/:ref                    @controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId: String, valuationId: Long, ref: String)
+GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/confirmation                  @controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
 
 

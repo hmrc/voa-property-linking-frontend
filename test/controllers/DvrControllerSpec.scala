@@ -18,7 +18,7 @@ package controllers
 
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{DVRCaseManagementConnector, SubmissionIdConnector, _}
-import controllers.detailedValuationRequest.DvrController
+import controllers.detailedvaluationrequest.DvrController
 import models._
 import org.mockito.ArgumentMatchers.{any, eq => matching}
 import org.mockito.Mockito.when

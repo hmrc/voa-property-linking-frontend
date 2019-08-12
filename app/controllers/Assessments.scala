@@ -97,9 +97,9 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
       case false =>
         Redirect(
           if (owner)
-            controllers.detailedValuationRequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
+            controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
           else
-            controllers.detailedValuationRequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
+            controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
         )
 
     }

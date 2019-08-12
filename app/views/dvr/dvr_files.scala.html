@@ -15,14 +15,14 @@
  *@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
-@import controllers.detailedValuationRequest.AvailableRequestDetailedValuation
+@import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
 @import models.dvr._
 @import helpers._
 @import config.ApplicationConfig
 
-@(model: AvailableRequestDetailedValuation, submissionId: String, owner: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation, submissionId: String, owner: Boolean, backUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(Messages("available.requestvaluation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(routes.Assessments.assessments(submissionId, owner).url)) {
+@main_template(Messages("available.requestvaluation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backUrl)) {
 <div class="grid-row">
     <div class="column-two-thirds">
 
@@ -52,8 +52,8 @@
 
 @evaluateRoute(t: String) = {
     @{if(owner) {
-        controllers.detailedValuationRequest.routes.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId, model.valuationId, model.valuation).url
+        controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId, model.valuationId, model.valuation).url
     } else {
-        controllers.detailedValuationRequest.routes.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId, model.valuationId, model.check).url
+        controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId, model.valuationId, model.check).url
     }}
 }
