@@ -147,14 +147,15 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         agentAppointed.map("agentAppointed" -> _.toString),
         Some("organisationId" -> organisationId.toString),
         Some("agentCode" -> agentCode.toString),
-        Some("checkPermission" -> checkPermission.toString),
-        Some("challengePermission" -> challengePermission.toString)
+        permissionString("checkPermission", checkPermission),
+        permissionString("challengePermission", challengePermission)
       ).flatten ++
         List(
           "startPoint" -> pagination.startPoint.toString,
           "pageSize" -> pagination.pageSize.toString,
           "requestTotalRowCount" -> pagination.requestTotalRowCount.toString)
     )
+
 
     def validAgent(agent: OwnerAuthAgent): Boolean =
       agent.status.fold(false) { status =>
@@ -220,4 +221,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
       }
     }
   }
+
+  private def permissionString(agentPermissionType: String, agentPermission: String): Option[(String, String)] = if (agentPermission == "START_AND_CONTINUE")  Some(agentPermissionType -> agentPermission) else None
+
 }
