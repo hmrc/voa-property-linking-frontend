@@ -43,13 +43,13 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
 
 
   def getMyOrganisationPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
-    val url = s"$baseUrl/owner/property-links/$submissionId/"
+    val url = s"$baseUrl/owner/property-links/$submissionId"
 
     http.GET[Option[PropertyLink]](url)
   }
 
   def getMyClientsPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
-    val url = s"$baseUrl/agent/property-links/$submissionId/"
+    val url = s"$baseUrl/agent/property-links/$submissionId"
 
     http.GET[Option[PropertyLink]](url)
   }
