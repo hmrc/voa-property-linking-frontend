@@ -42,10 +42,14 @@ object FileMetadata {
   ) { FileMetadata.apply }
 
   def apply: (Option[String], Option[EvidenceType]) => FileMetadata = {
-    case (name, evidence) if name.isEmpty || evidence.isEmpty /* "I have no evidence" route */ => FileMetadata(NoEvidenceFlag, None)
-    case (Some(name), _) if name.isEmpty /* FUaaS doesn't prevent users from uploading no files! */ => FileMetadata(NoEvidenceFlag, None)
-    case (Some(name), Some(RatesBillType)) => FileMetadata(RatesBillFlag, Some(FileInfo(name, RatesBillType)))
-    case (Some(name), Some(evidence)) => FileMetadata(OtherEvidenceFlag, Some(FileInfo(name, evidence)))
+    case (name, evidence) if name.isEmpty || evidence.isEmpty /* "I have no evidence" route */ =>
+      FileMetadata(NoEvidenceFlag, None)
+    case (Some(name), _) if name.isEmpty /* FUaaS doesn't prevent users from uploading no files! */ =>
+      FileMetadata(NoEvidenceFlag, None)
+    case (Some(name), Some(RatesBillType)) =>
+      FileMetadata(RatesBillFlag, Some(FileInfo(name, RatesBillType)))
+    case (Some(name), Some(evidence)) =>
+      FileMetadata(OtherEvidenceFlag, Some(FileInfo(name, evidence)))
   }
 }
 

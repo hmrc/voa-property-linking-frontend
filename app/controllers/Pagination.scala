@@ -18,14 +18,14 @@ package controllers
 
 import config.Global
 import models.searchApi.AgentPropertiesFilter.Both
-import play.api.mvc.{AnyContent, QueryStringBindable, Request, Result}
+import play.api.mvc.{QueryStringBindable, Request, Result}
 import utils.Formatters._
 
 import scala.concurrent.Future
 
 trait ValidPagination extends PropertyLinkingController {
   protected def withValidPagination(page: Int, pageSize: Int, getTotal: Boolean = true)
-                                   (default: Pagination => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+                                   (default: Pagination => Future[Result])(implicit request: Request[_]): Future[Result] = {
     if (page <= 0 || pageSize < 10 || pageSize > 500) {
       BadRequest(Global.badRequestTemplate)
     } else {
@@ -43,7 +43,7 @@ trait ValidPagination extends PropertyLinkingController {
                                               baref: Option[String] = None,
                                               agent: Option[String] = None,
                                               client: Option[String] = None)
-                                   (default: PaginationSearchSort => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+                                   (default: PaginationSearchSort => Future[Result])(implicit request: Request[_]): Future[Result] = {
     if (page <= 0 || pageSize < 10 || pageSize > 1000) {
       BadRequest(Global.badRequestTemplate)
     } else {

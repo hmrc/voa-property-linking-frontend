@@ -18,7 +18,6 @@ package config
 
 import java.time.{Clock, Instant, LocalDateTime, ZoneId}
 
-import actions.{Auth, VoaAuth}
 import auditing.AuditingService
 import auth.{GgAction, VoaAction}
 import com.builtamont.play.pdf.PdfGenerator
@@ -125,7 +124,6 @@ class GuiceModule(environment: Environment,
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
     bind(classOf[VoaAction]).to(classOf[GgAction])
-    bind(classOf[Auth]).to(classOf[VoaAuth])
     bind(classOf[ManageDetails]).to(classOf[ManageVoaDetails])
     bind(classOf[IdentityVerificationService]).to(classOf[IvService])
     bind(classOf[Clock]).toInstance(Clock.systemUTC())

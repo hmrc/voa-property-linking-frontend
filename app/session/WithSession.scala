@@ -39,11 +39,10 @@ case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Long,
 
 case object NoSessionId extends Exception
 
-class WithLinkingSession @Inject() (authenticated: AuthenticatedAction,
-                                     @Named("propertyLinkingSession") val sessionRepository: SessionRepo) {
+class WithLinkingSession @Inject() (authenticated: AuthenticatedAction, @Named("propertyLinkingSession") val sessionRepository: SessionRepo) {
   implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-  def apply(body: LinkingSessionRequest[AnyContent] => Future[Result])(implicit messages: Messages) = authenticated { implicit request =>
+  def apply(body: LinkingSessionRequest[_] => Future[Result])(implicit messages: Messages) = authenticated.async { implicit request =>
     sessionRepository.get[LinkingSession] flatMap {
       case Some(s) => body(
         LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request)

@@ -48,7 +48,7 @@ class TestController @Inject()(
                                 reprConnector: PropertyRepresentationConnector
                               )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
 
-  def getUserDetails() = authenticated { implicit request =>
+  def getUserDetails() = authenticated.async { implicit request =>
     Ok(Json.toJson(if (request.organisationAccount.isAgent) {
       TestUserDetails(
         personId = request.individualAccount.individualId,
@@ -67,14 +67,14 @@ class TestController @Inject()(
     }))
   }
 
-  def deRegister() = authenticated { implicit request =>
+  def deRegister() = authenticated.async { implicit request =>
     val orgId = request.individualAccount.organisationId
     testPropertyLinkingConnector.deRegister(orgId).map(res => Ok(s"Successfully de-registered organisation with ID: $orgId")).recover {
       case e => Ok(s"Failed to de-register organisation with ID: $orgId with error: ${e.getMessage}")
     }
   }
 
-  def deEnrol() = authenticated { implicit request =>
+  def deEnrol() = authenticated.async { implicit request =>
     testService
       .deEnrolUser(request.individualAccount.individualId)
       .map {
@@ -83,7 +83,7 @@ class TestController @Inject()(
       }
   }
 
-  def updateAccount = authenticated { implicit request =>
+  def updateAccount = authenticated.async { implicit request =>
     val externalId = UUID.randomUUID().toString
     for {
       user <- vPLAuthConnector.getUserDetails
@@ -100,12 +100,12 @@ class TestController @Inject()(
     } yield Ok("Successful")
   }
 
-  def revokeAgentAppointments(agentOrgId: String) = authenticated { implicit request =>
+  def revokeAgentAppointments(agentOrgId: String) = authenticated.async { implicit request =>
     //TODO need more context around what this is used for.
     Future.successful(Ok("Agent appointments revoked"))
   }
 
-  def declinePendingAgentAppointments(agentOrgId: String, agentPersonId: String) = authenticated { implicit request =>
+  def declinePendingAgentAppointments(agentOrgId: String, agentPersonId: String) = authenticated.async { implicit request =>
     val pendingAgentAppointments = reprConnector.forAgent(RepresentationPending, agentOrgId.toLong, Pagination(pageNumber = 1, pageSize = 100))
     pendingAgentAppointments.map(appointments =>
       appointments.propertyRepresentations.map(appointment =>
@@ -113,25 +113,25 @@ class TestController @Inject()(
       Ok("Pending agent appointments declined"))
   }
 
-  def clearDvrRecords = authenticated { implicit request =>
+  def clearDvrRecords = authenticated.async { implicit request =>
     testPropertyLinkingConnector.clearDvrRecords(request.organisationAccount.id).map(res => Ok(s"Successfully cleared DVR records for organisation with ID: ${request.organisationAccount.id}")).recover {
       case e => Ok(s"Failed to clear DVR records for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
     }
   }
 
-  def clearDraftCases = authenticated { implicit request =>
+  def clearDraftCases = authenticated.async { implicit request =>
     testCheckConnector.clearDraftCases(request.organisationAccount.id).map(res => Ok(s"Successfully cleared draft check cases for organisation with ID: ${request.organisationAccount.id}")).recover {
       case e => Ok(s"Failed to clear draft check cases for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
     }
   }
 
-  def clearCheckCases(propertyLinksSubmissionId: String) = authenticated { implicit request =>
+  def clearCheckCases(propertyLinksSubmissionId: String) = authenticated.async { implicit request =>
     testPropertyLinkingConnector.deleteCheckCases(propertyLinksSubmissionId).map(res => Ok(s"Successfully cleared the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId")).recover {
       case e => Ok(s"Failed to delete the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId with error: ${e.getMessage}")
     }
   }
 
-  def getSubmittedCheck(submissionId: String) = authenticated { implicit request =>
+  def getSubmittedCheck(submissionId: String) = authenticated.async { implicit request =>
     testCheckConnector.getSubmittedCheck(submissionId).map(response => Ok(response.body))
   }
 

@@ -16,47 +16,43 @@
 
 package actions
 
+import javax.inject.Inject
+
 import auth.GovernmentGatewayProvider
 import config.{ApplicationConfig, Global}
 import connectors._
-import javax.inject.Inject
-import models.{DetailedIndividualAccount, GroupAccount}
+import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.Logger
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Results._
 import play.api.mvc._
+import services.{EnrolmentResult, EnrolmentService, Failure, Success}
 import uk.gov.hmrc.auth.core._
-import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.auth.core.retrieve.Retrievals._
+import uk.gov.hmrc.auth.core.retrieve.~
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
+class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
+                                    provider: GovernmentGatewayProvider,
                                     businessRatesAuthorisation: BusinessRatesAuthorisation,
-                                    auth: Auth,
-                                    addressesConnector: Addresses,
-                                    val authConnector: AuthConnector)(implicit val messageApi: MessagesApi, config: ApplicationConfig) extends I18nSupport{
-
-  override def messagesApi: MessagesApi = messageApi
+                                    enrolmentService: EnrolmentService,
+                                    val authConnector: AuthConnector
+                                   )(implicit val messageApi: MessagesApi, config: ApplicationConfig, executionContext: ExecutionContext)
+  extends ActionBuilder[BasicAuthenticatedRequest] with AuthorisedFunctions with I18nSupport{
 
   protected implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-  def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
+  override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = {
+    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
     businessRatesAuthorisation.authenticate flatMap {
-      res => handleResult(res, body)
-    } recoverWith {
-      case e: BadRequestException =>
-        Global.onBadRequest(request, e.message)
-      case _: NotFoundException =>
-        Global.onHandlerNotFound(request)
-      //need to catch unhandled exceptions here to propagate the request ID into the internal server error page
-      case e =>
-        Global.onError(request, e)
+      res => handleResult(res, block)(request, hc)
     }
   }
 
-  def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages) = apply { implicit request =>
+  def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages) = this.async { implicit request =>
     if (request.organisationAccount.isAgent) {
       body(AgentRequest(request.organisationAccount, request.individualAccount, request.organisationAccount.agentCode, request))
     } else {
@@ -64,7 +60,7 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
     }
   }
 
-  def toViewAssessment(authorisationId: Long, assessmentRef: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = {
+  def toViewAssessment(authorisationId: Long, assessmentRef: Long)(body: BasicAuthenticatedRequest[_] => Future[Result]) = {
     Action.async { implicit request =>
       businessRatesAuthorisation.authorise(authorisationId, assessmentRef) flatMap {
         res => handleResult(res, body)
@@ -76,7 +72,7 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
     }
   }
 
-  def toViewAssessmentsFor(authorisationId: Long)(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
+  def toViewAssessmentsFor(authorisationId: Long)(body: BasicAuthenticatedRequest[_] => Future[Result]) = Action.async { implicit request =>
     businessRatesAuthorisation.authorise(authorisationId) flatMap {
       res => handleResult(res, body)
     } recover {
@@ -86,19 +82,76 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
     }
   }
 
-  private def handleResult(result: AuthorisationResult, body: BasicAuthenticatedRequest[AnyContent] => Future[Result])
-                          (implicit request: Request[AnyContent]) = {
+  def success[A](
+                        accounts: Accounts,
+                        body: BasicAuthenticatedRequest[A] => Future[Result])
+                      (implicit request: Request[A], hc: HeaderCarrier): Future[Result] = {
+    def handleError: PartialFunction[Throwable, Future[Result]] = {
+      case _: NoActiveSession =>
+        provider.redirectToLogin
+      case otherException =>
+        Logger.debug(s"Exception thrown on authorisation with message: ${otherException.getMessage}")
+        throw otherException
+    }
+
+    val retrieval = allEnrolments and credentialRole
+
+    authorised(AuthProviders(AuthProvider.GovernmentGateway)).retrieve(retrieval) {
+      case enrolments ~ role => {
+        val action = body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+        isAssistant(role) match {
+          case false => {
+            if (config.stubEnrolment) {
+              Logger.info("Enrolment stubbed")
+            } else {
+              enrolments.getEnrolment("HMRC-VOA-CCA") match {
+                case Some(enrolment) =>
+                case None =>
+                  enrolmentService.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap(existingUserEnrolmentResult(accounts, body))
+              }
+            }
+            action
+          }
+          case true => action
+        }
+      }
+    }.recoverWith(handleError)
+  }
+
+  private def isAssistant(credentialRole: Option[CredentialRole])(implicit request: Request[_]): Boolean = {
+    credentialRole match {
+      case Some(Assistant) => true
+      case _ => false
+    }
+  }
+
+  def noVoaRecord: Future[Result] =
+    Future.successful(Redirect(controllers.registration.routes.RegistrationController.show()))
+
+  private def existingUserEnrolmentResult[A](
+                                           accounts: Accounts,
+                                           body: BasicAuthenticatedRequest[A] => Future[Result]
+                                         )(implicit request: Request[A], hc: HeaderCarrier): PartialFunction[EnrolmentResult, Future[Result]] = {
+    case Success =>
+      Logger.info("Existing VOA user successfully enrolled")
+      body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+    case Failure =>
+      Logger.warn("Failed to enrol existing VOA user")
+      body(BasicAuthenticatedRequest(accounts.organisation, accounts.person, request))
+  }
+
+  private def handleResult[A](result: AuthorisationResult, body: BasicAuthenticatedRequest[A] => Future[Result])
+                             (implicit request: Request[A], hc: HeaderCarrier) = {
     result match {
-      case Authenticated(accounts)  => auth.success(accounts, body)
+      case Authenticated(accounts)  => success(accounts, body)(request, hc)
       case InvalidGGSession         => provider.redirectToLogin
-      case NoVOARecord              => auth.noVoaRecord
+      case NoVOARecord              => noVoaRecord
       case IncorrectTrustId         => Future.successful(Unauthorized("Trust ID does not match"))
       case InvalidAccountType       => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
       case ForbiddenResponse        => Future.successful(Forbidden(views.html.errors.forbidden()))
       case NonGroupIDAccount        => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
     }
   }
-
 }
 
 sealed trait AuthenticatedRequest[A] extends Request[A] {

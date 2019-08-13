@@ -37,7 +37,7 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
                                       propertyLinks: PropertyLinkConnector,
                                       representations: PropertyRepresentationConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
-  def revokeAgent(submissionId: String, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
+  def revokeAgent(submissionId: String, authorisedPartyId: Long, agentCode: Long) = authenticated.async { implicit request =>
 
     val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientLink(submissionId) else propertyLinks.getOwnerLink(submissionId)
 
@@ -52,7 +52,7 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
     }
   }
 
-  def revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
+  def revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long) = authenticated.async { implicit request =>
 
     val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientLink(submissionId) else propertyLinks.getOwnerLink(submissionId)
 

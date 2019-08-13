@@ -53,7 +53,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
 
   val logger: Logger = Logger(this.getClass)
 
-  def selectAgentProperties() = authenticated { implicit request =>
+  def selectAgentProperties() = authenticated.async { implicit request =>
     registeredAgentForm.bindFromRequest().fold(
       hasErrors = errors => {
         agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
@@ -106,7 +106,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       })
   }
 
-  def selectProperties() = authenticated { implicit request =>
+  def selectProperties() = authenticated.async { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       hasErrors = errors => {
         agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
@@ -148,7 +148,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
       })
   }
 
-  def selectPropertiesSearchSort(pagination: AgentPropertiesParameters) = authenticated { implicit request =>
+  def selectPropertiesSearchSort(pagination: AgentPropertiesParameters) = authenticated.async { implicit request =>
     withValidPropertiesPagination(pagination) {
       accounts.withAgentCode(pagination.agentCode.toString) flatMap {
         case Some(group) => {
@@ -166,7 +166,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
     }
   }
 
-  def selectPropertiesWithNoAgent(pagination: AgentPropertiesParameters) = authenticated { implicit request =>
+  def selectPropertiesWithNoAgent(pagination: AgentPropertiesParameters) = authenticated.async { implicit request =>
     withValidPropertiesPagination(pagination) {
       accounts.withAgentCode(pagination.agentCode.toString) flatMap {
         case Some(group) => {
@@ -195,7 +195,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
     }
   }
 
-  def showAllProperties(pagination: AgentPropertiesParameters) = authenticated { implicit request =>
+  def showAllProperties(pagination: AgentPropertiesParameters) = authenticated.async { implicit request =>
     withValidPropertiesPagination(pagination) {
       accounts.withAgentCode(pagination.agentCode.toString) flatMap {
         case Some(group) => {
@@ -224,7 +224,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
     )
   }
 
-  def selectAgentPropertiesSearchSort(pagination: AgentPropertiesParameters) = authenticated { implicit request =>
+  def selectAgentPropertiesSearchSort(pagination: AgentPropertiesParameters) = authenticated.async { implicit request =>
     withValidPropertiesPagination(pagination) {
       accounts.withAgentCode(pagination.agentCode.toString) flatMap {
         case Some(group) => {
@@ -268,7 +268,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
     }
   }
 
-  def appointAgentSummary() = authenticated { implicit request =>
+  def appointAgentSummary() = authenticated.async { implicit request =>
     appointAgentBulkActionForm.bindFromRequest().fold(
       hasErrors = errors => {
         val data: Map[String, String] = errors.data
@@ -311,7 +311,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
     )
   }
 
-  def revokeAgentSummary() = authenticated { implicit request =>
+  def revokeAgentSummary() = authenticated.async { implicit request =>
     revokeAgentBulkActionForm.bindFromRequest().fold(
       hasErrors = errors => {
         val data: Map[String, String] = errors.data
@@ -386,7 +386,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
   }
 
 
-  def getAgentsForRemove() = authenticated { implicit request =>
+  def getAgentsForRemove() = authenticated.async { implicit request =>
     agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
       Ok(views.html.propertyRepresentation.loadAgentsForRemove(
         AppointAgentVM(form = registeredAgentForm, agents = ownerAgents.agents)))
@@ -548,7 +548,7 @@ class AppointAgentController @Inject()(representations: PropertyRepresentationCo
     }
   }
 
-  def appointMultipleProperties() = authenticated { implicit request =>
+  def appointMultipleProperties() = authenticated.async { implicit request =>
     agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
       Ok(views.html.propertyRepresentation.appointAgent(
         AppointAgentVM(form = appointAgentForm, agents = ownerAgents.agents), Some(config.newDashboardUrl("your-agents"))))

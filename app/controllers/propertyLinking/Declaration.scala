@@ -48,16 +48,20 @@ class Declaration @Inject()(envelopes: EnvelopeConnector,
     if (config.fileUploadEnabled) {
       form.bindFromRequest().value match {
         case Some(true) => fileUploads.getFileMetadata(request.ses.envelopeId) flatMap {
-          case data@FileMetadata(_, Some(info)) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.confirmation()) }
-          case data@FileMetadata(NoEvidenceFlag, _) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.noEvidence()) }
+          case data@FileMetadata(_, Some(info)) =>
+            submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.confirmation()) }
+          case data@FileMetadata(NoEvidenceFlag, _) =>
+            submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.noEvidence()) }
         }
         case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
       }
     } else {
       form.bindFromRequest().value match {
         case Some(true) => noEvidenceFlag match {
-          case Some(true) => submitLinkingRequest(FileMetadata(NoEvidenceFlag, None)) map { _ => Redirect(routes.Declaration.noEvidence()) }
-          case _ => submitLinkingRequest(FileMetadata(RatesBillFlag, Some(FileInfo("stubbedFile", RatesBillType)))) map { _ => Redirect(routes.Declaration.confirmation()) }
+          case Some(true) =>
+            submitLinkingRequest(FileMetadata(NoEvidenceFlag, None)) map { _ => Redirect(routes.Declaration.noEvidence()) }
+          case _ =>
+            submitLinkingRequest(FileMetadata(RatesBillFlag, Some(FileInfo("stubbedFile", RatesBillType)))) map { _ => Redirect(routes.Declaration.confirmation()) }
         }
         case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
       }

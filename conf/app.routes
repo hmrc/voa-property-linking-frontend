@@ -53,7 +53,7 @@ POST        /link-to-property/:uarn                                             
 #Link scenarios
 GET         /choose-evidence                                                                  @controllers.propertyLinking.ChooseEvidence.show()
 POST        /choose-evidence                                                                  @controllers.propertyLinking.ChooseEvidence.submit()
-GET         /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.show(errorCode: Option[Int] ?= None, errorMessage: Option[String] ?= None)
+GET         /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.show()
 GET         /upload-evidence                                                                  @controllers.propertyLinking.UploadEvidence.show(errorCode: Option[Int] ?= None, errorMessage: Option[String] ?= None)
 
 GET         /summary                                                                          @controllers.propertyLinking.Declaration.show(noEvidenceFlag: Option[Boolean] ?= None)
@@ -63,7 +63,8 @@ GET         /confirmation                                                       
 GET         /confirmation/no-evidence                                                         @controllers.propertyLinking.Declaration.noEvidence
 
 #Linking outcomes
-GET         /rates-bill-submitted                                                             @controllers.propertyLinking.UploadRatesBill.fileUploaded()
+POST        /rates-bill-initiate                                                              @controllers.propertyLinking.UploadRatesBill.initiate()
+POST        /rates-bill-remove-file                                                           @controllers.propertyLinking.UploadRatesBill.removeFile(fileReference: String)
 GET         /evidence-uploaded                                                                @controllers.propertyLinking.UploadEvidence.fileUploaded()
 GET         /no-evidence-uploaded                                                             @controllers.propertyLinking.UploadEvidence.noEvidenceUploaded()
 GET         /manual-verification-required                                                     @controllers.LinkErrors.manualVerificationRequired()

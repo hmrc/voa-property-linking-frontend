@@ -48,7 +48,7 @@ class DvrController @Inject()(
   def myClientsRequestDetailValuationCheck(propertyLinkSubmissionId: String, valuationId: Long): Action[AnyContent] =
     detailedValuationRequestCheck(propertyLinkSubmissionId, valuationId, false)
 
-  private def detailedValuationRequestCheck(propertyLinkSubmissionId: String, valuationId: Long, owner: Boolean): Action[AnyContent] = authenticated {
+  private def detailedValuationRequestCheck(propertyLinkSubmissionId: String, valuationId: Long, owner: Boolean): Action[AnyContent] = authenticated.async {
     implicit request =>
       val pLink = if(owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId) else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
 
@@ -90,7 +90,7 @@ class DvrController @Inject()(
                                 propertyLinkSubmissionId: String,
                                 valuationId: Long,
                                 owner: Boolean
-                              ): Action[AnyContent] = authenticated { implicit request =>
+                              ): Action[AnyContent] = authenticated.async { implicit request =>
       for {
         submissionId  <- submissionIds.get("DVR")
         pLink         <-  if(owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId) else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
@@ -132,7 +132,7 @@ class DvrController @Inject()(
                     propertyLinkSubmissionId: String,
                     submissionId: String,
                     owner: Boolean
-                  ): Action[AnyContent] = authenticated { implicit request =>
+                  ): Action[AnyContent] = authenticated.async { implicit request =>
       val pLink = if(owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId) else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
       pLink.map {
         case Some(link) =>
@@ -153,7 +153,7 @@ class DvrController @Inject()(
                                                 submissionId: String,
                                                 valuationId: Long,
                                                 owner: Boolean
-                                              ): Action[AnyContent] = authenticated { implicit request =>
+                                              ): Action[AnyContent] = authenticated.async { implicit request =>
     val pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
     pLink.flatMap {
       case Some(link) =>
@@ -189,7 +189,7 @@ class DvrController @Inject()(
                       valuationId: Long,
                       fileRef: String,
                       owner: Boolean
-                    ): Action[AnyContent] = authenticated {
+                    ): Action[AnyContent] = authenticated.async {
     implicit request =>
       val pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
       pLink.flatMap {

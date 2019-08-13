@@ -39,22 +39,22 @@ class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction, gr
                                            addresses: Addresses, manageDetails: ManageDetails)
                                          (implicit clock: Clock, val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
-  def viewBusinessName = authenticated { implicit request =>
+  def viewBusinessName = authenticated.async { implicit request =>
     Ok(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
   }
 
-  def updateBusinessName = authenticated { implicit request =>
+  def updateBusinessName = authenticated.async { implicit request =>
     businessNameForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       businessName => updateDetails(name = Some(businessName))
     )
   }
 
-  def viewBusinessAddress = authenticated { implicit request =>
+  def viewBusinessAddress = authenticated.async { implicit request =>
     Ok(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(addressForm, request.organisationAccount)))
   }
 
-  def updateBusinessAddress = authenticated { implicit request =>
+  def updateBusinessAddress = authenticated.async { implicit request =>
     addressForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       address => address.addressUnitId match {
@@ -64,22 +64,22 @@ class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction, gr
     )
   }
 
-  def viewBusinessPhone = authenticated { implicit request =>
+  def viewBusinessPhone = authenticated.async { implicit request =>
     Ok(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(phoneForm, request.organisationAccount)))
   }
 
-  def updateBusinessPhone = authenticated { implicit request =>
+  def updateBusinessPhone = authenticated.async { implicit request =>
     phoneForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       phone => updateDetails(phone = Some(phone))
     )
   }
 
-  def viewBusinessEmail = authenticated { implicit request =>
+  def viewBusinessEmail = authenticated.async { implicit request =>
     Ok(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(emailForm, request.organisationAccount)))
   }
 
-  def updateBusinessEmail = authenticated { implicit request =>
+  def updateBusinessEmail = authenticated.async { implicit request =>
     emailForm.bindFromRequest().fold(
       errors => BadRequest(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
       email => updateDetails(email = Some(email))
@@ -89,7 +89,7 @@ class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction, gr
   private def updateDetails(name: Option[String] = None,
                             addressId: Option[Long] = None,
                             email: Option[String] = None,
-                            phone: Option[String] = None)(implicit request: BasicAuthenticatedRequest[AnyContent]): Future[Result] = {
+                            phone: Option[String] = None)(implicit request: BasicAuthenticatedRequest[_]): Future[Result] = {
     val current = request.organisationAccount
     val details = UpdatedOrganisationAccount(
       current.groupId,

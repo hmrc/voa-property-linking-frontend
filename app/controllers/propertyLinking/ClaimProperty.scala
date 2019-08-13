@@ -55,11 +55,11 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
 
   import ClaimProperty._
 
-  def show() = authenticated { implicit request =>
+  def show() = authenticated.async { implicit request =>
     Redirect(s"${config.vmvUrl}/search")
   }
 
-  def checkPropertyLinks() = authenticated { implicit request =>
+  def checkPropertyLinks() = authenticated.async { implicit request =>
 
     val pLinks = if(request.organisationAccount.isAgent) {
       propertyLinksConnector.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(),
@@ -80,11 +80,11 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
     }
   }
 
-  def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
+  def declareCapacity(uarn: Long, address: String) = authenticated.async { implicit request =>
     Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn)))
   }
 
-  def attemptLink(uarn: Long, address: String) = authenticated { implicit request =>
+  def attemptLink(uarn: Long, address: String) = authenticated.async { implicit request =>
     ClaimProperty.declareCapacityForm.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn))),
       formData => initialiseSession(formData, uarn, address).map { _ =>

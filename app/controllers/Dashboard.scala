@@ -42,15 +42,15 @@ class Dashboard @Inject()(draftCases: DraftCases,
                           authenticated: AuthenticatedAction,
                           pdfGen: PdfGenerator)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController with ValidPagination {
 
-  def home() = authenticated { implicit request =>
+  def home() = authenticated.async { implicit request =>
     Redirect(config.newDashboardUrl("home"))
   }
 
-  def yourDetails() = authenticated { implicit request =>
+  def yourDetails() = authenticated.async { implicit request =>
     Redirect(config.newDashboardUrl("your-details"))
   }
 
-  def manageProperties() = authenticated { implicit request =>
+  def manageProperties() = authenticated.async { implicit request =>
    Redirect(config.newDashboardUrl("your-properties"))
   }
 
@@ -62,7 +62,7 @@ class Dashboard @Inject()(draftCases: DraftCases,
                     status: Option[String],
                     address: Option[String],
                     baref: Option[String],
-                    agent: Option[String]) = authenticated { implicit request =>
+                    agent: Option[String]) = authenticated.async { implicit request =>
 
     val pLinks = if(request.organisationAccount.isAgent) {
       propertyLinks.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(address, baref, agent, status, sortfield, sortorder),
@@ -78,11 +78,11 @@ class Dashboard @Inject()(draftCases: DraftCases,
     }
   }
 
-  def manageAgents() = authenticated { implicit request =>
+  def manageAgents() = authenticated.async { implicit request =>
     Redirect(config.newDashboardUrl("your-agents"))
   }
 
-  def viewManagedProperties(agentCode: Long, owner: Boolean) = authenticated { implicit request =>
+  def viewManagedProperties(agentCode: Long, owner: Boolean) = authenticated.async { implicit request =>
     for {
       group <- groupAccounts.withAgentCode(agentCode.toString)
       companyName = group.fold("No Name")(_.companyName) // impossible
@@ -105,11 +105,11 @@ class Dashboard @Inject()(draftCases: DraftCases,
       ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, filteredAuths), owner))
   }
 
-  def viewMessages() = authenticated { implicit request =>
+  def viewMessages() = authenticated.async { implicit request =>
     Redirect(config.newDashboardUrl("inbox"))
   }
 
-  def viewMessage(messageId: String) = authenticated { implicit request =>
+  def viewMessage(messageId: String) = authenticated.async{ implicit request =>
     Redirect(config.newDashboardUrl("inbox"))
   }
 

@@ -604,8 +604,7 @@ declareCapacity.details.haveOwned.text=If you have owned or occupied the propert
 #UPLOAD RATES BILL
 uploadRatesBill.show.title=Submit a copy of your business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
-uploadFile.allowedTypes.l1=a JPEG or PDF
-uploadFile.allowedTypes.l2=no more than 10MB in size
+uploadFile.allowedTypes.l1=Only Word, Excel, PDF and JPEG files can be accepted and maximum file size is 10MB
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Confirm
@@ -1161,3 +1160,12 @@ challengeRules.rules.paper=If no valid check cases are shown but you still think
 
 ## TIME OUT DIALOG
 timeout.dialog.title = You are about to be timed out
+
+##Business rate attachments
+error.businessRatesAttachment.unavailable=Cannot upload documents - please try again later.
+error.upscan.unavailable=Cannot upload documents - please try again later.
+error.businessRatesAttachment.file.size.exceed.max.limit=Size of uploaded file is exceeded Max Limit 10MB, Please upload different file size less than 10MB.
+error.businessRatesAttachment.file.not.selected=Please select file you want to upload.
+error.businessRatesAttachment.does.not.support.file.types=Only Word, Excel, PDF and JPEG files can be accepted and maximum file size is 10MB
+businessRatesAttachment.file.size.reached.max.limit=You have uploaded 9 file(s), the maximum allowable limit
+fileupload.support.documents.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit
