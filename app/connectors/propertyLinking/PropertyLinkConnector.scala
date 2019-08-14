@@ -128,7 +128,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
                                      pagination: PaginationParams,
                                      representationStatusFilter: Seq[RepresentationStatus] = Seq(RepresentationApproved, RepresentationPending),
                                      organisationId: Long,
-                                     agentCode: Long,
+                                     agentOrganisationId: Long,
                                      checkPermission: String,
                                      challengePermission: String,
                                      agentAppointed: Option[String] = None
@@ -146,7 +146,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         Some("sortorder" -> searchParams.sortorder.toString),
         agentAppointed.map("agentAppointed" -> _.toString),
         Some("organisationId" -> organisationId.toString),
-        Some("agentOrganisationId" -> agentCode.toString),
+        Some("agentOrganisationId" -> agentOrganisationId.toString),
         permissionString("checkPermission", checkPermission),
         permissionString("challengePermission", challengePermission)
       ).flatten ++

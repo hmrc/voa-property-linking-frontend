@@ -100,7 +100,7 @@ class AppointAgentController @Inject()(
         PaginationParams(startPoint = pagination.startPoint, pageSize = pagination.pageSize, requestTotalRowCount = false),
         agentAppointed = agentAppointed,
         organisationId = request.organisationAccount.id,
-        agentCode = agentCode,
+        agentOrganisationId = agentOrganisation.fold(throw new IllegalArgumentException("agent organisation required."))(_.id),
         checkPermission = checkPermission,
         challengePermission = challengePermission)
     } yield {
@@ -138,7 +138,7 @@ class AppointAgentController @Inject()(
                 GetPropertyLinksParameters(),
                 PaginationParams(startPoint = pagination.startPoint, pageSize = pagination.pageSize, requestTotalRowCount = false),
                 organisationId = request.organisationAccount.id,
-                agentCode = pagination.agentCode,
+                agentOrganisationId = group.id,
                 checkPermission = pagination.checkPermission.name,
                 challengePermission = pagination.challengePermission.name)
             } yield BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), data("agentCode").toLong, data("checkPermission"), data("challengePermission"), data.get("agentAppointed")))
