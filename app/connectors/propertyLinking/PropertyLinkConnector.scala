@@ -65,8 +65,8 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         searchParams.baref.map("baref" -> _),
         searchParams.agent.map("agent" -> _),
         searchParams.status.map("status" -> _),
-        Some("sortfield" -> searchParams.sortfield.toString),
-        Some("sortorder" -> searchParams.sortorder.toString)
+        Some("sortField" -> searchParams.sortfield.toString),
+        Some("sortOrder" -> searchParams.sortorder.toString)
       ).flatten ++
         List(
           "startPoint" -> pagination.startPoint.toString,
@@ -87,8 +87,8 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         searchParams.baref.map("baref" -> _),
         searchParams.agent.map("agent" -> _),
         searchParams.status.map("status" -> _),
-        Some("sortfield" -> searchParams.sortfield.toString),
-        Some("sortorder" -> searchParams.sortorder.toString)
+        Some("sortField" -> searchParams.sortfield.toString),
+        Some("sortOrder" -> searchParams.sortorder.toString)
       ).flatten ++
         List(
           "startPoint" -> pagination.startPoint.toString,
