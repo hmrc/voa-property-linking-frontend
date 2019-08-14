@@ -156,7 +156,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
           "requestTotalRowCount" -> pagination.requestTotalRowCount.toString)
     )
 
-
     def validAgent(agent: OwnerAuthAgent): Boolean =
       agent.status.fold(false) { status =>
         representationStatusFilter.map(_.name.toUpperCase).contains(status.toUpperCase)

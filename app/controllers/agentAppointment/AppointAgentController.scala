@@ -307,7 +307,9 @@ class AppointAgentController @Inject()(
     val link: Future[Option[PropertyLink]] = propertyLinks.getMyOrganisationPropertyLink(pLink)
 
     link map {
-      case Some(prop) => {
+      case Some(prop) =>
+        logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible. 1 ")
+
         updateAllAgentsPermission(
           prop.authorisationId,
           prop,
@@ -315,8 +317,6 @@ class AppointAgentController @Inject()(
           agentOrgId,
           individualId,
           organisationId)
-      }
-        logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible. 1 ")
       // just ignore if it does happen
       case None =>
         logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible. w")
