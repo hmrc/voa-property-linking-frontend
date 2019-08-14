@@ -32,6 +32,8 @@ import resources._
 import uk.gov.hmrc.domain.Nino
 import utils.{StubBusinessRatesValuation, _}
 
+import scala.concurrent.ExecutionContext.Implicits.global
+
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier

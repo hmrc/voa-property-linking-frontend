@@ -189,31 +189,19 @@ class AppointAgentController @Inject()(
       },
       success = (agent: AgentId) => {
         accounts.withAgentCode(agent.id) flatMap {
-          case Some(group) => {
+          case Some(group) =>
             val pagination = AgentPropertiesParameters(agentCode = agent.id.toLong)
-
-            withValidPaginationSearchSort(
-              page = 1,
-              pageSize = 100,
-              agent = Some(group.companyName),
-              sortfield = Some(pagination.sortField.name.toUpperCase),
-              sortorder = Some(pagination.sortOrder.name.toUpperCase)
-            ) { paginationSearchSort =>
-              for {
-                response <- propertyLinks.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(agent = Some(group.companyName), sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name.toUpperCase), sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name.toUpperCase)), PaginationParams(1, 100, false))
-              } yield {
-
-                Redirect(routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
-              }
+            for {
+              response <- propertyLinks.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(agent = Some(group.companyName), sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name.toUpperCase), sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name.toUpperCase)), PaginationParams(1, 100, false))
+            } yield {
+              Redirect(routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
             }
-          }
-          case None => {
+          case None =>
             val errors: List[FormError] = List(invalidAgentCode)
             agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
               val formWithErrors = errors.foldLeft(registeredAgentForm.fill(AgentId(agent.id))) { (f, error) => f.withError(error) }
               invalidRevokeAppointment(formWithErrors, None, ownerAgents.agents)
             }
-          }
         }
       })
   }
@@ -250,15 +238,7 @@ class AppointAgentController @Inject()(
           agentCode = data("agentCode").toLong)
 
         accounts.withAgentCode(pagination.agentCode.toString) flatMap {
-          case Some(group) => {
-            withValidPaginationSearchSort(
-              page = 1,
-              pageSize = 100,
-              agent = Some(group.companyName),
-              sortfield = Some(pagination.sortField.name),
-              sortorder = Some(pagination.sortOrder.name)
-            ) { paginationSearchSort =>
-
+          case Some(group) =>
               for {
                 response <-
                   propertyLinks.getMyClientsPropertyLinks(
@@ -275,8 +255,6 @@ class AppointAgentController @Inject()(
               } yield {
                 BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
               }
-            }
-          }
           case None =>
             notFound
         }
