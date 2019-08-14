@@ -304,7 +304,8 @@ class AppointAgentController @Inject()(
                                               challengePermission: AgentPermission,
                                               isAgent: Boolean
                                             )(implicit hc: HeaderCarrier): Future[Unit] = {
-    val link = propertyLinks.getOwnerAssessments(pLink)
+    val link: Future[Option[PropertyLink]] = propertyLinks.getMyOrganisationPropertyLink(pLink)
+
     link map {
       case Some(prop) => {
         updateAllAgentsPermission(
@@ -328,8 +329,7 @@ class AppointAgentController @Inject()(
                                                organisationId: Long,
                                                agentCode: Long,
                                                isAgent: Boolean)(implicit hc: HeaderCarrier): Future[Unit] = {
-
-    val link = propertyLinks.getOwnerAssessments(pLink)
+    val link: Future[Option[PropertyLink]] = propertyLinks.getMyOrganisationPropertyLink(pLink)
 
     link flatMap {
       case Some(link) => link.agents.find(a => a.agentCode == agentCode) match {
@@ -351,13 +351,12 @@ class AppointAgentController @Inject()(
 
   private def updateAllAgentsPermission(
                                          authorisationId: Long,
-                                         link: ApiAssessments,
+                                         link: PropertyLink,
                                          newAgentPermission: AppointAgent,
                                          newAgentOrgId: Long,
                                          individualId: Long,
                                          organisationId: Long
                                        )(implicit hc: HeaderCarrier): Future[Unit] = {
-    logger.warn("it comes in here")
     val updateExistingAgents = if (newAgentPermission.canCheck == StartAndContinue && newAgentPermission.canChallenge == StartAndContinue) {
       Future.sequence(link.agents.map(agent => representations.revoke(agent.authorisedPartyId)))
     } else if (newAgentPermission.canCheck == StartAndContinue) {
