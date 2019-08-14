@@ -75,9 +75,9 @@ class DvrController @Inject()(
               case None             =>
                 Redirect(
                   if (owner)
-                    controllers.detailedvaluationrequest.routes.DvrController.myOrganisationAlreadyRequestedDetailValuation(submissionId = propertyLinkSubmissionId, valuationId = valuationId)
+                    controllers.detailedvaluationrequest.routes.DvrController.myOrganisationAlreadyRequestedDetailValuation(propertyLinkSubmissionId = propertyLinkSubmissionId, valuationId = valuationId)
                   else
-                    controllers.detailedvaluationrequest.routes.DvrController.myClientsAlreadyRequestedDetailValuation(submissionId = propertyLinkSubmissionId, valuationId = valuationId)
+                    controllers.detailedvaluationrequest.routes.DvrController.myClientsAlreadyRequestedDetailValuation(propertyLinkSubmissionId = propertyLinkSubmissionId, valuationId = valuationId)
                 )
               }
         case None       =>
@@ -138,12 +138,9 @@ class DvrController @Inject()(
                     submissionId: String,
                     owner: Boolean
                   ): Action[AnyContent] = authenticated { implicit request =>
-      logger.debug("confirmation called successfully.")
     val pLink = if(owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId) else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
-    logger.debug("property links returned successfully for confirmation")
       pLink.map {
         case Some(link) =>
-          logger.debug("link returned for confirmation")
           Ok(views.html.dvr.requested_detailed_valuation(submissionId, link.address))
         case None       =>
           BadRequest(views.html.errors.propertyMissing())

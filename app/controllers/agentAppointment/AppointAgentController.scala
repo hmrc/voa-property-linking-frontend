@@ -309,7 +309,6 @@ class AppointAgentController @Inject()(
     link map {
       case Some(prop) =>
         logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible. 1 ")
-
         updateAllAgentsPermission(
           prop.authorisationId,
           prop,

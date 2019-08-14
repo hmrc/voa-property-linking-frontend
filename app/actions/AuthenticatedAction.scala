@@ -32,11 +32,15 @@ import uk.gov.hmrc.play.HeaderCarrierConverter
 
 import scala.concurrent.Future
 
-class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
-                                    businessRatesAuthorisation: BusinessRatesAuthorisation,
-                                    auth: Auth,
-                                    addressesConnector: Addresses,
-                                    val authConnector: AuthConnector)(implicit val messageApi: MessagesApi, config: ApplicationConfig) extends I18nSupport{
+class AuthenticatedAction @Inject()(
+                                     provider: GovernmentGatewayProvider,
+                                     businessRatesAuthorisation: BusinessRatesAuthorisation,
+                                     auth: Auth,
+                                     addressesConnector: Addresses,
+                                    val authConnector: AuthConnector
+                                   )(implicit val messageApi: MessagesApi, config: ApplicationConfig) extends I18nSupport{
+
+  val logger = Logger(this.getClass.getName)
 
   override def messagesApi: MessagesApi = messageApi
 
@@ -44,9 +48,12 @@ class AuthenticatedAction @Inject()(provider: GovernmentGatewayProvider,
 
   def apply(body: BasicAuthenticatedRequest[AnyContent] => Future[Result]) = Action.async { implicit request =>
     businessRatesAuthorisation.authenticate flatMap {
-      res => handleResult(res, body)
+      res =>
+        logger.debug("authenticated action body")
+        handleResult(res, body)
     } recoverWith {
       case e: BadRequestException =>
+        logger.debug("global bad request")
         Global.onBadRequest(request, e.message)
       case _: NotFoundException =>
         Global.onHandlerNotFound(request)
