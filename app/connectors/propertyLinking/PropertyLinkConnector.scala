@@ -146,7 +146,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         Some("sortorder" -> searchParams.sortorder.toString),
         agentAppointed.map("agentAppointed" -> _.toString),
         Some("organisationId" -> organisationId.toString),
-        Some("agentCode" -> agentCode.toString),
+        Some("agentOrganisationId" -> agentCode.toString),
         permissionString("checkPermission", checkPermission),
         permissionString("challengePermission", challengePermission)
       ).flatten ++
