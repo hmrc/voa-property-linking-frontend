@@ -17,6 +17,8 @@
 @import actions.AuthenticatedRequest
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
+@import binders.pagination.PaginationParameters
+@import binders.propertylinks.GetPropertyLinksParameters
 
 @import models.searchApi.AgentPropertiesParameters
 @(action: AgentAppointBulkAction, agentOrganisation: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
@@ -42,14 +44,8 @@
             <p class="lede">@Messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString, perms)</p>
         }
 
-        @form(agentAppointment.routes.AppointAgentController.selectProperties()) {
-            <input type="hidden" name="agentCode" value="@action.agentCode">
-            <input type="hidden" name="agentCodeRadio" value="yes">
-            <input type="hidden" name="canCheck" value="@action.checkPermission.name">
-            <input type="hidden" name="canChallenge" value="@action.challengePermission.name">
+        <a class="button" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.checkPermission.name, action.challengePermission.name, None).url">@Messages("propertyRepresentation.agentSummary.select.more")</a>
 
-            <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.agentSummary.select.more")</button>
-        }
     </div>
 
 }

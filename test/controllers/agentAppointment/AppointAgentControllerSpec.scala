@@ -16,6 +16,8 @@
 
 package controllers.agentAppointment
 
+import binders.pagination.PaginationParameters
+import binders.propertylinks.GetPropertyLinksParameters
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{AgentsConnector, Authenticated, PropertyRepresentationConnector}
 import controllers.VoaPropertyLinkingSpec
@@ -32,6 +34,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubGroupAccountConnector}
 import org.scalacheck.Arbitrary._
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
@@ -57,75 +60,11 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.mustNotContainTable("#middle-radio-buttons")
   }
 
-//  "appointAgentSummary" should "perform the bulk agent appointment action and display the summary page for checks only" in {
-//    stubLogin()
-//    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-//    val testPropertyLink = arbitrary[PropertyLink].sample.get
-//
-//    StubGroupAccountConnector.stubAccount(testAgentAccount)
-//
-//    //when(mockPropertyLinkConnector.get(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(Some(testPropertyLink)))
-//
-//    val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody(
-//      "agentCode" -> "1",
-//      "checkPermission" -> StartAndContinue.name,
-//      "challengePermission" -> NotPermitted.name,
-//      "linkIds[]" -> "123"
-//    ))
-//
-//    status(res) mustBe OK
-//    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-//    page.mustContainText(s"You have appointed agent '${testAgentAccount.companyName}' (${testAgentAccount.agentCode}) with the ability to submit checks to the selected properties.")
-//  }
-//
-//  "appointAgentSummary" should "perform the bulk agent appointment action and display the summary page for challenges only" in {
-//    stubLogin()
-//    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-//    val testPropertyLink = arbitrary[PropertyLink].sample.get
-//
-//    StubGroupAccountConnector.stubAccount(testAgentAccount)
-//
-//    //when(mockPropertyLinkConnector.get(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(Some(testPropertyLink)))
-//
-//    val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody(
-//      "agentCode" -> "1",
-//      "checkPermission" -> NotPermitted.name,
-//      "challengePermission" -> StartAndContinue.name,
-//      "linkIds[]" -> "123"
-//    ))
-//
-//    status(res) mustBe OK
-//    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-//    page.mustContainText(s"You have appointed agent '${testAgentAccount.companyName}' (${testAgentAccount.agentCode}) with the ability to submit challenges to the selected properties.")
-//  }
-
-//  "appointAgentSummary" should "perform the bulk agent appointment action and display the summary page for checks and challenges" in {
-//    stubLogin()
-//    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-//    val testPropertyLink = arbitrary[PropertyLink].sample.get
-//
-//    StubGroupAccountConnector.stubAccount(testAgentAccount)
-//
-//    //when(mockPropertyLinkConnector.get(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(Some(testPropertyLink)))
-//
-//    val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody(
-//      "agentCode" -> "1",
-//      "checkPermission" -> StartAndContinue.name,
-//      "challengePermission" -> StartAndContinue.name,
-//      "linkIds[]" -> "123"
-//    ))
-//
-//    status(res) mustBe OK
-//    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-//    page.mustContainText(s"You have appointed agent '${testAgentAccount.companyName}' (${testAgentAccount.agentCode}) with the ability to submit checks and challenges to the selected properties.")
-//  }
-
-
   "getAgentsForRemove" should "show the revoke agent page with a known agent listed for selection with no agent appointment session" in {
     val testOwnerAgents = OwnerAgents(Seq(OwnerAgent("test-agent", 1l)))
     stubLogin()
     when(mockAgentsConnector.ownerAgents(any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAgents))
-    val res = testController.getAgentsForRemove()(FakeRequest())
+    val res = testController.revokeMultipleProperties()(FakeRequest())
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainTable("#middle-radio-buttons")
@@ -136,57 +75,10 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testOwnerAgents = OwnerAgents(Seq())
     stubLogin()
     when(mockAgentsConnector.ownerAgents(any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAgents))
-    val res = testController.getAgentsForRemove()(FakeRequest())
+    val res = testController.revokeMultipleProperties()(FakeRequest())
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustNotContainTable("#middle-radio-buttons")
-  }
-
-  "selectAgentProperties" should "show a list of properties available for removal from a agent" in {
-    stubLogin()
-    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
-    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "APPROVED")
-    val testOwnerAuthResult = OwnerAuthResult(start = 1,
-      size = 15,
-      filterTotal = 1,
-      total = 1,
-      authorisations = Seq(testOwnerAuth))
-
-    StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
-
-    val res = testController.selectAgentProperties()(FakeRequest().withFormUrlEncodedBody(
-      "agentCode" -> "1",
-      "agentCodeRadio" -> "1"
-    ))
-
-    status(res) mustBe OK
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText(testOwnerAuth.address)
-  }
-
-
-  "selectAgentProperties" should "return a bad request response when agent code does not match" in {
-    stubLogin()
-    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 2l)
-    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
-    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "APPROVED")
-    val testOwnerAuthResult = OwnerAuthResult(start = 1,
-      size = 15,
-      filterTotal = 1,
-      total = 1,
-      authorisations = Seq(testOwnerAuth))
-
-    StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
-
-    val res = testController.selectAgentProperties()(FakeRequest().withFormUrlEncodedBody(
-      "agentCode" -> "1",
-      "agentCodeRadio" -> "1"
-    ))
-
-    status(res) mustBe BAD_REQUEST
   }
 
 
@@ -203,9 +95,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testPagination = AgentPropertiesParameters(1l)
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockPropertyLinkConnector.getMyOrganisationsPropertyLinks(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
 
-    val res = testController.selectAgentPropertiesSearchSort(testPagination)(FakeRequest().withFormUrlEncodedBody(
+    val res = testController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), 1L)(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
       "agentCodeRadio" -> "1"
     ))
@@ -228,9 +120,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testPagination = AgentPropertiesParameters(1l)
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.linkedPropertiesSearchAndSort(any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockPropertyLinkConnector.getMyClientsPropertyLinks(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
 
-    val res = testController.selectAgentPropertiesSearchSort(testPagination)(FakeRequest().withFormUrlEncodedBody(
+    val res = testController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), 1L)(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
       "agentCodeRadio" -> "1"
     ))
@@ -239,28 +131,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainText("There are no properties to display")
   }
-
-
-//  "revokeAgentSummary" should "perform the bulk agent revoke action and display the summary page" in {
-//    stubLogin()
-//    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-//    val testPropertyLink = arbitrary[PropertyLink].sample.get
-//
-//    StubGroupAccountConnector.stubAccount(testAgentAccount)
-//
-//    //when(mockPropertyLinkConnector.get(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(Some(testPropertyLink)))
-//
-//    val res = testController.revokeAgentSummary()(FakeRequest().withFormUrlEncodedBody(
-//      "agentCode" -> "1",
-//      "linkIds[]" -> "123"
-//    ))
-//
-//    status(res) mustBe OK
-//    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-//    page.mustContainText(s"You have removed Agent '1’s' ability to submit checks and challenges from 1 properties")
-//  }
-
-
 
   private lazy val testController = new AppointAgentController(mockRepresentationConnector, StubGroupAccountConnector, mockPropertyLinkConnector, mockAgentsConnector, StubAuthentication)
 

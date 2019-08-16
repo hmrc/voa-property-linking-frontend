@@ -21,16 +21,17 @@ import models.{AgentPermission, SortOrder, StartAndContinue}
 import play.api.mvc.QueryStringBindable
 import utils.Formatters.{buildQueryParams, buildUppercaseQueryParams}
 
-case class AgentPropertiesParameters(agentCode: Long,
-                                     checkPermission: AgentPermission = StartAndContinue,
-                                     challengePermission: AgentPermission = StartAndContinue,
-                                     address: Option[String] = None,
-                                     agentNameFilter: Option[String] = None,
-                                     pageNumber: Int = 1,
-                                     pageSize: Int = 15,
-                                     sortField: AgentPropertiesSortField = AgentPropertiesSortField.Address,
-                                     sortOrder: SortOrder = SortOrder.Ascending,
-                                     agentAppointed: String = Both.name) {
+case class AgentPropertiesParameters(
+                                      agentCode: Long,
+                                      checkPermission: AgentPermission = StartAndContinue,
+                                      challengePermission: AgentPermission = StartAndContinue,
+                                      address: Option[String] = None,
+                                      agentNameFilter: Option[String] = None,
+                                      pageNumber: Int = 1,
+                                      pageSize: Int = 15,
+                                      sortField: AgentPropertiesSortField = AgentPropertiesSortField.Address,
+                                      sortOrder: SortOrder = SortOrder.Ascending,
+                                      agentAppointed: String = Both.name) {
 
   def startPoint: Int = (pageNumber - 1) * pageSize + 1
 

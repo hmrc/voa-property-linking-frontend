@@ -43,8 +43,8 @@ class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, 
   }
 
   private def getAddress(opt: Option[Address]): Future[Address] = opt match {
-    case None => Future.failed(throw new IllegalArgumentException())
-    case Some(x) => Future.successful(x)
+    case None     => Future.failed(throw new IllegalArgumentException())
+    case Some(x)  => Future.successful(x)
   }
 }
 

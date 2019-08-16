@@ -21,7 +21,6 @@ import javax.inject.Named
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import connectors.EnvelopeConnector
-import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import form.Mappings._
@@ -36,9 +35,7 @@ import views.html.propertyLinking.declaration
 import scala.concurrent.Future
 
 @Singleton
-class Declaration @Inject()(envelopes: EnvelopeConnector,
-                            fileUploads: FileUploadConnector,
-                            propertyLinks: PropertyLinkConnector,
+class Declaration @Inject()(propertyLinks: PropertyLinkConnector,
                             @Named("propertyLinkingSession") sessionRepository: SessionRepo,
                             businessRatesAttachmentService: BusinessRatesAttachmentService,
                             withLinkingSession: WithLinkingSession)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
@@ -50,10 +47,9 @@ class Declaration @Inject()(envelopes: EnvelopeConnector,
 
   def submit(noEvidenceFlag: Option[Boolean] = None) = withLinkingSession { implicit request =>
       form.bindFromRequest().value match {
-        submitLinkingRequest()
-        Redirect(routes.Declaration.confirmation())
-        }
+        case Some(true) =>   submitLinkingRequest().map( x => Redirect (routes.Declaration.confirmation()))
         case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
+      }
   }
 
 
@@ -70,8 +66,7 @@ class Declaration @Inject()(envelopes: EnvelopeConnector,
   private def submitLinkingRequest()(implicit request: LinkingSessionRequest[_]) = {
     for {
       - <- businessRatesAttachmentService.submitFiles(request.ses.submissionId, request.ses.uploadEvidenceData.attachments)
-      _ <- propertyLinks.linkToProperty()
-      _ <- envelopes.closeEnvelope(request.ses.envelopeId)
+      _ <- propertyLinks.createPropertyLink()
     } yield ()
   }
 

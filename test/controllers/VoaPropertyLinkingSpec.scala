@@ -16,12 +16,22 @@
 
 package controllers
 
+import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import auth.GovernmentGatewayProvider
+import connectors.{Addresses, BusinessRatesAuthorisation}
+import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
 import play.api.i18n.MessagesApi
-import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
+import play.api.mvc.{Request, Result, WrappedRequest}
+import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
+import services.EnrolmentService
+import uk.gov.hmrc.auth.core.AuthConnector
+import uk.gov.hmrc.play.config.ServicesConfig
 import utils._
+
+import scala.concurrent.Future
 
 trait VoaPropertyLinkingSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
   with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with WSHTTPMock with ScalaFutures {
@@ -29,6 +39,29 @@ trait VoaPropertyLinkingSpec extends FlatSpec with MustMatchers with FutureAwait
   val token = "Csrf-Token" -> "nocheck"
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
+
+  def preAuthenticatedActionBuilders(
+                                      externalId: String = "gg_external_id",
+                                      groupId: String = "gg_group_id"
+                                    ): AuthenticatedAction =
+    new AuthenticatedAction(messageApi, mockGG, mockAuth, mockEnrolmentService, StubAuthConnector) {
+      override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = {
+        block(BasicAuthenticatedRequest[A](mockGroupAccount, mockDetailedIndividualAccount, mock[Request[A]]))
+      }
+    }
+
+  lazy val testAction = new AuthenticatedAction(messageApi, mockGG, mockAuth, mockEnrolmentService, StubAuthConnector)
+  lazy val mockAuthConnector = mock[AuthConnector]
+  lazy val mockAddresses = mock[Addresses]
+  lazy val mockServiceConfig = mock[ServicesConfig]
+  lazy val mockAuth = mock[BusinessRatesAuthorisation]
+  lazy val mockGG = mock[GovernmentGatewayProvider]
+  lazy val mockEnrolmentService = mock[EnrolmentService]
+  lazy val accounts = Accounts(mock[GroupAccount], mock[DetailedIndividualAccount])
+  lazy val mockDetailedIndividualAccount =  mock[DetailedIndividualAccount]
+  lazy val mockGroupAccount = mock[GroupAccount]
+  lazy val mockFakeRequest = mock[Request[_]]
+
 
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()

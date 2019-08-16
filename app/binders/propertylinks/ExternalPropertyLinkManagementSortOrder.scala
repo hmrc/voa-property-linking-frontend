@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package models
+package binders.propertylinks
 
-import models.upscan.UploadedFileDetails
-import play.api.libs.json.Json
+object ExternalPropertyLinkManagementSortOrder extends Enumeration {
+  type ExternalPropertyLinkManagementSortOrder = Value
 
-case class LinkingSession(address: String, uarn: Long, submissionId: String, personId: Long,
-                          declaration: CapacityDeclaration, uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty)
-
-object LinkingSession {
-  implicit val format = Json.format[LinkingSession]
+  val ASC = Value("ASC")
+  val DESC = Value("DESC")
 }

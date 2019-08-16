@@ -42,22 +42,17 @@
                 crossDomain: false,
                 cache: false
             }).error(function(jqXHR, textStatus, errorThrown ){
-                alert(jqXHR.status);
-                alert(jqXHR.error);
-                alert(errorThrown.toString());
-                
                 if(jqXHR.status == 400) {
                     $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsBusinessRatesAttachmentUnsupportedFiles').text()+'</li>'));
                     $('#message-warning').remove();
+                }else if(jqXHR.status == 413) {
+                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsFileSizeTooLarge').text()+'</li>'));
                 }else if(jqXHR.status > 400) {
-                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsBusinessRatesAttachmentUnavailable').text()+'</li>'));
-                    $('#message-warning').remove();
+                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsUpscan').text() + '</li>'));
                 }
 
+
             }).done(function(data, statusText, resObject) {
-                alert(data);
-                alert(statusText);
-                alert(resObject.toSource);
                 fileUpload(resObject.responseJSON, file, csrfToken);
                 $('#message-warning').remove();
             });
@@ -89,12 +84,14 @@
                 crossDomain: false,
                 cache: false
             }).error(function(jqXHR, textStatus, errorThrown ){
-
                 if(jqXHR.status == 400 || upScanError.status == 400) {
                     $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsBusinessRatesAttachmentUnsupportedFiles').text()+'</li>'));
+                }else if(jqXHR.status == 413) {
+                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsFileSizeTooLarge').text()+'</li>'));
                 }else if(jqXHR.status > 400) {
-                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#error.upscan.unavailable').text()+'</li>'));
+                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsUpscan').text() + '</li>'));
                 }
+
                 $('#message-warning').remove();
             }).done(function(data, statusText, resObject) {
                 $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsBusinessRatesAttachmentUnsupportedFiles').text()+'</li>'));

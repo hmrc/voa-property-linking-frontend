@@ -27,6 +27,7 @@ import play.api.mvc.Request
 import play.api.mvc.Results._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
+import services.EnrolmentService
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -149,12 +150,12 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
     }
   }
 
-  lazy val testAction = new AuthenticatedAction(mockGG, mockAuth, StubAuth, mockAddresses, StubAuthConnector)
+  lazy val testAction = new AuthenticatedAction(messageApi, mockGG, mockAuth, mockEnrolmentService, StubAuthConnector)
   lazy val mockAuthConnector = mock[AuthConnector]
   lazy val mockAddresses = mock[Addresses]
   lazy val mockServiceConfig = mock[ServicesConfig]
   lazy val mockAuth = mock[BusinessRatesAuthorisation]
   lazy val mockGG = mock[GovernmentGatewayProvider]
-
+  lazy val mockEnrolmentService = mock[EnrolmentService]
   lazy val accounts = Accounts(mock[GroupAccount], mock[DetailedIndividualAccount])
 }

@@ -21,16 +21,20 @@ import javax.inject.Inject
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
+import models.UploadEvidenceData
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
+import services.BusinessRatesAttachmentService
 import session.WithLinkingSession
 
-class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession)
+class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession, businessRatesAttachmentService: BusinessRatesAttachmentService)
                                (implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def show = withLinkingSession { implicit request =>
-    Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form))
+
+    businessRatesAttachmentService.persistSessionData(request.ses, UploadEvidenceData.empty).map(x =>
+    Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form)))
   }
 
   def submit = withLinkingSession { implicit request =>

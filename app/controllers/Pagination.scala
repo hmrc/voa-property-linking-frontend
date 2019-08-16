@@ -18,45 +18,18 @@ package controllers
 
 import config.Global
 import models.searchApi.AgentPropertiesFilter.Both
-import play.api.mvc.{QueryStringBindable, Request, Result}
+import play.api.mvc.{AnyContent, QueryStringBindable, Request, Result}
 import utils.Formatters._
 
 import scala.concurrent.Future
 
 trait ValidPagination extends PropertyLinkingController {
   protected def withValidPagination(page: Int, pageSize: Int, getTotal: Boolean = true)
-                                   (default: Pagination => Future[Result])(implicit request: Request[_]): Future[Result] = {
+                                   (default: Pagination => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
     if (page <= 0 || pageSize < 10 || pageSize > 500) {
       BadRequest(Global.badRequestTemplate)
     } else {
       default(Pagination(pageNumber = page, pageSize = pageSize, resultCount = getTotal))
-    }
-  }
-
-  protected def withValidPaginationSearchSort(page: Int,
-                                              pageSize: Int,
-                                              requestTotalRowCount: Boolean = true,
-                                              sortfield: Option[String] = None,
-                                              sortorder: Option[String] = None,
-                                              status: Option[String] = None,
-                                              address: Option[String] = None,
-                                              baref: Option[String] = None,
-                                              agent: Option[String] = None,
-                                              client: Option[String] = None)
-                                   (default: PaginationSearchSort => Future[Result])(implicit request: Request[_]): Future[Result] = {
-    if (page <= 0 || pageSize < 10 || pageSize > 1000) {
-      BadRequest(Global.badRequestTemplate)
-    } else {
-      default(PaginationSearchSort(pageNumber = page,
-        pageSize = pageSize,
-        requestTotalRowCount = requestTotalRowCount,
-        sortfield = sortfield,
-        sortorder = sortorder,
-        status = status,
-        address = address,
-        baref = baref,
-        agent = agent,
-        client = client))
     }
   }
 }

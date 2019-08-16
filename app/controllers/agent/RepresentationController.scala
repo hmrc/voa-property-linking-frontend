@@ -54,7 +54,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
     Redirect(config.newDashboardUrl("client-properties"))
   }
 
-  def pendingRepresentationRequest(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+  def getMyClientsPropertyLinkRequests(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
       reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
         if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size == 0) {
@@ -85,7 +85,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
     }
   }
 
-  def confirm(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+  def submitMyClientsPropertyLinkRequestResponse(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     BulkActionsForm.form.bindFromRequest().fold(
       errors => {
         withValidPagination(page, pageSize) { pagination =>
@@ -100,21 +100,22 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
         }
       },
       data => {
-        if (data.action == "reject") {
-          Future.successful(Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form)))
-        } else {
-          withValidPagination(page, pageSize) { pagination =>
-            reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
-              val futureListOfSuccesses = getFutureListOfActions(data, request.personId).map(_.filter(_.isSuccess))
-              futureListOfSuccesses.map(successes =>
-                routePendingRequests(successes.size, data.copy(action = "accept-confirm"), pagination, reprs)(request))
+        data.action match {
+          case "reject" => Future.successful(Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form)))
+          case "accept" =>
+            withValidPagination(page, pageSize) { pagination =>
+              reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
+                val futureListOfSuccesses = getFutureListOfActions(data, request.personId).map(_.filter(_.isSuccess))
+                futureListOfSuccesses.map(successes =>
+                  routePendingRequests(successes.size, data.copy(action = "accept-confirm"), pagination, reprs)(request))
+              }
             }
-          }
-        }
+         }
       })
   }
 
-  def cancel(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
+  def cancel(page: Int, pageSize: Int): Action[AnyContent] = authenticated.asAgent { implicit request =>
+
     BulkActionsForm.form.bindFromRequest().fold(
       errors => {
         withValidPagination(page, pageSize) { pagination =>
@@ -194,19 +195,15 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
     }
 
     if (data.action.toLowerCase == "accept-confirm") {
-      Ok(views.html.propertyRepresentation.requestAccepted(
-        BulkActionsForm.form,
-        getModel))
+      Ok(views.html.propertyrepresentation.requestAccepted(BulkActionsForm.form, getModel))
     } else if (data.action.toLowerCase == "reject-confirm") {
-      Ok(views.html.propertyRepresentation.requestRejected(
-        BulkActionsForm.form,
-        getModel))
+      Ok(views.html.propertyrepresentation.requestRejected(BulkActionsForm.form, getModel))
     } else if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size > 0) {
       Ok(views.html.dashboard.pendingPropertyRepresentations(
         BulkActionsForm.form,
         getModel))
     } else if (reprs.totalPendingRequests > 0) {
-      Redirect(routes.RepresentationController.pendingRepresentationRequest(
+      Redirect(routes.RepresentationController.getMyClientsPropertyLinkRequests(
         Math.max(1, pagination.pageNumber - 1), pagination.pageSize))
     } else {
       Redirect(routes.RepresentationController.viewClientProperties())
@@ -225,7 +222,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
 
   def revokeClient(authorisationId: Long, clientOrganisationId: Long) = authenticated.asAgent { implicit request =>
     propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id) map {
-      case Some(property) => Ok(views.html.propertyRepresentation.revokeClient(property))
+      case Some(property) => Ok(views.html.propertyrepresentation.revokeClient(property))
       case None => notFound
     }
   }

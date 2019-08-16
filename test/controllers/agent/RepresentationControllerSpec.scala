@@ -42,62 +42,6 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     StubPropertyLinkConnector
   )
 
-  "confirm" should "allow the user to confirm that they want to reject the pending representation requests" in {
-    stubLoggedInUser()
-    val clientProperty: ClientProperty = arbitrary[ClientProperty]
-    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
-
-    StubPropertyLinkConnector.stubClientProperty(clientProperty)
-
-    val res = TestController.confirm(1, 15)(request.withFormUrlEncodedBody(
-      "page" -> "1",
-      "pageSize" -> "15",
-      "action" -> "reject",
-      "requestIds[]" -> "1",
-      "complete" -> "3"
-    ))
-
-    status(res) mustBe OK
-  }
-
-  "confirm" should "allow the user to confirm that they want to accept the pending representation requests" in {
-    stubLoggedInUser()
-    val clientProperty: ClientProperty = arbitrary[ClientProperty]
-    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
-    val propReps: PropertyRepresentations = PropertyRepresentations(1l, Seq(propRep))
-
-    StubPropertyLinkConnector.stubClientProperty(clientProperty)
-
-    val res = TestController.confirm(1, 15)(request.withFormUrlEncodedBody(
-      "page" -> "1",
-      "pageSize" -> "15",
-      "action" -> "accept-confirm",
-      "requestIds[]" -> "1",
-      "complete" -> "3"
-    ))
-
-    status(res) mustBe OK
-  }
-
-  "confirm" should "throw Bad Request if the form has errors" in {
-    stubLoggedInUser()
-    val clientProperty: ClientProperty = arbitrary[ClientProperty]
-    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
-    val propReps: PropertyRepresentations = PropertyRepresentations(1l, Seq(propRep))
-
-    StubPropertyLinkConnector.stubClientProperty(clientProperty)
-
-    val res = TestController.confirm(1, 15)(request.withFormUrlEncodedBody(
-      "page" -> "",
-      "pageSize" -> "",
-      "action" -> "",
-      "requestIds[]" -> "1",
-      "complete" -> ""
-    ))
-
-    status(res) mustBe BAD_REQUEST
-  }
-
   "cancel" should "allow the user to cancel accepting/rejecting the pending representation requests" in {
     stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]

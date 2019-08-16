@@ -32,6 +32,8 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
+import play.api.test.Helpers._
+import services.BusinessRatesAttachmentService
 import uk.gov.hmrc.circuitbreaker.{CircuitBreakerConfig, UnhealthyServiceException}
 import utils._
 
@@ -42,10 +44,8 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class UploadRatesBillSpec extends VoaPropertyLinkingSpec with FileUploadTestHelpers {
 
-  override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
-  val fileMetadata = FileMetadata(Some("OTHER"), Some(Lease))
-  lazy val mockFileUploadConnector = mock[FileUploadConnector]
-  when(mockFileUploadConnector.getFileMetadata(any())(any())).thenReturn(Future.successful(fileMetadata))
+  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
+
 
   "Upload Rates Bill upload page" must "contain a file input" in {
     val html = HtmlPage(uploadRatesBillPage)
@@ -59,25 +59,14 @@ class UploadRatesBillSpec extends VoaPropertyLinkingSpec with FileUploadTestHelp
     val evidenceType = html.select("input[type=hidden][name=evidenceType]").asScala.filterNot(csrfToken).head
     evidenceType.`val`() mustBe "ratesBill"
   }
-
-  it must "submit to the file upload service, with valid success and failure callback URLs" in {
-    val html = uploadRatesBillPage
-    val successUrl = routes.UploadRatesBill.fileUploaded().absoluteURL()
-    val failureUrl = "http://localhost:9523/business-rates-property-linking/upload-rates-bill"
-
-    val formTarget = html.select("form").attr("action")
-    formTarget must fullyMatch regex s"http://localhost:8899/file-upload/upload/envelopes/$envelopeId/files/(.*?)?redirect-success-url=$successUrl&redirect-error-url=$failureUrl"
-  }
-
   it must "display an error if the user uploads a file over 10MB" in {
-    val linkingSession = arbitrary[LinkingSession].copy(envelopeId = envelopeId)
+    val linkingSession = arbitrary[LinkingSession]
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
-    val res = TestUploadRatesBill.show(errorCode = Some(REQUEST_ENTITY_TOO_LARGE), None)(request)
-    status(res) mustBe REQUEST_ENTITY_TOO_LARGE
-
+    val res = TestUploadRatesBill.show()(request)
+    status(res) mustBe OK
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=ratesBill] span.error-message").text mustBe "File size must be less than 10MB"
+    html.select()
   }
 
   it must "display an error if the user uploads a file which is not a PDF or JPEG" in {
@@ -117,19 +106,9 @@ class UploadRatesBillSpec extends VoaPropertyLinkingSpec with FileUploadTestHelp
   implicit lazy val hc = HeaderCarrier()
   lazy val wsHttp = app.injector.instanceOf[VPLHttp]
 
-  lazy val envConnectorStub = new EnvelopeConnector(StubServicesConfig, wsHttp) {
-    override def closeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
-      Future.successful(envelopeId)
-    }
-
-    override def storeEnvelope(envelopeId: String)(implicit hc: HeaderCarrier): Future[String] = {
-      Future.successful(envelopeId)
-    }
-  }
-
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  object TestUploadRatesBill extends UploadRatesBill( withLinkingSession, unbreakableCircuit, mockFileUploadConnector)
+  object TestUploadRatesBill extends UploadRatesBill(preAuthenticatedActionBuilders(), withLinkingSession, mockBusinessRatesAttachmentService)
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
@@ -138,13 +117,4 @@ class UploadRatesBillSpec extends VoaPropertyLinkingSpec with FileUploadTestHelp
     f
   }
 
-  lazy val envelopeId: String = shortString
-
-  lazy val unbreakableCircuit = new FileUploadCircuitBreaker(mock[CircuitBreakerConfig], mock[FileUploadConnector]) {
-    override def apply[T](f: => Future[T])(implicit hc: HeaderCarrier): Future[T] = f
-  }
-
-  lazy val brokenCircuit = new FileUploadCircuitBreaker(mock[CircuitBreakerConfig], mock[FileUploadConnector]) {
-    override def apply[T](f: => Future[T])(implicit hc: HeaderCarrier) = Future.failed(new UnhealthyServiceException("file upload isn't feeling well"))
-  }
 }

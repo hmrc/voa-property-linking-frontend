@@ -35,7 +35,7 @@
   </appender>
 
 
-  <logger name="accesslog" level="INFO" additivity="false">
+  <logger name="accesslog" level="DEBUG" additivity="false">
     <appender-ref ref="ACCESS_LOG_FILE" />
   </logger>
 
@@ -43,15 +43,23 @@
     <appender-ref ref="STDOUT_IGNORE_NETTY" />
   </logger>
 
-  <logger name="uk.gov" level="DEBUG"/>
+  <logger name="play.core.netty" level="ERROR"/>
+
+  <logger name="org.asynchttpclient.netty" level="ERROR"/>
+
+  <logger name="reactivemongo" level="WARN"/>
+
+  <logger name="uk.gov" level="TRACE"/>
+
+  <logger name="actions" level="TRACE"/>
 
   <logger name="application" level="DEBUG"/>
 
-  <logger name="connector" level="INFO">
+  <logger name="connector" level="DEBUG">
     <appender-ref ref="STDOUT"/>
   </logger>
 
-  <root level="INFO">
+  <root level="DEBUG">
     <appender-ref ref="FILE"/>
     <appender-ref ref="STDOUT"/>
   </root>

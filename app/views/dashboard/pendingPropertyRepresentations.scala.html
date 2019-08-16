@@ -40,7 +40,7 @@
         <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
     } else {
 
-        @form(controllers.agent.routes.RepresentationController.confirm(model.pagination.pageNumber, model.pagination.pageSize)) {
+        @form(controllers.agent.routes.RepresentationController.submitMyClientsPropertyLinkRequestResponse(model.pagination.pageNumber, model.pagination.pageSize)) {
             <input type="hidden" name="page" value="@model.pagination.pageNumber">
             <input type="hidden" name="pageSize" value="@model.pagination.pageSize">
             <input type="hidden" name="pending" value="@model.pagination.totalResults">
@@ -118,13 +118,13 @@
             <div role="navigation" aria-label="Pagination" class="pull-right paginate_block">
                 <ul class="pagination paginate_button">
                     @if(model.pagination.pageNumber > 1) {
-                        <li class="previous"></i><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
+                        <li class="previous"></i><a href="@agent.routes.RepresentationController.getMyClientsPropertyLinkRequests(model.pagination.pageNumber - 1, model.pagination.pageSize).url"><i class="previous-arrow"></i>Previous</a></li>
                     }else{
                         <li class="previous disabled"><i class="previous-arrow"></i>Previous</li>
                     }
                     <li class="active">@model.pagination.pageNumber</li>
                     @if(model.pagination.totalResults > model.pagination.startPoint + model.pagination.pageSize - 1) {
-                        <li class="next"><a href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
+                        <li class="next"><a href="@agent.routes.RepresentationController.getMyClientsPropertyLinkRequests(model.pagination.pageNumber + 1, model.pagination.pageSize).url">Next<i class="next-arrow"></i></a></li>
                     }else{
                         <li class="next disabled">Next<i class="next-arrow"></i></li>
                     }
@@ -140,7 +140,7 @@
                         <span class="page-size-option-current">@len</span>
                     } else {
                         <a class="page-size-option"
-                        href="@agent.routes.RepresentationController.pendingRepresentationRequest(model.pagination.pageNumber, len).url">
+                        href="@agent.routes.RepresentationController.getMyClientsPropertyLinkRequests(model.pagination.pageNumber, len).url">
                         @len</a>
                     }
                 }
