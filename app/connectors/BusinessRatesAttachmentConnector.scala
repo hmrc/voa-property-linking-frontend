@@ -20,7 +20,7 @@ import javax.inject.{Inject, Singleton}
 
 import config.WSHttp
 import models.attachment.InitiateAttachmentRequest
-import models.attachment.SubmissionTypesValues.ChallengeCaseEvidence
+import models.attachment.SubmissionTypesValues.PropertyLinkEvidence
 import models.upscan.PreparedUpload
 import play.api.Logger
 import play.api.libs.json.{JsObject, JsString, Json}
@@ -46,7 +46,7 @@ class BusinessRatesAttachmentConnector @Inject()(val  http: WSHttp)(implicit val
   def submitFile(fileReference: String, submissionId: String)(
     implicit headerCarrier: HeaderCarrier): Future[Option[Attachment]] = {
     http.PATCH[JsObject, Attachment](s"$baseURL/business-rates-attachments/attachments/${fileReference}",
-      Json.obj(ChallengeCaseEvidence.submissionId.toString -> JsString(submissionId))).map(Some.apply).recover {
+      Json.obj(PropertyLinkEvidence.submissionId.toString -> JsString(submissionId))).map(Some.apply).recover {
       case ex: Exception =>
         Logger.warn(s"File Submission failed for File Reference: ${fileReference} Response body: ${ex.printStackTrace()}")
         None

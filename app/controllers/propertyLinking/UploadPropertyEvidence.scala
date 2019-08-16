@@ -17,34 +17,36 @@
 package controllers.propertyLinking
 
 import javax.inject.Inject
-
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors.FileAttachmentFailed
 import controllers._
-import models.{FileInfo, RatesBillFlag, RatesBillType, UploadEvidenceData}
+import form.{EnumMapping}
+import form.Mappings._
 import models.attachment.InitiateAttachmentRequest
 import models.attachment.SubmissionTypesValues.PropertyLinkEvidence
+import models._
 import play.api.Logger
+import play.api.data.Form
+import play.api.data.Forms._
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json._
-import play.api.mvc.Results._
 import play.api.mvc.{Action, Request}
 import services.BusinessRatesAttachmentService
 import session.WithLinkingSession
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.controller.BaseController
 import uk.gov.hmrc.play.frontend.controller.Utf8MimeTypes
-import views.html.propertyLinking.uploadRatesBill
+import views.helpers.Errors
+import views.html.propertyLinking.uploadEvidence
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
-class UploadRatesBill @Inject()(authenticated: AuthenticatedAction, val withLinkingSession: WithLinkingSession, businessRatesAttachmentService: BusinessRatesAttachmentService)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+class UploadPropertyEvidence @Inject()(authenticated: AuthenticatedAction, val withLinkingSession: WithLinkingSession, businessRatesAttachmentService: BusinessRatesAttachmentService)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with BaseController with Utf8MimeTypes {
 
   def show() = withLinkingSession { implicit request =>
-    Ok(
-      uploadRatesBill(request.ses.submissionId, List.empty, request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty)))}
+    Ok(uploadEvidence(request.ses.submissionId, List.empty, request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty), form))}
 
 
   def initiate(): Action[JsValue] = authenticated.async(parse.json) { implicit request  =>
@@ -82,21 +84,25 @@ class UploadRatesBill @Inject()(authenticated: AuthenticatedAction, val withLink
 
      for{
         - <- businessRatesAttachmentService.persistSessionData(request.ses, request.ses.uploadEvidenceData.copy( attachments = updatedSessionData))
-      }yield (Ok(uploadRatesBill(request.ses.submissionId, List.empty, updatedSessionData.getOrElse(Map()))))
+      }yield (Ok(uploadEvidence(request.ses.submissionId, List.empty, updatedSessionData.getOrElse(Map()), form)))
   }
 
 
   def continue() = withLinkingSession { implicit request =>
     implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
     request.ses.uploadEvidenceData.attachments match {
-        case Some(fileData) if fileData.size > 0 =>
-          val sessionUploadData: UploadEvidenceData =
-            request.ses.uploadEvidenceData.copy(linkBasis = RatesBillFlag, fileInfo = request.ses.uploadEvidenceData.fileInfo.map(x => x.copy(evidenceType = RatesBillType)))
-          businessRatesAttachmentService.persistSessionData(request.ses, sessionUploadData).map(x => Redirect(routes.Declaration.show().url))
-        case _ =>
-          BadRequest(uploadRatesBill(request.ses.submissionId, List("error.businessRatesAttachment.file.not.selected"), Map()))
+      case Some(fileData) if fileData.size > 0 => {
+        form.bindFromRequest().fold(
+          errors => BadRequest(uploadEvidence(request.ses.submissionId, List("error.businessRatesAttachment.evidence.not.selected"), request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty), form)),
+          formData => {
+            val sessionUploadData: UploadEvidenceData =
+              request.ses.uploadEvidenceData.copy(linkBasis = OtherEvidenceFlag, fileInfo = request.ses.uploadEvidenceData.fileInfo.map(x => x.copy(evidenceType = EvidenceType.fromName(formData.name).get)))
+            businessRatesAttachmentService.persistSessionData(request.ses, sessionUploadData).map(x => Redirect(routes.Declaration.show().url))
+          })
       }
+      case _ =>
+        BadRequest(uploadEvidence(request.ses.submissionId, List("error.businessRatesAttachment.file.not.selected"), Map(), form))
+    }
   }
-
-
+  lazy val form = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
 }

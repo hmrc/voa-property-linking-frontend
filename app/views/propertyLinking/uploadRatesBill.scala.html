@@ -40,12 +40,27 @@
                     </ul>
 
                     <br />
+                    <div id="errorsList">
+
+                    </div>
+                    @if(errors.nonEmpty) {
+                        <div class="error-summary error-summary--show" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+
+                            <h2 class="heading-medium error-summary-heading" id="error-summary-heading">@messages("error.summary.title")</h2>
+                            <p>@messages("error.summary.text")</p>
+                            <ul class="error-summary-list">
+                            @errors.map { error =>
+                                <li>@messages(error)</li>
+                            }
+                            </ul>
+                        </div>
+                    }
 
                     @form(action = UploadRatesBill.initiate(), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
 
                         <div>
 
-                            @if(uploadedFiles.size < 9){
+                            @if(uploadedFiles.size < 1){
                                 <div id="newFileGroup" class="form-group  ">
                                     <label class="" for="newFile">
                                         <span class="label-span visuallyhidden">Choose file to upload</span>
@@ -65,7 +80,7 @@
                                 <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
 
                                 <span class="upload-list-file-remove">
-                                    <button type="submit" class="button-link" formaction="@UploadRatesBill.removeFile(fileReference)">@Messages("remove.file")</button>
+                                    <button type="submit" class="button-link jFiler-item-trash-action" formaction="@UploadRatesBill.removeFile(fileReference)">@Messages("remove.file")</button>
                             </span>
                             </li>
                             }
@@ -75,9 +90,13 @@
 
                     }
 
+                    @form(action = UploadRatesBill.continue()) {
                         <p>
                             <button id="uploadFile" class="button">@Messages("uploadRatesBill.show.button")</button>
                         </p>
+                    }
+
+
 
                 </div>
             </div>

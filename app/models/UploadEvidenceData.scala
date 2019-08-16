@@ -17,11 +17,11 @@
 package models
 
 import models.upscan.UploadedFileDetails
-import play.api.libs.json.Json
+import play.api.libs.json._
 
-case class LinkingSession(address: String, uarn: Long, envelopeId: String, submissionId: String, personId: Long,
-                          declaration: CapacityDeclaration, uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty)
+case class UploadEvidenceData(linkBasis: LinkBasis = NoEvidenceFlag, fileInfo:  Option[FileInfo] = None, attachments: Option[Map[String, UploadedFileDetails]] = Some(Map()))
 
-object LinkingSession {
-  implicit val format = Json.format[LinkingSession]
+object UploadEvidenceData {
+  implicit val format = Json.format[UploadEvidenceData]
+  val empty = UploadEvidenceData()
 }

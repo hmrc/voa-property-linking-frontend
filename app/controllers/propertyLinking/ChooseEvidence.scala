@@ -38,7 +38,7 @@ class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession)
       errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)),
       {
         case true => Redirect(routes.UploadRatesBill.show())
-        case false => Redirect(routes.UploadEvidence.show())
+        case false => Redirect(routes.UploadPropertyEvidence.show())
       }
     )
   }

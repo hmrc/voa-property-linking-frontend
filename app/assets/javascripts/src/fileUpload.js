@@ -42,6 +42,10 @@
                 crossDomain: false,
                 cache: false
             }).error(function(jqXHR, textStatus, errorThrown ){
+                alert(jqXHR.status);
+                alert(jqXHR.error);
+                alert(errorThrown.toString());
+                
                 if(jqXHR.status == 400) {
                     $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsBusinessRatesAttachmentUnsupportedFiles').text()+'</li>'));
                     $('#message-warning').remove();
@@ -51,6 +55,9 @@
                 }
 
             }).done(function(data, statusText, resObject) {
+                alert(data);
+                alert(statusText);
+                alert(resObject.toSource);
                 fileUpload(resObject.responseJSON, file, csrfToken);
                 $('#message-warning').remove();
             });

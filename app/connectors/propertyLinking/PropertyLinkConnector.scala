@@ -56,7 +56,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
     http.GET[Option[PropertyLink]](url)
   }
 
-  def linkToProperty(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
+  def linkToProperty()(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
     implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.request.headers, Some(request.request.session))
     val url = s"$baseUrl/property-links"
     val linkRequest = PropertyLinkRequest(
@@ -65,8 +65,8 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
       request.ses.personId,
       Capacity.fromDeclaration(request.ses.declaration),
       Instant.now,
-      data.linkBasis,
-      data.fileInfo.toSeq,
+      request.ses.uploadEvidenceData.linkBasis,
+      request.ses.uploadEvidenceData.fileInfo.toSeq,
       request.ses.submissionId
     )
     http.POST[PropertyLinkRequest, HttpResponse](url, linkRequest) map { _ => () }

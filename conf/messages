@@ -1162,10 +1162,14 @@ challengeRules.rules.paper=If no valid check cases are shown but you still think
 timeout.dialog.title = You are about to be timed out
 
 ##Business rate attachments
+remove.file=Remove file
+error.summary.title=There’s been a problem
+error.summary.text=Check the following
 error.businessRatesAttachment.unavailable=Cannot upload documents - please try again later.
 error.upscan.unavailable=Cannot upload documents - please try again later.
 error.businessRatesAttachment.file.size.exceed.max.limit=Size of uploaded file is exceeded Max Limit 10MB, Please upload different file size less than 10MB.
+error.businessRatesAttachment.evidence.not.selected=Please select evidence type
 error.businessRatesAttachment.file.not.selected=Please select file you want to upload.
 error.businessRatesAttachment.does.not.support.file.types=Only Word, Excel, PDF and JPEG files can be accepted and maximum file size is 10MB
-businessRatesAttachment.file.size.reached.max.limit=You have uploaded 9 file(s), the maximum allowable limit
+businessRatesAttachment.file.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit
 fileupload.support.documents.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit

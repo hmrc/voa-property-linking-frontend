@@ -6,10 +6,16 @@
   cursor: pointer;
   text-decoration: underline;
   color: $link-colour;
+  box-shadow: none;
+  &:focus{
+    color: $link-colour;
+    outline: 3px solid #ffbf47;
+  }
 }
 .button-link:hover{
   color: $link-hover-colour;
 }
+
 
 .button-secondary{
   @include button($grey-3);

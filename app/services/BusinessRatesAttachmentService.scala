@@ -22,7 +22,7 @@ import actions.BasicAuthenticatedRequest
 import auditing.AuditingService
 import config.Global
 import connectors.{BusinessRatesAttachmentConnector, InvalidGGSession}
-import models.LinkingSession
+import models._
 import models.attachment.InitiateAttachmentRequest
 import models.upscan.{FileMetadata, PreparedUpload, UploadedFileDetails}
 import play.api.Logger
@@ -46,8 +46,8 @@ class BusinessRatesAttachmentService @Inject()(
     for {
       linkSession  <- getSessionData()
       initiateAttachmentResult <- businessRatesAttachmentConnector.initiateAttachmentUpload(initiateAttachmentRequest)
-      updatedSessionData = updateSessionData(linkSession.updateBillsFiles, initiateAttachmentRequest, initiateAttachmentResult)
-      _ <- persistSessionData(linkSession, Some(updatedSessionData))
+      updatedSessionData = updateSessionData(linkSession.uploadEvidenceData, initiateAttachmentRequest, initiateAttachmentResult)
+      _ <- persistSessionData(linkSession, updatedSessionData)
     } yield {
         AuditingService.sendEvent("property link rates bill upload", Json.obj(
           "organisationId" -> request.organisationId,
@@ -59,15 +59,21 @@ class BusinessRatesAttachmentService @Inject()(
     }
   }
 
-  def updateSessionData(sessionData: Option[Map[String, UploadedFileDetails]],
+
+  def updateSessionData(sessionUploadEvidenceData: UploadEvidenceData,
                         initiateAttachmentRequest: InitiateAttachmentRequest,
-                        initiateAttachmentResult: PreparedUpload): Map[String, UploadedFileDetails] = {
-     sessionData.getOrElse(Map()) +
-      (initiateAttachmentResult.reference.value -> UploadedFileDetails(FileMetadata(initiateAttachmentRequest.fileName, initiateAttachmentRequest.mimeType), initiateAttachmentResult))
+                        initiateAttachmentResult: PreparedUpload, linkBasis: LinkBasis = NoEvidenceFlag, evidenceType: EvidenceType = RatesBillType): UploadEvidenceData = {
+      sessionUploadEvidenceData.copy(linkBasis = linkBasis,
+        fileInfo = Some(FileInfo(initiateAttachmentRequest.fileName, evidenceType)),
+        attachments = Some(Map((initiateAttachmentResult.reference.value -> UploadedFileDetails(FileMetadata(initiateAttachmentRequest.fileName, initiateAttachmentRequest.mimeType), initiateAttachmentResult))))
+      )
   }
 
-  def persistSessionData(linkingSession: LinkingSession, updatedSessionData: Option[Map[String, UploadedFileDetails]])(implicit hc: HeaderCarrier) = {
-    sessionRepository.saveOrUpdate[LinkingSession](linkingSession.copy(updateBillsFiles = updatedSessionData))
+
+
+
+  def persistSessionData(linkingSession: LinkingSession, updatedSessionData: UploadEvidenceData)(implicit hc: HeaderCarrier) = {
+    sessionRepository.saveOrUpdate[LinkingSession](linkingSession.copy( uploadEvidenceData= updatedSessionData))
   }
 
   def getSessionData()(implicit hc: HeaderCarrier) = {
@@ -82,7 +88,11 @@ class BusinessRatesAttachmentService @Inject()(
 
   def submitFiles(submissionId: String, uploadedFilesData: Option[Map[String, UploadedFileDetails]])(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): Future[List[Option[Attachment]]] = {
     Future.traverse(uploadedFilesData.getOrElse(Map()).keys){ uploadedFile =>
-     // auditingService.auditChallengeMetaData(submissionId, request.path)
+
+      AuditingService.sendEvent("property link evidence upload", Json.obj(
+        "ggGroupId" -> request.groupAccount.groupId,
+        "ggExternalId" -> request.individualAccount.externalId,
+        "propertyLinkSubmissionId" -> request.ses.submissionId))
       businessRatesAttachmentConnector.submitFile(uploadedFile, submissionId)
     }.map(_.toList)
   }
