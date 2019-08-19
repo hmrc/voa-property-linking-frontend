@@ -52,8 +52,8 @@
 
 @evaluateRoute(t: String) = {
     @{if(owner) {
-        controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId, model.valuationId, model.valuation).url
+        controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId, model.valuationId, t).url
     } else {
-        controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId, model.valuationId, model.check).url
+        controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId, model.valuationId, t).url
     }}
 }
