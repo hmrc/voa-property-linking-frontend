@@ -17,7 +17,6 @@
 package utils
 
 import binders.propertylinks.GetPropertyLinksParameters
-import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{Pagination, PaginationParams, PaginationSearchSort}
 import models.OwnerOrAgent.OwnerOrAgent
@@ -39,7 +38,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
 
   def stubOwnerAuthResult(reps: OwnerAuthResult) = { stubbedOwnerAuthResult = reps }
 
-  override def createPropertyLink(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
+  override def createPropertyLink()(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
   override def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters,
                                     pagination: PaginationParams,
@@ -55,14 +54,6 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
                                             (implicit hc: HeaderCarrier) = {
     Future.successful(stubbedOwnerAuthResult)
   }
-
-//  override def get(organisationId: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
-//    stubbedLinks.find(x => {x.authorisationId == authorisationId})
-//  }
-//
-//  override def getLink(linkId: Long)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = Future.successful {
-//    stubbedLinks.find(_.authorisationId == linkId)
-//  }
 
   override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {
     stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId)

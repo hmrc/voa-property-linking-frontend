@@ -60,7 +60,6 @@ GET         /summary                                                            
 POST        /summary                                                                          @controllers.propertyLinking.Declaration.submit(noEvidenceFlag: Option[Boolean] ?= None)
 
 GET         /confirmation                                                                     @controllers.propertyLinking.Declaration.confirmation
-GET         /confirmation/no-evidence                                                         @controllers.propertyLinking.Declaration.noEvidence
 
 #Linking outcomes
 POST        /rates-bill-initiate                                                              @controllers.propertyLinking.UploadRatesBill.initiate()

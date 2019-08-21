@@ -110,21 +110,13 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
     html.body().text must include (linkingSession.submissionId)
   }
 
-  it should "display the no evidence confirmation page when the user has not uploaded any evidence" in {
+  it should "display the declaration page when the user has not selected confirm tick box" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
     when(mockBusinessRatesAttachmentService.submitFiles(any[String], any[Option[Map[String, UploadedFileDetails]]])(any[LinkingSessionRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(List(Some(attachment))))
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
-    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Declaration.noEvidence().url)
-
-    val confirmation = TestDeclaration.noEvidence()(FakeRequest())
-    status(confirmation) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(confirmation))
-    html.title mustBe "We’re sorry, but you can’t proceed with this form."
-    html.body().text must include (linkingSession.submissionId)
+    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "false"))
+    status(res) mustBe BAD_REQUEST
   }
 
   "The confirmation page" should "display the submission ID" in {

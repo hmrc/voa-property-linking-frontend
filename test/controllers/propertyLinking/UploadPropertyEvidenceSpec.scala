@@ -23,26 +23,24 @@ import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
-import play.api.libs.json.{JsString, Json}
+import play.api.libs.json.Json
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
+import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
-import controllers.propertyLinking.routes._
-import play.api.mvc.AnyContentAsEmpty
-import play.api.test.Helpers._
 import services.BusinessRatesAttachmentService
-import utils._
-import akka.stream.Materializer
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
+import utils._
 
-class UploadRatesBillSpec extends VoaPropertyLinkingSpec with FakeObjects{
+import scala.concurrent.Future
+
+class UploadPropertyEvidenceSpec extends VoaPropertyLinkingSpec with FakeObjects{
   def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
   def controller() =
-    new UploadRatesBill(preAuthenticatedActionBuilders(), withLinkingSession, mockBusinessRatesAttachmentService)
+    new UploadPropertyEvidence(preAuthenticatedActionBuilders(), withLinkingSession, mockBusinessRatesAttachmentService)
 
 
   it should  "return file upload initiate success" in {
@@ -72,11 +70,18 @@ class UploadRatesBillSpec extends VoaPropertyLinkingSpec with FakeObjects{
       withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
       val request = FakeRequest(POST, "").withBody()
       val postRequest = request.withFormUrlEncodedBody()
-
       val result = controller().continue()(postRequest)
-
       status(result) mustBe BAD_REQUEST
     }
+
+  it should  "show error if no evidence selected" in {
+    val linkingSession = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
+    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    val request = FakeRequest(POST, "").withBody()
+    val postRequest = request.withFormUrlEncodedBody()
+    val result = controller().continue()(postRequest)
+    status(result) mustBe BAD_REQUEST
+  }
 
   it should  "show next Page if files selected" in {
       val linkingSession = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
@@ -84,17 +89,17 @@ class UploadRatesBillSpec extends VoaPropertyLinkingSpec with FakeObjects{
      when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
 
     val request = FakeRequest(POST, "").withBody()
-      val postRequest = request.withFormUrlEncodedBody()
+      val postRequest = request.withFormUrlEncodedBody("evidenceType" -> "ratesBill")
       val result = controller().continue()(postRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.Declaration.show().url)
     }
 
 
-  lazy val uploadRatesBillPage = {
+  lazy val uploadPropertyEvidence = {
     val linkingSession = arbitrary[LinkingSession]
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
-    val res = TestUploadRatesBill.show()(request)
+    val res = TestUploadPropertyEvidence.show()(request)
     status(res) mustBe OK
     val html = Jsoup.parse(contentAsString(res))
     html.select("h1.heading-xlarge").text mustBe "Submit a copy of your business rates bill"
@@ -107,7 +112,7 @@ class UploadRatesBillSpec extends VoaPropertyLinkingSpec with FakeObjects{
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  object TestUploadRatesBill extends UploadRatesBill(preAuthenticatedActionBuilders(), withLinkingSession, mockBusinessRatesAttachmentService)
+  object TestUploadPropertyEvidence extends UploadPropertyEvidence(preAuthenticatedActionBuilders(), withLinkingSession, mockBusinessRatesAttachmentService)
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

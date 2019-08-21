@@ -20,6 +20,7 @@ import javax.inject.Inject
 
 import config.{AuthorisationFailed, WSHttp}
 import models.{Accounts, PropertyLink, PropertyLinkIds}
+import play.api.Logger
 import play.api.libs.json._
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.http.ForbiddenException
@@ -32,8 +33,10 @@ class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp)
   val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
 
+  val logger = Logger(this.getClass.getName)
 
   def authenticate(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
+    logger.debug("authenticate called")
     http.GET[Accounts](s"$url/authenticate") map {
       Authenticated
     } recover {

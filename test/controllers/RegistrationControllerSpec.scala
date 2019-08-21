@@ -38,8 +38,6 @@ import scala.concurrent.Future
 
 class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
-  lazy val mockEnrolmentService = mock[EnrolmentService]
-
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
     when(f.start(any())(any(), any())
@@ -49,32 +47,6 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     f
   }
 
-  val testIndividualInfo = UserInfo(firstName = Some("Bob"),
-    lastName = Some("Smith"),
-    email = "bob@smith.com",
-    postcode = Some("AB12 3CD"),
-    groupIdentifier = "GroupIdenfifier",
-    affinityGroup = AffinityGroup.Individual,
-    gatewayId = "",
-    credentialRole = User)
-
-  val testOrganisationInfo = UserInfo(firstName = Some("Bob"),
-    lastName = Some("Smith"),
-    email = "bob@smith.com",
-    postcode = Some("AB12 3CD"),
-    groupIdentifier = "GroupIdenfifier",
-    affinityGroup = AffinityGroup.Organisation,
-    gatewayId = "",
-    credentialRole = Admin)
-
-  val testAgentInfo = UserInfo(firstName = Some("Bob"),
-    lastName = Some("Smith"),
-    email = "bob@smith.com",
-    postcode = Some("AB12 3CD"),
-    groupIdentifier = "GroupIdenfifier",
-    affinityGroup = AffinityGroup.Agent,
-    gatewayId = "",
-    credentialRole = Admin)
 
   val mockIdentityVerificationService = mock[IdentityVerificationService]
 

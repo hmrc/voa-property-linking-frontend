@@ -73,7 +73,7 @@ class BusinessRatesAttachmentService @Inject()(
 
 
   def persistSessionData(linkingSession: LinkingSession, updatedSessionData: UploadEvidenceData)(implicit hc: HeaderCarrier) = {
-    sessionRepository.saveOrUpdate[LinkingSession](linkingSession.copy( uploadEvidenceData= updatedSessionData))
+    sessionRepository.saveOrUpdate[LinkingSession](linkingSession.copy( uploadEvidenceData = updatedSessionData))
   }
 
   def getSessionData()(implicit hc: HeaderCarrier) = {

@@ -35,12 +35,15 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val request = FakeRequest().withSession(token)
   implicit val hc = HeaderCarrier()
-  
+  val validGroupAccount = arbitrary[GroupAccount].sample.get
+  val validIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
   object TestController extends RepresentationController(
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector
   )
+
+
 
   "cancel" should "allow the user to cancel accepting/rejecting the pending representation requests" in {
     stubLoggedInUser()

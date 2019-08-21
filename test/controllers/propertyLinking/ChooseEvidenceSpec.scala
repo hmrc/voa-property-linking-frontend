@@ -26,9 +26,12 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
+import services.BusinessRatesAttachmentService
+import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubWithLinkingSession}
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
 
@@ -38,8 +41,10 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
     ).thenReturn(Future.successful(()))
     f
   }
+  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
+
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
-  private class TestChooseEvidence (withLinkingSession: StubWithLinkingSession) extends ChooseEvidence(withLinkingSession) {
+  private class TestChooseEvidence (withLinkingSession: StubWithLinkingSession) extends ChooseEvidence(withLinkingSession, mockBusinessRatesAttachmentService) {
     val property = testProperty
   }
   private lazy val testChooseEvidence = new TestChooseEvidence(withLinkingSession)
@@ -50,6 +55,7 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
 
   "The choose evidence page" must "ask the user whether they have a rates bill" in {
     withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+    when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
 
     val res = testChooseEvidence.show()(request)
     status(res) mustBe OK
@@ -81,7 +87,7 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
 
     val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
     status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.UploadEvidence.show().url)
+    header("location", res) mustBe Some(routes.UploadPropertyEvidence.show().url)
   }
 
 }

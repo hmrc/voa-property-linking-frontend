@@ -32,14 +32,13 @@ import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.test.UnitSpec
-import utils.{NoMetricsOneAppPerSuite, StubAuth, StubAuthConnector}
-
+import utils.{NoMetricsOneAppPerSuite, StubAuthConnector}
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSuite {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
-
   "AuthenticatedAction" should {
     "invoke the wrapped action when the user is logged in to CCA" in {
       when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
@@ -118,36 +117,6 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
       redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
     }
 
-
-    "return a 400 response when the wrapped action throws a BadRequestException" in {
-      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
-
-      val res = testAction { _ =>
-        throw new BadRequestException("the request was bad")
-      }(FakeRequest())
-
-      status(res) shouldBe BAD_REQUEST
-    }
-
-    "return a 404 response when the wrapped action throws a NotFoundException" in {
-      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
-
-      val res = testAction { _ =>
-        throw new NotFoundException("not found")
-      }(FakeRequest())
-
-      status(res) shouldBe NOT_FOUND
-    }
-
-    "return a 500 response when the wrapped action throws any other unhandled exception" in {
-      when(mockAuth.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
-
-      val res = testAction { _ =>
-        throw new Exception("bad stuff happened")
-      }(FakeRequest())
-
-      status(res) shouldBe INTERNAL_SERVER_ERROR
-    }
   }
 
   lazy val testAction = new AuthenticatedAction(messageApi, mockGG, mockAuth, mockEnrolmentService, StubAuthConnector)

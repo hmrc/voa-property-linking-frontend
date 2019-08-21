@@ -43,17 +43,23 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
                                    )(implicit val messageApi: MessagesApi, config: ApplicationConfig, executionContext: ExecutionContext)
   extends ActionBuilder[BasicAuthenticatedRequest] with AuthorisedFunctions with I18nSupport{
 
+  val logger = Logger(this.getClass.getName)
+
   protected implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
   override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = {
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+    logger.debug("the request called invoke block")
     businessRatesAuthorisation.authenticate flatMap {
-      res => handleResult(res, block)(request, hc)
+      res =>
+        logger.debug("the request passed through business-rates-authorisation")
+        handleResult(res, block)(request, hc)
     }
   }
 
   def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages) = this.async { implicit request =>
     if (request.organisationAccount.isAgent) {
+      logger.debug("the request was successfully an agent. ")
       body(AgentRequest(request.organisationAccount, request.individualAccount, request.organisationAccount.agentCode, request))
     } else {
       Future.successful(Unauthorized("Agent account required"))

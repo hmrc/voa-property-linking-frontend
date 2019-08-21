@@ -93,7 +93,8 @@ class UploadPropertyEvidence @Inject()(authenticated: AuthenticatedAction, val w
     request.ses.uploadEvidenceData.attachments match {
       case Some(fileData) if fileData.size > 0 => {
         form.bindFromRequest().fold(
-          errors => BadRequest(uploadEvidence(request.ses.submissionId, List("error.businessRatesAttachment.evidence.not.selected"), request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty), form)),
+          errors =>
+            BadRequest(uploadEvidence(request.ses.submissionId, List("error.businessRatesAttachment.evidence.not.selected"), request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty), form)),
           formData => {
             val sessionUploadData: UploadEvidenceData =
               request.ses.uploadEvidenceData.copy(linkBasis = OtherEvidenceFlag, fileInfo = request.ses.uploadEvidenceData.fileInfo.map(x => x.copy(evidenceType = EvidenceType.fromName(formData.name).get)))

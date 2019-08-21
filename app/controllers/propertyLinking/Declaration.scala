@@ -47,8 +47,10 @@ class Declaration @Inject()(propertyLinks: PropertyLinkConnector,
 
   def submit(noEvidenceFlag: Option[Boolean] = None) = withLinkingSession { implicit request =>
       form.bindFromRequest().value match {
-        case Some(true) =>   submitLinkingRequest().map( x => Redirect (routes.Declaration.confirmation()))
-        case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
+        case Some(true) =>
+          submitLinkingRequest().map( x => Redirect (routes.Declaration.confirmation()))
+        case _ =>
+          BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
       }
   }
 
@@ -57,10 +59,6 @@ class Declaration @Inject()(propertyLinks: PropertyLinkConnector,
     sessionRepository.remove() map { _ =>
       Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
     }
-  }
-
-  def noEvidence = withLinkingSession { implicit request =>
-    sessionRepository.remove() map { _ => Ok(views.html.propertyLinking.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId))) }
   }
 
   private def submitLinkingRequest()(implicit request: LinkingSessionRequest[_]) = {

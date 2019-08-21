@@ -16,37 +16,40 @@
 
 package controllers
 
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import actions.{AgentRequest, AuthenticatedAction, BasicAuthenticatedRequest}
+import akka.stream.Materializer
 import auth.GovernmentGatewayProvider
 import connectors.{Addresses, BusinessRatesAuthorisation}
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
+import org.scalacheck.Arbitrary._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
-import play.api.i18n.MessagesApi
-import play.api.mvc.{Request, Result, WrappedRequest}
-import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
+import play.api.i18n.{Messages, MessagesApi}
+import play.api.mvc.Results._
+import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import services.EnrolmentService
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.play.config.ServicesConfig
 import utils._
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 trait VoaPropertyLinkingSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
-  with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with WSHTTPMock with ScalaFutures {
+  with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with WSHTTPMock with ScalaFutures with FakeObjects{
 
   val token = "Csrf-Token" -> "nocheck"
-
+  implicit def materializer: Materializer = app.injector.instanceOf[Materializer]
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
-
   def preAuthenticatedActionBuilders(
                                       externalId: String = "gg_external_id",
                                       groupId: String = "gg_group_id"
                                     ): AuthenticatedAction =
     new AuthenticatedAction(messageApi, mockGG, mockAuth, mockEnrolmentService, StubAuthConnector) {
       override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = {
-        block(BasicAuthenticatedRequest[A](mockGroupAccount, mockDetailedIndividualAccount, mock[Request[A]]))
+        block(BasicAuthenticatedRequest[A](groupAccount, detailedIndividualAccount, request))
       }
     }
 
@@ -61,7 +64,6 @@ trait VoaPropertyLinkingSpec extends FlatSpec with MustMatchers with FutureAwait
   lazy val mockDetailedIndividualAccount =  mock[DetailedIndividualAccount]
   lazy val mockGroupAccount = mock[GroupAccount]
   lazy val mockFakeRequest = mock[Request[_]]
-
 
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
