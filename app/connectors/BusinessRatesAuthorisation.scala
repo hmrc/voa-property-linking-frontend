@@ -36,7 +36,6 @@ class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp)
   val logger = Logger(this.getClass.getName)
 
   def authenticate(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
-    logger.debug("authenticate called")
     http.GET[Accounts](s"$url/authenticate") map {
       Authenticated
     } recover {

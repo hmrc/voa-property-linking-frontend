@@ -33,7 +33,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 @Singleton
-class BusinessRatesAttachmentConnector @Inject()(val  http: WSHttp)(implicit val appConfig: ServicesConfig, executionContext: ExecutionContext)
+class BusinessRatesAttachmentConnector @Inject()(val  http: WSHttp, val appConfig: ServicesConfig)(implicit executionContext: ExecutionContext)
   extends JsonHttpReads with OptionHttpReads with RawReads with AttachmentHttpErrorFunctions {
 
   val baseURL: String = appConfig.baseUrl("business-rates-attachments")
@@ -48,7 +48,7 @@ class BusinessRatesAttachmentConnector @Inject()(val  http: WSHttp)(implicit val
     http.PATCH[JsObject, Attachment](s"$baseURL/business-rates-attachments/attachments/${fileReference}",
       Json.obj(PropertyLinkEvidence.submissionId.toString -> JsString(submissionId))).map(Some.apply).recover {
       case ex: Exception =>
-        Logger.warn(s"File Submission failed for File Reference: ${fileReference} Response body: ${ex.printStackTrace()}")
+        Logger.warn(s"File Submission failed for File Reference: ${fileReference} Response body}", ex)
         None
     }
   }

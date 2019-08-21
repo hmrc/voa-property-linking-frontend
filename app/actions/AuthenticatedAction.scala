@@ -59,7 +59,6 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
 
   def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages) = this.async { implicit request =>
     if (request.organisationAccount.isAgent) {
-      logger.debug("the request was successfully an agent. ")
       body(AgentRequest(request.organisationAccount, request.individualAccount, request.organisationAccount.agentCode, request))
     } else {
       Future.successful(Unauthorized("Agent account required"))
@@ -96,7 +95,7 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
       case _: NoActiveSession =>
         provider.redirectToLogin
       case otherException =>
-        Logger.debug(s"Exception thrown on authorisation with message: ${otherException.getMessage}")
+        Logger.debug(s"Exception thrown on authorisation with message:", otherException)
         throw otherException
     }
 
