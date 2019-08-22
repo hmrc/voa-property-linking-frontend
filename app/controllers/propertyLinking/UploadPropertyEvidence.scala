@@ -42,49 +42,11 @@ import views.html.propertyLinking.uploadEvidence
 
 import scala.concurrent.Future
 
-class UploadPropertyEvidence @Inject()(authenticated: AuthenticatedAction, val withLinkingSession: WithLinkingSession, businessRatesAttachmentService: BusinessRatesAttachmentService)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
-  extends PropertyLinkingController with BaseController with Utf8MimeTypes {
+class UploadPropertyEvidence @Inject()(override val authenticated: AuthenticatedAction, override val withLinkingSession: WithLinkingSession, override val businessRatesAttachmentService: BusinessRatesAttachmentService)(implicit messagesApi: MessagesApi, config: ApplicationConfig)
+  extends FileUploadController(authenticated, withLinkingSession, businessRatesAttachmentService) {
 
   def show() = withLinkingSession { implicit request =>
     Ok(uploadEvidence(request.ses.submissionId, List.empty, request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty), form))}
-
-
-  def initiate(): Action[JsValue] = authenticated.async(parse.json) { implicit request  =>
-    implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-
-    request.body.validate[InitiateAttachmentRequest] match {
-      case JsSuccess(initiateRequest: InitiateAttachmentRequest, _: JsPath) =>
-         (
-          for {
-            initiateAttachmentResult <- businessRatesAttachmentService.initiateAttachmentUpload(initiateRequest.copy(destination = Some(PropertyLinkEvidence.destination)))(request, hc)
-          } yield
-            Ok(Json.toJson(initiateAttachmentResult))
-          ).recover {
-          case fileAttachmentFailed: FileAttachmentFailed =>
-            Logger.warn("FileAttachmentFailed Bad Request Exception:" + fileAttachmentFailed.errorMessage)
-            BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
-          case ex: Exception =>
-            Logger.warn("FileAttachmentFailed Exception:" + ex.getMessage)
-            InternalServerError("500 INTERNAL_SERVER_ERROR")
-        }
-      case error: JsError =>
-        Logger.info(s"---> BadRequest: ${JsError.toJson(error).toString}")
-        Future.successful(BadRequest(Json.obj(
-          "error" -> s"JSON initiate Failed",
-          "messages" -> Json.arr(Json.obj("error" -> JsError.toJson(error).toString())))))
-    }
-
-  }
-
-    def removeFile(fileReference: String) = withLinkingSession { implicit request =>
-      implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-      val updatedSessionData = request.ses.uploadEvidenceData.attachments.map(map => map - fileReference)
-
-     for{
-        - <- businessRatesAttachmentService.persistSessionData(request.ses, request.ses.uploadEvidenceData.copy( attachments = updatedSessionData))
-      }yield (Ok(uploadEvidence(request.ses.submissionId, List.empty, updatedSessionData.getOrElse(Map()), form)))
-  }
-
 
   def continue() = withLinkingSession { implicit request =>
     implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))

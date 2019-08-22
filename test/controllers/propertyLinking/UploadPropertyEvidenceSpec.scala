@@ -45,28 +45,6 @@ class UploadPropertyEvidenceSpec extends VoaPropertyLinkingSpec with FakeObjects
     new UploadPropertyEvidence(preAuthenticatedActionBuilders(), withLinkingSession, mockBusinessRatesAttachmentService)
 
 
-  it should  "return file upload initiate success" in {
-      val linkingSession = arbitrary[LinkingSession]
-      withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
-      val request = FakeRequest(POST, "").withBody(
-        Json.obj(
-          "fileName" -> "test.jpg",
-          "mimeType" -> "image/jpeg"))
-
-      when(mockBusinessRatesAttachmentService.initiateAttachmentUpload(any())(any(), any[HeaderCarrier])).thenReturn(Future.successful(preparedUpload))
-      var result = controller().initiate()(request)
-      status(result) mustBe OK
-    }
-
-  it should "return remove file success" in {
-      val linkingSession = arbitrary[LinkingSession]
-      withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
-      val request = FakeRequest(POST, "").withBody()
-      when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
-      var result = controller().removeFile("01222333")(request).run()
-      status(result) mustBe OK
-    }
-
   it should  "show error if no files selected" in {
       val linkingSession = arbitrary[LinkingSession]
       withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
