@@ -35,8 +35,8 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val request = FakeRequest().withSession(token)
   implicit val hc = HeaderCarrier()
-  val validGroupAccount = arbitrary[GroupAccount].sample.get
-  val validIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
+  val validGroupAccount = groupAccount
+  val validIndividualAccount = detailedIndividualAccount
   object TestController extends RepresentationController(
     StubPropertyRepresentationConnector,
     StubAuthentication,

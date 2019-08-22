@@ -318,7 +318,7 @@ package object resources {
     submissionId <- shortString
     personId <- positiveLong
     declaration <- capacityDeclarationGen
-    uploadEvidenceData <-  Gen.lzy(UploadEvidenceData.empty)
+    uploadEvidenceData <-  Gen.const(UploadEvidenceData.empty)
   } yield LinkingSession(address, uarn, submissionId, personId, declaration, uploadEvidenceData)
 
   implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)

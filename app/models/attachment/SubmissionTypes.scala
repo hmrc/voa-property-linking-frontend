@@ -22,10 +22,3 @@ sealed abstract class SubmissionTypes( val destination: String,
 case object SubmissionTypesValues {
   case object PropertyLinkEvidence extends SubmissionTypes("PROPERTY_LINK_EVIDENCE_DFE", "propertyLinkSubmissionId")
 }
-
-sealed abstract class FileTypes( val value: String)
-case object FileTypes {
-  case object Evidence extends FileTypes("EVIDENCE")
-  case object Statement extends FileTypes("STATEMENT")
-
-}

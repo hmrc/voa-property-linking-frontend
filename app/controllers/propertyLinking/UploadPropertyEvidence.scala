@@ -52,9 +52,7 @@ class UploadPropertyEvidence @Inject()(authenticated: AuthenticatedAction, val w
   def initiate(): Action[JsValue] = authenticated.async(parse.json) { implicit request  =>
     implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-   val parseResult:JsResult[InitiateAttachmentRequest] = request.body.validate[InitiateAttachmentRequest]
-
-    parseResult match {
+    request.body.validate[InitiateAttachmentRequest] match {
       case JsSuccess(initiateRequest: InitiateAttachmentRequest, _: JsPath) =>
          (
           for {

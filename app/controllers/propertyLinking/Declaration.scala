@@ -18,11 +18,14 @@ package controllers.propertyLinking
 
 import javax.inject.Named
 
+import binders.pagination.PaginationParameters
+import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import connectors.EnvelopeConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
+import controllers.agentAppointment.{AppointAgentVM, routes}
 import form.Mappings._
 import models._
 import play.api.data.{Form, FormError, Forms}
@@ -46,12 +49,12 @@ class Declaration @Inject()(propertyLinks: PropertyLinkConnector,
   }
 
   def submit(noEvidenceFlag: Option[Boolean] = None) = withLinkingSession { implicit request =>
-      form.bindFromRequest().value match {
-        case Some(true) =>
-          submitLinkingRequest().map( x => Redirect (routes.Declaration.confirmation()))
-        case _ =>
-          BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
-      }
+
+    form.bindFromRequest().fold(
+      errors =>
+        BadRequest(declaration(DeclarationVM(formWithNoDeclaration))),
+      success =>
+        submitLinkingRequest().map( x => Redirect (routes.Declaration.confirmation())))
   }
 
 

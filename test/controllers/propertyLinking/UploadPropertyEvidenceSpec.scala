@@ -16,6 +16,7 @@
 
 package controllers.propertyLinking
 
+import akka.stream.Materializer
 import config.VPLHttp
 import controllers.VoaPropertyLinkingSpec
 import models._
@@ -37,6 +38,7 @@ import scala.concurrent.Future
 
 class UploadPropertyEvidenceSpec extends VoaPropertyLinkingSpec with FakeObjects{
   def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
+  implicit def materializer: Materializer = app.injector.instanceOf[Materializer]
 
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
   def controller() =

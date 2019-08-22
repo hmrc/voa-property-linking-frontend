@@ -41,7 +41,6 @@ trait VoaPropertyLinkingSpec extends FlatSpec with MustMatchers with FutureAwait
   with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with WSHTTPMock with ScalaFutures with FakeObjects{
 
   val token = "Csrf-Token" -> "nocheck"
-  implicit def materializer: Materializer = app.injector.instanceOf[Materializer]
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
   def preAuthenticatedActionBuilders(
                                       externalId: String = "gg_external_id",
