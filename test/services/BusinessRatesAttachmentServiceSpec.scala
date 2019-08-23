@@ -59,7 +59,7 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar w
       when(mockSessionRepo.get[LinkingSession](any(), any())).thenReturn(Future.successful(Some(linkingSessionData)))
       when(businessRatesAttachmentConnector.initiateAttachmentUpload(any())(any[HeaderCarrier])).thenReturn(Future successful preparedUpload)
       when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-      businessRatesChallengeService.initiateAttachmentUpload(initiateAttachmentRequest)(request, hc)
+      businessRatesChallengeService.initiateAttachmentUpload(initiateAttachmentRequest)(request, hc).futureValue
       verify(mockSessionRepo, times(1)).get[LinkingSession](any(), any())
       verify(businessRatesAttachmentConnector, times(1)).initiateAttachmentUpload(any())(any[HeaderCarrier])
     }
@@ -73,7 +73,7 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar w
     it should "call to submit Files is success" in {
       when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future successful Some(attachment))
 
-      businessRatesChallengeService.submitFiles(FILE_REFERENCE,  Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
+      businessRatesChallengeService.submitFiles(FILE_REFERENCE,  Some(Map(FILE_REFERENCE -> uploadedFileDetails))).futureValue
 
       verify(businessRatesAttachmentConnector, times(1)).submitFile(any(), any())(any[HeaderCarrier])
     }
