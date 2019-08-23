@@ -42,6 +42,7 @@ import scala.concurrent.ExecutionContext._
 class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar with FakeObjects {
   val businessRatesAttachmentConnector = mock[BusinessRatesAttachmentConnector]
   val mockAuditingService = mock[AuditingService]
+  val mockSessionRepo = mock[SessionRepo]
   val initiateAttachmentRequest = InitiateAttachmentRequest("FILE_NAME", "img/jpeg", None)
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
   implicit val request = BasicAuthenticatedRequest(groupAccount, detailedIndividualAccount, FakeRequest())
@@ -49,28 +50,22 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar w
   implicit val hc = HeaderCarrier()
   implicit val ec = global
 
-  lazy val mockSessionRepo = {
-    val f = mock[SessionRepo]
-    when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
-    when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-    when(f.get[LinkingSession](any(), any())).thenReturn(Future.successful(Some(linkingSessionData)))
-    f
-  }
-
   val businessRatesChallengeService = new BusinessRatesAttachmentService(
     businessRatesAttachmentConnector = businessRatesAttachmentConnector,
     sessionRepository = mockSessionRepo,
     auditingService = mockAuditingService)
 
     it should "Upload Bill Evidence initiateAttachmentUpload" in {
+      when(mockSessionRepo.get[LinkingSession](any(), any())).thenReturn(Future.successful(Some(linkingSessionData)))
       when(businessRatesAttachmentConnector.initiateAttachmentUpload(any())(any[HeaderCarrier])).thenReturn(Future successful preparedUpload)
-
-      businessRatesChallengeService.initiateAttachmentUpload(initiateAttachmentRequest)(request, hc)
+      when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
+      businessRatesChallengeService.initiateAttachmentUpload(initiateAttachmentRequest)(request, hc).futureValue
       verify(mockSessionRepo, times(1)).get[LinkingSession](any(), any())
       verify(businessRatesAttachmentConnector, times(1)).initiateAttachmentUpload(any())(any[HeaderCarrier])
     }
 
     it should "call to persistSessionData is success" in {
+      when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
       businessRatesChallengeService.persistSessionData(linkingSessionData,  uploadEvidenceData)
       verify(mockSessionRepo, atLeastOnce()).saveOrUpdate(any())(any(), any[HeaderCarrier])
     }
@@ -78,7 +73,7 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar w
     it should "call to submit Files is success" in {
       when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future successful Some(attachment))
 
-      businessRatesChallengeService.submitFiles(FILE_REFERENCE,  Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
+      businessRatesChallengeService.submitFiles(FILE_REFERENCE,  Some(Map(FILE_REFERENCE -> uploadedFileDetails))).futureValue
 
       verify(businessRatesAttachmentConnector, times(1)).submitFile(any(), any())(any[HeaderCarrier])
     }
