@@ -37,7 +37,7 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
 
   val logger = Logger(this.getClass.getName)
 
-  def revokeAgent(submissionId: String, authorisedPartyId: Long, agentCode: Long) = authenticated { implicit request =>
+  def revokeAgent(submissionId: String, authorisedPartyId: Long, agentCode: Long) = authenticated.async { implicit request =>
     propertyLinks.getMyOrganisationPropertyLink(submissionId).map {
       case Some(link) =>
         link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
@@ -51,7 +51,7 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
 
   def revokeAgentSubmit(
                    submissionId: String,
-                   agentCode: Long): Action[AnyContent] = authenticated { implicit request =>
+                   agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
     Form(Forms.single("authorisedPartyId" -> longNumber)).bindFromRequest().fold(
       errors =>
         propertyLinks.getMyOrganisationPropertyLink(submissionId).map {
@@ -88,7 +88,7 @@ class RevokeAgentController @Inject()(authenticated: AuthenticatedAction,
     )
   }
 
-  def revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long): Action[AnyContent] = authenticated { implicit request =>
+  def revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
     propertyLinks.getMyOrganisationPropertyLink(submissionId).flatMap {
       case Some(link) =>
         val nextLink = if (link.agents.size > 1) {

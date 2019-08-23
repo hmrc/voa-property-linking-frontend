@@ -16,18 +16,15 @@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
-@import controllers.propertyLinking._
+@import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
-
-@(model: UploadEvidenceVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@import models.upscan._
+@(submissionId: String, errors: List[String] = Nil, uploadedFiles: Map[String, UploadedFileDetails] = Map(), formEvidence: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(title = Messages("uploadEvidence.show.title"),
     bottomBackLink = true,
     topBackLink = true,
     backLinkUrl = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url)) {
-
-
-    @form(model.call, 'enctype -> "multipart/form-data") {
 
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -64,45 +61,83 @@
 
                 <ul class="list list-bullet">
                     <li>@Messages("uploadFile.allowedTypes.l1")</li>
-                    <li>@Messages("uploadFile.allowedTypes.l2")</li>
                 </ul>
 
-                <details class="print-hide">
-                    <summary aria-controls="details-content-1" >
-                        <span class="summary">@Messages("uploadFile.info.title")</span>
-                    </summary>
-                    <div id="details-content-1" class="panel panel-border-narrow">
-                        @Html(Messages("uploadFile.info.content"))
-                    </div>
-                </details>
                 <br />
+                <div id="errorsList">
 
-                @includes.errorSummary(model.form)
+                </div>
+                @if(errors.nonEmpty) {
+                    <div class="error-summary error-summary--show" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
 
-                @inputFile(
-                    field = model.form("evidence[]"),
-                    '_label -> Messages("evidence.label"),
-                    '_labelSpanClass -> "visuallyhidden",
-                    'class -> "filer_input",
-                    '_fieldsetClass -> "file-input-group"
-                )
+                        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">@messages("error.summary.title")</h2>
+                        <p>@messages("error.summary.text")</p>
+                        <ul class="error-summary-list">
+                        @errors.map { error =>
+                            <li>@messages(error)</li>
+                        }
+                        </ul>
+                    </div>
+                }
 
-                @inputSelect(
-                    field = model.form("evidenceType"),
-                    options = EvidenceType.options,
-                    displayEmptyValue = false,
-                    args = Seq(
-                        '_label -> Messages("evidenceType.label"),
-                        '_labelClass -> "form-label-bold",
-                        '_class -> "form"
+                    @form(action = UploadPropertyEvidence.initiate(), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+
+                    <div>
+
+                        @if(uploadedFiles.size < 1){
+                            <div id="newFileGroup" class="form-group  ">
+                                <label class="" for="newFile">
+                                    <span class="label-span visuallyhidden">Choose file to upload</span>
+                                </label>
+                                <input type="file" id="newFile" name="newFile" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999">
+                                <a id="newFileButton" href="#" class="button-secondary">Choose a file to upload</a>
+                            </div>
+                        }else{
+                            <h3>@messages("businessRatesAttachment.file.size.reached.max.limit")</h3>
+                        }
+
+                        <ul class="upload-list">
+                        @uploadedFiles.map { case (fileReference, upload) =>
+                        <li>
+                            <span class="upload-list-file-name">@{upload.fileMetadata.toDisplayFileName}</span>
+
+                            <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
+
+                            <span class="upload-list-file-remove">
+                                <button type="submit" class="button-link jFiler-item-trash-action" formaction="@UploadPropertyEvidence.removeFile(fileReference)">@Messages("remove.file")</button>
+                        </span>
+                        </li>
+                        }
+                        </ul>
+                    </div>
+                }
+
+                @form(action = UploadPropertyEvidence.continue()) {
+                    @inputSelect(
+                        field = formEvidence("evidenceType"),
+                        options = EvidenceType.options,
+                        displayEmptyValue = false,
+                        args = Seq(
+                            '_label -> Messages("evidenceType.label"),
+                            '_labelClass -> "form-label-bold",
+                            '_class -> "form"
+                        )
                     )
-                )
 
-                <p>
-                    <button id="uploadFile" class="button">@Messages("uploadEvidence.show.button")</button>
-                </p>
+                    <p>
+                        <button id="uploadFile" class="button">@Messages("uploadRatesBill.show.button")</button>
+                    </p>
+                }
+
             </div>
         </div>
+        <span id="businessRatesAttachmentsRemoveFileURL" class="label-span visuallyhidden">@{s"${config.baseUrl}/business-rates-challenge/provide-evidence-remove?fileName="}</span>
+        <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${config.baseUrl}${UploadPropertyEvidence.initiate()}"}</span>
+        <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${config.baseUrl}${UploadPropertyEvidence.show()}"}</span>
+        <span id="errorsUpscan" class="label-span visuallyhidden">@Html(messages("error.upscan.unavailable"))</span>
+        <span id="errorsFileSizeTooLarge" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
+        <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.does.not.support.file.types")</span>
+        <span id="errorsBusinessRatesAttachmentUnavailable" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.unavailable")</span>
+        <span id="submissionId" class="label-span visuallyhidden">@submissionId</span>
 
     }
-}

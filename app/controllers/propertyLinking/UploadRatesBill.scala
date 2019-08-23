@@ -18,61 +18,45 @@ package controllers.propertyLinking
 
 import javax.inject.Inject
 
-import auditing.AuditingService
-import config.{ApplicationConfig, Global}
-import connectors.fileUpload.FileUploadConnector
+import actions.AuthenticatedAction
+import config.ApplicationConfig
+import connectors.FileAttachmentFailed
 import controllers._
-import play.api.data.Form
-import play.api.data.Forms._
-import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
-import play.api.mvc.Call
-import session.{LinkingSessionRequest, WithLinkingSession}
-import uk.gov.hmrc.circuitbreaker.UnhealthyServiceException
+import models.{FileInfo, RatesBillFlag, RatesBillType, UploadEvidenceData}
+import models.attachment.InitiateAttachmentRequest
+import models.attachment.SubmissionTypesValues.PropertyLinkEvidence
+import play.api.Logger
+import play.api.i18n.{Messages, MessagesApi}
+import play.api.libs.json._
+import play.api.mvc.Results._
+import play.api.mvc.{Action, Request}
+import services.BusinessRatesAttachmentService
+import session.WithLinkingSession
+import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.play.bootstrap.controller.BaseController
+import uk.gov.hmrc.play.frontend.controller.Utf8MimeTypes
 import views.html.propertyLinking.uploadRatesBill
 
-class UploadRatesBill @Inject()(override val withLinkingSession: WithLinkingSession,
-                                withCircuitBreaker: FileUploadCircuitBreaker, fileUploadConnector: FileUploadConnector)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
-  extends PropertyLinkingController with FileUploadHelpers {
+import scala.concurrent.{ExecutionContext, Future}
 
-  override val successUrl: String = routes.UploadRatesBill.fileUploaded().url
+class UploadRatesBill @Inject()(override val authenticated: AuthenticatedAction, override val withLinkingSession: WithLinkingSession, override val businessRatesAttachmentService: BusinessRatesAttachmentService)(implicit messagesApi: MessagesApi, config: ApplicationConfig)
+  extends FileUploadController(authenticated, withLinkingSession, businessRatesAttachmentService) {
 
-  def show(errorCode: Option[Int], errorMessage: Option[String]) = withLinkingSession { implicit request =>
-    withCircuitBreaker {
-      errorCode match {
-        case Some(REQUEST_ENTITY_TOO_LARGE) => EntityTooLarge(uploadRatesBill(UploadRatesBillVM(fileTooLargeError, submissionCall)))
-        case Some(NOT_FOUND) => NotFound(Global.notFoundTemplate)
-        case Some(UNSUPPORTED_MEDIA_TYPE) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall)))
-        // this assumes BAD_REQUEST is caused by "Envelope does not allow zero length files, and submitted file has length 0"
-        case Some(BAD_REQUEST) => UnsupportedMediaType(uploadRatesBill(UploadRatesBillVM(invalidFileTypeError, submissionCall)))
-        //if FUaaS repeatedly returns unexpected error codes e.g. 500s, trigger the circuit breaker
-        case Some(err) => throw new IllegalArgumentException(s"Unexpected response from FUaaS: $err; ${errorMessage.map(msg => s"error: $msg")}")
-        case None => {
-          val envelopeId = request.ses.envelopeId
-          fileUploadConnector.getFileMetadata(envelopeId).map(fileMetaData =>
-            AuditingService.sendEvent("property link rates bill upload", Json.obj(
-              "organisationId" -> request.organisationId,
-              "individualId" -> request.individualAccount.individualId,
-              "propertyLinkSubmissionId" -> request.ses.submissionId,
-              "fileName" -> fileMetaData.fileInfo.fold("")(_.name)).toString
-            ))
-          Ok(uploadRatesBill(UploadRatesBillVM(form, submissionCall)))
-        }
+  def show() = withLinkingSession { implicit request =>
+    Ok(
+      uploadRatesBill(request.ses.submissionId, List.empty, request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty)))}
+
+  def continue() = withLinkingSession { implicit request =>
+    implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+    request.ses.uploadEvidenceData.attachments match {
+        case Some(fileData) if fileData.size > 0 =>
+          val sessionUploadData: UploadEvidenceData =
+            request.ses.uploadEvidenceData.copy(linkBasis = RatesBillFlag, fileInfo = request.ses.uploadEvidenceData.fileInfo.map(x => x.copy(evidenceType = RatesBillType)))
+          businessRatesAttachmentService.persistSessionData(request.ses, sessionUploadData).map(x => Redirect(routes.Declaration.show().url))
+        case _ =>
+          BadRequest(uploadRatesBill(request.ses.submissionId, List("error.businessRatesAttachment.file.not.selected"), Map()))
       }
-    } recover {
-      case _: UnhealthyServiceException => ServiceUnavailable(views.html.errors.serviceUnavailable())
-    }
   }
 
-  lazy val form = Form(single("ratesBill[]" -> text))
-  lazy val fileTooLargeError = form.withError("ratesBill[]", "error.fileUpload.tooLarge")
-  lazy val invalidFileTypeError = form.withError("ratesBill[]", "error.fileUpload.invalidFileType")
 
-  private def submissionCall(implicit request: LinkingSessionRequest[_]) = if (config.fileUploadEnabled) {
-    Call("POST", fileUploadUrl(routes.UploadRatesBill.show().url))
-  } else {
-    Call("GET", routes.Declaration.show().url)
-  }
 }
-
-case class UploadRatesBillVM(form: Form[_], call: Call)

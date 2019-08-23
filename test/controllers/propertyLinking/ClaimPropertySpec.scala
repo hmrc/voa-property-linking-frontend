@@ -41,11 +41,11 @@ import scala.concurrent.Future
 
 class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Environment) extends VoaPropertyLinkingSpec with MockitoSugar {
 
-  private lazy val testClaimProperty = new ClaimProperty(mockEnvelopes, StubAuthentication, StubSubmissionIdConnector,
+  private lazy val testClaimProperty = new ClaimProperty(StubAuthentication, StubSubmissionIdConnector,
     mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]), propertyLinkingConnector, configuration, evironment)
 
   lazy val submissionId: String = shortString
-  lazy val accounts: Accounts = arbitrary[Accounts]
+  override val testAccounts: Accounts = arbitrary[Accounts]
   lazy val anEnvelopeId = java.util.UUID.randomUUID().toString
 
   lazy val mockEnvelopes = {
@@ -67,7 +67,7 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
 
 
   "The claim property page" should "contain the claim property form" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+    StubAuthentication.stubAuthenticationResult(Authenticated(testAccounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.declareCapacity(positiveLong, shortString)(FakeRequest())
@@ -82,7 +82,7 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
   }
 
   it should "reject invalid form submissions" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+    StubAuthentication.stubAuthenticationResult(Authenticated(testAccounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest())
@@ -90,7 +90,7 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
   }
 
   it should "redirect to the choose evidence page on valid submissions" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+    StubAuthentication.stubAuthenticationResult(Authenticated(testAccounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest().withFormUrlEncodedBody(
@@ -103,7 +103,7 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
   }
 
   it should "initialise the linking session on submission" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+    StubAuthentication.stubAuthenticationResult(Authenticated(testAccounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val uarn: Long = positiveLong
@@ -131,7 +131,7 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
   }
 
   "show" must "redirect the user to vmv search for property page" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(accounts))
+    StubAuthentication.stubAuthenticationResult(Authenticated(testAccounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.show()(FakeRequest())

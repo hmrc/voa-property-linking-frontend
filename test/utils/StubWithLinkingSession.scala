@@ -28,7 +28,7 @@ class StubWithLinkingSession(sessionRepository: SessionRepo) extends WithLinking
 
   private var stubbedSession: Option[(LinkingSession, DetailedIndividualAccount, GroupAccount)] = None
 
-  override def apply(body: (LinkingSessionRequest[AnyContent]) => Future[Result])(implicit messages: Messages) = Action.async { implicit request =>
+  override def apply(body: (LinkingSessionRequest[_]) => Future[Result])(implicit messages: Messages) = Action.async { implicit request =>
     stubbedSession.fold(throw new Exception("Linking session not stubbed")) { case (linkingSession, person, organisation) =>
       body(LinkingSessionRequest(linkingSession, person.organisationId, person, organisation, request))
     }

@@ -255,7 +255,7 @@ dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=My properties
 dashboard.manageProperties.expectDelays=It may take several hours for your property to display here once you have claimed it.
-dashboard.manageProperties.noPropertiesMessage1=You haven't claimed any properties yet. You need to 
+dashboard.manageProperties.noPropertiesMessage1=You haven't claimed any properties yet. You need to
 dashboard.manageProperties.noPropertiesMessagelink=claim a property
 dashboard.manageProperties.noPropertiesMessage2=before you can check or challenge the rateable value.
 dashboard.manageProperties.noProperties=There are no properties to display.
@@ -345,7 +345,7 @@ label.viewAssessmentRadio=Valuation
 label.help=Help with {0}
 rv.na=Rateable value is N/A
 rv.na.p.1=This property has been removed from the rating list. This could be because it has a new address, the description has changed or it has been split or merged with another property.
-rv.na.p.2=If you want to view the detailed valuation or check or challenge this property, you’ll need to claim the new entry. You should only claim the property if you are eligible to do so as the owner or occupier for the period of time that the new entry relates to. 
+rv.na.p.2=If you want to view the detailed valuation or check or challenge this property, you’ll need to claim the new entry. You should only claim the property if you are eligible to do so as the owner or occupier for the period of time that the new entry relates to.
 rv.na.p.3=If you are looking to view the detailed valuation or check or challenge the previous entry, you should contact the VOA on 03000 501 501 or by emailing ccaservice@voa.gsi.gov.uk.
 
 #DASHBOARD DRAFT CASES
@@ -604,8 +604,7 @@ declareCapacity.details.haveOwned.text=If you have owned or occupied the propert
 #UPLOAD RATES BILL
 uploadRatesBill.show.title=Submit a copy of your business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
-uploadFile.allowedTypes.l1=a JPEG or PDF
-uploadFile.allowedTypes.l2=no more than 10MB in size
+uploadFile.allowedTypes.l1=Only Word, Excel, PDF and JPEG files can be accepted and maximum file size is 10MB
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Confirm
@@ -1161,3 +1160,16 @@ challengeRules.rules.paper=If no valid check cases are shown but you still think
 
 ## TIME OUT DIALOG
 timeout.dialog.title = You are about to be timed out
+
+##Business rate attachments
+remove.file=Remove file
+error.summary.title=There’s been a problem
+error.summary.text=Check the following
+error.businessRatesAttachment.unavailable=Cannot upload documents - please try again later.
+error.upscan.unavailable=Cannot upload documents - please make sure only Word, Excel, PDF and JPEG files can be accepted and Maximum file size is 10MB, please try again later.
+error.businessRatesAttachment.file.size.exceed.max.limit=Size of uploaded file is exceeded Max Limit 10MB, Please upload different file size less than 10MB.
+error.businessRatesAttachment.evidence.not.selected=Please select evidence type
+error.businessRatesAttachment.file.not.selected=Please select file you want to upload.
+error.businessRatesAttachment.does.not.support.file.types=Only Word, Excel, PDF and JPEG files can be accepted and maximum file size is 10MB
+businessRatesAttachment.file.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit
+fileupload.support.documents.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit

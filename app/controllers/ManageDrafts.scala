@@ -49,19 +49,19 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
   }
 
 
-  def viewDraftCases() = authenticated { implicit request =>
+  def viewDraftCases() = authenticated.async { implicit request =>
     Redirect(config.newDashboardUrl("your-drafts"))
   }
 
 
-  def continueCheck = authenticated { implicit request =>
+  def continueCheck = authenticated.async { implicit request =>
     draftCaseForm.bindFromRequest.fold(
       getDraftCases,
       success => Redirect(config.checkUrl + getIdUrl(success.draft)._2))
   }
 
 
-  def deleteDraftCase = authenticated { implicit request =>
+  def deleteDraftCase = authenticated.async { implicit request =>
     draftCaseForm.bindFromRequest.fold(
       getDraftCases,
       success => {
@@ -79,7 +79,7 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
   }
 
 
-  def confirmDelete(draftId: String) = authenticated { implicit request =>
+  def confirmDelete(draftId: String) = authenticated.async { implicit request =>
     draftCases.delete(draftId).map(_ => Redirect(routes.ManageDrafts.viewDraftCases()))
       .recover {
         case _ => Redirect(routes.ManageDrafts.viewDraftCases())

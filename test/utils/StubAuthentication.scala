@@ -16,7 +16,7 @@
 
 package utils
 
-import actions.{AuthenticatedAction, VoaAuth}
+import actions.AuthenticatedAction
 import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
 import models.{DetailedIndividualAccount, GroupAccount}
 import services.email.EmailService
@@ -24,10 +24,11 @@ import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.{Retrieval, ~}
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.http.HeaderCarrier
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.{ExecutionContext, Future}
 
-object StubAuthentication extends AuthenticatedAction(null, StubBusinessRatesAuthorisation, StubAuth, null, null)(null, null) { //TODO mock these things
+object StubAuthentication extends AuthenticatedAction(null, null, StubBusinessRatesAuthorisation, null, StubAuthConnector)(null, null, scala.concurrent.ExecutionContext.Implicits.global) { //TODO mock these things
   def stubAuthenticationResult(result: AuthorisationResult) = {
     StubBusinessRatesAuthorisation.authorisationResult = result
   }
@@ -53,12 +54,13 @@ object StubAuthConnector extends AuthConnector {
     Future.successful(success.asInstanceOf[A])
 }
 
-object StubAuth extends VoaAuth(null, null, StubEmailService, StubAuthConnector, StubVplAuthConnector)(null, null)
-
 object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubServicesConfig, StubHttp) {
   var authorisationResult: AuthorisationResult = InvalidGGSession
 
-  override def authenticate(implicit hc: HeaderCarrier) = Future.successful(authorisationResult)
+  override def authenticate(implicit hc: HeaderCarrier) = {
+    logger.debug("stubbed authetication called")
+    Future.successful(authorisationResult)
+  }
 
   override def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = Future.successful(authorisationResult)
 

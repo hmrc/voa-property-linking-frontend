@@ -17,7 +17,6 @@
 package connectors
 
 import binders.propertylinks.GetPropertyLinksParameters
-import connectors.fileUpload.FileMetadata
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{PaginationParams, PaginationSearchSort, VoaPropertyLinkingSpec}
 import models._
@@ -29,9 +28,9 @@ import play.api.test.FakeRequest
 import resources._
 import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
-import utils.StubServicesConfig
+import utils.{FakeObjects, StubServicesConfig}
 
-class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
+class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec with FakeObjects {
 
   implicit val hc = HeaderCarrier()
 
@@ -48,44 +47,21 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.getMyOrganisationPropertyLink("11111"))(_ mustBe Some(propertyLink))
   }
 
-//  "get" must "return None if no property link is found for the given organisation ID" in new Setup {
-//    val propertyLink = arbitrary[PropertyLink].sample.get.copy()
-//
-//    mockHttpGETOption[PropertyLink]("tst-url", propertyLink)
-//    whenReady(connector.getOwnerLink("111111"))(_ mustBe None)
-//  }
-
   "linkToProperty" must "successfully post a property link request" in new Setup {
     val individualAccount = arbitrary[DetailedIndividualAccount]
     val groupAccount = arbitrary[GroupAccount]
     val capacityDeclaration = CapacityDeclaration(capacity = Occupier, interestedBefore2017 = true, fromDate = None, stillInterested = true)
     val linkingSession = LinkingSession(address = "123 Test Lane",
-      uarn = 1, envelopeId = "abc", submissionId = "a001", personId = individualAccount.individualId, declaration = capacityDeclaration)
-
-    val fileMetadata = FileMetadata(linkBasis = RatesBillFlag, fileInfo = Some(FileInfo("file.jpg", Lease)))
+      uarn = 1, submissionId = "a001", personId = individualAccount.individualId, declaration = capacityDeclaration, uploadEvidenceData = uploadEvidenceData)
 
     mockHttpPOST[PropertyLinkRequest, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.createPropertyLink(fileMetadata)
+    whenReady(connector.createPropertyLink()
     (LinkingSessionRequest(linkingSession,
       individualAccount.organisationId,
       individualAccount,
       groupAccount,
       FakeRequest())))(_ mustBe ())
   }
-
-//  "linkedPropertiesSearchAndSort" must "return the property links for an owner" in new Setup {
-//    val validPagination = PaginationSearchSort(pageNumber = 1, pageSize = 1)
-//    val paginationParams = PaginationParams(1,1, false)
-//    val ownerAuthResult = OwnerAuthResult(start = 1,
-//      size = 1,
-//      filterTotal = 1,
-//      total = 1,
-//      authorisations = Seq(arbitrary[OwnerAuthorisation].sample.get.copy(agents = None))
-//    )
-//
-//    mockHttpGET[OwnerAuthResult]("tst-url", ownerAuthResult)
-//    whenReady(connector.linkedPropertiesSearchAndSort(GetPropertyLinksParameters(), paginationParams, ownerOrAgent = "owner"))(_ mustBe ownerAuthResult)
-//  }
 
   "appointableProperties" must "return the properties appointable to an agent" in new Setup {
     val agentPropertiesParameters = AgentPropertiesParameters(agentCode = 1)
@@ -120,12 +96,5 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     mockHttpGETOption[PropertyLink]("tst-url", propertyLink)
     whenReady(connector.getMyOrganisationPropertyLink("1"))(_ mustBe Some(propertyLink))
   }
-
-//  "getLink" must "return None if the property link is not found" in new Setup {
-//    val propertyLink = arbitrary[PropertyLink].sample.get
-//
-//    mockHttpFailedGET[PropertyLink]("tst-url", new NotFoundException("Property link not found"))
-//    whenReady(connector.getOwnerLink("1"))(_ mustBe None)
-//  }
 
 }

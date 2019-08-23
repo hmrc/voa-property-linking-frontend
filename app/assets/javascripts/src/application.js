@@ -20,6 +20,7 @@
         new VOA.DataTablePendingRequests();
         new VOA.ShowDialog();
         new VOA.viewMessage();
+        new VOA.FileUpload();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));

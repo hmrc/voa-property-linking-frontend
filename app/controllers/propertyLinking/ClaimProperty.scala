@@ -24,7 +24,7 @@ import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{EnvelopeConnector, EnvelopeMetadata, SubmissionIdConnector}
+import connectors.SubmissionIdConnector
 import controllers._
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
@@ -43,8 +43,7 @@ import views.helpers.Errors
 import uk.gov.hmrc.http.Upstream5xxResponse
 
 @Singleton
-class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
-                              val authenticated: AuthenticatedAction,
+class ClaimProperty @Inject()(val authenticated: AuthenticatedAction,
                               val submissionIdConnector: SubmissionIdConnector,
                               @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
                               val withLinkingSession: WithLinkingSession,
@@ -55,11 +54,11 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
 
   import ClaimProperty._
 
-  def show() = authenticated { implicit request =>
+  def show() = authenticated.async { implicit request =>
     Redirect(s"${config.vmvUrl}/search")
   }
 
-  def checkPropertyLinks() = authenticated { implicit request =>
+  def checkPropertyLinks() = authenticated.async { implicit request =>
 
     val pLinks = propertyLinksConnector.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(), PaginationParams(1, 20, false))
 
@@ -74,11 +73,11 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
     }
   }
 
-  def declareCapacity(uarn: Long, address: String) = authenticated { implicit request =>
+  def declareCapacity(uarn: Long, address: String) = authenticated.async { implicit request =>
     Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn)))
   }
 
-  def attemptLink(uarn: Long, address: String) = authenticated { implicit request =>
+  def attemptLink(uarn: Long, address: String) = authenticated.async { implicit request =>
     ClaimProperty.declareCapacityForm.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn))),
       formData => initialiseSession(formData, uarn, address).map { _ =>
@@ -97,8 +96,7 @@ class ClaimProperty @Inject()(val envelopeConnector: EnvelopeConnector,
   private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: AuthenticatedRequest[_]) = {
     for {
       submissionId <- submissionIdConnector.get()
-      envelopeId <- envelopeConnector.createEnvelope(EnvelopeMetadata(submissionId, request.personId))
-      _ <- sessionRepository.start[LinkingSession](LinkingSession(address, uarn, envelopeId, submissionId, request.personId, declaration))
+      _ <- sessionRepository.start[LinkingSession](LinkingSession(address, uarn, submissionId, request.personId, declaration))
     } yield ()
   }
 

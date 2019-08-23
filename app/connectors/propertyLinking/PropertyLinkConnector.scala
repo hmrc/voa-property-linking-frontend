@@ -22,7 +22,6 @@ import actions.BasicAuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.ImplementedBy
 import config.WSHttp
-import connectors.fileUpload.FileMetadata
 import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
 import models.OwnerOrAgent.OwnerOrAgent
@@ -107,7 +106,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
         auth.copy(agents = auth.agents.map(ags => ags.filter(ag => validAgent(ag)))))))
   }
 
-  def createPropertyLink(data: FileMetadata)(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
+  def createPropertyLink()(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
     implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.request.headers, Some(request.request.session))
     val url = s"$baseUrl/property-links"
     val linkRequest = PropertyLinkRequest(
@@ -116,8 +115,8 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
       request.ses.personId,
       Capacity.fromDeclaration(request.ses.declaration),
       Instant.now,
-      data.linkBasis,
-      data.fileInfo.toSeq,
+      request.ses.uploadEvidenceData.linkBasis,
+      request.ses.uploadEvidenceData.fileInfo.toSeq,
       request.ses.submissionId
     )
     http.POST[PropertyLinkRequest, HttpResponse](url, linkRequest) map { _ => () }

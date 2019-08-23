@@ -31,33 +31,6 @@ import scala.concurrent.Future
 
 class KeepAliveControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
-  val testIndividualInfo = UserInfo(firstName = Some("Bob"),
-    lastName = Some("Smith"),
-    email = "bob@smith.com",
-    postcode = Some("AB12 3CD"),
-    groupIdentifier = "GroupIdenfifier",
-    affinityGroup = AffinityGroup.Individual,
-    gatewayId = "",
-    credentialRole = User)
-
-  val testOrganisationInfo = UserInfo(firstName = Some("Bob"),
-    lastName = Some("Smith"),
-    email = "bob@smith.com",
-    postcode = Some("AB12 3CD"),
-    groupIdentifier = "GroupIdenfifier",
-    affinityGroup = AffinityGroup.Organisation,
-    gatewayId = "",
-    credentialRole = Admin)
-
-  val testAgentInfo = UserInfo(firstName = Some("Bob"),
-    lastName = Some("Smith"),
-    email = "bob@smith.com",
-    postcode = Some("AB12 3CD"),
-    groupIdentifier = "GroupIdenfifier",
-    affinityGroup = AffinityGroup.Agent,
-    gatewayId = "",
-    credentialRole = Admin)
-
   val messagesApi  = app.injector.instanceOf[MessagesApi]
   private object TestRegistrationController$ extends KeepAliveController(
     StubGgAction

@@ -54,7 +54,7 @@ class AppointAgentController @Inject()(
 
   val logger: Logger = Logger(this.getClass)
 
-  def appointMultipleProperties(): Action[AnyContent] = authenticated { implicit request =>
+  def appointMultipleProperties(): Action[AnyContent] = authenticated.async { implicit request =>
     agentsConnector
       .ownerAgents(request.organisationId)
       .map { ownerAgents =>
@@ -63,7 +63,7 @@ class AppointAgentController @Inject()(
       }
   }
 
-  def submitAppointMultipleProperties(): Action[AnyContent] = authenticated { implicit request =>
+  def submitAppointMultipleProperties(): Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentForm.bindFromRequest().fold(
       hasErrors = errors => {
         agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
@@ -92,7 +92,7 @@ class AppointAgentController @Inject()(
                                       checkPermission: String,
                                       challengePermission: String,
                                       agentAppointed: Option[String]
-                                    ): Action[AnyContent] = authenticated { implicit request =>
+                                    ): Action[AnyContent] = authenticated.async { implicit request =>
     for {
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
       response          <- propertyLinks.getMyOrganisationPropertyLinksWithAgentFiltering(
@@ -122,7 +122,7 @@ class AppointAgentController @Inject()(
     }
   }
 
-  def appointAgentSummary(): Action[AnyContent] = authenticated { implicit request =>
+  def appointAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentBulkActionForm.bindFromRequest().fold(
       hasErrors = errors => {
         val data: Map[String, String] = errors.data
@@ -172,7 +172,7 @@ class AppointAgentController @Inject()(
     )
   }
 
-  def revokeMultipleProperties() = authenticated { implicit request =>
+  def revokeMultipleProperties() = authenticated.async { implicit request =>
     agentsConnector
       .ownerAgents(request.organisationId)
       .map { ownerAgents =>
@@ -180,7 +180,7 @@ class AppointAgentController @Inject()(
       }
   }
 
-  def submitRevokeMultipleProperties(): Action[AnyContent] = authenticated { implicit request =>
+  def submitRevokeMultipleProperties(): Action[AnyContent] = authenticated.async { implicit request =>
     registeredAgentForm.bindFromRequest().fold(
       hasErrors = errors => {
         agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
@@ -210,7 +210,7 @@ class AppointAgentController @Inject()(
                                        pagination: PaginationParameters,
                                        params: GetPropertyLinksParameters,
                                        agentCode: Long
-                                     ) = authenticated { implicit request =>
+                                     ) = authenticated.async { implicit request =>
       accounts.withAgentCode(agentCode.toString) flatMap {
         case Some(group) =>
           for {
@@ -230,7 +230,7 @@ class AppointAgentController @Inject()(
       }
   }
 
-  def revokeAgentSummary() = authenticated { implicit request =>
+  def revokeAgentSummary() = authenticated.async { implicit request =>
     revokeAgentBulkActionForm.bindFromRequest().fold(
       hasErrors = errors => {
         val data: Map[String, String] = errors.data

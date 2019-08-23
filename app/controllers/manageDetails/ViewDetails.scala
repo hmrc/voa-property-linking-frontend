@@ -36,7 +36,7 @@ class ViewDetails @Inject()(addressesConnector: Addresses,
                             authConnector: VPLAuthConnector
                            )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
-  def show() = authenticated { implicit request =>
+  def show() = authenticated.async { implicit request =>
     Redirect(config.newDashboardUrl("your-details"))
   }
 

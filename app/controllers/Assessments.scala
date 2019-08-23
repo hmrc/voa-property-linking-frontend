@@ -40,7 +40,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
 
   private val logger = Logger(this.getClass.getName)
 
-  def assessments(submissionId: String, owner: Boolean) = authenticated { implicit request =>
+  def assessments(submissionId: String, owner: Boolean) = authenticated.async { implicit request =>
     val refererOpt = request.headers.get("Referer")
 
     val pLink: Future[Option[ApiAssessments]] = {
@@ -98,7 +98,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
                               assessmentRef: Long,
                               baRef: String,
                               owner: Boolean
-                            ) = authenticated { implicit request =>
+                            ) = authenticated.async { implicit request =>
     businessRatesValuations.isViewable(authorisationId, assessmentRef) map {
       case true =>
         if (owner) {
@@ -122,7 +122,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     case uarn :: assessmentRef :: baRef :: Nil => (uarn, assessmentRef.toLong, baRef)
   }, y => s"${y._1}-${y._2}-${y._3}")))
 
-    def submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean) = authenticated { implicit request =>
+    def submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean) = authenticated.async { implicit request =>
 
     viewAssessmentForm.bindFromRequest().fold(
       errors => {
@@ -165,7 +165,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     )
   }
 
-  def startChallengeFromDVR(submissionId: String, valuationId: Long, owner: Boolean) = authenticated { implicit request =>
+  def startChallengeFromDVR(submissionId: String, valuationId: Long, owner: Boolean) = authenticated.async { implicit request =>
     Ok(views.html.dvr.challenge_valuation(submissionId, valuationId, owner))
   }
 }

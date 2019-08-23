@@ -23,6 +23,7 @@ import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, Ow
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
 import uk.gov.hmrc.domain.Nino
+import models._
 
 package object resources {
 
@@ -317,7 +318,8 @@ package object resources {
     submissionId <- shortString
     personId <- positiveLong
     declaration <- capacityDeclarationGen
-  } yield LinkingSession(address, uarn, envelopeId, submissionId, personId, declaration)
+    uploadEvidenceData <-  Gen.const(UploadEvidenceData.empty)
+  } yield LinkingSession(address, uarn, submissionId, personId, declaration, uploadEvidenceData)
 
   implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)
 

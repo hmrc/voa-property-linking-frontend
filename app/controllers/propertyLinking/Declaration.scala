@@ -18,25 +18,29 @@ package controllers.propertyLinking
 
 import javax.inject.Named
 
+import binders.pagination.PaginationParameters
+import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import connectors.EnvelopeConnector
-import connectors.fileUpload.{FileMetadata, FileUploadConnector}
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
+import controllers.agentAppointment.{AppointAgentVM, routes}
 import form.Mappings._
 import models._
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
 import repositories.SessionRepo
+import services.BusinessRatesAttachmentService
 import session.{LinkingSessionRequest, WithLinkingSession}
 import views.html.propertyLinking.declaration
 
+import scala.concurrent.Future
+
 @Singleton
-class Declaration @Inject()(envelopes: EnvelopeConnector,
-                            fileUploads: FileUploadConnector,
-                            propertyLinks: PropertyLinkConnector,
+class Declaration @Inject()(propertyLinks: PropertyLinkConnector,
                             @Named("propertyLinkingSession") sessionRepository: SessionRepo,
+                            businessRatesAttachmentService: BusinessRatesAttachmentService,
                             withLinkingSession: WithLinkingSession)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
@@ -45,24 +49,14 @@ class Declaration @Inject()(envelopes: EnvelopeConnector,
   }
 
   def submit(noEvidenceFlag: Option[Boolean] = None) = withLinkingSession { implicit request =>
-    if (config.fileUploadEnabled) {
-      form.bindFromRequest().value match {
-        case Some(true) => fileUploads.getFileMetadata(request.ses.envelopeId) flatMap {
-          case data@FileMetadata(_, Some(info)) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.confirmation()) }
-          case data@FileMetadata(NoEvidenceFlag, _) => submitLinkingRequest(data) map { _ => Redirect(routes.Declaration.noEvidence()) }
-        }
-        case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
-      }
-    } else {
-      form.bindFromRequest().value match {
-        case Some(true) => noEvidenceFlag match {
-          case Some(true) => submitLinkingRequest(FileMetadata(NoEvidenceFlag, None)) map { _ => Redirect(routes.Declaration.noEvidence()) }
-          case _ => submitLinkingRequest(FileMetadata(RatesBillFlag, Some(FileInfo("stubbedFile", RatesBillType)))) map { _ => Redirect(routes.Declaration.confirmation()) }
-        }
-        case _ => BadRequest(declaration(DeclarationVM(formWithNoDeclaration)))
-      }
-    }
+
+    form.bindFromRequest().fold(
+      errors =>
+        BadRequest(declaration(DeclarationVM(formWithNoDeclaration))),
+      success =>
+        submitLinkingRequest().map( x => Redirect (routes.Declaration.confirmation())))
   }
+
 
   def confirmation = withLinkingSession { implicit request =>
     sessionRepository.remove() map { _ =>
@@ -70,14 +64,10 @@ class Declaration @Inject()(envelopes: EnvelopeConnector,
     }
   }
 
-  def noEvidence = withLinkingSession { implicit request =>
-    sessionRepository.remove() map { _ => Ok(views.html.propertyLinking.noEvidenceUploaded(RequestSubmittedVM(request.ses.address, request.ses.submissionId))) }
-  }
-
-  private def submitLinkingRequest(info: FileMetadata)(implicit request: LinkingSessionRequest[_]) = {
+  private def submitLinkingRequest()(implicit request: LinkingSessionRequest[_]) = {
     for {
-      _ <- propertyLinks.createPropertyLink(info)
-      _ <- envelopes.closeEnvelope(request.ses.envelopeId)
+      - <- businessRatesAttachmentService.submitFiles(request.ses.submissionId, request.ses.uploadEvidenceData.attachments)
+      _ <- propertyLinks.createPropertyLink()
     } yield ()
   }
 

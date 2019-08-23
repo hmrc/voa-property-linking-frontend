@@ -50,19 +50,22 @@ POST        /link-to-property/:uarn                                             
 #Link scenarios
 GET         /choose-evidence                                                                  @controllers.propertyLinking.ChooseEvidence.show()
 POST        /choose-evidence                                                                  @controllers.propertyLinking.ChooseEvidence.submit()
-GET         /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.show(errorCode: Option[Int] ?= None, errorMessage: Option[String] ?= None)
-GET         /upload-evidence                                                                  @controllers.propertyLinking.UploadEvidence.show(errorCode: Option[Int] ?= None, errorMessage: Option[String] ?= None)
+GET         /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.show()
+GET         /upload-evidence                                                                  @controllers.propertyLinking.UploadPropertyEvidence.show()
+
+POST        /upload-rates-continue                                                            @controllers.propertyLinking.UploadRatesBill.continue()
+POST        /upload-property-evidence-continue                                                @controllers.propertyLinking.UploadPropertyEvidence.continue()
 
 GET         /summary                                                                          @controllers.propertyLinking.Declaration.show(noEvidenceFlag: Option[Boolean] ?= None)
 POST        /summary                                                                          @controllers.propertyLinking.Declaration.submit(noEvidenceFlag: Option[Boolean] ?= None)
 
 GET         /confirmation                                                                     @controllers.propertyLinking.Declaration.confirmation
-GET         /confirmation/no-evidence                                                         @controllers.propertyLinking.Declaration.noEvidence
 
 #Linking outcomes
-GET         /rates-bill-submitted                                                             @controllers.propertyLinking.UploadRatesBill.fileUploaded()
-GET         /evidence-uploaded                                                                @controllers.propertyLinking.UploadEvidence.fileUploaded()
-GET         /no-evidence-uploaded                                                             @controllers.propertyLinking.UploadEvidence.noEvidenceUploaded()
+POST        /rates-bill-initiate                                                              @controllers.propertyLinking.UploadRatesBill.initiate()
+POST        /rates-bill-remove-file                                                           @controllers.propertyLinking.UploadRatesBill.removeFile(fileReference: String)
+POST        /upload-evidence-initiate                                                         @controllers.propertyLinking.UploadPropertyEvidence.initiate()
+POST        /upload-evidence-remove-file                                                      @controllers.propertyLinking.UploadPropertyEvidence.removeFile(fileReference: String)
 GET         /manual-verification-required                                                     @controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                                                 @controllers.LinkErrors.conflict()
 #AGENT
