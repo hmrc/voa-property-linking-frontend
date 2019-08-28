@@ -22,7 +22,38 @@
             $('#saveAndContinueButton').attr('disabled','disabled');
 
             $(this).after('<div class="message-warning" id="message-warning"><p>Please wait whilst your file is uploading. This may take some time.</p></div>');
+
+            console.log("file method invoked");
+            console.log(this.files);
+
+            console.log(this.files[0].type)
+
             var file = this.files[0];
+
+            function resolveMimeType(upload) {
+                var extension = upload.name.substr( (upload.name.lastIndexOf('.') +1) );
+                console.log(extension);
+                var mime;
+                switch(extension){
+                            case "xls":
+                            console.log("xls was hit");
+                            mime = "application/vnd.ms-excel";
+                            break;
+
+                            case "xlsb":
+                            mime = "application/vnd.ms-excel.sheet.binary.macroEnabled.12";
+                            break;
+
+                            default:
+                            mime = file.type ? file.type : 'Unknown/Extension missing';
+                            break;
+
+                        }
+                 return mime;
+            }
+
+            var resolvedMimeType = resolveMimeType(file);
+
             var csrfToken = $("#uploadForm input[name='csrfToken']").val();
             var fileName = file.name.replace(/[^0-9A-Za-z. -]/g,' ');
             var submissionId = $("#submissionId").text();
@@ -33,7 +64,7 @@
                 contentType: "application/json",
                 data: JSON.stringify({
                     "fileName": submissionId + "-" + fileName,
-                    "mimeType": file.type,
+                    "mimeType": resolvedMimeType,
                     "csrfToken": csrfToken
                 }),
                 headers: {

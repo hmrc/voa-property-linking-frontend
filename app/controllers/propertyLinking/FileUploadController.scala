@@ -16,15 +16,12 @@
 
 package controllers.propertyLinking
 
-import javax.inject.Inject
-
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors.FileAttachmentFailed
 import controllers._
 import models.attachment.InitiateAttachmentRequest
 import models.attachment.SubmissionTypesValues.PropertyLinkEvidence
-import models.{RatesBillFlag, RatesBillType, UploadEvidenceData}
 import play.api.Logger
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json._
@@ -36,19 +33,25 @@ import uk.gov.hmrc.play.bootstrap.controller.BaseController
 import uk.gov.hmrc.play.frontend.controller.Utf8MimeTypes
 import views.html.propertyLinking.uploadRatesBill
 
-import scala.concurrent.Future
-
-class FileUploadController (val authenticated: AuthenticatedAction, val withLinkingSession: WithLinkingSession, val businessRatesAttachmentService: BusinessRatesAttachmentService)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+class FileUploadController (
+                             val authenticated: AuthenticatedAction,
+                             val withLinkingSession: WithLinkingSession,
+                             val businessRatesAttachmentService: BusinessRatesAttachmentService
+                           )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with BaseController with Utf8MimeTypes {
 
   def initiate(): Action[JsValue] = authenticated.async(parse.json) { implicit request  =>
     implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-        (for {
-            initiateAttachmentResult <- businessRatesAttachmentService.initiateAttachmentUpload(request.body.as[InitiateAttachmentRequest].copy(destination = Some(PropertyLinkEvidence.destination)))(request, hc)
+    val initiateAttachmentRequest = request.body.as[InitiateAttachmentRequest].copy(destination = Some(PropertyLinkEvidence.destination))
+
+    (for {
+            initiateAttachmentResult <- businessRatesAttachmentService.initiateAttachmentUpload(initiateAttachmentRequest)(request, hc)
           } yield
             Ok(Json.toJson(initiateAttachmentResult))
         ).recover {
           case fileAttachmentFailed: FileAttachmentFailed =>
+            Logger.warn(Json.prettyPrint(request.body))
+            Logger.warn(s"mime type = ${initiateAttachmentRequest.mimeType}")
             Logger.warn("FileAttachmentFailed Bad Request Exception:" + fileAttachmentFailed.errorMessage)
             BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
           case ex: Exception =>
