@@ -50,9 +50,6 @@ class FileUploadController (
             Ok(Json.toJson(initiateAttachmentResult))
         ).recover {
           case fileAttachmentFailed: FileAttachmentFailed =>
-            Logger.warn(Json.prettyPrint(request.body))
-            Logger.warn(s"mime type = ${initiateAttachmentRequest.mimeType}")
-            Logger.warn("FileAttachmentFailed Bad Request Exception:" + fileAttachmentFailed.errorMessage)
             BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
           case ex: Exception =>
             Logger.warn("FileAttachmentFailed Exception:" + ex.getMessage)
