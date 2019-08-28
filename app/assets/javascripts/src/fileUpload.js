@@ -58,6 +58,10 @@
                             mime = "image/jpeg";
                             break;
 
+                            case "png":
+                            mime = "image/png";
+                            break;
+                    
                             default:
                             mime = file.type ? file.type : 'Unknown/Extension missing';
                             break;
