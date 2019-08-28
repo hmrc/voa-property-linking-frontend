@@ -18,30 +18,44 @@
 
         $element.change(function(){
             $('#error-summary').remove();
-            // $('#message-warning').remove();
             $('#saveAndContinueButton').attr('disabled','disabled');
 
             $(this).after('<div class="message-warning" id="message-warning"><p>Please wait whilst your file is uploading. This may take some time.</p></div>');
 
-            console.log("file method invoked");
-            console.log(this.files);
-
-            console.log(this.files[0].type)
-
             var file = this.files[0];
-
             function resolveMimeType(upload) {
+                if(file.type != "" && file.type != undefined){
+                    return file.type;
+                }
                 var extension = upload.name.substr( (upload.name.lastIndexOf('.') +1) );
-                console.log(extension);
                 var mime;
                 switch(extension){
                             case "xls":
-                            console.log("xls was hit");
                             mime = "application/vnd.ms-excel";
                             break;
 
                             case "xlsb":
                             mime = "application/vnd.ms-excel.sheet.binary.macroEnabled.12";
+                            break;
+
+                            case "xlsx":
+                            mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                            break;
+
+                            case "pdf":
+                            mime = "application/pdf";
+                            break;
+
+                            case "docx":
+                            mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                            break;
+
+                            case "doc":
+                            mime = "application/msword";
+                            break;
+
+                            case "jpg":
+                            mime = "image/jpeg";
                             break;
 
                             default:
@@ -51,9 +65,7 @@
                         }
                  return mime;
             }
-
             var resolvedMimeType = resolveMimeType(file);
-
             var csrfToken = $("#uploadForm input[name='csrfToken']").val();
             var fileName = file.name.replace(/[^0-9A-Za-z. -]/g,' ');
             var submissionId = $("#submissionId").text();
@@ -150,7 +162,7 @@
                 cache: false,
                 enctype: 'multipart/form-data'
             }).error(function(jqXHR, textStatus, errorThrown ){
-                    removeUploadFileOnError(form.reference, csrfToken, jqXHR)
+                removeUploadFileOnError(form.reference, csrfToken, jqXHR)
             }).done(function(){
                 window.location = $("#businessRatesAttachmentsFileUploadURL").text();
                 $('#message-warning').remove();
