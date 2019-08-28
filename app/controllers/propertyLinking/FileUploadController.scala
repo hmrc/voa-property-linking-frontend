@@ -52,7 +52,7 @@ class FileUploadController (
           case fileAttachmentFailed: FileAttachmentFailed =>
             BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
           case ex: Exception =>
-            Logger.warn("FileAttachmentFailed Exception:" + ex.getMessage)
+            Logger.warn("FileAttachmentFailed Exception:", ex)
             InternalServerError("500 INTERNAL_SERVER_ERROR")
         }
   }
