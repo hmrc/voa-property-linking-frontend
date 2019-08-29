@@ -65,5 +65,14 @@ class UploadPropertyEvidence @Inject()(override val authenticated: Authenticated
         BadRequest(uploadEvidence(request.ses.submissionId, List("error.businessRatesAttachment.file.not.selected"), Map(), form))
     }
   }
-  lazy val form = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
+
+  def removeFile(fileReference: String) = withLinkingSession { implicit request =>
+    implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+    val updatedSessionData = request.ses.uploadEvidenceData.attachments.map(map => map - fileReference)
+
+    for{
+      - <- businessRatesAttachmentService.persistSessionData(request.ses, request.ses.uploadEvidenceData.copy( attachments = updatedSessionData))
+    }yield (Ok(uploadEvidence(request.ses.submissionId, List.empty, updatedSessionData.getOrElse(Map()), form)))
+  }
+
 }
