@@ -58,16 +58,6 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec with FakeObjects{
       status(result) mustBe OK
     }
 
-  it should "return remove file success" in {
-      val linkingSession = arbitrary[LinkingSession]
-      withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
-      val request = FakeRequest(POST, "").withBody()
-      when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
-      var result = controller().removeFile("01222333")(request).run()
-      status(result) mustBe OK
-    }
-
-
   implicit lazy val request = FakeRequest().withSession(token).withHeaders(HOST -> "localhost:9523")
 
   implicit lazy val hc = HeaderCarrier()

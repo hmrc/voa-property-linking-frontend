@@ -56,14 +56,4 @@ class FileUploadController (
             InternalServerError("500 INTERNAL_SERVER_ERROR")
         }
   }
-
-    def removeFile(fileReference: String) = withLinkingSession { implicit request =>
-      implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-      val updatedSessionData = request.ses.uploadEvidenceData.attachments.map(map => map - fileReference)
-
-     for{
-        - <- businessRatesAttachmentService.persistSessionData(request.ses, request.ses.uploadEvidenceData.copy( attachments = updatedSessionData))
-      }yield (Ok(uploadRatesBill(request.ses.submissionId, List.empty, updatedSessionData.getOrElse(Map()))))
-  }
-
 }
