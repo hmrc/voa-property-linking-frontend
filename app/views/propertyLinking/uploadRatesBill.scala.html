@@ -60,7 +60,7 @@
 
                         <div>
 
-                            @if(uploadedFiles.size < 1){
+                           @if(uploadedFiles.size < 1){
                                 <div id="newFileGroup" class="form-group  ">
                                     <label class="" for="newFile">
                                         <span class="label-span visuallyhidden">Choose file to upload</span>
@@ -80,7 +80,7 @@
                                 <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
 
                                 <span class="upload-list-file-remove">
-                                    <button type="submit" class="button-link jFiler-item-trash-action" formaction="@UploadRatesBill.removeFile(fileReference)">@Messages("remove.file")</button>
+                                    <button type="submit" class="button-link jFiler-item-trash-action" formaction="@UploadRatesBill.removeRatesBill(fileReference)">@Messages("remove.file")</button>
                             </span>
                             </li>
                             }

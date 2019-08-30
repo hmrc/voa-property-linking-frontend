@@ -21,12 +21,18 @@
 
 @(model: DeclarationVM, noEvidenceFlag: Option[Boolean] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@backLink = @{ noEvidenceFlag match {
+            case Some(true) => controllers.propertyLinking.routes.UploadRatesBill.show ().url
+            case _ => controllers.propertyLinking.routes.UploadPropertyEvidence.show ().url
+        }
+    }
 @main_template(
     Messages("declaration.title"),
     topBackLink = true,
     bottomBackLink = true,
     topNavigation = true,
-    showLogout = true) {
+    showLogout = true,
+    backLinkUrl = Some(backLink) ) {
 
     <div class="grid-row">
         <div class="column-two-thirds">

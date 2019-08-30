@@ -41,8 +41,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec with FakeObjects{
   implicit def materializer: Materializer = app.injector.instanceOf[Materializer]
 
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
-  def controller() =
-    new FileUploadController(preAuthenticatedActionBuilders(), withLinkingSession, mockBusinessRatesAttachmentService)
+  def controller() = TestFileUploadController
 
 
   it should  "return file upload initiate success" in {

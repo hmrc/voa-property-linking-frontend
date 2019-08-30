@@ -50,7 +50,7 @@ class UploadRatesBillSpec extends VoaPropertyLinkingSpec with FakeObjects{
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
     val request = FakeRequest(POST, "").withBody()
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
-    var result = controller().removeFile("01222333")(request).run()
+    var result = controller().removeRatesBill("01222333")(request).run()
     status(result) mustBe OK
     val html = Jsoup.parse(contentAsString(result))
     html.select("h1.heading-xlarge").text mustBe "Submit a copy of your business rates bill"
@@ -76,7 +76,7 @@ class UploadRatesBillSpec extends VoaPropertyLinkingSpec with FakeObjects{
       val postRequest = request.withFormUrlEncodedBody()
       val result = controller().continue()(postRequest)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.Declaration.show().url)
+      redirectLocation(result) mustBe Some(routes.Declaration.show(Some(true)).url)
     }
 
 

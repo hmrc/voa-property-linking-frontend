@@ -104,7 +104,7 @@
                             <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
 
                             <span class="upload-list-file-remove">
-                                <button type="submit" class="button-link jFiler-item-trash-action" formaction="@UploadPropertyEvidence.removeFile(fileReference)">@Messages("remove.file")</button>
+                                <button type="submit" class="button-link jFiler-item-trash-action" formaction="@UploadPropertyEvidence.removeEvidence(fileReference)">@Messages("remove.file")</button>
                         </span>
                         </li>
                         }
@@ -116,7 +116,7 @@
                     @inputSelect(
                         field = formEvidence("evidenceType"),
                         options = EvidenceType.options,
-                        displayEmptyValue = false,
+                        displayEmptyValue = true,
                         args = Seq(
                             '_label -> Messages("evidenceType.label"),
                             '_labelClass -> "form-label-bold",

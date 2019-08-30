@@ -50,7 +50,7 @@ class UploadPropertyEvidenceSpec extends VoaPropertyLinkingSpec with FakeObjects
     withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
     val request = FakeRequest(POST, "").withBody()
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
-    var result = controller().removeFile("01222333")(request).run()
+    var result = controller().removeEvidence("01222333")(request).run()
     status(result) mustBe OK
     val html = Jsoup.parse(contentAsString(result))
     html.select("h1.heading-xlarge").text mustBe "Upload other evidence"

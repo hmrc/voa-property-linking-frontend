@@ -66,14 +66,7 @@ class UploadPropertyEvidence @Inject()(override val authenticated: Authenticated
     }
   }
 
-  def removeFile(fileReference: String) = withLinkingSession { implicit request =>
-    implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-    val updatedSessionData = request.ses.uploadEvidenceData.attachments.map(map => map - fileReference)
-
-    for{
-      - <- businessRatesAttachmentService.persistSessionData(request.ses, request.ses.uploadEvidenceData.copy( attachments = updatedSessionData))
-    }yield (Ok(uploadEvidence(request.ses.submissionId, List.empty, updatedSessionData.getOrElse(Map()), form)))
+  def removeEvidence(fileReference: String) =  {
+    removeFile(fileReference)((submissionId, errors, sessionData, form) => implicit request => Ok(uploadEvidence(submissionId, errors, sessionData, form)))
   }
-
-  lazy val form = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
 }

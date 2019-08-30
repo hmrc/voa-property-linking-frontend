@@ -63,9 +63,9 @@ GET         /confirmation                                                       
 
 #Linking outcomes
 POST        /rates-bill-initiate                                                              @controllers.propertyLinking.UploadRatesBill.initiate()
-POST        /rates-bill-remove-file                                                           @controllers.propertyLinking.UploadRatesBill.removeFile(fileReference: String)
+POST        /rates-bill-remove-file                                                           @controllers.propertyLinking.UploadRatesBill.removeRatesBill(fileReference: String)
 POST        /upload-evidence-initiate                                                         @controllers.propertyLinking.UploadPropertyEvidence.initiate()
-POST        /upload-evidence-remove-file                                                      @controllers.propertyLinking.UploadPropertyEvidence.removeFile(fileReference: String)
+POST        /upload-evidence-remove-file                                                      @controllers.propertyLinking.UploadPropertyEvidence.removeEvidence(fileReference: String)
 GET         /manual-verification-required                                                     @controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                                                 @controllers.LinkErrors.conflict()
 #AGENT
