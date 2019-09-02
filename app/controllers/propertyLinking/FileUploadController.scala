@@ -36,8 +36,6 @@ import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.controller.BaseController
 import uk.gov.hmrc.play.frontend.controller.Utf8MimeTypes
-import views.html.propertyLinking.uploadRatesBill
-
 import scala.concurrent.Future
 
 abstract class FileUploadController (

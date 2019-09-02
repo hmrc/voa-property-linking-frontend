@@ -24,8 +24,10 @@ import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
+import play.api.http.Status.{OK => _, _}
 import play.api.libs.json.Json
 import play.api.mvc.AnyContentAsEmpty
+import play.api.mvc.Results._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
@@ -33,6 +35,8 @@ import resources._
 import services.BusinessRatesAttachmentService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
+import views.html.propertyLinking._
+import play.api.mvc._
 
 import scala.concurrent.Future
 
@@ -56,6 +60,17 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec with FakeObjects{
       var result = controller().initiate()(request)
       status(result) mustBe OK
     }
+
+
+  it should "return remove file success" in {
+      val linkingSession = arbitrary[LinkingSession]
+      withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
+      val request = FakeRequest(POST, "").withBody()
+      when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
+      var result = controller().removeFile("01222333")((submissionId, errors, sessionData, _) => implicit request => new Status(OK))(request).run()
+      status(result) mustBe OK
+    }
+
 
   implicit lazy val request = FakeRequest().withSession(token).withHeaders(HOST -> "localhost:9523")
 
