@@ -16,28 +16,17 @@
 
 package controllers.propertyLinking
 
-import javax.inject.Inject
-
 import actions.AuthenticatedAction
 import config.ApplicationConfig
-import connectors.FileAttachmentFailed
-import controllers._
-import models.{FileInfo, RatesBillFlag, RatesBillType, UploadEvidenceData}
-import models.attachment.InitiateAttachmentRequest
-import models.attachment.SubmissionTypesValues.PropertyLinkEvidence
-import play.api.Logger
-import play.api.i18n.{Messages, MessagesApi}
-import play.api.libs.json._
-import play.api.mvc.Results._
-import play.api.mvc.{Action, Request}
-import services.BusinessRatesAttachmentService
-import session.WithLinkingSession
-import uk.gov.hmrc.play.HeaderCarrierConverter
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
-import uk.gov.hmrc.play.frontend.controller.Utf8MimeTypes
-import views.html.propertyLinking.uploadRatesBill
+import javax.inject.Inject
 
-import scala.concurrent.{ExecutionContext, Future}
+import models.{RatesBillFlag, RatesBillType, UploadEvidenceData}
+import play.api.i18n.MessagesApi
+import play.api.mvc.{Action, AnyContent, Request}
+import services.BusinessRatesAttachmentService
+import session.{LinkingSessionRequest, WithLinkingSession}
+import uk.gov.hmrc.play.HeaderCarrierConverter
+import views.html.propertyLinking.uploadRatesBill
 
 class UploadRatesBill @Inject()(override val authenticated: AuthenticatedAction, override val withLinkingSession: WithLinkingSession, override val businessRatesAttachmentService: BusinessRatesAttachmentService)(implicit messagesApi: MessagesApi, config: ApplicationConfig)
   extends FileUploadController(authenticated, withLinkingSession, businessRatesAttachmentService) {
@@ -52,11 +41,13 @@ class UploadRatesBill @Inject()(override val authenticated: AuthenticatedAction,
         case Some(fileData) if fileData.size > 0 =>
           val sessionUploadData: UploadEvidenceData =
             request.ses.uploadEvidenceData.copy(linkBasis = RatesBillFlag, fileInfo = request.ses.uploadEvidenceData.fileInfo.map(x => x.copy(evidenceType = RatesBillType)))
-          businessRatesAttachmentService.persistSessionData(request.ses, sessionUploadData).map(x => Redirect(routes.Declaration.show().url))
+          businessRatesAttachmentService.persistSessionData(request.ses, sessionUploadData).map(x => Redirect(routes.Declaration.show(Some(true)).url))
         case _ =>
           BadRequest(uploadRatesBill(request.ses.submissionId, List("error.businessRatesAttachment.file.not.selected"), Map()))
       }
   }
 
-
+  def removeRatesBill(fileReference: String) =  {
+    removeFile(fileReference)((submissionId, errors, sessionData, _) => implicit request => Ok(uploadRatesBill(submissionId, errors, sessionData)))
+  }
 }

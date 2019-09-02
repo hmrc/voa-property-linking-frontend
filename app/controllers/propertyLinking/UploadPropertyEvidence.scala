@@ -65,5 +65,8 @@ class UploadPropertyEvidence @Inject()(override val authenticated: Authenticated
         BadRequest(uploadEvidence(request.ses.submissionId, List("error.businessRatesAttachment.file.not.selected"), Map(), form))
     }
   }
-  lazy val form = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
+
+  def removeEvidence(fileReference: String) =  {
+    removeFile(fileReference)((submissionId, errors, sessionData, form) => implicit request => Ok(uploadEvidence(submissionId, errors, sessionData, form)))
+  }
 }
