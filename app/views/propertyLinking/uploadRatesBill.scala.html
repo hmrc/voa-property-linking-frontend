@@ -80,8 +80,10 @@
                                 <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
 
                                 <span class="upload-list-file-remove">
-                                    <button type="submit" class="button-link jFiler-item-trash-action" formaction="@UploadRatesBill.removeRatesBill(fileReference)">@Messages("remove.file")</button>
-                            </span>
+
+                                    <input type="submit" name="delete-upload_rate_bill" class="button-link jFiler-item-trash-action"  value="@messages("remove.file")" formaction="@UploadRatesBill.removeRatesBill(fileReference)" />
+
+                           </span>
                             </li>
                             }
                             </ul>
