@@ -46,7 +46,12 @@ class UploadPropertyEvidence @Inject()(override val authenticated: Authenticated
   extends FileUploadController(authenticated, withLinkingSession, businessRatesAttachmentService) {
 
   def show() = withLinkingSession { implicit request =>
-    Ok(uploadEvidence(request.ses.submissionId, List.empty, request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty), form))}
+    Ok(uploadEvidence(
+      request.ses.submissionId, List.empty,
+      request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty),
+      request.ses.evidenceType.map(x => form.fill(x)).getOrElse(form)
+      ))
+  }
 
   def continue() = withLinkingSession { implicit request =>
     implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
@@ -56,9 +61,10 @@ class UploadPropertyEvidence @Inject()(override val authenticated: Authenticated
           errors =>
             BadRequest(uploadEvidence(request.ses.submissionId, List("error.businessRatesAttachment.evidence.not.selected"), request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty), form)),
           formData => {
+            val session = request.ses.copy(evidenceType = EvidenceType.fromName(formData.name))
             val sessionUploadData: UploadEvidenceData =
-              request.ses.uploadEvidenceData.copy(linkBasis = OtherEvidenceFlag, fileInfo = request.ses.uploadEvidenceData.fileInfo.map(x => x.copy(evidenceType = EvidenceType.fromName(formData.name).get)))
-            businessRatesAttachmentService.persistSessionData(request.ses, sessionUploadData).map(x => Redirect(routes.Declaration.show().url))
+              session.uploadEvidenceData.copy(linkBasis = OtherEvidenceFlag, fileInfo = request.ses.uploadEvidenceData.fileInfo.map(x => x.copy(evidenceType = EvidenceType.fromName(formData.name).get)))
+            businessRatesAttachmentService.persistSessionData(session, sessionUploadData).map(x => Redirect(routes.Declaration.show().url))
           })
       }
       case _ =>
