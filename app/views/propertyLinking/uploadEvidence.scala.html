@@ -14,11 +14,13 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.play.views.html.helpers.form
-@import helpers._
-@import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
+@import controllers.propertyLinking.routes._
+@import helpers._
 @import models.upscan._
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import uk.gov.hmrc.play.views.html.helpers.input
+
 @(submissionId: String, errors: List[String] = Nil, uploadedFiles: Map[String, UploadedFileDetails] = Map(), formEvidence: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(title = Messages("uploadEvidence.show.title"),

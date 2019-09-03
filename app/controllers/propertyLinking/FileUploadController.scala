@@ -20,14 +20,12 @@ import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors.FileAttachmentFailed
 import controllers._
-import form.EnumMapping
-import models.EvidenceType
+import models.EvidenceType.form
 import models.attachment.InitiateAttachmentRequest
 import models.attachment.SubmissionTypesValues.PropertyLinkEvidence
 import models.upscan.UploadedFileDetails
 import play.api.Logger
 import play.api.data.Form
-import play.api.data.Forms.single
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json._
 import play.api.mvc.{Action, Request, Result}
@@ -36,8 +34,8 @@ import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.controller.BaseController
 import uk.gov.hmrc.play.frontend.controller.Utf8MimeTypes
-import scala.concurrent.Future
 
+import scala.concurrent.Future
 abstract class FileUploadController (
                              val authenticated: AuthenticatedAction,
                              val withLinkingSession: WithLinkingSession,
@@ -45,14 +43,12 @@ abstract class FileUploadController (
                            )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with BaseController with Utf8MimeTypes {
 
-  lazy val form = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
-
   def removeFile(fileReference: String)(f: (String, List[String], Map[String, UploadedFileDetails], Form[_]) => LinkingSessionRequest[_] => Result) = withLinkingSession { implicit request =>
     implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
     val updatedSessionData = request.ses.uploadEvidenceData.attachments.map(map => map - fileReference)
 
     for{
-      - <- businessRatesAttachmentService.persistSessionData(request.ses, request.ses.uploadEvidenceData.copy( attachments = updatedSessionData))
+      - <- businessRatesAttachmentService.persistSessionData(request.ses.copy(evidenceType = None), request.ses.uploadEvidenceData.copy( attachments = updatedSessionData))
     }yield f(request.ses.submissionId, List.empty, updatedSessionData.getOrElse(Map()), form)(request)
   }
 

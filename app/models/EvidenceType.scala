@@ -16,6 +16,9 @@
 
 package models
 
+import form.EnumMapping
+import play.api.data.Form
+import play.api.data.Forms._
 import play.api.libs.json.Format
 
 sealed trait EvidenceType extends NamedEnum {
@@ -62,4 +65,5 @@ object EvidenceType extends NamedEnumSupport[EvidenceType] {
     WaterRateDemand, OtherUtilityBill, RatesBillType, LandRegistryTitle)
 
   implicit val format: Format[EvidenceType] = EnumFormat(EvidenceType)
+  lazy val form: Form[EvidenceType] = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
 }
