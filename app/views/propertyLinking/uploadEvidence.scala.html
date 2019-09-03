@@ -19,7 +19,7 @@
 @import helpers._
 @import models.upscan._
 @import uk.gov.hmrc.play.views.html.helpers.form
-@import uk.gov.hmrc.play.views.html.helpers._
+@import uk.gov.hmrc.play.views.html.helpers.input
 
 @(submissionId: String, errors: List[String] = Nil, uploadedFiles: Map[String, UploadedFileDetails] = Map(), formEvidence: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -116,7 +116,7 @@
                 }
 
                 @form(action = UploadPropertyEvidence.continue()) {
-                    @Dropdown(
+                    @inputSelect(
                         field = formEvidence("evidenceType"),
                         options = EvidenceType.options,
                         displayEmptyValue = true,
