@@ -19,27 +19,15 @@ package controllers.propertyLinking
 import javax.inject.Inject
 import actions.AuthenticatedAction
 import config.ApplicationConfig
-import connectors.FileAttachmentFailed
-import controllers._
-import form.{EnumMapping}
-import form.Mappings._
-import models.attachment.InitiateAttachmentRequest
-import models.attachment.SubmissionTypesValues.PropertyLinkEvidence
 import models._
-import play.api.Logger
-import play.api.data.Form
-import play.api.data.Forms._
-import play.api.i18n.{Messages, MessagesApi}
+import play.api.i18n.MessagesApi
 import play.api.libs.json._
-import play.api.mvc.{Action, Request}
+import play.api.mvc._
 import services.BusinessRatesAttachmentService
 import session.WithLinkingSession
 import uk.gov.hmrc.play.HeaderCarrierConverter
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
-import uk.gov.hmrc.play.frontend.controller.Utf8MimeTypes
-import views.helpers.Errors
 import views.html.propertyLinking.uploadEvidence
-
+import EvidenceType.form
 import scala.concurrent.Future
 
 class UploadPropertyEvidence @Inject()(override val authenticated: AuthenticatedAction, override val withLinkingSession: WithLinkingSession, override val businessRatesAttachmentService: BusinessRatesAttachmentService)(implicit messagesApi: MessagesApi, config: ApplicationConfig)
@@ -47,9 +35,10 @@ class UploadPropertyEvidence @Inject()(override val authenticated: Authenticated
 
   def show() = withLinkingSession { implicit request =>
     Ok(uploadEvidence(
-      request.ses.submissionId, List.empty,
-      request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty),
-      request.ses.evidenceType.map(x => form.fill(x)).getOrElse(form)
+      submissionId = request.ses.submissionId,
+      errors = List.empty,
+      uploadedFiles = request.ses.uploadEvidenceData.attachments.getOrElse(Map.empty),
+      formEvidence = request.ses.evidenceType.map(x => form.fill(x)).getOrElse(form)
       ))
   }
 
