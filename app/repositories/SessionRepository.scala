@@ -40,6 +40,10 @@ class PersonalDetailsSessionRepository @Inject()(db: DB) extends SessionReposito
 @Singleton
 class PropertyLinkingSessionRepository @Inject()(db: DB) extends SessionRepository("propertyLinking", db)
 
+@Singleton
+class PropertyLinksSessionRepository @Inject()(db: DB) extends SessionRepository("propertyLinks", db)
+
+
 class SessionRepository @Inject()(formId: String, db: DB)
   extends ReactiveRepository[SessionData, String]("sessions", () => db, SessionData.format, implicitly[Format[String]])
     with SessionRepo {
@@ -72,7 +76,13 @@ class SessionRepository @Inject()(formId: String, db: DB)
       maybeOption
         .map(_.data \ formId)
         .flatMap(x => x match {
-          case JsDefined(value) => Some(value.as[A])
+          case JsDefined(value) => {
+            value.validate(rds) match {
+              case JsSuccess(v, path) =>
+                Some(value.as[A])
+              case _ => None
+            }
+          }
           case JsUndefined() => None
         })
     }

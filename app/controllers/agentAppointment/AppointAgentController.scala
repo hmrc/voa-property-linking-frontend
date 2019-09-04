@@ -20,6 +20,7 @@ import java.time.Instant
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import auditing.AuditingService
+import auth.GovernmentGatewayProvider
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.{ApplicationConfig, Global}
@@ -29,7 +30,7 @@ import controllers._
 import form.AgentPermissionMapping
 import form.FormValidation.nonEmptyList
 import form.Mappings._
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 import models._
 import models.searchApi._
 import play.api.Logger
@@ -38,17 +39,20 @@ import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Request, Result}
+import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class AppointAgentController @Inject()(
+                                        val provider: GovernmentGatewayProvider,
                                         representations: PropertyRepresentationConnector,
                                         accounts: GroupAccounts,
                                         propertyLinks: PropertyLinkConnector,
                                         agentsConnector: AgentsConnector,
-                                        authenticated: AuthenticatedAction
+                                        authenticated: AuthenticatedAction,
+                                        @Named("propertyLinksSession") val propertyLinksSessionRepo: SessionRepo
                                       )(implicit val messagesApi: MessagesApi, executionContext: ExecutionContext, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
@@ -303,24 +307,43 @@ class AppointAgentController @Inject()(
                                               checkPermission: AgentPermission,
                                               challengePermission: AgentPermission,
                                               isAgent: Boolean
-                                            )(implicit hc: HeaderCarrier): Future[Unit] = {
-    val link: Future[Option[PropertyLink]] = propertyLinks.getMyOrganisationPropertyLink(pLink)
+                                            )(implicit hc: HeaderCarrier, request: Request[_]) = {
 
-    link map {
-      case Some(prop) =>
-        logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible. 1 ")
-        updateAllAgentsPermission(
-          prop.authorisationId,
-          prop,
-          AppointAgent(None, "", checkPermission, challengePermission),
-          agentOrgId,
-          individualId,
-          organisationId)
-      // just ignore if it does happen
+    hc.sessionId match {
+      case Some(sessionId) =>
+        println("Got session ID " + sessionId)
+        propertyLinksSessionRepo.get[SessionLinks] map {
+          case Some(links) =>
+            println("Got links from bd " + links)
+            updateAllAgentsPermission(
+              links.,
+              AppointAgent(None, "", checkPermission, challengePermission),
+              agentOrgId,
+              individualId,
+              organisationId)
+          case None =>
+            println("No links in DB retrieving from API ")
+            propertyLinks.getMyOrganisationPropertyLink(pLink) map {
+              case Some(prop) => {
+                println("Got links from API " + prop)
+                val links = SessionLinks(Seq(SessionLink(prop)))
+                propertyLinksSessionRepo.saveOrUpdate[SessionLinks](links)
+                updateAllAgentsPermission(
+                  prop,
+                  AppointAgent(None, "", checkPermission, challengePermission),
+                  agentOrgId,
+                  individualId,
+                  organisationId)
+              }
+              case None =>
+                logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible. w")
+                Future.successful(Unit)
+            }
+        }
       case None =>
-        logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible. w")
-        Future.successful(Unit)
+        provider.redirectToLogin
     }
+
   }
 
 
@@ -349,7 +372,6 @@ class AppointAgentController @Inject()(
   }
 
   private def updateAllAgentsPermission(
-                                         authorisationId: Long,
                                          link: PropertyLink,
                                          newAgentPermission: AppointAgent,
                                          newAgentOrgId: Long,
@@ -365,7 +387,7 @@ class AppointAgentController @Inject()(
         //existing agents that had a check permission have been revoked
         //we now need to re-add the agents that had a challenge permission
         updatedAgents <- Future.traverse(agentsToUpdate.filter(_.challengePermission != NotPermitted))(agent => {
-          createAndSubmitAgentRepRequest(authorisationId, agent.organisationId, individualId, NotPermitted, agent.challengePermission, organisationId)
+          createAndSubmitAgentRepRequest(link.authorisationId, agent.organisationId, individualId, NotPermitted, agent.challengePermission, organisationId)
         })
       } yield {
         updatedAgents
@@ -375,7 +397,7 @@ class AppointAgentController @Inject()(
       for {
         revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
         updatedAgents <- Future.traverse(agentsToUpdate.filter(_.checkPermission != NotPermitted))(agent => {
-          createAndSubmitAgentRepRequest(authorisationId, agent.organisationId, individualId, agent.checkPermission, NotPermitted, organisationId)
+          createAndSubmitAgentRepRequest(link.authorisationId, agent.organisationId, individualId, agent.checkPermission, NotPermitted, organisationId)
         })
       } yield {
         updatedAgents
@@ -383,7 +405,7 @@ class AppointAgentController @Inject()(
     }
     updateExistingAgents.flatMap(_ => {
       //existing agents have been updated. Time to add the new agent.
-      createAndSubmitAgentRepRequest(authorisationId, newAgentOrgId, individualId, newAgentPermission, organisationId)
+      createAndSubmitAgentRepRequest(link.authorisationId, newAgentOrgId, individualId, newAgentPermission, organisationId)
     })
   }
 

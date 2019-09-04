@@ -122,6 +122,7 @@ class GuiceModule(environment: Environment,
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
+    bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinksSession")).to(classOf[PropertyLinksSessionRepository])
     bind(classOf[WSHttp]).to(classOf[VPLHttp])
     bind(classOf[VoaAction]).to(classOf[GgAction])
     bind(classOf[ManageDetails]).to(classOf[ManageVoaDetails])

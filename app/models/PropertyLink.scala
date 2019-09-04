@@ -31,6 +31,29 @@ object PropertyLink {
   implicit val format: Format[PropertyLink] = Json.format[PropertyLink]
 }
 
+
+case class SessionLink(
+                         authorisationId: Long,
+                         submissionId: String,
+                         agents: Seq[Party])
+
+object SessionLink {
+  implicit val format: Format[SessionLink] = Json.format[SessionLink]
+
+  def apply(propertyLink: PropertyLink)
+  :SessionLink =
+    SessionLink(propertyLink.authorisationId,
+      propertyLink.submissionId,
+      propertyLink.agents)
+}
+
+case class SessionLinks(links: Seq[SessionLink])
+
+object SessionLinks{
+  implicit val format: Format[SessionLinks] = Json.format[SessionLinks]
+}
+
+
 case class ApiAssessments(
                          authorisationId: Long,
                          submissionId: String,
