@@ -102,11 +102,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
       data => {
         data.action match {
           case "reject" => Future.successful(Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form)))
-        }
-        if (data.action == "reject") {
-          Future.successful(Ok(views.html.dashboard.pendingPropertyRepresentationsConfirm(data, BulkActionsForm.form)))
-        } else {
-          withValidPagination(page, pageSize) { pagination =>
+          case _ => withValidPagination(page, pageSize) { pagination =>
             reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
               val futureListOfSuccesses = getFutureListOfActions(data, request.personId).map(_.filter(_.isSuccess))
               futureListOfSuccesses.map(successes =>
