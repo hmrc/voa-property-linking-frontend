@@ -106,7 +106,8 @@
                             <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
 
                             <span class="upload-list-file-remove">
-                               <input type="submit" name="delete-upload-evidence" class="button-link jFiler-item-trash-action"  value="@messages("remove.file")" formaction="@UploadPropertyEvidence.removeEvidence(fileReference)" />
+
+                            <input type="submit" name="delete-upload-evidence" class="button-link remove-link" value="@messages("remove.file")" formaction="@UploadPropertyEvidence.removeEvidence(fileReference)" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
 
                         </span>
                         </li>
