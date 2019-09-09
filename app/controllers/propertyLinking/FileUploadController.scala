@@ -20,6 +20,9 @@ import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors.FileAttachmentFailed
 import controllers._
+import play.api.data.Forms._
+import form.EnumMapping
+import models.EvidenceType
 import models.EvidenceType.form
 import models.attachment.InitiateAttachmentRequest
 import models.attachment.SubmissionTypesValues.PropertyLinkEvidence
@@ -35,7 +38,6 @@ import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.controller.BaseController
 import uk.gov.hmrc.play.frontend.controller.Utf8MimeTypes
 
-import scala.concurrent.Future
 abstract class FileUploadController (
                              val authenticated: AuthenticatedAction,
                              val withLinkingSession: WithLinkingSession,
