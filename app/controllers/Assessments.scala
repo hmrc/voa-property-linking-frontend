@@ -95,9 +95,9 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
                         owner: Boolean
                       )(implicit request: Request[_]): (String, ApiAssessment) = {
     assessment.rateableValue match {
-      case None                   => routes.Assessments.viewSummary(assessment.uarn, isPending).absoluteURL() -> assessment
-      case Some(_) if isPending   => routes.Assessments.viewSummary(assessment.uarn, isPending).absoluteURL() -> assessment
-      case Some(_)                => routes.Assessments.viewDetailedAssessment(submissionId, authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference, owner).absoluteURL() -> assessment
+      case None                   => routes.Assessments.viewSummary(assessment.uarn, isPending).url -> assessment
+      case Some(_) if isPending   => routes.Assessments.viewSummary(assessment.uarn, isPending).url -> assessment
+      case Some(_)                => routes.Assessments.viewDetailedAssessment(submissionId, authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference, owner).url -> assessment
     }
   }
 
