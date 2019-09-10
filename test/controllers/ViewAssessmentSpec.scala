@@ -16,12 +16,9 @@
 
 package controllers
 
-import actions.BasicAuthenticatedRequest
-import config.ApplicationConfig
-import connectors.{IdentityVerification, _}
+import connectors._
 import models._
 import models.dvr.DetailedValuationRequest
-import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{any, eq => matching}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
@@ -29,14 +26,11 @@ import org.scalatest.OptionValues
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.domain.Nino
+import uk.gov.hmrc.http.HeaderCarrier
 import utils.{StubBusinessRatesValuation, _}
 
 import scala.concurrent.ExecutionContext.Implicits.global
-
-import scala.collection.JavaConverters._
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
