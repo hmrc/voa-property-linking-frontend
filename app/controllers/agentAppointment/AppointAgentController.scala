@@ -20,7 +20,6 @@ import java.time.Instant
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import auditing.AuditingService
-import auth.GovernmentGatewayProvider
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.{ApplicationConfig, Global}
@@ -40,18 +39,19 @@ import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import repositories.SessionRepo
+import services.AppointRevokeAgentService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class AppointAgentController @Inject()(
-                                        val provider: GovernmentGatewayProvider,
                                         representations: PropertyRepresentationConnector,
                                         accounts: GroupAccounts,
                                         propertyLinks: PropertyLinkConnector,
                                         agentsConnector: AgentsConnector,
                                         authenticated: AuthenticatedAction,
+                                        appointRevokeService: AppointRevokeAgentService,
                                         @Named("propertyLinksSession") val propertyLinksSessionRepo: SessionRepo
                                       )(implicit val messagesApi: MessagesApi, executionContext: ExecutionContext, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
@@ -99,14 +99,14 @@ class AppointAgentController @Inject()(
                                     ): Action[AnyContent] = authenticated.async { implicit request =>
     for {
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
-      response          <- propertyLinks.getMyOrganisationPropertyLinksWithAgentFiltering(
-        params,
-        PaginationParams(startPoint = pagination.startPoint, pageSize = pagination.pageSize, requestTotalRowCount = false),
-        agentAppointed = agentAppointed,
-        organisationId = request.organisationAccount.id,
-        agentOrganisationId = agentOrganisation.fold(throw new IllegalArgumentException("agent organisation required."))(_.id),
-        checkPermission = checkPermission,
-        challengePermission = challengePermission)
+      response               <- appointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(params, AgentPropertiesParameters(
+        agentCode = agentCode,
+        checkPermission = AgentPermission.fromName(checkPermission).getOrElse(StartAndContinue),
+        challengePermission = AgentPermission.fromName(challengePermission).getOrElse(StartAndContinue),
+        pageNumber = pagination.page,
+        pageSize = pagination.pageSize),
+        request.organisationAccount.id, agentOrganisation.fold(throw new IllegalArgumentException("agent organisation required."))(_.id))
+      _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
     } yield {
       agentOrganisation match {
         case Some(organisation) =>
@@ -128,23 +128,17 @@ class AppointAgentController @Inject()(
 
   def appointAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentBulkActionForm.bindFromRequest().fold(
-      hasErrors = errors => {
+      errors => {
         val data: Map[String, String] = errors.data
-        val pagination = AgentPropertiesParameters(
-          agentCode = data("agentCode").toLong,
-          checkPermission = AgentPermission.fromName(data("checkPermission")).getOrElse(StartAndContinue),
-          challengePermission = AgentPermission.fromName(data("challengePermission")).getOrElse(StartAndContinue))
-
-        accounts.withAgentCode(pagination.agentCode.toString) flatMap {
+        accounts.withAgentCode(data("agentCode")) flatMap {
           case Some(group) => {
-            for {
-              response          <- propertyLinks.getMyOrganisationPropertyLinksWithAgentFiltering(
-                GetPropertyLinksParameters(),
-                PaginationParams(startPoint = pagination.startPoint, pageSize = pagination.pageSize, requestTotalRowCount = false),
-                organisationId = request.organisationAccount.id,
-                agentOrganisationId = group.id,
-                checkPermission = pagination.checkPermission.name,
-                challengePermission = pagination.challengePermission.name)
+            for{
+              response <- appointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
+                AgentPropertiesParameters(
+                agentCode = data("agentCode").toLong,
+                checkPermission = AgentPermission.fromName(data("checkPermission")).getOrElse(StartAndContinue),
+                challengePermission = AgentPermission.fromName(data("challengePermission")).getOrElse(StartAndContinue)),
+                request.organisationAccount.id, group.id)
             } yield BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), data("agentCode").toLong, data("checkPermission"), data("challengePermission"), data.get("agentAppointed")))
           }
           case None =>
@@ -154,20 +148,26 @@ class AppointAgentController @Inject()(
       success = (action: AgentAppointBulkAction) => {
         accounts.withAgentCode(action.agentCode.toString) flatMap {
           case Some(group) => {
-            for {
-              _ <- Future.traverse(action.propertyLinkIds)(pLink =>
-                createAndSubmitAgentRepRequest(
-                  pLink,
-                  group.id,
-                  request.organisationId,
-                  request.individualAccount.individualId,
-                  action.checkPermission,
-                  action.challengePermission,
-                  request.organisationAccount.isAgent)).recover {
-                case e => Logger.warn(s"Failed to get a property link during multiple property agent appointment: ${e.getMessage}", e)
+            appointRevokeService.createAndSubmitAgentRepRequest(action.propertyLinkIds,
+              group.id,
+              request.organisationAccount.id,
+              request.individualAccount.individualId,
+              action.checkPermission,
+              action.challengePermission,
+              request.organisationAccount.isAgent) flatMap {
+              case Some(()) => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName))
+              case _ => {
+                for{
+                  response <- appointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
+                    AgentPropertiesParameters(
+                    agentCode = action.agentCode,
+                    checkPermission = action.checkPermission,
+                    challengePermission = action.challengePermission),
+                    request.organisationAccount.id, group.id)
+                } yield BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(Some(appointAgentBulkActionForm.withError("appoint.error", "error.transaction")),
+                  AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.checkPermission.toString, action.challengePermission.toString, None))
               }
-            } yield
-              Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName))
+            }
           }
           case None =>
             notFound
@@ -293,58 +293,9 @@ class AppointAgentController @Inject()(
   }
 
 
-
   def registeredAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
     "agentCodeRadio" -> text
   )(AgentId.apply)(AgentId.unapply))
-
-
-  private def createAndSubmitAgentRepRequest(
-                                              pLink: String,
-                                              agentOrgId: Long,
-                                              organisationId: Long,
-                                              individualId: Long,
-                                              checkPermission: AgentPermission,
-                                              challengePermission: AgentPermission,
-                                              isAgent: Boolean
-                                            )(implicit hc: HeaderCarrier, request: Request[_]) = {
-
-    hc.sessionId match {
-      case Some(sessionId) =>
-        println("Got session ID " + sessionId)
-        propertyLinksSessionRepo.get[SessionLinks] map {
-          case Some(links) =>
-            println("Got links from bd " + links)
-            updateAllAgentsPermission(
-              links.,
-              AppointAgent(None, "", checkPermission, challengePermission),
-              agentOrgId,
-              individualId,
-              organisationId)
-          case None =>
-            println("No links in DB retrieving from API ")
-            propertyLinks.getMyOrganisationPropertyLink(pLink) map {
-              case Some(prop) => {
-                println("Got links from API " + prop)
-                val links = SessionLinks(Seq(SessionLink(prop)))
-                propertyLinksSessionRepo.saveOrUpdate[SessionLinks](links)
-                updateAllAgentsPermission(
-                  prop,
-                  AppointAgent(None, "", checkPermission, challengePermission),
-                  agentOrgId,
-                  individualId,
-                  organisationId)
-              }
-              case None =>
-                logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible. w")
-                Future.successful(Unit)
-            }
-        }
-      case None =>
-        provider.redirectToLogin
-    }
-
-  }
 
 
   private def createAndSubitAgentRevokeRequest(pLink: String,
@@ -369,72 +320,6 @@ class AppointAgentController @Inject()(
         logger.warn(s"User has selected a bad property submission ID $pLink - this shouldn't be possible. 3")
         Future.successful(Unit)
     }
-  }
-
-  private def updateAllAgentsPermission(
-                                         link: PropertyLink,
-                                         newAgentPermission: AppointAgent,
-                                         newAgentOrgId: Long,
-                                         individualId: Long,
-                                         organisationId: Long
-                                       )(implicit hc: HeaderCarrier): Future[Unit] = {
-    val updateExistingAgents = if (newAgentPermission.canCheck == StartAndContinue && newAgentPermission.canChallenge == StartAndContinue) {
-      Future.sequence(link.agents.map(agent => representations.revoke(agent.authorisedPartyId)))
-    } else if (newAgentPermission.canCheck == StartAndContinue) {
-      val agentsToUpdate = link.agents.filter(_.checkPermission == StartAndContinue)
-      for {
-        revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
-        //existing agents that had a check permission have been revoked
-        //we now need to re-add the agents that had a challenge permission
-        updatedAgents <- Future.traverse(agentsToUpdate.filter(_.challengePermission != NotPermitted))(agent => {
-          createAndSubmitAgentRepRequest(link.authorisationId, agent.organisationId, individualId, NotPermitted, agent.challengePermission, organisationId)
-        })
-      } yield {
-        updatedAgents
-      }
-    } else {
-      val agentsToUpdate = link.agents.filter(_.challengePermission == StartAndContinue)
-      for {
-        revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
-        updatedAgents <- Future.traverse(agentsToUpdate.filter(_.checkPermission != NotPermitted))(agent => {
-          createAndSubmitAgentRepRequest(link.authorisationId, agent.organisationId, individualId, agent.checkPermission, NotPermitted, organisationId)
-        })
-      } yield {
-        updatedAgents
-      }
-    }
-    updateExistingAgents.flatMap(_ => {
-      //existing agents have been updated. Time to add the new agent.
-      createAndSubmitAgentRepRequest(link.authorisationId, newAgentOrgId, individualId, newAgentPermission, organisationId)
-    })
-  }
-
-  private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long,
-                                             checkPermission: AgentPermission, challengePermission: AgentPermission, organisationId: Long)
-                                            (implicit hc: HeaderCarrier): Future[Unit] = {
-    val submissionId = java.util.UUID.randomUUID().toString
-    val createDatetime = Instant.now
-    val req = RepresentationRequest(authorisationId, agentOrgId, userIndividualId,
-      submissionId, checkPermission.name, challengePermission.name, createDatetime)
-
-    representations.create(req).map(x => {
-      AuditingService.sendEvent("agent representation request approve", Json.obj(
-        "organisationId" -> organisationId,
-        "individualId" -> userIndividualId,
-        "propertyLinkId" -> authorisationId,
-        "agentOrganisationId" -> agentOrgId,
-        "submissionId" -> submissionId,
-        "checkPermission" -> checkPermission.name,
-        "challengePermission" -> challengePermission.name,
-        "createDatetime" -> createDatetime.toString
-      ))
-    })
-  }
-
-
-  private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long, appointedAgent: AppointAgent, organisationId: Long)
-                                            (implicit hc: HeaderCarrier): Future[Unit] = {
-    createAndSubmitAgentRepRequest(authorisationId, agentOrgId, userIndividualId, appointedAgent.canCheck, appointedAgent.canChallenge, organisationId)
   }
 
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")

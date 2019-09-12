@@ -24,8 +24,8 @@ case class OwnerAuthAgent(
                            organisationId: Long,
                            organisationName: String,
                            status: Option[String],
-                           checkPermission: Option[AgentPermission],
-                           challengePermission: Option[AgentPermission]
+                           checkPermission: AgentPermission,
+                           challengePermission: AgentPermission
                          )
 
 object OwnerAuthAgent {
