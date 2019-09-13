@@ -119,7 +119,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
     StubGroupAccountConnector.stubAccount(testAgentAccount)
 
-    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier], any[ExecutionContext])).thenReturn(Future.successful(Some()))
+    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
 
     val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
@@ -138,7 +138,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
     StubGroupAccountConnector.stubAccount(testAgentAccount)
 
-    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier], any[ExecutionContext])).thenReturn(Future.successful(Some()))
+    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
 
     val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
@@ -159,7 +159,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
     StubGroupAccountConnector.stubAccount(testAgentAccount)
 
-    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier], any[ExecutionContext])).thenReturn(Future.successful(None))
+    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.failed(new Exception))
 
     val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",

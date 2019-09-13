@@ -76,13 +76,7 @@ class SessionRepository @Inject()(formId: String, db: DB)
       maybeOption
         .map(_.data \ formId)
         .flatMap(x => x match {
-          case JsDefined(value) => {
-            value.validate(rds) match {
-              case JsSuccess(v, path) =>
-                Some(value.as[A])
-              case _ => None
-            }
-          }
+          case JsDefined(value) => Some(value.as[A])
           case JsUndefined() => None
         })
     }

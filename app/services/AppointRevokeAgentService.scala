@@ -35,13 +35,15 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
+case class AppointRevokeException(message: String) extends Exception(s"Failed to appoint agent to multiple properties: $message")
+
 class AppointRevokeAgentService @Inject()(representations: PropertyRepresentationConnector,
                                           propertyLinks: PropertyLinkConnector,
-                                          @Named("propertyLinksSession") val propertyLinksSessionRepo: SessionRepo) {
+                                          @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo)
+                                          (implicit val executionContext: ExecutionContext)
+{
 
   val logger: Logger = Logger(this.getClass)
-
-
 
   def createAndSubmitAgentRepRequest( pLinkIds: List[String],
                                       agentOrgId: Long,
@@ -49,7 +51,7 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
                                       individualId: Long,
                                       checkPermission: AgentPermission,
                                       challengePermission: AgentPermission,
-                                      isAgent: Boolean)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[Option[Unit]] = {
+                                      isAgent: Boolean)(implicit hc: HeaderCarrier): Future[Unit] = {
 
 
     Future.traverse(pLinkIds)(pLink =>
@@ -60,11 +62,8 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
         individualId,
         checkPermission,
         challengePermission,
-        isAgent)).map {
-      x => if(x.forall(_.isDefined))
-            Some()
-           else
-            None
+        isAgent)).map{
+      x => x.reduce((a,b) => a)
     }
   }
 
@@ -89,31 +88,30 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
                                               checkPermission: AgentPermission,
                                               challengePermission: AgentPermission,
                                               isAgent: Boolean
-                                            )(implicit hc: HeaderCarrier, executionContext: ExecutionContext):Future[Option[Unit]] = {
-
+                                            )(implicit hc: HeaderCarrier):Future[Unit] = {
     hc.sessionId match {
       case Some(sessionId) =>
-        propertyLinksSessionRepo.get[SessionPropertyLinks] map {
+        propertyLinksSessionRepo.get[SessionPropertyLinks] flatMap {
           case Some(links) =>
             links.links.find(_.submissionId == pLink) match {
               case Some(link) =>
-                Some(updateAllAgentsPermission(
+                Future.successful(updateAllAgentsPermission(
                   link,
                   AppointAgent(None, "", checkPermission, challengePermission),
                   agentOrgId,
                   individualId,
                   organisationId))
               case None =>
-                logger.error(s"Property link $pLink not found in property links cache.")
-                None
+                logger.warn(s"Property link $pLink not found in property links cache.")
+                Future.failed(new AppointRevokeException(s"Property link $pLink not found in property links cache."))
             }
           case None =>
-            logger.warn(s"Session ID $hc.sessionId no longer in property links cache - should be redirected to login by auth.")
-            Some()
+            logger.warn(s"Session ID $sessionId no longer in property links cache - should be redirected to login by auth.")
+            Future.failed(new AppointRevokeException(s"Session ID $sessionId no longer in property links cache - should be redirected to login by auth."))
         }
       case None =>
         logger.warn(s"Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth.")
-        Future.successful(Some())
+        Future.failed(new AppointRevokeException(s"Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
     }
   }
 
@@ -123,27 +121,27 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
                                          newAgentOrgId: Long,
                                          individualId: Long,
                                          organisationId: Long
-                                       )(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[Unit] = {
+                                       )(implicit hc: HeaderCarrier): Future[Unit] = {
     val updateExistingAgents = if (newAgentPermission.canCheck == StartAndContinue && newAgentPermission.canChallenge == StartAndContinue) {
       Future.sequence(link.agents.map(agent => representations.revoke(agent.authorisedPartyId)))
     } else if (newAgentPermission.canCheck == StartAndContinue) {
-      val agentsToUpdate = link.agents.filter(_.permissions.checkPermission == StartAndContinue)
+      val agentsToUpdate = link.agents.filter(_.checkPermission == StartAndContinue)
       for {
         revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
         //existing agents that had a check permission have been revoked
         //we now need to re-add the agents that had a challenge permission
-        updatedAgents <- Future.traverse(agentsToUpdate.filter(_.permissions.challengePermission != NotPermitted))(agent => {
-          createAndSubmitAgentRepRequest(link.authorisationId, agent.organisationId, individualId, NotPermitted, agent.permissions.challengePermission, organisationId)
+        updatedAgents <- Future.traverse(agentsToUpdate.filter(_.challengePermission != NotPermitted))(agent => {
+          createAndSubmitAgentRepRequest(link.authorisationId, agent.organisationId, individualId, NotPermitted, agent.challengePermission, organisationId)
         })
       } yield {
         updatedAgents
       }
     } else {
-      val agentsToUpdate = link.agents.filter(_.permissions.challengePermission == StartAndContinue)
+      val agentsToUpdate = link.agents.filter(_.challengePermission == StartAndContinue)
       for {
         revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
-        updatedAgents <- Future.traverse(agentsToUpdate.filter(_.permissions.checkPermission != NotPermitted))(agent => {
-          createAndSubmitAgentRepRequest(link.authorisationId, agent.organisationId, individualId, agent.permissions.checkPermission, NotPermitted, organisationId)
+        updatedAgents <- Future.traverse(agentsToUpdate.filter(_.checkPermission != NotPermitted))(agent => {
+          createAndSubmitAgentRepRequest(link.authorisationId, agent.organisationId, individualId, agent.checkPermission, NotPermitted, organisationId)
         })
       } yield {
         updatedAgents
@@ -157,7 +155,7 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
 
   private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long,
                                              checkPermission: AgentPermission, challengePermission: AgentPermission, organisationId: Long)
-                                            (implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[Unit] = {
+                                            (implicit hc: HeaderCarrier): Future[Unit] = {
     val submissionId = java.util.UUID.randomUUID().toString
     val createDatetime = Instant.now
     val req = RepresentationRequest(authorisationId, agentOrgId, userIndividualId,
@@ -178,9 +176,7 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
   }
 
   private def createAndSubmitAgentRepRequest(authorisationId: Long, agentOrgId: Long, userIndividualId: Long, appointedAgent: AppointAgent, organisationId: Long)
-                                            (implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[Unit] = {
+                                            (implicit hc: HeaderCarrier): Future[Unit] = {
     createAndSubmitAgentRepRequest(authorisationId, agentOrgId, userIndividualId, appointedAgent.canCheck, appointedAgent.canChallenge, organisationId)
   }
 }
-
-

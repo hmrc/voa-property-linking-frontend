@@ -52,7 +52,7 @@ class AppointAgentController @Inject()(
                                         agentsConnector: AgentsConnector,
                                         authenticated: AuthenticatedAction,
                                         appointRevokeService: AppointRevokeAgentService,
-                                        @Named("propertyLinksSession") val propertyLinksSessionRepo: SessionRepo
+                                        @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo
                                       )(implicit val messagesApi: MessagesApi, executionContext: ExecutionContext, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
@@ -147,27 +147,25 @@ class AppointAgentController @Inject()(
       },
       success = (action: AgentAppointBulkAction) => {
         accounts.withAgentCode(action.agentCode.toString) flatMap {
-          case Some(group) => {
-            appointRevokeService.createAndSubmitAgentRepRequest(action.propertyLinkIds,
-              group.id,
-              request.organisationAccount.id,
-              request.individualAccount.individualId,
-              action.checkPermission,
-              action.challengePermission,
-              request.organisationAccount.isAgent) flatMap {
-              case Some(()) => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName))
-              case _ => {
-                for{
-                  response <- appointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
-                    AgentPropertiesParameters(
+          case Some(group) => appointRevokeService.createAndSubmitAgentRepRequest(action.propertyLinkIds,
+            group.id,
+            request.organisationAccount.id,
+            request.individualAccount.individualId,
+            action.checkPermission,
+            action.challengePermission,
+            request.organisationAccount.isAgent).map {
+            case _ => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName))
+          }.recoverWith {
+            case _ =>
+              for{
+                response <- appointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
+                  AgentPropertiesParameters(
                     agentCode = action.agentCode,
                     checkPermission = action.checkPermission,
                     challengePermission = action.challengePermission),
-                    request.organisationAccount.id, group.id)
-                } yield BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(Some(appointAgentBulkActionForm.withError("appoint.error", "error.transaction")),
-                  AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.checkPermission.toString, action.challengePermission.toString, None))
-              }
-            }
+                  request.organisationAccount.id, group.id)
+              } yield BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(Some(appointAgentBulkActionForm.withError("appoint.error", "error.transaction")),
+                AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.checkPermission.toString, action.challengePermission.toString, None))
           }
           case None =>
             notFound

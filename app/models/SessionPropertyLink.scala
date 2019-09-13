@@ -22,7 +22,7 @@ import play.api.libs.json.{Format, Json}
 case class SessionPropertyLink(
                                 authorisationId: Long,
                                 submissionId: String,
-                                agents: Seq[Agent])
+                                agents: Seq[OwnerAuthAgent])
 
 object SessionPropertyLink {
   implicit val format: Format[SessionPropertyLink] = Json.format[SessionPropertyLink]
@@ -31,11 +31,7 @@ object SessionPropertyLink {
   : SessionPropertyLink =
     SessionPropertyLink(propertyLink.authorisationId,
       propertyLink.submissionId,
-      agents = propertyLink.agents match {
-        case Some(agent) => agent.map(agent => Agent(
-          agent.status, AgentPermissions(agent.checkPermission, agent.challengePermission), agent.authorisedPartyId, agent.organisationId))
-        case None => Seq()
-      })
+      agents = propertyLink.agents.toList.flatten)
 }
 
 case class SessionPropertyLinks(links: Seq[SessionPropertyLink])
@@ -46,28 +42,4 @@ object SessionPropertyLinks{
   def apply(propertyLinks: OwnerAuthResult)
   : SessionPropertyLinks =
     SessionPropertyLinks(propertyLinks.authorisations.map(link => SessionPropertyLink(link)).toList)
-}
-
-case class Agent( status: Option[String],
-                  permissions: AgentPermissions,
-                  authorisedPartyId: Long,
-                  organisationId: Long)
-
-object Agent{
-  implicit val format: Format[Agent] = Json.format[Agent]
-
-  def apply(agent: OwnerAuthAgent)
-  : Agent =
-    Agent(agent.status,
-      AgentPermissions(agent.checkPermission, agent.challengePermission),
-      agent.authorisedPartyId,
-      agent.organisationId)
-}
-
-case class AgentPermissions(checkPermission: AgentPermission,
-                            challengePermission: AgentPermission)
-
-object AgentPermissions {
-  implicit val format: Format[AgentPermissions] = Json.format[AgentPermissions]
-
 }

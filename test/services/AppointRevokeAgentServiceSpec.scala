@@ -19,15 +19,19 @@ package services
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import models._
+import models.searchApi.OwnerAuthAgent
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
+import org.scalatest.concurrent.ScalaFutures
 import uk.gov.hmrc.http.logging.SessionId
 
 import scala.concurrent.Future
 
 class AppointRevokeAgentServiceSpec extends ServiceSpec {
+
+  import scala.concurrent.ExecutionContext.Implicits.global
 
   private lazy val testService = new AppointRevokeAgentService(mockRepresentationConnector, mockPropertyLinkConnector, mockSessionRepo)
 
@@ -39,14 +43,12 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
 
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
 
-  import scala.concurrent.ExecutionContext.Implicits.global
+
 
   "createAndSubmitAgentRepRequest" should "return option unit when succesful" in {
 
-    val links = SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(Agent(None,
-      AgentPermissions(AgentPermission.fromName("START_AND_CONTINUE").get, AgentPermission.fromName("START_AND_CONTINUE").get),
-      1L,
-      1L)))))
+    val links = SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "", None,
+      AgentPermission.fromName("START_AND_CONTINUE").get, AgentPermission.fromName("START_AND_CONTINUE").get)))))
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
     when(mockRepresentationConnector.revoke(any())(any())).thenReturn(Future.successful())
@@ -62,17 +64,15 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
       AgentPermission.fromName("START_AND_CONTINUE").get,
       true)
 
-    res.futureValue must be(Some(()))
+    res.futureValue must be(())
 
   }
 
 
-  "createAndSubmitAgentRepRequest" should "return option none when link doesn't exist in cache" in {
+  "createAndSubmitAgentRepRequest" should "throw exception when link doesn't exist in cache" in {
 
-    val links = SessionPropertyLinks(Seq(SessionPropertyLink(2L, "11111", Seq(Agent(None,
-      AgentPermissions(AgentPermission.fromName("START_AND_CONTINUE").get, AgentPermission.fromName("START_AND_CONTINUE").get),
-      3L,
-      4L)))))
+    val links = SessionPropertyLinks(Seq(SessionPropertyLink(2L, "11111", Seq(OwnerAuthAgent(3L, 4L, "", None,
+      AgentPermission.fromName("START_AND_CONTINUE").get, AgentPermission.fromName("START_AND_CONTINUE").get)))))
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
 
@@ -85,10 +85,12 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
       AgentPermission.fromName("START_AND_CONTINUE").get,
       true)
 
-    res.futureValue must be(None)
+    ScalaFutures.whenReady(res.failed) { ex =>
+      ex must be (new services.AppointRevokeException("Property link 999 not found in property links cache."))
+    }
   }
 
-  "createAndSubmitAgentRepRequest" should "return option unit when session id doesn't exist in cache (handled by auth)" in {
+  "createAndSubmitAgentRepRequest" should "throw exception unit when session id doesn't exist in cache (handled by auth)" in {
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(None))
 
@@ -101,7 +103,9 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
       AgentPermission.fromName("START_AND_CONTINUE").get,
       true)
 
-    res.futureValue must be(Some())
+    ScalaFutures.whenReady(res.failed) { ex =>
+      ex must be (new services.AppointRevokeException("Session ID SessionId(1111) no longer in property links cache - should be redirected to login by auth."))
+    }
   }
 
   "createAndSubmitAgentRepRequest" should "return option unit when session id can't be obtained (handled by auth)" in {
@@ -117,7 +121,9 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
       AgentPermission.fromName("START_AND_CONTINUE").get,
       true)
 
-    res.futureValue must be(Some())
+    ScalaFutures.whenReady(res.failed) { ex =>
+      ex must be (new services.AppointRevokeException("Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
+    }
   }
 }
 
