@@ -154,7 +154,7 @@ class AppointAgentController @Inject()(
             action.checkPermission,
             action.challengePermission,
             request.organisationAccount.isAgent).map {
-            case _ => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName))
+              case _ => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName))
           }.recoverWith {
             case _ =>
               for{
