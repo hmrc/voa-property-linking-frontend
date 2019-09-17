@@ -199,13 +199,13 @@ class AppointAgentController @Inject()(
       },
       success = (action: AgentAppointBulkAction) => {
         accounts.withAgentCode(action.agentCode.toString) flatMap {
-          case Some(group) => appointRevokeService.createAndSubmitAgentRepRequest(action.propertyLinkIds,
-            group.id,
-            request.organisationAccount.id,
-            request.individualAccount.individualId,
-            action.checkPermission,
-            action.challengePermission,
-            request.organisationAccount.isAgent).map {
+          case Some(group) => appointRevokeService.createAndSubmitAgentRepRequest( pLinkIds = action.propertyLinkIds,
+            agentOrgId = group.id,
+            organisationId = request.organisationAccount.id,
+            individualId = request.individualAccount.individualId,
+            checkPermission = action.checkPermission,
+            challengePermission = action.challengePermission,
+            isAgent = request.organisationAccount.isAgent).map {
               case _ => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName))
           }.recoverWith {
             case _ =>

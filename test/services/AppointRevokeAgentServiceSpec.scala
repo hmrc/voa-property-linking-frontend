@@ -48,7 +48,7 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
   "createAndSubmitAgentRepRequest" should "return option unit when succesful" in {
 
     val links = SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "", None,
-      AgentPermission.fromName("START_AND_CONTINUE").get, AgentPermission.fromName("START_AND_CONTINUE").get)))))
+      StartAndContinue, StartAndContinue)))))
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
     when(mockRepresentationConnector.revoke(any())(any())).thenReturn(Future.successful())
@@ -60,8 +60,8 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
       1L,
       1L,
       1L,
-      AgentPermission.fromName("START_AND_CONTINUE").get,
-      AgentPermission.fromName("START_AND_CONTINUE").get,
+      StartAndContinue,
+      StartAndContinue,
       true)
 
     res.futureValue must be(())
@@ -81,8 +81,8 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
       5L,
       6L,
       7L,
-      AgentPermission.fromName("START_AND_CONTINUE").get,
-      AgentPermission.fromName("START_AND_CONTINUE").get,
+      StartAndContinue,
+      StartAndContinue,
       true)
 
     ScalaFutures.whenReady(res.failed) { ex =>
@@ -99,8 +99,8 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
       5L,
       6L,
       7L,
-      AgentPermission.fromName("START_AND_CONTINUE").get,
-      AgentPermission.fromName("START_AND_CONTINUE").get,
+      StartAndContinue,
+      StartAndContinue,
       true)
 
     ScalaFutures.whenReady(res.failed) { ex =>
@@ -117,8 +117,8 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
       5L,
       6L,
       7L,
-      AgentPermission.fromName("START_AND_CONTINUE").get,
-      AgentPermission.fromName("START_AND_CONTINUE").get,
+      StartAndContinue,
+      StartAndContinue,
       true)
 
     ScalaFutures.whenReady(res.failed) { ex =>

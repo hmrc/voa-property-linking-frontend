@@ -31,7 +31,7 @@ label.confirm=Confirm
 app.common.errorSummaryLabel            = The following errors were identified on this page.
 
 label.appoint.error=Failed to appoint agent to all properties
-error.transaction=Transaction failed
+error.transaction=try again
 
 
 #PROPERTY LINKING STATUSES
