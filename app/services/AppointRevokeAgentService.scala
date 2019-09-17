@@ -80,6 +80,11 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
 
   }
 
+  def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters,
+                                      pagination: PaginationParams) (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
+    propertyLinks.getMyOrganisationsPropertyLinks(searchParams, pagination)
+  }
+
   private def appointAgent(
                                               pLink: String,
                                               agentOrgId: Long,

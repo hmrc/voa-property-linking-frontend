@@ -126,6 +126,58 @@ class AppointAgentController @Inject()(
     }
   }
 
+  def revokeAgentSummary() = authenticated.async { implicit request =>
+    revokeAgentBulkActionForm.bindFromRequest().fold(
+      hasErrors = errors => {
+        val data: Map[String, String] = errors.data
+        val pagination = AgentPropertiesParameters(
+          agentCode = data("agentCode").toLong)
+
+        accounts.withAgentCode(pagination.agentCode.toString) flatMap {
+          case Some(group) =>
+            for {
+              response <-
+                propertyLinks.getMyClientsPropertyLinks(
+                  GetPropertyLinksParameters(
+                    address = pagination.address,
+                    agent = Some(group.companyName),
+                    sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name),
+                    sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name)
+                  ),
+                  PaginationParams(pagination.pageNumber, pagination.pageSize, false))
+                  .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
+                  .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+                  .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
+            } yield {
+              BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
+            }
+          case None =>
+            notFound
+        }
+      },
+      success = (action: AgentRevokeBulkAction) => {
+        accounts.withAgentCode(action.agentCode.toString) flatMap {
+          case Some(group) => {
+            for {
+
+              _ <- Future.traverse(action.propertyLinkIds)(pLink =>
+                createAndSubitAgentRevokeRequest(
+                  pLink,
+                  request.organisationId,
+                  action.agentCode,
+                  request.organisationAccount.isAgent)).recover {
+                case e => Logger.warn(s"Failed to get a property link during revoke multiple property agent: ${e.getMessage}", e)
+              }
+            } yield
+              Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
+          }
+          case None =>
+            notFound
+        }
+      }
+    )
+  }
+
   def appointAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentBulkActionForm.bindFromRequest().fold(
       errors => {
@@ -193,11 +245,15 @@ class AppointAgentController @Inject()(
         accounts.withAgentCode(agent.id) flatMap {
           case Some(group) =>
             val pagination = AgentPropertiesParameters(agentCode = agent.id.toLong)
-            for {
-              response <- propertyLinks.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(agent = Some(group.companyName), sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name.toUpperCase), sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name.toUpperCase)), PaginationParams(1, 100, false))
-            } yield {
+            //for {
+//                response <- appointRevokeService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(agent = Some(group.companyName),
+//                  sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name.toUpperCase),
+//                  sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name.toUpperCase)),
+//                  PaginationParams(1, 100, false))
+//                _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
+            //} yield {
               Redirect(routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
-            }
+            //}
           case None =>
             val errors: List[FormError] = List(invalidAgentCode)
             agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
@@ -230,58 +286,6 @@ class AppointAgentController @Inject()(
           }
         case None => NotFound(s"Unknown Agent: $agentCode")
       }
-  }
-
-  def revokeAgentSummary() = authenticated.async { implicit request =>
-    revokeAgentBulkActionForm.bindFromRequest().fold(
-      hasErrors = errors => {
-        val data: Map[String, String] = errors.data
-        val pagination = AgentPropertiesParameters(
-          agentCode = data("agentCode").toLong)
-
-        accounts.withAgentCode(pagination.agentCode.toString) flatMap {
-          case Some(group) =>
-              for {
-                response <-
-                  propertyLinks.getMyClientsPropertyLinks(
-                    GetPropertyLinksParameters(
-                      address = pagination.address,
-                      agent = Some(group.companyName),
-                      sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name),
-                      sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name)
-                    ),
-                    PaginationParams(pagination.pageNumber, pagination.pageSize, false))
-                    .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                    .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                    .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
-              } yield {
-                BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
-              }
-          case None =>
-            notFound
-        }
-      },
-      success = (action: AgentRevokeBulkAction) => {
-        accounts.withAgentCode(action.agentCode.toString) flatMap {
-          case Some(group) => {
-            for {
-
-              _ <- Future.traverse(action.propertyLinkIds)(pLink =>
-                createAndSubitAgentRevokeRequest(
-                  pLink,
-                  request.organisationId,
-                  action.agentCode,
-                  request.organisationAccount.isAgent)).recover {
-                case e => Logger.warn(s"Failed to get a property link during revoke multiple property agent: ${e.getMessage}", e)
-              }
-            } yield
-              Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
-          }
-          case None =>
-            notFound
-        }
-      }
-    )
   }
 
   def filterProperties(authorisations: Seq[OwnerAuthorisation], agentId: Long) = {
