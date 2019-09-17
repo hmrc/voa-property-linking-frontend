@@ -32,14 +32,25 @@ import play.api.test.Helpers._
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubGroupAccountConnector}
-import org.scalacheck.Arbitrary._
 import repositories.SessionRepo
 import services.AppointRevokeAgentService
+import org.scalacheck.Arbitrary._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
+
+  val testAgentAccount = GroupAccount(1l, "1", "companyName", 1l, "email@email.com", "123456",
+    true, 1l)
+
+  val testAgents = Some(Seq(OwnerAuthAgent(1l,
+    testAgentAccount.id,
+    "organisationName",
+    Some("APPROVED"),
+    StartAndContinue,
+    StartAndContinue)))
+
 
   "appointMultipleProperties" should "show the appoint agent page with a known agent listed for selection with no agent appointment session" in {
     val testOwnerAgents = OwnerAgents(Seq(OwnerAgent("test-agent", 1l)))
@@ -87,9 +98,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "getMyOrganisationPropertyLinksWithAgentFiltering" should "show the appoint agent properties page" in {
 
     stubLogin()
-    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
-    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "APPROVED")
+    val testOwnerAuth = OwnerAuthorisation(1l,
+      "APPROVED",
+      "1111111",
+      1l,
+      "address",
+      "localAuthorityRef",
+      testAgents)
     val testOwnerAuthResult = OwnerAuthResult(start = 1,
       size = 15,
       filterTotal = 1,
@@ -114,9 +129,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "appointAgentSummary" should "show the summary page" in {
     stubLogin()
-
-    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
     StubGroupAccountConnector.stubAccount(testAgentAccount)
 
     when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
@@ -133,9 +145,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "appointAgentSummary with form errors" should "show the appoint agent properties page" in {
     stubLogin()
-
-    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
     StubGroupAccountConnector.stubAccount(testAgentAccount)
 
     when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
@@ -154,9 +163,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "appointAgentSummary" should "show the appoint agent properties page when an appointment fails" in {
     stubLogin()
-
-    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
     StubGroupAccountConnector.stubAccount(testAgentAccount)
 
     when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.failed(new Exception))
@@ -177,9 +183,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "selectAgentPropertiesSearchSort" should "show a list of properties available for removal from a agent" in {
     stubLogin()
-    val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
-    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "APPROVED")
+    val testOwnerAuth = OwnerAuthorisation(1l,
+      "APPROVED",
+      "1111111",
+      1l,
+      "address",
+      "localAuthorityRef",
+      testAgents)
     val testOwnerAuthResult = OwnerAuthResult(start = 1,
       size = 15,
       filterTotal = 1,
@@ -204,7 +214,15 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     stubLogin()
     val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
     val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
-    val testOwnerAuth = arbitrary[OwnerAuthorisation].sample.get.copy(agents = testAgents, status = "REVOKED")
+
+    val testOwnerAuth = OwnerAuthorisation(1l,
+      "REVOKED",
+      "1111111",
+      1l,
+      "address",
+      "localAuthorityRef",
+      testAgents)
+
     val testOwnerAuthResult = OwnerAuthResult(start = 1,
       size = 15,
       filterTotal = 1,
