@@ -17,7 +17,6 @@
 package services
 
 import java.time.Instant
-
 import auditing.AuditingService
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.PropertyRepresentationConnector
@@ -150,8 +149,6 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
         Future.failed(new AppointRevokeException(s"Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
     }
   }
-
-
 
   private def updateAllAgentsPermission(
                                          link: SessionPropertyLink,

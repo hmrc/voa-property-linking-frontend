@@ -31,7 +31,7 @@
             <p class="error-message">@messages("error.select.valuation.required")</p>
         }
     }
-    @form(routes.Assessments.submitViewAssessment(model.assessments.head.authorisationId, model.plSubmissionId, owner)) {
+    @form(routes.Assessments.submitViewAssessment(model.authorisationId, model.plSubmissionId, owner)) {
         <fieldset>
             <div id="viewAssessmentRadioGroup" class="form-group">
                 <div class="table-wrapper-no-pad">
@@ -47,27 +47,14 @@
                             </tr>
 
 
-                            @model.assessments.map { assessment =>
+                            @model.assessmentsWithLinks.map {  case (url, assessment) =>
                                 <tr>
                                     <td>
                                         <div class="multiple-choice">
                                             <input type="radio"
                                             id="viewAssessmentRadio-@assessment.assessmentRef"
-                                            name="viewAssessmentRadio"
-                                            value="@{
-                                                if(assessment.rateableValue.isDefined) {
-                                                    if(model.linkPending) {
-                                                        assessment.uarn
-                                                    } else {
-                                                        ""
-                                                    }
-                                                } else {
-                                                    assessment.uarn
-                                                }
-                                            }-@assessment.assessmentRef-@assessment.billingAuthorityReference"
-                                                @if(model.assessments.size == 1) {
-                                                    checked="checked"
-                                                    }
+                                            name="nextUrl"
+                                            value="@url"
                                             >
                                             <label for="viewAssessmentRadio-@assessment.assessmentRef">
                                             @assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")
@@ -114,7 +101,7 @@
                     </table>
                 </div>
 
-                @if(model.assessments.exists(assessment => !assessment.rateableValue.isDefined)) {
+                @if(model.assessmentsWithLinks.exists{case (_, assessment) => assessment.rateableValue.isEmpty}) {
                     <div id="my-rv-is-na">
                         <p>@Messages("rv.na.p.1")</p>
                         <p>@Messages("rv.na.p.2")</p>

@@ -35,6 +35,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import repositories.SessionRepo
 import services.AppointRevokeAgentService
+
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -280,7 +281,6 @@ class AppointAgentController @Inject()(
   def registeredAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(
     "agentCodeRadio" -> text
   )(AgentId.apply)(AgentId.unapply))
-
 
   private lazy val invalidAgentCode = FormError("agentCode", "error.invalidAgentCode")
   private lazy val alreadyAppointedAgent = FormError("agentCode", "error.alreadyAppointedAgent")

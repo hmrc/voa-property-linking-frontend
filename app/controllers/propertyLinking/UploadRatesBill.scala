@@ -22,9 +22,9 @@ import javax.inject.Inject
 
 import models.{RatesBillFlag, RatesBillType, UploadEvidenceData}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, Request}
+import play.api.mvc._
 import services.BusinessRatesAttachmentService
-import session.{LinkingSessionRequest, WithLinkingSession}
+import session.WithLinkingSession
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import views.html.propertyLinking.uploadRatesBill
 

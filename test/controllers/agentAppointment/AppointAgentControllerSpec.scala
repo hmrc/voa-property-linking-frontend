@@ -52,7 +52,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StartAndContinue,
     1l))
 
-
   "appointMultipleProperties" should "show the appoint agent page with a known agent listed for selection with no agent appointment session" in {
     val testOwnerAgents = OwnerAgents(Seq(OwnerAgent("test-agent", 1l)))
     stubLogin()

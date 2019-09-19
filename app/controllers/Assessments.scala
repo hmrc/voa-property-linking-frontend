@@ -28,7 +28,7 @@ import play.api.Logger
 import play.api.data.Forms.text
 import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
-import play.api.mvc.Action
+import play.api.mvc.{Action, Request}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -62,9 +62,13 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
             views.html.dashboard.assessments(
               model = AssessmentsVM(
                 form = viewAssessmentForm,
-                assessments = link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)).reverse,
+                assessmentsWithLinks =
+                  link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)).reverse
+                    .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
                 backLink = calculateBackLink(refererOpt, owner),
                 linkPending = link.pending,
+                authorisationId = link.authorisationId,
+                address = link.address,
                 plSubmissionId = link.submissionId,
                 isAgentOwnProperty = owner,
                 capacity = link.capacity),
@@ -80,6 +84,20 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
           case Some(link) => Redirect(routes.Assessments.viewSummary(link.uarn, true))
           case None       => notFound
         }
+    }
+  }
+
+  private def decideNextUrl(
+                        submissionId: String,
+                        authorisationId: Long,
+                        assessment: ApiAssessment,
+                        isPending: Boolean,
+                        owner: Boolean
+                      )(implicit request: Request[_]): (String, ApiAssessment) = {
+    assessment.rateableValue match {
+      case None                   => routes.Assessments.viewSummary(assessment.uarn, isPending).url -> assessment
+      case Some(_) if isPending   => routes.Assessments.viewSummary(assessment.uarn, isPending).url -> assessment
+      case Some(_)                => routes.Assessments.viewDetailedAssessment(submissionId, authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference, owner).url -> assessment
     }
   }
 
@@ -118,9 +136,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
     }
   }
 
-  lazy val viewAssessmentForm = Form(Forms.single("viewAssessmentRadio" -> text.transform[(String, Long, String)](x => x.split("-").toList match {
-    case uarn :: assessmentRef :: baRef :: Nil => (uarn, assessmentRef.toLong, baRef)
-  }, y => s"${y._1}-${y._2}-${y._3}")))
+  lazy val viewAssessmentForm = Form(Forms.single("nextUrl" -> text))
 
     def submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean) = authenticated.async { implicit request =>
 
@@ -136,32 +152,21 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
               } yield {
                 Ok(views.html.dashboard.assessments(
                   AssessmentsVM(
-                    errors,
-                    link.assessments,
-                    calculateBackLink(request.headers.get("Referer"), isAgentOwnProperty),
-                    link.pending,
+                    form = errors,
+                    assessmentsWithLinks = link.assessments.map(decideNextUrl(submissionId, authorisationId, _, link.pending, owner)),
+                    backLink = calculateBackLink(request.headers.get("Referer"), isAgentOwnProperty),
+                    authorisationId = link.authorisationId,
+                    linkPending = link.pending,
+                    address = link.address,
                     plSubmissionId = link.submissionId,
-                    isAgentOwnProperty,
+                    isAgentOwnProperty = isAgentOwnProperty,
                     capacity = link.capacity), owner))
               }
             }
             case None => notFound
           }
-      }
-      ,
-      {
-        case (uarn, assessmentRef, baRef) =>
-          uarn match {
-            case "" => Future.successful(Redirect(routes.Assessments.viewDetailedAssessment(submissionId, authorisationId, assessmentRef, baRef, owner)))
-            case _ =>
-              val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessments(submissionId) else propertyLinks.getOwnerAssessments(submissionId)
-              pLink flatMap {
-                case Some(ApiAssessments(_, _, _, _, _, _,Seq(), _)) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
-                case Some(link) => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, link.pending)))
-                case None => Future.successful(Redirect(routes.Assessments.viewSummary(uarn.toLong, false)))
-              }
-          }
-      }
+      },
+      redirectUrl => Future.successful(Redirect(redirectUrl))
     )
   }
 
@@ -170,6 +175,16 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
   }
 }
 
-case class AssessmentsVM(form: Form[_], assessments: Seq[ApiAssessment], backLink: String, linkPending: Boolean, plSubmissionId: String, isAgentOwnProperty: Boolean, capacity: Option[String])
+case class AssessmentsVM(
+                          form: Form[_],
+                          assessmentsWithLinks: Seq[(String, ApiAssessment)],
+                          backLink: String,
+                          linkPending: Boolean,
+                          address: String,
+                          authorisationId: Long,
+                          plSubmissionId: String,
+                          isAgentOwnProperty: Boolean,
+                          capacity: Option[String]
+                        )
 
 case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)
