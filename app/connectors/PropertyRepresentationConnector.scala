@@ -48,7 +48,6 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
   }
 
   def revoke(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
-    println("********* calling REVOKE")
     http.PATCH[String, HttpResponse](s"$baseUrl/property-representations/revoke/$authorisedPartyId", "") map { _ => () }
   }
 }
