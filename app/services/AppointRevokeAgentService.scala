@@ -18,18 +18,16 @@ package services
 
 import java.time.Instant
 
-import actions.BasicAuthenticatedRequest
 import auditing.AuditingService
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{Pagination, PaginationParams}
+import controllers.PaginationParams
 import javax.inject.{Inject, Named}
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
-import play.api.mvc.Request
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -67,6 +65,16 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
     }
   }
 
+  def createAndSubitAgentRevokeRequest(pLinkIds: List[String],
+                                       agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
+    Future.traverse(pLinkIds)(pLink =>
+      revokeAgent(
+        pLink,
+        agentCode)).map{
+      x => x.reduce((a,b) => a)
+    }
+  }
+
   def getMyOrganisationPropertyLinksWithAgentFiltering(params: GetPropertyLinksParameters, pagination: AgentPropertiesParameters, organisationId: Long, agentOrganisationId: Long)
                                                       (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
@@ -85,15 +93,13 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
     propertyLinks.getMyOrganisationsPropertyLinks(searchParams, pagination)
   }
 
-  private def appointAgent(
-                                              pLink: String,
-                                              agentOrgId: Long,
-                                              organisationId: Long,
-                                              individualId: Long,
-                                              checkPermission: AgentPermission,
-                                              challengePermission: AgentPermission,
-                                              isAgent: Boolean
-                                            )(implicit hc: HeaderCarrier):Future[Unit] = {
+  private def appointAgent(pLink: String,
+                           agentOrgId: Long,
+                           organisationId: Long,
+                           individualId: Long,
+                           checkPermission: AgentPermission,
+                           challengePermission: AgentPermission,
+                           isAgent: Boolean)(implicit hc: HeaderCarrier):Future[Unit] = {
     hc.sessionId match {
       case Some(sessionId) =>
         propertyLinksSessionRepo.get[SessionPropertyLinks] flatMap {
@@ -119,6 +125,33 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
         Future.failed(new AppointRevokeException(s"Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
     }
   }
+
+  private def revokeAgent(pLink: String,
+                          agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
+    hc.sessionId match {
+      case Some(sessionId) =>
+        propertyLinksSessionRepo.get[SessionPropertyLinks] flatMap {
+          case Some(links) =>
+            links.links.find(link => link.submissionId == pLink && link.agents.exists(agent => agent.agentCode == agentCode)) match {
+              case Some(link) =>
+                representations.revoke(link.agents.find(_.agentCode == agentCode).getOrElse(
+                  throw new RuntimeException(s"Failed to get $agentCode agent from property link with subission ID $pLink - this shouldn't be possible as we have checked for the agent code"))
+                  .authorisedPartyId)
+              case None =>
+                logger.warn(s"Agent $agentCode for the property link with subission ID $pLink doesn't exist in cache - this shouldn't be possible.")
+                Future.failed(new AppointRevokeException((s"Agent $agentCode for the property link with subission ID $pLink doesn't exist in cache - this shouldn't be possible.")))
+            }
+          case None =>
+            logger.warn(s"Session ID $sessionId no longer in property links cache - should be redirected to login by auth.")
+            Future.failed(new AppointRevokeException(s"Session ID $sessionId no longer in property links cache - should be redirected to login by auth."))
+        }
+      case None =>
+        logger.warn(s"Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth.")
+        Future.failed(new AppointRevokeException(s"Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
+    }
+  }
+
+
 
   private def updateAllAgentsPermission(
                                          link: SessionPropertyLink,

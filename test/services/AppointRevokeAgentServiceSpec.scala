@@ -47,8 +47,8 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
 
   "createAndSubmitAgentRepRequest" should "return option unit when succesful" in {
 
-    val links = SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "", None,
-      StartAndContinue, StartAndContinue)))))
+    val links = SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", "APPROVED",
+      StartAndContinue, StartAndContinue, 1l)))))
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
     when(mockRepresentationConnector.revoke(any())(any())).thenReturn(Future.successful())
@@ -69,10 +69,29 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
   }
 
 
+  "createAndSubitAgentRevokeRequest" should "return option unit when succesful" in {
+
+    val links = SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", "APPROVED",
+      StartAndContinue, StartAndContinue, 1l)))))
+
+    when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
+    when(mockRepresentationConnector.revoke(any())(any())).thenReturn(Future.successful())
+    when(mockRepresentationConnector.create(any())(any())).thenReturn(Future.successful())
+
+
+    val res = testService.createAndSubitAgentRevokeRequest(
+      List("1"),
+      1L)
+
+    res.futureValue must be(())
+
+  }
+
+
   "createAndSubmitAgentRepRequest" should "throw exception when link doesn't exist in cache" in {
 
-    val links = SessionPropertyLinks(Seq(SessionPropertyLink(2L, "11111", Seq(OwnerAuthAgent(3L, 4L, "", None,
-      AgentPermission.fromName("START_AND_CONTINUE").get, AgentPermission.fromName("START_AND_CONTINUE").get)))))
+    val links = SessionPropertyLinks(Seq(SessionPropertyLink(2L, "11111", Seq(OwnerAuthAgent(3L, 4L, "", "APPROVED",
+      StartAndContinue, StartAndContinue, 1l)))))
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
 
@@ -90,7 +109,23 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
     }
   }
 
-  "createAndSubmitAgentRepRequest" should "throw exception unit when session id doesn't exist in cache (handled by auth)" in {
+  "createAndSubitAgentRevokeRequest" should "throw exception when link doesn't exist in cache" in {
+
+    val links = SessionPropertyLinks(Seq(SessionPropertyLink(2L, "11111", Seq(OwnerAuthAgent(3L, 4L, "", "APPROVED",
+      StartAndContinue, StartAndContinue, 1l)))))
+
+    when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
+
+    val res = testService.createAndSubitAgentRevokeRequest(
+      List("999", "8888"),
+      5L)
+
+    ScalaFutures.whenReady(res.failed) { ex =>
+      ex must be (new services.AppointRevokeException("Agent 5 for the property link with subission ID 999 doesn't exist in cache - this shouldn't be possible."))
+    }
+  }
+
+  "createAndSubmitAgentRepRequest" should "throw exception when session id doesn't exist in cache (handled by auth)" in {
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(None))
 
@@ -108,7 +143,20 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
     }
   }
 
-  "createAndSubmitAgentRepRequest" should "return option unit when session id can't be obtained (handled by auth)" in {
+  "createAndSubitAgentRevokeRequest" should "throw exception when session id doesn't exist in cache (handled by auth)" in {
+
+    when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(None))
+
+    val res = testService.createAndSubitAgentRevokeRequest(
+      List("999", "8888"),
+      5L)
+
+    ScalaFutures.whenReady(res.failed) { ex =>
+      ex must be (new services.AppointRevokeException("Session ID SessionId(1111) no longer in property links cache - should be redirected to login by auth."))
+    }
+  }
+
+  "createAndSubmitAgentRepRequest" should "throw exception session id can't be obtained (handled by auth)" in {
 
     implicit val hc = HeaderCarrier()
 
@@ -125,5 +173,17 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
       ex must be (new services.AppointRevokeException("Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
     }
   }
-}
 
+  "createAndSubitAgentRevokeRequest" should "throw exception session id can't be obtained (handled by auth)" in {
+
+    implicit val hc = HeaderCarrier()
+
+    val res = testService.createAndSubitAgentRevokeRequest(
+      List("999", "8888"),
+      5L)
+
+    ScalaFutures.whenReady(res.failed) { ex =>
+      ex must be (new services.AppointRevokeException("Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
+    }
+  }
+}

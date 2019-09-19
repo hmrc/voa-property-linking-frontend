@@ -23,9 +23,10 @@ case class OwnerAuthAgent(
                            authorisedPartyId: Long,
                            organisationId: Long,
                            organisationName: String,
-                           status: Option[String],
+                           status: String,
                            checkPermission: AgentPermission,
-                           challengePermission: AgentPermission
+                           challengePermission: AgentPermission,
+                           agentCode: Long
                          )
 
 object OwnerAuthAgent {
