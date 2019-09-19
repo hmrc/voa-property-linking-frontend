@@ -119,56 +119,6 @@ class AppointAgentController @Inject()(
     }
   }
 
-  def revokeAgentSummary() = authenticated.async { implicit request =>
-    revokeAgentBulkActionForm.bindFromRequest().fold(
-      hasErrors = errors => {
-        val data: Map[String, String] = errors.data
-        val pagination = AgentPropertiesParameters(
-          agentCode = data("agentCode").toLong)
-
-        accounts.withAgentCode(pagination.agentCode.toString) flatMap {
-          case Some(group) =>
-            for {
-              response <- appointRevokeService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
-                address = pagination.address,
-                agent = Some(group.companyName),
-                sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name),
-                sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name)),
-                PaginationParams(pagination.startPoint, pagination.pageSize, false))
-                .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
-            } yield {
-              BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
-            }
-          case None =>
-            notFound
-        }
-      },
-      success = (action: AgentRevokeBulkAction) => {
-        accounts.withAgentCode(action.agentCode.toString) flatMap {
-          case Some(group) => appointRevokeService.createAndSubitAgentRevokeRequest(pLinkIds = action.propertyLinkIds,
-            agentCode = action.agentCode).map {
-              case _ =>  Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
-          }.recoverWith {
-            case _ => {
-              for {
-                response <- appointRevokeService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
-                  agent = Some(group.companyName)), DefaultPaginationParams)
-                  .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                  .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                  .map(oar => oar.copy(authorisations = oar.authorisations.take(DefaultPaginationParams.pageSize)))
-              } yield BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(revokeAgentBulkActionForm.withError("appoint.error", "error.transaction")),
-                AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), action.agentCode))
-            }
-          }
-          case None =>
-            notFound
-        }
-      }
-    )
-  }
-
   def appointAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentBulkActionForm.bindFromRequest().fold(
       errors => {
@@ -269,6 +219,56 @@ class AppointAgentController @Inject()(
           }
         case None => NotFound(s"Unknown Agent: $agentCode")
       }
+  }
+
+  def revokeAgentSummary() = authenticated.async { implicit request =>
+    revokeAgentBulkActionForm.bindFromRequest().fold(
+      hasErrors = errors => {
+        val data: Map[String, String] = errors.data
+        val pagination = AgentPropertiesParameters(
+          agentCode = data("agentCode").toLong)
+
+        accounts.withAgentCode(pagination.agentCode.toString) flatMap {
+          case Some(group) =>
+            for {
+              response <- appointRevokeService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
+                address = pagination.address,
+                agent = Some(group.companyName),
+                sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name),
+                sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name)),
+                PaginationParams(pagination.startPoint, pagination.pageSize, false))
+                .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
+                .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+                .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
+            } yield {
+              BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
+            }
+          case None =>
+            notFound
+        }
+      },
+      success = (action: AgentRevokeBulkAction) => {
+        accounts.withAgentCode(action.agentCode.toString) flatMap {
+          case Some(group) => appointRevokeService.createAndSubitAgentRevokeRequest(pLinkIds = action.propertyLinkIds,
+            agentCode = action.agentCode).map {
+            case _ =>  Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
+          }.recoverWith {
+            case _ => {
+              for {
+                response <- appointRevokeService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
+                  agent = Some(group.companyName)), DefaultPaginationParams)
+                  .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
+                  .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+                  .map(oar => oar.copy(authorisations = oar.authorisations.take(DefaultPaginationParams.pageSize)))
+              } yield BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(revokeAgentBulkActionForm.withError("appoint.error", "error.transaction")),
+                AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), action.agentCode))
+            }
+          }
+          case None =>
+            notFound
+        }
+      }
+    )
   }
 
   def filterProperties(authorisations: Seq[OwnerAuthorisation], agentId: Long): Seq[OwnerAuthorisation] = {
