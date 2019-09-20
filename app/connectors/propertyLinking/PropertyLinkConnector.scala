@@ -58,29 +58,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
                                        pagination: PaginationParams,
                                        representationStatusFilter: Seq[RepresentationStatus] = Seq(RepresentationApproved, RepresentationPending)
                                      )(implicit hc: HeaderCarrier): Future[OwnerAuthResult]  = {
-    http.GET[OwnerAuthResult](s"$baseUrl/owner/property-links",
-      List(
-        searchParams.address.map("address" -> _),
-        searchParams.baref.map("baref" -> _),
-        searchParams.agent.map("agent" -> _),
-        searchParams.status.map("status" -> _),
-        Some("sortField" -> searchParams.sortfield.toString),
-        Some("sortOrder" -> searchParams.sortorder.toString)
-      ).flatten ++
-        List(
-          "startPoint" -> pagination.startPoint.toString,
-          "pageSize" -> pagination.pageSize.toString,
-          "requestTotalRowCount" -> pagination.requestTotalRowCount.toString)
-    )
-  }
-
-  def getMyClientsPropertyLinks(
-                                 searchParams: GetPropertyLinksParameters,
-                                 pagination: PaginationParams,
-                                 representationStatusFilter: Seq[RepresentationStatus] = Seq(RepresentationApproved, RepresentationPending)
-                               )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
-    val ownerAuthResult = http.GET[OwnerAuthResult](
-      s"$baseUrl/agent/property-links",
+    val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/owner/property-links",
       List(
         searchParams.address.map("address" -> _),
         searchParams.baref.map("baref" -> _),
@@ -95,7 +73,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
           "requestTotalRowCount" -> pagination.requestTotalRowCount.toString)
     )
 
-    // filter agents on representationStatus
     filterAgents(ownerAuthResult, representationStatusFilter)
   }
 
@@ -152,13 +129,16 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
           "requestTotalRowCount" -> pagination.requestTotalRowCount.toString)
     )
 
-    filterAgents(ownerAuthResult, representationStatusFilter)
+    // filter agents on representationStatus
+    ownerAuthResult.map(oar =>
+      oar.copy(authorisations = oar.authorisations.map(auth =>
+        auth.copy(agents = auth.agents.filter(ag => validAgent(ag, representationStatusFilter))))))
   }
 
   def filterAgents(ownerAuthResult: Future[OwnerAuthResult], representationStatusFilter: Seq[RepresentationStatus]): Future[OwnerAuthResult] = {
     ownerAuthResult.map(oar =>
       oar.copy(authorisations = oar.authorisations.map(auth =>
-        auth.copy(agents = auth.agents.filter(validAgent(_, representationStatusFilter))))))
+        auth.copy(agents = auth.agents.filter(validAgent(_, representationStatusFilter)))).filter(auth => auth.agents.nonEmpty)))
   }
 
   def appointableProperties(organisationId: Long,

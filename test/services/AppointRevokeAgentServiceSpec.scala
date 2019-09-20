@@ -46,7 +46,7 @@ class AppointRevokeAgentServiceSpec extends ServiceSpec {
 
 
   "createAndSubmitAgentRepRequest" should "return option unit when succesful" in {
-    
+
     val links = SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", "APPROVED",
       StartAndContinue, StartAndContinue, 1l)))))
 

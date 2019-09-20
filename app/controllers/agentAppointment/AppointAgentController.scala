@@ -273,9 +273,7 @@ class AppointAgentController @Inject()(
   }
 
   def filterProperties(authorisations: Seq[OwnerAuthorisation], agentId: Long): Seq[OwnerAuthorisation] = {
-    authorisations.filter(auth =>
-      Seq(PropertyLinkingApproved.name, PropertyLinkingPending.name).contains(auth.status))
-      .filter(_.agents.map(_.organisationId).exists(id => (agentId == id)))
+    authorisations.filter(auth => auth.agents.map(_.organisationId).exists(id => (agentId == id)))
   }
 
   def registeredAgentForm(implicit request: BasicAuthenticatedRequest[_]) = Form(mapping(

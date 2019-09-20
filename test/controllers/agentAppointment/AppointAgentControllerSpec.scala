@@ -225,9 +225,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val testOwnerAuthResult = OwnerAuthResult(start = 1,
       size = 15,
-      filterTotal = 1,
-      total = 1,
-      authorisations = Seq(testOwnerAuth))
+      filterTotal = 0,
+      total = 0,
+      authorisations = Seq())
     val testPagination = AgentPropertiesParameters(1l)
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)

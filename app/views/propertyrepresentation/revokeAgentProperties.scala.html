@@ -177,22 +177,23 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
 }
 
 @sortingControl(field: AgentPropertiesSortField) = {
+
 @if(params.sortfield == field) {
 <div id="sort-by-@field" class="sorting_@params.sortorder">
     <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting, agentCode)">
-        @Messages(s"propertyRepresentation.th.$field.toUpperCase")</a>
+        @Messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
 </div>
 } else {
 <div id="sort-by-@field" class="sorting">
     <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(field.name.toUpperCase)), agentCode)">
-        @Messages(s"propertyRepresentation.th.$field.toUpperCase")</a>
+        @Messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
 </div>
 }
 }
 
 @searchField(fieldName: String, value: Option[String]) = {
 <div class="searchfield">
-    <label for="@fieldName" class="visually-hidden">@Messages(s"propertyRepresentation.th.$fieldName.toUpperCase")</label>
+    <label for="@fieldName" class="visually-hidden">@Messages(s"propertyRepresentation.th.$fieldName")</label>
     <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
     <button id="@{
             fieldName
