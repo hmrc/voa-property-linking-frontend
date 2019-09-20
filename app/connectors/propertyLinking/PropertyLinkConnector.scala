@@ -77,7 +77,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
   }
 
   def validAgent(agent: OwnerAuthAgent, representationStatusFilter: Seq[RepresentationStatus]): Boolean = {
-    representationStatusFilter.map(_.name.toUpperCase).contains(agent.status.toUpperCase)
+    representationStatusFilter.exists(x => x.name.equalsIgnoreCase(agent.status) )
   }
 
   def createPropertyLink()(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
