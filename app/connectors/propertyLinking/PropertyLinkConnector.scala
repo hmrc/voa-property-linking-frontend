@@ -55,10 +55,9 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
 
   def getMyOrganisationsPropertyLinks(
                                        searchParams: GetPropertyLinksParameters,
-                                       pagination: PaginationParams,
-                                       representationStatusFilter: Seq[RepresentationStatus] = Seq(RepresentationApproved, RepresentationPending)
+                                       pagination: PaginationParams
                                      )(implicit hc: HeaderCarrier): Future[OwnerAuthResult]  = {
-    val ownerAuthResult = http.GET[OwnerAuthResult](s"$baseUrl/owner/property-links",
+    http.GET[OwnerAuthResult](s"$baseUrl/owner/property-links",
       List(
         searchParams.address.map("address" -> _),
         searchParams.baref.map("baref" -> _),
@@ -72,8 +71,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(impl
           "pageSize" -> pagination.pageSize.toString,
           "requestTotalRowCount" -> pagination.requestTotalRowCount.toString)
     )
-
-    filterAgents(ownerAuthResult, representationStatusFilter)
   }
 
   def validAgent(agent: OwnerAuthAgent, representationStatusFilter: Seq[RepresentationStatus]): Boolean = {

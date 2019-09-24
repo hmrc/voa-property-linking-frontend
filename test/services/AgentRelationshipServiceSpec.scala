@@ -29,11 +29,11 @@ import uk.gov.hmrc.http.logging.SessionId
 
 import scala.concurrent.Future
 
-class AppointRevokeAgentServiceSpec extends ServiceSpec {
+class AgentRelationshipServiceSpec extends ServiceSpec {
 
   import scala.concurrent.ExecutionContext.Implicits.global
 
-  private lazy val testService = new AppointRevokeAgentService(mockRepresentationConnector, mockPropertyLinkConnector, mockSessionRepo)
+  private lazy val testService = new AgentRelationshipService(mockRepresentationConnector, mockPropertyLinkConnector, mockSessionRepo)
 
   private lazy val mockPropertyLinkConnector = mock[PropertyLinkConnector]
 

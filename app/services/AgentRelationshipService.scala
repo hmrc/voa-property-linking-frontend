@@ -17,6 +17,7 @@
 package services
 
 import java.time.Instant
+
 import auditing.AuditingService
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.PropertyRepresentationConnector
@@ -24,7 +25,7 @@ import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PaginationParams
 import javax.inject.{Inject, Named}
 import models._
-import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
+import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
 import repositories.SessionRepo
@@ -34,7 +35,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 case class AppointRevokeException(message: String) extends Exception(s"Failed to appoint agent to multiple properties: $message")
 
-class AppointRevokeAgentService @Inject()(representations: PropertyRepresentationConnector,
+class AgentRelationshipService @Inject()(representations: PropertyRepresentationConnector,
                                           propertyLinks: PropertyLinkConnector,
                                           @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo)
                                           (implicit val executionContext: ExecutionContext)
@@ -88,8 +89,15 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
   }
 
   def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters,
-                                      pagination: PaginationParams) (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
-    propertyLinks.getMyOrganisationsPropertyLinks(searchParams, pagination)
+                                      pagination: PaginationParams,
+                                      representationStatusFilter: Seq[RepresentationStatus])
+                                     (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
+    val ownerAuthResult = propertyLinks.getMyOrganisationsPropertyLinks(searchParams, pagination)
+
+    ownerAuthResult.map(oar =>
+      oar.copy(authorisations = oar.authorisations.map(auth =>
+        auth.copy(agents = auth.agents.filter( agent =>
+          representationStatusFilter.exists(x => x.name.equalsIgnoreCase(agent.status))))).filter(auth => auth.agents.nonEmpty)))
   }
 
   private def appointAgent(pLink: String,

@@ -34,8 +34,7 @@ import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import repositories.SessionRepo
-import services.AppointRevokeAgentService
-
+import services.AgentRelationshipService
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -45,7 +44,7 @@ class AppointAgentController @Inject()(
                                         accounts: GroupAccounts,
                                         agentsConnector: AgentsConnector,
                                         authenticated: AuthenticatedAction,
-                                        appointRevokeService: AppointRevokeAgentService,
+                                        agentRelationshipService: AgentRelationshipService,
                                         @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo
                                       )(implicit val messagesApi: MessagesApi, executionContext: ExecutionContext, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
@@ -93,7 +92,7 @@ class AppointAgentController @Inject()(
                                     ): Action[AnyContent] = authenticated.async { implicit request =>
     for {
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
-      response               <- appointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(params, AgentPropertiesParameters(
+      response               <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(params, AgentPropertiesParameters(
         agentCode = agentCode,
         checkPermission = AgentPermission.fromName(checkPermission).getOrElse(StartAndContinue),
         challengePermission = AgentPermission.fromName(challengePermission).getOrElse(StartAndContinue),
@@ -127,7 +126,7 @@ class AppointAgentController @Inject()(
         accounts.withAgentCode(data("agentCode")) flatMap {
           case Some(group) => {
             for{
-              response <- appointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
+              response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
                 AgentPropertiesParameters(
                 agentCode = data("agentCode").toLong,
                 checkPermission = AgentPermission.fromName(data("checkPermission")).getOrElse(StartAndContinue),
@@ -141,7 +140,7 @@ class AppointAgentController @Inject()(
       },
       success = (action: AgentAppointBulkAction) => {
         accounts.withAgentCode(action.agentCode.toString) flatMap {
-          case Some(group) => appointRevokeService.createAndSubmitAgentRepRequest( pLinkIds = action.propertyLinkIds,
+          case Some(group) => agentRelationshipService.createAndSubmitAgentRepRequest( pLinkIds = action.propertyLinkIds,
             agentOrgId = group.id,
             organisationId = request.organisationAccount.id,
             individualId = request.individualAccount.individualId,
@@ -152,7 +151,7 @@ class AppointAgentController @Inject()(
           }.recoverWith {
             case _ =>
               for{
-                response <- appointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
+                response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
                   AgentPropertiesParameters(
                     agentCode = action.agentCode,
                     checkPermission = action.checkPermission,
@@ -205,12 +204,12 @@ class AppointAgentController @Inject()(
       accounts.withAgentCode(agentCode.toString) flatMap {
         case Some(group) =>
           for {
-            response <- appointRevokeService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
+            response <- agentRelationshipService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
                 address = params.address,
                 agent = Some(group.companyName),
                 sortfield = params.sortfield,
                 sortorder = params.sortorder),
-              PaginationParams(pagination.startPoint, pagination.pageSize, false))
+              PaginationParams(pagination.startPoint, pagination.pageSize, false), Seq(RepresentationApproved, RepresentationPending))
                 .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                 .map(oar => oar.copy(filterTotal = oar.authorisations.size))
                 .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
@@ -232,12 +231,12 @@ class AppointAgentController @Inject()(
         accounts.withAgentCode(pagination.agentCode.toString) flatMap {
           case Some(group) =>
             for {
-              response <- appointRevokeService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
+              response <- agentRelationshipService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
                 address = pagination.address,
                 agent = Some(group.companyName),
                 sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name),
                 sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name)),
-                PaginationParams(pagination.startPoint, pagination.pageSize, false))
+                PaginationParams(pagination.startPoint, pagination.pageSize, false), Seq(RepresentationApproved, RepresentationPending))
                 .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                 .map(oar => oar.copy(filterTotal = oar.authorisations.size))
                 .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
@@ -250,14 +249,14 @@ class AppointAgentController @Inject()(
       },
       success = (action: AgentRevokeBulkAction) => {
         accounts.withAgentCode(action.agentCode.toString) flatMap {
-          case Some(group) => appointRevokeService.createAndSubitAgentRevokeRequest(pLinkIds = action.propertyLinkIds,
+          case Some(group) => agentRelationshipService.createAndSubitAgentRevokeRequest(pLinkIds = action.propertyLinkIds,
             agentCode = action.agentCode).map {
             case _ =>  Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
           }.recoverWith {
             case _ => {
               for {
-                response <- appointRevokeService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
-                  agent = Some(group.companyName)), DefaultPaginationParams)
+                response <- agentRelationshipService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
+                  agent = Some(group.companyName)), DefaultPaginationParams, Seq(RepresentationApproved, RepresentationPending))
                   .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                   .map(oar => oar.copy(filterTotal = oar.authorisations.size))
                   .map(oar => oar.copy(authorisations = oar.authorisations.take(DefaultPaginationParams.pageSize)))
