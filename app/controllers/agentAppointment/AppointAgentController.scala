@@ -234,8 +234,8 @@ class AppointAgentController @Inject()(
               response <- agentRelationshipService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
                 address = pagination.address,
                 agent = Some(group.companyName),
-                sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name),
-                sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name)),
+                sortfield = ExternalPropertyLinkManagementSortField.withName(pagination.sortField.name.toUpperCase),
+                sortorder = ExternalPropertyLinkManagementSortOrder.withName(pagination.sortOrder.name.toUpperCase)),
                 PaginationParams(pagination.startPoint, pagination.pageSize, false), Seq(RepresentationApproved, RepresentationPending))
                 .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                 .map(oar => oar.copy(filterTotal = oar.authorisations.size))

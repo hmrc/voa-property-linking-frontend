@@ -55,6 +55,7 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
     </div>
 
     <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params, agentCode)">
+        <input type="hidden" name="agentCode" value="@agentCode">
         <input type="hidden" name="pageNumber" value="@pagination.page">
         <input type="hidden" name="pageSize" value="@pagination.pageSize">
         <input type="hidden" name="sortField" value="@params.sortfield">
