@@ -24,7 +24,6 @@ import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
-import org.scalatest.concurrent.ScalaFutures
 import uk.gov.hmrc.http.logging.SessionId
 
 import scala.concurrent.Future
@@ -101,9 +100,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec {
       StartAndContinue,
       true)
 
-    ScalaFutures.whenReady(res.failed) { ex =>
-      ex must be (new services.AppointRevokeException("Property link 999 not found in property links cache."))
-    }
+    res.failed.futureValue must be (new services.AppointRevokeException("Property link 999 not found in property links cache."))
   }
 
   "createAndSubitAgentRevokeRequest" should "throw exception when link doesn't exist in cache" in {
@@ -117,9 +114,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec {
       List("999", "8888"),
       5L)
 
-    ScalaFutures.whenReady(res.failed) { ex =>
-      ex must be (new services.AppointRevokeException("Agent 5 for the property link with subission ID 999 doesn't exist in cache - this shouldn't be possible."))
-    }
+    res.failed.futureValue must be (new services.AppointRevokeException("Agent 5 for the property link with subission ID 999 doesn't exist in cache - this shouldn't be possible."))
   }
 
   "createAndSubmitAgentRepRequest" should "throw exception when session id doesn't exist in cache (handled by auth)" in {
@@ -135,9 +130,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec {
       StartAndContinue,
       true)
 
-    ScalaFutures.whenReady(res.failed) { ex =>
-      ex must be (new services.AppointRevokeException("Session ID SessionId(1111) no longer in property links cache - should be redirected to login by auth."))
-    }
+    res.failed.futureValue must be (new services.AppointRevokeException("Session ID SessionId(1111) no longer in property links cache - should be redirected to login by auth."))
   }
 
   "createAndSubitAgentRevokeRequest" should "throw exception when session id doesn't exist in cache (handled by auth)" in {
@@ -148,9 +141,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec {
       List("999", "8888"),
       5L)
 
-    ScalaFutures.whenReady(res.failed) { ex =>
-      ex must be (new services.AppointRevokeException("Session ID SessionId(1111) no longer in property links cache - should be redirected to login by auth."))
-    }
+      res.failed.futureValue must be (new services.AppointRevokeException("Session ID SessionId(1111) no longer in property links cache - should be redirected to login by auth."))
   }
 
   "createAndSubmitAgentRepRequest" should "throw exception session id can't be obtained (handled by auth)" in {
@@ -166,9 +157,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec {
       StartAndContinue,
       true)
 
-    ScalaFutures.whenReady(res.failed) { ex =>
-      ex must be (new services.AppointRevokeException("Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
-    }
+    res.failed.futureValue must be (new services.AppointRevokeException("Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
   }
 
   "createAndSubitAgentRevokeRequest" should "throw exception session id can't be obtained (handled by auth)" in {
@@ -179,8 +168,6 @@ class AgentRelationshipServiceSpec extends ServiceSpec {
       List("999", "8888"),
       5L)
 
-    ScalaFutures.whenReady(res.failed) { ex =>
-      ex must be (new services.AppointRevokeException("Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
-    }
+    res.failed.futureValue must be (new services.AppointRevokeException("Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
   }
 }
