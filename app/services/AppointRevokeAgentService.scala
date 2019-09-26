@@ -62,8 +62,9 @@ class AppointRevokeAgentService @Inject()(representations: PropertyRepresentatio
         individualId,
         checkPermission,
         challengePermission,
-        isAgent)).map{
-      x => x.reduce((a,b) => a)
+        isAgent)).map { x =>
+      Thread.sleep(2000)
+      x.reduce((a,b) => a)
     }
   }
 
