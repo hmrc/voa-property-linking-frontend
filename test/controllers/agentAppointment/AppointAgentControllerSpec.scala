@@ -33,7 +33,7 @@ import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubGroupAccountConnector}
 import repositories.SessionRepo
-import services.AgentRelationshipService
+import services.{AgentRelationshipService, AppointRevokeException}
 import org.scalacheck.Arbitrary._
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -165,7 +165,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     stubLogin()
     StubGroupAccountConnector.stubAccount(testAgentAccount)
 
-    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.failed(new Exception))
+    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.failed(new AppointRevokeException("")))
 
     val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",

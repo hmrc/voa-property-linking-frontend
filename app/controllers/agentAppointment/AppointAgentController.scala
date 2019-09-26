@@ -149,7 +149,7 @@ class AppointAgentController @Inject()(
             isAgent = request.organisationAccount.isAgent).map {
               case _ => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName))
           }.recoverWith {
-            case _ =>
+            case e: services.AppointRevokeException =>
               for{
                 response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
                   AgentPropertiesParameters(
@@ -159,6 +159,7 @@ class AppointAgentController @Inject()(
                   request.organisationAccount.id, group.id)
               } yield BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(Some(appointAgentBulkActionForm.withError("appoint.error", "error.transaction")),
                 AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.checkPermission.toString, action.challengePermission.toString, None))
+            case e: Exception => throw e
           }
           case None =>
             notFound
@@ -253,7 +254,7 @@ class AppointAgentController @Inject()(
             agentCode = action.agentCode).map {
             case _ =>  Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
           }.recoverWith {
-            case _ => {
+            case e: services.AppointRevokeException => {
               for {
                 response <- agentRelationshipService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
                   agent = Some(group.companyName)), DefaultPaginationParams, Seq(RepresentationApproved, RepresentationPending))
@@ -263,6 +264,7 @@ class AppointAgentController @Inject()(
               } yield BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(revokeAgentBulkActionForm.withError("appoint.error", "error.transaction")),
                 AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), action.agentCode))
             }
+            case e: Exception => throw e
           }
           case None =>
             notFound
