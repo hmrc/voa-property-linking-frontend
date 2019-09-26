@@ -16,6 +16,7 @@
 
 package services
 
+import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import models._
@@ -32,7 +33,10 @@ class AgentRelationshipServiceSpec extends ServiceSpec {
 
   import scala.concurrent.ExecutionContext.Implicits.global
 
-  private lazy val testService = new AgentRelationshipService(mockRepresentationConnector, mockPropertyLinkConnector, mockSessionRepo)
+  private val mockApplicationConfig = mock[ApplicationConfig]
+  when(mockApplicationConfig.agentAppointDelay).thenReturn(0)
+
+  private lazy val testService = new AgentRelationshipService(mockRepresentationConnector, mockPropertyLinkConnector, mockSessionRepo, mockApplicationConfig)
 
   private lazy val mockPropertyLinkConnector = mock[PropertyLinkConnector]
 

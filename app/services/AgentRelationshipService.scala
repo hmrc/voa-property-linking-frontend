@@ -20,6 +20,7 @@ import java.time.Instant
 
 import auditing.AuditingService
 import binders.propertylinks.GetPropertyLinksParameters
+import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PaginationParams
@@ -37,7 +38,8 @@ case class AppointRevokeException(message: String) extends Exception(s"Failed to
 
 class AgentRelationshipService @Inject()(representations: PropertyRepresentationConnector,
                                           propertyLinks: PropertyLinkConnector,
-                                          @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo)
+                                          @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
+                                          config: ApplicationConfig)
                                           (implicit val executionContext: ExecutionContext)
 {
 
@@ -60,8 +62,12 @@ class AgentRelationshipService @Inject()(representations: PropertyRepresentation
         individualId,
         checkPermission,
         challengePermission,
-        isAgent)).map{
-      x => x.reduce((a,b) => a)
+        isAgent)).map { x =>
+      // Introduce a delay here to give modernised a chance to process its queue
+      // This is a temporary measure to avoid duplicating agent requests when appointing multiple agents
+      // TODO https://jira.tools.tax.service.gov.uk/browse/VTCCA-2972
+      Thread.sleep(config.agentAppointDelay * 1000)
+      x.reduce((a,b) => a)
     }
   }
 

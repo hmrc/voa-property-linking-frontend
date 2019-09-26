@@ -29,6 +29,7 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
 
   private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
   private def loadBooleanConfig(key: String) = runModeConfiguration.getString(key).fold(false)(_.toBoolean)
+  private def loadInt(key: String): Int = runModeConfiguration.getInt(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
   lazy val baseUrl = if (mode == play.api.Mode.Prod) "" else "http://localhost:9523"
 
@@ -51,6 +52,8 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val serviceUrl: String = loadConfig("voa-property-linking-frontend.url")
   lazy val checkUrl = loadConfig("microservice.services.business-rates-check-frontend.url")
   lazy val externalCaseManagementApiUrl :String = loadConfig("external-case-management-api.url")
+
+  lazy val agentAppointDelay: Int = loadInt("agent.appoint.async.delay")
 
   lazy val analyticsTagManagerCode = loadConfig("google-analytics.tag.managerCode")
   lazy val analyticsToken: String = loadConfig("google-analytics.token")
