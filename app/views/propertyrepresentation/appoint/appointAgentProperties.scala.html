@@ -146,7 +146,7 @@
                             <td>
                             @if(authorisation.agents.nonEmpty) {
                                 <ul class="list">
-                                @authorisation.agents.get.map { agent =>
+                                @authorisation.agents.map { agent =>
                                     @* don't display agent if same as selected agent *@
                                     @if(agent.organisationId != model.agentGroup.id) {
                                         <li class="margin-bottom-0">@agent.organisationName</li>

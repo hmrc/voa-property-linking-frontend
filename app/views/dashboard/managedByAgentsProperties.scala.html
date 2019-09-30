@@ -82,7 +82,7 @@
                                 @if(p.agents.isEmpty){
                                     @Messages("dashboard.managedByAgentsProperties.noAgent")
                                 } else {
-                                    @p.agents.get.map { agent =>
+                                    @p.agents.map { agent =>
                                         <li>@agent.organisationName</li>
                                     }
                                 }
@@ -93,7 +93,7 @@
                                 <li>
                                     <a href="@agentAppointment.routes.RevokeAgentController.revokeAgent(
                                         p.submissionId,
-                                        p.agents.get.filter(ag =>
+                                        p.agents.filter(ag =>
                                             Some(ag.organisationId) == model.agentOrganisationId).head.authorisedPartyId,
                                         model.agentCode)">
                                         @Messages("manageProperties.revokeAgent")

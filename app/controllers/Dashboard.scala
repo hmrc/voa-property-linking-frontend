@@ -34,11 +34,12 @@ import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Request, Result}
+import services.AgentRelationshipService
 
 import scala.concurrent.Future
 
 class Dashboard @Inject()(draftCases: DraftCases,
-                          propertyLinks: PropertyLinkConnector,
+                          propertyLinks: AgentRelationshipService,
                           agentsConnector: AgentsConnector,
                           groupAccounts: GroupAccounts,
                           authenticated: AuthenticatedAction,
@@ -65,7 +66,8 @@ class Dashboard @Inject()(draftCases: DraftCases,
       group <- groupAccounts.withAgentCode(agentCode.toString)
       companyName = group.fold("No Name")(_.companyName) // impossible
       agentOrganisationId = group.map(_.id)
-      authResult <- propertyLinks.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(agent = group.map(_.companyName)), PaginationParams(1, 1000, false))
+      authResult <- propertyLinks.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(agent = group.map(_.companyName)),
+        PaginationParams(1, 1000, false), Seq(RepresentationApproved, RepresentationPending))
     } yield Ok(views.html.dashboard.managedByAgentsProperties(ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authResult.authorisations), owner))
   }
 

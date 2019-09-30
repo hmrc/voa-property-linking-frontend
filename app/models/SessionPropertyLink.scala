@@ -31,7 +31,7 @@ object SessionPropertyLink {
   : SessionPropertyLink =
     SessionPropertyLink(propertyLink.authorisationId,
       propertyLink.submissionId,
-      agents = propertyLink.agents.toList.flatten)
+      agents = propertyLink.agents.toList)
 }
 
 case class SessionPropertyLinks(links: Seq[SessionPropertyLink])

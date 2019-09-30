@@ -55,6 +55,7 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
     </div>
 
     <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params, agentCode)">
+        <input type="hidden" name="agentCode" value="@agentCode">
         <input type="hidden" name="pageNumber" value="@pagination.page">
         <input type="hidden" name="pageSize" value="@pagination.pageSize">
         <input type="hidden" name="sortField" value="@params.sortfield">
@@ -118,7 +119,7 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
             <td>
                 @if(authorisation.agents.nonEmpty) {
                 <ul class="list">
-                    @authorisation.agents.get.map { agent =>
+                    @authorisation.agents.map { agent =>
                     @* don't display agent if same as selected agent *@
                     @if(agent.organisationId != model.agentGroup.id) {
                     <li class="margin-bottom-0">@agent.organisationName</li>
@@ -177,22 +178,23 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
 }
 
 @sortingControl(field: AgentPropertiesSortField) = {
+
 @if(params.sortfield == field) {
 <div id="sort-by-@field" class="sorting_@params.sortorder">
     <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting, agentCode)">
-        @Messages(s"propertyRepresentation.th.$field.toUpperCase")</a>
+        @Messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
 </div>
 } else {
 <div id="sort-by-@field" class="sorting">
     <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(field.name.toUpperCase)), agentCode)">
-        @Messages(s"propertyRepresentation.th.$field.toUpperCase")</a>
+        @Messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
 </div>
 }
 }
 
 @searchField(fieldName: String, value: Option[String]) = {
 <div class="searchfield">
-    <label for="@fieldName" class="visually-hidden">@Messages(s"propertyRepresentation.th.$fieldName.toUpperCase")</label>
+    <label for="@fieldName" class="visually-hidden">@Messages(s"propertyRepresentation.th.$fieldName")</label>
     <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
     <button id="@{
             fieldName

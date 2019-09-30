@@ -33,7 +33,7 @@ import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubGroupAccountConnector}
 import repositories.SessionRepo
-import services.AppointRevokeAgentService
+import services.{AgentRelationshipService, AppointRevokeException}
 import org.scalacheck.Arbitrary._
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -44,13 +44,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   val testAgentAccount = GroupAccount(1l, "1", "companyName", 1l, "email@email.com", "123456",
     true, 1l)
 
-  val testAgents = Some(Seq(OwnerAuthAgent(1l,
+  val testAgents = Seq(OwnerAuthAgent(1l,
     testAgentAccount.id,
     "organisationName",
-    Some("APPROVED"),
+    "APPROVED",
     StartAndContinue,
-    StartAndContinue)))
-
+    StartAndContinue,
+    1l))
 
   "appointMultipleProperties" should "show the appoint agent page with a known agent listed for selection with no agent appointment session" in {
     val testOwnerAgents = OwnerAgents(Seq(OwnerAgent("test-agent", 1l)))
@@ -165,7 +165,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     stubLogin()
     StubGroupAccountConnector.stubAccount(testAgentAccount)
 
-    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.failed(new Exception))
+    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.failed(new AppointRevokeException("")))
 
     val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
@@ -198,7 +198,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testPagination = AgentPropertiesParameters(1l)
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.getMyOrganisationsPropertyLinks(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
 
     val res = testController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), 1L)(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
@@ -213,7 +213,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "viewing select agent properties search sort page" should "show no properties when the agent has no properties appointed" in {
     stubLogin()
     val testAgentAccount = arbitrary[GroupAccount].sample.get.copy(isAgent = true, agentCode = 1l)
-    val testAgents = Some(Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id)))
+    val testAgents = Seq(arbitrary[OwnerAuthAgent].sample.get.copy(organisationId = testAgentAccount.id))
 
     val testOwnerAuth = OwnerAuthorisation(1l,
       "REVOKED",
@@ -225,13 +225,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val testOwnerAuthResult = OwnerAuthResult(start = 1,
       size = 15,
-      filterTotal = 1,
-      total = 1,
-      authorisations = Seq(testOwnerAuth))
+      filterTotal = 0,
+      total = 0,
+      authorisations = Seq())
     val testPagination = AgentPropertiesParameters(1l)
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockPropertyLinkConnector.getMyClientsPropertyLinks(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAuthResult))
 
     val res = testController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), 1L)(FakeRequest().withFormUrlEncodedBody(
       "agentCode" -> "1",
@@ -243,9 +243,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.mustContainText("There are no properties to display")
   }
 
-  private lazy val testController = new AppointAgentController(mockRepresentationConnector, StubGroupAccountConnector, mockPropertyLinkConnector, mockAgentsConnector, StubAuthentication, mockAppointRevokeService, mockSessionRepo)
-
-  private lazy val mockPropertyLinkConnector = mock[PropertyLinkConnector]
+  private lazy val testController = new AppointAgentController(mockRepresentationConnector, StubGroupAccountConnector, mockAgentsConnector, StubAuthentication, mockAppointRevokeService, mockSessionRepo)
 
   private lazy val mockRepresentationConnector = mock[PropertyRepresentationConnector]
 
@@ -253,7 +251,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   private lazy val mockSessionRepo = mock[SessionRepo]
 
-  private lazy val  mockAppointRevokeService = mock[AppointRevokeAgentService]
+  private lazy val  mockAppointRevokeService = mock[AgentRelationshipService]
 
   private def stubLogin() = {
     val accounts = Accounts(groupAccountGen, individualGen)

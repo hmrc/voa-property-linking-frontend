@@ -41,9 +41,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
   override def createPropertyLink()(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
 
   override def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters,
-                                    pagination: PaginationParams,
-                                    representationStatusFilter: Seq[RepresentationStatus] =
-                                    Seq(RepresentationApproved, RepresentationPending))
+                                    pagination: PaginationParams)
                                    (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
     Future.successful(stubbedOwnerAuthResult)

@@ -25,6 +25,7 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import services.AgentRelationshipService
 import utils._
 
 class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
@@ -33,7 +34,7 @@ class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
 
   object TestDashboardController extends Dashboard(
     mock[DraftCases],
-    mock[PropertyLinkConnector],
+    mock[AgentRelationshipService],
     StubAgentConnector,
     mock[GroupAccounts],
     StubAuthentication,

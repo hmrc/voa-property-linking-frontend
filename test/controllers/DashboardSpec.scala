@@ -20,12 +20,14 @@ import com.builtamont.play.pdf.PdfGenerator
 import connectors._
 import models._
 import models.messages.{Message, MessageCount, MessagePagination, MessageSearchResults}
+import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
@@ -40,9 +42,17 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     m
   }
 
+  private var stubbedOwnerAuthResult: OwnerAuthResult = OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
+
+  lazy val mockRepService = {
+    val m = mock[AgentRelationshipService]
+    when(m.getMyOrganisationsPropertyLinks(any(), any(), any())(any())).thenReturn(Future.successful(stubbedOwnerAuthResult))
+    m
+  }
+
   object TestDashboard extends Dashboard(
     mockDraftCases,
-    StubPropertyLinkConnector,
+    mockRepService,
     StubAgentConnector,
     StubGroupAccountConnector,
     StubAuthentication,

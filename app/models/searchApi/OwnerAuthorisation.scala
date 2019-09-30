@@ -25,7 +25,7 @@ case class OwnerAuthorisation(
                                uarn: Long,
                                address: String,
                                localAuthorityRef: String,
-                               agents: Option[Seq[OwnerAuthAgent]]
+                               agents: Seq[OwnerAuthAgent]
                              )
 
 object OwnerAuthorisation {

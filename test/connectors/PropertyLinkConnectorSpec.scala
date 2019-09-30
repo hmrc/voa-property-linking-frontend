@@ -69,7 +69,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec with FakeObjects 
       size = 1,
       filterTotal = 1,
       total = 1,
-      authorisations = Seq(arbitrary[OwnerAuthorisation].sample.get.copy(agents = None))
+      authorisations = Seq(arbitrary[OwnerAuthorisation].sample.get)
     )
 
     mockHttpGET[OwnerAuthResult]("tst-url", ownerAuthResult)
