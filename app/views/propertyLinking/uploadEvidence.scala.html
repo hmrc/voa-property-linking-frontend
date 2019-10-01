@@ -135,9 +135,9 @@
 
             </div>
         </div>
-        <span id="businessRatesAttachmentsRemoveFileURL" class="label-span visuallyhidden">@{s"${config.baseUrl}/business-rates-challenge/provide-evidence-remove?fileName="}</span>
-        <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${config.baseUrl}${UploadPropertyEvidence.initiate()}"}</span>
-        <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${config.baseUrl}${UploadPropertyEvidence.show()}"}</span>
+        <span id="businessRatesAttachmentsRemoveFileURL" class="label-span visuallyhidden">@{s"/business-rates-property-linking/upload-evidence-remove-file?fileReference="}</span>
+        <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${UploadPropertyEvidence.initiate()}"}</span>
+        <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${UploadPropertyEvidence.show()}"}</span>
         <span id="errorsUpscan" class="label-span visuallyhidden">@Html(messages("error.upscan.unavailable"))</span>
         <span id="errorsFileSizeTooLarge" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
         <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.does.not.support.file.types")</span>
