@@ -45,9 +45,18 @@ class IdentityVerification @Inject()(ggAction: VoaAction,
     implicit request =>
       if (config.ivEnabled) {
         for {
-          userDetails <- personalDetailsSessionRepo.get[AdminUser]
-          link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
-        } yield Redirect(link.getLink(config.ivBaseUrl))
+          userDetails: Option[AdminUser] <- personalDetailsSessionRepo.get[AdminUser]
+//          link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
+        } yield {
+          val queryParams = Seq(
+            "origin=voa-property-linking",
+            "confidenceLevel=200",
+            s"completionURL=${config.baseUrl + routes.IdentityVerification.success().url}",
+            s"failureURL=${config.baseUrl + routes.IdentityVerification.fail().url}"
+          ) .mkString("?", "&", "")
+
+          Redirect(config.ivNewJourneyBaseUrl+queryParams).withSession(request.session)
+        }
       } else {
         Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
       }

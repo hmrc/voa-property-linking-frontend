@@ -44,6 +44,7 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val helpGuideUrl = loadConfig("help-guide.url")
 
   lazy val ivBaseUrl = loadConfig("microservice.services.identity-verification.url")
+  lazy val ivNewJourneyBaseUrl = loadConfig("microservice.services.identity-verification.newJourneyUrl")
   lazy val vmvUrl = loadConfig("vmv-frontend.url")
   lazy val ggSignInUrl: String = loadConfig("gg-sign-in.url")
   lazy val ggRegistrationUrl: String = loadConfig("gg-registration.url")
