@@ -53,6 +53,7 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
     businessRatesAuthorisation.authenticate flatMap {
       res =>
         logger.debug("the request passed through business-rates-authorisation")
+        logger.info(s"PLFE-APPOINT invokeBlock")
         handleResult(res, block)(request, hc)
     }
   }

@@ -120,6 +120,7 @@ class AppointAgentController @Inject()(
   }
 
   def appointAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
+    logger.info(s"PLFE-APPOINT appointAgentSummary before bind")
     appointAgentBulkActionForm.bindFromRequest().fold(
       errors => {
         val data: Map[String, String] = errors.data
@@ -139,6 +140,7 @@ class AppointAgentController @Inject()(
         }
       },
       success = (action: AgentAppointBulkAction) => {
+        logger.info(s"PLFE-APPOINT form bind success")
         accounts.withAgentCode(action.agentCode.toString) flatMap {
           case Some(group) =>
             logger.info(s"PLFE-APPOINT appointAgentSummary: ${group}")
