@@ -140,7 +140,9 @@ class AppointAgentController @Inject()(
       },
       success = (action: AgentAppointBulkAction) => {
         accounts.withAgentCode(action.agentCode.toString) flatMap {
-          case Some(group) => agentRelationshipService.createAndSubmitAgentRepRequest( pLinkIds = action.propertyLinkIds,
+          case Some(group) =>
+            logger.info(s"PLFE-APPOINT appointAgentSummary: ${group}")
+            agentRelationshipService.createAndSubmitAgentRepRequest( pLinkIds = action.propertyLinkIds,
             agentOrgId = group.id,
             organisationId = request.organisationAccount.id,
             individualId = request.individualAccount.individualId,

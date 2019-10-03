@@ -113,6 +113,8 @@ class AgentRelationshipService @Inject()(representations: PropertyRepresentation
                            checkPermission: AgentPermission,
                            challengePermission: AgentPermission,
                            isAgent: Boolean)(implicit hc: HeaderCarrier):Future[Unit] = {
+    logger.info(s"PLFE-APPOINT: appointAgent")
+
     hc.sessionId match {
       case Some(sessionId) =>
         propertyLinksSessionRepo.get[SessionPropertyLinks] flatMap {
@@ -171,6 +173,8 @@ class AgentRelationshipService @Inject()(representations: PropertyRepresentation
                                          individualId: Long,
                                          organisationId: Long
                                        )(implicit hc: HeaderCarrier): Future[Unit] = {
+    logger.info(s"PLFE-APPOINT: updateAllAgentsPermission")
+
     val updateExistingAgents = if (newAgentPermission.canCheck == StartAndContinue && newAgentPermission.canChallenge == StartAndContinue) {
       Future.sequence(link.agents.map(agent => representations.revoke(agent.authorisedPartyId)))
     } else if (newAgentPermission.canCheck == StartAndContinue) {
@@ -180,6 +184,7 @@ class AgentRelationshipService @Inject()(representations: PropertyRepresentation
         //existing agents that had a check permission have been revoked
         //we now need to re-add the agents that had a challenge permission
         updatedAgents <- Future.traverse(agentsToUpdate.filter(_.challengePermission != NotPermitted))(agent => {
+          logger.info(s"PLFE-APPOINT: updateAllAgentsPermission: re-add the agents that had a challenge permission ")
           createAndSubmitAgentRepRequest(link.authorisationId, agent.organisationId, individualId, NotPermitted, agent.challengePermission, organisationId)
         })
       } yield {
@@ -190,6 +195,7 @@ class AgentRelationshipService @Inject()(representations: PropertyRepresentation
       for {
         revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
         updatedAgents <- Future.traverse(agentsToUpdate.filter(_.checkPermission != NotPermitted))(agent => {
+          logger.info(s"PLFE-APPOINT: updateAllAgentsPermission: re-add the agents that had a check permission ")
           createAndSubmitAgentRepRequest(link.authorisationId, agent.organisationId, individualId, agent.checkPermission, NotPermitted, organisationId)
         })
       } yield {
@@ -198,6 +204,7 @@ class AgentRelationshipService @Inject()(representations: PropertyRepresentation
     }
     updateExistingAgents.flatMap(_ => {
       //existing agents have been updated. Time to add the new agent.
+      logger.info(s"PLFE-APPOINT: do the createAndSubmitAgentRepRequest")
       createAndSubmitAgentRepRequest(link.authorisationId, newAgentOrgId, individualId, newAgentPermission, organisationId)
     })
   }
@@ -210,7 +217,9 @@ class AgentRelationshipService @Inject()(representations: PropertyRepresentation
     val req = RepresentationRequest(authorisationId, agentOrgId, userIndividualId,
       submissionId, checkPermission.name, challengePermission.name, createDatetime)
 
+    logger.info(s"PLFE-APPOINT: createAndSubmitAgentRepRequest")
     representations.create(req).map(x => {
+      logger.info(s"PLFE-APPOINT: createAndSubmitAgentRepRequest success")
       AuditingService.sendEvent("agent representation request approve", Json.obj(
         "organisationId" -> organisationId,
         "individualId" -> userIndividualId,
