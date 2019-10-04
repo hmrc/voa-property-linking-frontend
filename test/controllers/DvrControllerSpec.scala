@@ -26,18 +26,21 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{StubAuthentication, StubPropertyLinkConnector}
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class DvrControllerSpec extends VoaPropertyLinkingSpec {
+class DvrControllerSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   trait Setup {
     implicit val request = FakeRequest()
     val mockPropertyLinkConnector = mock[PropertyLinkConnector]
 
     val controller = new DvrController(
+      mockCustomErrorHandler,
       mockPropertyLinkConnector,
       StubAuthentication,
       mockSubmissionIds,

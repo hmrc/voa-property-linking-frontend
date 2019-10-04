@@ -20,7 +20,6 @@ import controllers.VoaPropertyLinkingSpec
 import models._
 import org.scalacheck.Arbitrary._
 import play.api.http.Status._
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsValue, Json}
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}

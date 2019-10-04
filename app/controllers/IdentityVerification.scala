@@ -20,17 +20,19 @@ import auth.VoaAction
 import config.ApplicationConfig
 import connectors._
 import javax.inject.{Inject, Named}
-import models.PersonalDetails
 import models.registration.AdminUser
 import play.api.i18n.MessagesApi
-import play.api.mvc.Action
+import play.api.mvc.{Action, AnyContent}
 import repositories.SessionRepo
 import services.iv.IdentityVerificationService
 import uk.gov.hmrc.http.SessionKeys
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class IdentityVerification @Inject()(ggAction: VoaAction,
+class IdentityVerification @Inject()(
+                                      val errorHandler: CustomErrorHandler,
+                                      ggAction: VoaAction,
                                      identityVerification: connectors.IdentityVerification,
                                      addresses: Addresses,
                                      individuals: IndividualAccounts,
@@ -38,10 +40,10 @@ class IdentityVerification @Inject()(ggAction: VoaAction,
                                      groups: GroupAccounts,
                                      auth: VPLAuthConnector,
                                      @Named("personSession") val personalDetailsSessionRepo: SessionRepo)
-                                    (implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+                                    (implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
-  def startIv = ggAction.async(false) { _ =>
+  def startIv: Action[AnyContent] = ggAction.async(false) { _ =>
     implicit request =>
       if (config.ivEnabled) {
         for {
@@ -53,27 +55,27 @@ class IdentityVerification @Inject()(ggAction: VoaAction,
       }
   }
 
-  def fail = Action { implicit request =>
+  def fail: Action[AnyContent] = Action { implicit request =>
     Ok(views.html.identityVerification.failed())
   }
 
-  def restoreSession = Action.async { implicit request =>
+  def restoreSession: Action[AnyContent] = Action { implicit request =>
     Redirect(routes.IdentityVerification.success()).addingToSession(
       SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""),
       SessionKeys.sessionId -> request.session.get("oldSessionId").getOrElse("")
     )
   }
 
-  def success = ggAction.async(false) { implicit ctx =>
+  def success: Action[AnyContent] = ggAction.async(false) { implicit ctx =>
     implicit request =>
       request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
         identityVerification.verifySuccess(journeyId) flatMap {
           case true =>
-            identityVerificationService.continue(journeyId)(ctx, hc, ec).map {
+            identityVerificationService.continue(journeyId)(ctx, hc, executionContext).map {
               case Some(obj) => identityVerificationService.someCase(obj)
               case None => identityVerificationService.noneCase
             }
-          case false => Unauthorized("Unauthorised")
+          case false => Future.successful(Unauthorized("Unauthorised"))
         }
       }
   }

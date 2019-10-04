@@ -16,67 +16,8 @@
 
 package config
 
-import akka.actor.ActorSystem
-import com.google.inject.Inject
-import com.typesafe.config.Config
-import play.api.{Configuration, Environment, Play}
-import play.api.libs.json.{JsDefined, JsString, Writes}
-import uk.gov.hmrc.http.hooks.{HttpHook, HttpHooks}
-import uk.gov.hmrc.play.audit.http.HttpAuditing
-import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
-import uk.gov.hmrc.play.http._
-import uk.gov.hmrc.play.http.ws._
-
-import scala.concurrent.Future
-import scala.util.Try
-import uk.gov.hmrc.http.{HttpDelete, _}
-
-class VPLHttp @Inject()(environment: Environment, servicesConfig: ServicesConfig, override val appNameConfiguration: Configuration) extends WSHttp with HttpAuditing {
-
-  override def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = super.doGet(url) map { res =>
-    res.status match {
-      case 401 if hasJsonBody(res) => res.json \ "errorCode" match {
-        case JsDefined(JsString(err)) => throw AuthorisationFailed(err)
-        case _ => res
-      }
-      case _ => res
-    }
-  }
-
-  override def doPost[A](url: String, body: A, headers: Seq[(String, String)])(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = {
-    super.doPost(url, body, headers) map { res =>
-      res.status match {
-        case 401 if hasJsonBody(res) => res.json \ "errorCode" match {
-          case JsDefined(JsString(err)) => throw AuthorisationFailed(err)
-          case _ => res
-        }
-        case _ => res
-      }
-    }
-  }
-
-  private def hasJsonBody(res: HttpResponse) = Try { res.json }.isSuccess
-
-  override protected def configuration: Option[Config] = Some(appNameConfiguration.underlying)
-}
 
 case class AuthorisationFailed(msg: String) extends Exception(s"Authorisation failed: $msg")
 
-trait WSHttp extends HttpGet with WSGet with HttpPut with WSPut with HttpPost with WSPost with HttpDelete with WSDelete with HttpPatch with WSPatch with Hooks with AppName {
-  override protected def actorSystem: ActorSystem = Play.current.actorSystem
-}
 
-object WSHttp extends WSHttp {
-  override protected def configuration: Option[Config] = None
-
-  override protected def appNameConfiguration: Configuration = Play.current.configuration
-
-}
-
-
-
-trait Hooks extends HttpHooks with HttpAuditing {
-  override val hooks = Seq(AuditingHook)
-  override def auditConnector = AuditServiceConnector
-}
 

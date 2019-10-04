@@ -20,7 +20,6 @@ import java.time.Instant
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import javax.inject.Inject
-
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.PropertyLinkingController
@@ -35,34 +34,39 @@ import play.api.mvc.{AnyContent, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import utils.EmailAddressValidation
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class UpdatePersonalDetails @Inject()(authenticated: AuthenticatedAction,
+class UpdatePersonalDetails @Inject()(
+                                       val errorHandler: CustomErrorHandler,
+                                       authenticated: AuthenticatedAction,
                                       addressesConnector: Addresses,
                                       individualAccountConnector: IndividualAccounts,
-                                      manageDetails: ManageDetails, groupAccounts: GroupAccounts)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+                                      manageDetails: ManageDetails,
+                                      groupAccounts: GroupAccounts
+                                     )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
-  def viewEmail() = authenticated.async { implicit request =>
+  def viewEmail() = authenticated { implicit request =>
     Ok(views.html.details.updateEmail(UpdateDetailsVM(emailForm, request.individualAccount.details)))
   }
 
   def updateEmail() = authenticated.async { implicit request =>
     emailForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateEmail(UpdateDetailsVM(errors, request.individualAccount.details))),
+      errors => Future.successful(BadRequest(views.html.details.updateEmail(UpdateDetailsVM(errors, request.individualAccount.details)))),
       email => updateDetails(email = Some(email))
     )
   }
 
-  def viewAddress() = authenticated.async { implicit request =>
+  def viewAddress() = authenticated { implicit request =>
     Ok(views.html.details.updateAddress(UpdateDetailsVM(addressForm, request.individualAccount.details)))
   }
 
   def updateAddress() = authenticated.async { implicit request =>
     addressForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateAddress(UpdateDetailsVM(errors, request.individualAccount.details))),
+      errors => Future.successful(BadRequest(views.html.details.updateAddress(UpdateDetailsVM(errors, request.individualAccount.details)))),
       address => address.addressUnitId match {
         case Some(id) => updateDetails(addressId = Some(id))
         case None => addressesConnector.create(address) flatMap { id => updateDetails(addressId = Some(id)) }
@@ -74,14 +78,14 @@ class UpdatePersonalDetails @Inject()(authenticated: AuthenticatedAction,
     Ok(views.html.details.updatePhone(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
   }
 
-  def updatePhone() = authenticated.async{ implicit request =>
+  def updatePhone() = authenticated.async { implicit request =>
     telephoneForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updatePhone(UpdateDetailsVM(errors, request.individualAccount.details))),
+      errors => Future.successful(BadRequest(views.html.details.updatePhone(UpdateDetailsVM(errors, request.individualAccount.details)))),
       phone => updateDetails(phone = Some(phone))
     )
   }
 
-  def viewName() = authenticated.async { implicit request =>
+  def viewName() = authenticated { implicit request =>
     if (config.editNameEnabled) {
       Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
     } else {
@@ -92,21 +96,21 @@ class UpdatePersonalDetails @Inject()(authenticated: AuthenticatedAction,
   def updateName() = authenticated.async { implicit request =>
     if (config.editNameEnabled) {
       nameForm.bindFromRequest().fold(
-        errors => BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details))),
+        errors => Future.successful(BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details)))),
         name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
       )
     } else {
-      notFound
+      Future.successful(notFound)
     }
   }
 
-  def viewMobile() = authenticated.async { implicit request =>
+  def viewMobile() = authenticated { implicit request =>
     Ok(views.html.details.updateMobile(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
   }
 
   def updateMobile() = authenticated.async { implicit request =>
     telephoneForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateMobile(UpdateDetailsVM(errors, request.individualAccount.details))),
+      errors => Future.successful(BadRequest(views.html.details.updateMobile(UpdateDetailsVM(errors, request.individualAccount.details)))),
       mobile => updateDetails(mobile = Some(mobile))
     )
   }

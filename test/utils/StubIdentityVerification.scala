@@ -22,7 +22,7 @@ import org.scalatest.mockito.MockitoSugar
 import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
-object StubIdentityVerification extends IdentityVerification(StubServicesConfig, null, StubHttp) with MockitoSugar {
+object StubIdentityVerification extends IdentityVerification(StubServicesConfig, null, StubHttp) with MockitoSugar { //TODO fix unimplemented
 
   private var journeyResult = ("", "")
 

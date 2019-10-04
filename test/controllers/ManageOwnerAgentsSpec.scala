@@ -17,22 +17,24 @@
 package controllers
 
 import com.builtamont.play.pdf.PdfGenerator
-import config.ApplicationConfig
 import connectors._
-import connectors.propertyLinking.PropertyLinkConnector
 import models._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import services.AgentRelationshipService
+import tests.AllMocks
 import utils._
 
-class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   implicit val request = FakeRequest()
 
   object TestDashboardController extends Dashboard(
+    mockCustomErrorHandler,
     mock[DraftCases],
     mock[AgentRelationshipService],
     StubAgentConnector,

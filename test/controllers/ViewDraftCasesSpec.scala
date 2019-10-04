@@ -18,19 +18,15 @@ package controllers
 
 import connectors.{Authenticated, DraftCases}
 import models.Accounts
-import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers._
-import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.http.HeaderCarrier
-import utils.{Formatters, StubAuthentication, StubPropertyLinkConnector}
+import tests.AllMocks
+import utils.{StubAuthentication, StubPropertyLinkConnector}
 
-import scala.collection.JavaConverters._
-import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
-class ViewDraftCasesSpec extends VoaPropertyLinkingSpec {
+class ViewDraftCasesSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   "Viewing draft cases" should "return redirect" in {
     StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
@@ -42,6 +38,7 @@ class ViewDraftCasesSpec extends VoaPropertyLinkingSpec {
   implicit lazy val mockDraftCases: DraftCases = mock[DraftCases]
 
   private lazy val testController = new ManageDrafts(
+    mockCustomErrorHandler,
     StubAuthentication,
     StubPropertyLinkConnector
   )

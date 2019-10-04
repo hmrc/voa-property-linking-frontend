@@ -128,6 +128,7 @@ class IvServiceSpec extends ServiceSpec {
     protected val ivProxy = mock[IdentityVerificationProxyConnector]
 
     protected val identityVerification = new IvService(
+      mockCustomErrorHandler,
       StubVplAuthConnector,
       mockRegistrationService,
       mockSessionRepoOrgDetails,

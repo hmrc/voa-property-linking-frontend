@@ -17,8 +17,8 @@
 package controllers
 
 import controllers.registration.RegistrationController
-import models.registration.{RegistrationSuccess, UserInfo}
 import models.identityVerificationProxy.Link
+import models.registration.RegistrationSuccess
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -30,13 +30,15 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
 import services.iv.IdentityVerificationService
-import services.{EnrolmentService, RegistrationService, Success}
+import services.{RegistrationService, Success}
+import tests.AllMocks
 import uk.gov.hmrc.auth.core._
 import utils.{StubGroupAccountConnector, _}
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
+class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
@@ -53,6 +55,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   val mockRegistrationService = mock[RegistrationService]
 
   private object TestRegistrationController$ extends RegistrationController(
+    mockCustomErrorHandler,
     StubGgAction,
     StubGroupAccountConnector,
     StubIndividualAccountConnector,

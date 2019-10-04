@@ -16,11 +16,10 @@
 
 package actions
 
-import javax.inject.Inject
-
 import auth.GovernmentGatewayProvider
-import config.{ApplicationConfig, Global}
+import config.ApplicationConfig
 import connectors._
+import javax.inject.Inject
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.Logger
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
@@ -41,19 +40,18 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
                                     enrolmentService: EnrolmentService,
                                     val authConnector: AuthConnector
                                    )(implicit val messageApi: MessagesApi, config: ApplicationConfig, executionContext: ExecutionContext)
-  extends ActionBuilder[BasicAuthenticatedRequest] with AuthorisedFunctions with I18nSupport{
+  extends ActionBuilder[BasicAuthenticatedRequest] with AuthorisedFunctions with I18nSupport {
 
   val logger = Logger(this.getClass.getName)
 
-  protected implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+  protected implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSessionAndRequest(request.headers, Some(request.session), request = Some(request))
 
   override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = {
-    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
     logger.debug("the request called invoke block")
-    businessRatesAuthorisation.authenticate flatMap {
+    businessRatesAuthorisation.authenticate(hc(request)) flatMap {
       res =>
         logger.debug("the request passed through business-rates-authorisation")
-        handleResult(res, block)(request, hc)
+        handleResult(res, block)(request, hc(request))
     }
   }
 
@@ -65,25 +63,17 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
     }
   }
 
-  def toViewAssessment(authorisationId: Long, assessmentRef: Long)(body: BasicAuthenticatedRequest[_] => Future[Result]) = {
+  def toViewAssessment(authorisationId: Long, assessmentRef: Long)(body: BasicAuthenticatedRequest[_] => Future[Result]): Action[AnyContent] = {
     Action.async { implicit request =>
       businessRatesAuthorisation.authorise(authorisationId, assessmentRef) flatMap {
         res => handleResult(res, body)
-      } recover {
-        case e =>
-          Logger.error(e.getMessage, e)
-          InternalServerError(Global.internalServerErrorTemplate(request))
       }
     }
   }
 
-  def toViewAssessmentsFor(authorisationId: Long)(body: BasicAuthenticatedRequest[_] => Future[Result]) = Action.async { implicit request =>
+  def toViewAssessmentsFor(authorisationId: Long)(body: BasicAuthenticatedRequest[_] => Future[Result]): Action[AnyContent] = Action.async { implicit request =>
     businessRatesAuthorisation.authorise(authorisationId) flatMap {
       res => handleResult(res, body)
-    } recover {
-      case e =>
-        Logger.error(e.getMessage, e)
-        InternalServerError(Global.internalServerErrorTemplate(request))
     }
   }
 

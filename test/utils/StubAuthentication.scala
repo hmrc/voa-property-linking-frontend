@@ -54,7 +54,7 @@ object StubAuthConnector extends AuthConnector {
     Future.successful(success.asInstanceOf[A])
 }
 
-object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubServicesConfig, StubHttp) {
+object StubBusinessRatesAuthorisation extends BusinessRatesAuthorisation(StubServicesConfig, StubHttp) { //TODO fix unimplemented
   var authorisationResult: AuthorisationResult = InvalidGGSession
 
   override def authenticate(implicit hc: HeaderCarrier) = {

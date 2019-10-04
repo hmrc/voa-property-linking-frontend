@@ -25,7 +25,7 @@ import scala.concurrent.Future
 import scala.util.Random
 import uk.gov.hmrc.http.HeaderCarrier
 
-object StubIndividualAccountConnector extends IndividualAccounts(StubServicesConfig, StubHttp) {
+object StubIndividualAccountConnector extends IndividualAccounts(StubServicesConfig, StubHttp) { //TODO fix unimplemented
 
   private var stubbedIndividuals: Seq[DetailedIndividualAccount] = Nil
 

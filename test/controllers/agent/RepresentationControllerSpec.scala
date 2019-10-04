@@ -16,34 +16,34 @@
 
 package controllers.agent
 
-import connectors.{Authenticated, PropertyRepresentationConnector}
+import connectors.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models._
-import org.mockito.ArgumentMatchers._
-import org.mockito.Mockito._
-import org.scalatest.mockito.MockitoSugar
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import play.twirl.api.Html
 
-import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
-class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
+class RepresentationControllerSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   lazy val request = FakeRequest().withSession(token)
   implicit val hc = HeaderCarrier()
   val validGroupAccount = groupAccount
   val validIndividualAccount = detailedIndividualAccount
   object TestController extends RepresentationController(
+    mockCustomErrorHandler,
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector
   )
-
-
 
   "cancel" should "allow the user to cancel accepting/rejecting the pending representation requests" in {
     stubLoggedInUser()
@@ -103,6 +103,9 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "continue" should "throw Bad Request if the form has errors" in {
+    when(mockCustomErrorHandler.badRequestTemplate(any()))
+        .thenReturn(Html("BAD REQUEST"))
+
     stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
     val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
@@ -147,6 +150,9 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     contentAsString(res) contains "Are you sure you no longer want to act on behalf of" mustBe true
   }
   it should "revoke an agent should return not found when clientProperty cannot be found" in {
+    when(mockCustomErrorHandler.notFoundTemplate(any()))
+        .thenReturn(Html("NOT FOUND"))
+
     stubLoggedInUser()
     val res = TestController.revokeClient(12L, 34L)(request)
     status(res) must be(NOT_FOUND)

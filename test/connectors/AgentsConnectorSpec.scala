@@ -25,7 +25,6 @@ import scala.concurrent.ExecutionContext.global
 class AgentsConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
-  implicit val ec = global
 
   class Setup {
     val connector = new AgentsConnector(mockWSHttp, StubServicesConfig)(ec) {

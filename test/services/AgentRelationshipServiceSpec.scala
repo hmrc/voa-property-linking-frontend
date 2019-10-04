@@ -28,15 +28,18 @@ import org.mockito.Mockito.when
 import uk.gov.hmrc.http.logging.SessionId
 
 import scala.concurrent.Future
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito._
+import tests.AllMocks
 
-class AgentRelationshipServiceSpec extends ServiceSpec {
+class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
 
   import scala.concurrent.ExecutionContext.Implicits.global
 
   private val mockApplicationConfig = mock[ApplicationConfig]
   when(mockApplicationConfig.agentAppointDelay).thenReturn(0)
 
-  private lazy val testService = new AgentRelationshipService(mockRepresentationConnector, mockPropertyLinkConnector, mockSessionRepo, mockApplicationConfig)
+  private lazy val testService = new AgentRelationshipService(mockAuditingService, mockRepresentationConnector, mockPropertyLinkConnector, mockSessionRepo, mockApplicationConfig)
 
   private lazy val mockPropertyLinkConnector = mock[PropertyLinkConnector]
 
@@ -46,12 +49,13 @@ class AgentRelationshipServiceSpec extends ServiceSpec {
 
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
 
-
-
   "createAndSubmitAgentRepRequest" should "return option unit when succesful" in {
 
-    val links = SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", "APPROVED",
-      StartAndContinue, StartAndContinue, 1l)))))
+    val links = SessionPropertyLinks(
+      Seq(
+        SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", "APPROVED", NotPermitted, StartAndContinue, 1l)))
+      )
+    )
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
     when(mockRepresentationConnector.revoke(any())(any())).thenReturn(Future.successful())
@@ -64,10 +68,12 @@ class AgentRelationshipServiceSpec extends ServiceSpec {
       1L,
       1L,
       StartAndContinue,
-      StartAndContinue,
+      NotPermitted,
       true)
 
     res.futureValue must be(())
+
+    verify(mockRepresentationConnector, times(1)).create(any())(any())
   }
 
   "createAndSubitAgentRevokeRequest" should "return option unit when succesful" in {

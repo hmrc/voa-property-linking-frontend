@@ -17,15 +17,21 @@
 package controllers
 
 import javax.inject.Inject
-
 import connectors.Addresses
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent}
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-class AddressLookup @Inject()(addresses: Addresses)(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
+import scala.concurrent.ExecutionContext
+
+class AddressLookup @Inject()(
+                               val errorHandler: CustomErrorHandler,
+                               addresses: Addresses
+                             )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi) extends PropertyLinkingController {
+
   def findByPostcode(postcode: String): Action[AnyContent] = Action.async { implicit request =>
-      addresses.findByPostcode(postcode.trim) map { res =>
+      addresses.findByPostcode(postcode.trim)(hc) map { res =>
         if (res.isEmpty) {
           NotFound
         } else {

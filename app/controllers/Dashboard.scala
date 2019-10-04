@@ -18,46 +18,44 @@ package controllers
 
 import java.time._
 
-import javax.inject.Inject
 import actions.AuthenticatedAction
-import binders.propertylinks.ExternalPropertyLinkManagementSortField.ExternalPropertyLinkManagementSortField
-import binders.propertylinks.ExternalPropertyLinkManagementSortOrder.ExternalPropertyLinkManagementSortOrder
-import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
+import binders.propertylinks.GetPropertyLinksParameters
 import com.builtamont.play.pdf.PdfGenerator
-import config.{ApplicationConfig, Global}
+import config.ApplicationConfig
 import connectors._
-import connectors.propertyLinking.PropertyLinkConnector
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import javax.inject.Inject
 import models._
-import models.messages.MessagePagination
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
-import play.api.Logger
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.mvc.{Action, AnyContent}
 import services.AgentRelationshipService
 
-import scala.concurrent.Future
+import scala.concurrent.ExecutionContext
 
-class Dashboard @Inject()(draftCases: DraftCases,
-                          propertyLinks: AgentRelationshipService,
-                          agentsConnector: AgentsConnector,
-                          groupAccounts: GroupAccounts,
-                          authenticated: AuthenticatedAction,
-                          pdfGen: PdfGenerator)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController with ValidPagination {
+class Dashboard @Inject()(
+                           val errorHandler: CustomErrorHandler,
+                           draftCases: DraftCases,
+                           propertyLinks: AgentRelationshipService,
+                           agentsConnector: AgentsConnector,
+                           groupAccounts: GroupAccounts,
+                           authenticated: AuthenticatedAction,
+                           pdfGen: PdfGenerator
+                         )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
-  def home() = authenticated.async { implicit request =>
+  def home() = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("home"))
   }
 
-  def yourDetails() = authenticated.async { implicit request =>
+  def yourDetails() = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("your-details"))
   }
 
-  def manageProperties() = authenticated.async { implicit request =>
+  def manageProperties() = authenticated { implicit request =>
    Redirect(config.newDashboardUrl("your-properties"))
   }
 
-  def manageAgents() = authenticated.async { implicit request =>
+  def manageAgents() = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("your-agents"))
   }
 
@@ -71,11 +69,11 @@ class Dashboard @Inject()(draftCases: DraftCases,
     } yield Ok(views.html.dashboard.managedByAgentsProperties(ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authResult.authorisations), owner))
   }
 
-  def viewMessages() = authenticated.async { implicit request =>
+  def viewMessages() = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("inbox"))
   }
 
-  def viewMessage(messageId: String) = authenticated.async { implicit request =>
+  def viewMessage(messageId: String) = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("inbox"))
   }
 }

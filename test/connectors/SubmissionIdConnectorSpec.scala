@@ -25,7 +25,6 @@ import scala.concurrent.ExecutionContext.global
 class SubmissionIdConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
-  implicit val ec = global
 
   class Setup {
     val connector = new SubmissionIdConnector(StubServicesConfig, mockWSHttp)(ec) {

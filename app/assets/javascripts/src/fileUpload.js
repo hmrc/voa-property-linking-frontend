@@ -94,8 +94,10 @@
                     $('#message-warning').remove();
                 }else if(jqXHR.status == 413) {
                     $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsFileSizeTooLarge').text()+'</li>'));
+                    $('#message-warning').remove();
                 }else if(jqXHR.status > 400) {
                     $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsUpscan').text() + '</li>'));
+                    $('#message-warning').remove();
                 }
 
 
@@ -110,7 +112,6 @@
         });
 
         $element.attr({'tabindex':'-1', 'style': 'position: absolute; left: -9999px; top: -9999px; z-index: -9999'});
-        // $element.after('<a id="newFileButton" href="#" class="button-secondary">Choose a file to upload</a>');
         $('[for="newFile"] .label-span').addClass('visuallyhidden');
 
         $(document).on('click', '#newFileButton', function(e){
@@ -148,29 +149,13 @@
         
 
         function fileUpload(form, file, csrfToken){
-            var data = new FormData();
+            $('#uploadForm').attr('action', form.uploadRequest.href);
 
             Object.keys(form.uploadRequest.fields).map(function(k) {
-                data.append(k, form.uploadRequest.fields[k]);
-            });
+                $('#initiateFields').append('<input class="label-span visuallyhidden" name="' + k + '" value="' + form.uploadRequest.fields[k] + '">')
+            })
 
-            data.append("file", file);
-
-            $.ajax({
-                url: form.uploadRequest.href,
-                type: "POST",
-                data: data,
-                processData: false,
-                contentType: false,
-                crossDomain: true,
-                cache: false,
-                enctype: 'multipart/form-data'
-            }).error(function(jqXHR, textStatus, errorThrown ){
-                removeUploadFileOnError(form.reference, csrfToken, jqXHR)
-            }).done(function(){
-                window.location = $("#businessRatesAttachmentsFileUploadURL").text();
-                $('#message-warning').remove();
-            });
+            $('#uploadForm').submit();
         };
 
     };

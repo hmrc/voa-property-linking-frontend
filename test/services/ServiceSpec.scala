@@ -21,7 +21,8 @@ import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
 import play.api.i18n.MessagesApi
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
-import play.api.{Mode, Configuration}
+import play.api.{Configuration, Mode}
+import tests.AllMocks
 import utils._
 
 trait ServiceSpec
@@ -33,7 +34,8 @@ trait ServiceSpec
     with AppendedClues
     with MockitoSugar
     with NoMetricsOneAppPerSuite
-    with ScalaFutures {
+    with ScalaFutures
+    with AllMocks {
 
   val token = "Csrf-Token" -> "nocheck"
 

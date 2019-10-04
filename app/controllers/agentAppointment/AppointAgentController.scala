@@ -19,7 +19,7 @@ package controllers.agentAppointment
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
-import config.{ApplicationConfig, Global}
+import config.ApplicationConfig
 import connectors._
 import controllers._
 import form.AgentPermissionMapping
@@ -32,14 +32,16 @@ import play.api.Logger
 import play.api.data.Forms.{number, _}
 import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.mvc.{Action, AnyContent, Request}
 import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class AppointAgentController @Inject()(
+                                        val errorHandler: CustomErrorHandler,
                                         representations: PropertyRepresentationConnector,
                                         accounts: GroupAccounts,
                                         agentsConnector: AgentsConnector,
@@ -47,7 +49,7 @@ class AppointAgentController @Inject()(
                                         agentRelationshipService: AgentRelationshipService,
                                         @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo
                                       )(implicit val messagesApi: MessagesApi, executionContext: ExecutionContext, val config: ApplicationConfig)
-  extends PropertyLinkingController with ValidPagination {
+  extends PropertyLinkingController {
 
   val logger: Logger = Logger(this.getClass)
 
@@ -135,11 +137,11 @@ class AppointAgentController @Inject()(
             } yield BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), data("agentCode").toLong, data("checkPermission"), data("challengePermission"), data.get("agentAppointed")))
           }
           case None =>
-            notFound
+            Future.successful(notFound)
         }
       },
       success = (action: AgentAppointBulkAction) => {
-        accounts.withAgentCode(action.agentCode.toString) flatMap {
+        accounts.withAgentCode(action.agentCode.toString).flatMap {
           case Some(group) => agentRelationshipService.createAndSubmitAgentRepRequest( pLinkIds = action.propertyLinkIds,
             agentOrgId = group.id,
             organisationId = request.organisationAccount.id,
@@ -162,7 +164,7 @@ class AppointAgentController @Inject()(
             case e: Exception => throw e
           }
           case None =>
-            notFound
+            Future.successful(notFound)
         }
       }
     )
@@ -186,7 +188,7 @@ class AppointAgentController @Inject()(
       success = (agent: AgentId) => {
         accounts.withAgentCode(agent.id) flatMap {
           case Some(group) =>
-            Redirect(routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
+            Future.successful(Redirect(routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), group.agentCode)))
           case None =>
             val errors: List[FormError] = List(invalidAgentCode)
             agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
@@ -218,7 +220,7 @@ class AppointAgentController @Inject()(
           } yield {
             Ok(views.html.propertyrepresentation.revokeAgentProperties(None, AppointAgentPropertiesVM(group, response), pagination, params, agentCode))
           }
-        case None => NotFound(s"Unknown Agent: $agentCode")
+        case None => Future.successful(NotFound(s"Unknown Agent: $agentCode"))
       }
   }
 
@@ -245,7 +247,7 @@ class AppointAgentController @Inject()(
               BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
             }
           case None =>
-            notFound
+            Future.successful(notFound)
         }
       },
       success = (action: AgentRevokeBulkAction) => {
@@ -254,7 +256,7 @@ class AppointAgentController @Inject()(
             agentCode = action.agentCode).map {
             case _ =>  Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
           }.recoverWith {
-            case e: services.AppointRevokeException => {
+            case e: services.AppointRevokeException =>
               for {
                 response <- agentRelationshipService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
                   agent = Some(group.companyName)), DefaultPaginationParams, Seq(RepresentationApproved, RepresentationPending))
@@ -263,11 +265,10 @@ class AppointAgentController @Inject()(
                   .map(oar => oar.copy(authorisations = oar.authorisations.take(DefaultPaginationParams.pageSize)))
               } yield BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(revokeAgentBulkActionForm.withError("appoint.error", "error.transaction")),
                 AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), action.agentCode))
-            }
             case e: Exception => throw e
           }
           case None =>
-            notFound
+            Future.successful(notFound)
         }
       }
     )
@@ -313,15 +314,6 @@ class AppointAgentController @Inject()(
     "linkIds" -> list(text).verifying(nonEmptyList)
   )(AgentRevokeBulkAction.apply)(AgentRevokeBulkAction.unpack _))
 
-  private def withValidPropertiesPagination(pagination: AgentPropertiesParameters)
-                                           (f: => Future[Result])
-                                           (implicit request: Request[_]): Future[Result] = {
-    if (pagination.pageNumber >= 1 && pagination.pageSize >= 1 && pagination.pageSize <= 1000) {
-      f
-    } else {
-      BadRequest(Global.badRequestTemplate)
-    }
-  }
 }
 
 case class AppointAgentPropertiesVM(agentGroup: GroupAccount,

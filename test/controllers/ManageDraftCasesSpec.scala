@@ -16,23 +16,23 @@
 
 package controllers
 
-import config.ApplicationConfig
-import connectors.{AgentsConnector, Authenticated, DraftCases, GroupAccounts}
+import connectors.{Authenticated, DraftCases}
 import models.Accounts
 import org.mockito.ArgumentMatchers.{any, anyLong}
-import org.mockito.Mockito.{verify, when}
+import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
+import play.api.http.Status._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{redirectLocation, status}
-import play.api.http.Status._
-import resources._
-import resources.randomDraftCase
+import resources.{randomDraftCase, _}
+import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{StubAuthentication, StubPropertyLinkConnector, StubSubmissionIdConnector}
+import utils.{StubAuthentication, StubPropertyLinkConnector}
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar {
+class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar with AllMocks {
 
   implicit val request = FakeRequest()
 
@@ -92,6 +92,7 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar {
   implicit lazy val mockDraftCases = mock[DraftCases]
 
   private lazy val testController = new ManageDrafts(
+    mockCustomErrorHandler,
     StubAuthentication,
     StubPropertyLinkConnector
   )

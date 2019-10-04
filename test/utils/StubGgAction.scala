@@ -20,6 +20,8 @@ import auth.GgAction
 import uk.gov.hmrc.play.frontend.auth.connectors.domain.{Accounts, ConfidenceLevel, CredentialStrength}
 import uk.gov.hmrc.play.frontend.auth.{AuthContext, LoggedInUser, Principal}
 
+import scala.concurrent.ExecutionContext.Implicits.global
+
 object StubGgAction extends GgAction(null, StubVplAuthConnector) {
   private val ctx = AuthContext(LoggedInUser("", None, None, None, CredentialStrength.Weak, ConfidenceLevel.L200, ""),
     Principal(None, Accounts()), None, None, None, None)

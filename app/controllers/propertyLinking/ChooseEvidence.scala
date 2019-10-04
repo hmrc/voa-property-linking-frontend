@@ -16,37 +16,51 @@
 
 package controllers.propertyLinking
 
-import javax.inject.Inject
-
+import actions.AuthenticatedAction
+import binders.propertylinks.EvidenceChoices
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
+import javax.inject.Inject
 import models.UploadEvidenceData
+import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
+import play.api.mvc.{Action, AnyContent}
 import services.BusinessRatesAttachmentService
 import session.WithLinkingSession
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-class ChooseEvidence @Inject() (val withLinkingSession: WithLinkingSession, businessRatesAttachmentService: BusinessRatesAttachmentService)
-                               (implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+import scala.concurrent.ExecutionContext
 
-  def show = withLinkingSession { implicit request =>
+class ChooseEvidence @Inject()(
+                                val errorHandler: CustomErrorHandler,
+                                authenticatedAction: AuthenticatedAction,
+                                withLinkingSession: WithLinkingSession,
+                                businessRatesAttachmentService: BusinessRatesAttachmentService
+                              )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
-    businessRatesAttachmentService.persistSessionData(request.ses, UploadEvidenceData.empty).map(x =>
-    Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form)))
+  private val logger = Logger(this.getClass.getName)
+
+  def show: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+    logger.debug("show choose evidence page")
+    businessRatesAttachmentService
+      .persistSessionData(request.ses, UploadEvidenceData.empty)
+      .map(_ => Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form)))
   }
 
-  def submit = withLinkingSession { implicit request =>
+  def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     ChooseEvidence.form.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)),
       {
-        case true => Redirect(routes.UploadRatesBill.show())
-        case false => Redirect(routes.UploadPropertyEvidence.show())
+        case true   => Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
+        case false  => Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
       }
     )
   }
 }
+
 object ChooseEvidence {
   lazy val form = Form(single(keys.hasRatesBill -> mandatoryBoolean))
   lazy val keys = new {

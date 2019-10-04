@@ -35,30 +35,37 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
+import play.api.mvc.{Action, AnyContent}
 import repositories.SessionRepo
 import session.WithLinkingSession
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
 import uk.gov.hmrc.http.Upstream5xxResponse
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ClaimProperty @Inject()(val authenticated: AuthenticatedAction,
+class ClaimProperty @Inject()(
+                               val errorHandler: CustomErrorHandler,
                               val submissionIdConnector: SubmissionIdConnector,
                               @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
-                              val withLinkingSession: WithLinkingSession,
+                              authenticatedAction: AuthenticatedAction,
+                              withLinkingSession: WithLinkingSession,
                               val propertyLinksConnector: PropertyLinkConnector,
                               val runModeConfiguration: Configuration,
-                              val environment: Environment)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+                              val environment: Environment
+                             )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ServicesConfig {
 
   import ClaimProperty._
 
-  def show() = authenticated.async { implicit request =>
+  def show() = authenticatedAction { implicit request =>
     Redirect(s"${config.vmvUrl}/search")
   }
 
-  def checkPropertyLinks() = authenticated.async { implicit request =>
+  def checkPropertyLinks() = authenticatedAction.async { implicit request =>
 
     val pLinks = propertyLinksConnector.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(), PaginationParams(1, 20, false))
 
@@ -73,13 +80,13 @@ class ClaimProperty @Inject()(val authenticated: AuthenticatedAction,
     }
   }
 
-  def declareCapacity(uarn: Long, address: String) = authenticated.async { implicit request =>
+  def declareCapacity(uarn: Long, address: String) = authenticatedAction { implicit request =>
     Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn)))
   }
 
-  def attemptLink(uarn: Long, address: String) = authenticated.async { implicit request =>
+  def attemptLink(uarn: Long, address: String): Action[AnyContent] = authenticatedAction.async { implicit request =>
     ClaimProperty.declareCapacityForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn))),
+      errors => Future.successful(BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn)))),
       formData => initialiseSession(formData, uarn, address).map { _ =>
         Redirect(routes.ChooseEvidence.show())
       }.recover {
@@ -88,12 +95,12 @@ class ClaimProperty @Inject()(val authenticated: AuthenticatedAction,
     )
   }
 
-  def back = withLinkingSession { implicit request =>
+  def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val form = declareCapacityForm.fillAndValidate(request.ses.declaration)
     Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn)))
   }
 
-  private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: AuthenticatedRequest[_]) = {
+  private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: AuthenticatedRequest[_]): Future[Unit] = {
     for {
       submissionId <- submissionIdConnector.get()
       _ <- sessionRepository.start[LinkingSession](LinkingSession(address, uarn, submissionId, request.personId, declaration))
@@ -104,6 +111,7 @@ class ClaimProperty @Inject()(val authenticated: AuthenticatedAction,
 }
 
 object ClaimProperty {
+
   lazy val declareCapacityForm = Form(mapping(
     "capacity" -> EnumMapping(CapacityType),
     "interestedBefore2017" -> mandatoryBoolean,

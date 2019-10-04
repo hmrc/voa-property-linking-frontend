@@ -17,19 +17,15 @@
 package connectors.identityVerificationProxy
 
 import javax.inject.Inject
-
-import models.IVDetails
 import models.identityVerificationProxy._
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
-import uk.gov.hmrc.play.http._
-import config.WSHttp
 
 import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.http.HeaderCarrier
 
 //completionURL: String, failureURL:  String, userData: IVDetails
-class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
   private lazy val url = serverConfig.baseUrl("identity-verification-proxy")
   private val path = "identity-verification-proxy/journey"
 

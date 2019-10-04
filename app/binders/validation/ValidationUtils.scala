@@ -28,6 +28,9 @@ import scala.util.Try
 
 trait ValidationUtils extends Cats {
 
+  def read(implicit key: String, params: Params): ValidatedNel[ValidationError, String] =
+    Validated.fromOption(params.get(key).flatMap(_.headOption), ValidationError(key)).toValidatedNel
+
   def readOption(implicit key: String, params: Params): ValidatedNel[ValidationError, Option[String]] =
     params.get(key).flatMap(_.headOption).validNel
 

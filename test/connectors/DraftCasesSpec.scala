@@ -25,7 +25,6 @@ import scala.concurrent.ExecutionContext.global
 class DraftCasesSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
-  implicit val ec = global
 
   class Setup {
     val connector = new DraftCases(mockWSHttp, StubServicesConfig)(ec) {

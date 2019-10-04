@@ -25,7 +25,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.Future
 import scala.util.Random
 
-object StubGroupAccountConnector extends GroupAccounts(StubServicesConfig, StubHttp) {
+object StubGroupAccountConnector extends GroupAccounts(StubServicesConfig, StubHttp) { //TODO fix unimplemented
 
   private var stubbedGroups: Seq[GroupAccount] = Nil
 

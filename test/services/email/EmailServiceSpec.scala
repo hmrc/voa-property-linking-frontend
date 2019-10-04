@@ -16,22 +16,22 @@
 
 package services.email
 
-import config.WSHttp
 import connectors.email.EmailConnector
 import controllers.PayLoad
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
+import play.api.http.Status.OK
 import play.api.libs.json.Writes
+import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.test.UnitSpec
-import play.api.http.Status.OK
-import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class EmailServiceSpec extends UnitSpec with MockitoSugar {
 
@@ -41,7 +41,7 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar {
   "EmailService" should {
 
     "send new enrolment success email" in {
-      val mockWSHttp = mock[WSHttp]
+      val mockWSHttp = mock[HttpClient]
       val emailConnector = new EmailConnector(config, mockWSHttp)
       val emailService = new EmailService(emailConnector)
 

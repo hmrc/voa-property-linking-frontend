@@ -17,14 +17,14 @@
 package connectors
 
 import javax.inject.Inject
-
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
-import config.WSHttp
-import scala.concurrent.Future
-import uk.gov.hmrc.http.{ HeaderCarrier, HttpResponse, NotFoundException }
 
-class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: WSHttp) {
+import scala.concurrent.Future
+
+class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: HttpClient) {
   val url = config.baseUrl("business-rates-valuation")
 
   def isViewable(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {

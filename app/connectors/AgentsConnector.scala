@@ -17,15 +17,14 @@
 package connectors
 
 import javax.inject.Inject
-
-import config.{ApplicationConfig, WSHttp}
 import models.searchApi.OwnerAgents
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class AgentsConnector @Inject()(http: WSHttp, conf: ServicesConfig)(implicit ec: ExecutionContext) {
+class AgentsConnector @Inject()(http: HttpClient, conf: ServicesConfig)(implicit ec: ExecutionContext) {
 
   lazy val baseUrl: String = conf.baseUrl("property-linking") + "/property-linking"
 

@@ -17,21 +17,19 @@
 package connectors
 
 import javax.inject.Inject
-
-import config.WSHttp
 import models.registration.{UserDetails, UserInfo}
-import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.frontend.auth.AuthContext
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 
 import scala.concurrent.Future
 
-class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: WSHttp) extends AuthConnector {
+class VPLAuthConnector @Inject()(serverConfig: ServicesConfig, val http: HttpClient) extends AuthConnector {
   implicit val format = Json.format[CredId]
   implicit val userInfo: OFormat[UserInfo] = Json.format[UserInfo]
   implicit val userDetailsLink = Json.format[UserDetailsLink]

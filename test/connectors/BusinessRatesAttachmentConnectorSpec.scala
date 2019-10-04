@@ -16,32 +16,31 @@
 
 package connectors
 
+import connectors.attachments.BusinessRatesAttachmentConnector
 import controllers.VoaPropertyLinkingSpec
-import models.attachment.InitiateAttachmentRequest
+import models.attachment._
+import models.attachment.request.InitiateAttachmentRequest
 import models.upscan._
 import play.api.libs.json.JsObject
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier}
-import models.attachment._
-
-import scala.concurrent.ExecutionContext._
 
 class BusinessRatesAttachmentConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val ee = scala.concurrent.ExecutionContext.Implicits.global
   implicit val hc = HeaderCarrier()
-  val initiateAttachmentRequest = InitiateAttachmentRequest("FILE_NAME", "img/jpeg", None)
+  val initiateAttachmentRequest = InitiateAttachmentRequest("FILE_NAME", "img/jpeg")
   val attachments = mock[Attachment]
 
     "initiateAttachment" should  "call to initiateAttachment return a successful" in {
       val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp, applicationConfig)(ee)
       mockHttpPOST[InitiateAttachmentRequest, PreparedUpload]("tst-url", preparedUpload)
-      whenReady(testConnector.initiateAttachmentUpload(initiateAttachmentRequest))(_ mustBe preparedUpload)
+      whenReady(testConnector.initiateAttachmentUpload(InitiateAttachmentPayload(initiateAttachmentRequest, "http://example.com")))(_ mustBe preparedUpload)
     }
 
 
     "submitFile" should   "submit the file" in {
       val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp,applicationConfig)(ee)
-      mockHttpPATCH[JsObject, Attachment]("tst-url", attachments)
+      mockHttpPATCH[JsObject, Option[Attachment]]("tst-url", Some(attachments))
       whenReady(testConnector.submitFile("file-reference", "submission-id"))(_ mustBe Some(attachments))
     }
 

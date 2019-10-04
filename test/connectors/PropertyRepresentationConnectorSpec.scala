@@ -16,16 +16,13 @@
 
 package connectors
 
-import controllers.{VoaPropertyLinkingSpec, Pagination, PaginationSearchSort}
+import controllers.{Pagination, VoaPropertyLinkingSpec}
 import models._
-import models.searchApi.AgentAuthResult
 import org.scalacheck.Arbitrary._
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json.{JsValue, Json}
+import play.api.http.Status._
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.StubServicesConfig
-import play.api.http.Status._
 
 class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
 

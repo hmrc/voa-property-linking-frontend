@@ -18,32 +18,28 @@ package services
 
 import actions.BasicAuthenticatedRequest
 import auditing.AuditingService
-import connectors.BusinessRatesAttachmentConnector
+import connectors.attachments.BusinessRatesAttachmentConnector
 import models.LinkingSession
-import models.attachment.InitiateAttachmentRequest
+import models.attachment.InitiateAttachmentPayload
+import models.attachment.request.InitiateAttachmentRequest
 import org.mockito.ArgumentMatchers._
-import org.mockito.Matchers._
 import org.mockito.Mockito._
+import org.scalacheck.Arbitrary._
 import org.scalatest.mockito.MockitoSugar
+import play.api.test.FakeRequest
 import repositories.SessionRepo
+import resources._
+import session.LinkingSessionRequest
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.FakeObjects
-import org.scalacheck.Arbitrary._
-import resources._
-
-import scala.concurrent.duration._
-import scala.concurrent.{Await, ExecutionContext, Future}
-import play.api.libs.json.{Json, Reads}
-import play.api.test.FakeRequest
-import session.LinkingSessionRequest
 
 import scala.concurrent.ExecutionContext._
+import scala.concurrent.Future
 
 class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar with FakeObjects {
   val businessRatesAttachmentConnector = mock[BusinessRatesAttachmentConnector]
-  val mockAuditingService = mock[AuditingService]
   val mockSessionRepo = mock[SessionRepo]
-  val initiateAttachmentRequest = InitiateAttachmentRequest("FILE_NAME", "img/jpeg", None)
+  val initiateAttachmentRequest = InitiateAttachmentPayload(InitiateAttachmentRequest("FILE_NAME", "img/jpeg"), "http://example.com")
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
   implicit val request = BasicAuthenticatedRequest(groupAccount, detailedIndividualAccount, FakeRequest())
   implicit val linkingSessionRequest = LinkingSessionRequest(linkingSessionData, 1234l, detailedIndividualAccount, groupAccount, request)

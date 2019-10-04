@@ -16,7 +16,7 @@
 
 package services.iv
 
-import config.{ApplicationConfig, Global}
+import config.ApplicationConfig
 import connectors.VPLAuthConnector
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import javax.inject.{Inject, Named}
@@ -32,6 +32,7 @@ import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.{Admin, User}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -58,11 +59,12 @@ trait IdentityVerificationService {
 }
 
 class IvService @Inject()(
-                           auth: VPLAuthConnector,
-                           registrationService: RegistrationService,
-                           @Named("personSession") personalDetailsSessionRepo: SessionRepo,
-                           val proxyConnector: IdentityVerificationProxyConnector,
-                           implicit val config: ApplicationConfig
+                            val errorHandler: CustomErrorHandler,
+                            auth: VPLAuthConnector,
+                            registrationService: RegistrationService,
+                            @Named("personSession") personalDetailsSessionRepo: SessionRepo,
+                            val proxyConnector: IdentityVerificationProxyConnector,
+                            implicit val config: ApplicationConfig
                          ) extends IdentityVerificationService {
 
   type B = RegistrationResult
@@ -71,11 +73,11 @@ class IvService @Inject()(
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages): Result = obj match {
     case RegistrationSuccess(personId)  => Redirect(controllers.registration.routes.RegistrationController.success(personId))
-    case EnrolmentFailure               => InternalServerError(Global.internalServerErrorTemplate)
-    case DetailsMissing                 => InternalServerError(Global.internalServerErrorTemplate)
+    case EnrolmentFailure               => InternalServerError(errorHandler.internalServerErrorTemplate)
+    case DetailsMissing                 => InternalServerError(errorHandler.internalServerErrorTemplate)
   }
 
-  def noneCase(implicit request: Request[_], messages: Messages): Result = InternalServerError(Global.internalServerErrorTemplate)
+  def noneCase(implicit request: Request[_], messages: Messages): Result = InternalServerError(errorHandler.internalServerErrorTemplate)
 
   def continue[A](journeyId: String)(implicit ctx: A, hc: HeaderCarrier, ec: ExecutionContext): Future[Option[RegistrationResult]] = {
     auth.userDetails(ctx).flatMap(user =>

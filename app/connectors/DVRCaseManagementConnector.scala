@@ -16,24 +16,22 @@
 
 package connectors
 
-import akka.stream.scaladsl.Source
-import akka.util.ByteString
 import javax.inject.Inject
-import uk.gov.hmrc.play.config.ServicesConfig
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import config.WSHttp
 import models.dvr.documents.DvrDocumentFiles
 import models.dvr.{DetailedValuationRequest, StreamedDocument}
 import play.api.http.HeaderNames.{CONTENT_LENGTH, CONTENT_TYPE}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.ws.{StreamedResponse, WSClient}
+import uk.gov.hmrc.http._
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http._
 
 class DVRCaseManagementConnector @Inject()(
                                             config: ServicesConfig,
                                             val wsClient: WSClient,
-                                            http: WSHttp) extends HttpErrorFunctions {
+                                            http: HttpClient) extends HttpErrorFunctions {
   val url = config.baseUrl("property-linking") + "/property-linking"
 
   def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {

@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package models.attachment
+package uk.gov.voa.propertylinking.filters
 
-sealed abstract class SubmissionTypes( val destination: String,
-                               val submissionId: String)
+import javax.inject.Inject
+import play.api.http.DefaultHttpFilters
+import uk.gov.hmrc.play.bootstrap.filters.FrontendFilters
 
-case object SubmissionTypesValues {
-  case object PropertyLinkEvidence extends SubmissionTypes("PROPERTY_LINK_EVIDENCE_DFE", "propertyLinkSubmissionId")
-}
+class ExpandedFrontendFilters @Inject()(frontendFilters: FrontendFilters) extends DefaultHttpFilters(frontendFilters.filters: _*)

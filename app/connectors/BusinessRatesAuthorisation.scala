@@ -16,22 +16,19 @@
 
 package connectors
 
+import config.AuthorisationFailed
 import javax.inject.Inject
-
-import config.{AuthorisationFailed, WSHttp}
-import models.{Accounts, PropertyLink, PropertyLinkIds}
+import models.{Accounts, PropertyLinkIds}
 import play.api.Logger
-import play.api.libs.json._
+import uk.gov.hmrc.http.{ForbiddenException, HeaderCarrier, Upstream4xxResponse}
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.http.ForbiddenException
-
-import scala.concurrent.Future
-import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
 import uk.gov.hmrc.play.http.logging.MdcLoggingExecutionContext._
 
-class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: WSHttp) {
-  val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
+import scala.concurrent.Future
 
+class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: HttpClient) {
+  val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
   val logger = Logger(this.getClass.getName)
 

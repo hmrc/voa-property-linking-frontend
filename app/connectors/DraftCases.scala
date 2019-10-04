@@ -17,15 +17,14 @@
 package connectors
 
 import javax.inject.Inject
-
-import config.WSHttp
 import models.DraftCase
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.http.HeaderCarrier
 
-class DraftCases @Inject()(http: WSHttp, config: ServicesConfig)(implicit ec: ExecutionContext) {
+class DraftCases @Inject()(http: HttpClient, config: ServicesConfig)(implicit ec: ExecutionContext) {
   lazy val checkUrl = config.baseUrl("business-rates-check")
 
   def get(personId: Long)(implicit hc: HeaderCarrier): Future[Seq[DraftCase]] = {

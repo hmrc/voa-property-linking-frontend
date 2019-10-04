@@ -16,18 +16,21 @@
 
 package controllers
 
-import config.Global
 import models.searchApi.AgentPropertiesFilter.Both
 import play.api.mvc.{AnyContent, QueryStringBindable, Request, Result}
+import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
 import utils.Formatters._
 
 import scala.concurrent.Future
 
 trait ValidPagination extends PropertyLinkingController {
+
+  val errorHandler: FrontendErrorHandler
+
   protected def withValidPagination(page: Int, pageSize: Int, getTotal: Boolean = true)
                                    (default: Pagination => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
     if (page <= 0 || pageSize < 10 || pageSize > 500) {
-      BadRequest(Global.badRequestTemplate)
+      Future.successful(BadRequest(errorHandler.badRequestTemplate))
     } else {
       default(Pagination(pageNumber = page, pageSize = pageSize, resultCount = getTotal))
     }

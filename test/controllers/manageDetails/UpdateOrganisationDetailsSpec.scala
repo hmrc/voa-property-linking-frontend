@@ -245,7 +245,13 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     UpdatedOrganisationAccount(org.groupId, addressId.getOrElse(org.addressId), org.isAgent, name.getOrElse(org.companyName), email.getOrElse(org.email), phone.getOrElse(org.phone), Instant.now(clock), personId)
   }
 
-  private lazy val testController = new UpdateOrganisationDetails(StubAuthentication, mockGroups, mockAddresses, mockManageDetails)(clock, messageApi, applicationConfig)
+  private lazy val testController = new UpdateOrganisationDetails(
+    mockCustomErrorHandler,
+    StubAuthentication,
+    mockGroups,
+    mockAddresses,
+    mockManageDetails
+  )(ec, clock, messageApi, applicationConfig)
 
   private lazy val mockGroups = mock[GroupAccounts]
   private lazy val mockManageDetails = mock[ManageDetails]

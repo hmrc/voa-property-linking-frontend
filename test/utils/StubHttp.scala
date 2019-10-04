@@ -16,15 +16,16 @@
 
 package utils
 
+import akka.actor.ActorSystem
 import com.typesafe.config.Config
-import config.WSHttp
-import play.api.Configuration
 import play.api.libs.json.Writes
+import uk.gov.hmrc.http.hooks.HttpHook
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.Future
 
-object StubHttp extends WSHttp{
+object StubHttp extends HttpClient {
   override def doGet(url: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = ???
 
   override def doPut[A](url: String, body: A)(implicit rds: Writes[A], hc: HeaderCarrier): Future[HttpResponse] = ???
@@ -43,5 +44,7 @@ object StubHttp extends WSHttp{
 
   override protected def configuration: Option[Config] = ???
 
-  override protected def appNameConfiguration: Configuration = ???
+  override val hooks: Seq[HttpHook] = Nil
+
+  override protected def actorSystem: ActorSystem = ???
 }
