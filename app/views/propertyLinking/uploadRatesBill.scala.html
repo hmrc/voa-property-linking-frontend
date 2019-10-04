@@ -57,7 +57,7 @@
                         </div>
                     }
 
-                    @form(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+                    @form(action = UploadController.initiate(UploadEvidenceChoiceParameters(EvidenceChoices.RATES_BILL)), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
 
                     <div id="initiateFields">
 
@@ -85,7 +85,7 @@
                                 <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
 
                                 <span class="upload-list-file-remove">
-                                    <input type="submit" name="delete-upload_rate_bill" class="button-link remove-link" value="@messages("remove.file")" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
+                                    <input type="submit" name="delete-upload_rate_bill" class="button-link remove-link" value="@messages("remove.file")" formaction="@UploadController.remove(fileReference, UploadEvidenceChoiceParameters(EvidenceChoices.RATES_BILL))" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
                                </span>
                             </li>
                             }
@@ -95,7 +95,7 @@
 
                     }
 
-                    @form(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
+                    @form(action = UploadController.continue(UploadEvidenceChoiceParameters(EvidenceChoices.RATES_BILL))) {
                         <p>
                             <button id="uploadFile" class="button">@Messages("uploadRatesBill.show.button")</button>
                         </p>
@@ -105,9 +105,9 @@
 
                 </div>
             </div>
-    <span id="businessRatesAttachmentsRemoveFileURL" class="label-span visuallyhidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/remove?fileReference="}</span>
-    <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${UploadController.initiate(EvidenceChoices.RATES_BILL)}"}</span>
-    <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${UploadController.show(EvidenceChoices.RATES_BILL)}"}</span>
+    <span id="businessRatesAttachmentsRemoveFileURL" class="label-span visuallyhidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/upload/remove?choice=RATES_BILL&fileReference="}</span>
+    <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${UploadController.initiate(UploadEvidenceChoiceParameters(EvidenceChoices.RATES_BILL))}"}</span>
+    <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${UploadController.show(UploadEvidenceChoiceParameters(EvidenceChoices.RATES_BILL))}"}</span>
     <span id="errorsUpscan" class="label-span visuallyhidden">@Html(messages("error.upscan.unavailable"))</span>
     <span id="errorsFileSizeTooLarge" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
     <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.does.not.support.file.types")</span>

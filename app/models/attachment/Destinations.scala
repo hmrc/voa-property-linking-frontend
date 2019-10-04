@@ -16,6 +16,16 @@
 
 package models.attachment
 
+<<<<<<< HEAD:app/models/attachment/HistoryItem.scala
+import java.time.Instant
+
+import play.api.libs.json.{Json, OFormat}
+
+case class HistoryItem(state: AttachmentState, timeStamp: Instant, details: Option[String] = None)
+
+object HistoryItem {
+  implicit val format: OFormat[HistoryItem] = Json.format
+=======
 import play.api.libs.json.Format
 import utils.JsonUtils
 
@@ -26,4 +36,5 @@ object Destinations extends Enumeration {
 
   implicit val format: Format[Destinations] = JsonUtils.enumFormat(Destinations)
 
+>>>>>>> VTCCA-2975 switching property linking to upscan v2 with needed clean up in certain areas to allow passing tests and to use libraries that simplify upscan v2 integration, the javascript now loads the response from the initiate into the page and submits the html form which redirects to the same page:app/models/attachment/Destinations.scala
 }
