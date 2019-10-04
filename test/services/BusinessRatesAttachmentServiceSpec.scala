@@ -39,7 +39,7 @@ import scala.concurrent.Future
 class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar with FakeObjects {
   val businessRatesAttachmentConnector = mock[BusinessRatesAttachmentConnector]
   val mockSessionRepo = mock[SessionRepo]
-  val initiateAttachmentRequest = InitiateAttachmentPayload(InitiateAttachmentRequest("FILE_NAME", "img/jpeg"), "http://example.com")
+  val initiateAttachmentRequest = InitiateAttachmentPayload(InitiateAttachmentRequest("FILE_NAME", "img/jpeg"), "http://example.com", "http://example.com/failure")
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
   implicit val request = BasicAuthenticatedRequest(groupAccount, detailedIndividualAccount, FakeRequest())
   implicit val linkingSessionRequest = LinkingSessionRequest(linkingSessionData, 1234l, detailedIndividualAccount, groupAccount, request)

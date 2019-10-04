@@ -45,14 +45,14 @@ class UploadController @Inject()(
                                 businessRatesAttachmentsServices: BusinessRatesAttachmentService
                                 )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, applicationConfig: ApplicationConfig) extends PropertyLinkingController {
 
-  def show(evidence: EvidenceChoices): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
+  def show(evidence: EvidenceChoices, errorMessage: Option[String]): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
 
     val session = request.ses
     evidence match {
       case EvidenceChoices.RATES_BILL =>
-        Ok(uploadRatesBill(session.submissionId, List.empty, session.uploadEvidenceData.attachments.getOrElse(Map.empty))).withHeaders("Access-Control-Allow-Origin" -> "*")
+        Ok(uploadRatesBill(session.submissionId, errorMessage.toList, session.uploadEvidenceData.attachments.getOrElse(Map.empty))).withHeaders("Access-Control-Allow-Origin" -> "*")
       case EvidenceChoices.OTHER      =>
-        Ok(uploadEvidence(session.submissionId, List.empty, session.uploadEvidenceData.attachments.getOrElse(Map.empty), session.evidenceType.map(x => form.fill(x)).getOrElse(form)))
+        Ok(uploadEvidence(session.submissionId, errorMessage.toList, session.uploadEvidenceData.attachments.getOrElse(Map.empty), session.evidenceType.map(x => form.fill(x)).getOrElse(form)))
       case _                          =>
         BadRequest(errorHandler.badRequestTemplate)
     }
@@ -60,9 +60,9 @@ class UploadController @Inject()(
 
   def initiate(evidence: EvidenceChoices): Action[JsValue] = authenticatedAction.async(parse.json) { implicit request =>
     withJsonBody[InitiateAttachmentRequest] { attachmentRequest =>
-      (for {
-        initiateAttachmentResult <- businessRatesAttachmentsServices.initiateAttachmentUpload(InitiateAttachmentPayload(attachmentRequest, applicationConfig.serviceUrl + routes.UploadController.show(evidence).url)) //Not using absoluteUrl to prevent configuration changes throughout all environments
-      } yield Ok(Json.toJson(initiateAttachmentResult)))
+      businessRatesAttachmentsServices
+        .initiateAttachmentUpload(InitiateAttachmentPayload(attachmentRequest, applicationConfig.serviceUrl + routes.UploadController.show(evidence).url, applicationConfig.baseUrl + routes.UploadController.upscanFailure(evidence, None)))
+        .map(response => Ok(Json.toJson(response)))
         .recover {
           case _: FileAttachmentFailed  =>
             BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
@@ -102,6 +102,19 @@ class UploadController @Inject()(
       case _ =>
         Future.successful(BadRequest(errorHandler.badRequestTemplate))
     }
+  }
+
+  /*
+    When this method is hit it will clear down ALL files in the session, this is only safe in property linking as there is only allowed one file.
+
+    Upscan should return the fileReference with the error ???
+   */
+  def upscanFailure(evidence: EvidenceChoices, errorMessage: Option[String]): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+    val session = request.ses
+
+    businessRatesAttachmentsServices
+      .persistSessionData(session.copy(evidenceType = None), session.uploadEvidenceData.copy(attachments = Some(Map.empty)))
+      .map( _ => Redirect(routes.UploadController.show(evidence, errorMessage)))
   }
 
   def remove(

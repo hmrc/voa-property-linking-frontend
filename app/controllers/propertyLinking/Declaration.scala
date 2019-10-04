@@ -51,6 +51,9 @@ class Declaration @Inject()(
     Ok(declaration(DeclarationVM(form), isRatesBillEvidence))
   }
 
+  /*
+    We should have extra validation here to catch users that get by without supplying on the necessary information.
+   */
   def submit(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     form.bindFromRequest().fold(
       errors => {
