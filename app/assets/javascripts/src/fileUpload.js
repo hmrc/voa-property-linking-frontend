@@ -151,6 +151,8 @@
         function fileUpload(form, file, csrfToken){
             $('#uploadForm').attr('action', form.uploadRequest.href);
 
+            $('input[name ="csrfToken"]').remove();
+
             Object.keys(form.uploadRequest.fields).map(function(k) {
                 $('#initiateFields').append('<input class="label-span visuallyhidden" name="' + k + '" value="' + form.uploadRequest.fields[k] + '">')
             })

@@ -33,12 +33,16 @@ object InitiateAttachmentPayload {
 
   implicit val format: OFormat[InitiateAttachmentPayload] = Jsonx.formatCaseClassUseDefaults
 
-  def apply(request: InitiateAttachmentRequest, redirectUrl: String): InitiateAttachmentPayload =
+  def apply(
+             request: InitiateAttachmentRequest,
+             successRedirectUrl: String,
+             errorRedirectUrl: String
+           ): InitiateAttachmentPayload =
     InitiateAttachmentPayload(
       request.fileName,
       request.mimeType,
-      redirectUrl,
-      redirectUrl,
+      successRedirectUrl,
+      errorRedirectUrl,
       Destinations.PROPERTY_LINK_EVIDENCE_DFE
     )
 }
