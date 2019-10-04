@@ -149,8 +149,6 @@
         
 
         function fileUpload(form, file, csrfToken){
-            var data = new FormData();
-
             $('#uploadForm').attr('action', form.uploadRequest.href);
 
             $('input[name ="csrfToken"]').remove();

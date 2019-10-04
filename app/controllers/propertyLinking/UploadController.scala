@@ -17,7 +17,8 @@
 package controllers.propertyLinking
 
 import actions.AuthenticatedAction
-import binders.propertylinks.{EvidenceChoices, UploadEvidenceChoiceParameters}
+import binders.propertylinks.EvidenceChoices
+import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import config.ApplicationConfig
 import connectors.attachments.errorhandler.exceptions.FileAttachmentFailed
 import controllers.PropertyLinkingController
@@ -47,7 +48,7 @@ class UploadController @Inject()(
   def show(evidence: EvidenceChoices, errorMessage: Option[String]): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
 
     val session = request.ses
-    evidence.choice match {
+    evidence match {
       case EvidenceChoices.RATES_BILL =>
         Ok(uploadRatesBill(session.submissionId, errorMessage.toList, session.uploadEvidenceData.attachments.getOrElse(Map.empty))).withHeaders("Access-Control-Allow-Origin" -> "*")
       case EvidenceChoices.OTHER      =>
@@ -57,7 +58,7 @@ class UploadController @Inject()(
     }
   }
 
-  def initiate(evidence: UploadEvidenceChoiceParameters): Action[JsValue] = authenticatedAction.async(parse.json) { implicit request =>
+  def initiate(evidence: EvidenceChoices): Action[JsValue] = authenticatedAction.async(parse.json) { implicit request =>
     withJsonBody[InitiateAttachmentRequest] { attachmentRequest =>
       businessRatesAttachmentsServices
         .initiateAttachmentUpload(InitiateAttachmentPayload(attachmentRequest, applicationConfig.serviceUrl + routes.UploadController.show(evidence).url, applicationConfig.baseUrl + routes.UploadController.upscanFailure(evidence, None)))
@@ -72,7 +73,7 @@ class UploadController @Inject()(
     }
   }
 
-  def continue(evidence: UploadEvidenceChoiceParameters): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+  def continue(evidence: EvidenceChoices): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     def upload(uploadedData: UploadEvidenceData)(implicit request: LinkingSessionRequest[_]): Option[Future[Result]] = {
       PartialFunction.condOpt(request.ses.uploadEvidenceData.attachments) {
         case Some(fileData) if fileData.nonEmpty =>
@@ -81,7 +82,7 @@ class UploadController @Inject()(
     }
 
     val session = request.ses
-    evidence.choice match {
+    evidence match {
       case EvidenceChoices.RATES_BILL =>
         upload(session.uploadEvidenceData.copy(linkBasis = RatesBillFlag, fileInfo = session.uploadEvidenceData.fileInfo.map(_.copy(evidenceType = RatesBillType))))
           .getOrElse(Future.successful(BadRequest(uploadRatesBill(request.ses.submissionId, List("error.businessRatesAttachment.file.not.selected"), Map()))))
@@ -94,7 +95,7 @@ class UploadController @Inject()(
             val sessionUploadData: UploadEvidenceData = updatedSession.uploadEvidenceData
               .copy(
                 linkBasis = OtherEvidenceFlag,
-                fileInfo = updatedSession.uploadEvidenceData.fileInfo.map(_.copy(evidenceType = EvidenceType.fromName(formData.name).get))) //.get is dangerous,
+                fileInfo = updatedSession.uploadEvidenceData.fileInfo.map(_.copy(evidenceType = formData)))
             upload(sessionUploadData)
               .getOrElse(Future.successful(BadRequest(uploadEvidence(request.ses.submissionId, List("error.businessRatesAttachment.file.not.selected"), Map(), form))))
           })
@@ -118,7 +119,7 @@ class UploadController @Inject()(
 
   def remove(
               fileReference: String,
-              evidence: UploadEvidenceChoiceParameters
+              evidence: EvidenceChoices
             ): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     val session = request.ses
     val updatedSessionData = session.uploadEvidenceData.attachments.map(map => map - fileReference).getOrElse(Map.empty)
