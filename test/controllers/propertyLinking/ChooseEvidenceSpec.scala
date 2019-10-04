@@ -17,7 +17,7 @@
 package controllers.propertyLinking
 
 import _root_.session.WithLinkingSession
-import binders.propertylinks.{EvidenceChoices, UploadEvidenceChoiceParameters}
+import binders.propertylinks.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
 import models._
 import org.mockito.ArgumentMatchers._
@@ -78,14 +78,14 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
 
     val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
     status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.UploadController.show(UploadEvidenceChoiceParameters(EvidenceChoices.RATES_BILL)).url)
+    header("location", res) mustBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
   }
 
   it must "redirect to the other evidence page if the user does not have a rates bill" in {
 
     val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
     status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.UploadController.show(UploadEvidenceChoiceParameters(EvidenceChoices.OTHER)).url)
+    header("location", res) mustBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
   }
 
 }

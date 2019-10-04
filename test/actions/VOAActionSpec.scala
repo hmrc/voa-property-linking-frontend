@@ -32,6 +32,8 @@ import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.NoMetricsOneAppPerSuite
 
+import scala.concurrent.ExecutionContext.Implicits.global
+
 import scala.concurrent.Future
 
 class VOAActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSuite {

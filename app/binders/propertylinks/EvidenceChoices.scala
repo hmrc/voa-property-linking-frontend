@@ -16,9 +16,11 @@
 
 package binders.propertylinks
 
-import binders.propertylinks
 import play.api.libs.json.Format
-import utils.JsonUtils
+import play.api.mvc.PathBindable
+import utils.{Cats, JsonUtils}
+
+import scala.util.Try
 
 object EvidenceChoices extends Enumeration {
   type EvidenceChoices = Value
@@ -26,5 +28,19 @@ object EvidenceChoices extends Enumeration {
   val RATES_BILL = Value("RATES_BILL")
   val OTHER      = Value("OTHER")
 
-  implicit val format: Format[propertylinks.EvidenceChoices.Value] = JsonUtils.enumFormat(EvidenceChoices)
+  implicit val format: Format[EvidenceChoices] = JsonUtils.enumFormat(EvidenceChoices)
+
+  implicit object Binder extends PathBindable[EvidenceChoices] with Cats {
+
+    override def bind(key: String, value: String): Either[String, EvidenceChoices] =
+      Try(EvidenceChoices.withName(value))
+        .toOption
+        .map(_.asRight)
+        .getOrElse("".asLeft)
+
+    override def unbind(key: String, value: EvidenceChoices): String = value.toString
+
+
+
+  }
 }

@@ -95,9 +95,9 @@ class ClaimProperty @Inject()(
     )
   }
 
-  def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+  def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val form = declareCapacityForm.fillAndValidate(request.ses.declaration)
-    Future.successful(Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn))))
+    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn)))
   }
 
   private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: AuthenticatedRequest[_]): Future[Unit] = {

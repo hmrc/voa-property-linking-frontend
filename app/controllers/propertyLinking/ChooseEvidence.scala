@@ -17,7 +17,7 @@
 package controllers.propertyLinking
 
 import actions.AuthenticatedAction
-import binders.propertylinks.{EvidenceChoices, UploadEvidenceChoiceParameters}
+import binders.propertylinks.EvidenceChoices
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
@@ -54,8 +54,8 @@ class ChooseEvidence @Inject()(
     ChooseEvidence.form.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)),
       {
-        case true   => Redirect(routes.UploadController.show(UploadEvidenceChoiceParameters(EvidenceChoices.RATES_BILL)))
-        case false  => Redirect(routes.UploadController.show(UploadEvidenceChoiceParameters(EvidenceChoices.OTHER)))
+        case true   => Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
+        case false  => Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
       }
     )
   }
