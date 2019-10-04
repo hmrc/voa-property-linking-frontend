@@ -16,14 +16,12 @@
 
 package models.attachment
 
-import play.api.libs.json.Format
-import utils.JsonUtils
+import java.time.Instant
 
-object Destinations extends Enumeration {
-  type Destinations = Value
+import play.api.libs.json.{Json, OFormat}
 
-  val PROPERTY_LINK_EVIDENCE_DFE = Value("PROPERTY_LINK_EVIDENCE_DFE")
+case class HistoryItem(state: AttachmentState, timeStamp: Instant, details: Option[String] = None)
 
-  implicit val format: Format[Destinations] = JsonUtils.enumFormat(Destinations)
-
+object HistoryItem {
+  implicit val format: OFormat[HistoryItem] = Json.format
 }

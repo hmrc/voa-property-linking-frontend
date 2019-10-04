@@ -61,7 +61,7 @@ class UploadController @Inject()(
   def initiate(evidence: EvidenceChoices): Action[JsValue] = authenticatedAction.async(parse.json) { implicit request =>
     withJsonBody[InitiateAttachmentRequest] { attachmentRequest =>
       (for {
-        initiateAttachmentResult <- businessRatesAttachmentsServices.initiateAttachmentUpload(InitiateAttachmentPayload(attachmentRequest, routes.UploadController.show(evidence).absoluteURL()))
+        initiateAttachmentResult <- businessRatesAttachmentsServices.initiateAttachmentUpload(InitiateAttachmentPayload(attachmentRequest, applicationConfig.serviceUrl + routes.UploadController.show(evidence).url)) //Not using absoluteUrl to prevent configuration changes throughout all environments
       } yield Ok(Json.toJson(initiateAttachmentResult)))
         .recover {
           case _: FileAttachmentFailed  =>
