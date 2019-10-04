@@ -16,27 +16,20 @@
 
 package controllers.agent
 
-import config.ApplicationConfig
 import connectors.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models._
 import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest._
-import org.scalatest.mockito.MockitoSugar
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.Application
-import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
 import resources._
+import tests.AllMocks
 import utils._
 
-import scala.collection.JavaConverters._
+import scala.concurrent.ExecutionContext.Implicits.global
 
-class ManageClientsSpec extends VoaPropertyLinkingSpec {
+class ManageClientsSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   "The manage clients page" must "return redirect" in {
 
@@ -66,6 +59,7 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
   }
 
   object TestController extends RepresentationController(
+    mockCustomErrorHandler,
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector

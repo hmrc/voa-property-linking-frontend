@@ -18,7 +18,7 @@ package controllers
 
 import config.ApplicationConfig
 import javax.inject.Inject
-import connectors.{DraftCases}
+import connectors.DraftCases
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import views.helpers.Errors
 import akka.actor.Status.{Failure, Success}
@@ -29,12 +29,15 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
-                             propertyLinks: PropertyLinkConnector
-                            )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig, draftCases: DraftCases) extends PropertyLinkingController {
+class ManageDrafts @Inject()(
+                              val errorHandler: CustomErrorHandler,
+                              authenticated: AuthenticatedAction,
+                              propertyLinks: PropertyLinkConnector
+                            )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig, draftCases: DraftCases) extends PropertyLinkingController {
 
   val draftCaseForm: Form[DeleteDraftCase] = Form(
     mapping(
@@ -49,7 +52,7 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
   }
 
 
-  def viewDraftCases() = authenticated.async { implicit request =>
+  def viewDraftCases() = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("your-drafts"))
   }
 
@@ -57,7 +60,7 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
   def continueCheck = authenticated.async { implicit request =>
     draftCaseForm.bindFromRequest.fold(
       getDraftCases,
-      success => Redirect(config.checkUrl + getIdUrl(success.draft)._2))
+      success => Future.successful(Redirect(config.checkUrl + getIdUrl(success.draft)._2)))
   }
 
 
@@ -88,7 +91,7 @@ class ManageDrafts @Inject()(authenticated: AuthenticatedAction,
 
 
   private def getDraftCases(form: Form[DeleteDraftCase])
-                           (implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier) =
+                           (implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Result] =
     for {
       cases <- draftCases.get(request.personId)
     } yield {

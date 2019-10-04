@@ -19,12 +19,13 @@ package controllers
 import org.jsoup.Jsoup
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import tests.AllMocks
 
 
-class LinkErrorsSpec extends VoaPropertyLinkingSpec {
+class LinkErrorsSpec extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
 
-  val applicationTestController = new LinkErrors()
+  val applicationTestController = new LinkErrors(mockCustomErrorHandler)
 
   "manualVerificationRequired" should "display the manual verification required page" in {
 

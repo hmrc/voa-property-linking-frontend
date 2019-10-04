@@ -16,57 +16,61 @@
 
 package controllers.propertyLinking
 
-import javax.inject.Named
-
-import binders.pagination.PaginationParameters
-import binders.propertylinks.GetPropertyLinksParameters
+import actions.AuthenticatedAction
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
-import connectors.EnvelopeConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
-import controllers.agentAppointment.{AppointAgentVM, routes}
 import form.Mappings._
-import models._
+import javax.inject.Named
+import models.RatesBillType
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
+import play.api.mvc.{Action, AnyContent}
 import repositories.SessionRepo
 import services.BusinessRatesAttachmentService
 import session.{LinkingSessionRequest, WithLinkingSession}
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import views.html.propertyLinking.declaration
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class Declaration @Inject()(propertyLinks: PropertyLinkConnector,
+class Declaration @Inject()(
+                             val errorHandler: CustomErrorHandler,
+                             propertyLinks: PropertyLinkConnector,
                             @Named("propertyLinkingSession") sessionRepository: SessionRepo,
                             businessRatesAttachmentService: BusinessRatesAttachmentService,
-                            withLinkingSession: WithLinkingSession)(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+                            authenticatedAction: AuthenticatedAction,
+                            withLinkingSession: WithLinkingSession
+                           )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
-  def show(noEvidenceFlag: Option[Boolean] = None) = withLinkingSession { implicit request =>
-    Ok(declaration(DeclarationVM(form), noEvidenceFlag))
+  def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
+    val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
+    Ok(declaration(DeclarationVM(form), isRatesBillEvidence))
   }
 
-  def submit(noEvidenceFlag: Option[Boolean] = None) = withLinkingSession { implicit request =>
-
+  def submit(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     form.bindFromRequest().fold(
-      errors =>
-        BadRequest(declaration(DeclarationVM(formWithNoDeclaration))),
+      errors => {
+        val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
+        Future.successful(BadRequest(declaration(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence)))
+      },
       success =>
         submitLinkingRequest().map( x => Redirect (routes.Declaration.confirmation())))
   }
 
 
-  def confirmation = withLinkingSession { implicit request =>
+  def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     sessionRepository.remove() map { _ =>
       Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
     }
   }
 
-  private def submitLinkingRequest()(implicit request: LinkingSessionRequest[_]) = {
+  private def submitLinkingRequest()(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
     for {
-      - <- businessRatesAttachmentService.submitFiles(request.ses.submissionId, request.ses.uploadEvidenceData.attachments)
+      _ <- businessRatesAttachmentService.submitFiles(request.ses.submissionId, request.ses.uploadEvidenceData.attachments)
       _ <- propertyLinks.createPropertyLink()
     } yield ()
   }

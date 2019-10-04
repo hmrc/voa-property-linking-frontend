@@ -39,35 +39,11 @@ GET         /detailed/:authorisationId/:assessmentRef                           
 GET         /property-link/:submissionId/valuations/:valuationId/start-challenge              @controllers.Assessments.startChallengeFromDVR(submissionId: String, valuationId: Long, owner: Boolean ?= true)
 POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean ?= true)
 
-
-#Search and Link
-GET         /property-search                                                                  @controllers.propertyLinking.ClaimProperty.show()
-GET         /link-to-property/before-you-start                                                @controllers.propertyLinking.ClaimProperty.checkPropertyLinks()
-GET         /link-to-property/:uarn                                                           @controllers.propertyLinking.ClaimProperty.declareCapacity(uarn: Long, address)
-GET         /link-to-property                                                                 @controllers.propertyLinking.ClaimProperty.back()
-POST        /link-to-property/:uarn                                                           @controllers.propertyLinking.ClaimProperty.attemptLink(uarn: Long, address)
-
-#Link scenarios
-GET         /choose-evidence                                                                  @controllers.propertyLinking.ChooseEvidence.show()
-POST        /choose-evidence                                                                  @controllers.propertyLinking.ChooseEvidence.submit()
-GET         /upload-rates-bill                                                                @controllers.propertyLinking.UploadRatesBill.show()
-GET         /upload-evidence                                                                  @controllers.propertyLinking.UploadPropertyEvidence.show()
-
-POST        /upload-rates-continue                                                            @controllers.propertyLinking.UploadRatesBill.continue()
-POST        /upload-property-evidence-continue                                                @controllers.propertyLinking.UploadPropertyEvidence.continue()
-
-GET         /summary                                                                          @controllers.propertyLinking.Declaration.show(noEvidenceFlag: Option[Boolean] ?= None)
-POST        /summary                                                                          @controllers.propertyLinking.Declaration.submit(noEvidenceFlag: Option[Boolean] ?= None)
-
-GET         /confirmation                                                                     @controllers.propertyLinking.Declaration.confirmation
-
 #Linking outcomes
-POST        /rates-bill-initiate                                                              @controllers.propertyLinking.UploadRatesBill.initiate()
-POST        /rates-bill-remove-file                                                           @controllers.propertyLinking.UploadRatesBill.removeRatesBill(fileReference: String)
-POST        /upload-evidence-initiate                                                         @controllers.propertyLinking.UploadPropertyEvidence.initiate()
-POST        /upload-evidence-remove-file                                                      @controllers.propertyLinking.UploadPropertyEvidence.removeEvidence(fileReference: String)
 GET         /manual-verification-required                                                     @controllers.LinkErrors.manualVerificationRequired()
 GET         /linking-conflict                                                                 @controllers.LinkErrors.conflict()
+
+
 #AGENT
 #Dashboard
 #TODO: Move to dashboard
@@ -150,4 +126,18 @@ POST        /my-organisation/property-link/clients/all/:propertyLinkSubmissionId
 GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/exists                       @controllers.detailedvaluationrequest.DvrController.myClientsAlreadyRequestedDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
 GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/file/:ref                    @controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailedValuationRequestFile(propertyLinkSubmissionId: String, valuationId: Long, ref: String)
 
-
+#Claiming a property link
+GET         /my-organisation/claim/property-links/property-search                             @controllers.propertyLinking.ClaimProperty.show()
+GET         /my-organisation/claim/property-links/before-you-start                            @controllers.propertyLinking.ClaimProperty.checkPropertyLinks()
+GET         /my-organisation/claim/property-links/capacity/:uarn                              @controllers.propertyLinking.ClaimProperty.declareCapacity(uarn: Long, address)
+POST        /my-organisation/claim/property-links/capacity/:uarn                               @controllers.propertyLinking.ClaimProperty.attemptLink(uarn: Long, address)
+GET         /my-organisation/claim/property-links                                             @controllers.propertyLinking.ClaimProperty.back()
+GET         /my-organisation/claim/property-links/evidence                                    @controllers.propertyLinking.ChooseEvidence.show()
+POST        /my-organisation/claim/property-links/evidence                                    @controllers.propertyLinking.ChooseEvidence.submit()
+GET         /my-organisation/claim/property-links/evidence/upload                             @controllers.propertyLinking.UploadController.show(choice: UploadEvidenceChoiceParameters)
+POST        /my-organisation/claim/property-links/evidence/upload                             @controllers.propertyLinking.UploadController.continue(choice: UploadEvidenceChoiceParameters)
+POST        /my-organisation/claim/property-links/evidence/upload/initiate                    @controllers.propertyLinking.UploadController.initiate(choice: UploadEvidenceChoiceParameters)
+POST        /my-organisation/claim/property-links/evidence/upload/remove                      @controllers.propertyLinking.UploadController.remove(fileReference: String, choice: UploadEvidenceChoiceParameters)
+GET         /my-organisation/claim/property-links/summary                                     @controllers.propertyLinking.Declaration.show()
+POST        /my-organisation/claim/property-links/summary                                     @controllers.propertyLinking.Declaration.submit()
+GET         /my-organisation/claim/property-links/confirmation                                @controllers.propertyLinking.Declaration.confirmation

@@ -22,17 +22,18 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.{Mode, Play}
 import play.api.Configuration
+import tests.AllMocks
 
 
 
-class RegisterPageSpec @Inject() (configuration: Configuration) extends VoaPropertyLinkingSpec {
+class RegisterPageSpec @Inject() (configuration: Configuration) extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
   implicit val mode = Mode.Test
   implicit val runConfig = configuration
 
   val mockVoaAction = mock[VoaAction]
 
-  val applicationTestController = new Register(mockVoaAction)
+  val applicationTestController = new Register(mockCustomErrorHandler, mockVoaAction)
 
   "show" should "redirect to the organisation page" in {
 

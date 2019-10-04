@@ -22,10 +22,12 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-object StubVplAuthConnector extends VPLAuthConnector(StubServicesConfig, StubHttp) {
+object StubVplAuthConnector extends VPLAuthConnector(StubServicesConfig, StubHttp) { //TODO fix unimplemented
   private var externalId: Option[String] = None
   private var groupId: Option[String] = None
   private var userDetails: Option[UserDetails] = None
+
+  override val serviceUrl: String = "http://localhost:9000/example/auth"
 
   def stubExternalId(id: String): Unit = {
     externalId = Some(id)

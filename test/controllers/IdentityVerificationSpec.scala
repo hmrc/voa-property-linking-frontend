@@ -24,16 +24,19 @@ import org.scalacheck.Arbitrary._
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.Html
 import repositories.PersonalDetailsSessionRepository
 import resources._
 import services.RegistrationService
 import services.iv.IvService
+import tests.AllMocks
 import uk.gov.hmrc.auth.core.{Admin, AffinityGroup}
 import utils._
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar {
+class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
   "Successfully verifying identity when an organisation does not have a CCA account" must
     "register and enrol the user then redirect to the registration success page" in new TestCase {
@@ -64,6 +67,9 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
 
   "Successfully verifying identity" must
   "return internal server error when the registration or enrolment fails" in new TestCase {
+    when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
+        .thenReturn(Html("INTERNAL SERVER ERROR"))
+
     StubVplAuthConnector.stubExternalId("externalId")
     StubVplAuthConnector.stubGroupId("groupwithoutaccount")
     StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
@@ -77,6 +83,9 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
 
   "Successfully verifying identity" must
     "return internal server error when there are details missing" in new TestCase {
+    when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
+      .thenReturn(Html("INTERNAL SERVER ERROR"))
+
     StubVplAuthConnector.stubExternalId("externalId")
     StubVplAuthConnector.stubGroupId("groupwithoutaccount")
     StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
@@ -157,11 +166,18 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
 
     lazy val mockRegistrationService = mock[RegistrationService]
 
-    lazy val stubIdentityVerificationServiceEnrolmentOrg = new IvService(StubVplAuthConnector, mockRegistrationService, mockSessionRepoOrgDetails, app.injector.instanceOf[IdentityVerificationProxyConnector], applicationConfig)
+    lazy val stubIdentityVerificationServiceEnrolmentOrg = new IvService(mockCustomErrorHandler, StubVplAuthConnector, mockRegistrationService, mockSessionRepoOrgDetails, app.injector.instanceOf[IdentityVerificationProxyConnector], applicationConfig)
 
-    object TestIdentityVerification extends IdentityVerification(StubGgAction, StubIdentityVerification, StubAddresses,
-      StubIndividualAccountConnector, stubIdentityVerificationServiceEnrolmentOrg, StubGroupAccountConnector,
-      StubVplAuthConnector, mockSessionRepoOrgDetails)
+    object TestIdentityVerification extends IdentityVerification(
+      mockCustomErrorHandler,
+      StubGgAction,
+      StubIdentityVerification,
+      StubAddresses,
+      StubIndividualAccountConnector,
+      stubIdentityVerificationServiceEnrolmentOrg,
+      StubGroupAccountConnector,
+      StubVplAuthConnector,
+      mockSessionRepoOrgDetails)
 
     val request = FakeRequest()
 

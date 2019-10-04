@@ -16,14 +16,14 @@
 
 package connectors.test
 
-import config.WSHttp
 import javax.inject.Inject
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TestPropertyLinkingConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+class TestPropertyLinkingConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
 
   lazy val url = config.baseUrl("property-linking") + "/property-linking/"
 

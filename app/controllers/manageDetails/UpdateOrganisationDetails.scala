@@ -20,7 +20,6 @@ import java.time.{Clock, Instant}
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import javax.inject.Inject
-
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts}
 import controllers.PropertyLinkingController
@@ -29,34 +28,40 @@ import models.{GroupAccount, UpdatedOrganisationAccount}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.mvc.{AnyContent, Result}
+import play.api.mvc.{Action, AnyContent, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import utils.EmailAddressValidation
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction, groups: GroupAccounts,
-                                           addresses: Addresses, manageDetails: ManageDetails)
-                                         (implicit clock: Clock, val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
+class UpdateOrganisationDetails @Inject()(
+                                           val errorHandler: CustomErrorHandler,
+                                           authenticated: AuthenticatedAction,
+                                           groups: GroupAccounts,
+                                           addresses: Addresses,
+                                           manageDetails: ManageDetails
+                                         )(implicit executionContext: ExecutionContext, clock: Clock, val messagesApi: MessagesApi, config: ApplicationConfig)
+  extends PropertyLinkingController {
 
-  def viewBusinessName = authenticated.async { implicit request =>
+  def viewBusinessName: Action[AnyContent] = authenticated { implicit request =>
     Ok(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
   }
 
-  def updateBusinessName = authenticated.async { implicit request =>
+  def updateBusinessName(): Action[AnyContent] = authenticated.async { implicit request =>
     businessNameForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
-      businessName => updateDetails(name = Some(businessName))
+      errors        => Future.successful(BadRequest(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+      businessName  => updateDetails(name = Some(businessName))
     )
   }
 
-  def viewBusinessAddress = authenticated.async { implicit request =>
+  def viewBusinessAddress: Action[AnyContent] = authenticated { implicit request =>
     Ok(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(addressForm, request.organisationAccount)))
   }
 
-  def updateBusinessAddress = authenticated.async { implicit request =>
+  def updateBusinessAddress(): Action[AnyContent] = authenticated.async { implicit request =>
     addressForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
+      errors => Future.successful(BadRequest(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
       address => address.addressUnitId match {
         case Some(id) => updateDetails(addressId = Some(id))
         case _ => addresses.create(address) flatMap { id => updateDetails(addressId = Some(id)) }
@@ -64,24 +69,24 @@ class UpdateOrganisationDetails @Inject()(authenticated: AuthenticatedAction, gr
     )
   }
 
-  def viewBusinessPhone = authenticated.async { implicit request =>
+  def viewBusinessPhone: Action[AnyContent] = authenticated { implicit request =>
     Ok(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(phoneForm, request.organisationAccount)))
   }
 
-  def updateBusinessPhone = authenticated.async { implicit request =>
+  def updateBusinessPhone: Action[AnyContent] = authenticated.async { implicit request =>
     phoneForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
+      errors => Future.successful(BadRequest(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
       phone => updateDetails(phone = Some(phone))
     )
   }
 
-  def viewBusinessEmail = authenticated.async { implicit request =>
+  def viewBusinessEmail: Action[AnyContent] = authenticated { implicit request =>
     Ok(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(emailForm, request.organisationAccount)))
   }
 
-  def updateBusinessEmail = authenticated.async { implicit request =>
+  def updateBusinessEmail: Action[AnyContent] = authenticated.async { implicit request =>
     emailForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(errors, request.organisationAccount))),
+      errors => Future.successful(BadRequest(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
       email => updateDetails(email = Some(email))
     )
   }

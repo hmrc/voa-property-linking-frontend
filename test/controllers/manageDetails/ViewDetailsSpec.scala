@@ -45,6 +45,7 @@ class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar{
   val mockConfig = mock[ApplicationConfig]
 
   object TestViewDetails extends ViewDetails(
+    mockCustomErrorHandler,
     addressesConnector,
     StubAuthentication,
     authConnector

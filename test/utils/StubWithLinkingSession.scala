@@ -16,21 +16,21 @@
 
 package utils
 
+import actions.BasicAuthenticatedRequest
 import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
-import play.api.i18n.Messages
-import play.api.mvc.{Action, AnyContent, Result}
+import play.api.mvc.Result
 import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
 
 import scala.concurrent.Future
 
-class StubWithLinkingSession(sessionRepository: SessionRepo) extends WithLinkingSession(StubAuthentication, sessionRepository) {
+class StubWithLinkingSession(sessionRepository: SessionRepo) extends WithLinkingSession(???, sessionRepository) { //TODO fix unimplemented
 
   private var stubbedSession: Option[(LinkingSession, DetailedIndividualAccount, GroupAccount)] = None
 
-  override def apply(body: (LinkingSessionRequest[_]) => Future[Result])(implicit messages: Messages) = Action.async { implicit request =>
+  override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] = {
     stubbedSession.fold(throw new Exception("Linking session not stubbed")) { case (linkingSession, person, organisation) =>
-      body(LinkingSessionRequest(linkingSession, person.organisationId, person, organisation, request))
+      Future.successful(Right(LinkingSessionRequest(linkingSession, person.organisationId, person, organisation, request)))
     }
   }
 

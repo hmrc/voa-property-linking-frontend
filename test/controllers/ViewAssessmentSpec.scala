@@ -26,15 +26,18 @@ import org.scalatest.OptionValues
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{StubBusinessRatesValuation, _}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
+class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues with AllMocks {
 
-  private object TestAssessmentController extends Assessments( StubPropertyLinkConnector,
+  private object TestAssessmentController extends Assessments(
+    mockCustomErrorHandler,
+    StubPropertyLinkConnector,
     StubAuthentication,
     mockSubmissionIds,
     mockDvrCaseManagement,

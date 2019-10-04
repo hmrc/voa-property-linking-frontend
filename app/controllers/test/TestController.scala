@@ -29,13 +29,16 @@ import models._
 import models.test.TestUserDetails
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
+import play.api.mvc.{Action, AnyContent}
 import services.test.TestService
 import services.{EnrolmentService, Failure, Success}
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 
 class TestController @Inject()(
+                                val errorHandler: CustomErrorHandler,
                                 authenticated: AuthenticatedAction,
                                 testService: TestService,
                                 individualAccounts: IndividualAccounts,
@@ -46,9 +49,9 @@ class TestController @Inject()(
                                 testCheckConnector: TestCheckConnector,
                                 propertyLinkingConnector: PropertyLinkConnector,
                                 reprConnector: PropertyRepresentationConnector
-                              )(implicit val messagesApi: MessagesApi) extends PropertyLinkingController {
+                              )(implicit exectionContext: ExecutionContext, val messagesApi: MessagesApi) extends PropertyLinkingController {
 
-  def getUserDetails() = authenticated.async { implicit request =>
+  def getUserDetails(): Action[AnyContent] = authenticated { implicit request =>
     Ok(Json.toJson(if (request.organisationAccount.isAgent) {
       TestUserDetails(
         personId = request.individualAccount.individualId,
@@ -67,7 +70,7 @@ class TestController @Inject()(
     }))
   }
 
-  def deRegister() = authenticated.async { implicit request =>
+  def deRegister(): Action[AnyContent] = authenticated.async { implicit request =>
     val orgId = request.individualAccount.organisationId
     testPropertyLinkingConnector.deRegister(orgId).map(res => Ok(s"Successfully de-registered organisation with ID: $orgId")).recover {
       case e => Ok(s"Failed to de-register organisation with ID: $orgId with error: ${e.getMessage}")

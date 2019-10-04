@@ -18,12 +18,15 @@ package controllers
 
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import tests.AllMocks
 import utils.StubAddresses
 
-class AddressLookupSpec extends VoaPropertyLinkingSpec {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class AddressLookupSpec extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
 
-  object TestAddressLookupController extends AddressLookup(StubAddresses)(messageApi)
+  object TestAddressLookupController extends AddressLookup(mockCustomErrorHandler, StubAddresses)
 
   behavior of "Address lookup"
 

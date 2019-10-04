@@ -16,27 +16,22 @@
 
 package controllers.manageDetails
 
-import javax.inject.Inject
-
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
-import cats.data.OptionT
-import cats.implicits._
+import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors.{Addresses, VPLAuthConnector}
 import controllers.PropertyLinkingController
-import models.registration.UserDetails
-import models.{Address, DetailedIndividualAccount}
-import play.api.i18n.{Messages, MessagesApi}
-import play.api.mvc.{AnyContent, Result, Results}
-import uk.gov.hmrc.auth.core.AffinityGroup
-import uk.gov.hmrc.auth.core.AffinityGroup._
+import javax.inject.Inject
+import play.api.i18n.MessagesApi
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-class ViewDetails @Inject()(addressesConnector: Addresses,
+class ViewDetails @Inject()(
+                             val errorHandler: CustomErrorHandler,
+                             addressesConnector: Addresses,
                             authenticated: AuthenticatedAction,
                             authConnector: VPLAuthConnector
                            )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
-  def show() = authenticated.async { implicit request =>
+  def show() = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("your-details"))
   }
 

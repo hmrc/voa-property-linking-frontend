@@ -17,22 +17,20 @@
 package controllers
 
 import com.builtamont.play.pdf.PdfGenerator
-import config.ApplicationConfig
-import models.searchApi._
 import connectors.{AgentsConnector, Authenticated, DraftCases, GroupAccounts}
 import models._
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
+import models.searchApi._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import services.AgentRelationshipService
+import tests.AllMocks
 import utils._
 
-import scala.collection.JavaConverters._
+import scala.concurrent.ExecutionContext.Implicits.global
 
-class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
+class ManagePropertiesSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   "The manage properties page" must "return redirect" in {
 
@@ -61,6 +59,7 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
   }
 
   private object TestDashboardController extends Dashboard(
+    mockCustomErrorHandler,
     mock[DraftCases],
     mock[AgentRelationshipService],
     mock[AgentsConnector],

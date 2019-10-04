@@ -16,13 +16,12 @@
 
 package controllers.propertyLinking
 
-import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
 import models.upscan.UploadedFileDetails
 import org.jsoup.Jsoup
-import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
@@ -32,19 +31,17 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
 import services.BusinessRatesAttachmentService
+import uk.gov.hmrc.http.HeaderCarrier
 import utils.{FakeObjects, HtmlPage, StubWithLinkingSession}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with FakeObjects{
 
   override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
 
   "The declaration page" should "include a checkbox to allow the user to accept the declaration" in {
-    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
-
     val res = TestDeclaration.show()(FakeRequest())
     status(res) mustBe OK
 
@@ -53,7 +50,6 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
   }
 
   it should "require the user to accept the declaration to continue" in {
-    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest())
     status(res) mustBe BAD_REQUEST
@@ -65,7 +61,6 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
   it should "submit the property link if the user accepts the declaration" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
     when(mockBusinessRatesAttachmentService.submitFiles(any[String], any[Option[Map[String, UploadedFileDetails]]])(any[LinkingSessionRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(List(Some(attachment))))
-    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -78,7 +73,6 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
 
     when(mockBusinessRatesAttachmentService.submitFiles(any[String], any[Option[Map[String, UploadedFileDetails]]])(any[LinkingSessionRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(List(Some(attachment))))
-    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -89,14 +83,13 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
 
     val html = Jsoup.parse(contentAsString(confirmation))
     html.title mustBe s"We’ve received your request to add the property to your business’s customer record"
-    html.body().text must include (linkingSession.submissionId)
+    html.body().text must include ("PL-123456")
   }
 
   it should "display the normal confirmation page when the user has uploaded other evidence" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
 
     when(mockBusinessRatesAttachmentService.submitFiles(any[String], any[Option[Map[String, UploadedFileDetails]]])(any[LinkingSessionRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(List(Some(attachment))))
-    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -107,23 +100,25 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
 
     val html = Jsoup.parse(contentAsString(confirmation))
     html.title mustBe s"We’ve received your request to add the property to your business’s customer record"
-    html.body().text must include (linkingSession.submissionId)
+    html.body().text must include ("PL-123456")
   }
 
   "The confirmation page" should "display the submission ID" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
-    withLinkingSession.stubSession(linkingSession, arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = TestDeclaration.confirmation()(FakeRequest())
     status(res) mustBe OK
 
-    contentAsString(res) must include (linkingSession.submissionId)
+    contentAsString(res) must include ("PL-123456")
   }
 
-  lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
-
-  private object TestDeclaration extends Declaration(mockPropertyLinkConnector,
-    mockSessionRepo, mockBusinessRatesAttachmentService, withLinkingSession)
+  private object TestDeclaration extends Declaration(
+    mockCustomErrorHandler,
+    mockPropertyLinkConnector,
+    mockSessionRepo,
+    mockBusinessRatesAttachmentService,
+    preAuthenticatedActionBuilders(),
+    preEnrichedActionRefiner())
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

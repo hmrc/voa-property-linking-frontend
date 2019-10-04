@@ -16,42 +16,39 @@
 
 package controllers.agent
 
-import actions.{AgentRequest, AuthenticatedAction, BasicAuthenticatedRequest}
+import actions.{AgentRequest, AuthenticatedAction}
 import cats.data.OptionT
 import cats.instances.future._
 import com.google.inject.{Inject, Singleton}
-import config.{ApplicationConfig, Global}
-import connectors.propertyLinking.PropertyLinkConnector
+import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
+import connectors.propertyLinking.PropertyLinkConnector
 import controllers.agent.RepresentationController.ManagePropertiesVM
-import controllers.agentAppointment.AppointAgentVM
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
-import form.AgentPermissionMapping
+import form.FormValidation._
 import models._
-import models.searchApi.{AgentAuthResult, AgentId}
+import models.searchApi.AgentAuthResult
 import play.api.data.Form
-import play.api.data.Forms.mapping
+import play.api.data.Forms.{mapping, _}
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, Result}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.play.form.ConditionalMappings._
-import form.Mappings._
-import form.FormValidation._
-import play.api.data.Form
-import play.api.data.Forms._
-import scala.concurrent.Future
-import scala.util.{Failure, Success, Try}
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+
+import scala.concurrent.{ExecutionContext, Future}
+import scala.util.{Failure, Try}
 
 @Singleton()
-class RepresentationController @Inject()(reprConnector: PropertyRepresentationConnector,
-                                         authenticated: AuthenticatedAction,
-                                         propertyLinkConnector: PropertyLinkConnector
-                                        )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig)
+class RepresentationController @Inject()(
+                                          val errorHandler: CustomErrorHandler,
+                                          reprConnector: PropertyRepresentationConnector,
+                                          authenticated: AuthenticatedAction,
+                                          propertyLinkConnector: PropertyLinkConnector
+                                        )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController with ValidPagination {
 
   def viewClientProperties() = authenticated.asAgent { implicit request =>
-    Redirect(config.newDashboardUrl("client-properties"))
+    Future.successful(Redirect(config.newDashboardUrl("client-properties")))
   }
 
   def getMyClientsPropertyLinkRequests(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
@@ -72,13 +69,13 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
             ))
           }
         } else {
-          Ok(views.html.dashboard.pendingPropertyRepresentations(
+          Future.successful(Ok(views.html.dashboard.pendingPropertyRepresentations(
             BulkActionsForm.form,
             ManagePropertiesVM(
               reprs.propertyRepresentations,
               reprs.totalPendingRequests,
               pagination.copy(totalResults = reprs.totalPendingRequests)
-            )
+            ))
           ))
         }
       }
@@ -89,7 +86,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
     BulkActionsForm.form.bindFromRequest().fold(
       errors => {
         withValidPagination(page, pageSize) { pagination =>
-          reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
+          reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
             BadRequest(views.html.dashboard.pendingPropertyRepresentations(errors,
               ManagePropertiesVM(
                 propertyRepresentations = reprs.propertyRepresentations,
@@ -118,7 +115,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
     BulkActionsForm.form.bindFromRequest().fold(
       errors => {
         withValidPagination(page, pageSize) { pagination =>
-          reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
+          reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
             BadRequest(views.html.dashboard.pendingPropertyRepresentations(errors,
               ManagePropertiesVM(
                 propertyRepresentations = reprs.propertyRepresentations,
@@ -144,7 +141,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
 
   def continue(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     BulkActionsForm.form.bindFromRequest().fold(
-      _ => BadRequest(Global.badRequestTemplate),
+      _ =>  Future.successful(BadRequest(errorHandler.badRequestTemplate)),
       data => {
         withValidPagination(page, pageSize) { pagination =>
           reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
@@ -162,7 +159,7 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
   def bulkActions(): Action[AnyContent] = authenticated.asAgent { implicit request =>
 
     BulkActionsForm.form.bindFromRequest().fold(
-      _ => BadRequest(Global.badRequestTemplate),
+      _ => Future.successful(BadRequest(errorHandler.badRequestTemplate)),
       data => {
         val futureListOfSuccesses = getFutureListOfActions(data, request.personId).map(_.filter(_.isSuccess))
         futureListOfSuccesses.flatMap(successes =>
@@ -209,8 +206,8 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
     }
   }
 
-  private def getFutureListOfActions(data: RepresentationBulkAction, personId: Long)(implicit hc: HeaderCarrier) = {
-    def futureToFutureTry(f: Future[Unit]): Future[Try[Unit]] = f.map(Success(_)).recover({ case x => Failure(x) })
+  private def getFutureListOfActions(data: RepresentationBulkAction, personId: Long)(implicit hc: HeaderCarrier): Future[List[Try[Unit]]] = {
+    def futureToFutureTry(f: Future[Unit]): Future[Try[Unit]] = f.map(Try.apply(_)).recover({ case x => Failure(x) })
 
     val actionType =
       if (data.action.toLowerCase == "accept") RepresentationResponseApproved else RepresentationResponseDeclined
@@ -219,10 +216,10 @@ class RepresentationController @Inject()(reprConnector: PropertyRepresentationCo
       reprConnector.response(RepresentationResponse(id, personId, actionType))).map(futureToFutureTry))
   }
 
-  def revokeClient(authorisationId: Long, clientOrganisationId: Long) = authenticated.asAgent { implicit request =>
+  def revokeClient(authorisationId: Long, clientOrganisationId: Long): Action[AnyContent] = authenticated.asAgent { implicit request =>
     propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id) map {
       case Some(property) => Ok(views.html.propertyrepresentation.revokeClient(property))
-      case None => notFound
+      case None           => notFound
     }
   }
 

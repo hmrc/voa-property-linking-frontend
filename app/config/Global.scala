@@ -47,61 +47,6 @@ import uk.gov.hmrc.play.frontend.bootstrap.DefaultFrontendGlobal
 import uk.gov.hmrc.play.frontend.config.LoadAuditingConfig
 import uk.gov.hmrc.play.frontend.filters.{FrontendAuditFilter, FrontendLoggingFilter, MicroserviceFilterSupport, RecoveryFilter}
 
-object Global extends VPLFrontendGlobal
-
-trait VPLFrontendGlobal extends DefaultFrontendGlobal {
-
-  implicit lazy val appConfig = Play.current.injector.instanceOf[ApplicationConfig]
-  implicit lazy val messageApi = Play.current.injector.instanceOf[MessagesApi]
-  implicit lazy val messages = messageApi.preferred(Seq(Lang.defaultLang))
-
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html = {
-    views.html.errors.error(pageTitle, heading, message)(request, messages, appConfig)
-  }
-
-  override def internalServerErrorTemplate(implicit request: Request[_]): Html = {
-    views.html.errors.technicalDifficulties(extractErrorReference(request), getDateTime)
-  }
-
-  private def getDateTime: LocalDateTime = {
-    val instant = Instant.ofEpochMilli(System.currentTimeMillis)
-    LocalDateTime.ofInstant(instant, ZoneId.of("Europe/London"))
-  }
-
-  private def extractErrorReference(request: Request[_]): Option[String] = {
-    request.headers.get(HeaderNames.xRequestId) map {
-      _.split("-")(2)
-    }
-  }
-
-  override def auditConnector: AuditConnector = AuditServiceConnector
-
-  override def microserviceMetricsConfig(implicit app: Application): Option[Configuration] = app.configuration.getConfig("metrics")
-
-  override def loggingFilter: FrontendLoggingFilter = LoggingFilter
-
-  override def frontendAuditFilter: FrontendAuditFilter = new AuditFilter(configuration)
-
-  override def filters: Seq[EssentialFilter] = super.filters.filterNot(_ == RecoveryFilter)
-}
-
-object AuditServiceConnector extends AuditConnector {
-  override lazy val auditingConfig = LoadAuditingConfig("auditing")
-}
-
-object LoggingFilter extends FrontendLoggingFilter with MicroserviceFilterSupport {
-  override def controllerNeedsLogging(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsLogging
-}
-
-class AuditFilter @Inject()(configuration: Configuration) extends FrontendAuditFilter with MicroserviceFilterSupport with AppName {
-  override lazy val maskedFormFields = Seq.empty
-  override lazy val applicationPort = None
-  override lazy val auditConnector = AuditServiceConnector
-
-  override def controllerNeedsAuditing(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsAuditing
-
-  override protected def appNameConfiguration: Configuration = configuration
-}
 
 object ControllerConfiguration extends ControllerConfig {
   lazy val controllerConfigs = Play.current.configuration.underlying.as[Config]("controllers")
@@ -118,27 +63,18 @@ class GuiceModule(environment: Environment,
     })
 
 
-    bind(classOf[AuditingService]).toInstance(AuditingService)
     bind(classOf[DB]).toProvider(classOf[MongoDbProvider]).asEagerSingleton()
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("appointLinkSession")).to(classOf[PropertyLinksSessionRepository])
-    bind(classOf[WSHttp]).to(classOf[VPLHttp])
     bind(classOf[VoaAction]).to(classOf[GgAction])
     bind(classOf[ManageDetails]).to(classOf[ManageVoaDetails])
     bind(classOf[IdentityVerificationService]).to(classOf[IvService])
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
-    bind(classOf[uk.gov.hmrc.auth.core.AuthConnector]).to(classOf[AuthConnectorImpl])
     bind(classOf[AuthConnector]).to(classOf[VPLAuthConnector])
     bind(classOf[CircuitBreakerConfig]).toProvider(classOf[CircuitBreakerConfigProvider]).asEagerSingleton()
     bind(classOf[PdfGenerator]).toInstance(new PdfGenerator(environment))
-    bind(classOf[AuditConnector]).toInstance(AuditServiceConnector)
   }
-
-}
-
-class AuthConnectorImpl @Inject()(val http: WSHttp, servicesConfig: ServicesConfig) extends PlayAuthConnector {
-  override val serviceUrl: String = servicesConfig.baseUrl("auth")
 
 }
 

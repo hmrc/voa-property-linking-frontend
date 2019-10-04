@@ -35,11 +35,12 @@ import utils.{HtmlPage, StubAuthentication, StubGroupAccountConnector}
 import repositories.SessionRepo
 import services.{AgentRelationshipService, AppointRevokeException}
 import org.scalacheck.Arbitrary._
+import tests.AllMocks
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
+class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
   val testAgentAccount = GroupAccount(1l, "1", "companyName", 1l, "email@email.com", "123456",
     true, 1l)
@@ -243,7 +244,15 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.mustContainText("There are no properties to display")
   }
 
-  private lazy val testController = new AppointAgentController(mockRepresentationConnector, StubGroupAccountConnector, mockAgentsConnector, StubAuthentication, mockAppointRevokeService, mockSessionRepo)
+  private lazy val testController = new AppointAgentController(
+    mockCustomErrorHandler,
+    mockRepresentationConnector,
+    StubGroupAccountConnector,
+    mockAgentsConnector,
+    StubAuthentication,
+    mockAppointRevokeService,
+    mockSessionRepo
+  )
 
   private lazy val mockRepresentationConnector = mock[PropertyRepresentationConnector]
 

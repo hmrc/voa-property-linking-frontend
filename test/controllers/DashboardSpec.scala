@@ -19,7 +19,7 @@ package controllers
 import com.builtamont.play.pdf.PdfGenerator
 import connectors._
 import models._
-import models.messages.{Message, MessageCount, MessagePagination, MessageSearchResults}
+import models.messages.Message
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
@@ -28,12 +28,14 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import services.AgentRelationshipService
+import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class DashboardSpec extends VoaPropertyLinkingSpec {
+class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
 
   lazy val mockDraftCases = {
@@ -51,6 +53,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
   }
 
   object TestDashboard extends Dashboard(
+    mockCustomErrorHandler,
     mockDraftCases,
     mockRepService,
     StubAgentConnector,

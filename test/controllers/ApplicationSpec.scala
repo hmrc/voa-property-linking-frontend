@@ -20,13 +20,14 @@ import auth.VoaAction
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.i18n.Messages
+import tests.AllMocks
 
 
-class ApplicationSpec extends VoaPropertyLinkingSpec {
+class ApplicationSpec extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
 
   val mockVoaAction = mock[VoaAction]
-  val applicationTestController = new Application(mockVoaAction)
+  val applicationTestController = new Application(mockCustomErrorHandler, mockVoaAction)
 
   "addUserToGG" should "display the add users to GG page" in {
 

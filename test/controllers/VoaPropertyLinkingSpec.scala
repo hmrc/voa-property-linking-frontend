@@ -20,7 +20,7 @@ import actions.{AgentRequest, AuthenticatedAction, BasicAuthenticatedRequest}
 import akka.stream.Materializer
 import auth.GovernmentGatewayProvider
 import connectors.{Addresses, BusinessRatesAuthorisation}
-import models.{Accounts, DetailedIndividualAccount, GroupAccount}
+import models._
 import org.scalacheck.Arbitrary._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
@@ -29,19 +29,36 @@ import play.api.i18n.{Messages, MessagesApi}
 import play.api.mvc.Results._
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
+import repositories.{SessionRepo, SessionRepository}
 import services.EnrolmentService
+import session.{LinkingSessionRequest, WithLinkingSession}
+import tests.AllMocks
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.play.config.ServicesConfig
 import utils._
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-trait VoaPropertyLinkingSpec extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
-  with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with WSHTTPMock with ScalaFutures with FakeObjects{
+trait VoaPropertyLinkingSpec
+  extends FlatSpec
+    with MustMatchers
+    with FutureAwaits
+    with DefaultAwaitTimeout
+    with BeforeAndAfterEach
+    with AppendedClues
+    with MockitoSugar
+    with NoMetricsOneAppPerSuite
+    with WSHTTPMock
+    with ScalaFutures
+    with FakeObjects
+    with AllMocks {
 
   val token = "Csrf-Token" -> "nocheck"
+
+  implicit val ec: ExecutionContext = ExecutionContext.Implicits.global
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
+
   def preAuthenticatedActionBuilders(
                                       externalId: String = "gg_external_id",
                                       groupId: String = "gg_group_id"
@@ -51,6 +68,21 @@ trait VoaPropertyLinkingSpec extends FlatSpec with MustMatchers with FutureAwait
         block(BasicAuthenticatedRequest[A](groupAccount, detailedIndividualAccount, request))
       }
     }
+
+  def preEnrichedActionRefiner(): WithLinkingSession = {
+    new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
+
+      override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] = {
+        Future.successful(Right(LinkingSessionRequest[A](
+          LinkingSession("", 1L, "PL-123456", 1L, CapacityDeclaration(Owner, true, None, false, None), UploadEvidenceData(fileInfo = None, attachments = None), Some(RatesBillType)),
+          1L,
+          request.individualAccount,
+          request.organisationAccount,
+          request
+        )))
+      }
+    }
+  }
 
   lazy val testAction = new AuthenticatedAction(messageApi, mockGG, mockAuth, mockEnrolmentService, StubAuthConnector)
   lazy val mockAuthConnector = mock[AuthConnector]

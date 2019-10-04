@@ -16,19 +16,17 @@
 
 package controllers
 
-import auth.{GgAction, VoaAction}
+import auth.VoaAction
 import config.ApplicationConfig
 import javax.inject.Inject
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
-import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-import scala.concurrent.Future
-
-class Application @Inject()(ggAction: VoaAction)(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
-
-  implicit override def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+class Application @Inject()(
+                             val errorHandler: CustomErrorHandler,
+                             ggAction: VoaAction
+                           )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
   def addUserToGG = Action { implicit request =>
     Ok(views.html.addUserToGG())
@@ -38,8 +36,8 @@ class Application @Inject()(ggAction: VoaAction)(implicit val messagesApi: Messa
     Redirect(config.businessTaxAccountUrl("manage-account"))
   }
 
-  def start() = Action.async { implicit request =>
-    Future.successful(Ok(views.html.start(RegisterHelper.choiceForm)))
+  def start() = Action { implicit request =>
+    Ok(views.html.start(RegisterHelper.choiceForm))
   }
 
   def logOut() = Action { request =>

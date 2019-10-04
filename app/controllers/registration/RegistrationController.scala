@@ -16,15 +16,14 @@
 
 package controllers.registration
 
-import javax.inject.{Inject, Named}
-
 import actions.AuthenticatedAction
 import auth.VoaAction
 import cats.data.OptionT
 import cats.implicits._
-import config.{ApplicationConfig, Global}
+import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
 import controllers.PropertyLinkingController
+import javax.inject.{Inject, Named}
 import models.registration._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, Request}
@@ -35,10 +34,12 @@ import services.iv.IdentityVerificationService
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
 import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController @Inject()(
+                                        val errorHandler: CustomErrorHandler,
                                         ggAction: VoaAction,
                                         groupAccounts: GroupAccounts,
                                         individualAccounts: IndividualAccounts,
@@ -50,7 +51,7 @@ class RegistrationController @Inject()(
                                         authenticatedAction: AuthenticatedAction,
                                         identityVerificationService: IdentityVerificationService,
                                         @Named("personSession") val personalDetailsSessionRepo: SessionRepo
-                                      )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+                                      )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   import utils.SessionHelpers._
 
@@ -58,13 +59,11 @@ class RegistrationController @Inject()(
     implicit request =>
       auth.userDetails(ctx).flatMap(authUser => individualAccounts.withExternalId(authUser.externalId).flatMap {
         case Some(voaUser) =>
-          Redirect(controllers.routes.Dashboard.home())
+          Future.successful(Redirect(controllers.routes.Dashboard.home()))
         case None => authUser match {
-          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _)) =>
-            Future.successful(Ok(views.html.createAccount.register_individual(AdminUser.individual, FieldData(userInfo = user.userInfo))))
-          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation, _)) =>
-            orgShow(ctx, user)
-          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Agent, _)) => Ok(views.html.errors.invalidAccountType())
+          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _))   => Future.successful(Ok(views.html.createAccount.register_individual(AdminUser.individual, FieldData(userInfo = user.userInfo))))
+          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation, _)) => orgShow(ctx, user)
+          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Agent, _))        => Future.successful(Ok(views.html.errors.invalidAccountType()))
         }
       })
   }
@@ -73,7 +72,7 @@ class RegistrationController @Inject()(
     implicit request =>
       AdminUser.individual.bindFromRequest().fold(
         errors =>
-          BadRequest(views.html.createAccount.register_individual(errors, FieldData())),
+          Future.successful(BadRequest(views.html.createAccount.register_individual(errors, FieldData()))),
         success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
           Redirect(controllers.routes.IdentityVerification.startIv)
         }
@@ -84,7 +83,7 @@ class RegistrationController @Inject()(
     implicit request =>
       AdminUser.organisation.bindFromRequest().fold(
         errors =>
-          BadRequest(views.html.createAccount.register_organisation(errors, FieldData())),
+          Future.successful(BadRequest(views.html.createAccount.register_organisation(errors, FieldData()))),
         success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
           Redirect(controllers.routes.IdentityVerification.startIv)
         }
@@ -144,11 +143,11 @@ class RegistrationController @Inject()(
           getCompanyDetails(ctx).flatMap {
             case Some(fieldData)  =>
               registrationService
-                .create(success.toGroupDetails(fieldData), ctx, Some(Organisation))(success.toIndividualAccountSubmission(fieldData))(hc, ec)
+                .create(success.toGroupDetails(fieldData), ctx, Some(Organisation))(success.toIndividualAccountSubmission(fieldData))
                 .map {
                   case RegistrationSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
-                  case EnrolmentFailure => InternalServerError(Global.internalServerErrorTemplate)
-                  case DetailsMissing => InternalServerError(Global.internalServerErrorTemplate)
+                  case EnrolmentFailure => InternalServerError(errorHandler.internalServerErrorTemplate)
+                  case DetailsMissing => InternalServerError(errorHandler.internalServerErrorTemplate)
                 }
             case _                => unableToRetrieveCompanyDetails
           }
@@ -190,7 +189,7 @@ class RegistrationController @Inject()(
     }
   }
 
-  private def getCompanyDetails[A](ctx: A)(implicit hc: HeaderCarrier) = {
+  private def getCompanyDetails[A](ctx: A)(implicit hc: HeaderCarrier): Future[Option[FieldData]] = {
     (for {
       groupId <- OptionT.liftF(auth.getGroupId(ctx))
       acc <- OptionT(groupAccounts.withGroupId(groupId))

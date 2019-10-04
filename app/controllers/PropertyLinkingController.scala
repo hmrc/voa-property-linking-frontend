@@ -16,14 +16,14 @@
 
 package controllers
 
-import config.Global
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Controller, Request}
-import services.RequestContext
+import play.api.mvc.Request
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
 
-import scala.concurrent.Future
+trait PropertyLinkingController extends FrontendController with I18nSupport {
 
-trait PropertyLinkingController extends Controller with RequestContext with I18nSupport {
-  implicit def future[A](a: A): Future[A] = Future.successful(a)
-  def notFound(implicit request: Request[_]) = NotFound(Global.notFoundTemplate)
+  val errorHandler: FrontendErrorHandler
+
+  def notFound(implicit request: Request[_]) = NotFound(errorHandler.notFoundTemplate)
 }

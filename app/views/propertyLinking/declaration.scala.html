@@ -16,16 +16,19 @@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
+@import binders.propertylinks._
 @import controllers.propertyLinking.DeclarationVM
 @import config.ApplicationConfig
 
-@(model: DeclarationVM, noEvidenceFlag: Option[Boolean] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: DeclarationVM, isRatesBillEvidence: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@backLink = @{ noEvidenceFlag match {
-            case Some(true) => controllers.propertyLinking.routes.UploadRatesBill.show ().url
-            case _ => controllers.propertyLinking.routes.UploadPropertyEvidence.show ().url
-        }
-    }
+@backLink = @{if (isRatesBillEvidence) {
+                controllers.propertyLinking.routes.UploadController.show(UploadEvidenceChoiceParameters(EvidenceChoices.RATES_BILL)).url
+                } else {
+                controllers.propertyLinking.routes.UploadController.show(UploadEvidenceChoiceParameters(EvidenceChoices.OTHER)).url
+                }
+}
+
 @main_template(
     Messages("declaration.title"),
     topBackLink = true,
@@ -41,7 +44,7 @@
 
             @includes.errorSummary(model.form)
 
-            @form(controllers.propertyLinking.routes.Declaration.submit(noEvidenceFlag)) {
+            @form(controllers.propertyLinking.routes.Declaration.submit()) {
 
                 <p>@Messages("declaration.p.1")</p>
 

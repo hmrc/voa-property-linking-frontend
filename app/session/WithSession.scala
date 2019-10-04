@@ -16,38 +16,43 @@
 
 package session
 
+import actions.BasicAuthenticatedRequest
 import javax.inject.{Inject, Named}
-
-import actions.AuthenticatedAction
-import config.Global
 import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
-import play.api.i18n.Messages
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.Reads
 import play.api.mvc.Results._
 import play.api.mvc._
 import repositories.SessionRepo
-
-import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-case class LinkingSessionRequest[A](ses: LinkingSession, organisationId: Long,
-                                    individualAccount: DetailedIndividualAccount,
-                                    groupAccount: GroupAccount, request: Request[A]) extends WrappedRequest[A](request) {
+import scala.concurrent.Future
+
+case class LinkingSessionRequest[A](
+                                     ses: LinkingSession,
+                                     organisationId: Long,
+                                     individualAccount: DetailedIndividualAccount,
+                                     groupAccount: GroupAccount,
+                                     request: Request[A]
+                                   ) extends WrappedRequest[A](request) {
   def sessionId: String = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
 }
 
 case object NoSessionId extends Exception
 
-class WithLinkingSession @Inject() (authenticated: AuthenticatedAction, @Named("propertyLinkingSession") val sessionRepository: SessionRepo) {
-  implicit def hc(implicit request: Request[_]) = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+class WithLinkingSession @Inject()(
+                                    errorHandler: CustomErrorHandler,
+                                    @Named("propertyLinkingSession") val sessionRepository: SessionRepo
+                                  ) extends ActionRefiner[BasicAuthenticatedRequest, LinkingSessionRequest] {
 
-  def apply(body: LinkingSessionRequest[_] => Future[Result])(implicit messages: Messages) = authenticated.async { implicit request =>
-    sessionRepository.get[LinkingSession] flatMap {
-      case Some(s) => body(
-        LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request)
-      )
-      case None => Future.successful(NotFound(Global.notFoundTemplate))
-    }
+  implicit def hc(implicit request: BasicAuthenticatedRequest[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+
+  override protected def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] = {
+      sessionRepository.get[LinkingSession](implicitly[Reads[LinkingSession]], hc(request)).map {
+        case Some(s)  => Right(LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request))
+        case None     => Left(NotFound(errorHandler.notFoundTemplate(request)))
+      }
   }
 }

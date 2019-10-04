@@ -27,7 +27,7 @@ import scala.concurrent.Future
 import uk.gov.hmrc.http.HeaderCarrier
 
 
-object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfig, StubHttp) {
+object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfig, StubHttp) { //TODO fix unimplemented
   private var stubbedId: Option[String] = None
 
   override def get(prefix: String)(implicit hc: HeaderCarrier): Future[String] = Future {

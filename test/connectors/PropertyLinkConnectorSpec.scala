@@ -16,14 +16,12 @@
 
 package connectors
 
-import binders.propertylinks.GetPropertyLinksParameters
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{PaginationParams, PaginationSearchSort, VoaPropertyLinkingSpec}
+import controllers.VoaPropertyLinkingSpec
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
 import org.scalacheck.Arbitrary._
 import play.api.http.Status.OK
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.test.FakeRequest
 import resources._
 import session.LinkingSessionRequest

@@ -307,7 +307,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
 
   private object TestUpdatePersonalDetails extends UpdatePersonalDetails(
-
+    mockCustomErrorHandler,
     StubAuthentication,
     mockAddressConnector,
     mockIndividualAccounts,

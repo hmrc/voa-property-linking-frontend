@@ -16,7 +16,6 @@
 
 package connectors
 
-import config.WSHttp
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models.IVDetails
 import models.identityVerificationProxy.{Journey, Link}
@@ -27,11 +26,12 @@ import org.scalatest.mockito.MockitoSugar
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.scalatest.{FlatSpec, MustMatchers}
 import resources._
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 import utils.{NoMetricsOneAppPerSuite, StubServicesConfig}
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 
 class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers with MockitoSugar
   with GeneratorDrivenPropertyChecks with NoMetricsOneAppPerSuite {
@@ -43,7 +43,7 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
   "IdentityVerificationProxy" must "make a successful POST to Identity Verification Proxy Service" in {
 
     val mockLink = mock[Link]
-    val mockHttp = mock[WSHttp]
+    val mockHttp = mock[HttpClient]
 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any(), any())) thenReturn Future.successful(mockLink)
 
@@ -57,7 +57,7 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
 
   it must "handle an unsuccessful POST to Identity Verification Proxy Service" in {
     val mockEx = new RuntimeException("something went wrong")
-    val mockHttp = mock[WSHttp]
+    val mockHttp = mock[HttpClient]
 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any(), any())).thenReturn(Future.failed(mockEx))
 

@@ -20,9 +20,12 @@ import com.google.inject.Inject
 import config.ApplicationConfig
 import play.api.i18n.MessagesApi
 import play.api.mvc.Action
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 
-class DowntimePage @Inject()()(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+class DowntimePage @Inject()(
+                              val errorHandler: CustomErrorHandler
+                            )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def plannedImprovements() = Action { implicit request =>
     Ok(views.html.downtimePage())

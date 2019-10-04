@@ -19,40 +19,40 @@ package controllers.propertyLinking
 import java.time.LocalDate
 
 import com.google.inject.Inject
+import connectors.Authenticated
 import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{Authenticated, EnvelopeConnector, EnvelopeMetadata}
-import controllers.{PaginationSearchSort, VoaPropertyLinkingSpec}
+import controllers.VoaPropertyLinkingSpec
 import models._
-import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
-import play.api.{Configuration, Environment}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.api.{Configuration, Environment}
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector, StubWithLinkingSession}
-import play.api.Mode.Test
 
 import scala.concurrent.Future
 
 class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Environment) extends VoaPropertyLinkingSpec with MockitoSugar {
 
-  private lazy val testClaimProperty = new ClaimProperty(StubAuthentication, StubSubmissionIdConnector,
-    mockSessionRepo, new StubWithLinkingSession(mock[SessionRepo]), propertyLinkingConnector, configuration, evironment)
+  private lazy val testClaimProperty = new ClaimProperty(
+    mockCustomErrorHandler,
+    StubSubmissionIdConnector,
+    mockSessionRepo,
+    StubAuthentication,
+    new StubWithLinkingSession(mock[SessionRepo]),
+    propertyLinkingConnector,
+    configuration,
+    evironment
+  )
 
   lazy val submissionId: String = shortString
   override val testAccounts: Accounts = arbitrary[Accounts]
   lazy val anEnvelopeId = java.util.UUID.randomUUID().toString
-
-  lazy val mockEnvelopes = {
-    val f = mock[EnvelopeConnector]
-    when(f.createEnvelope(any[EnvelopeMetadata])(any[HeaderCarrier]())).thenReturn(Future.successful(anEnvelopeId))
-    f
-  }
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
@@ -125,7 +125,6 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
     ))
 
     status(res) mustBe SEE_OTHER
-    verify(mockEnvelopes, atLeastOnce()).createEnvelope(any[EnvelopeMetadata])(any[HeaderCarrier])
 
     verify(mockSessionRepo, times(2)).start(any())(any(), any())
   }

@@ -27,10 +27,12 @@ import play.api.test.FakeRequest
 import utils._
 import resources._
 import play.api.test.Helpers._
+import tests.AllMocks
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.collection.JavaConverters._
 
-class PendingRequestsSpec extends VoaPropertyLinkingSpec {
+class PendingRequestsSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   "The pending requests page" must "contain the organisation name for each of the agent's pending requests" in {
     val html = defaultHtml
@@ -170,6 +172,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
   }
 
   private object TestRepresentationController extends RepresentationController(
+    mockCustomErrorHandler,
     StubPropertyRepresentationConnector,
     StubAuthentication,
     StubPropertyLinkConnector

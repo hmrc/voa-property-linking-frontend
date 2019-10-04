@@ -16,9 +16,11 @@
 
 package controllers.propertyLinking
 
+import _root_.session.WithLinkingSession
+import binders.propertylinks.{EvidenceChoices, UploadEvidenceChoiceParameters}
 import controllers.VoaPropertyLinkingSpec
 import models._
-import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.mockito.MockitoSugar
@@ -28,10 +30,10 @@ import repositories.SessionRepo
 import resources._
 import services.BusinessRatesAttachmentService
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HtmlPage, StubWithLinkingSession}
+import utils.HtmlPage
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
 
@@ -43,18 +45,17 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
   }
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
 
-  lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
-  private class TestChooseEvidence (withLinkingSession: StubWithLinkingSession) extends ChooseEvidence(withLinkingSession, mockBusinessRatesAttachmentService) {
+  private class TestChooseEvidence (withLinkingSession: WithLinkingSession) extends ChooseEvidence(mockCustomErrorHandler, preAuthenticatedActionBuilders(), preEnrichedActionRefiner(), mockBusinessRatesAttachmentService) {
     val property = testProperty
   }
-  private lazy val testChooseEvidence = new TestChooseEvidence(withLinkingSession)
+
+  private lazy val testChooseEvidence = new TestChooseEvidence(mockWithLinkingSession)
 
   lazy val testProperty: Property = arbitrary[Property]
 
   lazy val request = FakeRequest().withSession(token)
 
   "The choose evidence page" must "ask the user whether they have a rates bill" in {
-    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
 
     val res = testChooseEvidence.show()(request)
@@ -65,7 +66,6 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
   }
 
   it must "require the user to select whether they have a rates bill" in {
-    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = testChooseEvidence.submit()(request)
     status(res) mustBe BAD_REQUEST
@@ -75,19 +75,17 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
   }
 
   it must "redirect to the rates bill upload page if the user has a rates bill" in {
-    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
     status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.UploadRatesBill.show().url)
+    header("location", res) mustBe Some(routes.UploadController.show(UploadEvidenceChoiceParameters(EvidenceChoices.RATES_BILL)).url)
   }
 
   it must "redirect to the other evidence page if the user does not have a rates bill" in {
-    withLinkingSession.stubSession(arbitrary[LinkingSession], arbitrary[DetailedIndividualAccount], arbitrary[GroupAccount])
 
     val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
     status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.UploadPropertyEvidence.show().url)
+    header("location", res) mustBe Some(routes.UploadController.show(UploadEvidenceChoiceParameters(EvidenceChoices.OTHER)).url)
   }
 
 }

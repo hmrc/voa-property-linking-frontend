@@ -16,17 +16,17 @@
 
 package connectors
 
-import config.WSHttp
 import javax.inject.Inject
 import models._
 import models.registration.GroupAccountDetails
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class GroupAccounts @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+class GroupAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
 
   lazy val url = config.baseUrl("property-linking") + "/property-linking/groups"
 

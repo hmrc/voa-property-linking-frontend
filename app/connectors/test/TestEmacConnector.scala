@@ -17,15 +17,14 @@
 package connectors.test
 
 import javax.inject.Inject
-import config.WSHttp
 import play.api.Configuration
-import play.api.Mode.Mode
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.ExecutionContext
 
-class TestEmacConnector @Inject()(wSHttp: WSHttp, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
+class TestEmacConnector @Inject()(wSHttp: HttpClient, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
 
   private val serviceUrl = servicesConfig.baseUrl("emac")
 

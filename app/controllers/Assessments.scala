@@ -28,15 +28,20 @@ import play.api.Logger
 import play.api.data.Forms.text
 import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, Request}
+import play.api.mvc.{Action, AnyContent, Request}
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated: AuthenticatedAction,
-                            submissionIds: SubmissionIdConnector, dvrCaseManagement: DVRCaseManagementConnector,
-                            businessRatesValuations: BusinessRatesValuationConnector,
-                            businessRatesAuthorisation: BusinessRatesAuthorisation)
-                           (implicit val messagesApi: MessagesApi, val config: ApplicationConfig, executionContext: ExecutionContext) extends PropertyLinkingController {
+class Assessments @Inject()(
+                             val errorHandler: CustomErrorHandler,
+                             propertyLinks: PropertyLinkConnector,
+                             authenticated: AuthenticatedAction,
+                             submissionIds: SubmissionIdConnector,
+                             dvrCaseManagement: DVRCaseManagementConnector,
+                             businessRatesValuations: BusinessRatesValuationConnector,
+                             businessRatesAuthorisation: BusinessRatesAuthorisation
+                           )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig, executionContext: ExecutionContext) extends PropertyLinkingController {
 
   private val logger = Logger(this.getClass.getName)
 
@@ -50,7 +55,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
         propertyLinks.getClientAssessmentsWithCapacity(submissionId)
     }
 
-    (pLink flatMap {
+    (pLink map {
       case Some(ApiAssessments(authorisationId, _, _, _, _, _, Seq(), _)) => notFound
       case Some(link) =>
         if (!link.pending && link.assessments.size == 1) {
@@ -145,7 +150,7 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
         val pLink = if(request.organisationAccount.isAgent) propertyLinks.getClientAssessmentsWithCapacity(submissionId) else propertyLinks.getOwnerAssessmentsWithCapacity(submissionId)
 
         pLink flatMap {
-            case Some(ApiAssessments(_, _, _, _, _,_,Seq(), _)) => notFound
+            case Some(ApiAssessments(_, _, _, _, _,_,Seq(), _)) | None => Future.successful(notFound)
             case Some(link) => {
               for {
                 isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
@@ -163,14 +168,17 @@ class Assessments @Inject()(propertyLinks: PropertyLinkConnector, authenticated:
                     capacity = link.capacity), owner))
               }
             }
-            case None => notFound
           }
       },
       redirectUrl => Future.successful(Redirect(redirectUrl))
     )
   }
 
-  def startChallengeFromDVR(submissionId: String, valuationId: Long, owner: Boolean) = authenticated.async { implicit request =>
+  def startChallengeFromDVR(
+                             submissionId: String,
+                             valuationId: Long,
+                             owner: Boolean
+                           ): Action[AnyContent] = authenticated { implicit request =>
     Ok(views.html.dvr.challenge_valuation(submissionId, valuationId, owner))
   }
 }

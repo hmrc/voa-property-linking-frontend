@@ -20,11 +20,8 @@ import java.time.Instant
 
 import actions.BasicAuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
-import com.google.inject.ImplementedBy
-import config.WSHttp
 import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
-import models.OwnerOrAgent.OwnerOrAgent
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult}
 import play.api.Logger
@@ -32,12 +29,13 @@ import play.api.libs.json.Json
 import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class PropertyLinkConnector @Inject()(config: ServicesConfig, http: WSHttp)(implicit ec: ExecutionContext) {
+class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
 
 

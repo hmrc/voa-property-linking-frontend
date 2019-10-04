@@ -36,7 +36,9 @@ import scala.concurrent.{ExecutionContext, Future}
 
 case class AppointRevokeException(message: String) extends Exception(s"Failed to appoint agent to multiple properties: $message")
 
-class AgentRelationshipService @Inject()(representations: PropertyRepresentationConnector,
+class AgentRelationshipService @Inject()(
+                                          auditingService: AuditingService,
+                                          representations: PropertyRepresentationConnector,
                                           propertyLinks: PropertyLinkConnector,
                                           @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
                                           config: ApplicationConfig)
@@ -211,7 +213,7 @@ class AgentRelationshipService @Inject()(representations: PropertyRepresentation
       submissionId, checkPermission.name, challengePermission.name, createDatetime)
 
     representations.create(req).map(x => {
-      AuditingService.sendEvent("agent representation request approve", Json.obj(
+      auditingService.sendEvent("agent representation request approve", Json.obj(
         "organisationId" -> organisationId,
         "individualId" -> userIndividualId,
         "propertyLinkId" -> authorisationId,

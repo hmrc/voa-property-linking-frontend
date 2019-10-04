@@ -16,20 +16,16 @@
 
 package auth
 
-import javax.inject.Inject
-
-import config.Global
 import connectors.VPLAuthConnector
+import javax.inject.Inject
 import models.registration.UserDetails
 import play.api.Logger
 import play.api.mvc.{Action, AnyContent, Request, Result}
-import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
-import uk.gov.hmrc.play.frontend.auth.{Actions, AuthContext}
-import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 
-import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
 
 sealed trait VoaAction {
   type x

@@ -30,17 +30,18 @@ import play.api.http.HttpEntity.Streamed
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class DvrController @Inject()(
-    propertyLinks: PropertyLinkConnector,
+                               val errorHandler: CustomErrorHandler,
+                               propertyLinks: PropertyLinkConnector,
     authenticated: AuthenticatedAction,
     submissionIds: SubmissionIdConnector,
     dvrCaseManagement: DVRCaseManagementConnector,
     businessRatesAuthorisation: BusinessRatesAuthorisation)(
-    implicit val messagesApi: MessagesApi,
-    val config: ApplicationConfig)
+    implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
     extends PropertyLinkingController {
 
   private val logger = Logger(this.getClass.getName)
