@@ -24,10 +24,10 @@ import play.api.mvc.{Action, AnyContent, Request, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 sealed trait VoaAction {
+
   type x
 
   implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
@@ -35,7 +35,7 @@ sealed trait VoaAction {
   def async(isSession: Boolean)(body: x => Request[AnyContent] => Future[Result]): Action[AnyContent]
 }
 
-class GgAction @Inject()(val provider: GovernmentGatewayProvider, vPLAuthConnector: VPLAuthConnector) extends VoaAction {
+class GgAction @Inject()(val provider: GovernmentGatewayProvider, vPLAuthConnector: VPLAuthConnector)(implicit executionContext: ExecutionContext) extends VoaAction {
 
   import utils.SessionHelpers._
 
@@ -48,7 +48,7 @@ class GgAction @Inject()(val provider: GovernmentGatewayProvider, vPLAuthConnect
   }
 
   private def userDetailsWithoutSession(body: UserDetails => Request[AnyContent] => Future[Result])
-                                       (implicit request: Request[AnyContent], ec: ExecutionContext) =
+                                       (implicit request: Request[AnyContent]) =
     vPLAuthConnector
       .getUserDetails
       .flatMap(userDetails => body(userDetails)(request).map(_.withSession(request.session.putUserDetails(userDetails))))
@@ -59,7 +59,7 @@ class GgAction @Inject()(val provider: GovernmentGatewayProvider, vPLAuthConnect
       }
 
   private def userDetailsFromSession(body: UserDetails => Request[AnyContent] => Future[Result])
-                                    (implicit request: Request[AnyContent], ec: ExecutionContext) = request.session.getUserDetails match {
+                                    (implicit request: Request[AnyContent]) = request.session.getUserDetails match {
     case Some(userDetails) =>
       body(userDetails)(request)
     case None =>
