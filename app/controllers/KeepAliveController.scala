@@ -16,16 +16,15 @@
 
 package controllers
 
+import actions.AuthenticatedAction
 import javax.inject.Inject
-
-import auth.VoaAction
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.{Action, AnyContent}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
 
-class KeepAliveController @Inject()(ggAction: VoaAction) extends FrontendController {
+class KeepAliveController @Inject()(authenticatedAction: AuthenticatedAction) extends FrontendController {
 
+  def keepAlive(): Action[AnyContent] = authenticatedAction.async { implicit request => Future.successful(Ok("")) }
 
-  def keepAlive() = ggAction.async(false) { ctx => implicit request => Future.successful(Ok(""))  }
 }

@@ -19,7 +19,6 @@ package models
 import java.time.LocalDate
 
 import play.api.libs.json.Json
-import uk.gov.hmrc.domain.Nino
 
 case class IVDetails(firstName: String, lastName: String, dateOfBirth: Option[LocalDate], nino: Option[Nino])
 

@@ -16,12 +16,11 @@
 
 package controllers.registration
 
-import actions.AuthenticatedAction
-import auth.VoaAction
+import actions.GgAuthenticatedAction
 import cats.data.OptionT
 import cats.implicits._
 import config.ApplicationConfig
-import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
+import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.PropertyLinkingController
 import javax.inject.{Inject, Named}
 import models.registration._
@@ -29,145 +28,132 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, Request}
 import repositories.SessionRepo
 import services._
-import services.email.EmailService
-import services.iv.IdentityVerificationService
-import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
+import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
+import scala.concurrent.Future
+import javax.inject.{Inject, Named}
+import models.registration.UserDetails._
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController @Inject()(
                                         val errorHandler: CustomErrorHandler,
-                                        ggAction: VoaAction,
+                                        ggAuthenticated: GgAuthenticatedAction,
                                         groupAccounts: GroupAccounts,
                                         individualAccounts: IndividualAccounts,
-                                        enrolmentService: EnrolmentService,
-                                        auth: VPLAuthConnector,
                                         addresses: Addresses,
                                         registrationService: RegistrationService,
-                                        emailService: EmailService,
-                                        authenticatedAction: AuthenticatedAction,
-                                        identityVerificationService: IdentityVerificationService,
                                         @Named("personSession") val personalDetailsSessionRepo: SessionRepo
                                       )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
-  import utils.SessionHelpers._
-
-  def show() = ggAction.async(isSession = true) { ctx =>
-    implicit request =>
-      auth.userDetails(ctx).flatMap(authUser => individualAccounts.withExternalId(authUser.externalId).flatMap {
-        case Some(voaUser) =>
-          Future.successful(Redirect(controllers.routes.Dashboard.home()))
-        case None => authUser match {
-          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Individual, _))   => Future.successful(Ok(views.html.createAccount.register_individual(AdminUser.individual, FieldData(userInfo = user.userInfo))))
-          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Organisation, _)) => orgShow(ctx, user)
-          case user@UserDetails(_, UserInfo(_, _, _, _, _, _, Agent, _))        => Future.successful(Ok(views.html.errors.invalidAccountType()))
+  def show(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    individualAccounts.withExternalId(request.externalId).flatMap {
+      case Some(voaUser) =>
+        Future.successful(Redirect(controllers.routes.Dashboard.home()))
+      case None =>
+        request.userDetails match {
+          case user@IndividualUserDetails() =>
+            Future.successful(Ok(views.html.createAccount.register_individual(AdminUser.individual, FieldData(user))))
+          case user@OrganisationUserDetails() =>
+            orgShow(user)
+          case user@AgentUserDetails() =>
+            Future.successful(Ok(views.html.errors.invalidAccountType()))
         }
-      })
+    }
   }
 
-  def submitIndividual() = ggAction.async(isSession = false) { ctx =>
-    implicit request =>
-      AdminUser.individual.bindFromRequest().fold(
-        errors =>
-          Future.successful(BadRequest(views.html.createAccount.register_individual(errors, FieldData()))),
-        success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
-          Redirect(controllers.routes.IdentityVerification.startIv)
-        }
-      )
+  def submitIndividual(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    AdminUser.individual.bindFromRequest().fold(
+      errors =>
+        Future.successful(BadRequest(views.html.createAccount.register_individual(errors, FieldData()))),
+      success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
+        Redirect(controllers.routes.IdentityVerification.startIv())
+      }
+    )
   }
 
-  def submitOrganisation() = ggAction.async(isSession = false) { ctx =>
-    implicit request =>
-      AdminUser.organisation.bindFromRequest().fold(
-        errors =>
-          Future.successful(BadRequest(views.html.createAccount.register_organisation(errors, FieldData()))),
-        success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
-          Redirect(controllers.routes.IdentityVerification.startIv)
-        }
-      )
+  def submitOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    AdminUser.organisation.bindFromRequest().fold(
+      errors =>
+        Future.successful(BadRequest(views.html.createAccount.register_organisation(errors, FieldData()))),
+      success => personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
+        Redirect(controllers.routes.IdentityVerification.startIv())
+      }
+    )
   }
 
-  def submitAdminToExistingOrganisation() = ggAction.async(isSession = false) { ctx =>
-    implicit request =>
-      AdminInExistingOrganisationUser.organisation.bindFromRequest().fold(
-        errors => {
-          getCompanyDetails(ctx).map {
-            case Some(fieldData) => {
-              BadRequest(
-                views.html.createAccount.register_assistant_admin(
-                  errors,
-                  fieldData
-                ))
+  def submitAdminToExistingOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    AdminInExistingOrganisationUser.organisation.bindFromRequest().fold(
+      errors => {
+        getCompanyDetails(request.groupIdentifier).map {
+          case Some(fieldData) =>
+            BadRequest(
+              views.html.createAccount.register_assistant_admin(
+                errors,
+                fieldData
+              ))
+          case _ =>
+            unableToRetrieveCompanyDetails
+        }
+      },
+      success => {
+        getCompanyDetails(request.groupIdentifier).flatMap {
+          case Some(fieldData) =>
+            personalDetailsSessionRepo.saveOrUpdate(success.toAdminOrganisationAccountDetails(fieldData)) map { _ =>
+              Redirect(controllers.routes.IdentityVerification.startIv())
             }
-            case _ => {
-              unableToRetrieveCompanyDetails
-            }
-          }
-        },
-        success => {
-          getCompanyDetails(ctx).flatMap {
-            case Some(fieldData) => {
-              personalDetailsSessionRepo.saveOrUpdate(success.toAdminOrganisationAccountDetails(fieldData)) map { _ =>
-                Redirect(controllers.routes.IdentityVerification.startIv)
+          case _ =>
+            unableToRetrieveCompanyDetails
+        }
+      }
+    )
+  }
+
+  def submitAssistant(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    AssistantUser.assistant.bindFromRequest().fold(
+      errors => {
+        getCompanyDetails(request.groupIdentifier).map {
+          case Some(fieldData) =>
+            BadRequest(
+              views.html.createAccount.register_assistant(
+                errors,
+                fieldData
+              ))
+          case _ =>
+            unableToRetrieveCompanyDetails
+
+        }
+      },
+      success => {
+        getCompanyDetails(request.groupIdentifier).flatMap {
+          case Some(fieldData) =>
+            registrationService
+              .create(success.toGroupDetails(fieldData), request.userDetails, Some(Organisation))(success.toIndividualAccountSubmission(fieldData))
+              .map {
+                case RegistrationSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
+                case EnrolmentFailure => InternalServerError(errorHandler.internalServerErrorTemplate)
+                case DetailsMissing => InternalServerError(errorHandler.internalServerErrorTemplate)
               }
-            }
-            case _ => {
-              unableToRetrieveCompanyDetails
-            }
-          }
+          case _ => unableToRetrieveCompanyDetails
         }
-      )
-  }
-
-  def submitAssistant(): Action[AnyContent] = ggAction.async(isSession = false) { ctx =>
-    implicit request =>
-      AssistantUser.assistant.bindFromRequest().fold(
-        errors => {
-          getCompanyDetails(ctx).map {
-            case Some(fieldData) => {
-              BadRequest(
-                views.html.createAccount.register_assistant(
-                  errors,
-                  fieldData
-                ))
-            }
-            case _ => {
-              unableToRetrieveCompanyDetails
-            }
-          }
-        },
-        success => {
-          getCompanyDetails(ctx).flatMap {
-            case Some(fieldData)  =>
-              registrationService
-                .create(success.toGroupDetails(fieldData), ctx, Some(Organisation))(success.toIndividualAccountSubmission(fieldData))
-                .map {
-                  case RegistrationSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
-                  case EnrolmentFailure => InternalServerError(errorHandler.internalServerErrorTemplate)
-                  case DetailsMissing => InternalServerError(errorHandler.internalServerErrorTemplate)
-                }
-            case _                => unableToRetrieveCompanyDetails
-          }
-        }
-      )
+      }
+    )
   }
 
   private def unableToRetrieveCompanyDetails = throw new IllegalStateException("Unable to retrieve company details")
 
-  def success(personId: Long) = ggAction.async(isSession = false) { ctx =>
-    implicit request =>
-      auth.userDetails(ctx).map(user =>
-        Ok(views.html.createAccount.registration_confirmation(personId.toString, user.userInfo.affinityGroup, user.userInfo.credentialRole))
-          .withSession(request.session.removeUserDetails))
+  def success(personId: Long): Action[AnyContent] = ggAuthenticated { implicit request =>
+    val user = request.userDetails
+    Ok(views.html.createAccount.registration_confirmation(personId.toString, user.affinityGroup, user.credentialRole))
   }
 
-  private def orgShow[A](ctx: A, userDetails: UserDetails)(implicit request: Request[AnyContent]) = {
-    getCompanyDetails(ctx).map {
+  private def orgShow(userDetails: UserDetails)(implicit request: Request[AnyContent]) = {
+    getCompanyDetails(userDetails.groupIdentifier).map {
       case Some(fieldData) =>
-        userDetails.userInfo.credentialRole match {
+        userDetails.credentialRole match {
           case Admin | User =>
             Ok(views.html.createAccount.register_assistant_admin(
               AdminInExistingOrganisationUser.organisation,
@@ -178,21 +164,20 @@ class RegistrationController @Inject()(
               fieldData))
         }
       case None =>
-        userDetails.userInfo.credentialRole match {
-          case Admin | User =>
-            Ok(views.html.createAccount.register_organisation(
-              AdminUser.organisation,
-              FieldData(userDetails.userInfo)))
+        userDetails.credentialRole match {
           case Assistant =>
             Ok(views.html.errors.invalidAccountCreation())
+          case _ =>
+            Ok(views.html.createAccount.register_organisation(
+              AdminUser.organisation,
+              FieldData(userDetails)))
         }
     }
   }
 
-  private def getCompanyDetails[A](ctx: A)(implicit hc: HeaderCarrier): Future[Option[FieldData]] = {
+  private def getCompanyDetails[A](groupIdentifier: String)(implicit hc: HeaderCarrier): Future[Option[FieldData]] = {
     (for {
-      groupId <- OptionT.liftF(auth.getGroupId(ctx))
-      acc <- OptionT(groupAccounts.withGroupId(groupId))
+      acc <- OptionT(groupAccounts.withGroupId(groupIdentifier))
       address <- OptionT(addresses.findById(acc.addressId))
     } yield {
       new FieldData(

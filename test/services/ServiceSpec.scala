@@ -16,12 +16,12 @@
 
 package services
 
-import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.concurrent.{PatienceConfiguration, ScalaFutures}
 import org.scalatest.mockito.MockitoSugar
+import org.scalatest.time.{Millis, Seconds, Span}
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
 import play.api.i18n.MessagesApi
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
-import play.api.{Configuration, Mode}
 import tests.AllMocks
 import utils._
 
@@ -35,7 +35,14 @@ trait ServiceSpec
     with MockitoSugar
     with NoMetricsOneAppPerSuite
     with ScalaFutures
+    with FakeObjects
+    with GlobalExecutionContext
+    with PatienceConfiguration
     with AllMocks {
+
+
+  override implicit def patienceConfig: PatienceConfig =
+    PatienceConfig(timeout = Span(1, Seconds), interval = Span(15, Millis))
 
   val token = "Csrf-Token" -> "nocheck"
 
@@ -44,10 +51,8 @@ trait ServiceSpec
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()
-    StubVplAuthConnector.reset()
     StubIdentityVerification.reset()
     StubPropertyLinkConnector.reset()
-    StubAuthentication.reset()
     StubBusinessRatesValuation.reset()
     StubSubmissionIdConnector.reset()
     StubPropertyRepresentationConnector.reset()

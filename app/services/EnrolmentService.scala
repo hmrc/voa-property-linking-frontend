@@ -19,13 +19,11 @@ package services
 import javax.inject.Inject
 
 import auditing.AuditingService
-import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
+import connectors.{Addresses, TaxEnrolmentConnector}
 import models.Address
 import play.api.libs.json.Json
-import play.api.mvc.Request
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, addresses: Addresses, auditingService: AuditingService) {

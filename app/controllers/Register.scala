@@ -16,43 +16,30 @@
 
 package controllers
 
-import auth.VoaAction
 import config.ApplicationConfig
 import javax.inject.Inject
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, Result}
-import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-class Register @Inject()(
-                          val errorHandler: CustomErrorHandler,
-                          ggAction: VoaAction
-                        )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig, servicesConfig: ServicesConfig) extends PropertyLinkingController {
+class Register @Inject()(override val errorHandler: CustomErrorHandler)(implicit override val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
-  def continue(accountType: String): Map[String, Seq[String]] = {
+  def continue(accountType: String): Map[String, Seq[String]] =
     Map("accountType" -> Seq(accountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
-  }
 
-  def show(): Action[AnyContent] = Action { implicit request =>
-    redirect("organisation")
-  }
+  def show(): Action[AnyContent] = Action(redirect("organisation"))
 
   def choice: Action[AnyContent] = Action { implicit request =>
     RegisterHelper.choiceForm.bindFromRequest().fold(
       errors => BadRequest(views.html.start(errors)),
-      success =>
-        redirect(success)
+      success => redirect(success)
     )
   }
 
-  def redirect(account: String): Result = {
-    Redirect(
-      config.ggRegistrationUrl,
-      continue(account)
-    )
-  }
+  private def redirect(account: String): Result =
+    Redirect(config.ggRegistrationUrl, continue(account))
 }
 
 object RegisterHelper {

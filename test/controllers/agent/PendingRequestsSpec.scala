@@ -16,7 +16,6 @@
 
 package controllers.agent
 
-import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
@@ -25,18 +24,20 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import tests.AllMocks
+import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.AffinityGroup._
 import utils._
 
 import scala.collection.JavaConverters._
-import scala.concurrent.ExecutionContext.Implicits.global
 
-class PendingRequestsSpec extends VoaPropertyLinkingSpec with AllMocks {
+class PendingRequestsSpec extends VoaPropertyLinkingSpec {
 
   "The pending requests page" must "contain the organisation name for each of the agent's pending requests" in {
     val html = defaultHtml
 
-    val organisationNames = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _.organisationName }
+    val organisationNames = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map {
+      _.organisationName
+    }
     checkTableColumn(html, 1, "Organisation name", organisationNames)
   }
 
@@ -50,7 +51,9 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec with AllMocks {
   it must "contain the address for each pending request" in {
     val html = defaultHtml
 
-    val addresses = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _.address }
+    val addresses = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map {
+      _.address
+    }
     checkTableColumn(html, 2, "Property address", addresses)
   }
 
@@ -64,12 +67,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec with AllMocks {
   }
 
   it must "not display the page if the user is not an agent" in {
-    val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = false)
-    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
-
-    val res = TestRepresentationController.getMyClientsPropertyLinkRequests(1, 15)(FakeRequest())
+    val res = testRepresentationController(Individual, userIsAgent = false).getMyClientsPropertyLinkRequests(1, 15)(FakeRequest())
     status(res) mustBe UNAUTHORIZED
   }
 
@@ -82,7 +80,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec with AllMocks {
   it must "include a 'next' link if there are more results" in {
     setup(pendingRequests = 16)
 
-    val res = TestRepresentationController.getMyClientsPropertyLinkRequests(1, 15)(FakeRequest())
+    val res = testRepresentationController(userIsAgent = true).getMyClientsPropertyLinkRequests(1, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -112,7 +110,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec with AllMocks {
   it must "include a 'previous' link when not on page 1" in {
     setup(pendingRequests = 16)
 
-    val res = TestRepresentationController.getMyClientsPropertyLinkRequests(2, 15)(FakeRequest())
+    val res = testRepresentationController(userIsAgent = true).getMyClientsPropertyLinkRequests(2, 15)(FakeRequest())
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
@@ -124,7 +122,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec with AllMocks {
   }
 
   it must "include pagination controls" in {
-
+    //TODO UN-IGNORE THIS TEST OR DELETE IT
     pending
     val html = defaultHtml
 
@@ -146,18 +144,13 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec with AllMocks {
   lazy val defaultHtml = {
     setup()
 
-    val res = TestRepresentationController.getMyClientsPropertyLinkRequests(1, 15)(FakeRequest())
+    val res = testRepresentationController(userIsAgent = true).getMyClientsPropertyLinkRequests(1, 15)(FakeRequest())
     status(res) mustBe OK
 
     Jsoup.parse(contentAsString(res))
   }
 
   private def setup(pendingRequests: Int = 15) = {
-    val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = true)
-    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
-
     val pending = (1 to pendingRequests) map { _ => arbitrary[PropertyRepresentation].copy(status = RepresentationPending) }
     StubPropertyRepresentationConnector.stubRepresentations(pending)
   }
@@ -167,13 +160,13 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec with AllMocks {
 
     val data = html.select("table#nojsPendingRequests").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
 
-    values foreach { v => data must contain (v.toUpperCase) }
+    values foreach { v => data must contain(v.toUpperCase) }
   }
 
-  private object TestRepresentationController extends RepresentationController(
+  def testRepresentationController(loggedInAs: AffinityGroup = Individual, userIsAgent: Boolean) = new RepresentationController(
     mockCustomErrorHandler,
     StubPropertyRepresentationConnector,
-    StubAuthentication,
+    preAuthenticatedActionBuilders(userDetails(affinityGroup = loggedInAs), userIsAgent = userIsAgent),
     StubPropertyLinkConnector
   )
 }

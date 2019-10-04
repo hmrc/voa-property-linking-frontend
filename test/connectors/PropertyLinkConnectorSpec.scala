@@ -26,9 +26,9 @@ import play.api.test.FakeRequest
 import resources._
 import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
-import utils.{FakeObjects, StubServicesConfig}
+import utils.StubServicesConfig
 
-class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec with FakeObjects {
+class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 

@@ -56,7 +56,7 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
   lazy val request = FakeRequest().withSession(token)
 
   "The choose evidence page" must "ask the user whether they have a rates bill" in {
-    when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful())
+    when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val res = testChooseEvidence.show()(request)
     status(res) mustBe OK

@@ -16,18 +16,14 @@
 
 package controllers
 
-import auth.VoaAction
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.api.i18n.Messages
-import tests.AllMocks
 
 
-class ApplicationSpec extends VoaPropertyLinkingSpec with AllMocks {
+class ApplicationSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
-  val mockVoaAction = mock[VoaAction]
-  val applicationTestController = new Application(mockCustomErrorHandler, mockVoaAction)
+  val applicationTestController = new Application(mockCustomErrorHandler)
 
   "addUserToGG" should "display the add users to GG page" in {
 
@@ -49,17 +45,17 @@ class ApplicationSpec extends VoaPropertyLinkingSpec with AllMocks {
     redirectLocation(result) mustBe Some("http://localhost:9020/business-account/manage-account")
   }
 
-    "start" should "display the start page" in {
+  "start" should "display the start page" in {
 
-      val result = applicationTestController.start()(FakeRequest().withFormUrlEncodedBody(
-        "choice" -> "test"))
+    val result = applicationTestController.start()(FakeRequest().withFormUrlEncodedBody(
+      "choice" -> "test"))
 
-      status(result) mustBe OK
+    status(result) mustBe OK
 
-      val html = contentAsString(result)
-      html must include ("If you don’t have the details that you need to register")
+    val html = contentAsString(result)
+    html must include("If you don’t have the details that you need to register")
 
-    }
+  }
 
   "logout" should "redirect the user to the start page" in {
 

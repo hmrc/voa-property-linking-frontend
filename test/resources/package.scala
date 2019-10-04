@@ -22,8 +22,6 @@ import models.messages.{Message, MessageSearchResults}
 import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
-import uk.gov.hmrc.domain.Nino
-import models._
 
 package object resources {
 

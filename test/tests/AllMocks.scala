@@ -18,32 +18,58 @@ package tests
 
 import actions.AuthenticatedAction
 import auditing.AuditingService
+import auth.GovernmentGatewayProvider
+import connectors.authorisation.BusinessRatesAuthorisation
+import connectors.{Addresses, DVRCaseManagementConnector}
+import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.mockito.Mockito
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.mockito.MockitoSugar
+import play.api.mvc.Request
 import repositories.SessionRepository
+import services.EnrolmentService
 import session.WithLinkingSession
+import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
+trait AllMocks {
+  self: MockitoSugar with BeforeAndAfterEach =>
 
-  val mockAuditingService = mock[AuditingService]
+  val accounts = Accounts(mock[GroupAccount], mock[DetailedIndividualAccount])
+  val mockAddresses: Addresses = mock[Addresses]
+  val mockAuditingService: AuditingService = mock[AuditingService]
+  val mockAuthConnector: AuthConnector = mock[AuthConnector]
+  val mockAuthenticatedAction: AuthenticatedAction = mock[AuthenticatedAction]
+  val mockBusinessRatesAuthorisation: BusinessRatesAuthorisation = mock[BusinessRatesAuthorisation]
+  val mockCustomErrorHandler: CustomErrorHandler = mock[CustomErrorHandler]
+  val mockDetailedIndividualAccount: DetailedIndividualAccount = mock[DetailedIndividualAccount]
+  val mockDvrCaseManagement: DVRCaseManagementConnector = mock[DVRCaseManagementConnector]
+  val mockEnrolmentService: EnrolmentService = mock[EnrolmentService]
+  val mockRequest: Request[_] = mock[Request[_]]
+  val mockGovernmentGatewayProvider: GovernmentGatewayProvider = mock[GovernmentGatewayProvider]
+  val mockGroupAccount: GroupAccount = mock[GroupAccount]
+  val mockSessionRepository: SessionRepository = mock[SessionRepository]
+  val mockWithLinkingSession: WithLinkingSession = mock[WithLinkingSession]
 
-  val mockCustomErrorHandler = mock[CustomErrorHandler]
-
-  val mockAuthenticationAction = mock[AuthenticatedAction]
-
-  val mockWithLinkingSession = mock[WithLinkingSession]
-
-  val mockSessionRepository = mock[SessionRepository]
 
   override protected def beforeEach(): Unit =
     Seq(
+      accounts,
+      mockAddresses,
       mockAuditingService,
-      mockAuthenticationAction,
+      mockBusinessRatesAuthorisation,
+      mockAuthConnector,
+      mockAuthenticatedAction,
+      mockBusinessRatesAuthorisation,
       mockCustomErrorHandler,
-      mockWithLinkingSession,
-      mockSessionRepository
+      mockDetailedIndividualAccount,
+      mockDvrCaseManagement,
+      mockEnrolmentService,
+      mockRequest,
+      mockGovernmentGatewayProvider,
+      mockGroupAccount,
+      mockSessionRepository,
+      mockWithLinkingSession
     ).foreach(Mockito.reset(_))
 
 }

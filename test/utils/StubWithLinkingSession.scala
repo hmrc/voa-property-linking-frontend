@@ -18,13 +18,16 @@ package utils
 
 import actions.BasicAuthenticatedRequest
 import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
+import org.mockito.Mockito.mock
 import play.api.mvc.Result
 import repositories.SessionRepo
 import session.{LinkingSessionRequest, WithLinkingSession}
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class StubWithLinkingSession(sessionRepository: SessionRepo) extends WithLinkingSession(???, sessionRepository) { //TODO fix unimplemented
+class StubWithLinkingSession(sessionRepository: SessionRepo) extends WithLinkingSession(mock(classOf[CustomErrorHandler]), sessionRepository) {
 
   private var stubbedSession: Option[(LinkingSession, DetailedIndividualAccount, GroupAccount)] = None
 

@@ -16,7 +16,7 @@
 
 package controllers
 
-import auth.VoaAction
+import actions.GgAuthenticatedAction
 import config.ApplicationConfig
 import connectors._
 import javax.inject.{Inject, Named}
@@ -32,51 +32,48 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerification @Inject()(
                                       val errorHandler: CustomErrorHandler,
-                                      ggAction: VoaAction,
+                                      ggAction: GgAuthenticatedAction,
                                      identityVerification: connectors.IdentityVerification,
                                      addresses: Addresses,
                                      individuals: IndividualAccounts,
                                      identityVerificationService: IdentityVerificationService,
                                      groups: GroupAccounts,
-                                     auth: VPLAuthConnector,
                                      @Named("personSession") val personalDetailsSessionRepo: SessionRepo)
                                     (implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
-  def startIv: Action[AnyContent] = ggAction.async(false) { _ =>
-    implicit request =>
-      if (config.ivEnabled) {
-        for {
-          userDetails <- personalDetailsSessionRepo.get[AdminUser]
-          link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
-        } yield Redirect(link.getLink(config.ivBaseUrl))
-      } else {
-        Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
-      }
+  val startIv: Action[AnyContent] = ggAction.async { implicit request =>
+    if (config.ivEnabled) {
+      for {
+        userDetails <- personalDetailsSessionRepo.get[AdminUser]
+        link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
+      } yield Redirect(link.getLink(config.ivBaseUrl))
+    } else {
+      Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
+    }
   }
 
-  def fail: Action[AnyContent] = Action { implicit request =>
+  val fail: Action[AnyContent] = Action { implicit request =>
     Ok(views.html.identityVerification.failed())
   }
 
-  def restoreSession: Action[AnyContent] = Action { implicit request =>
+  val restoreSession: Action[AnyContent] = Action { implicit request =>
     Redirect(routes.IdentityVerification.success()).addingToSession(
       SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""),
       SessionKeys.sessionId -> request.session.get("oldSessionId").getOrElse("")
     )
   }
 
-  def success: Action[AnyContent] = ggAction.async(false) { implicit ctx =>
-    implicit request =>
-      request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
-        identityVerification.verifySuccess(journeyId) flatMap {
-          case true =>
-            identityVerificationService.continue(journeyId)(ctx, hc, executionContext).map {
-              case Some(obj) => identityVerificationService.someCase(obj)
-              case None => identityVerificationService.noneCase
-            }
-          case false => Future.successful(Unauthorized("Unauthorised"))
-        }
+  val success = ggAction.async { implicit request =>
+    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      identityVerification.verifySuccess(journeyId).flatMap {
+        case true =>
+          identityVerificationService.continue(journeyId, request.userDetails).map {
+            case Some(obj) => identityVerificationService.someCase(obj)
+            case None => identityVerificationService.noneCase
+          }
+        case false => Future.successful(Unauthorized("Unauthorised"))
       }
+    }
   }
 }

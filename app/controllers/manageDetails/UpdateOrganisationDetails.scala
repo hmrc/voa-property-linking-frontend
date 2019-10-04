@@ -19,11 +19,11 @@ package controllers.manageDetails
 import java.time.{Clock, Instant}
 
 import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
-import javax.inject.Inject
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts}
 import controllers.PropertyLinkingController
 import form.{Mappings, TextMatching}
+import javax.inject.Inject
 import models.{GroupAccount, UpdatedOrganisationAccount}
 import play.api.data.Form
 import play.api.data.Forms._

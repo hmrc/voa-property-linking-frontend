@@ -39,10 +39,10 @@ import scala.concurrent.{ExecutionContext, Future}
 class Declaration @Inject()(
                              val errorHandler: CustomErrorHandler,
                              propertyLinks: PropertyLinkConnector,
-                            @Named("propertyLinkingSession") sessionRepository: SessionRepo,
-                            businessRatesAttachmentService: BusinessRatesAttachmentService,
-                            authenticatedAction: AuthenticatedAction,
-                            withLinkingSession: WithLinkingSession
+                             @Named("propertyLinkingSession") sessionRepository: SessionRepo,
+                             businessRatesAttachmentService: BusinessRatesAttachmentService,
+                             authenticatedAction: AuthenticatedAction,
+                             withLinkingSession: WithLinkingSession
                            )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
   extends PropertyLinkingController {
 
@@ -61,12 +61,12 @@ class Declaration @Inject()(
         Future.successful(BadRequest(declaration(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence)))
       },
       success =>
-        submitLinkingRequest().map( x => Redirect (routes.Declaration.confirmation())))
+        submitLinkingRequest().map(x => Redirect(routes.Declaration.confirmation())))
   }
 
 
   def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    sessionRepository.remove() map { _ =>
+    sessionRepository.remove().map { _ =>
       Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
     }
   }

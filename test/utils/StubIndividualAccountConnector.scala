@@ -17,15 +17,16 @@
 package utils
 
 import connectors.IndividualAccounts
-import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.play.config.ServicesConfig
+import models.{DetailedIndividualAccount, IndividualAccountSubmission}
+import org.mockito.Mockito.mock
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.util.Random
-import uk.gov.hmrc.http.HeaderCarrier
 
-object StubIndividualAccountConnector extends IndividualAccounts(StubServicesConfig, StubHttp) { //TODO fix unimplemented
+object StubIndividualAccountConnector extends IndividualAccounts(StubServicesConfig, mock(classOf[HttpClient])) {
 
   private var stubbedIndividuals: Seq[DetailedIndividualAccount] = Nil
 

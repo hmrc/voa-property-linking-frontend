@@ -20,7 +20,7 @@
 @(organisationAccount: GroupAccount, businessAddress: Address, userDetails: UserDetails)(implicit request: Request[_], messages: Messages)
 
 @isAssistant = @{
-    userDetails.userInfo.credentialRole match {
+    userDetails.credentialRole match {
         case Assistant => true
         case _         => false
     }

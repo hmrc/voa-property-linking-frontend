@@ -32,7 +32,6 @@ import scala.concurrent.Future
 
 class EnrolmentServiceSpec extends ServiceSpec {
 
-  val mockAddresses: Addresses = mock[Addresses]
   val mockTaxEnrolmentConnector: TaxEnrolmentConnector = mock[TaxEnrolmentConnector]
   val mockAuditing = mock[AuditingService]
   val enrolmentService: EnrolmentService = new EnrolmentService(mockTaxEnrolmentConnector, mockAddresses, mockAuditing)
@@ -42,13 +41,13 @@ class EnrolmentServiceSpec extends ServiceSpec {
   "enrol" should " return success with valid details" in {
     when(mockAddresses.findById(any())(any())).thenReturn(Future.successful(Some(Address(Some(1), "", "", "", "", ""))))
     when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any())).thenReturn(Future.successful(HttpResponse(204)))
-    val result = enrolmentService.enrol(1l, 1)
+    val result = enrolmentService.enrol(1L, 1)
     result.futureValue must be(Success)
   }
 
   "enrol" should " return failure when None is return for the address" in {
     when(mockAddresses.findById(any())(any())).thenReturn(Future.successful(None))
-    val result = enrolmentService.enrol(1l, 1)
+    val result = enrolmentService.enrol(1L, 1)
     result.futureValue must be(Failure)
   }
 

@@ -17,9 +17,8 @@
 package services
 
 import config.ApplicationConfig
-import connectors.{Addresses, GroupAccounts, IndividualAccounts, VPLAuthConnector}
+import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import javax.inject.Inject
-
 import models.registration._
 import models.{DetailedIndividualAccount, GroupAccount, IndividualAccountSubmission}
 import play.api.Logger
@@ -33,27 +32,31 @@ import scala.concurrent.{ExecutionContext, Future}
 class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                                     individualAccounts: IndividualAccounts,
                                     enrolmentService: EnrolmentService,
-                                    auth: VPLAuthConnector,
                                     addresses: Addresses,
                                     emailService: EmailService,
                                     config: ApplicationConfig
                                    ) {
 
-  def create[A](
-                 groupDetails: GroupAccountDetails,
-                 ctx: A,
-                 affinityGroupOpt: Option[AffinityGroup] = None
-               )
-               (individual: UserDetails => Long => Option[Long] => IndividualAccountSubmission)
-               (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
+  def create(
+              groupDetails: GroupAccountDetails,
+              userDetails: UserDetails,
+              affinityGroupOpt: Option[AffinityGroup] = None
+            )
+            (individual: UserDetails => Long => Option[Long] => IndividualAccountSubmission)
+            (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
     for {
-      user <- auth.userDetails(ctx)
-      groupId <- auth.getGroupId(ctx)
       id <- addresses.registerAddress(groupDetails)
-      _ <- register(groupId, acc => individualAccounts.create(individual(user)(id)(Some(acc.id))), groupAccounts.create(groupId, id, groupDetails, individual(user)(id)(None)))
-      personId <- individualAccounts.withExternalId(user.externalId)
-      groupAccount: Option[GroupAccount] <- groupAccounts.withGroupId(groupId)
-      res <- enrol(personId, id, groupAccount, affinityGroupOpt)(user)
+      _ <- register(
+        groupId = userDetails.groupIdentifier,
+        groupExists = acc => individualAccounts.create(individual(userDetails)(id)(Some(acc.id))),
+        noGroup = groupAccounts.create(
+          groupId = userDetails.groupIdentifier,
+          addressId = id,
+          details = groupDetails,
+          individualAccountSubmission = individual(userDetails)(id)(None)))
+      personId <- individualAccounts.withExternalId(userDetails.externalId)
+      groupAccount <- groupAccounts.withGroupId(userDetails.groupIdentifier)
+      res <- enrol(personId, id, groupAccount, affinityGroupOpt)(userDetails)
     } yield res
   }
 
@@ -80,7 +83,7 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
         case _ => Future.successful(DetailsMissing)
       }
     } else {
-      (option, userDetails.userInfo.credentialRole) match {
+      (option, userDetails.credentialRole) match {
         case (Some(detailIndiv), Assistant) => success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
         case (Some(detailIndiv), _) => enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
           case Success => success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
@@ -97,9 +100,9 @@ class RegistrationService @Inject()(groupAccounts: GroupAccounts,
                        detailedIndividualAccount: DetailedIndividualAccount, groupAccount: Option[GroupAccount],
                        affinityGroupOpt: Option[AffinityGroup] = None)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
-    Logger.info(s"New ${userDetails.userInfo.affinityGroup} ${userDetails.userInfo.credentialRole} successfully registered for VOA")
+    Logger.info(s"New ${userDetails.affinityGroup} ${userDetails.credentialRole} successfully registered for VOA")
     emailService
-      .sendNewRegistrationSuccess(userDetails.userInfo.email, detailedIndividualAccount, groupAccount, affinityGroupOpt)
+      .sendNewRegistrationSuccess(userDetails.email, detailedIndividualAccount, groupAccount, affinityGroupOpt)
       .map(_ => RegistrationSuccess(detailedIndividualAccount.individualId))
   }
 

@@ -17,18 +17,16 @@
 package controllers
 
 import connectors.DraftCases
-import connectors.authorisation.Authenticated
-import models.Accounts
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
 import play.api.http.Status._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{redirectLocation, status}
-import resources.{randomDraftCase, _}
+import resources.randomDraftCase
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{StubAuthentication, StubPropertyLinkConnector}
+import utils.StubPropertyLinkConnector
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -41,7 +39,6 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar wit
   val nonEmptyDrafts = Seq("draft" -> "1234567?localhost:1234/delete-draft")
 
   "The manage drafts page" should "reject a continue check submission when no selection has been made" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
 
     val draftCase = randomDraftCase
     when(mockDraftCases.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Seq(draftCase)))
@@ -51,7 +48,6 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar wit
   }
 
   it should "remove a draft case when a valid submission has been made" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
     when(mockDraftCases.delete(any[String])(any[HeaderCarrier])).thenReturn(Future.successful("successful"))
     val validData = Seq(
       "draft" -> "1234567?localhost:1234/delete-draft"
@@ -64,7 +60,6 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar wit
   }
 
   it should "continue a check case when a valid submission has been made" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
 
     val validData = Seq(
       "draft" -> s"1234567?${routes.ManageDrafts.viewDraftCases().url}"
@@ -77,7 +72,6 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar wit
   }
 
   it should "continue to a confirm delete case when a valid submission has been made" in {
-      StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
 
     val validData = Seq(
       "draft" -> s"1234567?${routes.ManageDrafts.viewDraftCases().url}"
@@ -94,7 +88,7 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar wit
 
   private lazy val testController = new ManageDrafts(
     mockCustomErrorHandler,
-    StubAuthentication,
+    preAuthenticatedActionBuilders(),
     StubPropertyLinkConnector
   )
 

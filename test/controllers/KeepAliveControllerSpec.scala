@@ -17,31 +17,23 @@
 package controllers
 
 import models.DetailedIndividualAccount
-import models.registration.UserInfo
 import org.scalacheck.Arbitrary._
 import org.scalatest.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, User}
-import utils.{StubGgAction, StubIndividualAccountConnector, StubVplAuthConnector}
+import utils.StubIndividualAccountConnector
 
-import scala.concurrent.Future
 
 class KeepAliveControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   val messagesApi  = app.injector.instanceOf[MessagesApi]
-  private object TestRegistrationController$ extends KeepAliveController(
-    StubGgAction
-  )
+  private object TestRegistrationController$ extends KeepAliveController(preAuthenticatedActionBuilders())
 
   "Keep Alive User Session" should
     "return keep alive returns 200" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
     StubIndividualAccountConnector.stubAccount(arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = externalId))
     val res = TestRegistrationController$.keepAlive()(FakeRequest())
     status(res) mustBe OK

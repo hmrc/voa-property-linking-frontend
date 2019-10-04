@@ -20,7 +20,7 @@ import java.time.LocalDate
 
 import models.{email => _, _}
 import play.api.libs.json.Json
-import uk.gov.hmrc.domain.Nino
+import models.Nino
 
 case class IndividualUserAccountDetails(firstName: String,
                                         lastName: String,

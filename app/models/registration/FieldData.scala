@@ -29,12 +29,12 @@ case class FieldData(firstName: String = "",
 
 object FieldData {
 
-  def apply(userInfo: UserInfo): FieldData =
+  def apply(userDetails: UserDetails): FieldData =
     new FieldData(
-      firstName = userInfo.firstName.getOrElse(""),
-      lastName = userInfo.lastName.getOrElse(""),
-      postcode = userInfo.postcode.getOrElse(""),
-      email = userInfo.email,
+      firstName = userDetails.firstName.getOrElse(""),
+      lastName = userDetails.lastName.getOrElse(""),
+      postcode = userDetails.postcode.getOrElse(""),
+      email = userDetails.email,
       businessName = "",
       businessPhoneNumber = "",
       businessAddress = Address(None, "", "", "", "", ""),

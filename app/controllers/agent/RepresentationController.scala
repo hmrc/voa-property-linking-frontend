@@ -54,7 +54,7 @@ class RepresentationController @Inject()(
   def getMyClientsPropertyLinkRequests(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     withValidPagination(page, pageSize) { pagination =>
       reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).flatMap { reprs =>
-        if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size == 0) {
+        if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.isEmpty) {
           reprConnector.forAgent(RepresentationPending,
             request.organisationId,
             pagination.copy(pageNumber = pagination.pageNumber - 1)).map { reprs =>
@@ -181,7 +181,7 @@ class RepresentationController @Inject()(
         propertyRepresentations = reprs.propertyRepresentations,
         totalPendingRequests = reprs.totalPendingRequests,
         pagination = pagination.copy(
-          pageNumber = if (reprs.propertyRepresentations.size == 0) Math.max(1, pagination.pageNumber - 1)
+          pageNumber = if (reprs.propertyRepresentations.isEmpty) Math.max(1, pagination.pageNumber - 1)
           else pagination.pageNumber,
           totalResults = reprs.totalPendingRequests),
         action = Some(data.action.toLowerCase),
@@ -194,7 +194,7 @@ class RepresentationController @Inject()(
       Ok(views.html.propertyrepresentation.requestAccepted(BulkActionsForm.form, getModel))
     } else if (data.action.toLowerCase == "reject-confirm") {
       Ok(views.html.propertyrepresentation.requestRejected(BulkActionsForm.form, getModel))
-    } else if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.size > 0) {
+    } else if (reprs.totalPendingRequests > 0 && reprs.propertyRepresentations.nonEmpty) {
       Ok(views.html.dashboard.pendingPropertyRepresentations(
         BulkActionsForm.form,
         getModel))

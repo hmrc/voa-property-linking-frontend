@@ -16,9 +16,7 @@
 
 package controllers
 
-import com.builtamont.play.pdf.PdfGenerator
 import connectors._
-import connectors.authorisation.{Authenticated, NoVOARecord}
 import models._
 import models.messages.Message
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
@@ -45,7 +43,8 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
     m
   }
 
-  private var stubbedOwnerAuthResult: OwnerAuthResult = OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
+  private val stubbedOwnerAuthResult: OwnerAuthResult =
+    OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
 
   lazy val mockRepService = {
     val m = mock[AgentRelationshipService]
@@ -59,40 +58,10 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
     mockRepService,
     StubAgentConnector,
     StubGroupAccountConnector,
-    StubAuthentication,
-    mock[PdfGenerator]
+    preAuthenticatedActionBuilders()
   )
 
-  "Logging in for the first time with a group account" must "redirect to the create individual account page" in {
-    StubVplAuthConnector.stubExternalId("hasnoaccount")
-    StubVplAuthConnector.stubGroupId("groupwithoutaccount")
-    StubAuthentication.stubAuthenticationResult(NoVOARecord)
-    val res = TestDashboard.home()(request)
-    status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(registration.routes.RegistrationController.show.url)
-  }
-
-  "Logging in for the first time with an individual sub-account under a group that has registered" must "redirect to the create individual account page" in {
-    StubVplAuthConnector.stubExternalId("hasnoaccount")
-    StubVplAuthConnector.stubGroupId("hasgroupaccount")
-    StubGroupAccountConnector.stubAccount(arbitrary[GroupAccount].sample.get.copy(groupId = "hasgroupaccount"))
-    StubAuthentication.stubAuthenticationResult(NoVOARecord)
-
-    val res = TestDashboard.home()(request)
-    status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(registration.routes.RegistrationController.show.url)
-  }
-
   "home page" must "redirect to new dashboard" in {
-    val group = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
-    val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
-
-    StubVplAuthConnector.stubExternalId("has-account")
-    StubVplAuthConnector.stubGroupId("has-group-account")
-    StubIndividualAccountConnector.stubAccount(person)
-    StubGroupAccountConnector.stubAccount(group)
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
-
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/home")
@@ -105,16 +74,11 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
     val agentGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = true, companyName = "Test Agent Company")
     val agentPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = agentGroup.id)
 
-    StubVplAuthConnector.stubExternalId(clientPerson.externalId)
-    StubVplAuthConnector.stubGroupId(clientGroup.groupId)
-
     StubIndividualAccountConnector.stubAccount(clientPerson)
     StubIndividualAccountConnector.stubAccount(agentPerson)
 
     StubGroupAccountConnector.stubAccount(clientGroup)
     StubGroupAccountConnector.stubAccount(agentGroup)
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
 
     val res = TestDashboard.viewManagedProperties(agentGroup.agentCode, false)(request)
 
@@ -123,18 +87,6 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
   }
 
   "viewMessages" must "redirect to new dashoard inbox" in {
-    val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
-    val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
-
-
-    StubVplAuthConnector.stubExternalId(clientPerson.externalId)
-    StubVplAuthConnector.stubGroupId(clientGroup.groupId)
-
-    StubIndividualAccountConnector.stubAccount(clientPerson)
-    StubGroupAccountConnector.stubAccount(clientGroup)
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
-
     val res = TestDashboard.viewMessages()(request)
 
     status(res) mustBe SEE_OTHER
@@ -142,17 +94,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
   }
 
   "viewMessage" must "redirect to new dashoard inbox" in {
-    val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
-    val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
     val message = arbitrary[Message].sample.get
-
-    StubVplAuthConnector.stubExternalId(clientPerson.externalId)
-    StubVplAuthConnector.stubGroupId(clientGroup.groupId)
-
-    StubIndividualAccountConnector.stubAccount(clientPerson)
-    StubGroupAccountConnector.stubAccount(clientGroup)
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
 
     val res = TestDashboard.viewMessage(message.id)(request)
 

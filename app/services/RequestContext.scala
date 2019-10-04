@@ -16,11 +16,7 @@
 
 package services
 
-import play.api.mvc.Request
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter
-
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 trait RequestContext {
   def succeed:Future[Any] = Future.successful(())

@@ -35,6 +35,8 @@ class BusinessRatesAuthorisation @Inject()(
                                           ) extends BaseConnector with AuthorisationHttpErrorFunctions {
   val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
+  import AuthorisationResult._
+
   val logger = Logger(this.getClass.getName)
 
   def authenticate(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
@@ -72,24 +74,29 @@ class BusinessRatesAuthorisation @Inject()(
 
   def isAgentOwnProperty(authorisationId: Long)
                         (implicit hc: HeaderCarrier): Future[Boolean] = {
-    http.GET[PropertyLinkIds](s"$url/$authorisationId/ids") map { ids  =>
-      ids.caseCreator.organisationId == ids.interestedParty.organisationId } recover { case Upstream4xxResponse(_, 403, _, _) => throw new ForbiddenException("Not Authorised") }
+    http.GET[PropertyLinkIds](s"$url/$authorisationId/ids") map { ids =>
+      ids.caseCreator.organisationId == ids.interestedParty.organisationId
+    } recover { case Upstream4xxResponse(_, 403, _, _) => throw new ForbiddenException("Not Authorised") }
   }
 
 }
 
 sealed trait AuthorisationResult
 
-case class Authenticated(accounts: Accounts) extends AuthorisationResult
+object AuthorisationResult {
 
-case object InvalidGGSession extends AuthorisationResult
+  case class Authenticated(accounts: Accounts) extends AuthorisationResult
 
-case object NoVOARecord extends AuthorisationResult
+  case object InvalidGGSession extends AuthorisationResult
 
-case object IncorrectTrustId extends AuthorisationResult
+  case object NoVOARecord extends AuthorisationResult
 
-case object InvalidAccountType extends AuthorisationResult
+  case object IncorrectTrustId extends AuthorisationResult
 
-case object ForbiddenResponse extends AuthorisationResult
+  case object InvalidAccountType extends AuthorisationResult
 
-case object NonGroupIDAccount extends AuthorisationResult
+  case object ForbiddenResponse extends AuthorisationResult
+
+  case object NonGroupIDAccount extends AuthorisationResult
+
+}

@@ -57,7 +57,7 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar {
 
       await(emailService.sendNewRegistrationSuccess("toAddress@email.com", DetailedIndividualAccount("externalId", "trustId", 123L, 234L, individualDetails), Some(groupAccount), Some(Organisation)))
 
-      verify(mockWSHttp, times(1)).POST(any, any, any)(any[Writes[PayLoad]](),
+      verify(mockWSHttp).POST(any, any, any)(any[Writes[PayLoad]](),
         any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any())
     }
   }

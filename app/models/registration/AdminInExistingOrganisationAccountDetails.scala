@@ -19,7 +19,7 @@ package models.registration
 import java.time.LocalDate
 
 import play.api.libs.json.Json
-import uk.gov.hmrc.domain.Nino
+import models.Nino
 
 case class AdminInExistingOrganisationAccountDetails(firstName: String,
                                                      lastName: String,

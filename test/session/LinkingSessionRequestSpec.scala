@@ -16,18 +16,14 @@
 
 package session
 
-import actions.AuthenticatedAction
-import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
-import models.{Accounts, DetailedIndividualAccount, GroupAccount, LinkingSession}
+import models.LinkingSession
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
-import org.scalacheck.Arbitrary.arbitrary
 import play.api.i18n.Messages
 import play.api.test.FakeRequest
 import repositories.SessionRepo
-import resources._
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.StubAuthentication
 
 import scala.concurrent.Future
 
@@ -39,7 +35,6 @@ class LinkingSessionRequestSpec extends VoaPropertyLinkingSpec {
 
 
   val mockLinkingSession = mock[LinkingSession]
-  val mockAuthenticatedAction = mock[AuthenticatedAction]
   val mockSessionRepo = mock[SessionRepo]
 
   val linkingSessionRequest = LinkingSessionRequest(mockLinkingSession, 1234l, mockDetailedIndividualAccount, mockGroupAccount, request)
@@ -47,29 +42,19 @@ class LinkingSessionRequestSpec extends VoaPropertyLinkingSpec {
   object TestWithLinkingSession extends WithLinkingSession(mockCustomErrorHandler, mockSessionRepo)
 
   "apply" should "invoke the wrapped if a session exists" in {
-    val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
-    val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
+    when(mockSessionRepo.get[LinkingSession](any(), any())).thenReturn(Future.successful(Some(mockLinkingSession)))
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
-
-    when(mockSessionRepo.get[LinkingSession]).thenReturn(Future.successful(Some(mockLinkingSession)))
-
-//    val res = TestWithLinkingSession.refine { _ =>
-//      Future.successful(Ok("Test"))
-//    }(messages)(FakeRequest()) //TODO testing nothing
+    //    val res = TestWithLinkingSession.refine { _ =>
+    //      Future.successful(Ok("Test"))
+    //    }(messages)(FakeRequest()) //TODO testing nothing
   }
 
   "apply" should "return not found if a session doesn't exist" in {
-    val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
-    val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
-
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(clientGroup, clientPerson)))
-
     when(mockSessionRepo.get[LinkingSession]).thenReturn(Future.successful(Some(mockLinkingSession)))
 
-//    val res = TestWithLinkingSession { _ =>
-//      Future.successful(NotFound)
-//    }(messages)(FakeRequest()) //TODO testing nothing
+    //    val res = TestWithLinkingSession { _ =>
+    //      Future.successful(NotFound)
+    //    }(messages)(FakeRequest()) //TODO testing nothing
   }
 
 }

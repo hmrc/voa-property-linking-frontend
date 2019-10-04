@@ -16,13 +16,9 @@
 
 package models.registration
 
-import form.Mappings._
-import form.TextMatching
-import models.{Address, IVDetails, IndividualAccountSubmission, IndividualDetails, email => _}
+import models.{IndividualAccountSubmission, IndividualDetails, email => _}
+import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.validation.{Constraints, _}
-import play.api.data.{Form, Mapping}
-import views.helpers.Errors
 
 
 trait AssistantUser {

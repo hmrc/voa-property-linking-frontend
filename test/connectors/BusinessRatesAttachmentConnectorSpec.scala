@@ -22,35 +22,31 @@ import models.attachment._
 import models.attachment.request.InitiateAttachmentRequest
 import models.upscan._
 import play.api.libs.json.JsObject
-import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier}
+import uk.gov.hmrc.http.BadRequestException
 
 class BusinessRatesAttachmentConnectorSpec extends VoaPropertyLinkingSpec {
 
-  implicit val ee = scala.concurrent.ExecutionContext.Implicits.global
-  implicit val hc = HeaderCarrier()
   val initiateAttachmentRequest = InitiateAttachmentRequest("FILE_NAME", "img/jpeg")
   val attachments = mock[Attachment]
 
-    "initiateAttachment" should  "call to initiateAttachment return a successful" in {
-      val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp, applicationConfig)(ee)
-      mockHttpPOST[InitiateAttachmentRequest, PreparedUpload]("tst-url", preparedUpload)
-      whenReady(testConnector.initiateAttachmentUpload(InitiateAttachmentPayload(initiateAttachmentRequest, "http://example.com", "http://example.com/failure")))(_ mustBe preparedUpload)
-    }
+  "initiateAttachment" should "call to initiateAttachment return a successful" in {
+    val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp, applicationConfig)
+    mockHttpPOST[InitiateAttachmentRequest, PreparedUpload]("tst-url", preparedUpload)
+    whenReady(testConnector.initiateAttachmentUpload(InitiateAttachmentPayload(initiateAttachmentRequest, "http://example.com", "http://example.com/failure")))(_ mustBe preparedUpload)
+  }
 
 
-    "submitFile" should   "submit the file" in {
-      val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp,applicationConfig)(ee)
-      mockHttpPATCH[JsObject, Option[Attachment]]("tst-url", Some(attachments))
-      whenReady(testConnector.submitFile("file-reference", "submission-id"))(_ mustBe Some(attachments))
-    }
+  "submitFile" should "submit the file" in {
+    val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp, applicationConfig)
+    mockHttpPATCH[JsObject, Option[Attachment]]("tst-url", Some(attachments))
+    whenReady(testConnector.submitFile("file-reference", "submission-id"))(_ mustBe Some(attachments))
+  }
 
-     "submitFile" should  "submit the file throws BAD_REQUEST" in {
-      val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp, applicationConfig)(ee)
-      mockHttpFailedPATCH[JsObject, Attachment]("tst-url", new BadRequestException("400"))
-      whenReady(testConnector.submitFile("file-reference", "submission-id"))(_ mustBe None)
-    }
-
-
+  "submitFile" should "submit the file throws BAD_REQUEST" in {
+    val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp, applicationConfig)
+    mockHttpFailedPATCH[JsObject, Attachment]("tst-url", new BadRequestException("400"))
+    whenReady(testConnector.submitFile("file-reference", "submission-id"))(_ mustBe None)
+  }
 
 
 }

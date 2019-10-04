@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package utils
+package actions
 
-import auth.GgAction
-import uk.gov.hmrc.play.frontend.auth.connectors.domain.{Accounts, ConfidenceLevel, CredentialStrength}
-import uk.gov.hmrc.play.frontend.auth.{AuthContext, LoggedInUser, Principal}
+import models.registration.UserDetails
+import play.api.mvc.{Request, WrappedRequest}
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
-object StubGgAction extends GgAction(null, StubVplAuthConnector) {
-  private val ctx = AuthContext(LoggedInUser("", None, None, None, CredentialStrength.Weak, ConfidenceLevel.L200, ""),
-    Principal(None, Accounts()), None, None, None, None)
+class RequestWithUserDetails[A](val userDetails: UserDetails, val request: Request[A]) extends WrappedRequest[A](request) {
+  val externalId: String = userDetails.externalId
+  val groupIdentifier: String = userDetails.groupIdentifier
 }

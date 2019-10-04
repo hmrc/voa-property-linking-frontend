@@ -17,17 +17,21 @@
 package utils
 
 import connectors.IdentityVerification
-import org.scalatest.mockito.MockitoSugar
-
-import scala.concurrent.Future
+import org.mockito.Mockito
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
-object StubIdentityVerification extends IdentityVerification(StubServicesConfig, null, StubHttp) with MockitoSugar { //TODO fix unimplemented
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
+object StubIdentityVerification extends IdentityVerification(StubServicesConfig, null, Mockito.mock(classOf[HttpClient])) {
 
   private var journeyResult = ("", "")
 
   def stubSuccessfulJourney(id: String) = journeyResult = (id, "Success")
+
   def stubFailedJourney(id: String) = journeyResult = (id, "FailedIV")
+
   def reset() = journeyResult = ("", "")
 
   override def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean] = {

@@ -17,17 +17,19 @@
 package utils
 
 import connectors.SubmissionIdConnector
+import org.mockito.Mockito.mock
 import org.scalatest.mockito.MockitoSugar
 import play.api.Mode.Mode
-import play.api.{Configuration, Environment, Mode, Play}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.{Configuration, Mode, Play}
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 
-object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfig, StubHttp) { //TODO fix unimplemented
+object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfig, mock(classOf[HttpClient])) {
   private var stubbedId: Option[String] = None
 
   override def get(prefix: String)(implicit hc: HeaderCarrier): Future[String] = Future {

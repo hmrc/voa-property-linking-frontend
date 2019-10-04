@@ -21,25 +21,33 @@ import java.util.Base64
 import com.google.inject.{Inject, Singleton}
 import controllers.routes
 import play.api.Mode.Mode
-import play.api.{Configuration, Environment, Play}
-import uk.gov.hmrc.play.config.{RunMode, ServicesConfig}
+import play.api.{Configuration, Environment}
+import uk.gov.hmrc.play.config.ServicesConfig
 
 @Singleton()
 class ApplicationConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
 
-  private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
-  private def loadBooleanConfig(key: String) = runModeConfiguration.getString(key).fold(false)(_.toBoolean)
-  private def loadInt(key: String): Int = runModeConfiguration.getInt(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
+  protected def loadConfig(key: String): String = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
+
+  protected def loadBooleanConfig(key: String): Boolean = runModeConfiguration.getString(key).fold(false)(_.toBoolean)
+
+  protected def loadInt(key: String): Int = runModeConfiguration.getInt(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
   lazy val baseUrl = if (mode == play.api.Mode.Prod) "" else "http://localhost:9523"
 
   def businessRatesValuationUrl(page: String): String = loadConfig("business-rates-valuation.url") + s"/$page"
+
   def businessRatesCheckUrl(page: String): String = loadConfig("business-rates-check.url") + s"/$page"
+
   def businessTaxAccountUrl(page: String): String = loadConfig("business-tax-account.url") + s"/$page"
+
   def newDashboardUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
+
   def yourDetailsUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
-  def businessRatesCheckCaseSummaryUrl(page: String):String = loadConfig("business-rates-check-case-summary.url") + s"/$page"
-  def businessRatesChallengeStartPageUrl(page: String) :String = loadConfig("business-rates-challenge-start-page.url") + s"/$page"
+
+  def businessRatesCheckCaseSummaryUrl(page: String): String = loadConfig("business-rates-check-case-summary.url") + s"/$page"
+
+  def businessRatesChallengeStartPageUrl(page: String): String = loadConfig("business-rates-challenge-start-page.url") + s"/$page"
 
   lazy val helpGuideUrl = loadConfig("help-guide.url")
 
@@ -47,11 +55,10 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val vmvUrl = loadConfig("vmv-frontend.url")
   lazy val ggSignInUrl: String = loadConfig("gg-sign-in.url")
   lazy val ggRegistrationUrl: String = loadConfig("gg-registration.url")
-  lazy val ggContinueUrl: String = baseUrl + routes.Dashboard.home().url
   lazy val fileUploadUrl: String = loadConfig("file-upload-frontend.url")
   lazy val serviceUrl: String = loadConfig("voa-property-linking-frontend.url")
   lazy val checkUrl = loadConfig("microservice.services.business-rates-check-frontend.url")
-  lazy val externalCaseManagementApiUrl :String = loadConfig("external-case-management-api.url")
+  lazy val externalCaseManagementApiUrl: String = loadConfig("external-case-management-api.url")
 
   lazy val agentAppointDelay: Int = loadInt("agent.appoint.async.delay")
 
@@ -59,8 +66,8 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val analyticsToken: String = loadConfig("google-analytics.token")
   lazy val analyticsHost: String = loadConfig("google-analytics.host")
   lazy val voaPersonID: String = loadConfig("google-analytics.dimensions.voaPersonId")
-  lazy val loggedInUser:  Option[String] = runModeConfiguration.getString("google-analytics.dimensions.loggedInUser")
-  lazy val isAgentLoggedIn:  Option[String] = runModeConfiguration.getString("google-analytics.dimensions.isAgentLoggedIn")
+  lazy val loggedInUser: Option[String] = runModeConfiguration.getString("google-analytics.dimensions.loggedInUser")
+  lazy val isAgentLoggedIn: Option[String] = runModeConfiguration.getString("google-analytics.dimensions.isAgentLoggedIn")
   lazy val pingdomToken: Option[String] = runModeConfiguration.getString("pingdom.performance.monitor.token")
 
   lazy val editNameEnabled: Boolean = loadBooleanConfig("featureFlags.editNameEnabled")

@@ -18,20 +18,20 @@ package controllers.manageDetails
 
 import actions.AuthenticatedAction
 import config.ApplicationConfig
-import connectors.{Addresses, VPLAuthConnector}
+import connectors.Addresses
 import controllers.PropertyLinkingController
 import javax.inject.Inject
 import play.api.i18n.MessagesApi
+import play.api.mvc.{Action, AnyContent}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 class ViewDetails @Inject()(
                              val errorHandler: CustomErrorHandler,
                              addressesConnector: Addresses,
-                            authenticated: AuthenticatedAction,
-                            authConnector: VPLAuthConnector
+                            authenticated: AuthenticatedAction
                            )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
-  def show() = authenticated { implicit request =>
+  def show(): Action[AnyContent] = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("your-details"))
   }
 

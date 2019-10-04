@@ -20,7 +20,7 @@ import java.time.LocalDate
 
 import models.{Address, IVDetails}
 import play.api.libs.json.Json
-import uk.gov.hmrc.domain.Nino
+import models.Nino
 
 case class AdminOrganisationAccountDetails(firstName: String,
                                            lastName: String,

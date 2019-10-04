@@ -16,10 +16,58 @@
 
 package models.registration
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
+import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
+import uk.gov.hmrc.auth.core.retrieve.Name
+import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole}
 
-case class UserDetails(externalId: String, userInfo: UserInfo)
+case class UserDetails(
+                        firstName: Option[String],
+                        lastName: Option[String],
+                        email: String,
+                        postcode: Option[String],
+                        groupIdentifier: String,
+                        externalId: String,
+                        affinityGroup: AffinityGroup,
+                        credentialRole: CredentialRole
+                      )
 
 object UserDetails {
-  implicit val format = Json.format[UserDetails]
+
+  def fromRetrieval(
+                     name: Option[Name],
+                     optEmail: Option[String],
+                     optPostCode: Option[String],
+                     groupIdentifier: String,
+                     externalId: String,
+                     affinityGroup: AffinityGroup,
+                     role: CredentialRole
+                   ): UserDetails =
+    UserDetails(
+      firstName = name.flatMap(_.name),
+      lastName = name.flatMap(_.lastName),
+      email = optEmail.getOrElse(""),
+      postcode = optPostCode,
+      groupIdentifier = groupIdentifier,
+      externalId = externalId,
+      affinityGroup = affinityGroup,
+      credentialRole = role
+    )
+
+  implicit val format: OFormat[UserDetails] = Json.format
+
+
+  object IndividualUserDetails {
+    def unapply(arg: UserDetails): Boolean = arg.affinityGroup == Individual
+  }
+
+  object OrganisationUserDetails {
+    def unapply(arg: UserDetails): Boolean = arg.affinityGroup == Organisation
+  }
+
+  object AgentUserDetails {
+    def unapply(arg: UserDetails): Boolean = arg.affinityGroup == Agent
+  }
+
+
 }

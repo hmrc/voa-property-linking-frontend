@@ -19,7 +19,6 @@ package controllers.propertyLinking
 import java.time.LocalDate
 
 import com.google.inject.Inject
-import connectors.authorisation.Authenticated
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
@@ -33,7 +32,7 @@ import play.api.{Configuration, Environment}
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HtmlPage, StubAuthentication, StubSubmissionIdConnector, StubWithLinkingSession}
+import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession}
 
 import scala.concurrent.Future
 
@@ -43,7 +42,7 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
     mockCustomErrorHandler,
     StubSubmissionIdConnector,
     mockSessionRepo,
-    StubAuthentication,
+    preAuthenticatedActionBuilders(),
     new StubWithLinkingSession(mock[SessionRepo]),
     propertyLinkingConnector,
     configuration,
@@ -67,7 +66,6 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
 
 
   "The claim property page" should "contain the claim property form" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(testAccounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.declareCapacity(positiveLong, shortString)(FakeRequest())
@@ -82,7 +80,6 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
   }
 
   it should "reject invalid form submissions" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(testAccounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest())
@@ -90,7 +87,6 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
   }
 
   it should "redirect to the choose evidence page on valid submissions" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(testAccounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest().withFormUrlEncodedBody(
@@ -103,7 +99,6 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
   }
 
   it should "initialise the linking session on submission" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(testAccounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val uarn: Long = positiveLong
@@ -130,7 +125,6 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
   }
 
   "show" must "redirect the user to vmv search for property page" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(testAccounts))
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.show()(FakeRequest())

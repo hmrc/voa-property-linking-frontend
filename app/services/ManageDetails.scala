@@ -16,11 +16,11 @@
 
 package services
 
+import actions.BasicAuthenticatedRequest
 import config.ApplicationConfig
-import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
+import connectors.{Addresses, TaxEnrolmentConnector}
 import javax.inject.Inject
 import models.Address
-import play.api.mvc.Request
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -29,20 +29,19 @@ import scala.concurrent.Future
 
 trait ManageDetails {
   def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)
-                    (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult]
+                    (implicit hc: HeaderCarrier, request: BasicAuthenticatedRequest[_]): Future[EnrolmentResult]
 }
 
-class ManageVoaDetails @Inject()(taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, vPLAuthConnector: VPLAuthConnector, config: ApplicationConfig) extends ManageDetails with RequestContext {
+class ManageVoaDetails @Inject()(taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, config: ApplicationConfig) extends ManageDetails with RequestContext {
   def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(predicate: AffinityGroup => Boolean)
-                    (implicit hc: HeaderCarrier, request: Request[_]): Future[EnrolmentResult] = {
+                    (implicit hc: HeaderCarrier, request: BasicAuthenticatedRequest[_]): Future[EnrolmentResult] = {
     def withAddress(addressId: Long, addressType: String): Future[Option[Address]] =
       addresses.findById(addressId)
 
     for {
       currentOpt <- withAddress(currentAddressId, "current")
       updatedOpt <- withAddress(addressId, "updated")
-      affinityGroup <- vPLAuthConnector.getUserDetails.map(_.userInfo.affinityGroup)
-      is = predicate(affinityGroup)
+      is = predicate(request.userDetails.affinityGroup)
       result <- if (config.stubEnrolment) Future.successful(Success) else update(currentOpt, updatedOpt, personId, is)
     } yield result
   }

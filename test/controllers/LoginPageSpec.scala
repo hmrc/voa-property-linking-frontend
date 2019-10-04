@@ -16,7 +16,6 @@
 
 package controllers
 
-import org.jsoup.Jsoup
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 

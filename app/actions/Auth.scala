@@ -16,20 +16,8 @@
 
 package actions
 
-import auth.GovernmentGatewayProvider
-import config.ApplicationConfig
-import connectors.VPLAuthConnector
-import javax.inject.Inject
 import models.Accounts
-import play.api.Logger
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Results.Redirect
 import play.api.mvc.{AnyContent, Request, Result}
-import services.email.EmailService
-import services.{EnrolmentResult, EnrolmentService, Failure, Success}
-import uk.gov.hmrc.auth.core._
-import uk.gov.hmrc.auth.core.retrieve.Retrievals._
-import uk.gov.hmrc.auth.core.retrieve.~
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}

@@ -18,17 +18,18 @@ package utils
 
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{Pagination, PaginationParams, PaginationSearchSort}
-import models.OwnerOrAgent.OwnerOrAgent
+import controllers.PaginationParams
 import models._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
+import org.mockito.Mockito.mock
 import session.LinkingSessionRequest
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
-object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfig, StubHttp) { //TODO fix unimplemented
+object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfig, mock(classOf[HttpClient])) {
 
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil

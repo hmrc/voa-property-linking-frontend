@@ -29,7 +29,7 @@ private object AppDependencies {
   import play.sbt.PlayImport._
 
   private val playReactivemongoVersion = "5.2.0"
-  private val bootstrapVersion = "4.8.0"
+  private val bootstrapVersion = "5.1.0"
 
   val compile = Seq(
     filters,
@@ -37,10 +37,9 @@ private object AppDependencies {
     "ai.x" %% "play-json-extensions" % "0.9.0",
     "uk.gov.hmrc" %% "play-reactivemongo" % playReactivemongoVersion,
     "com.codahale.metrics" % "metrics-graphite" % "3.0.1",
-    "uk.gov.hmrc" %% "auth-client" % "2.5.0",
     "com.google.guava" % "guava" % "18.0",
     "joda-time" % "joda-time" % "2.8.2",
-    "uk.gov.hmrc" %% "frontend-bootstrap" % "12.4.0",
+    "uk.gov.hmrc" %% "frontend-bootstrap" % "12.4.0" exclude("uk.gov.hmrc", "play-authorised-frontend_2.11"), //TODO remove this line
     "uk.gov.hmrc" %% "bootstrap-play-25" % bootstrapVersion,
     "uk.gov.hmrc" %% "http-caching-client" % "7.0.0",
     "org.typelevel" %% "cats-core" % "1.0.1",
@@ -48,8 +47,7 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "play-whitelist-filter" % "2.0.0",
     "uk.gov.hmrc" %% "mongo-lock" % "5.1.1",
     "com.google.inject.extensions" % "guice-multibindings" % "4.0",
-    "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0",
-    "com.builtamont" %% "play2-scala-pdf" % "2.0.0.P25" exclude ("com.typesafe.play", "play-logback_2.11")
+    "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0"
   )
 
   trait TestDependencies {

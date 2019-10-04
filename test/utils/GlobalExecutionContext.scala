@@ -14,23 +14,11 @@
  * limitations under the License.
  */
 
-package models.registration
+package utils
 
-import play.api.libs.json.Json
-import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole}
+import scala.concurrent.ExecutionContext
+import scala.concurrent.ExecutionContext.global
 
-case class UserInfo(
-                     firstName: Option[String],
-                     lastName: Option[String],
-                     email: String,
-                     postcode: Option[String],
-                     groupIdentifier: String,
-                     gatewayId: String,
-                     affinityGroup: AffinityGroup,
-                     credentialRole: CredentialRole
-                   )
-
-object UserInfo {
-  implicit val format = Json.format[UserInfo]
+trait GlobalExecutionContext {
+  implicit val executionContext: ExecutionContext = global
 }
-

@@ -19,15 +19,15 @@ package connectors
 import javax.inject.Inject
 import models.registration.GroupAccountDetails
 import models.{Address, DetailedAddress}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import models.{Address, DetailedAddress}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class Addresses @Inject()(config: ServicesConfig, http: HttpClient) {
+class Addresses @Inject()(config: ServicesConfig, http: HttpClient)(implicit executionContext: ExecutionContext) {
 
   val url = config.baseUrl("property-linking") + "/property-linking/address"
 
