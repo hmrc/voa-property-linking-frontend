@@ -149,8 +149,6 @@
         
 
         function fileUpload(form, file, csrfToken){
-            var data = new FormData();
-
             $('#uploadForm').attr('action', form.uploadRequest.href);
 
             Object.keys(form.uploadRequest.fields).map(function(k) {
