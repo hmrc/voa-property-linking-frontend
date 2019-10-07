@@ -21,6 +21,7 @@ import java.time.LocalDate
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
+import connectors.authorisation.BusinessRatesAuthorisation
 import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.Inject
 import models._

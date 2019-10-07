@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package connectors
+package connectors.authorisation
 
 import config.AuthorisationFailed
 import javax.inject.Inject

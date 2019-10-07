@@ -17,15 +17,15 @@
 package utils
 
 import actions.AuthenticatedAction
-import connectors.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
+import connectors.authorisation.{AuthorisationResult, BusinessRatesAuthorisation, InvalidGGSession}
 import models.{DetailedIndividualAccount, GroupAccount}
 import services.email.EmailService
+import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.{Retrieval, ~}
-import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.http.HeaderCarrier
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 object StubAuthentication extends AuthenticatedAction(null, null, StubBusinessRatesAuthorisation, null, StubAuthConnector)(null, null, scala.concurrent.ExecutionContext.Implicits.global) { //TODO mock these things

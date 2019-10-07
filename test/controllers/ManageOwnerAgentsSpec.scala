@@ -18,6 +18,7 @@ package controllers
 
 import com.builtamont.play.pdf.PdfGenerator
 import connectors._
+import connectors.authorisation.Authenticated
 import models._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest

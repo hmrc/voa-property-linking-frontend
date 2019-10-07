@@ -16,7 +16,8 @@
 
 package controllers.manageDetails
 
-import connectors.{Addresses, Authenticated, GroupAccounts, IndividualAccounts}
+import connectors.authorisation.Authenticated
+import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, Address, DetailedIndividualAccount}
 import org.jsoup.Jsoup

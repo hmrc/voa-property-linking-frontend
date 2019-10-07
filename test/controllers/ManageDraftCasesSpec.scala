@@ -16,7 +16,8 @@
 
 package controllers
 
-import connectors.{Authenticated, DraftCases}
+import connectors.DraftCases
+import connectors.authorisation.Authenticated
 import models.Accounts
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when

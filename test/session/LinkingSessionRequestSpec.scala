@@ -17,13 +17,12 @@
 package session
 
 import actions.AuthenticatedAction
-import connectors.Authenticated
+import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount, LinkingSession}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.i18n.Messages
-import play.api.mvc.Results._
 import play.api.test.FakeRequest
 import repositories.SessionRepo
 import resources._
