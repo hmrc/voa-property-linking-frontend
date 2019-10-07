@@ -17,6 +17,7 @@
 package connectors.authorisation
 
 import config.AuthorisationFailed
+import connectors.BaseConnector
 import connectors.authorisation.errorhandler.AuthorisationHttpErrorFunctions
 import javax.inject.Inject
 import models.{Accounts, PropertyLinkIds}
@@ -28,7 +29,10 @@ import uk.gov.hmrc.play.http.logging.MdcLoggingExecutionContext._
 
 import scala.concurrent.Future
 
-class BusinessRatesAuthorisation @Inject()(config: ServicesConfig, http: HttpClient) extends AuthorisationHttpErrorFunctions {
+class BusinessRatesAuthorisation @Inject()(
+                                            config: ServicesConfig,
+                                            http: HttpClient
+                                          ) extends BaseConnector with AuthorisationHttpErrorFunctions {
   val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
   val logger = Logger(this.getClass.getName)
