@@ -38,11 +38,11 @@ import scala.concurrent.{ExecutionContext, Future}
 class DvrController @Inject()(
                                val errorHandler: CustomErrorHandler,
                                propertyLinks: PropertyLinkConnector,
-    authenticated: AuthenticatedAction,
-    submissionIds: SubmissionIdConnector,
-    dvrCaseManagement: DVRCaseManagementConnector,
-    businessRatesAuthorisation: BusinessRatesAuthorisation)(
-    implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
+                               authenticated: AuthenticatedAction,
+                               submissionIds: SubmissionIdConnector,
+                               dvrCaseManagement: DVRCaseManagementConnector,
+                               businessRatesAuthorisation: BusinessRatesAuthorisation
+                             )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
     extends PropertyLinkingController {
 
   private val logger = Logger(this.getClass.getName)

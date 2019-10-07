@@ -17,6 +17,7 @@
 package controllers
 
 import connectors._
+import connectors.authorisation.{Authenticated, NoVOARecord}
 import models._
 import models.messages.Message
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}

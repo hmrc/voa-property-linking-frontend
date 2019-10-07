@@ -16,6 +16,7 @@
 
 package controllers.agent
 
+import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
@@ -24,11 +25,17 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
+import tests.AllMocks
+import utils._
+import play.api.test.Helpers._
+import resources._
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.auth.core.AffinityGroup._
 import utils._
 
 import scala.collection.JavaConverters._
+import scala.collection.JavaConverters._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class PendingRequestsSpec extends VoaPropertyLinkingSpec {
 

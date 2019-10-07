@@ -16,6 +16,11 @@
 
 package controllers
 
+import actions.propertylinking.{LinkingSessionRequest, WithLinkingSession}
+import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import auth.GovernmentGatewayProvider
+import connectors.Addresses
+import connectors.authorisation.BusinessRatesAuthorisation
 import actions._
 import models._
 import models.registration.UserDetails
@@ -26,6 +31,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Request, Result}
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import session.{LinkingSessionRequest, WithLinkingSession}
+import services.EnrolmentService
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._

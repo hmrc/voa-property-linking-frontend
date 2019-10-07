@@ -29,6 +29,7 @@ trait Cats
     with EitherSyntax //useful conversion between Either/Option/Try/Validated
     with ApplySyntax //map2..22 , mapN
     with ShowSyntax //for turning things to String without relying on Object#toString
+    with FunctorSyntax //for .widen syntax for eitherT to uplift the type to a Lowest common parent
     with TraverseSyntax //.traverse and .sequence extensions
 
 object Cats extends Cats

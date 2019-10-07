@@ -19,12 +19,12 @@ package connectors
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
+import models.propertylinking.payload.PropertyLinkPayload
+import models.propertylinking.requests.PropertyLinkRequest
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
 import org.scalacheck.Arbitrary._
 import play.api.http.Status.OK
-import play.api.test.FakeRequest
 import resources._
-import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import utils.StubServicesConfig
 
@@ -53,12 +53,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
       uarn = 1, submissionId = "a001", personId = individualAccount.individualId, declaration = capacityDeclaration, uploadEvidenceData = uploadEvidenceData)
 
     mockHttpPOST[PropertyLinkRequest, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.createPropertyLink()
-    (LinkingSessionRequest(linkingSession,
-      individualAccount.organisationId,
-      individualAccount,
-      groupAccount,
-      FakeRequest())))(_ mustBe ())
+    whenReady(connector.createPropertyLink(mock[PropertyLinkPayload]))(_ mustBe ())
   }
 
   "appointableProperties" must "return the properties appointable to an agent" in new Setup {

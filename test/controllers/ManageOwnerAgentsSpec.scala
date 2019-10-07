@@ -17,6 +17,9 @@
 package controllers
 
 import connectors._
+import connectors.authorisation.Authenticated
+import models._
+import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.AgentRelationshipService

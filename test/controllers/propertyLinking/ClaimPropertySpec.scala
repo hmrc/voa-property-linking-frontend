@@ -19,6 +19,7 @@ package controllers.propertyLinking
 import java.time.LocalDate
 
 import com.google.inject.Inject
+import connectors.authorisation.Authenticated
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.VoaPropertyLinkingSpec
 import models._

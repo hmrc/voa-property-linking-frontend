@@ -18,6 +18,7 @@ package controllers.propertyLinking
 
 import java.time.LocalDate
 
+import actions.propertylinking.WithLinkingSession
 import javax.inject.{Inject, Named}
 import actions.{AuthenticatedAction, AuthenticatedRequest}
 import binders.propertylinks.GetPropertyLinksParameters
@@ -37,7 +38,6 @@ import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent}
 import repositories.SessionRepo
-import session.WithLinkingSession
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors

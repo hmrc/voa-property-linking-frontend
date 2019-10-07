@@ -17,6 +17,7 @@
 package controllers.propertyLinking
 
 import actions.AuthenticatedAction
+import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
@@ -29,7 +30,6 @@ import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent}
 import services.BusinessRatesAttachmentService
-import session.WithLinkingSession
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext

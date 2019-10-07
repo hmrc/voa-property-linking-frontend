@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-package repositories
+package connectors.authorisation.errorhandler.exceptions
 
-import java.time.LocalDateTime
-import javax.inject.Inject
+import uk.gov.hmrc.http.HttpException
 
-import com.google.inject.Singleton
-import play.api.libs.json.{Format, Json}
-import reactivemongo.api.DB
-import uk.gov.hmrc.mongo.ReactiveRepository
+class BraAuthorisationFailure(message: String, responseCode: Int) extends HttpException(message, responseCode)
 
-@Singleton
-class MongoTaskRepo @Inject()(db: DB)
-  extends ReactiveRepository[MongoTaskRegister, String]("mongoTaskExecution", () => db, MongoTaskRegister.mongoFormat, implicitly[Format[String]])
+object BraAuthorisationFailure {
 
-case class MongoTaskRegister(taskName: String, version: Int, executionDateTime: LocalDateTime)
-
-object MongoTaskRegister {
-  val mongoFormat = Json.format[MongoTaskRegister]
+  def apply(message: String, respondeCode: Int = 401): BraAuthorisationFailure =
+    new BraAuthorisationFailure(message, respondeCode)
 }

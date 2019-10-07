@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.voa.propertylinking.filters
+package uk.gov.voa.propertylinking.exceptions.attachments
 
-import javax.inject.Inject
-import play.api.http.DefaultHttpFilters
-import uk.gov.hmrc.play.bootstrap.filters.FrontendFilters
+sealed trait AttachmentException extends Product with Serializable
 
-class ExpandedFrontendFilters @Inject()(frontendFilters: FrontendFilters) extends DefaultHttpFilters(frontendFilters.filters: _*)
+
+case object NotAllFilesReadyToUpload extends AttachmentException
+case object MissingRequiredNumberOfFiles extends AttachmentException

@@ -17,6 +17,7 @@
 package tests
 
 import actions.AuthenticatedAction
+import actions.propertylinking.WithLinkingSession
 import auditing.AuditingService
 import auth.GovernmentGatewayProvider
 import connectors.authorisation.BusinessRatesAuthorisation

@@ -17,6 +17,7 @@
 package connectors
 
 import config.AuthorisationFailed
+import connectors.authorisation.{Authenticated, BusinessRatesAuthorisation, ForbiddenResponse, NoVOARecord}
 import connectors.authorisation.AuthorisationResult._
 import connectors.authorisation.BusinessRatesAuthorisation
 import controllers.VoaPropertyLinkingSpec

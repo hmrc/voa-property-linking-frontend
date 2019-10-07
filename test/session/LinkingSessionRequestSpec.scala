@@ -16,6 +16,9 @@
 
 package session
 
+import actions.AuthenticatedAction
+import actions.propertylinking.{LinkingSessionRequest, WithLinkingSession}
+import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models.LinkingSession
 import org.mockito.ArgumentMatchers.any

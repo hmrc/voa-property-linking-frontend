@@ -16,6 +16,8 @@
 
 package controllers.manageDetails
 
+import connectors.authorisation.Authenticated
+import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.VoaPropertyLinkingSpec
 import models.{Address, DetailedIndividualAccount}

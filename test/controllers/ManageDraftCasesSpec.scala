@@ -17,6 +17,9 @@
 package controllers
 
 import connectors.DraftCases
+import connectors.authorisation.Authenticated
+import models.Accounts
+import connectors.DraftCases
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar

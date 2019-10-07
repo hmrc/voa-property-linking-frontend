@@ -23,10 +23,11 @@ import binders.propertylinks.GetPropertyLinksParameters
 import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
 import models._
+import models.propertylinking.payload.PropertyLinkPayload
+import models.propertylinking.requests.PropertyLinkRequest
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
-import session.LinkingSessionRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
@@ -75,20 +76,8 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
     representationStatusFilter.exists(x => x.name.equalsIgnoreCase(agent.status) )
   }
 
-  def createPropertyLink()(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
-    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.request.headers, Some(request.request.session))
-    val url = s"$baseUrl/property-links"
-    val linkRequest = PropertyLinkRequest(
-      request.ses.uarn,
-      request.organisationId,
-      request.ses.personId,
-      Capacity.fromDeclaration(request.ses.declaration),
-      Instant.now,
-      request.ses.uploadEvidenceData.linkBasis,
-      request.ses.uploadEvidenceData.fileInfo.toSeq,
-      request.ses.submissionId
-    )
-    http.POST[PropertyLinkRequest, HttpResponse](url, linkRequest) map { _ => () }
+  def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[Unit] = {
+    http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/property-links", propertyLinkPayload) map { _ => () }
   }
 
   def getMyOrganisationPropertyLinksWithAgentFiltering(

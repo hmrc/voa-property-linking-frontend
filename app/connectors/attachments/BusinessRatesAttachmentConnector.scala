@@ -42,13 +42,16 @@ class BusinessRatesAttachmentConnector @Inject()(
     http.POST[InitiateAttachmentPayload, PreparedUpload](s"$baseURL/business-rates-attachments/v2/initiate", uploadSettings)
   }
 
+  def getAttachment(reference: String)(implicit hc: HeaderCarrier): Future[Attachment] =
+    http.GET[Attachment](s"$baseURL/business-rates-attachments/$reference")
+
   def submitFile(fileReference: String, submissionId: String)(
-    implicit headerCarrier: HeaderCarrier): Future[Option[Attachment]] = {
-    http.PATCH[MetaDataRequest, Option[Attachment]](s"$baseURL/business-rates-attachments/attachments/$fileReference", MetaDataRequest(submissionId))
+    implicit headerCarrier: HeaderCarrier): Future[Attachment] = {
+    http.PATCH[MetaDataRequest, Attachment](s"$baseURL/business-rates-attachments/attachments/$fileReference", MetaDataRequest(submissionId))
       .recover {
       case ex: Exception =>
         Logger.warn(s"File Submission failed for File Reference: $fileReference Response body", ex)
-        None
+        throw ex
     }
   }
 }

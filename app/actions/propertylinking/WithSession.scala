@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package session
+package actions.propertylinking
 
 import actions.BasicAuthenticatedRequest
 import javax.inject.{Inject, Named}

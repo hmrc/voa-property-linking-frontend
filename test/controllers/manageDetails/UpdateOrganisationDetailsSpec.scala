@@ -19,6 +19,8 @@ package controllers.manageDetails
 import java.time.{Clock, Instant, ZoneId}
 
 import connectors.GroupAccounts
+import connectors.authorisation.Authenticated
+import connectors.GroupAccounts
 import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
@@ -27,8 +29,12 @@ import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import resources._
 import services.{ManageDetails, Success}
 import uk.gov.hmrc.http.HeaderCarrier
+import utils.StubAuthentication
+
+import scala.concurrent.Future
 
 import scala.concurrent.Future
 

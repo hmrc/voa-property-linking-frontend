@@ -17,6 +17,7 @@
 package utils
 
 import actions.BasicAuthenticatedRequest
+import actions.propertylinking.{LinkingSessionRequest, WithLinkingSession}
 import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
 import org.mockito.Mockito.mock
 import play.api.mvc.Result

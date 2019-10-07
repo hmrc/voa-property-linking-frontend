@@ -17,6 +17,7 @@
 package services
 
 import actions.BasicAuthenticatedRequest
+import actions.propertylinking.LinkingSessionRequest
 import connectors.attachments.BusinessRatesAttachmentConnector
 import models.LinkingSession
 import models.attachment.InitiateAttachmentPayload
@@ -51,9 +52,10 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec {
       when(mockSessionRepo.get[LinkingSession](any(), any())).thenReturn(Future.successful(Some(linkingSessionData)))
       when(businessRatesAttachmentConnector.initiateAttachmentUpload(any())(any[HeaderCarrier])).thenReturn(Future successful preparedUpload)
       when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-      businessRatesChallengeService.initiateAttachmentUpload(initiateAttachmentRequest)(request, hc).futureValue
-      verify(mockSessionRepo).get[LinkingSession](any(), any())
-      verify(businessRatesAttachmentConnector).initiateAttachmentUpload(any())(any[HeaderCarrier])
+
+      businessRatesChallengeService.initiateAttachmentUpload(initiateAttachmentRequest)(linkingSessionRequest, hc).futureValue
+
+      verify(businessRatesAttachmentConnector, times(1)).initiateAttachmentUpload(any())(any[HeaderCarrier])
     }
 
     it should "call to persistSessionData is success" in {
@@ -63,9 +65,9 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec {
     }
 
     it should "call to submit Files is success" in {
-      when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future successful Some(attachment))
+      when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(attachment))
 
-      businessRatesChallengeService.submitFiles(FILE_REFERENCE, Some(Map(FILE_REFERENCE -> uploadedFileDetails))).futureValue
+      businessRatesChallengeService.patchMetadata(FILE_REFERENCE, FILE_REFERENCE).futureValue
 
       verify(businessRatesAttachmentConnector).submitFile(any(), any())(any[HeaderCarrier])
     }

@@ -17,6 +17,7 @@
 package actions
 
 import connectors.authorisation.AuthorisationResult._
+import connectors.authorisation._
 import models.Accounts
 import models.registration.UserDetails
 import org.mockito.ArgumentMatchers._
@@ -35,7 +36,6 @@ import uk.gov.hmrc.auth.core.retrieve.{Name, Retrieval, ~}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.{FakeObjects, NoMetricsOneAppPerSuite}
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
