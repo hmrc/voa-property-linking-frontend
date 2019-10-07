@@ -22,7 +22,7 @@ import uk.gov.hmrc.http.{HttpErrorFunctions, HttpResponse}
 
 import scala.util.Try
 
-class AuthorisationHttpErrorFunctions extends HttpErrorFunctions {
+trait AuthorisationHttpErrorFunctions extends HttpErrorFunctions {
 
   override def handleResponse(httpMethod: String, url: String)(response: HttpResponse): HttpResponse =
     response.status match {
