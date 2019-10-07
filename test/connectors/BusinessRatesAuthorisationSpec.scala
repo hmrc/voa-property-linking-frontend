@@ -17,6 +17,7 @@
 package connectors
 
 import config.AuthorisationFailed
+import connectors.authorisation.{Authenticated, BusinessRatesAuthorisation, ForbiddenResponse, NoVOARecord}
 import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalacheck.Arbitrary._

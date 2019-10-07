@@ -18,21 +18,22 @@ package controllers.manageDetails
 
 import java.time.{Clock, Instant, ZoneId}
 
-import connectors.{Addresses, Authenticated, GroupAccounts}
+import connectors.GroupAccounts
+import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
-import org.scalatest.mockito.MockitoSugar
-import org.mockito.Mockito._
 import org.mockito.ArgumentMatchers.{eq => matching, _}
+import org.mockito.Mockito._
+import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
-import resources._
-import utils.StubAuthentication
 import play.api.test.Helpers._
+import resources._
 import services.{ManageDetails, Success}
+import uk.gov.hmrc.http.HeaderCarrier
+import utils.StubAuthentication
 
 import scala.concurrent.Future
-import uk.gov.hmrc.http.HeaderCarrier
 
 class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   "The update business name page" must "require a non-empty business name" in {

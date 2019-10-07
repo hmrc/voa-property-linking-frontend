@@ -16,20 +16,17 @@
 
 package controllers
 
-import actions.{AgentRequest, AuthenticatedAction, BasicAuthenticatedRequest}
-import akka.stream.Materializer
+import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
 import auth.GovernmentGatewayProvider
-import connectors.{Addresses, BusinessRatesAuthorisation}
+import connectors.Addresses
+import connectors.authorisation.BusinessRatesAuthorisation
 import models._
-import org.scalacheck.Arbitrary._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
-import play.api.i18n.{Messages, MessagesApi}
-import play.api.mvc.Results._
-import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.i18n.MessagesApi
+import play.api.mvc.{Request, Result}
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
-import repositories.{SessionRepo, SessionRepository}
 import services.EnrolmentService
 import session.{LinkingSessionRequest, WithLinkingSession}
 import tests.AllMocks

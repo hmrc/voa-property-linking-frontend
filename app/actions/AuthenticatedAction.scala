@@ -19,6 +19,7 @@ package actions
 import auth.GovernmentGatewayProvider
 import config.ApplicationConfig
 import connectors._
+import connectors.authorisation._
 import javax.inject.Inject
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.Logger

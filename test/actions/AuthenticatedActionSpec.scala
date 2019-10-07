@@ -18,6 +18,7 @@ package actions
 
 import auth.GovernmentGatewayProvider
 import connectors._
+import connectors.authorisation._
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -33,6 +34,7 @@ import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.{NoMetricsOneAppPerSuite, StubAuthConnector}
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 

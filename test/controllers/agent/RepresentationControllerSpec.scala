@@ -16,19 +16,19 @@
 
 package controllers.agent
 
-import connectors.Authenticated
+import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models._
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.Html
 import resources._
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
-import play.twirl.api.Html
 
 import scala.concurrent.ExecutionContext.Implicits.global
 

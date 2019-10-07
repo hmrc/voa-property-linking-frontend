@@ -18,27 +18,27 @@ package controllers.agentAppointment
 
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
-import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{AgentsConnector, Authenticated, PropertyRepresentationConnector}
+import connectors.authorisation.Authenticated
+import connectors.{AgentsConnector, PropertyRepresentationConnector}
 import controllers.VoaPropertyLinkingSpec
 import models._
 import models.searchApi._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
+import org.scalacheck.Arbitrary._
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import repositories.SessionRepo
 import resources._
+import services.{AgentRelationshipService, AppointRevokeException}
+import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubAuthentication, StubGroupAccountConnector}
-import repositories.SessionRepo
-import services.{AgentRelationshipService, AppointRevokeException}
-import org.scalacheck.Arbitrary._
-import tests.AllMocks
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 

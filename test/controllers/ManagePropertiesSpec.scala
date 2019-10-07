@@ -17,7 +17,8 @@
 package controllers
 
 import com.builtamont.play.pdf.PdfGenerator
-import connectors.{AgentsConnector, Authenticated, DraftCases, GroupAccounts}
+import connectors.authorisation.Authenticated
+import connectors.{AgentsConnector, DraftCases, GroupAccounts}
 import models._
 import models.searchApi._
 import org.scalacheck.Arbitrary.arbitrary

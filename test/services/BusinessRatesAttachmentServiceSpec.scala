@@ -69,11 +69,9 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar w
     it should "call to submit Files is success" in {
       when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future successful Some(attachment))
 
-      businessRatesChallengeService.submitFiles(FILE_REFERENCE,  Some(Map(FILE_REFERENCE -> uploadedFileDetails))).futureValue
+      businessRatesChallengeService.submitFiles(FILE_REFERENCE, Some(Map(FILE_REFERENCE -> uploadedFileDetails))).futureValue
 
       verify(businessRatesAttachmentConnector, times(1)).submitFile(any(), any())(any[HeaderCarrier])
     }
-
-
 }
 

@@ -16,7 +16,8 @@
 
 package controllers
 
-import connectors.{Authenticated, DraftCases}
+import connectors.DraftCases
+import connectors.authorisation.Authenticated
 import models.Accounts
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
