@@ -35,7 +35,6 @@ import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 trait AllMocks {
   self: MockitoSugar with BeforeAndAfterEach =>
 
-  val accounts = Accounts(mock[GroupAccount], mock[DetailedIndividualAccount])
   val mockAddresses: Addresses = mock[Addresses]
   val mockAuditingService: AuditingService = mock[AuditingService]
   val mockAuthConnector: AuthConnector = mock[AuthConnector]
@@ -54,7 +53,6 @@ trait AllMocks {
 
   override protected def beforeEach(): Unit =
     Seq(
-      accounts,
       mockAddresses,
       mockAuditingService,
       mockBusinessRatesAuthorisation,

@@ -18,6 +18,7 @@ package models
 
 import java.time.LocalDate
 
+import models.domain._
 import play.api.libs.json.{Json, OFormat}
 
 case class PersonalDetails(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino,

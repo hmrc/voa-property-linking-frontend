@@ -15,9 +15,9 @@
  */
 
 package models
-
 import java.time.LocalDate
 
+import models.domain._
 import play.api.libs.json.Json
 
 case class IVDetails(firstName: String, lastName: String, dateOfBirth: Option[LocalDate], nino: Option[Nino])

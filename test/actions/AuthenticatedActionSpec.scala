@@ -16,39 +16,36 @@
 
 package actions
 
-import auth.GovernmentGatewayProvider
-import connectors._
 import connectors.authorisation.AuthorisationResult._
-import connectors.authorisation._
+import models.Accounts
 import models.registration.UserDetails
-import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
+import org.scalatest.BeforeAndAfterEach
 import org.scalatest.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
 import play.api.mvc.Request
 import play.api.mvc.Results._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
-import services.EnrolmentService
+import tests.AllMocks
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.{Name, Retrieval, ~}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.{FakeObjects, NoMetricsOneAppPerSuite}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsOneAppPerSuite {
-
+class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks with NoMetricsOneAppPerSuite {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
 
   "AuthenticatedAction" should {
     "invoke the wrapped action when the user is logged in to CCA" in new Setup {
+      val accounts = Accounts(mockGroupAccount, mockDetailedIndividualAccount)
       when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
 
       val res = testAction { _ => Ok("something") }(FakeRequest())
@@ -58,7 +55,7 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
 
     "redirect to the login page when the user is not logged in" in new Setup {
       when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(InvalidGGSession))
-      when(mockGG.redirectToLogin(any[Request[_]])).thenReturn(Future.successful(Redirect("sign-in-page")))
+      when(mockGovernmentGatewayProvider.redirectToLogin(any[Request[_]])).thenReturn(Future.successful(Redirect("sign-in-page")))
 
       val res = testAction { _ => Ok("something") }(FakeRequest())
 
@@ -116,10 +113,10 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
 
     implicit val hc: HeaderCarrier = HeaderCarrier()
 
-    def u: UserDetails = userDetails()
+    def user: UserDetails = userDetails()
 
     def success: Enrolments ~ Option[Name] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[AffinityGroup] ~ Option[CredentialRole] =
-      new ~(new ~(new ~(new ~(new ~(new ~(new ~(Enrolments(Set(Enrolment("HMRC-VOA-CCA"))), Option(Name(u.firstName, u.lastName))), Option(u.email)), u.postcode), Option(u.groupIdentifier)), Option(u.externalId)), Option(u.affinityGroup)), Option(u.credentialRole))
+      new ~(new ~(new ~(new ~(new ~(new ~(new ~(Enrolments(Set(Enrolment("HMRC-VOA-CCA"))), Option(Name(user.firstName, user.lastName))), Option(user.email)), user.postcode), Option(user.groupIdentifier)), Option(user.externalId)), Option(user.affinityGroup)), Option(user.credentialRole))
 
     def exception: Option[AuthorisationException] = None
 
@@ -128,13 +125,7 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with NoMetricsO
         exception.fold(Future.successful(success.asInstanceOf[A]))(Future.failed(_))
     }
 
-    lazy val testAction = new AuthenticatedAction(messageApi, mockGG, mockBusinessRatesAuthorisation, mockEnrolmentService, authConnector)
-    lazy val mockBusinessRatesAuthorisation: BusinessRatesAuthorisation = mock[BusinessRatesAuthorisation]
-    lazy val mockAddresses: Addresses = mock[Addresses]
-    lazy val mockServiceConfig: ServicesConfig = mock[ServicesConfig]
-    lazy val mockGG: GovernmentGatewayProvider = mock[GovernmentGatewayProvider]
-    lazy val mockEnrolmentService: EnrolmentService = mock[EnrolmentService]
-    lazy val accounts = Accounts(mock[GroupAccount], mock[DetailedIndividualAccount])
+    lazy val testAction = new AuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockBusinessRatesAuthorisation, mockEnrolmentService, authConnector)
   }
 
 }

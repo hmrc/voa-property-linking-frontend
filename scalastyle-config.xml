@@ -65,7 +65,7 @@
     <check level="warning" class="org.scalastyle.scalariform.NoFinalizeChecker" enabled="true"></check>
     <check level="warning" class="org.scalastyle.scalariform.CovariantEqualsChecker" enabled="true"></check>
     <check enabled="true" class="org.scalastyle.scalariform.LowercasePatternMatchChecker" level="warning"/>
-    <check enabled="true" class="org.scalastyle.scalariform.PatternMatchAlignChecker" level="warning"/>
+    <check level="warning" class="org.scalastyle.scalariform.PatternMatchAlignChecker" enabled="false" />
     <check level="warning" class="org.scalastyle.scalariform.StructuralTypeChecker" enabled="true"></check>
     <check enabled="true" class="org.scalastyle.scalariform.ProcedureDeclarationChecker" level="warning"/>
     <check level="warning" class="org.scalastyle.file.RegexChecker" enabled="true">

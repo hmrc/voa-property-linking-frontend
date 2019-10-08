@@ -16,7 +16,7 @@
 
 package controllers
 
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest, GgAuthenticatedAction, RequestWithUserDetails}
+import actions._
 import models._
 import models.registration.UserDetails
 import org.scalatest.concurrent.ScalaFutures

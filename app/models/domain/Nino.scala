@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package models
+package models.domain
 
-import play.api.libs.json.{Format, Json, OFormat, Reads, Writes}
+import play.api.libs.json.{Format, Reads, Writes}
 
 case class Nino(nino: String) {
   require(Nino.isValid(nino), s"$nino is not a valid nino.")

@@ -42,8 +42,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1L)))
 
-    val u: UserDetails = userDetails(Organisation)
-    val res = testIdentityVerification(u).success()(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Organisation)).success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
   }
@@ -54,8 +53,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1L)))
 
-    val u = userDetails(Individual)
-    val res = testIdentityVerification(u).success()(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Individual)).success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
   }
@@ -67,8 +65,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentFailure))
 
-    val u = userDetails(Organisation)
-    val res = testIdentityVerification(u).success()(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Organisation)).success()(requestWithJourneyId("successfuljourney"))
 
     status(res) mustBe INTERNAL_SERVER_ERROR
   }
@@ -80,39 +77,30 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(DetailsMissing))
 
-    val u = userDetails(Organisation)
-    val res = testIdentityVerification(u).success()(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Organisation)).success()(requestWithJourneyId("successfuljourney"))
 
     status(res) mustBe INTERNAL_SERVER_ERROR
   }
 
   "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in new TestCase {
     StubIdentityVerification.stubFailedJourney("somejourneyid")
-    val u = userDetails(Organisation)
-
-    val res = testIdentityVerification(u).success()(request.withSession("journey-id" -> "somejourneyid"))
+    val res = testIdentityVerification(userDetails(Organisation)).success()(request.withSession("journey-id" -> "somejourneyid"))
     status(res) mustBe UNAUTHORIZED
   }
 
   "Navigating to the iv failed page" must "return the failed page" in new TestCase {
-    val u = userDetails(Organisation)
-
-    val res = testIdentityVerification(u).fail()(request)
+    val res = testIdentityVerification(userDetails(Organisation)).fail()(request)
     status(res) mustBe OK
     contentAsString(res) must include("Identity verification failed")
   }
   "Navigating to restoreSession" must "redirect to the iv success page" in new TestCase {
-    val u = userDetails(Organisation)
-
-    val res = testIdentityVerification(u).restoreSession()(request)
+    val res = testIdentityVerification(userDetails(Organisation)).restoreSession()(request)
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.IdentityVerification.success.url)
   }
 
   "fail" must "redirect the user to the identity verification failure page" in new TestCase {
-    val u = userDetails(Organisation)
-
-    val res = testIdentityVerification(u).fail()(FakeRequest())
+    val res = testIdentityVerification(userDetails(Organisation)).fail()(FakeRequest())
 
     status(res) mustBe OK
 

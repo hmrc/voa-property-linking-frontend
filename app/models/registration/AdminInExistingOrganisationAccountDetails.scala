@@ -18,8 +18,8 @@ package models.registration
 
 import java.time.LocalDate
 
+import models.domain._
 import play.api.libs.json.Json
-import models.Nino
 
 case class AdminInExistingOrganisationAccountDetails(firstName: String,
                                                      lastName: String,

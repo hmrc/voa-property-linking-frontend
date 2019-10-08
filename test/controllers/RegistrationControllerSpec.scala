@@ -71,8 +71,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     "redirect the user to the dashboard" in {
     StubIndividualAccountConnector.stubAccount(arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = ggExternalId))
 
-    val u: UserDetails = userDetails()
-    val res = testRegistrationController(u).show()(FakeRequest())
+    val res = testRegistrationController(userDetails()).show()(FakeRequest())
+
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(controllers.routes.Dashboard.home().url)
   }
@@ -80,24 +80,23 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "Going to the create account page, when logged in with an account that has not registered and has an Individual affinity group" should
     "display the create individual account form" in {
 
-    val u = userDetails(affinityGroup = AffinityGroup.Individual)
+    val user = userDetails(affinityGroup = AffinityGroup.Individual)
 
-    val res = testRegistrationController(u).show()(FakeRequest())
+    val res = testRegistrationController(user).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("Mobile number")
-    html.inputMustContain("email", u.email)
-    html.inputMustContain("confirmedEmail", u.email)
-    html.inputMustContain("firstName", u.firstName.get)
-    html.inputMustContain("lastName", u.lastName.get)
-    html.inputMustContain("addresspostcode", u.postcode.get)
+    html.inputMustContain("email", user.email)
+    html.inputMustContain("confirmedEmail", user.email)
+    html.inputMustContain("firstName", user.firstName.get)
+    html.inputMustContain("lastName", user.lastName.get)
+    html.inputMustContain("addresspostcode", user.postcode.get)
   }
 
   "Going to the create account page, when logged in with an account that is an Agent" should
     "display the invalid account type page" in {
-    val u: UserDetails = userDetails(affinityGroup = Agent)
-    val res = testRegistrationController(u).show()(FakeRequest())
+    val res = testRegistrationController(userDetails(affinityGroup = Agent)).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -106,28 +105,28 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Going to the create account page, when logged in with an account that has not registered and has an Organisation affinity group" should
     "display the create organisation account form" in {
-    val u = userDetails(Organisation)
-    val res = testRegistrationController(u).show()(FakeRequest())
+    val user = userDetails(Organisation)
+    val res = testRegistrationController(user).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-    html.inputMustContain("addresspostcode", u.postcode.get)
+    html.inputMustContain("addresspostcode", user.postcode.get)
 
     html.mustContainText("Business name")
-    html.inputMustContain("email", u.email)
-    html.inputMustContain("confirmedBusinessEmail", u.email)
-    html.inputMustContain("firstName", u.firstName.get)
-    html.inputMustContain("lastName", u.lastName.get)
-    html.inputMustContain("addresspostcode", u.postcode.get)
+    html.inputMustContain("email", user.email)
+    html.inputMustContain("confirmedBusinessEmail", user.email)
+    html.inputMustContain("firstName", user.firstName.get)
+    html.inputMustContain("lastName", user.lastName.get)
+    html.inputMustContain("addresspostcode", user.postcode.get)
   }
 
   "Going to the create account page when logged in as a new assistant user registering with an existing group account" should
     "display the complete your contact details form for an assistant" in {
-    val u: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = Assistant)
-    val groupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = u.groupIdentifier)
+    val user: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = Assistant)
+    val groupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = user.groupIdentifier)
     StubGroupAccountConnector.stubAccount(groupAccount)
 
-    val res = testRegistrationController(u).show()(FakeRequest())
+    val res = testRegistrationController(user).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -143,8 +142,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       "firstName" -> Seq("first")
     )
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-    val u: UserDetails = userDetails()
-    val res = testRegistrationController(u).submitAssistant()(fakeRequest)
+    val res = testRegistrationController(userDetails()).submitAssistant()(fakeRequest)
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
@@ -154,11 +152,11 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Going to the create account page when logged in as a new admin user registering with an existing group account" should
     "display the complete your contact details form for an admin" in {
-    val u: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = Admin)
-    val ga: GroupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = u.groupIdentifier)
+    val user: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = Admin)
+    val ga: GroupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = user.groupIdentifier)
     StubGroupAccountConnector.stubAccount(ga)
 
-    val res = testRegistrationController(u).show()(FakeRequest())
+    val res = testRegistrationController(user).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -173,8 +171,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Going to the create account page when logged in as a new assistant user registering without an existing group account" should
     "display the invalid account creation page" in {
-    val u: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = Assistant)
-    val res = testRegistrationController(u).show()(FakeRequest())
+    val res = testRegistrationController(userDetails(affinityGroup = Organisation, credentialRole = Assistant)).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -182,8 +179,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   "Submitting an invalid individual form" should "return a bad request response" in {
-    val u: UserDetails = userDetails()
-    val res = testRegistrationController(u).submitIndividual()(FakeRequest())
+    val res = testRegistrationController(userDetails()).submitIndividual()(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
@@ -213,14 +209,12 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     )
 
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-    val u: UserDetails = userDetails()
-    val res = testRegistrationController(u).submitIndividual()(fakeRequest)
+    val res = testRegistrationController(userDetails()).submitIndividual()(fakeRequest)
     status(res) mustBe SEE_OTHER
   }
 
   "Submitting an invalid organisation form" should "return a bad request response" in {
-    val u: UserDetails = userDetails()
-    val res = testRegistrationController(u).submitOrganisation()(FakeRequest())
+    val res = testRegistrationController(userDetails()).submitOrganisation()(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
@@ -250,8 +244,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       "dob.year" -> Seq("1980")
     )
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-    val u: UserDetails = userDetails()
-    val res = testRegistrationController(u).submitOrganisation()(fakeRequest)
+    val res = testRegistrationController(userDetails()).submitOrganisation()(fakeRequest)
     status(res) mustBe SEE_OTHER
   }
 }

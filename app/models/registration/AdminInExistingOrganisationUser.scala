@@ -19,7 +19,7 @@ package models.registration
 import java.time.LocalDate
 
 import form.Mappings._
-import models.Nino
+import models.domain._
 import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, Mapping}

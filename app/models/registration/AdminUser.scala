@@ -20,12 +20,12 @@ import java.time.LocalDate
 
 import form.Mappings._
 import form.TextMatching
+import models.domain._
 import models.{Address, IVDetails, IndividualAccountSubmission, IndividualDetails, email => _}
 import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, Mapping}
 import play.api.libs.json.{Format, JsObject, JsResult, JsValue}
-import models.Nino
 import utils.EmailAddressValidation
 import views.helpers.Errors
 
