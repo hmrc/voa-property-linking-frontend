@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package actions
+package actions.registration.requests
 
 import models.registration.UserDetails
 import play.api.mvc.{Request, WrappedRequest}

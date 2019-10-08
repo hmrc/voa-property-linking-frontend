@@ -16,7 +16,6 @@
 
 package controllers
 
-import connectors.authorisation.{Authenticated, BusinessRatesAuthorisation}
 import connectors.SubmissionIdConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.detailedvaluationrequest.DvrController

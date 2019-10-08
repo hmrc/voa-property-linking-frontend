@@ -16,7 +16,6 @@
 
 package controllers.agent
 
-import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models._
 import org.mockito.ArgumentMatchers.any

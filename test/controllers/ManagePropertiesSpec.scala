@@ -16,9 +16,6 @@
 
 package controllers
 
-import com.builtamont.play.pdf.PdfGenerator
-import connectors.authorisation.Authenticated
-import connectors.{AgentsConnector, DraftCases, GroupAccounts}
 import connectors.{AgentsConnector, DraftCases, GroupAccounts}
 import models._
 import models.searchApi._

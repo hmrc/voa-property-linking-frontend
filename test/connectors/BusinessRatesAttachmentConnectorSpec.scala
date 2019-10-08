@@ -22,8 +22,6 @@ import models.attachment._
 import models.attachment.request.InitiateAttachmentRequest
 import models.upscan._
 import play.api.libs.json.JsObject
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.BadRequestException
 
 class BusinessRatesAttachmentConnectorSpec extends VoaPropertyLinkingSpec {
 
@@ -38,7 +36,7 @@ class BusinessRatesAttachmentConnectorSpec extends VoaPropertyLinkingSpec {
 
 
     "submitFile" should   "submit the file" in {
-      val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp,applicationConfig)(ee)
+      val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp,applicationConfig)(ec)
       mockHttpPATCH[JsObject, Attachment]("tst-url", attachments)
       whenReady(testConnector.submitFile("file-reference", "submission-id"))(_ mustBe attachments)
     }

@@ -17,7 +17,8 @@
 package controllers.propertyLinking
 
 import actions.AuthenticatedAction
-import actions.propertylinking.{LinkingSessionRequest, WithLinkingSession}
+import actions.propertylinking.WithLinkingSession
+import actions.propertylinking.requests.LinkingSessionRequest
 import binders.propertylinks.EvidenceChoices
 import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import config.ApplicationConfig

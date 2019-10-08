@@ -16,20 +16,16 @@
 
 package connectors.propertyLinking
 
-import java.time.Instant
-
-import actions.BasicAuthenticatedRequest
+import actions.requests.BasicAuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
 import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
-import models.propertylinking.requests.PropertyLinkRequest
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
-import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 

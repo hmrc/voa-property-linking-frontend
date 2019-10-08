@@ -17,7 +17,6 @@
 package controllers.manageDetails
 
 import config.ApplicationConfig
-import connectors.authorisation.Authenticated
 import connectors._
 import controllers.VoaPropertyLinkingSpec
 import models._

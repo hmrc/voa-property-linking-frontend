@@ -16,22 +16,20 @@
 
 package actions
 
+import actions.requests.{AgentRequest, BasicAuthenticatedRequest}
 import auth.GovernmentGatewayProvider
 import config.ApplicationConfig
 import connectors.authorisation._
-import connectors.authorisation._
 import javax.inject.Inject
 import models.Accounts
-import models.registration.UserDetails
 import play.api.Logger
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.mvc.Results._
 import play.api.mvc._
 import services.{EnrolmentService, Failure, Success}
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.AuthProvider.GovernmentGateway
 import uk.gov.hmrc.auth.core._
-import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals._
-import uk.gov.hmrc.auth.core.retrieve.~
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
@@ -50,10 +48,8 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
   protected implicit def hc(implicit request: Request[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSessionAndRequest(request.headers, Some(request.session), request = Some(request))
 
   override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = {
-    logger.debug("the request called invoke block")
     businessRatesAuthorisation.authenticate(hc(request)).flatMap {
       res =>
-        logger.debug("the request passed through business-rates-authorisation")
         handleResult(res, block)(request, hc(request))
     }
   }
@@ -61,7 +57,7 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
   def asAgent(body: AgentRequest[AnyContent] => Future[Result])(implicit messages: Messages): Action[AnyContent] =
     this.async { implicit request =>
       if (request.organisationAccount.isAgent) {
-        body(new AgentRequest(request.organisationAccount, request.individualAccount, request.organisationAccount.agentCode, request))
+        body(AgentRequest(request.organisationAccount, request.individualAccount, request.organisationAccount.agentCode, request))
       } else {
         Future.successful(Unauthorized("Agent account required"))
       }
@@ -72,31 +68,36 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
                   body: BasicAuthenticatedRequest[A] => Future[Result])
                 (implicit request: Request[A], hc: HeaderCarrier): Future[Result] = {
     def handleError: PartialFunction[Throwable, Future[Result]] = {
-      case _: NoActiveSession =>
+      case _: InsufficientEnrolments    =>
+        logger.info("CCA account holder with insufficent enrolments, Migrating")
+        enrolmentService.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
+          case Success =>
+            Logger.info("Existing VOA user successfully enrolled")
+            body(BasicAuthenticatedRequest(
+              organisationAccount = accounts.organisation,
+              individualAccount = accounts.person,
+              request = request))
+          case Failure =>
+            Logger.warn("Failed to enrol existing VOA user")
+            body(BasicAuthenticatedRequest(
+              organisationAccount = accounts.organisation,
+              individualAccount = accounts.person,
+              request = request))
+        }
+      case _: UnsupportedAffinityGroup  =>
+        logger.warn("invalid account type already has a CCA account")
+        Future.successful(Ok(views.html.errors.invalidAccountType()))
+      case _: NoActiveSession           =>
         provider.redirectToLogin
-      case otherException =>
-        Logger.debug(s"Exception thrown on authorisation with message:", otherException)
+      case otherException               =>
+        Logger.warn(s"Exception thrown on authorisation with message:", otherException)
         throw otherException
     }
 
-    val retrieval = allEnrolments and name and email and postCode and groupIdentifier and externalId and affinityGroup and credentialRole
-    authorised(AuthProviders(GovernmentGateway)).retrieve(retrieval) {
-      case enrolments ~ name ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(role) =>
-        if (role != Assistant) {
-          if (config.stubEnrolment) {
-            Logger.info("Enrolment stubbed")
-          } else {
-            if (enrolments.getEnrolment("HMRC-VOA-CCA").isEmpty)
-              enrolmentService.enrol(accounts.person.individualId, accounts.organisation.addressId).map {
-                case Success => Logger.info("Existing VOA user successfully enrolled")
-                case Failure => Logger.warn("Failed to enrol existing VOA user")
-              }
-          }
-        }
-        body(new BasicAuthenticatedRequest(
+    authorised((AuthProviders(GovernmentGateway) and Enrolment("HMRC-VOA-CCA") and (Organisation or Individual) and User) or (AuthProviders(GovernmentGateway) and Assistant)) {
+        body(BasicAuthenticatedRequest(
           organisationAccount = accounts.organisation,
           individualAccount = accounts.person,
-          userDetails = UserDetails.fromRetrieval(name, optEmail, optPostCode, groupIdentifier, externalId, affinityGroup, role),
           request = request))
     }.recoverWith(handleError)
   }

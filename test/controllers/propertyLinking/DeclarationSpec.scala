@@ -16,12 +16,9 @@
 
 package controllers.propertyLinking
 
-import actions.propertylinking.LinkingSessionRequest
 import cats.data.EitherT
-import connectors.propertyLinking.PropertyLinkConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
-import models.upscan.UploadedFileDetails
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -63,7 +60,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
 
   it should "submit the property link if the user accepts the declaration" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
-    when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any[LinkingSessionRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(attachment))
+    when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any(), any[HeaderCarrier])).thenReturn(Future.successful(attachment))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -75,7 +72,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
   it should "display the normal confirmation page when the user has uploaded a rates bill" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
 
-    when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any[LinkingSessionRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(attachment))
+    when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any(), any[HeaderCarrier])).thenReturn(Future.successful(attachment))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -92,7 +89,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
   it should "display the normal confirmation page when the user has uploaded other evidence" in {
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
 
-    when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any[LinkingSessionRequest[_]], any[HeaderCarrier])).thenReturn(Future.successful(attachment))
+    when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any(), any[HeaderCarrier])).thenReturn(Future.successful(attachment))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER

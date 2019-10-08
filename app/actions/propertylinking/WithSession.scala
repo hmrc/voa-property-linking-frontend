@@ -16,9 +16,10 @@
 
 package actions.propertylinking
 
-import actions.BasicAuthenticatedRequest
+import actions.propertylinking.requests.LinkingSessionRequest
+import actions.requests.BasicAuthenticatedRequest
 import javax.inject.{Inject, Named}
-import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
+import models.LinkingSession
 import play.api.libs.json.Reads
 import play.api.mvc.Results._
 import play.api.mvc._
@@ -28,18 +29,6 @@ import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
-
-case class LinkingSessionRequest[A](
-                                     ses: LinkingSession,
-                                     organisationId: Long,
-                                     individualAccount: DetailedIndividualAccount,
-                                     groupAccount: GroupAccount,
-                                     request: Request[A]
-                                   ) extends WrappedRequest[A](request) {
-  def sessionId: String = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
-}
-
-case object NoSessionId extends Exception
 
 class WithLinkingSession @Inject()(
                                     errorHandler: CustomErrorHandler,

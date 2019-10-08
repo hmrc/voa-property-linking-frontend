@@ -16,7 +16,7 @@
 
 package services
 
-import actions.propertylinking.LinkingSessionRequest
+import actions.propertylinking.requests.LinkingSessionRequest
 import auditing.AuditingService
 import cats.data.EitherT
 import connectors.attachments.BusinessRatesAttachmentConnector

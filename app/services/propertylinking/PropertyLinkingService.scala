@@ -16,7 +16,7 @@
 
 package services.propertylinking
 
-import actions.propertylinking.LinkingSessionRequest
+import actions.propertylinking.requests.LinkingSessionRequest
 import cats.data.EitherT
 import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.Inject

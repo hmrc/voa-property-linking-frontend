@@ -19,8 +19,6 @@ package controllers.manageDetails
 import java.time.{Clock, Instant, ZoneId}
 
 import connectors.GroupAccounts
-import connectors.authorisation.Authenticated
-import connectors.GroupAccounts
 import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
@@ -29,12 +27,8 @@ import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
 import services.{ManageDetails, Success}
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.StubAuthentication
-
-import scala.concurrent.Future
 
 import scala.concurrent.Future
 
@@ -63,7 +57,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
 
   "The update business address page" must "update the business address ID if the postcode lookup is used" in new Setup {
     when(mockGroups.update(any(), any())(any())).thenReturn(Future.successful(()))
-    when(mockManageDetails.updatePostcode(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(Success))
+    when(mockManageDetails.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
       "address.addressId" -> "1234567890",
@@ -79,13 +73,13 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
     verify(mockGroups).update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, addressId = Some(1234567890L))))(any[HeaderCarrier])
-    verify(mockManageDetails).updatePostcode(any(), any(), matching(1234567890L))(any())(any(), any())
+    verify(mockManageDetails).updatePostcode(any(), any(), matching(1234567890L))(any(), any())
   }
 
   it must "create an address record, and update the business address ID to the created ID, if the address is entered manually" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
     when(mockAddresses.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(1L))
-    when(mockManageDetails.updatePostcode(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(Success))
+    when(mockManageDetails.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
       "address.line1" -> "1, The Place",
@@ -101,7 +95,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
 
     verify(mockAddresses).create(matching(Address(None, "1, The Place", "", "", "", "AA11 1AA")))(any[HeaderCarrier])
     verify(mockGroups).update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, addressId = Some(1L))))(any[HeaderCarrier])
-    verify(mockManageDetails).updatePostcode(any(), any(), matching(1L))(any())(any(), any())
+    verify(mockManageDetails).updatePostcode(any(), any(), matching(1L))(any(), any())
   }
 
   "The update business phone page" must "require a non-empty phone number" in new Setup {

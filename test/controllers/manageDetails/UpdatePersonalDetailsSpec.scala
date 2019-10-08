@@ -16,8 +16,6 @@
 
 package controllers.manageDetails
 
-import connectors.authorisation.Authenticated
-import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.VoaPropertyLinkingSpec
 import models.{Address, DetailedIndividualAccount}
@@ -152,7 +150,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   it must "update the user's address ID if they use the lookup" in {
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any(), any())).thenReturn(Future.successful(Success))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
       "address.addressId" -> "1234567890",
@@ -169,7 +167,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val updatedDetails = detailedIndividualAccount.details.copy(addressId = 1234567890)
     verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
-    verify(mockManageDetails).updatePostcode(matching(detailedIndividualAccount.individualId),any(),matching(1234567890L))(any())(any(), any())
+    verify(mockManageDetails).updatePostcode(matching(detailedIndividualAccount.individualId),any(),matching(1234567890L))(any(), any())
   }
 
   it must "create an address record, and update the user's record with the generated address ID, if they enter the address manually" in {
@@ -177,7 +175,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val address: Address = resources.addressGen.sample.get.copy(addressUnitId = None)
 
     when(mockAddressConnector.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(addressId))
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any(), any())).thenReturn(Future.successful(Success))
+    when(mockManageDetails.updatePostcode(any(),any(),any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validFormData: Seq[(String, String)] = Seq(
       "address.line1" -> address.line1,
@@ -195,7 +193,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     verify(mockAddressConnector).create(matching(address))(any[HeaderCarrier])
     verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
-    verify(mockManageDetails).updatePostcode(matching(detailedIndividualAccount.individualId),any(),matching(addressId))(any())(any(), any())
+    verify(mockManageDetails).updatePostcode(matching(detailedIndividualAccount.individualId),any(),matching(addressId))(any(), any())
   }
 
   "The update mobile number page" must "update the user's mobile number if they submit a valid form" in {

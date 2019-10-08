@@ -34,7 +34,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class BusinessRatesAuthorisation @Inject()(
                                             config: ServicesConfig,
                                             http: HttpClient
-                                          ) extends BaseConnector with AuthorisationHttpErrorFunctions {
+                                          )(implicit executionContext: ExecutionContext) extends BaseConnector with AuthorisationHttpErrorFunctions {
   val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
   import AuthorisationResult._

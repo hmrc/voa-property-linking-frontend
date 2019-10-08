@@ -22,14 +22,13 @@ import auditing.AuditingService
 import auth.GovernmentGatewayProvider
 import connectors.authorisation.BusinessRatesAuthorisation
 import connectors.{Addresses, DVRCaseManagementConnector}
-import models.{Accounts, DetailedIndividualAccount, GroupAccount}
+import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.Mockito
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.mockito.MockitoSugar
 import play.api.mvc.Request
 import repositories.SessionRepository
 import services.EnrolmentService
-import session.WithLinkingSession
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 

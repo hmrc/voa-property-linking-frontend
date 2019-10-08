@@ -18,7 +18,8 @@ package controllers.manageDetails
 
 import java.time.{Clock, Instant}
 
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import actions.AuthenticatedAction
+import actions.requests.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts}
 import controllers.PropertyLinkingController
@@ -109,7 +110,7 @@ class UpdateOrganisationDetails @Inject()(
     groups.update(current.id, details)
       .flatMap(_ => addressId.fold[Future[EnrolmentResult]]
         (Future.successful(Success))
-        (manageDetails.updatePostcode(request.individualAccount.individualId, current.addressId, _)(_ => true)))
+        (manageDetails.updatePostcode(request.individualAccount.individualId, current.addressId, _)))
       .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
   }
 

@@ -16,14 +16,13 @@
 
 package services
 
-import actions.BasicAuthenticatedRequest
+import actions.requests.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import connectors.TaxEnrolmentConnector
 import models.Address
 import org.mockito.ArgumentMatchers.{any, anyLong, eq => matches}
 import org.mockito.Mockito.{never, verify, when}
 import play.api.test.FakeRequest
-import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.duration._
@@ -31,7 +30,7 @@ import scala.concurrent.{Await, Future}
 
 class ManageDetailsSpec extends ServiceSpec {
 
-  implicit val request = new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, userDetails(AffinityGroup.Organisation), FakeRequest())
+  implicit val request = new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
 
   "updatePostcode" should "upsert known facts if predicate matches" in {
     updatePostcode(1, 1, 2, true)
@@ -44,7 +43,7 @@ class ManageDetailsSpec extends ServiceSpec {
   }
 
   def updatePostcode(personId: Int, addressId: Long, currentAddressId: Long, predicate: Boolean): Unit = {
-    Await.result(manageDetails.updatePostcode(personId, currentAddressId, addressId)(_ => predicate)(hc, request), 1.second)
+    Await.result(manageDetails.updatePostcode(personId, currentAddressId, addressId)(hc, request), 1.second)
   }
 
   override def beforeEach(): Unit = {

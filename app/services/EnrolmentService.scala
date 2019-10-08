@@ -30,9 +30,9 @@ class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, 
 
   def enrol(personId: Long, addressId: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[EnrolmentResult] = {
     (for {
-      optAddress <- addresses.findById(addressId)
-      address <- getAddress(optAddress)
-      _ <- taxEnrolmentsConnector.enrol(personId, address.postcode)
+      optAddress  <- addresses.findById(addressId)
+      address     <- getAddress(optAddress)
+      _           <- taxEnrolmentsConnector.enrol(personId, address.postcode)
     } yield Success).recover {
       case _: Throwable =>
         auditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))

@@ -16,8 +16,8 @@
 
 package services
 
-import actions.BasicAuthenticatedRequest
-import actions.propertylinking.LinkingSessionRequest
+import actions.propertylinking.requests.LinkingSessionRequest
+import actions.requests.BasicAuthenticatedRequest
 import connectors.attachments.BusinessRatesAttachmentConnector
 import models.LinkingSession
 import models.attachment.InitiateAttachmentPayload
@@ -28,7 +28,6 @@ import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import repositories.SessionRepo
 import resources._
-import session.LinkingSessionRequest
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -39,7 +38,7 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec {
   val mockSessionRepo = mock[SessionRepo]
   val initiateAttachmentRequest = InitiateAttachmentPayload(InitiateAttachmentRequest("FILE_NAME", "img/jpeg"), "http://example.com", "http://example.com/failure")
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
-  implicit val request = new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, userDetails(AffinityGroup.Organisation), FakeRequest())
+  implicit val request = new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
   implicit val linkingSessionRequest = LinkingSessionRequest(linkingSessionData, 1234l, detailedIndividualAccount, groupAccount(agent = true), request)
   implicit val hc = HeaderCarrier()
 

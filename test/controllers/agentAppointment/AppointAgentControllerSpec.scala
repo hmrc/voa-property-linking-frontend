@@ -19,8 +19,6 @@ package controllers.agentAppointment
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.{AgentsConnector, PropertyRepresentationConnector}
-import connectors.authorisation.Authenticated
-import connectors.{AgentsConnector, PropertyRepresentationConnector}
 import controllers.VoaPropertyLinkingSpec
 import models._
 import models.searchApi._
@@ -35,8 +33,6 @@ import repositories.SessionRepo
 import resources._
 import services.{AgentRelationshipService, AppointRevokeException}
 import tests.AllMocks
-import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HtmlPage, StubAuthentication, StubGroupAccountConnector}
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubGroupAccountConnector}
 

@@ -16,7 +16,8 @@
 
 package controllers.agent
 
-import actions.{AgentRequest, AuthenticatedAction}
+import actions.AuthenticatedAction
+import actions.requests.AgentRequest
 import cats.data.OptionT
 import cats.instances.future._
 import com.google.inject.{Inject, Singleton}

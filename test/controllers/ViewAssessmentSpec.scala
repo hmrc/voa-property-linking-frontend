@@ -17,7 +17,6 @@
 package controllers
 
 import connectors._
-import connectors.authorisation.Authenticated
 import models._
 import models.dvr.DetailedValuationRequest
 import org.mockito.ArgumentMatchers.{any, eq => matching}

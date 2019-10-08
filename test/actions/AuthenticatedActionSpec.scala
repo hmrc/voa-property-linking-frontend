@@ -113,10 +113,7 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with BeforeAndA
 
     implicit val hc: HeaderCarrier = HeaderCarrier()
 
-    def user: UserDetails = userDetails()
-
-    def success: Enrolments ~ Option[Name] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[AffinityGroup] ~ Option[CredentialRole] =
-      new ~(new ~(new ~(new ~(new ~(new ~(new ~(Enrolments(Set(Enrolment("HMRC-VOA-CCA"))), Option(Name(user.firstName, user.lastName))), Option(user.email)), user.postcode), Option(user.groupIdentifier)), Option(user.externalId)), Option(user.affinityGroup)), Option(user.credentialRole))
+    def success: Unit = ()
 
     def exception: Option[AuthorisationException] = None
 
