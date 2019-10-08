@@ -17,13 +17,12 @@
 import java.time.{Instant, LocalDate, LocalDateTime, ZoneId}
 
 import models._
-import models.registration.{IndividualUserAccountDetails, AdminOrganisationAccountDetails}
+import models.domain._
 import models.messages.{Message, MessageSearchResults}
+import models.registration.{AdminOrganisationAccountDetails, IndividualUserAccountDetails}
 import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
-import uk.gov.hmrc.domain.Nino
-import models._
 
 package object resources {
 

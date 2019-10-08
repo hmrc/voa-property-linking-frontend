@@ -18,22 +18,21 @@ package models
 
 import java.time.LocalDate
 
-import play.api.libs.json.Json
-import uk.gov.hmrc.domain.Nino
+import models.domain._
+import play.api.libs.json.{Json, OFormat}
 
 case class PersonalDetails(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino,
                            email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address) {
 
-  def ivDetails = IVDetails(firstName, lastName, Some(dateOfBirth), Some(nino))
+  def ivDetails: IVDetails = IVDetails(firstName, lastName, Some(dateOfBirth), Some(nino))
 
-  def individualDetails = {
+  def individualDetails: IndividualDetails =
     IndividualDetails(firstName, lastName, email, phone1, phone2, address.addressUnitId.getOrElse(throw new Exception("Address ID not set")))
-  }
 
-  def withAddressId(addressId: Long) = copy(address = address.copy(addressUnitId = Some(addressId)))
+  def withAddressId(addressId: Long): PersonalDetails = copy(address = address.copy(addressUnitId = Some(addressId)))
 
 }
 
 object PersonalDetails {
-  implicit val format = Json.format[PersonalDetails]
+  implicit val format: OFormat[PersonalDetails] = Json.format
 }

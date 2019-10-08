@@ -21,58 +21,45 @@ import models._
 import models.registration._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
-import resources.{shortString, _}
-import uk.gov.hmrc.auth.core.AffinityGroup.Individual
-import uk.gov.hmrc.auth.core.{AffinityGroup, User}
+import services.email.EmailService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class RegistrationServiceSpec extends ServiceSpec {
 
-  "create" should "return EnrolmentSuccess when ivEnrolmentEnabled flag is true" in new TestCase {
-
-    when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
-
-    val res: Future[RegistrationResult] = registrationService
-      .create(
-        GroupAccountDetails("", Address(None, "", "", "", "", ""), "", "", "", false),
-        UserDetails("", UserInfo(None, None, "", None, "", "", Individual, User))
-      )(userDetails => int => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
-
-    res.futureValue must be(RegistrationSuccess(2L))
+  val mockEmailService: EmailService = {
+    val m = mock[EmailService]
+    when(m.sendNewRegistrationSuccess(any(), any(), any(), any())(any(), any())).thenReturn(Future.successful(()))
+    m
   }
 
   trait TestCase {
-    val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
-
-    implicit val hc = HeaderCarrier()
-
-    def testOrganisationInfo = UserInfo(firstName = Some("Bob"),
-      lastName = Some("Smith"),
-      email = "bob@smith.com",
-      postcode = Some("AB12 3CD"),
-      groupIdentifier = "GroupIdenfifier",
-      affinityGroup = AffinityGroup.Organisation,
-      gatewayId = "",
-      credentialRole = User)
-
-    protected val mockEnrolmentService = mock[EnrolmentService]
+    protected val mockEnrolmentService: EnrolmentService = mock[EnrolmentService]
 
     protected val registrationService = new RegistrationService(
       groupAccounts = StubGroupAccountConnector,
       individualAccounts = StubIndividualAccountConnector,
       enrolmentService = mockEnrolmentService,
-      auth = StubVplAuthConnector,
       addresses = StubAddresses,
-      StubEmailService,
-      app.injector.instanceOf[ApplicationConfig]
+      emailService = mockEmailService,
+      config = app.injector.instanceOf[ApplicationConfig]
     )
   }
+
+  "create" should "return EnrolmentSuccess when ivEnrolmentEnabled flag is true" in new TestCase {
+    when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
+    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(ggExternalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
+    implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
+
+    val res: Future[RegistrationResult] = registrationService.create(
+      groupAccountDetails,
+      userDetails()
+    )(_ => _ => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
+
+    res.futureValue mustBe RegistrationSuccess(2L)
+    verify(mockEmailService).sendNewRegistrationSuccess(any(), any(), any(), any())(any(), any())
+  }
+
 }

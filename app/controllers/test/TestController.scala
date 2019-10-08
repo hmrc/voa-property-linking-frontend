@@ -16,14 +16,11 @@
 
 package controllers.test
 
-import java.time.Instant
-import java.util.UUID
-
 import actions.AuthenticatedAction
 import connectors._
 import connectors.propertyLinking.PropertyLinkConnector
-import connectors.test.{TestCheckConnector, TestEmacConnector, TestPropertyLinkingConnector}
-import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController}
+import connectors.test.{TestCheckConnector, TestPropertyLinkingConnector}
+import controllers.{Pagination, PropertyLinkingController}
 import javax.inject.Inject
 import models._
 import models.test.TestUserDetails
@@ -31,11 +28,10 @@ import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent}
 import services.test.TestService
-import services.{EnrolmentService, Failure, Success}
+import services.{Failure, Success}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.Random
 
 class TestController @Inject()(
                                 val errorHandler: CustomErrorHandler,
@@ -43,8 +39,6 @@ class TestController @Inject()(
                                 testService: TestService,
                                 individualAccounts: IndividualAccounts,
                                 groups: GroupAccounts,
-                                emacConnector: TestEmacConnector,
-                                vPLAuthConnector: VPLAuthConnector,
                                 testPropertyLinkingConnector: TestPropertyLinkingConnector,
                                 testCheckConnector: TestCheckConnector,
                                 propertyLinkingConnector: PropertyLinkConnector,
@@ -72,7 +66,7 @@ class TestController @Inject()(
 
   def deRegister(): Action[AnyContent] = authenticated.async { implicit request =>
     val orgId = request.individualAccount.organisationId
-    testPropertyLinkingConnector.deRegister(orgId).map(res => Ok(s"Successfully de-registered organisation with ID: $orgId")).recover {
+    testPropertyLinkingConnector.deRegister(orgId).map(_ => Ok(s"Successfully de-registered organisation with ID: $orgId")).recover {
       case e => Ok(s"Failed to de-register organisation with ID: $orgId with error: ${e.getMessage}")
     }
   }
@@ -84,23 +78,6 @@ class TestController @Inject()(
         case Success => Ok("Successful")
         case Failure => Ok("Failure")
       }
-  }
-
-  def updateAccount = authenticated.async { implicit request =>
-    val externalId = UUID.randomUUID().toString
-    for {
-      user <- vPLAuthConnector.getUserDetails
-      _ <- emacConnector.removeEnrolment(request.individualAccount.individualId, user.userInfo.gatewayId, user.userInfo.groupIdentifier)
-      _ <- individualAccounts.update(request.individualAccount.copy(externalId = externalId))
-      _ <- groups.update(request.organisationAccount.id, UpdatedOrganisationAccount(
-        Random.nextString(40),
-        request.organisationAccount.addressId,
-        request.organisationAccount.isAgent,
-        request.organisationAccount.companyName,
-        request.organisationAccount.email,
-        request.organisationAccount.phone,
-        Instant.now(), externalId))
-    } yield Ok("Successful")
   }
 
   def revokeAgentAppointments(agentOrgId: String) = authenticated.async { implicit request =>

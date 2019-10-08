@@ -18,9 +18,9 @@ package models.registration
 
 import java.time.LocalDate
 
+import models.domain._
 import models.{email => _, _}
 import play.api.libs.json.Json
-import uk.gov.hmrc.domain.Nino
 
 case class IndividualUserAccountDetails(firstName: String,
                                         lastName: String,

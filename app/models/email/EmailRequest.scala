@@ -29,7 +29,7 @@ object EmailRequest {
 
   def registration(to: String, detailedIndividualAccount: DetailedIndividualAccount, groupAccount: Option[GroupAccount],
                    affinityGroupOpt: Option[AffinityGroup] = None): EmailRequest = groupAccount match{
-    case Some(acc) if acc.isAgent => {
+    case Some(acc) if acc.isAgent =>
       EmailRequest(List(to), "cca_enrolment_confirmation_agent",
         Map(
           "agentCode" -> acc.agentCode.toString,
@@ -38,18 +38,17 @@ object EmailRequest {
           "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
         )
       )
-    }
-    case Some(acc) => { affinityGroupOpt match {
+
+    case Some(acc) => affinityGroupOpt match {
       case None => throw new IllegalStateException("No AffinityGroup for logged in user")
-      case Some(affinityGroup) if affinityGroup == Individual => {
+      case Some(affinityGroup) if affinityGroup == Individual =>
         EmailRequest(List(to), "cca_enrolment_confirmation_individual",
           Map(
             "personId" -> detailedIndividualAccount.individualId.toString,
             "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
           )
         )
-      }
-      case _ => {
+      case _ =>
         EmailRequest(List(to), "cca_enrolment_confirmation",
           Map(
             "orgName" -> acc.companyName,
@@ -58,9 +57,6 @@ object EmailRequest {
           )
         )
       }
-    }
-
-    }
     case None => throw new IllegalStateException("No GroupAccount is the session")
   }
 

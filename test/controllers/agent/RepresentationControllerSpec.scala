@@ -16,42 +16,33 @@
 
 package controllers.agent
 
-import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models._
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import resources._
-import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
+class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
-class RepresentationControllerSpec extends VoaPropertyLinkingSpec with AllMocks {
+  lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest().withSession(token)
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
-  lazy val request = FakeRequest().withSession(token)
-  implicit val hc = HeaderCarrier()
-  val validGroupAccount = groupAccount
-  val validIndividualAccount = detailedIndividualAccount
   object TestController extends RepresentationController(
     mockCustomErrorHandler,
     StubPropertyRepresentationConnector,
-    StubAuthentication,
+    preAuthenticatedActionBuilders(),
     StubPropertyLinkConnector
   )
 
   "cancel" should "allow the user to cancel accepting/rejecting the pending representation requests" in {
-    stubLoggedInUser()
-    val clientProperty: ClientProperty = arbitrary[ClientProperty]
-    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
-    val propReps: PropertyRepresentations = PropertyRepresentations(1l, Seq(propRep))
-
-    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+    StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
 
     val res = TestController.cancel(1, 15)(request.withFormUrlEncodedBody(
       "page" -> "1",
@@ -65,12 +56,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec with AllMocks 
   }
 
   "cancel" should "throw Bad Request if the form has errors" in {
-    stubLoggedInUser()
-    val clientProperty: ClientProperty = arbitrary[ClientProperty]
-    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
-    val propReps: PropertyRepresentations = PropertyRepresentations(1l, Seq(propRep))
-
-    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+    StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
 
     val res = TestController.cancel(1, 15)(request.withFormUrlEncodedBody(
       "page" -> "",
@@ -84,11 +70,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec with AllMocks 
   }
 
   "continue" should "redirect the user to the manage clients page" in {
-    stubLoggedInUser()
-    val clientProperty: ClientProperty = arbitrary[ClientProperty]
-    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
-
-    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+    StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
 
     val res = TestController.continue(1, 15)(request.withFormUrlEncodedBody(
       "page" -> "1",
@@ -103,14 +85,9 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec with AllMocks 
   }
 
   "continue" should "throw Bad Request if the form has errors" in {
+    StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
     when(mockCustomErrorHandler.badRequestTemplate(any()))
         .thenReturn(Html("BAD REQUEST"))
-
-    stubLoggedInUser()
-    val clientProperty: ClientProperty = arbitrary[ClientProperty]
-    val propRep: PropertyRepresentation = arbitrary[PropertyRepresentation]
-
-    StubPropertyLinkConnector.stubClientProperty(clientProperty)
 
     val res = TestController.continue(1, 15)(request.withFormUrlEncodedBody(
       "page" -> "1",
@@ -126,7 +103,6 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec with AllMocks 
 
   behavior of "revokeClientConfirmed method"
   it should "revoke an agent and redirect to the client properties page" in {
-    stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
@@ -138,7 +114,6 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec with AllMocks 
 
   behavior of "revokeClient method"
   it should "revoke an agent and display the revoke client page" in {
-    stubLoggedInUser()
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
@@ -153,17 +128,8 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec with AllMocks 
     when(mockCustomErrorHandler.notFoundTemplate(any()))
         .thenReturn(Html("NOT FOUND"))
 
-    stubLoggedInUser()
     val res = TestController.revokeClient(12L, 34L)(request)
     status(res) must be(NOT_FOUND)
   }
 
-  def stubLoggedInUser() = {
-    val groupAccount = groupAccountGen.sample.get.copy(isAgent = true)
-    val individual = individualGen.sample.get
-    StubGroupAccountConnector.stubAccount(groupAccount)
-    StubIndividualAccountConnector.stubAccount(individual)
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individual)))
-    (groupAccount, individual)
-  }
 }

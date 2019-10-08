@@ -22,12 +22,10 @@ import org.scalacheck.Arbitrary._
 import play.api.http.Status._
 import play.api.libs.json.{JsValue, Json}
 import resources._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.http.HttpResponse
 import utils.StubServicesConfig
 
 class IndividualAccountsSpec extends VoaPropertyLinkingSpec {
-
-  implicit val hc = HeaderCarrier()
 
   class Setup {
     val connector = new IndividualAccounts(StubServicesConfig, mockWSHttp) {

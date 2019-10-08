@@ -17,21 +17,13 @@
 package controllers
 
 import connectors.DraftCases
-import connectors.authorisation.Authenticated
-import models.Accounts
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
-import tests.AllMocks
-import utils.{StubAuthentication, StubPropertyLinkConnector}
+import utils.StubPropertyLinkConnector
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
-class ViewDraftCasesSpec extends VoaPropertyLinkingSpec with AllMocks {
+class ViewDraftCasesSpec extends VoaPropertyLinkingSpec {
 
   "Viewing draft cases" should "return redirect" in {
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccountGen, individualGen)))
-
     val res = testController.viewDraftCases()(FakeRequest())
     status(res) mustBe SEE_OTHER
   }
@@ -40,9 +32,8 @@ class ViewDraftCasesSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   private lazy val testController = new ManageDrafts(
     mockCustomErrorHandler,
-    StubAuthentication,
+    preAuthenticatedActionBuilders(),
     StubPropertyLinkConnector
   )
-
 
 }

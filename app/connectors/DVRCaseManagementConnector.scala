@@ -20,18 +20,17 @@ import javax.inject.Inject
 import models.dvr.documents.DvrDocumentFiles
 import models.dvr.{DetailedValuationRequest, StreamedDocument}
 import play.api.http.HeaderNames.{CONTENT_LENGTH, CONTENT_TYPE}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.ws.{StreamedResponse, WSClient}
 import uk.gov.hmrc.http._
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class DVRCaseManagementConnector @Inject()(
                                             config: ServicesConfig,
                                             val wsClient: WSClient,
-                                            http: HttpClient) extends HttpErrorFunctions {
+                                            http: HttpClient)(implicit val executionContext: ExecutionContext) extends HttpErrorFunctions {
   val url = config.baseUrl("property-linking") + "/property-linking"
 
   def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {

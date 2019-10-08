@@ -16,15 +16,14 @@
 
 package services
 
+import actions.BasicAuthenticatedRequest
 import config.ApplicationConfig
-import connectors.{Addresses, TaxEnrolmentConnector, VPLAuthConnector}
+import connectors.TaxEnrolmentConnector
 import models.Address
-import models.registration.{UserDetails, UserInfo}
 import org.mockito.ArgumentMatchers.{any, anyLong, eq => matches}
-import org.mockito.Mockito.{never, times, verify, when}
+import org.mockito.Mockito.{never, verify, when}
 import play.api.test.FakeRequest
-import uk.gov.hmrc.auth.core.AffinityGroup.Individual
-import uk.gov.hmrc.auth.core.User
+import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.duration._
@@ -32,11 +31,11 @@ import scala.concurrent.{Await, Future}
 
 class ManageDetailsSpec extends ServiceSpec {
 
-  implicit val request = FakeRequest()
+  implicit val request = new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, userDetails(AffinityGroup.Organisation), FakeRequest())
 
   "updatePostcode" should "upsert known facts if predicate matches" in {
     updatePostcode(1, 1, 2, true)
-    verify(mockTaxEnrolments, once).updatePostcode(matches(1L), any(), matches(mockAddress.postcode))(any(), any())
+    verify(mockTaxEnrolments).updatePostcode(matches(1L), any(), matches(mockAddress.postcode))(any(), any())
   }
 
   "updatePostcode" should "not upsert known facts if predicate does not match" in {
@@ -45,27 +44,19 @@ class ManageDetailsSpec extends ServiceSpec {
   }
 
   def updatePostcode(personId: Int, addressId: Long, currentAddressId: Long, predicate: Boolean): Unit = {
-    Await.result(manageDetails.updatePostcode(personId, currentAddressId, addressId)(_ => predicate)(hc, request), 1 seconds)
+    Await.result(manageDetails.updatePostcode(personId, currentAddressId, addressId)(_ => predicate)(hc, request), 1.second)
   }
 
   override def beforeEach(): Unit = {
     mockTaxEnrolments = mock[TaxEnrolmentConnector]
-    mockVPLAuthConnector = mock[VPLAuthConnector]
-    mockAddresses = mock[Addresses]
-
-    when(mockVPLAuthConnector.getUserDetails(any())).thenReturn(Future.successful(mockUserDetails))
     when(mockAddresses.findById(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Some(mockAddress)))
     when(mockTaxEnrolments.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))
   }
 
   private var mockTaxEnrolments: TaxEnrolmentConnector = _
-  private var mockAddresses: Addresses = _
-  private var mockVPLAuthConnector: VPLAuthConnector = _
 
-  private val once = times(1)
   private val mockAddress = Address(Some(1L), "1, The Place", "", "", "", "AA11 1AA")
-  private val mockUserDetails = UserDetails("123456", UserInfo(None, None, "", Some("ABC"), "", "654321", Individual, User))
 
   implicit private lazy val hc: HeaderCarrier = HeaderCarrier()
-  private lazy val manageDetails = new ManageVoaDetails(taxEnrolments = mockTaxEnrolments, addresses = mockAddresses, vPLAuthConnector = mockVPLAuthConnector, config = mock[ApplicationConfig])
+  private lazy val manageDetails = new ManageVoaDetails(taxEnrolments = mockTaxEnrolments, addresses = mockAddresses, config = mock[ApplicationConfig])
 }

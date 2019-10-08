@@ -16,25 +16,20 @@
 
 package controllers
 
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
-import auth.GovernmentGatewayProvider
-import connectors.Addresses
-import connectors.authorisation.BusinessRatesAuthorisation
+import actions._
 import models._
+import models.registration.UserDetails
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Request, Result}
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
-import services.EnrolmentService
 import session.{LinkingSessionRequest, WithLinkingSession}
 import tests.AllMocks
-import uk.gov.hmrc.auth.core.AuthConnector
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 trait VoaPropertyLinkingSpec
@@ -49,21 +44,34 @@ trait VoaPropertyLinkingSpec
     with WSHTTPMock
     with ScalaFutures
     with FakeObjects
+    with GlobalExecutionContext
     with AllMocks {
 
   val token = "Csrf-Token" -> "nocheck"
 
   implicit val ec: ExecutionContext = ExecutionContext.Implicits.global
-  implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
+  implicit lazy val messageApi: MessagesApi = app.injector.instanceOf[MessagesApi]
+  implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
 
   def preAuthenticatedActionBuilders(
-                                      externalId: String = "gg_external_id",
-                                      groupId: String = "gg_group_id"
+                                      userDetails: UserDetails = individualUserDetails,
+                                      userIsAgent: Boolean = true
                                     ): AuthenticatedAction =
-    new AuthenticatedAction(messageApi, mockGG, mockAuth, mockEnrolmentService, StubAuthConnector) {
+    new AuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockBusinessRatesAuthorisation, mockEnrolmentService, mockAuthConnector) {
       override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = {
-        block(BasicAuthenticatedRequest[A](groupAccount, detailedIndividualAccount, request))
+        block(new BasicAuthenticatedRequest[A](groupAccount(userIsAgent), detailedIndividualAccount, userDetails, request))
       }
+    }
+
+  def ggPreauthenticated(userDetails: UserDetails): GgAuthenticatedAction =
+    new GgAuthenticatedAction(mockGovernmentGatewayProvider, mockAuthConnector) {
+      override def invokeBlock[A](request: Request[A], block: RequestWithUserDetails[A] => Future[Result]): Future[Result] =
+        block(new RequestWithUserDetails[A](userDetails, request))
+    }
+
+  def unauthenticatedActionBuilder(): AuthenticatedAction =
+    new AuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockBusinessRatesAuthorisation, mockEnrolmentService, mockAuthConnector) {
+      override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = super.invokeBlock(request, block)
     }
 
   def preEnrichedActionRefiner(): WithLinkingSession = {
@@ -71,35 +79,35 @@ trait VoaPropertyLinkingSpec
 
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] = {
         Future.successful(Right(LinkingSessionRequest[A](
-          LinkingSession("", 1L, "PL-123456", 1L, CapacityDeclaration(Owner, true, None, false, None), UploadEvidenceData(fileInfo = None, attachments = None), Some(RatesBillType)),
-          1L,
-          request.individualAccount,
-          request.organisationAccount,
-          request
+          LinkingSession(
+            address = "",
+            uarn = 1L,
+            submissionId = "PL-123456",
+            personId = 1L,
+            declaration = CapacityDeclaration(
+              capacity = Owner,
+              interestedBefore2017 = true,
+              fromDate = None,
+              stillInterested = false,
+              toDate = None),
+            uploadEvidenceData = UploadEvidenceData(
+              fileInfo = None,
+              attachments = None),
+            evidenceType = Some(RatesBillType)),
+          organisationId = 1L,
+          individualAccount = request.individualAccount,
+          groupAccount = request.organisationAccount,
+          request = request
         )))
       }
     }
   }
 
-  lazy val testAction = new AuthenticatedAction(messageApi, mockGG, mockAuth, mockEnrolmentService, StubAuthConnector)
-  lazy val mockAuthConnector = mock[AuthConnector]
-  lazy val mockAddresses = mock[Addresses]
-  lazy val mockServiceConfig = mock[ServicesConfig]
-  lazy val mockAuth = mock[BusinessRatesAuthorisation]
-  lazy val mockGG = mock[GovernmentGatewayProvider]
-  lazy val mockEnrolmentService = mock[EnrolmentService]
-  lazy val accounts = Accounts(mock[GroupAccount], mock[DetailedIndividualAccount])
-  lazy val mockDetailedIndividualAccount =  mock[DetailedIndividualAccount]
-  lazy val mockGroupAccount = mock[GroupAccount]
-  lazy val mockFakeRequest = mock[Request[_]]
-
   override protected def beforeEach(): Unit = {
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()
-    StubVplAuthConnector.reset()
     StubIdentityVerification.reset()
     StubPropertyLinkConnector.reset()
-    StubAuthentication.reset()
     StubBusinessRatesValuation.reset()
     StubSubmissionIdConnector.reset()
     StubPropertyRepresentationConnector.reset()

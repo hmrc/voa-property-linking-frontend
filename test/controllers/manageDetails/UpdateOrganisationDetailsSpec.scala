@@ -19,7 +19,6 @@ package controllers.manageDetails
 import java.time.{Clock, Instant, ZoneId}
 
 import connectors.GroupAccounts
-import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models._
 import org.jsoup.Jsoup
@@ -28,20 +27,14 @@ import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
 import services.{ManageDetails, Success}
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.StubAuthentication
 
 import scala.concurrent.Future
 
 class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
-  "The update business name page" must "require a non-empty business name" in {
-    stubLoggedInUser()
-
-    val emptyName = Seq(
-      "businessName" -> ""
-    )
+  "The update business name page" must "require a non-empty business name" in new Setup {
+    val emptyName = Seq("businessName" -> "")
 
     val res = testController.updateBusinessName()(FakeRequest().withFormUrlEncodedBody(emptyName: _*))
     status(res) mustBe BAD_REQUEST
@@ -50,8 +43,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     html.select("label[for=businessName] span.error-message").text mustBe "This must be filled in"
   }
 
-  it must "update the business name on a valid submission" in {
-    val (org, person) = stubLoggedInUser()
+  it must "update the business name on a valid submission" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val validData = Seq(
@@ -61,13 +53,10 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     val res = testController.updateBusinessName()(FakeRequest().withFormUrlEncodedBody(validData: _*))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
-
-    verify(mockGroups, once).update(matching(org.id), matching(updatedDetails(org, person.externalId, name = Some("My Cool Business"))))(any[HeaderCarrier])
   }
 
-  "The update business address page" must "update the business address ID if the postcode lookup is used" in {
-    val (org, person) = stubLoggedInUser()
-    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+  "The update business address page" must "update the business address ID if the postcode lookup is used" in new Setup {
+    when(mockGroups.update(any(), any())(any())).thenReturn(Future.successful(()))
     when(mockManageDetails.updatePostcode(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
@@ -83,12 +72,11 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    verify(mockGroups, once).update(matching(org.id), matching(updatedDetails(org, person.externalId, addressId = Some(1234567890L))))(any[HeaderCarrier])
-    verify(mockManageDetails, once).updatePostcode(matching(person.individualId), any(), matching(1234567890L))(any())(any(), any())
+    verify(mockGroups).update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, addressId = Some(1234567890L))))(any[HeaderCarrier])
+    verify(mockManageDetails).updatePostcode(any(), any(), matching(1234567890L))(any())(any(), any())
   }
 
-  it must "create an address record, and update the business address ID to the created ID, if the address is entered manually" in {
-    val (org, person) = stubLoggedInUser()
+  it must "create an address record, and update the business address ID to the created ID, if the address is entered manually" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
     when(mockAddresses.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(1L))
     when(mockManageDetails.updatePostcode(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(Success))
@@ -105,18 +93,14 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    verify(mockAddresses, once).create(matching(Address(None, "1, The Place", "", "", "", "AA11 1AA")))(any[HeaderCarrier])
-    verify(mockGroups, once).update(matching(org.id), matching(updatedDetails(org, person.externalId, addressId = Some(1L))))(any[HeaderCarrier])
-    verify(mockManageDetails, once).updatePostcode(matching(person.individualId), any(), matching(1L))(any())(any(), any())
+    verify(mockAddresses).create(matching(Address(None, "1, The Place", "", "", "", "AA11 1AA")))(any[HeaderCarrier])
+    verify(mockGroups).update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, addressId = Some(1L))))(any[HeaderCarrier])
+    verify(mockManageDetails).updatePostcode(any(), any(), matching(1L))(any())(any(), any())
   }
 
-  "The update business phone page" must "require a non-empty phone number" in {
-    stubLoggedInUser()
+  "The update business phone page" must "require a non-empty phone number" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
-
-    val emptyPhoneNumber = Seq(
-      "phone" -> ""
-    )
+    val emptyPhoneNumber = Seq("phone" -> "")
 
     val res = testController.updateBusinessPhone()(FakeRequest().withFormUrlEncodedBody(emptyPhoneNumber: _*))
     status(res) mustBe BAD_REQUEST
@@ -125,23 +109,19 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     html.select("label[for=phone] span.error-message").text mustBe "This must be filled in"
   }
 
-  it must "update the business phone number on a valid submission" in {
-    val (org, person) = stubLoggedInUser()
+  it must "update the business phone number on a valid submission" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
-    val validData = Seq(
-      "phone" -> "999"
-    )
+    val validData = Seq("phone" -> "999")
 
     val res = testController.updateBusinessPhone()(FakeRequest().withFormUrlEncodedBody(validData: _*))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    verify(mockGroups, once).update(matching(org.id), matching(updatedDetails(org, person.externalId, phone = Some("999"))))(any[HeaderCarrier])
+    verify(mockGroups).update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, phone = Some("999"))))(any[HeaderCarrier])
   }
 
-  "The update business email page" must "require a valid email address" in {
-    stubLoggedInUser()
+  "The update business email page" must "require a valid email address" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val invalidEmail = Seq(
@@ -156,8 +136,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     html.select("label[for=email] span.error-message").text mustBe "Enter a valid email address"
   }
 
-  it must "require the confirmed email to match" in {
-    stubLoggedInUser()
+  it must "require the confirmed email to match" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val mismatchingEmails = Seq(
@@ -172,8 +151,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     html.select("label[for=confirmedEmail] span.error-message").text mustBe "Email addresses must match. Check them and try again"
   }
 
-  it must "update the business email address on a valid submission" in {
-    val (org, person) = stubLoggedInUser()
+  it must "update the business email address on a valid submission" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
 
     val validData = Seq(
@@ -185,13 +163,10 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    verify(mockGroups, once).update(matching(org.id), matching(updatedDetails(org, person.externalId, email = Some("email@example.com"))))(any[HeaderCarrier])
+    verify(mockGroups).update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, email = Some("email@example.com"))))(any[HeaderCarrier])
   }
 
-  "viewBusinessName" should "display the business name" in {
-
-    val (_, current) = stubLoggedInUser()
-
+  "viewBusinessName" should "display the business name" in new Setup {
     val res = testController.viewBusinessName()(FakeRequest())
 
     status(res) mustBe OK
@@ -200,10 +175,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     html.title mustBe "Update business name"
   }
 
-  "viewBusinessAddress" should "display the business address" in {
-
-    val (_, current) = stubLoggedInUser()
-
+  "viewBusinessAddress" should "display the business address" in new Setup {
     val res = testController.viewBusinessAddress()(FakeRequest())
 
     status(res) mustBe OK
@@ -212,10 +184,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     html.title mustBe "Update business address"
   }
 
-  "viewBusinessPhone" should "display the business phone number" in {
-
-    val (_, current) = stubLoggedInUser()
-
+  "viewBusinessPhone" should "display the business phone number" in new Setup {
     val res = testController.viewBusinessPhone()(FakeRequest())
 
     status(res) mustBe OK
@@ -224,10 +193,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     html.title mustBe "Update business telephone number"
   }
 
-  "viewBusinessEmail" should "display the users email" in {
-
-    val (_, current) = stubLoggedInUser()
-
+  "viewBusinessEmail" should "display the users email" in new Setup {
     val res = testController.viewBusinessEmail()(FakeRequest())
 
     status(res) mustBe OK
@@ -236,37 +202,44 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec with MockitoS
     html.title mustBe "Update business email"
   }
 
+  trait Setup {
+    protected def updatedDetails(org: GroupAccount,
+                                 personId: String,
+                                 addressId: Option[Long] = None,
+                                 name: Option[String] = None,
+                                 email: Option[String] = None,
+                                 phone: Option[String] = None) = {
+      UpdatedOrganisationAccount(
+        governmentGatewayGroupId = org.groupId,
+        addressUnitId = addressId.getOrElse(org.addressId),
+        representativeFlag = org.isAgent,
+        organisationName = name.getOrElse(org.companyName),
+        organisationEmailAddress = email.getOrElse(org.email),
+        organisationTelephoneNumber = phone.getOrElse(org.phone),
+        effectiveFrom = Instant.now(clock),
+        changedByGGExternalId = personId)
+    }
 
-  private def updatedDetails(org: GroupAccount,
-                             personId: String,
-                             addressId: Option[Long] = None,
-                             name: Option[String] = None,
-                             email: Option[String] = None,
-                             phone: Option[String] = None) = {
-    UpdatedOrganisationAccount(org.groupId, addressId.getOrElse(org.addressId), org.isAgent, name.getOrElse(org.companyName), email.getOrElse(org.email), phone.getOrElse(org.phone), Instant.now(clock), personId)
+    val ga = groupAccount(agent = true)
+
+    val clock = Clock.fixed(Instant.now, ZoneId.systemDefault)
+    val mockGroups = mock[GroupAccounts]
+    val mockManageDetails = mock[ManageDetails]
+    val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
+    val testController = new UpdateOrganisationDetails(
+      mockCustomErrorHandler,
+      preAuthenticatedActionBuilders(),
+      mockGroups,
+      mockAddresses,
+      mockManageDetails
+    )(
+      executionContext,
+      clock,
+      messageApi,
+      applicationConfig
+    )
+
+
   }
 
-  private lazy val testController = new UpdateOrganisationDetails(
-    mockCustomErrorHandler,
-    StubAuthentication,
-    mockGroups,
-    mockAddresses,
-    mockManageDetails
-  )(ec, clock, messageApi, applicationConfig)
-
-  private lazy val mockGroups = mock[GroupAccounts]
-  private lazy val mockManageDetails = mock[ManageDetails]
-
-  private def stubLoggedInUser() = {
-    val org: GroupAccount = groupAccountGen
-    val person: DetailedIndividualAccount = individualGen
-    when(mockGroups.get(anyInt)(any[HeaderCarrier])).thenReturn(Future.successful(Some(org)))
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(org, person)))
-    (org, person)
-  }
-
-  private lazy val once = times(1)
-  private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
-
-  private lazy val clock = Clock.fixed(Instant.now, ZoneId.systemDefault)
 }

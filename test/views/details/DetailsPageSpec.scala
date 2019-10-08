@@ -18,15 +18,13 @@ package views.details
 
 import actions.BasicAuthenticatedRequest
 import controllers.VoaPropertyLinkingSpec
-import models.registration.{UserDetails, UserInfo}
 import models.{Address, DetailedIndividualAccount, GroupAccount}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.{Document, Element}
 import play.api.i18n.Messages.Implicits._
 import play.api.test.FakeRequest
 import resources._
-import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.auth.core.{Assistant, User}
+import uk.gov.hmrc.auth.core.AffinityGroup
 import utils.Formatters
 
 import scala.collection.JavaConverters._
@@ -39,7 +37,7 @@ class DetailsPageSpec extends VoaPropertyLinkingSpec {
     val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isDefined)
     val groupAccount: GroupAccount = groupAccountGen
     val address: Address = addressGen
-    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+    implicit val request = new BasicAuthenticatedRequest(groupAccount, individualAccount, userDetails(AffinityGroup.Organisation), FakeRequest())
 
     val html = Jsoup.parse(views.html.details.viewDetails_individual(individualAccount, groupAccount, address, address).toString)
     val details = individualAccount.details
@@ -56,7 +54,7 @@ class DetailsPageSpec extends VoaPropertyLinkingSpec {
     val rows = getRows(html, "personalDetailsTable")
 
     expectedRows.foreach { r =>
-      rows must contain (r)
+      rows must contain(r)
     }
   }
 
@@ -64,7 +62,7 @@ class DetailsPageSpec extends VoaPropertyLinkingSpec {
     val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isDefined)
     val groupAccount: GroupAccount = groupAccountGen
     val address: Address = addressGen
-    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+    implicit val request = new BasicAuthenticatedRequest(groupAccount, individualAccount, userDetails(AffinityGroup.Organisation), FakeRequest())
 
     val html = Jsoup.parse(views.html.details.viewDetails_individual(individualAccount, groupAccount, address, address).toString)
     val details = individualAccount.details
@@ -76,7 +74,7 @@ class DetailsPageSpec extends VoaPropertyLinkingSpec {
     val rows = getRows(html, "personalDetailsTable")
 
     expectedRows.foreach { r =>
-      rows must contain (r)
+      rows must contain(r)
     }
   }
 
@@ -84,34 +82,34 @@ class DetailsPageSpec extends VoaPropertyLinkingSpec {
     val individualAccount: DetailedIndividualAccount = individualGen.retryUntil(_.details.phone2.isEmpty)
     val groupAccount: GroupAccount = groupAccountGen
     val address: Address = addressGen
-    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+    implicit val request = new BasicAuthenticatedRequest(groupAccount, individualAccount, userDetails(), FakeRequest())
 
     val html = Jsoup.parse(views.html.details.viewDetails_individual(individualAccount, groupAccount, address, address).toString)
 
     val rows = getRows(html, "personalDetailsTable")
-    rows must contain (("Mobile number", "Not set", controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile().url))
+    rows must contain(("Mobile number", "Not set", controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile().url))
   }
 
   it should "display the business's agent code if they are an agent" in {
     val individualAccount: DetailedIndividualAccount = individualGen
     val groupAccount: GroupAccount = groupAccountGen.retryUntil(_.isAgent)
     val address: Address = addressGen
-    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+    implicit val request = new BasicAuthenticatedRequest(groupAccount, individualAccount, userDetails(AffinityGroup.Agent), FakeRequest())
 
-    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, userDetails).toString)
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, userDetails(AffinityGroup.Agent)).toString)
 
     val rows = getRows(html, "businessDetailsTable")
 
-    rows must contain (("Agent code", groupAccount.agentCode.toString, ""))
+    rows must contain(("Agent code", groupAccount.agentCode.toString, ""))
   }
 
   it should "not display the business's agent code if they are not an agent" in {
     val individualAccount: DetailedIndividualAccount = individualGen
     val groupAccount: GroupAccount = groupAccountGen.retryUntil(!_.isAgent)
     val address: Address = addressGen
-    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+    implicit val request = new BasicAuthenticatedRequest(groupAccount, individualAccount, userDetails(), FakeRequest())
 
-    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, userDetails).toString)
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, userDetails()).toString)
 
     val rows = getRows(html, "businessDetailsTable")
     rows must not contain (("Agent code", groupAccount.agentCode.toString, ""))
@@ -121,9 +119,9 @@ class DetailsPageSpec extends VoaPropertyLinkingSpec {
     val individualAccount: DetailedIndividualAccount = individualGen
     val groupAccount: GroupAccount = groupAccountGen
     val address: Address = addressGen
-    implicit val request = BasicAuthenticatedRequest(groupAccount, individualAccount, FakeRequest())
+    implicit val request = new BasicAuthenticatedRequest(groupAccount, individualAccount, userDetails(), FakeRequest())
 
-    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, userAdminDetails).toString)
+    val html = Jsoup.parse(views.html.details.viewDetails(individualAccount, groupAccount, address, address, userDetails()).toString)
 
     val expectedRows = Seq(
       ("Business name", groupAccount.companyName, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessName().url),
@@ -134,7 +132,7 @@ class DetailsPageSpec extends VoaPropertyLinkingSpec {
     val rows = getRows(html, "businessDetailsTable")
 
     expectedRows foreach { r =>
-      rows must contain (r)
+      rows must contain(r)
     }
   }
 
@@ -145,8 +143,5 @@ class DetailsPageSpec extends VoaPropertyLinkingSpec {
   private def getUpdateUrl(e: Element) = {
     Option(e.select("td a")).fold("")(_.attr("href"))
   }
-
-  val userDetails = UserDetails("101", UserInfo(Some("TEST"), Some("TEST"), "test@test.com", Some("RH10 0DR"), "123344499999", "123344499999", Organisation, Assistant))
-  val userAdminDetails = UserDetails("101", UserInfo(Some("TEST"), Some("TEST"), "test@test.com", Some("RH10 0DR"), "123344499999", "123344499999", Organisation, User))
 
 }

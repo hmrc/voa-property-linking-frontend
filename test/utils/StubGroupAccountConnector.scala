@@ -18,14 +18,16 @@ package utils
 
 import connectors.GroupAccounts
 import models.{GroupAccount, GroupAccountSubmission}
+import org.mockito.Mockito.mock
 import org.scalacheck.Arbitrary.arbitrary
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.util.Random
 
-object StubGroupAccountConnector extends GroupAccounts(StubServicesConfig, StubHttp) { //TODO fix unimplemented
+object StubGroupAccountConnector extends GroupAccounts(StubServicesConfig, mock(classOf[HttpClient])) {
 
   private var stubbedGroups: Seq[GroupAccount] = Nil
 
@@ -39,7 +41,9 @@ object StubGroupAccountConnector extends GroupAccounts(StubServicesConfig, StubH
 
   override def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = Future.successful(stubbedGroups.find(_.id == organisationId))
 
-  override def withGroupId(groupId: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.groupId == groupId))
+  override def withGroupId(groupId: String)(implicit hc: HeaderCarrier) = {
+    Future.successful(stubbedGroups.find(_.groupId == groupId))
+  }
 
   override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode.toString == agentCode))
 

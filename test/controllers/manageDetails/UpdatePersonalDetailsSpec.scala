@@ -16,20 +16,17 @@
 
 package controllers.manageDetails
 
-import connectors.authorisation.Authenticated
 import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.VoaPropertyLinkingSpec
-import models.{Accounts, Address, DetailedIndividualAccount}
+import models.{Address, DetailedIndividualAccount}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
 import services.{ManageDetails, Success}
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{StubAuthentication, StubGroupAccountConnector}
 
 import scala.concurrent.Future
 import scala.util.Random
@@ -37,8 +34,6 @@ import scala.util.Random
 class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   "The edit email page" must "require the updated email to be valid" in {
-    stubLoggedInUser()
-
     val invalidEmail = Seq(
       "email" -> "not an email",
       "confirmedEmail" -> "not an email"
@@ -52,8 +47,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   it must "require the confirmed email to match" in {
-    stubLoggedInUser()
-
     val mismatchedEmails = Seq(
       "email" -> "email@example.com",
       "confirmedEmail" -> "anotherEmail@example.com"
@@ -67,7 +60,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   it must "update the user's email when they make a valid submission" in {
-    val (_, current) = stubLoggedInUser()
 
     val updatedEmail = "email@example.com"
 
@@ -80,13 +72,11 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    val updatedDetails = current.details.copy(email = updatedEmail)
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
+    val updatedDetails = detailedIndividualAccount.details.copy(email = updatedEmail)
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
   "The edit name page" must "require a non-empty first name" in {
-    stubLoggedInUser()
-
     val missingFirstName = Seq(
       "lastName" -> "Person"
     )
@@ -99,8 +89,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   it must "require a non-empty last name" in {
-    stubLoggedInUser()
-
     val missingLastName = Seq(
       "firstName" -> "Mr"
     )
@@ -113,8 +101,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   it must "update the user's name when they make a valid submission" in {
-    val (_, current) = stubLoggedInUser()
-
     val validData = Seq(
       "firstName" -> "Mr",
       "lastName" -> "Person"
@@ -124,13 +110,11 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    val updatedDetails = current.details.copy(firstName = "Mr", lastName = "Person")
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
+    val updatedDetails = detailedIndividualAccount.details.copy(firstName = "Mr", lastName = "Person")
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
   "The update phone number page" must "require the phone number to be non-empty" in {
-    stubLoggedInUser()
-
     val emptyPhoneNumber = Seq(
       "phone" -> ""
     )
@@ -143,23 +127,16 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   it must "update the user's phone number when they make a valid submission" in {
-    val (_, current) = stubLoggedInUser()
+    val res = TestUpdatePersonalDetails.updatePhone()(request.withFormUrlEncodedBody("phone" -> "01234567890"))
 
-    val validData = Seq(
-      "phone" -> "01234567890"
-    )
-
-    val res = TestUpdatePersonalDetails.updatePhone()(request.withFormUrlEncodedBody(validData:_*))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    val updatedDetails = current.details.copy(phone1 = "01234567890")
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
+    val updatedDetails = detailedIndividualAccount.details.copy(phone1 = "01234567890")
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
   "The update address page" must "require a postcode" in {
-    stubLoggedInUser()
-
     val missingPostcode = Seq(
       "address.line1" -> "Some place",
       "address.postcode" -> ""
@@ -173,8 +150,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   it must "update the user's address ID if they use the lookup" in {
-    val (_, current) = stubLoggedInUser()
-
     when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
@@ -190,15 +165,14 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    val updatedDetails = current.details.copy(addressId = 1234567890)
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-    verify(mockManageDetails, once).updatePostcode(matching(current.individualId),any(),matching(1234567890L))(any())(any(), any())
+    val updatedDetails = detailedIndividualAccount.details.copy(addressId = 1234567890)
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
+    verify(mockManageDetails).updatePostcode(matching(detailedIndividualAccount.individualId),any(),matching(1234567890L))(any())(any(), any())
   }
 
   it must "create an address record, and update the user's record with the generated address ID, if they enter the address manually" in {
-    val (_, current) = stubLoggedInUser()
-    val address: Address = addressGen.copy(addressUnitId = None)
     val addressId = Random.nextLong()
+    val address: Address = resources.addressGen.sample.get.copy(addressUnitId = None)
 
     when(mockAddressConnector.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(addressId))
     when(mockManageDetails.updatePostcode(any(),any(),any())(any())(any(), any())).thenReturn(Future.successful(Success))
@@ -215,39 +189,29 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) must be(SEE_OTHER)
     redirectLocation(res) must be(Some(viewDetailsPage))
 
-    val updatedDetails = current.details.copy(addressId = addressId)
+    val updatedDetails = detailedIndividualAccount.details.copy(addressId = addressId)
 
-    verify(mockAddressConnector, once).create(matching(address))(any[HeaderCarrier])
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
-    verify(mockManageDetails, once).updatePostcode(matching(current.individualId),any(),matching(addressId))(any())(any(), any())
+    verify(mockAddressConnector).create(matching(address))(any[HeaderCarrier])
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
+    verify(mockManageDetails).updatePostcode(matching(detailedIndividualAccount.individualId),any(),matching(addressId))(any())(any(), any())
   }
 
   "The update mobile number page" must "update the user's mobile number if they submit a valid form" in {
-    val (_, current) = stubLoggedInUser()
+    val res = TestUpdatePersonalDetails.updateMobile()(request.withFormUrlEncodedBody("phone" -> "01234567890"))
 
-    val validData = Seq(
-      "phone" -> "01234567890"
-    )
-
-    val res = TestUpdatePersonalDetails.updateMobile()(request.withFormUrlEncodedBody(validData:_*))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    val updatedDetails = current.details.copy(phone2 = Some("01234567890"))
-    verify(mockIndividualAccounts, once).update(matching(current.copy(details = updatedDetails)))(any[HeaderCarrier])
+    val updatedDetails = detailedIndividualAccount.details.copy(phone2 = Some("01234567890"))
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
   "The update mobile number page" must "throw BAD_REQUEST if they submit an invalid form" in {
-    val (_, current) = stubLoggedInUser()
-
     val res = TestUpdatePersonalDetails.updateMobile()(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
   "viewEmail" should "display the users email" in {
-
-    val (_, current) = stubLoggedInUser()
-
     val res = TestUpdatePersonalDetails.viewEmail()(FakeRequest())
 
     status(res) mustBe OK
@@ -257,9 +221,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "viewAddress" should "display the users address" in {
-
-    val (_, current) = stubLoggedInUser()
-
     val res = TestUpdatePersonalDetails.viewAddress()(FakeRequest())
 
     status(res) mustBe OK
@@ -269,9 +230,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "viewPhone" should "display the users phone number" in {
-
-    val (_, current) = stubLoggedInUser()
-
     val res = TestUpdatePersonalDetails.viewPhone()(FakeRequest())
 
     status(res) mustBe OK
@@ -281,9 +239,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "viewName" should "display the users name" in {
-
-    val (_, current) = stubLoggedInUser()
-
     val res = TestUpdatePersonalDetails.viewName()(FakeRequest())
 
     status(res) mustBe OK
@@ -293,9 +248,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "viewMobile" should "display the users name" in {
-
-    val (_, current) = stubLoggedInUser()
-
     val res = TestUpdatePersonalDetails.viewMobile()(FakeRequest())
 
     status(res) mustBe OK
@@ -309,14 +261,14 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   private object TestUpdatePersonalDetails extends UpdatePersonalDetails(
     mockCustomErrorHandler,
-    StubAuthentication,
+    preAuthenticatedActionBuilders(),
     mockAddressConnector,
     mockIndividualAccounts,
     mockManageDetails,
     mockGroupAccounts
   )
 
-  lazy val mockIndividualAccounts = {
+  lazy val mockIndividualAccounts: IndividualAccounts = {
     val m = mock[IndividualAccounts]
     when(m.update(any[DetailedIndividualAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
     m
@@ -328,14 +280,4 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   lazy val request = FakeRequest().withSession(token)
 
-  lazy val once = times(1)
-
-  private def stubLoggedInUser() = {
-    val groupAccount = groupAccountGen.sample.get
-    val individual = individualGen.sample.get
-    StubGroupAccountConnector.stubAccount(groupAccount)
-    when(mockIndividualAccounts.get(matching(individual.individualId))(any[HeaderCarrier])).thenReturn(Future.successful(Some(individual)))
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individual)))
-    (groupAccount, individual)
-  }
 }

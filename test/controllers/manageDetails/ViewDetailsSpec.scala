@@ -17,23 +17,16 @@
 package controllers.manageDetails
 
 import config.ApplicationConfig
-import connectors.authorisation.Authenticated
-import connectors.{Addresses, VPLAuthConnector, _}
+import connectors._
 import controllers.VoaPropertyLinkingSpec
 import models._
 import models.messages.MessageCount
-import models.registration.{UserDetails, UserInfo}
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
-import org.scalacheck.Arbitrary._
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
-import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
-import uk.gov.hmrc.auth.core.User
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.StubAuthentication
 
 import scala.concurrent.Future
 
@@ -42,26 +35,20 @@ class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar{
   implicit val request = FakeRequest()
 
   val addressesConnector = mock[Addresses]
-  val authConnector = mock[VPLAuthConnector]
   val mockConfig = mock[ApplicationConfig]
 
   object TestViewDetails extends ViewDetails(
     mockCustomErrorHandler,
     addressesConnector,
-    StubAuthentication,
-    authConnector
+    preAuthenticatedActionBuilders()
   )
-
 
   class TestCase {
     val controller = TestViewDetails
 
-    val group = arbitrary[GroupAccount].sample.get.copy(groupId = "has-agent-account", isAgent = true)
-    val person = arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = "has-account", organisationId = group.id)
     val personalAddress = new Address(Some(1234L), "Personal address line 1", "line 2", "line 3", "line 4", "AA1 1PP")
     val messageCount = MessageCount(5, 100)
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(group, person)))
     when(addressesConnector.findById(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Some(personalAddress)))
     when(mockConfig.pingdomToken).thenReturn(Some("token"))
     when(mockConfig.editNameEnabled).thenReturn(true)
@@ -70,18 +57,9 @@ class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar{
     when(mockConfig.analyticsToken).thenReturn("token")
     when(mockConfig.analyticsHost).thenReturn("host")
     when(mockConfig.bannerContent).thenReturn(None)
-
   }
 
   "show" must "display individual page when affinityGroup is Individual" in new TestCase {
-
-
-    val userInfo = UserInfo(Some("firstName"),Some("lastName"),"email@mail.com",Some("AA1 1SS"),"groupIdentifier","gatewayId", Individual, User)
-    val userDetails = UserDetails("external-id", userInfo)
-
-    when(authConnector.getUserDetails(any[HeaderCarrier])).thenReturn(Future.successful(userDetails))
-    when(authConnector.getAffinityGroup(any[HeaderCarrier])).thenReturn(Future.successful(Individual))
-
     val res = TestViewDetails.show()(request)
 
     status(res) mustBe SEE_OTHER
@@ -89,12 +67,6 @@ class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar{
   }
 
   "show" must "display organisation page when affinityGroup is Organisation" in new TestCase {
-    val userInfo = UserInfo(Some("firstName"),Some("lastName"),"email@mail.com",Some("AA1 1SS"),"groupIdentifier","gatewayId", Organisation, User)
-    val userDetails = UserDetails("external-id", userInfo)
-
-    when(authConnector.getUserDetails(any[HeaderCarrier])).thenReturn(Future.successful(userDetails))
-    when(authConnector.getAffinityGroup(any[HeaderCarrier])).thenReturn(Future.successful(Organisation))
-
     val res = TestViewDetails.show()(request)
 
     status(res) mustBe SEE_OTHER

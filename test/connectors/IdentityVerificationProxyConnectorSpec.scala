@@ -26,9 +26,9 @@ import org.scalatest.mockito.MockitoSugar
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.scalatest.{FlatSpec, MustMatchers}
 import resources._
+import uk.gov.hmrc.auth.core.ConfidenceLevel
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
 import utils.{NoMetricsOneAppPerSuite, StubServicesConfig}
 
 import scala.concurrent.Future

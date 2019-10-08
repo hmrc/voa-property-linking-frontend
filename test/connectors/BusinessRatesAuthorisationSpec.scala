@@ -17,13 +17,15 @@
 package connectors
 
 import config.AuthorisationFailed
-import connectors.authorisation.{Authenticated, BusinessRatesAuthorisation, ForbiddenResponse, NoVOARecord}
+import connectors.authorisation.AuthorisationResult._
+import connectors.authorisation.BusinessRatesAuthorisation
 import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalacheck.Arbitrary._
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
 import utils.StubServicesConfig
+
 class BusinessRatesAuthorisationSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()

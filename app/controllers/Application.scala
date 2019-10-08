@@ -16,17 +16,13 @@
 
 package controllers
 
-import auth.VoaAction
 import config.ApplicationConfig
 import javax.inject.Inject
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-class Application @Inject()(
-                             val errorHandler: CustomErrorHandler,
-                             ggAction: VoaAction
-                           )(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
+class Application @Inject()(val errorHandler: CustomErrorHandler)(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
 
   def addUserToGG = Action { implicit request =>
     Ok(views.html.addUserToGG())

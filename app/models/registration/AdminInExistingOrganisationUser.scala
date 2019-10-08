@@ -18,14 +18,11 @@ package models.registration
 
 import java.time.LocalDate
 
-import form.TextMatching
-import play.api.data.Forms._
-import play.api.data.{Form, Mapping}
-import play.api.data.validation._
-import play.api.libs.json.{Format, JsObject, JsResult, JsValue}
-import uk.gov.hmrc.domain.Nino
-import views.helpers.Errors
 import form.Mappings._
+import models.domain._
+import play.api.data.Forms._
+import play.api.data.validation._
+import play.api.data.{Form, Mapping}
 
 
 trait AdminInExistingOrganisationUser {
@@ -52,7 +49,7 @@ object AdminInExistingOrganisationUser {
     case _ => Invalid(ValidationError("error.nino.invalid"))
   }
 
-  private def toNino(nino: String) = {
+  private def toNino(nino: String) =
     Nino(nino.toUpperCase.replaceAll(" ", ""))
-  }
+
 }

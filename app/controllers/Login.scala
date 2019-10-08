@@ -23,9 +23,9 @@ import play.api.mvc.{Action, Controller}
 
 class Login @Inject()(config: ApplicationConfig) extends Controller {
 
-  val continue = Map("continue" -> Seq(config.ggContinueUrl), "origin" -> Seq("voa"))
+  val queryParameters = Map("continue" -> Seq(config.baseUrl + controllers.routes.Dashboard.home().url), "origin" -> Seq("voa"))
 
   def show = Action { implicit request =>
-    Redirect(config.ggSignInUrl, continue)
+    Redirect(config.ggSignInUrl, queryParameters)
   }
 }

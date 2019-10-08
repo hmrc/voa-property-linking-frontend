@@ -17,7 +17,6 @@
 package services
 
 import actions.BasicAuthenticatedRequest
-import auditing.AuditingService
 import connectors.attachments.BusinessRatesAttachmentConnector
 import models.LinkingSession
 import models.attachment.InitiateAttachmentPayload
@@ -25,26 +24,23 @@ import models.attachment.request.InitiateAttachmentRequest
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
-import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import repositories.SessionRepo
 import resources._
 import session.LinkingSessionRequest
+import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.FakeObjects
 
-import scala.concurrent.ExecutionContext._
 import scala.concurrent.Future
 
-class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar with FakeObjects {
+class BusinessRatesAttachmentServiceSpec extends ServiceSpec {
   val businessRatesAttachmentConnector = mock[BusinessRatesAttachmentConnector]
   val mockSessionRepo = mock[SessionRepo]
   val initiateAttachmentRequest = InitiateAttachmentPayload(InitiateAttachmentRequest("FILE_NAME", "img/jpeg"), "http://example.com", "http://example.com/failure")
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
-  implicit val request = BasicAuthenticatedRequest(groupAccount, detailedIndividualAccount, FakeRequest())
-  implicit val linkingSessionRequest = LinkingSessionRequest(linkingSessionData, 1234l, detailedIndividualAccount, groupAccount, request)
+  implicit val request = new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, userDetails(AffinityGroup.Organisation), FakeRequest())
+  implicit val linkingSessionRequest = LinkingSessionRequest(linkingSessionData, 1234l, detailedIndividualAccount, groupAccount(agent = true), request)
   implicit val hc = HeaderCarrier()
-  implicit val ec = global
 
   val businessRatesChallengeService = new BusinessRatesAttachmentService(
     businessRatesAttachmentConnector = businessRatesAttachmentConnector,
@@ -56,8 +52,8 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar w
       when(businessRatesAttachmentConnector.initiateAttachmentUpload(any())(any[HeaderCarrier])).thenReturn(Future successful preparedUpload)
       when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
       businessRatesChallengeService.initiateAttachmentUpload(initiateAttachmentRequest)(request, hc).futureValue
-      verify(mockSessionRepo, times(1)).get[LinkingSession](any(), any())
-      verify(businessRatesAttachmentConnector, times(1)).initiateAttachmentUpload(any())(any[HeaderCarrier])
+      verify(mockSessionRepo).get[LinkingSession](any(), any())
+      verify(businessRatesAttachmentConnector).initiateAttachmentUpload(any())(any[HeaderCarrier])
     }
 
     it should "call to persistSessionData is success" in {
@@ -71,7 +67,7 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec with MockitoSugar w
 
       businessRatesChallengeService.submitFiles(FILE_REFERENCE, Some(Map(FILE_REFERENCE -> uploadedFileDetails))).futureValue
 
-      verify(businessRatesAttachmentConnector, times(1)).submitFile(any(), any())(any[HeaderCarrier])
+      verify(businessRatesAttachmentConnector).submitFile(any(), any())(any[HeaderCarrier])
     }
 }
 

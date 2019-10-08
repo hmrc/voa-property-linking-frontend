@@ -16,7 +16,6 @@
 
 package controllers.agent
 
-import connectors.authorisation.Authenticated
 import controllers.VoaPropertyLinkingSpec
 import models._
 import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
@@ -24,12 +23,11 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import tests.AllMocks
 import utils._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class ManageClientsSpec extends VoaPropertyLinkingSpec with AllMocks {
+class ManageClientsSpec extends VoaPropertyLinkingSpec {
 
   "The manage clients page" must "return redirect" in {
 
@@ -41,13 +39,11 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   private def setup(numberOfLinks: Int = 15): Unit = {
     val groupAccount: GroupAccount = arbitrary[GroupAccount].copy(isAgent = true)
-    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
     var arbitraryAgentAuthorisation: Seq[AgentAuthorisation] = Nil
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
     (1 to numberOfLinks) foreach { _ =>
-      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(authorisedPartyId = groupAccount.id.toLong,
-        client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id.toLong))
+      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(authorisedPartyId = groupAccount.id,
+        client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id))
     }
 
     StubPropertyRepresentationConnector.stubAgentAuthResult(AgentAuthResult(start = 1,
@@ -61,7 +57,7 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec with AllMocks {
   object TestController extends RepresentationController(
     mockCustomErrorHandler,
     StubPropertyRepresentationConnector,
-    StubAuthentication,
+    preAuthenticatedActionBuilders(),
     StubPropertyLinkConnector
   )
 

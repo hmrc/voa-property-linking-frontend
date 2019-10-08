@@ -19,7 +19,6 @@ package session
 import actions.BasicAuthenticatedRequest
 import javax.inject.{Inject, Named}
 import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.Reads
 import play.api.mvc.Results._
 import play.api.mvc._
@@ -28,7 +27,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 case class LinkingSessionRequest[A](
                                      ses: LinkingSession,
@@ -45,7 +44,7 @@ case object NoSessionId extends Exception
 class WithLinkingSession @Inject()(
                                     errorHandler: CustomErrorHandler,
                                     @Named("propertyLinkingSession") val sessionRepository: SessionRepo
-                                  ) extends ActionRefiner[BasicAuthenticatedRequest, LinkingSessionRequest] {
+                                  )(implicit executionContext: ExecutionContext) extends ActionRefiner[BasicAuthenticatedRequest, LinkingSessionRequest] {
 
   implicit def hc(implicit request: BasicAuthenticatedRequest[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 

@@ -17,15 +17,17 @@
 package utils
 
 import connectors.PropertyRepresentationConnector
-import controllers.{Pagination, PaginationSearchSort}
+import controllers.Pagination
 import models._
-import models.searchApi.{AgentAuthResult, AgentAuthorisation, OwnerAuthResult, OwnerAuthorisation}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-
-import scala.concurrent.Future
+import models.searchApi.{AgentAuthResult, AgentAuthorisation}
+import org.mockito.Mockito.mock
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
-object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubServicesConfig, StubHttp) { //TODO fix unimplemented
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
+object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubServicesConfig, mock(classOf[HttpClient])) {
   private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil
   private var stubbedValidCodes: Seq[Long] = Nil
   private var stubbedAgentAuthResult: AgentAuthResult = AgentAuthResult(

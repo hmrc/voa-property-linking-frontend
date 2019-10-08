@@ -18,22 +18,18 @@ package auth
 
 import config.ApplicationConfig
 import javax.inject.Inject
-import play.api.mvc.Results.Redirect
 import play.api.mvc._
+import play.api.{Configuration, Environment}
+import uk.gov.hmrc.play.bootstrap.config.AuthRedirects
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.frontend.auth.GovernmentGateway
 
 import scala.concurrent.Future
 
-class GovernmentGatewayProvider @Inject()(implicit val config: ApplicationConfig) extends GovernmentGateway {
+class GovernmentGatewayProvider @Inject()(override val env: Environment, override val config: Configuration)(applicationConfig: ApplicationConfig) extends AuthRedirects {
   this: ServicesConfig =>
-  override def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
+  def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
 
-  override def loginURL: String = config.ggSignInUrl
-
-  override def continueURL = config.ggContinueUrl
-
-  override def redirectToLogin(implicit request: Request[_]) = {
-    Future.successful(Redirect(loginURL, Map("continue" -> Seq(config.baseUrl + request.uri), "origin" -> Seq("voa")) ++ additionalLoginParameters))
+  def redirectToLogin(implicit request: Request[_]): Future[Result] = {
+    Future.successful(toGGLogin(applicationConfig.baseUrl + request.uri))
   }
 }

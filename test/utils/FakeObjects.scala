@@ -20,52 +20,51 @@ import java.time.Instant
 import java.util.UUID
 
 import auth.Principal
-import models.{FileInfo, _}
+import models._
 import models.attachment._
-import models.registration.UserInfo
+import models.registration.{GroupAccountDetails, UserDetails}
 import models.upscan._
-import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, User}
+import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole, User}
 
 
 trait FakeObjects {
 
-  val preparedUpload = PreparedUpload(Reference("1862956069192540"), UploadFormTemplate("http://localhost/upscan", Map()))
+  val ggExternalId = "gg-ext-id"
+  val ggGroupId = "gg-group-id"
+  val firstName = "Bob"
+  val lastName = "Smith"
+  val companyName = "ACME Ltd."
+  val postCode = "BN12 6DL"
+  val addressLine = "7 The Strand, Worthing, BN12 6DL"
+  val address: Address = Address(Some(7L), "The Strand", "Worthing", "", "", postCode)
+  val email = "some@email.com"
+  val phone = "01293666666"
+  val principal = Principal(ggExternalId, ggGroupId)
   val FILE_REFERENCE: String = "1862956069192540"
+  val preparedUpload = PreparedUpload(Reference(FILE_REFERENCE), UploadFormTemplate("http://localhost/upscan", Map()))
   val fileMetadata = FileMetadata(FILE_REFERENCE, "application/pdf")
   val uploadedFileDetails = UploadedFileDetails(fileMetadata, preparedUpload)
-  val fileUpscanMetaData = Map(FILE_REFERENCE -> uploadedFileDetails)
-  val attachment = Attachment(UUID.randomUUID(), Instant.now(), "fileName", "image/jpeg", "DESTINATION", Map(), Initiated, List(), None, None, Principal("externalId", "groupId"))
-  val noEvidencelinkBasis = NoEvidenceFlag
-  val rateBillLinkBasis = RatesBillFlag
+  val fileUpscanMetaData: Map[String, UploadedFileDetails] = Map(FILE_REFERENCE -> uploadedFileDetails)
+  val attachment = Attachment(UUID.randomUUID(), Instant.now(), "fileName", "image/jpeg", "DESTINATION", Map(), Initiated, List(), None, None, principal)
+  val noEvidencelinkBasis: NoEvidenceFlag.type = NoEvidenceFlag
   val fileInfo = FileInfo("test.pdf", RatesBillType)
-  val uploadEvidenceData = UploadEvidenceData(rateBillLinkBasis, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
-  val detailedIndividualAccount = DetailedIndividualAccount("externalId", "", 1l, 2l, IndividualDetails("", "", "", "", None, 12))
-  val groupAccount = GroupAccount(1L, "externalId", "externalId", 1, "test@gmail.com", "01293666666", true, 300L)
-  val testAccounts = Accounts(groupAccount, detailedIndividualAccount)
-  val testIndividualInfo = UserInfo(firstName = Some("Bob"),
-    lastName = Some("Smith"),
-    email = "bob@smith.com",
-    postcode = Some("AB12 3CD"),
-    groupIdentifier = "GroupIdenfifier",
-    affinityGroup = AffinityGroup.Individual,
-    gatewayId = "",
-    credentialRole = User)
+  val uploadEvidenceData = UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
+  val detailedIndividualAccount = DetailedIndividualAccount(ggExternalId, "", 1L, 2L, IndividualDetails("", "", "", "", None, 12))
+  val individualUserDetails: UserDetails = userDetails(AffinityGroup.Individual)
 
-  val testOrganisationInfo = UserInfo(firstName = Some("Bob"),
-    lastName = Some("Smith"),
-    email = "bob@smith.com",
-    postcode = Some("AB12 3CD"),
-    groupIdentifier = "GroupIdenfifier",
-    affinityGroup = AffinityGroup.Organisation,
-    gatewayId = "",
-    credentialRole = Admin)
+  def groupAccount(agent: Boolean): GroupAccount = GroupAccount(1L, ggGroupId, ggExternalId, 1, email, phone, isAgent = agent, 300L)
 
-  val testAgentInfo = UserInfo(firstName = Some("Bob"),
-    lastName = Some("Smith"),
-    email = "bob@smith.com",
-    postcode = Some("AB12 3CD"),
-    groupIdentifier = "GroupIdenfifier",
-    affinityGroup = AffinityGroup.Agent,
-    gatewayId = "",
-    credentialRole = Admin)
+  val groupAccountDetails = GroupAccountDetails(companyName, address, email, email, phone, isAgent = false)
+  val testAccounts = Accounts(groupAccount(agent = true), detailedIndividualAccount)
+
+  def userDetails(affinityGroup: AffinityGroup = AffinityGroup.Individual, credentialRole: CredentialRole = User): UserDetails = UserDetails(
+    firstName = Some(firstName),
+    lastName = Some(lastName),
+    email = email,
+    postcode = Some(postCode),
+    groupIdentifier = ggGroupId,
+    affinityGroup = affinityGroup,
+    externalId = ggExternalId,
+    credentialRole = credentialRole)
+
 }

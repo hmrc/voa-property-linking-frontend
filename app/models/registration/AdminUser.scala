@@ -20,12 +20,12 @@ import java.time.LocalDate
 
 import form.Mappings._
 import form.TextMatching
+import models.domain._
 import models.{Address, IVDetails, IndividualAccountSubmission, IndividualDetails, email => _}
 import play.api.data.Forms._
-import play.api.data.validation.{Constraints, _}
+import play.api.data.validation._
 import play.api.data.{Form, Mapping}
 import play.api.libs.json.{Format, JsObject, JsResult, JsValue}
-import uk.gov.hmrc.domain.Nino
 import utils.EmailAddressValidation
 import views.helpers.Errors
 
@@ -92,9 +92,8 @@ object AdminUser {
     case _ => Invalid(ValidationError("error.nino.invalid"))
   }
 
-  private def toNino(nino: String) = {
+  private def toNino(nino: String) =
     Nino(nino.toUpperCase.replaceAll(" ", ""))
-  }
 
   implicit val enrolmentUserFormat: Format[AdminUser] = new Format[AdminUser] {
     override def reads(json: JsValue): JsResult[AdminUser] = {

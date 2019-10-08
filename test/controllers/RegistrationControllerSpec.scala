@@ -18,7 +18,7 @@ package controllers
 
 import controllers.registration.RegistrationController
 import models.identityVerificationProxy.Link
-import models.registration.RegistrationSuccess
+import models.registration.{RegistrationSuccess, UserDetails}
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -31,14 +31,13 @@ import repositories.SessionRepo
 import resources._
 import services.iv.IdentityVerificationService
 import services.{RegistrationService, Success}
-import tests.AllMocks
-import uk.gov.hmrc.auth.core._
+import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Organisation}
+import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, Assistant}
 import utils.{StubGroupAccountConnector, _}
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
+class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
@@ -54,18 +53,13 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   val mockRegistrationService = mock[RegistrationService]
 
-  private object TestRegistrationController$ extends RegistrationController(
+  private def testRegistrationController(userDetails: UserDetails): RegistrationController = new RegistrationController(
     mockCustomErrorHandler,
-    StubGgAction,
+    ggPreauthenticated(userDetails),
     StubGroupAccountConnector,
     StubIndividualAccountConnector,
-    mockEnrolmentService,
-    StubVplAuthConnector,
     StubAddresses,
     mockRegistrationService,
-    StubEmailService,
-    StubAuthentication,
-    mockIdentityVerificationService,
     mockSessionRepo
   )
 
@@ -75,44 +69,34 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Going directly to the complete-contact-details page, when logged in with an already registered VOA account" should
     "redirect the user to the dashboard" in {
-    val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
-    StubIndividualAccountConnector.stubAccount(arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = externalId))
+    StubIndividualAccountConnector.stubAccount(arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = ggExternalId))
 
-    val res = TestRegistrationController$.show()(FakeRequest())
+    val res = testRegistrationController(userDetails()).show()(FakeRequest())
+
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(controllers.routes.Dashboard.home().url)
   }
 
   "Going to the create account page, when logged in with an account that has not registered and has an Individual affinity group" should
     "display the create individual account form" in {
-    val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
 
-    val res = TestRegistrationController$.show()(FakeRequest())
+    val user = userDetails(affinityGroup = AffinityGroup.Individual)
+
+    val res = testRegistrationController(user).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("Mobile number")
-    html.inputMustContain("email", testIndividualInfo.email)
-    html.inputMustContain("confirmedEmail", testIndividualInfo.email)
-    html.inputMustContain("firstName", testIndividualInfo.firstName.get)
-    html.inputMustContain("lastName", testIndividualInfo.lastName.get)
-    html.inputMustContain("addresspostcode", testIndividualInfo.postcode.get)
+    html.inputMustContain("email", user.email)
+    html.inputMustContain("confirmedEmail", user.email)
+    html.inputMustContain("firstName", user.firstName.get)
+    html.inputMustContain("lastName", user.lastName.get)
+    html.inputMustContain("addresspostcode", user.postcode.get)
   }
 
   "Going to the create account page, when logged in with an account that is an Agent" should
     "display the invalid account type page" in {
-    val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testAgentInfo)
-
-    val res = TestRegistrationController$.show()(FakeRequest())
+    val res = testRegistrationController(userDetails(affinityGroup = Agent)).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -121,37 +105,28 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Going to the create account page, when logged in with an account that has not registered and has an Organisation affinity group" should
     "display the create organisation account form" in {
-    val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
-
-    val res = TestRegistrationController$.show()(FakeRequest())
+    val user = userDetails(Organisation)
+    val res = testRegistrationController(user).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-    html.inputMustContain("addresspostcode", testOrganisationInfo.postcode.get)
+    html.inputMustContain("addresspostcode", user.postcode.get)
 
     html.mustContainText("Business name")
-    html.inputMustContain("email", testOrganisationInfo.email)
-    html.inputMustContain("confirmedBusinessEmail", testOrganisationInfo.email)
-    html.inputMustContain("firstName", testOrganisationInfo.firstName.get)
-    html.inputMustContain("lastName", testOrganisationInfo.lastName.get)
-    html.inputMustContain("addresspostcode", testOrganisationInfo.postcode.get)
+    html.inputMustContain("email", user.email)
+    html.inputMustContain("confirmedBusinessEmail", user.email)
+    html.inputMustContain("firstName", user.firstName.get)
+    html.inputMustContain("lastName", user.lastName.get)
+    html.inputMustContain("addresspostcode", user.postcode.get)
   }
 
   "Going to the create account page when logged in as a new assistant user registering with an existing group account" should
     "display the complete your contact details form for an assistant" in {
-
-    val groupAccount = arbitrary[GroupAccount].sample.get
-    val individualAccount = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = groupAccount.id)
-
-    StubVplAuthConnector.stubGroupId(groupAccount.groupId)
-    StubVplAuthConnector.stubExternalId(individualAccount.externalId)
+    val user: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = Assistant)
+    val groupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = user.groupIdentifier)
     StubGroupAccountConnector.stubAccount(groupAccount)
-    StubVplAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Assistant))
 
-    val res = TestRegistrationController$.show()(FakeRequest())
+    val res = testRegistrationController(user).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -161,18 +136,13 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   "Submitting an invalid assistant form" should "return a bad request response" in {
-
-    val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
-    StubGroupAccountConnector.stubAccount(GroupAccount(1l, groupId, "", 12, "", "", false, 1l))
+    StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
 
     val data = Map(
       "firstName" -> Seq("first")
     )
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-    val res = TestRegistrationController$.submitAssistant()(fakeRequest)
+    val res = testRegistrationController(userDetails()).submitAssistant()(fakeRequest)
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
@@ -182,16 +152,11 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Going to the create account page when logged in as a new admin user registering with an existing group account" should
     "display the complete your contact details form for an admin" in {
+    val user: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = Admin)
+    val ga: GroupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = user.groupIdentifier)
+    StubGroupAccountConnector.stubAccount(ga)
 
-    val groupAccount = arbitrary[GroupAccount].sample.get
-    val individualAccount = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = groupAccount.id)
-
-    StubVplAuthConnector.stubGroupId(groupAccount.groupId)
-    StubVplAuthConnector.stubExternalId(individualAccount.externalId)
-    StubGroupAccountConnector.stubAccount(groupAccount)
-    StubVplAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Admin))
-
-    val res = TestRegistrationController$.show()(FakeRequest())
+    val res = testRegistrationController(user).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -206,15 +171,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Going to the create account page when logged in as a new assistant user registering without an existing group account" should
     "display the invalid account creation page" in {
-
-    val groupAccount = arbitrary[GroupAccount].sample.get
-    val individualAccount = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = groupAccount.id)
-
-    StubVplAuthConnector.stubGroupId(groupAccount.groupId)
-    StubVplAuthConnector.stubExternalId(individualAccount.externalId)
-    StubVplAuthConnector.stubUserDetails(individualAccount.externalId, testOrganisationInfo.copy(credentialRole = Assistant))
-
-    val res = TestRegistrationController$.show()(FakeRequest())
+    val res = testRegistrationController(userDetails(affinityGroup = Organisation, credentialRole = Assistant)).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -222,24 +179,16 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   "Submitting an invalid individual form" should "return a bad request response" in {
-    val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
-
-    val res = TestRegistrationController$.submitIndividual()(FakeRequest())
+    val res = testRegistrationController(userDetails()).submitIndividual()(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
   "Submitting a valid individual form" should "return a redirect" in {
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1L)))
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testIndividualInfo)
-    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
+    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
 
     val data = Map(
       "firstName" -> Seq("first"),
@@ -260,29 +209,21 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     )
 
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-    val res = TestRegistrationController$.submitIndividual()(fakeRequest)
+    val res = testRegistrationController(userDetails()).submitIndividual()(fakeRequest)
     status(res) mustBe SEE_OTHER
   }
 
   "Submitting an invalid organisation form" should "return a bad request response" in {
-    val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
-
-    val res = TestRegistrationController$.submitOrganisation()(FakeRequest())
+    val res = testRegistrationController(userDetails()).submitOrganisation()(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
   "Submitting a valid organisation form" should "return a redirect" in {
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
-    val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubVplAuthConnector.stubGroupId(groupId)
-    StubVplAuthConnector.stubExternalId(externalId)
-    StubVplAuthConnector.stubUserDetails(externalId, testOrganisationInfo)
-    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1l, 2l, IndividualDetails("", "", "", "", None, 12)))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1L)))
+    val externalId: String = shortString
+    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
 
     val data = Map(
       "companyName" -> Seq("company"),
@@ -303,7 +244,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       "dob.year" -> Seq("1980")
     )
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-    val res = TestRegistrationController$.submitOrganisation()(fakeRequest)
+    val res = testRegistrationController(userDetails()).submitOrganisation()(fakeRequest)
     status(res) mustBe SEE_OTHER
   }
 }

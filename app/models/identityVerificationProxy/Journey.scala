@@ -18,7 +18,7 @@ package models.identityVerificationProxy
 
 import models.IVDetails
 import play.api.libs.json.Json
-import uk.gov.hmrc.play.frontend.auth.connectors.domain.ConfidenceLevel
+import uk.gov.hmrc.auth.core.ConfidenceLevel
 
 case class Journey(origin: String,
                    completionURL: String,

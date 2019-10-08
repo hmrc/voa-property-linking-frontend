@@ -16,24 +16,18 @@
 
 package controllers
 
-import auth.VoaAction
 import com.google.inject.Inject
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.api.{Mode, Play}
-import play.api.Configuration
-import tests.AllMocks
+import play.api.{Configuration, Mode}
 
 
-
-class RegisterPageSpec @Inject() (configuration: Configuration) extends VoaPropertyLinkingSpec with AllMocks {
+class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
   implicit val mode = Mode.Test
   implicit val runConfig = configuration
 
-  val mockVoaAction = mock[VoaAction]
-
-  val applicationTestController = new Register(mockCustomErrorHandler, mockVoaAction)
+  val applicationTestController = new Register(mockCustomErrorHandler)
 
   "show" should "redirect to the organisation page" in {
 
@@ -58,16 +52,14 @@ class RegisterPageSpec @Inject() (configuration: Configuration) extends VoaPrope
 
   "continue" should "return the correct map including accountType" in {
     val testAccountType = "testAccountType"
-    applicationTestController.continue(testAccountType) mustBe  Map("accountType" -> Seq(testAccountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
+    applicationTestController.continue(testAccountType) mustBe Map("accountType" -> Seq(testAccountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
   }
 
-  "display a validation error if a choice is not selected"
-
-  val result = applicationTestController.choice()(FakeRequest().withFormUrlEncodedBody(
-    "choice" -> ""
-  ))
-
-  status(result) mustBe BAD_REQUEST
-
+  "choice" should "display a validation error if a choice is not selected" in {
+    val result = applicationTestController.choice()(FakeRequest().withFormUrlEncodedBody(
+      "choice" -> ""
+    ))
+    status(result) mustBe BAD_REQUEST
+  }
 
 }

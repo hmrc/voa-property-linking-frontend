@@ -66,7 +66,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
 
-    verify(mockPropertyLinkConnector, times(1)).createPropertyLink()(any[LinkingSessionRequest[_]])
+    verify(mockPropertyLinkConnector).createPropertyLink()(any[LinkingSessionRequest[_]])
   }
 
   it should "display the normal confirmation page when the user has uploaded a rates bill" in {

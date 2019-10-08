@@ -16,21 +16,13 @@
 
 package controllers
 
-import com.builtamont.play.pdf.PdfGenerator
 import connectors._
-import connectors.authorisation.Authenticated
-import models._
-import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
 import services.AgentRelationshipService
-import tests.AllMocks
 import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
-class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec with AllMocks {
+class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
 
   implicit val request = FakeRequest()
 
@@ -40,16 +32,10 @@ class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec with AllMocks {
     mock[AgentRelationshipService],
     StubAgentConnector,
     mock[GroupAccounts],
-    StubAuthentication,
-    mock[PdfGenerator]
+    preAuthenticatedActionBuilders()
   )
 
   "Manage Owner Agents page" must "return redirect" in {
-
-    val organisation = arbitrary[GroupAccount].sample.get
-    val person = arbitrary[DetailedIndividualAccount].sample.get
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(organisation, person)))
-
     val res = TestDashboardController.manageAgents()(FakeRequest())
     status(res) mustBe SEE_OTHER
   }

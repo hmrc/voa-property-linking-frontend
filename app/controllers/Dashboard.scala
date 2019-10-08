@@ -20,16 +20,15 @@ import java.time._
 
 import actions.AuthenticatedAction
 import binders.propertylinks.GetPropertyLinksParameters
-import com.builtamont.play.pdf.PdfGenerator
 import config.ApplicationConfig
 import connectors._
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import javax.inject.Inject
 import models._
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent}
 import services.AgentRelationshipService
+import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext
 
@@ -39,8 +38,7 @@ class Dashboard @Inject()(
                            propertyLinks: AgentRelationshipService,
                            agentsConnector: AgentsConnector,
                            groupAccounts: GroupAccounts,
-                           authenticated: AuthenticatedAction,
-                           pdfGen: PdfGenerator
+                           authenticated: AuthenticatedAction
                          )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
 
   def home() = authenticated { implicit request =>
@@ -52,7 +50,7 @@ class Dashboard @Inject()(
   }
 
   def manageProperties() = authenticated { implicit request =>
-   Redirect(config.newDashboardUrl("your-properties"))
+    Redirect(config.newDashboardUrl("your-properties"))
   }
 
   def manageAgents() = authenticated { implicit request =>

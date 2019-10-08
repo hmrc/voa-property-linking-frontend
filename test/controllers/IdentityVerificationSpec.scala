@@ -30,53 +30,42 @@ import resources._
 import services.RegistrationService
 import services.iv.IvService
 import tests.AllMocks
-import uk.gov.hmrc.auth.core.{Admin, AffinityGroup}
+import uk.gov.hmrc.auth.core.AffinityGroup._
 import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
   "Successfully verifying identity when an organisation does not have a CCA account" must
     "register and enrol the user then redirect to the registration success page" in new TestCase {
-    StubVplAuthConnector.stubExternalId("externalId")
-    StubVplAuthConnector.stubGroupId("groupwithoutaccount")
-    StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1L)))
 
-    val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Organisation)).success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1l).url)
+    redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
   }
 
   "Successfully verifying identity when an individual does not have a CCA account" must
     "register and enrol the user then redirect to the registration success page" in new TestCase {
     override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
-    StubVplAuthConnector.stubExternalId("externalId")
-    StubVplAuthConnector.stubGroupId("groupwithoutaccount")
-    StubVplAuthConnector.stubUserDetails("externalId", testIndividualInfo)
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1l)))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1L)))
 
-    val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Individual)).success()(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1l).url)
+    redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
   }
 
   "Successfully verifying identity" must
-  "return internal server error when the registration or enrolment fails" in new TestCase {
+    "return internal server error when the registration or enrolment fails" in new TestCase {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
-        .thenReturn(Html("INTERNAL SERVER ERROR"))
-
-    StubVplAuthConnector.stubExternalId("externalId")
-    StubVplAuthConnector.stubGroupId("groupwithoutaccount")
-    StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
+      .thenReturn(Html("INTERNAL SERVER ERROR"))
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentFailure))
 
-    val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Organisation)).success()(requestWithJourneyId("successfuljourney"))
 
     status(res) mustBe INTERNAL_SERVER_ERROR
   }
@@ -85,48 +74,43 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
     "return internal server error when there are details missing" in new TestCase {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
       .thenReturn(Html("INTERNAL SERVER ERROR"))
-
-    StubVplAuthConnector.stubExternalId("externalId")
-    StubVplAuthConnector.stubGroupId("groupwithoutaccount")
-    StubVplAuthConnector.stubUserDetails("externalId", testOrganisationInfo)
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(DetailsMissing))
 
-    val res = TestIdentityVerification.success()(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Organisation)).success()(requestWithJourneyId("successfuljourney"))
 
     status(res) mustBe INTERNAL_SERVER_ERROR
   }
 
   "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in new TestCase {
     StubIdentityVerification.stubFailedJourney("somejourneyid")
-
-    val res = TestIdentityVerification.success()(request.withSession("journey-id" -> "somejourneyid"))
+    val res = testIdentityVerification(userDetails(Organisation)).success()(request.withSession("journey-id" -> "somejourneyid"))
     status(res) mustBe UNAUTHORIZED
   }
 
   "Navigating to the iv failed page" must "return the failed page" in new TestCase {
-    val res = TestIdentityVerification.fail()(request)
+    val res = testIdentityVerification(userDetails(Organisation)).fail()(request)
     status(res) mustBe OK
     contentAsString(res) must include("Identity verification failed")
   }
   "Navigating to restoreSession" must "redirect to the iv success page" in new TestCase {
-    val res = TestIdentityVerification.restoreSession()(request)
+    val res = testIdentityVerification(userDetails(Organisation)).restoreSession()(request)
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.IdentityVerification.success.url)
   }
 
   "fail" must "redirect the user to the identity verification failure page" in new TestCase {
-    val res = TestIdentityVerification.fail()(FakeRequest())
+    val res = testIdentityVerification(userDetails(Organisation)).fail()(FakeRequest())
 
     status(res) mustBe OK
 
     val html = contentAsString(res)
-    html must include ("We’re unable to verify your identity.")
+    html must include("We’re unable to verify your identity.")
   }
 
 
   trait TestCase {
-    lazy val mockSessionRepoOrgDetails = {
+    def mockSessionRepoOrgDetails: PersonalDetailsSessionRepository = {
       val f = mock[PersonalDetailsSessionRepository]
       when(f.start(any())(any(), any())
       ).thenReturn(Future.successful(()))
@@ -136,7 +120,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
       f
     }
 
-    lazy val mockSessionRepoIndDetails = {
+    def mockSessionRepoIndDetails: PersonalDetailsSessionRepository = {
       val f = mock[PersonalDetailsSessionRepository]
       when(f.start(any())(any(), any())
       ).thenReturn(Future.successful(()))
@@ -146,41 +130,19 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec with MockitoSugar 
       f
     }
 
-    def testOrganisationInfo = UserInfo(firstName = Some("Bob"),
-      lastName = Some("Smith"),
-      email = "bob@smith.com",
-      postcode = Some("AB12 3CD"),
-      groupIdentifier = "GroupIdenfifier",
-      affinityGroup = AffinityGroup.Organisation,
-      gatewayId = "",
-      credentialRole = Admin)
-
-    def testIndividualInfo = UserInfo(firstName = Some("Bob"),
-      lastName = Some("Smith"),
-      email = "bob@smith.com",
-      postcode = Some("AB12 3CD"),
-      groupIdentifier = "GroupIdenfifier",
-      affinityGroup = AffinityGroup.Individual,
-      gatewayId = "",
-      credentialRole = Admin)
 
     lazy val mockRegistrationService = mock[RegistrationService]
 
-    lazy val stubIdentityVerificationServiceEnrolmentOrg = new IvService(mockCustomErrorHandler, StubVplAuthConnector, mockRegistrationService, mockSessionRepoOrgDetails, app.injector.instanceOf[IdentityVerificationProxyConnector], applicationConfig)
+    lazy val stubIdentityVerificationServiceEnrolmentOrg = new IvService(mockCustomErrorHandler, mockRegistrationService, mockSessionRepoOrgDetails, app.injector.instanceOf[IdentityVerificationProxyConnector], applicationConfig)
 
-    object TestIdentityVerification extends IdentityVerification(
-      mockCustomErrorHandler,
-      StubGgAction,
-      StubIdentityVerification,
-      StubAddresses,
-      StubIndividualAccountConnector,
-      stubIdentityVerificationServiceEnrolmentOrg,
-      StubGroupAccountConnector,
-      StubVplAuthConnector,
-      mockSessionRepoOrgDetails)
+    def testIdentityVerification(userDetails: UserDetails) =
+      new IdentityVerification(mockCustomErrorHandler,
+        ggPreauthenticated(userDetails), StubIdentityVerification, StubAddresses,
+        StubIndividualAccountConnector, stubIdentityVerificationServiceEnrolmentOrg, StubGroupAccountConnector, mockSessionRepoOrgDetails)
 
     val request = FakeRequest()
 
     def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
   }
+
 }

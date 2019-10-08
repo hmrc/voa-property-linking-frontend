@@ -16,8 +16,6 @@
 
 package controllers
 
-import com.builtamont.play.pdf.PdfGenerator
-import connectors.authorisation.Authenticated
 import connectors.{AgentsConnector, DraftCases, GroupAccounts}
 import models._
 import models.searchApi._
@@ -26,12 +24,9 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import services.AgentRelationshipService
-import tests.AllMocks
 import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
-class ManagePropertiesSpec extends VoaPropertyLinkingSpec with AllMocks {
+class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
 
   "The manage properties page" must "return redirect" in {
 
@@ -43,11 +38,9 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   private def setup(numberOfLinks: Int = 15) = {
     val groupAccount: GroupAccount = arbitrary[GroupAccount]
-    val individualAccount: DetailedIndividualAccount = arbitrary[DetailedIndividualAccount]
 
     var arbitraryOwnerAuthorisation: Seq[OwnerAuthorisation] = Nil
 
-    StubAuthentication.stubAuthenticationResult(Authenticated(Accounts(groupAccount, individualAccount)))
     (1 to numberOfLinks) foreach { _ =>
       arbitraryOwnerAuthorisation :+= arbitrary[OwnerAuthorisation].copy(authorisationId = groupAccount.id.toLong)
     }
@@ -65,7 +58,6 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec with AllMocks {
     mock[AgentRelationshipService],
     mock[AgentsConnector],
     mock[GroupAccounts],
-    StubAuthentication,
-    mock[PdfGenerator]
+    preAuthenticatedActionBuilders()
   )
 }
