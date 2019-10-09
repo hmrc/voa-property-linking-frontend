@@ -23,9 +23,9 @@
 @(model: DeclarationVM, isRatesBillEvidence: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @backLink = @{if (isRatesBillEvidence) {
-                controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.RATES_BILL).url
+                    controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url
                 } else {
-                controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url
+                    controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.RATES_BILL).url
                 }
 }
 
