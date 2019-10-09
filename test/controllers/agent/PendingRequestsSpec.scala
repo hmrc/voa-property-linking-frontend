@@ -29,6 +29,7 @@ import uk.gov.hmrc.auth.core.AffinityGroup._
 import utils._
 
 import scala.collection.JavaConverters._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class PendingRequestsSpec extends VoaPropertyLinkingSpec {
 
@@ -166,7 +167,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
   def testRepresentationController(loggedInAs: AffinityGroup = Individual, userIsAgent: Boolean) = new RepresentationController(
     mockCustomErrorHandler,
     StubPropertyRepresentationConnector,
-    preAuthenticatedActionBuilders(userDetails(affinityGroup = loggedInAs), userIsAgent = userIsAgent),
+    preAuthenticatedActionBuilders(userIsAgent = userIsAgent),
     StubPropertyLinkConnector
   )
 }

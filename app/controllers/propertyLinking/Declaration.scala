@@ -17,20 +17,25 @@
 package controllers.propertyLinking
 
 import actions.AuthenticatedAction
+import actions.propertylinking.WithLinkingSession
+import binders.propertylinks.EvidenceChoices
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
-import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import form.Mappings._
 import javax.inject.Named
 import models.RatesBillType
+import models.propertylinking.requests.PropertyLinkRequest
+import play.api.Logger
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent}
 import repositories.SessionRepo
 import services.BusinessRatesAttachmentService
-import session.{LinkingSessionRequest, WithLinkingSession}
+import services.propertylinking.PropertyLinkingService
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.voa.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
+import utils.Cats
 import views.html.propertyLinking.declaration
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -38,13 +43,15 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class Declaration @Inject()(
                              val errorHandler: CustomErrorHandler,
-                             propertyLinks: PropertyLinkConnector,
+                             propertyLinkService: PropertyLinkingService,
                              @Named("propertyLinkingSession") sessionRepository: SessionRepo,
                              businessRatesAttachmentService: BusinessRatesAttachmentService,
                              authenticatedAction: AuthenticatedAction,
                              withLinkingSession: WithLinkingSession
                            )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
-  extends PropertyLinkingController {
+  extends PropertyLinkingController with Cats {
+
+  val logger = Logger(this.getClass.getName)
 
   def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
@@ -56,14 +63,32 @@ class Declaration @Inject()(
    */
   def submit(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     form.bindFromRequest().fold(
-      errors => {
+      _ => {
         val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
         Future.successful(BadRequest(declaration(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence)))
       },
-      success =>
-        submitLinkingRequest().map(x => Redirect(routes.Declaration.confirmation())))
+      _ =>
+        propertyLinkService.submit(PropertyLinkRequest(request.ses, request.organisationId))
+          .fold(
+            {
+              case NotAllFilesReadyToUpload     =>
+                logger.warn(s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page")
+                Redirect(routes.Declaration.show())
+              case MissingRequiredNumberOfFiles =>
+                logger.warn(s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")
+                request.ses.evidenceType match {
+                  case Some(RatesBillType)  =>
+                    Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
+                  case Some(_)              =>
+                    Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
+                  case None                 =>
+                    Redirect(routes.ChooseEvidence.show())
+                }
+            },
+            _ => Redirect(routes.Declaration.confirmation())
+          )
+    )
   }
-
 
   def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     sessionRepository.remove().map { _ =>
@@ -71,12 +96,6 @@ class Declaration @Inject()(
     }
   }
 
-  private def submitLinkingRequest()(implicit request: LinkingSessionRequest[_]): Future[Unit] = {
-    for {
-      _ <- businessRatesAttachmentService.submitFiles(request.ses.submissionId, request.ses.uploadEvidenceData.attachments)
-      _ <- propertyLinks.createPropertyLink()
-    } yield ()
-  }
 
   lazy val form = Form(Forms.single("declaration" -> mandatoryBoolean))
   lazy val formWithNoDeclaration = form.withError(FormError("declaration", "declaration.required"))

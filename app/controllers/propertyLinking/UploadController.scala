@@ -17,6 +17,8 @@
 package controllers.propertyLinking
 
 import actions.AuthenticatedAction
+import actions.propertylinking.WithLinkingSession
+import actions.propertylinking.requests.LinkingSessionRequest
 import binders.propertylinks.EvidenceChoices
 import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import config.ApplicationConfig
@@ -32,7 +34,6 @@ import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{Action, AnyContent, Result}
 import services.BusinessRatesAttachmentService
-import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import views.html.propertyLinking.{uploadEvidence, uploadRatesBill}
 
@@ -58,7 +59,7 @@ class UploadController @Inject()(
     }
   }
 
-  def initiate(evidence: EvidenceChoices): Action[JsValue] = authenticatedAction.async(parse.json) { implicit request =>
+  def initiate(evidence: EvidenceChoices): Action[JsValue] = authenticatedAction.andThen(withLinkingSession).async(parse.json) { implicit request =>
     withJsonBody[InitiateAttachmentRequest] { attachmentRequest =>
       businessRatesAttachmentsServices
         .initiateAttachmentUpload(InitiateAttachmentPayload(attachmentRequest, applicationConfig.serviceUrl + routes.UploadController.show(evidence).url, applicationConfig.serviceUrl + routes.UploadController.upscanFailure(evidence, None)))

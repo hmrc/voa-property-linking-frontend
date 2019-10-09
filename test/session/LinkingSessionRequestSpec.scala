@@ -16,6 +16,8 @@
 
 package session
 
+import actions.propertylinking.WithLinkingSession
+import actions.propertylinking.requests.LinkingSessionRequest
 import controllers.VoaPropertyLinkingSpec
 import models.LinkingSession
 import org.mockito.ArgumentMatchers.any

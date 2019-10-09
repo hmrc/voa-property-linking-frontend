@@ -16,7 +16,8 @@
 
 package services
 
-import actions.BasicAuthenticatedRequest
+import actions.propertylinking.requests.LinkingSessionRequest
+import actions.requests.BasicAuthenticatedRequest
 import connectors.attachments.BusinessRatesAttachmentConnector
 import models.LinkingSession
 import models.attachment.InitiateAttachmentPayload
@@ -27,7 +28,6 @@ import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import repositories.SessionRepo
 import resources._
-import session.LinkingSessionRequest
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -38,7 +38,7 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec {
   val mockSessionRepo = mock[SessionRepo]
   val initiateAttachmentRequest = InitiateAttachmentPayload(InitiateAttachmentRequest("FILE_NAME", "img/jpeg"), "http://example.com", "http://example.com/failure")
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
-  implicit val request = new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, userDetails(AffinityGroup.Organisation), FakeRequest())
+  implicit val request = new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
   implicit val linkingSessionRequest = LinkingSessionRequest(linkingSessionData, 1234l, detailedIndividualAccount, groupAccount(agent = true), request)
   implicit val hc = HeaderCarrier()
 
@@ -51,9 +51,10 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec {
       when(mockSessionRepo.get[LinkingSession](any(), any())).thenReturn(Future.successful(Some(linkingSessionData)))
       when(businessRatesAttachmentConnector.initiateAttachmentUpload(any())(any[HeaderCarrier])).thenReturn(Future successful preparedUpload)
       when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-      businessRatesChallengeService.initiateAttachmentUpload(initiateAttachmentRequest)(request, hc).futureValue
-      verify(mockSessionRepo).get[LinkingSession](any(), any())
-      verify(businessRatesAttachmentConnector).initiateAttachmentUpload(any())(any[HeaderCarrier])
+
+      businessRatesChallengeService.initiateAttachmentUpload(initiateAttachmentRequest)(linkingSessionRequest, hc).futureValue
+
+      verify(businessRatesAttachmentConnector, times(1)).initiateAttachmentUpload(any())(any[HeaderCarrier])
     }
 
     it should "call to persistSessionData is success" in {
@@ -63,9 +64,9 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec {
     }
 
     it should "call to submit Files is success" in {
-      when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future successful Some(attachment))
+      when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(attachment))
 
-      businessRatesChallengeService.submitFiles(FILE_REFERENCE, Some(Map(FILE_REFERENCE -> uploadedFileDetails))).futureValue
+      businessRatesChallengeService.patchMetadata(FILE_REFERENCE, FILE_REFERENCE).futureValue
 
       verify(businessRatesAttachmentConnector).submitFile(any(), any())(any[HeaderCarrier])
     }

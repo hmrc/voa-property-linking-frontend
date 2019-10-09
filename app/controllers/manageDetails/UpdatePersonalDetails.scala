@@ -18,21 +18,21 @@ package controllers.manageDetails
 
 import java.time.Instant
 
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
-import javax.inject.Inject
+import actions.AuthenticatedAction
+import actions.requests.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.PropertyLinkingController
 import form.Mappings._
 import form.TextMatching
+import javax.inject.Inject
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails, UpdatedOrganisationAccount}
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.validation.Constraints
 import play.api.i18n.MessagesApi
-import play.api.mvc.{AnyContent, Result}
+import play.api.mvc.Result
 import services.{EnrolmentResult, ManageDetails, Success}
-import uk.gov.hmrc.auth.core.AffinityGroup
+import uk.gov.hmrc.auth.core.{AffinityGroup, User}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import utils.EmailAddressValidation
@@ -134,7 +134,7 @@ class UpdatePersonalDetails @Inject()(
     val updatedAccount = request.individualAccount.copy(details = updatedDetails)
 
     individualAccountConnector.update(updatedAccount)
-      .flatMap(_ => addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)(_ == AffinityGroup.Individual)))
+      .flatMap(_ => addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)))
       .map{
         _ => updateGroup(request.organisationAccount, updatedAccount)
           Redirect(controllers.manageDetails.routes.ViewDetails.show())}

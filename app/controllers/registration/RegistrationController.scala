@@ -16,7 +16,7 @@
 
 package controllers.registration
 
-import actions.GgAuthenticatedAction
+import actions.registration.GgAuthenticatedAction
 import cats.data.OptionT
 import cats.implicits._
 import config.ApplicationConfig
@@ -37,6 +37,7 @@ import scala.concurrent.Future
 import javax.inject.{Inject, Named}
 import models.registration.UserDetails._
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController @Inject()(
@@ -154,7 +155,7 @@ class RegistrationController @Inject()(
     getCompanyDetails(userDetails.groupIdentifier).map {
       case Some(fieldData) =>
         userDetails.credentialRole match {
-          case Admin | User =>
+          case User =>
             Ok(views.html.createAccount.register_assistant_admin(
               AdminInExistingOrganisationUser.organisation,
               fieldData))

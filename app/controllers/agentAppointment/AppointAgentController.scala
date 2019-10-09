@@ -16,7 +16,8 @@
 
 package controllers.agentAppointment
 
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
+import actions.AuthenticatedAction
+import actions.requests.BasicAuthenticatedRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.ApplicationConfig

@@ -16,7 +16,7 @@
 
 package controllers
 
-import actions.GgAuthenticatedAction
+import actions.registration.GgAuthenticatedAction
 import config.ApplicationConfig
 import connectors._
 import javax.inject.{Inject, Named}

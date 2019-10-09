@@ -20,9 +20,9 @@ import binders.propertylinks.GetPropertyLinksParameters
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PaginationParams
 import models._
+import models.propertylinking.payload.PropertyLinkPayload
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
 import org.mockito.Mockito.mock
-import session.LinkingSessionRequest
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
@@ -39,7 +39,8 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
 
   def stubOwnerAuthResult(reps: OwnerAuthResult) = { stubbedOwnerAuthResult = reps }
 
-  override def createPropertyLink()(implicit request: LinkingSessionRequest[_]): Future[Unit] = Future.successful(())
+  override def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[Unit] =
+    Future.successful(())
 
   override def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters,
                                     pagination: PaginationParams)

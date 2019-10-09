@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package actions
+package actions.registration
 
+import actions.registration.requests.RequestWithUserDetails
 import auth.GovernmentGatewayProvider
 import javax.inject.Inject
 import models.registration.UserDetails
 import play.api.Logger
 import play.api.mvc._
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.AuthProvider.GovernmentGateway
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals._
@@ -51,10 +53,11 @@ class GgAuthenticatedAction @Inject()(
     }
 
     val retrieval = name and email and postCode and groupIdentifier and externalId and affinityGroup and credentialRole
-    authorised(AuthProviders(GovernmentGateway)).retrieve(retrieval) {
+    authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual)).retrieve(retrieval) {
       case optName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(role) =>
         block(new RequestWithUserDetails(UserDetails.fromRetrieval(optName, optEmail, optPostCode, groupIdentifier, externalId, affinityGroup, role), request))
     }.recoverWith(handleError)
   }
 
 }
+

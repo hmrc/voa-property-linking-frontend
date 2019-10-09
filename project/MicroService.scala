@@ -51,6 +51,7 @@ trait MicroService {
       parallelExecution in Test := false,
       fork in Test := true,
       retrieveManaged := true,
+      testGrouping := TestPhases.oneForkedJvmPerTest((definedTests in Test).value),
       compileScalastyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle.in(Compile).toTask("").value,
       test in Test <<= (test in Test) dependsOn compileScalastyle
     )

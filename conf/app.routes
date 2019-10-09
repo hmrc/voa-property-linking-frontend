@@ -87,11 +87,6 @@ POST        /my-organisation/appoint                                            
 GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String, agentAppointed: Option[String])
 POST        /my-organisation/appoint/properties/create                                                                    @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 
-#GET         /revoke-agent/multiple-properties                                                 @controllers.agentAppointment.AppointAgentController.getAgentsForRemove()
-#POST        /revoke-agent/select-properties                                                   @controllers.agentAppointment.AppointAgentController.selectAgentProperties()
-#GET         /revoke-agent/select-properties-search                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: AgentPropertiesParameters)
-#POST        /revoke-agent/agent-summary                                                       @controllers.agentAppointment.AppointAgentController.revokeAgentSummary()
-
 GET         /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.revokeMultipleProperties()
 POST        /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.submitRevokeMultipleProperties()
 GET         /my-organisation/revoke/properties                                                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long)
@@ -105,7 +100,6 @@ GET         /my-organisation/property-links/:submissionId/revoke/:agentCode/conf
 
 #AGENT ONLY
 GET           /my-organisation/clients/requests                                                 @controllers.agent.RepresentationController.getMyClientsPropertyLinkRequests(page: Int ?= 1, pageSize: Int ?= 15)
-#POST         /my-organisation/clients/requests                                                @controllers.agent.RepresentationController.pendingRepresentationRequest(page: Int ?= 1, pageSize: Int ?= 15)
 POST          /my-organisation/clients/requests                                                @controllers.agent.RepresentationController.submitMyClientsPropertyLinkRequestResponse(page: Int, pageSize: Int)
 GET           /my-organisation/clients/requests/continue                                         @controllers.agent.RepresentationController.continue(page: Int, pageSize: Int)
 POST          /representation-request/bulkActions                                               @controllers.agent.RepresentationController.bulkActions

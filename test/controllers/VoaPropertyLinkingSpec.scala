@@ -16,7 +16,12 @@
 
 package controllers
 
-import actions._
+import actions.AuthenticatedAction
+import actions.propertylinking.WithLinkingSession
+import actions.propertylinking.requests.LinkingSessionRequest
+import actions.registration.GgAuthenticatedAction
+import actions.registration.requests.RequestWithUserDetails
+import actions.requests.BasicAuthenticatedRequest
 import models._
 import models.registration.UserDetails
 import org.scalatest.concurrent.ScalaFutures
@@ -25,7 +30,6 @@ import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Request, Result}
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
-import session.{LinkingSessionRequest, WithLinkingSession}
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
@@ -47,19 +51,18 @@ trait VoaPropertyLinkingSpec
     with GlobalExecutionContext
     with AllMocks {
 
-  val token = "Csrf-Token" -> "nocheck"
+  val token: (String, String) = "Csrf-Token" -> "nocheck"
 
   implicit val ec: ExecutionContext = ExecutionContext.Implicits.global
   implicit lazy val messageApi: MessagesApi = app.injector.instanceOf[MessagesApi]
   implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
 
   def preAuthenticatedActionBuilders(
-                                      userDetails: UserDetails = individualUserDetails,
                                       userIsAgent: Boolean = true
                                     ): AuthenticatedAction =
     new AuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockBusinessRatesAuthorisation, mockEnrolmentService, mockAuthConnector) {
       override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = {
-        block(new BasicAuthenticatedRequest[A](groupAccount(userIsAgent), detailedIndividualAccount, userDetails, request))
+        block(new BasicAuthenticatedRequest[A](groupAccount(userIsAgent), detailedIndividualAccount, request))
       }
     }
 

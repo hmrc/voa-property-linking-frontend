@@ -16,6 +16,7 @@
 
 package actions
 
+import actions.registration.GgAuthenticatedAction
 import models.registration.UserDetails
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when

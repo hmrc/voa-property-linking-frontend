@@ -16,12 +16,13 @@
 
 package utils
 
-import actions.BasicAuthenticatedRequest
+import actions.propertylinking.WithLinkingSession
+import actions.propertylinking.requests.LinkingSessionRequest
+import actions.requests.BasicAuthenticatedRequest
 import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
 import org.mockito.Mockito.mock
 import play.api.mvc.Result
 import repositories.SessionRepo
-import session.{LinkingSessionRequest, WithLinkingSession}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext.Implicits.global

@@ -17,10 +17,10 @@
 package repositories
 
 import javax.inject.Inject
-
 import com.google.inject.Singleton
 import models.messages.Message
 import play.api.libs.json._
+import play.modules.reactivemongo.ReactiveMongoComponent
 import reactivemongo.api.DB
 import reactivemongo.api.indexes.{Index, IndexType}
 import reactivemongo.bson.{BSONDateTime, BSONDocument, BSONString}
@@ -35,17 +35,17 @@ import scala.concurrent.duration._
 import uk.gov.hmrc.http.HeaderCarrier
 
 @Singleton
-class PersonalDetailsSessionRepository @Inject()(db: DB) extends SessionRepository("personDetails", db)
+class PersonalDetailsSessionRepository @Inject()(mongo: ReactiveMongoComponent) extends SessionRepository("personDetails", mongo)
 
 @Singleton
-class PropertyLinkingSessionRepository @Inject()(db: DB) extends SessionRepository("propertyLinking", db)
+class PropertyLinkingSessionRepository @Inject()(mongo: ReactiveMongoComponent) extends SessionRepository("propertyLinking", mongo)
 
 @Singleton
-class PropertyLinksSessionRepository @Inject()(db: DB) extends SessionRepository("propertyLinks", db)
+class PropertyLinksSessionRepository @Inject()(mongo: ReactiveMongoComponent) extends SessionRepository("propertyLinks", mongo)
 
 
-class SessionRepository @Inject()(formId: String, db: DB)
-  extends ReactiveRepository[SessionData, String]("sessions", () => db, SessionData.format, implicitly[Format[String]])
+class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
+  extends ReactiveRepository[SessionData, String]("sessions", mongo.mongoConnector.db, SessionData.format, implicitly[Format[String]])
     with SessionRepo {
 
   override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {

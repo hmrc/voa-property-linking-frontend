@@ -16,7 +16,7 @@
 
 package controllers.propertyLinking
 
-import _root_.session.WithLinkingSession
+import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
 import models._

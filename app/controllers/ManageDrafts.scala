@@ -16,18 +16,17 @@
 
 package controllers
 
+import actions.AuthenticatedAction
+import actions.requests.BasicAuthenticatedRequest
 import config.ApplicationConfig
-import javax.inject.Inject
 import connectors.DraftCases
-import actions.{AuthenticatedAction, BasicAuthenticatedRequest}
-import views.helpers.Errors
-import akka.actor.Status.{Failure, Success}
 import connectors.propertyLinking.PropertyLinkConnector
-import play.api.i18n.MessagesApi
+import javax.inject.Inject
 import models.DeleteDraftCase
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.i18n.MessagesApi
+import play.api.mvc.Result
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 

@@ -16,18 +16,19 @@
 
 package services
 
-import actions.BasicAuthenticatedRequest
+import actions.propertylinking.requests.LinkingSessionRequest
 import auditing.AuditingService
+import cats.data.EitherT
 import connectors.attachments.BusinessRatesAttachmentConnector
 import javax.inject.{Inject, Named}
 import models._
 import models.attachment._
 import models.upscan.{FileMetadata, PreparedUpload, UploadedFileDetails}
-import play.api.Logger
 import play.api.libs.json.Json
 import repositories.SessionRepo
-import session.LinkingSessionRequest
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.voa.propertylinking.exceptions.attachments.{AttachmentException, MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
+import utils.Cats
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -35,19 +36,18 @@ class BusinessRatesAttachmentService @Inject()(
                                                 businessRatesAttachmentConnector: BusinessRatesAttachmentConnector,
                                                 @Named("propertyLinkingSession") sessionRepository: SessionRepo,
                                                 auditingService: AuditingService
-                                              )(implicit executionContext: ExecutionContext) {
+                                              )(implicit executionContext: ExecutionContext) extends Cats {
 
-  def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[PreparedUpload] = {
+  def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload)(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): Future[PreparedUpload] = {
     for {
-      linkSession               <- getSessionData()
       initiateAttachmentResult  <- businessRatesAttachmentConnector.initiateAttachmentUpload(initiateAttachmentRequest)
-      updatedSessionData        = updateSessionData(linkSession.uploadEvidenceData, initiateAttachmentRequest, initiateAttachmentResult)
-      _                         <- persistSessionData(linkSession, updatedSessionData)
+      updatedSessionData        = updateSessionData(request.ses.uploadEvidenceData, initiateAttachmentRequest, initiateAttachmentResult)
+      _                         <- persistSessionData(request.ses, updatedSessionData)
     } yield {
       auditingService.sendEvent("property link rates bill upload", Json.obj(
           "organisationId" -> request.organisationId,
           "individualId" -> request.individualAccount.individualId,
-          "propertyLinkSubmissionId" -> linkSession.submissionId,
+          "propertyLinkSubmissionId" -> request.ses.submissionId,
           "fileName" -> initiateAttachmentRequest.fileName
         ))
       initiateAttachmentResult
@@ -57,9 +57,10 @@ class BusinessRatesAttachmentService @Inject()(
   def updateSessionData(sessionUploadEvidenceData: UploadEvidenceData,
                         initiateAttachmentRequest: InitiateAttachmentPayload,
                         initiateAttachmentResult: PreparedUpload, linkBasis: LinkBasis = NoEvidenceFlag, evidenceType: EvidenceType = RatesBillType): UploadEvidenceData = {
-      sessionUploadEvidenceData.copy(linkBasis = linkBasis,
+      sessionUploadEvidenceData.copy(
+        linkBasis = linkBasis,
         fileInfo = Some(FileInfo(initiateAttachmentRequest.fileName, evidenceType)),
-        attachments = Some(Map((initiateAttachmentResult.reference.value -> UploadedFileDetails(FileMetadata(initiateAttachmentRequest.fileName, initiateAttachmentRequest.mimeType), initiateAttachmentResult))))
+        attachments = Some(Map(initiateAttachmentResult.reference.value -> UploadedFileDetails(FileMetadata(initiateAttachmentRequest.fileName, initiateAttachmentRequest.mimeType), initiateAttachmentResult)))
       )
   }
 
@@ -67,30 +68,31 @@ class BusinessRatesAttachmentService @Inject()(
     sessionRepository.saveOrUpdate[LinkingSession](linkingSession.copy( uploadEvidenceData = updatedSessionData))
   }
 
-  def getSessionData()(implicit hc: HeaderCarrier) = {
-    sessionRepository.get[LinkingSession] map {
-      case Some(session) => session
-      case None =>
-        Logger.warn(s"Invalid session data")
-        throw new IllegalStateException("Invalid Session Data")
-    }
+  def submit(
+              submissionId: String,
+              nonEmptyReferences: List[String]
+            )(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): EitherT[Future, AttachmentException, List[Attachment]] = {
+    EitherT.fromEither[Future](Either.cond(nonEmptyReferences.nonEmpty, nonEmptyReferences, MissingRequiredNumberOfFiles))
+      .semiflatMap(Future.traverse(_)(r => getAttachment(r).map(r -> _)))
+      .map(result => result.filter(_._2.state == MetadataPending))
+      .subflatMap(filtered => Either.cond(filtered.size == nonEmptyReferences.size, filtered.map(_._1), NotAllFilesReadyToUpload))
+      .semiflatMap(references => Future.traverse(references)(patchMetadata(submissionId, _)))
   }
 
-  //TODO the uploadedFilesData should not be optional.
-  def submitFiles(submissionId: String, uploadedFilesData: Option[Map[String, UploadedFileDetails]])(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): Future[List[Option[Attachment]]] = {
-    Future.traverse(uploadedFilesData.getOrElse(Map()).keys){ uploadedFile =>
+  def getAttachment(reference: String)(implicit hc: HeaderCarrier): Future[Attachment] =
+    businessRatesAttachmentConnector.getAttachment(reference)
 
+  def patchMetadata(submissionId: String, reference: String)(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): Future[Attachment] = {
       auditingService.sendEvent(
         auditType = "property link evidence upload",
         obj = Json.obj(
           "ggGroupId" -> request.groupAccount.groupId,
           "ggExternalId" -> request.individualAccount.externalId,
-          "propertyLinkSubmissionId" -> request.ses.submissionId)
+          "propertyLinkSubmissionId" -> submissionId)
       )
 
-      businessRatesAttachmentConnector.submitFile(uploadedFile, submissionId)
-    }.map(_.toList)
-  }
+      businessRatesAttachmentConnector.submitFile(reference, submissionId)
+    }
 
 }
 

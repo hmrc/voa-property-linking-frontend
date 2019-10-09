@@ -18,31 +18,31 @@ package controllers.propertyLinking
 
 import java.time.LocalDate
 
-import javax.inject.{Inject, Named}
-import actions.{AuthenticatedAction, AuthenticatedRequest}
+import actions.AuthenticatedAction
+import actions.propertylinking.WithLinkingSession
+import actions.requests.AuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.Singleton
 import config.ApplicationConfig
-import connectors.propertyLinking.PropertyLinkConnector
 import connectors.SubmissionIdConnector
+import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
+import javax.inject.{Inject, Named}
 import models.{CapacityDeclaration, _}
-import play.api.{Configuration, Environment}
 import play.api.Mode.Mode
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent}
+import play.api.{Configuration, Environment}
 import repositories.SessionRepo
-import session.WithLinkingSession
+import uk.gov.hmrc.http.Upstream5xxResponse
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
-import views.helpers.Errors
-import uk.gov.hmrc.http.Upstream5xxResponse
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import views.helpers.Errors
 
 import scala.concurrent.{ExecutionContext, Future}
 
