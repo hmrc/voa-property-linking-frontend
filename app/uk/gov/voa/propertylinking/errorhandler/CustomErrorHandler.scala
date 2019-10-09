@@ -20,7 +20,6 @@ import java.time.{Instant, LocalDateTime, ZoneId}
 
 import auth.GovernmentGatewayProvider
 import config.ApplicationConfig
-import connectors.authorisation.errorhandler.exceptions.BraAuthorisationFailure
 import javax.inject.Inject
 import play.api.Logger
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -55,14 +54,4 @@ class CustomErrorHandler @Inject()(
       _.split("-")(2)
     }
   }
-
-  override def onServerError(request: RequestHeader, exception: Throwable): Future[Result] =
-    exception match {
-      case error: BraAuthorisationFailure =>
-        logger.info(s"business rates authorisation returned ${error.message}, redirecting to login.")
-        Future.successful(Redirect(appConfig.ggSignInUrl, Map("continue" -> Seq(appConfig.baseUrl + request.uri), "origin" -> Seq("voa"))))
-      case _                              =>
-        super.onServerError(request, exception)
-
-    }
 }
