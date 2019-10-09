@@ -32,7 +32,7 @@ import resources._
 import services.iv.IdentityVerificationService
 import services.{RegistrationService, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Organisation}
-import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, Assistant}
+import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, Assistant, User}
 import utils.{StubGroupAccountConnector, _}
 
 import scala.concurrent.Future
@@ -152,7 +152,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Going to the create account page when logged in as a new admin user registering with an existing group account" should
     "display the complete your contact details form for an admin" in {
-    val user: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = Admin)
+    val user: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = User)
     val ga: GroupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = user.groupIdentifier)
     StubGroupAccountConnector.stubAccount(ga)
 
