@@ -18,7 +18,7 @@
 
         $element.change(function(){
             $('#error-summary').remove();
-            $('#saveAndContinueButton').attr('disabled','disabled');
+            $('#uploadFile').attr('disabled','disabled');
 
             $(this).after('<div class="message-warning" id="message-warning"><p>Please wait whilst your file is uploading. This may take some time.</p></div>');
 
