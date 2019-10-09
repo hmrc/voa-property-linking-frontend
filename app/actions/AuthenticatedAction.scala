@@ -106,13 +106,13 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
                              (implicit request: Request[A], hc: HeaderCarrier) = {
     import AuthorisationResult._
     result match {
-      case Authenticated(accounts) => success(accounts, body)(request, hc)
-      case InvalidGGSession => provider.redirectToLogin
-      case NoVOARecord => Future.successful(Redirect(controllers.registration.routes.RegistrationController.show()))
-      case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
-      case InvalidAccountType => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
-      case ForbiddenResponse => Future.successful(Forbidden(views.html.errors.forbidden()))
-      case NonGroupIDAccount => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
+      case Authenticated(accounts)  => success(accounts, body)(request, hc)
+      case InvalidGGSession         => provider.redirectToLogin
+      case NoVOARecord              => Future.successful(Redirect(controllers.registration.routes.RegistrationController.show()))
+      case IncorrectTrustId         => Future.successful(Unauthorized("Trust ID does not match"))
+      case InvalidAccountType       => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
+      case ForbiddenResponse        => Future.successful(Forbidden(views.html.errors.forbidden()))
+      case NonGroupIDAccount        => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
     }
   }
 }
