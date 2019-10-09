@@ -43,7 +43,7 @@ class BusinessRatesAttachmentConnector @Inject()(
   }
 
   def getAttachment(reference: String)(implicit hc: HeaderCarrier): Future[Attachment] =
-    http.GET[Attachment](s"$baseURL/business-rates-attachments/$reference")
+    http.GET[Attachment](s"$baseURL/business-rates-attachments/attachments/$reference")
 
   def submitFile(fileReference: String, submissionId: String)(
     implicit headerCarrier: HeaderCarrier): Future[Attachment] = {
