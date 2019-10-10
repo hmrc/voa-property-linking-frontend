@@ -97,7 +97,7 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
         throw otherException
     }
 
-    authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual) and ((Enrolment("HMRC-VOA-CCA") and User) or Assistant)) {
+    authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual) and (Assistant or (Enrolment("HMRC-VOA-CCA") and User))) {
         body(BasicAuthenticatedRequest(
           organisationAccount = accounts.organisation,
           individualAccount = accounts.person,
