@@ -84,6 +84,9 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
               individualAccount = accounts.person,
               request = request))
         }
+      case ex: UnsupportedCredentialRole => //This case should not happen.
+        logger.warn(s"unsupported credential role on existing VOA account, with message ${ex.msg}, for reason ${ex.reason}", ex)
+        Future.successful(Ok(views.html.errors.invalidAccountType()))
       case _: UnsupportedAffinityGroup  =>
         logger.warn("invalid account type already has a CCA account")
         Future.successful(Ok(views.html.errors.invalidAccountType()))
@@ -94,7 +97,7 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
         throw otherException
     }
 
-    authorised((AuthProviders(GovernmentGateway) and Enrolment("HMRC-VOA-CCA") and (Organisation or Individual) and User) or (AuthProviders(GovernmentGateway) and Assistant)) {
+    authorised((AuthProviders(GovernmentGateway) and Enrolment("HMRC-VOA-CCA") and (Organisation or Individual) and (Admin or User)) or (AuthProviders(GovernmentGateway) and Assistant)) {
         body(BasicAuthenticatedRequest(
           organisationAccount = accounts.organisation,
           individualAccount = accounts.person,
