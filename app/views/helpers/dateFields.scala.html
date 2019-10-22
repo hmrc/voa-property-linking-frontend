@@ -18,9 +18,9 @@
 @import play.api.data._
 @import play.api.data.Forms._
 
-
+@import java.time.LocalDate
 @(form:Form[_], prefix: String, helpText: Option[String] = None, suffix: String = "",
-  optional: Boolean = false, nojsText: Option[String] = None, label: Option[String] = None)(implicit requestHeader: RequestHeader, messages: Messages)
+  optional: Boolean = false, nojsText: Option[String] = None, label: Option[String] = None, fieldData: Option[LocalDate] = None)(implicit requestHeader: RequestHeader, messages: Messages)
 
 
 @displayFieldError(message: String, args: Seq[Any]) = {
@@ -64,7 +64,8 @@
                 'class -> "form-control",
                 '_fieldsetClass ->  "form-group-day",
                 'maxLength -> "2",
-                '_optional -> optional
+                '_optional -> optional,
+                '_value -> fieldData.fold("")(_.getDayOfMonth.toString)
              )
 
              @helpers.inputText(
@@ -76,7 +77,8 @@
                'class -> "form-control",
                '_fieldsetClass -> "form-group-month",
                'maxLength -> "2",
-               '_optional -> optional
+               '_optional -> optional,
+               '_value -> fieldData.fold("")(_.getMonthValue.toString)
              )
 
               @helpers.inputText(
@@ -88,7 +90,8 @@
                'class -> "form-control",
                '_fieldsetClass ->  "form-group-year",
                'maxLength -> "4",
-               '_optional -> optional
+               '_optional -> optional,
+               '_value -> fieldData.fold("")(_.getYear.toString)
              )
 
 

@@ -22,7 +22,7 @@
 @import config.ApplicationConfig
 @import utils.Formatters._
 
-@(model: Form[AssistantUserAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: Form[AssistantUserAccountDetails], assistantFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @isAgent(selected:Boolean) = @{if(selected) """checked="checked""" else """ disabled="disabled" """}
 @main_template(title = Messages("enrolment.title"), topNavigation = false) {
@@ -37,20 +37,20 @@
                 <table>
                 <tbody><tr>
                     <th>@Messages("enrolment.organisation.name.label")</th>
-                    <td>@organisationFieldData.businessName</td>
+                    <td>@assistantFieldData.businessName</td>
                 </tr>
                     <tr>
                         <th>@Messages("label.postal.address")</th>
-                        <td>@Html(capitalizedAddress(organisationFieldData.businessAddress).replaceAll(", ", "<br>"))
+                        <td>@Html(capitalizedAddress(assistantFieldData.businessAddress).replaceAll(", ", "<br>"))
                         </td>
                     </tr>
                     <tr>
                         <th>@Messages("label.telephone.number")</th>
-                        <td>@organisationFieldData.businessPhoneNumber</td>
+                        <td>@assistantFieldData.businessPhoneNumber</td>
                     </tr>
                     <tr>
                         <th>@Messages("label.correspondence.email.address")</th>
-                        <td>@organisationFieldData.email</td>
+                        <td>@assistantFieldData.email</td>
                     </tr>
                 </tbody></table>
 
@@ -68,7 +68,8 @@
                     '_label -> Messages("enrolment.firstName"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control"
+                    'class -> "form-control",
+                    '_value -> assistantFieldData.firstName
                 )
 
                 @inputText(
@@ -76,7 +77,8 @@
                     '_label -> Messages("enrolment.lastName"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control"
+                    'class -> "form-control",
+                    '_value -> assistantFieldData.lastName
                 )
 
                 <p>

@@ -19,11 +19,11 @@ package controllers
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
-import actions.registration.GgAuthenticatedAction
-import actions.registration.requests.RequestWithUserDetails
+import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
+import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
 import actions.requests.BasicAuthenticatedRequest
 import models._
-import models.registration.UserDetails
+import models.registration.{User, UserDetails}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
@@ -70,6 +70,13 @@ trait VoaPropertyLinkingSpec
     new GgAuthenticatedAction(mockGovernmentGatewayProvider, mockAuthConnector) {
       override def invokeBlock[A](request: Request[A], block: RequestWithUserDetails[A] => Future[Result]): Future[Result] =
         block(new RequestWithUserDetails[A](userDetails, request))
+    }
+
+
+  def sessionUserDetailsAction(details: User): SessionUserDetailsAction =
+    new SessionUserDetailsAction(mockPersonalDetailsSessionRepository) {
+      override def transform[A](request: RequestWithUserDetails[A]): Future[RequestWithSessionPersonDetails[A]] =
+        Future successful new RequestWithSessionPersonDetails[A](Some(details), request)
     }
 
   def unauthenticatedActionBuilder(): AuthenticatedAction =

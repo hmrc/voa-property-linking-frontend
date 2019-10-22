@@ -20,6 +20,7 @@
 
 @(field: play.api.data.Field,
         options: Seq[String],
+        fieldValue: Option[Boolean] = None,
         dataAttributes: Seq[(String, String, Any)] = Seq(),
         args: Seq[(Symbol, Any)])(implicit rh: RequestHeader, messages: Messages)
 
@@ -28,7 +29,7 @@
         @options.map { v =>
             <label class="block-label" for="@(id)_@v">
                 <input id="@(id)_@v" type="radio" name="@name" value="@v"
-                @if(value.contains(v)) {
+                @if(value.contains(v) | fieldValue.fold(false)(f => f.toString == v.toString)) {
                     checked
                 }
                 @toHtmlArgs(_root_.template.HtmlSupport.getArgs(v, dataAttributes, htmlArgs))
