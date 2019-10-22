@@ -16,13 +16,14 @@
 
 package utils
 
-import java.time.Instant
+import java.time.{Instant, LocalDate}
 import java.util.UUID
 
 import auth.Principal
 import models._
 import models.attachment._
-import models.registration.{GroupAccountDetails, UserDetails}
+import models.domain.Nino
+import models.registration._
 import models.upscan._
 import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole, User}
 
@@ -51,11 +52,44 @@ trait FakeObjects {
   val uploadEvidenceData = UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
   val detailedIndividualAccount = DetailedIndividualAccount(ggExternalId, "", 1L, 2L, IndividualDetails("", "", "", "", None, 12))
   val individualUserDetails: UserDetails = userDetails(AffinityGroup.Individual)
+  val orgUserDetails: UserDetails = userDetails(AffinityGroup.Organisation)
 
   def groupAccount(agent: Boolean): GroupAccount = GroupAccount(1L, ggGroupId, ggExternalId, 1, email, phone, isAgent = agent, 300L)
 
   val groupAccountDetails = GroupAccountDetails(companyName, address, email, email, phone, isAgent = false)
   val testAccounts = Accounts(groupAccount(agent = true), detailedIndividualAccount)
+
+  val individualUserAccountDetails = IndividualUserAccountDetails(
+    firstName = firstName,
+    lastName = lastName,
+    address =  address,
+    dob = LocalDate.now,
+    nino = Nino("AA111111A"),
+    phone = "03245262782",
+    mobilePhone = "04357282921",
+    email = "some@email.com",
+    confirmedEmail = "some@email.com",
+    tradingName = Some("Trading name"),
+    selectedAddress = None)
+
+  val adminInExistingOrganisationAccountDetails = AdminInExistingOrganisationAccountDetails(
+    firstName = "Billy-Bob",
+    lastName = "AdminInExistingOrganisation",
+    dob = LocalDate.now,
+    nino = Nino("AA111111A"))
+
+  val adminOrganisationAccountDetails = AdminOrganisationAccountDetails(
+    firstName = firstName,
+    lastName = lastName,
+    address =  Address(Some(123L), "1 Some street", "", "", "", "BN12 6DL"),
+    dob = LocalDate.now,
+    nino = Nino("AA111111A"),
+    phone = "03245262782",
+    email = "some@email.com",
+    confirmedEmail = "some@email.com",
+    companyName = "Trading name",
+    selectedAddress = None,
+    isAgent = false)
 
   def userDetails(affinityGroup: AffinityGroup = AffinityGroup.Individual, credentialRole: CredentialRole = User): UserDetails = UserDetails(
     firstName = Some(firstName),

@@ -49,7 +49,7 @@
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    'value -> organisationFieldData.firstName
+                    '_value -> organisationFieldData.firstName
                 )
 
                 @inputText(
@@ -58,7 +58,7 @@
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    'value -> organisationFieldData.lastName
+                    '_value -> organisationFieldData.lastName
                 )
 
                 @inputText(
@@ -66,10 +66,11 @@
                     '_label -> Messages("enrolment.organisation.name"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control"
+                    'class -> "form-control",
+                    '_value -> organisationFieldData.businessName
                 )
 
-                @address(model, keys.address, postcode = organisationFieldData.postcode)
+                @address(model, keys.address, postcode = organisationFieldData.postcode, addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)} )
 
                 <details>
                     <summary><span class="summary">@Messages("createAccount.group.details.header.multipleAddress")</span></summary>
@@ -85,7 +86,8 @@
                     '_label -> Messages("enrolment.businessPhoneNumber"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control"
+                    'class -> "form-control",
+                    '_value -> organisationFieldData.businessPhoneNumber
                 )
 
                 @inputText(
@@ -121,16 +123,17 @@
 
                 <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
 
-            @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")))
+                @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")), fieldData = organisationFieldData.dob)
 
-            @inputText(
-            field = model(keys.nino),
-            '_label -> Messages(s"label.createAccount.${keys.nino}"),
-            '_labelClass -> "form-label-bold",
-            '_showConstraints -> false,
-            'class -> "form-control",
-            '_help -> Messages("hint.nino")
-            )
+                @inputText(
+                    field = model(keys.nino),
+                    '_label -> Messages(s"label.createAccount.${keys.nino}"),
+                    '_labelClass -> "form-label-bold",
+                    '_showConstraints -> false,
+                    'class -> "form-control",
+                    '_help -> Messages("hint.nino"),
+                    '_value -> organisationFieldData.nino
+                )
 
                 <details>
                     <summary><span class="summary">@Messages("start.registration.IdontHave")</span></summary>

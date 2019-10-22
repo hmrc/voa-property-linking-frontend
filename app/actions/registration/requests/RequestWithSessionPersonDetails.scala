@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package models.registration
+package actions.registration.requests
 
-case class AssistantUserAccountDetails(firstName: String,
-                                       lastName: String) extends AssistantUser {
+import models.registration.User
+import play.api.mvc.WrappedRequest
 
-  def toGroupDetails(fieldData: FieldData) = GroupAccountDetails(
-    companyName = fieldData.businessName,
-    address = fieldData.businessAddress,
-    email = fieldData.email,
-    confirmedEmail = fieldData.email,
-    phone = fieldData.businessPhoneNumber,
-    isAgent = fieldData.isAgent
-  )
+class RequestWithSessionPersonDetails[A](val sessionPersonDetails: Option[User], val request: RequestWithUserDetails[A]) extends WrappedRequest[A](request){
+
+  def externalId = request.externalId
+
+  def userDetails = request.userDetails
+
+  def groupIdentifier = request.groupIdentifier
 
 }

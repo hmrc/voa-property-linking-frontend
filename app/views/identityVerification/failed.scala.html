@@ -27,7 +27,7 @@
                     <h1 class="heading-xlarge">@Messages("failedIdentityVerification.title")</h1>
 
                     <p>@Messages("failedIdentityVerification.p.1")</p>
-                    <p>@Html(Messages("failedIdentityVerification.p.2", routes.Application.start().url))</p>
+                    <p>@Html(Messages("failedIdentityVerification.p.2", controllers.registration.routes.RegistrationController.show().url))</p>
 
                     <p>@Messages("failedIv.email")</p>
                     <strong>@Html(Messages("failedIv.emailaddress", "ccaservice@voa.gsi.gov.uk"))</strong>

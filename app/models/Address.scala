@@ -22,5 +22,7 @@ case class Address(addressUnitId: Option[Long], line1: String, line2: String, li
 
 object Address {
   implicit val format = Json.format[Address]
+
+  val empty = Address(addressUnitId = None, line1 = "", line2 = "", line3 = "", line4 = "", postcode = "")
 }
 

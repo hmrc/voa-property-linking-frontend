@@ -22,39 +22,39 @@ import models.domain._
 import models.{Address, IVDetails}
 import play.api.libs.json.Json
 
-case class AdminOrganisationAccountDetails(firstName: String,
-                                           lastName: String,
-                                           companyName: String,
-                                           address: Address,
-                                           dob: LocalDate,
-                                           nino: Nino,
-                                           phone: String,
-                                           email: String,
-                                           confirmedEmail: String,
-                                           isAgent: Boolean,
-                                           selectedAddress: Option[String] = None) extends AdminUser {
-  override def toIvDetails = IVDetails(
-    firstName = firstName,
-    lastName = lastName,
-    dateOfBirth = Some(dob),
-    nino = Some(nino)
-  )
-
-  def toGroupDetails = GroupAccountDetails(
-    companyName = companyName,
-    address = address,
-    email = email,
-    confirmedEmail = confirmedEmail,
-    phone = phone,
-    isAgent = isAgent
-  )
-}
-
-object AdminOrganisationAccountDetails {
-  implicit val format = Json.format[AdminOrganisationAccountDetails]
-}
-
-case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,
-                               phone: String, isAgent: Boolean)
+//case class AdminOrganisationAccountDetails(firstName: String,
+//                                           lastName: String,
+//                                           companyName: String,
+//                                           address: Address,
+//                                           dob: LocalDate,
+//                                           nino: Nino,
+//                                           phone: String,
+//                                           email: String,
+//                                           confirmedEmail: String,
+//                                           isAgent: Boolean,
+//                                           selectedAddress: Option[String] = None) extends AdminUser {
+//  override def toIvDetails = IVDetails(
+//    firstName = firstName,
+//    lastName = lastName,
+//    dateOfBirth = Some(dob),
+//    nino = Some(nino)
+//  )
+//
+//  def toGroupDetails = GroupAccountDetails(
+//    companyName = companyName,
+//    address = address,
+//    email = email,
+//    confirmedEmail = confirmedEmail,
+//    phone = phone,
+//    isAgent = isAgent
+//  )
+//}
+//
+//object AdminOrganisationAccountDetails {
+//  implicit val format = Json.format[AdminOrganisationAccountDetails]
+//}
+//
+//case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,
+//                               phone: String, isAgent: Boolean)
 
 

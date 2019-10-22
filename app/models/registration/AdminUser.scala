@@ -25,11 +25,11 @@ import models.{Address, IVDetails, IndividualAccountSubmission, IndividualDetail
 import play.api.data.Forms._
 import play.api.data.validation._
 import play.api.data.{Form, Mapping}
-import play.api.libs.json.{Format, JsObject, JsResult, JsValue}
+import play.api.libs.json._
 import utils.EmailAddressValidation
 import views.helpers.Errors
 
-trait AdminUser {
+sealed trait AdminUser extends User {
 
   val firstName: String
   val lastName: String
@@ -106,3 +106,145 @@ object AdminUser {
     }
   }
 }
+
+trait AdminInExistingOrganisationUser extends AdminUser {
+
+  val firstName: String
+  val lastName: String
+  val dob: LocalDate
+  val nino: Nino
+}
+
+object AdminInExistingOrganisationUser {
+
+  lazy val organisation = Form(mapping(
+    keys.firstName -> nonEmptyText,
+    keys.lastName -> nonEmptyText,
+    keys.dateOfBirth -> dmyPastDate,
+    keys.nino -> nino
+  )(AdminInExistingOrganisationAccountDetails.apply)(AdminInExistingOrganisationAccountDetails.unapply))
+
+  private lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
+
+  private lazy val validNino: Constraint[String] = Constraint {
+    case s if Nino.isValid(s.toUpperCase) => Valid
+    case _ => Invalid(ValidationError("error.nino.invalid"))
+  }
+
+  private def toNino(nino: String) =
+    Nino(nino.toUpperCase.replaceAll(" ", ""))
+
+}
+
+case class AdminInExistingOrganisationAccountDetails(firstName: String,
+                                                     lastName: String,
+                                                     dob: LocalDate,
+                                                     nino: Nino) extends AdminInExistingOrganisationUser {
+
+
+  override val address = Address(None, "", "", "", "", "")
+  override val phone = ""
+  override val email = ""
+  override val confirmedEmail = ""
+
+  def toAdminOrganisationAccountDetails(fieldData: FieldData) = AdminOrganisationAccountDetails(
+    companyName = fieldData.businessName,
+    address = fieldData.businessAddress,
+    email = fieldData.email,
+    confirmedEmail = fieldData.email,
+    phone = fieldData.businessPhoneNumber,
+    isAgent = fieldData.isAgent,
+    firstName = firstName,
+    lastName = lastName,
+    dob = dob,
+    nino = nino
+  )
+
+}
+
+object AdminInExistingOrganisationAccountDetails{
+  implicit val format = Json.format[AdminInExistingOrganisationAccountDetails]
+  implicit val formatGroupAccountDetails = Json.format[GroupAccountDetails]
+}
+
+case class AdminOrganisationAccountDetails(firstName: String,
+                                           lastName: String,
+                                           companyName: String,
+                                           address: Address,
+                                           dob: LocalDate,
+                                           nino: Nino,
+                                           phone: String,
+                                           email: String,
+                                           confirmedEmail: String,
+                                           isAgent: Boolean,
+                                           selectedAddress: Option[String] = None) extends AdminUser {
+  override def toIvDetails = IVDetails(
+    firstName = firstName,
+    lastName = lastName,
+    dateOfBirth = Some(dob),
+    nino = Some(nino)
+  )
+
+  def toGroupDetails = GroupAccountDetails(
+    companyName = companyName,
+    address = address,
+    email = email,
+    confirmedEmail = confirmedEmail,
+    phone = phone,
+    isAgent = isAgent
+  )
+}
+
+object AdminOrganisationAccountDetails {
+  implicit val format = Json.format[AdminOrganisationAccountDetails]
+}
+
+case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,
+                               phone: String, isAgent: Boolean)
+
+case class IndividualUserAccountDetails(firstName: String,
+                                        lastName: String,
+                                        address: Address,
+                                        dob: LocalDate,
+                                        nino: Nino,
+                                        phone: String,
+                                        mobilePhone: String,
+                                        email: String,
+                                        confirmedEmail: String,
+                                        tradingName: Option[String],
+                                        selectedAddress: Option[String] = None
+                                       ) extends AdminUser {
+
+  override def toIvDetails = IVDetails(
+    firstName = firstName,
+    lastName = lastName,
+    dateOfBirth = Some(dob),
+    nino = Some(nino)
+  )
+
+  def toGroupDetails = GroupAccountDetails(
+    companyName = tradingName.getOrElse(truncateCompanyName(s"$firstName $lastName")),
+    address = address,
+    email = email,
+    confirmedEmail = confirmedEmail,
+    phone = phone,
+    isAgent = false
+  )
+
+  override def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
+    externalId = user.externalId,
+    trustId = trustId,
+    organisationId = organisationId,
+    details = IndividualDetails(firstName, lastName, email, phone, Some(mobilePhone), id)
+  )
+
+  private def truncateCompanyName(companyName: String): String = {
+    companyName.take(45).toString
+  }
+}
+
+object IndividualUserAccountDetails {
+  implicit val format = Json.format[IndividualUserAccountDetails]
+}
+
+

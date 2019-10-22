@@ -39,7 +39,7 @@
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    'value -> individualFieldData.firstName
+                    '_value -> individualFieldData.firstName
                 )
 
                 @inputText(
@@ -48,10 +48,10 @@
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    'value -> individualFieldData.lastName
+                    '_value -> individualFieldData.lastName
                 )
 
-                @address(model, keys.address, postcode = individualFieldData.postcode)
+                @address(model, keys.address, postcode = individualFieldData.postcode, addressData = Some(individualFieldData.businessAddress))
 
                 @inputText(
                     field = model(keys.email),
@@ -76,7 +76,8 @@
                     '_label -> Messages(s"enrolment.phoneNumber"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control"
+                    'class -> "form-control",
+                    '_value -> individualFieldData.businessPhoneNumber
                 )
 
                 @inputText(
@@ -84,7 +85,8 @@
                     '_label -> Messages(s"enrolment.mobileNumber"),
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
-                    'class -> "form-control"
+                    'class -> "form-control",
+                    '_value -> individualFieldData.mobilePhone
                 )
 
             @inputText(
@@ -93,18 +95,20 @@
                     '_labelClass -> "form-label-bold",
                     '_showConstraints -> false,
                     'class -> "form-control",
-                    '_optional -> true
+                    '_optional -> true,
+                    '_value -> individualFieldData.businessName
                 )
 
-            @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")))
+            @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")), fieldData = individualFieldData.dob)
 
             @inputText(
-            field = model(keys.nino),
-            '_label -> Messages(s"label.createAccount.${keys.nino}"),
-            '_labelClass -> "form-label-bold",
-            '_showConstraints -> false,
-            'class -> "form-control",
-            '_help -> Messages("hint.nino")
+                field = model(keys.nino),
+                '_label -> Messages(s"label.createAccount.${keys.nino}"),
+                '_labelClass -> "form-label-bold",
+                '_showConstraints -> false,
+                'class -> "form-control",
+                '_help -> Messages("hint.nino"),
+                '_value -> individualFieldData.nino
             )
 
                 <details>

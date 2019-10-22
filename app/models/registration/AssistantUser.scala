@@ -21,7 +21,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 
 
-trait AssistantUser {
+sealed trait AssistantUser extends User {
 
   val firstName: String
   val lastName: String
@@ -41,5 +41,19 @@ object AssistantUser {
     keys.firstName -> nonEmptyText,
     keys.lastName -> nonEmptyText
   )(AssistantUserAccountDetails.apply)(AssistantUserAccountDetails.unapply))
+
+}
+
+case class AssistantUserAccountDetails(firstName: String,
+                                       lastName: String) extends AssistantUser {
+
+  def toGroupDetails(fieldData: FieldData) = GroupAccountDetails(
+    companyName = fieldData.businessName,
+    address = fieldData.businessAddress,
+    email = fieldData.email,
+    confirmedEmail = fieldData.email,
+    phone = fieldData.businessPhoneNumber,
+    isAgent = fieldData.isAgent
+  )
 
 }
