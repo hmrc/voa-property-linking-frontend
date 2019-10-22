@@ -43,7 +43,7 @@ object FieldData {
       businessName = "",
       businessPhoneNumber = "",
       businessAddress = Address(None, "", "", "", "", ""),
-      isAgent = true //fixme why is this true ???
+      isAgent = true
     )
 
   def apply(personDetails: IndividualUserAccountDetails) =
@@ -72,7 +72,7 @@ object FieldData {
       businessAddress = personDetails.address,
       nino = personDetails.nino.nino,
       dob = Some(personDetails.dob),
-      isAgent = false
+      isAgent = personDetails.isAgent
     )
 
   def apply(personDetails: AdminInExistingOrganisationAccountDetails) =

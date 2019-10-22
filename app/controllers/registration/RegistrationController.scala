@@ -54,7 +54,7 @@ class RegistrationController @Inject()(
                                       )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig  ) extends PropertyLinkingController {
 
   def show(): Action[AnyContent] = (ggAuthenticated andThen sessionUserDetailsAction).async { implicit request =>
-    individualAccounts.withExternalId(request.externalId).flatMap { //fixme add details stuff
+    individualAccounts.withExternalId(request.externalId).flatMap {
       case Some(voaUser) =>
         Future.successful(Redirect(controllers.routes.Dashboard.home()))
       case None =>

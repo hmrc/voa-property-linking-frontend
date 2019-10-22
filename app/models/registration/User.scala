@@ -16,29 +16,6 @@
 
 package models.registration
 
-import java.time.LocalDate
-
-import form.TextMatching
-import models.{Address, IVDetails, IndividualAccountSubmission, IndividualDetails}
-import models.domain.Nino
-import play.api.data.Forms.{mapping, nonEmptyText, optional, text}
-import play.api.data.{Form, Mapping}
-import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
-import play.api.libs.json._
-import utils.EmailAddressValidation
-import views.helpers.Errors
-import java.time.LocalDate
-import form.Mappings._
-import form.TextMatching
-import models.domain._
-import models.{Address, IVDetails, IndividualAccountSubmission, IndividualDetails, email => _}
-import play.api.data.Forms._
-import play.api.data.validation._
-import play.api.data.{Form, Mapping}
-import play.api.libs.json._
-import utils.EmailAddressValidation
-import views.helpers.Errors
-
 trait User {
   val firstName: String
   val lastName: String
