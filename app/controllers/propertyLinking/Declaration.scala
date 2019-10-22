@@ -24,7 +24,7 @@ import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
 import javax.inject.Named
-import models.{LinkBasis, RatesBillType}
+import models.{LinkBasis, RatesBillFlag, RatesBillType}
 import models.propertylinking.requests.PropertyLinkRequest
 import play.api.Logger
 import play.api.data.{Form, FormError, Forms}
@@ -54,7 +54,7 @@ class Declaration @Inject()(
   val logger = Logger(this.getClass.getName)
 
   def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
-    val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis.name == "RATES_BILL"
+    val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis == RatesBillFlag
     Ok(declaration(DeclarationVM(form), isRatesBillEvidence))
   }
 
