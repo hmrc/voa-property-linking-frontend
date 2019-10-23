@@ -25,7 +25,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class TestPropertyLinkingConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
 
-  lazy val url = config.baseUrl("property-linking") + "/property-linking/"
+  val url: String = config.baseUrl("property-linking") + "/property-linking/"
 
   def deRegister(organisationId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
     http.DELETE[HttpResponse](url + s"test-only/de-register/$organisationId")

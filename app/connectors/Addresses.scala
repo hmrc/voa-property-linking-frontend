@@ -28,7 +28,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class Addresses @Inject()(config: ServicesConfig, http: HttpClient)(implicit executionContext: ExecutionContext) {
 
-  lazy val url = config.baseUrl("property-linking") + "/property-linking/address"
+  val url: String = config.baseUrl("property-linking") + "/property-linking/address"
 
   def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Long] = details.address.addressUnitId match {
     case Some(id) => Future.successful(id)

@@ -29,7 +29,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
 
   protected def loadBooleanConfig(key: String): Boolean = configuration.getOptional[String](key).fold(false)(_.toBoolean)
 
-  protected def loadInt(key: String): Int = configuration.getInt(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
+  protected def loadInt(key: String): Int = configuration.getOptional[Int](key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
   def businessRatesValuationUrl(page: String): String = loadConfig("business-rates-valuation.url") + s"/$page"
 
@@ -80,7 +80,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val plannedImprovementsContent: Option[String] = configuration.getOptional[String]("plannedImprovementsContent").map(e =>
     new String(Base64.getUrlDecoder.decode(e)))
 
-  lazy val baseUrl: String = if (Set("Dev", "Test").contains(runMode.env)) "http://localhost:9523" else ""
+  val baseUrl: String = if (Set("Dev", "Test").contains(runMode.env)) "http://localhost:9523" else ""
 
 }
 

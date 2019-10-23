@@ -28,7 +28,7 @@ class GroupsAccountsSpec extends VoaPropertyLinkingSpec {
 
   class Setup {
     val connector = new GroupAccounts(servicesConfig, mockWSHttp) {
-      override lazy val url: String = "tst-url"
+      override val url: String = "tst-url"
     }
   }
 

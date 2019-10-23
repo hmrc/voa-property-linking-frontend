@@ -28,7 +28,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class GroupAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
 
-  lazy val url = config.baseUrl("property-linking") + "/property-linking/groups"
+  val url: String = config.baseUrl("property-linking") + "/property-linking/groups"
 
   def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
     http.GET[Option[GroupAccount]](s"$url/$organisationId")

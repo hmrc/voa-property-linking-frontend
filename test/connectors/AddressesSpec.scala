@@ -30,7 +30,7 @@ class AddressesSpec extends VoaPropertyLinkingSpec {
 
   class Setup {
     val connector = new Addresses(servicesConfig, mockWSHttp) {
-      override lazy val url: String = "tst-url"
+      override val url: String = "tst-url"
     }
   }
 
