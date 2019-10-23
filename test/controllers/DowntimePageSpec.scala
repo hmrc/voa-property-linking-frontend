@@ -25,7 +25,8 @@ import tests.AllMocks
 class DowntimePageSpec extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
 
-  val applicationTestController = new DowntimePage(mockCustomErrorHandler)
+
+  val applicationTestController = new DowntimePage(mockCustomErrorHandler, stubMessagesControllerComponents())
 
   "plannedImprovements" should "display the downtime page" in {
 

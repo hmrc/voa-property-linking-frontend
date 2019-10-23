@@ -23,7 +23,7 @@
             <div id="text-form-group" class="form-group">
                 <div id="lastNameGroup" class="">
                     <label class="form-label-bold" for="lastName">
-                        <span class=" label-span">@Messages("label.address")</span>
+                        <span class=" label-span">@messages("label.address")</span>
                     </label>
                     <input type="hidden" id="@{
                         fieldName
@@ -88,7 +88,7 @@
                 '_value -> addressData.fold("")(_.postcode)
             )
 
-            <a href="#" class="lookupAddress hide-if-no-js">@Messages("addressLookup.lookup")</a>
+            <a href="#" class="lookupAddress hide-if-no-js">@messages("addressLookup.lookup")</a>
         </div>
     }
 
@@ -106,15 +106,15 @@
             )
 
         <div class="form-group">
-            <a href="#" id="postcodeLookupButton" class="button button-secondary" role="button">@Messages("label.findAddress")</a>
+            <a href="#" id="postcodeLookupButton" class="button button-secondary" role="button">@messages("label.findAddress")</a>
         </div>
 
         </div>
 
         @addressForm
 
-        <p><a href="#" class="manualAddress hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"}>@Messages("addressLookup.manual")</a></p>
+        <p><a href="#" class="manualAddress hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"}>@messages("addressLookup.manual")</a></p>
 
-        <p><a href="#" class="lookupAddressCancel" style="display: none">@Messages("label.findAddress.tryAgain")</a></p>
+        <p><a href="#" class="lookupAddressCancel" style="display: none">@messages("label.findAddress.tryAgain")</a></p>
 
     </div>

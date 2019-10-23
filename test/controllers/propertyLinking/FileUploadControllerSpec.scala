@@ -16,7 +16,6 @@
 
 package controllers.propertyLinking
 
-import akka.stream.Materializer
 import controllers.VoaPropertyLinkingSpec
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -31,9 +30,8 @@ import utils._
 
 import scala.concurrent.Future
 
-class FileUploadControllerSpec extends VoaPropertyLinkingSpec with FakeObjects{
+class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
-  implicit def materializer: Materializer = app.injector.instanceOf[Materializer]
 
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
   def controller() = TestFileUploadController

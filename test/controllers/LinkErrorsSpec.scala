@@ -25,7 +25,7 @@ import tests.AllMocks
 class LinkErrorsSpec extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
 
-  val applicationTestController = new LinkErrors(mockCustomErrorHandler)
+  val applicationTestController = new LinkErrors(mockCustomErrorHandler, stubMessagesControllerComponents())
 
   "manualVerificationRequired" should "display the manual verification required page" in {
 

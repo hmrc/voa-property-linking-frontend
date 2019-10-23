@@ -19,21 +19,17 @@ package config
 import java.util.Base64
 
 import com.google.inject.{Inject, Singleton}
-import controllers.routes
-import play.api.Mode.Mode
-import play.api.{Configuration, Environment}
-import uk.gov.hmrc.play.config.ServicesConfig
+import play.api.Configuration
+import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 
 @Singleton()
-class ApplicationConfig @Inject()(override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
+class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode) extends ServicesConfig(configuration, runMode) {
 
-  protected def loadConfig(key: String): String = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
+  protected def loadConfig(key: String): String = configuration.getOptional[String](key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
-  protected def loadBooleanConfig(key: String): Boolean = runModeConfiguration.getString(key).fold(false)(_.toBoolean)
+  protected def loadBooleanConfig(key: String): Boolean = configuration.getOptional[String](key).fold(false)(_.toBoolean)
 
-  protected def loadInt(key: String): Int = runModeConfiguration.getInt(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
-
-  lazy val baseUrl = if (mode == play.api.Mode.Prod) "" else "http://localhost:9523"
+  protected def loadInt(key: String): Int = configuration.getInt(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
   def businessRatesValuationUrl(page: String): String = loadConfig("business-rates-valuation.url") + s"/$page"
 
@@ -66,9 +62,9 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val analyticsToken: String = loadConfig("google-analytics.token")
   lazy val analyticsHost: String = loadConfig("google-analytics.host")
   lazy val voaPersonID: String = loadConfig("google-analytics.dimensions.voaPersonId")
-  lazy val loggedInUser: Option[String] = runModeConfiguration.getString("google-analytics.dimensions.loggedInUser")
-  lazy val isAgentLoggedIn: Option[String] = runModeConfiguration.getString("google-analytics.dimensions.isAgentLoggedIn")
-  lazy val pingdomToken: Option[String] = runModeConfiguration.getString("pingdom.performance.monitor.token")
+  lazy val loggedInUser: Option[String] = configuration.getOptional[String]("google-analytics.dimensions.loggedInUser")
+  lazy val isAgentLoggedIn: Option[String] = configuration.getOptional[String]("google-analytics.dimensions.isAgentLoggedIn")
+  lazy val pingdomToken: Option[String] = configuration.getOptional[String]("pingdom.performance.monitor.token")
 
   lazy val editNameEnabled: Boolean = loadBooleanConfig("featureFlags.editNameEnabled")
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
@@ -78,15 +74,14 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
 
   lazy val stubEnrolment: Boolean = loadBooleanConfig("enrolment.useStub")
 
-  lazy val bannerContent: Option[String] = runModeConfiguration.getString("encodedBannerContent").map(
+  lazy val bannerContent: Option[String] = configuration.getOptional[String]("encodedBannerContent").map(
     e => new String(Base64.getUrlDecoder.decode(e)))
 
-  lazy val plannedImprovementsContent: Option[String] = runModeConfiguration.getString("plannedImprovementsContent").map(e =>
+  lazy val plannedImprovementsContent: Option[String] = configuration.getOptional[String]("plannedImprovementsContent").map(e =>
     new String(Base64.getUrlDecoder.decode(e)))
 
-  override protected def mode: Mode = environment.mode
-}
+  lazy val baseUrl: String = if (Set("Dev", "Test").contains(runMode.env)) "http://localhost:9523" else ""
 
-object ApplicationConfig
+}
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")

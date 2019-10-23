@@ -31,13 +31,13 @@
             <div class="grid-row">
                 <div class="column-two-thirds">
                     <h1 class="heading-xlarge">
-                        @Messages("uploadRatesBill.show.title")
+                        @messages("uploadRatesBill.show.title")
                     </h1>
 
-                    <p>@Messages("uploadFile.allowedTypes.mustbe")</p>
+                    <p>@messages("uploadFile.allowedTypes.mustbe")</p>
 
                     <ul class="list list-bullet">
-                        <li>@Messages("uploadFile.allowedTypes.l1")</li>
+                        <li>@messages("uploadFile.allowedTypes.l1")</li>
                     </ul>
 
                     <br />
@@ -97,7 +97,7 @@
 
                     @form(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
                         <p>
-                            <button id="uploadFile" class="button">@Messages("uploadRatesBill.show.button")</button>
+                            <button id="uploadFile" class="button">@messages("uploadRatesBill.show.button")</button>
                         </p>
                     }
 
@@ -109,9 +109,9 @@
     <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${UploadController.initiate(EvidenceChoices.RATES_BILL)}"}</span>
     <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${UploadController.show(EvidenceChoices.RATES_BILL)}"}</span>
     <span id="errorsUpscan" class="label-span visuallyhidden">@Html(messages("error.upscan.unavailable"))</span>
-    <span id="errorsFileSizeTooLarge" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
-    <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.does.not.support.file.types")</span>
-    <span id="errorsBusinessRatesAttachmentUnavailable" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.unavailable")</span>
+    <span id="errorsFileSizeTooLarge" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
+    <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
+    <span id="errorsBusinessRatesAttachmentUnavailable" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.unavailable")</span>
     <span id="submissionId" class="label-span visuallyhidden">@submissionId</span>
 
     }

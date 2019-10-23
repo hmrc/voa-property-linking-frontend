@@ -22,18 +22,18 @@
 
 @main_template(Messages("global.error.InternalServerError500.title"), topNavigation = false) {
 
-    <h1 class="heading-xlarge">@Messages("global.error.InternalServerError500.heading")</h1>
+    <h1 class="heading-xlarge">@messages("global.error.InternalServerError500.heading")</h1>
 
-    <p>@Messages("internalServerError.p.1")</p>
+    <p>@messages("internalServerError.p.1")</p>
 
-    <p>@Messages("internalServerError.p.2")</p>
+    <p>@messages("internalServerError.p.2")</p>
 
     @reference.map { r =>
-        <p>@Messages("internalServerError.reference", r)</p>
+        <p>@messages("internalServerError.reference", r)</p>
     }
 
-    <p>@Messages("internalServerError.date", formatDate(dateTime.toLocalDate))</p>
+    <p>@messages("internalServerError.date", formatDate(dateTime.toLocalDate))</p>
 
-    <p>@Messages("internalServerError.time", formatTime(dateTime.toLocalTime))</p>
+    <p>@messages("internalServerError.time", formatTime(dateTime.toLocalTime))</p>
 
 }

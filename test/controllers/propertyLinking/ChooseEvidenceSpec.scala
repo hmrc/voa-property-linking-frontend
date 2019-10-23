@@ -23,7 +23,6 @@ import models._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
@@ -35,7 +34,7 @@ import utils.HtmlPage
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
+class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

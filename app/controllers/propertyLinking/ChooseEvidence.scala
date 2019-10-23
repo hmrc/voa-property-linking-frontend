@@ -28,7 +28,7 @@ import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.BusinessRatesAttachmentService
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
@@ -39,7 +39,12 @@ class ChooseEvidence @Inject()(
                                 authenticatedAction: AuthenticatedAction,
                                 withLinkingSession: WithLinkingSession,
                                 businessRatesAttachmentService: BusinessRatesAttachmentService
-                              )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+                              )(
+                                implicit executionContext: ExecutionContext,
+                                override val messagesApi: MessagesApi,
+                                override val controllerComponents: MessagesControllerComponents,
+                                val config: ApplicationConfig
+                              ) extends PropertyLinkingController {
 
   private val logger = Logger(this.getClass.getName)
 
@@ -54,8 +59,8 @@ class ChooseEvidence @Inject()(
     ChooseEvidence.form.bindFromRequest().fold(
       errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)),
       {
-        case true   => Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
-        case false  => Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
+        case true => Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
+        case false => Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
       }
     )
   }

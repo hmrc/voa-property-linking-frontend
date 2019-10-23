@@ -23,7 +23,7 @@ import play.api.test.Helpers._
 class LoginPageSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
-  val applicationTestController = new Login(applicationConfig)
+  val applicationTestController = new Login(applicationConfig, stubControllerComponents())
 
   "show" should "display the login page" in {
 

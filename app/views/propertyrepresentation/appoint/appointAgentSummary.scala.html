@@ -41,10 +41,10 @@
             case (NotPermitted, StartAndContinue) => "challenges"
             case _ => "checks and challenges"
         }) { perms: String =>
-            <p class="lede">@Messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString, perms)</p>
+            <p class="lede">@messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString, perms)</p>
         }
 
-        <a class="button" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.checkPermission.name, action.challengePermission.name, None).url">@Messages("propertyRepresentation.agentSummary.select.more")</a>
+        <a class="button" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.checkPermission.name, action.challengePermission.name, None).url">@messages("propertyRepresentation.agentSummary.select.more")</a>
 
     </div>
 

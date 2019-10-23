@@ -22,7 +22,7 @@ import play.api.http.Status._
 import services.Success
 import tests.AllMocks
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.ExecutionContext.global
 

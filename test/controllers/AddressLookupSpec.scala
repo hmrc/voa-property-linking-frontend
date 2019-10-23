@@ -26,7 +26,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class AddressLookupSpec extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
 
-  object TestAddressLookupController extends AddressLookup(mockCustomErrorHandler, StubAddresses)
+  object TestAddressLookupController extends AddressLookup(mockCustomErrorHandler, StubAddresses, stubMessagesControllerComponents())
 
   behavior of "Address lookup"
 

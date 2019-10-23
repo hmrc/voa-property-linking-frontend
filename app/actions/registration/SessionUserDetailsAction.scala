@@ -16,11 +16,9 @@
 
 package actions.registration
 
-import javax.inject.Inject
-
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
+import javax.inject.Inject
 import models.registration._
-import models.registration.AdminUser
 import play.api.mvc._
 import repositories.PersonalDetailsSessionRepository
 import uk.gov.hmrc.http.HeaderCarrier
@@ -30,8 +28,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class SessionUserDetailsAction @Inject()(
                                           val personalDetailsSessionRepo: PersonalDetailsSessionRepository
-                                     )(implicit executionContext: ExecutionContext)
-  extends ActionTransformer[RequestWithUserDetails,RequestWithSessionPersonDetails] {
+                                        )(implicit override val executionContext: ExecutionContext)
+  extends ActionTransformer[RequestWithUserDetails, RequestWithSessionPersonDetails] {
 
   override protected def transform[A](request: RequestWithUserDetails[A]): Future[RequestWithSessionPersonDetails[A]] = {
     implicit val req: Request[A] = request

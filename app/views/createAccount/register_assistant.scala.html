@@ -30,26 +30,26 @@
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            <h1 class="heading-xlarge">@Messages("enrolment.title")</h1>
-            <p class="form-hint">@Messages("enrolment.assistant.hint")</p>
-            <h2 class="heading-medium">@Messages("enrolment.assistant.organisation.details.title")</h2>
+            <h1 class="heading-xlarge">@messages("enrolment.title")</h1>
+            <p class="form-hint">@messages("enrolment.assistant.hint")</p>
+            <h2 class="heading-medium">@messages("enrolment.assistant.organisation.details.title")</h2>
 
                 <table>
                 <tbody><tr>
-                    <th>@Messages("enrolment.organisation.name.label")</th>
+                    <th>@messages("enrolment.organisation.name.label")</th>
                     <td>@assistantFieldData.businessName</td>
                 </tr>
                     <tr>
-                        <th>@Messages("label.postal.address")</th>
+                        <th>@messages("label.postal.address")</th>
                         <td>@Html(capitalizedAddress(assistantFieldData.businessAddress).replaceAll(", ", "<br>"))
                         </td>
                     </tr>
                     <tr>
-                        <th>@Messages("label.telephone.number")</th>
+                        <th>@messages("label.telephone.number")</th>
                         <td>@assistantFieldData.businessPhoneNumber</td>
                     </tr>
                     <tr>
-                        <th>@Messages("label.correspondence.email.address")</th>
+                        <th>@messages("label.correspondence.email.address")</th>
                         <td>@assistantFieldData.email</td>
                     </tr>
                 </tbody></table>
@@ -58,7 +58,7 @@
 
             @form(controllers.registration.routes.RegistrationController.submitAssistant()) {
 
-                <h2 class="heading-medium">@Messages("label.your.details")</h2>
+                <h2 class="heading-medium">@messages("label.your.details")</h2>
 
                 @includes.errorSummary(model, messagePrefix = Some("createAccount"))
 
@@ -82,7 +82,7 @@
                 )
 
                 <p>
-                    <button type="submit" id="save-and-continue" class="button">@Messages("label.confirm")</button>
+                    <button type="submit" id="save-and-continue" class="button">@messages("label.confirm")</button>
                 </p>
             }
 

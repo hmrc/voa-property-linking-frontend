@@ -28,26 +28,26 @@ private object AppDependencies {
 
   import play.sbt.PlayImport._
 
-  private val playReactivemongoVersion = "5.2.0"
-  private val bootstrapVersion = "5.1.0"
+  private val bootstrapVersion = "1.1.0"
 
   val compile = Seq(
+    guice,
     filters,
     ws,
-    "ai.x" %% "play-json-extensions" % "0.9.0",
-    "uk.gov.hmrc" %% "play-reactivemongo" % playReactivemongoVersion,
+    "ai.x" %% "play-json-extensions" % "0.10.0",
+    "uk.gov.hmrc" %% "simple-reactivemongo" % "7.20.0-play-26",
     "com.codahale.metrics" % "metrics-graphite" % "3.0.1",
     "com.google.guava" % "guava" % "18.0",
-    "joda-time" % "joda-time" % "2.8.2",
-    "uk.gov.hmrc" %% "frontend-bootstrap" % "12.4.0" exclude("uk.gov.hmrc", "play-authorised-frontend_2.11"), //TODO remove this line
-    "uk.gov.hmrc" %% "bootstrap-play-25" % bootstrapVersion,
-    "uk.gov.hmrc" %% "http-caching-client" % "7.0.0",
-    "org.typelevel" %% "cats-core" % "1.0.1",
-    "uk.gov.hmrc" %% "play-conditional-form-mapping" % "0.2.0",
-    "uk.gov.hmrc" %% "play-whitelist-filter" % "2.0.0",
-    "uk.gov.hmrc" %% "mongo-lock" % "5.1.1",
-    "com.google.inject.extensions" % "guice-multibindings" % "4.0",
-    "uk.gov.hmrc" %% "reactive-circuit-breaker" % "2.1.0"
+    "joda-time" % "joda-time" % "2.10.4",
+    "uk.gov.hmrc" %% "bootstrap-play-26" % bootstrapVersion,
+    "uk.gov.hmrc" %% "play-ui" % "8.3.0-play-26",
+    "uk.gov.hmrc" %% "govuk-template" % "5.43.0-play-26",
+    "uk.gov.hmrc" %% "http-caching-client" % "9.0.0-play-26",
+    "org.typelevel" %% "cats-core" % "1.6.1",
+    "uk.gov.hmrc" %% "play-conditional-form-mapping" % "1.2.0-play-26",
+    "uk.gov.hmrc" %% "play-whitelist-filter" % "3.1.0-play-26",
+    "uk.gov.hmrc" %% "mongo-lock" % "6.15.0-play-26",
+    "uk.gov.hmrc" %% "reactive-circuit-breaker" % "3.3.0"
   )
 
   trait TestDependencies {
@@ -58,14 +58,13 @@ private object AppDependencies {
   object Test {
     def apply() = new TestDependencies {
       override lazy val test = Seq(
-        "uk.gov.hmrc" %% "hmrctest" % "3.3.0" % scope,
-        "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0-M1" % scope,
-        "org.scalatest" %% "scalatest" % "3.0.1",
-        "org.scalatest" %% "scalatest" % "3.0.1" % scope,
+        "uk.gov.hmrc" %% "hmrctest" % "3.6.0-play-26" % scope,
+        "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.0" % scope,
+        "org.scalatest" %% "scalatest" % "3.0.6" % scope,
         "org.scalacheck" %% "scalacheck" % "1.13.4" % scope,
         "org.pegdown" % "pegdown" % "1.6.0" % "test,it",
-        "org.jsoup" % "jsoup" % "1.9.1",
-        "org.mockito" % "mockito-core" % "2.2.9"
+        "org.jsoup" % "jsoup" % "1.9.1" % scope,
+        "org.mockito" % "mockito-core" % "2.25.0" % scope
       )
     }.test
   }

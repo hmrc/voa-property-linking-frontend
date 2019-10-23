@@ -23,7 +23,6 @@ import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
@@ -32,14 +31,12 @@ import services.BusinessRatesAttachmentService
 import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.propertylinking.exceptions.attachments.AttachmentException
-import utils.{Cats, FakeObjects, HtmlPage}
+import utils.HtmlPage
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
 
-class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with FakeObjects with Cats {
-
-  override val additionalAppConfig = Seq("featureFlags.fileUploadEnabled" -> "true")
+class DeclarationSpec extends VoaPropertyLinkingSpec {
 
   "The declaration page" should "include a checkbox to allow the user to accept the declaration" in {
     val res = TestDeclaration.show()(FakeRequest())
@@ -87,8 +84,6 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
   }
 
   it should "display the normal confirmation page when the user has uploaded other evidence" in {
-    val linkingSession: LinkingSession = arbitrary[LinkingSession]
-
     when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any(), any[HeaderCarrier])).thenReturn(Future.successful(attachment))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
@@ -129,6 +124,8 @@ class DeclarationSpec extends VoaPropertyLinkingSpec with MockitoSugar with Fake
   }
 
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
+
+  import cats.instances.future._
 
   lazy val mockPropertyLinkingService = {
     val m = mock[PropertyLinkingService]

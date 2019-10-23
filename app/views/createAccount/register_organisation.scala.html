@@ -28,12 +28,12 @@
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            <h1 class="heading-xlarge">@Messages("enrolment.title")</h1>
+            <h1 class="heading-xlarge">@messages("enrolment.title")</h1>
 
             <details>
-                <summary><span class="summary">@Messages("createAccount.group.details.header.agent")</span></summary>
+                <summary><span class="summary">@messages("createAccount.group.details.header.agent")</span></summary>
                 <div class="panel-indent">
-                @Messages("createAccount.group.details.content.agent")
+                @messages("createAccount.group.details.content.agent")
                 </div>
             </details>
 
@@ -73,9 +73,9 @@
                 @address(model, keys.address, postcode = organisationFieldData.postcode, addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)} )
 
                 <details>
-                    <summary><span class="summary">@Messages("createAccount.group.details.header.multipleAddress")</span></summary>
+                    <summary><span class="summary">@messages("createAccount.group.details.header.multipleAddress")</span></summary>
                     <div class="panel-indent">
-                    @Messages("createAccount.group.details.content.multipleAddress")
+                    @messages("createAccount.group.details.content.multipleAddress")
                     </div>
                 </details>
 
@@ -122,7 +122,7 @@
                     )
                 )
 
-                <p class="panel panel-border-wide">@Messages("isAgent.details")</p>
+                <p class="panel panel-border-wide">@messages("isAgent.details")</p>
 
                 @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")), fieldData = organisationFieldData.dob)
 
@@ -137,14 +137,14 @@
                 )
 
                 <details>
-                    <summary><span class="summary">@Messages("start.registration.IdontHave")</span></summary>
+                    <summary><span class="summary">@messages("start.registration.IdontHave")</span></summary>
                     <div class="panel-indent">
                     @Html(Messages("start.registration.IdontHave.answer"))
                     </div>
                 </details>
 
                 <p>
-                    <button type="submit" id="save-and-continue" class="button">@Messages("app.common.saveAndContinue")</button>
+                    <button type="submit" id="save-and-continue" class="button">@messages("app.common.saveAndContinue")</button>
                 </p>
             }
 

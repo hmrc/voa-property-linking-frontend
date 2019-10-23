@@ -25,11 +25,12 @@ import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthor
 import org.mockito.Mockito.mock
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import utils.Configs._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfig, mock(classOf[HttpClient])) {
+object StubPropertyLinkConnector extends PropertyLinkConnector(servicesConfig, mock(classOf[HttpClient])) {
 
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil

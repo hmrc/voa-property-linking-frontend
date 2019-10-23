@@ -30,12 +30,12 @@
 ) {
 
 
-    <h2 class="heading-secondary"> @Messages("property.details.title")</h2>
+    <h2 class="heading-secondary"> @messages("property.details.title")</h2>
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
         @(Formatters.capitalizedAddress(model.address))
     </h1>
     <br/>
-    <p>@Messages("property.details.p1")</p>
+    <p>@messages("property.details.p1")</p>
 
     @assessmentDetails(model, owner)
 

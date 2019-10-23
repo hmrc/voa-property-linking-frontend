@@ -29,7 +29,7 @@ import models.propertylinking.requests.PropertyLinkRequest
 import play.api.Logger
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.BusinessRatesAttachmentService
 import services.propertylinking.PropertyLinkingService
@@ -48,7 +48,12 @@ class Declaration @Inject()(
                              businessRatesAttachmentService: BusinessRatesAttachmentService,
                              authenticatedAction: AuthenticatedAction,
                              withLinkingSession: WithLinkingSession
-                           )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
+                           )(
+                             implicit executionContext: ExecutionContext,
+                             override val messagesApi: MessagesApi,
+                             override val controllerComponents: MessagesControllerComponents,
+                             val config: ApplicationConfig
+                           )
   extends PropertyLinkingController with Cats {
 
   val logger = Logger(this.getClass.getName)
@@ -71,17 +76,17 @@ class Declaration @Inject()(
         propertyLinkService.submit(PropertyLinkRequest(request.ses, request.organisationId))
           .fold(
             {
-              case NotAllFilesReadyToUpload     =>
+              case NotAllFilesReadyToUpload =>
                 logger.warn(s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page")
                 Redirect(routes.Declaration.show())
               case MissingRequiredNumberOfFiles =>
                 logger.warn(s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")
                 request.ses.evidenceType match {
-                  case Some(RatesBillType)  =>
+                  case Some(RatesBillType) =>
                     Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
-                  case Some(_)              =>
+                  case Some(_) =>
                     Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
-                  case None                 =>
+                  case None =>
                     Redirect(routes.ChooseEvidence.show())
                 }
             },

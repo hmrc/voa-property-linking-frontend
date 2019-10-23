@@ -30,19 +30,19 @@
 ) {
 
     <h1 class="heading-xlarge">
-    @Messages("propertyRepresentation.appointAgent.title")
+    @messages("propertyRepresentation.appointAgent.title")
     </h1>
 
-    <p class="lede">@Messages("propertyRepresentation.appointAgent.associatedAgents.p1")</p>
+    <p class="lede">@messages("propertyRepresentation.appointAgent.associatedAgents.p1")</p>
 
-    <p class="lede">@Messages("propertyRepresentation.appointAgent.associatedAgents.p2")</p>
+    <p class="lede">@messages("propertyRepresentation.appointAgent.associatedAgents.p2")</p>
 
 
     <div class="notice margin-top-20 margin-bottom-20">
         <i class="icon icon-important">
             <span class="visually-hidden">Warning</span>
         </i>
-        <p><strong class="bold-small">@Messages("propertyRepresentation.appointAgent.warning")</strong></p>
+        <p><strong class="bold-small">@messages("propertyRepresentation.appointAgent.warning")</strong></p>
     </div>
 
     @includes.errorSummary(model.form)
@@ -62,9 +62,9 @@
                     <table id="middle-radio-buttons" class="margin-bottom-10 margin-top-10">
                         <tbody>
                             <tr>
-                                <th><span class="margin-left-5">@Messages("propertyRepresentation.table.title.appoint")</span></th>
-                                <th><span class="margin-left-5">@Messages("propertyRepresentation.table.title.agentId")</span></th>
-                                <th><span class="margin-left-5">@Messages("propertyRepresentation.table.title.agentName")</span></th>
+                                <th><span class="margin-left-5">@messages("propertyRepresentation.table.title.appoint")</span></th>
+                                <th><span class="margin-left-5">@messages("propertyRepresentation.table.title.agentId")</span></th>
+                                <th><span class="margin-left-5">@messages("propertyRepresentation.table.title.agentName")</span></th>
                             </tr>
 
                             @model.agents.zipWithIndex.map { case (agent, index) =>
@@ -79,7 +79,7 @@
                                                         }>
                                                 <label for="@radioId">
                                                     <span class="visually-hidden">
-                                                    @Messages("propertyRepresentation.table.title.appoint")
+                                                    @messages("propertyRepresentation.table.title.appoint")
                                                     </span>
                                                 </label>
                                             </div>
@@ -102,16 +102,16 @@
                             @if(isNewAgent) {
                                 checked="checked"
                                 }>
-                        <label for="new-agent-radio-id">@Messages("propertyRepresentation.appointAgent.message.appoint")</label>
+                        <label for="new-agent-radio-id">@messages("propertyRepresentation.appointAgent.message.appoint")</label>
                     </div>
                     <div class="panel panel-border-narrow" id="new-agent-details" data-toggle-hidden>
 
-                        <p>@Messages("propertyRepresentation.appointAgent.message.1")</p>
+                        <p>@messages("propertyRepresentation.appointAgent.message.1")</p>
 
                         <details>
-                            <summary><span class="summary">@Messages("propertyRepresentation.appointAgent.summary.1")</span></summary>
+                            <summary><span class="summary">@messages("propertyRepresentation.appointAgent.summary.1")</span></summary>
                             <div class="panel-indent">
-                            @Messages("propertyRepresentation.appointAgent.details.1")
+                            @messages("propertyRepresentation.appointAgent.details.1")
                             </div>
                         </details>
 
@@ -119,7 +119,7 @@
                             <label class="form-label-bold" for="agentCode" >
                                 <span class="label-span">Agent code</span>
                                 @if(model.form.error("agentCode").isDefined) {
-                                    <span class="error-message">@Messages(model.form.error("agentCode").get.message)</span>
+                                    <span class="error-message">@messages(model.form.error("agentCode").get.message)</span>
                                 }
                             </label>
                             <input type="text" id="agentCodeText"
@@ -136,7 +136,7 @@
 
     <div class="margin-left-5">
 
-        @inputRadioGroupMod(
+        @inputRadioGroup(
             field = model.form("canCheck"),
             options = AgentPermission.options,
             args = Seq(
@@ -149,7 +149,7 @@
             )
         )
 
-        @inputRadioGroupMod(
+        @inputRadioGroup(
             field = model.form("canChallenge"),
             options = AgentPermission.options,
             args = Seq(
@@ -163,7 +163,7 @@
         )
 
         <p>
-            <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
+            <button type="submit" id="submit-button" class="button">@messages("propertyRepresentation.appointAgent.button")</button>
         </p>
 
     </div>
@@ -182,12 +182,12 @@
 }
 
 @checkAnswer = {
-    <p>@Messages("propertyRepresentation.appointAgent.check.p1")</p>
-    <p>@Messages("propertyRepresentation.appointAgent.check.p2")</p>
+    <p>@messages("propertyRepresentation.appointAgent.check.p1")</p>
+    <p>@messages("propertyRepresentation.appointAgent.check.p2")</p>
 }
 
 @challengeAnswer = {
-    <p>@Messages("propertyRepresentation.appointAgent.challenges.p1")</p>
-    <p>@Messages("propertyRepresentation.appointAgent.challenges.p2")</p>
+    <p>@messages("propertyRepresentation.appointAgent.challenges.p1")</p>
+    <p>@messages("propertyRepresentation.appointAgent.challenges.p2")</p>
 }
 

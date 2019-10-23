@@ -18,18 +18,15 @@ package connectors
 
 import java.time.LocalDateTime
 
-import akka.stream.scaladsl.Source
 import controllers.VoaPropertyLinkingSpec
+import models.dvr.DetailedValuationRequest
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
-import models.dvr.{DetailedValuationRequest, StreamedDocument}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
-import play.api.libs.json.Json
-import play.api.libs.ws.{DefaultWSResponseHeaders, StreamedResponse, WSClient, WSRequest}
-import play.api.test.Helpers._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse, NotFoundException}
-import utils.StubServicesConfig
 import org.mockito.{ArgumentMatchers => Matchers}
+import play.api.libs.ws.{WSClient, WSRequest}
+import play.api.test.Helpers._
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 
 import scala.concurrent.Future
 
@@ -39,7 +36,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
 
   class Setup {
     val mockWsClient = mock[WSClient]
-    val connector = new DVRCaseManagementConnector(StubServicesConfig, mockWsClient, mockWSHttp) {
+    val connector = new DVRCaseManagementConnector(servicesConfig, mockWsClient, mockWSHttp) {
       override val url: String = "tst-url"
     }
   }
@@ -48,42 +45,42 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val detailedValuationRequest = mock[DetailedValuationRequest]
 
     mockHttpPOST[DetailedValuationRequest, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.requestDetailedValuation(detailedValuationRequest))(_ mustBe ())
+    whenReady(connector.requestDetailedValuation(detailedValuationRequest))(_ mustBe())
   }
 
   "dvrExists" must "successfully return a boolean" in new Setup {
     mockHttpGET[Boolean]("tst-url", true)
-    whenReady(connector.dvrExists(1,2))(_ mustBe true)
+    whenReady(connector.dvrExists(1, 2))(_ mustBe true)
   }
 
   "request detailed valuation" must "update the valuation with the detailed valuation request" in new Setup {
 
-      val dvrUrl = s"/dvr-case-management-api/dvr_case/create_dvr_case"
+    val dvrUrl = s"/dvr-case-management-api/dvr_case/create_dvr_case"
 
     mockHttpPOST(dvrUrl, HttpResponse(200))
 
-      val dvr = DetailedValuationRequest(
-        authorisationId = 123456,
-        organisationId = 9876543,
-        personId = 1111111,
-        submissionId = "submission1",
-        assessmentRef = 24680,
-        agents = Nil,
-        billingAuthorityReferenceNumber = ""
-      )
+    val dvr = DetailedValuationRequest(
+      authorisationId = 123456,
+      organisationId = 9876543,
+      personId = 1111111,
+      submissionId = "submission1",
+      assessmentRef = 24680,
+      agents = Nil,
+      billingAuthorityReferenceNumber = ""
+    )
 
-      val result: Unit = await(connector.requestDetailedValuation(dvr))
-      result mustBe ()
-    }
+    val result: Unit = await(connector.requestDetailedValuation(dvr))
+    result mustBe()
+  }
 
   "get dvr documents" must "return the documents and transfer them into an optional" in new Setup {
-      val valuationId = 1L
-      val uarn = 2L
-      val propertyLinkId = "PL-123456789"
+    val valuationId = 1L
+    val uarn = 2L
+    val propertyLinkId = "PL-123456789"
 
-      val dvrUrl = s"/dvr-case-management-api/dvr_case/$uarn/valuation/$valuationId/files?propertyLinkId=PL-123456789"
+    val dvrUrl = s"/dvr-case-management-api/dvr_case/$uarn/valuation/$valuationId/files?propertyLinkId=PL-123456789"
 
-      val now = LocalDateTime.now()
+    val now = LocalDateTime.now()
 
     when(mockWSHttp.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(Matchers.any(), Matchers.any[HeaderCarrier](), Matchers.any()))
       .thenReturn(Future.successful(DvrDocumentFiles(
@@ -91,12 +88,12 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
         detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
       )))
 
-      val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
-      result mustBe Some(DvrDocumentFiles(
-        checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-        detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-      ))
-    }
+    val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
+    result mustBe Some(DvrDocumentFiles(
+      checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+      detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
+    ))
+  }
 
   "get dvr documents" must "return None when the documents don't exist" in new Setup {
     val valuationId = 1L
@@ -118,12 +115,9 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val mockWsRequest = mock[WSRequest]
     when(mockWsClient.url(any())).thenReturn(mockWsRequest)
     when(mockWsRequest.withMethod(any())).thenReturn(mockWsRequest)
-    when(mockWsRequest.withHeaders(any())).thenReturn(mockWsRequest)
-    when(mockWsRequest.stream())
-      .thenReturn(Future.successful(StreamedResponse(DefaultWSResponseHeaders(200, Map.empty), Source.empty)))
+    when(mockWsRequest.withHttpHeaders(any())).thenReturn(mockWsRequest)
+    when(mockWsRequest.stream()).thenReturn(Future.successful(mock[mockWsRequest.Response]))
 
-    val result = connector.getDvrDocument(1L, 1L, "PL-1234", "1")
-
-    await(result) mustBe an[StreamedDocument]
+    val result = connector.getDvrDocument(1L, 1L, "PL-1234", "1").futureValue
   }
 }

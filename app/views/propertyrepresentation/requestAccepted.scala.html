@@ -34,22 +34,22 @@
             <div class="transaction-banner--complete">
                 <h1 class="transaction-banner__heading">
                     @if(numberOfBusinesses > 1){
-                        @Messages("propertyRepresentation.accepted.multiple.message")
+                        @messages("propertyRepresentation.accepted.multiple.message")
                     } else {
-                        @Messages("propertyRepresentation.accepted.single.message")
+                        @messages("propertyRepresentation.accepted.single.message")
                     }
                 </h1>
             </div>
 
-            <p>@Messages("propertyRepresentation.accepted.youCan")</p>
+            <p>@messages("propertyRepresentation.accepted.youCan")</p>
             <ul class="list list-bullet">
                 <li>@if(model.requestIds.getOrElse(Nil).size > 1){
-                        @Messages("propertyRepresentation.accepted.multiple.youCan.1")
+                        @messages("propertyRepresentation.accepted.multiple.youCan.1")
                     } else {
-                        @Messages("propertyRepresentation.accepted.single.youCan.1")
+                        @messages("propertyRepresentation.accepted.single.youCan.1")
                     }
                 </li>
-                <li>@Messages("propertyRepresentation.accepted.youCan.2")</li>
+                <li>@messages("propertyRepresentation.accepted.youCan.2")</li>
             </ul>
 
             @form(controllers.agent.routes.RepresentationController.continue(model.pagination.pageNumber, model.pagination.pageSize)) {
@@ -63,7 +63,7 @@
                 @for(id <- model.requestIds.getOrElse(Nil)) {
                     <input type="hidden" name="requestIds[]" value="@id">
                 }
-                <button type="submit" id="continue-button" name="continue-button" class="button pull-left">@Messages("label.continue")</button>
+                <button type="submit" id="continue-button" name="continue-button" class="button pull-left">@messages("label.continue")</button>
             }
 
         </div>

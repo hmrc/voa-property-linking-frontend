@@ -38,7 +38,8 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     mockCustomErrorHandler,
     StubPropertyRepresentationConnector,
     preAuthenticatedActionBuilders(),
-    StubPropertyLinkConnector
+    StubPropertyLinkConnector,
+    stubMessagesControllerComponents()
   )
 
   "cancel" should "allow the user to cancel accepting/rejecting the pending representation requests" in {

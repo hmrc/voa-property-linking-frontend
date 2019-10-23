@@ -24,9 +24,8 @@ import controllers.{Pagination, PropertyLinkingController}
 import javax.inject.Inject
 import models._
 import models.test.TestUserDetails
-import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.test.TestService
 import services.{Failure, Success}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
@@ -43,7 +42,10 @@ class TestController @Inject()(
                                 testCheckConnector: TestCheckConnector,
                                 propertyLinkingConnector: PropertyLinkConnector,
                                 reprConnector: PropertyRepresentationConnector
-                              )(implicit exectionContext: ExecutionContext, val messagesApi: MessagesApi) extends PropertyLinkingController {
+                              )(
+                                implicit exectionContext: ExecutionContext,
+                                override val controllerComponents: MessagesControllerComponents)
+  extends PropertyLinkingController {
 
   def getUserDetails(): Action[AnyContent] = authenticated { implicit request =>
     Ok(Json.toJson(if (request.organisationAccount.isAgent) {

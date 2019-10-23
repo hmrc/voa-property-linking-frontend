@@ -31,7 +31,7 @@ import utils.StubPropertyLinkConnector
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ManageDraftCasesSpec extends VoaPropertyLinkingSpec  with MockitoSugar with AllMocks {
+class ManageDraftCasesSpec extends VoaPropertyLinkingSpec {
 
   implicit val request = FakeRequest()
 

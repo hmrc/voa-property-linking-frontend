@@ -21,11 +21,12 @@ import models.searchApi.OwnerAgents
 import org.mockito.Mockito._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import utils.Configs._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object StubAgentConnector extends AgentsConnector(mock(classOf[HttpClient]), StubServicesConfig) {
+object StubAgentConnector extends AgentsConnector(mock(classOf[HttpClient]), servicesConfig) {
 
   override def ownerAgents(organisationId: Long)(implicit hc: HeaderCarrier): Future[OwnerAgents] =
     Future.successful(OwnerAgents(Seq()))

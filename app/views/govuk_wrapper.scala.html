@@ -15,9 +15,10 @@
  *@
 
 @import uk.gov.hmrc.http.SessionKeys
-@import actions.requests._
-@import actions.propertylinking.requests._
+@import _root_.actions.propertylinking.requests._
 @import config.ApplicationConfig
+@import play.twirl.api._
+@import actions.requests._
 
 @(title: String,
   mainClass: Option[String] = None,
@@ -32,10 +33,7 @@
   showLogout: Boolean = true,
   topNavigation: Boolean = true,
   individualId: Option[Long] = None)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
-
-@import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
-@import uk.gov.hmrc.play.views.html.{helpers => uiHelpers}
 
 @head = {
     @uiLayouts.head(
@@ -161,4 +159,4 @@
     )
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(footerLinks), true)(content)
+@views.html.layouts.govuk_template(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(footerLinks), true)(content)

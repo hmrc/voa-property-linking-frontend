@@ -18,25 +18,18 @@ package connectors
 
 import config.ApplicationConfig
 import javax.inject.Inject
-import play.api.libs.json.{JsDefined, JsString, JsValue}
+import play.api.libs.json.JsValue
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerification @Inject()(serverConfig: ServicesConfig, config: ApplicationConfig, http: HttpClient)(implicit val executionContext: ExecutionContext) {
 
-  val url = serverConfig.baseUrl("identity-verification")
-
-  def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier) = {
+  def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean] = {
     if (config.ivEnabled) {
-      http.GET[JsValue](s"$url/mdtp/journey/journeyId/$journeyId") map { r =>
-        r \ "result" match {
-          case JsDefined(JsString("Success")) => true
-          case _ => false
-        }
-      }
+      http.GET[JsValue](s"${config.ivBaseUrl}/mdtp/journey/journeyId/$journeyId").map(r => (r \ "result").asOpt[String].contains("Success"))
     } else {
       Future.successful(true)
     }

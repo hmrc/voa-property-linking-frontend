@@ -23,21 +23,15 @@ import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.PropertyLinkingController
 import javax.inject.{Inject, Named}
-
+import models.registration.UserDetails._
 import models.registration._
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, Request}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
 import services._
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.auth.core.{Admin, Assistant, User}
+import uk.gov.hmrc.auth.core.{Assistant, User}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
-
-import scala.concurrent.Future
-import javax.inject.{Inject, Named}
-
-import models.registration.UserDetails._
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -51,7 +45,12 @@ class RegistrationController @Inject()(
                                         addresses: Addresses,
                                         registrationService: RegistrationService,
                                         @Named("personSession") val personalDetailsSessionRepo: SessionRepo
-                                      )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig  ) extends PropertyLinkingController {
+                                      )(
+                                        implicit executionContext: ExecutionContext,
+                                        override val messagesApi: MessagesApi,
+                                        override val controllerComponents: MessagesControllerComponents,
+                                        val config: ApplicationConfig
+                                      ) extends PropertyLinkingController {
 
   def show(): Action[AnyContent] = (ggAuthenticated andThen sessionUserDetailsAction).async { implicit request =>
     individualAccounts.withExternalId(request.externalId).flatMap {
@@ -59,13 +58,12 @@ class RegistrationController @Inject()(
         Future.successful(Redirect(controllers.routes.Dashboard.home()))
       case None =>
         request.userDetails match {
-          case user@IndividualUserDetails() => {
+          case user@IndividualUserDetails() =>
             val fieldData = request.sessionPersonDetails match {
               case None => FieldData(user)
               case Some(sessionPersonDetails: IndividualUserAccountDetails) => FieldData(sessionPersonDetails)
             }
             Future.successful(Ok(views.html.createAccount.register_individual(AdminUser.individual, fieldData)))
-          }
           case user@OrganisationUserDetails() =>
             orgShow(user, request.sessionPersonDetails)
           case user@AgentUserDetails() =>
@@ -163,7 +161,7 @@ class RegistrationController @Inject()(
     getCompanyDetails(userDetails.groupIdentifier).map {
       case Some(fieldData) =>
         userDetails.credentialRole match {
-          case User => {
+          case User =>
             val data = sessionPersonDetails match {
               case None => fieldData
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
@@ -172,8 +170,7 @@ class RegistrationController @Inject()(
             Ok(views.html.createAccount.register_assistant_admin(
               AdminInExistingOrganisationUser.organisation,
               data))
-          }
-          case Assistant => {
+          case Assistant =>
             val data = sessionPersonDetails match {
               case None => fieldData
               case Some(spd: AdminInExistingOrganisationAccountDetails) => FieldData(spd)
@@ -182,13 +179,12 @@ class RegistrationController @Inject()(
             Ok(views.html.createAccount.register_assistant(
               AssistantUser.assistant,
               data))
-          }
         }
       case None =>
         userDetails.credentialRole match {
           case Assistant =>
             Ok(views.html.errors.invalidAccountCreation())
-          case _ => {
+          case _ =>
             val data = sessionPersonDetails match {
               case None =>  FieldData(userDetails)
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
@@ -197,7 +193,6 @@ class RegistrationController @Inject()(
             Ok(views.html.createAccount.register_organisation(
               AdminUser.organisation,
               data))
-          }
         }
     }
   }

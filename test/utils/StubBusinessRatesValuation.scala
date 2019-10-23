@@ -20,18 +20,22 @@ import connectors.BusinessRatesValuationConnector
 import org.mockito.Mockito.mock
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import utils.Configs._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object StubBusinessRatesValuation extends BusinessRatesValuationConnector(StubServicesConfig, mock(classOf[HttpClient])) {
+object StubBusinessRatesValuation extends BusinessRatesValuationConnector(applicationConfig, mock(classOf[HttpClient])) {
   private var stubbedValuations: Map[Long, Boolean] = Map()
 
   def stubValuation(assessmentRef: Long, isViewable: Boolean) = {
     stubbedValuations = stubbedValuations.updated(assessmentRef, isViewable)
   }
 
-  def reset() = { stubbedValuations = Map() }
+  def reset() = {
+    stubbedValuations = Map()
+  }
 
-  override def isViewable(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] = Future.successful(stubbedValuations(assessmentRef))
+  override def isViewable(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] =
+    Future.successful(stubbedValuations(assessmentRef))
 }

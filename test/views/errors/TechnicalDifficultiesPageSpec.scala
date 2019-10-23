@@ -18,29 +18,30 @@ package views.errors
 
 import java.time.LocalDateTime
 
-import play.api.i18n.Messages
 import play.api.test.FakeRequest
 import resources._
 import uk.gov.hmrc.play.test.UnitSpec
-import utils.NoMetricsOneAppPerSuite
+import utils.StubMessageControllerComponents._
+import utils.{Configs, NoMetricsOneAppPerSuite}
 
 class TechnicalDifficultiesPageSpec extends UnitSpec with NoMetricsOneAppPerSuite {
 
   "The technical difficulties page" should {
     val ref: String = shortString
-    lazy val html = views.html.errors.technicalDifficulties(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(FakeRequest(), Messages.Implicits.applicationMessages, implicitly)
+    val req = FakeRequest()
+    lazy val html = views.html.errors.technicalDifficulties(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(req, messagesApi.preferred(req), Configs.applicationConfig)
     lazy val page = html.toString
 
     "display an error reference number" in {
-      page should include (s"Reference number: $ref")
+      page should include(s"Reference number: $ref")
     }
 
     "display the current date" in {
-      page should include ("Date: 1 April 2017")
+      page should include("Date: 1 April 2017")
     }
 
     "display the current time in 12 hour format" in {
-      page should include ("Time: 09:30 AM")
+      page should include("Time: 09:30 AM")
     }
   }
 

@@ -26,14 +26,13 @@ import org.scalacheck.Arbitrary._
 import play.api.http.Status.OK
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
-import utils.StubServicesConfig
 
 class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new PropertyLinkConnector(StubServicesConfig, mockWSHttp) {
+    val connector = new PropertyLinkConnector(servicesConfig, mockWSHttp) {
       override lazy val baseUrl: String = "tst-url"
     }
   }
