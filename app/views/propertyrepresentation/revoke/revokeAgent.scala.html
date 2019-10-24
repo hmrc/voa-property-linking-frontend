@@ -29,16 +29,16 @@
         <div class="column-two-thirds">
 
             <h1 class="heading-xlarge">
-            @Messages("propertyRepresentation.revokeAgent.title")
+            @messages("propertyRepresentation.revokeAgent.title")
             </h1>
 
-            <p>@Messages("propertyRepresentation.revokeAgent.message", agentName)
+            <p>@messages("propertyRepresentation.revokeAgent.message", agentName)
 
             @form(agentAppointment.routes.RevokeAgentController.revokeAgentSubmit(submissionId, agentCode)){
 
                 <input type="hidden" name="authorisedPartyId" value="@authorisedPartyId">
 
-                <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.revokeAgent.button")</button>
+                <button type="submit" id="submit-button" class="button">@messages("propertyRepresentation.revokeAgent.button")</button>
             }
         </div>
     </div>

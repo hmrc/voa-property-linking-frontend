@@ -19,16 +19,13 @@ package connectors
 import controllers.VoaPropertyLinkingSpec
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
-import utils.StubServicesConfig
 
 class BusinessRatesValuationConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new BusinessRatesValuationConnector(StubServicesConfig, mockWSHttp) {
-      override val url: String = "tst-url"
-    }
+    val connector = new BusinessRatesValuationConnector(applicationConfig, mockWSHttp)
   }
 
   "isViewable" must "return true if detailed valuation is found" in new Setup {

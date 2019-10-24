@@ -48,6 +48,7 @@ class GgAuthenticatedActionSpec
     with GlobalExecutionContext {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
+  implicit lazy val controllerComponents = app.injector.instanceOf[ControllerComponents]
 
   "GgAuthenticatedAction" should {
     "invoke the action block when user is authorised" in new Setup {

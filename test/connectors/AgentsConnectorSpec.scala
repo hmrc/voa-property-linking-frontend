@@ -19,15 +19,13 @@ package connectors
 import controllers.VoaPropertyLinkingSpec
 import models.searchApi.{OwnerAgent, OwnerAgents}
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.StubServicesConfig
-import scala.concurrent.ExecutionContext.global
 
 class AgentsConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new AgentsConnector(mockWSHttp, StubServicesConfig)(ec) {
+    val connector = new AgentsConnector(mockWSHttp, servicesConfig)(ec) {
       val url: String = "tst-url"
     }
   }

@@ -32,7 +32,7 @@ import models.searchApi.AgentAuthResult
 import play.api.data.Form
 import play.api.data.Forms.{mapping, _}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, Result}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
@@ -44,11 +44,16 @@ class RepresentationController @Inject()(
                                           val errorHandler: CustomErrorHandler,
                                           reprConnector: PropertyRepresentationConnector,
                                           authenticated: AuthenticatedAction,
-                                          propertyLinkConnector: PropertyLinkConnector
-                                        )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
+                                          propertyLinkConnector: PropertyLinkConnector,
+                                          override val controllerComponents: MessagesControllerComponents
+                                        )(
+                                          implicit executionContext: ExecutionContext,
+                                          override val messagesApi: MessagesApi,
+                                          val config: ApplicationConfig
+                                        )
   extends PropertyLinkingController with ValidPagination {
 
-  def viewClientProperties() = authenticated.asAgent { implicit request =>
+  def viewClientProperties(): Action[AnyContent] = authenticated.asAgent { implicit request =>
     Future.successful(Redirect(config.newDashboardUrl("client-properties")))
   }
 
@@ -142,7 +147,7 @@ class RepresentationController @Inject()(
 
   def continue(page: Int, pageSize: Int) = authenticated.asAgent { implicit request =>
     BulkActionsForm.form.bindFromRequest().fold(
-      _ =>  Future.successful(BadRequest(errorHandler.badRequestTemplate)),
+      _ => Future.successful(BadRequest(errorHandler.badRequestTemplate)),
       data => {
         withValidPagination(page, pageSize) { pagination =>
           reprConnector.forAgent(RepresentationPending, request.organisationId, pagination).map { reprs =>
@@ -220,7 +225,7 @@ class RepresentationController @Inject()(
   def revokeClient(authorisationId: Long, clientOrganisationId: Long): Action[AnyContent] = authenticated.asAgent { implicit request =>
     propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id) map {
       case Some(property) => Ok(views.html.propertyrepresentation.revokeClient(property))
-      case None           => notFound
+      case None => notFound
     }
   }
 
@@ -229,8 +234,8 @@ class RepresentationController @Inject()(
       clientProperty <- OptionT(propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id))
       _ <- OptionT.liftF(reprConnector.revoke(clientProperty.authorisedPartyId))
     } yield {
-        Redirect(config.newDashboardUrl("client-properties"))
-      }).getOrElse(notFound)
+      Redirect(config.newDashboardUrl("client-properties"))
+    }).getOrElse(notFound)
   }
 
 }

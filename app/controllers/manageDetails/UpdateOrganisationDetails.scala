@@ -16,7 +16,7 @@
 
 package controllers.manageDetails
 
-import java.time.{Clock, Instant}
+import java.time.Clock
 
 import actions.AuthenticatedAction
 import actions.requests.BasicAuthenticatedRequest
@@ -28,8 +28,7 @@ import javax.inject.Inject
 import models.{GroupAccount, UpdatedOrganisationAccount}
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, Result}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import utils.EmailAddressValidation
@@ -42,7 +41,12 @@ class UpdateOrganisationDetails @Inject()(
                                            groups: GroupAccounts,
                                            addresses: Addresses,
                                            manageDetails: ManageDetails
-                                         )(implicit executionContext: ExecutionContext, clock: Clock, val messagesApi: MessagesApi, config: ApplicationConfig)
+                                         )(
+                                           implicit executionContext: ExecutionContext,
+                                           clock: Clock,
+                                           override val controllerComponents: MessagesControllerComponents,
+                                           config: ApplicationConfig
+                                         )
   extends PropertyLinkingController {
 
   def viewBusinessName: Action[AnyContent] = authenticated { implicit request =>
@@ -51,8 +55,8 @@ class UpdateOrganisationDetails @Inject()(
 
   def updateBusinessName(): Action[AnyContent] = authenticated.async { implicit request =>
     businessNameForm.bindFromRequest().fold(
-      errors        => Future.successful(BadRequest(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
-      businessName  => updateDetails(name = Some(businessName))
+      errors => Future.successful(BadRequest(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+      businessName => updateDetails(name = Some(businessName))
     )
   }
 
@@ -104,7 +108,7 @@ class UpdateOrganisationDetails @Inject()(
       name.getOrElse(current.companyName),
       email.getOrElse(current.email),
       phone.getOrElse(current.phone),
-      Instant.now(clock),
+      clock.instant(),
       request.individualAccount.externalId)
 
     groups.update(current.id, details)

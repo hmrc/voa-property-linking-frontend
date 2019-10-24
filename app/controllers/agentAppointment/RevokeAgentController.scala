@@ -25,11 +25,11 @@ import controllers.PropertyLinkingController
 import javax.inject.Inject
 import models.Party
 import play.api.Logger
-import play.api.data.{Form, Forms}
 import play.api.data.Forms._
+import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -38,9 +38,14 @@ class RevokeAgentController @Inject()(
                                        val errorHandler: CustomErrorHandler,
                                        auditingService: AuditingService,
                                        authenticated: AuthenticatedAction,
-                                      propertyLinks: PropertyLinkConnector,
-                                      representations: PropertyRepresentationConnector
-                                     )(implicit executionContenxt: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+                                       propertyLinks: PropertyLinkConnector,
+                                       representations: PropertyRepresentationConnector
+                                     )(
+                                       implicit executionContenxt: ExecutionContext,
+                                       override val messagesApi: MessagesApi,
+                                       override val controllerComponents: MessagesControllerComponents,
+                                       val config: ApplicationConfig
+                                     ) extends PropertyLinkingController {
 
   val logger = Logger(this.getClass.getName)
 
@@ -57,41 +62,41 @@ class RevokeAgentController @Inject()(
   }
 
   def revokeAgentSubmit(
-                   submissionId: String,
-                   agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
+                         submissionId: String,
+                         agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
     Form(Forms.single("authorisedPartyId" -> longNumber)).bindFromRequest().fold(
       errors =>
         propertyLinks.getMyOrganisationPropertyLink(submissionId).map {
           case Some(link) =>
             link.agents.find(a => a.agentCode == agentCode) match {
-              case Some(agent)  =>
+              case Some(agent) =>
                 logger.warn(s"authorised party id not passed with this request. $errors")
                 BadRequest(views.html.propertyrepresentation.revoke.revokeAgent(agentCode, submissionId, agent.authorisedPartyId, agent.organisationName, !request.organisationAccount.isAgent))
-              case None         => notFound
+              case None => notFound
             }
-          case None       => notFound
+          case None => notFound
         },
       authorisedPartyId =>
-    propertyLinks
-      .getMyOrganisationPropertyLink(submissionId)
-      .flatMap {
-        case Some(link) =>
-          link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-            case Some(_) =>
-              representations.revoke(authorisedPartyId).map { _ => {
-                auditingService.sendEvent("agent representation revoke", Json.obj(
-                  "organisationId" -> request.organisationId,
-                  "individualId" -> request.individualAccount.individualId,
-                  "propertyLinkId" -> submissionId,
-                  "agentOrganisationId" -> request.organisationAccount.id).toString
-                )
-                Redirect(routes.RevokeAgentController.revokeAgentConfirmed(submissionId, authorisedPartyId, agentCode))
-            }
+        propertyLinks
+          .getMyOrganisationPropertyLink(submissionId)
+          .flatMap {
+            case Some(link) =>
+              link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
+                case Some(_) =>
+                  representations.revoke(authorisedPartyId).map { _ => {
+                    auditingService.sendEvent("agent representation revoke", Json.obj(
+                      "organisationId" -> request.organisationId,
+                      "individualId" -> request.individualAccount.individualId,
+                      "propertyLinkId" -> submissionId,
+                      "agentOrganisationId" -> request.organisationAccount.id).toString
+                    )
+                    Redirect(routes.RevokeAgentController.revokeAgentConfirmed(submissionId, authorisedPartyId, agentCode))
+                  }
+                  }
+                case None => Future.successful(notFound)
+              }
+            case None => Future.successful(notFound)
           }
-          case None      => Future.successful(notFound)
-        }
-      case None         => Future.successful(notFound)
-    }
     )
   }
 

@@ -39,33 +39,33 @@
 
         <div class="column-two-thirds">
 
-            <h1 class="heading-xlarge">@Messages("challenge.valuation.heading")</h1>
+            <h1 class="heading-xlarge">@messages("challenge.valuation.heading")</h1>
 
-            <p>@Messages("challenge.valuation.challenge")</p>
+            <p>@messages("challenge.valuation.challenge")</p>
 
-            <h2 class="heading-medium">@Messages("challenge.valuation.beforeStarting")</h2>
+            <h2 class="heading-medium">@messages("challenge.valuation.beforeStarting")</h2>
 
             <form>
                 <div class="form-group">
                     <fieldset>
 
                         <legend>
-                            <p> @Messages("challenge.valuation.eligibility")</p>
+                            <p> @messages("challenge.valuation.eligibility")</p>
                         </legend>
 
                         <div class="multiple-choice" data-target="challenge-true">
                             <input id="challenge-yes" type="radio" name="radio-contact-group" value="check4Months" onclick="showChallengeContent();">
-                            <label for="challenge-yes">@Messages("challenge.valuation.b1")</label>
+                            <label for="challenge-yes">@messages("challenge.valuation.b1")</label>
                         </div>
 
                         <div class="multiple-choice" data-target="challenge-false">
                             <input id="challenge-yes" type="radio" name="radio-contact-group" value="check12Months" onclick="showChallengeContent();">
-                            <label for="challenge-yes">@Messages("challenge.valuation.b2")</label>
+                            <label for="challenge-yes">@messages("challenge.valuation.b2")</label>
                         </div>
 
                         <div class="multiple-choice" data-target="challenge-false">
                             <input id="challenge-yes" type="radio" name="radio-contact-group" value="check16Months" onclick="showChallengeContent();">
-                            <label for="challenge-yes">@Messages("challenge.valuation.b3")</label>
+                            <label for="challenge-yes">@messages("challenge.valuation.b3")</label>
                         </div>
 
                     </fieldset>
@@ -73,23 +73,23 @@
             </form>
 
 
-            @*<h2> "heading-medium">@Messages("challenge.valuation.whatToDo")</h2>*@
+            @*<h2> "heading-medium">@messages("challenge.valuation.whatToDo")</h2>*@
 
             <div id="challengeContent">
-                <h2 class="heading-medium">@Messages("challenge.valuation.whatToDo")</h2>
+                <h2 class="heading-medium">@messages("challenge.valuation.whatToDo")</h2>
                 <p>
-                    @Messages("challenge.valuation.makeChallenge") <a id="download-form" href="@routes.Assets.at("downloads/Challenge your valuation.pdf")" title="Challenge your valuation PDF (Opens in a new window)" target="_blank">@Messages("challenge.valuation.download")</a>.
-                    @Messages("challenge.valuation.also") <a id="download-guidance" href="@routes.Assets.at("downloads/Challenge your valuation guidance.pdf")" target="_blank" title="Challenge your valuation guidance PDF (Opens in a new window)">@Messages("challenge.valuation.guidance")</a> @Messages("challenge.valuation.completing") @Messages("challenge.valuation.supportingEvidence") <a id="email-address" href="mailto:ccaservice@@voa.gsi.gov.uk"> @Messages("challenge.valuation.email")</a> @Messages("challenge.valuation.post")
+                    @messages("challenge.valuation.makeChallenge") <a id="download-form" href="@routes.Assets.at("downloads/Challenge your valuation.pdf")" title="Challenge your valuation PDF (Opens in a new window)" target="_blank">@messages("challenge.valuation.download")</a>.
+                    @messages("challenge.valuation.also") <a id="download-guidance" href="@routes.Assets.at("downloads/Challenge your valuation guidance.pdf")" target="_blank" title="Challenge your valuation guidance PDF (Opens in a new window)">@messages("challenge.valuation.guidance")</a> @messages("challenge.valuation.completing") @messages("challenge.valuation.supportingEvidence") <a id="email-address" href="mailto:ccaservice@@voa.gsi.gov.uk"> @messages("challenge.valuation.email")</a> @messages("challenge.valuation.post")
                 </p>
 
                 <ul>  <p id="postal-address">
-                    @Messages("challenge.valuation.address1")<br>
-                    @Messages("challenge.valuation.address2")<br>
-                    @Messages("challenge.valuation.address3")<br>
-                @Messages("challenge.valuation.address4")
+                    @messages("challenge.valuation.address1")<br>
+                    @messages("challenge.valuation.address2")<br>
+                    @messages("challenge.valuation.address3")<br>
+                @messages("challenge.valuation.address4")
                 </ul></p>
 
-                <p>@Messages("challenge.valuation.risks")</p>
+                <p>@messages("challenge.valuation.risks")</p>
                 <br />
             </div>
             <script>hideChallengeContent();</script>

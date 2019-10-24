@@ -16,21 +16,16 @@
 
 package connectors
 
-import config.ApplicationConfig
 import controllers.VoaPropertyLinkingSpec
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.StubServicesConfig
 
 class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
-  override val additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.ivEnabled" -> "true")
 
   class Setup {
-    val connector = new IdentityVerification(StubServicesConfig, app.injector.instanceOf[ApplicationConfig], mockWSHttp) {
-      override val url: String = "tst-url"
-    }
+    val connector = new IdentityVerification(servicesConfig, applicationConfig, mockWSHttp)
   }
 
   "verifySuccess" must "return true if IV was successful" in new Setup {

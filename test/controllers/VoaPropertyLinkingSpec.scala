@@ -16,19 +16,22 @@
 
 package controllers
 
+import java.time.{Clock, Instant, ZoneId}
+
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
 import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
 import actions.requests.BasicAuthenticatedRequest
+import config.ApplicationConfig
 import models._
 import models.registration.{User, UserDetails}
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Request, Result}
+import play.api.mvc.{MessagesControllerComponents, Request, Result}
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
@@ -45,8 +48,10 @@ trait VoaPropertyLinkingSpec
     with AppendedClues
     with MockitoSugar
     with NoMetricsOneAppPerSuite
+    with StubMessageControllerComponents
     with WSHTTPMock
     with ScalaFutures
+    with Configs
     with FakeObjects
     with GlobalExecutionContext
     with AllMocks {
@@ -54,8 +59,11 @@ trait VoaPropertyLinkingSpec
   val token: (String, String) = "Csrf-Token" -> "nocheck"
 
   implicit val ec: ExecutionContext = ExecutionContext.Implicits.global
-  implicit lazy val messageApi: MessagesApi = app.injector.instanceOf[MessagesApi]
   implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
+  implicit val messagesControllerComponents: MessagesControllerComponents = stubMessagesControllerComponents()
+  implicit lazy val messageApi: MessagesApi = messagesControllerComponents.messagesApi
+  implicit val clock: Clock = Clock.fixed(Instant.now(), ZoneId.systemDefault())
+  override implicit lazy val applicationConfig: ApplicationConfig = app.injector.instanceOf[ApplicationConfig]
 
   def preAuthenticatedActionBuilders(
                                       userIsAgent: Boolean = true

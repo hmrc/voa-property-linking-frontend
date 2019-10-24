@@ -26,25 +26,25 @@
 <div class="grid-row">
     <div class="column-two-thirds">
 
-        <h1 class="heading-xlarge">@Messages("available.requestvaluation.title")</h1>
+        <h1 class="heading-xlarge">@messages("available.requestvaluation.title")</h1>
 
         <p>@Html(Messages("available.requestvaluation.p1", evaluateRoute(model.valuation), model.address))</p>
         <p>@Html(Messages("available.requestvaluation.p2"))</p>
 
-        <h1 class="heading-medium">@Messages("available.requestvaluation.check.title")</h1>
+        <h1 class="heading-medium">@messages("available.requestvaluation.check.title")</h1>
         <p>@Html(Messages("available.requestvaluation.check.p1", evaluateRoute(model.check)))</p>
         <p>@Html(Messages("available.requestvaluation.check.p2"))</p>
         <p>@Html(Messages("available.requestvaluation.address"))</p>
 
-        <h2 class="heading-medium">@Messages("auto.requestDetailedValuation.heading.challenge")</h2>
+        <h2 class="heading-medium">@messages("auto.requestDetailedValuation.heading.challenge")</h2>
 
-        <p>@Messages("auto.requestDetailedValuation.challenge.p1")</p>
+        <p>@messages("auto.requestDetailedValuation.challenge.p1")</p>
 
-        <p>@Messages("auto.requestDetailedValuation.challenge.p2")</p>
+        <p>@messages("auto.requestDetailedValuation.challenge.p2")</p>
 
-        <p><a href="@routes.Assessments.startChallengeFromDVR(submissionId, model.valuationId, owner).url">@Messages("auto.requestDetailedValuation.challenge.start")</a></p>
+        <p><a href="@routes.Assessments.startChallengeFromDVR(submissionId, model.valuationId, owner).url">@messages("auto.requestDetailedValuation.challenge.start")</a></p>
 
-        <a href="@routes.Dashboard.home()">@Messages("link.return.home")</a>
+        <a href="@routes.Dashboard.home()">@messages("link.return.home")</a>
 
     </div>
 </div>

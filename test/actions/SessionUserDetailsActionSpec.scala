@@ -16,29 +16,22 @@
 
 package actions
 
-import java.time.LocalDate
-
 import actions.registration.SessionUserDetailsAction
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
-import models.Address
-import models.domain.Nino
 import models.registration._
-import org.mockito.Mockito.when
 import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mockito.MockitoSugar
-import play.api.mvc.Results.Ok
-import play.api.mvc.{ActionTransformer, Headers}
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import repositories.PersonalDetailsSessionRepository
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.frontend.exceptions.ApplicationException
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.{FakeObjects, GlobalExecutionContext, NoMetricsOneAppPerSuite}
 
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Future
 
 class SessionUserDetailsActionSpec
   extends UnitSpec

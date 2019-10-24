@@ -19,22 +19,22 @@
 <div class="table-wrapper hide-if-no-js">
     <table id="dataTableManageClients" class="table-font-xsmall margin-bottom-20 margin-top-20">
         <caption class="visuallyhidden">
-            @Messages("agent.dashboard.manageClients.existingClients")
+            @messages("agent.dashboard.manageClients.existingClients")
         </caption>
         <thead>
             <tr>
-                <th id="sort-by-address-js" scope="col">@Messages("managePropertiesSearchSort.table.1")</th>
-                <th id="sort-by-baref-js" scope="col">@Messages("managePropertiesSearchSort.table.2")</th>
-                <th id="sort-by-status-js" scope="col">@Messages("managePropertiesSearchSort.table.3")</th>
-                <th id="sort-by-client-js" scope="col">@Messages("managePropertiesSearchSort.table.4")</th>
-                <th scope="col">@Messages("managePropertiesSearchSort.table.5")</th>
+                <th id="sort-by-address-js" scope="col">@messages("managePropertiesSearchSort.table.1")</th>
+                <th id="sort-by-baref-js" scope="col">@messages("managePropertiesSearchSort.table.2")</th>
+                <th id="sort-by-status-js" scope="col">@messages("managePropertiesSearchSort.table.3")</th>
+                <th id="sort-by-client-js" scope="col">@messages("managePropertiesSearchSort.table.4")</th>
+                <th scope="col">@messages("managePropertiesSearchSort.table.5")</th>
             </tr>
             <tr>
-                <th scope="col"><div class="searchfield"><label for="address" class="visually-hidden">@Messages("managePropertiesSearchSort.table.1") </label><input name="address" value="@model.pagination.valueOfAddress" id="address" size="10" class="ss-input"><button id="addressBtn" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.1") </button></div></th>
-                <th scope="col"><div class="searchfield"><label for="baref" class="visually-hidden">@Messages("managePropertiesSearchSort.table.2")  </label><input name="baref"  value="@model.pagination.valueOfBaref" id="baref" size="10" class="ss-input"><button id="barefBtn" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.2") </button></div></th>
+                <th scope="col"><div class="searchfield"><label for="address" class="visually-hidden">@messages("managePropertiesSearchSort.table.1") </label><input name="address" value="@model.pagination.valueOfAddress" id="address" size="10" class="ss-input"><button id="addressBtn" class="search-submit ss-button">Search for @messages("managePropertiesSearchSort.table.1") </button></div></th>
+                <th scope="col"><div class="searchfield"><label for="baref" class="visually-hidden">@messages("managePropertiesSearchSort.table.2")  </label><input name="baref"  value="@model.pagination.valueOfBaref" id="baref" size="10" class="ss-input"><button id="barefBtn" class="search-submit ss-button">Search for @messages("managePropertiesSearchSort.table.2") </button></div></th>
                 <th scope="col"><div class="searchfield">@propertyLinkingStatusDropdown(model.pagination.valueOfStatus,"status")</div></th>
-                <th scope="col"><div class="searchfield"><label for="client" class="visually-hidden">@Messages("managePropertiesSearchSort.table.4") </label><input name="client"  id="client" value="@model.pagination.valueOfClient" size="8" class="ss-input"><button id="clientBtn" type="submit" class="search-submit ss-button">Search for @Messages("managePropertiesSearchSort.table.4")</button></div></th>
-                <th scope="col"><a href="#" class="clear">@Messages("manageProperties.table.clear.search")</a></th>
+                <th scope="col"><div class="searchfield"><label for="client" class="visually-hidden">@messages("managePropertiesSearchSort.table.4") </label><input name="client"  id="client" value="@model.pagination.valueOfClient" size="8" class="ss-input"><button id="clientBtn" type="submit" class="search-submit ss-button">Search for @messages("managePropertiesSearchSort.table.4")</button></div></th>
+                <th scope="col"><a href="#" class="clear">@messages("manageProperties.table.clear.search")</a></th>
             </tr>
         </thead>
     </table>

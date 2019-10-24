@@ -19,15 +19,13 @@ package connectors
 import controllers.VoaPropertyLinkingSpec
 import models.DraftCase
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.StubServicesConfig
-import scala.concurrent.ExecutionContext.global
 
 class DraftCasesSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new DraftCases(mockWSHttp, StubServicesConfig)(ec) {
+    val connector = new DraftCases(mockWSHttp, servicesConfig)(ec) {
       override lazy val checkUrl: String = "tst-url"
     }
   }

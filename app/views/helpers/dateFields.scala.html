@@ -24,7 +24,7 @@
 
 
 @displayFieldError(message: String, args: Seq[Any]) = {
-    <p class="error-message">@Messages(message, args:_*)</p>
+    <p class="error-message">@messages(message, args:_*)</p>
 }
 
 @errorWrapper(fields:Seq[Field],id: String,classes:String*)(content:Html) = {
@@ -42,7 +42,7 @@
 
 	<fieldset class="form-group form-date">
 	<legend class="form-label-bold">
-        @label.map { lab => @Messages(lab) }.getOrElse(if(suffix.nonEmpty) { Html(Messages(s"label.$prefix.$suffix")) } else { Html(Messages(s"label.$prefix")) })
+        @label.map { lab => @messages(lab) }.getOrElse(if(suffix.nonEmpty) { Html(Messages(s"label.$prefix.$suffix")) } else { Html(Messages(s"label.$prefix")) })
     </legend>
 	    @errorWrapper(Seq(form(""+prefix+".day"),form(""+prefix+".month"),form(""+prefix+".year"),form(prefix)), prefix.replace('.', '_'), "form-date-dayMonth"){
 

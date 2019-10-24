@@ -18,12 +18,15 @@ package controllers
 
 import actions.AuthenticatedAction
 import javax.inject.Inject
-import play.api.mvc.{Action, AnyContent}
-import uk.gov.hmrc.play.frontend.controller.FrontendController
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 
 import scala.concurrent.Future
 
-class KeepAliveController @Inject()(authenticatedAction: AuthenticatedAction) extends FrontendController {
+class KeepAliveController @Inject()(
+                                     authenticatedAction: AuthenticatedAction,
+                                     override val controllerComponents: MessagesControllerComponents
+                                   ) extends FrontendBaseController {
 
   def keepAlive(): Action[AnyContent] = authenticatedAction.async { implicit request => Future.successful(Ok("")) }
 

@@ -16,20 +16,31 @@
 
 package utils
 
+import com.typesafe.config.ConfigFactory
+import config.ApplicationConfig
 import connectors.SubmissionIdConnector
 import org.mockito.Mockito.mock
-import org.scalatest.mockito.MockitoSugar
-import play.api.Mode.Mode
-import play.api.{Configuration, Mode, Play}
+import play.api.{Configuration, Mode}
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+trait Configs {
+  def configuration: Configuration = Configuration(ConfigFactory.parseResources("application.conf"))
 
-object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfig, mock(classOf[HttpClient])) {
+  def runMode: RunMode = new RunMode(configuration, Mode.Test)
+
+  def servicesConfig = new ServicesConfig(configuration, runMode)
+
+  def applicationConfig: ApplicationConfig = new ApplicationConfig(configuration, runMode)
+}
+
+object Configs extends Configs
+
+object StubSubmissionIdConnector extends SubmissionIdConnector(Configs.servicesConfig, mock(classOf[HttpClient])) {
   private var stubbedId: Option[String] = None
 
   override def get(prefix: String)(implicit hc: HeaderCarrier): Future[String] = Future {
@@ -46,10 +57,3 @@ object StubSubmissionIdConnector extends SubmissionIdConnector(StubServicesConfi
 }
 
 
-object StubServicesConfig extends ServicesConfig with MockitoSugar {
-  override lazy val env = "Test"
-
-  override protected def mode: Mode = Mode.Test
-
-  override protected def runModeConfiguration: Configuration = Play.current.configuration
-}

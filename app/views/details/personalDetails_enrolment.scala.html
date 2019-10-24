@@ -22,19 +22,19 @@
 
 @tableRow(key: String, value: String, link: Call) = {
     <tr>
-        <td>@Messages(s"details.personal.$key")</td>
+        <td>@messages(s"details.personal.$key")</td>
         <td>@value</td>
         <td>
-            <a id="update@key.capitalize" href="@link">@Messages("link.update")</a>
+            <a id="update@key.capitalize" href="@link">@messages("link.update")</a>
         </td>
     </tr>
 }
 
-<h3 class="heading-medium">@Messages("details.user")</h3>
+<h3 class="heading-medium">@messages("details.user")</h3>
 
 <div class="table-wrapper">
     <table id="personalDetailsTable" class="table-font-xsmall margin-top-30 margin-bottom-20">
-        <caption class="visuallyhidden">@Messages("details.user")</caption>
+        <caption class="visuallyhidden">@messages("details.user")</caption>
         <colgroup>
             <col style="width: 45%">
             <col style="width: 45%">
@@ -46,7 +46,7 @@
                 @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName())
             } else {
                 <tr>
-                    <td>@Messages("details.personal.name")</td>
+                    <td>@messages("details.personal.name")</td>
                     <td>@individualAccount.details.firstName @individualAccount.details.lastName</td>
                     <td></td>
                 </tr>
@@ -61,7 +61,7 @@
         @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName())
         } else {
         <tr>
-            <td>@Messages("details.personal.name")</td>
+            <td>@messages("details.personal.name")</td>
             <td>@individualAccount.details.firstName @individualAccount.details.lastName</td>
             <td></td>
         </tr>

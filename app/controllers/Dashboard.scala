@@ -26,7 +26,7 @@ import javax.inject.Inject
 import models._
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.AgentRelationshipService
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
@@ -38,8 +38,13 @@ class Dashboard @Inject()(
                            propertyLinks: AgentRelationshipService,
                            agentsConnector: AgentsConnector,
                            groupAccounts: GroupAccounts,
-                           authenticated: AuthenticatedAction
-                         )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+                           authenticated: AuthenticatedAction,
+                           override val controllerComponents: MessagesControllerComponents
+                         )(
+                           implicit executionContext: ExecutionContext,
+                           override val messagesApi: MessagesApi,
+                           val config: ApplicationConfig
+                         ) extends PropertyLinkingController {
 
   def home() = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("home"))

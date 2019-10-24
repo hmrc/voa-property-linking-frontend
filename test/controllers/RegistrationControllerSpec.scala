@@ -24,7 +24,7 @@ import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -33,7 +33,7 @@ import resources._
 import services.iv.IdentityVerificationService
 import services.{RegistrationService, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Organisation}
-import uk.gov.hmrc.auth.core.{Admin, AffinityGroup, Assistant, User}
+import uk.gov.hmrc.auth.core.{AffinityGroup, Assistant, User}
 import utils.{StubGroupAccountConnector, _}
 
 import scala.concurrent.Future
@@ -66,10 +66,6 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     mockRegistrationService,
     mockSessionRepo
   )
-
-  "Invoking the app held RegistrationController" should "result in correct dependency injection" in {
-    app.injector.instanceOf[RegistrationController]
-  }
 
   "Going directly to the complete-contact-details page, when logged in with an already registered VOA account" should
     "redirect the user to the dashboard" in {
@@ -121,7 +117,6 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.inputMustContain("confirmedBusinessEmail", user.email)
     html.inputMustContain("firstName", user.firstName.get)
     html.inputMustContain("lastName", user.lastName.get)
-    html.inputMustContain("addresspostcode", user.postcode.get)
   }
 
   "Going to the create account page when logged in as a new assistant user registering with an existing group account" should

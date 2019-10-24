@@ -60,7 +60,7 @@ object MultipartFormDataWritable {
   )
 
   implicit val anyContentAsMultipartFormWritable: Writeable[AnyContentAsMultipartFormData] = {
-    MultipartFormDataWritable.singleton.map(_.mdf)
+    MultipartFormDataWritable.singleton.map(_.mfd)
   }
 
 }

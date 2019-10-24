@@ -43,7 +43,7 @@ To do: errors
             <option>@{args.toMap.get('_emptyValueText)}</option>
         }
         @options.map { v =>
-            <option id="@(id)-@{v.replaceAll(" ", "-")}" value="@v" @if(value.exists(_.equalsIgnoreCase(v))){ selected } >@Messages(s"$id.${v.replaceAll(" ", "")}")</option>
+            <option id="@(id)-@{v.replaceAll(" ", "-")}" value="@v" @if(value.exists(_.equalsIgnoreCase(v))){ selected } >@messages(s"$id.${v.replaceAll(" ", "")}")</option>
         }
     </select>
 

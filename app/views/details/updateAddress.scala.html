@@ -29,14 +29,14 @@
 ) {
     <div class="grid-row">
         <div class="column-two-thirds">
-            <h1 class="heading-large">@Messages("updateAddress.title")</h1>
+            <h1 class="heading-large">@messages("updateAddress.title")</h1>
 
             @form(controllers.manageDetails.routes.UpdatePersonalDetails.updateAddress()) {
                 @address(model.form, "address", helpText = "details.edit.postcode.help")
 
                 <p>
-                    <button type="submit" id="update" class="button">@Messages("link.update")</button>
-                    <a href="@controllers.manageDetails.routes.ViewDetails.show" class="button-secondary">@Messages("link.cancel")</a>
+                    <button type="submit" id="update" class="button">@messages("link.update")</button>
+                    <a href="@controllers.manageDetails.routes.ViewDetails.show" class="button-secondary">@messages("link.cancel")</a>
                 </p>
 
             </div>

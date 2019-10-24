@@ -58,7 +58,8 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
     mockCustomErrorHandler,
     StubPropertyRepresentationConnector,
     preAuthenticatedActionBuilders(),
-    StubPropertyLinkConnector
+    StubPropertyLinkConnector,
+    stubMessagesControllerComponents()
   )
 
 }

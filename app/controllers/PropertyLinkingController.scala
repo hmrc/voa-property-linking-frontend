@@ -18,12 +18,12 @@ package controllers
 
 import play.api.i18n.I18nSupport
 import play.api.mvc.Request
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
 
-trait PropertyLinkingController extends FrontendController with I18nSupport {
+trait PropertyLinkingController extends FrontendBaseController with I18nSupport {
 
-  val errorHandler: FrontendErrorHandler
+  def errorHandler: FrontendErrorHandler
 
   def notFound(implicit request: Request[_]) = NotFound(errorHandler.notFoundTemplate)
 }

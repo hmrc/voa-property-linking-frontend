@@ -22,13 +22,13 @@ import models.registration.GroupAccountDetails
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class GroupAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
 
-  lazy val url = config.baseUrl("property-linking") + "/property-linking/groups"
+  val url: String = config.baseUrl("property-linking") + "/property-linking/groups"
 
   def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
     http.GET[Option[GroupAccount]](s"$url/$organisationId")

@@ -30,10 +30,10 @@ import javax.inject.{Inject, Named}
 import models._
 import models.searchApi._
 import play.api.Logger
-import play.api.data.Forms.{number, _}
+import play.api.data.Forms._
 import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, Request}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
@@ -49,7 +49,12 @@ class AppointAgentController @Inject()(
                                         authenticated: AuthenticatedAction,
                                         agentRelationshipService: AgentRelationshipService,
                                         @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo
-                                      )(implicit val messagesApi: MessagesApi, executionContext: ExecutionContext, val config: ApplicationConfig)
+                                      )(
+                                        implicit override val messagesApi: MessagesApi,
+                                        override val controllerComponents: MessagesControllerComponents,
+                                        executionContext: ExecutionContext,
+                                        val config: ApplicationConfig
+                                      )
   extends PropertyLinkingController {
 
   val logger: Logger = Logger(this.getClass)
@@ -73,9 +78,9 @@ class AppointAgentController @Inject()(
       },
       success = (agent: AppointAgent) => {
         accounts.withAgentCode(agent.getAgentCode().toString) flatMap {
-          case Some(group)  =>
+          case Some(group) =>
             Future.successful(Redirect(routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), agent.getAgentCode(), agent.canCheck.name, agent.canChallenge.name, None)))
-          case None         =>
+          case None =>
             val errors: List[FormError] = List(invalidAgentCode)
             agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
               val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) => f.withError(error) }
@@ -86,16 +91,16 @@ class AppointAgentController @Inject()(
   }
 
   def getMyOrganisationPropertyLinksWithAgentFiltering(
-                                      pagination: PaginationParameters,
-                                      params: GetPropertyLinksParameters,
-                                      agentCode: Long,
-                                      checkPermission: String,
-                                      challengePermission: String,
-                                      agentAppointed: Option[String]
-                                    ): Action[AnyContent] = authenticated.async { implicit request =>
+                                                        pagination: PaginationParameters,
+                                                        params: GetPropertyLinksParameters,
+                                                        agentCode: Long,
+                                                        checkPermission: String,
+                                                        challengePermission: String,
+                                                        agentAppointed: Option[String]
+                                                      ): Action[AnyContent] = authenticated.async { implicit request =>
     for {
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
-      response               <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(params, AgentPropertiesParameters(
+      response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(params, AgentPropertiesParameters(
         agentCode = agentCode,
         checkPermission = AgentPermission.fromName(checkPermission).getOrElse(StartAndContinue),
         challengePermission = AgentPermission.fromName(challengePermission).getOrElse(StartAndContinue),
@@ -116,7 +121,7 @@ class AppointAgentController @Inject()(
             challengePermission = challengePermission,
             agentAppointed
           ))
-        case None               =>
+        case None =>
           notFound
       }
     }
@@ -128,12 +133,12 @@ class AppointAgentController @Inject()(
         val data: Map[String, String] = errors.data
         accounts.withAgentCode(data("agentCode")) flatMap {
           case Some(group) => {
-            for{
+            for {
               response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
                 AgentPropertiesParameters(
-                agentCode = data("agentCode").toLong,
-                checkPermission = AgentPermission.fromName(data("checkPermission")).getOrElse(StartAndContinue),
-                challengePermission = AgentPermission.fromName(data("challengePermission")).getOrElse(StartAndContinue)),
+                  agentCode = data("agentCode").toLong,
+                  checkPermission = AgentPermission.fromName(data("checkPermission")).getOrElse(StartAndContinue),
+                  challengePermission = AgentPermission.fromName(data("challengePermission")).getOrElse(StartAndContinue)),
                 request.organisationAccount.id, group.id)
             } yield BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), data("agentCode").toLong, data("checkPermission"), data("challengePermission"), data.get("agentAppointed")))
           }
@@ -143,17 +148,17 @@ class AppointAgentController @Inject()(
       },
       success = (action: AgentAppointBulkAction) => {
         accounts.withAgentCode(action.agentCode.toString).flatMap {
-          case Some(group) => agentRelationshipService.createAndSubmitAgentRepRequest( pLinkIds = action.propertyLinkIds,
+          case Some(group) => agentRelationshipService.createAndSubmitAgentRepRequest(pLinkIds = action.propertyLinkIds,
             agentOrgId = group.id,
             organisationId = request.organisationAccount.id,
             individualId = request.individualAccount.individualId,
             checkPermission = action.checkPermission,
             challengePermission = action.challengePermission,
             isAgent = request.organisationAccount.isAgent).map {
-              case _ => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName))
+            case _ => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName))
           }.recoverWith {
             case e: services.AppointRevokeException =>
-              for{
+              for {
                 response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(GetPropertyLinksParameters(),
                   AgentPropertiesParameters(
                     agentCode = action.agentCode,
@@ -205,24 +210,24 @@ class AppointAgentController @Inject()(
                                        params: GetPropertyLinksParameters,
                                        agentCode: Long
                                      ) = authenticated.async { implicit request =>
-      accounts.withAgentCode(agentCode.toString) flatMap {
-        case Some(group) =>
-          for {
-            response <- agentRelationshipService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
-                address = params.address,
-                agent = Some(group.companyName),
-                sortfield = params.sortfield,
-                sortorder = params.sortorder),
-              PaginationParams(pagination.startPoint, pagination.pageSize, false), Seq(RepresentationApproved, RepresentationPending))
-                .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
-            _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
-          } yield {
-            Ok(views.html.propertyrepresentation.revokeAgentProperties(None, AppointAgentPropertiesVM(group, response), pagination, params, agentCode))
-          }
-        case None => Future.successful(NotFound(s"Unknown Agent: $agentCode"))
-      }
+    accounts.withAgentCode(agentCode.toString) flatMap {
+      case Some(group) =>
+        for {
+          response <- agentRelationshipService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
+            address = params.address,
+            agent = Some(group.companyName),
+            sortfield = params.sortfield,
+            sortorder = params.sortorder),
+            PaginationParams(pagination.startPoint, pagination.pageSize, false), Seq(RepresentationApproved, RepresentationPending))
+            .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
+            .map(oar => oar.copy(filterTotal = oar.authorisations.size))
+            .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
+          _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
+        } yield {
+          Ok(views.html.propertyrepresentation.revokeAgentProperties(None, AppointAgentPropertiesVM(group, response), pagination, params, agentCode))
+        }
+      case None => Future.successful(NotFound(s"Unknown Agent: $agentCode"))
+    }
   }
 
   def revokeAgentSummary() = authenticated.async { implicit request =>
@@ -255,7 +260,7 @@ class AppointAgentController @Inject()(
         accounts.withAgentCode(action.agentCode.toString) flatMap {
           case Some(group) => agentRelationshipService.createAndSubitAgentRevokeRequest(pLinkIds = action.propertyLinkIds,
             agentCode = action.agentCode).map {
-            case _ =>  Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
+            case _ => Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
           }.recoverWith {
             case e: services.AppointRevokeException =>
               for {
@@ -333,13 +338,3 @@ case class ExistingAgentsPermission(agentName: String, agentCode: Long, availabl
 case class ConfirmOverrideVM(authorisationId: Long, newAgent: ExistingAgentsPermission, existingPermissions: Seq[ExistingAgentsPermission])
 
 case class SelectAgentVM(reps: Seq[PropertyRepresentation], linkId: Long)
-
-object BulkActionsForm {
-  lazy val form: Form[RepresentationBulkAction] = Form(mapping(
-    "page" -> number,
-    "pageSize" -> number,
-    "action" -> text,
-    "requestIds" -> list(text).verifying(nonEmptyList),
-    "complete" -> optional(number)
-  )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
-}

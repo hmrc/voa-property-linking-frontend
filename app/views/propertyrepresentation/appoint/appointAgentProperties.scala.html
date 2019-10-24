@@ -57,20 +57,20 @@
 ) {
 
         <div id="linkIdsGroup"  class="column-whole">
-            <h1 class="heading-large">@Messages("propertyRepresentation.appointAgentProperties.title")</h1>
+            <h1 class="heading-large">@messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
             @defining( (checkPermission, challengePermission) match
             {   case ("StartAndContinue", "NotPermitted") => "checks"
                 case ("NotPermitted", "StartAndContinue") => "challenges"
                 case _ => "checks and challenges"
             }) { perms: String =>
-                <p class="lede">@Messages("propertyRepresentation.appointAgentProperties.appointAgent", model.agentGroup.companyName, agentCode.toString, perms)</p>
+                <p class="lede">@messages("propertyRepresentation.appointAgentProperties.appointAgent", model.agentGroup.companyName, agentCode.toString, perms)</p>
             }
 
             @if(f.isDefined){ @includes.errorSummary(f.get) }
 
             <div class="hide-if-no-js">
-                <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+                <a href="#" id="par-select-all-top">@messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
                 |
                 @agentPropertiesFilter(model.showAllProperties)
             </div>
@@ -93,10 +93,10 @@
 
                 <thead>
                     <tr role="row">
-                        <th>@Messages("propertyRepresentation.appointAgents.table.select")</th>
+                        <th>@messages("propertyRepresentation.appointAgents.table.select")</th>
                         <th class="search-sort-table-header">@sortingControl(ADDRESS)</th>
                         <th class="search-sort-table-header">@sortingControl(AGENT)</th>
-                        <th>@Messages("propertyRepresentation.appointAgents.table.actions")</th>
+                        <th>@messages("propertyRepresentation.appointAgents.table.actions")</th>
                     </tr>
                     <tr style="@{if(model.showAllProperties) "" else "display: none;"}">
                         <th></th>
@@ -104,7 +104,7 @@
                         <th>@searchField("agentName", params.agent)</th>
                         <th>
                             <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), agentCode, checkPermission, challengePermission, agentAppointed)"
-                                id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
+                                id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
                         </th>
                         <th></th>
                     </tr>
@@ -115,7 +115,7 @@
 
         <div class="column-whole">
         @if(model.response.authorisations.isEmpty){
-            <h2 class="heading-secondary margin-top-30">@Messages("dashboard.manageProperties.noProperties")</h2>
+            <h2 class="heading-secondary margin-top-30">@messages("dashboard.manageProperties.noProperties")</h2>
         } else {
             @form(agentAppointment.routes.AppointAgentController.appointAgentSummary()) {
                 <input type="hidden" name="agentCode" value="@agentCode">
@@ -200,7 +200,7 @@
             </div>
 
             <div id="page-size-list">
-                <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
+                <span class="page-size-option-label">@messages("search.sort.page.size.view")</span>
                 @for(len <- List(15, 25, 50, 100, 500)) {
                     @if(pagination.pageSize == len) {
                         <span class="page-size-option-current">@len</span>
@@ -209,15 +209,15 @@
                         @len</a>
                     }
                 }
-                @Messages("search.sort.page.size.properties.per.page")
+                @messages("search.sort.page.size.properties.per.page")
             </div>
 
             <div class="hide-if-no-js margin-top-20">
-                <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+                <a href="#" id="par-select-all-top">@messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
             </div>
 
             <div class="margin-top-20">
-                <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
+                <button type="submit" id="submit-button" class="button">@messages("propertyRepresentation.appointAgent.button")</button>
             </div>
         }
         </div>
@@ -229,22 +229,22 @@
     @if(model.showAllProperties){
             <div id="sort-by-@field" class="sorting">
                 <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, params.reverseSorting.copy(sortfield = field), agentCode, checkPermission, challengePermission, agentAppointed = None)">
-                @Messages(s"propertyRepresentation.th.$field")</a>
+                @messages(s"propertyRepresentation.th.$field")</a>
             </div>
     } else {
             <div id="sort-by-@field" class="sorting">
                 <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, params.reverseSorting.copy(sortfield = field), agentCode, checkPermission, challengePermission, agentAppointed = Some(AgentPropertiesFilter.No.name)).url">
-                @Messages(s"propertyRepresentation.th.$field")</a>
+                @messages(s"propertyRepresentation.th.$field")</a>
             </div>
     }
 }
 
 @searchField(fieldName: String, value: Option[String]) = {
     <div class="searchfield">
-        <label for="@fieldName" class="visually-hidden">@Messages(s"propertyRepresentation.th.$fieldName")</label>
+        <label for="@fieldName" class="visually-hidden">@messages(s"propertyRepresentation.th.$fieldName")</label>
         <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
         <button id="@{
             fieldName
-        }Button" class="search-submit ss-button">@Messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
+        }Button" class="search-submit ss-button">@messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
     </div>
 }

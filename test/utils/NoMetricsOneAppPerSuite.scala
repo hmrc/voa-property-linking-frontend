@@ -16,19 +16,17 @@
 
 package utils
 
-import config.ApplicationConfig
 import org.scalatest.TestSuite
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 
 trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite {
   this: TestSuite =>
 
-  val additionalAppConfig: Seq[(String, String)] = Nil
+  def additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.ivEnabled" -> "true")
 
-  implicit lazy val applicationConfig = app.injector.instanceOf[ApplicationConfig]
-
-  override def fakeApplication() = new GuiceApplicationBuilder()
+  override def fakeApplication(): Application = new GuiceApplicationBuilder()
     .disable[com.kenshoo.play.metrics.PlayModule]
     .configure(additionalAppConfig:_*)
     .build()

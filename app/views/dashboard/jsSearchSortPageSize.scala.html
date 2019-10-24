@@ -17,12 +17,12 @@
 @(datatableName: String)(implicit messages: Messages)
 
 <div class="page-size-list">
-  <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
+  <span class="page-size-option-label">@messages("search.sort.page.size.view")</span>
   <a id="page-size-option-15" class="page-size-option-current" onclick="return pageSize(15);" href="#">15</a>
   <a id="page-size-option-25" class="page-size-option" onclick="return pageSize(25);" href="#">25</a>
   <a id="page-size-option-50" class="page-size-option" onclick="return pageSize(50);" href="#">50</a>
   <a id="page-size-option-100" class="page-size-option" onclick="return pageSize(100);" href="#">100</a>
-  @Messages("search.sort.page.size.properties.per.page")
+  @messages("search.sort.page.size.properties.per.page")
 </div>
 
 <script>

@@ -16,15 +16,19 @@
 
 package controllers
 
-import javax.inject.Inject
 import config.ApplicationConfig
+import javax.inject.Inject
 import play.api.i18n.MessagesApi
-import play.api.mvc.Action
+import play.api.mvc.MessagesControllerComponents
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 class LinkErrors @Inject()(
-                            val errorHandler: CustomErrorHandler
-                          )(implicit val messagesApi: MessagesApi, val config: ApplicationConfig) extends PropertyLinkingController {
+                            val errorHandler: CustomErrorHandler,
+                            override val controllerComponents: MessagesControllerComponents
+                          )(
+                            implicit override val messagesApi: MessagesApi,
+                            val config: ApplicationConfig
+                          ) extends PropertyLinkingController {
 
   def manualVerificationRequired() = Action { implicit request =>
     Ok(views.html.linkErrors.manualVerificationRequired())

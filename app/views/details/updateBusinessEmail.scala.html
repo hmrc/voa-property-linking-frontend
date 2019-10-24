@@ -31,7 +31,7 @@
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            <h1 class="heading-xlarge">@Messages("updateBusinessEmail.title")</h1>
+            <h1 class="heading-xlarge">@messages("updateBusinessEmail.title")</h1>
 
             @form(controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessEmail()) {
 
@@ -52,8 +52,8 @@
                 )
 
                 <p>
-                    <button type="submit" id="continue" class="button">@Messages("link.update")</button>
-                    <a href="@controllers.manageDetails.routes.ViewDetails.show().url" class="button-secondary">@Messages("link.cancel")</a>
+                    <button type="submit" id="continue" class="button">@messages("link.update")</button>
+                    <a href="@controllers.manageDetails.routes.ViewDetails.show().url" class="button-secondary">@messages("link.cancel")</a>
                 </p>
             }
 

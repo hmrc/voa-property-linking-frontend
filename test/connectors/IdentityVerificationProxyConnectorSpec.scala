@@ -22,19 +22,19 @@ import models.identityVerificationProxy.{Journey, Link}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures._
-import org.scalatest.mockito.MockitoSugar
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.scalatest.{FlatSpec, MustMatchers}
+import org.scalatestplus.mockito.MockitoSugar
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import resources._
 import uk.gov.hmrc.auth.core.ConfidenceLevel
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import utils.{NoMetricsOneAppPerSuite, StubServicesConfig}
+import utils.Configs
 
 import scala.concurrent.Future
 
 class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers with MockitoSugar
-  with GeneratorDrivenPropertyChecks with NoMetricsOneAppPerSuite {
+  with ScalaCheckDrivenPropertyChecks with Configs {
 
   implicit val headerCarrier = HeaderCarrier()
 
@@ -47,7 +47,7 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any(), any())) thenReturn Future.successful(mockLink)
 
-    val connector = new IdentityVerificationProxyConnector(StubServicesConfig, mockHttp)
+    val connector = new IdentityVerificationProxyConnector(servicesConfig, mockHttp)
     forAll { (ivDetails: IVDetails) =>
       whenReady(connector.start(Journey("", "completionUrl", "failureUrl", ConfidenceLevel.L200, ivDetails))) { link =>
         link must be(mockLink)
@@ -61,7 +61,7 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any(), any())).thenReturn(Future.failed(mockEx))
 
-    val connector = new IdentityVerificationProxyConnector(StubServicesConfig, mockHttp)
+    val connector = new IdentityVerificationProxyConnector(servicesConfig, mockHttp)
     forAll { (ivDetails: IVDetails) =>
       whenReady(connector.start(Journey("", "completionUrl", "failureUrl", ConfidenceLevel.L200, ivDetails)).failed) { ex =>
         ex must be(mockEx)

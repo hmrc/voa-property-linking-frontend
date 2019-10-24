@@ -16,32 +16,33 @@
 
 package actions
 
+import config.ApplicationConfig
 import connectors.authorisation.AuthorisationResult._
-import connectors.authorisation._
 import models.Accounts
-import models.registration.UserDetails
-import org.mockito.ArgumentMatchers._
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
-import play.api.mvc.Request
 import play.api.mvc.Results._
+import play.api.mvc.{MessagesControllerComponents, Request}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
 import tests.AllMocks
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
-import uk.gov.hmrc.auth.core.retrieve.{Name, Retrieval, ~}
+import uk.gov.hmrc.auth.core.retrieve.Retrieval
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.test.UnitSpec
-import utils.{FakeObjects, NoMetricsOneAppPerSuite}
+import utils.{Configs, FakeObjects, NoMetricsOneAppPerSuite}
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks with NoMetricsOneAppPerSuite {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
+  implicit lazy val messagesControllerComponents: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
 
   "AuthenticatedAction" should {
     "invoke the wrapped action when the user is logged in to CCA" in new Setup {
@@ -122,6 +123,7 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with BeforeAndA
         exception.fold(Future.successful(success.asInstanceOf[A]))(Future.failed(_))
     }
 
+    implicit val appConfig: ApplicationConfig = Configs.applicationConfig
     lazy val testAction = new AuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockBusinessRatesAuthorisation, mockEnrolmentService, authConnector)
   }
 

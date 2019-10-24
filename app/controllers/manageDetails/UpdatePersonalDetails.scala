@@ -30,7 +30,7 @@ import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails, Updat
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.mvc.Result
+import play.api.mvc.{MessagesControllerComponents, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
 import uk.gov.hmrc.auth.core.{AffinityGroup, User}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -42,11 +42,16 @@ import scala.concurrent.{ExecutionContext, Future}
 class UpdatePersonalDetails @Inject()(
                                        val errorHandler: CustomErrorHandler,
                                        authenticated: AuthenticatedAction,
-                                      addressesConnector: Addresses,
-                                      individualAccountConnector: IndividualAccounts,
-                                      manageDetails: ManageDetails,
-                                      groupAccounts: GroupAccounts
-                                     )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
+                                       addressesConnector: Addresses,
+                                       individualAccountConnector: IndividualAccounts,
+                                       manageDetails: ManageDetails,
+                                       groupAccounts: GroupAccounts
+                                     )(
+                                       implicit executionContext: ExecutionContext,
+                                       override val messagesApi: MessagesApi,
+                                       override val controllerComponents: MessagesControllerComponents,
+                                       val config: ApplicationConfig
+                                     )
   extends PropertyLinkingController {
 
   def viewEmail() = authenticated { implicit request =>
@@ -135,9 +140,11 @@ class UpdatePersonalDetails @Inject()(
 
     individualAccountConnector.update(updatedAccount)
       .flatMap(_ => addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)))
-      .map{
-        _ => updateGroup(request.organisationAccount, updatedAccount)
-          Redirect(controllers.manageDetails.routes.ViewDetails.show())}
+      .map {
+        _ =>
+          updateGroup(request.organisationAccount, updatedAccount)
+          Redirect(controllers.manageDetails.routes.ViewDetails.show())
+      }
   }
 
   private def updateGroup(group: GroupAccount, updatedAccount: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = {

@@ -30,7 +30,7 @@
     @articleClasses.get
 }">
     @backLink = {
-        <a href=@backLinkUrl.orElse(requestHeader.headers.get("referer")).getOrElse(routes.Dashboard.home()) class="link-back">@Messages("link.back")</a>
+        <a href=@backLinkUrl.orElse(requestHeader.headers.get("referer")).getOrElse(routes.Dashboard.home()) class="link-back">@messages("link.back")</a>
     }
 
     @if(topNavigation) {
@@ -42,7 +42,7 @@
                     }
                     <ul class="admin-nav">
                     @if(showLogout) {
-                        <li><a href="@routes.Dashboard.home()">@Messages("link.home")</a><span class="separator"> |</span></li>
+                        <li><a href="@routes.Dashboard.home()">@messages("link.home")</a><span class="separator"> |</span></li>
                         @requestHeader match {
                             case request: AuthenticatedRequest[_] => {
 
@@ -71,9 +71,9 @@
                             }
                             case _ => {}
                         }
-                        <li><a href="@routes.Application.logOut">@Messages("logout.link")</a></li>
+                        <li><a href="@routes.Application.logOut">@messages("logout.link")</a></li>
                     } else {
-                        <li><a href="@routes.Login.show">@Messages("label.login")</a></li>
+                        <li><a href="@routes.Login.show">@messages("label.login")</a></li>
                     }
 
                     </ul>
@@ -90,7 +90,7 @@
 
 
     <details class="get-help-toggle">
-        <summary><span class="summary">@Messages("getHelpLink")</span></summary>
+        <summary><span class="summary">@messages("getHelpLink")</span></summary>
         <div class="panel panel-border-wide">
             @Html(Messages("getHelpContent", "ccaservice@voa.gsi.gov.uk"))
         </div>

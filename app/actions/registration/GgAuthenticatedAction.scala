@@ -35,10 +35,15 @@ import scala.concurrent.{ExecutionContext, Future}
 class GgAuthenticatedAction @Inject()(
                                        provider: GovernmentGatewayProvider,
                                        override val authConnector: AuthConnector
-                                     )(implicit executionContext: ExecutionContext)
-  extends ActionBuilder[RequestWithUserDetails] with AuthorisedFunctions {
+                                     )(
+                                       implicit override val executionContext: ExecutionContext,
+                                       controllerComponents: ControllerComponents
+                                     )
+  extends ActionBuilder[RequestWithUserDetails, AnyContent] with AuthorisedFunctions {
 
   val logger = Logger(this.getClass.getName)
+
+  override val parser: BodyParser[AnyContent] = controllerComponents.parsers.anyContent
 
   override def invokeBlock[A](request: Request[A], block: RequestWithUserDetails[A] => Future[Result]): Future[Result] = {
     implicit val req: Request[A] = request

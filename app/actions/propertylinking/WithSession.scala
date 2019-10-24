@@ -33,7 +33,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class WithLinkingSession @Inject()(
                                     errorHandler: CustomErrorHandler,
                                     @Named("propertyLinkingSession") val sessionRepository: SessionRepo
-                                  )(implicit executionContext: ExecutionContext) extends ActionRefiner[BasicAuthenticatedRequest, LinkingSessionRequest] {
+                                  )(implicit override val executionContext: ExecutionContext) extends ActionRefiner[BasicAuthenticatedRequest, LinkingSessionRequest] {
 
   implicit def hc(implicit request: BasicAuthenticatedRequest[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 

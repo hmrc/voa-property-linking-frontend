@@ -32,7 +32,8 @@ class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
     mock[AgentRelationshipService],
     StubAgentConnector,
     mock[GroupAccounts],
-    preAuthenticatedActionBuilders()
+    preAuthenticatedActionBuilders(),
+    stubMessagesControllerComponents()
   )
 
   "Manage Owner Agents page" must "return redirect" in {

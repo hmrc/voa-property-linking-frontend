@@ -26,7 +26,7 @@ import models.DeleteDraftCase
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.mvc.Result
+import play.api.mvc.{MessagesControllerComponents, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
@@ -36,7 +36,13 @@ class ManageDrafts @Inject()(
                               val errorHandler: CustomErrorHandler,
                               authenticated: AuthenticatedAction,
                               propertyLinks: PropertyLinkConnector
-                            )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig, draftCases: DraftCases) extends PropertyLinkingController {
+                            )(
+                              implicit executionContext: ExecutionContext,
+                              override val messagesApi: MessagesApi,
+                              override val controllerComponents: MessagesControllerComponents,
+                              val config: ApplicationConfig,
+                              draftCases: DraftCases
+                            ) extends PropertyLinkingController {
 
   val draftCaseForm: Form[DeleteDraftCase] = Form(
     mapping(

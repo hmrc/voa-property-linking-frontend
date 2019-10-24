@@ -24,12 +24,12 @@
             <a href="#@removeInvalid(error)Group" data-focuses="@removeInvalid(error)Group">
                 <span>@defining(error.key.split("\\.")) { errorParts =>
                     @error.key match {
-                        case s if Seq("day", "month", "year").exists(s.contains) => { @Messages(s"label.${errorParts.head}") - @Messages(s"${error.key}.label") }
-                        case s if s.contains("address") => { @Messages(s"label.${error.key}") }
-                        case _ => { @Messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "")) }
+                        case s if Seq("day", "month", "year").exists(s.contains) => { @messages(s"label.${errorParts.head}") - @messages(s"${error.key}.label") }
+                        case s if s.contains("address") => { @messages(s"label.${error.key}") }
+                        case _ => { @messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "")) }
                     }
                 }
-                </span> - @Messages(stripIndices(error.message), error.args: _*)
+                </span> - @messages(stripIndices(error.message), error.args: _*)
             </a>
         </li>
 
@@ -42,8 +42,8 @@
 
 @if(form.hasErrors) {
     <div id="error-summary" class="error-summary" tabindex="-1" role="group" aria-labelledby="error-summary-heading" >
-        <h2 id="error-summary-heading" class="heading-medium error-summary-heading">@Messages("label.checkTheForm")</h2>
-        <p>@Messages("label.fixTheFollowing")</p>
+        <h2 id="error-summary-heading" class="heading-medium error-summary-heading">@messages("label.checkTheForm")</h2>
+        <p>@messages("label.fixTheFollowing")</p>
         <ul class="error-summary-list">
             @for(error <- form.errors) {
                 @showError(error)

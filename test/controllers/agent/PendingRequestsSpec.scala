@@ -168,6 +168,7 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
     mockCustomErrorHandler,
     StubPropertyRepresentationConnector,
     preAuthenticatedActionBuilders(userIsAgent = userIsAgent),
-    StubPropertyLinkConnector
+    StubPropertyLinkConnector,
+    stubMessagesControllerComponents()
   )
 }

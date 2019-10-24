@@ -31,21 +31,21 @@
         <div class="column-two-thirds">
 
             <div class="transaction-banner--complete">
-                <h1 class="transaction-banner__heading">@Messages("linkingRequestSubmitted.title1") @model.address.toString @Messages("linkingRequestSubmitted.title2")</h1>
-                <p class="heading-medium no-margin">@Messages("linkingRequestSubmitted.title3")</p>
+                <h1 class="transaction-banner__heading">@messages("linkingRequestSubmitted.title1") @model.address.toString @messages("linkingRequestSubmitted.title2")</h1>
+                <p class="heading-medium no-margin">@messages("linkingRequestSubmitted.title3")</p>
                 <p class="heading-medium no-margin">@model.refId</p>
             </div>
 
-            <h2 class="heading-medium">@Messages("heading.whatNext")</h2>
+            <h2 class="heading-medium">@messages("heading.whatNext")</h2>
 
-            <p>@Messages("linkSubmitted.whatNext.1")</p>
-            <p>@Messages("linkSubmitted.whatNext.2")</p>
-            <p>@Messages("linkSubmitted.whatNext.3")</p>
-            <p>@Messages("linkSubmitted.whatNext.4")</p>
+            <p>@messages("linkSubmitted.whatNext.1")</p>
+            <p>@messages("linkSubmitted.whatNext.2")</p>
+            <p>@messages("linkSubmitted.whatNext.3")</p>
+            <p>@messages("linkSubmitted.whatNext.4")</p>
 
-            <p><a href="@controllers.propertyLinking.routes.ClaimProperty.show" class="link">@Messages("link.addAnotherProperty")</a></p>
+            <p><a href="@controllers.propertyLinking.routes.ClaimProperty.show" class="link">@messages("link.addAnotherProperty")</a></p>
 
-            <p><a href="@routes.Dashboard.manageProperties()" id="backToDashBoard" class="button" role="button">@Messages("link.manageProperties")</a></p>
+            <p><a href="@routes.Dashboard.manageProperties()" id="backToDashBoard" class="button" role="button">@messages("link.manageProperties")</a></p>
 
         </div>
     </div>

@@ -32,7 +32,7 @@ import models.attachment.request.InitiateAttachmentRequest
 import play.api.Logger
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.{Action, AnyContent, Result}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.BusinessRatesAttachmentService
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import views.html.propertyLinking.{uploadEvidence, uploadRatesBill}
@@ -40,11 +40,16 @@ import views.html.propertyLinking.{uploadEvidence, uploadRatesBill}
 import scala.concurrent.{ExecutionContext, Future}
 
 class UploadController @Inject()(
-                                val errorHandler: CustomErrorHandler,
-                                authenticatedAction: AuthenticatedAction,
-                                withLinkingSession: WithLinkingSession,
-                                businessRatesAttachmentsServices: BusinessRatesAttachmentService
-                                )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, applicationConfig: ApplicationConfig) extends PropertyLinkingController {
+                                  val errorHandler: CustomErrorHandler,
+                                  authenticatedAction: AuthenticatedAction,
+                                  withLinkingSession: WithLinkingSession,
+                                  businessRatesAttachmentsServices: BusinessRatesAttachmentService
+                                )(
+                                  implicit executionContext: ExecutionContext,
+                                  override val messagesApi: MessagesApi,
+                                  override val controllerComponents: MessagesControllerComponents,
+                                  applicationConfig: ApplicationConfig
+                                ) extends PropertyLinkingController {
 
   def show(evidence: EvidenceChoices, errorMessage: Option[String]): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
 
@@ -52,9 +57,9 @@ class UploadController @Inject()(
     evidence match {
       case EvidenceChoices.RATES_BILL =>
         Ok(uploadRatesBill(session.submissionId, errorMessage.toList, session.uploadEvidenceData.attachments.getOrElse(Map.empty))).withHeaders("Access-Control-Allow-Origin" -> "*")
-      case EvidenceChoices.OTHER      =>
+      case EvidenceChoices.OTHER =>
         Ok(uploadEvidence(session.submissionId, errorMessage.toList, session.uploadEvidenceData.attachments.getOrElse(Map.empty), session.evidenceType.map(x => form.fill(x)).getOrElse(form)))
-      case _                          =>
+      case _ =>
         BadRequest(errorHandler.badRequestTemplate)
     }
   }
@@ -65,9 +70,9 @@ class UploadController @Inject()(
         .initiateAttachmentUpload(InitiateAttachmentPayload(attachmentRequest, applicationConfig.serviceUrl + routes.UploadController.show(evidence).url, applicationConfig.serviceUrl + routes.UploadController.upscanFailure(evidence, None)))
         .map(response => Ok(Json.toJson(response)))
         .recover {
-          case _: FileAttachmentFailed  =>
+          case _: FileAttachmentFailed =>
             BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
-          case ex: Exception            =>
+          case ex: Exception =>
             Logger.warn("FileAttachmentFailed Exception:", ex)
             InternalServerError("500 INTERNAL_SERVER_ERROR")
         }
@@ -115,7 +120,7 @@ class UploadController @Inject()(
 
     businessRatesAttachmentsServices
       .persistSessionData(session.copy(evidenceType = None), session.uploadEvidenceData.copy(attachments = Some(Map.empty)))
-      .map( _ => Redirect(routes.UploadController.show(evidence, errorMessage)))
+      .map(_ => Redirect(routes.UploadController.show(evidence, errorMessage)))
   }
 
   def remove(
@@ -127,6 +132,6 @@ class UploadController @Inject()(
 
     businessRatesAttachmentsServices
       .persistSessionData(session.copy(evidenceType = None), session.uploadEvidenceData.copy(attachments = Some(updatedSessionData)))
-      .map( _ => Redirect(routes.UploadController.show(evidence)))
+      .map(_ => Redirect(routes.UploadController.show(evidence)))
   }
 }

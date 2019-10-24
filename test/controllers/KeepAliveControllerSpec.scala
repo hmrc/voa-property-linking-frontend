@@ -18,18 +18,15 @@ package controllers
 
 import models.DetailedIndividualAccount
 import org.scalacheck.Arbitrary._
-import org.scalatest.mockito.MockitoSugar
-import play.api.i18n.MessagesApi
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
 import utils.StubIndividualAccountConnector
 
 
-class KeepAliveControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
+class KeepAliveControllerSpec extends VoaPropertyLinkingSpec {
 
-  val messagesApi  = app.injector.instanceOf[MessagesApi]
-  private object TestRegistrationController$ extends KeepAliveController(preAuthenticatedActionBuilders())
+  private object TestRegistrationController$ extends KeepAliveController(preAuthenticatedActionBuilders(), stubMessagesControllerComponents())
 
   "Keep Alive User Session" should
     "return keep alive returns 200" in {

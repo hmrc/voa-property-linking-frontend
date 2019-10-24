@@ -27,7 +27,7 @@
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            <h1 class="heading-xlarge">@Messages("enrolment.title")</h1>
+            <h1 class="heading-xlarge">@messages("enrolment.title")</h1>
 
             @includes.errorSummary(model, messagePrefix = Some("createAccount"))
 
@@ -112,14 +112,14 @@
             )
 
                 <details>
-                    <summary><span class="summary">@Messages("start.registration.IdontHave")</span></summary>
+                    <summary><span class="summary">@messages("start.registration.IdontHave")</span></summary>
                     <div class="panel-indent">
                     @Html(Messages("start.registration.IdontHave.answer"))
                     </div>
                 </details>
 
                 <p>
-                    <button type="submit" id="save-and-continue" class="button">@Messages("app.common.saveAndContinue")</button>
+                    <button type="submit" id="save-and-continue" class="button">@messages("app.common.saveAndContinue")</button>
                 </p>
             }
 

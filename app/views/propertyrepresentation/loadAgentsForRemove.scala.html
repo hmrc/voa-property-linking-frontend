@@ -30,12 +30,12 @@
 ) {
 
     <h1 class="heading-xlarge">
-    @Messages("propertyRepresentation.removeAgent.title")
+    @messages("propertyRepresentation.removeAgent.title")
     </h1>
 
-    <p class="lede">@Messages("propertyRepresentation.removeAgent.message.p1")</p>
+    <p class="lede">@messages("propertyRepresentation.removeAgent.message.p1")</p>
 
-    <p class="lede">@Messages("propertyRepresentation.removeAgent.message.p2")</p>
+    <p class="lede">@messages("propertyRepresentation.removeAgent.message.p2")</p>
 
     @includes.errorSummary(model.form)
 
@@ -54,9 +54,9 @@
                     <table id="middle-radio-buttons" class="margin-bottom-10 margin-top-10">
                         <tbody>
                             <tr>
-                                <th><span class="margin-left-5">@Messages("propertyRepresentation.table.title.remove")</span></th>
-                                <th><span class="margin-left-5">@Messages("propertyRepresentation.table.title.agentId")</span></th>
-                                <th><span class="margin-left-5">@Messages("propertyRepresentation.table.title.agentName")</span></th>
+                                <th><span class="margin-left-5">@messages("propertyRepresentation.table.title.remove")</span></th>
+                                <th><span class="margin-left-5">@messages("propertyRepresentation.table.title.agentId")</span></th>
+                                <th><span class="margin-left-5">@messages("propertyRepresentation.table.title.agentName")</span></th>
                             </tr>
 
                             @model.agents.zipWithIndex.map { case (agent, index) =>
@@ -71,7 +71,7 @@
                                                         }>
                                                 <label for="@radioId">
                                                     <span class="visually-hidden">
-                                                    @Messages("propertyRepresentation.table.title.appoint")
+                                                    @messages("propertyRepresentation.table.title.appoint")
                                                     </span>
                                                 </label>
                                             </div>
@@ -91,7 +91,7 @@
     <div class="margin-left-5">
 
         <p>
-            <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
+            <button type="submit" id="submit-button" class="button">@messages("propertyRepresentation.appointAgent.button")</button>
         </p>
 
     </div>
