@@ -298,6 +298,7 @@ managedByAgentsProperties.table.5=Actions
 dashboard.managedByAgentsProperties.status.approved=Approved
 dashboard.managedByAgentsProperties.status.pending=Pending
 dashboard.managedByAgentsProperties.status.declined=Declined
+dashboard.managedByAgentsProperties.status.revoked=Revoked
 dashboard.managedByAgentsProperties.noAgent=None
 managedByAgentsProperties.viewAssessments=View valuations
 managedByAgentsProperties.no.properties=This agent is not appointed to any properties
