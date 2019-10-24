@@ -75,6 +75,7 @@ class ApplicationConfig @Inject()(override val runModeConfiguration: Configurati
   lazy val fileUploadEnabled: Boolean = loadBooleanConfig("featureFlags.fileUploadEnabled")
   lazy val downtimePageEnabled: Boolean = loadBooleanConfig("featureFlags.downtimePageEnabled")
   lazy val dvrEnabled: Boolean = loadBooleanConfig("featureFlags.dvrEnabled")
+  lazy val externalDetailedValuationApiEnabled: Boolean = loadBooleanConfig("featureFlags.externalDetailedValuationApiEnabled")
 
   lazy val stubEnrolment: Boolean = loadBooleanConfig("enrolment.useStub")
 

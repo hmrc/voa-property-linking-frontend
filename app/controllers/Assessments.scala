@@ -123,23 +123,13 @@ class Assessments @Inject()(
                               baRef: String,
                               owner: Boolean
                             ) = authenticated.async { implicit request =>
-    businessRatesValuations.isViewable(authorisationId, assessmentRef) map {
-      case true =>
-        if (owner) {
-          Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+    if (owner) {
+      Future.successful(Redirect(config.businessRatesValuationUrl(s"external/property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId")))
 
-        } else {
-          Redirect(config.businessRatesValuationUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
-        }
-      case false =>
-        Redirect(
-          if (owner)
-            controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
-          else
-            controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
-        )
-
+    } else {
+      Future.successful(Redirect(config.businessRatesValuationUrl(s"external/property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId")))
     }
+
   }
 
   lazy val viewAssessmentForm = Form(Forms.single("nextUrl" -> text))
