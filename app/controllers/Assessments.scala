@@ -131,10 +131,10 @@ class Assessments @Inject()(
     businessRatesValuations.isViewable(authorisationId, assessmentRef) map {
       case true =>
         if (owner) {
-          Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+          Redirect(config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
 
         } else {
-          Redirect(config.businessRatesValuationUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+          Redirect(config.businessRatesValuationFrontendUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
         }
       case false =>
         Redirect(
