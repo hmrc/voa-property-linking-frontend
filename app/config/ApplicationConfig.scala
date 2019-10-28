@@ -31,7 +31,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
 
   protected def loadInt(key: String): Int = configuration.getOptional[Int](key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
-  def businessRatesValuationUrl(page: String): String = loadConfig("business-rates-valuation.url") + s"/$page"
+  def businessRatesValuationFrontendUrl(page: String): String = loadConfig("business-rates-valuation.url") + s"/$page"
 
   def businessRatesCheckUrl(page: String): String = loadConfig("business-rates-check.url") + s"/$page"
 
