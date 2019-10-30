@@ -33,7 +33,7 @@
 
     <div class="column-whole clearfix">
 
-        <h1 class="heading-large">@messages("propertyRepresentation.agentSummary.title",
+        <h1 class="heading-large" id="pageHeading">@messages("propertyRepresentation.agentSummary.title",
             agentOrganisation, action.agentCode.toString)</h1>
 
         @defining((action.checkPermission, action.challengePermission) match
@@ -41,7 +41,7 @@
             case (NotPermitted, StartAndContinue) => "challenges"
             case _ => "checks and challenges"
         }) { perms: String =>
-            <p class="lede">@messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString, perms)</p>
+            <p class="lede" id="mainBodyText">@messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString, perms)</p>
         }
 
         <a class="button" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.checkPermission.name, action.challengePermission.name, None).url">@messages("propertyRepresentation.agentSummary.select.more")</a>

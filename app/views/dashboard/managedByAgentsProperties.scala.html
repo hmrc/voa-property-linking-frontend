@@ -32,7 +32,7 @@
         <span class="heading-secondary">
             @messages("dashboard.managedByAgentsProperties.title", "")
         </span>
-        <span class="section-title">@model.agentName</span>
+        <span class="section-title" id="agentNameSpan">@model.agentName</span>
     </h1>
 
     @if(model.properties.isEmpty) {

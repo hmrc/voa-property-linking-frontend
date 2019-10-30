@@ -31,9 +31,9 @@
         <div class="column-two-thirds">
 
             <div class="transaction-banner--complete">
-                <h1 class="transaction-banner__heading">@messages("linkingRequestSubmitted.title1") @model.address.toString @messages("linkingRequestSubmitted.title2")</h1>
+                <h1 class="transaction-banner__heading" id="pageHeading">@messages("linkingRequestSubmitted.title1") @model.address.toString @messages("linkingRequestSubmitted.title2")</h1>
                 <p class="heading-medium no-margin">@messages("linkingRequestSubmitted.title3")</p>
-                <p class="heading-medium no-margin">@model.refId</p>
+                <p class="heading-medium no-margin" id="submissionIdText">@model.refId</p>
             </div>
 
             <h2 class="heading-medium">@messages("heading.whatNext")</h2>

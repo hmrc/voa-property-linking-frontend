@@ -29,7 +29,7 @@
 
             <h1 class="heading-large" id="assessment-address">
                 <span class="heading-secondary">@messages("declareCapacity.title")</span>
-                <span class="heading-main">@model.address.toString</span>
+                <span class="heading-main" id="addressSpan">@model.address.toString</span>
             </h1>
 
             @includes.errorSummary(model.form)
