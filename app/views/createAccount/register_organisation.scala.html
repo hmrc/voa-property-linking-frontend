@@ -70,7 +70,13 @@
                     '_value -> organisationFieldData.businessName
                 )
 
-                @address(model, keys.address, postcode = organisationFieldData.postcode, addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)} )
+                @address(
+                    form = model,
+                    fieldName = keys.address,
+                    postcode = organisationFieldData.postcode,
+                    addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)},
+                    selectedAddress = organisationFieldData.selectedAddress
+                )
 
                 <details>
                     <summary><span class="summary">@messages("createAccount.group.details.header.multipleAddress")</span></summary>
@@ -113,7 +119,7 @@
                     field = model(keys.isAgent),
                     options = Seq("true", "false"),
                     dataAttributes = Nil,
-                    fieldValue = Some(organisationFieldData.isAgent),
+                    fieldValue = organisationFieldData.isAgent,
                     args = Seq(
                         '_label -> Messages("enrolment.organisation.individualOrCompany"),
                         '_labelClass -> "form-label-bold",

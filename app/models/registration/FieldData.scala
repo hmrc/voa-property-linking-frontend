@@ -27,24 +27,28 @@ case class FieldData(firstName: String = "",
                      businessName: String = "",
                      businessPhoneNumber: String = "",
                      businessAddress: Address = Address.empty,
-                     isAgent: Boolean = false,
+                     isAgent: Option[Boolean] = None,
                      nino: String = "",
                      dob: Option[LocalDate] = None,
-                     mobilePhone: String = "")
+                     mobilePhone: String = "",
+                     selectedAddress: Option[String] = None)
 
 object FieldData {
 
-  def apply(userDetails: UserDetails): FieldData =
+  def apply(userDetails: UserDetails): FieldData = {
+    val fullName = userDetails.firstName.getOrElse("").split(" ")
+
     new FieldData(
-      firstName = userDetails.firstName.getOrElse(""),
-      lastName = userDetails.lastName.getOrElse(""),
+      firstName = fullName.head,
+      lastName = if(fullName.size > 1) fullName.drop(1).mkString(" ") else userDetails.lastName.getOrElse(""),
       postcode = userDetails.postcode.getOrElse(""),
       email = userDetails.email,
       businessName = "",
       businessPhoneNumber = "",
       businessAddress = Address(None, "", "", "", "", ""),
-      isAgent = true
+      isAgent = None
     )
+  }
 
   def apply(personDetails: IndividualUserAccountDetails) =
     new FieldData(
@@ -58,7 +62,8 @@ object FieldData {
       nino = personDetails.nino.nino,
       dob = Some(personDetails.dob),
       mobilePhone = personDetails.mobilePhone,
-      isAgent = false
+      isAgent = None,
+      selectedAddress = personDetails.selectedAddress
     )
 
   def apply(personDetails: AdminOrganisationAccountDetails) =
@@ -72,7 +77,8 @@ object FieldData {
       businessAddress = personDetails.address,
       nino = personDetails.nino.nino,
       dob = Some(personDetails.dob),
-      isAgent = personDetails.isAgent
+      isAgent = personDetails.isAgent,
+      selectedAddress = personDetails.selectedAddress
     )
 
   def apply(personDetails: AdminInExistingOrganisationAccountDetails) =

@@ -208,7 +208,7 @@ class RegistrationController @Inject()(
         email = acc.email,
         businessName = acc.companyName,
         businessPhoneNumber = acc.phone,
-        isAgent = acc.isAgent)
+        isAgent = Some(acc.isAgent))
     }).value
   }
 }

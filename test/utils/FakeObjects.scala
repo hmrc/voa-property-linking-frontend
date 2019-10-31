@@ -89,7 +89,7 @@ trait FakeObjects {
     confirmedEmail = "some@email.com",
     companyName = "Trading name",
     selectedAddress = None,
-    isAgent = false)
+    isAgent = Some(false))
 
   def userDetails(affinityGroup: AffinityGroup = AffinityGroup.Individual, credentialRole: CredentialRole = User): UserDetails = UserDetails(
     firstName = Some(firstName),
