@@ -292,7 +292,7 @@ package object resources {
     phone <- Gen.listOfN(8, Gen.numChar)
     address <- arbitrary[Address]
     isAgent <- arbitrary[Boolean]
-  } yield AdminOrganisationAccountDetails(firstName, lastName, companyName, address, dob, nino, phone.mkString, email, email, isAgent)
+  } yield AdminOrganisationAccountDetails(firstName, lastName, companyName, address, dob, nino, phone.mkString, email, email, Some(isAgent))
 
   implicit val arbitraryEnrolmentOrganisationAccountDetails: Arbitrary[AdminOrganisationAccountDetails] = Arbitrary(enrolmentOrgAccountDetailsGen)
 

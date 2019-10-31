@@ -81,7 +81,7 @@ object AdminUser {
     keys.phone -> nonEmptyText.verifying("Maximum length is 15", _.length <= 15),
     keys.email -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
     keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
-    keys.isAgent -> mandatoryBoolean,
+    keys.isAgent -> optional(mandatoryBoolean),
     keys.selectedAddress -> optional(text)
   )(AdminOrganisationAccountDetails.apply)(AdminOrganisationAccountDetails.unapply))
 
@@ -176,7 +176,7 @@ case class AdminOrganisationAccountDetails(firstName: String,
                                            phone: String,
                                            email: String,
                                            confirmedEmail: String,
-                                           isAgent: Boolean,
+                                           isAgent: Option[Boolean],
                                            selectedAddress: Option[String] = None) extends AdminUser {
   override def toIvDetails = IVDetails(
     firstName = firstName,
@@ -191,7 +191,7 @@ case class AdminOrganisationAccountDetails(firstName: String,
     email = email,
     confirmedEmail = confirmedEmail,
     phone = phone,
-    isAgent = isAgent
+    isAgent = isAgent.getOrElse(false)
   )
 }
 

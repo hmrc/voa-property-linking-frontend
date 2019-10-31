@@ -16,10 +16,16 @@
 
 @import helpers._
 
-@(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "", addressData: Option[Address] = None)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "", addressData: Option[Address] = None, selectedAddress: Option[String] = None)(implicit request: Request[_], messages: Messages)
+
+@addressIdValue = @{
+    val loadedData = addressData.fold("")(_.addressUnitId.fold("")(_.toString))
+    form(s"${fieldName}.addressId").value.getOrElse(loadedData)
+}
+
 
     @addressForm = {
-        <div id="textAddressDiv" style="display: none">
+        <div id="textAddressDiv" @if(selectedAddress.isEmpty){style="display: none"} else {style="display: block;"}>
             <div id="text-form-group" class="form-group">
                 <div id="lastNameGroup" class="">
                     <label class="form-label-bold" for="lastName">
@@ -29,14 +35,14 @@
                         fieldName
                     }_addressId_text" name="@{
                         fieldName
-                    }.addressId" value="@form(s"${fieldName}.addressId").value.getOrElse("")"/>
-                    <input type="hidden" id="selectedAddress" name="selectedAddress" value="@form("selectedAddress").value.getOrElse("")">
+                    }.addressId" value="@addressIdValue"/>
+                    <input type="hidden" id="selectedAddress" name="selectedAddress" value="@form("selectedAddress").value.getOrElse(selectedAddress.getOrElse(""))">
                     <div id="textAddressData"></div>
                 </div>
             </div>
         </div>
 
-        <div class="address--fields show-if-no-js" @if(addressData.isEmpty){style="display: none"} else {style="display: block;"}>
+        <div class="address--fields show-if-no-js" @if(addressData.isEmpty | selectedAddress.nonEmpty){style="display: none"} else {style="display: block;"}>
 
             @inputText(
                 field = form(s"$fieldName.line1"),
