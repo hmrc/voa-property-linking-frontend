@@ -37,7 +37,7 @@
                     <p>@Messages("uploadFile.allowedTypes.mustbe")</p>
 
                     <ul class="list list-bullet">
-                        <li>@Messages("uploadFile.allowedTypes.l1")</li>
+                        <li id="fileTypesText">@Messages("uploadFile.allowedTypes.l1")</li>
                     </ul>
 
                     <br />
@@ -74,18 +74,18 @@
                                     <a id="newFileButton" href="#" class="button-secondary">Choose a file to upload</a>
                                 </div>
                             } else {
-                                <h3>@messages("businessRatesAttachment.file.size.reached.max.limit")</h3>
+                                <h3 id="fileLimitText">@messages("businessRatesAttachment.file.size.reached.max.limit")</h3>
                             }
 
                             <ul class="upload-list">
                             @uploadedFiles.map { case (fileReference, upload) =>
                             <li>
-                                <span class="upload-list-file-name">@{upload.fileMetadata.toDisplayFileName}</span>
+                                <span class="upload-list-file-name" id="uploadedFileSpan">@{upload.fileMetadata.toDisplayFileName}</span>
 
                                 <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
 
                                 <span class="upload-list-file-remove">
-                                    <input type="submit" name="delete-upload_rate_bill" class="button-link remove-link" value="@messages("remove.file")" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
+                                    <input type="submit" id="deleteRatesBillButton" name="delete-upload_rate_bill" class="button-link remove-link" value="@messages("remove.file")" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
                                </span>
                             </li>
                             }
