@@ -40,7 +40,7 @@ object FieldData {
 
     new FieldData(
       firstName = fullName.head,
-      lastName = if(fullName.size > 1) fullName(1) else userDetails.lastName.getOrElse(""),
+      lastName = if(fullName.size > 1) fullName.drop(1).mkString(" ") else userDetails.lastName.getOrElse(""),
       postcode = userDetails.postcode.getOrElse(""),
       email = userDetails.email,
       businessName = "",
