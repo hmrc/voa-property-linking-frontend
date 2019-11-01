@@ -92,7 +92,9 @@ class AgentRelationshipService @Inject()(
       organisationId = organisationId,
       agentOrganisationId = agentOrganisationId,
       checkPermission = pagination.checkPermission.name,
-      challengePermission = pagination.challengePermission.name)
+      challengePermission = pagination.challengePermission.name,
+      agentAppointed = Some(pagination.agentAppointed)
+    )
 
   }
 
