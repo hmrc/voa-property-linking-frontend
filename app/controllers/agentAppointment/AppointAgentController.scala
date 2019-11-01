@@ -38,6 +38,7 @@ import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import models.searchApi.AgentPropertiesFilter.Both
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -108,7 +109,7 @@ class AppointAgentController @Inject()(
           challengePermission = AgentPermission.fromName(challengePermission).getOrElse(StartAndContinue),
           pageNumber = pagination.page,
           pageSize = pagination.pageSize,
-          agentAppointed = agentAppointed.getOrElse("BOTH")
+          agentAppointed = agentAppointed.getOrElse(Both.name)
         ),
         organisationId = request.organisationAccount.id, agentOrganisationId = agentOrganisation.fold(throw new IllegalArgumentException("agent organisation required."))(_.id))
       _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
