@@ -38,6 +38,7 @@ import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import models.searchApi.AgentPropertiesFilter.Both
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -100,13 +101,17 @@ class AppointAgentController @Inject()(
                                                       ): Action[AnyContent] = authenticated.async { implicit request =>
     for {
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
-      response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(params, AgentPropertiesParameters(
-        agentCode = agentCode,
-        checkPermission = AgentPermission.fromName(checkPermission).getOrElse(StartAndContinue),
-        challengePermission = AgentPermission.fromName(challengePermission).getOrElse(StartAndContinue),
-        pageNumber = pagination.page,
-        pageSize = pagination.pageSize),
-        request.organisationAccount.id, agentOrganisation.fold(throw new IllegalArgumentException("agent organisation required."))(_.id))
+      response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
+        params = params,
+        pagination = AgentPropertiesParameters(
+          agentCode = agentCode,
+          checkPermission = AgentPermission.fromName(checkPermission).getOrElse(StartAndContinue),
+          challengePermission = AgentPermission.fromName(challengePermission).getOrElse(StartAndContinue),
+          pageNumber = pagination.page,
+          pageSize = pagination.pageSize,
+          agentAppointed = agentAppointed.getOrElse(Both.name)
+        ),
+        organisationId = request.organisationAccount.id, agentOrganisationId = agentOrganisation.fold(throw new IllegalArgumentException("agent organisation required."))(_.id))
       _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
     } yield {
       agentOrganisation match {
