@@ -25,11 +25,17 @@ import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class IdentityVerification @Inject()(serverConfig: ServicesConfig, config: ApplicationConfig, http: HttpClient)(implicit val executionContext: ExecutionContext) {
+class IdentityVerification @Inject()(
+                                      serverConfig: ServicesConfig,
+                                      config: ApplicationConfig,
+                                      http: HttpClient
+                                    )(implicit val executionContext: ExecutionContext) {
+
+  val baseUrl = serverConfig.baseUrl("identity-verification")
 
   def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean] = {
     if (config.ivEnabled) {
-      http.GET[JsValue](s"${config.ivBaseUrl}/mdtp/journey/journeyId/$journeyId").map(r => (r \ "result").asOpt[String].contains("Success"))
+      http.GET[JsValue](s"$baseUrl/mdtp/journey/journeyId/$journeyId").map(r => (r \ "result").asOpt[String].contains("Success"))
     } else {
       Future.successful(true)
     }
