@@ -43,7 +43,7 @@ class UploadController @Inject()(
                                   val errorHandler: CustomErrorHandler,
                                   authenticatedAction: AuthenticatedAction,
                                   withLinkingSession: WithLinkingSession,
-                                  businessRatesAttachmentsServices: BusinessRatesAttachmentService
+                                  businessRatesAttachmentsService: BusinessRatesAttachmentService
                                 )(
                                   implicit executionContext: ExecutionContext,
                                   override val messagesApi: MessagesApi,
@@ -58,7 +58,7 @@ class UploadController @Inject()(
       case EvidenceChoices.RATES_BILL =>
         Ok(uploadRatesBill(session.submissionId, errorMessage.toList, session.uploadEvidenceData.attachments.getOrElse(Map.empty))).withHeaders("Access-Control-Allow-Origin" -> "*")
       case EvidenceChoices.OTHER =>
-        Ok(uploadEvidence(session.submissionId, errorMessage.toList, session.uploadEvidenceData.attachments.getOrElse(Map.empty), session.evidenceType.map(x => form.fill(x)).getOrElse(form)))
+        Ok(uploadEvidence(session.submissionId, errorMessage.toList, session.uploadEvidenceData.attachments.getOrElse(Map.empty), session.uploadEvidenceData.fileInfo.map(x => x.evidenceType.fold(form)(e => form.fill(e))).getOrElse(form)))
       case _ =>
         BadRequest(errorHandler.badRequestTemplate)
     }
@@ -66,7 +66,7 @@ class UploadController @Inject()(
 
   def initiate(evidence: EvidenceChoices): Action[JsValue] = authenticatedAction.andThen(withLinkingSession).async(parse.json) { implicit request =>
     withJsonBody[InitiateAttachmentRequest] { attachmentRequest =>
-      businessRatesAttachmentsServices
+      businessRatesAttachmentsService
         .initiateAttachmentUpload(InitiateAttachmentPayload(attachmentRequest, applicationConfig.serviceUrl + routes.UploadController.show(evidence).url, applicationConfig.serviceUrl + routes.UploadController.upscanFailure(evidence, None)))
         .map(response => Ok(Json.toJson(response)))
         .recover {
@@ -83,14 +83,14 @@ class UploadController @Inject()(
     def upload(uploadedData: UploadEvidenceData)(implicit request: LinkingSessionRequest[_]): Option[Future[Result]] = {
       PartialFunction.condOpt(request.ses.uploadEvidenceData.attachments) {
         case Some(fileData) if fileData.nonEmpty =>
-          businessRatesAttachmentsServices.persistSessionData(request.ses, uploadedData).map(x => Redirect(routes.Declaration.show().url))
+          businessRatesAttachmentsService.persistSessionData(request.ses, uploadedData).map(x => Redirect(routes.Declaration.show().url))
       }
     }
 
     val session = request.ses
     evidence match {
       case EvidenceChoices.RATES_BILL =>
-        upload(session.uploadEvidenceData.copy(linkBasis = RatesBillFlag, fileInfo = session.uploadEvidenceData.fileInfo.map(_.copy(evidenceType = RatesBillType))))
+        upload(session.uploadEvidenceData.copy(linkBasis = RatesBillFlag, fileInfo = session.uploadEvidenceData.fileInfo.map(_.copy(evidenceType = Some(RatesBillType)))))
           .getOrElse(Future.successful(BadRequest(uploadRatesBill(request.ses.submissionId, List("error.businessRatesAttachment.file.not.selected"), Map()))))
       case EvidenceChoices.OTHER =>
         form.bindFromRequest().fold(
@@ -101,7 +101,7 @@ class UploadController @Inject()(
             val sessionUploadData: UploadEvidenceData = updatedSession.uploadEvidenceData
               .copy(
                 linkBasis = OtherEvidenceFlag,
-                fileInfo = updatedSession.uploadEvidenceData.fileInfo.map(_.copy(evidenceType = formData)))
+                fileInfo = updatedSession.uploadEvidenceData.fileInfo.map(_.copy(evidenceType = Some(formData))))
             upload(sessionUploadData)
               .getOrElse(Future.successful(BadRequest(uploadEvidence(request.ses.submissionId, List("error.businessRatesAttachment.file.not.selected"), Map(), form))))
           })
@@ -118,7 +118,7 @@ class UploadController @Inject()(
   def upscanFailure(evidence: EvidenceChoices, errorMessage: Option[String]): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     val session = request.ses
 
-    businessRatesAttachmentsServices
+    businessRatesAttachmentsService
       .persistSessionData(session.copy(evidenceType = None), session.uploadEvidenceData.copy(attachments = Some(Map.empty)))
       .map(_ => Redirect(routes.UploadController.show(evidence, errorMessage)))
   }
@@ -130,7 +130,7 @@ class UploadController @Inject()(
     val session = request.ses
     val updatedSessionData = session.uploadEvidenceData.attachments.map(map => map - fileReference).getOrElse(Map.empty)
 
-    businessRatesAttachmentsServices
+    businessRatesAttachmentsService
       .persistSessionData(session.copy(evidenceType = None), session.uploadEvidenceData.copy(attachments = Some(updatedSessionData)))
       .map(_ => Redirect(routes.UploadController.show(evidence)))
   }

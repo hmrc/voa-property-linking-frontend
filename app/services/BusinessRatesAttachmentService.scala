@@ -54,9 +54,11 @@ class BusinessRatesAttachmentService @Inject()(
     }
   }
 
-  def updateSessionData(sessionUploadEvidenceData: UploadEvidenceData,
+  private def updateSessionData(sessionUploadEvidenceData: UploadEvidenceData,
                         initiateAttachmentRequest: InitiateAttachmentPayload,
-                        initiateAttachmentResult: PreparedUpload, linkBasis: LinkBasis = NoEvidenceFlag, evidenceType: EvidenceType = RatesBillType): UploadEvidenceData = {
+                        initiateAttachmentResult: PreparedUpload, linkBasis: LinkBasis = NoEvidenceFlag): UploadEvidenceData = {
+
+    val evidenceType = if(linkBasis == RatesBillFlag) Some(RatesBillType) else None
       sessionUploadEvidenceData.copy(
         linkBasis = linkBasis,
         fileInfo = Some(FileInfo(initiateAttachmentRequest.fileName, evidenceType)),
