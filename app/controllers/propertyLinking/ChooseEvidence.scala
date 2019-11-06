@@ -29,7 +29,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.BusinessRatesAttachmentService
+import services.BusinessRatesAttachmentsService
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext
@@ -38,7 +38,7 @@ class ChooseEvidence @Inject()(
                                 val errorHandler: CustomErrorHandler,
                                 authenticatedAction: AuthenticatedAction,
                                 withLinkingSession: WithLinkingSession,
-                                businessRatesAttachmentService: BusinessRatesAttachmentService
+                                businessRatesAttachmentService: BusinessRatesAttachmentsService
                               )(
                                 implicit executionContext: ExecutionContext,
                                 override val messagesApi: MessagesApi,

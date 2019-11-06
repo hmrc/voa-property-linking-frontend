@@ -16,27 +16,27 @@
 
 package connectors
 
-import connectors.attachments.BusinessRatesAttachmentConnector
+import connectors.attachments.BusinessRatesAttachmentsConnector
 import controllers.VoaPropertyLinkingSpec
 import models.attachment._
 import models.attachment.request.InitiateAttachmentRequest
 import models.upscan._
 import play.api.libs.json.JsObject
 
-class BusinessRatesAttachmentConnectorSpec extends VoaPropertyLinkingSpec {
+class BusinessRatesAttachmentsConnectorSpec extends VoaPropertyLinkingSpec {
 
   val initiateAttachmentRequest = InitiateAttachmentRequest("FILE_NAME", "img/jpeg")
   val attachments = mock[Attachment]
 
   "initiateAttachment" should "call to initiateAttachment return a successful" in {
-    val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp, applicationConfig)
+    val testConnector = new BusinessRatesAttachmentsConnector(mockWSHttp, applicationConfig)
     mockHttpPOST[InitiateAttachmentRequest, PreparedUpload]("tst-url", preparedUpload)
     whenReady(testConnector.initiateAttachmentUpload(InitiateAttachmentPayload(initiateAttachmentRequest, "http://example.com", "http://example.com/failure")))(_ mustBe preparedUpload)
   }
 
 
     "submitFile" should   "submit the file" in {
-      val testConnector = new BusinessRatesAttachmentConnector(mockWSHttp,applicationConfig)(ec)
+      val testConnector = new BusinessRatesAttachmentsConnector(mockWSHttp,applicationConfig)(ec)
       mockHttpPATCH[JsObject, Attachment]("tst-url", attachments)
       whenReady(testConnector.submitFile("file-reference", "submission-id"))(_ mustBe attachments)
     }

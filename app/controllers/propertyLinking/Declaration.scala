@@ -31,7 +31,7 @@ import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
-import services.BusinessRatesAttachmentService
+import services.BusinessRatesAttachmentsService
 import services.propertylinking.PropertyLinkingService
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
@@ -45,7 +45,7 @@ class Declaration @Inject()(
                              val errorHandler: CustomErrorHandler,
                              propertyLinkService: PropertyLinkingService,
                              @Named("propertyLinkingSession") sessionRepository: SessionRepo,
-                             businessRatesAttachmentService: BusinessRatesAttachmentService,
+                             businessRatesAttachmentService: BusinessRatesAttachmentsService,
                              authenticatedAction: AuthenticatedAction,
                              withLinkingSession: WithLinkingSession
                            )(

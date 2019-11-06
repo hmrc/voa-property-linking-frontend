@@ -33,7 +33,7 @@ import play.api.Logger
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
-import services.BusinessRatesAttachmentService
+import services.BusinessRatesAttachmentsService
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import views.html.propertyLinking.{uploadEvidence, uploadRatesBill}
 
@@ -43,7 +43,7 @@ class UploadController @Inject()(
                                   val errorHandler: CustomErrorHandler,
                                   authenticatedAction: AuthenticatedAction,
                                   withLinkingSession: WithLinkingSession,
-                                  businessRatesAttachmentsService: BusinessRatesAttachmentService
+                                  businessRatesAttachmentsService: BusinessRatesAttachmentsService
                                 )(
                                   implicit executionContext: ExecutionContext,
                                   override val messagesApi: MessagesApi,

@@ -30,7 +30,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class BusinessRatesAttachmentConnector @Inject()(
+class BusinessRatesAttachmentsConnector @Inject()(
                                                   val http: HttpClient,
                                                   val appConfig: ServicesConfig
                                                 )(implicit executionContext: ExecutionContext)

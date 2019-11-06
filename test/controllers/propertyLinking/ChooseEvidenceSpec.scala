@@ -27,7 +27,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
-import services.BusinessRatesAttachmentService
+import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.HtmlPage
 
@@ -42,7 +42,7 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
     ).thenReturn(Future.successful(()))
     f
   }
-  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
+  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
 
   private class TestChooseEvidence (withLinkingSession: WithLinkingSession) extends ChooseEvidence(mockCustomErrorHandler, preAuthenticatedActionBuilders(), preEnrichedActionRefiner(), mockBusinessRatesAttachmentService) {
     val property = testProperty
