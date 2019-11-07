@@ -103,19 +103,19 @@
                         }
 
                         <ul class="upload-list">
-                        @uploadedFiles.map { case (fileReference, upload) =>
-                        <li>
-                            <span class="upload-list-file-name" id="uploadedFileText">@{upload.fileMetadata.toDisplayFileName}</span>
+                            @uploadedFiles.map { case (fileReference, upload) =>
+                                <li>
+                                    <span class="upload-list-file-name" id="uploadedFileText">@{upload.fileMetadata.toDisplayFileName}</span>
 
-                            <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
+                                    <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
 
-                            <span class="upload-list-file-remove">
+                                    <span class="upload-list-file-remove">
 
-                            <input type="submit" id="removeEvidenceButton" name="delete-upload-evidence" class="button-link remove-link" value="@messages("remove.file")" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
+                                        <input type="submit" id="removeEvidenceButton" name="delete-upload-evidence" class="button-link remove-link" value="@messages("remove.file")" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
 
-                        </span>
-                        </li>
-                        }
+                                    </span>
+                                </li>
+                            }
                         </ul>
                     </div>
                 }

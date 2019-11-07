@@ -22,7 +22,7 @@ import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.Inject
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
-import services.BusinessRatesAttachmentService
+import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.propertylinking.exceptions.attachments.AttachmentException
 import utils.Cats
@@ -30,8 +30,8 @@ import utils.Cats
 import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyLinkingService @Inject()(
-                                      businessRatesAttachmentService: BusinessRatesAttachmentService,
-                                      propertyLinkConnector: PropertyLinkConnector
+                                        businessRatesAttachmentService: BusinessRatesAttachmentsService,
+                                        propertyLinkConnector: PropertyLinkConnector
                                       )(implicit executionContext: ExecutionContext) extends Cats {
 
   def submit(

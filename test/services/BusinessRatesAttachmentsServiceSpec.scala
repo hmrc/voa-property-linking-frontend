@@ -18,7 +18,7 @@ package services
 
 import actions.propertylinking.requests.LinkingSessionRequest
 import actions.requests.BasicAuthenticatedRequest
-import connectors.attachments.BusinessRatesAttachmentConnector
+import connectors.attachments.BusinessRatesAttachmentsConnector
 import models.LinkingSession
 import models.attachment.InitiateAttachmentPayload
 import models.attachment.request.InitiateAttachmentRequest
@@ -33,8 +33,8 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class BusinessRatesAttachmentServiceSpec extends ServiceSpec {
-  val businessRatesAttachmentConnector = mock[BusinessRatesAttachmentConnector]
+class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
+  val businessRatesAttachmentConnector = mock[BusinessRatesAttachmentsConnector]
   val mockSessionRepo = mock[SessionRepo]
   val initiateAttachmentRequest = InitiateAttachmentPayload(InitiateAttachmentRequest("FILE_NAME", "img/jpeg"), "http://example.com", "http://example.com/failure")
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
@@ -42,8 +42,8 @@ class BusinessRatesAttachmentServiceSpec extends ServiceSpec {
   implicit val linkingSessionRequest = LinkingSessionRequest(linkingSessionData, 1234l, detailedIndividualAccount, groupAccount(agent = true), request)
   implicit val hc = HeaderCarrier()
 
-  val businessRatesChallengeService = new BusinessRatesAttachmentService(
-    businessRatesAttachmentConnector = businessRatesAttachmentConnector,
+  val businessRatesChallengeService = new BusinessRatesAttachmentsService(
+    businessRatesAttachmentsConnector = businessRatesAttachmentConnector,
     sessionRepository = mockSessionRepo,
     auditingService = mockAuditingService)
 

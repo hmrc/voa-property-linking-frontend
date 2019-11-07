@@ -48,7 +48,7 @@ trait FakeObjects {
   val fileUpscanMetaData: Map[String, UploadedFileDetails] = Map(FILE_REFERENCE -> uploadedFileDetails)
   val attachment = Attachment(UUID.randomUUID(), Instant.now(), "fileName", "image/jpeg", "DESTINATION", Map(), Initiated, List(), None, None, principal)
   val noEvidencelinkBasis: NoEvidenceFlag.type = NoEvidenceFlag
-  val fileInfo = FileInfo("test.pdf", RatesBillType)
+  val fileInfo = FileInfo("test.pdf", Some(RatesBillType))
   val uploadEvidenceData = UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
   val detailedIndividualAccount = DetailedIndividualAccount(ggExternalId, "", 1L, 2L, IndividualDetails("", "", "", "", None, 12))
   val individualUserDetails: UserDetails = userDetails(AffinityGroup.Individual)

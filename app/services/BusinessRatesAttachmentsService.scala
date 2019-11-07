@@ -19,7 +19,7 @@ package services
 import actions.propertylinking.requests.LinkingSessionRequest
 import auditing.AuditingService
 import cats.data.EitherT
-import connectors.attachments.BusinessRatesAttachmentConnector
+import connectors.attachments.BusinessRatesAttachmentsConnector
 import javax.inject.{Inject, Named}
 import models._
 import models.attachment._
@@ -32,15 +32,15 @@ import utils.Cats
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class BusinessRatesAttachmentService @Inject()(
-                                                businessRatesAttachmentConnector: BusinessRatesAttachmentConnector,
-                                                @Named("propertyLinkingSession") sessionRepository: SessionRepo,
-                                                auditingService: AuditingService
+class BusinessRatesAttachmentsService @Inject()(
+                                                 businessRatesAttachmentsConnector: BusinessRatesAttachmentsConnector,
+                                                 @Named("propertyLinkingSession") sessionRepository: SessionRepo,
+                                                 auditingService: AuditingService
                                               )(implicit executionContext: ExecutionContext) extends Cats {
 
   def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload)(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): Future[PreparedUpload] = {
     for {
-      initiateAttachmentResult  <- businessRatesAttachmentConnector.initiateAttachmentUpload(initiateAttachmentRequest)
+      initiateAttachmentResult  <- businessRatesAttachmentsConnector.initiateAttachmentUpload(initiateAttachmentRequest)
       updatedSessionData        = updateSessionData(request.ses.uploadEvidenceData, initiateAttachmentRequest, initiateAttachmentResult)
       _                         <- persistSessionData(request.ses, updatedSessionData)
     } yield {
@@ -54,9 +54,11 @@ class BusinessRatesAttachmentService @Inject()(
     }
   }
 
-  def updateSessionData(sessionUploadEvidenceData: UploadEvidenceData,
+  private def updateSessionData(sessionUploadEvidenceData: UploadEvidenceData,
                         initiateAttachmentRequest: InitiateAttachmentPayload,
-                        initiateAttachmentResult: PreparedUpload, linkBasis: LinkBasis = NoEvidenceFlag, evidenceType: EvidenceType = RatesBillType): UploadEvidenceData = {
+                        initiateAttachmentResult: PreparedUpload, linkBasis: LinkBasis = NoEvidenceFlag): UploadEvidenceData = {
+
+    val evidenceType = if(linkBasis == RatesBillFlag) Some(RatesBillType) else None
       sessionUploadEvidenceData.copy(
         linkBasis = linkBasis,
         fileInfo = Some(FileInfo(initiateAttachmentRequest.fileName, evidenceType)),
@@ -80,7 +82,7 @@ class BusinessRatesAttachmentService @Inject()(
   }
 
   def getAttachment(reference: String)(implicit hc: HeaderCarrier): Future[Attachment] =
-    businessRatesAttachmentConnector.getAttachment(reference)
+    businessRatesAttachmentsConnector.getAttachment(reference)
 
   def patchMetadata(submissionId: String, reference: String)(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): Future[Attachment] = {
       auditingService.sendEvent(
@@ -91,7 +93,7 @@ class BusinessRatesAttachmentService @Inject()(
           "propertyLinkSubmissionId" -> submissionId)
       )
 
-      businessRatesAttachmentConnector.submitFile(reference, submissionId)
+      businessRatesAttachmentsConnector.submitFile(reference, submissionId)
     }
 
 }

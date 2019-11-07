@@ -27,7 +27,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
-import services.BusinessRatesAttachmentService
+import services.BusinessRatesAttachmentsService
 import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.voa.propertylinking.exceptions.attachments.AttachmentException
@@ -123,7 +123,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
     f
   }
 
-  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
+  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
 
   import cats.instances.future._
 
