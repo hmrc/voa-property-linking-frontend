@@ -16,6 +16,8 @@
 
 package models.registration
 
+import java.time.LocalDate
+
 import models.Address
 
 case class FieldData(firstName: String = "",
@@ -24,8 +26,11 @@ case class FieldData(firstName: String = "",
                      email: String = "",
                      businessName: String = "",
                      businessPhoneNumber: String = "",
-                     businessAddress: Address = Address(addressUnitId = None, line1 = "", line2 = "", line3 = "", line4 = "", postcode = ""),
-                     isAgent: Boolean = false)
+                     businessAddress: Address = Address.empty,
+                     isAgent: Boolean = false,
+                     nino: String = "",
+                     dob: Option[LocalDate] = None,
+                     mobilePhone: String = "")
 
 object FieldData {
 
@@ -40,4 +45,48 @@ object FieldData {
       businessAddress = Address(None, "", "", "", "", ""),
       isAgent = true
     )
+
+  def apply(personDetails: IndividualUserAccountDetails) =
+    new FieldData(
+      firstName = personDetails.firstName,
+      lastName = personDetails.lastName,
+      postcode = personDetails.address.postcode,
+      email = personDetails.email,
+      businessName = personDetails.tradingName.getOrElse(""),
+      businessPhoneNumber = personDetails.phone,
+      businessAddress = personDetails.address,
+      nino = personDetails.nino.nino,
+      dob = Some(personDetails.dob),
+      mobilePhone = personDetails.mobilePhone,
+      isAgent = false
+    )
+
+  def apply(personDetails: AdminOrganisationAccountDetails) =
+    new FieldData(
+      firstName = personDetails.firstName,
+      lastName = personDetails.lastName,
+      postcode = personDetails.address.postcode,
+      email = personDetails.email,
+      businessName = personDetails.companyName,
+      businessPhoneNumber = personDetails.phone,
+      businessAddress = personDetails.address,
+      nino = personDetails.nino.nino,
+      dob = Some(personDetails.dob),
+      isAgent = personDetails.isAgent
+    )
+
+  def apply(personDetails: AdminInExistingOrganisationAccountDetails) =
+    new FieldData(
+      firstName = personDetails.firstName,
+      lastName = personDetails.lastName,
+      nino = personDetails.nino.nino,
+      dob = Some(personDetails.dob)
+    )
+
+  def apply(personDetails: AssistantUserAccountDetails) =
+    new FieldData(
+      firstName = personDetails.firstName,
+      lastName = personDetails.lastName
+    )
+
 }

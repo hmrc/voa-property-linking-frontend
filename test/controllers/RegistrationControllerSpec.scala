@@ -16,9 +16,10 @@
 
 package controllers
 
+import actions.registration.SessionUserDetailsAction
 import controllers.registration.RegistrationController
 import models.identityVerificationProxy.Link
-import models.registration.{RegistrationSuccess, UserDetails}
+import models.registration.{RegistrationSuccess, User, UserDetails}
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -53,9 +54,12 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   val mockRegistrationService = mock[RegistrationService]
 
-  private def testRegistrationController(userDetails: UserDetails): RegistrationController = new RegistrationController(
+  val mockSessionUserDetailsAction = mock[SessionUserDetailsAction]
+
+  private def testRegistrationController(userDetails: UserDetails, sessionUserDetails: User = adminOrganisationAccountDetails): RegistrationController = new RegistrationController(
     mockCustomErrorHandler,
     ggPreauthenticated(userDetails),
+    sessionUserDetailsAction(sessionUserDetails),
     StubGroupAccountConnector,
     StubIndividualAccountConnector,
     StubAddresses,
@@ -82,7 +86,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val user = userDetails(affinityGroup = AffinityGroup.Individual)
 
-    val res = testRegistrationController(user).show()(FakeRequest())
+    val res = testRegistrationController(user, individualUserAccountDetails).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -126,7 +130,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val groupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = user.groupIdentifier)
     StubGroupAccountConnector.stubAccount(groupAccount)
 
-    val res = testRegistrationController(user).show()(FakeRequest())
+    val res = testRegistrationController(user, adminInExistingOrganisationAccountDetails).show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)

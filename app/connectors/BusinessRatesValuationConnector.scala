@@ -17,8 +17,6 @@
 package connectors
 
 import javax.inject.Inject
-
-import play.api.Logger
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.config.ServicesConfig
@@ -29,15 +27,6 @@ class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: Ht
   val url = config.baseUrl("business-rates-valuation")
 
   def isViewable(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {
-    http.GET[HttpResponse](s"$url/property-link/$authorisationId/assessment/$assessmentRef") map {
-      _ =>
-        Logger.debug("isViewable= SUCCESS")
-        true
-    } recover {
-      case _: NotFoundException
-      =>
-        Logger.debug("isViewable= FAILED")
-        false
-    }
+    http.GET[HttpResponse](s"${url}property-link/$authorisationId/assessment/$assessmentRef") map { _ => true } recover { case _: NotFoundException => false }
   }
 }

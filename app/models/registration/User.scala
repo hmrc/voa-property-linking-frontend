@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-package models
+package models.registration
 
-import play.api.libs.json.Json
-
-case class Address(addressUnitId: Option[Long], line1: String, line2: String, line3: String, line4: String, postcode: String)
-
-object Address {
-  implicit val format = Json.format[Address]
-
-  val empty = Address(addressUnitId = None, line1 = "", line2 = "", line3 = "", line4 = "", postcode = "")
+trait User {
+  val firstName: String
+  val lastName: String
 }
-
