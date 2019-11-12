@@ -36,6 +36,6 @@ object StubBusinessRatesValuation extends BusinessRatesValuationConnector(applic
     stubbedValuations = Map()
   }
 
-  override def isViewable(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] =
-    Future.successful(stubbedValuations(assessmentRef))
+  override def isViewable(uarn: Long, valuationId: Long, propertyLinkSubmissionId: String)(implicit hc: HeaderCarrier): Future[Boolean] =
+    Future.successful(stubbedValuations(valuationId))
 }

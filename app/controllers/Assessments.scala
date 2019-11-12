@@ -128,22 +128,25 @@ class Assessments @Inject()(
                               baRef: String,
                               owner: Boolean
                             ) = authenticated.async { implicit request =>
-    businessRatesValuations.isViewable(authorisationId, assessmentRef) map {
-      case true =>
-        if (owner) {
-          Redirect(config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+    propertyLinks.getMyOrganisationPropertyLink(submissionId).flatMap {
+      case Some(propertyLink) =>
+        businessRatesValuations.isViewable(propertyLink.uarn, assessmentRef, submissionId) map {
+          case true =>
+            if (owner) {
+              Redirect(config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
 
-        } else {
-          Redirect(config.businessRatesValuationFrontendUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+            } else {
+              Redirect(config.businessRatesValuationFrontendUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+            }
+          case false =>
+            Redirect(
+              if (owner)
+                controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
+              else
+                controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
+            )
         }
-      case false =>
-        Redirect(
-          if (owner)
-            controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
-          else
-            controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
-        )
-
+      case None => Future.successful(notFound)
     }
   }
 
