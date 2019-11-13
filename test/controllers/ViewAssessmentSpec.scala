@@ -37,6 +37,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
   private object TestAssessmentController extends Assessments(
     mockCustomErrorHandler,
     StubPropertyLinkConnector,
+    mockPropertyLinkService,
     preAuthenticatedActionBuilders(),
     mockSubmissionIds,
     mockDvrCaseManagement,

@@ -51,8 +51,9 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     val linkingSession = LinkingSession(address = "123 Test Lane",
       uarn = 1, submissionId = "a001", personId = individualAccount.individualId, declaration = capacityDeclaration, uploadEvidenceData = uploadEvidenceData)
 
-    mockHttpPOST[PropertyLinkRequest, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.createPropertyLink(mock[PropertyLinkPayload]))(_ mustBe ())
+    val response = HttpResponse(OK)
+    mockHttpPOST[PropertyLinkRequest, HttpResponse]("tst-url", response)
+    whenReady(connector.createPropertyLink(mock[PropertyLinkPayload]))(_ mustBe response)
   }
 
   "appointableProperties" must "return the properties appointable to an agent" in new Setup {
