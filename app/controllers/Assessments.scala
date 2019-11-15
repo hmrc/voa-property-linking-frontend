@@ -31,12 +31,14 @@ import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.voa.propertylinking.services.PropertyLinkService
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class Assessments @Inject()(
                              val errorHandler: CustomErrorHandler,
                              propertyLinks: PropertyLinkConnector,
+                             propertyLinkService: PropertyLinkService,
                              authenticated: AuthenticatedAction,
                              submissionIds: SubmissionIdConnector,
                              dvrCaseManagement: DVRCaseManagementConnector,
@@ -128,7 +130,7 @@ class Assessments @Inject()(
                               baRef: String,
                               owner: Boolean
                             ) = authenticated.async { implicit request =>
-    propertyLinks.getMyOrganisationPropertyLink(submissionId).flatMap {
+    propertyLinkService.getSingularPropertyLink(submissionId, owner).flatMap {
       case Some(propertyLink) =>
         businessRatesValuations.isViewable(propertyLink.uarn, assessmentRef, submissionId) map {
           case true =>
