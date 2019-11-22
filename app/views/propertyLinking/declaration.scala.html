@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.play.views.html.helpers.form
+@import uk.gov.hmrc.play.views.html.helpers._
 @import helpers._
 @import binders.propertylinks._
 @import controllers.propertyLinking.DeclarationVM
@@ -40,40 +40,41 @@
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            <h1 class="heading-xlarge">@Messages("declaration.title")</h1>
+            <h1 class="heading-xlarge">@messages("declaration.title")</h1>
 
             @includes.errorSummary(model.form)
 
             @form(controllers.propertyLinking.routes.Declaration.submit()) {
 
-                <p>@Messages("declaration.p.1")</p>
+                <p>@messages("declaration.p.1")</p>
 
                 <ul class="list-bullet">
-                    <li>@Messages("declaration.1")</li>
-                    <li>@Messages("declaration.2")</li>
+                    <li>@messages("declaration.1")</li>
+                    <li>@messages("declaration.2")</li>
                 </ul>
 
-                <p>@Messages("declaration.p.2")</p>
+                <p>@messages("declaration.p.2")</p>
 
                 <div class="notice">
                     <i class="icon icon-important">
                         <span class="visually-hidden">Warning</span>
                     </i>
                     <strong class="bold-small">
-                        @Messages("declaration.p.3")
+                        @messages("declaration.p.3")
                     </strong>
                 </div>
 
-                @checkbox(
+                @singleCheckbox(
                     field = model.form("declaration"),
                     '_label -> "declaration.iAgree",
                     '_labelClass -> "",
                     '_text -> Messages("declaration.iAgree"),
                     '_class -> "form-control",
+                    '_id -> "declarationCheckBox",
                     '_noTopLabel -> true
                 )
                 <p>
-                    <button id="continue" class="button">@Messages("label.continue")</button>
+                    <button id="continue" class="button">@messages("label.continue")</button>
                 </p>
             }
 

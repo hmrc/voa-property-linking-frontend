@@ -18,11 +18,12 @@ package controllers
 
 import config.ApplicationConfig
 import javax.inject.Inject
-import play.api.i18n.MessagesApi
-import play.api.mvc._
+import play.api.mvc.MessagesControllerComponents
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
-class Application @Inject()(val errorHandler: CustomErrorHandler)(implicit val messagesApi: MessagesApi, config: ApplicationConfig) extends PropertyLinkingController {
+class Application @Inject()(val errorHandler: CustomErrorHandler)(
+  implicit override val controllerComponents: MessagesControllerComponents,
+  config: ApplicationConfig) extends PropertyLinkingController {
 
   def addUserToGG = Action { implicit request =>
     Ok(views.html.addUserToGG())
@@ -36,9 +37,7 @@ class Application @Inject()(val errorHandler: CustomErrorHandler)(implicit val m
     Ok(views.html.start(RegisterHelper.choiceForm))
   }
 
-  def logOut() = Action { request =>
-    Redirect(routes.Application.start()).withNewSession
-  }
+  def logOut() = Action(Redirect(routes.Application.start()).withNewSession)
 
   def contactUs() = Action { implicit request =>
     Ok(views.html.contactUs())

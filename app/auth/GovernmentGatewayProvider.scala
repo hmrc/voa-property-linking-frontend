@@ -21,11 +21,14 @@ import javax.inject.Inject
 import play.api.mvc._
 import play.api.{Configuration, Environment}
 import uk.gov.hmrc.play.bootstrap.config.AuthRedirects
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.Future
 
-class GovernmentGatewayProvider @Inject()(override val env: Environment, override val config: Configuration)(applicationConfig: ApplicationConfig) extends AuthRedirects {
+class GovernmentGatewayProvider @Inject()(
+                                           override val env: Environment,
+                                           override val config: Configuration
+                                         )(applicationConfig: ApplicationConfig) extends AuthRedirects {
   this: ServicesConfig =>
   def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
 

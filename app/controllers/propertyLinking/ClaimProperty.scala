@@ -31,15 +31,13 @@ import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import javax.inject.{Inject, Named}
 import models.{CapacityDeclaration, _}
-import play.api.Mode.Mode
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import play.api.{Configuration, Environment}
 import repositories.SessionRepo
 import uk.gov.hmrc.http.Upstream5xxResponse
-import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.voa.play.form.ConditionalMappings._
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import views.helpers.Errors
@@ -49,15 +47,19 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class ClaimProperty @Inject()(
                                val errorHandler: CustomErrorHandler,
-                              val submissionIdConnector: SubmissionIdConnector,
-                              @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
-                              authenticatedAction: AuthenticatedAction,
-                              withLinkingSession: WithLinkingSession,
-                              val propertyLinksConnector: PropertyLinkConnector,
-                              val runModeConfiguration: Configuration,
-                              val environment: Environment
-                             )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
-  extends PropertyLinkingController with ServicesConfig {
+                               val submissionIdConnector: SubmissionIdConnector,
+                               @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
+                               authenticatedAction: AuthenticatedAction,
+                               withLinkingSession: WithLinkingSession,
+                               val propertyLinksConnector: PropertyLinkConnector,
+                               val runModeConfiguration: Configuration
+                             )(
+                               implicit executionContext: ExecutionContext,
+                               override val messagesApi: MessagesApi,
+                               override val controllerComponents: MessagesControllerComponents,
+                               val config: ApplicationConfig
+                             )
+  extends PropertyLinkingController {
 
   import ClaimProperty._
 
@@ -70,13 +72,13 @@ class ClaimProperty @Inject()(
     val pLinks = propertyLinksConnector.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(), PaginationParams(1, 20, false))
 
     pLinks.map {
-    res =>
-      if(res.authorisations.nonEmpty){
-        Redirect(s"${config.vmvUrl}/search")
-      }
-      else{
-        Ok(views.html.propertyLinking.beforeYouStart())
-      }
+      res =>
+        if (res.authorisations.nonEmpty) {
+          Redirect(s"${config.vmvUrl}/search")
+        }
+        else {
+          Ok(views.html.propertyLinking.beforeYouStart())
+        }
     }
   }
 
@@ -107,7 +109,6 @@ class ClaimProperty @Inject()(
     } yield ()
   }
 
-  override protected def mode: Mode = environment.mode
 }
 
 object ClaimProperty {
@@ -119,7 +120,7 @@ object ClaimProperty {
     "stillInterested" -> mandatoryBoolean,
     "toDate" -> mandatoryIfFalse("stillInterested", ConditionalDateAfter("interestedBefore2017", "fromDate")
       .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
-      .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017,4,1))))
+      .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1))))
   )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 

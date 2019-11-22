@@ -34,25 +34,25 @@
             <div class="transaction-banner--complete">
                 <h1 class="transaction-banner__heading">
                     @if(numberOfBusinesses > 1){
-                        @Messages("propertyRepresentation.rejected.multiple.message")
+                        @messages("propertyRepresentation.rejected.multiple.message")
                     } else {
-                        @Messages("propertyRepresentation.rejected.single.message")
+                        @messages("propertyRepresentation.rejected.single.message")
                     }
                 </h1>
             </div>
 
             <ul class="list">
                 <li>@if(model.requestIds.getOrElse(Nil).size > 1){
-                        @Messages("propertyRepresentation.rejected.multiple.youCan.1")
+                        @messages("propertyRepresentation.rejected.multiple.youCan.1")
                     } else {
-                        @Messages("propertyRepresentation.rejected.single.youCan.1")
+                        @messages("propertyRepresentation.rejected.single.youCan.1")
                     }
                 </li>
                 <li>
                     @if(numberOfBusinesses > 1){
-                        @Messages("propertyRepresentation.rejected.multiple.youCan.2")
+                        @messages("propertyRepresentation.rejected.multiple.youCan.2")
                     } else {
-                        @Messages("propertyRepresentation.rejected.single.youCan.2")
+                        @messages("propertyRepresentation.rejected.single.youCan.2")
                     }
                 </li>
             </ul>
@@ -68,7 +68,7 @@
                 @for(id <- model.requestIds.getOrElse(Nil)) {
                     <input type="hidden" name="requestIds[]" value="@id">
                 }
-                <button type="submit" id="continue-button" name="continue-button" class="button pull-left">@Messages("label.continue")</button>
+                <button type="submit" id="continue-button" name="continue-button" class="button pull-left">@messages("label.continue")</button>
             }
 
         </div>

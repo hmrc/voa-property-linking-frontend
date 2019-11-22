@@ -20,12 +20,11 @@ import java.time.Clock
 
 import com.google.inject.AbstractModule
 import com.google.inject.name.Names
-import play.api.Mode.Mode
 import play.api._
 import repositories._
 import services._
 import services.iv.{IdentityVerificationService, IvService}
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 
 class GuiceModule(
                    environment: Environment,
@@ -34,12 +33,7 @@ class GuiceModule(
 
   def configure() = {
 
-    bind(classOf[ServicesConfig]).toInstance(new ServicesConfig {
-      override protected def mode: Mode = environment.mode
-
-      override protected def runModeConfiguration: Configuration = configuration
-    })
-
+    bind(classOf[ServicesConfig]).toInstance(new ServicesConfig(configuration, new RunMode(configuration, environment.mode)))
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("appointLinkSession")).to(classOf[PropertyLinksSessionRepository])

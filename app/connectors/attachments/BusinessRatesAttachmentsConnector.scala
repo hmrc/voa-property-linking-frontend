@@ -24,13 +24,13 @@ import models.upscan.PreparedUpload
 import play.api.Logger
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class BusinessRatesAttachmentConnector @Inject()(
+class BusinessRatesAttachmentsConnector @Inject()(
                                                   val http: HttpClient,
                                                   val appConfig: ServicesConfig
                                                 )(implicit executionContext: ExecutionContext)

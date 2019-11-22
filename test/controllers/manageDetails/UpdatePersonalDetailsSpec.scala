@@ -22,7 +22,6 @@ import models.{Address, DetailedIndividualAccount}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{eq => matching, _}
 import org.mockito.Mockito._
-import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.{ManageDetails, Success}
@@ -31,7 +30,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.Future
 import scala.util.Random
 
-class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
+class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
 
   "The edit email page" must "require the updated email to be valid" in {
     val invalidEmail = Seq(

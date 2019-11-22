@@ -32,24 +32,24 @@
         <div class="grid-row">
             <div class="column-two-thirds">
                 <h1 class="heading-xlarge">
-                    @Messages("uploadEvidence.show.title")
+                    @messages("uploadEvidence.show.title")
                 </h1>
 
-                <p>@Messages("uploadEvidence.p.1")</p>
-                <p>@Messages("uploadEvidence.evidenceTypes")</p>
+                <p>@messages("uploadEvidence.p.1")</p>
+                <p>@messages("uploadEvidence.evidenceTypes")</p>
                 <ul class="list list-bullet">
-                    <li>@Messages("uploadEvidence.evidenceTypes.1")</li>
-                    <li>@Messages("uploadEvidence.evidenceTypes.2")</li>
-                    <li>@Messages("uploadEvidence.evidenceTypes.3")</li>
-                    <li>@Messages("uploadEvidence.evidenceTypes.4")</li>
-                    <li>@Messages("uploadEvidence.evidenceTypes.5")</li>
-                    <li>@Messages("uploadEvidence.evidenceTypes.6")</li>
-                    <li>@Messages("uploadEvidence.evidenceTypes.7")</li>
+                    <li>@messages("uploadEvidence.evidenceTypes.1")</li>
+                    <li>@messages("uploadEvidence.evidenceTypes.2")</li>
+                    <li>@messages("uploadEvidence.evidenceTypes.3")</li>
+                    <li>@messages("uploadEvidence.evidenceTypes.4")</li>
+                    <li>@messages("uploadEvidence.evidenceTypes.5")</li>
+                    <li>@messages("uploadEvidence.evidenceTypes.6")</li>
+                    <li>@messages("uploadEvidence.evidenceTypes.7")</li>
                 </ul>
 
-                <details class="print-hide">
+                <details class="print-hide" id="noEvidenceDetails">
                     <summary aria-controls="details-content-1" >
-                        <span class="summary">@Messages("uploadEvidence.noEvidence")</span>
+                        <span class="summary" id="noEvidenceDetailsSpan">@messages("uploadEvidence.noEvidence")</span>
                     </summary>
                     <div id="details-content-1" class="panel panel-border-narrow">
                         @Html(Messages("uploadEvidence.noEvidence.p1"))
@@ -60,10 +60,10 @@
                     </div>
                 </details>
 
-                <p>@Messages("uploadFile.allowedTypes.mustbe")</p>
+                <p>@messages("uploadFile.allowedTypes.mustbe")</p>
 
                 <ul class="list list-bullet">
-                    <li>@Messages("uploadFile.allowedTypes.l1")</li>
+                    <li id="allowedFileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
                 </ul>
 
                 <br />
@@ -99,23 +99,23 @@
                                 <a id="newFileButton" href="#" class="button-secondary">Choose a file to upload</a>
                             </div>
                         }else{
-                            <h3>@messages("businessRatesAttachment.file.size.reached.max.limit")</h3>
+                            <h3 id="fileSizeLimitText">@messages("businessRatesAttachment.file.size.reached.max.limit")</h3>
                         }
 
                         <ul class="upload-list">
-                        @uploadedFiles.map { case (fileReference, upload) =>
-                        <li>
-                            <span class="upload-list-file-name">@{upload.fileMetadata.toDisplayFileName}</span>
+                            @uploadedFiles.map { case (fileReference, upload) =>
+                                <li>
+                                    <span class="upload-list-file-name" id="uploadedFileText">@{upload.fileMetadata.toDisplayFileName}</span>
 
-                            <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
+                                    <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
 
-                            <span class="upload-list-file-remove">
+                                    <span class="upload-list-file-remove">
 
-                            <input type="submit" name="delete-upload-evidence" class="button-link remove-link" value="@messages("remove.file")" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
+                                        <input type="submit" id="removeEvidenceButton" name="delete-upload-evidence" class="button-link remove-link" value="@messages("remove.file")" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
 
-                        </span>
-                        </li>
-                        }
+                                    </span>
+                                </li>
+                            }
                         </ul>
                     </div>
                 }
@@ -133,7 +133,7 @@
                     )
 
                     <p>
-                        <button id="uploadFile" class="button">@Messages("uploadRatesBill.show.button")</button>
+                        <button id="uploadFile" class="button">@messages("uploadRatesBill.show.button")</button>
                     </p>
                 }
 
@@ -143,9 +143,9 @@
         <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${UploadController.initiate(EvidenceChoices.OTHER)}"}</span>
         <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${UploadController.show(EvidenceChoices.OTHER)}"}</span>
         <span id="errorsUpscan" class="label-span visuallyhidden">@Html(messages("error.upscan.unavailable"))</span>
-        <span id="errorsFileSizeTooLarge" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
-        <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.does.not.support.file.types")</span>
-        <span id="errorsBusinessRatesAttachmentUnavailable" class="label-span visuallyhidden">@Messages("error.businessRatesAttachment.unavailable")</span>
+        <span id="errorsFileSizeTooLarge" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
+        <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
+        <span id="errorsBusinessRatesAttachmentUnavailable" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.unavailable")</span>
         <span id="submissionId" class="label-span visuallyhidden">@submissionId</span>
 
     }

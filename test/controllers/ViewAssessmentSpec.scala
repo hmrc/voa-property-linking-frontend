@@ -37,11 +37,13 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
   private object TestAssessmentController extends Assessments(
     mockCustomErrorHandler,
     StubPropertyLinkConnector,
+    mockPropertyLinkService,
     preAuthenticatedActionBuilders(),
     mockSubmissionIds,
     mockDvrCaseManagement,
     StubBusinessRatesValuation,
-    mockBusinessRatesAuthorisation) {
+    mockBusinessRatesAuthorisation,
+    stubMessagesControllerComponents()) {
     when(mockDvrCaseManagement.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier])).thenReturn(Future.successful(()))
   }
 

@@ -18,16 +18,13 @@ package connectors
 
 import controllers.VoaPropertyLinkingSpec
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.StubServicesConfig
-
-import scala.concurrent.ExecutionContext.global
 
 class SubmissionIdConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new SubmissionIdConnector(StubServicesConfig, mockWSHttp)(ec) {
+    val connector = new SubmissionIdConnector(servicesConfig, mockWSHttp)(ec) {
       val url: String = "tst-url"
     }
   }

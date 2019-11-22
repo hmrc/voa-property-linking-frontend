@@ -27,7 +27,7 @@ import play.api.Logger
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -35,18 +35,11 @@ import scala.concurrent.{ExecutionContext, Future}
 class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
 
+  def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[HttpResponse] =
+    http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/property-links", propertyLinkPayload)
 
-  def getMyOrganisationPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
-    val url = s"$baseUrl/owner/property-links/$submissionId"
-
-    http.GET[Option[PropertyLink]](url)
-  }
-
-  def getMyClientsPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
-    val url = s"$baseUrl/agent/property-links/$submissionId"
-
-    http.GET[Option[PropertyLink]](url)
-  }
+  def getMyOrganisationPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
+    http.GET[Option[PropertyLink]](s"$baseUrl/owner/property-links/$submissionId")
 
   def getMyOrganisationsPropertyLinks(
                                        searchParams: GetPropertyLinksParameters,
@@ -68,13 +61,14 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
     )
   }
 
+  def getMyClientsPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
+    http.GET[Option[PropertyLink]](s"$baseUrl/agent/property-links/$submissionId")
+
   def validAgent(agent: OwnerAuthAgent, representationStatusFilter: Seq[RepresentationStatus]): Boolean = {
     representationStatusFilter.exists(x => x.name.equalsIgnoreCase(agent.status) )
   }
 
-  def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/property-links", propertyLinkPayload) map { _ => () }
-  }
+
 
   def getMyOrganisationPropertyLinksWithAgentFiltering(
                                      searchParams: GetPropertyLinksParameters,

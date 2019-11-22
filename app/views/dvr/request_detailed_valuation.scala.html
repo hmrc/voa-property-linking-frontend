@@ -27,7 +27,7 @@
             <div class="column-two-thirds">
 
                 <h1 class="heading-large margin-top-20" id="assessment-address">
-                    <span class="heading-secondary">@Messages("auto.requestDetailedValuation.smallTitle")</span>
+                    <span class="heading-secondary">@messages("auto.requestDetailedValuation.smallTitle")</span>
                     <span class="heading-main">@model.address</span>
                 </h1>
 
@@ -37,7 +37,7 @@
                     <p>@Html(Messages("auto.requestDetailedValuation.rateableValue", model.rateableValue.get))</p>
                 }
 
-                <p>@Messages("auto.requestDetailedValuation.p.1")</p>
+                <p>@messages("auto.requestDetailedValuation.p.1")</p>
 
                 <p>@Html(Messages("auto.requestDetailedValuation.p.2"))</p>
 
@@ -51,17 +51,17 @@
                 ) {
 
                     <p>
-                        <button type="submit" class="button" id="continue" name="continue_button">@Messages("auto.requestDetailedValuation.button")</button>
+                        <button type="submit" class="button" id="continue" name="continue_button">@messages("auto.requestDetailedValuation.button")</button>
                     </p>
                 }
 
-                <h2 class="heading-medium">@Messages("auto.requestDetailedValuation.heading.challenge")</h2>
+                <h2 class="heading-medium">@messages("auto.requestDetailedValuation.heading.challenge")</h2>
 
-                <p>@Messages("auto.requestDetailedValuation.challenge.p1")</p>
+                <p>@messages("auto.requestDetailedValuation.challenge.p1")</p>
 
-                <p>@Messages("auto.requestDetailedValuation.challenge.p2")</p>
+                <p>@messages("auto.requestDetailedValuation.challenge.p2")</p>
 
-                <a href="@routes.Assessments.startChallengeFromDVR(submissionId, model.assessmentRef, owner).url">@Messages("requestDetailedValuation.challenge.start")</a>
+                <a href="@routes.Assessments.startChallengeFromDVR(submissionId, model.assessmentRef, owner).url">@messages("requestDetailedValuation.challenge.start")</a>
 
             </div>
         </div>

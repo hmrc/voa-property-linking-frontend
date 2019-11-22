@@ -25,8 +25,9 @@ import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.util.Random
+import Configs._
 
-object StubIndividualAccountConnector extends IndividualAccounts(StubServicesConfig, mock(classOf[HttpClient])) {
+object StubIndividualAccountConnector extends IndividualAccounts(servicesConfig, mock(classOf[HttpClient])) {
 
   private var stubbedIndividuals: Seq[DetailedIndividualAccount] = Nil
 

@@ -18,12 +18,12 @@
 
 @()(implicit messages: Messages, config: ApplicationConfig)
 <ul class="platform-help-links" style="display:block">
-    <li><a href="@config.helpGuideUrl" data-sso="false" data-journey-click="footer:Click:Help">@Messages("footer.link.help")</a></li>
-    <li><a href="@config.businessRatesValuationUrl("send-beta-feedback")" data-sso="false" data-journey-click="footer:Click:Feedback">@Messages("footer.link.feedback")</a></li>
-    <li><a href="@config.businessRatesValuationUrl("cookies")" data-sso="false" data-journey-click="footer:Click:Cookies">@Messages("footer.link.cookies")</a></li>
-    <li><a href="@config.businessRatesValuationUrl("terms-and-conditions")" data-sso="false" data-journey-click="footer:Click:Terms and conditions">@Messages("footer.link.termsAndConditions")</a></li>
-    <li><a href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice" target="_blank" data-sso="false" data-journey-click="footer:Click:Privacy policy">@Messages("footer.link.privacy")</a></li>
+    <li><a href="@config.helpGuideUrl" data-sso="false" data-journey-click="footer:Click:Help">@messages("footer.link.help")</a></li>
+    <li><a href="@config.businessRatesValuationFrontendUrl("send-beta-feedback")" data-sso="false" data-journey-click="footer:Click:Feedback">@messages("footer.link.feedback")</a></li>
+    <li><a href="@config.businessRatesValuationFrontendUrl("cookies")" data-sso="false" data-journey-click="footer:Click:Cookies">@messages("footer.link.cookies")</a></li>
+    <li><a href="@config.businessRatesValuationFrontendUrl("terms-and-conditions")" data-sso="false" data-journey-click="footer:Click:Terms and conditions">@messages("footer.link.termsAndConditions")</a></li>
+    <li><a href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice" target="_blank" data-sso="false" data-journey-click="footer:Click:Privacy policy">@messages("footer.link.privacy")</a></li>
 </ul>
 <ul class="platform-help-links">
-    <li>Built by the <a href="https://www.gov.uk/government/organisations/valuation-office-agency" data-sso="false" data-journey-click="footer:Click:Feedback">@Messages("footer.link.voa")</a></li>
+    <li>Built by the <a href="https://www.gov.uk/government/organisations/valuation-office-agency" data-sso="false" data-journey-click="footer:Click:Feedback">@messages("footer.link.voa")</a></li>
 </ul>

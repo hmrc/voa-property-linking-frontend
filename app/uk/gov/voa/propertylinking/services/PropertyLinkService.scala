@@ -14,22 +14,26 @@
  * limitations under the License.
  */
 
-package connectors.identityVerificationProxy
+package uk.gov.voa.propertylinking.services
 
+import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.Inject
-import models.identityVerificationProxy._
+import models.PropertyLink
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-//completionURL: String, failureURL:  String, userData: IVDetails
-class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
-  private lazy val url = serverConfig.baseUrl("identity-verification-proxy")
-  private val path = "identity-verification-proxy/journey"
+/*
+  TODO will move PropertyLinkingService into this.
+ */
+class PropertyLinkService @Inject()(
+                                   propertyLinkConnector: PropertyLinkConnector
+                                   )(implicit executionContext: ExecutionContext) {
 
-  def start(journey: Journey)(implicit hc: HeaderCarrier): Future[Link] = {
-    http.POST[Journey, Link](s"$url/$path/start", journey)
+  def getSingularPropertyLink(submissionId: String, isOwner: Boolean)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] = {
+    if (isOwner)
+      propertyLinkConnector.getMyOrganisationPropertyLink(submissionId)
+    else
+      propertyLinkConnector.getMyClientsPropertyLink(submissionId)
   }
 }

@@ -23,13 +23,14 @@ import models._
 import models.propertylinking.payload.PropertyLinkPayload
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
 import org.mockito.Mockito.mock
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import utils.Configs._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfig, mock(classOf[HttpClient])) {
+object StubPropertyLinkConnector extends PropertyLinkConnector(servicesConfig, mock(classOf[HttpClient])) {
 
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil
@@ -39,8 +40,8 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(StubServicesConfi
 
   def stubOwnerAuthResult(reps: OwnerAuthResult) = { stubbedOwnerAuthResult = reps }
 
-  override def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[Unit] =
-    Future.successful(())
+  override def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[HttpResponse] =
+    Future.successful(HttpResponse(200))
 
   override def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters,
                                     pagination: PaginationParams)

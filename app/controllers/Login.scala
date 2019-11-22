@@ -16,16 +16,12 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.ApplicationConfig
-import play.api.mvc.{Action, Controller}
+import javax.inject.Inject
+import play.api.mvc.{ControllerComponents, InjectedController}
 
-class Login @Inject()(config: ApplicationConfig) extends Controller {
+class Login @Inject()(config: ApplicationConfig,override val controllerComponents: ControllerComponents) extends InjectedController {
 
-  val queryParameters = Map("continue" -> Seq(config.baseUrl + controllers.routes.Dashboard.home().url), "origin" -> Seq("voa"))
+  val show = Action(Redirect(config.ggSignInUrl, Map("continue" -> Seq(config.baseUrl + controllers.routes.Dashboard.home().url), "origin" -> Seq("voa"))))
 
-  def show = Action { implicit request =>
-    Redirect(config.ggSignInUrl, queryParameters)
-  }
 }

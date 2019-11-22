@@ -23,13 +23,12 @@ import play.api.http.Status._
 import play.api.libs.json.{JsValue, Json}
 import resources._
 import uk.gov.hmrc.http.HttpResponse
-import utils.StubServicesConfig
 
 class GroupsAccountsSpec extends VoaPropertyLinkingSpec {
 
   class Setup {
-    val connector = new GroupAccounts(StubServicesConfig, mockWSHttp) {
-      override lazy val url: String = "tst-url"
+    val connector = new GroupAccounts(servicesConfig, mockWSHttp) {
+      override val url: String = "tst-url"
     }
   }
 

@@ -25,12 +25,13 @@ import connectors.{Addresses, DVRCaseManagementConnector}
 import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.Mockito
 import org.scalatest.BeforeAndAfterEach
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Request
 import repositories.{PersonalDetailsSessionRepository, SessionRepository}
 import services.EnrolmentService
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.voa.propertylinking.services.PropertyLinkService
 
 trait AllMocks {
   self: MockitoSugar with BeforeAndAfterEach =>
@@ -47,6 +48,7 @@ trait AllMocks {
   val mockRequest: Request[_] = mock[Request[_]]
   val mockGovernmentGatewayProvider: GovernmentGatewayProvider = mock[GovernmentGatewayProvider]
   val mockGroupAccount: GroupAccount = mock[GroupAccount]
+  val mockPropertyLinkService: PropertyLinkService = mock[PropertyLinkService]
   val mockSessionRepository: SessionRepository = mock[SessionRepository]
   val mockWithLinkingSession: WithLinkingSession = mock[WithLinkingSession]
   val mockPersonalDetailsSessionRepository: PersonalDetailsSessionRepository = mock[PersonalDetailsSessionRepository]
@@ -67,6 +69,7 @@ trait AllMocks {
       mockRequest,
       mockGovernmentGatewayProvider,
       mockGroupAccount,
+      mockPropertyLinkService,
       mockSessionRepository,
       mockWithLinkingSession,
       mockPersonalDetailsSessionRepository

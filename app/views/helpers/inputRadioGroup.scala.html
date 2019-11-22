@@ -14,9 +14,8 @@
  * limitations under the License.
  *@
 
-@import views.html.helper._
-@import play.api.data._
-@import play.api.data.Forms._
+@import uk.gov.hmrc.play.views.html.helpers._
+
 
 @(field: play.api.data.Field,
         options: Seq[String],
@@ -24,12 +23,19 @@
         dataAttributes: Seq[(String, String, Any)] = Seq(),
         args: Seq[(Symbol, Any)])(implicit rh: RequestHeader, messages: Messages)
 
+@isChecked = @{
+    fieldValue match {
+        case None => "None"
+        case Some(b) => b.toString
+    }
+}
+
     @input(field, args.map { x => if(x._2 == '_label) '_name -> x._2 else x }: _*) { (id, name, value, htmlArgs) =>
 
         @options.map { v =>
             <label class="block-label" for="@(id)_@v">
                 <input id="@(id)_@v" type="radio" name="@name" value="@v"
-                @if(value.contains(v) | fieldValue.fold(false)(f => f.toString == v.toString)) {
+                @if(value.contains(v) | isChecked == v.toString) {
                     checked
                 }
                 @toHtmlArgs(_root_.template.HtmlSupport.getArgs(v, dataAttributes, htmlArgs))
@@ -38,4 +44,4 @@
             </label>
         }
 
-    }(_root_.template.Helper.myFields(messages), messages)
+    }

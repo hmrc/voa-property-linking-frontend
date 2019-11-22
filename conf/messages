@@ -735,19 +735,15 @@ auto.requestDetailedValuation.challenge.p1=The VOA will contact you with the out
 auto.requestDetailedValuation.challenge.p2=You can''t start a challenge until you''ve received the outcome of your check.
 auto.requestDetailedValuation.challenge.start=Challenge this valuation
 
-auto.requestDetailedValuation.challenge.p1=The VOA will contact you with the outcome. If you disagree with the outcome of the check, or the rateable value of your property, you can start a challenge.
-auto.requestDetailedValuation.challenge.p2=You can''t start a challenge until you''ve received the outcome of your check.
-auto.requestDetailedValuation.challenge.start=Challenge this valuation
-
 #VIEW REQUEST DETAILED VALUATION
 available.requestvaluation.title=View property valuation
 available.requestvaluation.p1=You can download the <a href={0}> Detailed Valuation for {1} </a>
 available.requestvaluation.p2=You should read through the detailed valuation and tell us if any of the property details are incorrect or missing. If you think the rateable value is wrong, you must complete a Check Form and confirm the property details with the VOA before you can make a challenge.
 
 available.requestvaluation.check.title=Submit a check
-available.requestvaluation.check.p1=To submit a check for this property you will need to <a href={0}> download the Check Form </a>.
+available.requestvaluation.check.p1=To submit a check for this property you will need to <a href={0}> download the Check Form </a>
 available.requestvaluation.check.p2=You can email the form to <a href="mailto:CCAService@voa.gsi.gov.uk">CCAService@voa.gsi.gov.uk</a> or post it to:
-available.requestvaluation.address=Check and challenge service, PO box 1827, Shirley, SO15 9HH
+available.requestvaluation.address=Check and challenge service, PO Box 308, PLYMOUTH, PL5 9DT
 
 label.requestType=How would you like to receive the detailed valuation?
 requestType.email=By email
@@ -1041,10 +1037,10 @@ challenge.valuation.completing=before completing the form.
 challenge.valuation.supportingEvidence=You can send the challenge form, along with your supporting evidence, to
 challenge.valuation.email=ccaservice@voa.gsi.gov.uk
 challenge.valuation.post=or post it to:
-challenge.valuation.address1=Check & challenge service
-challenge.valuation.address2=PO Box 1827
-challenge.valuation.address3=Shirley
-challenge.valuation.address4=SO15 9HH
+challenge.valuation.address1=Check and challenge service
+challenge.valuation.address2=PO Box 308
+challenge.valuation.address3=PLYMOUTH
+challenge.valuation.address4=PL5 9DT
 challenge.valuation.risks=Please be aware of the risks before sending any confidential information.
 
 #CHECK RECEIVED MESSAGE

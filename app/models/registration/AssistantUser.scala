@@ -53,7 +53,7 @@ case class AssistantUserAccountDetails(firstName: String,
     email = fieldData.email,
     confirmedEmail = fieldData.email,
     phone = fieldData.businessPhoneNumber,
-    isAgent = fieldData.isAgent
+    isAgent = fieldData.isAgent.getOrElse(false)
   )
 
 }

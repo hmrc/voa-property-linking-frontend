@@ -36,7 +36,7 @@
 
 @input(field, args:_*) { (id, name, value, htmlArgs) =>
     <input type="text" id="@id.replace("_", "")" value="@getValue(value, args)" name="@name" @toHtmlArgs(htmlArgs) />
-}(_root_.template.Helper.myFields(messages), messages)
+}
 
 @getValue(value: Option[String], args: Seq[(Symbol, Any)]) = @{
     if (value.isDefined) value.get

@@ -19,13 +19,13 @@ package connectors.test
 import javax.inject.Inject
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class TestPropertyLinkingConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
 
-  lazy val url = config.baseUrl("property-linking") + "/property-linking/"
+  val url: String = config.baseUrl("property-linking") + "/property-linking/"
 
   def deRegister(organisationId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
     http.DELETE[HttpResponse](url + s"test-only/de-register/$organisationId")

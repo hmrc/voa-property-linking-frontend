@@ -23,19 +23,18 @@ import models._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import resources._
-import services.BusinessRatesAttachmentService
+import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.HtmlPage
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
+class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
@@ -43,7 +42,7 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec with MockitoSugar{
     ).thenReturn(Future.successful(()))
     f
   }
-  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentService]
+  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
 
   private class TestChooseEvidence (withLinkingSession: WithLinkingSession) extends ChooseEvidence(mockCustomErrorHandler, preAuthenticatedActionBuilders(), preEnrichedActionRefiner(), mockBusinessRatesAttachmentService) {
     val property = testProperty

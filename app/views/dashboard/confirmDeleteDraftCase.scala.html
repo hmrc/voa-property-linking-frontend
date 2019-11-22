@@ -18,7 +18,6 @@
 @import utils.Formatters._
 @import actions.requests.AuthenticatedRequest
 @import config.ApplicationConfig
-@import config.ApplicationConfig._
 @import helper._
 
 @(model: models.DraftCase)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
@@ -32,11 +31,11 @@
  ) {
 
 
-  <h2 class="heading-medium">@Messages("draftCases.confirm.delete.message.1")</h2>
+  <h2 class="heading-medium">@messages("draftCases.confirm.delete.message.1")</h2>
 
    @form(routes.ManageDrafts.confirmDelete(model.id)) {
        <table id="draftsTable" class="margin-top-20 margin-bottom-20">
-        <caption class="visuallyhidden">@Messages("draftCases.confirm.table.caption")</caption>
+        <caption class="visuallyhidden">@messages("draftCases.confirm.table.caption")</caption>
         <colgroup>
          <col width="60%">
          <col width="20%">
@@ -44,9 +43,9 @@
         </colgroup>
         <thead>
          <tr>
-          <th scope="col">@Messages("draftCases.table.1")</th>
-          <th scope="col">@Messages("draftCases.table.2")</th>
-          <th scope="col">@Messages("draftCases.table.3")</th>
+          <th scope="col">@messages("draftCases.table.1")</th>
+          <th scope="col">@messages("draftCases.table.2")</th>
+          <th scope="col">@messages("draftCases.table.3")</th>
          </tr>
         </thead>
         <tbody>
@@ -61,7 +60,7 @@
         </tbody>
        </table>
        </p>
-       <input type="submit" name="delete" class="button" value="@Messages("draftCase.delete.draft")" />
+       <input type="submit" name="delete" class="button" value="@messages("draftCase.delete.draft")" />
        <a href="@routes.ManageDrafts.viewDraftCases()" class="button--secondary">
          @messages("draftCases.confirm.delete.return.button")
         </a>

@@ -58,10 +58,8 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
     html.body.text.contains(text) mustBe false withClue s"HTML did not contain: $text\nHTML:\n${html.body.text}"
   }
 
-  def inputMustContain(fieldName: String, text: String): Unit = {
-    val inputField = html.getElementById(fieldName)
-    inputField.attr("value") mustEqual text
-  }
+  def inputMustContain(fieldId: String, text: String): Unit =
+    Option(html.getElementById(fieldId)).map(_.`val`()) mustBe Some(text)
 
   def mustContainLink(selector: String, href: String) = mustContain1(s"a$selector[href=$href]")
 

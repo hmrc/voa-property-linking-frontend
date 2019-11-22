@@ -17,28 +17,33 @@
 package connectors
 
 import controllers.VoaPropertyLinkingSpec
+import org.mockito.ArgumentMatchers._
+import org.mockito.Mockito.when
 import play.api.http.Status._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
-import utils.StubServicesConfig
+import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse, NotFoundException}
+
+import scala.concurrent.Future
 
 class BusinessRatesValuationConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new BusinessRatesValuationConnector(StubServicesConfig, mockWSHttp) {
-      override val url: String = "tst-url"
-    }
+    val connector = new BusinessRatesValuationConnector(applicationConfig, mockWSHttp)
   }
 
   "isViewable" must "return true if detailed valuation is found" in new Setup {
-    mockHttpGET[HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.isViewable(1, 1))(_ mustBe true)
+    when(mockWSHttp.GET[HttpResponse](any(), any())(any(), any(), any()))
+      .thenReturn(Future.successful(HttpResponse(OK)))
+
+    whenReady(connector.isViewable(1, 1, "PL-123"))(_ mustBe true)
   }
 
   "isViewable" must "return false if the detailed valuation is not found" in new Setup {
-    mockHttpFailedGET[HttpResponse]("tst-url", new NotFoundException("Detailed valuation not found"))
-    whenReady(connector.isViewable(1, 1))(_ mustBe false)
+    when(mockWSHttp.GET[HttpResponse](any(), any())(any(), any(), any()))
+      .thenReturn(Future.failed(new NotFoundException("Detailed valuation not found")))
+
+    whenReady(connector.isViewable(1, 1, "PL-123"))(_ mustBe false)
   }
 
 }

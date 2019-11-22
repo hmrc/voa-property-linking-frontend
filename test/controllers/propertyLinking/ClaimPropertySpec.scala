@@ -18,17 +18,14 @@ package controllers.propertyLinking
 
 import java.time.LocalDate
 
-import com.google.inject.Inject
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.api.{Configuration, Environment}
 import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
@@ -36,7 +33,7 @@ import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession}
 
 import scala.concurrent.Future
 
-class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Environment) extends VoaPropertyLinkingSpec with MockitoSugar {
+class ClaimPropertySpec extends VoaPropertyLinkingSpec {
 
   private lazy val testClaimProperty = new ClaimProperty(
     mockCustomErrorHandler,
@@ -45,8 +42,7 @@ class ClaimPropertySpec @Inject() (configuration: Configuration, evironment: Env
     preAuthenticatedActionBuilders(),
     new StubWithLinkingSession(mock[SessionRepo]),
     propertyLinkingConnector,
-    configuration,
-    evironment
+    configuration
   )
 
   lazy val submissionId: String = shortString

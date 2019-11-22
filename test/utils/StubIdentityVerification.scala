@@ -23,8 +23,9 @@ import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import Configs._
 
-object StubIdentityVerification extends IdentityVerification(StubServicesConfig, null, Mockito.mock(classOf[HttpClient])) {
+object StubIdentityVerification extends IdentityVerification(servicesConfig, null, Mockito.mock(classOf[HttpClient])) {
 
   private var journeyResult = ("", "")
 

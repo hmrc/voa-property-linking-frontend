@@ -22,7 +22,7 @@ import connectors._
 import javax.inject.{Inject, Named}
 import models.registration.AdminUser
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.iv.IdentityVerificationService
 import uk.gov.hmrc.http.SessionKeys
@@ -33,13 +33,18 @@ import scala.concurrent.{ExecutionContext, Future}
 class IdentityVerification @Inject()(
                                       val errorHandler: CustomErrorHandler,
                                       ggAction: GgAuthenticatedAction,
-                                     identityVerification: connectors.IdentityVerification,
-                                     addresses: Addresses,
-                                     individuals: IndividualAccounts,
-                                     identityVerificationService: IdentityVerificationService,
-                                     groups: GroupAccounts,
-                                     @Named("personSession") val personalDetailsSessionRepo: SessionRepo)
-                                    (implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
+                                      identityVerification: connectors.IdentityVerification,
+                                      addresses: Addresses,
+                                      individuals: IndividualAccounts,
+                                      identityVerificationService: IdentityVerificationService,
+                                      groups: GroupAccounts,
+                                      @Named("personSession") val personalDetailsSessionRepo: SessionRepo)
+                                    (
+                                      implicit val executionContext: ExecutionContext,
+                                      override val messagesApi: MessagesApi,
+                                      override val controllerComponents: MessagesControllerComponents,
+                                      val config: ApplicationConfig
+                                    )
   extends PropertyLinkingController {
 
   val startIv: Action[AnyContent] = ggAction.async { implicit request =>

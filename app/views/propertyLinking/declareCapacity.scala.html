@@ -28,42 +28,42 @@
         <div class="column-two-thirds">
 
             <h1 class="heading-large" id="assessment-address">
-                <span class="heading-secondary">@Messages("declareCapacity.title")</span>
-                <span class="heading-main">@model.address.toString</span>
+                <span class="heading-secondary">@messages("declareCapacity.title")</span>
+                <span class="heading-main" id="addressSpan">@model.address.toString</span>
             </h1>
 
             @includes.errorSummary(model.form)
 
 
-            <p class="heading-medium">@Messages("declareCapacity.message")</p>
+            <p class="heading-medium">@messages("declareCapacity.message")</p>
 
 
             <p class="panel panel-border-wide">
-                @Messages("declareCapacity.incorrectProperty.prefix")
-                <a href="@controllers.propertyLinking.routes.ClaimProperty.show">@Messages("declareCapacity.incorrectProperty.link")</a>
+                @messages("declareCapacity.incorrectProperty.prefix")
+                <a href="@controllers.propertyLinking.routes.ClaimProperty.show">@messages("declareCapacity.incorrectProperty.link")</a>
             </p>
 
 
             @form(controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address)) {
 
                 <details>
-                    <summary><span>@Messages("declareCapacity.details.ownerOrOccupier")</span></summary>
+                    <summary><span>@messages("declareCapacity.details.ownerOrOccupier")</span></summary>
                     <div class="panel-indent">
                         @Html(Messages("declareCapacity.details.ownerOrOccupier.text", routes.Application.contactUs()))
                     </div>
                 </details>
 
                 <details>
-                    <summary><span>@Messages("declareCapacity.details.notOwner")</span></summary>
+                    <summary><span>@messages("declareCapacity.details.notOwner")</span></summary>
                     <div class="panel-indent">
                         @Html(Messages("declareCapacity.details.notOwner.text", routes.Application.contactUs()))
                     </div>
                 </details>
 
                 <details>
-                    <summary><span>@Messages("declareCapacity.details.agent")</span></summary>
+                    <summary><span>@messages("declareCapacity.details.agent")</span></summary>
                     <div class="panel-indent">
-                        @Messages("declareCapacity.details.agent.text")
+                        @messages("declareCapacity.details.agent.text")
                     </div>
                 </details>
 
@@ -95,9 +95,9 @@
                     @dateFields(model.form, "fromDate")
 
                     <details>
-                        <summary><span>@Messages("declareCapacity.details.haveOwned")</span></summary>
+                        <summary><span>@messages("declareCapacity.details.haveOwned")</span></summary>
                         <div class="panel-indent">
-                            @Messages("declareCapacity.details.haveOwned.text")
+                            @messages("declareCapacity.details.haveOwned.text")
                         </div>
                     </details>
                     <br />
@@ -122,7 +122,7 @@
                 </div>
 
                 <p>
-                    <button type="submit" id="continue" name="continue_button" class="button">@Messages("declareCapacity.submit.button")</button>
+                    <button type="submit" id="continue" name="continue_button" class="button">@messages("declareCapacity.submit.button")</button>
                 </p>
 }
             </div>

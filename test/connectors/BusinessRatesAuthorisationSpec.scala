@@ -24,14 +24,13 @@ import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalacheck.Arbitrary._
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
-import utils.StubServicesConfig
 
 class BusinessRatesAuthorisationSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new BusinessRatesAuthorisation(StubServicesConfig, mockWSHttp) {
+    val connector = new BusinessRatesAuthorisation(servicesConfig, mockWSHttp) {
       override val url: String = "tst-url"
     }
   }

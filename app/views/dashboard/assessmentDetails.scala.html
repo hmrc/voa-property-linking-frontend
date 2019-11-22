@@ -23,7 +23,7 @@
 
 
 <div id="details-content-valuations">
-    <h2 class="heading-large">@Messages("assessments.title")</h2>
+    <h2 class="heading-large">@messages("assessments.title")</h2>
 
     @if(model.form.hasErrors) {
         @for(error <- model.form.errors("viewAssessmentRadio")) {
@@ -36,14 +36,14 @@
             <div id="viewAssessmentRadioGroup" class="form-group">
                 <div class="table-wrapper-no-pad">
                     <table id="middle-radio-buttons" class="margin-bottom-10 margin-top-10">
-                        <caption class="visuallyhidden">@Messages("assessments.table.caption")</caption>
+                        <caption class="visuallyhidden">@messages("assessments.table.caption")</caption>
                         <tbody>
                             <tr>
-                                <th><span class="margin-left-5">@Messages("assessments.table.1")</span></th>
-                                <th><span class="margin-left-5">@Messages("assessments.table.2")</span></th>
-                                <th><span class="margin-left-5">@Messages("assessments.table.3")</span></th>
-                                <th><span class="margin-left-5">@Messages("assessments.table.4")</span></th>
-                                <th><span class="margin-left-5">@Messages("assessments.table.5")</span></th>
+                                <th><span class="margin-left-5">@messages("assessments.table.1")</span></th>
+                                <th><span class="margin-left-5">@messages("assessments.table.2")</span></th>
+                                <th><span class="margin-left-5">@messages("assessments.table.3")</span></th>
+                                <th><span class="margin-left-5">@messages("assessments.table.4")</span></th>
+                                <th><span class="margin-left-5">@messages("assessments.table.5")</span></th>
                             </tr>
 
 
@@ -68,14 +68,14 @@
                                         case None => {
                                             <td>N/A
                                                 <a href="#my-rv-is-na" data-toggle="dialog" data-target="no-rv-help" class="help">
-                                                    <i><span class="visuallyhidden">@Messages("label.help", Messages("rv.na"))</span></i>
+                                                    <i><span class="visuallyhidden">@messages("label.help", Messages("rv.na"))</span></i>
                                                 </a>
                                             </td>
                                         }
                                     }
                                     @model.capacity match {
                                         case Some(cap) => {
-                                            <td>@Messages(s"capacity.${cap}")</td>
+                                            <td>@messages(s"capacity.${cap}")</td>
                                         }
                                         case None => {
                                             <td></td>
@@ -103,13 +103,13 @@
 
                 @if(model.assessmentsWithLinks.exists{case (_, assessment) => assessment.rateableValue.isEmpty}) {
                     <div id="my-rv-is-na">
-                        <p>@Messages("rv.na.p.1")</p>
-                        <p>@Messages("rv.na.p.2")</p>
-                        <p>@Messages("rv.na.p.3")</p>
+                        <p>@messages("rv.na.p.1")</p>
+                        <p>@messages("rv.na.p.2")</p>
+                        <p>@messages("rv.na.p.3")</p>
                     </div>
                 }
 
-                <input type="submit" class="button" value="@Messages("label.continue")">
+                <input type="submit" class="button" value="@messages("label.continue")">
             </div>
         </fieldset>
     }

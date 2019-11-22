@@ -49,7 +49,7 @@ Example usage:
                     }
 
                     @elements.args.get('_optional) match {
-                        case Some(true) => { <span class="visuallyhidden">(@Messages("label.optional")(elements.messages))</span> }
+                        case Some(true) => { <span class="visuallyhidden">(@messages("label.optional"))</span> }
                         case _ => {}
                     }
 
@@ -73,7 +73,7 @@ Example usage:
 
                             @elements.args.get('_optional) match {
                                 case Some(true) => {
-                                    <span class="visuallyhidden">(@Messages("label.optional")(elements.messages))</span>
+                                    <span class="visuallyhidden">(@messages("label.optional"))</span>
                                 }
                                 case _ => {}
                             }
@@ -84,7 +84,7 @@ Example usage:
     }
 
     @elements.args.get('_optional) match {
-        case Some(true) => { <span class="form-hint">@Messages("label.optional")</span> }
+        case Some(true) => { <span class="form-hint">@messages("label.optional")</span> }
         case _ => {}
     }
 
@@ -124,8 +124,8 @@ Example usage:
 
     @elements.args.get('_characterCount).map { characterCount =>
 
-        <div class="charCount hide-if-no-js">@Html(Messages("copy.character.count", characterCount)(elements.messages))</div>
-        <div class="charCount-no-js hidden">@Html(Messages("copy.character.count.nojs", characterCount)(elements.messages))</div>
+        <div class="charCount hide-if-no-js">@Html(Messages("copy.character.count", characterCount))</div>
+        <div class="charCount-no-js hidden">@Html(Messages("copy.character.count.nojs", characterCount))</div>
 
     }
 
@@ -133,8 +133,8 @@ Example usage:
 
     @elements.args.get('_add) match {
         case Some(true) => {
-            <a href="#" class="remove" role="button" style="display:none">@Messages("label.add.remove")(elements.messages)</a>
-            <a href="#" class="add" role="button" >@Messages("label.add.individual")(elements.messages)</a>
+            <a href="#" class="remove" role="button" style="display:none">@messages("label.add.remove")</a>
+            <a href="#" class="add" role="button" >@messages("label.add.individual")</a>
         }
         case _ => {}
     }

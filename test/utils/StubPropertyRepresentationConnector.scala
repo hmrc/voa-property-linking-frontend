@@ -23,11 +23,12 @@ import models.searchApi.{AgentAuthResult, AgentAuthorisation}
 import org.mockito.Mockito.mock
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import utils.Configs._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(StubServicesConfig, mock(classOf[HttpClient])) {
+object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(servicesConfig, mock(classOf[HttpClient])) {
   private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil
   private var stubbedValidCodes: Seq[Long] = Nil
   private var stubbedAgentAuthResult: AgentAuthResult = AgentAuthResult(

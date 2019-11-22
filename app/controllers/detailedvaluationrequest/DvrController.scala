@@ -27,7 +27,7 @@ import controllers.PropertyLinkingController
 import javax.inject.Inject
 import models.dvr.DetailedValuationRequest
 import play.api.Logger
-import play.api.http.HttpEntity.Streamed
+import play.api.http.HttpEntity
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
@@ -42,7 +42,7 @@ class DvrController @Inject()(
                                submissionIds: SubmissionIdConnector,
                                dvrCaseManagement: DVRCaseManagementConnector,
                                businessRatesAuthorisation: BusinessRatesAuthorisation
-                             )(implicit executionContext: ExecutionContext, val messagesApi: MessagesApi, val config: ApplicationConfig)
+                             )(implicit executionContext: ExecutionContext,override val messagesApi: MessagesApi, override val controllerComponents: MessagesControllerComponents, val config: ApplicationConfig)
     extends PropertyLinkingController {
 
   private val logger = Logger(this.getClass.getName)
@@ -193,22 +193,23 @@ class DvrController @Inject()(
     requestDvrFile(propertyLinkSubmissionId, valuationId, fileRef, false)
 
   private def requestDvrFile(
-                      submissionId: String,
-                      valuationId: Long,
-                      fileRef: String,
-                      owner: Boolean
-                    ): Action[AnyContent] = authenticated.async {
+                              submissionId: String,
+                              valuationId: Long,
+                              fileRef: String,
+                              owner: Boolean
+                            ): Action[AnyContent] = authenticated.async {
     implicit request =>
-      val pLink = if(owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
+      val pLink = if (owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
       pLink.flatMap {
         case Some(link) =>
           dvrCaseManagement
             .getDvrDocument(link.uarn, valuationId, link.submissionId, fileRef)
-            .map { document =>
-              Result(ResponseHeader(200, document.headers.updated(CONTENT_DISPOSITION, s"""attachment;filename="${link.submissionId}.pdf"""")),
-                     Streamed(document.body,
-                              document.contentLength,
-                              document.contentType))
+            .map { response =>
+              Ok.sendEntity(HttpEntity.Streamed(
+                data = response.bodyAsSource,
+                contentLength = response.header(CONTENT_LENGTH).map(_.toLong),
+                contentType = Some(response.contentType)))
+                .withHeaders(CONTENT_DISPOSITION -> s"""attachment;filename="${link.submissionId}.pdf"""")
             }
         case None =>
           Future.successful(BadRequest(views.html.errors.propertyMissing()))

@@ -44,14 +44,14 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
 ) {
 
 <div id="linkIdsGroup"  class="column-whole">
-    <h1 class="heading-large">@Messages("propertyRepresentation.removeAgentProperties.title")</h1>
-    <p class="lede">@Messages("propertyRepresentation.removeAgentProperties.message.p1", model.agentGroup.companyName, agentCode.toString)</p>
+    <h1 class="heading-large">@messages("propertyRepresentation.removeAgentProperties.title")</h1>
+    <p class="lede">@messages("propertyRepresentation.removeAgentProperties.message.p1", model.agentGroup.companyName, agentCode.toString)</p>
 
 
     @if(f.isDefined){ @includes.errorSummary(f.get) }
 
     <div class="hide-if-no-js margin-top-20">
-        <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+        <a href="#" id="par-select-all-top">@messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
     </div>
 
     <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params, agentCode)">
@@ -70,9 +70,9 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
 
             <thead>
             <tr role="row">
-                <th>@Messages("propertyRepresentation.appointAgents.table.select")</th>
+                <th>@messages("propertyRepresentation.appointAgents.table.select")</th>
                 <th class="search-sort-table-header">@sortingControl(AgentPropertiesSortField.Address)</th>
-                <th>@Messages("propertyRepresentation.appointAgents.table.actions")</th>
+                <th>@messages("propertyRepresentation.appointAgents.table.actions")</th>
             </tr>
             <tr>
                 <th></th>
@@ -80,7 +80,7 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
                 <th>
 
                     <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)"
-                       id="clear-search" class="clear">@Messages("manageProperties.table.clear.search")</a>
+                       id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
                 </th>
                 <th></th>
             </tr>
@@ -91,7 +91,7 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
 
 <div class="column-whole">
     @if(model.response.authorisations.isEmpty){
-    <h2 class="heading-secondary margin-top-30">@Messages("dashboard.manageProperties.noProperties")</h2>
+    <h2 class="heading-secondary margin-top-30">@messages("dashboard.manageProperties.noProperties")</h2>
     } else {
     @form(agentAppointment.routes.AppointAgentController.revokeAgentSummary()) {
     <input type="hidden" name="agentCode" value="@agentCode">
@@ -151,7 +151,7 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
     </div>
 
     <div id="page-size-list">
-        <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
+        <span class="page-size-option-label">@messages("search.sort.page.size.view")</span>
         @for(len <- List(15, 25, 50, 100, 500)) {
         @if(pagination.pageSize == len) {
         <span class="page-size-option-current">@len</span>
@@ -161,15 +161,15 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
             @len</a>
         }
         }
-        @Messages("search.sort.page.size.properties.per.page")
+        @messages("search.sort.page.size.properties.per.page")
     </div>
 
     <div class="hide-if-no-js margin-top-20">
-        <a href="#" id="par-select-all-top">@Messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+        <a href="#" id="par-select-all-top">@messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
     </div>
 
     <div class="margin-top-20">
-        <button type="submit" id="submit-button" class="button">@Messages("propertyRepresentation.appointAgent.button")</button>
+        <button type="submit" id="submit-button" class="button">@messages("propertyRepresentation.appointAgent.button")</button>
     </div>
     }
 </div>
@@ -182,22 +182,22 @@ backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultiple
 @if(params.sortfield == field) {
 <div id="sort-by-@field" class="sorting_@params.sortorder">
     <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting, agentCode)">
-        @Messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
+        @messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
 </div>
 } else {
 <div id="sort-by-@field" class="sorting">
     <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(field.name.toUpperCase)), agentCode)">
-        @Messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
+        @messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
 </div>
 }
 }
 
 @searchField(fieldName: String, value: Option[String]) = {
 <div class="searchfield">
-    <label for="@fieldName" class="visually-hidden">@Messages(s"propertyRepresentation.th.$fieldName")</label>
+    <label for="@fieldName" class="visually-hidden">@messages(s"propertyRepresentation.th.$fieldName")</label>
     <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
     <button id="@{
             fieldName
-        }Button" class="search-submit ss-button">@Messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
+        }Button" class="search-submit ss-button">@messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
 </div>
 }

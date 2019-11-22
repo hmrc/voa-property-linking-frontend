@@ -16,18 +16,19 @@
 
 package models
 
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.scalatest.{FlatSpec, MustMatchers}
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import resources._
 
-class CapacitySpec extends FlatSpec with MustMatchers with GeneratorDrivenPropertyChecks {
+class CapacitySpec extends FlatSpec with MustMatchers with ScalaCheckDrivenPropertyChecks {
   "Capacity" must "create from CapacityDeclaration" in {
-    forAll({  declaration:CapacityDeclaration => {
+    forAll({ declaration: CapacityDeclaration => {
       val capacity = Capacity.fromDeclaration(declaration)
       (capacity match {
-        case c:Capacity => true
+        case c: Capacity => true
         case _ => false
-      }) must be (true)
-    }})
+      }) must be(true)
+    }
+    })
   }
 }

@@ -59,7 +59,7 @@ GET         /planned-improvements                                               
 
 #Enrolment page
 GET         /complete-contact-details                                                         @controllers.registration.RegistrationController.show()
-POST        /complete-business-contact-details                                                @controllers.registration.RegistrationController.submitOrganisation()
+POST        /complete-contact-details                                                @controllers.registration.RegistrationController.submitOrganisation()
 GET         /complete-existing-business-contact-details                                       @controllers.registration.RegistrationController.show()
 POST        /complete-existing-business-contact-details                                       @controllers.registration.RegistrationController.submitAdminToExistingOrganisation()
 GET         /complete-your-contact-details                                                    @controllers.registration.RegistrationController.show()

@@ -29,14 +29,14 @@
         <div class="column-two-thirds">
 
             <h1 class="heading-xlarge">
-            @Messages("propertyRepresentation.revokeClient.title")
+            @messages("propertyRepresentation.revokeClient.title")
             </h1>
 
-            <p>@Messages("propertyRepresentation.revokeClient.message", clientProperty.ownerOrganisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
+            <p>@messages("propertyRepresentation.revokeClient.message", clientProperty.ownerOrganisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
             <p>
                 <a href="@controllers.agent.routes.RepresentationController.revokeClientConfirmed(clientProperty.authorisationId, clientProperty.ownerOrganisationId)">
                     <button type="submit" class="button">
-                        @Messages("propertyRepresentation.revokeClient.button")
+                        @messages("propertyRepresentation.revokeClient.button")
                     </button>
                 </a>
             </p>

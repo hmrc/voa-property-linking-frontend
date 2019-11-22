@@ -31,13 +31,13 @@
 
 
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
-    @Messages("pendingRepresentationRequests.title")
+    @messages("pendingRepresentationRequests.title")
     </h1>
 
     @includes.errorSummary(f,messagePrefix = Some("pendingRepresentationRequests"))
 
     @if(model.propertyRepresentations.isEmpty) {
-        <h2 class="heading-secondary">@Messages("dashboard.manageProperties.noProperties")</h2>
+        <h2 class="heading-secondary">@messages("dashboard.manageProperties.noProperties")</h2>
     } else {
 
         @form(controllers.agent.routes.RepresentationController.submitMyClientsPropertyLinkRequestResponse(model.pagination.pageNumber, model.pagination.pageSize)) {
@@ -46,34 +46,34 @@
             <input type="hidden" name="pending" value="@model.pagination.totalResults">
 
             <div class="margin-top-10 panel panel-border-wide">
-                <p class="font-xsmall">@Messages("agent.request.warning")</p>
+                <p class="font-xsmall">@messages("agent.request.warning")</p>
             </div>
 
             @if(model.complete.getOrElse(0) > 0 && model.action.isDefined) {
                 <div id="request-action-info" class="margin-top-10 panel panel-border-wide">
                     <p class="font-small">
                         @if(model.complete == Some(1)){
-                            @Messages("agent.request.actions.single.info." + model.action.get.takeWhile(_ != '-'), model.complete.getOrElse(0))
+                            @messages("agent.request.actions.single.info." + model.action.get.takeWhile(_ != '-'), model.complete.getOrElse(0))
                         }else{
-                            @Messages("agent.request.actions.multiple.info." + model.action.get.takeWhile(_ != '-'), model.complete.getOrElse(0))
+                            @messages("agent.request.actions.multiple.info." + model.action.get.takeWhile(_ != '-'), model.complete.getOrElse(0))
                         }
                     </p>
                 </div>
             }
 
             <div class="hide-if-no-js">
-                <a href="#" id="par-select-all-top">@Messages("pendingRepresentationRequests.select.deselect")</a>
+                <a href="#" id="par-select-all-top">@messages("pendingRepresentationRequests.select.deselect")</a>
             </div>
 
             <div id="par-table-wrapper" class="table-wrapper dataTables_wrapper">
                 <table class="dataTable table-font-xsmall margin-bottom-10 margin-top-10" id="nojsPendingRequests">
-                    <caption class="visuallyhidden">@Messages("pendingRepresentationRequests.title")</caption>
+                    <caption class="visuallyhidden">@messages("pendingRepresentationRequests.title")</caption>
                     <tbody>
                         <tr>
-                            <th scope="col">@Messages("pendingRepresentationRequests.table.select")</th>
-                            <th scope="col">@Messages("pendingRepresentationRequests.table.orgName")</th>
-                            <th scope="col">@Messages("pendingRepresentationRequests.table.propertyAddress")</th>
-                            <th scope="col">@Messages("pendingRepresentationRequests.table.permissions")</th>
+                            <th scope="col">@messages("pendingRepresentationRequests.table.select")</th>
+                            <th scope="col">@messages("pendingRepresentationRequests.table.orgName")</th>
+                            <th scope="col">@messages("pendingRepresentationRequests.table.propertyAddress")</th>
+                            <th scope="col">@messages("pendingRepresentationRequests.table.permissions")</th>
                         </tr>
                         @model.propertyRepresentations.zipWithIndex.map { case (p, i) =>
                             <tr>
@@ -92,7 +92,7 @@
                                                 <span class="visually-hidden">@p.organisationName</span>
                                             </label>
                                         } else {
-                                            <span>@Messages("pendingRepresentationRequests.table.pending")</span>
+                                            <span>@messages("pendingRepresentationRequests.table.pending")</span>
                                         }
                                     }
                                 </td>
@@ -103,8 +103,8 @@
 
                                 <td>
                                     <ul class="list">
-                                        <li>Check: @Messages(p.checkPermission.msgKey)</li>
-                                        <li>Challenge: @Messages(p.challengePermission.msgKey)</li>
+                                        <li>Check: @messages(p.checkPermission.msgKey)</li>
+                                        <li>Challenge: @messages(p.challengePermission.msgKey)</li>
                                     </ul>
                                 </td>
                             </tr>
@@ -134,7 +134,7 @@
             <div class="clearfix"></div>
 
             <div id="page-size-list">
-                <span class="page-size-option-label">@Messages("search.sort.page.size.view")</span>
+                <span class="page-size-option-label">@messages("search.sort.page.size.view")</span>
                 @for(len <- List(15,25,50,100,500)) {
                     @if(model.pagination.pageSize == len) {
                         <span class="page-size-option-current">@len</span>
@@ -144,26 +144,26 @@
                         @len</a>
                     }
                 }
-                @Messages("search.sort.page.size.properties.per.page")
+                @messages("search.sort.page.size.properties.per.page")
             </div>
 
             <div id="par-button-group" class="form-group">
                 <fieldset id="actionGroup" class="inline">
                     <legend class="form-label-bold">
-                        <span class="label-span">@Messages("pendingRepresentationRequests.accept.reject")</span>
+                        <span class="label-span">@messages("pendingRepresentationRequests.accept.reject")</span>
                     </legend>
                     <label class="block-label selection-button-radio" for="action_accept">
                         <input id="action_accept" type="radio" name="action" value="accept"
                         @if( f("action").value.fold(false)(_ == "accept") ||
                                 (model.afterCancel && model.action.fold(false)(_ == "accept"))) { checked="checked" } >
-                        @Messages("pendingRepresentationRequests.accept")
+                        @messages("pendingRepresentationRequests.accept")
                     </label>
 
                     <label class="block-label selection-button-radio" for="action_reject">
                         <input id="action_reject" type="radio" name="action" value="reject"
                             @if( f("action").value.fold(false)(_ == "reject") ||
                                     (model.afterCancel && model.action.fold(false)(_ == "reject"))) { checked="checked" } >
-                        @Messages("pendingRepresentationRequests.reject")
+                        @messages("pendingRepresentationRequests.reject")
                     </label>
                 </fieldset>
             </div>
@@ -171,7 +171,7 @@
             <div class="clearfix"></div>
 
             <div class="margin-bottom-20" >
-                <button type="submit" id="submit-button" name="submit-button" class="button">@Messages("pendingRepresentationRequests.button.label")</button>
+                <button type="submit" id="submit-button" name="submit-button" class="button">@messages("pendingRepresentationRequests.button.label")</button>
             </div>
         }
     }
