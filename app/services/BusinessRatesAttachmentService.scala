@@ -21,13 +21,14 @@ import auditing.AuditingService
 import cats.data.EitherT
 import connectors.attachments.BusinessRatesAttachmentConnector
 import javax.inject.{Inject, Named}
+
 import models._
 import models.attachment._
 import models.upscan.{FileMetadata, PreparedUpload, UploadedFileDetails}
 import play.api.libs.json.Json
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.propertylinking.exceptions.attachments.{AttachmentException, MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
+import uk.gov.voa.propertylinking.exceptions.attachments._
 import utils.Cats
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -70,13 +71,48 @@ class BusinessRatesAttachmentService @Inject()(
 
   def submit(
               submissionId: String,
-              nonEmptyReferences: List[String]
+              nonEmptyReferences: List[String],
+              retryCount: Int = 0
             )(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): EitherT[Future, AttachmentException, List[Attachment]] = {
     EitherT.fromEither[Future](Either.cond(nonEmptyReferences.nonEmpty, nonEmptyReferences, MissingRequiredNumberOfFiles))
       .semiflatMap(Future.traverse(_)(r => getAttachment(r).map(r -> _)))
+      .subflatMap(attachments => {
+        Either.cond(
+          attachments.filter(
+            attachment =>
+              List(
+                UploadPending,
+                Uploading,
+                UploadAttachmentFailed,
+                UploadAttachmentComplete,
+                UploadingScanResults,
+                UploadScanResultsFailed,
+                UploadScanResultsComplete
+              ).contains(attachment._2.state)).size != nonEmptyReferences.size, attachments, AllFilesAreAlreadyUploaded(attachments.map(_._2)))
+      }
+      )
+      .subflatMap { attachments =>
+        val (uploaded, notuploaded) =
+          attachments.partition(attachment =>
+          List(
+          UploadPending,
+          Uploading,
+          UploadAttachmentFailed,
+          UploadAttachmentComplete,
+          UploadingScanResults,
+          UploadScanResultsFailed,
+          UploadScanResultsComplete
+        ).contains(attachment._2.state))
+        Either.cond(uploaded.isEmpty, attachments, SomeFilesAreAlreadyUploaded(notuploaded.map(_._1)))
+      }
       .map(result => result.filter(_._2.state == MetadataPending))
       .subflatMap(filtered => Either.cond(filtered.size == nonEmptyReferences.size, filtered.map(_._1), NotAllFilesReadyToUpload))
       .semiflatMap(references => Future.traverse(references)(patchMetadata(submissionId, _)))
+      .leftFlatMap{
+        case AllFilesAreAlreadyUploaded(attachments)  => EitherT.rightT(attachments)
+        case error @SomeFilesAreAlreadyUploaded(references)  => if (retryCount < 5) submit(submissionId, references, retryCount + 1) else EitherT.leftT(error)
+        case error                                    =>    EitherT.leftT(error)
+      }
   }
 
   def getAttachment(reference: String)(implicit hc: HeaderCarrier): Future[Attachment] =

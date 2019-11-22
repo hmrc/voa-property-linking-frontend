@@ -123,11 +123,12 @@ class Assessments @Inject()(
                               baRef: String,
                               owner: Boolean
                             ) = authenticated.async { implicit request =>
+
     if (owner) {
-      Future.successful(Redirect(config.businessRatesValuationUrl(s"external/property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId")))
+      Future.successful(Redirect(config.businessRatesValuationUrl(s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId")))
 
     } else {
-      Future.successful(Redirect(config.businessRatesValuationUrl(s"external/property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId")))
+      Future.successful(Redirect(config.businessRatesValuationUrl(s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId")))
     }
 
   }
