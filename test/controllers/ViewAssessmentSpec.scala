@@ -43,7 +43,8 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     mockDvrCaseManagement,
     StubBusinessRatesValuation,
     mockBusinessRatesAuthorisation,
-    stubMessagesControllerComponents()) {
+    stubMessagesControllerComponents(),
+    isExternalValuation = false) {
     when(mockDvrCaseManagement.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier])).thenReturn(Future.successful(()))
   }
 
