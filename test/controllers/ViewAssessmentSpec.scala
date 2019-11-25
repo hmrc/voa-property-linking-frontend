@@ -34,6 +34,7 @@ import scala.concurrent.Future
 
 class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
+  val isExternalValuationEnabled = false
   private object TestAssessmentController extends Assessments(
     mockCustomErrorHandler,
     StubPropertyLinkConnector,
@@ -44,7 +45,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     StubBusinessRatesValuation,
     mockBusinessRatesAuthorisation,
     stubMessagesControllerComponents(),
-    false) {
+    isExternalValuationEnabled) {
     when(mockDvrCaseManagement.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier])).thenReturn(Future.successful(()))
   }
 
