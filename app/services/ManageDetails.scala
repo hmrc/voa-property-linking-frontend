@@ -38,9 +38,9 @@ class ManageVoaDetails @Inject()(taxEnrolments: TaxEnrolmentConnector, addresses
       addresses.findById(addressId)
 
     for {
-      currentOpt <- withAddress(currentAddressId, "current")
-      updatedOpt <- withAddress(addressId, "updated")
-      result <- if (config.stubEnrolment) Future.successful(Success) else update(currentOpt, updatedOpt, personId)
+      currentOpt  <- withAddress(currentAddressId, "current")
+      updatedOpt  <- withAddress(addressId, "updated")
+      result      <- if (config.stubEnrolment) Future.successful(Success) else update(currentOpt, updatedOpt, personId)
     } yield result
   }
 

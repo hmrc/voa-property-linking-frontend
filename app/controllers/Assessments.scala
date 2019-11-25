@@ -23,7 +23,7 @@ import config.ApplicationConfig
 import connectors._
 import connectors.authorisation.BusinessRatesAuthorisation
 import connectors.propertyLinking.PropertyLinkConnector
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 import models._
 import play.api.Logger
 import play.api.data.Forms.text
@@ -44,7 +44,8 @@ class Assessments @Inject()(
                              dvrCaseManagement: DVRCaseManagementConnector,
                              businessRatesValuations: BusinessRatesValuationConnector,
                              businessRatesAuthorisation: BusinessRatesAuthorisation,
-                             override val controllerComponents: MessagesControllerComponents
+                             override val controllerComponents: MessagesControllerComponents,
+                             @Named("detailed-valuation.external") isExternalValuation: Boolean
                            )(
                              implicit override val messagesApi: MessagesApi,
                              val config: ApplicationConfig,
@@ -135,10 +136,17 @@ class Assessments @Inject()(
         businessRatesValuations.isViewable(propertyLink.uarn, assessmentRef, submissionId) map {
           case true =>
             if (owner) {
-              Redirect(config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
-
+              if (isExternalValuation) {
+                Redirect(config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+              } else {
+                Redirect(config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+              }
             } else {
-              Redirect(config.businessRatesValuationFrontendUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+              if (isExternalValuation) {
+                Redirect(config.businessRatesValuationFrontendUrl(s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+              } else {
+                Redirect(config.businessRatesValuationFrontendUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+              }
             }
           case false =>
             Redirect(
