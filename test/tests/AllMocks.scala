@@ -20,7 +20,7 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import auditing.AuditingService
 import auth.GovernmentGatewayProvider
-import connectors.authorisation.BusinessRatesAuthorisation
+import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.{Addresses, DVRCaseManagementConnector}
 import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.Mockito
@@ -40,7 +40,7 @@ trait AllMocks {
   val mockAuditingService: AuditingService = mock[AuditingService]
   val mockAuthConnector: AuthConnector = mock[AuthConnector]
   val mockAuthenticatedAction: AuthenticatedAction = mock[AuthenticatedAction]
-  val mockBusinessRatesAuthorisation: BusinessRatesAuthorisation = mock[BusinessRatesAuthorisation]
+  val mockBusinessRatesAuthorisation: BusinessRatesAuthorisationConnector = mock[BusinessRatesAuthorisationConnector]
   val mockCustomErrorHandler: CustomErrorHandler = mock[CustomErrorHandler]
   val mockDetailedIndividualAccount: DetailedIndividualAccount = mock[DetailedIndividualAccount]
   val mockDvrCaseManagement: DVRCaseManagementConnector = mock[DVRCaseManagementConnector]

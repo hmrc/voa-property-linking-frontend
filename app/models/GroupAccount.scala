@@ -18,9 +18,25 @@ package models
 
 import play.api.libs.json.Json
 
-case class GroupAccount(id: Long, groupId: String, companyName: String, addressId: Long, email: String, phone: String,
-                         isAgent: Boolean, agentCode: Long)
+case class GroupAccount(
+                         id: Long,
+                         groupId: String,
+                         companyName: String,
+                         addressId: Long,
+                         email: String,
+                         phone: String,
+                         isAgent: Boolean,
+                         agentCode: Option[Long]
+                       )
 
 object GroupAccount {
   implicit val format = Json.format[GroupAccount]
+
+  object AgentGroupAccount {
+    def unapply(account: GroupAccount): Option[(GroupAccount, Long)] =
+      account
+        .agentCode
+        .map(code => account -> code)
+        .filter(_ => account.isAgent) //TODO this logic might not be required here.
+  }
 }

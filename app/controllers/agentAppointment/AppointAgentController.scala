@@ -27,6 +27,7 @@ import form.AgentPermissionMapping
 import form.FormValidation.nonEmptyList
 import form.Mappings._
 import javax.inject.{Inject, Named}
+import models.GroupAccount.AgentGroupAccount
 import models._
 import models.searchApi._
 import play.api.Logger
@@ -198,9 +199,9 @@ class AppointAgentController @Inject()(
       },
       success = (agent: AgentId) => {
         accounts.withAgentCode(agent.id) flatMap {
-          case Some(group) =>
-            Future.successful(Redirect(routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), group.agentCode)))
-          case None =>
+          case Some(AgentGroupAccount(_, agentCode)) =>
+            Future.successful(Redirect(routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), agentCode)))
+          case None | Some(_) =>
             val errors: List[FormError] = List(invalidAgentCode)
             agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
               val formWithErrors = errors.foldLeft(registeredAgentForm.fill(AgentId(agent.id))) { (f, error) => f.withError(error) }
@@ -243,7 +244,7 @@ class AppointAgentController @Inject()(
           agentCode = data("agentCode").toLong)
 
         accounts.withAgentCode(pagination.agentCode.toString) flatMap {
-          case Some(group) =>
+          case Some(AgentGroupAccount(group, agentCode)) =>
             for {
               response <- agentRelationshipService.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(
                 address = pagination.address,
@@ -255,9 +256,9 @@ class AppointAgentController @Inject()(
                 .map(oar => oar.copy(filterTotal = oar.authorisations.size))
                 .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
             } yield {
-              BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), group.agentCode))
+              BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), agentCode))
             }
-          case None =>
+          case None | Some(_) =>
             Future.successful(notFound)
         }
       },

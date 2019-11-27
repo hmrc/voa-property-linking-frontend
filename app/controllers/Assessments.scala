@@ -21,7 +21,7 @@ import java.time.LocalDate
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
-import connectors.authorisation.BusinessRatesAuthorisation
+import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.{Inject, Named}
 import models._
@@ -43,7 +43,7 @@ class Assessments @Inject()(
                              submissionIds: SubmissionIdConnector,
                              dvrCaseManagement: DVRCaseManagementConnector,
                              businessRatesValuations: BusinessRatesValuationConnector,
-                             businessRatesAuthorisation: BusinessRatesAuthorisation,
+                             businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
                              override val controllerComponents: MessagesControllerComponents,
                              @Named("detailed-valuation.external") isExternalValuation: Boolean
                            )(

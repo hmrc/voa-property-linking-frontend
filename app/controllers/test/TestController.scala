@@ -55,7 +55,7 @@ class TestController @Inject()(
         organisationName = request.organisationAccount.companyName,
         governmentGatewayGroupId = request.organisationAccount.groupId,
         governmentGatewayExternalId = request.individualAccount.externalId,
-        agentCode = Some(request.organisationAccount.agentCode))
+        agentCode = request.organisationAccount.agentCode)
     } else {
       TestUserDetails(personId = request.individualAccount.individualId,
         organisationId = request.organisationAccount.id,
