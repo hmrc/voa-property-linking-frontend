@@ -201,7 +201,7 @@ class AppointAgentController @Inject()(
         accounts.withAgentCode(agent.id) flatMap {
           case Some(AgentGroupAccount(_, agentCode)) =>
             Future.successful(Redirect(routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), agentCode)))
-          case None | Some(_) =>
+          case _ =>
             val errors: List[FormError] = List(invalidAgentCode)
             agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
               val formWithErrors = errors.foldLeft(registeredAgentForm.fill(AgentId(agent.id))) { (f, error) => f.withError(error) }
@@ -258,14 +258,15 @@ class AppointAgentController @Inject()(
             } yield {
               BadRequest(views.html.propertyrepresentation.revokeAgentProperties(Some(errors), AppointAgentPropertiesVM(group, response), PaginationParameters(), GetPropertyLinksParameters(), agentCode))
             }
-          case None | Some(_) =>
+          case _ =>
             Future.successful(notFound)
         }
       },
       success = (action: AgentRevokeBulkAction) => {
         accounts.withAgentCode(action.agentCode.toString) flatMap {
-          case Some(group) => agentRelationshipService.createAndSubitAgentRevokeRequest(pLinkIds = action.propertyLinkIds,
-            agentCode = action.agentCode).map {
+          case Some(group) =>
+            agentRelationshipService.
+              createAndSubitAgentRevokeRequest(pLinkIds = action.propertyLinkIds, agentCode = action.agentCode).map {
             case _ => Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
           }.recoverWith {
             case e: services.AppointRevokeException =>

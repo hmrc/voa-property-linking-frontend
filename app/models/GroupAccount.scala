@@ -33,10 +33,11 @@ object GroupAccount {
   implicit val format = Json.format[GroupAccount]
 
   object AgentGroupAccount {
-    def unapply(account: GroupAccount): Option[(GroupAccount, Long)] =
-      account
-        .agentCode
-        .map(code => account -> code)
-        .filter(_ => account.isAgent) //TODO this logic might not be required here.
+    def unapply(account: GroupAccount): Option[(GroupAccount, Long)] = {
+      PartialFunction.condOpt(account){
+        case acc @GroupAccount(_, _, _, _, _, _, true, Some(code)) =>
+          (acc, code)
+      }
+    }
   }
 }
