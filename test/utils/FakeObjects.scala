@@ -54,7 +54,7 @@ trait FakeObjects {
   val individualUserDetails: UserDetails = userDetails(AffinityGroup.Individual)
   val orgUserDetails: UserDetails = userDetails(AffinityGroup.Organisation)
 
-  def groupAccount(agent: Boolean): GroupAccount = GroupAccount(1L, ggGroupId, ggExternalId, 1, email, phone, isAgent = agent, 300L)
+  def groupAccount(agent: Boolean): GroupAccount = GroupAccount(1L, ggGroupId, ggExternalId, 1, email, phone, isAgent = agent, Some(300L).filter(_ => agent))
 
   val groupAccountDetails = GroupAccountDetails(companyName, address, email, email, phone, isAgent = false)
   val testAccounts = Accounts(groupAccount(agent = true), detailedIndividualAccount)

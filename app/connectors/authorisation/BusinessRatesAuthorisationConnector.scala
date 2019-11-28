@@ -31,7 +31,7 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class BusinessRatesAuthorisation @Inject()(
+class BusinessRatesAuthorisationConnector @Inject()(
                                             config: ServicesConfig,
                                             http: HttpClient
                                           )(implicit executionContext: ExecutionContext) extends BaseConnector with AuthorisationHttpErrorFunctions {

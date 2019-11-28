@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
-import connectors.authorisation.BusinessRatesAuthorisation
+import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import javax.inject.Inject
@@ -41,7 +41,7 @@ class DvrController @Inject()(
                                authenticated: AuthenticatedAction,
                                submissionIds: SubmissionIdConnector,
                                dvrCaseManagement: DVRCaseManagementConnector,
-                               businessRatesAuthorisation: BusinessRatesAuthorisation
+                               businessRatesAuthorisation: BusinessRatesAuthorisationConnector
                              )(implicit executionContext: ExecutionContext,override val messagesApi: MessagesApi, override val controllerComponents: MessagesControllerComponents, val config: ApplicationConfig)
     extends PropertyLinkingController {
 

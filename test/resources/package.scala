@@ -148,7 +148,7 @@ package object resources {
     phone <- Gen.listOfN(8, Gen.numChar)
     isAgent <- arbitrary[Boolean]
     agentCode <- positiveLong
-  } yield GroupAccount(id, groupId, companyName, addressId, randomEmail, phone.mkString, isAgent, agentCode)
+  } yield GroupAccount(id, groupId, companyName, addressId, randomEmail, phone.mkString, isAgent, Some(agentCode).filter(_ => isAgent))
   implicit val arbitraryGroupAccount = Arbitrary(groupAccountGen)
 
   val capacityGen: Gen[Capacity] = for {

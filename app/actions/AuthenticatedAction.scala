@@ -37,7 +37,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
                                     provider: GovernmentGatewayProvider,
-                                    businessRatesAuthorisation: BusinessRatesAuthorisation,
+                                    businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
                                     enrolmentService: EnrolmentService,
                                     override val authConnector: AuthConnector
                                    )(
@@ -62,11 +62,11 @@ class AuthenticatedAction @Inject()(override val messagesApi: MessagesApi,
 
   def asAgent(body: AgentRequest[AnyContent] => Future[Result]): Action[AnyContent] =
     this.async { implicit request =>
-      if (request.organisationAccount.isAgent) {
-        body(AgentRequest(request.organisationAccount, request.individualAccount, request.organisationAccount.agentCode, request))
-      } else {
-        Future.successful(Unauthorized("Agent account required"))
-      }
+      request
+        .organisationAccount
+        .agentCode
+        .map(code => body(AgentRequest(request.organisationAccount, request.individualAccount, code, request)))
+        .getOrElse(Future.successful(Unauthorized(views.html.errors.error("Bad Request", "Bad Request", "Agent account required"))))
     }
 
   def success[A](

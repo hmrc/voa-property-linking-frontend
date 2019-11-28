@@ -46,11 +46,11 @@ object StubGroupAccountConnector extends GroupAccounts(servicesConfig, mock(clas
     Future.successful(stubbedGroups.find(_.groupId == groupId))
   }
 
-  override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode.toString == agentCode))
+  override def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier) = Future.successful(stubbedGroups.find(_.agentCode.map(_.toString).contains(agentCode)))
 
   override def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] = Future.successful {
     val id = randomId.toLong
-    stubAccount(GroupAccount(id, account.id, account.companyName, account.addressId, account.email, account.phone, account.isAgent, arbitrary[Long].sample.get))
+    stubAccount(GroupAccount(id, account.id, account.companyName, account.addressId, account.email, account.phone, account.isAgent, Some(arbitrary[Long].sample.get).filter(_ => account.isAgent)))
     id
   }
 

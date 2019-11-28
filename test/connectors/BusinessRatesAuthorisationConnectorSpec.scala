@@ -18,19 +18,19 @@ package connectors
 
 import config.AuthorisationFailed
 import connectors.authorisation.AuthorisationResult._
-import connectors.authorisation.BusinessRatesAuthorisation
+import connectors.authorisation.BusinessRatesAuthorisationConnector
 import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalacheck.Arbitrary._
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
 
-class BusinessRatesAuthorisationSpec extends VoaPropertyLinkingSpec {
+class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new BusinessRatesAuthorisation(servicesConfig, mockWSHttp) {
+    val connector = new BusinessRatesAuthorisationConnector(servicesConfig, mockWSHttp) {
       override val url: String = "tst-url"
     }
   }
