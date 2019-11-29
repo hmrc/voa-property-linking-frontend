@@ -81,7 +81,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
     StubGroupAccountConnector.stubAccount(clientGroup)
     StubGroupAccountConnector.stubAccount(agentGroup)
 
-    val res = TestDashboard.viewManagedProperties(agentGroup.agentCode, false)(request)
+    val res = TestDashboard.viewManagedProperties(agentGroup.agentCode.get, false)(request)
 
     status(res) mustBe OK
     contentAsString(res) must include("Properties managed by Test Agent Company")

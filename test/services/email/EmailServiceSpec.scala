@@ -45,7 +45,7 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar {
       val emailConnector = new EmailConnector(config, mockWSHttp)
       val emailService = new EmailService(emailConnector)
 
-      val groupAccount = GroupAccount(123L,"groupId","companyName",221L,"email@email.com","01234567889",true,12345678L)
+      val groupAccount = GroupAccount(123L,"groupId","companyName",221L,"email@email.com","01234567889",true, Some(12345678L))
 
       when(config.baseUrl("email")).thenReturn("http://blah:2909/")
 

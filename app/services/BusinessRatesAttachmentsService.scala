@@ -95,7 +95,7 @@ class BusinessRatesAttachmentsService @Inject()(
       .semiflatMap(references => Future.traverse(references)(patchMetadata(submissionId, _)))
       .leftFlatMap{
         case AllFilesAreAlreadyUploaded(attachments)  => EitherT.rightT(attachments)
-        case error @SomeFilesAreAlreadyUploaded(references)  => if (retryCount < 5) submit(submissionId, references, retryCount + 1) else EitherT.leftT(error)
+        case error @SomeFilesAreAlreadyUploaded(references)  if (retryCount < 5) =>  submit(submissionId, references, retryCount + 1)
         case error                                    =>    EitherT.leftT(error)
       }
   }

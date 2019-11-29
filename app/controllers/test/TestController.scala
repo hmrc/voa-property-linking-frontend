@@ -17,8 +17,9 @@
 package controllers.test
 
 import actions.AuthenticatedAction
+import actions.propertylinking.WithLinkingSession
 import connectors._
-import connectors.propertyLinking.PropertyLinkConnector
+import connectors.attachments.BusinessRatesAttachmentsConnector
 import connectors.test.{TestCheckConnector, TestPropertyLinkingConnector}
 import controllers.{Pagination, PropertyLinkingController}
 import javax.inject.Inject
@@ -29,25 +30,26 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.test.TestService
 import services.{Failure, Success}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import utils.Cats
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class TestController @Inject()(
-                                val errorHandler: CustomErrorHandler,
+                                override val errorHandler: CustomErrorHandler,
                                 authenticated: AuthenticatedAction,
+                                withLinkingSession: WithLinkingSession,
                                 testService: TestService,
                                 individualAccounts: IndividualAccounts,
-                                groups: GroupAccounts,
                                 testPropertyLinkingConnector: TestPropertyLinkingConnector,
+                                businessRatesAttachmentsConnector: BusinessRatesAttachmentsConnector,
                                 testCheckConnector: TestCheckConnector,
-                                propertyLinkingConnector: PropertyLinkConnector,
                                 reprConnector: PropertyRepresentationConnector
                               )(
-                                implicit exectionContext: ExecutionContext,
+                                implicit executionContext: ExecutionContext,
                                 override val controllerComponents: MessagesControllerComponents)
-  extends PropertyLinkingController {
+  extends PropertyLinkingController with Cats {
 
-  def getUserDetails(): Action[AnyContent] = authenticated { implicit request =>
+  val getUserDetails: Action[AnyContent] = authenticated { implicit request =>
     Ok(Json.toJson(if (request.organisationAccount.isAgent) {
       TestUserDetails(
         personId = request.individualAccount.individualId,
@@ -55,7 +57,7 @@ class TestController @Inject()(
         organisationName = request.organisationAccount.companyName,
         governmentGatewayGroupId = request.organisationAccount.groupId,
         governmentGatewayExternalId = request.individualAccount.externalId,
-        agentCode = Some(request.organisationAccount.agentCode))
+        agentCode = request.organisationAccount.agentCode)
     } else {
       TestUserDetails(personId = request.individualAccount.individualId,
         organisationId = request.organisationAccount.id,
@@ -115,6 +117,12 @@ class TestController @Inject()(
 
   def getSubmittedCheck(submissionId: String) = authenticated.async { implicit request =>
     testCheckConnector.getSubmittedCheck(submissionId).map(response => Ok(response.body))
+  }
+
+  val getAttachments = authenticated.andThen(withLinkingSession).async { implicit request =>
+    request.ses.uploadEvidenceData.attachments.fold(Set.empty[String])(_.keySet).toList
+      .traverse(businessRatesAttachmentsConnector.getAttachment)
+      .map(attachments => Ok(Json.toJson(AttachmentsInLinkingSession(attachments))))
   }
 
 }
