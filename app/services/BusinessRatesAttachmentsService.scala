@@ -80,9 +80,10 @@ class BusinessRatesAttachmentsService @Inject()(
       .semiflatMap(Future.traverse(_)(r => getAttachment(r).map(r -> _)))
       .subflatMap(attachments => {
         Either.cond(
-          attachments.filter(attachment => isAttachmentsHasMovedToUploadStatus(attachment._2)).size != nonEmptyReferences.size,
+          attachments.count { case (_, attachment) => isAttachmentsHasMovedToUploadStatus(attachment) } != nonEmptyReferences.size,
           attachments,
           AllFilesAreAlreadyUploaded(attachments.map(_._2)))
+
       }
       )
       .subflatMap { attachments =>

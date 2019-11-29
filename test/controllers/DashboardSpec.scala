@@ -72,7 +72,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
     val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
     val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
 
-    val agentGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = true, companyName = "Test Agent Company")
+    val agentGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = true, companyName = "Test Agent Company", agentCode = Some(100000))
     val agentPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = agentGroup.id)
 
     StubIndividualAccountConnector.stubAccount(clientPerson)
