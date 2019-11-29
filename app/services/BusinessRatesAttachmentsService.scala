@@ -23,7 +23,7 @@ import connectors.attachments.BusinessRatesAttachmentsConnector
 import javax.inject.{Inject, Named}
 
 import models._
-import models.attachment._
+import models.attachment.{Attachment, _}
 import models.upscan.{FileMetadata, PreparedUpload, UploadedFileDetails}
 import play.api.libs.json.Json
 import repositories.SessionRepo
@@ -80,31 +80,14 @@ class BusinessRatesAttachmentsService @Inject()(
       .semiflatMap(Future.traverse(_)(r => getAttachment(r).map(r -> _)))
       .subflatMap(attachments => {
         Either.cond(
-          attachments.filter(
-            attachment =>
-              List(
-                UploadPending,
-                Uploading,
-                UploadAttachmentFailed,
-                UploadAttachmentComplete,
-                UploadingScanResults,
-                UploadScanResultsFailed,
-                UploadScanResultsComplete
-              ).contains(attachment._2.state)).size != nonEmptyReferences.size, attachments, AllFilesAreAlreadyUploaded(attachments.map(_._2)))
+          attachments.filter(attachment => isAttachmentsHasMovedToUploadStatus(attachment._2)).size != nonEmptyReferences.size,
+          attachments,
+          AllFilesAreAlreadyUploaded(attachments.map(_._2)))
       }
       )
       .subflatMap { attachments =>
         val (uploaded, notuploaded) =
-          attachments.partition(attachment =>
-          List(
-          UploadPending,
-          Uploading,
-          UploadAttachmentFailed,
-          UploadAttachmentComplete,
-          UploadingScanResults,
-          UploadScanResultsFailed,
-          UploadScanResultsComplete
-        ).contains(attachment._2.state))
+          attachments.partition(attachment => isAttachmentsHasMovedToUploadStatus(attachment._2))
         Either.cond(uploaded.isEmpty, attachments, SomeFilesAreAlreadyUploaded(notuploaded.map(_._1)))
       }
       .map(result => result.filter(_._2.state == MetadataPending))
@@ -131,6 +114,18 @@ class BusinessRatesAttachmentsService @Inject()(
 
       businessRatesAttachmentsConnector.submitFile(reference, submissionId)
     }
+
+  private def isAttachmentsHasMovedToUploadStatus(attachment: Attachment):Boolean = {
+    List(
+      UploadPending,
+      Uploading,
+      UploadAttachmentFailed,
+      UploadAttachmentComplete,
+      UploadingScanResults,
+      UploadScanResultsFailed,
+      UploadScanResultsComplete
+    ).contains(attachment.state)
+  }
 
 }
 
