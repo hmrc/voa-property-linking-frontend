@@ -20,7 +20,7 @@ import actions.propertylinking.requests.LinkingSessionRequest
 import actions.requests.BasicAuthenticatedRequest
 import connectors.attachments.BusinessRatesAttachmentsConnector
 import models.LinkingSession
-import models.attachment.InitiateAttachmentPayload
+import models.attachment._
 import models.attachment.request.InitiateAttachmentRequest
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
@@ -30,6 +30,7 @@ import repositories.SessionRepo
 import resources._
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.voa.propertylinking.exceptions.attachments.{AllFilesAreAlreadyUploaded, AttachmentException}
 
 import scala.concurrent.Future
 
@@ -63,12 +64,33 @@ class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
       verify(mockSessionRepo, atLeastOnce()).saveOrUpdate(any())(any(), any[HeaderCarrier])
     }
 
-    it should "call to submit Files is success" in {
+    "submit" should "call BRATT and validate property link evidence is in MetadataPending state" in {
+      when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(attachment))
+      when(businessRatesAttachmentConnector.getAttachment(any())(any[HeaderCarrier])).thenReturn(Future.successful(attachment.copy(state = MetadataPending)))
+
+      val result: Either[AttachmentException, List[Attachment]] = businessRatesChallengeService.submit("PL-123", List(FILE_REFERENCE)).value.futureValue
+
+      result mustBe 'right
+
+      verify(businessRatesAttachmentConnector).submitFile(any(), any())(any[HeaderCarrier])
+    }
+
+    "submit" should "call BRATT and validate property link evidence is in UploadPending state" in {
+      val att = attachment.copy(state = UploadPending)
+      when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(att))
+      when(businessRatesAttachmentConnector.getAttachment(any())(any[HeaderCarrier])).thenReturn(Future.successful(att))
+
+      val result: Either[AttachmentException, List[Attachment]] = businessRatesChallengeService.submit("PL-123", List(FILE_REFERENCE)).value.futureValue
+
+      result mustBe Right(List(att))
+  }
+
+  it should "call to submit Files is success" in {
       when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(attachment))
 
       businessRatesChallengeService.patchMetadata(FILE_REFERENCE, FILE_REFERENCE).futureValue
 
-      verify(businessRatesAttachmentConnector).submitFile(any(), any())(any[HeaderCarrier])
+      verify(businessRatesAttachmentConnector, times(2)).submitFile(any(), any())(any[HeaderCarrier])
     }
 }
 
