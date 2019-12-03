@@ -160,7 +160,15 @@ startIv.l2=P60
 startIv.l3=payslip (PAYE)
 identityVerification.title=Identity verification
 failedIdentityVerification.title=Identity verification failed
-failedIdentityVerification.p.1=We’re unable to verify your identity.
+failedIdentityVerification.p.1=We’re unable to verify your identity because {0}.
+failedIdentityVerification.failureReason.incomplete=you have not answered all the questions
+failedIdentityVerification.failureReason.failedMatching=the details you have given do not match our records
+failedIdentityVerification.failureReason.failedDirectorCheck=the details you have given do not match the director records from Companies House
+failedIdentityVerification.failureReason.insufficientEvidence=you have not given us enough information
+failedIdentityVerification.failureReason.lockedOut=you answered questions incorrectly too many times. You will need to wait 24 hours before you can try again
+failedIdentityVerification.failureReason.userAborted=you have chosen not to continue
+failedIdentityVerification.failureReason.timeout=you have been timed out due to inactivity
+failedIdentityVerification.failureReason.technicalIssue=of a technical issue with this service
 failedIdentityVerification.p.2=You can either <a href="{0}">try again</a> or contact us to continue your registration.
 failedIv.telephone.england=Telephone
 failedIv.telephone.england.number=03000 501 501

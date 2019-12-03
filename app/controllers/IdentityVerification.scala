@@ -18,8 +18,8 @@ package controllers
 
 import actions.registration.GgAuthenticatedAction
 import config.ApplicationConfig
-import connectors._
 import javax.inject.{Inject, Named}
+import models.identityVerificationProxy.IvResult
 import models.registration.AdminUser
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -31,14 +31,12 @@ import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerification @Inject()(
-                                      val errorHandler: CustomErrorHandler,
+                                      override val errorHandler: CustomErrorHandler,
                                       ggAction: GgAuthenticatedAction,
-                                      identityVerification: connectors.IdentityVerification,
-                                      addresses: Addresses,
-                                      individuals: IndividualAccounts,
+                                      identityVerificationConnector: connectors.IdentityVerificationConnector,
                                       identityVerificationService: IdentityVerificationService,
-                                      groups: GroupAccounts,
-                                      @Named("personSession") val personalDetailsSessionRepo: SessionRepo)
+                                      @Named("personSession") val personalDetailsSessionRepo: SessionRepo
+                                    )
                                     (
                                       implicit val executionContext: ExecutionContext,
                                       override val messagesApi: MessagesApi,
@@ -51,15 +49,22 @@ class IdentityVerification @Inject()(
     if (config.ivEnabled) {
       for {
         userDetails <- personalDetailsSessionRepo.get[AdminUser]
-        link <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
-      } yield Redirect(link.getLink(config.ivBaseUrl))
+        links <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
+      } yield Redirect(links.getLink(config.ivBaseUrl))
     } else {
       Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
     }
   }
 
-  val fail: Action[AnyContent] = Action { implicit request =>
-    Ok(views.html.identityVerification.failed())
+  val fail: Action[AnyContent] = ggAction.async { implicit request =>
+    request.getQueryString("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
+      identityVerificationConnector.journeyStatus(journeyId).map {
+        case IvResult.IvSuccess =>
+          Redirect(controllers.routes.IdentityVerification.success())
+        case ivFailureReason: IvResult.IvFailure =>
+          Ok(views.html.identityVerification.failed(ivFailureReason))
+      }
+    }
   }
 
   val restoreSession: Action[AnyContent] = Action { implicit request =>
@@ -69,9 +74,9 @@ class IdentityVerification @Inject()(
     )
   }
 
-  val success = ggAction.async { implicit request =>
+  val success: Action[AnyContent] = ggAction.async { implicit request =>
     request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
-      identityVerification.verifySuccess(journeyId).flatMap {
+      identityVerificationConnector.verifySuccess(journeyId).flatMap {
         case true =>
           identityVerificationService.continue(journeyId, request.userDetails).map {
             case Some(obj) => identityVerificationService.someCase(obj)

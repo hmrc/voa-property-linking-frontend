@@ -16,26 +16,31 @@
 
 package utils
 
-import connectors.IdentityVerification
+import connectors.IdentityVerificationConnector
+import models.identityVerificationProxy.IvResult
+import models.identityVerificationProxy.IvResult.{IvFailure, IvSuccess}
 import org.mockito.Mockito
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import utils.Configs._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import Configs._
 
-object StubIdentityVerification extends IdentityVerification(servicesConfig, null, Mockito.mock(classOf[HttpClient])) {
+object StubIdentityVerification extends IdentityVerificationConnector(servicesConfig, null, Mockito.mock(classOf[HttpClient])) {
 
-  private var journeyResult = ("", "")
+  private var journeyResult: (String, IvResult) = ("", IvSuccess)
 
-  def stubSuccessfulJourney(id: String) = journeyResult = (id, "Success")
+  def stubSuccessfulJourney(id: String) = journeyResult = (id, IvSuccess)
 
-  def stubFailedJourney(id: String) = journeyResult = (id, "FailedIV")
+  def stubFailedJourney(id: String, ivFailure: IvFailure = IvFailure.FailedIV) = journeyResult = (id, ivFailure)
 
-  def reset() = journeyResult = ("", "")
+  def reset() = journeyResult = ("", IvSuccess)
 
-  override def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean] = {
-    Future.successful(journeyResult._1 == journeyId && journeyResult._2 == "Success")
-  }
+  override def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean] =
+    Future.successful(journeyResult._1 == journeyId && journeyResult._2 == IvSuccess)
+
+  override def journeyStatus(journeyId: String)(implicit hc: HeaderCarrier): Future[IvResult] =
+    Future.successful(journeyResult._2)
+
 }

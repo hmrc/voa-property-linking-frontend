@@ -18,18 +18,20 @@ package connectors
 
 import config.ApplicationConfig
 import javax.inject.Inject
-import play.api.libs.json.JsValue
+import models.identityVerificationProxy.IvResult
+import models.identityVerificationProxy.IvResult.IvFailure
+import play.api.libs.json.{JsObject, JsValue}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class IdentityVerification @Inject()(
-                                      serverConfig: ServicesConfig,
-                                      config: ApplicationConfig,
-                                      http: HttpClient
-                                    )(implicit val executionContext: ExecutionContext) {
+class IdentityVerificationConnector @Inject()(
+                                               serverConfig: ServicesConfig,
+                                               config: ApplicationConfig,
+                                               http: HttpClient
+                                             )(implicit val executionContext: ExecutionContext) {
 
   val baseUrl = serverConfig.baseUrl("identity-verification")
 
@@ -38,6 +40,16 @@ class IdentityVerification @Inject()(
       http.GET[JsValue](s"$baseUrl/mdtp/journey/journeyId/$journeyId").map(r => (r \ "result").asOpt[String].contains("Success"))
     } else {
       Future.successful(true)
+    }
+  }
+
+  def journeyStatus(journeyId: String)(implicit hc: HeaderCarrier): Future[IvResult] = {
+    if (config.ivEnabled) {
+      http.GET[JsObject](s"$baseUrl/mdtp/journey/journeyId/$journeyId").map { returnedObject =>
+        IvResult.fromString((returnedObject \ "result").as[String]).getOrElse(IvFailure.TechnicalIssue)
+      }
+    } else {
+      Future.successful(IvFailure.TechnicalIssue)
     }
   }
 }
