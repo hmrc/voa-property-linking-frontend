@@ -17,15 +17,16 @@
 package connectors
 
 import controllers.VoaPropertyLinkingSpec
+import models.identityVerificationProxy.IvResult.{IvFailure, IvSuccess}
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.http.HeaderCarrier
 
-class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
+class IdentityVerificationConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new IdentityVerification(servicesConfig, applicationConfig, mockWSHttp)
+    val connector = new IdentityVerificationConnector(servicesConfig, applicationConfig, mockWSHttp)
   }
 
   "verifySuccess" must "return true if IV was successful" in new Setup {
@@ -40,6 +41,20 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
 
     mockHttpGET[JsValue]("tst-url", ivResult)
     whenReady(connector.verifySuccess("JOURNEY_ID"))(_ mustBe false)
+  }
+
+  "journeyStatus" must "return the appropriate IvResult" in new Setup {
+    val ivResult = Json.obj("result" -> "Success")
+
+    mockHttpGET[JsValue]("tst-url", ivResult)
+    whenReady(connector.journeyStatus("JOURNEY_ID"))(_ == IvSuccess)
+  }
+
+  "journeyStatus" must "return TechnicalIssue IvFailure for anything else" in new Setup {
+    val ivResult = Json.obj("result" -> "Something else")
+
+    mockHttpGET[JsValue]("tst-url", ivResult)
+    whenReady(connector.journeyStatus("JOURNEY_ID"))(_ mustBe IvFailure.TechnicalIssue)
   }
 
 }

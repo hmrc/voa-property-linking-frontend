@@ -17,10 +17,13 @@
 package controllers
 
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
+import models.identityVerificationProxy.IvResult.IvFailure
 import models.registration._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
+import org.scalatest.prop.Tables.Table
+import org.scalatest.prop.{TableDrivenPropertyChecks, TableFor2}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
@@ -82,65 +85,88 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
 
   "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in new TestCase {
     StubIdentityVerification.stubFailedJourney("somejourneyid")
-    val res = testIdentityVerification(userDetails(Organisation)).success()(request.withSession("journey-id" -> "somejourneyid"))
+    val res = testIdentityVerification(userDetails(Organisation)).success()(requestWithJourneyId("somejourneyid"))
     status(res) mustBe UNAUTHORIZED
   }
 
   "Navigating to the iv failed page" must "return the failed page" in new TestCase {
-    val res = testIdentityVerification(userDetails(Organisation)).fail()(request)
+    StubIdentityVerification.stubFailedJourney("somejourneyid")
+    val res = testIdentityVerification(userDetails(Organisation)).fail()(requestWithJourneyId("failed journey"))
     status(res) mustBe OK
     contentAsString(res) must include("Identity verification failed")
   }
   "Navigating to restoreSession" must "redirect to the iv success page" in new TestCase {
-    val res = testIdentityVerification(userDetails(Organisation)).restoreSession()(request)
+    val res = testIdentityVerification(userDetails(Organisation)).restoreSession()(requestWithJourneyId("somejourneyid"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.IdentityVerification.success.url)
+    redirectLocation(res) mustBe Some(routes.IdentityVerification.success().url)
   }
 
-  "fail" must "redirect the user to the identity verification failure page" in new TestCase {
-    val res = testIdentityVerification(userDetails(Organisation)).fail()(FakeRequest())
+  "fail" must "redirect the user to the identity verification failure page with appropriate error message detailing the cause of the IV failure" in new TestCase {
+    val scenarios: TableFor2[IvFailure, String] = Table(
+      ("IV Failure", "expected text"),
+      IvFailure.Incomplete -> "you have not answered all the questions",
+      IvFailure.FailedMatching -> "the details you have given do not match our records",
+      IvFailure.FailedDirectorCheck -> "the details you have given do not match the director records from Companies House",
+      IvFailure.InsufficientEvidence -> "you have not given us enough information",
+      IvFailure.LockedOut -> "you answered questions incorrectly too many times. You will need to wait 24 hours before you can try again",
+      IvFailure.UserAborted -> "you have chosen not to continue",
+      IvFailure.Timeout -> "you have been timed out due to inactivity",
+      IvFailure.TechnicalIssue -> "of a technical issue with this service",
+      IvFailure.PreconditionFailed -> "of a technical issue with this service",
+      IvFailure.Deceased -> "of a technical issue with this service",
+      IvFailure.FailedIV -> "of a technical issue with this service"
+    )
 
-    status(res) mustBe OK
+    TableDrivenPropertyChecks.forAll(scenarios) {
+      case (failure, expectedText) =>
+        StubIdentityVerification.stubFailedJourney("somejourneyid", failure)
+        val res = testIdentityVerification(userDetails(Organisation)).fail()(requestWithJourneyId("failed journey"))
+        status(res) mustBe OK
+        val html = contentAsString(res)
+        html must include(s"We’re unable to verify your identity because $expectedText.")
+    }
 
-    val html = contentAsString(res)
-    html must include("We’re unable to verify your identity.")
   }
 
 
   trait TestCase {
     def mockSessionRepoOrgDetails: PersonalDetailsSessionRepository = {
       val f = mock[PersonalDetailsSessionRepository]
-      when(f.start(any())(any(), any())
-      ).thenReturn(Future.successful(()))
-      when(f.saveOrUpdate(any())(any(), any())
-      ).thenReturn(Future.successful(()))
+      when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
+      when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
       when(f.get[AdminOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample))
       f
     }
 
     def mockSessionRepoIndDetails: PersonalDetailsSessionRepository = {
       val f = mock[PersonalDetailsSessionRepository]
-      when(f.start(any())(any(), any())
-      ).thenReturn(Future.successful(()))
-      when(f.saveOrUpdate(any())(any(), any())
-      ).thenReturn(Future.successful(()))
+      when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
+      when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
       when(f.get[IndividualUserAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample))
       f
     }
 
-
     lazy val mockRegistrationService = mock[RegistrationService]
 
-    lazy val stubIdentityVerificationServiceEnrolmentOrg = new IvService(mockCustomErrorHandler, mockRegistrationService, mockSessionRepoOrgDetails, mock[IdentityVerificationProxyConnector], applicationConfig)
+    lazy val stubIdentityVerificationServiceEnrolmentOrg =
+      new IvService(
+        errorHandler = mockCustomErrorHandler,
+        registrationService = mockRegistrationService,
+        personalDetailsSessionRepo = mockSessionRepoOrgDetails,
+        proxyConnector = mock[IdentityVerificationProxyConnector],
+        config = applicationConfig
+      )
 
-    def testIdentityVerification(userDetails: UserDetails) =
-      new IdentityVerification(mockCustomErrorHandler,
-        ggPreauthenticated(userDetails), StubIdentityVerification, StubAddresses,
-        StubIndividualAccountConnector, stubIdentityVerificationServiceEnrolmentOrg, StubGroupAccountConnector, mockSessionRepoOrgDetails)
+    def testIdentityVerification(userDetails: UserDetails): IdentityVerification =
+      new IdentityVerification(
+        errorHandler = mockCustomErrorHandler,
+        ggAction = ggPreauthenticated(userDetails),
+        identityVerificationConnector = StubIdentityVerification,
+        identityVerificationService = stubIdentityVerificationServiceEnrolmentOrg,
+        personalDetailsSessionRepo = mockSessionRepoOrgDetails
+      )
 
-    val request = FakeRequest()
-
-    def requestWithJourneyId(id: String) = request.withSession("journeyId" -> id)
+    def requestWithJourneyId(id: String) = FakeRequest(GET, s"/?journeyId=$id").withSession("journeyId" -> id)
   }
 
 }

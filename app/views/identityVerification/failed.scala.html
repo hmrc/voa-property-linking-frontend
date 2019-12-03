@@ -16,7 +16,8 @@
 
 @import config.ApplicationConfig
 
-@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@import models.identityVerificationProxy.IvResult.IvFailure
+@(failureReason:IvFailure)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @main_template(title = Messages("failedIdentityVerification.title"), topNavigation = false) {
@@ -26,7 +27,7 @@
 
                     <h1 class="heading-xlarge">@messages("failedIdentityVerification.title")</h1>
 
-                    <p>@messages("failedIdentityVerification.p.1")</p>
+                    <p>@messages("failedIdentityVerification.p.1", messages(s"failedIdentityVerification.failureReason.${failureReason.messageKey}"))</p>
                     <p>@Html(Messages("failedIdentityVerification.p.2", controllers.registration.routes.RegistrationController.show().url))</p>
 
                     <p>@messages("failedIv.email")</p>

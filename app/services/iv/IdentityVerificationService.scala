@@ -59,7 +59,7 @@ trait IdentityVerificationService {
 class IvService @Inject()(val errorHandler: CustomErrorHandler,
                            registrationService: RegistrationService,
                            @Named("personSession") personalDetailsSessionRepo: SessionRepo,
-                           val proxyConnector: IdentityVerificationProxyConnector,
+                           override val proxyConnector: IdentityVerificationProxyConnector,
                            implicit val config: ApplicationConfig
                          ) extends IdentityVerificationService {
 
