@@ -57,7 +57,7 @@ sealed trait AdminUser extends User {
 
 object AdminUser {
 
-  lazy val individual = Form(mapping(
+  lazy val individual: Form[IndividualUserAccountDetails] = Form(mapping(
     keys.firstName -> nonEmptyText,
     keys.lastName -> nonEmptyText,
     keys.address -> addressMapping,
@@ -78,7 +78,7 @@ object AdminUser {
     keys.address -> addressMapping,
     keys.dateOfBirth -> dmyPastDate,
     keys.nino -> nino,
-    keys.phone -> nonEmptyText.verifying("Maximum length is 15", _.length <= 15),
+    keys.phone -> nonEmptyText(maxLength = 15),
     keys.email -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
     keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
     keys.isAgent -> optional(mandatoryBoolean),
