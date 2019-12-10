@@ -51,7 +51,6 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val vmvUrl = loadConfig("vmv-frontend.url")
   lazy val ggSignInUrl: String = loadConfig("gg-sign-in.url")
   lazy val ggRegistrationUrl: String = loadConfig("gg-registration.url")
-  lazy val fileUploadUrl: String = loadConfig("file-upload-frontend.url")
   lazy val serviceUrl: String = loadConfig("voa-property-linking-frontend.url")
   lazy val checkUrl = loadConfig("microservice.services.business-rates-check-frontend.url")
   lazy val externalCaseManagementApiUrl: String = loadConfig("external-case-management-api.url")

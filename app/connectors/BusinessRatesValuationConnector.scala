@@ -25,7 +25,17 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class BusinessRatesValuationConnector @Inject()(config: ApplicationConfig, http: HttpClient)(implicit val executionContext: ExecutionContext) {
 
-  def isViewable(uarn: Long, valuationId: Long, propertyLinkSubmissionId: String)(implicit hc: HeaderCarrier): Future[Boolean] = {
+  def isViewable(uarn: Long, valuationId: Long, propertyLinkId: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {
+    val url = config.baseUrl("business-rates-valuation")
+
+    http.GET[HttpResponse](s"$url/property-link/$propertyLinkId/assessment/$valuationId")
+      .map(_ => true)
+      .recover {
+        case _: NotFoundException => false
+      }
+  }
+
+  def isViewableExternal(uarn: Long, valuationId: Long, propertyLinkSubmissionId: String)(implicit hc: HeaderCarrier): Future[Boolean] = {
     val url = config.baseUrl("business-rates-valuation")
     http.GET[HttpResponse](
       s"$url/properties/$uarn/valuations/$valuationId",
@@ -33,7 +43,9 @@ class BusinessRatesValuationConnector @Inject()(config: ApplicationConfig, http:
         "propertyLinkSubmissionId"  -> propertyLinkSubmissionId,
         "projection"                -> "detailed")
     )
-      .map { _ => true }
-      .recover { case _: NotFoundException => false }
+      .map( _ => true )
+      .recover {
+        case _: NotFoundException => false
+      }
   }
 }
