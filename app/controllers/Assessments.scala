@@ -46,7 +46,8 @@ class Assessments @Inject()(
                              businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
                              override val controllerComponents: MessagesControllerComponents,
                              @Named("detailed-valuation.external") isExternalValuation: Boolean,
-                             @Named("detailed-valuation.skip") isSkipAssessment: Boolean
+                             @Named("detailed-valuation.skip") isSkipAssessment: Boolean,
+                             @Named("summary-valuation.newRoute") isSummaryValuationNewRoute: Boolean
                            )(
                              implicit override val messagesApi: MessagesApi,
                              val config: ApplicationConfig,
@@ -70,7 +71,7 @@ class Assessments @Inject()(
         if (!link.pending && link.assessments.size == 1 && isSkipAssessment) {
           Redirect(routes.Assessments.viewDetailedAssessment(submissionId, link.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference, owner))
         } else if (link.pending && link.assessments.size == 1 && isSkipAssessment) {
-          Redirect(routes.Assessments.viewSummary(link.uarn, link.pending))
+          Redirect(routes.Assessments.viewSummary(link.uarn, link.assessments.head.assessmentRef, link.pending))
         } else {
           Ok(
             views.html.dashboard.assessments(
@@ -95,7 +96,8 @@ class Assessments @Inject()(
         logger.warn("property link assessment call failed", e)
         val linkF = if (owner) propertyLinks.getMyOrganisationPropertyLink(submissionId) else propertyLinks.getMyClientsPropertyLink(submissionId)
         linkF.map {
-          case Some(link) => Redirect(routes.Assessments.viewSummary(link.uarn, true))
+          // TODO what do we do in this scenario
+          case Some(link) => Redirect(routes.Assessments.viewSummary(link.uarn, 1L , true))
           case None => notFound
         }
     }
@@ -109,8 +111,8 @@ class Assessments @Inject()(
                              owner: Boolean
                            )(implicit request: Request[_]): (String, ApiAssessment) = {
     assessment.rateableValue match {
-      case None => routes.Assessments.viewSummary(assessment.uarn, isPending).url -> assessment
-      case Some(_) if isPending => routes.Assessments.viewSummary(assessment.uarn, isPending).url -> assessment
+      case None => routes.Assessments.viewSummary(assessment.uarn, assessment.assessmentRef, isPending).url -> assessment
+      case Some(_) if isPending => routes.Assessments.viewSummary(assessment.uarn, assessment.assessmentRef, isPending).url -> assessment
       case Some(_) => routes.Assessments.viewDetailedAssessment(submissionId, authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference, owner).url -> assessment
     }
   }
@@ -119,6 +121,13 @@ class Assessments @Inject()(
     config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
   }
 
+  def viewSummary(uarn: Long, assessmentRef: Long, isPending: Boolean = false) = Action { implicit request =>
+    if(isSummaryValuationNewRoute) {
+      Redirect(config.valuationFrontendUrl + s"/summary/$assessmentRef/$uarn")
+    }
+    else {
+      Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
+    }
   def viewSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] = Action { implicit request =>
     Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
   }

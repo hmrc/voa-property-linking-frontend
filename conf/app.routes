@@ -34,7 +34,7 @@ GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/con
 GET         /property-link/:submissionId/assessments                                          @controllers.Assessments.assessments(submissionId: String, owner: Boolean ?= true)
 GET         /property-link/clients/all/:submissionId/assessments                              @controllers.Assessments.assessments(submissionId: String, owner: Boolean ?= false)
 
-GET         /summary/:uarn                                                                    @controllers.Assessments.viewSummary(uarn: Long, isPending: Boolean ?= false)
+GET         /summary/:uarn/:assessmentRef                                                     @controllers.Assessments.viewSummary(uarn: Long, assessmentRef: Long, isPending: Boolean ?= false)
 GET         /detailed/:authorisationId/:assessmentRef                                         @controllers.Assessments.viewDetailedAssessment(submissionId: String, authorisationId: Long, assessmentRef: Long, baRef, owner: Boolean ?= true)
 GET         /property-link/:submissionId/valuations/:valuationId/start-challenge              @controllers.Assessments.startChallengeFromDVR(submissionId: String, valuationId: Long, owner: Boolean ?= true)
 POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean ?= true)
