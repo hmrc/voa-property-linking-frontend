@@ -16,10 +16,13 @@
 
 package utils
 
+import java.time.LocalDate
+
 import models.registration.keys
 import models.{NamedEnum, NamedEnumSupport}
 import org.scalatest.{AppendedClues, MustMatchers}
 import play.api.data.Form
+import utils.FormBindingVerification.{verifyError, verifyddmmyy}
 import views.helpers.Errors
 
 object FormBindingVerification extends BasicVerification with DateVerification with ContactDetailsVerification {
@@ -94,6 +97,15 @@ trait DateVerification {
     validateMonth(form, validData, dateField)
     validateYearUpto(form, validData, dateField, maxYear)
     verifyRealDatesOnly(form, validData, dateField)
+  }
+
+  def verifyDateIsBefore(form: Form[_], validData: Map[String, String], dateField: String, futureDate: LocalDate): Unit = {
+    verifyddmmyy(form, validData, dateField, futureDate.getYear)
+    val data = validData
+      .updated(s"$dateField.day", futureDate.getDayOfMonth.toString)
+      .updated(s"$dateField.month", futureDate.getMonthValue.toString)
+      .updated(s"$dateField.year", futureDate.getYear.toString)
+    verifyError(form, data, dateField, Errors.dateMustBeInPast)
   }
 
   private def validateDay[T](form: Form[T], validData: Map[String, String], field: String) : Unit = {

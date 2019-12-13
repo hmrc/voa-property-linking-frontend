@@ -18,13 +18,12 @@ package models.registration
 
 import java.time.LocalDate
 
-import org.scalatest.{Matchers, WordSpec}
 import play.api.data.Form
-import utils.FakeObjects
+import tests.BaseUnitSpec
 import utils.FormBindingVerification._
 import views.helpers.Errors
 
-class AdminUserSpec extends WordSpec with Matchers with FakeObjects {
+class AdminUserSpec extends BaseUnitSpec {
 
   "Admin organisation user account details form" should {
     import AdminOrganisationAccountDetailsTestData._
@@ -57,12 +56,7 @@ class AdminUserSpec extends WordSpec with Matchers with FakeObjects {
         verifyddmmyy(form, validData, keys.dateOfBirth, LocalDate.now.getYear)
       }
       "is in the past" in {
-        val futureDate = LocalDate.now.plusDays(2)
-        val data = validData
-          .updated(s"${keys.dateOfBirth}.day", futureDate.getDayOfMonth.toString)
-          .updated(s"${keys.dateOfBirth}.month", futureDate.getMonthValue.toString)
-          .updated(s"${keys.dateOfBirth}.year", futureDate.getYear.toString)
-        verifyError(form, data, keys.dateOfBirth, Errors.dateMustBeInPast)
+        verifyDateIsBefore(form, validData, keys.dateOfBirth, LocalDate.now.plusDays(2))
       }
     }
     "ensure nino" should {
@@ -141,12 +135,7 @@ class AdminUserSpec extends WordSpec with Matchers with FakeObjects {
         verifyddmmyy(form, validData, keys.dateOfBirth, LocalDate.now.getYear)
       }
       "is in the past" in {
-        val futureDate = LocalDate.now.plusDays(2)
-        val data = validData
-          .updated(s"${keys.dateOfBirth}.day", futureDate.getDayOfMonth.toString)
-          .updated(s"${keys.dateOfBirth}.month", futureDate.getMonthValue.toString)
-          .updated(s"${keys.dateOfBirth}.year", futureDate.getYear.toString)
-        verifyError(form, data, keys.dateOfBirth, Errors.dateMustBeInPast)
+        verifyDateIsBefore(form, validData, keys.dateOfBirth, LocalDate.now.plusDays(2))
       }
     }
     "ensure nino" should {
@@ -203,6 +192,39 @@ class AdminUserSpec extends WordSpec with Matchers with FakeObjects {
     }
     "optionally accepts selectedAddress field" in {
       verifyOptional(form, validData, keys.selectedAddress)
+    }
+  }
+
+  "Admin in existing organisation user account details form" should {
+    import AdminInExistingOrganisationUserTestData._
+
+    "bind when the inputs are all valid" in {
+      mustBindTo(form, validData, expected)
+    }
+    "ensure first name is mandatory" in {
+      verifyNonEmptyText(form, validData, keys.firstName)
+    }
+    "ensure last name is mandatory" in {
+      verifyNonEmptyText(form, validData, keys.lastName)
+    }
+    "ensure date of birth" should {
+      "is mandatory" in {
+        verifyMandatoryDate(form, validData, keys.dateOfBirth)
+      }
+      "is valid" in {
+        verifyddmmyy(form, validData, keys.dateOfBirth, LocalDate.now.getYear)
+      }
+      "is in the past" in {
+        verifyDateIsBefore(form, validData, keys.dateOfBirth, LocalDate.now.plusDays(2))
+      }
+    }
+    "ensure nino" should {
+      "is mandatory" in {
+        verifyMandatory(form, validData, keys.nino)
+      }
+      "is valid" in {
+        verifyValidNino(form, validData)
+      }
     }
   }
 
@@ -276,5 +298,22 @@ class AdminUserSpec extends WordSpec with Matchers with FakeObjects {
     )
   }
 
+  object AdminInExistingOrganisationUserTestData {
+    val form: Form[AdminInExistingOrganisationAccountDetails] = AdminInExistingOrganisationUser.organisation
+    val validData = Map(
+      keys.firstName -> firstName,
+      keys.lastName -> lastName,
+      s"${keys.dateOfBirth}.day" -> dateOfBirth.getDayOfMonth.toString,
+      s"${keys.dateOfBirth}.month" -> dateOfBirth.getMonthValue.toString,
+      s"${keys.dateOfBirth}.year" -> dateOfBirth.getYear.toString,
+      keys.nino -> nino.toString
+    )
+    val expected = AdminInExistingOrganisationAccountDetails(
+      firstName = firstName,
+      lastName = lastName,
+      dob = dateOfBirth,
+      nino = nino
+    )
+  }
 }
 
