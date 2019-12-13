@@ -16,7 +16,7 @@
 
 package utils
 
-import java.time.{Instant, LocalDate}
+import java.time.{Instant, LocalDate, Month}
 import java.util.UUID
 
 import auth.Principal
@@ -40,6 +40,9 @@ trait FakeObjects {
   val address: Address = Address(Some(7L), "The Strand", "Worthing", "", "", postCode)
   val email = "some@email.com"
   val phone = "01293666666"
+  val nino: Nino = Nino("AA111111A")
+  val dateOfBirth: LocalDate = LocalDate.of(1979, Month.OCTOBER, 12)
+
   val principal = Principal(ggExternalId, ggGroupId)
   val FILE_REFERENCE: String = "1862956069192540"
   val preparedUpload = PreparedUpload(Reference(FILE_REFERENCE), UploadFormTemplate("http://localhost/upscan", Map()))
@@ -63,30 +66,30 @@ trait FakeObjects {
     firstName = firstName,
     lastName = lastName,
     address =  address,
-    dob = LocalDate.now,
-    nino = Nino("AA111111A"),
+    dob = dateOfBirth,
+    nino = nino,
     phone = "03245262782",
     mobilePhone = "04357282921",
-    email = "some@email.com",
-    confirmedEmail = "some@email.com",
+    email = email,
+    confirmedEmail = email,
     tradingName = Some("Trading name"),
     selectedAddress = None)
 
   val adminInExistingOrganisationAccountDetails = AdminInExistingOrganisationAccountDetails(
     firstName = "Billy-Bob",
     lastName = "AdminInExistingOrganisation",
-    dob = LocalDate.now,
-    nino = Nino("AA111111A"))
+    dob = dateOfBirth,
+    nino = nino)
 
   val adminOrganisationAccountDetails = AdminOrganisationAccountDetails(
     firstName = firstName,
     lastName = lastName,
     address =  Address(Some(123L), "1 Some street", "", "", "", "BN12 6DL"),
-    dob = LocalDate.now,
-    nino = Nino("AA111111A"),
+    dob = dateOfBirth,
+    nino = nino,
     phone = "03245262782",
-    email = "some@email.com",
-    confirmedEmail = "some@email.com",
+    email = email,
+    confirmedEmail = email,
     companyName = "Trading name",
     selectedAddress = None,
     isAgent = Some(false))

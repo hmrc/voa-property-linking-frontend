@@ -46,5 +46,6 @@ object Errors {
   val missingFiles = "error.missingFiles"
 
   //validation errors
+  val invalidEmail = "error.invalidEmail"
   val emailsMustMatch = "error.emailsMustMatch"
 }
