@@ -121,15 +121,13 @@ class Assessments @Inject()(
     config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
   }
 
-  def viewSummary(uarn: Long, assessmentRef: Long, isPending: Boolean = false) = Action { implicit request =>
-    if(isSummaryValuationNewRoute) {
-      Redirect(config.valuationFrontendUrl + s"/summary/$assessmentRef/$uarn")
+  def viewSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] = Action { implicit request =>
+    if (isSummaryValuationNewRoute) {
+      Redirect(config.valuationFrontendUrl + s"/summary/$uarn")
     }
     else {
       Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
     }
-  def viewSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] = Action { implicit request =>
-    Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
   }
 
   def viewDetailedAssessment(

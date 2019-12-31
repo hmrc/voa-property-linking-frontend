@@ -45,7 +45,8 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     mockBusinessRatesAuthorisation,
     stubMessagesControllerComponents(),
     isExternalValuation = false,
-    isSkipAssessment = false) {
+    isSkipAssessment = false,
+    isSummaryValuationNewRoute = true) {
     when(mockDvrCaseManagement.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier])).thenReturn(Future.successful(()))
   }
 
@@ -86,8 +87,9 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
   //    }
   //  }
 
+  // TODO
   "viewSummary" must "redirect to view summary details" in {
-    val res = TestAssessmentController.viewSummary(123L, true)(FakeRequest())
+    val res = TestAssessmentController.viewSummary(123L, 1L, true)(FakeRequest())
 
     status(res) mustBe SEE_OTHER
 
