@@ -29,7 +29,7 @@ import play.api.Logger
 import play.api.data.Forms.text
 import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Request}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.propertylinking.services.PropertyLinkService
 
@@ -71,7 +71,7 @@ class Assessments @Inject()(
         if (!link.pending && link.assessments.size == 1 && isSkipAssessment) {
           Redirect(routes.Assessments.viewDetailedAssessment(submissionId, link.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference, owner))
         } else if (link.pending && link.assessments.size == 1 && isSkipAssessment) {
-          Redirect(routes.Assessments.viewSummary(link.uarn, link.assessments.head.assessmentRef, link.pending))
+          Redirect(getViewSummaryCall(link.uarn, link.pending, owner))
         } else {
           Ok(
             views.html.dashboard.assessments(
@@ -96,11 +96,14 @@ class Assessments @Inject()(
         logger.warn("property link assessment call failed", e)
         val linkF = if (owner) propertyLinks.getMyOrganisationPropertyLink(submissionId) else propertyLinks.getMyClientsPropertyLink(submissionId)
         linkF.map {
-          // TODO what do we do in this scenario
-          case Some(link) => Redirect(routes.Assessments.viewSummary(link.uarn, 1L , true))
+          case Some(link) => Redirect(getViewSummaryCall(link.uarn, pending = true, owner))
           case None => notFound
         }
     }
+  }
+
+  private def getViewSummaryCall(uarn: Long, pending: Boolean, owner: Boolean): Call = {
+    if (owner) routes.Assessments.viewOwnerSummary(uarn, pending) else routes.Assessments.viewClientSummary(uarn, pending)
   }
 
   private def decideNextUrl(
@@ -111,8 +114,8 @@ class Assessments @Inject()(
                              owner: Boolean
                            )(implicit request: Request[_]): (String, ApiAssessment) = {
     assessment.rateableValue match {
-      case None => routes.Assessments.viewSummary(assessment.uarn, assessment.assessmentRef, isPending).url -> assessment
-      case Some(_) if isPending => routes.Assessments.viewSummary(assessment.uarn, assessment.assessmentRef, isPending).url -> assessment
+      case None => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
+      case Some(_) if isPending => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
       case Some(_) => routes.Assessments.viewDetailedAssessment(submissionId, authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference, owner).url -> assessment
     }
   }
@@ -121,9 +124,15 @@ class Assessments @Inject()(
     config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
   }
 
-  def viewSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] = Action { implicit request =>
+  def viewOwnerSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] =
+    viewSummary(uarn, isOwner = true, isPending)
+
+  def viewClientSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] =
+    viewSummary(uarn, isOwner = false, isPending)
+
+  def viewSummary(uarn: Long, isOwner: Boolean, isPending: Boolean = false): Action[AnyContent] = Action { implicit request =>
     if (isSummaryValuationNewRoute) {
-      Redirect(config.valuationFrontendUrl + s"/summary/$uarn")
+      Redirect(config.valuationFrontendUrl + s"/summary/$uarn?isOwner=$isOwner")
     }
     else {
       Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
@@ -196,7 +205,7 @@ class Assessments @Inject()(
 
   lazy val viewAssessmentForm = Form(Forms.single("nextUrl" -> text))
 
-  def submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean) = authenticated.async { implicit request =>
+  def submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
 
     viewAssessmentForm.bindFromRequest().fold(
       errors => {
