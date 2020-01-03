@@ -87,15 +87,18 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
   //    }
   //  }
 
-  // TODO
-  "viewSummary" must "redirect to view summary details" in {
-    val res = TestAssessmentController.viewSummary(123L, 1L, true)(FakeRequest())
+  "viewOwnerSummary" must "redirect to business-rates-valuation view owner summary details" in {
+    val res = TestAssessmentController.viewOwnerSummary(123L, true)(FakeRequest())
 
     status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some("http://localhost:9537/business-rates-valuation/property-link/123/valuation/summary")
+  }
 
-    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/detail/123?isPending=true")
+  "viewClientSummary" must "redirect to business-rates-valuation view client summary details" in {
+    val res = TestAssessmentController.viewClientSummary(123L, true)(FakeRequest())
 
-
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some("http://localhost:9537/business-rates-valuation/property-link/clients/all/123/valuation/summary")
   }
 
   //  "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, Owner Check cases" in {

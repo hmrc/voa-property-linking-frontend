@@ -130,9 +130,13 @@ class Assessments @Inject()(
   def viewClientSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] =
     viewSummary(uarn, isOwner = false, isPending)
 
-  def viewSummary(uarn: Long, isOwner: Boolean, isPending: Boolean = false): Action[AnyContent] = Action { implicit request =>
+  private def viewSummary(uarn: Long, isOwner: Boolean, isPending: Boolean = false): Action[AnyContent] = Action { implicit request =>
     if (isSummaryValuationNewRoute) {
-      Redirect(config.valuationFrontendUrl + s"/summary/$uarn?isOwner=$isOwner")
+      if (isOwner) {
+        Redirect(config.valuationFrontendUrl + s"/property-link/$uarn/valuation/summary")
+      } else {
+        Redirect(config.valuationFrontendUrl + s"/property-link/clients/all/$uarn/valuation/summary")
+      }
     }
     else {
       Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
