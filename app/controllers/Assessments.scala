@@ -56,7 +56,6 @@ class Assessments @Inject()(
   private val logger = Logger(this.getClass.getName)
 
   def assessments(submissionId: String, owner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
-    val refererOpt = request.headers.get("Referer")
 
     val pLink: Future[Option[ApiAssessments]] = {
       if (owner)
@@ -80,7 +79,7 @@ class Assessments @Inject()(
                 assessmentsWithLinks =
                   link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)).reverse
                     .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
-                backLink = calculateBackLink(refererOpt, owner),
+                backLink = calculateBackLink(owner),
                 linkPending = link.pending,
                 authorisationId = link.authorisationId,
                 address = link.address,
@@ -116,9 +115,8 @@ class Assessments @Inject()(
     }
   }
 
-  private def calculateBackLink(refererOpt: Option[String], agentOwnsProperty: Boolean): String = refererOpt match {
-    case Some(referer) => referer
-    case None => config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
+  private def calculateBackLink(agentOwnsProperty: Boolean): String = {
+    config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
   }
 
   def viewSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] = Action { implicit request =>
@@ -207,7 +205,7 @@ class Assessments @Inject()(
                 AssessmentsVM(
                   form = errors,
                   assessmentsWithLinks = link.assessments.map(decideNextUrl(submissionId, authorisationId, _, link.pending, owner)),
-                  backLink = calculateBackLink(request.headers.get("Referer"), isAgentOwnProperty),
+                  backLink = calculateBackLink(isAgentOwnProperty),
                   authorisationId = link.authorisationId,
                   linkPending = link.pending,
                   address = link.address,
