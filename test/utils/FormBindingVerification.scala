@@ -134,7 +134,7 @@ trait DateVerification {
   }
 
   private def validateYearUpto[T](form: Form[T], validData: Map[String, String], field: String, maxYear: Int) : Unit = {
-    verifyRange(form, validData, s"$field.year", (1900 to maxYear).map(_.toString), Seq("1899", "200", "1"), Errors.belowMinimum)
+    verifyRange(form, validData, s"$field.year", (1900 to maxYear - 1).map(_.toString), Seq("1899", "200", "1"), Errors.belowMinimum)
     verifyRange(form, validData, s"$field.year", Seq.empty, Seq("3001", "4000", "999999"), Errors.aboveMaximum)
     verifyNonEmptyString(form, validData, s"$field.year", Errors.invalidNumber)
     verifyAcceptsLeadingAndTrailingWhitespace(form, validData, s"$field.year")
