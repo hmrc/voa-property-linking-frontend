@@ -34,7 +34,7 @@ val compileDependencies = Seq(
   filters,
   ws,
   "ai.x" %% "play-json-extensions" % "0.10.0",
-  "uk.gov.hmrc" %% "simple-reactivemongo" % "7.20.0-play-26",
+  "uk.gov.hmrc" %% "simple-reactivemongo" % "7.22.0-play-26",
   "com.codahale.metrics" % "metrics-graphite" % "3.0.1",
   "com.google.guava" % "guava" % "18.0",
   "joda-time" % "joda-time" % "2.10.4",
