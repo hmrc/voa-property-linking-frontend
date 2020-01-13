@@ -39,6 +39,7 @@ class GuiceModule(
 
     bindBoolean("feature.externalValuation", "detailed-valuation.external")
     bindBoolean("feature.assessmentSkip", "detailed-valuation.skip")
+    bindBoolean("feature.newSummaryValuationRoute", "summary-valuation.newRoute")
 
     bind(classOf[ServicesConfig]).toInstance(new ServicesConfig(configuration, new RunMode(configuration, environment.mode)))
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
