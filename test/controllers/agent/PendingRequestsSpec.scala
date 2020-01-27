@@ -171,4 +171,14 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
     StubPropertyLinkConnector,
     stubMessagesControllerComponents()
   )
+
+    override protected def beforeEach(): Unit = {
+      StubIndividualAccountConnector.reset()
+      StubGroupAccountConnector.reset()
+      StubIdentityVerification.reset()
+      StubPropertyLinkConnector.reset()
+      StubBusinessRatesValuation.reset()
+      StubSubmissionIdConnector.reset()
+      StubPropertyRepresentationConnector.reset()
+    }
 }

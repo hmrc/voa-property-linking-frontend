@@ -21,8 +21,8 @@ import java.time.{Clock, Instant, ZoneId}
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
-import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
+import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import actions.requests.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import models._
@@ -119,15 +119,5 @@ trait VoaPropertyLinkingSpec
         )))
       }
     }
-  }
-
-  override protected def beforeEach(): Unit = {
-    StubIndividualAccountConnector.reset()
-    StubGroupAccountConnector.reset()
-    StubIdentityVerification.reset()
-    StubPropertyLinkConnector.reset()
-    StubBusinessRatesValuation.reset()
-    StubSubmissionIdConnector.reset()
-    StubPropertyRepresentationConnector.reset()
   }
 }

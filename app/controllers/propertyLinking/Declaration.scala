@@ -78,7 +78,8 @@ class Declaration @Inject()(
             {
               case NotAllFilesReadyToUpload =>
                 logger.warn(s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page")
-                Redirect(routes.Declaration.show())
+                val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
+                BadRequest(declaration(DeclarationVM(form.fill(true).withError("declaration", "declaration.file.receipt")), isRatesBillEvidence))
               case MissingRequiredNumberOfFiles =>
                 logger.warn(s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")
                 request.ses.evidenceType match {
