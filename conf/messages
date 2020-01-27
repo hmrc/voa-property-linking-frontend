@@ -707,6 +707,7 @@ declaration.p.3=Once you submit the form you will not be able to go back and mak
 label.declaration=Declaration
 declaration.iAgree=I agree to the above declaration
 declaration.required=You must agree to the declaration to continue
+declaration.file.receipt=Awaiting evidence receipt, please try again in a moment.
 
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required

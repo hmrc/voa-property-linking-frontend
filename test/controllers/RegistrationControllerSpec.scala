@@ -246,4 +246,14 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val res = testRegistrationController(userDetails()).submitOrganisation()(fakeRequest)
     status(res) mustBe SEE_OTHER
   }
+
+    override protected def beforeEach(): Unit = {
+      StubIndividualAccountConnector.reset()
+      StubGroupAccountConnector.reset()
+      StubIdentityVerification.reset()
+      StubPropertyLinkConnector.reset()
+      StubBusinessRatesValuation.reset()
+      StubSubmissionIdConnector.reset()
+      StubPropertyRepresentationConnector.reset()
+    }
 }

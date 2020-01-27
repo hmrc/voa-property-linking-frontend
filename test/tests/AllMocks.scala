@@ -29,6 +29,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Request
 import repositories.{PersonalDetailsSessionRepository, SessionRepository}
 import services.EnrolmentService
+import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.propertylinking.services.PropertyLinkService
@@ -49,6 +50,7 @@ trait AllMocks {
   val mockGovernmentGatewayProvider: GovernmentGatewayProvider = mock[GovernmentGatewayProvider]
   val mockGroupAccount: GroupAccount = mock[GroupAccount]
   val mockPropertyLinkService: PropertyLinkService = mock[PropertyLinkService]
+  val mockPropertyLinkingService: PropertyLinkingService = mock[PropertyLinkingService]
   val mockSessionRepository: SessionRepository = mock[SessionRepository]
   val mockWithLinkingSession: WithLinkingSession = mock[WithLinkingSession]
   val mockPersonalDetailsSessionRepository: PersonalDetailsSessionRepository = mock[PersonalDetailsSessionRepository]
@@ -70,6 +72,7 @@ trait AllMocks {
       mockGovernmentGatewayProvider,
       mockGroupAccount,
       mockPropertyLinkService,
+      mockPropertyLinkingService,
       mockSessionRepository,
       mockWithLinkingSession,
       mockPersonalDetailsSessionRepository
