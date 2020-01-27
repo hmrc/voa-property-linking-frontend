@@ -86,7 +86,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.mustContainSummaryErrors(("declaration", "Declaration", "awaiting evidence receipt, please try again in a moment."))
+    html.mustContainSummaryErrors(("declaration", "Declaration", "please try again in a moment"))
   }
 
   it should "submit the property link if the user accepts the declaration" in new Setup {
