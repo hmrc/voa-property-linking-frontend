@@ -45,7 +45,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val detailedValuationRequest = mock[DetailedValuationRequest]
 
     mockHttpPOST[DetailedValuationRequest, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.requestDetailedValuation(detailedValuationRequest))(_ mustBe())
+    whenReady(connector.requestDetailedValuation(detailedValuationRequest))(_ mustBe ())
   }
 
   "dvrExists" must "successfully return a boolean" in new Setup {
@@ -70,7 +70,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     )
 
     val result: Unit = await(connector.requestDetailedValuation(dvr))
-    result mustBe()
+    result mustBe ()
   }
 
   "get dvr documents" must "return the documents and transfer them into an optional" in new Setup {
@@ -82,17 +82,24 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
 
     val now = LocalDateTime.now()
 
-    when(mockWSHttp.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(Matchers.any(), Matchers.any[HeaderCarrier](), Matchers.any()))
-      .thenReturn(Future.successful(DvrDocumentFiles(
-        checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-        detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-      )))
+    when(
+      mockWSHttp.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(
+        Matchers.any(),
+        Matchers.any[HeaderCarrier](),
+        Matchers.any()))
+      .thenReturn(
+        Future.successful(
+          DvrDocumentFiles(
+            checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+            detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
+          )))
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
-    result mustBe Some(DvrDocumentFiles(
-      checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-      detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-    ))
+    result mustBe Some(
+      DvrDocumentFiles(
+        checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+        detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
+      ))
   }
 
   "get dvr documents" must "return None when the documents don't exist" in new Setup {
@@ -104,7 +111,11 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
 
     val now = LocalDateTime.now()
 
-    when(mockWSHttp.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(Matchers.any(), Matchers.any[HeaderCarrier](), Matchers.any()))
+    when(
+      mockWSHttp.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(
+        Matchers.any(),
+        Matchers.any[HeaderCarrier](),
+        Matchers.any()))
       .thenReturn(Future.failed(new NotFoundException("Documents dont exist")))
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))

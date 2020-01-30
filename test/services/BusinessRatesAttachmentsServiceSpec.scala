@@ -37,10 +37,15 @@ import scala.concurrent.Future
 class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
   val businessRatesAttachmentConnector = mock[BusinessRatesAttachmentsConnector]
   val mockSessionRepo = mock[SessionRepo]
-  val initiateAttachmentRequest = InitiateAttachmentPayload(InitiateAttachmentRequest("FILE_NAME", "img/jpeg"), "http://example.com", "http://example.com/failure")
+  val initiateAttachmentRequest = InitiateAttachmentPayload(
+    InitiateAttachmentRequest("FILE_NAME", "img/jpeg"),
+    "http://example.com",
+    "http://example.com/failure")
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
-  implicit val request = new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
-  implicit val linkingSessionRequest = LinkingSessionRequest(linkingSessionData, 1234l, detailedIndividualAccount, groupAccount(agent = true), request)
+  implicit val request =
+    new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
+  implicit val linkingSessionRequest =
+    LinkingSessionRequest(linkingSessionData, 1234l, detailedIndividualAccount, groupAccount(agent = true), request)
   implicit val hc = HeaderCarrier()
 
   val businessRatesChallengeService = new BusinessRatesAttachmentsService(
@@ -48,49 +53,57 @@ class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
     sessionRepository = mockSessionRepo,
     auditingService = mockAuditingService)
 
-    it should "Upload Bill Evidence initiateAttachmentUpload" in {
-      when(mockSessionRepo.get[LinkingSession](any(), any())).thenReturn(Future.successful(Some(linkingSessionData)))
-      when(businessRatesAttachmentConnector.initiateAttachmentUpload(any())(any[HeaderCarrier])).thenReturn(Future successful preparedUpload)
-      when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
+  it should "Upload Bill Evidence initiateAttachmentUpload" in {
+    when(mockSessionRepo.get[LinkingSession](any(), any())).thenReturn(Future.successful(Some(linkingSessionData)))
+    when(businessRatesAttachmentConnector.initiateAttachmentUpload(any())(any[HeaderCarrier]))
+      .thenReturn(Future successful preparedUpload)
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
 
-      businessRatesChallengeService.initiateAttachmentUpload(initiateAttachmentRequest)(linkingSessionRequest, hc).futureValue
+    businessRatesChallengeService
+      .initiateAttachmentUpload(initiateAttachmentRequest)(linkingSessionRequest, hc)
+      .futureValue
 
-      verify(businessRatesAttachmentConnector, times(1)).initiateAttachmentUpload(any())(any[HeaderCarrier])
-    }
+    verify(businessRatesAttachmentConnector, times(1)).initiateAttachmentUpload(any())(any[HeaderCarrier])
+  }
 
-    it should "call to persistSessionData is success" in {
-      when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-      businessRatesChallengeService.persistSessionData(linkingSessionData,  uploadEvidenceData)
-      verify(mockSessionRepo, atLeastOnce()).saveOrUpdate(any())(any(), any[HeaderCarrier])
-    }
+  it should "call to persistSessionData is success" in {
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
+    businessRatesChallengeService.persistSessionData(linkingSessionData, uploadEvidenceData)
+    verify(mockSessionRepo, atLeastOnce()).saveOrUpdate(any())(any(), any[HeaderCarrier])
+  }
 
-    "submit" should "call BRATT and validate property link evidence is in MetadataPending state" in {
-      when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(attachment))
-      when(businessRatesAttachmentConnector.getAttachment(any())(any[HeaderCarrier])).thenReturn(Future.successful(attachment.copy(state = MetadataPending)))
+  "submit" should "call BRATT and validate property link evidence is in MetadataPending state" in {
+    when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(attachment))
+    when(businessRatesAttachmentConnector.getAttachment(any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(attachment.copy(state = MetadataPending)))
 
-      val result: Either[AttachmentException, List[Attachment]] = businessRatesChallengeService.submit("PL-123", List(FILE_REFERENCE)).value.futureValue
+    val result: Either[AttachmentException, List[Attachment]] =
+      businessRatesChallengeService.submit("PL-123", List(FILE_REFERENCE)).value.futureValue
 
-      result mustBe 'right
+    result mustBe 'right
 
-      verify(businessRatesAttachmentConnector).submitFile(any(), any())(any[HeaderCarrier])
-    }
+    verify(businessRatesAttachmentConnector).submitFile(any(), any())(any[HeaderCarrier])
+  }
 
-    "submit" should "call BRATT and validate property link evidence is in UploadPending state" in {
-      val att = attachment.copy(state = UploadPending)
-      when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(att))
-      when(businessRatesAttachmentConnector.getAttachment(any())(any[HeaderCarrier])).thenReturn(Future.successful(att))
+  "submit" should "call BRATT and validate property link evidence is in UploadPending state" in {
+    val att = attachment.copy(state = UploadPending)
+    when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(att))
+    when(businessRatesAttachmentConnector.getAttachment(any())(any[HeaderCarrier])).thenReturn(Future.successful(att))
 
-      val result: Either[AttachmentException, List[Attachment]] = businessRatesChallengeService.submit("PL-123", List(FILE_REFERENCE)).value.futureValue
+    val result: Either[AttachmentException, List[Attachment]] =
+      businessRatesChallengeService.submit("PL-123", List(FILE_REFERENCE)).value.futureValue
 
-      result mustBe Right(List(att))
+    result mustBe Right(List(att))
   }
 
   it should "call to submit Files is success" in {
-      when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(attachment))
+    when(businessRatesAttachmentConnector.submitFile(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(attachment))
 
-      businessRatesChallengeService.patchMetadata(FILE_REFERENCE, FILE_REFERENCE).futureValue
+    businessRatesChallengeService.patchMetadata(FILE_REFERENCE, FILE_REFERENCE).futureValue
 
-      verify(businessRatesAttachmentConnector, times(2)).submitFile(any(), any())(any[HeaderCarrier])
-    }
+    verify(businessRatesAttachmentConnector, times(2)).submitFile(any(), any())(any[HeaderCarrier])
+  }
 }
-

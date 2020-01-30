@@ -33,8 +33,8 @@ import utils.Configs
 
 import scala.concurrent.Future
 
-class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers with MockitoSugar
-  with ScalaCheckDrivenPropertyChecks with Configs {
+class IdentityVerificationProxyConnectorSpec
+    extends FlatSpec with MustMatchers with MockitoSugar with ScalaCheckDrivenPropertyChecks with Configs {
 
   implicit val headerCarrier = HeaderCarrier()
 
@@ -45,7 +45,8 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
     val mockLink = mock[Link]
     val mockHttp = mock[HttpClient]
 
-    when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any(), any())) thenReturn Future.successful(mockLink)
+    when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any(), any())) thenReturn Future
+      .successful(mockLink)
 
     val connector = new IdentityVerificationProxyConnector(servicesConfig, mockHttp)
     forAll { (ivDetails: IVDetails) =>
@@ -59,16 +60,16 @@ class IdentityVerificationProxyConnectorSpec extends FlatSpec with MustMatchers 
     val mockEx = new RuntimeException("something went wrong")
     val mockHttp = mock[HttpClient]
 
-    when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any(), any())).thenReturn(Future.failed(mockEx))
+    when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any(), any()))
+      .thenReturn(Future.failed(mockEx))
 
     val connector = new IdentityVerificationProxyConnector(servicesConfig, mockHttp)
     forAll { (ivDetails: IVDetails) =>
-      whenReady(connector.start(Journey("", "completionUrl", "failureUrl", ConfidenceLevel.L200, ivDetails)).failed) { ex =>
-        ex must be(mockEx)
+      whenReady(connector.start(Journey("", "completionUrl", "failureUrl", ConfidenceLevel.L200, ivDetails)).failed) {
+        ex =>
+          ex must be(mockEx)
       }
     }
   }
 
 }
-
-

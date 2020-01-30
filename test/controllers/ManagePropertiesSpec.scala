@@ -45,20 +45,23 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
       arbitraryOwnerAuthorisation :+= arbitrary[OwnerAuthorisation].copy(authorisationId = groupAccount.id.toLong)
     }
 
-    StubPropertyLinkConnector.stubOwnerAuthResult(OwnerAuthResult(start =1,
-      size = numberOfLinks,
-      total = numberOfLinks,
-      filterTotal = numberOfLinks,
-      authorisations = arbitraryOwnerAuthorisation))
+    StubPropertyLinkConnector.stubOwnerAuthResult(
+      OwnerAuthResult(
+        start = 1,
+        size = numberOfLinks,
+        total = numberOfLinks,
+        filterTotal = numberOfLinks,
+        authorisations = arbitraryOwnerAuthorisation))
   }
 
-  private object TestDashboardController extends Dashboard(
-    mockCustomErrorHandler,
-    mock[DraftCases],
-    mock[AgentRelationshipService],
-    mock[AgentsConnector],
-    mock[GroupAccounts],
-    preAuthenticatedActionBuilders(),
-    stubMessagesControllerComponents()
-  )
+  private object TestDashboardController
+      extends Dashboard(
+        mockCustomErrorHandler,
+        mock[DraftCases],
+        mock[AgentRelationshipService],
+        mock[AgentsConnector],
+        mock[GroupAccounts],
+        preAuthenticatedActionBuilders(),
+        stubMessagesControllerComponents()
+      )
 }

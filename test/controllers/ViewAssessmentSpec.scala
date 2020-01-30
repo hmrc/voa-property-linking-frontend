@@ -34,20 +34,23 @@ import scala.concurrent.Future
 
 class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
-  private object TestAssessmentController extends Assessments(
-    mockCustomErrorHandler,
-    StubPropertyLinkConnector,
-    mockPropertyLinkService,
-    preAuthenticatedActionBuilders(),
-    mockSubmissionIds,
-    mockDvrCaseManagement,
-    StubBusinessRatesValuation,
-    mockBusinessRatesAuthorisation,
-    stubMessagesControllerComponents(),
-    isExternalValuation = false,
-    isSkipAssessment = false,
-    isSummaryValuationNewRoute = true) {
-    when(mockDvrCaseManagement.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+  private object TestAssessmentController
+      extends Assessments(
+        mockCustomErrorHandler,
+        StubPropertyLinkConnector,
+        mockPropertyLinkService,
+        preAuthenticatedActionBuilders(),
+        mockSubmissionIds,
+        mockDvrCaseManagement,
+        StubBusinessRatesValuation,
+        mockBusinessRatesAuthorisation,
+        stubMessagesControllerComponents(),
+        isExternalValuation = false,
+        isSkipAssessment = false,
+        isSummaryValuationNewRoute = true
+      ) {
+    when(mockDvrCaseManagement.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
   }
 
   lazy val mockSubmissionIds = {
@@ -91,14 +94,16 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     val res = TestAssessmentController.viewOwnerSummary(123L, true)(FakeRequest())
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("http://localhost:9537/business-rates-valuation/property-link/123/valuation/summary")
+    redirectLocation(res) mustBe Some(
+      "http://localhost:9537/business-rates-valuation/property-link/123/valuation/summary")
   }
 
   "viewClientSummary" must "redirect to business-rates-valuation view client summary details" in {
     val res = TestAssessmentController.viewClientSummary(123L, true)(FakeRequest())
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("http://localhost:9537/business-rates-valuation/property-link/clients/all/123/valuation/summary")
+    redirectLocation(res) mustBe Some(
+      "http://localhost:9537/business-rates-valuation/property-link/clients/all/123/valuation/summary")
   }
 
   //  "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, Owner Check cases" in {
@@ -131,8 +136,8 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
   //  }
 
   private def formatCapacity(assessment: Assessment) = assessment.capacity.capacity match {
-    case Owner => "Owner"
-    case Occupier => "Occupier"
+    case Owner         => "Owner"
+    case Occupier      => "Occupier"
     case OwnerOccupier => "Owner and occupier"
   }
 

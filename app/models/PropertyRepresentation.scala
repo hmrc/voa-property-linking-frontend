@@ -20,16 +20,16 @@ import java.time.LocalDate
 
 import play.api.libs.json.Json
 
-case class PropertyRepresentation(authorisationId: Long,
-                                  billingAuthorityReference: String,
-                                  submissionId: String,
-                                  organisationId: Long,
-                                  organisationName: String,
-                                  address: String,
-                                  checkPermission: AgentPermission,
-                                  challengePermission: AgentPermission,
-                                  status: RepresentationStatus)
-
+case class PropertyRepresentation(
+      authorisationId: Long,
+      billingAuthorityReference: String,
+      submissionId: String,
+      organisationId: Long,
+      organisationName: String,
+      address: String,
+      checkPermission: AgentPermission,
+      challengePermission: AgentPermission,
+      status: RepresentationStatus)
 
 object PropertyRepresentation {
   implicit val propertyRepresentationFormat = Json.format[PropertyRepresentation]

@@ -42,65 +42,63 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
     http.GET[Option[PropertyLink]](s"$baseUrl/owner/property-links/$submissionId")
 
   def getMyOrganisationsPropertyLinks(
-                                       searchParams: GetPropertyLinksParameters,
-                                       pagination: PaginationParams
-                                     )(implicit hc: HeaderCarrier): Future[OwnerAuthResult]  = {
-    http.GET[OwnerAuthResult](s"$baseUrl/owner/property-links",
+        searchParams: GetPropertyLinksParameters,
+        pagination: PaginationParams
+  )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
+    http.GET[OwnerAuthResult](
+      s"$baseUrl/owner/property-links",
       List(
         searchParams.address.map("address" -> _),
-        searchParams.baref.map("baref" -> _),
-        searchParams.agent.map("agent" -> _),
-        searchParams.status.map("status" -> _),
-        Some("sortField" -> searchParams.sortfield.toString),
-        Some("sortOrder" -> searchParams.sortorder.toString)
+        searchParams.baref.map("baref"     -> _),
+        searchParams.agent.map("agent"     -> _),
+        searchParams.status.map("status"   -> _),
+        Some("sortField"                   -> searchParams.sortfield.toString),
+        Some("sortOrder"                   -> searchParams.sortorder.toString)
       ).flatten ++
         List(
-          "startPoint" -> pagination.startPoint.toString,
-          "pageSize" -> pagination.pageSize.toString,
-          "requestTotalRowCount" -> pagination.requestTotalRowCount.toString)
+          "startPoint"           -> pagination.startPoint.toString,
+          "pageSize"             -> pagination.pageSize.toString,
+          "requestTotalRowCount" -> pagination.requestTotalRowCount.toString
+        )
     )
-  }
 
   def getMyClientsPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
     http.GET[Option[PropertyLink]](s"$baseUrl/agent/property-links/$submissionId")
 
-  def validAgent(agent: OwnerAuthAgent, representationStatusFilter: Seq[RepresentationStatus]): Boolean = {
-    representationStatusFilter.exists(x => x.name.equalsIgnoreCase(agent.status) )
-  }
-
-
+  def validAgent(agent: OwnerAuthAgent, representationStatusFilter: Seq[RepresentationStatus]): Boolean =
+    representationStatusFilter.exists(x => x.name.equalsIgnoreCase(agent.status))
 
   def getMyOrganisationPropertyLinksWithAgentFiltering(
-                                     searchParams: GetPropertyLinksParameters,
-                                     pagination: PaginationParams,
-                                     representationStatusFilter: Seq[RepresentationStatus] = Seq(RepresentationApproved, RepresentationPending),
-                                     organisationId: Long,
-                                     agentOrganisationId: Long,
-                                     checkPermission: String,
-                                     challengePermission: String,
-                                     agentAppointed: Option[String] = None
-                                                      )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
-
+        searchParams: GetPropertyLinksParameters,
+        pagination: PaginationParams,
+        representationStatusFilter: Seq[RepresentationStatus] = Seq(RepresentationApproved, RepresentationPending),
+        organisationId: Long,
+        agentOrganisationId: Long,
+        checkPermission: String,
+        challengePermission: String,
+        agentAppointed: Option[String] = None
+  )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
     val ownerAuthResult = http.GET[OwnerAuthResult](
       s"$baseUrl/owner/property-links/appointable",
       List(
-        searchParams.address.map("address" -> _),
-        searchParams.baref.map("baref" -> _),
-        searchParams.agent.map("agent" -> _),
-        searchParams.status.map("status" -> _),
-        Some("sortfield" -> searchParams.sortfield.toString),
-        Some("sortorder" -> searchParams.sortorder.toString),
+        searchParams.address.map("address"  -> _),
+        searchParams.baref.map("baref"      -> _),
+        searchParams.agent.map("agent"      -> _),
+        searchParams.status.map("status"    -> _),
+        Some("sortfield"                    -> searchParams.sortfield.toString),
+        Some("sortorder"                    -> searchParams.sortorder.toString),
         agentAppointed.map("agentAppointed" -> _.toString),
-        Some("organisationId" -> organisationId.toString),
-        Some("agentOrganisationId" -> agentOrganisationId.toString),
+        Some("organisationId"               -> organisationId.toString),
+        Some("agentOrganisationId"          -> agentOrganisationId.toString),
         permissionString("checkPermission", checkPermission),
         permissionString("challengePermission", challengePermission)
       ).flatten ++
         List(
-          "startPoint" -> pagination.startPoint.toString,
-          "pageSize" -> pagination.pageSize.toString,
-          "requestTotalRowCount" -> pagination.requestTotalRowCount.toString)
+          "startPoint"           -> pagination.startPoint.toString,
+          "pageSize"             -> pagination.pageSize.toString,
+          "requestTotalRowCount" -> pagination.requestTotalRowCount.toString
+        )
     )
 
     // filter agents on representationStatus
@@ -109,22 +107,25 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
         auth.copy(agents = auth.agents.filter(ag => validAgent(ag, representationStatusFilter))))))
   }
 
-  def filterAgents(ownerAuthResult: Future[OwnerAuthResult], representationStatusFilter: Seq[RepresentationStatus]): Future[OwnerAuthResult] = {
-    ownerAuthResult.map(oar =>
-      oar.copy(authorisations = oar.authorisations.map(auth =>
-        auth.copy(agents = auth.agents.filter(validAgent(_, representationStatusFilter)))).filter(auth => auth.agents.nonEmpty)))
-  }
+  def filterAgents(
+        ownerAuthResult: Future[OwnerAuthResult],
+        representationStatusFilter: Seq[RepresentationStatus]): Future[OwnerAuthResult] =
+    ownerAuthResult.map(
+      oar =>
+        oar.copy(
+          authorisations = oar.authorisations
+            .map(auth => auth.copy(agents = auth.agents.filter(validAgent(_, representationStatusFilter))))
+            .filter(auth => auth.agents.nonEmpty)))
 
-  def appointableProperties(organisationId: Long,
-                            pagination: AgentPropertiesParameters)
-                           (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
+  def appointableProperties(organisationId: Long, pagination: AgentPropertiesParameters)(
+        implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
+    http.GET[OwnerAuthResult](
+      s"$baseUrl/property-links-appointable?" +
+        s"ownerId=$organisationId" +
+        s"&${pagination.queryString}")
 
-    http.GET[OwnerAuthResult](s"$baseUrl/property-links-appointable?" +
-      s"ownerId=$organisationId" +
-      s"&${pagination.queryString}")
-  }
-
-  def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
+  def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(
+        implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
     val url =
       s"$baseUrl/property-links/client-property/$authorisationId" +
         s"?clientOrganisationId=$clientOrgId" +
@@ -133,35 +134,38 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
     http.GET[Option[ClientProperty]](url) recover { case _: NotFoundException => None }
   }
 
-  def getOwnerAssessmentsWithCapacity(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
-      http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId")
-    }
-
-  def getClientAssessmentsWithCapacity(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
-    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId")
-  }
-
-  def getOwnerAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
+  def getOwnerAssessmentsWithCapacity(submissionId: String)(
+        implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
     http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId")
-  }
 
-  def getClientAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] = {
+  def getClientAssessmentsWithCapacity(submissionId: String)(
+        implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
     http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId")
-  }
 
-  def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(implicit request: BasicAuthenticatedRequest[_], hc: HeaderCarrier): Future[Option[CanChallengeResponse]]= {
-    val interestedParty =  request.organisationAccount.isAgent && !isAgentOwnProperty match {
-      case true => "agent"
+  def getOwnerAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
+    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId")
+
+  def getClientAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
+    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId")
+
+  def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(
+        implicit request: BasicAuthenticatedRequest[_],
+        hc: HeaderCarrier): Future[Option[CanChallengeResponse]] = {
+    val interestedParty = request.organisationAccount.isAgent && !isAgentOwnProperty match {
+      case true  => "agent"
       case false => "client"
     }
-    http.GET[HttpResponse](s"$baseUrl/property-links/$plSubmissionId/check-cases/$caseRef/canChallenge?valuationId=$assessmentRef&party=$interestedParty").map{ resp =>
-      resp.status match {
-        case 200 => {
-          Json.parse(resp.body).asOpt[CanChallengeResponse]
+    http
+      .GET[HttpResponse](
+        s"$baseUrl/property-links/$plSubmissionId/check-cases/$caseRef/canChallenge?valuationId=$assessmentRef&party=$interestedParty")
+      .map { resp =>
+        resp.status match {
+          case 200 => {
+            Json.parse(resp.body).asOpt[CanChallengeResponse]
+          }
+          case _ => None
         }
-        case _ => None
-      }
-    } recover{
+      } recover {
       case x @ _ => {
         Logger.debug(s"unable to start a challenge: $x")
         None
@@ -169,6 +173,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
     }
   }
 
-  private def permissionString(agentPermissionType: String, agentPermission: String): Option[(String, String)] = if (agentPermission == "START_AND_CONTINUE")  Some(agentPermissionType -> agentPermission) else None
+  private def permissionString(agentPermissionType: String, agentPermission: String): Option[(String, String)] =
+    if (agentPermission == "START_AND_CONTINUE") Some(agentPermissionType -> agentPermission) else None
 
 }

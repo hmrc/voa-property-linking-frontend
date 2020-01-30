@@ -35,16 +35,16 @@ import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import scala.concurrent.ExecutionContext
 
 class ChooseEvidence @Inject()(
-                                val errorHandler: CustomErrorHandler,
-                                authenticatedAction: AuthenticatedAction,
-                                withLinkingSession: WithLinkingSession,
-                                businessRatesAttachmentService: BusinessRatesAttachmentsService
-                              )(
-                                implicit executionContext: ExecutionContext,
-                                override val messagesApi: MessagesApi,
-                                override val controllerComponents: MessagesControllerComponents,
-                                val config: ApplicationConfig
-                              ) extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      authenticatedAction: AuthenticatedAction,
+      withLinkingSession: WithLinkingSession,
+      businessRatesAttachmentService: BusinessRatesAttachmentsService
+)(
+      implicit executionContext: ExecutionContext,
+      override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      val config: ApplicationConfig
+) extends PropertyLinkingController {
 
   private val logger = Logger(this.getClass.getName)
 
@@ -56,13 +56,14 @@ class ChooseEvidence @Inject()(
   }
 
   def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
-    ChooseEvidence.form.bindFromRequest().fold(
-      errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)),
-      {
-        case true => Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
-        case false => Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
-      }
-    )
+    ChooseEvidence.form
+      .bindFromRequest()
+      .fold(
+        errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)), {
+          case true  => Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
+          case false => Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
+        }
+      )
   }
 }
 

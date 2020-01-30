@@ -22,8 +22,9 @@ import play.api.mvc.MessagesControllerComponents
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 class Application @Inject()(val errorHandler: CustomErrorHandler)(
-  implicit override val controllerComponents: MessagesControllerComponents,
-  config: ApplicationConfig) extends PropertyLinkingController {
+      implicit override val controllerComponents: MessagesControllerComponents,
+      config: ApplicationConfig)
+    extends PropertyLinkingController {
 
   def addUserToGG = Action { implicit request =>
     Ok(views.html.addUserToGG())

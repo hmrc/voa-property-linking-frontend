@@ -25,17 +25,17 @@ import utils.Configs._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object StubBusinessRatesValuation extends BusinessRatesValuationConnector(applicationConfig, mock(classOf[HttpClient])) {
+object StubBusinessRatesValuation
+    extends BusinessRatesValuationConnector(applicationConfig, mock(classOf[HttpClient])) {
   private var stubbedValuations: Map[Long, Boolean] = Map()
 
-  def stubValuation(assessmentRef: Long, isViewable: Boolean) = {
+  def stubValuation(assessmentRef: Long, isViewable: Boolean) =
     stubbedValuations = stubbedValuations.updated(assessmentRef, isViewable)
-  }
 
-  def reset() = {
+  def reset() =
     stubbedValuations = Map()
-  }
 
-  override def isViewable(uarn: Long, valuationId: Long, propertyLinkId: Long)(implicit hc: HeaderCarrier): Future[Boolean] =
+  override def isViewable(uarn: Long, valuationId: Long, propertyLinkId: Long)(
+        implicit hc: HeaderCarrier): Future[Boolean] =
     Future.successful(stubbedValuations(valuationId))
 }

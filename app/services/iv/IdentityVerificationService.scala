@@ -49,49 +49,57 @@ trait IdentityVerificationService {
 
   def noneCase(implicit request: Request[_], messages: Messages): Result
 
-  def continue(journeyId: String, userDetails: UserDetails)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[B]]
+  def continue(journeyId: String, userDetails: UserDetails)(
+        implicit hc: HeaderCarrier,
+        ec: ExecutionContext): Future[Option[B]]
 
   protected val successUrl: String
 
   private val failureUrl = config.baseUrl + controllers.routes.IdentityVerification.fail().url
 }
 
-class IvService @Inject()(val errorHandler: CustomErrorHandler,
-                           registrationService: RegistrationService,
-                           @Named("personSession") personalDetailsSessionRepo: SessionRepo,
-                           override val proxyConnector: IdentityVerificationProxyConnector,
-                           implicit val config: ApplicationConfig
-                         ) extends IdentityVerificationService {
+class IvService @Inject()(
+      val errorHandler: CustomErrorHandler,
+      registrationService: RegistrationService,
+      @Named("personSession") personalDetailsSessionRepo: SessionRepo,
+      override val proxyConnector: IdentityVerificationProxyConnector,
+      implicit val config: ApplicationConfig)
+    extends IdentityVerificationService {
 
   type B = RegistrationResult
 
   protected val successUrl: String = config.baseUrl + controllers.routes.IdentityVerification.success().url
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages): Result = obj match {
-    case RegistrationSuccess(personId)  => Redirect(controllers.registration.routes.RegistrationController.success(personId))
-    case EnrolmentFailure               => InternalServerError(errorHandler.internalServerErrorTemplate)
-    case DetailsMissing                 => InternalServerError(errorHandler.internalServerErrorTemplate)
+    case RegistrationSuccess(personId) =>
+      Redirect(controllers.registration.routes.RegistrationController.success(personId))
+    case EnrolmentFailure => InternalServerError(errorHandler.internalServerErrorTemplate)
+    case DetailsMissing   => InternalServerError(errorHandler.internalServerErrorTemplate)
   }
 
-  def noneCase(implicit request: Request[_], messages: Messages): Result = InternalServerError(errorHandler.internalServerErrorTemplate)
+  def noneCase(implicit request: Request[_], messages: Messages): Result =
+    InternalServerError(errorHandler.internalServerErrorTemplate)
 
-  def continue(journeyId: String, userDetails: UserDetails)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[RegistrationResult]] = {
-      (userDetails.affinityGroup, userDetails.credentialRole) match {
-        case (Organisation, role) if role != Assistant  =>
-          for {
-            organisationDetailsOpt  <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
-            organisationDetails     =  organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
-            registrationResult      <- registrationService.create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(organisationDetails.toIndividualAccountSubmission(journeyId))
-          } yield Some(registrationResult)
-        case (Individual, _)                    =>
-          for {
-            individualDetailsOpt  <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
-            individualDetails     =  individualDetailsOpt.getOrElse(throw new Exception("details not found"))
-            registrationResult    <- registrationService.create(individualDetails.toGroupDetails, userDetails, Some(Individual))(individualDetails.toIndividualAccountSubmission(journeyId))
-          } yield Some(registrationResult)
-      }
-  }
+  def continue(journeyId: String, userDetails: UserDetails)(
+        implicit hc: HeaderCarrier,
+        ec: ExecutionContext): Future[Option[RegistrationResult]] =
+    (userDetails.affinityGroup, userDetails.credentialRole) match {
+      case (Organisation, role) if role != Assistant =>
+        for {
+          organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
+          organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
+          registrationResult <- registrationService
+                                 .create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(
+                                   organisationDetails.toIndividualAccountSubmission(journeyId))
+        } yield Some(registrationResult)
+      case (Individual, _) =>
+        for {
+          individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
+          individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
+          registrationResult <- registrationService
+                                 .create(individualDetails.toGroupDetails, userDetails, Some(Individual))(
+                                   individualDetails.toIndividualAccountSubmission(journeyId))
+        } yield Some(registrationResult)
+    }
 
 }
-
-

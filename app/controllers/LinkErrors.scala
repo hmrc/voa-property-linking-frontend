@@ -23,12 +23,12 @@ import play.api.mvc.MessagesControllerComponents
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 class LinkErrors @Inject()(
-                            val errorHandler: CustomErrorHandler,
-                            override val controllerComponents: MessagesControllerComponents
-                          )(
-                            implicit override val messagesApi: MessagesApi,
-                            val config: ApplicationConfig
-                          ) extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      override val controllerComponents: MessagesControllerComponents
+)(
+      implicit override val messagesApi: MessagesApi,
+      val config: ApplicationConfig
+) extends PropertyLinkingController {
 
   def manualVerificationRequired() = Action { implicit request =>
     Ok(views.html.linkErrors.manualVerificationRequired())

@@ -30,36 +30,41 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit
 
   val url: String = config.baseUrl("property-linking") + "/property-linking/groups"
 
-  def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+  def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] =
     http.GET[Option[GroupAccount]](s"$url/$organisationId")
-  }
 
-  def withGroupId(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+  def withGroupId(groupId: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] =
     http.GET[Option[GroupAccount]](s"$url?groupId=$groupId")
-  }
 
-  def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] = {
+  def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] =
     http.GET[Option[GroupAccount]](s"$url/agentCode/$agentCode")
-  }
 
-  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] = {
+  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] =
     http.POST[GroupAccountSubmission, JsValue](url, account) map { js =>
       js \ "id" match {
         case JsDefined(JsNumber(id)) => id.toLong
-        case _ => throw new Exception(s"Invalid id $js")
+        case _                       => throw new Exception(s"Invalid id $js")
       }
     }
-  }
 
-  def create(groupId: String, addressId: Long, details: GroupAccountDetails,
-             individualAccountSubmission: IndividualAccountSubmission)
-            (implicit hc: HeaderCarrier): Future[Long] = {
-    create(GroupAccountSubmission(
-      groupId, details.companyName, addressId, details.email, details.phone, details.isAgent, individualAccountSubmission
-    ))
-  }
+  def create(
+        groupId: String,
+        addressId: Long,
+        details: GroupAccountDetails,
+        individualAccountSubmission: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] =
+    create(
+      GroupAccountSubmission(
+        groupId,
+        details.companyName,
+        addressId,
+        details.email,
+        details.phone,
+        details.isAgent,
+        individualAccountSubmission
+      ))
 
-  def update(orgId: Long, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.PUT[UpdatedOrganisationAccount, HttpResponse](s"$url/$orgId", details) map { _ => () }
-  }
+  def update(orgId: Long, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit] =
+    http.PUT[UpdatedOrganisationAccount, HttpResponse](s"$url/$orgId", details) map { _ =>
+      ()
+    }
 }

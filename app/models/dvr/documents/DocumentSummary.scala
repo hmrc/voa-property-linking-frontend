@@ -21,10 +21,10 @@ import java.time.LocalDateTime
 import play.api.libs.json.{Json, OFormat}
 
 case class DocumentSummary(
-                            documentId: String,
-                            documentName: String,
-                            createDatetime: LocalDateTime
-                          )
+      documentId: String,
+      documentName: String,
+      createDatetime: LocalDateTime
+)
 
 object DocumentSummary {
   implicit val format: OFormat[DocumentSummary] = Json.format

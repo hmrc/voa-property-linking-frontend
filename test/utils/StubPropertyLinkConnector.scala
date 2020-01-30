@@ -34,43 +34,38 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(servicesConfig, m
 
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil
-  private var stubbedOwnerAuthResult: OwnerAuthResult = OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
+  private var stubbedOwnerAuthResult: OwnerAuthResult =
+    OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
 
-  def getstubbedOwnerAuthResult() : OwnerAuthResult = stubbedOwnerAuthResult
+  def getstubbedOwnerAuthResult(): OwnerAuthResult = stubbedOwnerAuthResult
 
-  def stubOwnerAuthResult(reps: OwnerAuthResult) = { stubbedOwnerAuthResult = reps }
+  def stubOwnerAuthResult(reps: OwnerAuthResult) = stubbedOwnerAuthResult = reps
 
-  override def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[HttpResponse] =
+  override def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(
+        implicit hc: HeaderCarrier): Future[HttpResponse] =
     Future.successful(HttpResponse(200))
 
-  override def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters,
-                                    pagination: PaginationParams)
-                                   (implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
-
+  override def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(
+        implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
     Future.successful(stubbedOwnerAuthResult)
-  }
 
-  override def appointableProperties(organisationId: Long,
-                                            pagination: AgentPropertiesParameters)
-                                            (implicit hc: HeaderCarrier) = {
+  override def appointableProperties(organisationId: Long, pagination: AgentPropertiesParameters)(
+        implicit hc: HeaderCarrier) =
     Future.successful(stubbedOwnerAuthResult)
-  }
 
-  override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {
+  override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(
+        implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {
     stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId)
   }
 
-  def stubLink(link: PropertyLink) = {
+  def stubLink(link: PropertyLink) =
     stubbedLinks :+= link
-  }
 
-  def stubLinks(links: Seq[PropertyLink]) = {
+  def stubLinks(links: Seq[PropertyLink]) =
     stubbedLinks ++= links
-  }
 
-  def stubClientProperty(clientProperty: ClientProperty) = {
+  def stubClientProperty(clientProperty: ClientProperty) =
     stubbedClientProperties :+= clientProperty
-  }
 
   def reset() = {
     stubbedLinks = Nil

@@ -28,23 +28,30 @@ object MultipartFormDataWritable {
   val boundary = "--------ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
   def formatDataParts(data: Map[String, Seq[String]]) = {
-    val dataParts = data.flatMap { case (key, values) =>
-      values.map { value => {
-        val name = s"""\"$key\""""
-        s"--$boundary\r\n${HeaderNames.CONTENT_DISPOSITION}: form-data; name=$name\r\n\r\n$value\r\n"
+    val dataParts = data
+      .flatMap {
+        case (key, values) =>
+          values.map { value =>
+            {
+              val name = s"""\"$key\""""
+              s"--$boundary\r\n${HeaderNames.CONTENT_DISPOSITION}: form-data; name=$name\r\n\r\n$value\r\n"
+            }
+          }
       }
-      }
-    }.mkString("")
+      .mkString("")
     Codec.utf_8.encode(dataParts)
   }
 
   def filePartHeader(file: FilePart[TemporaryFile]) = {
     val name = s""""${file.key}""""
     val filename = s""""${file.filename}""""
-    val contentType = file.contentType.map { ct =>
-      s"${HeaderNames.CONTENT_TYPE}: $ct\r\n"
-    }.getOrElse("")
-    Codec.utf_8.encode(s"--$boundary\r\n${HeaderNames.CONTENT_DISPOSITION}: form-data; name=$name; filename=$filename\r\n$contentType\r\n")
+    val contentType = file.contentType
+      .map { ct =>
+        s"${HeaderNames.CONTENT_TYPE}: $ct\r\n"
+      }
+      .getOrElse("")
+    Codec.utf_8.encode(
+      s"--$boundary\r\n${HeaderNames.CONTENT_DISPOSITION}: form-data; name=$name; filename=$filename\r\n$contentType\r\n")
   }
 
   val singleton = Writeable[MultipartFormData[TemporaryFile]](

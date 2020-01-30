@@ -48,19 +48,21 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   lazy val mockRepService = {
     val m = mock[AgentRelationshipService]
-    when(m.getMyOrganisationsPropertyLinks(any(), any(), any())(any())).thenReturn(Future.successful(stubbedOwnerAuthResult))
+    when(m.getMyOrganisationsPropertyLinks(any(), any(), any())(any()))
+      .thenReturn(Future.successful(stubbedOwnerAuthResult))
     m
   }
 
-  object TestDashboard extends Dashboard(
-    mockCustomErrorHandler,
-    mockDraftCases,
-    mockRepService,
-    StubAgentConnector,
-    StubGroupAccountConnector,
-    preAuthenticatedActionBuilders(),
-    stubMessagesControllerComponents()
-  )
+  object TestDashboard
+      extends Dashboard(
+        mockCustomErrorHandler,
+        mockDraftCases,
+        mockRepService,
+        StubAgentConnector,
+        StubGroupAccountConnector,
+        preAuthenticatedActionBuilders(),
+        stubMessagesControllerComponents()
+      )
 
   "home page" must "redirect to new dashboard" in {
     val res = TestDashboard.home()(request)
@@ -72,7 +74,8 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
     val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
     val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
 
-    val agentGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = true, companyName = "Test Agent Company", agentCode = Some(100000))
+    val agentGroup = arbitrary[GroupAccount].sample.get
+      .copy(isAgent = true, companyName = "Test Agent Company", agentCode = Some(100000))
     val agentPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = agentGroup.id)
 
     StubIndividualAccountConnector.stubAccount(clientPerson)

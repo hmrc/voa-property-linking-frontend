@@ -34,8 +34,7 @@ import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.propertylinking.services.PropertyLinkService
 
-trait AllMocks {
-  self: MockitoSugar with BeforeAndAfterEach =>
+trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
 
   val mockAddresses: Addresses = mock[Addresses]
   val mockAuditingService: AuditingService = mock[AuditingService]
@@ -54,7 +53,6 @@ trait AllMocks {
   val mockSessionRepository: SessionRepository = mock[SessionRepository]
   val mockWithLinkingSession: WithLinkingSession = mock[WithLinkingSession]
   val mockPersonalDetailsSessionRepository: PersonalDetailsSessionRepository = mock[PersonalDetailsSessionRepository]
-
 
   override protected def beforeEach(): Unit =
     Seq(

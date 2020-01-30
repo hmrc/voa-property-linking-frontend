@@ -26,23 +26,27 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class EnrolmentService @Inject()(taxEnrolmentsConnector: TaxEnrolmentConnector, addresses: Addresses, auditingService: AuditingService) {
+class EnrolmentService @Inject()(
+      taxEnrolmentsConnector: TaxEnrolmentConnector,
+      addresses: Addresses,
+      auditingService: AuditingService) {
 
-  def enrol(personId: Long, addressId: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[EnrolmentResult] = {
+  def enrol(personId: Long, addressId: Long)(
+        implicit hc: HeaderCarrier,
+        ex: ExecutionContext): Future[EnrolmentResult] =
     (for {
-      optAddress  <- addresses.findById(addressId)
-      address     <- getAddress(optAddress)
-      _           <- taxEnrolmentsConnector.enrol(personId, address.postcode)
+      optAddress <- addresses.findById(addressId)
+      address    <- getAddress(optAddress)
+      _          <- taxEnrolmentsConnector.enrol(personId, address.postcode)
     } yield Success).recover {
       case _: Throwable =>
         auditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))
         Failure
     }
-  }
 
   private def getAddress(opt: Option[Address]): Future[Address] = opt match {
-    case None     => Future.failed(throw new IllegalArgumentException())
-    case Some(x)  => Future.successful(x)
+    case None    => Future.failed(throw new IllegalArgumentException())
+    case Some(x) => Future.successful(x)
   }
 }
 

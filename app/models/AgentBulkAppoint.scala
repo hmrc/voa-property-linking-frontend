@@ -18,10 +18,14 @@ package models
 
 import play.api.libs.json.Json
 
-case class AppointAgent(agentCode: Option[Long], agentCodeRadio: String, canCheck: AgentPermission, canChallenge: AgentPermission) {
+case class AppointAgent(
+      agentCode: Option[Long],
+      agentCodeRadio: String,
+      canCheck: AgentPermission,
+      canChallenge: AgentPermission) {
   def getAgentCode(): Long = agentCode match {
     case Some(code) => code
-    case None => agentCodeRadio.toLong
+    case None       => agentCodeRadio.toLong
   }
 }
 
@@ -30,23 +34,25 @@ object AppointAgent {
 }
 
 case class AgentAppointBulkAction(
-                                   agentCode: Long,
-                                   checkPermission: AgentPermission,
-                                   challengePermission: AgentPermission,
-                                   propertyLinkIds: List[String]
-                                   )
+      agentCode: Long,
+      checkPermission: AgentPermission,
+      challengePermission: AgentPermission,
+      propertyLinkIds: List[String]
+)
 
 object AgentAppointBulkAction {
   def apply(
-             agentCode: Long,
-             checkPermission: String,
-             challengePermission: String,
-             propertyLinkIds: List[String]
-           ): AgentAppointBulkAction = new AgentAppointBulkAction(
-                                              agentCode,
-                                              AgentPermission.fromName(checkPermission).getOrElse(NotPermitted),
-                                              AgentPermission.fromName(challengePermission).getOrElse(NotPermitted),
-                                              propertyLinkIds)
+        agentCode: Long,
+        checkPermission: String,
+        challengePermission: String,
+        propertyLinkIds: List[String]
+  ): AgentAppointBulkAction =
+    new AgentAppointBulkAction(
+      agentCode,
+      AgentPermission.fromName(checkPermission).getOrElse(NotPermitted),
+      AgentPermission.fromName(challengePermission).getOrElse(NotPermitted),
+      propertyLinkIds
+    )
 
   def unpack(arg: AgentAppointBulkAction): Option[(Long, String, String, List[String])] =
     Some((arg.agentCode, arg.checkPermission.name, arg.challengePermission.name, arg.propertyLinkIds))
@@ -55,9 +61,9 @@ object AgentAppointBulkAction {
 }
 
 case class AgentRevokeBulkAction(
-                                   agentCode: Long,
-                                   propertyLinkIds: List[String]
-                                 )
+      agentCode: Long,
+      propertyLinkIds: List[String]
+)
 
 object AgentRevokeBulkAction {
 

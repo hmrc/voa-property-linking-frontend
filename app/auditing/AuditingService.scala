@@ -30,12 +30,11 @@ class AuditingService @Inject()(val auditConnector: AuditConnector) {
     auditConnector.sendExtendedEvent(event)
   }
 
-  private def eventFor[A: Writes](auditType: String, obj: A)(implicit hc: HeaderCarrier) = {
+  private def eventFor[A: Writes](auditType: String, obj: A)(implicit hc: HeaderCarrier) =
     ExtendedDataEvent(
       auditSource = "voa-property-linking-frontend",
       auditType = auditType,
       tags = hc.headers.toMap,
       detail = Json.toJson(obj)
     )
-  }
 }

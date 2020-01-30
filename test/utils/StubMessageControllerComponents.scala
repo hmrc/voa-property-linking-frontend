@@ -38,12 +38,12 @@ trait StubMessageControllerComponents extends Configs {
     new DefaultMessagesApi(messages = Map("default" -> messages))
 
   def stubMessagesControllerComponents(
-                                        bodyParser: BodyParser[AnyContent] = stubBodyParser(AnyContentAsEmpty),
-                                        playBodyParsers: PlayBodyParsers = stubPlayBodyParsers(NoMaterializer),
-                                        fileMimeTypes: FileMimeTypes = new DefaultFileMimeTypes(FileMimeTypesConfiguration())
-                                      )(
-                                        implicit executionContext: ExecutionContext
-                                      ): MessagesControllerComponents =
+        bodyParser: BodyParser[AnyContent] = stubBodyParser(AnyContentAsEmpty),
+        playBodyParsers: PlayBodyParsers = stubPlayBodyParsers(NoMaterializer),
+        fileMimeTypes: FileMimeTypes = new DefaultFileMimeTypes(FileMimeTypesConfiguration())
+  )(
+        implicit executionContext: ExecutionContext
+  ): MessagesControllerComponents =
     DefaultMessagesControllerComponents(
       new DefaultMessagesActionBuilderImpl(bodyParser, messagesApi),
       DefaultActionBuilder(bodyParser),

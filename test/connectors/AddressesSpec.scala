@@ -64,7 +64,8 @@ class AddressesSpec extends VoaPropertyLinkingSpec {
       email = "email@email.com",
       confirmedEmail = "email@email.com",
       phone = "123456789",
-      isAgent = false)
+      isAgent = false
+    )
 
     val addressId = Json.obj("id" -> 1)
     mockHttpPOST[Address, JsValue]("tst-url", addressId)
@@ -80,7 +81,8 @@ class AddressesSpec extends VoaPropertyLinkingSpec {
       email = "email@email.com",
       confirmedEmail = "email@email.com",
       phone = "123456789",
-      isAgent = false)
+      isAgent = false
+    )
 
     whenReady(connector.registerAddress(validGroupAccountDetails))(_ mustBe 1L)
   }

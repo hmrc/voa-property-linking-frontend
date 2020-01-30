@@ -19,7 +19,6 @@ package controllers
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
-
 class LoginPageSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
@@ -31,7 +30,8 @@ class LoginPageSpec extends VoaPropertyLinkingSpec {
 
     status(result) mustBe SEE_OTHER
 
-    redirectLocation(result) mustBe Some("http://localhost:9025/gg/sign-in?continue=http%3A%2F%2Flocalhost%3A9523%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
+    redirectLocation(result) mustBe Some(
+      "http://localhost:9025/gg/sign-in?continue=http%3A%2F%2Flocalhost%3A9523%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
 
   }
 

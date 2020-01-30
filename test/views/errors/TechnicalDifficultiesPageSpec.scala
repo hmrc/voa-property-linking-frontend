@@ -29,7 +29,10 @@ class TechnicalDifficultiesPageSpec extends UnitSpec with NoMetricsOneAppPerSuit
   "The technical difficulties page" should {
     val ref: String = shortString
     val req = FakeRequest()
-    lazy val html = views.html.errors.technicalDifficulties(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(req, messagesApi.preferred(req), Configs.applicationConfig)
+    lazy val html = views.html.errors.technicalDifficulties(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(
+      req,
+      messagesApi.preferred(req),
+      Configs.applicationConfig)
     lazy val page = html.toString
 
     "display an error reference number" in {

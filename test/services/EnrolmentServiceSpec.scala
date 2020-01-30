@@ -39,7 +39,8 @@ class EnrolmentServiceSpec extends ServiceSpec {
   implicit val fakeRequest = FakeRequest()
 
   "enrol" should " return success with valid details" in {
-    when(mockAddresses.findById(any())(any())).thenReturn(Future.successful(Some(Address(Some(1), "", "", "", "", ""))))
+    when(mockAddresses.findById(any())(any()))
+      .thenReturn(Future.successful(Some(Address(Some(1), "", "", "", "", ""))))
     when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any())).thenReturn(Future.successful(HttpResponse(204)))
     val result = enrolmentService.enrol(1L, 1)
     result.futureValue must be(Success)

@@ -32,9 +32,10 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import scala.concurrent.{ExecutionContext, Future}
 
 class BusinessRatesAuthorisationConnector @Inject()(
-                                            config: ServicesConfig,
-                                            http: HttpClient
-                                          )(implicit executionContext: ExecutionContext) extends BaseConnector with AuthorisationHttpErrorFunctions {
+      config: ServicesConfig,
+      http: HttpClient
+)(implicit executionContext: ExecutionContext)
+    extends BaseConnector with AuthorisationHttpErrorFunctions {
   val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
   import AuthorisationResult._
@@ -42,44 +43,40 @@ class BusinessRatesAuthorisationConnector @Inject()(
   val logger = Logger(this.getClass.getName)
 
   def authenticate(implicit hc: HeaderCarrier): Future[AuthorisationResult] =
-    http.GET[Accounts](s"$url/authenticate")
+    http
+      .GET[Accounts](s"$url/authenticate")
       .map(Authenticated.apply)
-    .recover {
-      case AuthorisationFailed(err) => handleUnauthenticated(err)
-    }
+      .recover {
+        case AuthorisationFailed(err) => handleUnauthenticated(err)
+      }
 
-
-  def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
+  def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] =
     http.GET[Accounts](s"$url/property-link/$authorisationId/assessment/$assessmentRef") map {
       Authenticated
     } recover {
       case AuthorisationFailed(err) => handleUnauthenticated(err)
     }
-  }
 
-  def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] = {
+  def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] =
     http.GET[Accounts](s"$url/property-link/$authorisationId") map {
       Authenticated
     } recover {
-      case AuthorisationFailed(err)           => handleUnauthenticated(err)
-      case Upstream4xxResponse(_, 403, _, _)  => ForbiddenResponse
+      case AuthorisationFailed(err)          => handleUnauthenticated(err)
+      case Upstream4xxResponse(_, 403, _, _) => ForbiddenResponse
     }
-  }
 
   private def handleUnauthenticated(error: String) = error match {
-    case "INVALID_GATEWAY_SESSION"  => InvalidGGSession
-    case "NO_CUSTOMER_RECORD"       => NoVOARecord
-    case "TRUST_ID_MISMATCH"        => IncorrectTrustId
-    case "INVALID_ACCOUNT_TYPE"     => InvalidAccountType
-    case "NON_GROUPID_ACCOUNT"      => NonGroupIDAccount
+    case "INVALID_GATEWAY_SESSION" => InvalidGGSession
+    case "NO_CUSTOMER_RECORD"      => NoVOARecord
+    case "TRUST_ID_MISMATCH"       => IncorrectTrustId
+    case "INVALID_ACCOUNT_TYPE"    => InvalidAccountType
+    case "NON_GROUPID_ACCOUNT"     => NonGroupIDAccount
   }
 
-  def isAgentOwnProperty(authorisationId: Long)
-                        (implicit hc: HeaderCarrier): Future[Boolean] = {
+  def isAgentOwnProperty(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Boolean] =
     http.GET[PropertyLinkIds](s"$url/$authorisationId/ids") map { ids =>
       ids.caseCreator.organisationId == ids.interestedParty.organisationId
     } recover { case Upstream4xxResponse(_, 403, _, _) => throw new ForbiddenException("Not Authorised") }
-  }
 
 }
 

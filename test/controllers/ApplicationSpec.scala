@@ -19,7 +19,6 @@ package controllers
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
-
 class ApplicationSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
@@ -47,8 +46,7 @@ class ApplicationSpec extends VoaPropertyLinkingSpec {
 
   "start" should "display the start page" in {
 
-    val result = applicationTestController.start()(FakeRequest().withFormUrlEncodedBody(
-      "choice" -> "test"))
+    val result = applicationTestController.start()(FakeRequest().withFormUrlEncodedBody("choice" -> "test"))
 
     status(result) mustBe OK
 
@@ -85,6 +83,5 @@ class ApplicationSpec extends VoaPropertyLinkingSpec {
     val html = contentAsString(result)
     html must include("You’ve tried to register using an existing Agent Government Gateway account.")
   }
-
 
 }

@@ -26,15 +26,16 @@ class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
 
   implicit val request = FakeRequest()
 
-  object TestDashboardController extends Dashboard(
-    mockCustomErrorHandler,
-    mock[DraftCases],
-    mock[AgentRelationshipService],
-    StubAgentConnector,
-    mock[GroupAccounts],
-    preAuthenticatedActionBuilders(),
-    stubMessagesControllerComponents()
-  )
+  object TestDashboardController
+      extends Dashboard(
+        mockCustomErrorHandler,
+        mock[DraftCases],
+        mock[AgentRelationshipService],
+        StubAgentConnector,
+        mock[GroupAccounts],
+        preAuthenticatedActionBuilders(),
+        stubMessagesControllerComponents()
+      )
 
   "Manage Owner Agents page" must "return redirect" in {
     val res = TestDashboardController.manageAgents()(FakeRequest())

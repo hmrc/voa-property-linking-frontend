@@ -16,8 +16,4 @@
 
 package config
 
-
 case class AuthorisationFailed(msg: String) extends Exception(s"Authorisation failed: $msg")
-
-
-

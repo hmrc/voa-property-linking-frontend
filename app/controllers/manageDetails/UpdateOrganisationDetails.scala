@@ -36,28 +36,33 @@ import utils.EmailAddressValidation
 import scala.concurrent.{ExecutionContext, Future}
 
 class UpdateOrganisationDetails @Inject()(
-                                           val errorHandler: CustomErrorHandler,
-                                           authenticated: AuthenticatedAction,
-                                           groups: GroupAccounts,
-                                           addresses: Addresses,
-                                           manageDetails: ManageDetails
-                                         )(
-                                           implicit executionContext: ExecutionContext,
-                                           clock: Clock,
-                                           override val controllerComponents: MessagesControllerComponents,
-                                           config: ApplicationConfig
-                                         )
-  extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      authenticated: AuthenticatedAction,
+      groups: GroupAccounts,
+      addresses: Addresses,
+      manageDetails: ManageDetails
+)(
+      implicit executionContext: ExecutionContext,
+      clock: Clock,
+      override val controllerComponents: MessagesControllerComponents,
+      config: ApplicationConfig
+) extends PropertyLinkingController {
 
   def viewBusinessName: Action[AnyContent] = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
+    Ok(
+      views.html.details
+        .updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
   }
 
   def updateBusinessName(): Action[AnyContent] = authenticated.async { implicit request =>
-    businessNameForm.bindFromRequest().fold(
-      errors => Future.successful(BadRequest(views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
-      businessName => updateDetails(name = Some(businessName))
-    )
+    businessNameForm
+      .bindFromRequest()
+      .fold(
+        errors =>
+          Future.successful(BadRequest(
+            views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+        businessName => updateDetails(name = Some(businessName))
+      )
   }
 
   def viewBusinessAddress: Action[AnyContent] = authenticated { implicit request =>
@@ -65,13 +70,22 @@ class UpdateOrganisationDetails @Inject()(
   }
 
   def updateBusinessAddress(): Action[AnyContent] = authenticated.async { implicit request =>
-    addressForm.bindFromRequest().fold(
-      errors => Future.successful(BadRequest(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
-      address => address.addressUnitId match {
-        case Some(id) => updateDetails(addressId = Some(id))
-        case _ => addresses.create(address) flatMap { id => updateDetails(addressId = Some(id)) }
-      }
-    )
+    addressForm
+      .bindFromRequest()
+      .fold(
+        errors =>
+          Future.successful(
+            BadRequest(views.html.details
+              .updateBusinessAddress(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+        address =>
+          address.addressUnitId match {
+            case Some(id) => updateDetails(addressId = Some(id))
+            case _ =>
+              addresses.create(address) flatMap { id =>
+                updateDetails(addressId = Some(id))
+              }
+        }
+      )
   }
 
   def viewBusinessPhone: Action[AnyContent] = authenticated { implicit request =>
@@ -79,10 +93,14 @@ class UpdateOrganisationDetails @Inject()(
   }
 
   def updateBusinessPhone: Action[AnyContent] = authenticated.async { implicit request =>
-    phoneForm.bindFromRequest().fold(
-      errors => Future.successful(BadRequest(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
-      phone => updateDetails(phone = Some(phone))
-    )
+    phoneForm
+      .bindFromRequest()
+      .fold(
+        errors =>
+          Future.successful(BadRequest(
+            views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+        phone => updateDetails(phone = Some(phone))
+      )
   }
 
   def viewBusinessEmail: Action[AnyContent] = authenticated { implicit request =>
@@ -90,16 +108,21 @@ class UpdateOrganisationDetails @Inject()(
   }
 
   def updateBusinessEmail: Action[AnyContent] = authenticated.async { implicit request =>
-    emailForm.bindFromRequest().fold(
-      errors => Future.successful(BadRequest(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
-      email => updateDetails(email = Some(email))
-    )
+    emailForm
+      .bindFromRequest()
+      .fold(
+        errors =>
+          Future.successful(BadRequest(
+            views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+        email => updateDetails(email = Some(email))
+      )
   }
 
-  private def updateDetails(name: Option[String] = None,
-                            addressId: Option[Long] = None,
-                            email: Option[String] = None,
-                            phone: Option[String] = None)(implicit request: BasicAuthenticatedRequest[_]): Future[Result] = {
+  private def updateDetails(
+        name: Option[String] = None,
+        addressId: Option[Long] = None,
+        email: Option[String] = None,
+        phone: Option[String] = None)(implicit request: BasicAuthenticatedRequest[_]): Future[Result] = {
     val current = request.organisationAccount
     val details = UpdatedOrganisationAccount(
       current.groupId,
@@ -109,12 +132,14 @@ class UpdateOrganisationDetails @Inject()(
       email.getOrElse(current.email),
       phone.getOrElse(current.phone),
       clock.instant(),
-      request.individualAccount.externalId)
+      request.individualAccount.externalId
+    )
 
-    groups.update(current.id, details)
-      .flatMap(_ => addressId.fold[Future[EnrolmentResult]]
-        (Future.successful(Success))
-        (manageDetails.updatePostcode(request.individualAccount.individualId, current.addressId, _)))
+    groups
+      .update(current.id, details)
+      .flatMap(_ =>
+        addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(
+          manageDetails.updatePostcode(request.individualAccount.individualId, current.addressId, _)))
       .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
   }
 
@@ -124,10 +149,11 @@ class UpdateOrganisationDetails @Inject()(
 
   lazy val phoneForm = Form(single("phone" -> nonEmptyText(maxLength = 15)))
 
-  lazy val emailForm = Form(mapping(
-    "email" -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
-    "confirmedEmail" -> TextMatching("email", "error.emailsMustMatch")
-  ) { case (e, _) => e }(e => Some((e, e))))
+  lazy val emailForm = Form(
+    mapping(
+      "email"          -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
+      "confirmedEmail" -> TextMatching("email", "error.emailsMustMatch")
+    ) { case (e, _) => e }(e => Some((e, e))))
 }
 
 case class UpdateOrganisationDetailsVM(form: Form[_], currentDetails: GroupAccount)
