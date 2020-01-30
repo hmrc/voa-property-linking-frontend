@@ -48,7 +48,6 @@ object DraftCase {
       (__ \ "postcode").readNullable[String]
     ) (mkAddress _)
 
-  // scalastyle:off
   private def mkAddress(name: Option[String],
                         firm: Option[String],
                         number: Option[String],
