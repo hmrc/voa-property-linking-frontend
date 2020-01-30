@@ -20,21 +20,22 @@ import java.time.LocalDateTime
 
 import play.api.libs.json.{Format, Json}
 
-case class Message(id: String,
-                   recipientOrgId: Long,
-                   templateName: String,
-                   clientOrgId: Option[Long],
-                   clientName: Option[String],
-                   agentOrgId: Option[Long],
-                   agentName: Option[String],
-                   caseReference: String,
-                   submissionId: String,
-                   timestamp: LocalDateTime,
-                   address: String,
-                   effectiveDate: LocalDateTime,
-                   subject: String,
-                   lastRead: Option[LocalDateTime],
-                   messageType: String)
+case class Message(
+      id: String,
+      recipientOrgId: Long,
+      templateName: String,
+      clientOrgId: Option[Long],
+      clientName: Option[String],
+      agentOrgId: Option[Long],
+      agentName: Option[String],
+      caseReference: String,
+      submissionId: String,
+      timestamp: LocalDateTime,
+      address: String,
+      effectiveDate: LocalDateTime,
+      subject: String,
+      lastRead: Option[LocalDateTime],
+      messageType: String)
 
 object Message {
   implicit val format: Format[Message] = Json.format[Message]

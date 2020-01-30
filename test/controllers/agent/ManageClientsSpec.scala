@@ -42,24 +42,28 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
     var arbitraryAgentAuthorisation: Seq[AgentAuthorisation] = Nil
 
     (1 to numberOfLinks) foreach { _ =>
-      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(authorisedPartyId = groupAccount.id,
+      arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(
+        authorisedPartyId = groupAccount.id,
         client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id))
     }
 
-    StubPropertyRepresentationConnector.stubAgentAuthResult(AgentAuthResult(start = 1,
-      size = numberOfLinks,
-      total = numberOfLinks,
-      filterTotal = numberOfLinks,
-      authorisations = arbitraryAgentAuthorisation))
+    StubPropertyRepresentationConnector.stubAgentAuthResult(
+      AgentAuthResult(
+        start = 1,
+        size = numberOfLinks,
+        total = numberOfLinks,
+        filterTotal = numberOfLinks,
+        authorisations = arbitraryAgentAuthorisation))
 
   }
 
-  object TestController extends RepresentationController(
-    mockCustomErrorHandler,
-    StubPropertyRepresentationConnector,
-    preAuthenticatedActionBuilders(),
-    StubPropertyLinkConnector,
-    stubMessagesControllerComponents()
-  )
+  object TestController
+      extends RepresentationController(
+        mockCustomErrorHandler,
+        StubPropertyRepresentationConnector,
+        preAuthenticatedActionBuilders(),
+        StubPropertyLinkConnector,
+        stubMessagesControllerComponents()
+      )
 
 }

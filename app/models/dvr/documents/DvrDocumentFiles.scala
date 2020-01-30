@@ -19,9 +19,9 @@ package models.dvr.documents
 import play.api.libs.json.{Json, OFormat}
 
 case class DvrDocumentFiles(
-                             checkForm: Document,
-                             detailedValuation: Document
-                           )
+      checkForm: Document,
+      detailedValuation: Document
+)
 
 object DvrDocumentFiles {
   implicit val format: OFormat[DvrDocumentFiles] = Json.format

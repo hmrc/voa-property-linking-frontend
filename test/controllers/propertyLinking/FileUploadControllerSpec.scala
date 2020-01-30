@@ -44,7 +44,12 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  object TestFileUploadController extends UploadController(mockCustomErrorHandler, preAuthenticatedActionBuilders(), withLinkingSession, mockBusinessRatesAttachmentService)
+  object TestFileUploadController
+      extends UploadController(
+        mockCustomErrorHandler,
+        preAuthenticatedActionBuilders(),
+        withLinkingSession,
+        mockBusinessRatesAttachmentService)
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

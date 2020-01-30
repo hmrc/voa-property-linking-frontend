@@ -27,37 +27,45 @@ import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import scala.concurrent.{ExecutionContext, Future}
 
 class DVRCaseManagementConnector @Inject()(
-                                            config: ServicesConfig,
-                                            val wsClient: WSClient,
-                                            http: HttpClient
-                                          )(
-                                            implicit val executionContext: ExecutionContext
-                                          ) extends HttpErrorFunctions {
+      config: ServicesConfig,
+      val wsClient: WSClient,
+      http: HttpClient
+)(
+      implicit val executionContext: ExecutionContext
+) extends HttpErrorFunctions {
   val url = config.baseUrl("property-linking") + "/property-linking"
 
-  def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.POST[DetailedValuationRequest, HttpResponse](url + "/request-detailed-valuation", dvr) map { _ => () }
-  }
-
-  def requestDetailedValuationV2(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.POST[DetailedValuationRequest, HttpResponse](url + "/detailed-valuation", dvr) map { _ => () }
-  }
-
-  def dvrExists(organisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] = {
-    http.GET[Boolean](url + s"/dvr-exists?organisationId=$organisationId&assessmentRef=$assessmentRef")
-  }
-
-  def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(implicit hc: HeaderCarrier): Future[Option[DvrDocumentFiles]] = {
-    http.GET[DvrDocumentFiles](s"$url/properties/$uarn/valuation/$valuationId/files", Seq("propertyLinkId" -> propertyLinkId)).map(Some.apply).recover {
-      case _: NotFoundException => None
-      case e => throw e
+  def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] =
+    http.POST[DetailedValuationRequest, HttpResponse](url + "/request-detailed-valuation", dvr) map { _ =>
+      ()
     }
-  }
 
-  def getDvrDocument(uarn: Long, valuationId: Long, propertyLinkId: String, fileRef: String)(implicit hc: HeaderCarrier): Future[WSResponse] =
+  def requestDetailedValuationV2(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] =
+    http.POST[DetailedValuationRequest, HttpResponse](url + "/detailed-valuation", dvr) map { _ =>
+      ()
+    }
+
+  def dvrExists(organisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] =
+    http.GET[Boolean](url + s"/dvr-exists?organisationId=$organisationId&assessmentRef=$assessmentRef")
+
+  def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(
+        implicit hc: HeaderCarrier): Future[Option[DvrDocumentFiles]] =
+    http
+      .GET[DvrDocumentFiles](
+        s"$url/properties/$uarn/valuation/$valuationId/files",
+        Seq("propertyLinkId" -> propertyLinkId))
+      .map(Some.apply)
+      .recover {
+        case _: NotFoundException => None
+        case e                    => throw e
+      }
+
+  def getDvrDocument(uarn: Long, valuationId: Long, propertyLinkId: String, fileRef: String)(
+        implicit hc: HeaderCarrier): Future[WSResponse] =
     wsClient
       .url(s"$url/properties/$uarn/valuation/$valuationId/files/$fileRef?propertyLinkId=$propertyLinkId")
-      .withMethod("GET").withHttpHeaders(hc.headers: _*)
+      .withMethod("GET")
+      .withHttpHeaders(hc.headers: _*)
       .stream()
 
 }

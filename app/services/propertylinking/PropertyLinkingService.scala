@@ -30,13 +30,14 @@ import utils.Cats
 import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyLinkingService @Inject()(
-                                        businessRatesAttachmentService: BusinessRatesAttachmentsService,
-                                        propertyLinkConnector: PropertyLinkConnector
-                                      )(implicit executionContext: ExecutionContext) extends Cats {
+      businessRatesAttachmentService: BusinessRatesAttachmentsService,
+      propertyLinkConnector: PropertyLinkConnector
+)(implicit executionContext: ExecutionContext)
+    extends Cats {
 
   def submit(
-              propertyLinkRequest: PropertyLinkRequest
-            )(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): EitherT[Future, AttachmentException, Unit] =
+        propertyLinkRequest: PropertyLinkRequest
+  )(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): EitherT[Future, AttachmentException, Unit] =
     for {
       _ <- businessRatesAttachmentService.submit(propertyLinkRequest.submissionId, propertyLinkRequest.references)
       _ <- EitherT.liftF(propertyLinkConnector.createPropertyLink(PropertyLinkPayload(propertyLinkRequest)))

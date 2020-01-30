@@ -27,7 +27,6 @@ import models.registration._
 import models.upscan._
 import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole, User}
 
-
 trait FakeObjects {
 
   val ggExternalId = "gg-ext-id"
@@ -49,15 +48,29 @@ trait FakeObjects {
   val fileMetadata = FileMetadata(FILE_REFERENCE, "application/pdf")
   val uploadedFileDetails = UploadedFileDetails(fileMetadata, preparedUpload)
   val fileUpscanMetaData: Map[String, UploadedFileDetails] = Map(FILE_REFERENCE -> uploadedFileDetails)
-  val attachment = Attachment(UUID.randomUUID(), Instant.now(), "fileName", "image/jpeg", "DESTINATION", Map(), Initiated, List(), None, None, principal)
+  val attachment = Attachment(
+    UUID.randomUUID(),
+    Instant.now(),
+    "fileName",
+    "image/jpeg",
+    "DESTINATION",
+    Map(),
+    Initiated,
+    List(),
+    None,
+    None,
+    principal)
   val noEvidencelinkBasis: NoEvidenceFlag.type = NoEvidenceFlag
   val fileInfo = FileInfo("test.pdf", Some(RatesBillType))
-  val uploadEvidenceData = UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
-  val detailedIndividualAccount = DetailedIndividualAccount(ggExternalId, "", 1L, 2L, IndividualDetails("", "", "", "", None, 12))
+  val uploadEvidenceData =
+    UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
+  val detailedIndividualAccount =
+    DetailedIndividualAccount(ggExternalId, "", 1L, 2L, IndividualDetails("", "", "", "", None, 12))
   val individualUserDetails: UserDetails = userDetails(AffinityGroup.Individual)
   val orgUserDetails: UserDetails = userDetails(AffinityGroup.Organisation)
 
-  def groupAccount(agent: Boolean): GroupAccount = GroupAccount(1L, ggGroupId, ggExternalId, 1, email, phone, isAgent = agent, Some(300L).filter(_ => agent))
+  def groupAccount(agent: Boolean): GroupAccount =
+    GroupAccount(1L, ggGroupId, ggExternalId, 1, email, phone, isAgent = agent, Some(300L).filter(_ => agent))
 
   val groupAccountDetails = GroupAccountDetails(companyName, address, email, email, phone, isAgent = false)
   val testAccounts = Accounts(groupAccount(agent = true), detailedIndividualAccount)
@@ -65,7 +78,7 @@ trait FakeObjects {
   val individualUserAccountDetails = IndividualUserAccountDetails(
     firstName = firstName,
     lastName = lastName,
-    address =  address,
+    address = address,
     dob = dateOfBirth,
     nino = nino,
     phone = "03245262782",
@@ -73,7 +86,8 @@ trait FakeObjects {
     email = email,
     confirmedEmail = email,
     tradingName = Some("Trading name"),
-    selectedAddress = None)
+    selectedAddress = None
+  )
 
   val adminInExistingOrganisationAccountDetails = AdminInExistingOrganisationAccountDetails(
     firstName = "Billy-Bob",
@@ -84,7 +98,7 @@ trait FakeObjects {
   val adminOrganisationAccountDetails = AdminOrganisationAccountDetails(
     firstName = firstName,
     lastName = lastName,
-    address =  Address(Some(123L), "1 Some street", "", "", "", "BN12 6DL"),
+    address = Address(Some(123L), "1 Some street", "", "", "", "BN12 6DL"),
     dob = dateOfBirth,
     nino = nino,
     phone = "03245262782",
@@ -92,16 +106,21 @@ trait FakeObjects {
     confirmedEmail = email,
     companyName = "Trading name",
     selectedAddress = None,
-    isAgent = Some(false))
+    isAgent = Some(false)
+  )
 
-  def userDetails(affinityGroup: AffinityGroup = AffinityGroup.Individual, credentialRole: CredentialRole = User): UserDetails = UserDetails(
-    firstName = Some(firstName),
-    lastName = Some(lastName),
-    email = email,
-    postcode = Some(postCode),
-    groupIdentifier = ggGroupId,
-    affinityGroup = affinityGroup,
-    externalId = ggExternalId,
-    credentialRole = credentialRole)
+  def userDetails(
+        affinityGroup: AffinityGroup = AffinityGroup.Individual,
+        credentialRole: CredentialRole = User): UserDetails =
+    UserDetails(
+      firstName = Some(firstName),
+      lastName = Some(lastName),
+      email = email,
+      postcode = Some(postCode),
+      groupIdentifier = ggGroupId,
+      affinityGroup = affinityGroup,
+      externalId = ggExternalId,
+      credentialRole = credentialRole
+    )
 
 }

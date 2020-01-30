@@ -18,7 +18,6 @@ package models.searchApi
 
 import models.{NamedEnum, NamedEnumSupport}
 
-
 sealed trait AgentPropertiesFilter extends NamedEnum {
   override val key: String = "agentPropertyFilter"
 
@@ -39,7 +38,5 @@ object AgentPropertiesFilter extends NamedEnumSupport[AgentPropertiesFilter] {
     override val name: String = "YES"
   }
 
-
   override def all: Seq[AgentPropertiesFilter] = Seq(Both, Yes, No)
 }
-

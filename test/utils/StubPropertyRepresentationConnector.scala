@@ -28,47 +28,55 @@ import utils.Configs._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object StubPropertyRepresentationConnector extends PropertyRepresentationConnector(servicesConfig, mock(classOf[HttpClient])) {
+object StubPropertyRepresentationConnector
+    extends PropertyRepresentationConnector(servicesConfig, mock(classOf[HttpClient])) {
   private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil
   private var stubbedValidCodes: Seq[Long] = Nil
   private var stubbedAgentAuthResult: AgentAuthResult = AgentAuthResult(
-    start = 15, total = 15, size= 15,
+    start = 15,
+    total = 15,
+    size = 15,
     filterTotal = 15,
     authorisations = Seq.empty[AgentAuthorisation])
 
-
-  def stubbedRepresentations(status: RepresentationStatus = RepresentationApproved): Seq[PropertyRepresentation] = stubbedRepresentations.filter(_.status == status)
+  def stubbedRepresentations(status: RepresentationStatus = RepresentationApproved): Seq[PropertyRepresentation] =
+    stubbedRepresentations.filter(_.status == status)
 
   def stubRepresentation(rep: PropertyRepresentation) = stubbedRepresentations :+= rep
 
   def stubRepresentations(reps: Seq[PropertyRepresentation]) = stubbedRepresentations ++= reps
 
-  def stubAgentAuthResult(reps: AgentAuthResult) = { stubbedAgentAuthResult = reps }
+  def stubAgentAuthResult(reps: AgentAuthResult) = stubbedAgentAuthResult = reps
 
-  def getstubbedAgentAuthResult() : AgentAuthResult = stubbedAgentAuthResult
+  def getstubbedAgentAuthResult(): AgentAuthResult = stubbedAgentAuthResult
 
-
-  def stubAgentCode(agentCode: Long) = {
+  def stubAgentCode(agentCode: Long) =
     stubbedValidCodes :+= agentCode
-  }
 
   def reset(): Unit = {
     stubbedRepresentations = Nil
     stubbedValidCodes = Nil
   }
 
-  override def validateAgentCode(agentCode: Long, authorisationId: Long)(implicit hc: HeaderCarrier) = Future.successful {
-    if(stubbedValidCodes.contains(agentCode)) { AgentCodeValidationResult(Some(123), None) } else { AgentCodeValidationResult(None, Some("INVALID_CODE")) }
-  }
+  override def validateAgentCode(agentCode: Long, authorisationId: Long)(implicit hc: HeaderCarrier) =
+    Future.successful {
+      if (stubbedValidCodes.contains(agentCode)) { AgentCodeValidationResult(Some(123), None) } else {
+        AgentCodeValidationResult(None, Some("INVALID_CODE"))
+      }
+    }
 
-  override def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier) = Future.successful(
-    PropertyRepresentations(totalPendingRequests = stubbedRepresentations.count(_.status == RepresentationPending),
-      propertyRepresentations = stubbedRepresentations.filter(_.status == status))
+  override def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(
+        implicit hc: HeaderCarrier) = Future.successful(
+    PropertyRepresentations(
+      totalPendingRequests = stubbedRepresentations.count(_.status == RepresentationPending),
+      propertyRepresentations = stubbedRepresentations.filter(_.status == status)
+    )
   )
 
   override def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 
-  override def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier) = Future.successful(Unit)
+  override def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier) =
+    Future.successful(Unit)
 
   override def revoke(permissionId: Long)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 }

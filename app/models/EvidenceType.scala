@@ -60,9 +60,16 @@ case object LandRegistryTitle extends EvidenceType {
 }
 
 object EvidenceType extends NamedEnumSupport[EvidenceType] {
-  override def all: List[EvidenceType] = List(
-    Lease, License, ServiceCharge, StampDutyLandTaxForm,
-    WaterRateDemand, OtherUtilityBill, RatesBillType, LandRegistryTitle)
+  override def all: List[EvidenceType] =
+    List(
+      Lease,
+      License,
+      ServiceCharge,
+      StampDutyLandTaxForm,
+      WaterRateDemand,
+      OtherUtilityBill,
+      RatesBillType,
+      LandRegistryTitle)
 
   implicit val format: Format[EvidenceType] = EnumFormat(EvidenceType)
   lazy val form: Form[EvidenceType] = Form(single("evidenceType" -> EnumMapping(EvidenceType)))

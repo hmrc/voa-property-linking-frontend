@@ -39,13 +39,8 @@ import utils.{FakeObjects, GlobalExecutionContext, NoMetricsOneAppPerSuite}
 import scala.concurrent.{ExecutionContext, Future}
 
 class GgAuthenticatedActionSpec
-  extends UnitSpec
-    with MockitoSugar
-    with ScalaFutures
-    with BeforeAndAfterEach
-    with AllMocks
-    with NoMetricsOneAppPerSuite
-    with GlobalExecutionContext {
+    extends UnitSpec with MockitoSugar with ScalaFutures with BeforeAndAfterEach with AllMocks
+    with NoMetricsOneAppPerSuite with GlobalExecutionContext {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
   implicit lazy val controllerComponents = app.injector.instanceOf[ControllerComponents]
@@ -60,7 +55,8 @@ class GgAuthenticatedActionSpec
     "redirect to the login page when the user is not logged in (NoActiveSession)" in new Setup {
       override def exception: Option[Throwable] = Some(new MissingBearerToken("error"))
 
-      when(mockGovernmentGatewayProvider.redirectToLogin(any[Request[_]])).thenReturn(Future.successful(Redirect("sign-in-page")))
+      when(mockGovernmentGatewayProvider.redirectToLogin(any[Request[_]]))
+        .thenReturn(Future.successful(Redirect("sign-in-page")))
 
       val res = testAction(_ => Ok("something"))(FakeRequest())
 
@@ -87,13 +83,26 @@ class GgAuthenticatedActionSpec
 
     def user: UserDetails = userDetails()
 
-    def success: Option[Name] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[AffinityGroup] ~ Option[CredentialRole] =
-      new ~(new ~(new ~(new ~(new ~(new ~(Option(Name(user.firstName, user.lastName)), Option(user.email)), user.postcode), Option(user.groupIdentifier)), Option(user.externalId)), Option(user.affinityGroup)), Option(user.credentialRole))
+    def success: Option[Name] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[
+      AffinityGroup] ~ Option[CredentialRole] =
+      new ~(
+        new ~(
+          new ~(
+            new ~(
+              new ~(new ~(Option(Name(user.firstName, user.lastName)), Option(user.email)), user.postcode),
+              Option(user.groupIdentifier)),
+            Option(user.externalId)),
+          Option(user.affinityGroup)
+        ),
+        Option(user.credentialRole)
+      )
 
     def exception: Option[Throwable] = None
 
     lazy val authConnector: AuthConnector = new AuthConnector {
-      override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[A] =
+      override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(
+            implicit hc: HeaderCarrier,
+            ec: ExecutionContext): Future[A] =
         exception.fold(Future.successful(success.asInstanceOf[A]))(Future.failed(_))
     }
 

@@ -21,13 +21,18 @@ import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
 case class LinkingSessionRequest[A](
-                                     ses: LinkingSession,
-                                     organisationId: Long,
-                                     individualAccount: DetailedIndividualAccount,
-                                     groupAccount: GroupAccount,
-                                     request: Request[A]
-                                   ) extends WrappedRequest[A](request) {
-  def sessionId: String = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
+      ses: LinkingSession,
+      organisationId: Long,
+      individualAccount: DetailedIndividualAccount,
+      groupAccount: GroupAccount,
+      request: Request[A]
+) extends WrappedRequest[A](request) {
+  def sessionId: String =
+    HeaderCarrierConverter
+      .fromHeadersAndSession(request.headers, Some(request.session))
+      .sessionId
+      .map(_.value)
+      .getOrElse(throw NoSessionId)
 }
 
 case object NoSessionId extends Exception

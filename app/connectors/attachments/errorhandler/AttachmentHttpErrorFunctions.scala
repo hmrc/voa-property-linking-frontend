@@ -28,7 +28,7 @@ trait AttachmentHttpErrorFunctions extends HttpErrorFunctions {
       case BAD_REQUEST =>
         Logger.warn(s"Upload failed with status ${response.status}. Response body: ${response.body}")
         throw FileAttachmentFailed(response.body)
-      case _           =>
+      case _ =>
         super.handleResponse(httpMethod, url)(response)
     }
 }

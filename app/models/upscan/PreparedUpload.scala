@@ -24,7 +24,7 @@ object PreparedUpload {
   implicit val uploadFormat: OFormat[PreparedUpload] = Json.format
 }
 
-case class FileMetadata(fileName: String, contentType: String){
+case class FileMetadata(fileName: String, contentType: String) {
   def toDisplayFileName = fileName.split("-").toList.drop(1).mkString("-")
 }
 

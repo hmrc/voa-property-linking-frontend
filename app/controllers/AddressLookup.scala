@@ -25,23 +25,27 @@ import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import scala.concurrent.ExecutionContext
 
 class AddressLookup @Inject()(
-                               val errorHandler: CustomErrorHandler,
-                               addresses: Addresses,
-                               override val controllerComponents: MessagesControllerComponents
-                             )(
-                               implicit executionContext: ExecutionContext
-                             ) extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      addresses: Addresses,
+      override val controllerComponents: MessagesControllerComponents
+)(
+      implicit executionContext: ExecutionContext
+) extends PropertyLinkingController {
 
   private val logger = play.api.Logger(this.getClass)
 
   def findByPostcode(postcode: String): Action[AnyContent] = Action.async { implicit request =>
-    addresses.findByPostcode(postcode.trim)(hc).recover { case t =>
-      logger.warn("Failed to find address by post code", t)
-      Seq.empty
-    }.map {
-      case Seq() => NotFound
-      case seq@Seq(_*) => Ok(Json.toJson(seq))
-    }
+    addresses
+      .findByPostcode(postcode.trim)(hc)
+      .recover {
+        case t =>
+          logger.warn("Failed to find address by post code", t)
+          Seq.empty
+      }
+      .map {
+        case Seq()          => NotFound
+        case seq @ Seq(_ *) => Ok(Json.toJson(seq))
+      }
   }
 
 }

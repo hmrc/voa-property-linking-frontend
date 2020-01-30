@@ -26,21 +26,18 @@ object EvidenceChoices extends Enumeration {
   type EvidenceChoices = Value
 
   val RATES_BILL = Value("RATES_BILL")
-  val OTHER      = Value("OTHER")
+  val OTHER = Value("OTHER")
 
   implicit val format: Format[EvidenceChoices] = JsonUtils.enumFormat(EvidenceChoices)
 
   implicit object Binder extends PathBindable[EvidenceChoices] with Cats {
 
     override def bind(key: String, value: String): Either[String, EvidenceChoices] =
-      Try(EvidenceChoices.withName(value))
-        .toOption
+      Try(EvidenceChoices.withName(value)).toOption
         .map(_.asRight)
         .getOrElse("".asLeft)
 
     override def unbind(key: String, value: EvidenceChoices): String = value.toString
-
-
 
   }
 }

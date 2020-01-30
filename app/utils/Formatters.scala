@@ -23,38 +23,34 @@ import models.{Address, PropertyAddress}
 
 object Formatters {
 
-  def capitalizedAddress(address: PropertyAddress): String = {
-    address.copy(
-      lines = address.lines.map(_.toLowerCase().trim.split(" ").map(_.capitalize).mkString(" ")).filter(_.nonEmpty),
-      postcode = address.postcode.toUpperCase()
-    ).toString
-  }
+  def capitalizedAddress(address: PropertyAddress): String =
+    address
+      .copy(
+        lines = address.lines.map(_.toLowerCase().trim.split(" ").map(_.capitalize).mkString(" ")).filter(_.nonEmpty),
+        postcode = address.postcode.toUpperCase()
+      )
+      .toString
 
-  def capitalizedAddress(address: String): String = {
+  def capitalizedAddress(address: String): String =
     capitalizedAddress(PropertyAddress.fromString(address))
-  }
 
-  def capitalizedAddress(address: Address): String = {
-    Seq(address.line1, address.line2, address.line3, address.line4, address.postcode).filterNot(_.isEmpty).map(_.capitalize) mkString ", "
-  }
+  def capitalizedAddress(address: Address): String =
+    Seq(address.line1, address.line2, address.line3, address.line4, address.postcode)
+      .filterNot(_.isEmpty)
+      .map(_.capitalize) mkString ", "
 
-  def formatDate(date: LocalDate): String = {
+  def formatDate(date: LocalDate): String =
     date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
-  }
 
-  def formatDateTimeToDate(date: LocalDateTime): String = {
+  def formatDateTimeToDate(date: LocalDateTime): String =
     date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
-  }
 
-  def formatTime(time: LocalTime): String = {
+  def formatTime(time: LocalTime): String =
     time.format(DateTimeFormatter.ofPattern("hh:mm a"))
-  }
-  def buildQueryParams(name : String, value : Option[String]) : String = {
-    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.trim}" ; case _ => ""}
-  }
+  def buildQueryParams(name: String, value: Option[String]): String =
+    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.trim}"; case _ => "" }
 
-  def buildUppercaseQueryParams(name : String, value : Option[String]) : String = {
-    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.toUpperCase.trim}" ; case _ => ""}
-  }
+  def buildUppercaseQueryParams(name: String, value: Option[String]): String =
+    value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.toUpperCase.trim}"; case _ => "" }
 
 }

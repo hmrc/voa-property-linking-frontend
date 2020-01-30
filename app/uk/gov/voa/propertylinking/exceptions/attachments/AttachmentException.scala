@@ -20,7 +20,6 @@ import models.attachment.Attachment
 
 sealed trait AttachmentException extends Product with Serializable
 
-
 case object NotAllFilesReadyToUpload extends AttachmentException
 case class SomeFilesAreAlreadyUploaded(attachments: List[String]) extends AttachmentException
 case class AllFilesAreAlreadyUploaded(attachments: List[Attachment]) extends AttachmentException

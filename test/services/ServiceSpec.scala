@@ -26,20 +26,9 @@ import tests.AllMocks
 import utils._
 
 trait ServiceSpec
-  extends FlatSpec
-    with MustMatchers
-    with FutureAwaits
-    with DefaultAwaitTimeout
-    with BeforeAndAfterEach
-    with AppendedClues
-    with MockitoSugar
-    with NoMetricsOneAppPerSuite
-    with ScalaFutures
-    with FakeObjects
-    with GlobalExecutionContext
-    with PatienceConfiguration
-    with AllMocks {
-
+    extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
+    with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with ScalaFutures with FakeObjects
+    with GlobalExecutionContext with PatienceConfiguration with AllMocks {
 
   override implicit def patienceConfig: PatienceConfig =
     PatienceConfig(timeout = Span(1, Seconds), interval = Span(15, Millis))

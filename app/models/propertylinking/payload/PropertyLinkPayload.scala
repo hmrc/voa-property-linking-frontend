@@ -23,20 +23,20 @@ import models.{Capacity, FileInfo, LinkBasis}
 import play.api.libs.json.Json
 
 case class PropertyLinkPayload(
-                                uarn: Long,
-                                organisationId: Long,
-                                individualId: Long,
-                                capacityDeclaration: Capacity,
-                                linkedDate: Instant,
-                                linkBasis: LinkBasis,
-                                fileInfo: List[FileInfo],
-                                submissionId: String
-                              )
+      uarn: Long,
+      organisationId: Long,
+      individualId: Long,
+      capacityDeclaration: Capacity,
+      linkedDate: Instant,
+      linkBasis: LinkBasis,
+      fileInfo: List[FileInfo],
+      submissionId: String
+)
 
 object PropertyLinkPayload {
   implicit val format = Json.format[PropertyLinkPayload]
 
-  def apply(request: PropertyLinkRequest): PropertyLinkPayload = {
+  def apply(request: PropertyLinkRequest): PropertyLinkPayload =
     PropertyLinkPayload(
       uarn = request.uarn,
       organisationId = request.organisationId,
@@ -47,5 +47,4 @@ object PropertyLinkPayload {
       fileInfo = request.fileInfo,
       submissionId = request.submissionId
     )
-  }
 }

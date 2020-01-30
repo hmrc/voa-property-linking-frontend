@@ -26,13 +26,12 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import scala.concurrent.Future
 
 class GovernmentGatewayProvider @Inject()(
-                                           override val env: Environment,
-                                           override val config: Configuration
-                                         )(applicationConfig: ApplicationConfig) extends AuthRedirects {
-  this: ServicesConfig =>
+      override val env: Environment,
+      override val config: Configuration
+)(applicationConfig: ApplicationConfig)
+    extends AuthRedirects { this: ServicesConfig =>
   def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
 
-  def redirectToLogin(implicit request: Request[_]): Future[Result] = {
+  def redirectToLogin(implicit request: Request[_]): Future[Result] =
     Future.successful(toGGLogin(applicationConfig.baseUrl + request.uri))
-  }
 }

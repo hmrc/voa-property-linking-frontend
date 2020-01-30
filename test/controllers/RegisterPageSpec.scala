@@ -21,7 +21,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.{Configuration, Mode}
 
-
 class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
   implicit val mode = Mode.Test
@@ -35,30 +34,37 @@ class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaProper
 
     status(result) mustBe SEE_OTHER
 
-    redirectLocation(result) mustBe Some("http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
+    redirectLocation(result) mustBe Some(
+      "http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
 
   }
   "choice" should "redirect to the government gateway registration page with the inputted form selection" in {
 
-    val result = applicationTestController.choice()(FakeRequest().withFormUrlEncodedBody(
-      "choice" -> "test123"
-    ))
+    val result = applicationTestController.choice()(
+      FakeRequest().withFormUrlEncodedBody(
+        "choice" -> "test123"
+      ))
 
     status(result) mustBe SEE_OTHER
 
-    redirectLocation(result) mustBe Some("http://localhost:8571/government-gateway-registration-frontend?accountType=test123&continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
+    redirectLocation(result) mustBe Some(
+      "http://localhost:8571/government-gateway-registration-frontend?accountType=test123&continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
 
   }
 
   "continue" should "return the correct map including accountType" in {
     val testAccountType = "testAccountType"
-    applicationTestController.continue(testAccountType) mustBe Map("accountType" -> Seq(testAccountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
+    applicationTestController.continue(testAccountType) mustBe Map(
+      "accountType" -> Seq(testAccountType),
+      "continue"    -> Seq(routes.Dashboard.home().url),
+      "origin"      -> Seq("voa"))
   }
 
   "choice" should "display a validation error if a choice is not selected" in {
-    val result = applicationTestController.choice()(FakeRequest().withFormUrlEncodedBody(
-      "choice" -> ""
-    ))
+    val result = applicationTestController.choice()(
+      FakeRequest().withFormUrlEncodedBody(
+        "choice" -> ""
+      ))
     status(result) mustBe BAD_REQUEST
   }
 

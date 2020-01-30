@@ -21,18 +21,18 @@ import java.time.LocalDate
 import play.api.libs.json.Json
 
 case class Assessment(
-                       authorisationId: Long,
-                       assessmentRef: Long,
-                       listYear: String,
-                       uarn: Long,
-                       effectiveDate: LocalDate,
-                       rateableValue: Option[Long],
-                       address: PropertyAddress,
-                       billingAuthorityReference: String,
-                       currentFromDate: Option[LocalDate],
-                       currentToDate: Option[LocalDate],
-                       capacity: Capacity
-                     )
+      authorisationId: Long,
+      assessmentRef: Long,
+      listYear: String,
+      uarn: Long,
+      effectiveDate: LocalDate,
+      rateableValue: Option[Long],
+      address: PropertyAddress,
+      billingAuthorityReference: String,
+      currentFromDate: Option[LocalDate],
+      currentToDate: Option[LocalDate],
+      capacity: Capacity
+)
 
 object Assessment {
   implicit private val capacityFmt = Json.format[Capacity]

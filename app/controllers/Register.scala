@@ -25,12 +25,12 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 class Register @Inject()(
-                          override val errorHandler: CustomErrorHandler
-                        )(
-                          implicit override val messagesApi: MessagesApi,
-                          override val controllerComponents: MessagesControllerComponents,
-                          val config: ApplicationConfig
-                        ) extends PropertyLinkingController {
+      override val errorHandler: CustomErrorHandler
+)(
+      implicit override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      val config: ApplicationConfig
+) extends PropertyLinkingController {
 
   def continue(accountType: String): Map[String, Seq[String]] =
     Map("accountType" -> Seq(accountType), "continue" -> Seq(routes.Dashboard.home().url), "origin" -> Seq("voa"))
@@ -38,10 +38,12 @@ class Register @Inject()(
   def show(): Action[AnyContent] = Action(redirect("organisation"))
 
   def choice: Action[AnyContent] = Action { implicit request =>
-    RegisterHelper.choiceForm.bindFromRequest().fold(
-      errors => BadRequest(views.html.start(errors)),
-      success => redirect(success)
-    )
+    RegisterHelper.choiceForm
+      .bindFromRequest()
+      .fold(
+        errors => BadRequest(views.html.start(errors)),
+        success => redirect(success)
+      )
   }
 
   private def redirect(account: String): Result =

@@ -21,13 +21,13 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 
-trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite {
-  this: TestSuite =>
+trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite { this: TestSuite =>
 
   def additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.ivEnabled" -> "true")
 
-  override def fakeApplication(): Application = new GuiceApplicationBuilder()
-    .disable[com.kenshoo.play.metrics.PlayModule]
-    .configure(additionalAppConfig:_*)
-    .build()
+  override def fakeApplication(): Application =
+    new GuiceApplicationBuilder()
+      .disable[com.kenshoo.play.metrics.PlayModule]
+      .configure(additionalAppConfig: _*)
+      .build()
 }

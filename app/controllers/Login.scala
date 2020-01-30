@@ -20,8 +20,12 @@ import config.ApplicationConfig
 import javax.inject.Inject
 import play.api.mvc.{ControllerComponents, InjectedController}
 
-class Login @Inject()(config: ApplicationConfig,override val controllerComponents: ControllerComponents) extends InjectedController {
+class Login @Inject()(config: ApplicationConfig, override val controllerComponents: ControllerComponents)
+    extends InjectedController {
 
-  val show = Action(Redirect(config.ggSignInUrl, Map("continue" -> Seq(config.baseUrl + controllers.routes.Dashboard.home().url), "origin" -> Seq("voa"))))
+  val show = Action(
+    Redirect(
+      config.ggSignInUrl,
+      Map("continue" -> Seq(config.baseUrl + controllers.routes.Dashboard.home().url), "origin" -> Seq("voa"))))
 
 }

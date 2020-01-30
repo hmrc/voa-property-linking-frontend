@@ -27,7 +27,6 @@ object Capacity {
 
   lazy val defaultFromDate = LocalDate.of(2017, 4, 1)
 
-  def fromDeclaration(declaration: CapacityDeclaration) = {
+  def fromDeclaration(declaration: CapacityDeclaration) =
     Capacity(declaration.capacity, declaration.fromDate.getOrElse(defaultFromDate), declaration.toDate)
-  }
 }

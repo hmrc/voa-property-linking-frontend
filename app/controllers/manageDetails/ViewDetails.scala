@@ -26,14 +26,14 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 
 class ViewDetails @Inject()(
-                             val errorHandler: CustomErrorHandler,
-                             addressesConnector: Addresses,
-                             authenticated: AuthenticatedAction
-                           )(
-                             implicit override val messagesApi: MessagesApi,
-                             override val controllerComponents: MessagesControllerComponents,
-                             config: ApplicationConfig
-                           ) extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      addressesConnector: Addresses,
+      authenticated: AuthenticatedAction
+)(
+      implicit override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      config: ApplicationConfig
+) extends PropertyLinkingController {
 
   def show(): Action[AnyContent] = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("your-details"))

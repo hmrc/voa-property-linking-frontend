@@ -40,7 +40,7 @@ class AssistantUserSpec extends BaseUnitSpec {
     val form: Form[AssistantUserAccountDetails] = AssistantUser.assistant
     val validData = Map(
       keys.firstName -> firstName,
-      keys.lastName -> lastName
+      keys.lastName  -> lastName
     )
     val expected = AssistantUserAccountDetails(
       firstName = firstName,

@@ -24,9 +24,9 @@ import utils.Cats
 import utils.QueryParamUtils.toQueryString
 
 case class PaginationParameters(
-                                 page: Int = 1,
-                                 pageSize: Int = 15
-                               ) {
+      page: Int = 1,
+      pageSize: Int = 15
+) {
 
   def startPoint: Int = ((page - 1) * pageSize) + 1
 

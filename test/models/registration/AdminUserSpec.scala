@@ -95,7 +95,8 @@ class AdminUserSpec extends BaseUnitSpec {
         }
       }
       "confirmed email address and email must match" in {
-        val data = validData.updated(keys.email, "some@example.com").updated(keys.confirmedBusinessEmail, "other@domain.com")
+        val data =
+          validData.updated(keys.email, "some@example.com").updated(keys.confirmedBusinessEmail, "other@domain.com")
         verifyError(form, data, keys.confirmedBusinessEmail, Errors.emailsMustMatch)
       }
     }
@@ -231,22 +232,22 @@ class AdminUserSpec extends BaseUnitSpec {
   object AdminOrganisationAccountDetailsTestData {
     val form: Form[AdminOrganisationAccountDetails] = AdminUser.organisation
     val validData = Map(
-      keys.firstName -> firstName,
-      keys.lastName -> lastName,
-      keys.companyName -> companyName,
-      s"${keys.address}.line1" -> address.line1,
-      s"${keys.address}.line2" -> address.line2,
-      s"${keys.address}.line3" -> address.line3,
-      s"${keys.address}.line4" -> address.line4,
-      s"${keys.address}.postcode" -> address.postcode,
-      s"${keys.dateOfBirth}.day" -> dateOfBirth.getDayOfMonth.toString,
+      keys.firstName               -> firstName,
+      keys.lastName                -> lastName,
+      keys.companyName             -> companyName,
+      s"${keys.address}.line1"     -> address.line1,
+      s"${keys.address}.line2"     -> address.line2,
+      s"${keys.address}.line3"     -> address.line3,
+      s"${keys.address}.line4"     -> address.line4,
+      s"${keys.address}.postcode"  -> address.postcode,
+      s"${keys.dateOfBirth}.day"   -> dateOfBirth.getDayOfMonth.toString,
       s"${keys.dateOfBirth}.month" -> dateOfBirth.getMonthValue.toString,
-      s"${keys.dateOfBirth}.year" -> dateOfBirth.getYear.toString,
-      keys.phone -> phone,
-      keys.nino -> nino.toString,
-      keys.email -> email,
-      keys.confirmedBusinessEmail -> email,
-      keys.isAgent -> "false"
+      s"${keys.dateOfBirth}.year"  -> dateOfBirth.getYear.toString,
+      keys.phone                   -> phone,
+      keys.nino                    -> nino.toString,
+      keys.email                   -> email,
+      keys.confirmedBusinessEmail  -> email,
+      keys.isAgent                 -> "false"
     )
     val expected = AdminOrganisationAccountDetails(
       firstName = firstName,
@@ -266,22 +267,22 @@ class AdminUserSpec extends BaseUnitSpec {
   object IndividualUserAccountDetailsTestData {
     val form: Form[IndividualUserAccountDetails] = AdminUser.individual
     val validData = Map(
-      keys.firstName -> firstName,
-      keys.lastName -> lastName,
-      s"${keys.address}.line1" -> address.line1,
-      s"${keys.address}.line2" -> address.line2,
-      s"${keys.address}.line3" -> address.line3,
-      s"${keys.address}.line4" -> address.line4,
-      s"${keys.address}.postcode" -> address.postcode,
-      s"${keys.dateOfBirth}.day" -> dateOfBirth.getDayOfMonth.toString,
+      keys.firstName               -> firstName,
+      keys.lastName                -> lastName,
+      s"${keys.address}.line1"     -> address.line1,
+      s"${keys.address}.line2"     -> address.line2,
+      s"${keys.address}.line3"     -> address.line3,
+      s"${keys.address}.line4"     -> address.line4,
+      s"${keys.address}.postcode"  -> address.postcode,
+      s"${keys.dateOfBirth}.day"   -> dateOfBirth.getDayOfMonth.toString,
       s"${keys.dateOfBirth}.month" -> dateOfBirth.getMonthValue.toString,
-      s"${keys.dateOfBirth}.year" -> dateOfBirth.getYear.toString,
-      keys.phone -> phone,
-      keys.mobilePhone -> phone,
-      keys.nino -> nino.toString,
-      keys.email -> email,
-      keys.confirmedEmail -> email,
-      keys.tradingName -> companyName
+      s"${keys.dateOfBirth}.year"  -> dateOfBirth.getYear.toString,
+      keys.phone                   -> phone,
+      keys.mobilePhone             -> phone,
+      keys.nino                    -> nino.toString,
+      keys.email                   -> email,
+      keys.confirmedEmail          -> email,
+      keys.tradingName             -> companyName
     )
     val expected = IndividualUserAccountDetails(
       firstName = firstName,
@@ -301,12 +302,12 @@ class AdminUserSpec extends BaseUnitSpec {
   object AdminInExistingOrganisationUserTestData {
     val form: Form[AdminInExistingOrganisationAccountDetails] = AdminInExistingOrganisationUser.organisation
     val validData = Map(
-      keys.firstName -> firstName,
-      keys.lastName -> lastName,
-      s"${keys.dateOfBirth}.day" -> dateOfBirth.getDayOfMonth.toString,
+      keys.firstName               -> firstName,
+      keys.lastName                -> lastName,
+      s"${keys.dateOfBirth}.day"   -> dateOfBirth.getDayOfMonth.toString,
       s"${keys.dateOfBirth}.month" -> dateOfBirth.getMonthValue.toString,
-      s"${keys.dateOfBirth}.year" -> dateOfBirth.getYear.toString,
-      keys.nino -> nino.toString
+      s"${keys.dateOfBirth}.year"  -> dateOfBirth.getYear.toString,
+      keys.nino                    -> nino.toString
     )
     val expected = AdminInExistingOrganisationAccountDetails(
       firstName = firstName,
@@ -316,4 +317,3 @@ class AdminUserSpec extends BaseUnitSpec {
     )
   }
 }
-

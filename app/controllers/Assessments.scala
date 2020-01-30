@@ -36,28 +36,27 @@ import uk.gov.voa.propertylinking.services.PropertyLinkService
 import scala.concurrent.{ExecutionContext, Future}
 
 class Assessments @Inject()(
-                             val errorHandler: CustomErrorHandler,
-                             propertyLinks: PropertyLinkConnector,
-                             propertyLinkService: PropertyLinkService,
-                             authenticated: AuthenticatedAction,
-                             submissionIds: SubmissionIdConnector,
-                             dvrCaseManagement: DVRCaseManagementConnector,
-                             businessRatesValuations: BusinessRatesValuationConnector,
-                             businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
-                             override val controllerComponents: MessagesControllerComponents,
-                             @Named("detailed-valuation.external") isExternalValuation: Boolean,
-                             @Named("detailed-valuation.skip") isSkipAssessment: Boolean,
-                             @Named("summary-valuation.newRoute") isSummaryValuationNewRoute: Boolean
-                           )(
-                             implicit override val messagesApi: MessagesApi,
-                             val config: ApplicationConfig,
-                             executionContext: ExecutionContext
-                           ) extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      propertyLinks: PropertyLinkConnector,
+      propertyLinkService: PropertyLinkService,
+      authenticated: AuthenticatedAction,
+      submissionIds: SubmissionIdConnector,
+      dvrCaseManagement: DVRCaseManagementConnector,
+      businessRatesValuations: BusinessRatesValuationConnector,
+      businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
+      override val controllerComponents: MessagesControllerComponents,
+      @Named("detailed-valuation.external") isExternalValuation: Boolean,
+      @Named("detailed-valuation.skip") isSkipAssessment: Boolean,
+      @Named("summary-valuation.newRoute") isSummaryValuationNewRoute: Boolean
+)(
+      implicit override val messagesApi: MessagesApi,
+      val config: ApplicationConfig,
+      executionContext: ExecutionContext
+) extends PropertyLinkingController {
 
   private val logger = Logger(this.getClass.getName)
 
   def assessments(submissionId: String, owner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
-
     val pLink: Future[Option[ApiAssessments]] = {
       if (owner)
         propertyLinks.getOwnerAssessmentsWithCapacity(submissionId)
@@ -69,7 +68,13 @@ class Assessments @Inject()(
       case Some(ApiAssessments(authorisationId, _, _, _, _, _, Seq(), _)) => notFound
       case Some(link) =>
         if (!link.pending && link.assessments.size == 1 && isSkipAssessment) {
-          Redirect(routes.Assessments.viewDetailedAssessment(submissionId, link.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference, owner))
+          Redirect(
+            routes.Assessments.viewDetailedAssessment(
+              submissionId,
+              link.authorisationId,
+              link.assessments.head.assessmentRef,
+              link.assessments.head.billingAuthorityReference,
+              owner))
         } else if (link.pending && link.assessments.size == 1 && isSkipAssessment) {
           Redirect(getViewSummaryCall(link.uarn, link.pending, owner))
         } else {
@@ -77,16 +82,19 @@ class Assessments @Inject()(
             views.html.dashboard.assessments(
               model = AssessmentsVM(
                 form = viewAssessmentForm,
-                assessmentsWithLinks =
-                  link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)).reverse
-                    .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
+                assessmentsWithLinks = link.assessments
+                  .sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(
+                    Ordering.by[LocalDate, Long](_.toEpochDay))
+                  .reverse
+                  .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
                 backLink = calculateBackLink(owner),
                 linkPending = link.pending,
                 authorisationId = link.authorisationId,
                 address = link.address,
                 plSubmissionId = link.submissionId,
                 isAgentOwnProperty = owner,
-                capacity = link.capacity),
+                capacity = link.capacity
+              ),
               owner = owner
             ))
         }
@@ -94,35 +102,43 @@ class Assessments @Inject()(
     }).recoverWith {
       case e =>
         logger.warn("property link assessment call failed", e)
-        val linkF = if (owner) propertyLinks.getMyOrganisationPropertyLink(submissionId) else propertyLinks.getMyClientsPropertyLink(submissionId)
+        val linkF =
+          if (owner) propertyLinks.getMyOrganisationPropertyLink(submissionId)
+          else propertyLinks.getMyClientsPropertyLink(submissionId)
         linkF.map {
           case Some(link) => Redirect(getViewSummaryCall(link.uarn, pending = true, owner))
-          case None => notFound
+          case None       => notFound
         }
     }
   }
 
-  private def getViewSummaryCall(uarn: Long, pending: Boolean, owner: Boolean): Call = {
-    if (owner) routes.Assessments.viewOwnerSummary(uarn, pending) else routes.Assessments.viewClientSummary(uarn, pending)
-  }
+  private def getViewSummaryCall(uarn: Long, pending: Boolean, owner: Boolean): Call =
+    if (owner) routes.Assessments.viewOwnerSummary(uarn, pending)
+    else routes.Assessments.viewClientSummary(uarn, pending)
 
   private def decideNextUrl(
-                             submissionId: String,
-                             authorisationId: Long,
-                             assessment: ApiAssessment,
-                             isPending: Boolean,
-                             owner: Boolean
-                           )(implicit request: Request[_]): (String, ApiAssessment) = {
+        submissionId: String,
+        authorisationId: Long,
+        assessment: ApiAssessment,
+        isPending: Boolean,
+        owner: Boolean
+  )(implicit request: Request[_]): (String, ApiAssessment) =
     assessment.rateableValue match {
-      case None => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
+      case None                 => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
       case Some(_) if isPending => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
-      case Some(_) => routes.Assessments.viewDetailedAssessment(submissionId, authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference, owner).url -> assessment
+      case Some(_) =>
+        routes.Assessments
+          .viewDetailedAssessment(
+            submissionId,
+            authorisationId,
+            assessment.assessmentRef,
+            assessment.billingAuthorityReference,
+            owner)
+          .url -> assessment
     }
-  }
 
-  private def calculateBackLink(agentOwnsProperty: Boolean): String = {
+  private def calculateBackLink(agentOwnsProperty: Boolean): String =
     config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
-  }
 
   def viewOwnerSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] =
     viewSummary(uarn, isOwner = true, isPending)
@@ -130,78 +146,92 @@ class Assessments @Inject()(
   def viewClientSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] =
     viewSummary(uarn, isOwner = false, isPending)
 
-  private def viewSummary(uarn: Long, isOwner: Boolean, isPending: Boolean = false): Action[AnyContent] = Action { implicit request =>
-    if (isSummaryValuationNewRoute) {
-      if (isOwner) {
-        Redirect(config.valuationFrontendUrl + s"/property-link/$uarn/valuation/summary")
+  private def viewSummary(uarn: Long, isOwner: Boolean, isPending: Boolean = false): Action[AnyContent] = Action {
+    implicit request =>
+      if (isSummaryValuationNewRoute) {
+        if (isOwner) {
+          Redirect(config.valuationFrontendUrl + s"/property-link/$uarn/valuation/summary")
+        } else {
+          Redirect(config.valuationFrontendUrl + s"/property-link/clients/all/$uarn/valuation/summary")
+        }
       } else {
-        Redirect(config.valuationFrontendUrl + s"/property-link/clients/all/$uarn/valuation/summary")
+        Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
       }
-    }
-    else {
-      Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
-    }
   }
 
   def viewDetailedAssessment(
-                              submissionId: String,
-                              authorisationId: Long,
-                              assessmentRef: Long,
-                              baRef: String,
-                              owner: Boolean
-                            ): Action[AnyContent] = authenticated.async { implicit request =>
+        submissionId: String,
+        authorisationId: Long,
+        assessmentRef: Long,
+        baRef: String,
+        owner: Boolean
+  ): Action[AnyContent] = authenticated.async { implicit request =>
     propertyLinkService.getSingularPropertyLink(submissionId, owner).flatMap {
       case Some(propertyLink) =>
         if (isExternalValuation) {
-          businessRatesValuations.isViewableExternal(propertyLink.uarn, assessmentRef, submissionId)
+          businessRatesValuations
+            .isViewableExternal(propertyLink.uarn, assessmentRef, submissionId)
             .map {
-            case true =>
-              if (owner) {
-                if (isExternalValuation) {
-                  Redirect(config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+              case true =>
+                if (owner) {
+                  if (isExternalValuation) {
+                    Redirect(config.businessRatesValuationFrontendUrl(
+                      s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+                  } else {
+                    Redirect(config.businessRatesValuationFrontendUrl(
+                      s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+                  }
                 } else {
-                  Redirect(config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+                  if (isExternalValuation) {
+                    Redirect(config.businessRatesValuationFrontendUrl(
+                      s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+                  } else {
+                    Redirect(config.businessRatesValuationFrontendUrl(
+                      s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+                  }
                 }
-              } else {
-                if (isExternalValuation) {
-                  Redirect(config.businessRatesValuationFrontendUrl(s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
-                } else {
-                  Redirect(config.businessRatesValuationFrontendUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
-                }
-              }
-            case false =>
-              Redirect(
-                if (owner)
-                  controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
-                else
-                  controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
-              )
-          }
+              case false =>
+                Redirect(
+                  if (owner)
+                    controllers.detailedvaluationrequest.routes.DvrController
+                      .myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
+                  else
+                    controllers.detailedvaluationrequest.routes.DvrController
+                      .myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
+                )
+            }
         } else {
-          businessRatesValuations.isViewable(propertyLink.uarn, assessmentRef, propertyLink.authorisationId)
+          businessRatesValuations
+            .isViewable(propertyLink.uarn, assessmentRef, propertyLink.authorisationId)
             .map {
-            case true =>
-              if (owner) {
-                if (isExternalValuation) {
-                  Redirect(config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+              case true =>
+                if (owner) {
+                  if (isExternalValuation) {
+                    Redirect(config.businessRatesValuationFrontendUrl(
+                      s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+                  } else {
+                    Redirect(config.businessRatesValuationFrontendUrl(
+                      s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+                  }
                 } else {
-                  Redirect(config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+                  if (isExternalValuation) {
+                    Redirect(config.businessRatesValuationFrontendUrl(
+                      s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+                  } else {
+                    Redirect(config.businessRatesValuationFrontendUrl(
+                      s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
+                  }
                 }
-              } else {
-                if (isExternalValuation) {
-                  Redirect(config.businessRatesValuationFrontendUrl(s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
-                } else {
-                  Redirect(config.businessRatesValuationFrontendUrl(s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
-                }
-              }
-            case false =>
-              Redirect(
-                if (owner)
-                  controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
-                else
-                  controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
-              )
-          }
+              case false =>
+                Redirect(
+                  if (owner)
+                    controllers.detailedvaluationrequest.routes.DvrController
+                      .myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
+                  else
+                    controllers.detailedvaluationrequest.routes.DvrController
+                      .myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
+                )
+            }
         }
       case None => Future.successful(notFound)
     }
@@ -209,56 +239,65 @@ class Assessments @Inject()(
 
   lazy val viewAssessmentForm = Form(Forms.single("nextUrl" -> text))
 
-  def submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
+  def submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean): Action[AnyContent] =
+    authenticated.async { implicit request =>
+      viewAssessmentForm
+        .bindFromRequest()
+        .fold(
+          errors => {
+            val pLink =
+              if (request.organisationAccount.isAgent) propertyLinks.getClientAssessmentsWithCapacity(submissionId)
+              else propertyLinks.getOwnerAssessmentsWithCapacity(submissionId)
 
-    viewAssessmentForm.bindFromRequest().fold(
-      errors => {
-        val pLink = if (request.organisationAccount.isAgent) propertyLinks.getClientAssessmentsWithCapacity(submissionId) else propertyLinks.getOwnerAssessmentsWithCapacity(submissionId)
-
-        pLink flatMap {
-          case Some(ApiAssessments(_, _, _, _, _, _, Seq(), _)) | None => Future.successful(notFound)
-          case Some(link) => {
-            for {
-              isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
-            } yield {
-              Ok(views.html.dashboard.assessments(
-                AssessmentsVM(
-                  form = errors,
-                  assessmentsWithLinks = link.assessments.map(decideNextUrl(submissionId, authorisationId, _, link.pending, owner)),
-                  backLink = calculateBackLink(isAgentOwnProperty),
-                  authorisationId = link.authorisationId,
-                  linkPending = link.pending,
-                  address = link.address,
-                  plSubmissionId = link.submissionId,
-                  isAgentOwnProperty = isAgentOwnProperty,
-                  capacity = link.capacity), owner))
+            pLink flatMap {
+              case Some(ApiAssessments(_, _, _, _, _, _, Seq(), _)) | None => Future.successful(notFound)
+              case Some(link) => {
+                for {
+                  isAgentOwnProperty <- businessRatesAuthorisation.isAgentOwnProperty(authorisationId)
+                } yield {
+                  Ok(
+                    views.html.dashboard.assessments(
+                      AssessmentsVM(
+                        form = errors,
+                        assessmentsWithLinks =
+                          link.assessments.map(decideNextUrl(submissionId, authorisationId, _, link.pending, owner)),
+                        backLink = calculateBackLink(isAgentOwnProperty),
+                        authorisationId = link.authorisationId,
+                        linkPending = link.pending,
+                        address = link.address,
+                        plSubmissionId = link.submissionId,
+                        isAgentOwnProperty = isAgentOwnProperty,
+                        capacity = link.capacity
+                      ),
+                      owner
+                    ))
+                }
+              }
             }
-          }
-        }
-      },
-      redirectUrl => Future.successful(Redirect(redirectUrl))
-    )
-  }
+          },
+          redirectUrl => Future.successful(Redirect(redirectUrl))
+        )
+    }
 
   def startChallengeFromDVR(
-                             submissionId: String,
-                             valuationId: Long,
-                             owner: Boolean
-                           ): Action[AnyContent] = authenticated { implicit request =>
+        submissionId: String,
+        valuationId: Long,
+        owner: Boolean
+  ): Action[AnyContent] = authenticated { implicit request =>
     Ok(views.html.dvr.challenge_valuation(submissionId, valuationId, owner))
   }
 }
 
 case class AssessmentsVM(
-                          form: Form[_],
-                          assessmentsWithLinks: Seq[(String, ApiAssessment)],
-                          backLink: String,
-                          linkPending: Boolean,
-                          address: String,
-                          authorisationId: Long,
-                          plSubmissionId: String,
-                          isAgentOwnProperty: Boolean,
-                          capacity: Option[String]
-                        )
+      form: Form[_],
+      assessmentsWithLinks: Seq[(String, ApiAssessment)],
+      backLink: String,
+      linkPending: Boolean,
+      address: String,
+      authorisationId: Long,
+      plSubmissionId: String,
+      isAgentOwnProperty: Boolean,
+      capacity: Option[String]
+)
 
 case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)

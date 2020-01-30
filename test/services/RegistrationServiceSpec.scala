@@ -50,7 +50,8 @@ class RegistrationServiceSpec extends ServiceSpec {
 
   "create" should "return EnrolmentSuccess when ivEnrolmentEnabled flag is true" in new TestCase {
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(ggExternalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
+    StubIndividualAccountConnector.stubAccount(
+      DetailedIndividualAccount(ggExternalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
     implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
 
     val res: Future[RegistrationResult] = registrationService.create(

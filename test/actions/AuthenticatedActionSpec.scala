@@ -39,26 +39,35 @@ import utils.{Configs, FakeObjects, NoMetricsOneAppPerSuite}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks with NoMetricsOneAppPerSuite {
+class AuthenticatedActionSpec
+    extends UnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks with NoMetricsOneAppPerSuite {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
-  implicit lazy val messagesControllerComponents: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
+  implicit lazy val messagesControllerComponents: MessagesControllerComponents =
+    app.injector.instanceOf[MessagesControllerComponents]
 
   "AuthenticatedAction" should {
     "invoke the wrapped action when the user is logged in to CCA" in new Setup {
       val accounts = Accounts(mockGroupAccount, mockDetailedIndividualAccount)
-      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(Authenticated(accounts)))
+      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier]))
+        .thenReturn(Future.successful(Authenticated(accounts)))
 
-      val res = testAction { _ => Ok("something") }(FakeRequest())
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
       status(res) shouldBe OK
       contentAsString(res) shouldBe "something"
     }
 
     "redirect to the login page when the user is not logged in" in new Setup {
-      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(InvalidGGSession))
-      when(mockGovernmentGatewayProvider.redirectToLogin(any[Request[_]])).thenReturn(Future.successful(Redirect("sign-in-page")))
+      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier]))
+        .thenReturn(Future.successful(InvalidGGSession))
+      when(mockGovernmentGatewayProvider.redirectToLogin(any[Request[_]]))
+        .thenReturn(Future.successful(Redirect("sign-in-page")))
 
-      val res = testAction { _ => Ok("something") }(FakeRequest())
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
 
       status(res) shouldBe SEE_OTHER
       redirectLocation(res) shouldBe Some("sign-in-page")
@@ -67,42 +76,56 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with BeforeAndA
     "redirect to the registration page when the user is logged in to GG but has not registered" in new Setup {
       when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(NoVOARecord))
 
-      val res = testAction { _ => Ok("something") }(FakeRequest())
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
 
       status(res) shouldBe SEE_OTHER
       redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.show().url)
     }
 
     "redirect to invalid account page when the user has an invalid account type" in new Setup {
-      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(InvalidAccountType))
+      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier]))
+        .thenReturn(Future.successful(InvalidAccountType))
 
-      val res = testAction { _ => Ok("something") }(FakeRequest())
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
 
       status(res) shouldBe SEE_OTHER
       redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
     }
 
     "throw unauthorized when the trustId is incorrect" in new Setup {
-      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(IncorrectTrustId))
+      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier]))
+        .thenReturn(Future.successful(IncorrectTrustId))
 
-      val res = testAction { _ => Ok("something") }(FakeRequest())
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
 
       status(res) shouldBe UNAUTHORIZED
       contentAsString(res) shouldBe "Trust ID does not match"
     }
 
     "throw forbidden when a ForbiddenResponse is thrown" in new Setup {
-      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(ForbiddenResponse))
+      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier]))
+        .thenReturn(Future.successful(ForbiddenResponse))
 
-      val res = testAction { _ => Ok("something") }(FakeRequest())
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
 
       status(res) shouldBe FORBIDDEN
     }
 
     "redirect to invalid account page when the user is logged in to GG but does not have groupId" in new Setup {
-      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier])).thenReturn(Future.successful(NonGroupIDAccount))
+      when(mockBusinessRatesAuthorisation.authenticate(any[HeaderCarrier]))
+        .thenReturn(Future.successful(NonGroupIDAccount))
 
-      val res = testAction { _ => Ok("something") }(FakeRequest())
+      val res = testAction { _ =>
+        Ok("something")
+      }(FakeRequest())
 
       status(res) shouldBe SEE_OTHER
       redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
@@ -119,12 +142,19 @@ class AuthenticatedActionSpec extends UnitSpec with MockitoSugar with BeforeAndA
     def exception: Option[AuthorisationException] = None
 
     lazy val authConnector: AuthConnector = new AuthConnector {
-      override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[A] =
+      override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(
+            implicit hc: HeaderCarrier,
+            ec: ExecutionContext): Future[A] =
         exception.fold(Future.successful(success.asInstanceOf[A]))(Future.failed(_))
     }
 
     implicit val appConfig: ApplicationConfig = Configs.applicationConfig
-    lazy val testAction = new AuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockBusinessRatesAuthorisation, mockEnrolmentService, authConnector)
+    lazy val testAction = new AuthenticatedAction(
+      messageApi,
+      mockGovernmentGatewayProvider,
+      mockBusinessRatesAuthorisation,
+      mockEnrolmentService,
+      authConnector)
   }
 
 }

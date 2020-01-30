@@ -28,21 +28,24 @@ import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class StubWithLinkingSession(sessionRepository: SessionRepo) extends WithLinkingSession(mock(classOf[CustomErrorHandler]), sessionRepository) {
+class StubWithLinkingSession(sessionRepository: SessionRepo)
+    extends WithLinkingSession(mock(classOf[CustomErrorHandler]), sessionRepository) {
 
   private var stubbedSession: Option[(LinkingSession, DetailedIndividualAccount, GroupAccount)] = None
 
-  override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] = {
-    stubbedSession.fold(throw new Exception("Linking session not stubbed")) { case (linkingSession, person, organisation) =>
-      Future.successful(Right(LinkingSessionRequest(linkingSession, person.organisationId, person, organisation, request)))
+  override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
+    stubbedSession.fold(throw new Exception("Linking session not stubbed")) {
+      case (linkingSession, person, organisation) =>
+        Future.successful(
+          Right(LinkingSessionRequest(linkingSession, person.organisationId, person, organisation, request)))
     }
-  }
 
-  def stubSession(linkingSession: LinkingSession, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount) = {
+  def stubSession(
+        linkingSession: LinkingSession,
+        individualAccount: DetailedIndividualAccount,
+        groupAccount: GroupAccount) =
     stubbedSession = Some((linkingSession, individualAccount, groupAccount))
-  }
 
-  def reset() = {
+  def reset() =
     stubbedSession = None
-  }
 }

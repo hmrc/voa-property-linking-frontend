@@ -31,27 +31,31 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class BusinessRatesAttachmentsConnector @Inject()(
-                                                  val http: HttpClient,
-                                                  val appConfig: ServicesConfig
-                                                )(implicit executionContext: ExecutionContext)
-  extends AttachmentHttpErrorFunctions {
+      val http: HttpClient,
+      val appConfig: ServicesConfig
+)(implicit executionContext: ExecutionContext)
+    extends AttachmentHttpErrorFunctions {
 
   val baseURL: String = appConfig.baseUrl("business-rates-attachments")
 
-  def initiateAttachmentUpload(uploadSettings: InitiateAttachmentPayload)(implicit headerCarrier: HeaderCarrier): Future[PreparedUpload] = {
-    http.POST[InitiateAttachmentPayload, PreparedUpload](s"$baseURL/business-rates-attachments/v2/initiate", uploadSettings)
-  }
+  def initiateAttachmentUpload(uploadSettings: InitiateAttachmentPayload)(
+        implicit headerCarrier: HeaderCarrier): Future[PreparedUpload] =
+    http.POST[InitiateAttachmentPayload, PreparedUpload](
+      s"$baseURL/business-rates-attachments/v2/initiate",
+      uploadSettings)
 
   def getAttachment(reference: String)(implicit hc: HeaderCarrier): Future[Attachment] =
     http.GET[Attachment](s"$baseURL/business-rates-attachments/attachments/$reference")
 
   def submitFile(fileReference: String, submissionId: String)(
-    implicit headerCarrier: HeaderCarrier): Future[Attachment] = {
-    http.PATCH[MetaDataRequest, Attachment](s"$baseURL/business-rates-attachments/attachments/$fileReference", MetaDataRequest(submissionId))
+        implicit headerCarrier: HeaderCarrier): Future[Attachment] =
+    http
+      .PATCH[MetaDataRequest, Attachment](
+        s"$baseURL/business-rates-attachments/attachments/$fileReference",
+        MetaDataRequest(submissionId))
       .recover {
-      case ex: Exception =>
-        Logger.warn(s"File Submission failed for File Reference: $fileReference Response body", ex)
-        throw ex
-    }
-  }
+        case ex: Exception =>
+          Logger.warn(s"File Submission failed for File Reference: $fileReference Response body", ex)
+          throw ex
+      }
 }

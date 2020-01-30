@@ -19,9 +19,9 @@ package models.searchApi
 import play.api.libs.json.Json
 
 case class AgentAuthClient(
-                            organisationId: Long,
-                            organisationName: String
-                          )
+      organisationId: Long,
+      organisationName: String
+)
 
 object AgentAuthClient {
   implicit val agentAuthClient = Json.format[AgentAuthClient]

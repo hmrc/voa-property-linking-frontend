@@ -36,7 +36,8 @@ class IvServiceSpec extends ServiceSpec {
 
   "continue" should "return a successful registration result if registration was successful for a new organisation" in new TestCase {
     StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1L)))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
+      .thenReturn(Future.successful(RegistrationSuccess(1L)))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
     val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails(Organisation))
     res.futureValue must be(Some(RegistrationSuccess(1L)))
@@ -44,7 +45,8 @@ class IvServiceSpec extends ServiceSpec {
 
   "continue" should "return a failed registration result if registration failed for a new organisation" in new TestCase {
     StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentFailure))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
+      .thenReturn(Future.successful(EnrolmentFailure))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
     val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails(Organisation))
     res.futureValue must be(Some(EnrolmentFailure))
@@ -54,7 +56,8 @@ class IvServiceSpec extends ServiceSpec {
     override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
     StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
     StubIndividualAccountConnector.stubAccount(detailedIndividualAccount)
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1L)))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
+      .thenReturn(Future.successful(RegistrationSuccess(1L)))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
     val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails())
     res.futureValue must be(Some(RegistrationSuccess(1L)))
@@ -64,7 +67,8 @@ class IvServiceSpec extends ServiceSpec {
     override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
     StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
     StubIndividualAccountConnector.stubAccount(detailedIndividualAccount)
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(EnrolmentFailure))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
+      .thenReturn(Future.successful(EnrolmentFailure))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
     val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails())
     res.futureValue must be(Some(EnrolmentFailure))
@@ -77,7 +81,8 @@ class IvServiceSpec extends ServiceSpec {
       val f = mock[SessionRepo]
       when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-      when(f.get[AdminOrganisationAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample))
+      when(f.get[AdminOrganisationAccountDetails](any(), any()))
+        .thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample))
       f
     }
 
@@ -85,7 +90,8 @@ class IvServiceSpec extends ServiceSpec {
       val f = mock[SessionRepo]
       when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-      when(f.get[IndividualUserAccountDetails](any(), any())).thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample))
+      when(f.get[IndividualUserAccountDetails](any(), any()))
+        .thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample))
       f
     }
 

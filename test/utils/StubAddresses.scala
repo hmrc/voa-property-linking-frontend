@@ -35,22 +35,19 @@ object StubAddresses extends Addresses(servicesConfig, mock(classOf[HttpClient])
 
   override def create(address: Address)(implicit hc: HeaderCarrier) = Future.successful(Random.nextInt)
 
-  override def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[DetailedAddress]] = {
+  override def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[DetailedAddress]] =
     if (postcode.contentEquals(noResultPostcode)) {
       Future.successful(Seq[DetailedAddress]())
     } else {
       Future.successful(Seq.fill(10)(arbitrary[DetailedAddress].sample.get))
     }
-  }
 
-  override def findById(id: Long)(implicit hc: HeaderCarrier): Future[Option[Address]] = {
+  override def findById(id: Long)(implicit hc: HeaderCarrier): Future[Option[Address]] =
     Future.successful(Some(arbitrary[Address].sample.get))
-  }
 
-  override def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Long] = {
+  override def registerAddress(details: GroupAccountDetails)(implicit hc: HeaderCarrier): Future[Long] =
     if (details.companyName == "FAIL")
       create(details.address)
     else
       Future.successful(12L)
-  }
 }

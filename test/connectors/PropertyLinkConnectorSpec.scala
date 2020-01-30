@@ -47,9 +47,16 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   "linkToProperty" must "successfully post a property link request" in new Setup {
     val individualAccount = arbitrary[DetailedIndividualAccount]
     val groupAccount = arbitrary[GroupAccount]
-    val capacityDeclaration = CapacityDeclaration(capacity = Occupier, interestedBefore2017 = true, fromDate = None, stillInterested = true)
-    val linkingSession = LinkingSession(address = "123 Test Lane",
-      uarn = 1, submissionId = "a001", personId = individualAccount.individualId, declaration = capacityDeclaration, uploadEvidenceData = uploadEvidenceData)
+    val capacityDeclaration =
+      CapacityDeclaration(capacity = Occupier, interestedBefore2017 = true, fromDate = None, stillInterested = true)
+    val linkingSession = LinkingSession(
+      address = "123 Test Lane",
+      uarn = 1,
+      submissionId = "a001",
+      personId = individualAccount.individualId,
+      declaration = capacityDeclaration,
+      uploadEvidenceData = uploadEvidenceData
+    )
 
     val response = HttpResponse(OK)
     mockHttpPOST[PropertyLinkRequest, HttpResponse]("tst-url", response)
@@ -58,12 +65,12 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
 
   "appointableProperties" must "return the properties appointable to an agent" in new Setup {
     val agentPropertiesParameters = AgentPropertiesParameters(agentCode = 1)
-    val ownerAuthResult = OwnerAuthResult(start = 1,
+    val ownerAuthResult = OwnerAuthResult(
+      start = 1,
       size = 1,
       filterTotal = 1,
       total = 1,
-      authorisations = Seq(arbitrary[OwnerAuthorisation].sample.get)
-    )
+      authorisations = Seq(arbitrary[OwnerAuthorisation].sample.get))
 
     mockHttpGET[OwnerAuthResult]("tst-url", ownerAuthResult)
     whenReady(connector.appointableProperties(1, agentPropertiesParameters))(_ mustBe ownerAuthResult)

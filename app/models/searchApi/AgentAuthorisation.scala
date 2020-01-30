@@ -19,16 +19,16 @@ package models.searchApi
 import play.api.libs.json.Json
 
 case class AgentAuthorisation(
-                               authorisationId: Long,
-                               authorisedPartyId: Long,
-                               status: String,
-                               submissionId: String,
-                               uarn: Long,
-                               address: String,
-                               localAuthorityRef: String,
-                               client: AgentAuthClient,
-                               representationStatus: String
-                             )
+      authorisationId: Long,
+      authorisedPartyId: Long,
+      status: String,
+      submissionId: String,
+      uarn: Long,
+      address: String,
+      localAuthorityRef: String,
+      client: AgentAuthClient,
+      representationStatus: String
+)
 
 object AgentAuthorisation {
   implicit val agentAuthorisation = Json.format[AgentAuthorisation]

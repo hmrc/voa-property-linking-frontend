@@ -29,10 +29,9 @@ object IvResult {
   case object IvSuccess extends IvResult("Success")
 
   sealed abstract class IvFailure(
-                                   override val ivJourneyStatus: String,
-                                   val messageKey: String
-                                 )
-    extends IvResult(ivJourneyStatus) with Product with Serializable
+        override val ivJourneyStatus: String,
+        val messageKey: String
+  ) extends IvResult(ivJourneyStatus) with Product with Serializable
 
   object IvFailure {
 

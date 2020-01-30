@@ -27,7 +27,8 @@ import utils.Configs._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object StubIdentityVerification extends IdentityVerificationConnector(servicesConfig, null, Mockito.mock(classOf[HttpClient])) {
+object StubIdentityVerification
+    extends IdentityVerificationConnector(servicesConfig, null, Mockito.mock(classOf[HttpClient])) {
 
   private var journeyResult: (String, IvResult) = ("", IvSuccess)
 

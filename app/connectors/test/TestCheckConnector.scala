@@ -27,12 +27,10 @@ class TestCheckConnector @Inject()(config: ServicesConfig, http: HttpClient)(imp
 
   lazy val url = config.baseUrl("business-rates-check")
 
-  def clearDraftCases(organisationId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
+  def clearDraftCases(organisationId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] =
     http.DELETE[HttpResponse](s"$url/test-only/clear-draft-cases/$organisationId")
-  }
 
-  def getSubmittedCheck(submissionId: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
+  def getSubmittedCheck(submissionId: String)(implicit hc: HeaderCarrier): Future[HttpResponse] =
     http.GET[HttpResponse](s"$url/test-only/submitted-check/$submissionId")
-  }
 
 }

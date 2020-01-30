@@ -24,10 +24,12 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import scala.concurrent.Future
 
 class KeepAliveController @Inject()(
-                                     authenticatedAction: AuthenticatedAction,
-                                     override val controllerComponents: MessagesControllerComponents
-                                   ) extends FrontendBaseController {
+      authenticatedAction: AuthenticatedAction,
+      override val controllerComponents: MessagesControllerComponents
+) extends FrontendBaseController {
 
-  def keepAlive(): Action[AnyContent] = authenticatedAction.async { implicit request => Future.successful(Ok("")) }
+  def keepAlive(): Action[AnyContent] = authenticatedAction.async { implicit request =>
+    Future.successful(Ok(""))
+  }
 
 }

@@ -23,15 +23,16 @@ import play.api.test.Helpers._
 import resources._
 import utils.StubIndividualAccountConnector
 
-
 class KeepAliveControllerSpec extends VoaPropertyLinkingSpec {
 
-  private object TestRegistrationController$ extends KeepAliveController(preAuthenticatedActionBuilders(), stubMessagesControllerComponents())
+  private object TestRegistrationController$
+      extends KeepAliveController(preAuthenticatedActionBuilders(), stubMessagesControllerComponents())
 
   "Keep Alive User Session" should
     "return keep alive returns 200" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubIndividualAccountConnector.stubAccount(arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = externalId))
+    StubIndividualAccountConnector.stubAccount(
+      arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = externalId))
     val res = TestRegistrationController$.keepAlive()(FakeRequest())
     status(res) mustBe OK
   }

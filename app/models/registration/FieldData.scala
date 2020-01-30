@@ -20,18 +20,19 @@ import java.time.LocalDate
 
 import models.Address
 
-case class FieldData(firstName: String = "",
-                     lastName: String = "",
-                     postcode: String = "",
-                     email: String = "",
-                     businessName: String = "",
-                     businessPhoneNumber: String = "",
-                     businessAddress: Address = Address.empty,
-                     isAgent: Option[Boolean] = None,
-                     nino: String = "",
-                     dob: Option[LocalDate] = None,
-                     mobilePhone: String = "",
-                     selectedAddress: Option[String] = None)
+case class FieldData(
+      firstName: String = "",
+      lastName: String = "",
+      postcode: String = "",
+      email: String = "",
+      businessName: String = "",
+      businessPhoneNumber: String = "",
+      businessAddress: Address = Address.empty,
+      isAgent: Option[Boolean] = None,
+      nino: String = "",
+      dob: Option[LocalDate] = None,
+      mobilePhone: String = "",
+      selectedAddress: Option[String] = None)
 
 object FieldData {
 
@@ -40,7 +41,7 @@ object FieldData {
 
     new FieldData(
       firstName = fullName.head,
-      lastName = if(fullName.size > 1) fullName.drop(1).mkString(" ") else userDetails.lastName.getOrElse(""),
+      lastName = if (fullName.size > 1) fullName.drop(1).mkString(" ") else userDetails.lastName.getOrElse(""),
       postcode = userDetails.postcode.getOrElse(""),
       email = userDetails.email,
       businessName = "",

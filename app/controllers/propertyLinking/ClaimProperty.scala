@@ -46,20 +46,19 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class ClaimProperty @Inject()(
-                               val errorHandler: CustomErrorHandler,
-                               val submissionIdConnector: SubmissionIdConnector,
-                               @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
-                               authenticatedAction: AuthenticatedAction,
-                               withLinkingSession: WithLinkingSession,
-                               val propertyLinksConnector: PropertyLinkConnector,
-                               val runModeConfiguration: Configuration
-                             )(
-                               implicit executionContext: ExecutionContext,
-                               override val messagesApi: MessagesApi,
-                               override val controllerComponents: MessagesControllerComponents,
-                               val config: ApplicationConfig
-                             )
-  extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      val submissionIdConnector: SubmissionIdConnector,
+      @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
+      authenticatedAction: AuthenticatedAction,
+      withLinkingSession: WithLinkingSession,
+      val propertyLinksConnector: PropertyLinkConnector,
+      val runModeConfiguration: Configuration
+)(
+      implicit executionContext: ExecutionContext,
+      override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      val config: ApplicationConfig
+) extends PropertyLinkingController {
 
   import ClaimProperty._
 
@@ -68,17 +67,15 @@ class ClaimProperty @Inject()(
   }
 
   def checkPropertyLinks() = authenticatedAction.async { implicit request =>
+    val pLinks = propertyLinksConnector
+      .getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(), PaginationParams(1, 20, false))
 
-    val pLinks = propertyLinksConnector.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(), PaginationParams(1, 20, false))
-
-    pLinks.map {
-      res =>
-        if (res.authorisations.nonEmpty) {
-          Redirect(s"${config.vmvUrl}/search")
-        }
-        else {
-          Ok(views.html.propertyLinking.beforeYouStart())
-        }
+    pLinks.map { res =>
+      if (res.authorisations.nonEmpty) {
+        Redirect(s"${config.vmvUrl}/search")
+      } else {
+        Ok(views.html.propertyLinking.beforeYouStart())
+      }
     }
   }
 
@@ -87,14 +84,21 @@ class ClaimProperty @Inject()(
   }
 
   def attemptLink(uarn: Long, address: String): Action[AnyContent] = authenticatedAction.async { implicit request =>
-    ClaimProperty.declareCapacityForm.bindFromRequest().fold(
-      errors => Future.successful(BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn)))),
-      formData => initialiseSession(formData, uarn, address).map { _ =>
-        Redirect(routes.ChooseEvidence.show())
-      }.recover {
-        case Upstream5xxResponse(_, 503, _) => ServiceUnavailable(views.html.errors.serviceUnavailable())
-      }
-    )
+    ClaimProperty.declareCapacityForm
+      .bindFromRequest()
+      .fold(
+        errors =>
+          Future.successful(
+            BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn)))),
+        formData =>
+          initialiseSession(formData, uarn, address)
+            .map { _ =>
+              Redirect(routes.ChooseEvidence.show())
+            }
+            .recover {
+              case Upstream5xxResponse(_, 503, _) => ServiceUnavailable(views.html.errors.serviceUnavailable())
+          }
+      )
   }
 
   def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
@@ -102,26 +106,33 @@ class ClaimProperty @Inject()(
     Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn)))
   }
 
-  private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(implicit request: AuthenticatedRequest[_]): Future[Unit] = {
+  private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(
+        implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
       submissionId <- submissionIdConnector.get()
-      _ <- sessionRepository.start[LinkingSession](LinkingSession(address, uarn, submissionId, request.personId, declaration))
+      _ <- sessionRepository.start[LinkingSession](
+            LinkingSession(address, uarn, submissionId, request.personId, declaration))
     } yield ()
-  }
 
 }
 
 object ClaimProperty {
 
-  lazy val declareCapacityForm = Form(mapping(
-    "capacity" -> EnumMapping(CapacityType),
-    "interestedBefore2017" -> mandatoryBoolean,
-    "fromDate" -> mandatoryIfFalse("interestedBefore2017", dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))),
-    "stillInterested" -> mandatoryBoolean,
-    "toDate" -> mandatoryIfFalse("stillInterested", ConditionalDateAfter("interestedBefore2017", "fromDate")
-      .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
-      .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1))))
-  )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
+  lazy val declareCapacityForm = Form(
+    mapping(
+      "capacity"             -> EnumMapping(CapacityType),
+      "interestedBefore2017" -> mandatoryBoolean,
+      "fromDate" -> mandatoryIfFalse(
+        "interestedBefore2017",
+        dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))),
+      "stillInterested" -> mandatoryBoolean,
+      "toDate" -> mandatoryIfFalse(
+        "stillInterested",
+        ConditionalDateAfter("interestedBefore2017", "fromDate")
+          .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
+          .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
+      )
+    )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
 }
 
 case class DeclareCapacityVM(form: Form[_], address: String, uarn: Long)
