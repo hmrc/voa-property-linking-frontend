@@ -31,8 +31,8 @@ import repositories.{PersonalDetailsSessionRepository, SessionRepository}
 import services.EnrolmentService
 import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.auth.core.AuthConnector
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
-import uk.gov.voa.propertylinking.services.PropertyLinkService
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.services.PropertyLinkService
 
 trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
 

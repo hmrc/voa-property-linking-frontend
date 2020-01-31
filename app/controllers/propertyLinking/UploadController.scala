@@ -34,7 +34,7 @@ import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.BusinessRatesAttachmentsService
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import views.html.propertyLinking.{uploadEvidence, uploadRatesBill}
 
 import scala.concurrent.{ExecutionContext, Future}

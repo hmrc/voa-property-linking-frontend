@@ -30,7 +30,7 @@ import repositories.SessionRepo
 import resources._
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.propertylinking.exceptions.attachments.{AttachmentException, NotAllFilesReadyToUpload}
+import uk.gov.hmrc.propertylinking.exceptions.attachments.{AttachmentException, NotAllFilesReadyToUpload}
 import utils.HtmlPage
 
 import scala.collection.JavaConverters._

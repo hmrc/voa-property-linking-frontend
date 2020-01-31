@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.voa.propertylinking.services
+package uk.gov.hmrc.propertylinking.services
 
 import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.Inject

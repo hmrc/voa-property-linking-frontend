@@ -29,6 +29,7 @@ import form.Mappings._
 import javax.inject.{Inject, Named}
 import models.GroupAccount.AgentGroupAccount
 import models._
+import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi._
 import play.api.Logger
 import play.api.data.Forms._
@@ -37,9 +38,8 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
 import services.AgentRelationshipService
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
-import models.searchApi.AgentPropertiesFilter.Both
 
 import scala.concurrent.{ExecutionContext, Future}
 

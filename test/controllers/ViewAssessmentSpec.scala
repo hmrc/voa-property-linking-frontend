@@ -16,21 +16,15 @@
 
 package controllers
 
-import connectors._
 import models._
-import models.dvr.DetailedValuationRequest
-import org.mockito.ArgumentMatchers.{any, eq => matching}
-import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.OptionValues
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.http.HeaderCarrier
 import utils.{StubBusinessRatesValuation, _}
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
@@ -40,25 +34,13 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
         StubPropertyLinkConnector,
         mockPropertyLinkService,
         preAuthenticatedActionBuilders(),
-        mockSubmissionIds,
-        mockDvrCaseManagement,
         StubBusinessRatesValuation,
-        mockBusinessRatesAuthorisation,
-        stubMessagesControllerComponents(),
-        isExternalValuation = false,
-        isSkipAssessment = false,
-        isSummaryValuationNewRoute = true
-      ) {
-    when(mockDvrCaseManagement.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier]))
-      .thenReturn(Future.successful(()))
-  }
+    mockBusinessRatesAuthorisation,
+    stubMessagesControllerComponents(),
+    isExternalValuation = false,
+    isSkipAssessment = false,
+    isSummaryValuationNewRoute = true)
 
-  lazy val mockSubmissionIds = {
-    val m = mock[SubmissionIdConnector]
-    when(m.get(matching("EMAIL"))(any[HeaderCarrier])).thenReturn(Future.successful("EMAIL123"))
-    when(m.get(matching("POST"))(any[HeaderCarrier])).thenReturn(Future.successful("POST123"))
-    m
-  }
 
   // TODO Delete or fix these tests
 

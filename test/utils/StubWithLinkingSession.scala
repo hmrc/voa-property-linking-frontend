@@ -23,7 +23,7 @@ import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
 import org.mockito.Mockito.mock
 import play.api.mvc.Result
 import repositories.SessionRepo
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

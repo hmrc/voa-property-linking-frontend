@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.voa.propertylinking.errorhandler
+package uk.gov.hmrc.propertylinking.errorhandler
 
 import java.time.{Instant, LocalDateTime, ZoneId}
 

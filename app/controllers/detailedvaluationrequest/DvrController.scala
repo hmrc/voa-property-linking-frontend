@@ -31,7 +31,7 @@ import play.api.http.HttpEntity
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -276,7 +276,7 @@ class DvrController @Inject()(
       case Some(link) if link.assessments.size == 1 =>
         config.newDashboardUrl(if (!isOwner) "client-properties" else "your-properties")
       case _ =>
-        controllers.routes.Assessments.assessments(submissionId, isOwner).url
+        uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController.valuations(submissionId, isOwner).url
     }
   }
 }

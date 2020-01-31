@@ -25,13 +25,6 @@
 <div id="details-content-valuations">
     <h2 class="heading-large">@messages("assessments.title")</h2>
 
-    @if(model.form.hasErrors) {
-        @for(error <- model.form.errors("viewAssessmentRadio")) {
-            <br>
-            <p class="error-message">@messages("error.select.valuation.required")</p>
-        }
-    }
-    @form(routes.Assessments.submitViewAssessment(model.authorisationId, model.plSubmissionId, owner)) {
         <fieldset>
             <div id="viewAssessmentRadioGroup" class="form-group">
                 <div class="table-wrapper-no-pad">
@@ -39,27 +32,18 @@
                         <caption class="visuallyhidden">@messages("assessments.table.caption")</caption>
                         <tbody>
                             <tr>
-                                <th><span class="margin-left-5">@messages("assessments.table.1")</span></th>
-                                <th><span class="margin-left-5">@messages("assessments.table.2")</span></th>
-                                <th><span class="margin-left-5">@messages("assessments.table.3")</span></th>
-                                <th><span class="margin-left-5">@messages("assessments.table.4")</span></th>
-                                <th><span class="margin-left-5">@messages("assessments.table.5")</span></th>
+                                <th><span>@messages("assessments.table.1")</span></th>
+                                <th><span>@messages("assessments.table.2")</span></th>
+                                <th><span>@messages("assessments.table.3")</span></th>
+                                <th><span>@messages("assessments.table.4")</span></th>
+                                <th><span>@messages("assessments.table.5")</span></th>
                             </tr>
 
 
                             @model.assessmentsWithLinks.map {  case (url, assessment) =>
                                 <tr>
                                     <td>
-                                        <div class="multiple-choice">
-                                            <input type="radio"
-                                            id="viewAssessmentRadio-@assessment.assessmentRef"
-                                            name="nextUrl"
-                                            value="@url"
-                                            >
-                                            <label for="viewAssessmentRadio-@assessment.assessmentRef">
-                                            @assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")
-                                            </label>
-                                        </div>
+                                        <a id="viewAssessmentRadio-@assessment.assessmentRef" href="@url">@assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")</a>
                                     </td>
                                     @assessment.rateableValue match {
                                         case Some(rv) => {
@@ -108,9 +92,6 @@
                         <p>@messages("rv.na.p.3")</p>
                     </div>
                 }
-
-                <input type="submit" class="button" value="@messages("label.continue")">
             </div>
         </fieldset>
-    }
 </div>

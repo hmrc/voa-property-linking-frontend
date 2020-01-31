@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.voa.propertylinking.exceptions.attachments
+package uk.gov.hmrc.propertylinking.exceptions.attachments
 
 import models.attachment.Attachment
 

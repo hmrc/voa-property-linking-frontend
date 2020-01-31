@@ -32,9 +32,8 @@ import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{MessagesControllerComponents, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
-import uk.gov.hmrc.auth.core.{AffinityGroup, User}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.EmailAddressValidation
 
 import scala.concurrent.{ExecutionContext, Future}

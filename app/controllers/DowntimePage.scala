@@ -20,7 +20,7 @@ import com.google.inject.Inject
 import config.ApplicationConfig
 import play.api.i18n.MessagesApi
 import play.api.mvc.MessagesControllerComponents
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class DowntimePage @Inject()(
       val errorHandler: CustomErrorHandler,

@@ -20,7 +20,7 @@ import config.ApplicationConfig
 import javax.inject.Inject
 import play.api.i18n.MessagesApi
 import play.api.mvc.MessagesControllerComponents
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class LinkErrors @Inject()(
       val errorHandler: CustomErrorHandler,
