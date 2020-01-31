@@ -18,7 +18,9 @@ package connectors
 
 import controllers.Pagination
 import javax.inject.Inject
+
 import models._
+import models.propertyrepresentation.AgentOrganisation
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
@@ -46,5 +48,9 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
 
   def revoke(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
     http.PATCH[String, HttpResponse](s"$baseUrl/property-representations/revoke/$authorisedPartyId", "") map { _ => () }
+  }
+
+  def getAgent(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentOrganisation]] = {
+    http.GET[Option[AgentOrganisation]](s"$baseUrl/property-representations/agent/$agentCode")
   }
 }

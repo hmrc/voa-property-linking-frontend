@@ -421,6 +421,49 @@ propertyRepresentation.table.title.agentId=Agent code
 propertyRepresentation.table.title.agentName=Agent name
 propertyRepresentation.table.title.remove=Select
 
+#New appoint agent journey
+propertyRepresentation.addAnAgent.title=Add an agent
+propertyRepresentation.addAnAgent.caption=Enter your agent’s code to add them to your account. You need to ask your agent for their code if you do not have it.
+propertyRepresentation.addAnAgent.agentCode=Agent code
+
+propertyRepresentation.isThisYourAgent.question=Is this your agent?
+propertyRepresentation.isThisYourAgent.yes=Yes
+propertyRepresentation.isThisYourAgent.no=No, enter a new code
+
+propertyRepresentation.onePropertyNoExistingAgent.question=Should {0} to manage your property?
+
+propertyRepresentation.oneProperty.question=Do you want {0} to manage your property?
+propertyRepresentation.oneProperty.options.asWellAsCurrent=Yes - as well as the current agent
+propertyRepresentation.oneProperty.options.insteadOfCurrent=Yes - instead of the current agent
+propertyRepresentation.oneProperty.options.no=No
+
+propertyRepresentation.multipleProperties.question=Which properties would you like {0} to manage?
+propertyRepresentation.multipleProperties.options.all=All
+propertyRepresentation.multipleProperties.options.none=None
+propertyRepresentation.multipleProperties.options.chooseFromList=Choose from a list
+
+propertyRepresentation.checkYourAnswers.title=Check your answers
+propertyRepresentation.checkYourAnswers.newAgent=New agent
+propertyRepresentation.checkYourAnswers.managingProperty=Managing property
+propertyRepresentation.checkYourAnswers.options.all=All properties
+propertyRepresentation.checkYourAnswers.options.none=No properties
+propertyRepresentation.checkYourAnswers.options.no=No
+propertyRepresentation.checkYourAnswers.options.yes=Yes
+propertyRepresentation.checkYourAnswers.options.asWellAsCurrent=Yes - as well as the existing agent
+propertyRepresentation.checkYourAnswers.options.insteadOfCurrent=Yes - instead of the existing agent
+
+propertyRepresentation.checkYourAnswers.submit=Submit
+
+propertyRepresentation.confirmation={0} has been appointed for you
+propertyRepresentation.confirmation.emailSent=We have sent you a confirmation email.
+propertyRepresentation.confirmation.whatHappensNext=What happens next
+propertyRepresentation.confirmation.whatHappensNext.p1=We will notify Knight Frank that you have appointed them as your agent.
+
+
+
+error.propertyRepresentation.title=There is a problem
+
+
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
 propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent ''{0}'' (Agent ID: {1}) to submit {2} for any of these properties:
@@ -834,6 +877,9 @@ error.label.day=Day
 error.label.month=Month
 error.label.year=Year
 error.boolean=Please select an option
+
+
+error.agentCode.invalid=Please enter a valid code
 
 #MISC
 alt.newWindow=Opens in a new window

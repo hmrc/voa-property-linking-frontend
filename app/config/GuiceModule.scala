@@ -45,6 +45,7 @@ class GuiceModule(
     bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
     bind(classOf[SessionRepo]).annotatedWith(Names.named("appointLinkSession")).to(classOf[PropertyLinksSessionRepository])
+    bind(classOf[SessionRepo]).annotatedWith(Names.named("appointNewAgentSession")).to(classOf[AppointAgentSessionRepository])
     bind(classOf[ManageDetails]).to(classOf[ManageVoaDetails])
     bind(classOf[IdentityVerificationService]).to(classOf[IvService])
     bind(classOf[Clock]).toInstance(Clock.systemUTC())

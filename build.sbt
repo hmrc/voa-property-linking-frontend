@@ -46,7 +46,8 @@ val compileDependencies = Seq(
   "uk.gov.hmrc" %% "play-conditional-form-mapping" % "1.2.0-play-26",
   "uk.gov.hmrc" %% "play-whitelist-filter" % "3.1.0-play-26",
   "uk.gov.hmrc" %% "mongo-lock" % "6.15.0-play-26",
-  "uk.gov.hmrc" %% "reactive-circuit-breaker" % "3.3.0"
+  "uk.gov.hmrc" %% "reactive-circuit-breaker" % "3.3.0",
+  "uk.gov.hmrc" %% "play-frontend-govuk" % "0.30.0-play-26"
 )
 
 val testDependencies = Seq(

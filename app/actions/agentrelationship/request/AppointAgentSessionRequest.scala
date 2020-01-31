@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package actions.propertylinking.requests
+package actions.agentrelationship.request
 
 import actions.requests.CcaWrappedRequest
+import models.propertyrepresentation.AppointNewAgentSession
 import models.{Accounts, DetailedIndividualAccount, GroupAccount, LinkingSession}
 import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
-case class LinkingSessionRequest[A](
-                                     ses: LinkingSession,
+case class AppointAgentSessionRequest[A](
+                                     sessionData: AppointNewAgentSession,
                                      organisationId: Long,
                                      individualAccount: DetailedIndividualAccount,
                                      groupAccount: GroupAccount,
                                      request: Request[A]
                                    ) extends WrappedRequest[A](request) with CcaWrappedRequest {
-
   override def isLoggedIn = true
 
   override def optAccounts = Some(Accounts(organisation = groupAccount, person = individualAccount))

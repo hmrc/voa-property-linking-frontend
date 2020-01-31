@@ -1,0 +1,54 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.ApplicationConfig
+
+@(
+        title: String,
+        backUri: Option[String] = None,
+        mainClass: Option[String] = None,
+        headExtra: Html = Html(""))(content: Html)(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
+
+
+    @headScripts = {
+        ""
+    }
+
+    @scriptElem = {
+        @views.html.includes.javascripts()
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=@config.analyticsTagManagerCode"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    }
+
+    @mainContent = {
+        <div class="govuk-grid-row">
+            <div class="@mainClass.getOrElse("govuk-grid-column-two-thirds")">
+                @content
+            </div>
+        </div>
+    }
+
+    @navigation = {
+        @navigationBar(backUri)
+    }
+
+    @govukWrapper(
+        title = title,
+        headScripts = headScripts,
+        content = mainContent,
+        navigation = navigation,
+        scriptElem = Some(scriptElem)
+    )

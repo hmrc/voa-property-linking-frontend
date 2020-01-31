@@ -1,0 +1,50 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import actions.requests.BasicAuthenticatedRequest
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@import config.ApplicationConfig
+@(form: Form[Boolean], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@main_template(
+    title = Messages("propertyRepresentation.addAnAgent.title"),
+    topBackLink = true,
+    bottomBackLink = true,
+    backLinkUrl = Some(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent().url)
+) {
+
+    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.onePropertyNoExistingAgent.question", agentName)</h1>
+
+
+    @if(form.errors.nonEmpty) {
+        @GovukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+    }
+    @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.submitOnePropertyNoExistingAgent()) {
+        @GovukRadios(Radios(
+            idPrefix = Some("onePropertyNoAgent"),
+            name = "onePropertyNoAgent",
+            items = Seq(
+                RadioItem(id = Some("onePropertyNoAgent-yes"), value = Some("true"), checked = form.value.fold(false)(_ == true), content = Text(messages("app.common.yes"))),
+                RadioItem(id = Some("onePropertyNoAgent-no"), value = Some("false"), checked = form.value.fold(false)(_ == false), content = Text(messages("app.common.no")))
+            ))
+        )
+
+        @GovukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button"))))
+    }
+
+}

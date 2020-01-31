@@ -72,6 +72,8 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val downtimePageEnabled: Boolean = loadBooleanConfig("featureFlags.downtimePageEnabled")
   lazy val dvrEnabled: Boolean = loadBooleanConfig("featureFlags.dvrEnabled")
 
+  lazy val newAgentRelationshipJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newAgentRelationshipJourneyEnabled")
+
   lazy val stubEnrolment: Boolean = loadBooleanConfig("enrolment.useStub")
 
   lazy val bannerContent: Option[String] = configuration.getOptional[String]("encodedBannerContent").map(

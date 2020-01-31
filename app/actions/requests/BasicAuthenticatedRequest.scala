@@ -16,12 +16,12 @@
 
 package actions.requests
 
-import models.{DetailedIndividualAccount, GroupAccount}
+import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.auth.core.AffinityGroup
 
 
-sealed abstract class AuthenticatedRequest[A](request: Request[A]) extends WrappedRequest[A](request) {
+sealed abstract class AuthenticatedRequest[A](request: Request[A]) extends WrappedRequest[A](request) with CcaWrappedRequest {
   def organisationAccount: GroupAccount
 
   def individualAccount: DetailedIndividualAccount
@@ -36,16 +36,37 @@ case class BasicAuthenticatedRequestWithAffinityGroup[A](
                                                           individualAccount: DetailedIndividualAccount,
                                                           affinityGroup: AffinityGroup,
                                                           request: Request[A]
-                                                        ) extends AuthenticatedRequest[A](request)
+                                                        ) extends AuthenticatedRequest[A](request){
+  override def isLoggedIn = true
+
+  override def optAccounts = Some(Accounts(organisation = organisationAccount, person = individualAccount))
+
+  override def yourDetailsName = getYourDetailsName(optAccounts)
+
+}
 case class BasicAuthenticatedRequest[A](
                                     organisationAccount: GroupAccount,
                                     individualAccount: DetailedIndividualAccount,
                                     request: Request[A]
-                                  ) extends AuthenticatedRequest[A](request)
+                                  ) extends AuthenticatedRequest[A](request){
+  override def isLoggedIn = true
+
+  override def optAccounts = Some(Accounts(organisation = organisationAccount, person = individualAccount))
+
+  override def yourDetailsName = getYourDetailsName(optAccounts)
+
+}
 
 case class AgentRequest[A](
                        organisationAccount: GroupAccount,
                        individualAccount: DetailedIndividualAccount,
                        agentCode: Long,
                        request: Request[A]
-                     ) extends AuthenticatedRequest[A](request)
+                     ) extends AuthenticatedRequest[A](request){
+  override def isLoggedIn = true
+
+  override def optAccounts = Some(Accounts(organisation = organisationAccount, person = individualAccount))
+
+  override def yourDetailsName = getYourDetailsName(optAccounts)
+
+}

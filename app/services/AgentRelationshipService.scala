@@ -110,6 +110,10 @@ class AgentRelationshipService @Inject()(
           representationStatusFilter.exists(x => x.name.equalsIgnoreCase(agent.status))))).filter(auth => auth.agents.nonEmpty)))
   }
 
+  def getAgent(agentCode: Long)(implicit hc: HeaderCarrier) = {
+    representations.getAgent(agentCode)
+  }
+
   private def appointAgent(pLink: String,
                            agentOrgId: Long,
                            organisationId: Long,
