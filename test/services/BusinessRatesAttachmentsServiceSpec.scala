@@ -28,9 +28,8 @@ import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import repositories.SessionRepo
 import resources._
-import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.propertylinking.exceptions.attachments.{AllFilesAreAlreadyUploaded, AttachmentException}
+import uk.gov.hmrc.propertylinking.exceptions.attachments.AttachmentException
 
 import scala.concurrent.Future
 

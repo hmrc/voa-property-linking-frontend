@@ -34,7 +34,7 @@ import play.api.data.Forms.{mapping, _}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Try}

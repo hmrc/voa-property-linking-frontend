@@ -30,7 +30,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.EmailAddressValidation
 
 import scala.concurrent.{ExecutionContext, Future}

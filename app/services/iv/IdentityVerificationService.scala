@@ -30,7 +30,7 @@ import services.RegistrationService
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.{Assistant, ConfidenceLevel}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 

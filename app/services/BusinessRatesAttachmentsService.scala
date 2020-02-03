@@ -21,14 +21,13 @@ import auditing.AuditingService
 import cats.data.EitherT
 import connectors.attachments.BusinessRatesAttachmentsConnector
 import javax.inject.{Inject, Named}
-
 import models._
 import models.attachment.{Attachment, _}
 import models.upscan.{FileMetadata, PreparedUpload, UploadedFileDetails}
 import play.api.libs.json.Json
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.propertylinking.exceptions.attachments._
+import uk.gov.hmrc.propertylinking.exceptions.attachments._
 import utils.Cats
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -113,11 +112,10 @@ class BusinessRatesAttachmentsService @Inject()(
       .subflatMap(filtered =>
         Either.cond(filtered.size == nonEmptyReferences.size, filtered.map(_._1), NotAllFilesReadyToUpload))
       .semiflatMap(references => Future.traverse(references)(patchMetadata(submissionId, _)))
-      .leftFlatMap {
-        case AllFilesAreAlreadyUploaded(attachments) => EitherT.rightT(attachments)
-        case error @ SomeFilesAreAlreadyUploaded(references) if (retryCount < 5) =>
-          submit(submissionId, references, retryCount + 1)
-        case error => EitherT.leftT(error)
+      .leftFlatMap{
+        case AllFilesAreAlreadyUploaded(attachments)                              => EitherT.rightT(attachments)
+        case error @SomeFilesAreAlreadyUploaded(references)  if (retryCount < 5)  => submit(submissionId, references, retryCount + 1)
+        case error                                                                => EitherT.leftT(error)
       }
 
   def getAttachment(reference: String)(implicit hc: HeaderCarrier): Future[Attachment] =

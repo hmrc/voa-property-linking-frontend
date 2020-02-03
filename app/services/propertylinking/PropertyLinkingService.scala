@@ -24,7 +24,7 @@ import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.propertylinking.exceptions.attachments.AttachmentException
+import uk.gov.hmrc.propertylinking.exceptions.attachments.AttachmentException
 import utils.Cats
 
 import scala.concurrent.{ExecutionContext, Future}

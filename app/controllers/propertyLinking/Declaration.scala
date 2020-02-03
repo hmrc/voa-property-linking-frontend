@@ -24,8 +24,8 @@ import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
 import javax.inject.Named
-import models.{LinkBasis, RatesBillFlag, RatesBillType}
 import models.propertylinking.requests.PropertyLinkRequest
+import models.{RatesBillFlag, RatesBillType}
 import play.api.Logger
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
@@ -33,8 +33,8 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.BusinessRatesAttachmentsService
 import services.propertylinking.PropertyLinkingService
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
-import uk.gov.voa.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
 import utils.Cats
 import views.html.propertyLinking.declaration
 

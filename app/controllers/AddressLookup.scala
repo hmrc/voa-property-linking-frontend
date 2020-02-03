@@ -20,7 +20,7 @@ import connectors.Addresses
 import javax.inject.Inject
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext
 

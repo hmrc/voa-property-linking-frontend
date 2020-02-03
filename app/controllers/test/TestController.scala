@@ -29,7 +29,7 @@ import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.test.TestService
 import services.{Failure, Success}
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.Cats
 
 import scala.concurrent.{ExecutionContext, Future}
