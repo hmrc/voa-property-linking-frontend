@@ -22,10 +22,10 @@ import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class Application @Inject()(
-                             val errorHandler: CustomErrorHandler
-                           )(
-  implicit override val controllerComponents: MessagesControllerComponents,
-  config: ApplicationConfig
+      val errorHandler: CustomErrorHandler
+)(
+      implicit override val controllerComponents: MessagesControllerComponents,
+      config: ApplicationConfig
 ) extends PropertyLinkingController {
 
   def addUserToGG = Action { implicit request =>
