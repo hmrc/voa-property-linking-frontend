@@ -36,22 +36,21 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class ValuationsController @Inject()(
-                                     val errorHandler: CustomErrorHandler,
-                                     propertyLinks: PropertyLinkConnector,
-                                     propertyLinkService: PropertyLinkService,
-                                     authenticated: AuthenticatedAction,
-                                     override val controllerComponents: MessagesControllerComponents,
-                                     @Named("detailed-valuation.skip") isSkipAssessment: Boolean
-                                   )(
-                                     implicit override val messagesApi: MessagesApi,
-                                     val config: ApplicationConfig,
-                                     executionContext: ExecutionContext
-                                   ) extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      propertyLinks: PropertyLinkConnector,
+      propertyLinkService: PropertyLinkService,
+      authenticated: AuthenticatedAction,
+      override val controllerComponents: MessagesControllerComponents,
+      @Named("detailed-valuation.skip") isSkipAssessment: Boolean
+)(
+      implicit override val messagesApi: MessagesApi,
+      val config: ApplicationConfig,
+      executionContext: ExecutionContext
+) extends PropertyLinkingController {
 
   val logger = Logger(this.getClass.getName)
 
   def valuations(submissionId: String, owner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
-
     val pLink: Future[Option[ApiAssessments]] = {
       if (owner)
         propertyLinks.getOwnerAssessmentsWithCapacity(submissionId)
@@ -63,19 +62,28 @@ class ValuationsController @Inject()(
       case Some(ApiAssessments(_, _, _, _, _, _, Seq(), _)) => notFound
       case Some(link) =>
         if (!link.pending && link.assessments.size == 1 && isSkipAssessment) {
-          Redirect(controllers.routes.Assessments.viewDetailedAssessment(submissionId, link.authorisationId, link.assessments.head.assessmentRef, link.assessments.head.billingAuthorityReference, owner))
+          Redirect(
+            controllers.routes.Assessments.viewDetailedAssessment(
+              submissionId,
+              link.authorisationId,
+              link.assessments.head.assessmentRef,
+              link.assessments.head.billingAuthorityReference,
+              owner))
         } else if (link.pending && link.assessments.size == 1 && isSkipAssessment) {
           Redirect(getViewSummaryCall(link.uarn, link.pending, owner))
         } else {
           Ok(
             views.html.dashboard.assessments(
               model = AssessmentsVM(
-                assessmentsWithLinks =
-                  link.assessments.sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(Ordering.by[LocalDate, Long](_.toEpochDay)).reverse
-                    .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
+                assessmentsWithLinks = link.assessments
+                  .sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(
+                    Ordering.by[LocalDate, Long](_.toEpochDay))
+                  .reverse
+                  .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
                 backLink = calculateBackLink(owner),
                 address = link.address,
-                capacity = link.capacity),
+                capacity = link.capacity
+              ),
               owner = owner
             ))
         }
@@ -83,34 +91,41 @@ class ValuationsController @Inject()(
     }).recoverWith {
       case e =>
         logger.warn("property link assessment call failed", e)
-        val linkF = if (owner) propertyLinks.getMyOrganisationPropertyLink(submissionId) else propertyLinks.getMyClientsPropertyLink(submissionId)
+        val linkF =
+          if (owner) propertyLinks.getMyOrganisationPropertyLink(submissionId)
+          else propertyLinks.getMyClientsPropertyLink(submissionId)
         linkF.map {
           case Some(link) => Redirect(getViewSummaryCall(link.uarn, pending = true, owner))
-          case None => notFound
+          case None       => notFound
         }
     }
   }
 
-  private def getViewSummaryCall(uarn: Long, pending: Boolean, owner: Boolean): Call = {
-    if (owner) controllers.routes.Assessments.viewOwnerSummary(uarn, pending) else controllers.routes.Assessments.viewClientSummary(uarn, pending)
-  }
-
+  private def getViewSummaryCall(uarn: Long, pending: Boolean, owner: Boolean): Call =
+    if (owner) controllers.routes.Assessments.viewOwnerSummary(uarn, pending)
+    else controllers.routes.Assessments.viewClientSummary(uarn, pending)
 
   private def decideNextUrl(
-                             submissionId: String,
-                             authorisationId: Long,
-                             assessment: ApiAssessment,
-                             isPending: Boolean,
-                             owner: Boolean
-                           )(implicit request: Request[_]): (String, ApiAssessment) = {
+        submissionId: String,
+        authorisationId: Long,
+        assessment: ApiAssessment,
+        isPending: Boolean,
+        owner: Boolean
+  )(implicit request: Request[_]): (String, ApiAssessment) =
     assessment.rateableValue match {
-      case None => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
+      case None                 => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
       case Some(_) if isPending => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
-      case Some(_) => controllers.routes.Assessments.viewDetailedAssessment(submissionId, authorisationId, assessment.assessmentRef, assessment.billingAuthorityReference, owner).url -> assessment
+      case Some(_) =>
+        controllers.routes.Assessments
+          .viewDetailedAssessment(
+            submissionId,
+            authorisationId,
+            assessment.assessmentRef,
+            assessment.billingAuthorityReference,
+            owner)
+          .url -> assessment
     }
-  }
 
-  private def calculateBackLink(agentOwnsProperty: Boolean): String = {
+  private def calculateBackLink(agentOwnsProperty: Boolean): String =
     config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
-  }
 }

@@ -38,7 +38,7 @@ val compileDependencies = Seq(
   "com.codahale.metrics" % "metrics-graphite" % "3.0.1",
   "com.google.guava" % "guava" % "18.0",
   "joda-time" % "joda-time" % "2.10.4",
-  "uk.gov.hmrc" %% "bootstrap-play-26" % "1.1.0",
+  "uk.gov.hmrc" %% "bootstrap-play-26" % "1.3.0",
   "uk.gov.hmrc" %% "play-ui" % "8.3.0-play-26",
   "uk.gov.hmrc" %% "govuk-template" % "5.43.0-play-26",
   "uk.gov.hmrc" %% "http-caching-client" % "9.0.0-play-26",
