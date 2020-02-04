@@ -76,9 +76,7 @@ lazy val microservice = Project(appName, file("."))
     parallelExecution in Test := false,
     fork in Test := true,
     retrieveManaged := true,
-    testGrouping := oneForkedJvmPerTest((definedTests in Test).value),
-    compileScalastyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle.in(Compile).toTask("").value,
-    test in Test <<= (test in Test) dependsOn compileScalastyle
+    testGrouping := oneForkedJvmPerTest((definedTests in Test).value)
   )
   .settings(inConfig(TemplateTest)(Defaults.testSettings): _*)
   .configs(IntegrationTest)
@@ -123,3 +121,6 @@ lazy val scoverageSettings = {
     ScoverageKeys.coverageHighlighting := true
   )
 }
+
+addCommandAlias("precommit", ";scalafmt;test:scalafmt;coverage;test;coverageReport")
+

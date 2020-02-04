@@ -45,23 +45,32 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar {
       val emailConnector = new EmailConnector(config, mockWSHttp)
       val emailService = new EmailService(emailConnector)
 
-      val groupAccount = GroupAccount(123L,"groupId","companyName",221L,"email@email.com","01234567889",true, Some(12345678L))
+      val groupAccount =
+        GroupAccount(123L, "groupId", "companyName", 221L, "email@email.com", "01234567889", true, Some(12345678L))
 
       when(config.baseUrl("email")).thenReturn("http://blah:2909/")
 
-      when(mockWSHttp.POST[PayLoad, HttpResponse](anyString(), any[PayLoad](), any())(any[Writes[PayLoad]](),
-        any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any()))
+      when(
+        mockWSHttp.POST[PayLoad, HttpResponse](anyString(), any[PayLoad](), any())(
+          any[Writes[PayLoad]](),
+          any[HttpReads[HttpResponse]](),
+          any[HeaderCarrier](),
+          any()))
         .thenReturn(Future.successful(HttpResponse(OK)))
 
-      val individualDetails = IndividualDetails("firstName", "lastName", "email@email.com", "012345567788", None, 12345L)
+      val individualDetails =
+        IndividualDetails("firstName", "lastName", "email@email.com", "012345567788", None, 12345L)
 
-      await(emailService.sendNewRegistrationSuccess("toAddress@email.com", DetailedIndividualAccount("externalId", "trustId", 123L, 234L, individualDetails), Some(groupAccount), Some(Organisation)))
+      await(
+        emailService.sendNewRegistrationSuccess(
+          "toAddress@email.com",
+          DetailedIndividualAccount("externalId", "trustId", 123L, 234L, individualDetails),
+          Some(groupAccount),
+          Some(Organisation)))
 
-      verify(mockWSHttp).POST(any, any, any)(any[Writes[PayLoad]](),
-        any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any())
+      verify(mockWSHttp)
+        .POST(any, any, any)(any[Writes[PayLoad]](), any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any())
     }
   }
 
-
 }
-

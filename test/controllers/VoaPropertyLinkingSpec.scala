@@ -40,21 +40,9 @@ import utils._
 import scala.concurrent.{ExecutionContext, Future}
 
 trait VoaPropertyLinkingSpec
-  extends FlatSpec
-    with MustMatchers
-    with FutureAwaits
-    with DefaultAwaitTimeout
-    with BeforeAndAfterEach
-    with AppendedClues
-    with MockitoSugar
-    with NoMetricsOneAppPerSuite
-    with StubMessageControllerComponents
-    with WSHTTPMock
-    with ScalaFutures
-    with Configs
-    with FakeObjects
-    with GlobalExecutionContext
-    with AllMocks {
+    extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
+    with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with StubMessageControllerComponents
+    with WSHTTPMock with ScalaFutures with Configs with FakeObjects with GlobalExecutionContext with AllMocks {
 
   val token: (String, String) = "Csrf-Token" -> "nocheck"
 
@@ -66,20 +54,28 @@ trait VoaPropertyLinkingSpec
   override implicit lazy val applicationConfig: ApplicationConfig = app.injector.instanceOf[ApplicationConfig]
 
   def preAuthenticatedActionBuilders(
-                                      userIsAgent: Boolean = true
-                                    ): AuthenticatedAction =
-    new AuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockBusinessRatesAuthorisation, mockEnrolmentService, mockAuthConnector) {
-      override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = {
+        userIsAgent: Boolean = true
+  ): AuthenticatedAction =
+    new AuthenticatedAction(
+      messageApi,
+      mockGovernmentGatewayProvider,
+      mockBusinessRatesAuthorisation,
+      mockEnrolmentService,
+      mockAuthConnector) {
+      override def invokeBlock[A](
+            request: Request[A],
+            block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] =
         block(new BasicAuthenticatedRequest[A](groupAccount(userIsAgent), detailedIndividualAccount, request))
-      }
     }
 
   def ggPreauthenticated(userDetails: UserDetails): GgAuthenticatedAction =
+
     new GgAuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockAuthConnector) {
-      override def invokeBlock[A](request: Request[A], block: RequestWithUserDetails[A] => Future[Result]): Future[Result] =
+      override def invokeBlock[A](
+            request: Request[A],
+            block: RequestWithUserDetails[A] => Future[Result]): Future[Result] =
         block(new RequestWithUserDetails[A](userDetails, request))
     }
-
 
   def sessionUserDetailsAction(details: User): SessionUserDetailsAction =
     new SessionUserDetailsAction(mockPersonalDetailsSessionRepository) {
@@ -88,36 +84,42 @@ trait VoaPropertyLinkingSpec
     }
 
   def unauthenticatedActionBuilder(): AuthenticatedAction =
-    new AuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockBusinessRatesAuthorisation, mockEnrolmentService, mockAuthConnector) {
-      override def invokeBlock[A](request: Request[A], block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = super.invokeBlock(request, block)
+    new AuthenticatedAction(
+      messageApi,
+      mockGovernmentGatewayProvider,
+      mockBusinessRatesAuthorisation,
+      mockEnrolmentService,
+      mockAuthConnector) {
+      override def invokeBlock[A](
+            request: Request[A],
+            block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = super.invokeBlock(request, block)
     }
 
-  def preEnrichedActionRefiner(): WithLinkingSession = {
+  def preEnrichedActionRefiner(): WithLinkingSession =
     new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
 
-      override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] = {
-        Future.successful(Right(LinkingSessionRequest[A](
-          LinkingSession(
-            address = "",
-            uarn = 1L,
-            submissionId = "PL-123456",
-            personId = 1L,
-            declaration = CapacityDeclaration(
-              capacity = Owner,
-              interestedBefore2017 = true,
-              fromDate = None,
-              stillInterested = false,
-              toDate = None),
-            uploadEvidenceData = UploadEvidenceData(
-              fileInfo = None,
-              attachments = None),
-            evidenceType = Some(RatesBillType)),
-          organisationId = 1L,
-          individualAccount = request.individualAccount,
-          groupAccount = request.organisationAccount,
-          request = request
-        )))
-      }
+      override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
+        Future.successful(
+          Right(
+            LinkingSessionRequest[A](
+              LinkingSession(
+                address = "",
+                uarn = 1L,
+                submissionId = "PL-123456",
+                personId = 1L,
+                declaration = CapacityDeclaration(
+                  capacity = Owner,
+                  interestedBefore2017 = true,
+                  fromDate = None,
+                  stillInterested = false,
+                  toDate = None),
+                uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+                evidenceType = Some(RatesBillType)
+              ),
+              organisationId = 1L,
+              individualAccount = request.individualAccount,
+              groupAccount = request.organisationAccount,
+              request = request
+            )))
     }
-  }
 }

@@ -19,27 +19,20 @@ package models
 import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import play.api.libs.json.{Format, Json}
 
-case class SessionPropertyLink(
-                                authorisationId: Long,
-                                submissionId: String,
-                                agents: Seq[OwnerAuthAgent])
+case class SessionPropertyLink(authorisationId: Long, submissionId: String, agents: Seq[OwnerAuthAgent])
 
 object SessionPropertyLink {
   implicit val format: Format[SessionPropertyLink] = Json.format[SessionPropertyLink]
 
-  def apply(propertyLink: OwnerAuthorisation)
-  : SessionPropertyLink =
-    SessionPropertyLink(propertyLink.authorisationId,
-      propertyLink.submissionId,
-      agents = propertyLink.agents.toList)
+  def apply(propertyLink: OwnerAuthorisation): SessionPropertyLink =
+    SessionPropertyLink(propertyLink.authorisationId, propertyLink.submissionId, agents = propertyLink.agents.toList)
 }
 
 case class SessionPropertyLinks(links: Seq[SessionPropertyLink])
 
-object SessionPropertyLinks{
+object SessionPropertyLinks {
   implicit val format: Format[SessionPropertyLinks] = Json.format[SessionPropertyLinks]
 
-  def apply(propertyLinks: OwnerAuthResult)
-  : SessionPropertyLinks =
+  def apply(propertyLinks: OwnerAuthResult): SessionPropertyLinks =
     SessionPropertyLinks(propertyLinks.authorisations.map(link => SessionPropertyLink(link)).toList)
 }

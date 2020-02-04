@@ -30,9 +30,9 @@ case object RepresentationResponseDeclined extends RepresentationResponseStatus 
   val name = "DECLINED"
 }
 
-
 object RepresentationResponseStatus extends NamedEnumSupport[RepresentationResponseStatus] {
   implicit val format = EnumFormat(RepresentationResponseStatus)
 
-  override def all: List[RepresentationResponseStatus] = List(RepresentationResponseApproved, RepresentationResponseDeclined)
+  override def all: List[RepresentationResponseStatus] =
+    List(RepresentationResponseApproved, RepresentationResponseDeclined)
 }

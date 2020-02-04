@@ -19,7 +19,8 @@ package actions.registration.requests
 import models.registration.UserDetails
 import play.api.mvc.{Request, WrappedRequest}
 
-class RequestWithUserDetails[A](val userDetails: UserDetails, val request: Request[A]) extends WrappedRequest[A](request) {
+class RequestWithUserDetails[A](val userDetails: UserDetails, val request: Request[A])
+    extends WrappedRequest[A](request) {
   val externalId: String = userDetails.externalId
   val groupIdentifier: String = userDetails.groupIdentifier
 }

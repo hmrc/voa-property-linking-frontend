@@ -26,21 +26,30 @@ import play.api.mvc._
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class WithLinkingSession @Inject()(
-                                    errorHandler: CustomErrorHandler,
-                                    @Named("propertyLinkingSession") val sessionRepository: SessionRepo
-                                  )(implicit override val executionContext: ExecutionContext) extends ActionRefiner[BasicAuthenticatedRequest, LinkingSessionRequest] {
+      errorHandler: CustomErrorHandler,
+      @Named("propertyLinkingSession") val sessionRepository: SessionRepo
+)(implicit override val executionContext: ExecutionContext)
+    extends ActionRefiner[BasicAuthenticatedRequest, LinkingSessionRequest] {
 
-  implicit def hc(implicit request: BasicAuthenticatedRequest[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+  implicit def hc(implicit request: BasicAuthenticatedRequest[_]): HeaderCarrier =
+    HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-  override protected def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] = {
-      sessionRepository.get[LinkingSession](implicitly[Reads[LinkingSession]], hc(request)).map {
-        case Some(s)  => Right(LinkingSessionRequest(s, request.organisationAccount.id, request.individualAccount, request.organisationAccount, request))
-        case None     => Left(NotFound(errorHandler.notFoundTemplate(request)))
-      }
-  }
+  override protected def refine[A](
+        request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
+    sessionRepository.get[LinkingSession](implicitly[Reads[LinkingSession]], hc(request)).map {
+      case Some(s) =>
+        Right(
+          LinkingSessionRequest(
+            s,
+            request.organisationAccount.id,
+            request.individualAccount,
+            request.organisationAccount,
+            request))
+      case None => Left(NotFound(errorHandler.notFoundTemplate(request)))
+    }
 }

@@ -34,24 +34,26 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest().withSession(token)
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
-  object TestController extends RepresentationController(
-    mockCustomErrorHandler,
-    StubPropertyRepresentationConnector,
-    preAuthenticatedActionBuilders(),
-    StubPropertyLinkConnector,
-    stubMessagesControllerComponents()
-  )
+  object TestController
+      extends RepresentationController(
+        mockCustomErrorHandler,
+        StubPropertyRepresentationConnector,
+        preAuthenticatedActionBuilders(),
+        StubPropertyLinkConnector,
+        stubMessagesControllerComponents()
+      )
 
   "cancel" should "allow the user to cancel accepting/rejecting the pending representation requests" in {
     StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
 
-    val res = TestController.cancel(1, 15)(request.withFormUrlEncodedBody(
-      "page" -> "1",
-      "pageSize" -> "15",
-      "action" -> "accept-confirm",
-      "requestIds[]" -> "1",
-      "complete" -> "3"
-    ))
+    val res = TestController.cancel(1, 15)(
+      request.withFormUrlEncodedBody(
+        "page"         -> "1",
+        "pageSize"     -> "15",
+        "action"       -> "accept-confirm",
+        "requestIds[]" -> "1",
+        "complete"     -> "3"
+      ))
 
     status(res) mustBe OK
   }
@@ -59,13 +61,14 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   "cancel" should "throw Bad Request if the form has errors" in {
     StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
 
-    val res = TestController.cancel(1, 15)(request.withFormUrlEncodedBody(
-      "page" -> "",
-      "pageSize" -> "",
-      "action" -> "",
-      "requestIds[]" -> "1",
-      "complete" -> ""
-    ))
+    val res = TestController.cancel(1, 15)(
+      request.withFormUrlEncodedBody(
+        "page"         -> "",
+        "pageSize"     -> "",
+        "action"       -> "",
+        "requestIds[]" -> "1",
+        "complete"     -> ""
+      ))
 
     status(res) mustBe BAD_REQUEST
   }
@@ -73,13 +76,14 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   "continue" should "redirect the user to the manage clients page" in {
     StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
 
-    val res = TestController.continue(1, 15)(request.withFormUrlEncodedBody(
-      "page" -> "1",
-      "pageSize" -> "15",
-      "action" -> "accept",
-      "requestIds[]" -> "1",
-      "complete" -> "3"
-    ))
+    val res = TestController.continue(1, 15)(
+      request.withFormUrlEncodedBody(
+        "page"         -> "1",
+        "pageSize"     -> "15",
+        "action"       -> "accept",
+        "requestIds[]" -> "1",
+        "complete"     -> "3"
+      ))
 
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some("/business-rates-property-linking/manage-clients")
@@ -88,26 +92,27 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   "continue" should "throw Bad Request if the form has errors" in {
     StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
     when(mockCustomErrorHandler.badRequestTemplate(any()))
-        .thenReturn(Html("BAD REQUEST"))
+      .thenReturn(Html("BAD REQUEST"))
 
-    val res = TestController.continue(1, 15)(request.withFormUrlEncodedBody(
-      "page" -> "1",
-      "pageSize" -> "",
-      "action" -> "",
-      "requestIds[]" -> "",
-      "complete" -> "3"
-    ))
+    val res = TestController.continue(1, 15)(
+      request.withFormUrlEncodedBody(
+        "page"         -> "1",
+        "pageSize"     -> "",
+        "action"       -> "",
+        "requestIds[]" -> "",
+        "complete"     -> "3"
+      ))
 
     status(res) mustBe BAD_REQUEST
   }
-
 
   behavior of "revokeClientConfirmed method"
   it should "revoke an agent and redirect to the client properties page" in {
     val clientProperty: ClientProperty = arbitrary[ClientProperty]
 
     StubPropertyLinkConnector.stubClientProperty(clientProperty)
-    val res = TestController.revokeClientConfirmed(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
+    val res =
+      TestController.revokeClientConfirmed(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
 
     status(res) must be(SEE_OTHER)
     redirectLocation(res) must be(Some(applicationConfig.newDashboardUrl("client-properties")))
@@ -127,7 +132,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   }
   it should "revoke an agent should return not found when clientProperty cannot be found" in {
     when(mockCustomErrorHandler.notFoundTemplate(any()))
-        .thenReturn(Html("NOT FOUND"))
+      .thenReturn(Html("NOT FOUND"))
 
     val res = TestController.revokeClient(12L, 34L)(request)
     status(res) must be(NOT_FOUND)

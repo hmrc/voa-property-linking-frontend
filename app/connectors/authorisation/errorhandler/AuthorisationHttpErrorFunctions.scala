@@ -26,11 +26,12 @@ trait AuthorisationHttpErrorFunctions extends HttpErrorFunctions {
 
   override def handleResponse(httpMethod: String, url: String)(response: HttpResponse): HttpResponse =
     response.status match {
-      case UNAUTHORIZED if hasJsonBody(response)  => (response.json \ "errorCode").asOpt[String] match {
-        case Some(str)  => throw AuthorisationFailed(str)
-        case None       => super.handleResponse(httpMethod, url)(response)
-      }
-      case _                                      => super.handleResponse(httpMethod, url)(response)
+      case UNAUTHORIZED if hasJsonBody(response) =>
+        (response.json \ "errorCode").asOpt[String] match {
+          case Some(str) => throw AuthorisationFailed(str)
+          case None      => super.handleResponse(httpMethod, url)(response)
+        }
+      case _ => super.handleResponse(httpMethod, url)(response)
     }
 
   def hasJsonBody(response: HttpResponse) = Try(response.json).isSuccess

@@ -27,14 +27,13 @@ trait ValidPagination extends PropertyLinkingController {
 
   val errorHandler: FrontendErrorHandler
 
-  protected def withValidPagination(page: Int, pageSize: Int, getTotal: Boolean = true)
-                                   (default: Pagination => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+  protected def withValidPagination(page: Int, pageSize: Int, getTotal: Boolean = true)(
+        default: Pagination => Future[Result])(implicit request: Request[AnyContent]): Future[Result] =
     if (page <= 0 || pageSize < 10 || pageSize > 500) {
       Future.successful(BadRequest(errorHandler.badRequestTemplate))
     } else {
       default(Pagination(pageNumber = page, pageSize = pageSize, resultCount = getTotal))
     }
-  }
 }
 
 case class PaginationParams(startPoint: Int, pageSize: Int, requestTotalRowCount: Boolean)
@@ -42,23 +41,24 @@ case class PaginationParams(startPoint: Int, pageSize: Int, requestTotalRowCount
 object DefaultPaginationParams extends PaginationParams(startPoint = 1, pageSize = 15, requestTotalRowCount = true)
 
 object PaginationParams {
-  implicit def queryStringBindable(implicit intBinder: QueryStringBindable[Int],
-                                   booleanBinder: QueryStringBindable[Boolean]): QueryStringBindable[PaginationParams] = {
+  implicit def queryStringBindable(
+        implicit intBinder: QueryStringBindable[Int],
+        booleanBinder: QueryStringBindable[Boolean]): QueryStringBindable[PaginationParams] =
     new QueryStringBindable[PaginationParams] {
-      override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, PaginationParams]] = for {
-        startPoint <- intBinder.bind("startPoint", params)
-        pageSize <- intBinder.bind("pageSize", params)
-        requestTotalRowCount <- booleanBinder.bind("requestTotalRowCount", params)
-      } yield {
-        (startPoint, pageSize, requestTotalRowCount) match {
-          case (Right(sp), Right(ps), Right(rtrc)) => Right(PaginationParams(sp, ps, rtrc))
-          case _ => Left("Unable to bind PaginationParams")
+      override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, PaginationParams]] =
+        for {
+          startPoint           <- intBinder.bind("startPoint", params)
+          pageSize             <- intBinder.bind("pageSize", params)
+          requestTotalRowCount <- booleanBinder.bind("requestTotalRowCount", params)
+        } yield {
+          (startPoint, pageSize, requestTotalRowCount) match {
+            case (Right(sp), Right(ps), Right(rtrc)) => Right(PaginationParams(sp, ps, rtrc))
+            case _                                   => Left("Unable to bind PaginationParams")
+          }
         }
-      }
 
       override def unbind(key: String, value: PaginationParams): String = s"$value"
     }
-  }
 }
 
 case class Pagination(pageNumber: Int, pageSize: Int, totalResults: Long = 0, resultCount: Boolean = true) {
@@ -66,29 +66,27 @@ case class Pagination(pageNumber: Int, pageSize: Int, totalResults: Long = 0, re
   override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$resultCount"
 }
 
+case class PaginationSearchSort(
+      pageNumber: Int,
+      pageSize: Int,
+      requestTotalRowCount: Boolean = false,
+      sortfield: Option[String] = None,
+      sortorder: Option[String] = None,
+      status: Option[String] = None,
+      address: Option[String] = None,
+      baref: Option[String] = None,
+      agent: Option[String] = None,
+      client: Option[String] = None,
+      totalResults: Long = 0,
+      agentAppointed: String = Both.name) {
 
-case class PaginationSearchSort(pageNumber: Int,
-                                pageSize: Int,
-                                requestTotalRowCount: Boolean = false,
-                                sortfield: Option[String] = None,
-                                sortorder: Option[String] = None,
-                                status: Option[String] = None,
-                                address: Option[String] = None,
-                                baref: Option[String] = None,
-                                agent: Option[String] = None,
-                                client: Option[String] = None,
-                                totalResults: Long = 0,
-                                agentAppointed: String = Both.name) {
+  def reverseSortOrder: Option[String] =
+    sortorder match {
+      case Some(paramValue) if paramValue.toUpperCase == "ASC" => Some("DESC");
+      case _                                                   => Some("ASC")
+    }
 
-  def reverseSortOrder: Option[String] = {
-
-    sortorder match
-      { case Some(paramValue) if paramValue.toUpperCase == "ASC" => Some("DESC") ;
-        case _ => Some("ASC")
-      }
-  }
-
-  def valueOfSortorder : String = sortorder.getOrElse("ASC").toUpperCase
+  def valueOfSortorder: String = sortorder.getOrElse("ASC").toUpperCase
   def valueOfSortfield: String = sortfield.getOrElse("").trim
   def valueOfStatus: String = status.getOrElse("").trim
   def valueOfAddress: String = address.getOrElse("").trim
@@ -96,9 +94,8 @@ case class PaginationSearchSort(pageNumber: Int,
   def valueOfAgent: String = agent.getOrElse("").trim
   def valueOfClient: String = client.getOrElse("").trim
 
-  def valuesOfSearchParameters : String =
+  def valuesOfSearchParameters: String =
     valueOfStatus + valueOfAddress + valueOfBaref + valueOfAgent + valueOfClient
-
 
   def startPoint: Int = pageSize * (pageNumber - 1) + 1
   override val toString = s"startPoint=$startPoint&pageSize=$pageSize&requestTotalRowCount=$requestTotalRowCount" +
@@ -108,8 +105,7 @@ case class PaginationSearchSort(pageNumber: Int,
     buildQueryParams("address", address) +
     buildQueryParams("baref", baref) +
     buildQueryParams("agent", agent) +
-    buildQueryParams("client", client)+
+    buildQueryParams("client", client) +
     buildQueryParams("agentAppointed", Some(agentAppointed))
 
 }
-

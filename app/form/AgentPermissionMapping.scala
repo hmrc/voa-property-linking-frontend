@@ -20,25 +20,24 @@ import models.{AgentPermission, NotPermitted}
 import play.api.data.validation.Constraint
 import play.api.data.{FormError, Mapping}
 
-case class AgentPermissionMapping(other: String, key: String = "", constraints: Seq[Constraint[AgentPermission]] = Nil) extends Mapping[AgentPermission] {
+case class AgentPermissionMapping(other: String, key: String = "", constraints: Seq[Constraint[AgentPermission]] = Nil)
+    extends Mapping[AgentPermission] {
   override val mappings = Seq(this)
   private val wrapped = EnumMapping(AgentPermission)
 
-  override def bind(data: Map[String, String]) = {
+  override def bind(data: Map[String, String]) =
     (wrapped.withPrefix(key).bind(data), wrapped.withPrefix(other).bind(data)) match {
-      case (e@Left(err), _) => e
-      case (Right(p1), Right(p2)) if p1 == NotPermitted && p2 == NotPermitted => Left(Seq(FormError(key, "error.invalidPermissions")))
-      case (r@Right(_), _) => r
+      case (e @ Left(err), _) => e
+      case (Right(p1), Right(p2)) if p1 == NotPermitted && p2 == NotPermitted =>
+        Left(Seq(FormError(key, "error.invalidPermissions")))
+      case (r @ Right(_), _) => r
     }
-  }
 
-  override def unbind(value: AgentPermission) = {
+  override def unbind(value: AgentPermission) =
     wrapped.withPrefix(key).unbind(value)
-  }
 
-  override def unbindAndValidate(value: AgentPermission) = {
+  override def unbindAndValidate(value: AgentPermission) =
     wrapped.withPrefix(key).unbindAndValidate(value)
-  }
 
   override def withPrefix(prefix: String) = copy(key = prefix + key)
 

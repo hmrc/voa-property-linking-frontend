@@ -20,9 +20,9 @@ import models.upscan.UploadedFileDetails
 import play.api.libs.json._
 
 case class UploadEvidenceData(
-                               linkBasis: LinkBasis = NoEvidenceFlag,
-                               fileInfo:  Option[FileInfo] = None,
-                               attachments: Option[Map[String, UploadedFileDetails]] = Some(Map()))
+      linkBasis: LinkBasis = NoEvidenceFlag,
+      fileInfo: Option[FileInfo] = None,
+      attachments: Option[Map[String, UploadedFileDetails]] = Some(Map()))
 
 object UploadEvidenceData {
   implicit val format = Json.format[UploadEvidenceData]

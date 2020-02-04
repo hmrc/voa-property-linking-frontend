@@ -18,13 +18,14 @@ package models
 
 import play.api.libs.json.Json
 
-case class LinkingSession(address: String,
-                          uarn: Long,
-                          submissionId: String,
-                          personId: Long,
-                          declaration: CapacityDeclaration,
-                          uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty,
-                          evidenceType: Option[EvidenceType] = None)
+case class LinkingSession(
+      address: String,
+      uarn: Long,
+      submissionId: String,
+      personId: Long,
+      declaration: CapacityDeclaration,
+      uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty,
+      evidenceType: Option[EvidenceType] = None)
 
 object LinkingSession {
   implicit val format = Json.format[LinkingSession]

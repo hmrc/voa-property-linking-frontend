@@ -34,12 +34,12 @@ trait EmailAddressGenerators {
 
   val validDomain = (for {
     topLevelDomain <- nonEmptyString(alphaChar)
-    otherParts <- listOf(nonEmptyString(alphaChar))
+    otherParts     <- listOf(nonEmptyString(alphaChar))
   } yield (otherParts :+ topLevelDomain).mkString(".")).label("domain")
 
   def validEmailAddresses(mailbox: Gen[String] = validMailbox, domain: Gen[String] = validDomain) =
     for {
       mailbox <- mailbox
-      domain <- domain
+      domain  <- domain
     } yield s"$mailbox@$domain"
 }

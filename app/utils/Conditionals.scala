@@ -21,28 +21,41 @@ import play.api.data.validation.Constraint
 import uk.gov.voa.play.form.Condition
 
 object Conditionals {
-  case class IfCondition[T](condition: Condition, mapping: Mapping[T], defaultValue: Option[T] = None,
-                            orElse: Seq[IfCondition[T]] = Nil,
-                            constraints: Seq[Constraint[T]] = Nil) extends Mapping[T] {
+  case class IfCondition[T](
+        condition: Condition,
+        mapping: Mapping[T],
+        defaultValue: Option[T] = None,
+        orElse: Seq[IfCondition[T]] = Nil,
+        constraints: Seq[Constraint[T]] = Nil)
+      extends Mapping[T] {
     override val format: Option[(String, Seq[Any])] = mapping.format
 
-    val alwaysTrue: Map[String, String] => Boolean = { _ => true }
+    val alwaysTrue: Map[String, String] => Boolean = { _ =>
+      true
+    }
     val key = mapping.key
     val mappings: Seq[Mapping[_]] = mapping.mappings :+ this
-    def verifying(addConstraints: Constraint[T]*): Mapping[T] = this.copy(constraints = constraints ++ addConstraints.toSeq)
+    def verifying(addConstraints: Constraint[T]*): Mapping[T] =
+      this.copy(constraints = constraints ++ addConstraints.toSeq)
     def unbind(value: T): Map[String, String] = mapping.unbind(value)
     def unbindAndValidate(value: T): (Map[String, String], Seq[FormError]) = mapping.unbindAndValidate(value)
     def withPrefix(prefix: String): IfCondition[T] = copy(mapping = mapping.withPrefix(prefix))
 
-    def bind(data: Map[String, String]): Either[Seq[FormError], T] = {
-      if (condition(data)) Forms.default(mapping, defaultValue.get).bind(data) else orElse.find { m =>
-        m.condition(data)
-      }.map(_.withDefault(defaultValue).withPrefix(key).bind(data)).getOrElse(Right(defaultValue.get))
-    }
+    def bind(data: Map[String, String]): Either[Seq[FormError], T] =
+      if (condition(data)) Forms.default(mapping, defaultValue.get).bind(data)
+      else
+        orElse
+          .find { m =>
+            m.condition(data)
+          }
+          .map(_.withDefault(defaultValue).withPrefix(key).bind(data))
+          .getOrElse(Right(defaultValue.get))
 
-    def elseIf(condition: Condition, mapping: Mapping[T]): IfCondition[T] = this.copy(orElse = orElse :+ IfCondition(condition, mapping))
+    def elseIf(condition: Condition, mapping: Mapping[T]): IfCondition[T] =
+      this.copy(orElse = orElse :+ IfCondition(condition, mapping))
 
-    def default(mapping: Mapping[T], value: T): IfCondition[T] = this.copy(orElse = orElse :+ IfCondition(alwaysTrue, mapping)).withDefault(Some(value))
+    def default(mapping: Mapping[T], value: T): IfCondition[T] =
+      this.copy(orElse = orElse :+ IfCondition(alwaysTrue, mapping)).withDefault(Some(value))
 
     private def withDefault: Option[T] => IfCondition[T] = default => this.copy(defaultValue = default)
   }

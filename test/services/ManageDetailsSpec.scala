@@ -30,7 +30,8 @@ import scala.concurrent.{Await, Future}
 
 class ManageDetailsSpec extends ServiceSpec {
 
-  implicit val request = new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
+  implicit val request =
+    new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
 
   "updatePostcode" should "upsert known facts if predicate matches" in {
     updatePostcode(1, 1, 2, true)
@@ -42,9 +43,8 @@ class ManageDetailsSpec extends ServiceSpec {
     verify(mockTaxEnrolments, never()).updatePostcode(any(), any(), any())(any(), any())
   }
 
-  def updatePostcode(personId: Int, addressId: Long, currentAddressId: Long, predicate: Boolean): Unit = {
+  def updatePostcode(personId: Int, addressId: Long, currentAddressId: Long, predicate: Boolean): Unit =
     Await.result(manageDetails.updatePostcode(personId, currentAddressId, addressId)(hc, request), 1.second)
-  }
 
   override def beforeEach(): Unit = {
     mockTaxEnrolments = mock[TaxEnrolmentConnector]
@@ -57,5 +57,8 @@ class ManageDetailsSpec extends ServiceSpec {
   private val mockAddress = Address(Some(1L), "1, The Place", "", "", "", "AA11 1AA")
 
   implicit private lazy val hc: HeaderCarrier = HeaderCarrier()
-  private lazy val manageDetails = new ManageVoaDetails(taxEnrolments = mockTaxEnrolments, addresses = mockAddresses, config = mock[ApplicationConfig])
+  private lazy val manageDetails = new ManageVoaDetails(
+    taxEnrolments = mockTaxEnrolments,
+    addresses = mockAddresses,
+    config = mock[ApplicationConfig])
 }

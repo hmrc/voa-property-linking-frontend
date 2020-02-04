@@ -19,14 +19,13 @@ package models
 import play.api.libs.json.Json
 
 case class RepresentationBulkAction(
-                                     page: Int,
-                                     pageSize: Int,
-                                     action: String,
-                                     requestIds: List[String],
-                                     complete: Option[Int] = None
-                                   )
+      page: Int,
+      pageSize: Int,
+      action: String,
+      requestIds: List[String],
+      complete: Option[Int] = None
+)
 
 object RepresentationBulkAction {
   implicit val format = Json.format[RepresentationBulkAction]
 }
-

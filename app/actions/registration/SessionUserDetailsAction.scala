@@ -27,9 +27,9 @@ import uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession
 import scala.concurrent.{ExecutionContext, Future}
 
 class SessionUserDetailsAction @Inject()(
-                                          val personalDetailsSessionRepo: PersonalDetailsSessionRepository
-                                        )(implicit override val executionContext: ExecutionContext)
-  extends ActionTransformer[RequestWithUserDetails, RequestWithSessionPersonDetails] {
+      val personalDetailsSessionRepo: PersonalDetailsSessionRepository
+)(implicit override val executionContext: ExecutionContext)
+    extends ActionTransformer[RequestWithUserDetails, RequestWithSessionPersonDetails] {
 
   override protected def transform[A](request: RequestWithUserDetails[A]): Future[RequestWithSessionPersonDetails[A]] = {
     implicit val req: Request[A] = request
@@ -37,9 +37,12 @@ class SessionUserDetailsAction @Inject()(
 
     personalDetailsSessionRepo.get[AdminUser].map {
       case None => new RequestWithSessionPersonDetails[A](None, request)
-      case Some(details: IndividualUserAccountDetails) => new RequestWithSessionPersonDetails[A](Some(details), request)
-      case Some(details: AdminInExistingOrganisationAccountDetails) => new RequestWithSessionPersonDetails[A](Some(details), request)
-      case Some(details: AdminOrganisationAccountDetails) => new RequestWithSessionPersonDetails[A](Some(details), request)
+      case Some(details: IndividualUserAccountDetails) =>
+        new RequestWithSessionPersonDetails[A](Some(details), request)
+      case Some(details: AdminInExistingOrganisationAccountDetails) =>
+        new RequestWithSessionPersonDetails[A](Some(details), request)
+      case Some(details: AdminOrganisationAccountDetails) =>
+        new RequestWithSessionPersonDetails[A](Some(details), request)
     }
   }
 }

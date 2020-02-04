@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.voa.propertylinking.exceptions.attachments
+package uk.gov.hmrc.propertylinking.exceptions.attachments
 
 import models.attachment.Attachment
 
 sealed trait AttachmentException extends Product with Serializable
-
 
 case object NotAllFilesReadyToUpload extends AttachmentException
 case class SomeFilesAreAlreadyUploaded(attachments: List[String]) extends AttachmentException

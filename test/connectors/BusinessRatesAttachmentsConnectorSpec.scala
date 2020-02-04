@@ -31,13 +31,15 @@ class BusinessRatesAttachmentsConnectorSpec extends VoaPropertyLinkingSpec {
   "initiateAttachment" should "call to initiateAttachment return a successful" in {
     val testConnector = new BusinessRatesAttachmentsConnector(mockWSHttp, applicationConfig)
     mockHttpPOST[InitiateAttachmentRequest, PreparedUpload]("tst-url", preparedUpload)
-    whenReady(testConnector.initiateAttachmentUpload(InitiateAttachmentPayload(initiateAttachmentRequest, "http://example.com", "http://example.com/failure")))(_ mustBe preparedUpload)
+    whenReady(
+      testConnector.initiateAttachmentUpload(
+        InitiateAttachmentPayload(initiateAttachmentRequest, "http://example.com", "http://example.com/failure")))(
+      _ mustBe preparedUpload)
   }
 
-
-    "submitFile" should   "submit the file" in {
-      val testConnector = new BusinessRatesAttachmentsConnector(mockWSHttp,applicationConfig)(ec)
-      mockHttpPATCH[JsObject, Attachment]("tst-url", attachments)
-      whenReady(testConnector.submitFile("file-reference", "submission-id"))(_ mustBe attachments)
-    }
+  "submitFile" should "submit the file" in {
+    val testConnector = new BusinessRatesAttachmentsConnector(mockWSHttp, applicationConfig)(ec)
+    mockHttpPATCH[JsObject, Attachment]("tst-url", attachments)
+    whenReady(testConnector.submitFile("file-reference", "submission-id"))(_ mustBe attachments)
+  }
 }

@@ -30,7 +30,7 @@ import repositories.SessionRepo
 import resources._
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.voa.propertylinking.exceptions.attachments.{AttachmentException, NotAllFilesReadyToUpload}
+import uk.gov.hmrc.propertylinking.exceptions.attachments.{AttachmentException, NotAllFilesReadyToUpload}
 import utils.HtmlPage
 
 import scala.collection.JavaConverters._
@@ -39,13 +39,15 @@ import scala.concurrent.Future
 class DeclarationSpec extends VoaPropertyLinkingSpec {
 
   trait Setup {
-    object TestDeclaration extends Declaration(
-      mockCustomErrorHandler,
-      mockPropertyLinkingService,
-      mockSessionRepo,
-      mockBusinessRatesAttachmentService,
-      preAuthenticatedActionBuilders(),
-      preEnrichedActionRefiner())
+    object TestDeclaration
+        extends Declaration(
+          mockCustomErrorHandler,
+          mockPropertyLinkingService,
+          mockSessionRepo,
+          mockBusinessRatesAttachmentService,
+          preAuthenticatedActionBuilders(),
+          preEnrichedActionRefiner()
+        )
 
     lazy val mockSessionRepo = {
       val f = mock[SessionRepo]
@@ -65,7 +67,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("input[type=checkbox]").asScala.map(_.id) must contain ("declaration")
+    html.select("input[type=checkbox]").asScala.map(_.id) must contain("declaration")
   }
 
   it should "require the user to accept the declaration to continue" in new Setup {
@@ -90,7 +92,8 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "submit the property link if the user accepts the declaration" in new Setup {
-    when(mockPropertyLinkingService.submit(any())(any(), any())).thenReturn(EitherT.rightT[Future, AttachmentException](()))
+    when(mockPropertyLinkingService.submit(any())(any(), any()))
+      .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
 
@@ -102,11 +105,13 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the normal confirmation page when the user has uploaded a rates bill" in new Setup {
-    when(mockPropertyLinkingService.submit(any())(any(), any())).thenReturn(EitherT.rightT[Future, AttachmentException](()))
+    when(mockPropertyLinkingService.submit(any())(any(), any()))
+      .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
 
-    when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any(), any[HeaderCarrier])).thenReturn(Future.successful(attachment))
+    when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any(), any[HeaderCarrier]))
+      .thenReturn(Future.successful(attachment))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -117,12 +122,12 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
 
     val html = Jsoup.parse(contentAsString(confirmation))
     html.title mustBe s"We’ve received your request to add the property to your business’s customer record"
-    html.body().text must include ("PL-123456")
+    html.body().text must include("PL-123456")
   }
 
   it should "display the normal confirmation page when the user has uploaded other evidence" in new Setup {
-    when(mockPropertyLinkingService.submit(any())(any(), any())).thenReturn(EitherT.rightT[Future, AttachmentException](()))
-
+    when(mockPropertyLinkingService.submit(any())(any(), any()))
+      .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -133,19 +138,20 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
 
     val html = Jsoup.parse(contentAsString(confirmation))
     html.title mustBe s"We’ve received your request to add the property to your business’s customer record"
-    html.body().text must include ("PL-123456")
+    html.body().text must include("PL-123456")
   }
 
   "The confirmation page" should "display the submission ID" in new Setup {
 
-    when(mockPropertyLinkingService.submit(any())(any(), any())).thenReturn(EitherT.rightT[Future, AttachmentException](()))
+    when(mockPropertyLinkingService.submit(any())(any(), any()))
+      .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
 
     val res = TestDeclaration.confirmation()(FakeRequest())
     status(res) mustBe OK
 
-    contentAsString(res) must include ("PL-123456")
+    contentAsString(res) must include("PL-123456")
   }
 
 }

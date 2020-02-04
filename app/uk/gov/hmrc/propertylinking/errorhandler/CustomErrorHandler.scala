@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.voa.propertylinking.errorhandler
+package uk.gov.hmrc.propertylinking.errorhandler
 
 import java.time.{Instant, LocalDateTime, ZoneId}
 
@@ -33,34 +33,37 @@ import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
 import scala.concurrent.Future
 
 class CustomErrorHandler @Inject()(
-                                    provider: GovernmentGatewayProvider
-                                  )(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig) extends FrontendErrorHandler with I18nSupport {
+      provider: GovernmentGatewayProvider
+)(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig)
+    extends FrontendErrorHandler with I18nSupport {
 
   val logger: Logger = Logger(this.getClass)
 
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html =
+  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(
+        implicit request: Request[_]): Html =
     views.html.errors.error(pageTitle, heading, message)
 
-  override def internalServerErrorTemplate(implicit request: Request[_]): Html = {
+  override def internalServerErrorTemplate(implicit request: Request[_]): Html =
     views.html.errors.technicalDifficulties(extractErrorReference(request), getDateTime)
-  }
 
   private def getDateTime: LocalDateTime = {
     val instant = Instant.ofEpochMilli(System.currentTimeMillis)
     LocalDateTime.ofInstant(instant, ZoneId.of("Europe/London"))
   }
 
-  private def extractErrorReference(request: Request[_]): Option[String] = {
+  private def extractErrorReference(request: Request[_]): Option[String] =
     request.headers.get(HeaderNames.xRequestId) map {
       _.split("-")(2)
     }
-  }
 
   override def onServerError(request: RequestHeader, exception: Throwable): Future[Result] =
     exception match {
       case error: BraAuthorisationFailure =>
         logger.info(s"business rates authorisation returned ${error.message}, redirecting to login.")
-        Future.successful(Redirect(appConfig.ggSignInUrl, Map("continue" -> Seq(appConfig.baseUrl + request.uri), "origin" -> Seq("voa"))))
+        Future.successful(
+          Redirect(
+            appConfig.ggSignInUrl,
+            Map("continue" -> Seq(appConfig.baseUrl + request.uri), "origin" -> Seq("voa"))))
       case _ =>
         super.onServerError(request, exception)
 

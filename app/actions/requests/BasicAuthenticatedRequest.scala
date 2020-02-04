@@ -20,7 +20,6 @@ import models.{DetailedIndividualAccount, GroupAccount}
 import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.auth.core.AffinityGroup
 
-
 sealed abstract class AuthenticatedRequest[A](request: Request[A]) extends WrappedRequest[A](request) {
   def organisationAccount: GroupAccount
 
@@ -32,20 +31,20 @@ sealed abstract class AuthenticatedRequest[A](request: Request[A]) extends Wrapp
 }
 //need to decouple to authentication away from the group account and individual account.
 case class BasicAuthenticatedRequestWithAffinityGroup[A](
-                                                          organisationAccount: GroupAccount,
-                                                          individualAccount: DetailedIndividualAccount,
-                                                          affinityGroup: AffinityGroup,
-                                                          request: Request[A]
-                                                        ) extends AuthenticatedRequest[A](request)
+      organisationAccount: GroupAccount,
+      individualAccount: DetailedIndividualAccount,
+      affinityGroup: AffinityGroup,
+      request: Request[A]
+) extends AuthenticatedRequest[A](request)
 case class BasicAuthenticatedRequest[A](
-                                    organisationAccount: GroupAccount,
-                                    individualAccount: DetailedIndividualAccount,
-                                    request: Request[A]
-                                  ) extends AuthenticatedRequest[A](request)
+      organisationAccount: GroupAccount,
+      individualAccount: DetailedIndividualAccount,
+      request: Request[A]
+) extends AuthenticatedRequest[A](request)
 
 case class AgentRequest[A](
-                       organisationAccount: GroupAccount,
-                       individualAccount: DetailedIndividualAccount,
-                       agentCode: Long,
-                       request: Request[A]
-                     ) extends AuthenticatedRequest[A](request)
+      organisationAccount: GroupAccount,
+      individualAccount: DetailedIndividualAccount,
+      agentCode: Long,
+      request: Request[A]
+) extends AuthenticatedRequest[A](request)

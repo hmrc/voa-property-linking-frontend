@@ -31,9 +31,9 @@ import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 import scala.util.Try
 
 class GuiceModule(
-                   environment: Environment,
-                   configuration: Configuration
-                 ) extends AbstractModule {
+      environment: Environment,
+      configuration: Configuration
+) extends AbstractModule {
 
   def configure() = {
 
@@ -41,10 +41,17 @@ class GuiceModule(
     bindBoolean("feature.assessmentSkip", "detailed-valuation.skip")
     bindBoolean("feature.newSummaryValuationRoute", "summary-valuation.newRoute")
 
-    bind(classOf[ServicesConfig]).toInstance(new ServicesConfig(configuration, new RunMode(configuration, environment.mode)))
-    bind(classOf[SessionRepo]).annotatedWith(Names.named("propertyLinkingSession")).to(classOf[PropertyLinkingSessionRepository])
-    bind(classOf[SessionRepo]).annotatedWith(Names.named("personSession")).to(classOf[PersonalDetailsSessionRepository])
-    bind(classOf[SessionRepo]).annotatedWith(Names.named("appointLinkSession")).to(classOf[PropertyLinksSessionRepository])
+    bind(classOf[ServicesConfig])
+      .toInstance(new ServicesConfig(configuration, new RunMode(configuration, environment.mode)))
+    bind(classOf[SessionRepo])
+      .annotatedWith(Names.named("propertyLinkingSession"))
+      .to(classOf[PropertyLinkingSessionRepository])
+    bind(classOf[SessionRepo])
+      .annotatedWith(Names.named("personSession"))
+      .to(classOf[PersonalDetailsSessionRepository])
+    bind(classOf[SessionRepo])
+      .annotatedWith(Names.named("appointLinkSession"))
+      .to(classOf[PropertyLinksSessionRepository])
     bind(classOf[ManageDetails]).to(classOf[ManageVoaDetails])
     bind(classOf[IdentityVerificationService]).to(classOf[IvService])
     bind(classOf[Clock]).toInstance(Clock.systemUTC())

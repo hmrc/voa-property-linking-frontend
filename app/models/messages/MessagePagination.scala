@@ -19,13 +19,14 @@ package models.messages
 import models.SortOrder
 import play.api.mvc.QueryStringBindable
 
-case class MessagePagination(clientName: Option[String] = None,
-                             referenceNumber: Option[String] = None,
-                             address: Option[String] = None,
-                             pageNumber: Int = 1,
-                             pageSize: Int = 15,
-                             sortField: MessageSortField = MessageSortField.EffectiveDate,
-                             sortOrder: SortOrder = SortOrder.Descending) {
+case class MessagePagination(
+      clientName: Option[String] = None,
+      referenceNumber: Option[String] = None,
+      address: Option[String] = None,
+      pageNumber: Int = 1,
+      pageSize: Int = 15,
+      sortField: MessageSortField = MessageSortField.EffectiveDate,
+      sortOrder: SortOrder = SortOrder.Descending) {
 
   lazy val startPoint: Int = (pageNumber - 1) * pageSize + 1
 
@@ -36,7 +37,6 @@ case class MessagePagination(clientName: Option[String] = None,
   def nextPage: MessagePagination = copy(pageNumber = pageNumber + 1)
 
   def clear: MessagePagination = copy(address = None, referenceNumber = None, clientName = None)
-
 
   lazy val queryString: String =
     s"""
@@ -51,36 +51,38 @@ case class MessagePagination(clientName: Option[String] = None,
 }
 
 object MessagePagination {
-  implicit val queryStringBindable: QueryStringBindable[MessagePagination] = new QueryStringBindable[MessagePagination] {
-    override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, MessagePagination]] = {
-      def bindParam[T](key: String)(implicit qsb: QueryStringBindable[T]): Option[Either[String, T]] = qsb.bind(key, params)
+  implicit val queryStringBindable: QueryStringBindable[MessagePagination] =
+    new QueryStringBindable[MessagePagination] {
+      override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, MessagePagination]] = {
+        def bindParam[T](key: String)(implicit qsb: QueryStringBindable[T]): Option[Either[String, T]] =
+          qsb.bind(key, params)
 
-      for {
-        clientName <- bindParam[Option[String]]("clientName")
-        referenceNumber <- bindParam[Option[String]]("referenceNumber")
-        address <- bindParam[Option[String]]("address")
-        pageNumber <- bindParam[Int]("pageNumber")
-        pageSize <- bindParam[Int]("pageSize")
-        sortField <- bindParam[MessageSortField]("sortField")
-        sortOrder <- bindParam[SortOrder]("sortOrder")
-      } yield {
-        (clientName, referenceNumber, address, pageNumber, pageSize, sortField, sortOrder) match {
-          case (Right(cn), Right(rn), Right(ad), Right(pn), Right(ps), Right(sf), Right(so)) =>
-            Right(MessagePagination(cn, rn, ad, pn, ps, sf, so))
-          case _ => Left("Unable to bind to MessagePagination")
+        for {
+          clientName      <- bindParam[Option[String]]("clientName")
+          referenceNumber <- bindParam[Option[String]]("referenceNumber")
+          address         <- bindParam[Option[String]]("address")
+          pageNumber      <- bindParam[Int]("pageNumber")
+          pageSize        <- bindParam[Int]("pageSize")
+          sortField       <- bindParam[MessageSortField]("sortField")
+          sortOrder       <- bindParam[SortOrder]("sortOrder")
+        } yield {
+          (clientName, referenceNumber, address, pageNumber, pageSize, sortField, sortOrder) match {
+            case (Right(cn), Right(rn), Right(ad), Right(pn), Right(ps), Right(sf), Right(so)) =>
+              Right(MessagePagination(cn, rn, ad, pn, ps, sf, so))
+            case _ => Left("Unable to bind to MessagePagination")
+          }
         }
       }
-    }
 
-    override def unbind(key: String, value: MessagePagination): String =
-      s"""
-         |clientName=${value.clientName.getOrElse("")}&
-         |referenceNumber=${value.referenceNumber.getOrElse("")}&
-         |address=${value.address.getOrElse("")}&
-         |pageNumber=${value.pageNumber}&
-         |pageSize=${value.pageSize}&
-         |sortField=${value.sortField}&
-         |sortOrder=${value.sortOrder}
-         |""".stripMargin.replaceAll("\n", "")
-  }
+      override def unbind(key: String, value: MessagePagination): String =
+        s"""
+           |clientName=${value.clientName.getOrElse("")}&
+           |referenceNumber=${value.referenceNumber.getOrElse("")}&
+           |address=${value.address.getOrElse("")}&
+           |pageNumber=${value.pageNumber}&
+           |pageSize=${value.pageSize}&
+           |sortField=${value.sortField}&
+           |sortOrder=${value.sortOrder}
+           |""".stripMargin.replaceAll("\n", "")
+    }
 }

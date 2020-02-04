@@ -29,25 +29,23 @@ import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.test.TestService
 import services.{Failure, Success}
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.Cats
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class TestController @Inject()(
-                                override val errorHandler: CustomErrorHandler,
-                                authenticated: AuthenticatedAction,
-                                withLinkingSession: WithLinkingSession,
-                                testService: TestService,
-                                individualAccounts: IndividualAccounts,
-                                testPropertyLinkingConnector: TestPropertyLinkingConnector,
-                                businessRatesAttachmentsConnector: BusinessRatesAttachmentsConnector,
-                                testCheckConnector: TestCheckConnector,
-                                reprConnector: PropertyRepresentationConnector
-                              )(
-                                implicit executionContext: ExecutionContext,
-                                override val controllerComponents: MessagesControllerComponents)
-  extends PropertyLinkingController with Cats {
+      override val errorHandler: CustomErrorHandler,
+      authenticated: AuthenticatedAction,
+      withLinkingSession: WithLinkingSession,
+      testService: TestService,
+      individualAccounts: IndividualAccounts,
+      testPropertyLinkingConnector: TestPropertyLinkingConnector,
+      businessRatesAttachmentsConnector: BusinessRatesAttachmentsConnector,
+      testCheckConnector: TestCheckConnector,
+      reprConnector: PropertyRepresentationConnector
+)(implicit executionContext: ExecutionContext, override val controllerComponents: MessagesControllerComponents)
+    extends PropertyLinkingController with Cats {
 
   val getUserDetails: Action[AnyContent] = authenticated { implicit request =>
     Ok(Json.toJson(if (request.organisationAccount.isAgent) {
@@ -57,22 +55,28 @@ class TestController @Inject()(
         organisationName = request.organisationAccount.companyName,
         governmentGatewayGroupId = request.organisationAccount.groupId,
         governmentGatewayExternalId = request.individualAccount.externalId,
-        agentCode = request.organisationAccount.agentCode)
+        agentCode = request.organisationAccount.agentCode
+      )
     } else {
-      TestUserDetails(personId = request.individualAccount.individualId,
+      TestUserDetails(
+        personId = request.individualAccount.individualId,
         organisationId = request.organisationAccount.id,
         organisationName = request.organisationAccount.companyName,
         governmentGatewayGroupId = request.organisationAccount.groupId,
         governmentGatewayExternalId = request.individualAccount.externalId,
-        agentCode = None)
+        agentCode = None
+      )
     }))
   }
 
   def deRegister(): Action[AnyContent] = authenticated.async { implicit request =>
     val orgId = request.individualAccount.organisationId
-    testPropertyLinkingConnector.deRegister(orgId).map(_ => Ok(s"Successfully de-registered organisation with ID: $orgId")).recover {
-      case e => Ok(s"Failed to de-register organisation with ID: $orgId with error: ${e.getMessage}")
-    }
+    testPropertyLinkingConnector
+      .deRegister(orgId)
+      .map(_ => Ok(s"Successfully de-registered organisation with ID: $orgId"))
+      .recover {
+        case e => Ok(s"Failed to de-register organisation with ID: $orgId with error: ${e.getMessage}")
+      }
   }
 
   def deEnrol() = authenticated.async { implicit request =>
@@ -89,30 +93,51 @@ class TestController @Inject()(
     Future.successful(Ok("Agent appointments revoked"))
   }
 
-  def declinePendingAgentAppointments(agentOrgId: String, agentPersonId: String) = authenticated.async { implicit request =>
-    val pendingAgentAppointments = reprConnector.forAgent(RepresentationPending, agentOrgId.toLong, Pagination(pageNumber = 1, pageSize = 100))
-    pendingAgentAppointments.map(appointments =>
-      appointments.propertyRepresentations.map(appointment =>
-        reprConnector.response(RepresentationResponse(appointment.submissionId, agentPersonId.toLong, RepresentationResponseDeclined)))).map(_ =>
-      Ok("Pending agent appointments declined"))
+  def declinePendingAgentAppointments(agentOrgId: String, agentPersonId: String) = authenticated.async {
+    implicit request =>
+      val pendingAgentAppointments =
+        reprConnector.forAgent(RepresentationPending, agentOrgId.toLong, Pagination(pageNumber = 1, pageSize = 100))
+      pendingAgentAppointments
+        .map(appointments =>
+          appointments.propertyRepresentations.map(appointment =>
+            reprConnector.response(
+              RepresentationResponse(appointment.submissionId, agentPersonId.toLong, RepresentationResponseDeclined))))
+        .map(_ => Ok("Pending agent appointments declined"))
   }
 
   def clearDvrRecords = authenticated.async { implicit request =>
-    testPropertyLinkingConnector.clearDvrRecords(request.organisationAccount.id).map(res => Ok(s"Successfully cleared DVR records for organisation with ID: ${request.organisationAccount.id}")).recover {
-      case e => Ok(s"Failed to clear DVR records for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
-    }
+    testPropertyLinkingConnector
+      .clearDvrRecords(request.organisationAccount.id)
+      .map(res => Ok(s"Successfully cleared DVR records for organisation with ID: ${request.organisationAccount.id}"))
+      .recover {
+        case e =>
+          Ok(
+            s"Failed to clear DVR records for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
+      }
   }
 
   def clearDraftCases = authenticated.async { implicit request =>
-    testCheckConnector.clearDraftCases(request.organisationAccount.id).map(res => Ok(s"Successfully cleared draft check cases for organisation with ID: ${request.organisationAccount.id}")).recover {
-      case e => Ok(s"Failed to clear draft check cases for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
-    }
+    testCheckConnector
+      .clearDraftCases(request.organisationAccount.id)
+      .map(res =>
+        Ok(s"Successfully cleared draft check cases for organisation with ID: ${request.organisationAccount.id}"))
+      .recover {
+        case e =>
+          Ok(
+            s"Failed to clear draft check cases for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
+      }
   }
 
   def clearCheckCases(propertyLinksSubmissionId: String) = authenticated.async { implicit request =>
-    testPropertyLinkingConnector.deleteCheckCases(propertyLinksSubmissionId).map(res => Ok(s"Successfully cleared the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId")).recover {
-      case e => Ok(s"Failed to delete the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId with error: ${e.getMessage}")
-    }
+    testPropertyLinkingConnector
+      .deleteCheckCases(propertyLinksSubmissionId)
+      .map(res =>
+        Ok(s"Successfully cleared the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId"))
+      .recover {
+        case e =>
+          Ok(
+            s"Failed to delete the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId with error: ${e.getMessage}")
+      }
   }
 
   def getSubmittedCheck(submissionId: String) = authenticated.async { implicit request =>
@@ -120,7 +145,9 @@ class TestController @Inject()(
   }
 
   val getAttachments = authenticated.andThen(withLinkingSession).async { implicit request =>
-    request.ses.uploadEvidenceData.attachments.fold(Set.empty[String])(_.keySet).toList
+    request.ses.uploadEvidenceData.attachments
+      .fold(Set.empty[String])(_.keySet)
+      .toList
       .traverse(businessRatesAttachmentsConnector.getAttachment)
       .map(attachments => Ok(Json.toJson(AttachmentsInLinkingSession(attachments))))
   }

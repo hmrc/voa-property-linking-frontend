@@ -30,101 +30,128 @@ import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class RevokeAgentController @Inject()(
-                                       val errorHandler: CustomErrorHandler,
-                                       auditingService: AuditingService,
-                                       authenticated: AuthenticatedAction,
-                                       propertyLinks: PropertyLinkConnector,
-                                       representations: PropertyRepresentationConnector
-                                     )(
-                                       implicit executionContenxt: ExecutionContext,
-                                       override val messagesApi: MessagesApi,
-                                       override val controllerComponents: MessagesControllerComponents,
-                                       val config: ApplicationConfig
-                                     ) extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      auditingService: AuditingService,
+      authenticated: AuthenticatedAction,
+      propertyLinks: PropertyLinkConnector,
+      representations: PropertyRepresentationConnector
+)(
+      implicit executionContenxt: ExecutionContext,
+      override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      val config: ApplicationConfig
+) extends PropertyLinkingController {
 
   val logger = Logger(this.getClass.getName)
 
-  def revokeAgent(submissionId: String, authorisedPartyId: Long, agentCode: Long) = authenticated.async { implicit request =>
-    propertyLinks.getMyOrganisationPropertyLink(submissionId).map {
-      case Some(link) =>
-        link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-          case Some(agent) =>
-            Ok(views.html.propertyrepresentation.revoke.revokeAgent(agentCode, submissionId, authorisedPartyId, agent.organisationName, !request.organisationAccount.isAgent))
-          case None => notFound
-        }
-      case None => notFound
-    }
+  def revokeAgent(submissionId: String, authorisedPartyId: Long, agentCode: Long) = authenticated.async {
+    implicit request =>
+      propertyLinks.getMyOrganisationPropertyLink(submissionId).map {
+        case Some(link) =>
+          link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
+            case Some(agent) =>
+              Ok(
+                views.html.propertyrepresentation.revoke.revokeAgent(
+                  agentCode,
+                  submissionId,
+                  authorisedPartyId,
+                  agent.organisationName,
+                  !request.organisationAccount.isAgent))
+            case None => notFound
+          }
+        case None => notFound
+      }
   }
 
-  def revokeAgentSubmit(
-                         submissionId: String,
-                         agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
-    Form(Forms.single("authorisedPartyId" -> longNumber)).bindFromRequest().fold(
-      errors =>
-        propertyLinks.getMyOrganisationPropertyLink(submissionId).map {
-          case Some(link) =>
-            link.agents.find(a => a.agentCode == agentCode) match {
-              case Some(agent) =>
-                logger.warn(s"authorised party id not passed with this request. $errors")
-                BadRequest(views.html.propertyrepresentation.revoke.revokeAgent(agentCode, submissionId, agent.authorisedPartyId, agent.organisationName, !request.organisationAccount.isAgent))
+  def revokeAgentSubmit(submissionId: String, agentCode: Long): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      Form(Forms.single("authorisedPartyId" -> longNumber))
+        .bindFromRequest()
+        .fold(
+          errors =>
+            propertyLinks.getMyOrganisationPropertyLink(submissionId).map {
+              case Some(link) =>
+                link.agents.find(a => a.agentCode == agentCode) match {
+                  case Some(agent) =>
+                    logger.warn(s"authorised party id not passed with this request. $errors")
+                    BadRequest(
+                      views.html.propertyrepresentation.revoke.revokeAgent(
+                        agentCode,
+                        submissionId,
+                        agent.authorisedPartyId,
+                        agent.organisationName,
+                        !request.organisationAccount.isAgent))
+                  case None => notFound
+                }
               case None => notFound
-            }
-          case None => notFound
-        },
-      authorisedPartyId =>
-        propertyLinks
-          .getMyOrganisationPropertyLink(submissionId)
-          .flatMap {
-            case Some(link) =>
-              link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-                case Some(_) =>
-                  representations.revoke(authorisedPartyId).map { _ => {
-                    auditingService.sendEvent("agent representation revoke", Json.obj(
-                      "organisationId" -> request.organisationId,
-                      "individualId" -> request.individualAccount.individualId,
-                      "propertyLinkId" -> submissionId,
-                      "agentOrganisationId" -> request.organisationAccount.id).toString
-                    )
-                    Redirect(routes.RevokeAgentController.revokeAgentConfirmed(submissionId, authorisedPartyId, agentCode))
-                  }
+          },
+          authorisedPartyId =>
+            propertyLinks
+              .getMyOrganisationPropertyLink(submissionId)
+              .flatMap {
+                case Some(link) =>
+                  link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
+                    case Some(_) =>
+                      representations.revoke(authorisedPartyId).map {
+                        _ =>
+                          {
+                            auditingService.sendEvent(
+                              "agent representation revoke",
+                              Json
+                                .obj(
+                                  "organisationId"      -> request.organisationId,
+                                  "individualId"        -> request.individualAccount.individualId,
+                                  "propertyLinkId"      -> submissionId,
+                                  "agentOrganisationId" -> request.organisationAccount.id
+                                )
+                                .toString
+                            )
+                            Redirect(routes.RevokeAgentController
+                              .revokeAgentConfirmed(submissionId, authorisedPartyId, agentCode))
+                          }
+                      }
+                    case None => Future.successful(notFound)
                   }
                 case None => Future.successful(notFound)
-              }
-            case None => Future.successful(notFound)
+            }
+        )
+  }
+
+  def revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long): Action[AnyContent] =
+    authenticated.async { implicit request =>
+      propertyLinks.getMyOrganisationPropertyLink(submissionId).map {
+        case Some(link) =>
+          val nextLink = if (link.agents.size > 1) {
+            controllers.routes.Dashboard.viewManagedProperties(agentCode, !request.organisationAccount.isAgent).url
+          } else {
+            controllers.routes.Dashboard.manageAgents().url
           }
-    )
-  }
 
-  def revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
-    propertyLinks.getMyOrganisationPropertyLink(submissionId).map {
-      case Some(link) =>
-        val nextLink = if (link.agents.size > 1) {
-          controllers.routes.Dashboard.viewManagedProperties(agentCode, !request.organisationAccount.isAgent).url
-        } else {
-          controllers.routes.Dashboard.manageAgents().url
-        }
-
-        link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-          case Some(agent) =>
-            auditingService.sendEvent("agent representation revoke", Json.obj(
-              "organisationId" -> request.organisationId,
-              "individualId" -> request.individualAccount.individualId,
-              "propertyLinkId" -> submissionId,
-              "agentOrganisationId" -> request.organisationAccount.id).toString
-            )
-            Ok(views.html.propertyrepresentation.revoke.revokedAgent(nextLink, agent.organisationName, link.address))
-          case None => notFound
-        }
-      case None => notFound
+          link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
+            case Some(agent) =>
+              auditingService.sendEvent(
+                "agent representation revoke",
+                Json
+                  .obj(
+                    "organisationId"      -> request.organisationId,
+                    "individualId"        -> request.individualAccount.individualId,
+                    "propertyLinkId"      -> submissionId,
+                    "agentOrganisationId" -> request.organisationAccount.id
+                  )
+                  .toString
+              )
+              Ok(views.html.propertyrepresentation.revoke.revokedAgent(nextLink, agent.organisationName, link.address))
+            case None => notFound
+          }
+        case None => notFound
+      }
     }
-  }
 
-  private def agentIsAuthorised(agent: Party, authorisedPartyId: Long, agentCode: Long) = {
+  private def agentIsAuthorised(agent: Party, authorisedPartyId: Long, agentCode: Long) =
     agent.authorisedPartyId == authorisedPartyId && agent.agentCode == agentCode
-  }
 }

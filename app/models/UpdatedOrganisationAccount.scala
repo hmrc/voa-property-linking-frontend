@@ -20,14 +20,15 @@ import java.time.{Instant, LocalDate}
 
 import play.api.libs.json.{Format, Json}
 
-case class UpdatedOrganisationAccount(governmentGatewayGroupId: String,
-                                      addressUnitId: Long,
-                                      representativeFlag: Boolean,
-                                      organisationName: String,
-                                      organisationEmailAddress: String,
-                                      organisationTelephoneNumber: String,
-                                      effectiveFrom: Instant,
-                                      changedByGGExternalId: String)
+case class UpdatedOrganisationAccount(
+      governmentGatewayGroupId: String,
+      addressUnitId: Long,
+      representativeFlag: Boolean,
+      organisationName: String,
+      organisationEmailAddress: String,
+      organisationTelephoneNumber: String,
+      effectiveFrom: Instant,
+      changedByGGExternalId: String)
 
 object UpdatedOrganisationAccount {
   implicit val format: Format[UpdatedOrganisationAccount] = Json.format[UpdatedOrganisationAccount]

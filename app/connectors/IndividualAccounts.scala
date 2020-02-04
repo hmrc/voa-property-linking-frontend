@@ -29,22 +29,23 @@ class IndividualAccounts @Inject()(config: ServicesConfig, http: HttpClient)(imp
 
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking/individuals"
 
-  def get(personId: Long)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+  def get(personId: Long)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] =
     http.GET[Option[DetailedIndividualAccount]](s"$baseUrl/$personId")
-  }
 
-  def withExternalId(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = {
+  def withExternalId(externalId: String)(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] =
     http.GET[Option[DetailedIndividualAccount]](s"$baseUrl?externalId=$externalId")
-  }
 
-  def create(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = {
-    http.POST[IndividualAccountSubmission, JsValue](baseUrl, account) map { js => js \ "id" match {
-      case JsDefined(JsNumber(id)) => id.toInt
-      case _ => throw new Exception(s"Invalid id: $js")
-    }}
-  }
+  def create(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] =
+    http.POST[IndividualAccountSubmission, JsValue](baseUrl, account) map { js =>
+      js \ "id" match {
+        case JsDefined(JsNumber(id)) => id.toInt
+        case _                       => throw new Exception(s"Invalid id: $js")
+      }
+    }
 
-  def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.PUT[IndividualAccount, HttpResponse](baseUrl + s"/${account.individualId}", account.toIndividualAccount) map { _ => () }
-  }
+  def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] =
+    http.PUT[IndividualAccount, HttpResponse](baseUrl + s"/${account.individualId}", account.toIndividualAccount) map {
+      _ =>
+        ()
+    }
 }

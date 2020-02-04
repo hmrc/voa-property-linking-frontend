@@ -21,13 +21,27 @@ import java.time.LocalDate
 import models.domain._
 import play.api.libs.json.{Json, OFormat}
 
-case class PersonalDetails(firstName: String, lastName: String, dateOfBirth: LocalDate, nino: Nino,
-                           email: String, confirmedEmail: String, phone1: String, phone2: Option[String], address: Address) {
+case class PersonalDetails(
+      firstName: String,
+      lastName: String,
+      dateOfBirth: LocalDate,
+      nino: Nino,
+      email: String,
+      confirmedEmail: String,
+      phone1: String,
+      phone2: Option[String],
+      address: Address) {
 
   def ivDetails: IVDetails = IVDetails(firstName, lastName, Some(dateOfBirth), Some(nino))
 
   def individualDetails: IndividualDetails =
-    IndividualDetails(firstName, lastName, email, phone1, phone2, address.addressUnitId.getOrElse(throw new Exception("Address ID not set")))
+    IndividualDetails(
+      firstName,
+      lastName,
+      email,
+      phone1,
+      phone2,
+      address.addressUnitId.getOrElse(throw new Exception("Address ID not set")))
 
   def withAddressId(addressId: Long): PersonalDetails = copy(address = address.copy(addressUnitId = Some(addressId)))
 

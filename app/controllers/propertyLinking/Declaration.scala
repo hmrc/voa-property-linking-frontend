@@ -24,8 +24,8 @@ import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
 import javax.inject.Named
-import models.{LinkBasis, RatesBillFlag, RatesBillType}
 import models.propertylinking.requests.PropertyLinkRequest
+import models.{RatesBillFlag, RatesBillType}
 import play.api.Logger
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
@@ -33,8 +33,8 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.BusinessRatesAttachmentsService
 import services.propertylinking.PropertyLinkingService
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
-import uk.gov.voa.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
 import utils.Cats
 import views.html.propertyLinking.declaration
 
@@ -42,19 +42,18 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class Declaration @Inject()(
-                             val errorHandler: CustomErrorHandler,
-                             propertyLinkService: PropertyLinkingService,
-                             @Named("propertyLinkingSession") sessionRepository: SessionRepo,
-                             businessRatesAttachmentService: BusinessRatesAttachmentsService,
-                             authenticatedAction: AuthenticatedAction,
-                             withLinkingSession: WithLinkingSession
-                           )(
-                             implicit executionContext: ExecutionContext,
-                             override val messagesApi: MessagesApi,
-                             override val controllerComponents: MessagesControllerComponents,
-                             val config: ApplicationConfig
-                           )
-  extends PropertyLinkingController with Cats {
+      val errorHandler: CustomErrorHandler,
+      propertyLinkService: PropertyLinkingService,
+      @Named("propertyLinkingSession") sessionRepository: SessionRepo,
+      businessRatesAttachmentService: BusinessRatesAttachmentsService,
+      authenticatedAction: AuthenticatedAction,
+      withLinkingSession: WithLinkingSession
+)(
+      implicit executionContext: ExecutionContext,
+      override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      val config: ApplicationConfig
+) extends PropertyLinkingController with Cats {
 
   val logger = Logger(this.getClass.getName)
 
@@ -67,33 +66,41 @@ class Declaration @Inject()(
     We should have extra validation here to catch users that get by without supplying on the necessary information.
    */
   def submit(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    form.bindFromRequest().fold(
-      _ => {
-        val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
-        Future.successful(BadRequest(declaration(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence)))
-      },
-      _ =>
-        propertyLinkService.submit(PropertyLinkRequest(request.ses, request.organisationId))
-          .fold(
-            {
-              case NotAllFilesReadyToUpload =>
-                logger.warn(s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page")
-                val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
-                BadRequest(declaration(DeclarationVM(form.fill(true).withError("declaration", "declaration.file.receipt")), isRatesBillEvidence))
-              case MissingRequiredNumberOfFiles =>
-                logger.warn(s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")
-                request.ses.evidenceType match {
-                  case Some(RatesBillType) =>
-                    Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
-                  case Some(_) =>
-                    Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
-                  case None =>
-                    Redirect(routes.ChooseEvidence.show())
-                }
-            },
-            _ => Redirect(routes.Declaration.confirmation())
+    form
+      .bindFromRequest()
+      .fold(
+        _ => {
+          val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
+          Future.successful(BadRequest(declaration(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence)))
+        },
+        _ =>
+          propertyLinkService
+            .submit(PropertyLinkRequest(request.ses, request.organisationId))
+            .fold(
+              {
+                case NotAllFilesReadyToUpload =>
+                  logger.warn(
+                    s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page")
+                  val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
+                  BadRequest(
+                    declaration(
+                      DeclarationVM(form.fill(true).withError("declaration", "declaration.file.receipt")),
+                      isRatesBillEvidence))
+                case MissingRequiredNumberOfFiles =>
+                  logger.warn(
+                    s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")
+                  request.ses.evidenceType match {
+                    case Some(RatesBillType) =>
+                      Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
+                    case Some(_) =>
+                      Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
+                    case None =>
+                      Redirect(routes.ChooseEvidence.show())
+                  }
+              },
+              _ => Redirect(routes.Declaration.confirmation())
           )
-    )
+      )
   }
 
   def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
@@ -101,7 +108,6 @@ class Declaration @Inject()(
       Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
     }
   }
-
 
   lazy val form = Form(Forms.single("declaration" -> mandatoryBoolean))
   lazy val formWithNoDeclaration = form.withError(FormError("declaration", "declaration.required"))

@@ -19,12 +19,12 @@ package models.searchApi
 import play.api.libs.json.Json
 
 case class AgentAuthResult(
-                            start: Int,
-                            size: Int,
-                            filterTotal: Int,
-                            total: Int,
-                            authorisations: Seq[AgentAuthorisation]
-                          )
+      start: Int,
+      size: Int,
+      filterTotal: Int,
+      total: Int,
+      authorisations: Seq[AgentAuthorisation]
+)
 
 object AgentAuthResult {
   implicit val agentAuthResult = Json.format[AgentAuthResult]

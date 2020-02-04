@@ -18,7 +18,6 @@ package models.identityVerificationProxy
 
 import play.api.libs.json.Json
 
-
 case class Link(link: String) {
 
   def getLink(baseUrl: String) = s"$baseUrl$link"

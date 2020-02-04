@@ -34,15 +34,8 @@ import utils.{FakeObjects, GlobalExecutionContext, NoMetricsOneAppPerSuite}
 import scala.concurrent.Future
 
 class SessionUserDetailsActionSpec
-  extends UnitSpec
-    with MockitoSugar
-    with ScalaFutures
-    with BeforeAndAfterEach
-    with AllMocks
-    with NoMetricsOneAppPerSuite
-    with GlobalExecutionContext
-    with FakeObjects {
-
+    extends UnitSpec with MockitoSugar with ScalaFutures with BeforeAndAfterEach with AllMocks
+    with NoMetricsOneAppPerSuite with GlobalExecutionContext with FakeObjects {
 
   "SessionUserDetailsAction" should {
     "transform a RequestWithUserDetails into a RequestWithSessionPersonDetails - for Individual" in new Setup {
@@ -50,7 +43,7 @@ class SessionUserDetailsActionSpec
       val eventualSomeDetails = Future successful Some(individualUserAccountDetails)
       when(mockPersonalDetailsSessionRepository.get[User](any(), any())).thenReturn(eventualSomeDetails)
 
-      implicit val fakeRequest = FakeRequest().withHeaders(("","")).withSession(("",""))
+      implicit val fakeRequest = FakeRequest().withHeaders(("", "")).withSession(("", ""))
       implicit val request = new RequestWithUserDetails(individualUserDetails, fakeRequest)
 
       val action = new Harness(mockPersonalDetailsSessionRepository)
@@ -69,7 +62,7 @@ class SessionUserDetailsActionSpec
       val eventualSomeDetails = Future successful Some(adminInExistingOrganisationAccountDetails)
       when(mockPersonalDetailsSessionRepository.get[User](any(), any())).thenReturn(eventualSomeDetails)
 
-      implicit val fakeRequest = FakeRequest().withHeaders(("","")).withSession(("",""))
+      implicit val fakeRequest = FakeRequest().withHeaders(("", "")).withSession(("", ""))
       implicit val request = new RequestWithUserDetails(orgUserDetails, fakeRequest)
 
       val action = new Harness(mockPersonalDetailsSessionRepository)
@@ -88,7 +81,7 @@ class SessionUserDetailsActionSpec
       val eventualSomeDetails = Future successful Some(adminOrganisationAccountDetails)
       when(mockPersonalDetailsSessionRepository.get[User](any(), any())).thenReturn(eventualSomeDetails)
 
-      implicit val fakeRequest = FakeRequest().withHeaders(("","")).withSession(("",""))
+      implicit val fakeRequest = FakeRequest().withHeaders(("", "")).withSession(("", ""))
       implicit val request = new RequestWithUserDetails(orgUserDetails, fakeRequest)
 
       val action = new Harness(mockPersonalDetailsSessionRepository)
@@ -107,8 +100,10 @@ class SessionUserDetailsActionSpec
 
     implicit val hc: HeaderCarrier = HeaderCarrier()
 
-    class Harness(personalDetailsSessionRepo: PersonalDetailsSessionRepository) extends SessionUserDetailsAction(personalDetailsSessionRepo) {
-      def callTransform[A](request: RequestWithUserDetails[A]): Future[RequestWithSessionPersonDetails[A]] = transform(request)
+    class Harness(personalDetailsSessionRepo: PersonalDetailsSessionRepository)
+        extends SessionUserDetailsAction(personalDetailsSessionRepo) {
+      def callTransform[A](request: RequestWithUserDetails[A]): Future[RequestWithSessionPersonDetails[A]] =
+        transform(request)
     }
 
   }

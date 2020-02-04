@@ -45,9 +45,11 @@ case object PropertyLinkingMoreEvidenceRequired extends PropertyLinkingStatus {
 object PropertyLinkingStatus extends NamedEnumSupport[PropertyLinkingStatus] {
   implicit val format = EnumFormat(PropertyLinkingStatus)
 
-  override def all: List[PropertyLinkingStatus] = List(PropertyLinkingApproved,
-                                                      PropertyLinkingPending,
-                                                      PropertyLinkingRevoked,
-                                                      PropertyLinkingDeclined,
-                                                      PropertyLinkingMoreEvidenceRequired)
+  override def all: List[PropertyLinkingStatus] =
+    List(
+      PropertyLinkingApproved,
+      PropertyLinkingPending,
+      PropertyLinkingRevoked,
+      PropertyLinkingDeclined,
+      PropertyLinkingMoreEvidenceRequired)
 }

@@ -21,7 +21,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import tests.AllMocks
 
-
 class LinkErrorsSpec extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
 

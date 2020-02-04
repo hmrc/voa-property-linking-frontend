@@ -38,13 +38,17 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
-    when(f.start(any())(any(), any())
-    ).thenReturn(Future.successful(()))
+    when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
     f
   }
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
 
-  private class TestChooseEvidence (withLinkingSession: WithLinkingSession) extends ChooseEvidence(mockCustomErrorHandler, preAuthenticatedActionBuilders(), preEnrichedActionRefiner(), mockBusinessRatesAttachmentService) {
+  private class TestChooseEvidence(withLinkingSession: WithLinkingSession)
+      extends ChooseEvidence(
+        mockCustomErrorHandler,
+        preAuthenticatedActionBuilders(),
+        preEnrichedActionRefiner(),
+        mockBusinessRatesAttachmentService) {
     val property = testProperty
   }
 
@@ -55,7 +59,8 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
   lazy val request = FakeRequest().withSession(token)
 
   "The choose evidence page" must "ask the user whether they have a rates bill" in {
-    when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
 
     val res = testChooseEvidence.show()(request)
     status(res) mustBe OK

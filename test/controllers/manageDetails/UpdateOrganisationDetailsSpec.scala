@@ -31,7 +31,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
+class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
   "The update business name page" must "require a non-empty business name" in new Setup {
     val emptyName = Seq("businessName" -> "")
 
@@ -43,7 +43,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
   }
 
   it must "update the business name on a valid submission" in new Setup {
-    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
 
     val validData = Seq(
       "businessName" -> "My Cool Business"
@@ -60,31 +61,34 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
 
     val validData = Seq(
       "address.addressId" -> "1234567890",
-      "address.line1" -> "1, The Place",
-      "address.line2" -> "",
-      "address.line3" -> "",
-      "address.line4" -> "",
-      "address.postcode" -> "AA11 1AA"
+      "address.line1"     -> "1, The Place",
+      "address.line2"     -> "",
+      "address.line3"     -> "",
+      "address.line4"     -> "",
+      "address.postcode"  -> "AA11 1AA"
     )
 
     val res = testController.updateBusinessAddress()(FakeRequest().withFormUrlEncodedBody(validData: _*))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    verify(mockGroups).update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, addressId = Some(1234567890L))))(any[HeaderCarrier])
+    verify(mockGroups).update(
+      matching(ga.id),
+      matching(updatedDetails(ga, ggExternalId, addressId = Some(1234567890L))))(any[HeaderCarrier])
     verify(mockManageDetails).updatePostcode(any(), any(), matching(1234567890L))(any(), any())
   }
 
   it must "create an address record, and update the business address ID to the created ID, if the address is entered manually" in new Setup {
-    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
     when(mockAddresses.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(1L))
     when(mockManageDetails.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
-      "address.line1" -> "1, The Place",
-      "address.line2" -> "",
-      "address.line3" -> "",
-      "address.line4" -> "",
+      "address.line1"    -> "1, The Place",
+      "address.line2"    -> "",
+      "address.line3"    -> "",
+      "address.line4"    -> "",
       "address.postcode" -> "AA11 1AA"
     )
 
@@ -93,12 +97,14 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
     verify(mockAddresses).create(matching(Address(None, "1, The Place", "", "", "", "AA11 1AA")))(any[HeaderCarrier])
-    verify(mockGroups).update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, addressId = Some(1L))))(any[HeaderCarrier])
+    verify(mockGroups)
+      .update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, addressId = Some(1L))))(any[HeaderCarrier])
     verify(mockManageDetails).updatePostcode(any(), any(), matching(1L))(any(), any())
   }
 
   "The update business phone page" must "require a non-empty phone number" in new Setup {
-    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
     val emptyPhoneNumber = Seq("phone" -> "")
 
     val res = testController.updateBusinessPhone()(FakeRequest().withFormUrlEncodedBody(emptyPhoneNumber: _*))
@@ -109,7 +115,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
   }
 
   it must "update the business phone number on a valid submission" in new Setup {
-    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
 
     val validData = Seq("phone" -> "999")
 
@@ -117,14 +124,16 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    verify(mockGroups).update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, phone = Some("999"))))(any[HeaderCarrier])
+    verify(mockGroups)
+      .update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, phone = Some("999"))))(any[HeaderCarrier])
   }
 
   "The update business email page" must "require a valid email address" in new Setup {
-    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
 
     val invalidEmail = Seq(
-      "email" -> "not an email",
+      "email"          -> "not an email",
       "confirmedEmail" -> "not an email"
     )
 
@@ -136,10 +145,11 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
   }
 
   it must "require the confirmed email to match" in new Setup {
-    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
 
     val mismatchingEmails = Seq(
-      "email" -> "email@example.com",
+      "email"          -> "email@example.com",
       "confirmedEmail" -> "anotherEmail@example.com"
     )
 
@@ -147,14 +157,17 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=confirmedEmail] span.error-message").text mustBe "Email addresses must match. Check them and try again"
+    html
+      .select("label[for=confirmedEmail] span.error-message")
+      .text mustBe "Email addresses must match. Check them and try again"
   }
 
   it must "update the business email address on a valid submission" in new Setup {
-    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier])).thenReturn(Future.successful(()))
+    when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
 
     val validData = Seq(
-      "email" -> "email@example.com",
+      "email"          -> "email@example.com",
       "confirmedEmail" -> "email@example.com"
     )
 
@@ -162,7 +175,9 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
-    verify(mockGroups).update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, email = Some("email@example.com"))))(any[HeaderCarrier])
+    verify(mockGroups).update(
+      matching(ga.id),
+      matching(updatedDetails(ga, ggExternalId, email = Some("email@example.com"))))(any[HeaderCarrier])
   }
 
   "viewBusinessName" should "display the business name" in new Setup {
@@ -202,12 +217,13 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
   }
 
   trait Setup {
-    protected def updatedDetails(org: GroupAccount,
-                                 personId: String,
-                                 addressId: Option[Long] = None,
-                                 name: Option[String] = None,
-                                 email: Option[String] = None,
-                                 phone: Option[String] = None) = {
+    protected def updatedDetails(
+          org: GroupAccount,
+          personId: String,
+          addressId: Option[Long] = None,
+          name: Option[String] = None,
+          email: Option[String] = None,
+          phone: Option[String] = None) =
       UpdatedOrganisationAccount(
         governmentGatewayGroupId = org.groupId,
         addressUnitId = addressId.getOrElse(org.addressId),
@@ -216,8 +232,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec  {
         organisationEmailAddress = email.getOrElse(org.email),
         organisationTelephoneNumber = phone.getOrElse(org.phone),
         effectiveFrom = Instant.now(clock),
-        changedByGGExternalId = personId)
-    }
+        changedByGGExternalId = personId
+      )
 
     val ga = groupAccount(agent = true)
 

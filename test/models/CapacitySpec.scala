@@ -22,13 +22,14 @@ import resources._
 
 class CapacitySpec extends FlatSpec with MustMatchers with ScalaCheckDrivenPropertyChecks {
   "Capacity" must "create from CapacityDeclaration" in {
-    forAll({ declaration: CapacityDeclaration => {
-      val capacity = Capacity.fromDeclaration(declaration)
-      (capacity match {
-        case c: Capacity => true
-        case _ => false
-      }) must be(true)
-    }
+    forAll({ declaration: CapacityDeclaration =>
+      {
+        val capacity = Capacity.fromDeclaration(declaration)
+        (capacity match {
+          case c: Capacity => true
+          case _           => false
+        }) must be(true)
+      }
     })
   }
 }
