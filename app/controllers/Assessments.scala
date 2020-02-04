@@ -33,21 +33,21 @@ import uk.gov.hmrc.propertylinking.services.PropertyLinkService
 import scala.concurrent.{ExecutionContext, Future}
 
 class Assessments @Inject()(
-                             val errorHandler: CustomErrorHandler,
-                             propertyLinks: PropertyLinkConnector,
-                             propertyLinkService: PropertyLinkService,
-                             authenticated: AuthenticatedAction,
-                             businessRatesValuations: BusinessRatesValuationConnector,
-                             businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
-                             override val controllerComponents: MessagesControllerComponents,
-                             @Named("detailed-valuation.external") isExternalValuation: Boolean,
-                             @Named("detailed-valuation.skip") isSkipAssessment: Boolean,
-                             @Named("summary-valuation.newRoute") isSummaryValuationNewRoute: Boolean
-                           )(
-                             implicit override val messagesApi: MessagesApi,
-                             val config: ApplicationConfig,
-                             executionContext: ExecutionContext
-                           ) extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      propertyLinks: PropertyLinkConnector,
+      propertyLinkService: PropertyLinkService,
+      authenticated: AuthenticatedAction,
+      businessRatesValuations: BusinessRatesValuationConnector,
+      businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
+      override val controllerComponents: MessagesControllerComponents,
+      @Named("detailed-valuation.external") isExternalValuation: Boolean,
+      @Named("detailed-valuation.skip") isSkipAssessment: Boolean,
+      @Named("summary-valuation.newRoute") isSummaryValuationNewRoute: Boolean
+)(
+      implicit override val messagesApi: MessagesApi,
+      val config: ApplicationConfig,
+      executionContext: ExecutionContext
+) extends PropertyLinkingController {
 
   private val logger = Logger(this.getClass.getName)
 
@@ -158,10 +158,10 @@ class Assessments @Inject()(
 }
 
 case class AssessmentsVM(
-                          assessmentsWithLinks: Seq[(String, ApiAssessment)],
-                          backLink: String,
-                          address: String,
-                          capacity: Option[String]
-                        )
+      assessmentsWithLinks: Seq[(String, ApiAssessment)],
+      backLink: String,
+      address: String,
+      capacity: Option[String]
+)
 
 case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)

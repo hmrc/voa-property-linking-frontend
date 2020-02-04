@@ -66,7 +66,7 @@ object DraftCase {
       case ""              => None
       case nameAndOrNumber => Some(nameAndOrNumber)
     }
-    val lines = Seq(nameAndOrNumber, firm, subStreet1, subStreet2, subStreet3, street, postalDistrict, town, county) collect {
+    val lines = Seq(nameAndOrNumber, firm, subStreet3, subStreet2, subStreet1, street, postalDistrict, town, county) collect {
       case Some(l) => l
     }
     PropertyAddress(lines, postcode.getOrElse(""))

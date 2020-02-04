@@ -112,10 +112,11 @@ class BusinessRatesAttachmentsService @Inject()(
       .subflatMap(filtered =>
         Either.cond(filtered.size == nonEmptyReferences.size, filtered.map(_._1), NotAllFilesReadyToUpload))
       .semiflatMap(references => Future.traverse(references)(patchMetadata(submissionId, _)))
-      .leftFlatMap{
-        case AllFilesAreAlreadyUploaded(attachments)                              => EitherT.rightT(attachments)
-        case error @SomeFilesAreAlreadyUploaded(references)  if (retryCount < 5)  => submit(submissionId, references, retryCount + 1)
-        case error                                                                => EitherT.leftT(error)
+      .leftFlatMap {
+        case AllFilesAreAlreadyUploaded(attachments) => EitherT.rightT(attachments)
+        case error @ SomeFilesAreAlreadyUploaded(references) if (retryCount < 5) =>
+          submit(submissionId, references, retryCount + 1)
+        case error => EitherT.leftT(error)
       }
 
   def getAttachment(reference: String)(implicit hc: HeaderCarrier): Future[Attachment] =

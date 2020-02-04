@@ -35,12 +35,12 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
         mockPropertyLinkService,
         preAuthenticatedActionBuilders(),
         StubBusinessRatesValuation,
-    mockBusinessRatesAuthorisation,
-    stubMessagesControllerComponents(),
-    isExternalValuation = false,
-    isSkipAssessment = false,
-    isSummaryValuationNewRoute = true)
-
+        mockBusinessRatesAuthorisation,
+        stubMessagesControllerComponents(),
+        isExternalValuation = false,
+        isSkipAssessment = false,
+        isSummaryValuationNewRoute = true
+      )
 
   // TODO Delete or fix these tests
 

@@ -276,7 +276,9 @@ class DvrController @Inject()(
       case Some(link) if link.assessments.size == 1 =>
         config.newDashboardUrl(if (!isOwner) "client-properties" else "your-properties")
       case _ =>
-        uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController.valuations(submissionId, isOwner).url
+        uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
+          .valuations(submissionId, isOwner)
+          .url
     }
   }
 }
