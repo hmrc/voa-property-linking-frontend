@@ -17,7 +17,9 @@
 package actions
 
 import actions.registration.GgAuthenticatedAction
+import config.ApplicationConfig
 import models.registration.UserDetails
+import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
@@ -34,9 +36,11 @@ import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.{Name, Retrieval, ~}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.test.UnitSpec
-import utils.{FakeObjects, GlobalExecutionContext, NoMetricsOneAppPerSuite}
+import utils._
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
+
 
 class GgAuthenticatedActionSpec
   extends UnitSpec
@@ -49,6 +53,8 @@ class GgAuthenticatedActionSpec
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
   implicit lazy val controllerComponents = app.injector.instanceOf[ControllerComponents]
+  implicit lazy val messagesControllerComponents: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
+
 
   "GgAuthenticatedAction" should {
     "invoke the action block when user is authorised" in new Setup {
@@ -56,6 +62,7 @@ class GgAuthenticatedActionSpec
       status(res) shouldBe OK
       contentAsString(res) shouldBe "something"
     }
+
 
     "redirect to the login page when the user is not logged in (NoActiveSession)" in new Setup {
       override def exception: Option[Throwable] = Some(new MissingBearerToken("error"))
@@ -79,6 +86,17 @@ class GgAuthenticatedActionSpec
       }
     }
 
+    "redirect to invalid account page when the user has an invalid account type" in new Setup {
+      override def exception: Option[Throwable] = Some(new UnsupportedAffinityGroup("error"))
+
+      val res = testAction(_ => Ok("something"))(FakeRequest())
+
+      status(res) shouldBe OK
+
+      val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+      page.mustContainText("You can’t use that Government Gateway account to register for this service.")
+    }
+
   }
 
   trait Setup extends FakeObjects {
@@ -97,7 +115,8 @@ class GgAuthenticatedActionSpec
         exception.fold(Future.successful(success.asInstanceOf[A]))(Future.failed(_))
     }
 
-    lazy val testAction = new GgAuthenticatedAction(mockGovernmentGatewayProvider, authConnector)
+    implicit val appConfig: ApplicationConfig = Configs.applicationConfig
+    lazy val testAction = new GgAuthenticatedAction(messageApi, mockGovernmentGatewayProvider, authConnector)
   }
 
 }
