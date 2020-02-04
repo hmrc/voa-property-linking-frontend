@@ -68,9 +68,7 @@ class RegistrationController @Inject()(
             orgShow(user, request.sessionPersonDetails)
           case user @ AgentUserDetails() =>
             Future.successful(Ok(views.html.errors.invalidAccountType()))
-          case _ =>
-            println("@@@@@@@@@@@@@@")
-            Future.successful(Ok(views.html.errors.invalidAccountType()))
+          case _ => Future.successful(Ok(views.html.errors.invalidAccountType()))
         }
     }
   }

@@ -54,9 +54,7 @@ class BusinessRatesAuthorisationConnector @Inject()(
     http.GET[Accounts](s"$url/property-link/$authorisationId/assessment/$assessmentRef") map {
       Authenticated
     } recover {
-      case AuthorisationFailed(err) =>
-        println("*********************")
-        handleUnauthenticated(err)
+      case AuthorisationFailed(err) => handleUnauthenticated(err)
     }
 
   def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] =
