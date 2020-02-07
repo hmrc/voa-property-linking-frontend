@@ -18,9 +18,12 @@ package actions.registration
 
 import actions.registration.requests.RequestWithUserDetails
 import auth.GovernmentGatewayProvider
+import config.ApplicationConfig
 import javax.inject.Inject
 import models.registration.UserDetails
 import play.api.Logger
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.Results.Ok
 import play.api.mvc._
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.AuthProvider.GovernmentGateway
@@ -33,12 +36,14 @@ import uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession
 import scala.concurrent.{ExecutionContext, Future}
 
 class GgAuthenticatedAction @Inject()(
+      override val messagesApi: MessagesApi,
       provider: GovernmentGatewayProvider,
       override val authConnector: AuthConnector
 )(
       implicit override val executionContext: ExecutionContext,
-      controllerComponents: ControllerComponents
-) extends ActionBuilder[RequestWithUserDetails, AnyContent] with AuthorisedFunctions {
+      controllerComponents: ControllerComponents,
+      config: ApplicationConfig
+) extends ActionBuilder[RequestWithUserDetails, AnyContent] with AuthorisedFunctions with I18nSupport {
 
   val logger = Logger(this.getClass.getName)
 
@@ -52,7 +57,11 @@ class GgAuthenticatedAction @Inject()(
     logger.debug("the request called invoke block")
 
     def handleError: PartialFunction[Throwable, Future[Result]] = {
-      case _: NoActiveSession => provider.redirectToLogin
+      case _: NoActiveSession =>
+        provider.redirectToLogin
+      case unsupportedAffinityGroup: UnsupportedAffinityGroup =>
+        logger.warn("invalid account type:", unsupportedAffinityGroup)
+        Future.successful(Ok(views.html.errors.invalidAccountType()))
       case otherException: Throwable =>
         Logger.debug(s"Exception thrown on authorisation with message:", otherException)
         throw otherException

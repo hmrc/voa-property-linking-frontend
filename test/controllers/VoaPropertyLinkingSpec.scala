@@ -69,7 +69,8 @@ trait VoaPropertyLinkingSpec
     }
 
   def ggPreauthenticated(userDetails: UserDetails): GgAuthenticatedAction =
-    new GgAuthenticatedAction(mockGovernmentGatewayProvider, mockAuthConnector) {
+
+    new GgAuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockAuthConnector) {
       override def invokeBlock[A](
             request: Request[A],
             block: RequestWithUserDetails[A] => Future[Result]): Future[Result] =
