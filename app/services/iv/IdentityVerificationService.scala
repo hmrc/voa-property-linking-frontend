@@ -55,7 +55,7 @@ trait IdentityVerificationService {
 
   protected val successUrl: String
 
-  private val failureUrl = config.baseUrl + controllers.routes.IdentityVerification.fail().url
+  private val failureUrl = config.baseUrl + controllers.routes.IdentityVerification.fail(None).url
 }
 
 class IvService @Inject()(
@@ -68,7 +68,7 @@ class IvService @Inject()(
 
   type B = RegistrationResult
 
-  protected val successUrl: String = config.baseUrl + controllers.routes.IdentityVerification.success().url
+  protected val successUrl: String = config.baseUrl + controllers.routes.IdentityVerification.success(None).url
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages): Result = obj match {
     case RegistrationSuccess(personId) =>

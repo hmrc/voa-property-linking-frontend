@@ -16,9 +16,9 @@ GET         /invalid-account                                                    
 
 #Identity verification
 GET         /identity-verification/start                                                      @controllers.IdentityVerification.startIv
-GET         /identity-verification/failed                                                     @controllers.IdentityVerification.fail
+GET         /identity-verification/failed                                                     @controllers.IdentityVerification.fail(journeyId: Option[String])
 GET         /identity-verification/restore-session                                            @controllers.IdentityVerification.restoreSession
-GET         /identity-verification/success                                                    @controllers.IdentityVerification.success
+GET         /identity-verification/success                                                    @controllers.IdentityVerification.success(journeyId: Option[String])
 
 #Dashboard
 GET         /home                                                                             @controllers.Dashboard.home()
