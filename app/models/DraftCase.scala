@@ -62,13 +62,15 @@ object DraftCase {
         county: Option[String],
         postcode: Option[String]): PropertyAddress = {
 
-    val nameAndOrNumber: Option[String] = Seq(number, name).flatten.mkString(" ") match {
-      case ""              => None
-      case nameAndOrNumber => Some(nameAndOrNumber)
+    val firmNameNumber: Option[String] = Seq(firm, number, name).flatten.mkString(" ") match {
+      case ""  => None
+      case fnn => Some(fnn)
     }
-    val lines = Seq(nameAndOrNumber, firm, subStreet3, subStreet2, subStreet1, street, postalDistrict, town, county) collect {
+
+    val lines = Seq(firmNameNumber, subStreet3, subStreet2, subStreet1, street, postalDistrict, town, county) collect {
       case Some(l) => l
     }
+
     PropertyAddress(lines, postcode.getOrElse(""))
   }
 }
