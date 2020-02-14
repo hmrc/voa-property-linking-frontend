@@ -38,7 +38,7 @@ val compileDependencies = Seq(
   "com.codahale.metrics" % "metrics-graphite" % "3.0.1",
   "com.google.guava" % "guava" % "18.0",
   "joda-time" % "joda-time" % "2.10.4",
-  "uk.gov.hmrc" %% "bootstrap-play-26" % "1.1.0",
+  "uk.gov.hmrc" %% "bootstrap-play-26" % "1.3.0",
   "uk.gov.hmrc" %% "play-ui" % "8.3.0-play-26",
   "uk.gov.hmrc" %% "govuk-template" % "5.43.0-play-26",
   "uk.gov.hmrc" %% "http-caching-client" % "9.0.0-play-26",
@@ -47,7 +47,8 @@ val compileDependencies = Seq(
   "uk.gov.hmrc" %% "play-whitelist-filter" % "3.1.0-play-26",
   "uk.gov.hmrc" %% "mongo-lock" % "6.15.0-play-26",
   "uk.gov.hmrc" %% "reactive-circuit-breaker" % "3.3.0",
-  "uk.gov.hmrc" %% "play-frontend-govuk" % "0.30.0-play-26"
+  "uk.gov.hmrc" %% "play-frontend-govuk" % "0.37.0-play-26",
+  "uk.gov.hmrc" %% "auth-client" % "2.32.2-play-26"
 )
 
 val testDependencies = Seq(
@@ -91,7 +92,11 @@ lazy val microservice = Project(appName, file("."))
     parallelExecution in IntegrationTest := false)
   .settings(resolvers ++= Seq(
     Resolver.bintrayRepo("hmrc", "releases"),
-    Resolver.jcenterRepo)
+    Resolver.jcenterRepo),
+    TwirlKeys.templateImports ++= Seq(
+      "uk.gov.hmrc.govukfrontend.views.html.components._",
+      "uk.gov.hmrc.govukfrontend.views.html.helpers._"
+    )
   )
   .settings(evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTransitiveEvictions(false).withWarnDirectEvictions(false).withWarnScalaVersionEviction(false))
   .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory)

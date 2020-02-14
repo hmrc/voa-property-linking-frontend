@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +12,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package models.propertyrepresentation
+@this()
 
-import play.api.libs.json.{Json, OFormat}
+@()
 
-case class AppointNewAgentSession(agentCode: Long, agentOrganisationId: Long, agentOrganisationName: Option[String] = scala.None, isCorrectAgent: Option[Boolean] = scala.None, managingProperty: Option[String] = scala.None)
-
-object AppointNewAgentSession{
-  implicit val format: OFormat[AppointNewAgentSession] = Json.format[AppointNewAgentSession]
-}
+<script src='@controllers.routes.Assets.at("lib/govuk-frontend/govuk/all.js")'></script>
+<script>window.GOVUKFrontend.initAll();</script>

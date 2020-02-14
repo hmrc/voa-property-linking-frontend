@@ -20,31 +20,29 @@
 
 @import config.ApplicationConfig
 
-@import models.propertyrepresentation.AsWellAsCurrent
-@import models.propertyrepresentation.InsteadOfCurrent
-@import models.propertyrepresentation.No
 @import models.propertyrepresentation.ManageMultiplePropertiesOptions
 
 @import models.propertyrepresentation.All
 @import models.propertyrepresentation.None
 @import models.propertyrepresentation.ChooseFromList
+
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+
 @(form: Form[ManageMultiplePropertiesOptions], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    title = Messages("propertyRepresentation.addAnAgent.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = Some(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent().url)
+@mainLayout(
+    pageTitle = messages("propertyRepresentation.addAnAgent.title"),
+    backUri = Some(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent().url)
 ) {
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.multipleProperties.question", agentName)</h1>
 
 
     @if(form.errors.nonEmpty) {
-        @GovukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
     @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.submitMultipleProperties()) {
-        @GovukRadios(Radios(
+        @govukRadios(Radios(
             idPrefix = Some("multipleProperties"),
             name = "multipleProperties",
             items = Seq(
@@ -54,7 +52,7 @@
             ))
         )
 
-        @GovukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button"))))
+        @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button"))))
     }
 
 }

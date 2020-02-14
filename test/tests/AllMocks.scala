@@ -28,7 +28,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Request
 import repositories.{PersonalDetailsSessionRepository, SessionRepository}
-import services.EnrolmentService
+import services.{AgentRelationshipService, EnrolmentService}
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.propertylinking.services.PropertyLinkService
@@ -52,6 +52,7 @@ trait AllMocks {
   val mockSessionRepository: SessionRepository = mock[SessionRepository]
   val mockWithLinkingSession: WithLinkingSession = mock[WithLinkingSession]
   val mockPersonalDetailsSessionRepository: PersonalDetailsSessionRepository = mock[PersonalDetailsSessionRepository]
+  val mockAgentRelationshipService: AgentRelationshipService = mock[AgentRelationshipService]
 
 
   override protected def beforeEach(): Unit =
@@ -72,7 +73,8 @@ trait AllMocks {
       mockPropertyLinkService,
       mockSessionRepository,
       mockWithLinkingSession,
-      mockPersonalDetailsSessionRepository
+      mockPersonalDetailsSessionRepository,
+      mockAgentRelationshipService
     ).foreach(Mockito.reset(_))
 
 }

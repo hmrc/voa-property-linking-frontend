@@ -17,9 +17,9 @@
 package controllers.agentAppointment
 
 import javax.inject.{Inject, Named}
-
 import actions.AuthenticatedAction
 import actions.agentrelationship.WithAppointAgentSession
+import actions.agentrelationship.request.AppointAgentSessionRequest
 import actions.requests.BasicAuthenticatedRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
@@ -30,10 +30,10 @@ import controllers.{PaginationParams, PropertyLinkingController}
 import form.{EnumMapping, Mappings}
 import models.{RepresentationApproved, RepresentationPending, StartAndContinue, propertyrepresentation}
 import models.propertyrepresentation.{AppointNewAgentSession, ChooseFromList, ManageMultiplePropertiesOptions, ManageOnePropertyOptions, Yes}
-import models.searchApi.AgentPropertiesFilter.No
+import models.searchApi.AgentPropertiesFilter.{Both, No}
 import models.searchApi.AgentPropertiesSortField.Address
-import play.api.data.{Form, Forms, Mapping}
-import play.api.data.Forms.{longNumber, mapping, nonEmptyText, single}
+import play.api.data.{Form, FormError, Forms, Mapping}
+import play.api.data.Forms.{boolean, longNumber, mapping, nonEmptyText, optional, single, text}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
@@ -41,6 +41,11 @@ import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import controllers.agent.routes
+import models.searchApi.AgentPropertiesParameters
+import views.html.propertyrepresentation.appoint._
+import models.propertyrepresentation.OnePropertyOptions
+import controllers.agentAppointment.AgentRelationshipForms._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -49,7 +54,14 @@ class AgentRelationshipController @Inject()(val errorHandler: CustomErrorHandler
                                             withAppointAgentSession: WithAppointAgentSession,
                                             agentRelationshipService: AgentRelationshipService,
                                             agentsConnector: AgentsConnector,
-                                            @Named("appointNewAgentSession") val sessionRepo: SessionRepo
+                                            @Named("appointNewAgentSession") val sessionRepo: SessionRepo,
+                                            startPage: views.html.propertyrepresentation.appoint.start,
+                                            isTheCorrectAgent: views.html.propertyrepresentation.appoint.isThisYourAgent,
+                                            agentToManageOnePropertyNoExistingAgent: views.html.propertyrepresentation.appoint.agentToManageOnePropertyNoExistingAgent,
+                                            agentToManageOneProperty: views.html.propertyrepresentation.appoint.agentToManageOneProperty,
+                                            agentToManageMultipleProperties: views.html.propertyrepresentation.appoint.agentToManageMultipleProperties,
+                                            checkYourAnswers: views.html.propertyrepresentation.appoint.checkYourAnswers,
+                                            confirmation: views.html.propertyrepresentation.appoint.confirmation
                                            )(
                                              implicit override val messagesApi: MessagesApi,
                                              override val controllerComponents: MessagesControllerComponents,
@@ -57,36 +69,26 @@ class AgentRelationshipController @Inject()(val errorHandler: CustomErrorHandler
                                              val config: ApplicationConfig
                                            ) extends PropertyLinkingController {
 
-
-  //fixme move forms elsewhere
-  val agentCode: Form[Long] =
-    Form(single("agentCode" -> {
-      longNumber.verifying("error.agentCode.invalid", n => n > 0)
-    }))
-
-  val isThisYourAgent: Form[Boolean] = Form(Forms.single("isThisYourAgent" -> Mappings.mandatoryBoolean))
-
-  val manageOnePropertyNoAgent: Form[Boolean] = Form(Forms.single("onePropertyNoAgent" -> Mappings.mandatoryBoolean))
-
-  val manageOnePropertyExistingAgent: Form[ManageOnePropertyOptions] = Form(Forms.single("onePropertyExistingAgent" -> EnumMapping(ManageOnePropertyOptions)))
-
-  val manageMultipleProperties: Form[ManageMultiplePropertiesOptions] = Form(Forms.single("multipleProperties" -> EnumMapping(ManageMultiplePropertiesOptions)))
-
-
-  def start(): Action[AnyContent] = authenticated.async { implicit request =>
-    Future.successful(Ok(views.html.propertyrepresentation.appoint.start(agentCode)))
+  def startAppointJourney(): Action[AnyContent] = authenticated.async { implicit request =>
+    Future.successful(Ok(startPage(agentCode)))
   }
 
   def getAgentDetails(): Action[AnyContent] = authenticated.async { implicit request =>
     agentCode.bindFromRequest.fold(
       errors => {
-        Future.successful(BadRequest(views.html.propertyrepresentation.appoint.start(errors)))
+        Future.successful(
+          BadRequest(
+            startPage(
+              swapErrorKeyIfRequired[Long](errors, "agentCode", "error.number", "error.agentCode.required"))))
       },
       success => {
         agentRelationshipService.getAgent(success) map {
-          case None => ???
+          case None => {
+            val formWithErrors = agentCode.copy(data = Map("agentCode" -> success.toString),errors = Seq[FormError](FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent")))
+            BadRequest(startPage(formWithErrors))
+          }
           case Some(a) => {
-            sessionRepo.saveOrUpdate(AppointNewAgentSession(agentCode = success, agentOrganisationName = Some(a.organisationLatestDetail.organisationName)))
+            sessionRepo.saveOrUpdate(AppointNewAgentSession(agentCode = success, agentOrganisationName = Some(a.organisationLatestDetail.organisationName), agentOrganisationId = a.id))
             Redirect(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent())
           }
         }
@@ -97,47 +99,49 @@ class AgentRelationshipController @Inject()(val errorHandler: CustomErrorHandler
   def isCorrectAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     Future.successful(
       Ok(
-        views.html.propertyrepresentation.appoint.isThisYourAgent(
+        isTheCorrectAgent(
           isThisYourAgent,
-          request.sessionData.agentOrganisationName.getOrElse(throw new IllegalStateException("no agent name stored")))))
+          getAgentName(request))))
   }
 
   def agentSelected(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     isThisYourAgent.bindFromRequest.fold(
       errors => {
         Future.successful(
-          BadRequest(views.html.propertyrepresentation.appoint.isThisYourAgent(
+          BadRequest(isTheCorrectAgent(
             errors,
-            request.sessionData.agentOrganisationName.getOrElse(throw new IllegalStateException("no agent name stored")))))
+            getAgentName(request))))
       },
       success => {
         if(success){
+          sessionRepo.saveOrUpdate(request.sessionData.copy(isCorrectAgent = Some(success)))
           for{
-            propertyLinks <- agentRelationshipService.getMyOrganisationsPropertyLinks(
-              searchParams = GetPropertyLinksParameters(),
-              pagination = PaginationParams(startPoint = 1, pageSize = 1000, requestTotalRowCount = false),
-              representationStatusFilter = Seq(RepresentationApproved, RepresentationPending)
+            propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
+              params = GetPropertyLinksParameters(),
+              pagination = AgentPropertiesParameters(agentCode = request.sessionData.agentCode),
+              agentOrganisationId = request.sessionData.agentOrganisationId,
+              organisationId = request.organisationId
             )
             ownerAgents <- agentsConnector.ownerAgents(request.organisationId)
-            agentName = request.sessionData.agentOrganisationName.getOrElse(throw new IllegalStateException("no agent name stored"))
+            agentName = getAgentName(request)
           } yield {
-            propertyLinks.size match {
+            propertyLinks.authorisations.size match {
               case 0 => {
-                //fixme send request to modernised
-                Ok(views.html.propertyrepresentation.appoint.confirmation(agentName))
+                //fixme send request to modernised once we have an endpoint
+                Ok(confirmation(agentName))
               }
               case 1 => {
                 ownerAgents.agents.size match {
-                  case 0 => Ok(views.html.propertyrepresentation.appoint.agentToManageOnePropertyNoExistingAgent(manageOnePropertyNoAgent, agentName))
-                  case _ => Ok(views.html.propertyrepresentation.appoint.agentToManageOneProperty(manageOnePropertyExistingAgent, agentName))
+                  case 0 => Redirect(controllers.agentAppointment.routes.AgentRelationshipController.onePropertyNoExistingAgent())
+                  case _ => Redirect(controllers.agentAppointment.routes.AgentRelationshipController.onePropertyWithExistingAgent())
                 }
               }
-              case _ => Ok(views.html.propertyrepresentation.appoint.agentToManageMultipleProperties(manageMultipleProperties, agentName))
+              case _ => Redirect(controllers.agentAppointment.routes.AgentRelationshipController.multipleProperties())
             }
           }
         }
         else{
-          Future.successful(Ok(views.html.propertyrepresentation.appoint.start(agentCode)))
+          Future.successful(Redirect(controllers.agentAppointment.routes.AgentRelationshipController.startAppointJourney()))
         }
       }
     )
@@ -146,9 +150,9 @@ class AgentRelationshipController @Inject()(val errorHandler: CustomErrorHandler
   def onePropertyNoExistingAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     Future.successful(
       Ok(
-        views.html.propertyrepresentation.appoint.agentToManageOnePropertyNoExistingAgent(
+        agentToManageOnePropertyNoExistingAgent(
           manageOnePropertyNoAgent,
-          request.sessionData.agentOrganisationName.getOrElse(throw new IllegalStateException("no agent name stored")))))
+          getAgentName(request))))
   }
 
   def submitOnePropertyNoExistingAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
@@ -156,14 +160,14 @@ class AgentRelationshipController @Inject()(val errorHandler: CustomErrorHandler
       errors => {
         Future.successful(
           BadRequest(
-            views.html.propertyrepresentation.appoint.agentToManageOnePropertyNoExistingAgent(
-              errors,
-              request.sessionData.agentOrganisationName.getOrElse(throw new IllegalStateException("no agent name stored")))))
+            agentToManageOnePropertyNoExistingAgent(
+              swapErrorKeyIfRequired[Boolean](errors, "onePropertyNoAgent", "error.boolean", "error.oneProperty.required"),
+              getAgentName(request))))
       },
       success => {
         val choice = if(success) Yes.name else No.name
         sessionRepo.saveOrUpdate(request.sessionData.copy(managingProperty = Some(choice)))
-        Future.successful(Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkYourAnswers()))
+        Future.successful(Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkAnswers()))
       }
     )
   }
@@ -171,19 +175,23 @@ class AgentRelationshipController @Inject()(val errorHandler: CustomErrorHandler
   def onePropertyWithExistingAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     Future.successful(
       Ok(
-        views.html.propertyrepresentation.appoint.agentToManageOneProperty(
+        agentToManageOneProperty(
           manageOnePropertyExistingAgent,
-          request.sessionData.agentOrganisationName.getOrElse(throw new IllegalStateException("no agent name stored")))))
+          getAgentName(request))))
   }
 
   def submitOnePropertyWithExistingAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     manageOnePropertyExistingAgent.bindFromRequest.fold(
       errors => {
-        Future.successful(BadRequest(views.html.propertyrepresentation.appoint.agentToManageOneProperty(errors, request.sessionData.agentOrganisationName.getOrElse(???))))
+        Future.successful(
+          BadRequest(
+            agentToManageOneProperty(
+              swapErrorKeyIfRequired[ManageOnePropertyOptions](errors, "onePropertyWithAgent", "error.common.noValueSelected", "error.oneProperty.required"),
+              getAgentName(request))))
       },
       success => {
         sessionRepo.saveOrUpdate(request.sessionData.copy(managingProperty = Some(success.name)))
-        Future.successful(Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkYourAnswers()))
+        Future.successful(Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkAnswers()))
       }
     )
   }
@@ -191,35 +199,36 @@ class AgentRelationshipController @Inject()(val errorHandler: CustomErrorHandler
   def multipleProperties(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     Future.successful(
       Ok(
-        views.html.propertyrepresentation.appoint.agentToManageMultipleProperties(
+        agentToManageMultipleProperties(
           manageMultipleProperties,
-          request.sessionData.agentOrganisationName.getOrElse(throw new IllegalStateException("no agent name stored")))))
+          getAgentName(request))))
   }
 
   def submitMultipleProperties(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     manageMultipleProperties.bindFromRequest.fold(
       errors => {
-        Future.successful(BadRequest(views.html.propertyrepresentation.appoint.agentToManageMultipleProperties(errors, request.sessionData.agentOrganisationName.getOrElse(???))))
+        Future.successful(
+          BadRequest(
+            agentToManageMultipleProperties(
+              swapErrorKeyIfRequired[ManageMultiplePropertiesOptions](errors, "multipleProperties", "error.common.noValueSelected", "error.multipleProperties.required"),
+              getAgentName(request))))
       },
-      success => {
-        success match {
-          case ChooseFromList => joinOldJourney(request.sessionData.agentCode)
-          case propertyrepresentation.All | propertyrepresentation.None => {
-            sessionRepo.get[AppointNewAgentSession] flatMap {
-              case None => ???
-              case Some(details) => {
-                sessionRepo.saveOrUpdate(details.copy(managingProperty = Some(success.name)))
-                Future.successful(Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkYourAnswers()))
-              }
-            }
-          }
+      {
+        case ChooseFromList => joinOldJourney(request.sessionData.agentCode)
+        case success@(propertyrepresentation.All | propertyrepresentation.None) => {
+          sessionRepo.saveOrUpdate(data = request.sessionData.copy(managingProperty = Some(success.name)))
+          Future.successful(Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkAnswers()))
         }
       }
     )
   }
 
-  def checkYourAnswers(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(views.html.propertyrepresentation.appoint.checkYourAnswers(request.sessionData)))
+  def checkAnswers(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
+    Future.successful(Ok(checkYourAnswers(request.sessionData)))
+  }
+
+  private def getAgentName(request: AppointAgentSessionRequest[AnyContent]) = {
+    request.sessionData.agentOrganisationName.getOrElse(throw new IllegalStateException("no agent name stored"))
   }
 
   private def joinOldJourney(agentCode: Long) = {
@@ -229,7 +238,18 @@ class AgentRelationshipController @Inject()(val errorHandler: CustomErrorHandler
       agentCode = agentCode,
       checkPermission = StartAndContinue.name,
       challengePermission = StartAndContinue.name,
-      agentAppointed = Some(No.name)
+      agentAppointed = Some(Both.name)
     )))
+  }
+
+  private def swapErrorKeyIfRequired[A](errors: Form[A], fieldName: String, errorMessageKeyToBeSwapped: String, newErrorMessageKey: String): Form[A] = {
+    if(errors.errors.size == 1
+      && errors.errors.head.messages.size == 1
+      && errors.errors.head.messages.head == errorMessageKeyToBeSwapped){
+      val updatedErrors = errors.copy(
+        errors = Seq(FormError(fieldName, Seq(newErrorMessageKey), Seq.empty))
+      )
+      updatedErrors
+    } else errors
   }
 }

@@ -41,14 +41,6 @@ gulp.task('copy:fonts', function () {
         .pipe(gulp.dest('../../public/stylesheets'));
 });
 
-// Copy assets
-gulp.task('copy:assets', function () {
-    return gulp.src([
-        './node_modules/govuk-frontend/govuk/assets/**/*'
-    ])
-        .pipe(gulp.dest('../../public/govuk/'));
-});
-
 
 // Copy public html
 gulp.task('copy:publicHtml', function () {
@@ -58,4 +50,4 @@ gulp.task('copy:publicHtml', function () {
 
 
 // Run copy task
-gulp.task('copy', [ 'copy:govuk_template_mustache','copy:jquery', 'copy:moment','copy:icons', 'copy:assets', 'copy:publicHtml', 'copy:fonts', 'copy:css']);
+gulp.task('copy', [ 'copy:govuk_template_mustache','copy:jquery', 'copy:moment','copy:icons', 'copy:publicHtml', 'copy:fonts', 'copy:css']);

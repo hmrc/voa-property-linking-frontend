@@ -16,10 +16,15 @@
 
 package models.propertyrepresentation
 
-import play.api.libs.json.{Json, OFormat}
+import models.{EnumFormat, NamedEnum, NamedEnumSupport}
 
-case class AppointNewAgentSession(agentCode: Long, agentOrganisationId: Long, agentOrganisationName: Option[String] = scala.None, isCorrectAgent: Option[Boolean] = scala.None, managingProperty: Option[String] = scala.None)
+object OnePropertyOptions {
 
-object AppointNewAgentSession{
-  implicit val format: OFormat[AppointNewAgentSession] = Json.format[AppointNewAgentSession]
+  val asWellAsCurrent = "AS_WELL_AS_CURRENT"
+  val insteadOfCurrent = "INSTEAD_OF_CURRENT"
+  val no = "NO"
+  val yes = "YES"
+
+
+  def all: List[String] = List(asWellAsCurrent, insteadOfCurrent, yes, no)
 }

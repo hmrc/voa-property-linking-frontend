@@ -19,16 +19,17 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @import config.ApplicationConfig
+
+@this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
+
 @(agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    title = Messages("propertyRepresentation.addAnAgent.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = request.headers.get("referer")
+@mainLayout(
+    pageTitle = messages("propertyRepresentation.addAnAgent.title"),
+    backUri = None
 ) {
 
-    @GovukPanel(Panel(
+    @govukPanel(Panel(
         title = Text(messages("propertyRepresentation.confirmation", agentName)),
         content = HtmlContent("")
     ))

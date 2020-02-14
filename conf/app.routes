@@ -1,5 +1,7 @@
 ->          /                                                                                 manageDetails.Routes
 
+->          /govuk-frontend                                                                   govuk.Routes
+
 #Start
 GET         /                                                                                 @controllers.Application.start()
 
@@ -93,7 +95,7 @@ GET         /my-organisation/appoint/properties                                 
 POST        /my-organisation/appoint/properties/create                                                                    @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 
 #NEW AGENT APPOINT JOURNEY
-GET         /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AgentRelationshipController.start()
+GET         /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AgentRelationshipController.startAppointJourney()
 POST        /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AgentRelationshipController.getAgentDetails()
 
 GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AgentRelationshipController.isCorrectAgent()
@@ -105,10 +107,10 @@ POST        /my-organisation/appoint-new-agent/one-property/no-existing-agent   
 GET         /my-organisation/appoint-new-agent/one-property/with-existing-agent                                           @controllers.agentAppointment.AgentRelationshipController.onePropertyWithExistingAgent()
 POST        /my-organisation/appoint-new-agent/one-property/with-existing-agent                                           @controllers.agentAppointment.AgentRelationshipController.submitOnePropertyWithExistingAgent()
 
-GET         /my-organisation/appoint-new-agent/multiple-properties/with-existing-agent                                    @controllers.agentAppointment.AgentRelationshipController.multipleProperties()
-POST        /my-organisation/appoint-new-agent/multiple-properties/with-existing-agent                                    @controllers.agentAppointment.AgentRelationshipController.submitMultipleProperties()
+GET         /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AgentRelationshipController.multipleProperties()
+POST        /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AgentRelationshipController.submitMultipleProperties()
 
-GET         /my-organisation/appoint-new-agent/checkYourAnswers                                                           @controllers.agentAppointment.AgentRelationshipController.checkYourAnswers()
+GET         /my-organisation/appoint-new-agent/checkYourAnswers                                                           @controllers.agentAppointment.AgentRelationshipController.checkAnswers()
 
 GET         /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.revokeMultipleProperties()
 POST        /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.submitRevokeMultipleProperties()

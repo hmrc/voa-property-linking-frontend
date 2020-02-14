@@ -22,7 +22,6 @@ import play.api.libs.json.{Json, OFormat}
 
 case class AgentOrganisation(
                               id: Long,
-                              governmentGatewayGroupId: String,
                               representativeCode: Option[Long],
                               organisationLatestDetail: OrganisationLatestDetail,
                               persons: List[Person]

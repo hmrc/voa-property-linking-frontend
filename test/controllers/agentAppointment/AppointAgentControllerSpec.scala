@@ -41,7 +41,6 @@ import scala.concurrent.Future
 
 class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
-  val agentCode = 12345L
   val agent = groupAccount(true).copy(agentCode = Some(agentCode))
 
   val testAgents = Seq(OwnerAuthAgent(1L,

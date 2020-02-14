@@ -1,6 +1,12 @@
 project.header=VOA Property Linking
 service.name=Check and challenge your business rates valuation
 link.home=Home
+link.logout=Sign out
+label.phase.banner.text=This is a new service – your <a href="{0}" id="betaFeedback" class="govuk-link">feedback</a> will help us to improve it.
+link.feedback=Feedback
+main.cookies=Cookies
+footer.termsandconditions=Terms and conditions
+link.privacyPolicy=Privacy
 
 #START PAGE
 start.heading.register=Register to use this service
@@ -423,14 +429,16 @@ propertyRepresentation.table.title.remove=Select
 
 #New appoint agent journey
 propertyRepresentation.addAnAgent.title=Add an agent
-propertyRepresentation.addAnAgent.caption=Enter your agent’s code to add them to your account. You need to ask your agent for their code if you do not have it.
+
+propertyRepresentation.addAnAgent.question=Agent code
+propertyRepresentation.addAnAgent.caption=You need to ask your agent for their code if you do not have it.
 propertyRepresentation.addAnAgent.agentCode=Agent code
 
 propertyRepresentation.isThisYourAgent.question=Is this your agent?
 propertyRepresentation.isThisYourAgent.yes=Yes
 propertyRepresentation.isThisYourAgent.no=No, enter a new code
 
-propertyRepresentation.onePropertyNoExistingAgent.question=Should {0} to manage your property?
+propertyRepresentation.onePropertyNoExistingAgent.question=Do you want {0} to manage your property?
 
 propertyRepresentation.oneProperty.question=Do you want {0} to manage your property?
 propertyRepresentation.oneProperty.options.asWellAsCurrent=Yes - as well as the current agent
@@ -462,6 +470,7 @@ propertyRepresentation.confirmation.whatHappensNext.p1=We will notify Knight Fra
 
 
 error.propertyRepresentation.title=There is a problem
+error.propertyRepresentation.unknownAgent=There is no agent for the provided agent code
 
 
 #Appoint agents properties
@@ -879,7 +888,12 @@ error.label.year=Year
 error.boolean=Please select an option
 
 
-error.agentCode.invalid=Please enter a valid code
+error.agentCode.required=Agent code must be filled in
+error.agentCode.invalid=Agent code cannot be a negative number
+error.isThisYourAgent.required=Select yes if this is your agent
+
+error.oneProperty.required=Select if you want your agent to manage your property
+error.multipleProperties.required=Select if you want your agent to manage any of your properties
 
 #MISC
 alt.newWindow=Opens in a new window

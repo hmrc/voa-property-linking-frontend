@@ -27,7 +27,9 @@
 @import "modules/helpers"; 																				// Overide asset path from govuk-elements-sass
 
 // GOV.UK Frontend (styles, images and fonts)
-$govuk-assets-path: '/business-rates-find/assets/govuk/';
+
+
+
 @import "node_modules/govuk-frontend/govuk/all";
 @import "node_modules/govuk-frontend/govuk/overrides/typography";
 

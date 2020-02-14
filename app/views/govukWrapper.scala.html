@@ -42,21 +42,36 @@
         )
     }
 
-    @phaseBannerText = @{
-        ""
+    @banner = {
+        @config.bannerContent.map { content =>
+            <div class="notification-banner">
+                <p>@Html(content)</p>
+            </div>
+        }
     }
 
+
     @phaseBanner = {
-        @GovukPhaseBanner(PhaseBanner(tag = Some(Tag(Text("beta"))), content = HtmlContent(phaseBannerText)))
+        @GovukPhaseBanner(
+            PhaseBanner(
+                tag = Some(Tag(Text("beta"))),
+                content = HtmlContent(messages("label.phase.banner.text", "#"))
+            )
+        )
     }
 
     @beforeContentBlock = {
+        @banner
         @phaseBanner
         @navigation
     }
 
     @headerBlock = {
-    @GovukHeader(Header(homepageUrl = Some(messages("service.homePageUrl"))))
+        @GovukHeader(Header(
+            homepageUrl = Some(config.newDashboardUrl("home")),
+            serviceName = Some(messages("service.name")),
+            serviceUrl = Some("#")
+        ))
     }
 
     @footerBlock() = @{

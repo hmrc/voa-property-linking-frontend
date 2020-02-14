@@ -1,0 +1,105 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import config.ApplicationConfig
+
+@this(
+        govukTemplate: GovukTemplate,
+        govukHeader: GovukHeader,
+        govukFooter: GovukFooter,
+        govukBackLink: GovukBackLink,
+        head: head
+)
+
+@(
+        pageTitle: String,
+        headBlock: Option[Html] = Some(head()),
+        headerBlock: Option[Html] = None,
+        beforeContentBlock: Option[Html] = None,
+        footerBlock: Option[Html] = None,
+        footerItems: Seq[FooterItem] = Seq.empty,
+        bodyEndBlock: Option[Html] = None,
+        scriptsBlock: Option[Html] = None,
+        backUri: Option[String] = None
+)(contentBlock: Html)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+
+@headScripts = {
+    @includes.pingdomPerformanceMonitor()
+    @views.html.includes.stylesheets()
+}
+@headerDefault = {
+    @headerBlock.getOrElse {
+        @govukHeader(Header(
+            homepageUrl = Some(config.newDashboardUrl("home")),
+            serviceName = Some(messages("service.name")),
+            serviceUrl = None,
+            containerClasses = Some("govuk-width-container")))
+    }
+}
+
+@footerDefault = {
+    @footerBlock.getOrElse {
+        @govukFooter(new Footer(meta = Some(Meta(items = Some(
+            Seq(
+                FooterItem(text = Some(messages("footer.link.help")),
+                    href = Some(config.helpGuideUrl),
+                    attributes = Map("data-sso" -> "false", "data-journey-click" -> "footer:Click:Help") ),
+                FooterItem(text = Some(messages("link.feedback")),
+                    href = Some("#"),
+                    attributes = Map("target" -> "_blank")),
+                FooterItem(text = Some(messages("main.cookies")),
+                    href = Some("#")),
+                FooterItem(text = Some(messages("footer.termsandconditions")),
+                    href = Some("#")),
+                FooterItem(text = Some(messages("link.privacyPolicy")),
+                    href = Some("https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice"))
+            )
+        )))))
+    }
+}
+
+@scriptElem = {
+    <script src="/business-rates-property-linking/assets/lib/govuk-frontend/govuk/all.js"></script>
+    <script>window.GOVUKFrontend.initAll();</script>
+}
+
+@bodyEndDefault = {
+    @bodyEndBlock
+    @scriptsBlock
+}
+
+@mainContent = {
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            @contentBlock
+        </div>
+    </div>
+}
+
+@navigation = {
+    @navigationBar(backUri)
+}
+
+
+@govukWrapper(
+    title = pageTitle,
+    headScripts = headScripts,
+    content = mainContent,
+    navigation = navigation,
+    scriptElem = Some(scriptElem)
+)

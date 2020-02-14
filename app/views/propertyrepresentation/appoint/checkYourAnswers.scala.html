@@ -23,24 +23,24 @@
 
 @import utils.AppointNewAgentFormatter
 
+@this(govukTable : GovukTable, mainLayout: views.html.mainLayout)
+
 @(data: AppointNewAgentSession)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @answerMessageKey = @{
     AppointNewAgentFormatter.format(data.managingProperty.getOrElse(""))
 }
 
-@main_template(
-    title = Messages("propertyRepresentation.addAnAgent.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = request.headers.get("referer")
+@mainLayout(
+    pageTitle = messages("propertyRepresentation.addAnAgent.title"),
+    backUri = request.headers.get("referer")
 ) {
 
 
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.checkYourAnswers.title")</h1>
 
-    @GovukTable(Table(
+    @govukTable(Table(
         rows = Seq(
             Seq(
                 TableRow(
