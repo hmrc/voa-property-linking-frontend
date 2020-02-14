@@ -28,10 +28,16 @@ object AgentRelationshipForms {
     }))
 
   val isThisYourAgent: Form[Boolean] =
-    Form(single("isThisYourAgent" -> optional(boolean).verifying("error.isThisYourAgent.required", _.isDefined).transform(_.get, Some.apply(_: Boolean))))
+    Form(
+      single(
+        "isThisYourAgent" -> optional(boolean)
+          .verifying("error.isThisYourAgent.required", _.isDefined)
+          .transform(_.get, Some.apply(_: Boolean))))
 
   val manageOnePropertyNoAgent: Form[Boolean] = Form(Forms.single("onePropertyNoAgent" -> Mappings.mandatoryBoolean))
-  val manageOnePropertyExistingAgent: Form[ManageOnePropertyOptions] = Form(Forms.single("onePropertyWithAgent" -> EnumMapping(ManageOnePropertyOptions)))
-  val manageMultipleProperties: Form[ManageMultiplePropertiesOptions] = Form(Forms.single("multipleProperties" -> EnumMapping(ManageMultiplePropertiesOptions)))
+  val manageOnePropertyExistingAgent: Form[ManageOnePropertyOptions] = Form(
+    Forms.single("onePropertyWithAgent" -> EnumMapping(ManageOnePropertyOptions)))
+  val manageMultipleProperties: Form[ManageMultiplePropertiesOptions] = Form(
+    Forms.single("multipleProperties" -> EnumMapping(ManageMultiplePropertiesOptions)))
 
 }

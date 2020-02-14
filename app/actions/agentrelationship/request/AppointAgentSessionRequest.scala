@@ -23,19 +23,24 @@ import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
 case class AppointAgentSessionRequest[A](
-                                     sessionData: AppointNewAgentSession,
-                                     organisationId: Long,
-                                     individualAccount: DetailedIndividualAccount,
-                                     groupAccount: GroupAccount,
-                                     request: Request[A]
-                                   ) extends WrappedRequest[A](request) with CcaWrappedRequest {
+      sessionData: AppointNewAgentSession,
+      organisationId: Long,
+      individualAccount: DetailedIndividualAccount,
+      groupAccount: GroupAccount,
+      request: Request[A]
+) extends WrappedRequest[A](request) with CcaWrappedRequest {
   override def isLoggedIn = true
 
   override def optAccounts = Some(Accounts(organisation = groupAccount, person = individualAccount))
 
   override def yourDetailsName = getYourDetailsName(optAccounts)
 
-  def sessionId: String = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
+  def sessionId: String =
+    HeaderCarrierConverter
+      .fromHeadersAndSession(request.headers, Some(request.session))
+      .sessionId
+      .map(_.value)
+      .getOrElse(throw NoSessionId)
 }
 
 case object NoSessionId extends Exception

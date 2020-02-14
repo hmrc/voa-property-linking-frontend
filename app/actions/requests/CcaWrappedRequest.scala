@@ -23,7 +23,7 @@ trait CcaWrappedRequest {
   def optAccounts: Option[Accounts]
   def yourDetailsName: Option[String]
 
-  def getYourDetailsName(optAccounts: Option[Accounts]): Option[String]  = optAccounts.map { acc =>
+  def getYourDetailsName(optAccounts: Option[Accounts]): Option[String] = optAccounts.map { acc =>
     if (s"${acc.person.details.firstName} ${acc.person.details.lastName}" == acc.organisation.companyName) {
       s"${acc.person.details.firstName} ${acc.person.details.lastName}"
     } else {

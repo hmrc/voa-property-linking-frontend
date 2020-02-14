@@ -57,9 +57,8 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
       ()
     }
 
-  def getAgent(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentOrganisation]] = {
+  def getAgent(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentOrganisation]] =
     http.GET[Option[AgentOrganisation]](s"$baseUrl/property-representations/agent/$agentCode") recover {
       case _: NotFoundException => None
     }
-  }
 }

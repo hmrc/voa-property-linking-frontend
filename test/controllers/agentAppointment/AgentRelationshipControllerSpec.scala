@@ -35,222 +35,244 @@ import scala.concurrent.Future
 class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
   "startAppointJourney" should "show the appoint new agent start page" in {
-    when(startPage.apply(any())(any(),any(),any())).thenReturn(Html(""))
+    when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
     val res = testController.startAppointJourney()(FakeRequest())
     status(res) mustBe OK
   }
   "getAgentDetails" should "return 400 Bad Request when agentCode is not provided" in {
-    when(startPage.apply(any())(any(),any(),any())).thenReturn(Html(""))
-    val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody(
-      "agentCode" -> ""))
+    when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> ""))
     status(res) mustBe BAD_REQUEST
   }
 
   "getAgentDetails" should "return 400 Bad Request when agentCode is provided but there is no Agent for the provided agentCode" in {
-    when(startPage.apply(any())(any(),any(),any())).thenReturn(Html(""))
+    when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
     when(mockAgentRelationshipService.getAgent(any())(any())).thenReturn(Future successful Some(agentOrganisation))
-    val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody(
-      "agentCode" -> "11223"))
+    val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "11223"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")
+    redirectLocation(res) mustBe Some(
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")
   }
 
   "isCorrectAgent" should "show the isCorrectAgent page" in {
-    when(isTheCorrectAgent.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(isTheCorrectAgent.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
     val res = testController.isCorrectAgent()(FakeRequest())
     status(res) mustBe OK
   }
 
   "agentSelected" should "return 400 Bad Request when no option is selected" in {
-    when(isTheCorrectAgent.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(isTheCorrectAgent.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
-    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody(
-      "isThisYourAgent" -> ""))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> ""))
     status(res) mustBe BAD_REQUEST
   }
 
   "agentSelected" should "return 303 See Other and go to start page when user confirms that the presented agent is not their agent" in {
-    when(confirmation.apply(any())(any(),any(),any())).thenReturn(Html(""))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(confirmation.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody(
-      "isThisYourAgent" -> "false"))
+    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "false"))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent")
   }
 
   "agentSelected" should "return 200 Ok and go to the confirmation page if organisation have no authorisations" in {
-    when(confirmation.apply(any())(any(),any(),any())).thenReturn(Html(""))
+    when(confirmation.apply(any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
+    when(
+      mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
     when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsNoAgents))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody(
-      "isThisYourAgent" -> "true"))
+    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) mustBe OK
   }
 
   "agentSelected" should "return 303 See Other and go to the agentToManageOnePropertyNoExistingAgent page if organisation has only one authorisation and no existing agent" in {
-    when(agentToManageOnePropertyNoExistingAgent.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOnePropertyNoExistingAgent.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
+    when(
+      mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
     when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsNoAgents))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody(
-      "isThisYourAgent" -> "true"))
+    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property/no-existing-agent")
+    redirectLocation(res) mustBe Some(
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property/no-existing-agent")
   }
 
   "agentSelected" should "return 303 See Other and go to the agentToManageOneProperty page if organisation has only one authorisation and an existing agent" in {
-    when(agentToManageOneProperty.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
+    when(
+      mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
     when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsWithOneAgent))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody(
-      "isThisYourAgent" -> "true"))
+    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property/with-existing-agent")
+    redirectLocation(res) mustBe Some(
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property/with-existing-agent")
   }
 
   "agentSelected" should "return 303 See Other and go to the agentToManageMultipleProperties page if organisation has only multiple authorisations" in {
-    when(agentToManageMultipleProperties.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageMultipleProperties.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
+    when(
+      mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
     when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsWithOneAgent))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody(
-      "isThisYourAgent" -> "true"))
+    val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+    redirectLocation(res) mustBe Some(
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
   }
 
   "onePropertyNoExistingAgent" should "return 200 Ok" in {
-    when(agentToManageOnePropertyNoExistingAgent.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOnePropertyNoExistingAgent.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
     val res = testController.onePropertyNoExistingAgent()(FakeRequest())
     status(res) mustBe OK
   }
 
   "submitOnePropertyNoExistingAgent" should "return 400 Bad Request if no selection is made" in {
-    when(agentToManageOnePropertyNoExistingAgent.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOnePropertyNoExistingAgent.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.submitOnePropertyNoExistingAgent()(FakeRequest().withFormUrlEncodedBody(
-      "onePropertyNoAgent" -> ""))
+    val res = testController.submitOnePropertyNoExistingAgent()(
+      FakeRequest().withFormUrlEncodedBody("onePropertyNoAgent" -> ""))
 
     status(res) mustBe BAD_REQUEST
   }
 
   "submitOnePropertyNoExistingAgent" should "return 303 See Other when valid selection is made" in {
-    when(agentToManageOnePropertyNoExistingAgent.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOnePropertyNoExistingAgent.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.submitOnePropertyNoExistingAgent()(FakeRequest().withFormUrlEncodedBody(
-      "onePropertyNoAgent" -> "true"))
+    val res = testController.submitOnePropertyNoExistingAgent()(
+      FakeRequest().withFormUrlEncodedBody("onePropertyNoAgent" -> "true"))
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/checkYourAnswers")
+    redirectLocation(res) mustBe Some(
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/checkYourAnswers")
   }
 
   "onePropertyWithExistingAgent" should "return 200 Ok" in {
-    when(agentToManageOneProperty.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
     val res = testController.onePropertyWithExistingAgent()(FakeRequest())
     status(res) mustBe OK
   }
 
   "submitOnePropertyWithExistingAgent" should "return 400 Bad Request if no selection is made" in {
-    when(agentToManageOneProperty.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.submitOnePropertyWithExistingAgent()(FakeRequest().withFormUrlEncodedBody(
-      "onePropertyWithAgent" -> ""))
+    val res = testController.submitOnePropertyWithExistingAgent()(
+      FakeRequest().withFormUrlEncodedBody("onePropertyWithAgent" -> ""))
 
     status(res) mustBe BAD_REQUEST
   }
 
   "submitOnePropertyWithExistingAgent" should "return 303 See Other when valid selection is made" in {
-    when(agentToManageOneProperty.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.submitOnePropertyWithExistingAgent()(FakeRequest().withFormUrlEncodedBody(
-      "onePropertyWithAgent" -> "AS_WELL_AS_CURRENT"))
+    val res = testController.submitOnePropertyWithExistingAgent()(
+      FakeRequest().withFormUrlEncodedBody("onePropertyWithAgent" -> "AS_WELL_AS_CURRENT"))
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/checkYourAnswers")
+    redirectLocation(res) mustBe Some(
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/checkYourAnswers")
   }
 
   "multipleProperties" should "return 200 Ok" in {
-    when(agentToManageMultipleProperties.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageMultipleProperties.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
     val res = testController.multipleProperties()(FakeRequest())
     status(res) mustBe OK
   }
 
   "submitMultipleProperties" should "return 400 Bad Request if no selection is made" in {
-    when(agentToManageOneProperty.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody(
-      "multipleProperties" -> ""))
+    val res =
+      testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody("multipleProperties" -> ""))
 
     status(res) mustBe BAD_REQUEST
   }
 
   "submitMultipleProperties" should "return 303 See Other when valid selection is made" in {
-    when(agentToManageOneProperty.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody(
-      "multipleProperties" -> "ALL"))
+    val res =
+      testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody("multipleProperties" -> "ALL"))
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/checkYourAnswers")
+    redirectLocation(res) mustBe Some(
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/checkYourAnswers")
   }
 
   "submitMultipleProperties" should "return 303 See Other and redirect to old journey when ChooseFromList is selected" in {
-    when(agentToManageOneProperty.apply(any(), any())(any(),any(),any())).thenReturn(Html(""))
+    when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
-    val res = testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody(
-      "multipleProperties" -> "CHOOSE_FROM_LIST"))
+    val res = testController.submitMultipleProperties()(
+      FakeRequest().withFormUrlEncodedBody("multipleProperties" -> "CHOOSE_FROM_LIST"))
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&sortfield=ADDRESS&sortorder=ASC&agentCode=12345&checkPermission=START_AND_CONTINUE&challengePermission=START_AND_CONTINUE&agentAppointed=BOTH")
+    redirectLocation(res) mustBe Some(
+      "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&sortfield=ADDRESS&sortorder=ASC&agentCode=12345&checkPermission=START_AND_CONTINUE&challengePermission=START_AND_CONTINUE&agentAppointed=BOTH")
   }
 
   //checkAnswers
 
   "checkAnswers" should "return 200 Ok" in {
-    when(checkYourAnswers.apply(any())(any(),any(),any())).thenReturn(Html(""))
+    when(checkYourAnswers.apply(any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any())).thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(appointNewAgentSession)))
 
     val res = testController.checkAnswers()(FakeRequest())
     status(res) mustBe OK
@@ -278,16 +300,17 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   private lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
-    when(f.start(any())(any(), any())
-    ).thenReturn(Future.successful(()))
+    when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
     f
   }
 
   private lazy val startPage = mock[views.html.propertyrepresentation.appoint.start]
   private lazy val isTheCorrectAgent = mock[views.html.propertyrepresentation.appoint.isThisYourAgent]
-  private lazy val agentToManageOnePropertyNoExistingAgent = mock[views.html.propertyrepresentation.appoint.agentToManageOnePropertyNoExistingAgent]
+  private lazy val agentToManageOnePropertyNoExistingAgent =
+    mock[views.html.propertyrepresentation.appoint.agentToManageOnePropertyNoExistingAgent]
   private lazy val agentToManageOneProperty = mock[views.html.propertyrepresentation.appoint.agentToManageOneProperty]
-  private lazy val agentToManageMultipleProperties = mock[views.html.propertyrepresentation.appoint.agentToManageMultipleProperties]
+  private lazy val agentToManageMultipleProperties =
+    mock[views.html.propertyrepresentation.appoint.agentToManageMultipleProperties]
   private lazy val checkYourAnswers = mock[views.html.propertyrepresentation.appoint.checkYourAnswers]
   private lazy val confirmation = mock[views.html.propertyrepresentation.appoint.confirmation]
 

@@ -24,26 +24,30 @@ import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.Mockito.mock
 import play.api.mvc.Result
 import repositories.SessionRepo
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class StubWithAppointAgentSession(sessionRepository: SessionRepo) extends WithAppointAgentSession(mock(classOf[CustomErrorHandler]), sessionRepository) {
+class StubWithAppointAgentSession(sessionRepository: SessionRepo)
+    extends WithAppointAgentSession(mock(classOf[CustomErrorHandler]), sessionRepository) {
 
   private var stubbedSession: Option[(AppointNewAgentSession, DetailedIndividualAccount, GroupAccount)] = None
 
-  override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, AppointAgentSessionRequest[A]]] = {
-    stubbedSession.fold(throw new Exception("Appoint agent session not stubbed")) { case (appointAgentSession, person, organisation) =>
-      Future.successful(Right(AppointAgentSessionRequest(appointAgentSession, person.organisationId, person, organisation, request)))
+  override def refine[A](
+        request: BasicAuthenticatedRequest[A]): Future[Either[Result, AppointAgentSessionRequest[A]]] =
+    stubbedSession.fold(throw new Exception("Appoint agent session not stubbed")) {
+      case (appointAgentSession, person, organisation) =>
+        Future.successful(
+          Right(AppointAgentSessionRequest(appointAgentSession, person.organisationId, person, organisation, request)))
     }
-  }
 
-  def stubSession(appointAgentSession: AppointNewAgentSession, individualAccount: DetailedIndividualAccount, groupAccount: GroupAccount) = {
+  def stubSession(
+        appointAgentSession: AppointNewAgentSession,
+        individualAccount: DetailedIndividualAccount,
+        groupAccount: GroupAccount) =
     stubbedSession = Some((appointAgentSession, individualAccount, groupAccount))
-  }
 
-  def reset() = {
+  def reset() =
     stubbedSession = None
-  }
 }

@@ -105,9 +105,8 @@ class AgentRelationshipService @Inject()(
             .filter(auth => auth.agents.nonEmpty)))
   }
 
-  def getAgent(agentCode: Long)(implicit hc: HeaderCarrier) = {
+  def getAgent(agentCode: Long)(implicit hc: HeaderCarrier) =
     representations.getAgent(agentCode)
-  }
 
   private def appointAgent(
         pLink: String,
@@ -116,7 +115,7 @@ class AgentRelationshipService @Inject()(
         individualId: Long,
         checkPermission: AgentPermission,
         challengePermission: AgentPermission,
-        isAgent: Boolean)(implicit hc: HeaderCarrier): Future[Unit] = {
+        isAgent: Boolean)(implicit hc: HeaderCarrier): Future[Unit] =
     hc.sessionId match {
       case Some(sessionId) =>
         propertyLinksSessionRepo.get[SessionPropertyLinks] flatMap {
@@ -147,7 +146,6 @@ class AgentRelationshipService @Inject()(
         Future.failed(new AppointRevokeException(
           s"Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
     }
-  }
 
   private def revokeAgent(pLink: String, agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] =
     hc.sessionId match {

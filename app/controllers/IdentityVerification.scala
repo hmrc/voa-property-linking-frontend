@@ -51,20 +51,19 @@ class IdentityVerification @Inject()(
                   userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
       } yield Redirect(links.getLink(config.ivBaseUrl))
     } else {
-      Future.successful(
-        Redirect(routes.IdentityVerification.success(Some(java.util.UUID.randomUUID().toString))))
+      Future.successful(Redirect(routes.IdentityVerification.success(Some(java.util.UUID.randomUUID().toString))))
     }
   }
 
   def fail(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
-      journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))){ id =>
-        identityVerificationConnector.journeyStatus(id).map {
-          case IvResult.IvSuccess =>
-            Redirect(controllers.routes.IdentityVerification.success(journeyId))
-          case ivFailureReason: IvResult.IvFailure =>
-            Ok(views.html.identityVerification.failed(ivFailureReason))
-        }
+    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+      identityVerificationConnector.journeyStatus(id).map {
+        case IvResult.IvSuccess =>
+          Redirect(controllers.routes.IdentityVerification.success(journeyId))
+        case ivFailureReason: IvResult.IvFailure =>
+          Ok(views.html.identityVerification.failed(ivFailureReason))
       }
+    }
 
   }
 
@@ -82,7 +81,7 @@ class IdentityVerification @Inject()(
         case true =>
           identityVerificationService.continue(id, request.userDetails).map {
             case Some(obj) => identityVerificationService.someCase(obj)
-            case None => identityVerificationService.noneCase
+            case None      => identityVerificationService.noneCase
           }
         case false => Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
       }

@@ -21,11 +21,11 @@ import java.time.LocalDateTime
 import play.api.libs.json.{Json, OFormat}
 
 case class AgentOrganisation(
-                              id: Long,
-                              representativeCode: Option[Long],
-                              organisationLatestDetail: OrganisationLatestDetail,
-                              persons: List[Person]
-                            )
+      id: Long,
+      representativeCode: Option[Long],
+      organisationLatestDetail: OrganisationLatestDetail,
+      persons: List[Person]
+)
 
 object AgentOrganisation {
   implicit val format: OFormat[AgentOrganisation] = Json.format[AgentOrganisation]

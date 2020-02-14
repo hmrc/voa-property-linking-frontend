@@ -129,7 +129,7 @@ trait FakeObjects {
   val agentOrganisation = AgentOrganisation(
     id = 12L,
     representativeCode = Some(agentCode),
-    organisationLatestDetail =  OrganisationLatestDetail(
+    organisationLatestDetail = OrganisationLatestDetail(
       id = 1L,
       addressUnitId = 1L,
       organisationName = "An Org",
@@ -145,7 +145,8 @@ trait FakeObjects {
     agentOrganisationId = 1878L,
     agentOrganisationName = Some("Some Org"),
     isCorrectAgent = Some(true),
-    managingProperty = Some("All properties"))
+    managingProperty = Some("All properties")
+  )
 
   val ownerAuthAgent = OwnerAuthAgent(
     authorisedPartyId = 12L,
@@ -156,7 +157,6 @@ trait FakeObjects {
     challengePermission = StartAndContinue,
     agentCode = agentCode
   )
-
 
   val ownerAuthorisation = OwnerAuthorisation(
     authorisationId = 4222211L,

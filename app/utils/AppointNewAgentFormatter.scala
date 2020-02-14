@@ -21,13 +21,13 @@ import models.propertyrepresentation.{All, AsWellAsCurrent, ChooseFromList, Inst
 object AppointNewAgentFormatter {
 
   def format(option: String): String = option match {
-    case All.name => "propertyRepresentation.checkYourAnswers.options.all"
-    case None.name => "propertyRepresentation.checkYourAnswers.options.none"
-    case AsWellAsCurrent.name => "propertyRepresentation.checkYourAnswers.options.asWellAsCurrent"
+    case All.name              => "propertyRepresentation.checkYourAnswers.options.all"
+    case None.name             => "propertyRepresentation.checkYourAnswers.options.none"
+    case AsWellAsCurrent.name  => "propertyRepresentation.checkYourAnswers.options.asWellAsCurrent"
     case InsteadOfCurrent.name => "propertyRepresentation.checkYourAnswers.options.insteadOfCurrent"
-    case No.name => "propertyRepresentation.checkYourAnswers.options.no"
-    case Yes.name => "propertyRepresentation.checkYourAnswers.options.yes"
-    case ChooseFromList.name => "" //should not be possible
+    case No.name               => "propertyRepresentation.checkYourAnswers.options.no"
+    case Yes.name              => "propertyRepresentation.checkYourAnswers.options.yes"
+    case ChooseFromList.name   => "" //should not be possible
   }
 
 }
