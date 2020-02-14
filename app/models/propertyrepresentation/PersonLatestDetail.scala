@@ -27,7 +27,6 @@ case class PersonLatestDetail(
       addressUnitId: Long,
       telephoneNumber: Option[String],
       emailAddress: String
-      //fixme add later effectiveFrom: LocalDateTime
 ) {
 
   val fullName: String = s"$firstName $lastName"
