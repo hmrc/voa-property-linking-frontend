@@ -20,11 +20,12 @@ import models.IVDetails
 import play.api.libs.json.Json
 import uk.gov.hmrc.auth.core.ConfidenceLevel
 
-case class Journey(origin: String,
-                   completionURL: String,
-                   failureURL: String,
-                   confidenceLevel: ConfidenceLevel,
-                   userData: IVDetails)
+case class Journey(
+      origin: String,
+      completionURL: String,
+      failureURL: String,
+      confidenceLevel: ConfidenceLevel,
+      userData: IVDetails)
 
 object Journey {
   implicit val formats = Json.format[Journey]

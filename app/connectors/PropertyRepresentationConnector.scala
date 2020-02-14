@@ -26,28 +26,36 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
+class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(
+      implicit ec: ExecutionContext) {
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
 
-  def validateAgentCode(agentCode:Long, authorisationId: Long)(implicit hc: HeaderCarrier): Future[AgentCodeValidationResult] = {
-    http.GET[AgentCodeValidationResult](s"$baseUrl/property-representations/validate-agent-code/$agentCode/$authorisationId")
-  }
+  def validateAgentCode(agentCode: Long, authorisationId: Long)(
+        implicit hc: HeaderCarrier): Future[AgentCodeValidationResult] =
+    http.GET[AgentCodeValidationResult](
+      s"$baseUrl/property-representations/validate-agent-code/$agentCode/$authorisationId")
 
-  def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(implicit hc: HeaderCarrier): Future[PropertyRepresentations] = {
-    http.GET[PropertyRepresentations](s"$baseUrl/property-representations/agent/${status.name}/$agentOrganisationId?$pagination")
-  }
+  def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(
+        implicit hc: HeaderCarrier): Future[PropertyRepresentations] =
+    http.GET[PropertyRepresentations](
+      s"$baseUrl/property-representations/agent/${status.name}/$agentOrganisationId?$pagination")
 
-  def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.POST[RepresentationRequest, HttpResponse](s"$baseUrl/property-representations/create", reprRequest) map { _ => () }
-  }
+  def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier): Future[Unit] =
+    http.POST[RepresentationRequest, HttpResponse](s"$baseUrl/property-representations/create", reprRequest) map { _ =>
+      ()
+    }
 
-  def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.PUT[RepresentationResponse, HttpResponse](s"$baseUrl/property-representations/response", representationResponse) map { _ => () }
-  }
+  def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier): Future[Unit] =
+    http.PUT[RepresentationResponse, HttpResponse](
+      s"$baseUrl/property-representations/response",
+      representationResponse) map { _ =>
+      ()
+    }
 
-  def revoke(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit] = {
-    http.PATCH[String, HttpResponse](s"$baseUrl/property-representations/revoke/$authorisedPartyId", "") map { _ => () }
-  }
+  def revoke(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit] =
+    http.PATCH[String, HttpResponse](s"$baseUrl/property-representations/revoke/$authorisedPartyId", "") map { _ =>
+      ()
+    }
 
   def getAgent(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentOrganisation]] = {
     http.GET[Option[AgentOrganisation]](s"$baseUrl/property-representations/agent/$agentCode") recover {

@@ -21,54 +21,46 @@ import java.time.LocalDate
 import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import play.api.libs.json.{Format, Json}
 
-case class PropertyLink(
-                         authorisationId: Long,
-                         submissionId: String,
-                         uarn: Long,
-                         address: String,
-                         agents: Seq[Party])
+case class PropertyLink(authorisationId: Long, submissionId: String, uarn: Long, address: String, agents: Seq[Party])
 
 object PropertyLink {
   implicit val format: Format[PropertyLink] = Json.format[PropertyLink]
 }
 
 case class ApiAssessments(
-                         authorisationId: Long,
-                         submissionId: String,
-                         uarn: Long,
-                         address: String,
-                         pending: Boolean,
-                         capacity: Option[String],
-                         assessments: Seq[ApiAssessment],
-                         agents: Seq[Party]
-                         )
+      authorisationId: Long,
+      submissionId: String,
+      uarn: Long,
+      address: String,
+      pending: Boolean,
+      capacity: Option[String],
+      assessments: Seq[ApiAssessment],
+      agents: Seq[Party]
+)
 
 object ApiAssessments {
   implicit val format: Format[ApiAssessments] = Json.format[ApiAssessments]
 }
 
 case class ApiAssessment(
-                       authorisationId: Long,
-                       assessmentRef: Long,
-                       listYear: String,
-                       uarn: Long,
-                       effectiveDate: Option[LocalDate],
-                       rateableValue: Option[Long],
-                       address: PropertyAddress,
-                       billingAuthorityReference: String,
-                       currentFromDate: Option[LocalDate] = None,
-                       currentToDate: Option[LocalDate] = None
-                     )
+      authorisationId: Long,
+      assessmentRef: Long,
+      listYear: String,
+      uarn: Long,
+      effectiveDate: Option[LocalDate],
+      rateableValue: Option[Long],
+      address: PropertyAddress,
+      billingAuthorityReference: String,
+      currentFromDate: Option[LocalDate] = None,
+      currentToDate: Option[LocalDate] = None
+)
 
 object ApiAssessment {
   implicit val format: Format[ApiAssessment] = Json.format[ApiAssessment]
 }
 
-case class PropertyLinkResponse(resultCount: Option[Long],
-                                propertyLinks: Seq[PropertyLink])
+case class PropertyLinkResponse(resultCount: Option[Long], propertyLinks: Seq[PropertyLink])
 
 object PropertyLinkResponse {
   implicit val format: Format[PropertyLinkResponse] = Json.format[PropertyLinkResponse]
 }
-
-

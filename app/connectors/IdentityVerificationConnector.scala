@@ -28,22 +28,23 @@ import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerificationConnector @Inject()(
-                                               serverConfig: ServicesConfig,
-                                               config: ApplicationConfig,
-                                               http: HttpClient
-                                             )(implicit val executionContext: ExecutionContext) {
+      serverConfig: ServicesConfig,
+      config: ApplicationConfig,
+      http: HttpClient
+)(implicit val executionContext: ExecutionContext) {
 
   val baseUrl = serverConfig.baseUrl("identity-verification")
 
-  def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean] = {
+  def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean] =
     if (config.ivEnabled) {
-      http.GET[JsValue](s"$baseUrl/mdtp/journey/journeyId/$journeyId").map(r => (r \ "result").asOpt[String].contains("Success"))
+      http
+        .GET[JsValue](s"$baseUrl/mdtp/journey/journeyId/$journeyId")
+        .map(r => (r \ "result").asOpt[String].contains("Success"))
     } else {
       Future.successful(true)
     }
-  }
 
-  def journeyStatus(journeyId: String)(implicit hc: HeaderCarrier): Future[IvResult] = {
+  def journeyStatus(journeyId: String)(implicit hc: HeaderCarrier): Future[IvResult] =
     if (config.ivEnabled) {
       http.GET[JsObject](s"$baseUrl/mdtp/journey/journeyId/$journeyId").map { returnedObject =>
         IvResult.fromString((returnedObject \ "result").as[String]).getOrElse(IvFailure.TechnicalIssue)
@@ -51,5 +52,4 @@ class IdentityVerificationConnector @Inject()(
     } else {
       Future.successful(IvFailure.TechnicalIssue)
     }
-  }
 }

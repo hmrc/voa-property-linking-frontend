@@ -42,13 +42,10 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
-    when(f.start(any())(any(), any())
-    ).thenReturn(Future.successful(()))
-    when(f.saveOrUpdate(any())(any(), any())
-    ).thenReturn(Future.successful(()))
+    when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
+    when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
     f
   }
-
 
   val mockIdentityVerificationService = mock[IdentityVerificationService]
 
@@ -56,20 +53,24 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   val mockSessionUserDetailsAction = mock[SessionUserDetailsAction]
 
-  private def testRegistrationController(userDetails: UserDetails, sessionUserDetails: User = adminOrganisationAccountDetails): RegistrationController = new RegistrationController(
-    mockCustomErrorHandler,
-    ggPreauthenticated(userDetails),
-    sessionUserDetailsAction(sessionUserDetails),
-    StubGroupAccountConnector,
-    StubIndividualAccountConnector,
-    StubAddresses,
-    mockRegistrationService,
-    mockSessionRepo
-  )
+  private def testRegistrationController(
+        userDetails: UserDetails,
+        sessionUserDetails: User = adminOrganisationAccountDetails): RegistrationController =
+    new RegistrationController(
+      mockCustomErrorHandler,
+      ggPreauthenticated(userDetails),
+      sessionUserDetailsAction(sessionUserDetails),
+      StubGroupAccountConnector,
+      StubIndividualAccountConnector,
+      StubAddresses,
+      mockRegistrationService,
+      mockSessionRepo
+    )
 
   "Going directly to the complete-contact-details page, when logged in with an already registered VOA account" should
     "redirect the user to the dashboard" in {
-    StubIndividualAccountConnector.stubAccount(arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = ggExternalId))
+    StubIndividualAccountConnector.stubAccount(
+      arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = ggExternalId))
 
     val res = testRegistrationController(userDetails()).show()(FakeRequest())
 
@@ -170,11 +171,13 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Going to the create account page when logged in as a new assistant user registering without an existing group account" should
     "display the invalid account creation page" in {
-    val res = testRegistrationController(userDetails(affinityGroup = Organisation, credentialRole = Assistant)).show()(FakeRequest())
+    val res = testRegistrationController(userDetails(affinityGroup = Organisation, credentialRole = Assistant))
+      .show()(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("Registration failed You can’t register until the Administrator from your organisation registers first.")
+    html.mustContainText(
+      "Registration failed You can’t register until the Administrator from your organisation registers first.")
   }
 
   "Submitting an invalid individual form" should "return a bad request response" in {
@@ -184,27 +187,29 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "Submitting a valid individual form" should "return a redirect" in {
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1L)))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
+      .thenReturn(Future.successful(RegistrationSuccess(1L)))
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     val (groupId, externalId): (String, String) = (shortString, shortString)
-    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
+    StubIndividualAccountConnector.stubAccount(
+      DetailedIndividualAccount(externalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
 
     val data = Map(
-      "firstName" -> Seq("first"),
-      "lastName" -> Seq("second"),
-      "email" -> Seq("x@x.com"),
-      "confirmedEmail" -> Seq("x@x.com"),
-      "phone" -> Seq("1234567891"),
-      "mobilePhone" -> Seq("123456"),
-      "address.line1" -> Seq("1234567"),
-      "address.line2" -> Seq(""),
-      "address.line3" -> Seq(""),
-      "address.line4" -> Seq(""),
+      "firstName"        -> Seq("first"),
+      "lastName"         -> Seq("second"),
+      "email"            -> Seq("x@x.com"),
+      "confirmedEmail"   -> Seq("x@x.com"),
+      "phone"            -> Seq("1234567891"),
+      "mobilePhone"      -> Seq("123456"),
+      "address.line1"    -> Seq("1234567"),
+      "address.line2"    -> Seq(""),
+      "address.line3"    -> Seq(""),
+      "address.line4"    -> Seq(""),
       "address.postcode" -> Seq("12345"),
-      "nino" -> Seq("AA000001B"),
-      "dob.day" -> Seq("11"),
-      "dob.month" -> Seq("02"),
-      "dob.year" -> Seq("1980")
+      "nino"             -> Seq("AA000001B"),
+      "dob.day"          -> Seq("11"),
+      "dob.month"        -> Seq("02"),
+      "dob.year"         -> Seq("1980")
     )
 
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
@@ -220,30 +225,42 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "Submitting a valid organisation form" should "return a redirect" in {
     when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any())).thenReturn(Future.successful(RegistrationSuccess(1L)))
+    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
+      .thenReturn(Future.successful(RegistrationSuccess(1L)))
     val externalId: String = shortString
-    StubIndividualAccountConnector.stubAccount(DetailedIndividualAccount(externalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
+    StubIndividualAccountConnector.stubAccount(
+      DetailedIndividualAccount(externalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
 
     val data = Map(
-      "companyName" -> Seq("company"),
-      "firstName" -> Seq("first"),
-      "lastName" -> Seq("second"),
-      "address.line1" -> Seq("123456"),
-      "address.line2" -> Seq(""),
-      "address.line3" -> Seq(""),
-      "address.line4" -> Seq(""),
-      "address.postcode" -> Seq("post"),
-      "phone" -> Seq("12345"),
-      "email" -> Seq("x@x.com"),
+      "companyName"            -> Seq("company"),
+      "firstName"              -> Seq("first"),
+      "lastName"               -> Seq("second"),
+      "address.line1"          -> Seq("123456"),
+      "address.line2"          -> Seq(""),
+      "address.line3"          -> Seq(""),
+      "address.line4"          -> Seq(""),
+      "address.postcode"       -> Seq("post"),
+      "phone"                  -> Seq("12345"),
+      "email"                  -> Seq("x@x.com"),
       "confirmedBusinessEmail" -> Seq("x@x.com"),
-      "isAgent" -> Seq("false"),
-      "nino" -> Seq("AA000001B"),
-      "dob.day" -> Seq("11"),
-      "dob.month" -> Seq("02"),
-      "dob.year" -> Seq("1980")
+      "isAgent"                -> Seq("false"),
+      "nino"                   -> Seq("AA000001B"),
+      "dob.day"                -> Seq("11"),
+      "dob.month"              -> Seq("02"),
+      "dob.year"               -> Seq("1980")
     )
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
     val res = testRegistrationController(userDetails()).submitOrganisation()(fakeRequest)
     status(res) mustBe SEE_OTHER
+  }
+
+  override protected def beforeEach(): Unit = {
+    StubIndividualAccountConnector.reset()
+    StubGroupAccountConnector.reset()
+    StubIdentityVerification.reset()
+    StubPropertyLinkConnector.reset()
+    StubBusinessRatesValuation.reset()
+    StubSubmissionIdConnector.reset()
+    StubPropertyRepresentationConnector.reset()
   }
 }

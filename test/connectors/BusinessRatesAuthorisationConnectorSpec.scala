@@ -57,13 +57,13 @@ class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
     val authenticationSuccessResult = Authenticated(validAccounts)
 
     mockHttpGET[Accounts]("tst-url", validAccounts)
-    whenReady(connector.authorise(1,1))(_ mustBe authenticationSuccessResult)
+    whenReady(connector.authorise(1, 1))(_ mustBe authenticationSuccessResult)
   }
 
   "authorise" must "return a forbidden response if the user is not authorised to view an assessment" in new Setup {
     val forbiddenResponse = Upstream4xxResponse("FORBIDDEN", 403, 403, Map.empty)
     mockHttpFailedGET[Accounts]("tst-url", forbiddenResponse)
-    whenReady(connector.authorise(1,1).failed)(_ mustBe forbiddenResponse)
+    whenReady(connector.authorise(1, 1).failed)(_ mustBe forbiddenResponse)
   }
 
   "authorise" must "return a successful authentication result if the user is authorised to view assessments for a property link" in new Setup {

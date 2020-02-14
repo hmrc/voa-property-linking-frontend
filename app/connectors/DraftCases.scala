@@ -27,12 +27,10 @@ import scala.concurrent.{ExecutionContext, Future}
 class DraftCases @Inject()(http: HttpClient, config: ServicesConfig)(implicit ec: ExecutionContext) {
   lazy val checkUrl = config.baseUrl("business-rates-check")
 
-  def get(personId: Long)(implicit hc: HeaderCarrier): Future[Seq[DraftCase]] = {
+  def get(personId: Long)(implicit hc: HeaderCarrier): Future[Seq[DraftCase]] =
     http.GET[Seq[DraftCase]](s"$checkUrl/partial-check/resume/person/$personId")
-  }
 
-  def delete(draftCaseId: String)(implicit  hc: HeaderCarrier): Future[String] = {
+  def delete(draftCaseId: String)(implicit hc: HeaderCarrier): Future[String] =
     http.DELETE[String](s"$checkUrl/partial-check/draft/delete/$draftCaseId")
-  }
 
 }

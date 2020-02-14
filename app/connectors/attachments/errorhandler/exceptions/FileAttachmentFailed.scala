@@ -17,4 +17,3 @@
 package connectors.attachments.errorhandler.exceptions
 
 case class FileAttachmentFailed(errorMessage: String) extends Exception
-

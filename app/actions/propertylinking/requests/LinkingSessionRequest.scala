@@ -16,8 +16,7 @@
 
 package actions.propertylinking.requests
 
-import actions.requests.CcaWrappedRequest
-import models.{Accounts, DetailedIndividualAccount, GroupAccount, LinkingSession}
+import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
 import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
@@ -27,14 +26,7 @@ case class LinkingSessionRequest[A](
                                      individualAccount: DetailedIndividualAccount,
                                      groupAccount: GroupAccount,
                                      request: Request[A]
-                                   ) extends WrappedRequest[A](request) with CcaWrappedRequest {
-
-  override def isLoggedIn = true
-
-  override def optAccounts = Some(Accounts(organisation = groupAccount, person = individualAccount))
-
-  override def yourDetailsName = getYourDetailsName(optAccounts)
-
+                                   ) extends WrappedRequest[A](request) {
   def sessionId: String = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session)).sessionId.map(_.value).getOrElse(throw NoSessionId)
 }
 

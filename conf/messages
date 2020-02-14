@@ -335,8 +335,6 @@ managePropertiesSearchSort.table.5=Actions
 property.details.title=Valuations for
 property.details.p1=You can view your rateable value and start a new check or view the previous cases
 
-property.details.submittedCheckOnNextPage=<p>Please select a valuation and click continue</p>
-
 property.details.cases.table.1=Submitted date
 property.details.cases.table.2=Submitted ID
 property.details.cases.table.3=Status
@@ -759,6 +757,7 @@ declaration.p.3=Once you submit the form you will not be able to go back and mak
 label.declaration=Declaration
 declaration.iAgree=I agree to the above declaration
 declaration.required=You must agree to the declaration to continue
+declaration.file.receipt=Please try again in a moment
 
 #LINK ERRORS
 linkError.manualVerification.title=Manual Verification Required

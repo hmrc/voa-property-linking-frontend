@@ -40,12 +40,12 @@ import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
 import controllers.agent.routes
 import models.searchApi.AgentPropertiesParameters
 import views.html.propertyrepresentation.appoint._
 import models.propertyrepresentation.OnePropertyOptions
 import controllers.agentAppointment.AgentRelationshipForms._
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 

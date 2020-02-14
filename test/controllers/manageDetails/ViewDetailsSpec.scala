@@ -30,18 +30,19 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar{
+class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
   implicit val request = FakeRequest()
 
   val addressesConnector = mock[Addresses]
   val mockConfig = mock[ApplicationConfig]
 
-  object TestViewDetails extends ViewDetails(
-    mockCustomErrorHandler,
-    addressesConnector,
-    preAuthenticatedActionBuilders()
-  )
+  object TestViewDetails
+      extends ViewDetails(
+        mockCustomErrorHandler,
+        addressesConnector,
+        preAuthenticatedActionBuilders()
+      )
 
   class TestCase {
     val controller = TestViewDetails

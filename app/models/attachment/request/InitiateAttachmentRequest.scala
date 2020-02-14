@@ -19,9 +19,9 @@ package models.attachment.request
 import play.api.libs.json.{Json, OFormat}
 
 case class InitiateAttachmentRequest(
-                                      fileName: String,
-                                      mimeType: String
-                                    )
+      fileName: String,
+      mimeType: String
+)
 
 object InitiateAttachmentRequest {
   implicit val format: OFormat[InitiateAttachmentRequest] = Json.format

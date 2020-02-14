@@ -31,9 +31,9 @@ import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 import scala.util.Try
 
 class GuiceModule(
-                   environment: Environment,
-                   configuration: Configuration
-                 ) extends AbstractModule {
+      environment: Environment,
+      configuration: Configuration
+) extends AbstractModule {
 
   def configure() = {
 

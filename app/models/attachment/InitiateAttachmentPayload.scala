@@ -26,7 +26,7 @@ case class InitiateAttachmentPayload(
       mimeType: String,
       successRedirect: String, //Labelling as optional's as these should not be on the screen
       errorRedirect: String, //Labelling as optional's as these should not be on the screen
-      destination: Destinations,  //Labelling as optional's as these should not be on the screen
+      destination: Destinations, //Labelling as optional's as these should not be on the screen
       data: Map[String, String] = Map()) {}
 
 object InitiateAttachmentPayload {
@@ -34,10 +34,10 @@ object InitiateAttachmentPayload {
   implicit val format: OFormat[InitiateAttachmentPayload] = Jsonx.formatCaseClassUseDefaults
 
   def apply(
-             request: InitiateAttachmentRequest,
-             successRedirectUrl: String,
-             errorRedirectUrl: String
-           ): InitiateAttachmentPayload =
+        request: InitiateAttachmentRequest,
+        successRedirectUrl: String,
+        errorRedirectUrl: String
+  ): InitiateAttachmentPayload =
     InitiateAttachmentPayload(
       request.fileName,
       request.mimeType,

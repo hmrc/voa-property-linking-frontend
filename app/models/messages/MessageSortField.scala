@@ -53,5 +53,6 @@ object MessageSortField extends NamedEnumSupport[MessageSortField] {
     override def name: String = "agentName"
   }
 
-  override def all: Seq[MessageSortField] = Seq(EffectiveDate, Address, CaseReference, LastRead, Subject, ClientName, AgentName)
+  override def all: Seq[MessageSortField] =
+    Seq(EffectiveDate, Address, CaseReference, LastRead, Subject, ClientName, AgentName)
 }

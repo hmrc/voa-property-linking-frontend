@@ -22,21 +22,21 @@ import models.{Capacity, FileInfo, LinkBasis, LinkingSession}
 import play.api.libs.json.Json
 
 case class PropertyLinkRequest(
-                                uarn: Long,
-                                organisationId: Long,
-                                individualId: Long,
-                                capacityDeclaration: Capacity,
-                                linkedDate: Instant,
-                                linkBasis: LinkBasis,
-                                fileInfo: List[FileInfo],
-                                references: List[String],
-                                submissionId: String
-                              )
+      uarn: Long,
+      organisationId: Long,
+      individualId: Long,
+      capacityDeclaration: Capacity,
+      linkedDate: Instant,
+      linkBasis: LinkBasis,
+      fileInfo: List[FileInfo],
+      references: List[String],
+      submissionId: String
+)
 
 object PropertyLinkRequest {
   implicit val format = Json.format[PropertyLinkRequest]
 
-  def apply(session: LinkingSession, organisationId: Long): PropertyLinkRequest = {
+  def apply(session: LinkingSession, organisationId: Long): PropertyLinkRequest =
     PropertyLinkRequest(
       session.uarn,
       organisationId,
@@ -48,5 +48,4 @@ object PropertyLinkRequest {
       session.uploadEvidenceData.attachments.toList.flatMap(_.keys),
       session.submissionId
     )
-  }
 }

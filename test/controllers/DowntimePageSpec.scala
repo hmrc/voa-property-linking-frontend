@@ -21,10 +21,8 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import tests.AllMocks
 
-
 class DowntimePageSpec extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
-
 
   val applicationTestController = new DowntimePage(mockCustomErrorHandler, stubMessagesControllerComponents())
 

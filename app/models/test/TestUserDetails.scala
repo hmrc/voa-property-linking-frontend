@@ -18,12 +18,13 @@ package models.test
 
 import play.api.libs.json.Json
 
-case class TestUserDetails(personId: Long,
-                           organisationId: Long,
-                           organisationName: String,
-                           governmentGatewayGroupId: String,
-                           governmentGatewayExternalId: String,
-                           agentCode: Option[Long])
+case class TestUserDetails(
+      personId: Long,
+      organisationId: Long,
+      organisationName: String,
+      governmentGatewayGroupId: String,
+      governmentGatewayExternalId: String,
+      agentCode: Option[Long])
 
 object TestUserDetails {
   implicit val format = Json.format[TestUserDetails]

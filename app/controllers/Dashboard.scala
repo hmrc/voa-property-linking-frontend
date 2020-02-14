@@ -28,23 +28,23 @@ import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.AgentRelationshipService
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext
 
 class Dashboard @Inject()(
-                           val errorHandler: CustomErrorHandler,
-                           draftCases: DraftCases,
-                           propertyLinks: AgentRelationshipService,
-                           agentsConnector: AgentsConnector,
-                           groupAccounts: GroupAccounts,
-                           authenticated: AuthenticatedAction,
-                           override val controllerComponents: MessagesControllerComponents
-                         )(
-                           implicit executionContext: ExecutionContext,
-                           override val messagesApi: MessagesApi,
-                           val config: ApplicationConfig
-                         ) extends PropertyLinkingController {
+      val errorHandler: CustomErrorHandler,
+      draftCases: DraftCases,
+      propertyLinks: AgentRelationshipService,
+      agentsConnector: AgentsConnector,
+      groupAccounts: GroupAccounts,
+      authenticated: AuthenticatedAction,
+      override val controllerComponents: MessagesControllerComponents
+)(
+      implicit executionContext: ExecutionContext,
+      override val messagesApi: MessagesApi,
+      val config: ApplicationConfig
+) extends PropertyLinkingController {
 
   def home() = authenticated { implicit request =>
     Redirect(config.newDashboardUrl("home"))
@@ -62,14 +62,21 @@ class Dashboard @Inject()(
     Redirect(config.newDashboardUrl("your-agents"))
   }
 
-  def viewManagedProperties(agentCode: Long, owner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
-    for {
-      group <- groupAccounts.withAgentCode(agentCode.toString)
-      companyName = group.fold("No Name")(_.companyName) // impossible
-      agentOrganisationId = group.map(_.id)
-      authResult <- propertyLinks.getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(agent = group.map(_.companyName)),
-        PaginationParams(1, 1000, false), Seq(RepresentationApproved, RepresentationPending))
-    } yield Ok(views.html.dashboard.managedByAgentsProperties(ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authResult.authorisations), owner))
+  def viewManagedProperties(agentCode: Long, owner: Boolean): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      for {
+        group <- groupAccounts.withAgentCode(agentCode.toString)
+        companyName = group.fold("No Name")(_.companyName) // impossible
+        agentOrganisationId = group.map(_.id)
+        authResult <- propertyLinks.getMyOrganisationsPropertyLinks(
+                       GetPropertyLinksParameters(agent = group.map(_.companyName)),
+                       PaginationParams(1, 1000, false),
+                       Seq(RepresentationApproved, RepresentationPending))
+      } yield
+        Ok(
+          views.html.dashboard.managedByAgentsProperties(
+            ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authResult.authorisations),
+            owner))
   }
 
   def viewMessages() = authenticated { implicit request =>
@@ -81,27 +88,35 @@ class Dashboard @Inject()(
   }
 }
 
-case class ManagePropertiesVM(organisationId: Long,
-                              result: OwnerAuthResult,
-                              pagination: PaginationSearchSort)
+case class ManagePropertiesVM(organisationId: Long, result: OwnerAuthResult, pagination: PaginationSearchSort)
 
-
-case class ManagedPropertiesVM(agentOrganisationId: Option[Long],
-                               agentName: String,
-                               agentCode: Long,
-                               properties: Seq[OwnerAuthorisation])
+case class ManagedPropertiesVM(
+      agentOrganisationId: Option[Long],
+      agentName: String,
+      agentCode: Long,
+      properties: Seq[OwnerAuthorisation])
 
 case class ManageAgentsVM(agents: Seq[AgentInfo])
 
 case class DraftCasesVM(draftCases: Seq[DraftCase])
 
-case class PropertyLinkRepresentations(name: String, linkId: String, capacity: CapacityType, linkedDate: LocalDate,
-                                       representations: Seq[PropertyRepresentation])
+case class PropertyLinkRepresentations(
+      name: String,
+      linkId: String,
+      capacity: CapacityType,
+      linkedDate: LocalDate,
+      representations: Seq[PropertyRepresentation])
 
-case class PendingPropertyLinkRepresentations(name: String, linkId: String, capacity: CapacityType,
-                                              linkedDate: LocalDate, representations: Seq[PropertyRepresentation])
+case class PendingPropertyLinkRepresentations(
+      name: String,
+      linkId: String,
+      capacity: CapacityType,
+      linkedDate: LocalDate,
+      representations: Seq[PropertyRepresentation])
 
-case class LinkedPropertiesRepresentations(added: Seq[PropertyLinkRepresentations], pending: Seq[PendingPropertyLinkRepresentations])
+case class LinkedPropertiesRepresentations(
+      added: Seq[PropertyLinkRepresentations],
+      pending: Seq[PendingPropertyLinkRepresentations])
 
 case class AgentInfo(organisationName: String, agentCode: Long)
 

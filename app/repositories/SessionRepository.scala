@@ -35,68 +35,70 @@ import scala.concurrent.duration._
 import uk.gov.hmrc.http.HeaderCarrier
 
 @Singleton
-class PersonalDetailsSessionRepository @Inject()(mongo: ReactiveMongoComponent) extends SessionRepository("personDetails", mongo)
+class PersonalDetailsSessionRepository @Inject()(mongo: ReactiveMongoComponent)
+    extends SessionRepository("personDetails", mongo)
 
 @Singleton
-class PropertyLinkingSessionRepository @Inject()(mongo: ReactiveMongoComponent) extends SessionRepository("propertyLinking", mongo)
+class PropertyLinkingSessionRepository @Inject()(mongo: ReactiveMongoComponent)
+    extends SessionRepository("propertyLinking", mongo)
 
 @Singleton
-class PropertyLinksSessionRepository @Inject()(mongo: ReactiveMongoComponent) extends SessionRepository("propertyLinks", mongo)
+class PropertyLinksSessionRepository @Inject()(mongo: ReactiveMongoComponent)
+  extends SessionRepository("propertyLinks", mongo)
 
 @Singleton
-class AppointAgentSessionRepository @Inject()(mongo: ReactiveMongoComponent) extends SessionRepository("appointNewAgent", mongo)
-
+class AppointAgentSessionRepository @Inject()(mongo: ReactiveMongoComponent)
+  extends SessionRepository("appointNewAgent", mongo)
 
 class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
-  extends ReactiveRepository[SessionData, String]("sessions", mongo.mongoConnector.db, SessionData.format, implicitly[Format[String]])
-    with SessionRepo {
+    extends ReactiveRepository[SessionData, String](
+      "sessions",
+      mongo.mongoConnector.db,
+      SessionData.format,
+      implicitly[Format[String]]) with SessionRepo {
 
-  override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {
+  override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] =
     saveOrUpdate[A](data)
-  }
 
-  override def saveOrUpdate[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] = {
+  override def saveOrUpdate[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] =
     for {
       sessionId <- getSessionId
       _ <- collection.update(
-        BSONDocument("_id" -> BSONString(sessionId)),
-        BSONDocument(
-          "$set" -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
-          "$setOnInsert" -> BSONDocument("createdAt" -> BSONDateTime(System.currentTimeMillis))
-        ),
-        upsert = true
-      )
+            BSONDocument("_id" -> BSONString(sessionId)),
+            BSONDocument(
+              "$set"         -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
+              "$setOnInsert" -> BSONDocument("createdAt"     -> BSONDateTime(System.currentTimeMillis))
+            ),
+            upsert = true
+          )
     } yield {
       ()
     }
-  }
 
-  override def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]] = {
+  override def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]] =
     for {
-      sessionId <- getSessionId
+      sessionId   <- getSessionId
       maybeOption <- findById(sessionId)
     } yield {
       maybeOption
         .map(_.data \ formId)
-        .flatMap(x => x match {
-          case JsDefined(value) => Some(value.as[A])
-          case JsUndefined() => None
+        .flatMap(x =>
+          x match {
+            case JsDefined(value) => Some(value.as[A])
+            case JsUndefined()    => None
         })
     }
-  }
 
-  override def remove()(implicit hc: HeaderCarrier): Future[Unit] = {
+  override def remove()(implicit hc: HeaderCarrier): Future[Unit] =
     for {
       sessionId <- getSessionId
       _ <- collection.update(
-        BSONDocument("_id" -> BSONString(sessionId)),
-        BSONDocument(
-          "$unset" -> BSONDocument(s"data.$formId" -> 1))
-      )
+            BSONDocument("_id"    -> BSONString(sessionId)),
+            BSONDocument("$unset" -> BSONDocument(s"data.$formId" -> 1))
+          )
     } yield {
       ()
     }
-  }
 
   private val noSession = Future.failed[String](NoSessionException)
 
@@ -130,5 +132,3 @@ trait SessionRepo {
 
   def remove()(implicit hc: HeaderCarrier): Future[Unit]
 }
-
-

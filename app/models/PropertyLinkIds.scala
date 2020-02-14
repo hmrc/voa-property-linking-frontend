@@ -21,7 +21,8 @@ case class PropertyLinkIds(caseCreator: CaseCreator, interestedParty: Interested
 object PropertyLinkIds {
   implicit val formatInterestedParty = Json.format[InterestedParty]
   implicit val formatCaseCreator = Json.format[CaseCreator]
-  implicit val format = Json.format[PropertyLinkIds]}
+  implicit val format = Json.format[PropertyLinkIds]
+}
 
 case class InterestedParty(personId: Long, organisationId: Long)
 case class CaseCreator(personId: Long, organisationId: Long)

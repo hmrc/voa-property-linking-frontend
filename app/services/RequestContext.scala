@@ -19,5 +19,5 @@ package services
 import scala.concurrent.Future
 
 trait RequestContext {
-  def succeed:Future[Any] = Future.successful(())
+  def succeed: Future[Any] = Future.successful(())
 }

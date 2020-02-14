@@ -17,7 +17,6 @@
 package actions.agentrelationship
 
 import javax.inject.{Inject, Named}
-
 import actions.agentrelationship.request.AppointAgentSessionRequest
 import actions.requests.BasicAuthenticatedRequest
 import models.propertyrepresentation.AppointNewAgentSession
@@ -27,13 +26,13 @@ import play.api.mvc._
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class WithAppointAgentSession @Inject()(
-                                    errorHandler: CustomErrorHandler,
-                                    @Named("appointNewAgentSession") val sessionRepository: SessionRepo
+                                         errorHandler: CustomErrorHandler,
+                                         @Named("appointNewAgentSession") val sessionRepository: SessionRepo
                                   )(implicit override val executionContext: ExecutionContext) extends ActionRefiner[BasicAuthenticatedRequest, AppointAgentSessionRequest] {
 
   implicit def hc(implicit request: BasicAuthenticatedRequest[_]): HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))

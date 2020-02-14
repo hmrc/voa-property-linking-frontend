@@ -45,7 +45,9 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
   it must "display select column for each pending request" in {
     val html = defaultHtml
 
-    val actions = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _ => "Accept Reject" }
+    val actions = StubPropertyRepresentationConnector.stubbedRepresentations(RepresentationPending) map { _ =>
+      "Accept Reject"
+    }
     checkTableColumn(html, 0, "Select", actions)
   }
 
@@ -68,7 +70,8 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
   }
 
   it must "not display the page if the user is not an agent" in {
-    val res = testRepresentationController(Individual, userIsAgent = false).getMyClientsPropertyLinkRequests(1, 15)(FakeRequest())
+    val res = testRepresentationController(Individual, userIsAgent = false)
+      .getMyClientsPropertyLinkRequests(1, 15)(FakeRequest())
     status(res) mustBe UNAUTHORIZED
   }
 
@@ -119,7 +122,9 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
     val previousLink = html.select("ul.pagination li.previous")
 
     previousLink.hasClass("disabled") mustBe false withClue "'Previous' link is incorrectly disabled"
-    previousLink.select("a").attr("href") mustBe routes.RepresentationController.getMyClientsPropertyLinkRequests(1).url
+    previousLink.select("a").attr("href") mustBe routes.RepresentationController
+      .getMyClientsPropertyLinkRequests(1)
+      .url
   }
 
   it must "include pagination controls" in {
@@ -132,14 +137,18 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
     pageSizeControls must have size 4
     pageSizeControls.head.text mustBe "15"
 
-    val pendingRequestsLink: Int => String = n => routes.RepresentationController.getMyClientsPropertyLinkRequests(pageSize = n).url
+    val pendingRequestsLink: Int => String =
+      n => routes.RepresentationController.getMyClientsPropertyLinkRequests(pageSize = n).url
 
-    pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(pendingRequestsLink(25), pendingRequestsLink(50), pendingRequestsLink(100))
+    pageSizeControls.tail.map(_.select("a").attr("href")) must contain theSameElementsAs Seq(
+      pendingRequestsLink(25),
+      pendingRequestsLink(50),
+      pendingRequestsLink(100))
   }
 
   private val displayPermission: AgentPermission => String = {
     case NotPermitted => "No"
-    case _ => "Yes"
+    case _            => "Yes"
   }
 
   lazy val defaultHtml = {
@@ -152,23 +161,43 @@ class PendingRequestsSpec extends VoaPropertyLinkingSpec {
   }
 
   private def setup(pendingRequests: Int = 15) = {
-    val pending = (1 to pendingRequests) map { _ => arbitrary[PropertyRepresentation].copy(status = RepresentationPending) }
+    val pending = (1 to pendingRequests) map { _ =>
+      arbitrary[PropertyRepresentation].copy(status = RepresentationPending)
+    }
     StubPropertyRepresentationConnector.stubRepresentations(pending)
   }
 
   private def checkTableColumn(html: Document, index: Int, heading: String, values: Seq[String]) = {
     html.select("table#nojsPendingRequests").select("th").get(index).text mustBe heading
 
-    val data = html.select("table#nojsPendingRequests").select("tr").asScala.drop(1).map(_.select("td").get(index).text.toUpperCase)
+    val data = html
+      .select("table#nojsPendingRequests")
+      .select("tr")
+      .asScala
+      .drop(1)
+      .map(_.select("td").get(index).text.toUpperCase)
 
-    values foreach { v => data must contain(v.toUpperCase) }
+    values foreach { v =>
+      data must contain(v.toUpperCase)
+    }
   }
 
-  def testRepresentationController(loggedInAs: AffinityGroup = Individual, userIsAgent: Boolean) = new RepresentationController(
-    mockCustomErrorHandler,
-    StubPropertyRepresentationConnector,
-    preAuthenticatedActionBuilders(userIsAgent = userIsAgent),
-    StubPropertyLinkConnector,
-    stubMessagesControllerComponents()
-  )
+  def testRepresentationController(loggedInAs: AffinityGroup = Individual, userIsAgent: Boolean) =
+    new RepresentationController(
+      mockCustomErrorHandler,
+      StubPropertyRepresentationConnector,
+      preAuthenticatedActionBuilders(userIsAgent = userIsAgent),
+      StubPropertyLinkConnector,
+      stubMessagesControllerComponents()
+    )
+
+  override protected def beforeEach(): Unit = {
+    StubIndividualAccountConnector.reset()
+    StubGroupAccountConnector.reset()
+    StubIdentityVerification.reset()
+    StubPropertyLinkConnector.reset()
+    StubBusinessRatesValuation.reset()
+    StubSubmissionIdConnector.reset()
+    StubPropertyRepresentationConnector.reset()
+  }
 }

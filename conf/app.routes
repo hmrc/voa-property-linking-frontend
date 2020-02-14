@@ -18,9 +18,9 @@ GET         /invalid-account                                                    
 
 #Identity verification
 GET         /identity-verification/start                                                      @controllers.IdentityVerification.startIv
-GET         /identity-verification/failed                                                     @controllers.IdentityVerification.fail
+GET         /identity-verification/failed                                                     @controllers.IdentityVerification.fail(journeyId: Option[String])
 GET         /identity-verification/restore-session                                            @controllers.IdentityVerification.restoreSession
-GET         /identity-verification/success                                                    @controllers.IdentityVerification.success
+GET         /identity-verification/success                                                    @controllers.IdentityVerification.success(journeyId: Option[String])
 
 #Dashboard
 GET         /home                                                                             @controllers.Dashboard.home()
@@ -33,15 +33,13 @@ GET         /manage-agents                                                      
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId                  @controllers.agent.RepresentationController.revokeClient(authorisationId: Long, clientOrganisationId: Long)
 GET         /client-properties/:clientOrganisationId/revoke/:authorisationId/confirmed        @controllers.agent.RepresentationController.revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long)
 
-GET         /property-link/:submissionId/assessments                                          @controllers.Assessments.assessments(submissionId: String, owner: Boolean ?= true)
-GET         /property-link/:submissionId/assessments                                          @controllers.Assessments.assessments(submissionId: String, owner: Boolean ?= true)
-GET         /property-link/clients/all/:submissionId/assessments                              @controllers.Assessments.assessments(submissionId: String, owner: Boolean ?= false)
+GET         /property-link/:submissionId/assessments                                          @uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.valuations(submissionId: String, owner: Boolean ?= true)
+GET         /property-link/clients/all/:submissionId/assessments                              @uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.valuations(submissionId: String, owner: Boolean ?= false)
 
 GET         /property-link/:uarn/valuation/summary                                            @controllers.Assessments.viewOwnerSummary(uarn: Long, isPending: Boolean ?= false)
 GET         /property-link/clients/all/:uarn/valuation/summary                                @controllers.Assessments.viewClientSummary(uarn: Long, isPending: Boolean ?= false)
 GET         /detailed/:authorisationId/:assessmentRef                                         @controllers.Assessments.viewDetailedAssessment(submissionId: String, authorisationId: Long, assessmentRef: Long, baRef, owner: Boolean ?= true)
 GET         /property-link/:submissionId/valuations/:valuationId/start-challenge              @controllers.Assessments.startChallengeFromDVR(submissionId: String, valuationId: Long, owner: Boolean ?= true)
-POST        /view-assessment-from-list                                                        @controllers.Assessments.submitViewAssessment(authorisationId: Long, submissionId: String, owner: Boolean ?= true)
 
 #Linking outcomes
 GET         /manual-verification-required                                                     @controllers.LinkErrors.manualVerificationRequired()

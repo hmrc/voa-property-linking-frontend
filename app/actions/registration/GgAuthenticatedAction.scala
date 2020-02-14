@@ -18,9 +18,12 @@ package actions.registration
 
 import actions.registration.requests.RequestWithUserDetails
 import auth.GovernmentGatewayProvider
+import config.ApplicationConfig
 import javax.inject.Inject
 import models.registration.UserDetails
 import play.api.Logger
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.Results.Ok
 import play.api.mvc._
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.AuthProvider.GovernmentGateway
@@ -33,36 +36,49 @@ import uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession
 import scala.concurrent.{ExecutionContext, Future}
 
 class GgAuthenticatedAction @Inject()(
-                                       provider: GovernmentGatewayProvider,
-                                       override val authConnector: AuthConnector
-                                     )(
-                                       implicit override val executionContext: ExecutionContext,
-                                       controllerComponents: ControllerComponents
-                                     )
-  extends ActionBuilder[RequestWithUserDetails, AnyContent] with AuthorisedFunctions {
+      override val messagesApi: MessagesApi,
+      provider: GovernmentGatewayProvider,
+      override val authConnector: AuthConnector
+)(
+      implicit override val executionContext: ExecutionContext,
+      controllerComponents: ControllerComponents,
+      config: ApplicationConfig
+) extends ActionBuilder[RequestWithUserDetails, AnyContent] with AuthorisedFunctions with I18nSupport {
 
   val logger = Logger(this.getClass.getName)
 
   override val parser: BodyParser[AnyContent] = controllerComponents.parsers.anyContent
 
-  override def invokeBlock[A](request: Request[A], block: RequestWithUserDetails[A] => Future[Result]): Future[Result] = {
+  override def invokeBlock[A](
+        request: Request[A],
+        block: RequestWithUserDetails[A] => Future[Result]): Future[Result] = {
     implicit val req: Request[A] = request
     implicit val hc: HeaderCarrier = fromHeadersAndSession(request.headers, Some(request.session))
     logger.debug("the request called invoke block")
 
     def handleError: PartialFunction[Throwable, Future[Result]] = {
-      case _: NoActiveSession => provider.redirectToLogin
+      case _: NoActiveSession =>
+        provider.redirectToLogin
+      case unsupportedAffinityGroup: UnsupportedAffinityGroup =>
+        logger.warn("invalid account type:", unsupportedAffinityGroup)
+        Future.successful(Ok(views.html.errors.invalidAccountType()))
       case otherException: Throwable =>
         Logger.debug(s"Exception thrown on authorisation with message:", otherException)
         throw otherException
     }
 
     val retrieval = name and email and postCode and groupIdentifier and externalId and affinityGroup and credentialRole
-    authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual)).retrieve(retrieval) {
-      case optName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(role) =>
-        block(new RequestWithUserDetails(UserDetails.fromRetrieval(optName, optEmail, optPostCode, groupIdentifier, externalId, affinityGroup, role), request))
-    }.recoverWith(handleError)
+    authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual))
+      .retrieve(retrieval) {
+        case optName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(
+              role) =>
+          block(
+            new RequestWithUserDetails(
+              UserDetails
+                .fromRetrieval(optName, optEmail, optPostCode, groupIdentifier, externalId, affinityGroup, role),
+              request))
+      }
+      .recoverWith(handleError)
   }
 
 }
-

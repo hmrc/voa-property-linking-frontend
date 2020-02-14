@@ -19,14 +19,14 @@ package models.dvr
 import play.api.libs.json.{Format, Json}
 
 case class DetailedValuationRequest(
-                                     authorisationId: Long,
-                                     organisationId: Long,
-                                     personId: Long,
-                                     submissionId: String,
-                                     assessmentRef: Long,
-                                     agents: List[Long],
-                                     billingAuthorityReferenceNumber: String
-                                   )
+      authorisationId: Long,
+      organisationId: Long,
+      personId: Long,
+      submissionId: String,
+      assessmentRef: Long,
+      agents: List[Long],
+      billingAuthorityReferenceNumber: String
+)
 
 object DetailedValuationRequest {
   implicit val format: Format[DetailedValuationRequest] = Json.format[DetailedValuationRequest]

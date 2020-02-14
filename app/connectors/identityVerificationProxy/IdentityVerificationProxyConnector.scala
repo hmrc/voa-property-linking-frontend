@@ -24,11 +24,11 @@ import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
+class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(
+      implicit ec: ExecutionContext) {
   private lazy val url = serverConfig.baseUrl("identity-verification-proxy")
   private val path = "identity-verification-proxy/journey"
 
-  def start(journey: Journey)(implicit hc: HeaderCarrier): Future[Link] = {
+  def start(journey: Journey)(implicit hc: HeaderCarrier): Future[Link] =
     http.POST[Journey, Link](s"$url/$path/start", journey)
-  }
 }

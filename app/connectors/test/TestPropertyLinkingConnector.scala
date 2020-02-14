@@ -27,16 +27,13 @@ class TestPropertyLinkingConnector @Inject()(config: ServicesConfig, http: HttpC
 
   val url: String = config.baseUrl("property-linking") + "/property-linking/"
 
-  def deRegister(organisationId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
+  def deRegister(organisationId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] =
     http.DELETE[HttpResponse](url + s"test-only/de-register/$organisationId")
-  }
 
-  def clearDvrRecords(organisationId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
+  def clearDvrRecords(organisationId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] =
     http.DELETE[HttpResponse](url + s"test-only/clear-dvr-records/$organisationId")
-  }
 
-  def deleteCheckCases(plSubmissionId: String)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
+  def deleteCheckCases(plSubmissionId: String)(implicit hc: HeaderCarrier): Future[HttpResponse] =
     http.DELETE[HttpResponse](url + s"test-only/delete-check-cases/$plSubmissionId")
-  }
 
 }

@@ -18,7 +18,6 @@ package models.searchApi
 
 import models.{NamedEnum, NamedEnumSupport}
 
-
 sealed trait AgentPropertiesSortField extends NamedEnum {
   override val key: String = "propertiesSortField"
 
@@ -35,7 +34,5 @@ object AgentPropertiesSortField extends NamedEnumSupport[AgentPropertiesSortFiel
     override val name: String = "agent"
   }
 
-
   override def all: Seq[AgentPropertiesSortField] = Seq(Address, AgentName)
 }
-

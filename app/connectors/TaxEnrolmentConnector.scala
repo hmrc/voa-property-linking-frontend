@@ -27,14 +27,15 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import scala.concurrent.{ExecutionContext, Future}
 
 class TaxEnrolmentConnector @Inject()(
-                                       wSHttp: HttpClient,
-                                       auditingService: AuditingService,
-                                       servicesConfig: ServicesConfig
-                                     ) {
+      wSHttp: HttpClient,
+      auditingService: AuditingService,
+      servicesConfig: ServicesConfig
+) {
   private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
   private val emacUrl = servicesConfig.baseUrl("emac") + "/enrolment-store-proxy"
 
-  private val updateUrl: Long => String = personId => s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}"
+  private val updateUrl: Long => String = personId =>
+    s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}"
   private val enrolUrl = s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment"
 
   def enrol(personId: Long, postcode: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[HttpResponse] = {
@@ -42,25 +43,38 @@ class TaxEnrolmentConnector @Inject()(
       identifiers = List(KeyValuePair("VOAPersonID", personId.toString)),
       verifiers = List(KeyValuePair("BusPostcode", postcode))
     )
-    wSHttp.PUT[EnrolmentPayload, HttpResponse](enrolUrl, payload).map { result =>
-      auditingService.sendEvent[EnrolmentPayload]("Enrolment Success", payload)
-      result
-    }.recover { case exception: Throwable =>
-      auditingService.sendEvent("Enrolment failed to update", payload)
-      throw exception
-    }
+    wSHttp
+      .PUT[EnrolmentPayload, HttpResponse](enrolUrl, payload)
+      .map { result =>
+        auditingService.sendEvent[EnrolmentPayload]("Enrolment Success", payload)
+        result
+      }
+      .recover {
+        case exception: Throwable =>
+          auditingService.sendEvent("Enrolment failed to update", payload)
+          throw exception
+      }
   }
 
-  def updatePostcode(personId: Long, postcode: String, previousPostcode: String)(implicit hc: HeaderCarrier, executionContext: ExecutionContext): Future[EnrolmentResult] = {
-    val payload = PayLoad(verifiers = Seq(KeyValuePair(key = "BusPostcode", value = postcode)),
-      legacy = Some(Previous(previousVerifiers = List(KeyValuePair(key = "BusPostcode", value = previousPostcode)))))
-    wSHttp.PUT[PayLoad, HttpResponse](s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}", payload)
+  def updatePostcode(personId: Long, postcode: String, previousPostcode: String)(
+        implicit hc: HeaderCarrier,
+        executionContext: ExecutionContext): Future[EnrolmentResult] = {
+    val payload = PayLoad(
+      verifiers = Seq(KeyValuePair(key = "BusPostcode", value = postcode)),
+      legacy = Some(Previous(previousVerifiers = List(KeyValuePair(key = "BusPostcode", value = previousPostcode))))
+    )
+    wSHttp
+      .PUT[PayLoad, HttpResponse](
+        s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}",
+        payload)
       .map { _ =>
         auditingService.sendEvent("Enrolment Updated", payload)
         Success
-      }.recover { case exception: Throwable =>
-      auditingService.sendEvent("Enrolment failed to update", payload)
-      throw exception
-    }
+      }
+      .recover {
+        case exception: Throwable =>
+          auditingService.sendEvent("Enrolment failed to update", payload)
+          throw exception
+      }
   }
 }

@@ -28,13 +28,14 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Request
 import repositories.{PersonalDetailsSessionRepository, SessionRepository}
-import services.{AgentRelationshipService, EnrolmentService}
+import services.AgentRelationshipService
+import services.EnrolmentService
+import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.auth.core.AuthConnector
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
-import uk.gov.voa.propertylinking.services.PropertyLinkService
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.services.PropertyLinkService
 
-trait AllMocks {
-  self: MockitoSugar with BeforeAndAfterEach =>
+trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
 
   val mockAddresses: Addresses = mock[Addresses]
   val mockAuditingService: AuditingService = mock[AuditingService]
@@ -49,11 +50,11 @@ trait AllMocks {
   val mockGovernmentGatewayProvider: GovernmentGatewayProvider = mock[GovernmentGatewayProvider]
   val mockGroupAccount: GroupAccount = mock[GroupAccount]
   val mockPropertyLinkService: PropertyLinkService = mock[PropertyLinkService]
+  val mockPropertyLinkingService: PropertyLinkingService = mock[PropertyLinkingService]
   val mockSessionRepository: SessionRepository = mock[SessionRepository]
   val mockWithLinkingSession: WithLinkingSession = mock[WithLinkingSession]
   val mockPersonalDetailsSessionRepository: PersonalDetailsSessionRepository = mock[PersonalDetailsSessionRepository]
   val mockAgentRelationshipService: AgentRelationshipService = mock[AgentRelationshipService]
-
 
   override protected def beforeEach(): Unit =
     Seq(
@@ -71,6 +72,7 @@ trait AllMocks {
       mockGovernmentGatewayProvider,
       mockGroupAccount,
       mockPropertyLinkService,
+      mockPropertyLinkingService,
       mockSessionRepository,
       mockWithLinkingSession,
       mockPersonalDetailsSessionRepository,

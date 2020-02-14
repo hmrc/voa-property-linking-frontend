@@ -47,13 +47,9 @@ object StubSubmissionIdConnector extends SubmissionIdConnector(Configs.servicesC
     stubbedId.getOrElse(throw new Exception("submission id not stubbed"))
   }
 
-  def stubId(submissionId: String) = {
+  def stubId(submissionId: String) =
     stubbedId = Some(submissionId)
-  }
 
-  def reset() = {
+  def reset() =
     stubbedId = None
-  }
 }
-
-

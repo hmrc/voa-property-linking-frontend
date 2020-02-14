@@ -30,51 +30,54 @@ import scala.util.Try
 
 object Mappings extends DateMappings {
 
-  def trueOnly(error: String): Mapping[Boolean] = text.verifying(error, _ == "true").transform[Boolean](_.toBoolean, _.toString)
+  def trueOnly(error: String): Mapping[Boolean] =
+    text.verifying(error, _ == "true").transform[Boolean](_.toBoolean, _.toString)
 
-  def line3IsLast(): Condition = data => (data.getOrElse("address.line3", ""), data.getOrElse("address.line4", "")) match {
-    case (line3, line4) => line3.length > 0 && line4.length == 0
-  }
+  def line3IsLast(): Condition =
+    data =>
+      (data.getOrElse("address.line3", ""), data.getOrElse("address.line4", "")) match {
+        case (line3, line4) => line3.length > 0 && line4.length == 0
+    }
 
   def line4IsLast(): Condition = data => data.getOrElse("address.line4", "").length > 0
 
-  val mandatoryBoolean: Mapping[Boolean] = optional(boolean).verifying("error.boolean", _.isDefined).transform(_.get, Some.apply)
+  val mandatoryBoolean: Mapping[Boolean] =
+    optional(boolean).verifying("error.boolean", _.isDefined).transform(_.get, Some.apply)
 
   val addressMapping: Mapping[Address] = mapping(
     "addressId" -> addressId,
-    "line1" -> text(maxLength = 36),
-    "line2" -> text(maxLength = 36),
-    "line3" -> text(maxLength = 36),
-    "line4" -> text(maxLength = 36),
-    "postcode" -> text(maxLength = 8).transform[String](_.toUpperCase, identity)
+    "line1"     -> text(maxLength = 36),
+    "line2"     -> text(maxLength = 36),
+    "line3"     -> text(maxLength = 36),
+    "line4"     -> text(maxLength = 36),
+    "postcode"  -> text(maxLength = 8).transform[String](_.toUpperCase, identity)
   )(Address.apply)(Address.unapply).verifying("error.required", form => {
     !(form.postcode.isEmpty && form.line1.isEmpty && form.addressUnitId.isEmpty)
-    }
+  })
 
-  )
+  lazy val addressId: Mapping[Option[Long]] =
+    default(text, "").transform(t => Try { t.toLong }.toOption, _.map(_.toString).getOrElse(""))
 
-
-
-  lazy val addressId: Mapping[Option[Long]] = default(text, "").transform(t => Try { t.toLong }.toOption, _.map(_.toString).getOrElse(""))
-
-  lazy val agentCode: Mapping[Long] = nonEmptyText.verifying("error.agentCode", s => s.trim.forall(_.isDigit)).transform(_.trim.toLong, _.toString)
+  lazy val agentCode: Mapping[Long] =
+    nonEmptyText.verifying("error.agentCode", s => s.trim.forall(_.isDigit)).transform(_.trim.toLong, _.toString)
 }
 
 trait DateMappings {
 
   val dmyDate: Mapping[LocalDate] = tuple(
-    "day" -> number(1, 31),
+    "day"   -> number(1, 31),
     "month" -> number(1, 12),
-    "year" -> number(1900, 3000)
-  ).verifying(Errors.invalidDate, x => x match { case (d, m, y) => Try(LocalDate.of(y, m, d)).isSuccess } )
+    "year"  -> number(1900, 3000)
+  ).verifying(Errors.invalidDate, x => x match { case (d, m, y) => Try(LocalDate.of(y, m, d)).isSuccess })
     .transform({ case (d, m, y) => LocalDate.of(y, m, d) }, d => (d.getDayOfMonth, d.getMonthValue, d.getYear))
 
-  val dmyDateAfterThreshold: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeAfter1stApril2017,
-    d => d.isAfter(LocalDate.of(2017,4,1)))
+  val dmyDateAfterThreshold: Mapping[LocalDate] =
+    dmyDate.verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
 
   val dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
 
-  private def number(min: Int, max: Int) = Forms.of[Int](trimmingNumberFormatter).verifying(Constraints.min(min)).verifying(Constraints.max(max))
+  private def number(min: Int, max: Int) =
+    Forms.of[Int](trimmingNumberFormatter).verifying(Constraints.min(min)).verifying(Constraints.max(max))
 
   implicit lazy val trimmingNumberFormatter = new Formatter[Int] {
     override val format: Option[(String, Seq[Any])] = Formats.intFormat.format
@@ -87,40 +90,47 @@ trait DateMappings {
 }
 
 object EnumMapping {
-  def apply[T <: NamedEnum](named:NamedEnumSupport[T]) = Forms.of[T](new Formatter[T] {
+  def apply[T <: NamedEnum](named: NamedEnumSupport[T]) =
+    Forms.of[T](new Formatter[T] {
 
-    override val format = Some((Errors.noValueSelected, Nil))
+      override val format = Some((Errors.noValueSelected, Nil))
 
-    def bind(key: String, data: Map[String, String]): Either[Seq[FormError], T] = {
-      val resOpt = for {
-        keyVal <- data.get(key)
-        enumTypeValue <- named.fromName(keyVal)
-      } yield {
-        Right(enumTypeValue)
+      def bind(key: String, data: Map[String, String]): Either[Seq[FormError], T] = {
+        val resOpt = for {
+          keyVal        <- data.get(key)
+          enumTypeValue <- named.fromName(keyVal)
+        } yield {
+          Right(enumTypeValue)
+        }
+        resOpt.getOrElse(Left(Seq(FormError(key, Errors.noValueSelected, Nil))))
       }
-      resOpt.getOrElse(Left(Seq(FormError(key, Errors.noValueSelected, Nil))))
-    }
 
-    def unbind(key: String, value: T): Map[String, String] = Map(key -> value.name)
-  })
+      def unbind(key: String, value: T): Map[String, String] = Map(key -> value.name)
+    })
 }
 
-case class ConditionalDateAfter(disableField: String,
-                                afterField: String, key: String = "",
-                                constraints: Seq[Constraint[LocalDate]] = Nil) extends Mapping[LocalDate] {
+case class ConditionalDateAfter(
+      disableField: String,
+      afterField: String,
+      key: String = "",
+      constraints: Seq[Constraint[LocalDate]] = Nil)
+    extends Mapping[LocalDate] {
 
   import Mappings._
 
   override val mappings = Nil
 
-  override def bind(data: Map[String, String]) = (boolean.withPrefix(disableField).bind(data), dmyDate.withPrefix(afterField).bind(data),
-    dmyDate.withPrefix(key).verifying(constraints: _*).bind(data)) match {
-    case (_, _, errs@Left(_)) => errs
-    case (Left(_), Left(_), r@Right(_)) => r
-    case (Right(true), _, r@Right(_)) => r
-    case (Right(false), Right(after), r@Right(d)) if d.isAfter(after) => r
-    case (Right(false), _, Right(_)) => Left(Seq(FormError(key, Errors.dateMustBeAfterOtherDate)))
-  }
+  override def bind(data: Map[String, String]) =
+    (
+      boolean.withPrefix(disableField).bind(data),
+      dmyDate.withPrefix(afterField).bind(data),
+      dmyDate.withPrefix(key).verifying(constraints: _*).bind(data)) match {
+      case (_, _, errs @ Left(_))                                         => errs
+      case (Left(_), Left(_), r @ Right(_))                               => r
+      case (Right(true), _, r @ Right(_))                                 => r
+      case (Right(false), Right(after), r @ Right(d)) if d.isAfter(after) => r
+      case (Right(false), _, Right(_))                                    => Left(Seq(FormError(key, Errors.dateMustBeAfterOtherDate)))
+    }
 
   override def unbind(value: LocalDate) = dmyDate.withPrefix(key).unbind(value)
 
@@ -131,16 +141,17 @@ case class ConditionalDateAfter(disableField: String,
   override def verifying(c: Constraint[LocalDate]*) = copy(constraints = constraints ++ c.toSeq)
 }
 
-
-case class TextMatching(other: String, errorKey: String, key: String = "", constraints: Seq[Constraint[String]] = Nil) extends Mapping[String] {
+case class TextMatching(other: String, errorKey: String, key: String = "", constraints: Seq[Constraint[String]] = Nil)
+    extends Mapping[String] {
   override val mappings = Nil
 
-  override def bind(data: Map[String, String]) = (text.withPrefix(key).bind(data), text.withPrefix(other).bind(data)) match {
-    case (l@Left(_), _) => l
-    case (r@Right(_), Left(_)) => r
-    case (r@Right(a), Right(b)) if a == b => r
-    case (Right(_), Right(_)) => Left(Seq(FormError(key, errorKey)))
-  }
+  override def bind(data: Map[String, String]) =
+    (text.withPrefix(key).bind(data), text.withPrefix(other).bind(data)) match {
+      case (l @ Left(_), _)                   => l
+      case (r @ Right(_), Left(_))            => r
+      case (r @ Right(a), Right(b)) if a == b => r
+      case (Right(_), Right(_))               => Left(Seq(FormError(key, errorKey)))
+    }
 
   override def unbind(value: String) = text.unbind(value)
 

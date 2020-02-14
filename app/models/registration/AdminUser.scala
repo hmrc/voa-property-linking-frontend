@@ -40,12 +40,13 @@ sealed trait AdminUser extends User {
   val email: String
   val confirmedEmail: String
 
-  def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
-    externalId = user.externalId,
-    trustId = trustId,
-    organisationId = organisationId,
-    details = IndividualDetails(firstName, lastName, email, phone, None, id)
-  )
+  def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(organisationId: Option[Long]) =
+    IndividualAccountSubmission(
+      externalId = user.externalId,
+      trustId = trustId,
+      organisationId = organisationId,
+      details = IndividualDetails(firstName, lastName, email, phone, None, id)
+    )
 
   def toIvDetails = IVDetails(
     firstName = firstName,
@@ -57,52 +58,53 @@ sealed trait AdminUser extends User {
 
 object AdminUser {
 
-  lazy val individual: Form[IndividualUserAccountDetails] = Form(mapping(
-    keys.firstName -> nonEmptyText,
-    keys.lastName -> nonEmptyText,
-    keys.address -> addressMapping,
-    keys.dateOfBirth -> dmyPastDate,
-    keys.nino -> nino,
-    keys.phone -> nonEmptyText(maxLength = 15),
-    keys.mobilePhone -> nonEmptyText(maxLength = 15),
-    keys.email -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
-    keys.confirmedEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
-    keys.tradingName -> optional(text(maxLength = 45)),
-    keys.selectedAddress -> optional(text)
-  )(IndividualUserAccountDetails.apply)(IndividualUserAccountDetails.unapply))
+  lazy val individual: Form[IndividualUserAccountDetails] = Form(
+    mapping(
+      keys.firstName       -> nonEmptyText,
+      keys.lastName        -> nonEmptyText,
+      keys.address         -> addressMapping,
+      keys.dateOfBirth     -> dmyPastDate,
+      keys.nino            -> nino,
+      keys.phone           -> nonEmptyText(maxLength = 15),
+      keys.mobilePhone     -> nonEmptyText(maxLength = 15),
+      keys.email           -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
+      keys.confirmedEmail  -> TextMatching(keys.email, Errors.emailsMustMatch),
+      keys.tradingName     -> optional(text(maxLength = 45)),
+      keys.selectedAddress -> optional(text)
+    )(IndividualUserAccountDetails.apply)(IndividualUserAccountDetails.unapply))
 
-  lazy val organisation = Form(mapping(
-    keys.firstName -> nonEmptyText,
-    keys.lastName -> nonEmptyText,
-    keys.companyName -> nonEmptyText(maxLength = 45),
-    keys.address -> addressMapping,
-    keys.dateOfBirth -> dmyPastDate,
-    keys.nino -> nino,
-    keys.phone -> nonEmptyText(maxLength = 15),
-    keys.email -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
-    keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
-    keys.isAgent -> optional(mandatoryBoolean),
-    keys.selectedAddress -> optional(text)
-  )(AdminOrganisationAccountDetails.apply)(AdminOrganisationAccountDetails.unapply))
+  lazy val organisation = Form(
+    mapping(
+      keys.firstName              -> nonEmptyText,
+      keys.lastName               -> nonEmptyText,
+      keys.companyName            -> nonEmptyText(maxLength = 45),
+      keys.address                -> addressMapping,
+      keys.dateOfBirth            -> dmyPastDate,
+      keys.nino                   -> nino,
+      keys.phone                  -> nonEmptyText(maxLength = 15),
+      keys.email                  -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
+      keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
+      keys.isAgent                -> optional(mandatoryBoolean),
+      keys.selectedAddress        -> optional(text)
+    )(AdminOrganisationAccountDetails.apply)(AdminOrganisationAccountDetails.unapply))
 
   private lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
 
   private lazy val validNino: Constraint[String] = Constraint {
     case s if Nino.isValid(s.toUpperCase) => Valid
-    case _ => Invalid(ValidationError("error.nino.invalid"))
+    case _                                => Invalid(ValidationError("error.nino.invalid"))
   }
 
   private def toNino(nino: String) =
     Nino(nino.toUpperCase.replaceAll(" ", ""))
 
   implicit val enrolmentUserFormat: Format[AdminUser] = new Format[AdminUser] {
-    override def reads(json: JsValue): JsResult[AdminUser] = {
+    override def reads(json: JsValue): JsResult[AdminUser] =
       AdminOrganisationAccountDetails.format.reads(json).orElse(IndividualUserAccountDetails.format.reads(json))
-    }
 
     override def writes(o: AdminUser): JsObject = o match {
       case organisation: AdminOrganisationAccountDetails => AdminOrganisationAccountDetails.format.writes(organisation)
-      case individual: IndividualUserAccountDetails => IndividualUserAccountDetails.format.writes(individual)
+      case individual: IndividualUserAccountDetails      => IndividualUserAccountDetails.format.writes(individual)
     }
   }
 }
@@ -117,18 +119,19 @@ trait AdminInExistingOrganisationUser extends AdminUser {
 
 object AdminInExistingOrganisationUser {
 
-  lazy val organisation = Form(mapping(
-    keys.firstName -> nonEmptyText,
-    keys.lastName -> nonEmptyText,
-    keys.dateOfBirth -> dmyPastDate,
-    keys.nino -> nino
-  )(AdminInExistingOrganisationAccountDetails.apply)(AdminInExistingOrganisationAccountDetails.unapply))
+  lazy val organisation = Form(
+    mapping(
+      keys.firstName   -> nonEmptyText,
+      keys.lastName    -> nonEmptyText,
+      keys.dateOfBirth -> dmyPastDate,
+      keys.nino        -> nino
+    )(AdminInExistingOrganisationAccountDetails.apply)(AdminInExistingOrganisationAccountDetails.unapply))
 
   private lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
 
   private lazy val validNino: Constraint[String] = Constraint {
     case s if Nino.isValid(s.toUpperCase) => Valid
-    case _ => Invalid(ValidationError("error.nino.invalid"))
+    case _                                => Invalid(ValidationError("error.nino.invalid"))
   }
 
   private def toNino(nino: String) =
@@ -136,11 +139,8 @@ object AdminInExistingOrganisationUser {
 
 }
 
-case class AdminInExistingOrganisationAccountDetails(firstName: String,
-                                                     lastName: String,
-                                                     dob: LocalDate,
-                                                     nino: Nino) extends AdminInExistingOrganisationUser {
-
+case class AdminInExistingOrganisationAccountDetails(firstName: String, lastName: String, dob: LocalDate, nino: Nino)
+    extends AdminInExistingOrganisationUser {
 
   override val address = Address(None, "", "", "", "", "")
   override val phone = ""
@@ -162,22 +162,24 @@ case class AdminInExistingOrganisationAccountDetails(firstName: String,
 
 }
 
-object AdminInExistingOrganisationAccountDetails{
+object AdminInExistingOrganisationAccountDetails {
   implicit val format = Json.format[AdminInExistingOrganisationAccountDetails]
   implicit val formatGroupAccountDetails = Json.format[GroupAccountDetails]
 }
 
-case class AdminOrganisationAccountDetails(firstName: String,
-                                           lastName: String,
-                                           companyName: String,
-                                           address: Address,
-                                           dob: LocalDate,
-                                           nino: Nino,
-                                           phone: String,
-                                           email: String,
-                                           confirmedEmail: String,
-                                           isAgent: Option[Boolean],
-                                           selectedAddress: Option[String] = None) extends AdminUser {
+case class AdminOrganisationAccountDetails(
+      firstName: String,
+      lastName: String,
+      companyName: String,
+      address: Address,
+      dob: LocalDate,
+      nino: Nino,
+      phone: String,
+      email: String,
+      confirmedEmail: String,
+      isAgent: Option[Boolean],
+      selectedAddress: Option[String] = None)
+    extends AdminUser {
   override def toIvDetails = IVDetails(
     firstName = firstName,
     lastName = lastName,
@@ -199,21 +201,27 @@ object AdminOrganisationAccountDetails {
   implicit val format = Json.format[AdminOrganisationAccountDetails]
 }
 
-case class GroupAccountDetails(companyName: String, address: Address, email: String, confirmedEmail: String,
-                               phone: String, isAgent: Boolean)
+case class GroupAccountDetails(
+      companyName: String,
+      address: Address,
+      email: String,
+      confirmedEmail: String,
+      phone: String,
+      isAgent: Boolean)
 
-case class IndividualUserAccountDetails(firstName: String,
-                                        lastName: String,
-                                        address: Address,
-                                        dob: LocalDate,
-                                        nino: Nino,
-                                        phone: String,
-                                        mobilePhone: String,
-                                        email: String,
-                                        confirmedEmail: String,
-                                        tradingName: Option[String],
-                                        selectedAddress: Option[String] = None
-                                       ) extends AdminUser {
+case class IndividualUserAccountDetails(
+      firstName: String,
+      lastName: String,
+      address: Address,
+      dob: LocalDate,
+      nino: Nino,
+      phone: String,
+      mobilePhone: String,
+      email: String,
+      confirmedEmail: String,
+      tradingName: Option[String],
+      selectedAddress: Option[String] = None)
+    extends AdminUser {
 
   override def toIvDetails = IVDetails(
     firstName = firstName,
@@ -231,20 +239,18 @@ case class IndividualUserAccountDetails(firstName: String,
     isAgent = false
   )
 
-  override def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(organisationId: Option[Long]) = IndividualAccountSubmission(
+  override def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(
+        organisationId: Option[Long]) = IndividualAccountSubmission(
     externalId = user.externalId,
     trustId = trustId,
     organisationId = organisationId,
     details = IndividualDetails(firstName, lastName, email, phone, Some(mobilePhone), id)
   )
 
-  private def truncateCompanyName(companyName: String): String = {
+  private def truncateCompanyName(companyName: String): String =
     companyName.take(45).toString
-  }
 }
 
 object IndividualUserAccountDetails {
   implicit val format = Json.format[IndividualUserAccountDetails]
 }
-
-

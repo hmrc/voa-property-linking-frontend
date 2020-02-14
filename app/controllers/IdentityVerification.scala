@@ -26,63 +26,65 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.iv.IdentityVerificationService
 import uk.gov.hmrc.http.SessionKeys
-import uk.gov.voa.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerification @Inject()(
-                                      override val errorHandler: CustomErrorHandler,
-                                      ggAction: GgAuthenticatedAction,
-                                      identityVerificationConnector: connectors.IdentityVerificationConnector,
-                                      identityVerificationService: IdentityVerificationService,
-                                      @Named("personSession") val personalDetailsSessionRepo: SessionRepo
-                                    )
-                                    (
-                                      implicit val executionContext: ExecutionContext,
-                                      override val messagesApi: MessagesApi,
-                                      override val controllerComponents: MessagesControllerComponents,
-                                      val config: ApplicationConfig
-                                    )
-  extends PropertyLinkingController {
+      override val errorHandler: CustomErrorHandler,
+      ggAction: GgAuthenticatedAction,
+      identityVerificationConnector: connectors.IdentityVerificationConnector,
+      identityVerificationService: IdentityVerificationService,
+      @Named("personSession") val personalDetailsSessionRepo: SessionRepo
+)(
+      implicit val executionContext: ExecutionContext,
+      override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      val config: ApplicationConfig
+) extends PropertyLinkingController {
 
   val startIv: Action[AnyContent] = ggAction.async { implicit request =>
     if (config.ivEnabled) {
       for {
         userDetails <- personalDetailsSessionRepo.get[AdminUser]
-        links <- identityVerificationService.start(userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
+        links <- identityVerificationService.start(
+                  userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
       } yield Redirect(links.getLink(config.ivBaseUrl))
     } else {
-      Future.successful(Redirect(routes.IdentityVerification.success()).addingToSession("journeyId" -> java.util.UUID.randomUUID().toString))
+      Future.successful(
+        Redirect(routes.IdentityVerification.success(Some(java.util.UUID.randomUUID().toString))))
     }
   }
 
-  val fail: Action[AnyContent] = ggAction.async { implicit request =>
-    request.getQueryString("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
-      identityVerificationConnector.journeyStatus(journeyId).map {
-        case IvResult.IvSuccess =>
-          Redirect(controllers.routes.IdentityVerification.success())
-        case ivFailureReason: IvResult.IvFailure =>
-          Ok(views.html.identityVerification.failed(ivFailureReason))
+  def fail(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
+      journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))){ id =>
+        identityVerificationConnector.journeyStatus(id).map {
+          case IvResult.IvSuccess =>
+            Redirect(controllers.routes.IdentityVerification.success(journeyId))
+          case ivFailureReason: IvResult.IvFailure =>
+            Ok(views.html.identityVerification.failed(ivFailureReason))
+        }
       }
-    }
+
   }
 
+  //Not sure what this is used for.
   val restoreSession: Action[AnyContent] = Action { implicit request =>
-    Redirect(routes.IdentityVerification.success()).addingToSession(
+    Redirect(routes.IdentityVerification.success(Some(java.util.UUID.randomUUID().toString))).addingToSession(
       SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""),
       SessionKeys.sessionId -> request.session.get("oldSessionId").getOrElse("")
     )
   }
 
-  val success: Action[AnyContent] = ggAction.async { implicit request =>
-    request.session.get("journeyId").fold(Future.successful(Unauthorized("Unauthorised"))) { journeyId =>
-      identityVerificationConnector.verifySuccess(journeyId).flatMap {
+  def success(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
+    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+      identityVerificationConnector.verifySuccess(id).flatMap {
         case true =>
-          identityVerificationService.continue(journeyId, request.userDetails).map {
+          identityVerificationService.continue(id, request.userDetails).map {
             case Some(obj) => identityVerificationService.someCase(obj)
             case None => identityVerificationService.noneCase
           }
-        case false => Future.successful(Unauthorized("Unauthorised"))
+        case false => Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
       }
     }
   }

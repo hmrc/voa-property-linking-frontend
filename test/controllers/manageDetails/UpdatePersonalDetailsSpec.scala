@@ -34,11 +34,11 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
 
   "The edit email page" must "require the updated email to be valid" in {
     val invalidEmail = Seq(
-      "email" -> "not an email",
+      "email"          -> "not an email",
       "confirmedEmail" -> "not an email"
     )
 
-    val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(invalidEmail:_*))
+    val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(invalidEmail: _*))
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
@@ -47,15 +47,17 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
 
   it must "require the confirmed email to match" in {
     val mismatchedEmails = Seq(
-      "email" -> "email@example.com",
+      "email"          -> "email@example.com",
       "confirmedEmail" -> "anotherEmail@example.com"
     )
 
-    val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(mismatchedEmails:_*))
+    val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(mismatchedEmails: _*))
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=confirmedEmail] span.error-message").text mustBe "Email addresses must match. Check them and try again"
+    html
+      .select("label[for=confirmedEmail] span.error-message")
+      .text mustBe "Email addresses must match. Check them and try again"
   }
 
   it must "update the user's email when they make a valid submission" in {
@@ -63,16 +65,17 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     val updatedEmail = "email@example.com"
 
     val validData = Seq(
-      "email" -> updatedEmail,
+      "email"          -> updatedEmail,
       "confirmedEmail" -> updatedEmail
     )
 
-    val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(validData:_*))
+    val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(validData: _*))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(email = updatedEmail)
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
+      any[HeaderCarrier])
   }
 
   "The edit name page" must "require a non-empty first name" in {
@@ -80,7 +83,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
       "lastName" -> "Person"
     )
 
-    val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(missingFirstName:_*))
+    val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(missingFirstName: _*))
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
@@ -92,7 +95,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
       "firstName" -> "Mr"
     )
 
-    val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(missingLastName:_*))
+    val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(missingLastName: _*))
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
@@ -102,15 +105,16 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
   it must "update the user's name when they make a valid submission" in {
     val validData = Seq(
       "firstName" -> "Mr",
-      "lastName" -> "Person"
+      "lastName"  -> "Person"
     )
 
-    val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(validData:_*))
+    val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(validData: _*))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(firstName = "Mr", lastName = "Person")
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
+      any[HeaderCarrier])
   }
 
   "The update phone number page" must "require the phone number to be non-empty" in {
@@ -118,7 +122,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
       "phone" -> ""
     )
 
-    val res = TestUpdatePersonalDetails.updatePhone()(request.withFormUrlEncodedBody(emptyPhoneNumber:_*))
+    val res = TestUpdatePersonalDetails.updatePhone()(request.withFormUrlEncodedBody(emptyPhoneNumber: _*))
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
@@ -132,16 +136,17 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(phone1 = "01234567890")
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
+      any[HeaderCarrier])
   }
 
   "The update address page" must "require a postcode" in {
     val missingPostcode = Seq(
-      "address.line1" -> "Some place",
+      "address.line1"    -> "Some place",
       "address.postcode" -> ""
     )
 
-    val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(missingPostcode:_*))
+    val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(missingPostcode: _*))
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
@@ -149,24 +154,26 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
   }
 
   it must "update the user's address ID if they use the lookup" in {
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any(), any())).thenReturn(Future.successful(Success))
+    when(mockManageDetails.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
       "address.addressId" -> "1234567890",
-      "address.line1" -> "Some place",
-      "address.line2" -> "",
-      "address.line3" -> "",
-      "address.line4" -> "",
-      "address.postcode" -> "AA11 1AA"
+      "address.line1"     -> "Some place",
+      "address.line2"     -> "",
+      "address.line3"     -> "",
+      "address.line4"     -> "",
+      "address.postcode"  -> "AA11 1AA"
     )
 
-    val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(validData:_*))
+    val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(validData: _*))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(addressId = 1234567890)
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
-    verify(mockManageDetails).updatePostcode(matching(detailedIndividualAccount.individualId),any(),matching(1234567890L))(any(), any())
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
+      any[HeaderCarrier])
+    verify(mockManageDetails)
+      .updatePostcode(matching(detailedIndividualAccount.individualId), any(), matching(1234567890L))(any(), any())
   }
 
   it must "create an address record, and update the user's record with the generated address ID, if they enter the address manually" in {
@@ -174,13 +181,13 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     val address: Address = resources.addressGen.sample.get.copy(addressUnitId = None)
 
     when(mockAddressConnector.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(addressId))
-    when(mockManageDetails.updatePostcode(any(),any(),any())(any(), any())).thenReturn(Future.successful(Success))
+    when(mockManageDetails.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validFormData: Seq[(String, String)] = Seq(
-      "address.line1" -> address.line1,
-      "address.line2" -> address.line2,
-      "address.line3" -> address.line3,
-      "address.line4" -> address.line4,
+      "address.line1"    -> address.line1,
+      "address.line2"    -> address.line2,
+      "address.line3"    -> address.line3,
+      "address.line4"    -> address.line4,
       "address.postcode" -> address.postcode
     )
 
@@ -191,8 +198,10 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     val updatedDetails = detailedIndividualAccount.details.copy(addressId = addressId)
 
     verify(mockAddressConnector).create(matching(address))(any[HeaderCarrier])
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
-    verify(mockManageDetails).updatePostcode(matching(detailedIndividualAccount.individualId),any(),matching(addressId))(any(), any())
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
+      any[HeaderCarrier])
+    verify(mockManageDetails)
+      .updatePostcode(matching(detailedIndividualAccount.individualId), any(), matching(addressId))(any(), any())
   }
 
   "The update mobile number page" must "update the user's mobile number if they submit a valid form" in {
@@ -202,7 +211,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) mustBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(phone2 = Some("01234567890"))
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
+    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
+      any[HeaderCarrier])
   }
 
   "The update mobile number page" must "throw BAD_REQUEST if they submit an invalid form" in {
@@ -255,17 +265,17 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     html.title mustBe "Update mobile number"
   }
 
-
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
 
-  private object TestUpdatePersonalDetails extends UpdatePersonalDetails(
-    mockCustomErrorHandler,
-    preAuthenticatedActionBuilders(),
-    mockAddressConnector,
-    mockIndividualAccounts,
-    mockManageDetails,
-    mockGroupAccounts
-  )
+  private object TestUpdatePersonalDetails
+      extends UpdatePersonalDetails(
+        mockCustomErrorHandler,
+        preAuthenticatedActionBuilders(),
+        mockAddressConnector,
+        mockIndividualAccounts,
+        mockManageDetails,
+        mockGroupAccounts
+      )
 
   lazy val mockIndividualAccounts: IndividualAccounts = {
     val m = mock[IndividualAccounts]

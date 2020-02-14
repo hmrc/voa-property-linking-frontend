@@ -21,15 +21,16 @@ import java.time.LocalDate
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
-case class DraftCase(id: String,
-                     url: String,
-                     address: PropertyAddress,
-                     effectiveDate: LocalDate,
-                     checkType: String,
-                     expirationDate: LocalDate,
-                     propertyLinkId: Long,
-                     assessmentRef: Long,
-                     baRef: String)
+case class DraftCase(
+      id: String,
+      url: String,
+      address: PropertyAddress,
+      effectiveDate: LocalDate,
+      checkType: String,
+      expirationDate: LocalDate,
+      propertyLinkId: Long,
+      assessmentRef: Long,
+      baRef: String)
 
 object DraftCase {
   implicit val rds: Reads[DraftCase] = Json.reads[DraftCase]
@@ -46,26 +47,30 @@ object DraftCase {
       (__ \ "town").readNullable[String] and
       (__ \ "county").readNullable[String] and
       (__ \ "postcode").readNullable[String]
-    ) (mkAddress _)
+  )(mkAddress _)
 
-  // scalastyle:off
-  private def mkAddress(name: Option[String],
-                        firm: Option[String],
-                        number: Option[String],
-                        street: Option[String],
-                        subStreet1: Option[String],
-                        subStreet2: Option[String],
-                        subStreet3: Option[String],
-                        postalDistrict: Option[String],
-                        town: Option[String],
-                        county: Option[String],
-                        postcode: Option[String]): PropertyAddress = {
+  private def mkAddress(
+        name: Option[String],
+        firm: Option[String],
+        number: Option[String],
+        street: Option[String],
+        subStreet1: Option[String],
+        subStreet2: Option[String],
+        subStreet3: Option[String],
+        postalDistrict: Option[String],
+        town: Option[String],
+        county: Option[String],
+        postcode: Option[String]): PropertyAddress = {
 
-    val nameAndOrNumber: Option[String] = Seq(number, name).flatten.mkString(" ") match {
-      case "" => None
-      case nameAndOrNumber => Some(nameAndOrNumber)
+    val firmNameNumber: Option[String] = Seq(firm, number, name).flatten.mkString(" ") match {
+      case ""  => None
+      case fnn => Some(fnn)
     }
-    val lines = Seq(nameAndOrNumber, firm, street, subStreet1, subStreet2, subStreet3, postalDistrict, town, county) collect { case Some(l) => l }
+
+    val lines = Seq(firmNameNumber, subStreet3, subStreet2, subStreet1, street, postalDistrict, town, county) collect {
+      case Some(l) => l
+    }
+
     PropertyAddress(lines, postcode.getOrElse(""))
   }
 }

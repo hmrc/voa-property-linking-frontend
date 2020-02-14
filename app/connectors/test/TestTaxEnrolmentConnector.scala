@@ -25,14 +25,23 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-  class TestTaxEnrolmentConnector @Inject()(wSHttp: HttpClient, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
+class TestTaxEnrolmentConnector @Inject()(
+      wSHttp: HttpClient,
+      val runModeConfiguration: Configuration,
+      servicesConfig: ServicesConfig) {
 
   private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
   private val emacUrl = servicesConfig.baseUrl("emac") + "/enrolment-store-proxy"
 
   def deEnrol(personID: Long)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Future[HttpResponse]] =
-    wSHttp.POST[JsValue, HttpResponse](s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA", Json.obj("keepAgentAllocations" -> true))(
-      implicitly[Writes[JsValue]], implicitly[HttpReads[HttpResponse]], hc.withExtraHeaders("Content-Type" -> "application/json"), ex)
+    wSHttp
+      .POST[JsValue, HttpResponse](
+        s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA",
+        Json.obj("keepAgentAllocations" -> true))(
+        implicitly[Writes[JsValue]],
+        implicitly[HttpReads[HttpResponse]],
+        hc.withExtraHeaders("Content-Type" -> "application/json"),
+        ex)
       .map(_ => wSHttp.DELETE[HttpResponse](s"$emacUrl/enrolment-store/enrolments/HMRC-VOA-CCA~VOAPersonID~$personID"))
 
 }

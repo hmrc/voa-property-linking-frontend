@@ -51,15 +51,13 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec {
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
-    when(f.start(any())(any(), any())
-    ).thenReturn(Future.successful(()))
+    when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
     f
   }
 
   lazy val propertyLinkingConnector = mock[PropertyLinkConnector]
 
   implicit val hc = HeaderCarrier()
-
 
   "The claim property page" should "contain the claim property form" in {
     StubSubmissionIdConnector.stubId(submissionId)
@@ -85,11 +83,12 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec {
   it should "redirect to the choose evidence page on valid submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = testClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest().withFormUrlEncodedBody(
-      "capacity" -> "OWNER",
-      "interestedBefore2017" -> "true",
-      "stillInterested" -> "true"
-    ))
+    val res = testClaimProperty.attemptLink(positiveLong, shortString)(
+      FakeRequest().withFormUrlEncodedBody(
+        "capacity"             -> "OWNER",
+        "interestedBefore2017" -> "true",
+        "stillInterested"      -> "true"
+      ))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.ChooseEvidence.show.url)
   }
@@ -100,20 +99,21 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec {
     val uarn: Long = positiveLong
     val address: String = shortString
 
-    val declaration: CapacityDeclaration = CapacityDeclaration(Owner, false, Some(LocalDate.of(2017, 4, 2)),
-      false, Some(LocalDate.of(2017, 4, 5)))
+    val declaration: CapacityDeclaration =
+      CapacityDeclaration(Owner, false, Some(LocalDate.of(2017, 4, 2)), false, Some(LocalDate.of(2017, 4, 5)))
 
-    val res = testClaimProperty.attemptLink(uarn, address)(FakeRequest().withFormUrlEncodedBody(
-      "capacity" -> declaration.capacity.toString,
-      "interestedBefore2017" -> declaration.interestedBefore2017.toString,
-      "fromDate.year" -> declaration.fromDate.fold("")(_.getYear.toString),
-      "fromDate.month" -> declaration.fromDate.fold("")(_.getMonthValue.toString),
-      "fromDate.day" -> declaration.fromDate.fold("")(_.getDayOfMonth.toString),
-      "stillInterested" -> declaration.stillInterested.toString,
-      "toDate.year" -> declaration.fromDate.fold("")(_.getYear.toString),
-      "toDate.month" -> declaration.toDate.fold("")(_.getMonthValue.toString),
-      "toDate.day" -> declaration.toDate.fold("")(_.getDayOfMonth.toString)
-    ))
+    val res = testClaimProperty.attemptLink(uarn, address)(
+      FakeRequest().withFormUrlEncodedBody(
+        "capacity"             -> declaration.capacity.toString,
+        "interestedBefore2017" -> declaration.interestedBefore2017.toString,
+        "fromDate.year"        -> declaration.fromDate.fold("")(_.getYear.toString),
+        "fromDate.month"       -> declaration.fromDate.fold("")(_.getMonthValue.toString),
+        "fromDate.day"         -> declaration.fromDate.fold("")(_.getDayOfMonth.toString),
+        "stillInterested"      -> declaration.stillInterested.toString,
+        "toDate.year"          -> declaration.fromDate.fold("")(_.getYear.toString),
+        "toDate.month"         -> declaration.toDate.fold("")(_.getMonthValue.toString),
+        "toDate.day"           -> declaration.toDate.fold("")(_.getDayOfMonth.toString)
+      ))
 
     status(res) mustBe SEE_OTHER
 

@@ -16,46 +16,31 @@
 
 package controllers
 
-import connectors._
 import models._
-import models.dvr.DetailedValuationRequest
-import org.mockito.ArgumentMatchers.{any, eq => matching}
-import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.OptionValues
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import resources._
-import uk.gov.hmrc.http.HeaderCarrier
 import utils.{StubBusinessRatesValuation, _}
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
-  private object TestAssessmentController extends Assessments(
-    mockCustomErrorHandler,
-    StubPropertyLinkConnector,
-    mockPropertyLinkService,
-    preAuthenticatedActionBuilders(),
-    mockSubmissionIds,
-    mockDvrCaseManagement,
-    StubBusinessRatesValuation,
-    mockBusinessRatesAuthorisation,
-    stubMessagesControllerComponents(),
-    isExternalValuation = false,
-    isSkipAssessment = false,
-    isSummaryValuationNewRoute = true) {
-    when(mockDvrCaseManagement.requestDetailedValuation(any[DetailedValuationRequest])(any[HeaderCarrier])).thenReturn(Future.successful(()))
-  }
-
-  lazy val mockSubmissionIds = {
-    val m = mock[SubmissionIdConnector]
-    when(m.get(matching("EMAIL"))(any[HeaderCarrier])).thenReturn(Future.successful("EMAIL123"))
-    when(m.get(matching("POST"))(any[HeaderCarrier])).thenReturn(Future.successful("POST123"))
-    m
-  }
+  private object TestAssessmentController
+      extends Assessments(
+        mockCustomErrorHandler,
+        StubPropertyLinkConnector,
+        mockPropertyLinkService,
+        preAuthenticatedActionBuilders(),
+        StubBusinessRatesValuation,
+        mockBusinessRatesAuthorisation,
+        stubMessagesControllerComponents(),
+        isExternalValuation = false,
+        isSkipAssessment = false,
+        isSummaryValuationNewRoute = true
+      )
 
   // TODO Delete or fix these tests
 
@@ -91,14 +76,16 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     val res = TestAssessmentController.viewOwnerSummary(123L, true)(FakeRequest())
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("http://localhost:9537/business-rates-valuation/property-link/123/valuation/summary")
+    redirectLocation(res) mustBe Some(
+      "http://localhost:9537/business-rates-valuation/property-link/123/valuation/summary")
   }
 
   "viewClientSummary" must "redirect to business-rates-valuation view client summary details" in {
     val res = TestAssessmentController.viewClientSummary(123L, true)(FakeRequest())
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("http://localhost:9537/business-rates-valuation/property-link/clients/all/123/valuation/summary")
+    redirectLocation(res) mustBe Some(
+      "http://localhost:9537/business-rates-valuation/property-link/clients/all/123/valuation/summary")
   }
 
   //  "The assessments page for a property link" must "display the effective assessment date, the rateable value, capacity, and link dates for each assessment, Owner Check cases" in {
@@ -131,8 +118,8 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
   //  }
 
   private def formatCapacity(assessment: Assessment) = assessment.capacity.capacity match {
-    case Owner => "Owner"
-    case Occupier => "Occupier"
+    case Owner         => "Owner"
+    case Occupier      => "Occupier"
     case OwnerOccupier => "Owner and occupier"
   }
 

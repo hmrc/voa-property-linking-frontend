@@ -22,27 +22,27 @@ import uk.gov.hmrc.auth.core.retrieve.Name
 import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole}
 
 case class UserDetails(
-                        firstName: Option[String],
-                        lastName: Option[String],
-                        email: String,
-                        postcode: Option[String],
-                        groupIdentifier: String,
-                        externalId: String,
-                        affinityGroup: AffinityGroup,
-                        credentialRole: CredentialRole
-                      )
+      firstName: Option[String],
+      lastName: Option[String],
+      email: String,
+      postcode: Option[String],
+      groupIdentifier: String,
+      externalId: String,
+      affinityGroup: AffinityGroup,
+      credentialRole: CredentialRole
+)
 
 object UserDetails {
 
   def fromRetrieval(
-                     name: Option[Name],
-                     optEmail: Option[String],
-                     optPostCode: Option[String],
-                     groupIdentifier: String,
-                     externalId: String,
-                     affinityGroup: AffinityGroup,
-                     role: CredentialRole
-                   ): UserDetails =
+        name: Option[Name],
+        optEmail: Option[String],
+        optPostCode: Option[String],
+        groupIdentifier: String,
+        externalId: String,
+        affinityGroup: AffinityGroup,
+        role: CredentialRole
+  ): UserDetails =
     UserDetails(
       firstName = name.flatMap(_.name),
       lastName = name.flatMap(_.lastName),
@@ -56,7 +56,6 @@ object UserDetails {
 
   implicit val format: OFormat[UserDetails] = Json.format
 
-
   object IndividualUserDetails {
     def unapply(arg: UserDetails): Boolean = arg.affinityGroup == Individual
   }
@@ -68,6 +67,5 @@ object UserDetails {
   object AgentUserDetails {
     def unapply(arg: UserDetails): Boolean = arg.affinityGroup == Agent
   }
-
 
 }

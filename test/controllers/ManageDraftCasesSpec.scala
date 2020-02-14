@@ -35,7 +35,7 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec {
 
   implicit val request = FakeRequest()
 
-  val emptyDrafts = Seq("draft" -> "")
+  val emptyDrafts = Seq("draft"    -> "")
   val nonEmptyDrafts = Seq("draft" -> "1234567?localhost:1234/delete-draft")
 
   "The manage drafts page" should "reject a continue check submission when no selection has been made" in {
@@ -82,7 +82,6 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) mustBe Some(viewDraftPage)
   }
 
-
   private lazy val viewDraftPage = controllers.routes.ManageDrafts.viewDraftCases().url
   implicit lazy val mockDraftCases = mock[DraftCases]
 
@@ -93,4 +92,3 @@ class ManageDraftCasesSpec extends VoaPropertyLinkingSpec {
   )
 
 }
-
