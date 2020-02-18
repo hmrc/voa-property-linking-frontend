@@ -2,6 +2,8 @@ project.header=VOA Property Linking
 service.name=Check and challenge your business rates valuation
 link.home=Home
 link.logout=Sign out
+link.login=Login
+link.register=Register
 label.phase.banner.text=This is a new service – your <a href="{0}" id="betaFeedback" class="govuk-link">feedback</a> will help us to improve it.
 link.feedback=Feedback
 main.cookies=Cookies
@@ -439,8 +441,7 @@ propertyRepresentation.isThisYourAgent.no=No, enter a new code
 propertyRepresentation.onePropertyNoExistingAgent.question=Do you want {0} to manage your property?
 
 propertyRepresentation.oneProperty.question=Do you want {0} to manage your property?
-propertyRepresentation.oneProperty.options.asWellAsCurrent=Yes - as well as the current agent
-propertyRepresentation.oneProperty.options.insteadOfCurrent=Yes - instead of the current agent
+propertyRepresentation.oneProperty.options.yes=Yes
 propertyRepresentation.oneProperty.options.no=No
 
 propertyRepresentation.multipleProperties.question=Which properties would you like {0} to manage?
@@ -887,8 +888,7 @@ error.label.year=Year
 error.boolean=Please select an option
 
 
-error.agentCode.required=Agent code must be filled in
-error.agentCode.invalid=Agent code cannot be a negative number
+error.agentCode.required=Please enter a valid agent code
 error.isThisYourAgent.required=Select yes if this is your agent
 
 error.oneProperty.required=Select if you want your agent to manage your property

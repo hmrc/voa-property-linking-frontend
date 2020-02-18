@@ -89,7 +89,7 @@ GET         /keep-alive                                                         
 #APPOINT
 GET         /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
 POST        /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.submitAppointMultipleProperties()
-GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String, agentAppointed: Option[String])
+GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String, agentAppointed: Option[String], backLink: String ?= "/my-organisation/appoint")
 POST        /my-organisation/appoint/properties/create                                                                    @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 
 #NEW AGENT APPOINT JOURNEY
@@ -99,11 +99,8 @@ POST        /my-organisation/appoint-new-agent                                  
 GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AgentRelationshipController.isCorrectAgent()
 POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AgentRelationshipController.agentSelected()
 
-GET         /my-organisation/appoint-new-agent/one-property/no-existing-agent                                             @controllers.agentAppointment.AgentRelationshipController.onePropertyNoExistingAgent()
-POST        /my-organisation/appoint-new-agent/one-property/no-existing-agent                                             @controllers.agentAppointment.AgentRelationshipController.submitOnePropertyNoExistingAgent()
-
-GET         /my-organisation/appoint-new-agent/one-property/with-existing-agent                                           @controllers.agentAppointment.AgentRelationshipController.onePropertyWithExistingAgent()
-POST        /my-organisation/appoint-new-agent/one-property/with-existing-agent                                           @controllers.agentAppointment.AgentRelationshipController.submitOnePropertyWithExistingAgent()
+GET         /my-organisation/appoint-new-agent/one-property                                                               @controllers.agentAppointment.AgentRelationshipController.oneProperty()
+POST        /my-organisation/appoint-new-agent/one-property                                                               @controllers.agentAppointment.AgentRelationshipController.submitOneProperty()
 
 GET         /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AgentRelationshipController.multipleProperties()
 POST        /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AgentRelationshipController.submitMultipleProperties()

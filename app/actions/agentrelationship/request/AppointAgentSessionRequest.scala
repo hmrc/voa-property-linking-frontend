@@ -24,7 +24,6 @@ import uk.gov.hmrc.play.HeaderCarrierConverter
 
 case class AppointAgentSessionRequest[A](
       sessionData: AppointNewAgentSession,
-      organisationId: Long,
       individualAccount: DetailedIndividualAccount,
       groupAccount: GroupAccount,
       request: Request[A]
@@ -33,14 +32,13 @@ case class AppointAgentSessionRequest[A](
 
   override def optAccounts = Some(Accounts(organisation = groupAccount, person = individualAccount))
 
-  override def yourDetailsName = getYourDetailsName(optAccounts)
+  override def yourDetailsName = optAccounts.map { acc =>
+    if (s"${acc.person.details.firstName} ${acc.person.details.lastName}" == acc.organisation.companyName) {
+      s"${acc.person.details.firstName} ${acc.person.details.lastName}"
+    } else {
+      s"${acc.person.details.firstName} ${acc.person.details.lastName} - ${acc.organisation.companyName}"
+    }
+  }
 
-  def sessionId: String =
-    HeaderCarrierConverter
-      .fromHeadersAndSession(request.headers, Some(request.session))
-      .sessionId
-      .map(_.value)
-      .getOrElse(throw NoSessionId)
+  def organisationId = groupAccount.id
 }
-
-case object NoSessionId extends Exception

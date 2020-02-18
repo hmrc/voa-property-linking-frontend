@@ -19,15 +19,14 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @import config.ApplicationConfig
-@import models.propertyrepresentation.ManageOnePropertyOptions
+@import models.propertyrepresentation.ManagePropertiesOptions
 
-@import models.propertyrepresentation.AsWellAsCurrent
-@import models.propertyrepresentation.InsteadOfCurrent
+@import models.propertyrepresentation.Yes
 @import models.propertyrepresentation.No
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
-@(form: Form[ManageOnePropertyOptions], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[ManagePropertiesOptions], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.addAnAgent.title"),
@@ -40,14 +39,13 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.submitOnePropertyWithExistingAgent()) {
+    @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.submitOneProperty()) {
         @govukRadios(Radios(
-            idPrefix = Some("onePropertyWithAgent"),
-            name = "onePropertyWithAgent",
+            idPrefix = Some("oneProperty"),
+            name = "oneProperty",
             items = Seq(
-                RadioItem(id = Some("onePropertyWithAgent-asWellAsCurrent"), value = Some(AsWellAsCurrent.name), checked = form.value.fold(false)(_ == AsWellAsCurrent.name), content = Text(messages("propertyRepresentation.oneProperty.options.asWellAsCurrent"))),
-                RadioItem(id = Some("onePropertyWithAgent-insteadOfCurrent"), value = Some(InsteadOfCurrent.name), checked = form.value.fold(false)(_ == InsteadOfCurrent.name), content = Text(messages("propertyRepresentation.oneProperty.options.insteadOfCurrent"))),
-                RadioItem(id = Some("onePropertyWithAgent-no"), value = Some(No.name), checked = form.value.fold(false)(_ == No.name), content = Text(messages("propertyRepresentation.oneProperty.options.no")))
+                RadioItem(id = Some("oneProperty-yes"), value = Some(Yes.name), checked = form.value.fold(false)(_ == Yes.name), content = Text(messages("propertyRepresentation.oneProperty.options.yes"))),
+                RadioItem(id = Some("oneProperty-no"), value = Some(No.name), checked = form.value.fold(false)(_ == No.name), content = Text(messages("propertyRepresentation.oneProperty.options.no")))
             ))
         )
 

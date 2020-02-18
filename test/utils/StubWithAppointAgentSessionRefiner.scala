@@ -16,7 +16,7 @@
 
 package utils
 
-import actions.agentrelationship.WithAppointAgentSession
+import actions.agentrelationship.WithAppointAgentSessionRefiner
 import actions.agentrelationship.request.AppointAgentSessionRequest
 import actions.requests.BasicAuthenticatedRequest
 import models.propertyrepresentation.AppointNewAgentSession
@@ -29,8 +29,8 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class StubWithAppointAgentSession(sessionRepository: SessionRepo)
-    extends WithAppointAgentSession(mock(classOf[CustomErrorHandler]), sessionRepository) {
+class StubWithAppointAgentSessionRefiner(sessionRepository: SessionRepo)
+    extends WithAppointAgentSessionRefiner(mock(classOf[CustomErrorHandler]), sessionRepository) {
 
   private var stubbedSession: Option[(AppointNewAgentSession, DetailedIndividualAccount, GroupAccount)] = None
 
@@ -38,8 +38,7 @@ class StubWithAppointAgentSession(sessionRepository: SessionRepo)
         request: BasicAuthenticatedRequest[A]): Future[Either[Result, AppointAgentSessionRequest[A]]] =
     stubbedSession.fold(throw new Exception("Appoint agent session not stubbed")) {
       case (appointAgentSession, person, organisation) =>
-        Future.successful(
-          Right(AppointAgentSessionRequest(appointAgentSession, person.organisationId, person, organisation, request)))
+        Future.successful(Right(AppointAgentSessionRequest(appointAgentSession, person, organisation, request)))
     }
 
   def stubSession(

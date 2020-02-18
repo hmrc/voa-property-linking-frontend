@@ -106,7 +106,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       agentCode,
       "START_AND_CONTINUE",
       "START_AND_CONTINUE",
-      None)(FakeRequest())
+      None,
+      "/my-organisation/appoint")(FakeRequest())
     status(res) mustBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))

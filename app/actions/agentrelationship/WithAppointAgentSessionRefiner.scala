@@ -30,7 +30,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class WithAppointAgentSession @Inject()(
+class WithAppointAgentSessionRefiner @Inject()(
       errorHandler: CustomErrorHandler,
       @Named("appointNewAgentSession") val sessionRepository: SessionRepo
 )(implicit override val executionContext: ExecutionContext)
@@ -43,13 +43,7 @@ class WithAppointAgentSession @Inject()(
         request: BasicAuthenticatedRequest[A]): Future[Either[Result, AppointAgentSessionRequest[A]]] =
     sessionRepository.get[AppointNewAgentSession](implicitly[Reads[AppointNewAgentSession]], hc(request)).map {
       case Some(s) =>
-        Right(
-          AppointAgentSessionRequest(
-            s,
-            request.organisationAccount.id,
-            request.individualAccount,
-            request.organisationAccount,
-            request))
+        Right(AppointAgentSessionRequest(s, request.individualAccount, request.organisationAccount, request))
       case None => Left(NotFound(errorHandler.notFoundTemplate(request)))
     }
 }

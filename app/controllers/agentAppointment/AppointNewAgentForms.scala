@@ -17,14 +17,14 @@
 package controllers.agentAppointment
 
 import form.{EnumMapping, Mappings}
-import models.propertyrepresentation.{ManageMultiplePropertiesOptions, ManageOnePropertyOptions}
+import models.propertyrepresentation.ManagePropertiesOptions
 import play.api.data.{Form, Forms}
-import play.api.data.Forms.{boolean, longNumber, optional, single}
+import play.api.data.Forms.{boolean, longNumber, optional, single, text}
 
-object AgentRelationshipForms {
-  val agentCode: Form[Long] =
+object AppointNewAgentForms {
+  val agentCode: Form[String] =
     Form(single("agentCode" -> {
-      longNumber.verifying("error.agentCode.invalid", n => n > 0)
+      text.verifying("error.agentCode.required", s => s.matches("^[0-9]+$"))
     }))
 
   val isThisYourAgent: Form[Boolean] =
@@ -34,10 +34,9 @@ object AgentRelationshipForms {
           .verifying("error.isThisYourAgent.required", _.isDefined)
           .transform(_.get, Some.apply(_: Boolean))))
 
-  val manageOnePropertyNoAgent: Form[Boolean] = Form(Forms.single("onePropertyNoAgent" -> Mappings.mandatoryBoolean))
-  val manageOnePropertyExistingAgent: Form[ManageOnePropertyOptions] = Form(
-    Forms.single("onePropertyWithAgent" -> EnumMapping(ManageOnePropertyOptions)))
-  val manageMultipleProperties: Form[ManageMultiplePropertiesOptions] = Form(
-    Forms.single("multipleProperties" -> EnumMapping(ManageMultiplePropertiesOptions)))
+  val manageOneProperty: Form[ManagePropertiesOptions] = Form(
+    Forms.single("oneProperty" -> EnumMapping(ManagePropertiesOptions, "error.oneProperty.required")))
+  val manageMultipleProperties: Form[ManagePropertiesOptions] = Form(
+    Forms.single("multipleProperties" -> EnumMapping(ManagePropertiesOptions, "error.multipleProperties.required")))
 
 }

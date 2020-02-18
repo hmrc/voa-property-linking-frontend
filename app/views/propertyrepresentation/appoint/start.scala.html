@@ -22,7 +22,7 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
-@(form: Form[Long])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
  @mainLayout(
     pageTitle = messages("propertyRepresentation.addAnAgent.title"),

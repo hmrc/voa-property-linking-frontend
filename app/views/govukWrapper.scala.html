@@ -30,7 +30,6 @@
         headScripts: Html = HtmlFormat.empty,
         scriptElem: Option[Html] = None)(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
 
-    @* TODO how much of this is really needed? *@
     @bodyEnd = {
         @uiLayouts.footer(
             analyticsToken = None,
