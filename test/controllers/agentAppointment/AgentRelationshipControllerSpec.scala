@@ -45,9 +45,31 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
     status(res) mustBe BAD_REQUEST
   }
 
-  "getAgentDetails" should "return 400 Bad Request when agentCode is provided but there is no Agent for the provided agentCode" in {
+  "getAgentDetails" should "return 400 Bad Request when agentCode does not exist" in {
+    when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    when(mockAgentRelationshipService.getAgent(any())(any())).thenReturn(Future successful None)
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future successful organisationsAgentsList)
+    val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "213414"))
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "getAgentDetails" should "return 400 Bad Request when agentCode belongs to an agent that has already been added by this organisation" in {
     when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
     when(mockAgentRelationshipService.getAgent(any())(any())).thenReturn(Future successful Some(agentOrganisation))
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
+      Future successful organisationsAgentsList.copy(
+        agents = List(agentSummary.copy(representativeCode = agentOrganisation.representativeCode.get))))
+    val res = testController.getAgentDetails()(
+      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"${agentOrganisation.representativeCode.get}"))
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "getAgentDetails" should "return 303 See Other when valid agentCode is provided and agent has not already been added to organisation" in {
+    when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    when(mockAgentRelationshipService.getAgent(any())(any())).thenReturn(Future successful Some(agentOrganisation))
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future successful organisationsAgentsList)
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "11223"))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(

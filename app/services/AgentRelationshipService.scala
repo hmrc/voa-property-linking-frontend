@@ -26,6 +26,7 @@ import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PaginationParams
 import javax.inject.{Inject, Named}
 import models._
+import models.propertyrepresentation.AgentList
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
@@ -107,6 +108,9 @@ class AgentRelationshipService @Inject()(
 
   def getAgent(agentCode: Long)(implicit hc: HeaderCarrier) =
     representations.getAgent(agentCode)
+
+  def getMyOrganisationAgents()(implicit hc: HeaderCarrier): Future[AgentList] =
+    propertyLinks.getMyOrganisationAgents()
 
   private def appointAgent(
         pLink: String,

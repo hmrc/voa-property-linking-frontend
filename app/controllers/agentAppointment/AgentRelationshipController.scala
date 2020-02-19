@@ -77,21 +77,40 @@ class AgentRelationshipController @Inject()(
         Future.successful(BadRequest(startPage(errors)))
       },
       success => {
-        agentRelationshipService.getAgent(success.toLong) map {
-          case None => {
-            val formWithErrors = agentCode.copy(
-              data = Map("agentCode" -> success),
-              errors =
-                Seq[FormError](FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent")))
-            BadRequest(startPage(formWithErrors))
-          }
-          case Some(a) => {
-            sessionRepo.saveOrUpdate(
-              AppointNewAgentSession(
-                agentCode = success.toLong,
-                agentOrganisationName = Some(a.organisationLatestDetail.organisationName),
-                agentOrganisationId = a.id))
-            Redirect(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent())
+        for {
+          organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
+          agentOpt            <- agentRelationshipService.getAgent(success.toLong)
+        } yield {
+          agentOpt match {
+            case None => {
+              BadRequest(
+                startPage(
+                  agentCode.copy(
+                    data = Map("agentCode" -> success),
+                    errors = Seq[FormError](
+                      FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent")))
+                ))
+            }
+            case Some(agent)
+                if organisationsAgents.agents
+                  .filter(a => a.representativeCode == agent.representativeCode.getOrElse(0L))
+                  .nonEmpty => {
+              BadRequest(
+                startPage(
+                  agentCode.copy(
+                    data = Map("agentCode" -> success),
+                    errors = Seq[FormError](
+                      FormError(key = "agentCode", message = "error.propertyRepresentation.agentAlreadyAppointed")))
+                ))
+            }
+            case Some(agent) => {
+              sessionRepo.saveOrUpdate(
+                AppointNewAgentSession(
+                  agentCode = success.toLong,
+                  agentOrganisationName = Some(agent.organisationLatestDetail.organisationName),
+                  agentOrganisationId = agent.id))
+              Redirect(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent())
+            }
           }
         }
       }
