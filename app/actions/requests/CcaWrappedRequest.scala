@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@()
-<link href="@routes.Assets.at("stylesheets/jquery.dataTables.min.css")" media="screen" rel="stylesheet" type="text/css" />
-<link href="@routes.Assets.at("stylesheets/searchAndSort.css")" media="screen" rel="stylesheet" type="text/css" />
-<link href="@routes.Assets.at("stylesheets/custom.css")" media="screen" rel="stylesheet" type="text/css" />
-<!-- todo: <link href="@routes.Assets.at("stylesheets/print.css")" media="print" rel="stylesheet" type="text/css" /> -->
+package actions.requests
+
+import models.Accounts
+
+trait CcaWrappedRequest {
+  def isLoggedIn: Boolean
+  def optAccounts: Option[Accounts]
+  def yourDetailsName: Option[String]
+}

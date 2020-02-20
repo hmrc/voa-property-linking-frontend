@@ -1,5 +1,7 @@
 ->          /                                                                                 manageDetails.Routes
 
+->          /govuk-frontend                                                                   govuk.Routes
+
 #Start
 GET         /                                                                                 @controllers.Application.start()
 
@@ -87,8 +89,23 @@ GET         /keep-alive                                                         
 #APPOINT
 GET         /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
 POST        /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.submitAppointMultipleProperties()
-GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String, agentAppointed: Option[String])
+GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String, agentAppointed: Option[String], backLink: String ?= "/my-organisation/appoint")
 POST        /my-organisation/appoint/properties/create                                                                    @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
+
+#NEW AGENT APPOINT JOURNEY
+GET         /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AgentRelationshipController.startAppointJourney()
+POST        /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AgentRelationshipController.getAgentDetails()
+
+GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AgentRelationshipController.isCorrectAgent()
+POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AgentRelationshipController.agentSelected()
+
+GET         /my-organisation/appoint-new-agent/one-property                                                               @controllers.agentAppointment.AgentRelationshipController.oneProperty()
+POST        /my-organisation/appoint-new-agent/one-property                                                               @controllers.agentAppointment.AgentRelationshipController.submitOneProperty()
+
+GET         /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AgentRelationshipController.multipleProperties()
+POST        /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AgentRelationshipController.submitMultipleProperties()
+
+GET         /my-organisation/appoint-new-agent/checkYourAnswers                                                           @controllers.agentAppointment.AgentRelationshipController.checkAnswers()
 
 GET         /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.revokeMultipleProperties()
 POST        /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.submitRevokeMultipleProperties()

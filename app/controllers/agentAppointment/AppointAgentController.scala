@@ -114,7 +114,8 @@ class AppointAgentController @Inject()(
         agentCode: Long,
         checkPermission: String,
         challengePermission: String,
-        agentAppointed: Option[String]
+        agentAppointed: Option[String],
+        backLink: String
   ): Action[AnyContent] = authenticated.async { implicit request =>
     for {
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
@@ -152,7 +153,8 @@ class AppointAgentController @Inject()(
               agentCode = agentCode,
               checkPermission = checkPermission,
               challengePermission = challengePermission,
-              agentAppointed
+              agentAppointed = agentAppointed,
+              backLink = Some(backLink)
             ))
         case None =>
           notFound

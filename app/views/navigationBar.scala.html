@@ -1,0 +1,63 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.ApplicationConfig
+
+@import actions.requests.CcaWrappedRequest
+@(backUri: Option[String])(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
+
+    @homeLink = @{
+        config.newDashboardUrl("home")
+    }
+    @signOutLink = @{
+        config.newDashboardUrl("sign-out")
+    }
+    @yourDetailsLink = @{
+        config.newDashboardUrl("your-details")
+    }
+
+    @noAccountLinks = {
+        <li style="display:inline"><a id="login-link" href="@homeLink">@Messages("link.login")</a><span class="separator"> |</span></li>
+        <li style="display:inline"><a id="register-link" href="#">@Messages("link.register")</a></li>
+    }
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+        @if(backUri.isDefined) {
+            <a id="back-link" href="@backUri" class="govuk-back-link">Back</a>
+        }else{
+            <div class="govuk-body"></div>
+        }
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <ul class="govuk-list" style="text-align:right; margin-top:13px;">
+            @request match {
+                case req: CcaWrappedRequest => {
+                    @if(req.isLoggedIn) {
+                        <li style="display:inline"><a id="home-link" href="@homeLink" class="govuk-link">@Messages("link.home")</a> |
+                        </li>
+                        <li style="display:inline">
+                            <a id="your-details-link" href="@yourDetailsLink" class="govuk-link">@req.yourDetailsName.getOrElse(Messages("navigation.your.details"))</a> |
+                        </li>
+                        <li style="display:inline"><a id="sign-out-link" href="@signOutLink" class="govuk-link">@Messages("link.logout")</a>
+                        </li>
+                    } else { @noAccountLinks }
+                }
+                case _ => { @noAccountLinks }
+            }
+            </ul>
+        </div>
+    </div>

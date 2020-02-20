@@ -21,6 +21,7 @@ import controllers.VoaPropertyLinkingSpec
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
+import models.propertyrepresentation.AgentList
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
 import org.scalacheck.Arbitrary._
 import play.api.http.Status.OK
@@ -95,6 +96,11 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
 
     mockHttpGETOption[PropertyLink]("tst-url", propertyLink)
     whenReady(connector.getMyOrganisationPropertyLink("1"))(_ mustBe Some(propertyLink))
+  }
+
+  "getMyOrganisationAgents" must "return organisation's agents" in new Setup {
+    mockHttpGET[AgentList]("tst-url", organisationsAgentsList)
+    whenReady(connector.getMyOrganisationAgents())(_ mustBe organisationsAgentsList)
   }
 
 }

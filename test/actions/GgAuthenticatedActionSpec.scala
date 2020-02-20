@@ -41,15 +41,14 @@ import utils._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-
 class GgAuthenticatedActionSpec
     extends UnitSpec with MockitoSugar with ScalaFutures with BeforeAndAfterEach with AllMocks
     with NoMetricsOneAppPerSuite with GlobalExecutionContext {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
   implicit lazy val controllerComponents = app.injector.instanceOf[ControllerComponents]
-  implicit lazy val messagesControllerComponents: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
-
+  implicit lazy val messagesControllerComponents: MessagesControllerComponents =
+    app.injector.instanceOf[MessagesControllerComponents]
 
   "GgAuthenticatedAction" should {
     "invoke the action block when user is authorised" in new Setup {
@@ -57,7 +56,6 @@ class GgAuthenticatedActionSpec
       status(res) shouldBe OK
       contentAsString(res) shouldBe "something"
     }
-
 
     "redirect to the login page when the user is not logged in (NoActiveSession)" in new Setup {
       override def exception: Option[Throwable] = Some(new MissingBearerToken("error"))

@@ -23,7 +23,9 @@ import auth.Principal
 import models._
 import models.attachment._
 import models.domain.Nino
+import models.propertyrepresentation.{AgentList, AgentOrganisation, AgentSummary, AppointNewAgentSession, OrganisationLatestDetail}
 import models.registration._
+import models.searchApi.{OwnerAgent, OwnerAgents, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import models.upscan._
 import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole, User}
 
@@ -41,6 +43,7 @@ trait FakeObjects {
   val phone = "01293666666"
   val nino: Nino = Nino("AA111111A")
   val dateOfBirth: LocalDate = LocalDate.of(1979, Month.OCTOBER, 12)
+  val agentCode = 12345L
 
   val principal = Principal(ggExternalId, ggGroupId)
   val FILE_REFERENCE: String = "1862956069192540"
@@ -122,5 +125,96 @@ trait FakeObjects {
       externalId = ggExternalId,
       credentialRole = credentialRole
     )
+
+  val agentOrganisation = AgentOrganisation(
+    id = 12L,
+    representativeCode = Some(agentCode),
+    organisationLatestDetail = OrganisationLatestDetail(
+      id = 1L,
+      addressUnitId = 1L,
+      organisationName = "An Org",
+      organisationEmailAddress = "some@email.com",
+      organisationTelephoneNumber = "0456273893232",
+      representativeFlag = true
+    ),
+    persons = List()
+  )
+
+  val appointNewAgentSession = AppointNewAgentSession(
+    agentCode = agentCode,
+    agentOrganisationId = 1878L,
+    agentOrganisationName = Some("Some Org"),
+    isCorrectAgent = Some(true),
+    managingProperty = Some("All properties")
+  )
+
+  val ownerAuthAgent = OwnerAuthAgent(
+    authorisedPartyId = 12L,
+    organisationId = 1L,
+    organisationName = "Some Org name",
+    status = "APPROVED",
+    checkPermission = StartAndContinue,
+    challengePermission = StartAndContinue,
+    agentCode = agentCode
+  )
+
+  val ownerAuthorisation = OwnerAuthorisation(
+    authorisationId = 4222211L,
+    status = "APPROVED",
+    submissionId = "PLSubId",
+    uarn = 999000111L,
+    address = "123, Some address",
+    localAuthorityRef = "BAREF",
+    agents = Seq(ownerAuthAgent)
+  )
+  val ownerAuthorisation2 = OwnerAuthorisation(
+    authorisationId = 4222212L,
+    status = "APPROVED",
+    submissionId = "PLSubId2",
+    uarn = 999000112L,
+    address = "124, Some address",
+    localAuthorityRef = "BAREF2",
+    agents = Seq(ownerAuthAgent)
+  )
+
+  val ownerAuthResultWithOneAuthorisation = OwnerAuthResult(
+    start = 1,
+    size = 1,
+    filterTotal = 1,
+    total = 1,
+    authorisations = Seq(ownerAuthorisation)
+  )
+
+  val ownerAuthResultWithTwoAuthorisation = OwnerAuthResult(
+    start = 1,
+    size = 2,
+    filterTotal = 2,
+    total = 2,
+    authorisations = Seq(ownerAuthorisation, ownerAuthorisation2)
+  )
+
+  val ownerAuthResultWithNoAuthorisations = OwnerAuthResult(
+    start = 1,
+    size = 10,
+    filterTotal = 10,
+    total = 10,
+    authorisations = Seq.empty
+  )
+
+  val ownerAgentsNoAgents = OwnerAgents(agents = Seq.empty)
+
+  val ownerAgent = OwnerAgent(name = "Some Agent Org", ref = agentCode)
+
+  val ownerAgentsWithOneAgent = OwnerAgents(agents = Seq(ownerAgent))
+
+  val agentSummary = AgentSummary(
+    organisationId = 1L,
+    representativeCode = 987L,
+    name = "Some Agent Org",
+    appointedDate = LocalDate.now().minusDays(1),
+    propertyCount = 2
+  )
+  val organisationsAgentsList = AgentList(resultCount = 1, agents = List(agentSummary))
+  val emptyOrganisationsAgentsList = AgentList(resultCount = 0, agents = List.empty)
 
 }

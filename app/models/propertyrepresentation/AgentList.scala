@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,28 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@()
-<link href="@routes.Assets.at("stylesheets/jquery.dataTables.min.css")" media="screen" rel="stylesheet" type="text/css" />
-<link href="@routes.Assets.at("stylesheets/searchAndSort.css")" media="screen" rel="stylesheet" type="text/css" />
-<link href="@routes.Assets.at("stylesheets/custom.css")" media="screen" rel="stylesheet" type="text/css" />
-<!-- todo: <link href="@routes.Assets.at("stylesheets/print.css")" media="print" rel="stylesheet" type="text/css" /> -->
+package models.propertyrepresentation
+
+import java.time.LocalDate
+
+import play.api.libs.json.{Json, OFormat}
+
+case class AgentSummary(
+      organisationId: Long,
+      representativeCode: Long,
+      name: String,
+      appointedDate: LocalDate,
+      propertyCount: Int
+)
+
+object AgentSummary {
+  implicit val format: OFormat[AgentSummary] = Json.format
+}
+
+case class AgentList(resultCount: Int, agents: List[AgentSummary])
+
+object AgentList {
+  implicit val format: OFormat[AgentList] = Json.format
+}

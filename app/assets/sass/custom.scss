@@ -26,6 +26,13 @@
 @import "./node_modules/govuk-elements-sass/public/sass/elements/helpers";                       		// Helper functions and classes
 @import "modules/helpers"; 																				// Overide asset path from govuk-elements-sass
 
+// GOV.UK Frontend (styles, images and fonts)
+
+
+
+@import "node_modules/govuk-frontend/govuk/all";
+@import "node_modules/govuk-frontend/govuk/overrides/typography";
+
 // Generic (normalize/reset.css)
 @import "./node_modules/govuk-elements-sass/public/sass/elements/reset";
 

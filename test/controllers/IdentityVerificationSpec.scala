@@ -44,7 +44,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
       .thenReturn(Future.successful(RegistrationSuccess(1L)))
 
-    val res = testIdentityVerification(userDetails(Organisation)).success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Organisation))
+      .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
   }
@@ -56,7 +57,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
       .thenReturn(Future.successful(RegistrationSuccess(1L)))
 
-    val res = testIdentityVerification(userDetails(Individual)).success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Individual))
+      .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
   }
@@ -69,7 +71,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
       .thenReturn(Future.successful(EnrolmentFailure))
 
-    val res = testIdentityVerification(userDetails(Organisation)).success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Organisation))
+      .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
 
     status(res) mustBe INTERNAL_SERVER_ERROR
   }
@@ -82,23 +85,26 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
       .thenReturn(Future.successful(DetailsMissing))
 
-    val res = testIdentityVerification(userDetails(Organisation)).success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
+    val res = testIdentityVerification(userDetails(Organisation))
+      .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
 
     status(res) mustBe INTERNAL_SERVER_ERROR
   }
 
   "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in new TestCase {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
-        .thenReturn(Html(""))
+      .thenReturn(Html(""))
 
     StubIdentityVerification.stubFailedJourney("somejourneyid")
-    val res = testIdentityVerification(userDetails(Organisation)).success(Some("successfuljourney"))(requestWithJourneyId("somejourneyid"))
+    val res = testIdentityVerification(userDetails(Organisation))
+      .success(Some("successfuljourney"))(requestWithJourneyId("somejourneyid"))
     status(res) mustBe UNAUTHORIZED
   }
 
   "Navigating to the iv failed page" must "return the failed page" in new TestCase {
     StubIdentityVerification.stubFailedJourney("somejourneyid")
-    val res = testIdentityVerification(userDetails(Organisation)).fail(Some("failed journey"))(requestWithJourneyId("failed journey"))
+    val res = testIdentityVerification(userDetails(Organisation))
+      .fail(Some("failed journey"))(requestWithJourneyId("failed journey"))
     status(res) mustBe OK
     contentAsString(res) must include("Identity verification failed")
   }
@@ -128,7 +134,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     TableDrivenPropertyChecks.forAll(scenarios) {
       case (failure, expectedText) =>
         StubIdentityVerification.stubFailedJourney("somejourneyid", failure)
-        val res = testIdentityVerification(userDetails(Organisation)).fail(Some("failed journey"))(requestWithJourneyId("failed journey"))
+        val res = testIdentityVerification(userDetails(Organisation))
+          .fail(Some("failed journey"))(requestWithJourneyId("failed journey"))
         status(res) mustBe OK
         val html = contentAsString(res)
         html must include(s"We’re unable to verify your identity because $expectedText.")

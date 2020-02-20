@@ -54,7 +54,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
 
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
 
-  "createAndSubmitAgentRepRequest" should "return option unit when succesful" in {
+  "createAndSubmitAgentRepRequest" should "return option unit when successful" in {
 
     val links = SessionPropertyLinks(
       Seq(
@@ -76,7 +76,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
     verify(mockRepresentationConnector, times(1)).create(any())(any())
   }
 
-  "createAndSubitAgentRevokeRequest" should "return option unit when succesful" in {
+  "createAndSubitAgentRevokeRequest" should "return option unit when successful" in {
 
     val links = SessionPropertyLinks(
       Seq(

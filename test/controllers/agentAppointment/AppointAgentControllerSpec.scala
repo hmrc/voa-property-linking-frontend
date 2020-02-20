@@ -41,7 +41,6 @@ import scala.concurrent.Future
 
 class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
-  val agentCode = 12345L
   val agent = groupAccount(true).copy(agentCode = Some(agentCode))
 
   val testAgents = Seq(
@@ -107,7 +106,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       agentCode,
       "START_AND_CONTINUE",
       "START_AND_CONTINUE",
-      None)(FakeRequest())
+      None,
+      "/my-organisation/appoint")(FakeRequest())
     status(res) mustBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
