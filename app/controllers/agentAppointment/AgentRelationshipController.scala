@@ -108,7 +108,10 @@ class AgentRelationshipController @Inject()(
                 AppointNewAgentSession(
                   agentCode = success.toLong,
                   agentOrganisationName = Some(agent.organisationLatestDetail.organisationName),
-                  agentOrganisationId = agent.id))
+                  agentOrganisationId = agent.id,
+                  isCorrectAgent = None,
+                  managingProperty = None
+                ))
               Redirect(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent())
             }
           }
