@@ -17,6 +17,7 @@
 package repositories
 
 import javax.inject.Inject
+
 import com.google.inject.Singleton
 import models.messages.Message
 import play.api.libs.json._
@@ -33,6 +34,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.concurrent.duration._
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.http.logging.Mdc
 
 @Singleton
 class PersonalDetailsSessionRepository @Inject()(mongo: ReactiveMongoComponent)
@@ -61,43 +63,49 @@ class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
     saveOrUpdate[A](data)
 
   override def saveOrUpdate[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] =
-    for {
-      sessionId <- getSessionId
-      _ <- collection.update(
-            BSONDocument("_id" -> BSONString(sessionId)),
-            BSONDocument(
-              "$set"         -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
-              "$setOnInsert" -> BSONDocument("createdAt"     -> BSONDateTime(System.currentTimeMillis))
-            ),
-            upsert = true
-          )
-    } yield {
-      ()
+    Mdc.preservingMdc {
+      for {
+        sessionId <- getSessionId
+        _ <- collection.update(
+          BSONDocument("_id" -> BSONString(sessionId)),
+          BSONDocument(
+            "$set" -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
+            "$setOnInsert" -> BSONDocument("createdAt" -> BSONDateTime(System.currentTimeMillis))
+          ),
+          upsert = true
+        )
+      } yield {
+        ()
+      }
     }
 
   override def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]] =
-    for {
-      sessionId   <- getSessionId
-      maybeOption <- findById(sessionId)
-    } yield {
-      maybeOption
-        .map(_.data \ formId)
-        .flatMap(x =>
-          x match {
-            case JsDefined(value) => Some(value.as[A])
-            case JsUndefined()    => None
-        })
+    Mdc.preservingMdc {
+      for {
+        sessionId <- getSessionId
+        maybeOption <- findById(sessionId)
+      } yield {
+        maybeOption
+          .map(_.data \ formId)
+          .flatMap(x =>
+            x match {
+              case JsDefined(value) => Some(value.as[A])
+              case JsUndefined() => None
+            })
+      }
     }
 
   override def remove()(implicit hc: HeaderCarrier): Future[Unit] =
-    for {
-      sessionId <- getSessionId
-      _ <- collection.update(
-            BSONDocument("_id"    -> BSONString(sessionId)),
-            BSONDocument("$unset" -> BSONDocument(s"data.$formId" -> 1))
-          )
-    } yield {
-      ()
+    Mdc.preservingMdc {
+      for {
+        sessionId <- getSessionId
+        _ <- collection.update(
+          BSONDocument("_id" -> BSONString(sessionId)),
+          BSONDocument("$unset" -> BSONDocument(s"data.$formId" -> 1))
+        )
+      } yield {
+        ()
+      }
     }
 
   private val noSession = Future.failed[String](NoSessionException)
