@@ -94,7 +94,7 @@ class AgentRelationshipController @Inject()(
             case Some(agent)
                 if organisationsAgents.agents
                   .filter(a => a.representativeCode == success.toLong)
-                  .nonEmpty => {
+                  .nonEmpty =>
               BadRequest(
                 startPage(
                   agentCode.copy(
@@ -102,7 +102,6 @@ class AgentRelationshipController @Inject()(
                     errors = Seq[FormError](
                       FormError(key = "agentCode", message = "error.propertyRepresentation.agentAlreadyAppointed")))
                 ))
-            }
             case Some(agent) => {
               sessionRepo.saveOrUpdate(
                 AppointNewAgentSession(
