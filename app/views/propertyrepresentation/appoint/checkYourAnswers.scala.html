@@ -20,13 +20,25 @@
 
 @import config.ApplicationConfig
 @import models.propertyrepresentation.AppointNewAgentSession
+@import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
+@import models.propertyrepresentation.AppointmentScope.RELATIONSHIP
+@import models.propertyrepresentation.All
+@import models.propertyrepresentation.AgentRelationshipForm
 
-@this(govukTable : GovukTable, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout)
 
-@(data: AppointNewAgentSession)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AgentRelationshipForm], data: AppointNewAgentSession)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @answerMessageKey = @{
     s"propertyRepresentation.checkYourAnswers.options.${data.managingProperty.getOrElse("")}"
+}
+@appointmentScope = @{
+    data.managingProperty match {
+        case None => throw new IllegalStateException("Unable to get 'managingProperty' from session data")
+        case Some(s) if s == All.name => ALL_PROPERTIES.toString
+        case Some(s) if s == models.propertyrepresentation.None.name => RELATIONSHIP.toString
+        case Some(s) if s == models.propertyrepresentation.No.name => RELATIONSHIP.toString
+    }
 }
 
 @mainLayout(
@@ -38,6 +50,9 @@
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.checkYourAnswers.title")</h1>
 
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+    }
     @govukTable(Table(
         rows = Seq(
             Seq(
@@ -62,7 +77,12 @@
         firstCellIsHeader = false
     ))
 
-    @* TODO: submit currently does nothing. This will updated to submit some data once the endpoint is ready  *@
-    <a id="submit" class="govuk-button" href="#">@messages("propertyRepresentation.checkYourAnswers.submit")</a>
+    @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.submitAppointmentChanges()) {
+        <input type="hidden" name="agentCode" value="@data.agentCode">
+        <input type="hidden" name="action" value="APPOINT">
+        <input type="hidden" name="scope" value="@appointmentScope">
+
+        @govukButton(Button(content = Text(messages("propertyRepresentation.checkYourAnswers.submit"))))
+    }
 
 }

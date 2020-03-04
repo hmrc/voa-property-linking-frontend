@@ -22,7 +22,7 @@ import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
-import models.propertyrepresentation.AgentList
+import models.propertyrepresentation.{AgentList, AgentRelationshipRequest}
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
@@ -176,6 +176,15 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
 
   def getMyOrganisationAgents()(implicit hc: HeaderCarrier): Future[AgentList] =
     http.GET[AgentList](s"$baseUrl/owner/agents")
+
+  def sendAgentRelationshipRequest(agentRelationshipRequest: AgentRelationshipRequest)(
+        implicit hc: HeaderCarrier): Future[Unit] = {
+    http
+      .POST[AgentRelationshipRequest, HttpResponse](
+        s"$baseUrl/my-organisation/appointmentChanges",
+        agentRelationshipRequest)
+      .map(_ => ()) //fixme is it async ?
+  }
 
   private def permissionString(agentPermissionType: String, agentPermission: String): Option[(String, String)] =
     if (agentPermission == "START_AND_CONTINUE") Some(agentPermissionType -> agentPermission) else None

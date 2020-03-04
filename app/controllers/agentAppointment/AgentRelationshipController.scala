@@ -29,7 +29,7 @@ import controllers.agent.routes
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.{EnumMapping, Mappings}
 import models.{RepresentationApproved, RepresentationPending, StartAndContinue, propertyrepresentation}
-import models.propertyrepresentation.{AppointNewAgentSession, ChooseFromList, ManagePropertiesOptions, Yes}
+import models.propertyrepresentation.{AgentRelationshipRequest, AppointNewAgentSession, AppointmentAction, AppointmentScope, ChooseFromList, ManagePropertiesOptions, Yes}
 import models.searchApi.AgentPropertiesFilter.{Both, No}
 import models.searchApi.AgentPropertiesSortField.Address
 import play.api.data.{Form, FormError, Forms, Mapping}
@@ -78,10 +78,10 @@ class AgentRelationshipController @Inject()(
       },
       success => {
         for {
-          organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
-          agentOpt            <- agentRelationshipService.getAgent(success.toLong)
+          organisationsAgents    <- agentRelationshipService.getMyOrganisationAgents()
+          agentNameAndAddressOpt <- agentRelationshipService.getAgentNameAndAddress(success.toLong)
         } yield {
-          agentOpt match {
+          agentNameAndAddressOpt match {
             case None => {
               BadRequest(
                 startPage(
@@ -93,7 +93,7 @@ class AgentRelationshipController @Inject()(
             }
             case Some(agent)
                 if organisationsAgents.agents
-                  .filter(a => a.representativeCode == agent.representativeCode.getOrElse(0L))
+                  .filter(a => a.representativeCode == success.toLong)
                   .nonEmpty => {
               BadRequest(
                 startPage(
@@ -107,10 +107,11 @@ class AgentRelationshipController @Inject()(
               sessionRepo.saveOrUpdate(
                 AppointNewAgentSession(
                   agentCode = success.toLong,
-                  agentOrganisationName = Some(agent.organisationLatestDetail.organisationName),
-                  agentOrganisationId = agent.id,
+                  agentOrganisationName = Some(agent.name),
+                  agentOrganisationId = success.toLong,
                   isCorrectAgent = None,
-                  managingProperty = None
+                  managingProperty = None,
+                  agentAddress = Some(agent.address)
                 ))
               Redirect(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent())
             }
@@ -121,13 +122,13 @@ class AgentRelationshipController @Inject()(
   }
 
   def isCorrectAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(isTheCorrectAgent(isThisYourAgent, getAgentName(request))))
+    Future.successful(Ok(isTheCorrectAgent(isThisYourAgent, getAgentName(request), getAgentAddress(request))))
   }
 
   def agentSelected(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     isThisYourAgent.bindFromRequest.fold(
       errors => {
-        Future.successful(BadRequest(isTheCorrectAgent(errors, getAgentName(request))))
+        Future.successful(BadRequest(isTheCorrectAgent(errors, getAgentName(request), getAgentAddress(request))))
       },
       success => {
         if (success) {
@@ -139,12 +140,18 @@ class AgentRelationshipController @Inject()(
                               agentOrganisationId = request.sessionData.agentOrganisationId,
                               organisationId = request.organisationId
                             )
-            ownerAgents <- agentsConnector.ownerAgents(request.organisationId)
             agentName = getAgentName(request)
           } yield {
             propertyLinks.authorisations.size match {
               case 0 => {
-                //fixme send request to modernised once we have an endpoint
+                agentRelationshipService.sendAgentRelationshipRequest(
+                  AgentRelationshipRequest(
+                    action = AppointmentAction.APPOINT,
+                    scope = AppointmentScope.RELATIONSHIP,
+                    agentRepresentativeCode = request.sessionData.agentCode,
+                    propertyLinks = None
+                  )
+                )
                 Ok(confirmation(agentName))
               }
               case 1 => Redirect(controllers.agentAppointment.routes.AgentRelationshipController.oneProperty())
@@ -206,11 +213,40 @@ class AgentRelationshipController @Inject()(
   }
 
   def checkAnswers(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(checkYourAnswers(request.sessionData)))
+    Future.successful(Ok(checkYourAnswers(submitAgentRelationship, request.sessionData)))
+  }
+
+  def submitAppointmentChanges(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
+    implicit request =>
+      submitAgentRelationship.bindFromRequest.fold(
+        errors => {
+          Future.successful(
+            BadRequest(
+              checkYourAnswers(
+                errors,
+                request.sessionData
+              )))
+        }, { success =>
+          {
+            agentRelationshipService.sendAgentRelationshipRequest(
+              AgentRelationshipRequest(
+                agentRepresentativeCode = success.agentCode,
+                action = AppointmentAction.withName(success.action),
+                scope = AppointmentScope.withName(success.scope),
+                propertyLinks = None
+              )
+            )
+            Future.successful(Ok(confirmation(getAgentName(request))))
+          }
+        }
+      )
   }
 
   private def getAgentName(request: AppointAgentSessionRequest[AnyContent]) =
     request.sessionData.agentOrganisationName.getOrElse(throw new IllegalStateException("no agent name stored"))
+
+  private def getAgentAddress(request: AppointAgentSessionRequest[AnyContent]) =
+    request.sessionData.agentAddress.getOrElse(throw new IllegalStateException("no agent address stored"))
 
   private def joinOldJourney(agentCode: Long) =
     Future.successful(

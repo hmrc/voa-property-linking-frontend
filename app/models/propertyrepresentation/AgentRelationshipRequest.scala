@@ -16,16 +16,17 @@
 
 package models.propertyrepresentation
 
+import models.propertyrepresentation.AppointmentAction.AppointmentAction
+import models.propertyrepresentation.AppointmentScope.AppointmentScope
 import play.api.libs.json.{Json, OFormat}
 
-case class AppointNewAgentSession(
-      agentCode: Long,
-      agentOrganisationId: Long,
-      agentOrganisationName: Option[String],
-      isCorrectAgent: Option[Boolean],
-      managingProperty: Option[String],
-      agentAddress: Option[String])
+case class AgentRelationshipRequest(
+      agentRepresentativeCode: Long,
+      action: AppointmentAction,
+      scope: AppointmentScope,
+      propertyLinks: Option[List[String]]
+)
 
-object AppointNewAgentSession {
-  implicit val format: OFormat[AppointNewAgentSession] = Json.format[AppointNewAgentSession]
+object AgentRelationshipRequest {
+  implicit val format: OFormat[AgentRelationshipRequest] = Json.format
 }

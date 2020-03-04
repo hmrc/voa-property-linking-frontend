@@ -22,7 +22,7 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
-@(form: Form[Boolean], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[Boolean], agentName: String, agentAddress: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.addAnAgent.title"),
@@ -32,7 +32,7 @@
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.isThisYourAgent.question")</h1>
 
     <div class="govuk-inset-text">
-       @agentName
+       @agentName <br/> @agentAddress
     </div>
 
     @if(form.errors.nonEmpty) {

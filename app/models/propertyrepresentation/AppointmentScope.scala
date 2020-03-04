@@ -16,16 +16,15 @@
 
 package models.propertyrepresentation
 
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json.Format
+import utils.JsonUtils
 
-case class AppointNewAgentSession(
-      agentCode: Long,
-      agentOrganisationId: Long,
-      agentOrganisationName: Option[String],
-      isCorrectAgent: Option[Boolean],
-      managingProperty: Option[String],
-      agentAddress: Option[String])
+object AppointmentScope extends Enumeration {
+  type AppointmentScope = Value
 
-object AppointNewAgentSession {
-  implicit val format: OFormat[AppointNewAgentSession] = Json.format[AppointNewAgentSession]
+  val RELATIONSHIP = Value("RELATIONSHIP")
+  val PROPERTY_LIST = Value("PROPERTY_LIST")
+  val ALL_PROPERTIES = Value("ALL_PROPERTIES")
+
+  implicit val format: Format[AppointmentScope] = JsonUtils.enumFormat(AppointmentScope)
 }
