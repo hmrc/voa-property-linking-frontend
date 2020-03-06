@@ -101,8 +101,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
 
     // filter agents on representationStatus
     ownerAuthResult.map(oar =>
-      oar.copy(authorisations = oar.authorisations.map(auth =>
-        auth.copy(agents = auth.agents))))
+      oar.copy(authorisations = oar.authorisations.map(auth => auth.copy(agents = auth.agents))))
   }
 
   def filterAgents(

@@ -435,11 +435,7 @@ package object resources {
                RepresentationRevoked.name)
     agentCode <- arbitrary[Long]
   } yield {
-    OwnerAuthAgent(
-      authorisedPartyId,
-      organisationId,
-      organisationName,
-      agentCode)
+    OwnerAuthAgent(authorisedPartyId, organisationId, organisationName, agentCode)
   }
 
   implicit val ownerAuthAgent = Arbitrary(ownerAuthAgentGen)

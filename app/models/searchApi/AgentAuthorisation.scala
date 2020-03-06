@@ -27,7 +27,7 @@ case class AgentAuthorisation(
       address: String,
       localAuthorityRef: String,
       client: AgentAuthClient
-                             )
+)
 
 object AgentAuthorisation {
   implicit val agentAuthorisation = Json.format[AgentAuthorisation]

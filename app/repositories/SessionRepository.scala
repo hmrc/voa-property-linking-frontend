@@ -67,13 +67,13 @@ class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
       for {
         sessionId <- getSessionId
         _ <- collection.update(
-          BSONDocument("_id" -> BSONString(sessionId)),
-          BSONDocument(
-            "$set" -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
-            "$setOnInsert" -> BSONDocument("createdAt" -> BSONDateTime(System.currentTimeMillis))
-          ),
-          upsert = true
-        )
+              BSONDocument("_id" -> BSONString(sessionId)),
+              BSONDocument(
+                "$set"         -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
+                "$setOnInsert" -> BSONDocument("createdAt"     -> BSONDateTime(System.currentTimeMillis))
+              ),
+              upsert = true
+            )
       } yield {
         ()
       }
@@ -82,7 +82,7 @@ class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
   override def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]] =
     Mdc.preservingMdc {
       for {
-        sessionId <- getSessionId
+        sessionId   <- getSessionId
         maybeOption <- findById(sessionId)
       } yield {
         maybeOption
@@ -90,8 +90,8 @@ class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
           .flatMap(x =>
             x match {
               case JsDefined(value) => Some(value.as[A])
-              case JsUndefined() => None
-            })
+              case JsUndefined()    => None
+          })
       }
     }
 
@@ -100,9 +100,9 @@ class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
       for {
         sessionId <- getSessionId
         _ <- collection.update(
-          BSONDocument("_id" -> BSONString(sessionId)),
-          BSONDocument("$unset" -> BSONDocument(s"data.$formId" -> 1))
-        )
+              BSONDocument("_id"    -> BSONString(sessionId)),
+              BSONDocument("$unset" -> BSONDocument(s"data.$formId" -> 1))
+            )
       } yield {
         ()
       }

@@ -98,9 +98,8 @@ class AgentRelationshipService @Inject()(
 
     ownerAuthResult.map(
       oar =>
-        oar.copy(
-          authorisations = oar.authorisations
-            .filter(auth => auth.agents.nonEmpty)))
+        oar.copy(authorisations = oar.authorisations
+          .filter(auth => auth.agents.nonEmpty)))
   }
 
   def getAgent(agentCode: Long)(implicit hc: HeaderCarrier) =
@@ -126,10 +125,11 @@ class AgentRelationshipService @Inject()(
                 Future.successful(
                   updateAllAgentsPermission(
                     link,
-                    AppointAgent(None, "", checkPermission, challengePermission),
+                    AppointAgent(None, "", StartAndContinue, StartAndContinue), //TODO defaulting this to start and continue as this is going to be the new process going forward. need karen to confirm before this goes live.
                     agentOrgId,
                     individualId,
-                    organisationId))
+                    organisationId
+                  ))
               case None =>
                 logger.warn(s"Property link $pLink not found in property links cache.")
                 Future.failed(new AppointRevokeException(s"Property link $pLink not found in property links cache."))
