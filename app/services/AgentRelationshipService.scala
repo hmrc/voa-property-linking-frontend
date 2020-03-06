@@ -100,9 +100,6 @@ class AgentRelationshipService @Inject()(
       oar =>
         oar.copy(
           authorisations = oar.authorisations
-            .map(auth =>
-              auth.copy(agents = auth.agents.filter(agent =>
-                representationStatusFilter.exists(x => x.name.equalsIgnoreCase(agent.status)))))
             .filter(auth => auth.agents.nonEmpty)))
   }
 
@@ -196,33 +193,34 @@ class AgentRelationshipService @Inject()(
       if (newAgentPermission.canCheck == StartAndContinue && newAgentPermission.canChallenge == StartAndContinue) {
         Future.sequence(link.agents.map(agent => representations.revoke(agent.authorisedPartyId)))
       } else if (newAgentPermission.canCheck == StartAndContinue) {
-        val agentsToUpdate = link.agents.filter(_.checkPermission == StartAndContinue)
+        //TODO ask karen as This condition should technically not happen anymore
+        val agentsToUpdate = link.agents.filter(_ => true)
         for {
           revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
           //existing agents that had a check permission have been revoked
           //we now need to re-add the agents that had a challenge permission
-          updatedAgents <- Future.traverse(agentsToUpdate.filter(_.challengePermission != NotPermitted))(agent => {
+          updatedAgents <- Future.traverse(agentsToUpdate.filter(_ => true))(agent => {
                             createAndSubmitAgentRepRequest(
                               link.authorisationId,
                               agent.organisationId,
                               individualId,
                               NotPermitted,
-                              agent.challengePermission,
+                              StartAndContinue, //Defaulted as this will no longer return
                               organisationId)
                           })
         } yield {
           updatedAgents
         }
       } else {
-        val agentsToUpdate = link.agents.filter(_.challengePermission == StartAndContinue)
+        val agentsToUpdate = link.agents.filter(_ => true)
         for {
           revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
-          updatedAgents <- Future.traverse(agentsToUpdate.filter(_.checkPermission != NotPermitted))(agent => {
+          updatedAgents <- Future.traverse(agentsToUpdate.filter(_ => true))(agent => {
                             createAndSubmitAgentRepRequest(
                               link.authorisationId,
                               agent.organisationId,
                               individualId,
-                              agent.checkPermission,
+                              StartAndContinue,
                               NotPermitted,
                               organisationId)
                           })

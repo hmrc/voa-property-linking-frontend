@@ -439,11 +439,9 @@ package object resources {
       authorisedPartyId,
       organisationId,
       organisationName,
-      status,
-      StartAndContinue,
-      StartAndContinue,
       agentCode)
   }
+
   implicit val ownerAuthAgent = Arbitrary(ownerAuthAgentGen)
 
   val agentAuthorisationGen: Gen[AgentAuthorisation] = for {
@@ -469,8 +467,7 @@ package object resources {
       submissionId = submissionId,
       address = address.toString,
       localAuthorityRef = localAuthorityRef,
-      client = client,
-      representationStatus = representationStatus
+      client = client
     )
   }
   implicit val arbitraryAgentAuthorisationGen = Arbitrary(agentAuthorisationGen)

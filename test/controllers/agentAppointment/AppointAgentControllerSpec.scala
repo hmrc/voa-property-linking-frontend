@@ -44,7 +44,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   val agent = groupAccount(true).copy(agentCode = Some(agentCode))
 
   val testAgents = Seq(
-    OwnerAuthAgent(1L, agent.id, "organisationName", "APPROVED", StartAndContinue, StartAndContinue, 1L))
+    OwnerAuthAgent(1L, agent.id, "organisationName", 1L))
 
   "appointMultipleProperties" should "show the appoint agent page with a known agent listed for selection with no agent appointment session" in {
     val testOwnerAgents = OwnerAgents(Seq(OwnerAgent("test-agent", 1L)))

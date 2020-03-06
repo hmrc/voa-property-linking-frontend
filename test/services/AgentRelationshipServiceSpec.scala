@@ -61,7 +61,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
         SessionPropertyLink(
           1L,
           "1",
-          Seq(OwnerAuthAgent(1l, 1l, "organisationName", "APPROVED", NotPermitted, StartAndContinue, 1l)))
+          Seq(OwnerAuthAgent(1l, 1l, "organisationName", 1l)))
       )
     )
 
@@ -83,7 +83,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
         SessionPropertyLink(
           1L,
           "1",
-          Seq(OwnerAuthAgent(1l, 1l, "organisationName", "APPROVED", StartAndContinue, StartAndContinue, 1l)))))
+          Seq(OwnerAuthAgent(1l, 1l, "organisationName", 1l)))))
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
     when(mockRepresentationConnector.revoke(any())(any())).thenReturn(Future.successful())
@@ -101,7 +101,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
         SessionPropertyLink(
           2L,
           "11111",
-          Seq(OwnerAuthAgent(3L, 4L, "", "APPROVED", StartAndContinue, StartAndContinue, 1l)))))
+          Seq(OwnerAuthAgent(3L, 4L, "", 1l)))))
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
 
@@ -119,7 +119,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
         SessionPropertyLink(
           2L,
           "11111",
-          Seq(OwnerAuthAgent(3L, 4L, "", "APPROVED", StartAndContinue, StartAndContinue, 1l)))))
+          Seq(OwnerAuthAgent(3L, 4L, "", 1l)))))
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
 
