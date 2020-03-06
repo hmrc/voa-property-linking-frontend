@@ -21,5 +21,5 @@ import play.api.libs.json.{Json, OFormat}
 case class AgentDetails(name: String, address: String)
 
 object AgentDetails {
-  implicit val format: OFormat[AgentDetails] = Json.format[AgentDetails]
+  implicit val format: OFormat[AgentDetails] = Json.format
 }

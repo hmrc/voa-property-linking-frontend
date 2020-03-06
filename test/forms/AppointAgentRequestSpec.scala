@@ -16,12 +16,14 @@
 
 package forms
 
+import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation.{AppointAgentRequest, AppointmentScope}
 import org.scalatest.{FlatSpec, MustMatchers}
+import uk.gov.hmrc.play.test.UnitSpec
 import utils.FormBindingVerification._
 import views.helpers.Errors
 
-class AppointAgentRequestSpec extends FlatSpec with MustMatchers {
+class AppointAgentRequestSpec extends VoaPropertyLinkingSpec {
 
   import TestData._
 
