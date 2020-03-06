@@ -23,11 +23,11 @@
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 @import models.propertyrepresentation.AppointmentScope.RELATIONSHIP
 @import models.propertyrepresentation.All
-@import models.propertyrepresentation.AgentRelationshipForm
+@import models.propertyrepresentation.AppointAgentRequest
 
 @this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout)
 
-@(form: Form[AgentRelationshipForm], data: AppointNewAgentSession)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AppointAgentRequest], data: AppointNewAgentSession)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @answerMessageKey = @{
     s"propertyRepresentation.checkYourAnswers.options.${data.managingProperty.getOrElse("")}"
@@ -77,9 +77,8 @@
         firstCellIsHeader = false
     ))
 
-    @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.submitAppointmentChanges()) {
+    @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.appointAgent()) {
         <input type="hidden" name="agentCode" value="@data.agentCode">
-        <input type="hidden" name="action" value="APPOINT">
         <input type="hidden" name="scope" value="@appointmentScope">
 
         @govukButton(Button(content = Text(messages("propertyRepresentation.checkYourAnswers.submit"))))

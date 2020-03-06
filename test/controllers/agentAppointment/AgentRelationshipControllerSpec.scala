@@ -18,7 +18,7 @@ package controllers.agentAppointment
 
 import connectors.AgentsConnector
 import controllers.VoaPropertyLinkingSpec
-import models.propertyrepresentation.AppointNewAgentSession
+import models.propertyrepresentation.{AppointAgentResponse, AppointNewAgentSession}
 import org.mockito.ArgumentMatchers.any
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
@@ -79,7 +79,7 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
   }
 
   "isCorrectAgent" should "show the isCorrectAgent page" in {
-    when(isTheCorrectAgent.apply(any(), any(), any())(any(), any(), any())).thenReturn(Html(""))
+    when(isTheCorrectAgent.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
       .thenReturn(Future.successful(Some(appointNewAgentSession)))
@@ -88,7 +88,7 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
   }
 
   "agentSelected" should "return 400 Bad Request when no option is selected" in {
-    when(isTheCorrectAgent.apply(any(), any(), any())(any(), any(), any())).thenReturn(Html(""))
+    when(isTheCorrectAgent.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
       .thenReturn(Future.successful(Some(appointNewAgentSession)))
@@ -269,23 +269,31 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
     status(res) mustBe OK
   }
 
-  "submitAppointmentChanges" should "return Ok for valid appointmentChange" in {
-    when(mockAgentRelationshipService.sendAgentRelationshipRequest(any())(any()))
-      .thenReturn(Future.successful(()))
+  "appointAgent" should "return Ok for valid appointmentChange" in {
+    when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
+      .thenReturn(Future.successful(AppointAgentResponse("some-id")))
 
-    val res = testController.submitAppointmentChanges()(
+    val res = testController.appointAgent()(
       FakeRequest()
-        .withFormUrlEncodedBody("agentCode" -> "123456", "action" -> "APPOINT", "scope" -> "ALL_PROPERTIES"))
+        .withFormUrlEncodedBody("agentCode" -> "123456", "scope" -> "ALL_PROPERTIES"))
 
     status(res) mustBe OK
   }
 
-  "submitAppointmentChanges" should "return 404 Bad Request when invalid form is submitted" in {
-    when(mockAgentRelationshipService.sendAgentRelationshipRequest(any())(any()))
-      .thenReturn(Future.successful(()))
+  "appointAgent" should "return 404 Bad Request when invalid form is submitted - scope is missing" in {
+    when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
+      .thenReturn(Future.successful(AppointAgentResponse("some-id")))
 
-    val res = testController.submitAppointmentChanges()(
-      FakeRequest().withFormUrlEncodedBody("agentCode" -> "123456", "scope" -> "ALL_PROPERTIES"))
+    val res = testController.appointAgent()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "123456"))
+
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "appointAgent" should "return 404 Bad Request when invalid form is submitted - agentCode is missing" in {
+    when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
+      .thenReturn(Future.successful(AppointAgentResponse("some-id")))
+
+    val res = testController.appointAgent()(FakeRequest().withFormUrlEncodedBody("scope" -> "ALL_PROPERTIES"))
 
     status(res) mustBe BAD_REQUEST
   }

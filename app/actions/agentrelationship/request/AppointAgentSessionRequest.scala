@@ -17,7 +17,7 @@
 package actions.agentrelationship.request
 
 import actions.requests.CcaWrappedRequest
-import models.propertyrepresentation.AppointNewAgentSession
+import models.propertyrepresentation.{AgentDetails, AppointNewAgentSession}
 import models.{Accounts, DetailedIndividualAccount, GroupAccount, LinkingSession}
 import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.play.HeaderCarrierConverter
@@ -41,4 +41,9 @@ case class AppointAgentSessionRequest[A](
   }
 
   def organisationId = groupAccount.id
+
+  def agentDetails = AgentDetails(
+    name = sessionData.agentOrganisationName.getOrElse(throw new IllegalStateException("no agent name stored")),
+    address = sessionData.agentAddress.getOrElse(throw new IllegalStateException("no agent address stored"))
+  )
 }

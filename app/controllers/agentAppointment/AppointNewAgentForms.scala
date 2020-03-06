@@ -27,7 +27,7 @@ object AppointNewAgentForms {
       text.verifying("error.agentCode.required", s => s.matches("^[0-9]+$"))
     }))
 
-  val isThisYourAgent: Form[Boolean] =
+  val isThisTheCorrectAgent: Form[Boolean] =
     Form(
       single(
         "isThisYourAgent" -> optional(boolean)
