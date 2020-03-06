@@ -66,9 +66,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
   def getMyClientsPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
     http.GET[Option[PropertyLink]](s"$baseUrl/agent/property-links/$submissionId")
 
-  def validAgent(agent: OwnerAuthAgent, representationStatusFilter: Seq[RepresentationStatus]): Boolean =
-    representationStatusFilter.exists(x => x.name.equalsIgnoreCase(agent.status))
-
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         searchParams: GetPropertyLinksParameters,
         pagination: PaginationParams,
@@ -104,8 +101,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
 
     // filter agents on representationStatus
     ownerAuthResult.map(oar =>
-      oar.copy(authorisations = oar.authorisations.map(auth =>
-        auth.copy(agents = auth.agents.filter(ag => validAgent(ag, representationStatusFilter))))))
+      oar.copy(authorisations = oar.authorisations.map(auth => auth.copy(agents = auth.agents))))
   }
 
   def filterAgents(
@@ -115,7 +111,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
       oar =>
         oar.copy(
           authorisations = oar.authorisations
-            .map(auth => auth.copy(agents = auth.agents.filter(validAgent(_, representationStatusFilter))))
+            .map(auth => auth.copy(agents = auth.agents))
             .filter(auth => auth.agents.nonEmpty)))
 
   def appointableProperties(organisationId: Long, pagination: AgentPropertiesParameters)(

@@ -152,9 +152,6 @@ trait FakeObjects {
     authorisedPartyId = 12L,
     organisationId = 1L,
     organisationName = "Some Org name",
-    status = "APPROVED",
-    checkPermission = StartAndContinue,
-    challengePermission = StartAndContinue,
     agentCode = agentCode
   )
 

@@ -98,12 +98,8 @@ class AgentRelationshipService @Inject()(
 
     ownerAuthResult.map(
       oar =>
-        oar.copy(
-          authorisations = oar.authorisations
-            .map(auth =>
-              auth.copy(agents = auth.agents.filter(agent =>
-                representationStatusFilter.exists(x => x.name.equalsIgnoreCase(agent.status)))))
-            .filter(auth => auth.agents.nonEmpty)))
+        oar.copy(authorisations = oar.authorisations
+          .filter(auth => auth.agents.nonEmpty)))
   }
 
   def getAgent(agentCode: Long)(implicit hc: HeaderCarrier) =
@@ -129,10 +125,11 @@ class AgentRelationshipService @Inject()(
                 Future.successful(
                   updateAllAgentsPermission(
                     link,
-                    AppointAgent(None, "", checkPermission, challengePermission),
+                    AppointAgent(None, "", StartAndContinue, StartAndContinue), //TODO defaulting this to start and continue as this is going to be the new process going forward. need karen to confirm before this goes live.
                     agentOrgId,
                     individualId,
-                    organisationId))
+                    organisationId
+                  ))
               case None =>
                 logger.warn(s"Property link $pLink not found in property links cache.")
                 Future.failed(new AppointRevokeException(s"Property link $pLink not found in property links cache."))
@@ -196,33 +193,34 @@ class AgentRelationshipService @Inject()(
       if (newAgentPermission.canCheck == StartAndContinue && newAgentPermission.canChallenge == StartAndContinue) {
         Future.sequence(link.agents.map(agent => representations.revoke(agent.authorisedPartyId)))
       } else if (newAgentPermission.canCheck == StartAndContinue) {
-        val agentsToUpdate = link.agents.filter(_.checkPermission == StartAndContinue)
+        //TODO ask karen as This condition should technically not happen anymore
+        val agentsToUpdate = link.agents.filter(_ => true)
         for {
           revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
           //existing agents that had a check permission have been revoked
           //we now need to re-add the agents that had a challenge permission
-          updatedAgents <- Future.traverse(agentsToUpdate.filter(_.challengePermission != NotPermitted))(agent => {
+          updatedAgents <- Future.traverse(agentsToUpdate.filter(_ => true))(agent => {
                             createAndSubmitAgentRepRequest(
                               link.authorisationId,
                               agent.organisationId,
                               individualId,
                               NotPermitted,
-                              agent.challengePermission,
+                              StartAndContinue, //Defaulted as this will no longer return
                               organisationId)
                           })
         } yield {
           updatedAgents
         }
       } else {
-        val agentsToUpdate = link.agents.filter(_.challengePermission == StartAndContinue)
+        val agentsToUpdate = link.agents.filter(_ => true)
         for {
           revokedAgents <- Future.traverse(agentsToUpdate)(agent => representations.revoke(agent.authorisedPartyId))
-          updatedAgents <- Future.traverse(agentsToUpdate.filter(_.checkPermission != NotPermitted))(agent => {
+          updatedAgents <- Future.traverse(agentsToUpdate.filter(_ => true))(agent => {
                             createAndSubmitAgentRepRequest(
                               link.authorisationId,
                               agent.organisationId,
                               individualId,
-                              agent.checkPermission,
+                              StartAndContinue,
                               NotPermitted,
                               organisationId)
                           })
