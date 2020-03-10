@@ -83,7 +83,7 @@ object AppointNewAgentSession {
     "ManagingProperty" -> implicitly[Reads[ManagingProperty]]
   )
 
-  implicit val animalReads: Reads[AppointNewAgentSession] = new Reads[AppointNewAgentSession] {
+  implicit val appointNewAgentSessionReads: Reads[AppointNewAgentSession] = new Reads[AppointNewAgentSession] {
     def reads(s: JsValue): JsResult[AppointNewAgentSession] = {
       val session = (s \ "status").as[String]
       val read = readers.get(session)
