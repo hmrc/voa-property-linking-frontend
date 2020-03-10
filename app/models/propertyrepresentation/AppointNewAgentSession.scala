@@ -19,14 +19,14 @@ package models.propertyrepresentation
 import play.api.libs.json.{JsError, JsResult, JsValue, Json, OFormat, Reads, __}
 
 sealed trait AppointNewAgentSession {
-  val status: String
+  val status: AppointAgentJourneyStatus
 }
 
 case class SearchedAgent(
       agentCode: Long,
       agentOrganisationName: String,
       agentAddress: String,
-      status: String = "SearchedAgent")
+      status: AppointAgentJourneyStatus = AgentSearched)
     extends AppointNewAgentSession
 
 object SearchedAgent {
@@ -38,7 +38,7 @@ case class SelectedAgent(
       agentOrganisationName: String,
       agentAddress: String,
       isCorrectAgent: Boolean,
-      status: String = "SelectedAgent")
+      status: AppointAgentJourneyStatus = AgentSelected)
     extends AppointNewAgentSession
 
 object SelectedAgent {
@@ -59,7 +59,7 @@ case class ManagingProperty(
       agentAddress: String,
       isCorrectAgent: Boolean,
       managingPropertyChoice: String,
-      status: String = "ManagingProperty")
+      status: AppointAgentJourneyStatus = ManagingPropertySelected)
     extends AppointNewAgentSession
 
 object ManagingProperty {
@@ -78,9 +78,9 @@ object ManagingProperty {
 object AppointNewAgentSession {
 
   val readers: Map[String, Reads[_ <: AppointNewAgentSession]] = Map(
-    "SearchedAgent"    -> implicitly[Reads[SearchedAgent]],
-    "SelectedAgent"    -> implicitly[Reads[SelectedAgent]],
-    "ManagingProperty" -> implicitly[Reads[ManagingProperty]]
+    AgentSearched.name            -> implicitly[Reads[SearchedAgent]],
+    AgentSelected.name            -> implicitly[Reads[SelectedAgent]],
+    ManagingPropertySelected.name -> implicitly[Reads[ManagingProperty]]
   )
 
   implicit val appointNewAgentSessionReads: Reads[AppointNewAgentSession] = new Reads[AppointNewAgentSession] {
