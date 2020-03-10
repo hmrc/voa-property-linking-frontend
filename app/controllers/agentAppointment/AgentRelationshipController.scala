@@ -29,7 +29,7 @@ import controllers.agent.routes
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.{EnumMapping, Mappings}
 import models.{RepresentationApproved, RepresentationPending, StartAndContinue, propertyrepresentation}
-import models.propertyrepresentation.{AppointAgentRequest, AppointNewAgentSession, AppointmentScope, ChooseFromList, ManagePropertiesOptions, Yes}
+import models.propertyrepresentation.{AppointAgentRequest, AppointNewAgentSession, AppointmentScope, ChooseFromList, ManagePropertiesOptions, ManagingProperty, SearchedAgent, SelectedAgent, Yes}
 import models.propertyrepresentation.AppointAgentRequest.submitAppointAgentRequest
 import models.searchApi.AgentPropertiesFilter.{Both, No}
 import models.searchApi.AgentPropertiesSortField.Address
@@ -117,13 +117,10 @@ class AgentRelationshipController @Inject()(
                     ))
                 case Some(agent) => {
                   sessionRepo.saveOrUpdate(
-                    AppointNewAgentSession(
+                    SearchedAgent(
                       agentCode = representativeCode,
-                      agentOrganisationName = Some(agent.name),
-                      agentOrganisationId = representativeCode,
-                      isCorrectAgent = None,
-                      managingProperty = None,
-                      agentAddress = Some(agent.address)
+                      agentOrganisationName = agent.name,
+                      agentAddress = agent.address
                     ))
                   Redirect(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent())
                 }
@@ -146,12 +143,14 @@ class AgentRelationshipController @Inject()(
       },
       success => {
         if (success) {
-          sessionRepo.saveOrUpdate(request.sessionData.copy(isCorrectAgent = Some(success)))
           for {
+            searchedAgentOpt <- sessionRepo.get[SearchedAgent]
+            searchedAgent = searchedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+            _ <- sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success))
             propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
                               params = GetPropertyLinksParameters(),
-                              pagination = AgentPropertiesParameters(agentCode = request.sessionData.agentCode),
-                              agentOrganisationId = request.sessionData.agentOrganisationId,
+                              pagination = AgentPropertiesParameters(agentCode = searchedAgent.agentCode),
+                              agentOrganisationId = searchedAgent.agentCode,
                               organisationId = request.organisationId
                             )
           } yield {
@@ -160,7 +159,7 @@ class AgentRelationshipController @Inject()(
                 agentRelationshipService.sendAppointAgentRequest(
                   AppointAgentRequest(
                     scope = AppointmentScope.RELATIONSHIP.toString,
-                    agentRepresentativeCode = request.sessionData.agentCode
+                    agentRepresentativeCode = searchedAgent.agentCode
                   )
                 )
                 Ok(confirmation(request.agentDetails.name))
@@ -192,8 +191,13 @@ class AgentRelationshipController @Inject()(
               )))
         },
         success => {
-          sessionRepo.saveOrUpdate(request.sessionData.copy(managingProperty = Some(success.name)))
-          Future.successful(Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkAnswers()))
+          for {
+            selectedAgentOpt <- sessionRepo.get[SelectedAgent]
+            selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+            _ <- sessionRepo.saveOrUpdate(ManagingProperty(selectedAgent, success.name))
+          } yield {
+            Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkAnswers())
+          }
         }
       )
   }
@@ -213,29 +217,46 @@ class AgentRelationshipController @Inject()(
                 errors,
                 request.agentDetails.name
               )))
-        }, {
-          case ChooseFromList => joinOldJourney(request.sessionData.agentCode)
-          case success @ (propertyrepresentation.All | propertyrepresentation.None) => {
-            sessionRepo.saveOrUpdate(data = request.sessionData.copy(managingProperty = Some(success.name)))
-            Future.successful(Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkAnswers()))
+        },
+        success => {
+          for {
+            selectedAgentOpt <- sessionRepo.get[SelectedAgent]
+            selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+            _ <- sessionRepo.saveOrUpdate(ManagingProperty(selectedAgent, success.name))
+          } yield {
+            success match {
+              case ChooseFromList => joinOldJourney(selectedAgent.agentCode)
+              case propertyrepresentation.All | propertyrepresentation.None =>
+                Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkAnswers())
+            }
           }
         }
       )
   }
 
   def checkAnswers(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
-    Ok(checkYourAnswers(submitAppointAgentRequest, request.sessionData))
+    PartialFunction
+      .condOpt(request.sessionData) {
+        case data: ManagingProperty =>
+          Ok(checkYourAnswers(submitAppointAgentRequest, data))
+      }
+      .getOrElse(NotFound(errorHandler.notFoundTemplate))
   }
 
   def appointAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     submitAppointAgentRequest.bindFromRequest.fold(
       errors => {
-        Future.successful(
-          BadRequest(
-            checkYourAnswers(
-              errors,
-              request.sessionData
-            )))
+        PartialFunction
+          .condOpt(request.sessionData) {
+            case data: ManagingProperty =>
+              Future.successful(
+                BadRequest(
+                  checkYourAnswers(
+                    errors,
+                    data
+                  )))
+          }
+          .getOrElse(Future.successful(NotFound(errorHandler.notFoundTemplate)))
       }, { success =>
         {
           agentRelationshipService
@@ -247,18 +268,19 @@ class AgentRelationshipController @Inject()(
   }
 
   private def joinOldJourney(agentCode: Long) =
-    Future.successful(
-      Redirect(
-        controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
-          pagination = PaginationParameters(page = 1, pageSize = 15),
-          params = GetPropertyLinksParameters(
-            sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
-            sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
-          agentCode = agentCode,
-          checkPermission = StartAndContinue.name,
-          challengePermission = StartAndContinue.name,
-          agentAppointed = Some(Both.name),
-          backLink = controllers.agentAppointment.routes.AgentRelationshipController.multipleProperties().url
-        )))
+    Redirect(
+      controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
+        pagination = PaginationParameters(page = 1, pageSize = 15),
+        params = GetPropertyLinksParameters(
+          sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
+          sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
+        agentCode = agentCode,
+        checkPermission = StartAndContinue.name,
+        challengePermission = StartAndContinue.name,
+        agentAppointed = Some(Both.name),
+        backLink = controllers.agentAppointment.routes.AgentRelationshipController.multipleProperties().url
+      ))
 
 }
+
+case class NoAgentSavedException(message: String) extends Exception(message)

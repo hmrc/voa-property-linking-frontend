@@ -23,7 +23,7 @@ import auth.Principal
 import models._
 import models.attachment._
 import models.domain.Nino
-import models.propertyrepresentation.{AgentDetails, AgentList, AgentOrganisation, AgentSummary, AppointNewAgentSession, OrganisationLatestDetail}
+import models.propertyrepresentation.{AgentDetails, AgentList, AgentOrganisation, AgentSummary, AppointNewAgentSession, ManagingProperty, OrganisationLatestDetail, SearchedAgent, SelectedAgent}
 import models.registration._
 import models.searchApi.{OwnerAgent, OwnerAgents, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import models.upscan._
@@ -140,13 +140,25 @@ trait FakeObjects {
     persons = List()
   )
 
-  val appointNewAgentSession = AppointNewAgentSession(
+  val searchedAgent = SearchedAgent(
     agentCode = agentCode,
-    agentOrganisationId = 1878L,
-    agentOrganisationName = Some("Some Org"),
-    isCorrectAgent = Some(true),
-    managingProperty = Some("All properties"),
-    agentAddress = Some("An Address")
+    agentOrganisationName = "Some Org",
+    agentAddress = "An Address"
+  )
+
+  val selectedAgent = SelectedAgent(
+    agentCode = agentCode,
+    agentOrganisationName = "Some Org",
+    isCorrectAgent = true,
+    agentAddress = "An Address"
+  )
+
+  val managingProperty = ManagingProperty(
+    agentCode = agentCode,
+    agentOrganisationName = "Some Org",
+    isCorrectAgent = true,
+    managingPropertyChoice = "All properties",
+    agentAddress = "An Address"
   )
 
   val ownerAuthAgent = OwnerAuthAgent(

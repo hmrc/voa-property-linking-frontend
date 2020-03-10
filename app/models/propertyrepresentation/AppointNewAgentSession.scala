@@ -16,16 +16,78 @@
 
 package models.propertyrepresentation
 
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json.{JsError, JsResult, JsValue, Json, OFormat, Reads, __}
 
-case class AppointNewAgentSession(
+sealed trait AppointNewAgentSession {
+  val status: String
+}
+
+case class SearchedAgent(
       agentCode: Long,
-      agentOrganisationId: Long,
-      agentOrganisationName: Option[String],
-      isCorrectAgent: Option[Boolean],
-      managingProperty: Option[String],
-      agentAddress: Option[String])
+      agentOrganisationName: String,
+      agentAddress: String,
+      status: String = "SearchedAgent")
+    extends AppointNewAgentSession
+
+object SearchedAgent {
+  implicit val format: OFormat[SearchedAgent] = Json.format[SearchedAgent]
+}
+
+case class SelectedAgent(
+      agentCode: Long,
+      agentOrganisationName: String,
+      agentAddress: String,
+      isCorrectAgent: Boolean,
+      status: String = "SelectedAgent")
+    extends AppointNewAgentSession
+
+object SelectedAgent {
+  implicit val format: OFormat[SelectedAgent] = Json.format[SelectedAgent]
+
+  def apply(searchedAgent: SearchedAgent, isTheCorrectAgent: Boolean): SelectedAgent =
+    SelectedAgent(
+      agentCode = searchedAgent.agentCode,
+      agentOrganisationName = searchedAgent.agentOrganisationName,
+      agentAddress = searchedAgent.agentAddress,
+      isCorrectAgent = isTheCorrectAgent
+    )
+}
+
+case class ManagingProperty(
+      agentCode: Long,
+      agentOrganisationName: String,
+      agentAddress: String,
+      isCorrectAgent: Boolean,
+      managingPropertyChoice: String,
+      status: String = "ManagingProperty")
+    extends AppointNewAgentSession
+
+object ManagingProperty {
+  implicit val format: OFormat[ManagingProperty] = Json.format[ManagingProperty]
+
+  def apply(selectedAgent: SelectedAgent, selection: String): ManagingProperty =
+    ManagingProperty(
+      agentCode = selectedAgent.agentCode,
+      agentOrganisationName = selectedAgent.agentOrganisationName,
+      agentAddress = selectedAgent.agentAddress,
+      isCorrectAgent = selectedAgent.isCorrectAgent,
+      managingPropertyChoice = selection
+    )
+}
 
 object AppointNewAgentSession {
-  implicit val format: OFormat[AppointNewAgentSession] = Json.format[AppointNewAgentSession]
+
+  val readers: Map[String, Reads[_ <: AppointNewAgentSession]] = Map(
+    "SearchedAgent"    -> implicitly[Reads[SearchedAgent]],
+    "SelectedAgent"    -> implicitly[Reads[SelectedAgent]],
+    "ManagingProperty" -> implicitly[Reads[ManagingProperty]]
+  )
+
+  implicit val animalReads: Reads[AppointNewAgentSession] = new Reads[AppointNewAgentSession] {
+    def reads(s: JsValue): JsResult[AppointNewAgentSession] = {
+      val session = (s \ "status").as[String]
+      val read = readers.get(session)
+      read.map(_.reads(s)).getOrElse(JsError(s"Unsupported AppointNewAgentSession type: $session"))
+    }
+  }
 }

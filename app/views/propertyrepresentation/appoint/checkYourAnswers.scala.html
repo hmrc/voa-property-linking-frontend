@@ -19,7 +19,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @import config.ApplicationConfig
-@import models.propertyrepresentation.AppointNewAgentSession
+@import models.propertyrepresentation.ManagingProperty
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 @import models.propertyrepresentation.AppointmentScope.RELATIONSHIP
 @import models.propertyrepresentation.All
@@ -27,17 +27,15 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout)
 
-@(form: Form[AppointAgentRequest], data: AppointNewAgentSession)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AppointAgentRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @answerMessageKey = @{
-    s"propertyRepresentation.checkYourAnswers.options.${data.managingProperty.getOrElse("")}"
+    s"propertyRepresentation.checkYourAnswers.options.${data.managingPropertyChoice}"
 }
 @appointmentScope = @{
-    data.managingProperty match {
-        case None => throw new IllegalStateException("Unable to get 'managingProperty' from session data")
-        case Some(s) if s == All.name => ALL_PROPERTIES.toString
-        case Some(s) if s == models.propertyrepresentation.None.name => RELATIONSHIP.toString
-        case Some(s) if s == models.propertyrepresentation.No.name => RELATIONSHIP.toString
+    data.managingPropertyChoice match {
+        case All.name => ALL_PROPERTIES.toString
+        case models.propertyrepresentation.None.name | models.propertyrepresentation.No.name => RELATIONSHIP.toString
     }
 }
 
@@ -60,7 +58,7 @@
                     content = Text(messages("propertyRepresentation.checkYourAnswers.newAgent"))
                 ),
                 TableRow(
-                    content = Text(data.agentOrganisationName.getOrElse(""))
+                    content = Text(data.agentOrganisationName)
                 )
             ),
             Seq(
