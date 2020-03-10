@@ -17,12 +17,13 @@
 @import actions.requests.BasicAuthenticatedRequest
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import models.propertyrepresentation._
 
 @import config.ApplicationConfig
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
-@(form: Form[Boolean], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[Boolean], agentDetails: AgentDetails)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.addAnAgent.title"),
@@ -32,7 +33,7 @@
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.isThisYourAgent.question")</h1>
 
     <div class="govuk-inset-text">
-       @agentName
+       @agentDetails.name <br/> @agentDetails.address
     </div>
 
     @if(form.errors.nonEmpty) {

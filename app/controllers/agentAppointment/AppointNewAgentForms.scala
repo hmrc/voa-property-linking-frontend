@@ -19,7 +19,7 @@ package controllers.agentAppointment
 import form.{EnumMapping, Mappings}
 import models.propertyrepresentation.ManagePropertiesOptions
 import play.api.data.{Form, Forms}
-import play.api.data.Forms.{boolean, longNumber, optional, single, text}
+import play.api.data.Forms.{boolean, longNumber, mapping, optional, single, text}
 
 object AppointNewAgentForms {
   val agentCode: Form[String] =
@@ -27,7 +27,7 @@ object AppointNewAgentForms {
       text.verifying("error.agentCode.required", s => s.matches("^[0-9]+$"))
     }))
 
-  val isThisYourAgent: Form[Boolean] =
+  val isThisTheCorrectAgent: Form[Boolean] =
     Form(
       single(
         "isThisYourAgent" -> optional(boolean)
@@ -38,5 +38,4 @@ object AppointNewAgentForms {
     Forms.single("oneProperty" -> EnumMapping(ManagePropertiesOptions, "error.oneProperty.required")))
   val manageMultipleProperties: Form[ManagePropertiesOptions] = Form(
     Forms.single("multipleProperties" -> EnumMapping(ManagePropertiesOptions, "error.multipleProperties.required")))
-
 }

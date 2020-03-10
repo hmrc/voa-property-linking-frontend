@@ -19,14 +19,24 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @import config.ApplicationConfig
-@import models.propertyrepresentation.AppointNewAgentSession
+@import models.propertyrepresentation.ManagingProperty
+@import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
+@import models.propertyrepresentation.AppointmentScope.RELATIONSHIP
+@import models.propertyrepresentation.All
+@import models.propertyrepresentation.AppointAgentRequest
 
-@this(govukTable : GovukTable, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout)
 
-@(data: AppointNewAgentSession)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AppointAgentRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @answerMessageKey = @{
-    s"propertyRepresentation.checkYourAnswers.options.${data.managingProperty.getOrElse("")}"
+    s"propertyRepresentation.checkYourAnswers.options.${data.managingPropertyChoice}"
+}
+@appointmentScope = @{
+    data.managingPropertyChoice match {
+        case All.name => ALL_PROPERTIES.toString
+        case models.propertyrepresentation.None.name | models.propertyrepresentation.No.name => RELATIONSHIP.toString
+    }
 }
 
 @mainLayout(
@@ -38,6 +48,9 @@
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.checkYourAnswers.title")</h1>
 
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+    }
     @govukTable(Table(
         rows = Seq(
             Seq(
@@ -45,7 +58,7 @@
                     content = Text(messages("propertyRepresentation.checkYourAnswers.newAgent"))
                 ),
                 TableRow(
-                    content = Text(data.agentOrganisationName.getOrElse(""))
+                    content = Text(data.agentOrganisationName)
                 )
             ),
             Seq(
@@ -62,7 +75,11 @@
         firstCellIsHeader = false
     ))
 
-    @* TODO: submit currently does nothing. This will updated to submit some data once the endpoint is ready  *@
-    <a id="submit" class="govuk-button" href="#">@messages("propertyRepresentation.checkYourAnswers.submit")</a>
+    @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.appointAgent()) {
+        <input type="hidden" name="agentCode" value="@data.agentCode">
+        <input type="hidden" name="scope" value="@appointmentScope">
+
+        @govukButton(Button(content = Text(messages("propertyRepresentation.checkYourAnswers.submit"))))
+    }
 
 }

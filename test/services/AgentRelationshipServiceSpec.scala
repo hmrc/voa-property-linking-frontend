@@ -156,4 +156,10 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
     res.failed.futureValue must be(new services.AppointRevokeException(
       "Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
   }
+
+  "getAgentNameAndAddress" should "return agent details" in {
+    when(mockRepresentationConnector.getAgentDetails(any())(any())).thenReturn(Future.successful(Some(agentDetails)))
+
+    testService.getAgentNameAndAddress(125L).futureValue mustBe Some(agentDetails)
+  }
 }

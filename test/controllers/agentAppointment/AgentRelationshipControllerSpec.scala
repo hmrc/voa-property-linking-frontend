@@ -18,7 +18,7 @@ package controllers.agentAppointment
 
 import connectors.AgentsConnector
 import controllers.VoaPropertyLinkingSpec
-import models.propertyrepresentation.AppointNewAgentSession
+import models.propertyrepresentation.{AppointAgentResponse, AppointNewAgentSession, SearchedAgent, SelectedAgent}
 import org.mockito.ArgumentMatchers.any
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
@@ -47,7 +47,7 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "getAgentDetails" should "return 400 Bad Request when agentCode does not exist" in {
     when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
-    when(mockAgentRelationshipService.getAgent(any())(any())).thenReturn(Future successful None)
+    when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any())).thenReturn(Future successful None)
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future successful organisationsAgentsList)
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "213414"))
@@ -56,7 +56,8 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "getAgentDetails" should "return 400 Bad Request when agentCode belongs to an agent that has already been added by this organisation" in {
     when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
-    when(mockAgentRelationshipService.getAgent(any())(any())).thenReturn(Future successful Some(agentOrganisation))
+    when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
+      .thenReturn(Future successful Some(agentDetails))
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
       Future successful organisationsAgentsList.copy(
         agents = List(agentSummary.copy(representativeCode = agentOrganisation.representativeCode.get))))
@@ -67,7 +68,8 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "getAgentDetails" should "return 303 See Other when valid agentCode is provided and agent has not already been added to organisation" in {
     when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
-    when(mockAgentRelationshipService.getAgent(any())(any())).thenReturn(Future successful Some(agentOrganisation))
+    when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
+      .thenReturn(Future successful Some(agentDetails))
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future successful organisationsAgentsList)
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "11223"))
@@ -78,18 +80,18 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "isCorrectAgent" should "show the isCorrectAgent page" in {
     when(isTheCorrectAgent.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+      .thenReturn(Future.successful(Some(managingProperty)))
     val res = testController.isCorrectAgent()(FakeRequest())
     status(res) mustBe OK
   }
 
   "agentSelected" should "return 400 Bad Request when no option is selected" in {
     when(isTheCorrectAgent.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+      .thenReturn(Future.successful(Some(managingProperty)))
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> ""))
     status(res) mustBe BAD_REQUEST
   }
@@ -97,7 +99,9 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
   "agentSelected" should "return 303 See Other and go to start page when user confirms that the presented agent is not their agent" in {
     when(confirmation.apply(any())(any(), any(), any())).thenReturn(Html(""))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+      .thenReturn(Future.successful(Some(managingProperty)))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "false"))
     status(res) mustBe SEE_OTHER
@@ -106,13 +110,15 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "agentSelected" should "return 200 Ok and go to the confirmation page if organisation have no authorisations" in {
     when(confirmation.apply(any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
     when(
       mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
     when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsNoAgents))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[SearchedAgent](any(), any()))
+      .thenReturn(Future.successful(Some(searchedAgent)))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) mustBe OK
@@ -120,13 +126,13 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "agentSelected" should "return 303 See Other and go to the agentToManageOnePropertyNoExistingAgent page if organisation has only one authorisation and no existing agent" in {
     when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
     when(
       mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
     when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsNoAgents))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[SearchedAgent](any(), any()))
+      .thenReturn(Future.successful(Some(searchedAgent)))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -136,13 +142,15 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "agentSelected" should "return 303 See Other and go to the agentToManageOneProperty page if organisation has only one authorisation and an existing agent" in {
     when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
     when(
       mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
     when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsWithOneAgent))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[SearchedAgent](any(), any()))
+      .thenReturn(Future.successful(Some(searchedAgent)))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -152,13 +160,15 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "agentSelected" should "return 303 See Other and go to the agentToManageMultipleProperties page if organisation has only multiple authorisations" in {
     when(agentToManageMultipleProperties.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
     when(
       mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
     when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsWithOneAgent))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+    when(mockSessionRepo.get[SearchedAgent](any(), any()))
+      .thenReturn(Future.successful(Some(searchedAgent)))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) mustBe SEE_OTHER
@@ -168,9 +178,9 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "oneProperty" should "return 200 Ok" in {
     when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+      .thenReturn(Future.successful(Some(selectedAgent)))
 
     val res = testController.oneProperty()(FakeRequest())
     status(res) mustBe OK
@@ -178,9 +188,11 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "submitOneProperty" should "return 400 Bad Request if no selection is made" in {
     when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+      .thenReturn(Future.successful(Some(selectedAgent)))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
     val res = testController.submitOneProperty()(FakeRequest().withFormUrlEncodedBody("oneProperty" -> ""))
 
@@ -189,9 +201,11 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "submitOneProperty" should "return 303 See Other when valid selection is made" in {
     when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
+    when(mockSessionRepo.get[SelectedAgent](any(), any()))
+      .thenReturn(Future.successful(Some(selectedAgent)))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
     val res =
       testController.submitOneProperty()(FakeRequest().withFormUrlEncodedBody("oneProperty" -> "no"))
@@ -203,9 +217,9 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "multipleProperties" should "return 200 Ok" in {
     when(agentToManageMultipleProperties.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+      .thenReturn(Future.successful(Some(managingProperty)))
 
     val res = testController.multipleProperties()(FakeRequest())
     status(res) mustBe OK
@@ -213,9 +227,9 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "submitMultipleProperties" should "return 400 Bad Request if no selection is made" in {
     when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+      .thenReturn(Future.successful(Some(managingProperty)))
 
     val res =
       testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody("multipleProperties" -> ""))
@@ -225,9 +239,9 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "submitMultipleProperties" should "return 303 See Other when valid selection is made" in {
     when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+      .thenReturn(Future.successful(Some(selectedAgent)))
 
     val res =
       testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody("multipleProperties" -> "all"))
@@ -239,9 +253,9 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   "submitMultipleProperties" should "return 303 See Other and redirect to old journey when ChooseFromList is selected" in {
     when(agentToManageOneProperty.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+      .thenReturn(Future.successful(Some(selectedAgent)))
 
     val res = testController.submitMultipleProperties()(
       FakeRequest().withFormUrlEncodedBody("multipleProperties" -> "choose_from_list"))
@@ -258,13 +272,42 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
   //checkAnswers
 
   "checkAnswers" should "return 200 Ok" in {
-    when(checkYourAnswers.apply(any())(any(), any(), any())).thenReturn(Html(""))
-    stubWithAppointAgentSession.stubSession(appointNewAgentSession, detailedIndividualAccount, groupAccount(false))
+    when(checkYourAnswers.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
+    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(appointNewAgentSession)))
+      .thenReturn(Future.successful(Some(managingProperty)))
 
     val res = testController.checkAnswers()(FakeRequest())
     status(res) mustBe OK
+  }
+
+  "appointAgent" should "return Ok for valid appointmentChange" in {
+    when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
+      .thenReturn(Future.successful(AppointAgentResponse("some-id")))
+
+    val res = testController.appointAgent()(
+      FakeRequest()
+        .withFormUrlEncodedBody("agentCode" -> "123456", "scope" -> "ALL_PROPERTIES"))
+
+    status(res) mustBe OK
+  }
+
+  "appointAgent" should "return 404 Bad Request when invalid form is submitted - scope is missing" in {
+    when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
+      .thenReturn(Future.successful(AppointAgentResponse("some-id")))
+
+    val res = testController.appointAgent()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "123456"))
+
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "appointAgent" should "return 404 Bad Request when invalid form is submitted - agentCode is missing" in {
+    when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
+      .thenReturn(Future.successful(AppointAgentResponse("some-id")))
+
+    val res = testController.appointAgent()(FakeRequest().withFormUrlEncodedBody("scope" -> "ALL_PROPERTIES"))
+
+    status(res) mustBe BAD_REQUEST
   }
 
   private val stubWithAppointAgentSession = new StubWithAppointAgentSessionRefiner(mockSessionRepo)

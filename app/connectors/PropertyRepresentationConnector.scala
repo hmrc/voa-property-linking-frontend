@@ -19,7 +19,7 @@ package connectors
 import controllers.Pagination
 import javax.inject.Inject
 import models._
-import models.propertyrepresentation.AgentOrganisation
+import models.propertyrepresentation.{AgentDetails, AgentOrganisation}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
@@ -57,6 +57,6 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
       ()
     }
 
-  def getAgent(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentOrganisation]] =
-    http.GET[Option[AgentOrganisation]](s"$baseUrl/property-representations/agent/$agentCode")
+  def getAgentDetails(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentDetails]] =
+    http.GET[Option[AgentDetails]](s"$baseUrl/my-organisation/agent/$agentCode")
 }
