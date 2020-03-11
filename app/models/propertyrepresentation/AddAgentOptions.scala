@@ -18,34 +18,34 @@ package models.propertyrepresentation
 
 import models.{EnumFormat, NamedEnum, NamedEnumSupport}
 
-sealed trait ManagePropertiesOptions extends NamedEnum {
+sealed trait AddAgentOptions extends NamedEnum {
   val name: String
   val key = "choice"
   override def toString = name
 }
 
-case object All extends ManagePropertiesOptions {
+case object All extends AddAgentOptions {
   val name = "all"
 }
 
-case object None extends ManagePropertiesOptions {
+case object None extends AddAgentOptions {
   val name = "none"
 }
 
-case object ChooseFromList extends ManagePropertiesOptions {
+case object ChooseFromList extends AddAgentOptions {
   val name = "choose_from_list"
 }
 
-case object No extends ManagePropertiesOptions {
+case object No extends AddAgentOptions {
   val name = "no"
 }
 
-case object Yes extends ManagePropertiesOptions {
+case object Yes extends AddAgentOptions {
   val name = "all"
 }
 
-object ManagePropertiesOptions extends NamedEnumSupport[ManagePropertiesOptions] {
-  implicit val format = EnumFormat(ManagePropertiesOptions)
+object AddAgentOptions extends NamedEnumSupport[AddAgentOptions] {
+  implicit val format = EnumFormat(AddAgentOptions)
 
-  override def all: List[ManagePropertiesOptions] = List(All, None, ChooseFromList, Yes, No)
+  override def all: List[AddAgentOptions] = List(All, None, ChooseFromList, Yes, No)
 }

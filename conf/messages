@@ -456,8 +456,6 @@ propertyRepresentation.checkYourAnswers.options.all=All properties
 propertyRepresentation.checkYourAnswers.options.none=No properties
 propertyRepresentation.checkYourAnswers.options.no=No
 propertyRepresentation.checkYourAnswers.options.yes=Yes
-propertyRepresentation.checkYourAnswers.options.asWellAsCurrent=Yes - as well as the existing agent
-propertyRepresentation.checkYourAnswers.options.insteadOfCurrent=Yes - instead of the existing agent
 
 propertyRepresentation.checkYourAnswers.submit=Submit
 
@@ -466,11 +464,23 @@ propertyRepresentation.confirmation.emailSent=We have sent you a confirmation em
 propertyRepresentation.confirmation.whatHappensNext=What happens next
 propertyRepresentation.confirmation.whatHappensNext.p1=We will notify Knight Frank that you have appointed them as your agent.
 
-
-
 error.propertyRepresentation.title=There is a problem
 error.propertyRepresentation.unknownAgent=There is no agent for the provided agent code
 error.propertyRepresentation.agentAlreadyAppointed=This agent has already been added to your account
+
+#Manage Agent
+propertyRepresentation.manageAgent.title=Manage agent
+
+propertyRepresentation.manageAgent.question=What do you want to do to the agent {0}?
+propertyRepresentation.manageAgent.removeFromAccount.question=Would you like to remove {0} from your account?
+propertyRepresentation.manageAgent.unassignFromProperty.question=Would you like to unassign {0} from your property?
+
+propertyRepresentation.manageAgent.options.assignToAllProperties=Assign to all properties
+propertyRepresentation.manageAgent.options.assignToSomeProperties=Assign to some properties
+propertyRepresentation.manageAgent.options.unassignFromAllProperties=Unassign from all properties
+propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Unassign from some properties
+propertyRepresentation.manageAgent.options.assignToYourProperty=Assign to your property
+propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from your account
 
 
 #Appoint agents properties

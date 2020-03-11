@@ -29,7 +29,7 @@ import controllers.agent.routes
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.{EnumMapping, Mappings}
 import models.{RepresentationApproved, RepresentationPending, StartAndContinue, propertyrepresentation}
-import models.propertyrepresentation.{AppointAgentRequest, AppointNewAgentSession, AppointmentScope, ChooseFromList, ManagePropertiesOptions, ManagingProperty, SearchedAgent, SelectedAgent, Yes}
+import models.propertyrepresentation.{AddAgentOptions, AppointAgentRequest, AppointNewAgentSession, AppointmentScope, ChooseFromList, ManagingProperty, SearchedAgent, SelectedAgent, Yes}
 import models.propertyrepresentation.AppointAgentRequest.submitAppointAgentRequest
 import models.searchApi.AgentPropertiesFilter.{Both, No}
 import models.searchApi.AgentPropertiesSortField.Address
@@ -50,7 +50,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
-class AgentRelationshipController @Inject()(
+class AddAgentController @Inject()(
       val errorHandler: CustomErrorHandler,
       authenticated: AuthenticatedAction,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
@@ -122,7 +122,7 @@ class AgentRelationshipController @Inject()(
                       agentOrganisationName = agent.name,
                       agentAddress = agent.address
                     ))
-                  Redirect(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent())
+                  Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent())
                 }
               }
             }
@@ -164,13 +164,13 @@ class AgentRelationshipController @Inject()(
                 )
                 Ok(confirmation(request.agentDetails.name))
               }
-              case 1 => Redirect(controllers.agentAppointment.routes.AgentRelationshipController.oneProperty())
-              case _ => Redirect(controllers.agentAppointment.routes.AgentRelationshipController.multipleProperties())
+              case 1 => Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty())
+              case _ => Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties())
             }
           }
         } else {
           Future.successful(
-            Redirect(controllers.agentAppointment.routes.AgentRelationshipController.startAppointJourney()))
+            Redirect(controllers.agentAppointment.routes.AddAgentController.startAppointJourney()))
         }
       }
     )
@@ -196,7 +196,7 @@ class AgentRelationshipController @Inject()(
             selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
             _ <- sessionRepo.saveOrUpdate(ManagingProperty(selectedAgent, success.name))
           } yield {
-            Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkAnswers())
+            Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers())
           }
         }
       )
@@ -227,7 +227,7 @@ class AgentRelationshipController @Inject()(
             success match {
               case ChooseFromList => joinOldJourney(selectedAgent.agentCode)
               case propertyrepresentation.All | propertyrepresentation.None =>
-                Redirect(controllers.agentAppointment.routes.AgentRelationshipController.checkAnswers())
+                Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers())
             }
           }
         }
@@ -278,7 +278,7 @@ class AgentRelationshipController @Inject()(
         checkPermission = StartAndContinue.name,
         challengePermission = StartAndContinue.name,
         agentAppointed = Some(Both.name),
-        backLink = controllers.agentAppointment.routes.AgentRelationshipController.multipleProperties().url
+        backLink = controllers.agentAppointment.routes.AddAgentController.multipleProperties().url
       ))
 
 }

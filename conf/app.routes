@@ -93,20 +93,27 @@ GET         /my-organisation/appoint/properties                                 
 POST        /my-organisation/appoint/properties/create                                                                    @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 
 #NEW AGENT APPOINT JOURNEY
-GET         /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AgentRelationshipController.startAppointJourney()
-POST        /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AgentRelationshipController.getAgentDetails()
+GET         /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AddAgentController.startAppointJourney()
+POST        /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AddAgentController.getAgentDetails()
 
-GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AgentRelationshipController.isCorrectAgent()
-POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AgentRelationshipController.agentSelected()
+GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AddAgentController.isCorrectAgent()
+POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AddAgentController.agentSelected()
 
-GET         /my-organisation/appoint-new-agent/one-property                                                               @controllers.agentAppointment.AgentRelationshipController.oneProperty()
-POST        /my-organisation/appoint-new-agent/one-property                                                               @controllers.agentAppointment.AgentRelationshipController.submitOneProperty()
+GET         /my-organisation/appoint-new-agent/one-property                                                               @controllers.agentAppointment.AddAgentController.oneProperty()
+POST        /my-organisation/appoint-new-agent/one-property                                                               @controllers.agentAppointment.AddAgentController.submitOneProperty()
 
-GET         /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AgentRelationshipController.multipleProperties()
-POST        /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AgentRelationshipController.submitMultipleProperties()
+GET         /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AddAgentController.multipleProperties()
+POST        /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AddAgentController.submitMultipleProperties()
 
-GET         /my-organisation/appoint-new-agent/checkYourAnswers                                                           @controllers.agentAppointment.AgentRelationshipController.checkAnswers()
-POST        /my-organisation/appoint-agent                                                                                @controllers.agentAppointment.AgentRelationshipController.appointAgent()
+GET         /my-organisation/appoint-new-agent/checkYourAnswers                                                           @controllers.agentAppointment.AddAgentController.checkAnswers()
+POST        /my-organisation/appoint-agent                                                                                @controllers.agentAppointment.AddAgentController.appointAgent()
+
+#MANAGE AGENT
+GET         /my-organisation/manage-agents                                                                                @controllers.agent.ManageAgentController.manageAgents()
+GET         /my-organisation/manage-agent/:agentCode                                                                      @controllers.agent.ManageAgentController.manageAgent(agentCode: Long)
+
+POST        /my-organisation/manage-agent                                                                                 @controllers.agent.ManageAgentController.submitManageAgent()
+
 
 GET         /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.revokeMultipleProperties()
 POST        /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.submitRevokeMultipleProperties()

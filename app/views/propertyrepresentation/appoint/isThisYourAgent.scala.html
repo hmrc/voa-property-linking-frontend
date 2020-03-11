@@ -27,7 +27,7 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.addAnAgent.title"),
-    backUri = Some(controllers.agentAppointment.routes.AgentRelationshipController.startAppointJourney().url)
+    backUri = Some(controllers.agentAppointment.routes.AddAgentController.startAppointJourney().url)
 ) {
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.isThisYourAgent.question")</h1>
@@ -39,7 +39,7 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.agentSelected()) {
+    @FormWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected()) {
         @govukRadios(Radios(
             idPrefix = Some("isThisYourAgent"),
             name = "isThisYourAgent",

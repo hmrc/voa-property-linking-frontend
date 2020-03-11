@@ -32,7 +32,7 @@ import play.twirl.api.Html
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
+class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
   "startAppointJourney" should "show the appoint new agent start page" in {
     when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
@@ -312,7 +312,7 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   private val stubWithAppointAgentSession = new StubWithAppointAgentSessionRefiner(mockSessionRepo)
 
-  private lazy val testController = new AgentRelationshipController(
+  private lazy val testController = new AddAgentController(
     mockCustomErrorHandler,
     preAuthenticatedActionBuilders(),
     stubWithAppointAgentSession,
