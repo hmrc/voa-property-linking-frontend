@@ -35,7 +35,7 @@
 @appointmentScope = @{
     data.managingPropertyChoice match {
         case All.name => ALL_PROPERTIES.toString
-        case models.propertyrepresentation.None.name | models.propertyrepresentation.No.name => RELATIONSHIP.toString
+        case models.propertyrepresentation.NoProperties.name | models.propertyrepresentation.No.name => RELATIONSHIP.toString
     }
 }
 

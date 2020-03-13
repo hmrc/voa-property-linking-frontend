@@ -93,18 +93,6 @@ class TestController @Inject()(
     Future.successful(Ok("Agent appointments revoked"))
   }
 
-  def declinePendingAgentAppointments(agentOrgId: String, agentPersonId: String) = authenticated.async {
-    implicit request =>
-      val pendingAgentAppointments =
-        reprConnector.forAgent(RepresentationPending, agentOrgId.toLong, Pagination(pageNumber = 1, pageSize = 100))
-      pendingAgentAppointments
-        .map(appointments =>
-          appointments.propertyRepresentations.map(appointment =>
-            reprConnector.response(
-              RepresentationResponse(appointment.submissionId, agentPersonId.toLong, RepresentationResponseDeclined))))
-        .map(_ => Ok("Pending agent appointments declined"))
-  }
-
   def clearDvrRecords = authenticated.async { implicit request =>
     testPropertyLinkingConnector
       .clearDvrRecords(request.organisationAccount.id)

@@ -28,7 +28,7 @@ case object All extends ManagePropertiesOptions {
   val name = "all"
 }
 
-case object None extends ManagePropertiesOptions {
+case object NoProperties extends ManagePropertiesOptions {
   val name = "none"
 }
 
@@ -47,5 +47,5 @@ case object Yes extends ManagePropertiesOptions {
 object ManagePropertiesOptions extends NamedEnumSupport[ManagePropertiesOptions] {
   implicit val format = EnumFormat(ManagePropertiesOptions)
 
-  override def all: List[ManagePropertiesOptions] = List(All, None, ChooseFromList, Yes, No)
+  override def all: List[ManagePropertiesOptions] = List(All, NoProperties, ChooseFromList, Yes, No)
 }

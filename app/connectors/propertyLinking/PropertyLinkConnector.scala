@@ -23,12 +23,12 @@ import javax.inject.{Inject, Singleton}
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertyrepresentation.{AgentList, AppointAgentRequest, AppointAgentResponse}
-import models.searchApi.{AgentPropertiesParameters, OwnerAuthAgent, OwnerAuthResult}
+import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -72,8 +72,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
         representationStatusFilter: Seq[RepresentationStatus] = Seq(RepresentationApproved, RepresentationPending),
         organisationId: Long,
         agentOrganisationId: Long,
-        checkPermission: String,
-        challengePermission: String,
         agentAppointed: Option[String] = None
   )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
 
@@ -88,9 +86,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
         Some("sortorder"                    -> searchParams.sortorder.toString),
         agentAppointed.map("agentAppointed" -> _.toString),
         Some("organisationId"               -> organisationId.toString),
-        Some("agentOrganisationId"          -> agentOrganisationId.toString),
-        permissionString("checkPermission", checkPermission),
-        permissionString("challengePermission", challengePermission)
+        Some("agentOrganisationId"          -> agentOrganisationId.toString)
       ).flatten ++
         List(
           "startPoint"           -> pagination.startPoint.toString,
@@ -148,25 +144,20 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
   def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(
         implicit request: BasicAuthenticatedRequest[_],
         hc: HeaderCarrier): Future[Option[CanChallengeResponse]] = {
-    val interestedParty = request.organisationAccount.isAgent && !isAgentOwnProperty match {
-      case true  => "agent"
-      case false => "client"
-    }
+    val interestedParty = if (request.organisationAccount.isAgent && !isAgentOwnProperty) "agent" else "client"
     http
       .GET[HttpResponse](
         s"$baseUrl/property-links/$plSubmissionId/check-cases/$caseRef/canChallenge?valuationId=$assessmentRef&party=$interestedParty")
       .map { resp =>
         resp.status match {
-          case 200 => {
+          case 200 =>
             Json.parse(resp.body).asOpt[CanChallengeResponse]
-          }
           case _ => None
         }
       } recover {
-      case x @ _ => {
+      case x @ _ =>
         Logger.debug(s"unable to start a challenge: $x")
         None
-      }
     }
   }
 
@@ -179,8 +170,5 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
       .POST[AppointAgentRequest, AppointAgentResponse](
         s"$baseUrl/my-organisation/agent/appoint",
         agentRelationshipRequest)
-
-  private def permissionString(agentPermissionType: String, agentPermission: String): Option[(String, String)] =
-    if (agentPermission == "START_AND_CONTINUE") Some(agentPermissionType -> agentPermission) else None
 
 }

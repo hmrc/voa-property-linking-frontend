@@ -428,7 +428,7 @@ propertyRepresentation.oneProperty.options.no=No
 
 propertyRepresentation.multipleProperties.question=Which properties would you like {0} to manage?
 propertyRepresentation.multipleProperties.options.all=All
-propertyRepresentation.multipleProperties.options.none=None
+propertyRepresentation.multipleProperties.options.noProperties=None
 propertyRepresentation.multipleProperties.options.chooseFromList=Choose from a list
 
 propertyRepresentation.checkYourAnswers.title=Check your answers
@@ -491,13 +491,7 @@ propertyRepresentation.agentRemoveSummary.heading=Agent removed
 propertyRepresentation.agentRemoveSummary.removed=You have removed Agent ''{0}’s'' ability to submit checks and challenges from {1} properties
 
 label.canCheck=Do you want this agent to submit checks?
-canCheck.START_AND_CONTINUE=Yes
-canCheck.NOT_PERMITTED=No
-canCheck.CONTINUE_ONLY=Continue
 label.canChallenge=Do you want this agent to submit challenges?
-canChallenge.START_AND_CONTINUE=Yes
-canChallenge.NOT_PERMITTED=No
-canChallenge.CONTINUE_ONLY=Continue
 error.invalidPermissions=Agent must either have permission to submit checks or challenges
 error.invalidAgentCode=Invalid agent code
 error.alreadyAppointedAgent=This agent is already assigned to this property. If you want to change the permissions for this agent, you’ll need to remove their permissions and then appoint them with the new permissions.
@@ -577,9 +571,6 @@ propertyRepresentations.table.2=Number of properties
 propertyRepresentations.table.3=Actions
 propertyRepresentations.viewProperties=View properties
 manageProperties.noRepresentations=You have no representations
-permission.START_AND_CONTINUE=Yes
-permission.NOT_PERMITTED=No
-permission.CONTINUE_ONLY=Continue
 
 #SEARCH
 search.title=Search and select a property to add to your customer record

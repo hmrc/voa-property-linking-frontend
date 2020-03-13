@@ -15,8 +15,6 @@
  *@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
-@import helpers._
-@import models.AgentPermission
 @import controllers.agentAppointment.AppointAgentVM
 @import config.ApplicationConfig
 
@@ -135,37 +133,9 @@
     </fieldset>
 
     <div class="margin-left-5">
-
-        @inputRadioGroup(
-            field = model.form("canCheck"),
-            options = AgentPermission.options,
-            args = Seq(
-                '_label -> Messages("label.canCheck"),
-                '_labelClass -> "form-label-bold",
-                '_legend -> true,
-                '_fieldsetClass -> "inline",
-                '_detailsQuestion -> Messages("canCheck.summary"),
-                '_detailsAnswer -> checkAnswer
-            )
-        )
-
-        @inputRadioGroup(
-            field = model.form("canChallenge"),
-            options = AgentPermission.options,
-            args = Seq(
-                '_label -> Messages("label.canChallenge"),
-                '_labelClass -> "form-label-bold",
-                '_legend -> true,
-                '_fieldsetClass -> "inline",
-                '_detailsQuestion -> Messages("canChallenge.summary"),
-                '_detailsAnswer -> challengeAnswer
-            )
-        )
-
         <p>
             <button type="submit" id="submit-button" class="button">@messages("propertyRepresentation.appointAgent.button")</button>
         </p>
-
     </div>
 }
 
@@ -180,14 +150,3 @@
 @isNewAgent = @{
     model.form.data.getOrElse("agentCodeRadio", "") == "yes" || model.agents.isEmpty
 }
-
-@checkAnswer = {
-    <p>@messages("propertyRepresentation.appointAgent.check.p1")</p>
-    <p>@messages("propertyRepresentation.appointAgent.check.p2")</p>
-}
-
-@challengeAnswer = {
-    <p>@messages("propertyRepresentation.appointAgent.challenges.p1")</p>
-    <p>@messages("propertyRepresentation.appointAgent.challenges.p2")</p>
-}
-

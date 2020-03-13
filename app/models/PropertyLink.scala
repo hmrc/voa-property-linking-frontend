@@ -18,7 +18,6 @@ package models
 
 import java.time.LocalDate
 
-import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import play.api.libs.json.{Format, Json}
 
 case class PropertyLink(authorisationId: Long, submissionId: String, uarn: Long, address: String, agents: Seq[Party])
