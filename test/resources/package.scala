@@ -218,10 +218,8 @@ package object resources {
     agentCode           <- arbitrary[Long]
     organisationName    <- shortString
     organisationId      <- arbitrary[Long]
-    checkPermission     <- arbitrary[AgentPermission]
-    challengePermission <- arbitrary[AgentPermission]
   } yield
-    models.Party(authorisedPartyId, agentCode, organisationName, organisationId, checkPermission, challengePermission)
+    models.Party(authorisedPartyId, agentCode, organisationName, organisationId)
   implicit val arbitraryParty = Arbitrary(party)
 
   val clientPropertyGen: Gen[ClientProperty] = for {
