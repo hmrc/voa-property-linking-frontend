@@ -14,14 +14,25 @@
  * limitations under the License.
  */
 
-package controllers.agent
+package models.propertyrepresentation
 
 import form.EnumMapping
-import models.propertyrepresentation.ManageAgentOptions
 import play.api.data.{Form, Forms}
+import play.api.data.Forms.{longNumber, mapping, optional, text}
+import play.api.libs.json.{Json, OFormat}
 
-object ManageAgentForms {
+case class ManageAgentRequest(agentCode: Long, manageAgentOption: ManageAgentOptions)
 
-  val manageAgent: Form[ManageAgentOptions] = Form(Forms.single("manageAgent" -> EnumMapping(ManageAgentOptions)))
+object ManageAgentRequest {
+
+  implicit val format: OFormat[ManageAgentRequest] = Json.format
+
+  val submitManageAgentRequest: Form[ManageAgentRequest] =
+    Form(
+      mapping(
+        "agentCode"         -> longNumber,
+        "manageAgentOption" -> EnumMapping(ManageAgentOptions)
+      )(ManageAgentRequest.apply)(ManageAgentRequest.unapply)
+    )
 
 }

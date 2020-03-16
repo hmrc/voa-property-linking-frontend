@@ -19,13 +19,16 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import models.propertyrepresentation.ManageAgentOptionItem
 @import models.propertyrepresentation.ManageAgentOptions
+@import models.propertyrepresentation.RemoveFromYourAccount
+@import models.propertyrepresentation.ManageAgentRequest
+@import models.propertyrepresentation.AgentSummary
 
 @import config.ApplicationConfig
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
 
-@(form: Form[ManageAgentOptions], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[ManageAgentRequest], agent: AgentSummary)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 
@@ -34,9 +37,11 @@
     backUri = Some("#")
 ) {
 
-    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.removeFromAccount.question", agentName)</h1>
+    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.removeFromAccount.question", agent.name)</h1>
 
     @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent()) {
+        <input type="hidden" name="agentCode" value="@agent.representativeCode">
+        <input type="hidden" name="manageAgentOption" value="@RemoveFromYourAccount.name">
         @govukButton(Button(content = Text(messages("label.continue"))))
     }
 

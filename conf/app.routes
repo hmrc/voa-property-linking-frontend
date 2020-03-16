@@ -109,8 +109,7 @@ GET         /my-organisation/appoint-new-agent/checkYourAnswers                 
 POST        /my-organisation/appoint-agent                                                                                @controllers.agentAppointment.AddAgentController.appointAgent()
 
 #MANAGE AGENT
-GET         /my-organisation/manage-agents                                                                                @controllers.agent.ManageAgentController.manageAgents()
-GET         /my-organisation/manage-agent/:agentCode                                                                      @controllers.agent.ManageAgentController.manageAgent(agentCode: Long)
+GET         /my-organisation/manage-agent                                                                                 @controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
 
 POST        /my-organisation/manage-agent                                                                                 @controllers.agent.ManageAgentController.submitManageAgent()
 

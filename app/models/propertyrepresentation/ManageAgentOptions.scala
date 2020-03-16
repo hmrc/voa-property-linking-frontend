@@ -53,30 +53,68 @@ object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
   implicit val format = EnumFormat(ManageAgentOptions)
 
   override def all: List[ManageAgentOptions] =
-    List(AssignToAllProperties, AssignToSomeProperties, UnassignFromAllProperties,
-      UnassignFromSomeProperties, AssignToYourProperty, RemoveFromYourAccount)
+    List(
+      AssignToAllProperties,
+      AssignToSomeProperties,
+      UnassignFromAllProperties,
+      UnassignFromSomeProperties,
+      AssignToYourProperty,
+      RemoveFromYourAccount)
 
   val onePropertyLinkNoAssignedAgentsOptions = List(
-    ManageAgentOptionItem(id = "manageAgent-assignToYourProperty", value = "assignToYourProperty", titleMessageKeySuffix = "assignToYourProperty"),
-    ManageAgentOptionItem(id = "manageAgent-removeFromYourAccount", value = "removeFromYourAccount", titleMessageKeySuffix = "removeFromYourAccount")
+    ManageAgentOptionItem(
+      id = "manageAgent-assignToYourProperty",
+      value = "assignToYourProperty",
+      titleMessageKeySuffix = "assignToYourProperty"),
+    ManageAgentOptionItem(
+      id = "manageAgent-removeFromYourAccount",
+      value = "removeFromYourAccount",
+      titleMessageKeySuffix = "removeFromYourAccount")
   )
 
   val multiplePropertyLinksNoAssignedAgentsOptions = List(
-    ManageAgentOptionItem(id = "manageAgent-assignToAllProperties", value = "assignToAllProperties", titleMessageKeySuffix = "assignToAllProperties"),
-    ManageAgentOptionItem(id = "manageAgent-assignToSomeProperties", value = "assignToSomeProperties", titleMessageKeySuffix = "assignToSomeProperties"),
-    ManageAgentOptionItem(id = "manageAgent-removeFromYourAccount", value = "removeFromYourAccount", titleMessageKeySuffix = "removeFromYourAccount")
+    ManageAgentOptionItem(
+      id = "manageAgent-assignToAllProperties",
+      value = "assignToAllProperties",
+      titleMessageKeySuffix = "assignToAllProperties"),
+    ManageAgentOptionItem(
+      id = "manageAgent-assignToSomeProperties",
+      value = "assignToSomeProperties",
+      titleMessageKeySuffix = "assignToSomeProperties"),
+    ManageAgentOptionItem(
+      id = "manageAgent-removeFromYourAccount",
+      value = "removeFromYourAccount",
+      titleMessageKeySuffix = "removeFromYourAccount")
   )
 
   val multiplePropertyLinksAgentAssignedToSomeOptions = List(
-    ManageAgentOptionItem(id = "manageAgent-assignToAllProperties", value = "assignToAllProperties", titleMessageKeySuffix = "assignToAllProperties"),
-    ManageAgentOptionItem(id = "manageAgent-assignToSomeProperties", value = "assignToSomeProperties", titleMessageKeySuffix = "assignToSomeProperties"),
-    ManageAgentOptionItem(id = "manageAgent-unassignFromAllProperties", value = "unassignFromAllProperties", titleMessageKeySuffix = "unassignFromAllProperties"),
-    ManageAgentOptionItem(id = "manageAgent-unassignFromSomeProperties", value = "unassignFromSomeProperties", titleMessageKeySuffix = "unassignFromSomeProperties")
+    ManageAgentOptionItem(
+      id = "manageAgent-assignToAllProperties",
+      value = "assignToAllProperties",
+      titleMessageKeySuffix = "assignToAllProperties"),
+    ManageAgentOptionItem(
+      id = "manageAgent-assignToSomeProperties",
+      value = "assignToSomeProperties",
+      titleMessageKeySuffix = "assignToSomeProperties"),
+    ManageAgentOptionItem(
+      id = "manageAgent-unassignFromAllProperties",
+      value = "unassignFromAllProperties",
+      titleMessageKeySuffix = "unassignFromAllProperties"),
+    ManageAgentOptionItem(
+      id = "manageAgent-unassignFromSomeProperties",
+      value = "unassignFromSomeProperties",
+      titleMessageKeySuffix = "unassignFromSomeProperties")
   )
 
   val multiplePropertyLinksAgentAssignedToAllOptions = List(
-    ManageAgentOptionItem(id = "manageAgent-unassignFromAllProperties", value = "unassignFromAllProperties", titleMessageKeySuffix = "unassignFromAllProperties"),
-    ManageAgentOptionItem(id = "manageAgent-unassignFromSomeProperties", value = "unassignFromSomeProperties", titleMessageKeySuffix = "unassignFromSomeProperties")
+    ManageAgentOptionItem(
+      id = "manageAgent-unassignFromAllProperties",
+      value = "unassignFromAllProperties",
+      titleMessageKeySuffix = "unassignFromAllProperties"),
+    ManageAgentOptionItem(
+      id = "manageAgent-unassignFromSomeProperties",
+      value = "unassignFromSomeProperties",
+      titleMessageKeySuffix = "unassignFromSomeProperties")
   )
 }
 

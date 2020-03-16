@@ -292,7 +292,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     status(res) mustBe OK
   }
 
-  "appointAgent" should "return 404 Bad Request when invalid form is submitted - scope is missing" in {
+  "appointAgent" should "return 400 Bad Request when invalid form is submitted - scope is missing" in {
     when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
       .thenReturn(Future.successful(AppointAgentResponse("some-id")))
 
@@ -301,7 +301,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     status(res) mustBe BAD_REQUEST
   }
 
-  "appointAgent" should "return 404 Bad Request when invalid form is submitted - agentCode is missing" in {
+  "appointAgent" should "return 400 Bad Request when invalid form is submitted - agentCode is missing" in {
     when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
       .thenReturn(Future.successful(AppointAgentResponse("some-id")))
 

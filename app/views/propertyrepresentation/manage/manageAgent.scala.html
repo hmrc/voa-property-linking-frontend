@@ -19,13 +19,15 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import models.propertyrepresentation.ManageAgentOptionItem
 @import models.propertyrepresentation.ManageAgentOptions
+@import models.propertyrepresentation.ManageAgentRequest
+@import models.propertyrepresentation.AgentSummary
 
 @import config.ApplicationConfig
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
 
-@(form: Form[ManageAgentOptions], radioOptions: List[ManageAgentOptionItem], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[ManageAgentRequest], radioOptions: List[ManageAgentOptionItem], agent: AgentSummary)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @radioItems = @{
     radioOptions.map{item =>
@@ -42,16 +44,18 @@
     backUri = Some("#")
 ) {
 
-    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.question", agentName)</h1>
+    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.question", agent.name)</h1>
 
 
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
     @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent()) {
+
+        <input type="hidden" name="agentCode" value="@agent.representativeCode">
         @govukRadios(Radios(
-            idPrefix = Some("manageAgent"),
-            name = "manageAgent",
+            idPrefix = Some("manageAgentOption"),
+            name = "manageAgentOption",
             items = radioItems)
         )
 

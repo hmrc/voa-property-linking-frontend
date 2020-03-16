@@ -169,8 +169,7 @@ class AddAgentController @Inject()(
             }
           }
         } else {
-          Future.successful(
-            Redirect(controllers.agentAppointment.routes.AddAgentController.startAppointJourney()))
+          Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.startAppointJourney()))
         }
       }
     )

@@ -22,5 +22,3 @@ package models.propertyrepresentation
 //      agentOrganisationName: Option[String],
 //      isCorrectAgent: Option[Boolean],
 //      managingProperty: Option[String])
-
-
