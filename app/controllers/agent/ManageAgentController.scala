@@ -53,11 +53,9 @@ class ManageAgentController @Inject()(
   val logger = Logger(this.getClass.getName)
 
   def manageAgent(agentCode: Option[Long]): Action[AnyContent] = authenticated.async { implicit request =>
-    getManageAgentPage(agentCode).map { pageOpt =>
-      pageOpt match {
-        case None       => NotFound(errorHandler.notFoundTemplate)
-        case Some(page) => Ok(page)
-      }
+    getManageAgentPage(agentCode).map {
+      case None       => NotFound(errorHandler.notFoundTemplate)
+      case Some(page) => Ok(page)
     }
   }
 
@@ -83,28 +81,30 @@ class ManageAgentController @Inject()(
                                        )
     } yield {
       (propertyLinks.total, agentToBeManagedOpt) match {
-        case (0, Some(agent)) if agent.propertyCount == 0 =>
+        case (0, Some(agent)) if agent.propertyCount == 0 => //IP has no property links but still has an agent
           Some(manageAgentZeroPropertyLinks(submitManageAgentForm, agent))
-        case (1, Some(agent)) if agent.propertyCount == 0 =>
-          Some(manageAgentPage(
-            submitManageAgentForm,
-            ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions,
-            agent))
-        case (1, Some(agent)) if agent.propertyCount == 1 =>
+        case (1, Some(agent)) if agent.propertyCount == 0 => //IP has one property link but agent is not assigned
+          Some(
+            manageAgentPage(submitManageAgentForm, ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions, agent))
+        case (1, Some(agent))
+            if agent.propertyCount == 1 => //IP has one property link and agent is assigned to that property
           Some(manageAgentOnePropertyLinkWithAgentAssigned(submitManageAgentForm, agent))
-        case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
+        case (numberOfPropertyLinks, Some(agent))
+            if numberOfPropertyLinks > 1 && agent.propertyCount == 0 => //IP has more than one property links but agent is not assigned to any
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksNoAssignedAgentsOptions,
               agent))
-        case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
+        case (numberOfPropertyLinks, Some(agent))
+            if numberOfPropertyLinks > agent.propertyCount => //agent is not assigned to all of the IP's property links
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToSomeOptions,
               agent))
-        case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
+        case (numberOfPropertyLinks, Some(agent))
+            if numberOfPropertyLinks == agent.propertyCount => //agent is assigned to all of the IP's property links
           Some(
             manageAgentPage(
               submitManageAgentForm,
@@ -119,7 +119,7 @@ class ManageAgentController @Inject()(
       errors => {
         val agentCodeFromForm = Try(errors.data("agentCode").toLong).toOption
         getManageAgentPage(agentCodeFromForm, errors).map {
-          case None => NotFound(errorHandler.notFoundTemplate)
+          case None       => NotFound(errorHandler.notFoundTemplate)
           case Some(page) => BadRequest(page)
         }
       }, { success =>
