@@ -84,32 +84,32 @@ class ManageAgentController @Inject()(
     } yield {
       (propertyLinks.total, agentToBeManagedOpt) match {
         case (0, Some(agent)) if agent.propertyCount == 0 =>
-          Some(manageAgentZeroPropertyLinks(submitManageAgentForm, agent)) // Would you like to remove <Agent name> from your account? - remove
+          Some(manageAgentZeroPropertyLinks(submitManageAgentForm, agent))
         case (1, Some(agent)) if agent.propertyCount == 0 =>
           Some(manageAgentPage(
             submitManageAgentForm,
             ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions,
-            agent)) //What do you want to do to the agent <Agent name> ? - AR
+            agent))
         case (1, Some(agent)) if agent.propertyCount == 1 =>
-          Some(manageAgentOnePropertyLinkWithAgentAssigned(submitManageAgentForm, agent)) //Would you like to unassign <Agent name> from your property?
+          Some(manageAgentOnePropertyLinkWithAgentAssigned(submitManageAgentForm, agent))
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksNoAssignedAgentsOptions,
-              agent)) //What do you want to do to the agent <Agent name > ? - AAR
+              agent))
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToSomeOptions,
-              agent)) //What do you want to do to the agent <Agent name> ? - AAUU
+              agent))
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToAllOptions,
-              agent)) //What do you want to do to the agent <Agent name> ? - UU
+              agent))
         case _ => None
       }
     }
@@ -117,15 +117,13 @@ class ManageAgentController @Inject()(
   def submitManageAgent(): Action[AnyContent] = authenticated.async { implicit request =>
     ManageAgentRequest.submitManageAgentRequest.bindFromRequest.fold(
       errors => {
-        val agentCodeFromForm = Try(errors.data("agentCode")).toOption.map(code => code.toLong) //fixme handle error from toLong
-        getManageAgentPage(agentCodeFromForm, errors).map { pageOpt =>
-          pageOpt match {
-            case None       => NotFound(errorHandler.notFoundTemplate)
-            case Some(page) => BadRequest(page)
-          }
+        val agentCodeFromForm = Try(errors.data("agentCode").toLong).toOption
+        getManageAgentPage(agentCodeFromForm, errors).map {
+          case None => NotFound(errorHandler.notFoundTemplate)
+          case Some(page) => BadRequest(page)
         }
       }, { success =>
-        ???
+        ??? //fixme this will be implemented in subsequent stories
       }
     )
   }
