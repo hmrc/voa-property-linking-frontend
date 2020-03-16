@@ -119,13 +119,6 @@ POST        /my-organisation/property-links/:submissionId/revoke/:agentCode     
 
 GET         /my-organisation/property-links/:submissionId/revoke/:agentCode/confirmed                                     @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long)
 
-#AGENT ONLY
-GET           /my-organisation/clients/requests                                                 @controllers.agent.RepresentationController.getMyClientsPropertyLinkRequests(page: Int ?= 1, pageSize: Int ?= 15)
-POST          /my-organisation/clients/requests                                                @controllers.agent.RepresentationController.submitMyClientsPropertyLinkRequestResponse(page: Int, pageSize: Int)
-GET           /my-organisation/clients/requests/continue                                         @controllers.agent.RepresentationController.continue(page: Int, pageSize: Int)
-POST          /representation-request/bulkActions                                               @controllers.agent.RepresentationController.bulkActions
-
-
 #DVR
 #Owner Routes
 GET         /my-organisation/property-link/:propertyLinkSubmissionId/confirmation                                                     @controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
