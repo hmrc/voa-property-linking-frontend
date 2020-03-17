@@ -39,7 +39,7 @@
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.removeFromAccount.question", agent.name)</h1>
 
-    @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent()) {
+    @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent(agent.representativeCode)) {
         <input type="hidden" name="agentCode" value="@agent.representativeCode">
         <input type="hidden" name="manageAgentOption" value="@RemoveFromYourAccount.name">
         @govukButton(Button(content = Text(messages("label.continue"))))

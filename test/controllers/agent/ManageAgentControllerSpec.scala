@@ -173,8 +173,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockUnassignAgentFromPropertyPage.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("IP has One PropertyLink - agent assigned"))
 
-    val res = testController.submitManageAgent()(
-      FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "BLAH", "agentCode" -> "12345"))
+    val res = testController.submitManageAgent(agentCode)(
+      FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "BLAH", "agentCode" -> s"$agentCode"))
     status(res) mustBe BAD_REQUEST
   }
 
@@ -187,7 +187,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockUnassignAgentFromPropertyPage.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("IP has One PropertyLink - agent assigned"))
 
-    val res = testController.submitManageAgent()(
+    val res = testController.submitManageAgent(agentCode)(
       FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "unassignFromAllProperties"))
     status(res) mustBe BAD_REQUEST
   }

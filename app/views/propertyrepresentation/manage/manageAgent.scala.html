@@ -50,7 +50,7 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent()) {
+    @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent(agent.representativeCode)) {
 
         <input type="hidden" name="agentCode" value="@agent.representativeCode">
         @govukRadios(Radios(

@@ -88,28 +88,24 @@ class ManageAgentController @Inject()(
           //IP has one property link but agent is not assigned
           Some(
             manageAgentPage(submitManageAgentForm, ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions, agent))
-        case (1, Some(agent))
-            if agent.propertyCount == 1 =>
+        case (1, Some(agent)) if agent.propertyCount == 1 =>
           //IP has one property link and agent is assigned to that property
           Some(unassignAgentFromProperty(submitManageAgentForm, agent))
-        case (numberOfPropertyLinks, Some(agent))
-            if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
+        case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
           //IP has more than one property links but agent is not assigned to any
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksNoAssignedAgentsOptions,
               agent))
-        case (numberOfPropertyLinks, Some(agent))
-            if numberOfPropertyLinks > agent.propertyCount =>
+        case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
           //agent is not assigned to all of the IP's property links
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToSomeOptions,
               agent))
-        case (numberOfPropertyLinks, Some(agent))
-            if numberOfPropertyLinks == agent.propertyCount =>
+        case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
           //agent is assigned to all of the IP's property links
           Some(
             manageAgentPage(
@@ -120,11 +116,10 @@ class ManageAgentController @Inject()(
       }
     }
 
-  def submitManageAgent(): Action[AnyContent] = authenticated.async { implicit request =>
+  def submitManageAgent(agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
     ManageAgentRequest.submitManageAgentRequest.bindFromRequest.fold(
       errors => {
-        val agentCodeFromForm = Try(errors.data("agentCode").toLong).toOption
-        getManageAgentPage(agentCodeFromForm, errors).map {
+        getManageAgentPage(Some(agentCode), errors).map {
           case None       => NotFound(errorHandler.notFoundTemplate)
           case Some(page) => BadRequest(page)
         }
