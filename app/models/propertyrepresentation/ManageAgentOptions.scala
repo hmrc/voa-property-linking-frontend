@@ -62,63 +62,33 @@ object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
       RemoveFromYourAccount)
 
   val onePropertyLinkNoAssignedAgentsOptions = List(
-    ManageAgentOptionItem(
-      id = "manageAgent-assignToYourProperty",
-      value = "assignToYourProperty",
-      titleMessageKeySuffix = "assignToYourProperty"),
-    ManageAgentOptionItem(
-      id = "manageAgent-removeFromYourAccount",
-      value = "removeFromYourAccount",
-      titleMessageKeySuffix = "removeFromYourAccount")
+    ManageAgentOptionItem(s"${AssignToYourProperty.name}"),
+    ManageAgentOptionItem(s"${RemoveFromYourAccount.name}")
   )
 
   val multiplePropertyLinksNoAssignedAgentsOptions = List(
-    ManageAgentOptionItem(
-      id = "manageAgent-assignToAllProperties",
-      value = "assignToAllProperties",
-      titleMessageKeySuffix = "assignToAllProperties"),
-    ManageAgentOptionItem(
-      id = "manageAgent-assignToSomeProperties",
-      value = "assignToSomeProperties",
-      titleMessageKeySuffix = "assignToSomeProperties"),
-    ManageAgentOptionItem(
-      id = "manageAgent-removeFromYourAccount",
-      value = "removeFromYourAccount",
-      titleMessageKeySuffix = "removeFromYourAccount")
+    ManageAgentOptionItem(s"${AssignToAllProperties.name}"),
+    ManageAgentOptionItem(s"${AssignToSomeProperties.name}"),
+    ManageAgentOptionItem(s"${RemoveFromYourAccount.name}")
   )
 
   val multiplePropertyLinksAgentAssignedToSomeOptions = List(
-    ManageAgentOptionItem(
-      id = "manageAgent-assignToAllProperties",
-      value = "assignToAllProperties",
-      titleMessageKeySuffix = "assignToAllProperties"),
-    ManageAgentOptionItem(
-      id = "manageAgent-assignToSomeProperties",
-      value = "assignToSomeProperties",
-      titleMessageKeySuffix = "assignToSomeProperties"),
-    ManageAgentOptionItem(
-      id = "manageAgent-unassignFromAllProperties",
-      value = "unassignFromAllProperties",
-      titleMessageKeySuffix = "unassignFromAllProperties"),
-    ManageAgentOptionItem(
-      id = "manageAgent-unassignFromSomeProperties",
-      value = "unassignFromSomeProperties",
-      titleMessageKeySuffix = "unassignFromSomeProperties")
+    ManageAgentOptionItem(s"${AssignToAllProperties.name}"),
+    ManageAgentOptionItem(s"${AssignToSomeProperties.name}"),
+    ManageAgentOptionItem(s"${UnassignFromAllProperties.name}"),
+    ManageAgentOptionItem(s"${UnassignFromSomeProperties.name}")
   )
 
   val multiplePropertyLinksAgentAssignedToAllOptions = List(
-    ManageAgentOptionItem(
-      id = "manageAgent-unassignFromAllProperties",
-      value = "unassignFromAllProperties",
-      titleMessageKeySuffix = "unassignFromAllProperties"),
-    ManageAgentOptionItem(
-      id = "manageAgent-unassignFromSomeProperties",
-      value = "unassignFromSomeProperties",
-      titleMessageKeySuffix = "unassignFromSomeProperties")
+    ManageAgentOptionItem(s"${UnassignFromAllProperties.name}"),
+    ManageAgentOptionItem(s"${UnassignFromSomeProperties.name}")
   )
 }
 
-case class ManageAgentOptionItem(id: String, value: String, titleMessageKeySuffix: String)
+case class ManageAgentOptionItem(value: String) {
+  val id: String = value
+  val titleMessageKeySuffix: String = value
+}
 
 object ManageAgentOptionItem {
   implicit val format = Json.format[ManageAgentOptionItem]

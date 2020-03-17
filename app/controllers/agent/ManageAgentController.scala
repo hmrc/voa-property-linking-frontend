@@ -42,8 +42,8 @@ class ManageAgentController @Inject()(
       authenticated: AuthenticatedAction,
       agentRelationshipService: AgentRelationshipService,
       manageAgentPage: views.html.propertyrepresentation.manage.manageAgent,
-      manageAgentZeroPropertyLinks: views.html.propertyrepresentation.manage.manageAgentZeroPropertyLinks,
-      manageAgentOnePropertyLinkWithAgentAssigned: views.html.propertyrepresentation.manage.manageAgentOnePropertyLinkWithAgentAssigned)(
+      removeAgentFromOrganisation: views.html.propertyrepresentation.manage.removeAgentFromOrganisation,
+      unassignAgentFromProperty: views.html.propertyrepresentation.manage.unassignAgentFromProperty)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -82,13 +82,13 @@ class ManageAgentController @Inject()(
     } yield {
       (propertyLinks.total, agentToBeManagedOpt) match {
         case (0, Some(agent)) if agent.propertyCount == 0 => //IP has no property links but still has an agent
-          Some(manageAgentZeroPropertyLinks(submitManageAgentForm, agent))
+          Some(removeAgentFromOrganisation(submitManageAgentForm, agent))
         case (1, Some(agent)) if agent.propertyCount == 0 => //IP has one property link but agent is not assigned
           Some(
             manageAgentPage(submitManageAgentForm, ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions, agent))
         case (1, Some(agent))
             if agent.propertyCount == 1 => //IP has one property link and agent is assigned to that property
-          Some(manageAgentOnePropertyLinkWithAgentAssigned(submitManageAgentForm, agent))
+          Some(unassignAgentFromProperty(submitManageAgentForm, agent))
         case (numberOfPropertyLinks, Some(agent))
             if numberOfPropertyLinks > 1 && agent.propertyCount == 0 => //IP has more than one property links but agent is not assigned to any
           Some(
