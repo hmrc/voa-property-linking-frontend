@@ -25,9 +25,8 @@ case class RepresentationRequest(
       agentOrganisationId: Long,
       individualId: Long,
       submissionId: String,
-      checkPermission: String,
-      challengePermission: String,
-      createDatetime: Instant)
+      createDatetime: Instant
+)
 
 object RepresentationRequest {
   implicit val format = Json.format[RepresentationRequest]

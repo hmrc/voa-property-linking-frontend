@@ -16,13 +16,12 @@
 
 package connectors
 
-import controllers.Pagination
 import javax.inject.Inject
 import models._
-import models.propertyrepresentation.{AgentDetails, AgentOrganisation}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import models.propertyrepresentation.AgentDetails
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -35,14 +34,9 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
     http.GET[AgentCodeValidationResult](
       s"$baseUrl/property-representations/validate-agent-code/$agentCode/$authorisationId")
 
-  def forAgent(status: RepresentationStatus, agentOrganisationId: Long, pagination: Pagination)(
-        implicit hc: HeaderCarrier): Future[PropertyRepresentations] =
-    http.GET[PropertyRepresentations](
-      s"$baseUrl/property-representations/agent/${status.name}/$agentOrganisationId?$pagination")
-
   def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier): Future[Unit] =
     http.POST[RepresentationRequest, HttpResponse](s"$baseUrl/property-representations/create", reprRequest) map { _ =>
-      ()
+      () //TODO https://jira.tools.tax.service.gov.uk/browse/VTCCA-3348 FAILED get treated as SUCCESS
     }
 
   def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier): Future[Unit] =

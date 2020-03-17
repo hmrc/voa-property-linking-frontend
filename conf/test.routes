@@ -2,7 +2,6 @@ GET        /user-details                                          @controllers.t
 GET        /de-enrol                                              @controllers.test.TestController.deEnrol
 GET        /de-register                                           @controllers.test.TestController.deRegister
 GET        /revoke-agent-appointments/:agentOrgId                 @controllers.test.TestController.revokeAgentAppointments(agentOrgId)
-GET        /decline-pending-agent-appointments/:agentOrgId        @controllers.test.TestController.declinePendingAgentAppointments(agentOrgId, agentPersonId: String)
 GET        /clear-dvr-records                                     @controllers.test.TestController.clearDvrRecords
 GET        /clear-draft-cases                                     @controllers.test.TestController.clearDraftCases
 GET        /submitted-check/:submissionId                         @controllers.test.TestController.getSubmittedCheck(submissionId: String)

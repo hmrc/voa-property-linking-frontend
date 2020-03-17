@@ -207,19 +207,15 @@ package object resources {
       capacity)
   implicit val arbitraryAssessment = Arbitrary(assessmentGen)
 
-  val agentPermissionGen: Gen[AgentPermission] = Gen.oneOf(StartAndContinue, NotPermitted)
-  implicit val agentPermissionType = Arbitrary(agentPermissionGen)
-
   val representationStatusGen: Gen[RepresentationStatus] = Gen.oneOf(RepresentationApproved, RepresentationPending)
   implicit val representationStatusType = Arbitrary(representationStatusGen)
 
   val party: Gen[Party] = for {
-    authorisedPartyId   <- arbitrary[Long]
-    agentCode           <- arbitrary[Long]
-    organisationName    <- shortString
-    organisationId      <- arbitrary[Long]
-  } yield
-    models.Party(authorisedPartyId, agentCode, organisationName, organisationId)
+    authorisedPartyId <- arbitrary[Long]
+    agentCode         <- arbitrary[Long]
+    organisationName  <- shortString
+    organisationId    <- arbitrary[Long]
+  } yield models.Party(authorisedPartyId, agentCode, organisationName, organisationId)
   implicit val arbitraryParty = Arbitrary(party)
 
   val clientPropertyGen: Gen[ClientProperty] = for {
@@ -277,8 +273,6 @@ package object resources {
     organisationId            <- arbitrary[Long]
     organisationName          <- shortString
     address                   <- arbitrary[PropertyAddress]
-    checkPermission           <- arbitrary[AgentPermission]
-    challengePermission       <- arbitrary[AgentPermission]
     status                    <- arbitrary[RepresentationStatus]
   } yield {
     PropertyRepresentation(
@@ -288,8 +282,6 @@ package object resources {
       organisationId = organisationId,
       organisationName = organisationName,
       address = address.toString,
-      checkPermission = checkPermission,
-      challengePermission = challengePermission,
       status = status
     )
   }

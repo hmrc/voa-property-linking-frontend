@@ -18,7 +18,7 @@ package models
 
 import play.api.libs.json.Json
 
-case class UpdatedRepresentation(representationId: Long, canCheck: AgentPermission, canChallenge: AgentPermission)
+case class UpdatedRepresentation(representationId: Long)
 
 object UpdatedRepresentation {
   implicit val format = Json.format[UpdatedRepresentation]

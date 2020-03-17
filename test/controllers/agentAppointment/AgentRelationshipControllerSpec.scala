@@ -263,8 +263,8 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(
       "/business-rates-property-linking/my-organisation/appoint/properties?page=1" +
-        "&pageSize=15&sortfield=ADDRESS&sortorder=ASC&agentCode=12345&checkPermission=START_AND_CONTINUE" +
-        "&challengePermission=START_AND_CONTINUE&agentAppointed=BOTH" +
+        "&pageSize=15&sortfield=ADDRESS&sortorder=ASC&agentCode=12345" +
+        "&agentAppointed=BOTH" +
         "&backLink=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fmultiple-properties")
 
   }

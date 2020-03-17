@@ -103,8 +103,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       PaginationParameters(),
       GetPropertyLinksParameters(),
       agentCode,
-      "START_AND_CONTINUE",
-      "START_AND_CONTINUE",
       None,
       "/my-organisation/appoint")(FakeRequest())
     status(res) mustBe OK
@@ -117,8 +115,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(agent)
 
     when(
-      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(
-        any[HeaderCarrier]))
+      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
     val res = testController.appointAgentSummary()(
@@ -136,15 +133,10 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(agent)
 
     when(
-      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(
-        any[HeaderCarrier]))
+      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val res = testController.appointAgentSummary()(
-      FakeRequest().withFormUrlEncodedBody(
-        "agentCode"           -> s"$agentCode",
-        "checkPermission"     -> "StartAndContinue",
-        "challengePermission" -> "StartAndContinue"))
+    val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
     status(res) mustBe BAD_REQUEST
 
@@ -157,16 +149,11 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(agent)
 
     when(
-      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any(), any())(
-        any[HeaderCarrier]))
+      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.failed(new AppointRevokeException("")))
 
     val res = testController.appointAgentSummary()(
-      FakeRequest().withFormUrlEncodedBody(
-        "agentCode"           -> s"$agentCode",
-        "checkPermission"     -> "StartAndContinue",
-        "challengePermission" -> "StartAndContinue",
-        "linkIds[]"           -> "1"))
+      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode", "linkIds[]" -> "1"))
 
     status(res) mustBe BAD_REQUEST
 
