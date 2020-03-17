@@ -41,12 +41,14 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     mock[views.html.propertyrepresentation.manage.removeAgentFromOrganisation]
   private val mockUnassignAgentFromPropertyPage =
     mock[views.html.propertyrepresentation.manage.unassignAgentFromProperty]
+  private val mockMyAgentsPage = mock[views.html.propertyrepresentation.manage.myAgents]
 
   val testController = new ManageAgentController(
     errorHandler = mockCustomErrorHandler,
     authenticated = preAuthenticatedActionBuilders(userIsAgent = false),
     agentRelationshipService = mockAgentRelationshipService,
     manageAgentPage = mockManageAgentPage,
+    myAgentsPage = mockMyAgentsPage,
     removeAgentFromOrganisation = mockRemoveAgentFromOrganisationPage,
     unassignAgentFromProperty = mockUnassignAgentFromPropertyPage
   )
@@ -58,6 +60,15 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
     when(mockRemoveAgentFromOrganisationPage.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     val res = testController.manageAgent(None)(FakeRequest())
+    status(res) mustBe OK
+  }
+
+  "myAgents" should "show the my agents page" in {
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 0)))))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
+      .thenReturn(Future.successful(propertyLinksCount))
+    val res = testController.showAgents()(FakeRequest())
     status(res) mustBe OK
   }
 

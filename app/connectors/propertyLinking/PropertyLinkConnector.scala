@@ -164,6 +164,9 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
   def getMyOrganisationAgents()(implicit hc: HeaderCarrier): Future[AgentList] =
     http.GET[AgentList](s"$baseUrl/owner/agents")
 
+  def getMyOrganisationPropertyLinksCount()(implicit hc: HeaderCarrier): Future[Int] =
+    http.GET[Int](s"$baseUrl/owner/property-links/count")
+
   def sendAppointAgentRequest(agentRelationshipRequest: AppointAgentRequest)(
         implicit hc: HeaderCarrier): Future[AppointAgentResponse] =
     http

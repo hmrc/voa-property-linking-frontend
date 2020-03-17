@@ -103,4 +103,9 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.getMyOrganisationAgents())(_ mustBe organisationsAgentsList)
   }
 
+  "getMyOrganisationPropertyLinksCount" must "return organisation's property links count" in new Setup {
+    mockHttpGET[Int]("tst-url", propertyLinksCount)
+    whenReady(connector.getMyOrganisationPropertyLinksCount())(_ mustBe propertyLinksCount)
+  }
+
 }
