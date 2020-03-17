@@ -81,30 +81,36 @@ class ManageAgentController @Inject()(
                                        )
     } yield {
       (propertyLinks.total, agentToBeManagedOpt) match {
-        case (0, Some(agent)) if agent.propertyCount == 0 => //IP has no property links but still has an agent
+        case (0, Some(agent)) if agent.propertyCount == 0 =>
+          //IP has no property links but still has an agent
           Some(removeAgentFromOrganisation(submitManageAgentForm, agent))
-        case (1, Some(agent)) if agent.propertyCount == 0 => //IP has one property link but agent is not assigned
+        case (1, Some(agent)) if agent.propertyCount == 0 =>
+          //IP has one property link but agent is not assigned
           Some(
             manageAgentPage(submitManageAgentForm, ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions, agent))
         case (1, Some(agent))
-            if agent.propertyCount == 1 => //IP has one property link and agent is assigned to that property
+            if agent.propertyCount == 1 =>
+          //IP has one property link and agent is assigned to that property
           Some(unassignAgentFromProperty(submitManageAgentForm, agent))
         case (numberOfPropertyLinks, Some(agent))
-            if numberOfPropertyLinks > 1 && agent.propertyCount == 0 => //IP has more than one property links but agent is not assigned to any
+            if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
+          //IP has more than one property links but agent is not assigned to any
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksNoAssignedAgentsOptions,
               agent))
         case (numberOfPropertyLinks, Some(agent))
-            if numberOfPropertyLinks > agent.propertyCount => //agent is not assigned to all of the IP's property links
+            if numberOfPropertyLinks > agent.propertyCount =>
+          //agent is not assigned to all of the IP's property links
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToSomeOptions,
               agent))
         case (numberOfPropertyLinks, Some(agent))
-            if numberOfPropertyLinks == agent.propertyCount => //agent is assigned to all of the IP's property links
+            if numberOfPropertyLinks == agent.propertyCount =>
+          //agent is assigned to all of the IP's property links
           Some(
             manageAgentPage(
               submitManageAgentForm,
