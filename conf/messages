@@ -382,24 +382,6 @@ draftCases.confirm.delete.message.1=This draft will be deleted
 draftCases.confirm.table.caption=Delete draft
 draftCases.confirm.delete.return.button=Return to drafts list
 
-#Appoint agent accept
-propertyRepresentation.accepted.title=Request accepted
-propertyRepresentation.accepted.single.message=You’ve confirmed that you act as an agent for this business
-propertyRepresentation.accepted.multiple.message=You’ve confirmed that you act as an agent for these businesses
-propertyRepresentation.accepted.youCan=You can now:
-propertyRepresentation.accepted.single.youCan.1=view the detailed valuation for this property
-propertyRepresentation.accepted.multiple.youCan.1=view the detailed valuation for these properties
-propertyRepresentation.accepted.youCan.2=complete a check or challenge, depending on the permissions that have been set for you
-
-#Appoint agent reject
-propertyRepresentation.rejected.title=Request rejected
-propertyRepresentation.rejected.single.message=You’ve confirmed that you don’t act as an agent for this business
-propertyRepresentation.rejected.multiple.message=You’ve confirmed that you don’t act as an agent for these businesses
-propertyRepresentation.rejected.single.youCan.1=You won’t be able to view the detailed valuation for this property or complete a check or challenge.
-propertyRepresentation.rejected.multiple.youCan.1=You won’t be able to view detailed valuations for these properties or complete checks or challenges.
-propertyRepresentation.rejected.single.youCan.2=The business will be notified of your decision.
-propertyRepresentation.rejected.multiple.youCan.2=The businesses will be notified of your decision.
-
 
 #remove property
 propertyRepresentation.removeAgent.title=Remove agent permissions
@@ -446,7 +428,7 @@ propertyRepresentation.oneProperty.options.no=No
 
 propertyRepresentation.multipleProperties.question=Which properties would you like {0} to manage?
 propertyRepresentation.multipleProperties.options.all=All
-propertyRepresentation.multipleProperties.options.none=None
+propertyRepresentation.multipleProperties.options.noProperties=None
 propertyRepresentation.multipleProperties.options.chooseFromList=Choose from a list
 
 propertyRepresentation.checkYourAnswers.title=Check your answers
@@ -519,13 +501,7 @@ propertyRepresentation.agentRemoveSummary.heading=Agent removed
 propertyRepresentation.agentRemoveSummary.removed=You have removed Agent ''{0}’s'' ability to submit checks and challenges from {1} properties
 
 label.canCheck=Do you want this agent to submit checks?
-canCheck.START_AND_CONTINUE=Yes
-canCheck.NOT_PERMITTED=No
-canCheck.CONTINUE_ONLY=Continue
 label.canChallenge=Do you want this agent to submit challenges?
-canChallenge.START_AND_CONTINUE=Yes
-canChallenge.NOT_PERMITTED=No
-canChallenge.CONTINUE_ONLY=Continue
 error.invalidPermissions=Agent must either have permission to submit checks or challenges
 error.invalidAgentCode=Invalid agent code
 error.alreadyAppointedAgent=This agent is already assigned to this property. If you want to change the permissions for this agent, you’ll need to remove their permissions and then appoint them with the new permissions.
@@ -605,32 +581,6 @@ propertyRepresentations.table.2=Number of properties
 propertyRepresentations.table.3=Actions
 propertyRepresentations.viewProperties=View properties
 manageProperties.noRepresentations=You have no representations
-permission.START_AND_CONTINUE=Yes
-permission.NOT_PERMITTED=No
-permission.CONTINUE_ONLY=Continue
-
-#PENDING AGENT REQUESTS
-pendingRepresentationRequests.select.deselect=Select/deselect all properties on this page
-pendingRepresentationRequests.accept=Accept
-pendingRepresentationRequests.accept.reject=Accept or reject selected client requests
-pendingRepresentationRequests.reject=Reject
-pendingRepresentationRequests.button.label=Submit
-pendingRepresentationRequests.title=Pending agent requests
-pendingRepresentationRequests.table.select=Select
-pendingRepresentationRequests.table.orgName=Organisation name
-pendingRepresentationRequests.table.propertyAddress=Property address
-pendingRepresentationRequests.table.permissions=Permissions
-pendingRepresentationRequests.table.dateRequested=Date requested
-pendingRepresentationRequests.table.5=Actions
-pendingRepresentationRequests.table.pending=In progress
-pendingRepresentationRequests.confirm.title=Confirm actions
-pendingRepresentationRequests.confirm.header={0} client requests
-pendingRepresentationRequests.single.confirm.para.1=Are you sure you wish to {0} 1 pending agent request?
-pendingRepresentationRequests.multiple.confirm.para.1=Are you sure you wish to {0} {1} pending agent requests?
-pendingRepresentationRequests.button.text={0} requests
-pendingRepresentationRequests.button.cancel=Cancel
-label.pendingRepresentationRequests.action=Accept or reject
-label.pendingRepresentationRequests.requestIds=Select at least one pending request
 
 #SEARCH
 search.title=Search and select a property to add to your customer record

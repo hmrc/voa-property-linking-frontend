@@ -28,7 +28,7 @@ case object All extends AddAgentOptions {
   val name = "all"
 }
 
-case object None extends AddAgentOptions {
+case object NoProperties extends AddAgentOptions {
   val name = "none"
 }
 
@@ -47,5 +47,5 @@ case object Yes extends AddAgentOptions {
 object AddAgentOptions extends NamedEnumSupport[AddAgentOptions] {
   implicit val format = EnumFormat(AddAgentOptions)
 
-  override def all: List[AddAgentOptions] = List(All, None, ChooseFromList, Yes, No)
+  override def all: List[AddAgentOptions] = List(All, NoProperties, ChooseFromList, Yes, No)
 }

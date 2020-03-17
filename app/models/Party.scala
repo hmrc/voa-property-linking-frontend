@@ -16,17 +16,15 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class Party(
       authorisedPartyId: Long,
       agentCode: Long,
       organisationName: String,
-      organisationId: Long,
-      checkPermission: AgentPermission,
-      challengePermission: AgentPermission
+      organisationId: Long
 )
 
 object Party {
-  implicit val format = Json.format[Party]
+  implicit val format: OFormat[Party] = Json.format
 }

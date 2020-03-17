@@ -28,7 +28,7 @@ import connectors.AgentsConnector
 import controllers.agent.routes
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.{EnumMapping, Mappings}
-import models.{RepresentationApproved, RepresentationPending, StartAndContinue, propertyrepresentation}
+import models.{RepresentationApproved, RepresentationPending, propertyrepresentation}
 import models.propertyrepresentation.{AddAgentOptions, AppointAgentRequest, AppointNewAgentSession, AppointmentScope, ChooseFromList, ManagingProperty, SearchedAgent, SelectedAgent, Yes}
 import models.propertyrepresentation.AppointAgentRequest.submitAppointAgentRequest
 import models.searchApi.AgentPropertiesFilter.{Both, No}
@@ -75,9 +75,7 @@ class AddAgentController @Inject()(
 
   def getAgentDetails(): Action[AnyContent] = authenticated.async { implicit request =>
     agentCode.bindFromRequest.fold(
-      errors => {
-        Future.successful(BadRequest(startPage(errors)))
-      },
+      errors => Future.successful(BadRequest(startPage(errors))),
       success => {
         Try(success.toLong).toOption match {
           case None =>
@@ -103,10 +101,7 @@ class AddAgentController @Inject()(
                           FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent")))
                     ))
                 }
-                case Some(agent)
-                    if organisationsAgents.agents
-                      .filter(a => a.representativeCode == representativeCode)
-                      .nonEmpty =>
+                case Some(_) if organisationsAgents.agents.exists(a => a.representativeCode == representativeCode) =>
                   BadRequest(
                     startPage(
                       agentCode.copy(
@@ -225,7 +220,7 @@ class AddAgentController @Inject()(
           } yield {
             success match {
               case ChooseFromList => joinOldJourney(selectedAgent.agentCode)
-              case propertyrepresentation.All | propertyrepresentation.None =>
+              case propertyrepresentation.All | propertyrepresentation.NoProperties =>
                 Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers())
             }
           }
@@ -274,8 +269,6 @@ class AddAgentController @Inject()(
           sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
           sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
         agentCode = agentCode,
-        checkPermission = StartAndContinue.name,
-        challengePermission = StartAndContinue.name,
         agentAppointed = Some(Both.name),
         backLink = controllers.agentAppointment.routes.AddAgentController.multipleProperties().url
       ))

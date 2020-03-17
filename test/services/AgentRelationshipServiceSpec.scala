@@ -66,7 +66,13 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
     when(mockRepresentationConnector.revoke(any())(any())).thenReturn(Future.successful())
     when(mockRepresentationConnector.create(any())(any())).thenReturn(Future.successful())
 
-    val res = testService.createAndSubmitAgentRepRequest(List("1"), 1L, 1L, 1L, StartAndContinue, NotPermitted, true)
+    val res = testService.createAndSubmitAgentRepRequest(
+      pLinkIds = List("1"),
+      agentOrgId = 1L,
+      organisationId = 1L,
+      individualId = 1L,
+      isAgent = true
+    )
 
     res.futureValue must be(())
 
@@ -94,7 +100,13 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
 
     val res = testService
-      .createAndSubmitAgentRepRequest(List("999", "8888"), 5L, 6L, 7L, StartAndContinue, StartAndContinue, true)
+      .createAndSubmitAgentRepRequest(
+        pLinkIds = List("999", "8888"),
+        agentOrgId = 5L,
+        organisationId = 6L,
+        individualId = 7L,
+        isAgent = true
+      )
 
     res.failed.futureValue must be(
       new services.AppointRevokeException("Property link 999 not found in property links cache."))
@@ -110,7 +122,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
 
     res.failed.futureValue must be(
       new services.AppointRevokeException(
-        "Agent 5 for the property link with subission ID 999 doesn't exist in cache - this shouldn't be possible."))
+        "Agent 5 for the property link with submission ID 999 doesn't exist in cache - this shouldn't be possible."))
   }
 
   "createAndSubmitAgentRepRequest" should "throw exception when session id doesn't exist in cache (handled by auth)" in {
@@ -118,7 +130,13 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(None))
 
     val res = testService
-      .createAndSubmitAgentRepRequest(List("999", "8888"), 5L, 6L, 7L, StartAndContinue, StartAndContinue, true)
+      .createAndSubmitAgentRepRequest(
+        pLinkIds = List("999", "8888"),
+        agentOrgId = 5L,
+        organisationId = 6L,
+        individualId = 7L,
+        isAgent = true
+      )
 
     res.failed.futureValue must be(
       new services.AppointRevokeException(
@@ -141,7 +159,13 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
     implicit val hc = HeaderCarrier()
 
     val res = testService
-      .createAndSubmitAgentRepRequest(List("999", "8888"), 5L, 6L, 7L, StartAndContinue, StartAndContinue, true)
+      .createAndSubmitAgentRepRequest(
+        pLinkIds = List("999", "8888"),
+        agentOrgId = 5L,
+        organisationId = 6L,
+        individualId = 7L,
+        isAgent = true
+      )
 
     res.failed.futureValue must be(new services.AppointRevokeException(
       "Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))

@@ -40,15 +40,6 @@ class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.validateAgentCode(1, 1))(_ mustBe agentCodeValidationResult)
   }
 
-  "forAgent" must "return the property representations for an agent" in new Setup {
-    val propertyRepresentation = mock[PropertyRepresentations]
-    val representationStatus = arbitrary[RepresentationStatus].sample.get
-    val pagination = mock[Pagination]
-
-    mockHttpGET[PropertyRepresentations]("tst-url", propertyRepresentation)
-    whenReady(connector.forAgent(representationStatus, 1, pagination))(_ mustBe propertyRepresentation)
-  }
-
   "create" must "post a representation request" in new Setup {
     val representationRequest = mock[RepresentationRequest]
 

@@ -89,7 +89,7 @@ GET         /keep-alive                                                         
 #APPOINT
 GET         /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
 POST        /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.submitAppointMultipleProperties()
-GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, checkPermission: String, challengePermission: String, agentAppointed: Option[String], backLink: String ?= "/my-organisation/appoint")
+GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, agentAppointed: Option[String], backLink: String ?= "/my-organisation/appoint")
 POST        /my-organisation/appoint/properties/create                                                                    @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 
 #NEW AGENT APPOINT JOURNEY
@@ -124,13 +124,6 @@ GET         /my-organisation/property-links/:submissionId/revoke/:agentCode     
 POST        /my-organisation/property-links/:submissionId/revoke/:agentCode                                               @controllers.agentAppointment.RevokeAgentController.revokeAgentSubmit(submissionId: String, agentCode: Long)
 
 GET         /my-organisation/property-links/:submissionId/revoke/:agentCode/confirmed                                     @controllers.agentAppointment.RevokeAgentController.revokeAgentConfirmed(submissionId: String, authorisedPartyId: Long, agentCode: Long)
-
-#AGENT ONLY
-GET           /my-organisation/clients/requests                                                 @controllers.agent.RepresentationController.getMyClientsPropertyLinkRequests(page: Int ?= 1, pageSize: Int ?= 15)
-POST          /my-organisation/clients/requests                                                @controllers.agent.RepresentationController.submitMyClientsPropertyLinkRequestResponse(page: Int, pageSize: Int)
-GET           /my-organisation/clients/requests/continue                                         @controllers.agent.RepresentationController.continue(page: Int, pageSize: Int)
-POST          /representation-request/bulkActions                                               @controllers.agent.RepresentationController.bulkActions
-
 
 #DVR
 #Owner Routes

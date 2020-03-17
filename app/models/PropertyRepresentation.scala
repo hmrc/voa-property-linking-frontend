@@ -16,8 +16,6 @@
 
 package models
 
-import java.time.LocalDate
-
 import play.api.libs.json.Json
 
 case class PropertyRepresentation(
@@ -27,9 +25,8 @@ case class PropertyRepresentation(
       organisationId: Long,
       organisationName: String,
       address: String,
-      checkPermission: AgentPermission,
-      challengePermission: AgentPermission,
-      status: RepresentationStatus)
+      status: RepresentationStatus
+)
 
 object PropertyRepresentation {
   implicit val propertyRepresentationFormat = Json.format[PropertyRepresentation]

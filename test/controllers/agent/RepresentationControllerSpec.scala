@@ -43,69 +43,6 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
         stubMessagesControllerComponents()
       )
 
-  "cancel" should "allow the user to cancel accepting/rejecting the pending representation requests" in {
-    StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
-
-    val res = TestController.cancel(1, 15)(
-      request.withFormUrlEncodedBody(
-        "page"         -> "1",
-        "pageSize"     -> "15",
-        "action"       -> "accept-confirm",
-        "requestIds[]" -> "1",
-        "complete"     -> "3"
-      ))
-
-    status(res) mustBe OK
-  }
-
-  "cancel" should "throw Bad Request if the form has errors" in {
-    StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
-
-    val res = TestController.cancel(1, 15)(
-      request.withFormUrlEncodedBody(
-        "page"         -> "",
-        "pageSize"     -> "",
-        "action"       -> "",
-        "requestIds[]" -> "1",
-        "complete"     -> ""
-      ))
-
-    status(res) mustBe BAD_REQUEST
-  }
-
-  "continue" should "redirect the user to the manage clients page" in {
-    StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
-
-    val res = TestController.continue(1, 15)(
-      request.withFormUrlEncodedBody(
-        "page"         -> "1",
-        "pageSize"     -> "15",
-        "action"       -> "accept",
-        "requestIds[]" -> "1",
-        "complete"     -> "3"
-      ))
-
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/manage-clients")
-  }
-
-  "continue" should "throw Bad Request if the form has errors" in {
-    StubPropertyLinkConnector.stubClientProperty(arbitrary[ClientProperty])
-    when(mockCustomErrorHandler.badRequestTemplate(any()))
-      .thenReturn(Html("BAD REQUEST"))
-
-    val res = TestController.continue(1, 15)(
-      request.withFormUrlEncodedBody(
-        "page"         -> "1",
-        "pageSize"     -> "",
-        "action"       -> "",
-        "requestIds[]" -> "",
-        "complete"     -> "3"
-      ))
-
-    status(res) mustBe BAD_REQUEST
-  }
-
   behavior of "revokeClientConfirmed method"
   it should "revoke an agent and redirect to the client properties page" in {
     val clientProperty: ClientProperty = arbitrary[ClientProperty]

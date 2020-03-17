@@ -23,7 +23,7 @@
 @import models.propertyrepresentation.AddAgentOptions
 
 @import models.propertyrepresentation.All
-@import models.propertyrepresentation.None
+@import models.propertyrepresentation.NoProperties
 @import models.propertyrepresentation.ChooseFromList
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
@@ -46,9 +46,9 @@
             idPrefix = Some("multipleProperties"),
             name = "multipleProperties",
             items = Seq(
-                RadioItem(id = Some("multipleProperties-All"), value = Some(All.name), checked = form.value.fold(false)(_ == All.name), content = Text(messages("propertyRepresentation.multipleProperties.options.all"))),
-                RadioItem(id = Some("multipleProperties-None"), value = Some(None.name), checked = form.value.fold(false)(_ == None.name), content = Text(messages("propertyRepresentation.multipleProperties.options.none"))),
-                RadioItem(id = Some("multipleProperties-ChooseFromList"), value = Some(ChooseFromList.name), checked = form.value.fold(false)(_ == ChooseFromList.name), content = Text(messages("propertyRepresentation.multipleProperties.options.chooseFromList")))
+                RadioItem(id = Some("multipleProperties-All"), value = Some(All.name), checked = form.value.fold(false)(_ == All), content = Text(messages("propertyRepresentation.multipleProperties.options.all"))),
+                RadioItem(id = Some("multipleProperties-NoProperties"), value = Some(NoProperties.name), checked = form.value.fold(false)(_ == NoProperties), content = Text(messages("propertyRepresentation.multipleProperties.options.noProperties"))),
+                RadioItem(id = Some("multipleProperties-ChooseFromList"), value = Some(ChooseFromList.name), checked = form.value.fold(false)(_ == ChooseFromList), content = Text(messages("propertyRepresentation.multipleProperties.options.chooseFromList")))
             ))
         )
 
