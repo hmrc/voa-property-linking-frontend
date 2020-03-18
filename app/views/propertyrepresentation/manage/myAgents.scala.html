@@ -31,7 +31,7 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.showAgents.title"),
-    backUri = Some("#")
+    backUri = Some(config.newDashboardUrl("home"))
 ) {
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.showAgents.title")</h1>
@@ -43,7 +43,11 @@
                         ),
                 TableRow(
                     content = Text(messages("propertyRepresentation.showAgents.properties", agent.propertyCount, propertyLinkingCount))
+                ),
+                TableRow(
+                            content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentDProperties", "#")))
                 )
+
             )
         },
         head = Some(List(
@@ -52,6 +56,9 @@
             ),
             HeadCell(
                 content = Text(messages("label.assigned.to"))
+            )
+            ,
+            HeadCell(
             )
         )),
         caption = None,

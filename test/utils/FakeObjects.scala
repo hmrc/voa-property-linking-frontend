@@ -204,8 +204,8 @@ trait FakeObjects {
   )
 
   val ownerAuthResultWithNoAuthorisations = OwnerAuthResult(
-    start = 0,
-    size = 0,
+    start = 1,
+    size = 15,
     filterTotal = 0,
     total = 0,
     authorisations = Seq.empty
