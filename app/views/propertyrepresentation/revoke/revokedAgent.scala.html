@@ -17,7 +17,7 @@
 @import utils.Formatters
 @import config.ApplicationConfig
 
-@(url: String, agentName: String, address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(url: String, agentName: Option[String], address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
     title = Messages("propertyRepresentation.revokedAgent.title"),
@@ -29,7 +29,11 @@
         <div class="column-two-thirds">
                 
             <div class="transaction-banner--complete">
-                <h1 class="transaction-banner__heading">@messages("propertyRepresentation.revokedAgent.heading", agentName)</h1>
+                @if(agentName.isDefined) {
+                    <h1 class="transaction-banner__heading">@messages("propertyRepresentation.revokedAgent.heading", agentName.get)</h1>
+                } else {
+                    <h1 class="transaction-banner__heading">@messages("propertyRepresentation.revokedAgent.heading.generic")</h1>
+                }
             </div>
 
             <h2 class="heading-medium">@messages("propertyRepresentation.revokedAgent.whatNext")</h2>
