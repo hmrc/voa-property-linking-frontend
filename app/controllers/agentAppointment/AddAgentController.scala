@@ -86,7 +86,7 @@ class AddAgentController @Inject()(
                     data = Map("agentCode" -> success),
                     errors = Seq[FormError](FormError(key = "agentCode", message = "error.agentCode.required")))
                 )))
-          case Some(representativeCode) => {
+          case Some(representativeCode) =>
             for {
               organisationsAgents    <- agentRelationshipService.getMyOrganisationAgents()
               agentNameAndAddressOpt <- agentRelationshipService.getAgentNameAndAddress(success.toLong)
@@ -121,7 +121,7 @@ class AddAgentController @Inject()(
                 }
               }
             }
-          }
+
         }
       }
     )
