@@ -110,6 +110,7 @@ POST        /my-organisation/appoint-agent                                      
 
 #MANAGE AGENT
 GET         /my-organisation/manage-agent                                                                                 @controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
+GET         /my-organisation/show-agent/properties                                                                        @controllers.agent.ManageAgentController.showAgents()
 
 POST        /my-organisation/manage-agent/:agentCode                                                                      @controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)
 
