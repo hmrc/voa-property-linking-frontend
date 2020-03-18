@@ -205,9 +205,9 @@ trait FakeObjects {
 
   val ownerAuthResultWithNoAuthorisations = OwnerAuthResult(
     start = 1,
-    size = 10,
-    filterTotal = 10,
-    total = 10,
+    size = 15,
+    filterTotal = 0,
+    total = 0,
     authorisations = Seq.empty
   )
 
@@ -224,6 +224,7 @@ trait FakeObjects {
     appointedDate = LocalDate.now().minusDays(1),
     propertyCount = 2
   )
+
   val organisationsAgentsList = AgentList(resultCount = 1, agents = List(agentSummary))
   val emptyOrganisationsAgentsList = AgentList(resultCount = 0, agents = List.empty)
 

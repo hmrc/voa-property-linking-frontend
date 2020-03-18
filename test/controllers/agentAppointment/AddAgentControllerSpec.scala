@@ -32,7 +32,7 @@ import play.twirl.api.Html
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
+class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
   "startAppointJourney" should "show the appoint new agent start page" in {
     when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
@@ -292,7 +292,7 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
     status(res) mustBe OK
   }
 
-  "appointAgent" should "return 404 Bad Request when invalid form is submitted - scope is missing" in {
+  "appointAgent" should "return 400 Bad Request when invalid form is submitted - scope is missing" in {
     when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
       .thenReturn(Future.successful(AppointAgentResponse("some-id")))
 
@@ -301,7 +301,7 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
     status(res) mustBe BAD_REQUEST
   }
 
-  "appointAgent" should "return 404 Bad Request when invalid form is submitted - agentCode is missing" in {
+  "appointAgent" should "return 400 Bad Request when invalid form is submitted - agentCode is missing" in {
     when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
       .thenReturn(Future.successful(AppointAgentResponse("some-id")))
 
@@ -312,7 +312,7 @@ class AgentRelationshipControllerSpec extends VoaPropertyLinkingSpec with Mockit
 
   private val stubWithAppointAgentSession = new StubWithAppointAgentSessionRefiner(mockSessionRepo)
 
-  private lazy val testController = new AgentRelationshipController(
+  private lazy val testController = new AddAgentController(
     mockCustomErrorHandler,
     preAuthenticatedActionBuilders(),
     stubWithAppointAgentSession,

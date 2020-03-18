@@ -1,0 +1,48 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import actions.requests.BasicAuthenticatedRequest
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import models.propertyrepresentation.ManageAgentOptionItem
+@import models.propertyrepresentation.ManageAgentOptions
+@import models.propertyrepresentation.RemoveFromYourAccount
+@import models.propertyrepresentation.ManageAgentRequest
+@import models.propertyrepresentation.AgentSummary
+
+@import config.ApplicationConfig
+
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+
+
+@(form: Form[ManageAgentRequest], agent: AgentSummary)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+
+
+@mainLayout(
+    pageTitle = messages("propertyRepresentation.manageAgent.title"),
+    backUri = Some("#")
+) {
+
+    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.removeFromAccount.question", agent.name)</h1>
+
+    @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent(agent.representativeCode)) {
+        <input type="hidden" name="agentCode" value="@agent.representativeCode">
+        <input type="hidden" name="manageAgentOption" value="@RemoveFromYourAccount.name">
+        @govukButton(Button(content = Text(messages("label.continue"))))
+    }
+
+}

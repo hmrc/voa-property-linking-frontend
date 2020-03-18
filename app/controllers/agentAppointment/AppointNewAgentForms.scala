@@ -17,7 +17,7 @@
 package controllers.agentAppointment
 
 import form.{EnumMapping, Mappings}
-import models.propertyrepresentation.ManagePropertiesOptions
+import models.propertyrepresentation.AddAgentOptions
 import play.api.data.{Form, Forms}
 import play.api.data.Forms.{boolean, longNumber, mapping, optional, single, text}
 
@@ -34,8 +34,8 @@ object AppointNewAgentForms {
           .verifying("error.isThisYourAgent.required", _.isDefined)
           .transform(_.get, Some.apply(_: Boolean))))
 
-  val manageOneProperty: Form[ManagePropertiesOptions] = Form(
-    Forms.single("oneProperty" -> EnumMapping(ManagePropertiesOptions, "error.oneProperty.required")))
-  val manageMultipleProperties: Form[ManagePropertiesOptions] = Form(
-    Forms.single("multipleProperties" -> EnumMapping(ManagePropertiesOptions, "error.multipleProperties.required")))
+  val manageOneProperty: Form[AddAgentOptions] = Form(
+    Forms.single("oneProperty" -> EnumMapping(AddAgentOptions, "error.oneProperty.required")))
+  val manageMultipleProperties: Form[AddAgentOptions] = Form(
+    Forms.single("multipleProperties" -> EnumMapping(AddAgentOptions, "error.multipleProperties.required")))
 }

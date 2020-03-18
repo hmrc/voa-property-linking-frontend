@@ -75,7 +75,7 @@
         firstCellIsHeader = false
     ))
 
-    @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.appointAgent()) {
+    @FormWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.appointAgent()) {
         <input type="hidden" name="agentCode" value="@data.agentCode">
         <input type="hidden" name="scope" value="@appointmentScope">
 

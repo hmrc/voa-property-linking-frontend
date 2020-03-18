@@ -20,7 +20,7 @@
 
 @import config.ApplicationConfig
 
-@import models.propertyrepresentation.ManagePropertiesOptions
+@import models.propertyrepresentation.AddAgentOptions
 
 @import models.propertyrepresentation.All
 @import models.propertyrepresentation.NoProperties
@@ -28,11 +28,11 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
-@(form: Form[ManagePropertiesOptions], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AddAgentOptions], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.addAnAgent.title"),
-    backUri = Some(controllers.agentAppointment.routes.AgentRelationshipController.isCorrectAgent().url)
+    backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent().url)
 ) {
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.multipleProperties.question", agentName)</h1>
@@ -41,7 +41,7 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    @FormWithCSRF(action = controllers.agentAppointment.routes.AgentRelationshipController.submitMultipleProperties()) {
+    @FormWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitMultipleProperties()) {
         @govukRadios(Radios(
             idPrefix = Some("multipleProperties"),
             name = "multipleProperties",
