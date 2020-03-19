@@ -446,7 +446,7 @@ propertyRepresentation.checkYourAnswers.submit=Submit
 propertyRepresentation.confirmation={0} has been appointed for you
 propertyRepresentation.confirmation.emailSent=We have sent you a confirmation email.
 propertyRepresentation.confirmation.whatHappensNext=What happens next
-propertyRepresentation.confirmation.whatHappensNext.p1=We will notify Knight Frank that you have appointed them as your agent.
+propertyRepresentation.confirmation.whatHappensNext.p1=We will notify {0} that you have appointed them as your agent.
 
 error.propertyRepresentation.title=There is a problem
 error.propertyRepresentation.unknownAgent=There is no agent for the provided agent code
@@ -471,6 +471,11 @@ propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Unassign f
 propertyRepresentation.manageAgent.options.assignToYourProperty=Assign to your property
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from your account
 
+propertyRepresentation.manageAgent.assignToAllProperties.question=Are you sure you want to assign {0} to all your properties?
+
+propertyRepresentation.manageAgent.confirmation={0} has been assigned to all your properties
+propertyRepresentation.manageAgent.confirmation.whatHappensNext=What happens next
+propertyRepresentation.manageAgent.confirmation.whatHappensNext.p1={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
 
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
@@ -539,6 +544,7 @@ propertyRepresentation.revokeAgent.button=Remove agent
 
 propertyRepresentation.revokedAgent.title=Remove agent
 propertyRepresentation.revokedAgent.heading=We’ve received your request to remove {0}
+propertyRepresentation.revokedAgent.heading.generic=We’ve received your request to remove the agent
 propertyRepresentation.revokedAgent.whatNext=What happens next
 propertyRepresentation.revokedAgent.p.1=The agent will no longer be able to act on behalf of {0}.
 propertyRepresentation.revokedAgent.p.2=They will no longer appear in the ‘Manage agents’ section on your dashboard for this property.
@@ -804,6 +810,7 @@ startChallenge.p.4=Please be aware of the risks before sending any confidential 
 
 #COMMON
 label.continue=Continue
+label.confirm=Confirm
 label.companyName=Company name
 label.footer.licence=All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
 label.footer.ogl=Open Government Licence

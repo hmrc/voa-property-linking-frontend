@@ -20,6 +20,7 @@ import actions.AuthenticatedAction
 import config.ApplicationConfig
 import controllers.VoaPropertyLinkingSpec
 import controllers.agent.ManageAgentController
+import models.propertyrepresentation.{AppointAgentResponse, AppointmentScope, AssignToAllProperties, AssignToSomeProperties}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
@@ -41,6 +42,10 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     mock[views.html.propertyrepresentation.manage.removeAgentFromOrganisation]
   private val mockUnassignAgentFromPropertyPage =
     mock[views.html.propertyrepresentation.manage.unassignAgentFromProperty]
+  private val mockAddAgentToAllPropertyPage =
+    mock[views.html.propertyrepresentation.manage.addAgentToAllProperties]
+  private val mockConfirmAddAgentToAllProperty =
+    mock[views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties]
   private val mockMyAgentsPage = mock[views.html.propertyrepresentation.manage.myAgents]
 
   val testController = new ManageAgentController(
@@ -50,7 +55,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     manageAgentPage = mockManageAgentPage,
     myAgentsPage = mockMyAgentsPage,
     removeAgentFromOrganisation = mockRemoveAgentFromOrganisationPage,
-    unassignAgentFromProperty = mockUnassignAgentFromPropertyPage
+    unassignAgentFromProperty = mockUnassignAgentFromPropertyPage,
+    addAgentToAllProperty = mockAddAgentToAllPropertyPage,
+    confirmAddAgentToAllProperty = mockConfirmAddAgentToAllProperty
   )
 
   "manageAgent" should "show the manage agent page" in {
@@ -60,19 +67,6 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
     when(mockRemoveAgentFromOrganisationPage.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     val res = testController.manageAgent(None)(FakeRequest())
-    status(res) mustBe OK
-  }
-
-  "myAgents" should "show the my agents page" in {
-    val propertyLinksCount = 1
-
-    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future.successful(organisationsAgentsList))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
-      .thenReturn(Future.successful(propertyLinksCount))
-    when(mockMyAgentsPage.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
-
-    val res = testController.showAgents()(FakeRequest())
     status(res) mustBe OK
   }
 
@@ -205,6 +199,68 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "unassignFromAllProperties"))
     status(res) mustBe BAD_REQUEST
+  }
+
+  "submitManageAgent" should "return 200 Ok when IP chooses to appoint agent to all properties" in {
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
+      Future.successful(organisationsAgentsList.copy(
+        agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
+    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+    when(mockManageAgentPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
+    when(mockAddAgentToAllPropertyPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("addAgentToAllProperty"))
+
+    val res = testController.submitManageAgent(agentCode)(
+      FakeRequest()
+        .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToAllProperties.name}", "agentName" -> "Agent Org"))
+
+    status(res) mustBe OK
+  }
+
+  "submitManageAgent" should "return 303 Redirect when IP chooses to appoint agent to some properties" in {
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
+      Future.successful(organisationsAgentsList.copy(
+        agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
+    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+    when(mockManageAgentPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
+
+    val res = testController.submitManageAgent(agentCode)(
+      FakeRequest()
+        .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToSomeProperties.name}", "agentName" -> "Agent Org"))
+
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe
+      Some(
+        "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&sortfield" +
+          "=ADDRESS&sortorder=ASC&agentCode=12345&agentAppointed=BOTH&backLink=%2F" +
+          "business-rates-property-linking%2Fmy-organisation%2Fmanage-agent%3FagentCode%3D12345")
+  }
+
+  "assignAgentToAll" should "return 400 Bad Request when invalid form submitted" in {
+    when(mockAddAgentToAllPropertyPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("addAgentToAllProperty"))
+
+    val res = testController.assignAgentToAll(agentCode, "Some agent org")(
+      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "assignAgentToAll" should "return 200 Ok a valid form is submitted" in {
+    when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
+      .thenReturn(Future.successful(AppointAgentResponse("some-id")))
+    when(mockConfirmAddAgentToAllProperty.apply(any())(any(), any(), any()))
+      .thenReturn(Html("confirmAddAgentToAllProperty"))
+
+    val res = testController.assignAgentToAll(agentCode, "Some agent org")(
+      FakeRequest()
+        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"))
+
+    status(res) mustBe OK
   }
 
 }

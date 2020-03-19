@@ -96,7 +96,7 @@ class RevokeAgentController @Inject()(
               .flatMap {
                 case Some(link) =>
                   link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-                    case Some(_) =>
+                    case Some(agent) =>
                       representations.revoke(authorisedPartyId).map {
                         _ =>
                           {
@@ -113,6 +113,7 @@ class RevokeAgentController @Inject()(
                             )
                             Redirect(routes.RevokeAgentController
                               .revokeAgentConfirmed(submissionId, authorisedPartyId, agentCode))
+                              .flashing("agentOrganisationName" -> agent.organisationName)
                           }
                       }
                     case None => Future.successful(notFound)
@@ -131,23 +132,9 @@ class RevokeAgentController @Inject()(
           } else {
             controllers.routes.Dashboard.manageAgents().url
           }
-
-          link.agents.find(a => agentIsAuthorised(a, authorisedPartyId, agentCode)) match {
-            case Some(agent) =>
-              auditingService.sendEvent(
-                "agent representation revoke",
-                Json
-                  .obj(
-                    "organisationId"      -> request.organisationId,
-                    "individualId"        -> request.individualAccount.individualId,
-                    "propertyLinkId"      -> submissionId,
-                    "agentOrganisationId" -> request.organisationAccount.id
-                  )
-                  .toString
-              )
-              Ok(views.html.propertyrepresentation.revoke.revokedAgent(nextLink, agent.organisationName, link.address))
-            case None => notFound
-          }
+          Ok(
+            views.html.propertyrepresentation.revoke
+              .revokedAgent(nextLink, request.flash.get("agentOrganisationName"), link.address))
         case None => notFound
       }
     }

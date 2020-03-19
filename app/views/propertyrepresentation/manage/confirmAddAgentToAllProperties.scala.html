@@ -29,14 +29,16 @@
     backUri = None
 ) {
 
-    @govukPanel(Panel(
-        title = Text(messages("propertyRepresentation.confirmation", agentName)),
-        content = HtmlContent("")
-    ))
-    <p class="govuk-body">@messages("propertyRepresentation.confirmation.emailSent")</p>
+    @govukPanel(
+        Panel(
+            title = Text(messages("propertyRepresentation.confirmation", agentName)),
+            content = HtmlContent("")
+        )
+    )
 
-    <h2 id="whatHappensNext" class="govuk-heading-m">@messages("propertyRepresentation.confirmation.whatHappensNext")</h2>
-    <p id="whatHappensNextP1" class="govuk-body">@messages("propertyRepresentation.confirmation.whatHappensNext.p1, agentName")</p>
+    <h2 id="whatHappensNext" class="govuk-heading-m">@messages("propertyRepresentation.manageAgent.confirmation.whatHappensNext")</h2>
+
+    <p id="whatHappensNextP1" class="govuk-body">@messages("propertyRepresentation.manageAgent.confirmation.whatHappensNext.p1", agentName)</p>
 
     <p>
         <a id="homeLink" href="@config.newDashboardUrl("home")">@messages("link.return.home")</a>
