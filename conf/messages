@@ -452,7 +452,7 @@ error.propertyRepresentation.title=There is a problem
 error.propertyRepresentation.unknownAgent=There is no agent for the provided agent code
 error.propertyRepresentation.agentAlreadyAppointed=This agent has already been added to your account
 
-#Show your agnets
+#Show your agents
 propertyRepresentation.showAgents.title=Your agents
 propertyRepresentation.showAgents.properties={0} of {1} properties
 propertyRepresentation.showAgents.viewAgentDProperties=<a class="govuk-link" href="{0}">View</a>
