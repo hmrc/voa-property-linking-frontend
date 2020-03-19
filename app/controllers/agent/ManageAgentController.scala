@@ -17,7 +17,8 @@
 package controllers.agent
 
 import actions.AuthenticatedAction
-import binders.propertylinks.GetPropertyLinksParameters
+import binders.pagination.PaginationParameters
+import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.EnumMapping
@@ -128,7 +129,7 @@ class ManageAgentController @Inject()(
         }
       }, { success =>
         success.manageAgentOption match {
-          case AssignToSomeProperties => ??? //fixme this will be implemented in VTCCA-3208
+          case AssignToSomeProperties => Future.successful(joinOldJourney(agentCode))
           case AssignToAllProperties =>
             Future.successful(Ok(addAgentToAllProperty(submitAppointAgentRequest, success.agentName, agentCode)))
           case _ => ??? //fixme this will be implemented in subsequent stories (VTCCA-3208, VTCCA-3207, VTCCA-3205)
@@ -149,5 +150,17 @@ class ManageAgentController @Inject()(
         }
       )
   }
+
+  private def joinOldJourney(agentCode: Long) =
+    Redirect(
+      controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
+        pagination = PaginationParameters(page = 1, pageSize = 15),
+        params = GetPropertyLinksParameters(
+          sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
+          sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
+        agentCode = agentCode,
+        agentAppointed = Some(Both.name),
+        backLink = controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
+      ))
 
 }
