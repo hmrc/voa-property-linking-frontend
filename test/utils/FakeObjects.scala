@@ -168,6 +168,13 @@ trait FakeObjects {
     agentCode = agentCode
   )
 
+  val ownerAuthAgent2 = OwnerAuthAgent(
+    authorisedPartyId = 1222L,
+    organisationId = 122L,
+    organisationName = "Some Org name 2",
+    agentCode = 6754L
+  )
+
   val ownerAuthorisation = OwnerAuthorisation(
     authorisationId = 4222211L,
     status = "APPROVED",
@@ -184,7 +191,16 @@ trait FakeObjects {
     uarn = 999000112L,
     address = "124, Some address",
     localAuthorityRef = "BAREF2",
-    agents = Seq(ownerAuthAgent)
+    agents = Seq(ownerAuthAgent2)
+  )
+  val ownerAuthorisationWithNoAgent = OwnerAuthorisation(
+    authorisationId = 4222212L,
+    status = "APPROVED",
+    submissionId = "PLSubId2",
+    uarn = 999000112L,
+    address = "124, Some address",
+    localAuthorityRef = "BAREF2",
+    agents = Seq.empty
   )
 
   val ownerAuthResultWithOneAuthorisation = OwnerAuthResult(
@@ -201,6 +217,14 @@ trait FakeObjects {
     filterTotal = 2,
     total = 2,
     authorisations = Seq(ownerAuthorisation, ownerAuthorisation2)
+  )
+
+  val ownerAuthResultWithTwoAuthsAgentAssignedToOne = OwnerAuthResult(
+    start = 1,
+    size = 2,
+    filterTotal = 2,
+    total = 2,
+    authorisations = Seq(ownerAuthorisation, ownerAuthorisationWithNoAgent)
   )
 
   val ownerAuthResultWithNoAuthorisations = OwnerAuthResult(

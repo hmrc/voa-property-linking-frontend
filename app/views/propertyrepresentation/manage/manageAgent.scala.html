@@ -52,7 +52,7 @@
     }
     @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent(agent.representativeCode)) {
 
-        <input type="hidden" name="agentCode" value="@agent.representativeCode">
+        <input type="hidden" name="agentName" value="@agent.name">
         @govukRadios(Radios(
             idPrefix = Some("manageAgentOption"),
             name = "manageAgentOption",
