@@ -464,7 +464,7 @@ propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Unassign f
 propertyRepresentation.manageAgent.options.assignToYourProperty=Assign to your property
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from your account
 
-propertyRepresentation.manageAgent.assignToAllProperties.question=Are you sure you want to add {0} to all your properties?
+propertyRepresentation.manageAgent.assignToAllProperties.question=Are you sure you want to assign {0} to all your properties?
 
 propertyRepresentation.manageAgent.confirmation={0} has been assigned to all your properties
 propertyRepresentation.manageAgent.confirmation.whatHappensNext=What happens next
