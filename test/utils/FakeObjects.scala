@@ -205,7 +205,7 @@ trait FakeObjects {
 
   val ownerAuthResultWithOneAuthorisation = OwnerAuthResult(
     start = 1,
-    size = 1,
+    size = 15,
     filterTotal = 1,
     total = 1,
     authorisations = Seq(ownerAuthorisation)
@@ -213,7 +213,7 @@ trait FakeObjects {
 
   val ownerAuthResultWithTwoAuthorisation = OwnerAuthResult(
     start = 1,
-    size = 2,
+    size = 15,
     filterTotal = 2,
     total = 2,
     authorisations = Seq(ownerAuthorisation, ownerAuthorisation2)
@@ -221,7 +221,7 @@ trait FakeObjects {
 
   val ownerAuthResultWithTwoAuthsAgentAssignedToOne = OwnerAuthResult(
     start = 1,
-    size = 2,
+    size = 15,
     filterTotal = 2,
     total = 2,
     authorisations = Seq(ownerAuthorisation, ownerAuthorisationWithNoAgent)

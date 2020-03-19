@@ -45,8 +45,8 @@ class ManageAgentController @Inject()(
       manageAgentPage: views.html.propertyrepresentation.manage.manageAgent,
       removeAgentFromOrganisation: views.html.propertyrepresentation.manage.removeAgentFromOrganisation,
       unassignAgentFromProperty: views.html.propertyrepresentation.manage.unassignAgentFromProperty,
-      addAgentToAllProperty: views.html.propertyrepresentation.manage.addAgentToAllProperty,
-      confirmAddAgentToAllProperty: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperty)(
+      addAgentToAllProperty: views.html.propertyrepresentation.manage.addAgentToAllProperties,
+      confirmAddAgentToAllProperty: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,

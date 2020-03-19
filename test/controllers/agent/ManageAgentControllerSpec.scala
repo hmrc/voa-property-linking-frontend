@@ -43,9 +43,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   private val mockUnassignAgentFromPropertyPage =
     mock[views.html.propertyrepresentation.manage.unassignAgentFromProperty]
   private val mockAddAgentToAllPropertyPage =
-    mock[views.html.propertyrepresentation.manage.addAgentToAllProperty]
+    mock[views.html.propertyrepresentation.manage.addAgentToAllProperties]
   private val mockConfirmAddAgentToAllProperty =
-    mock[views.html.propertyrepresentation.manage.confirmAddAgentToAllProperty]
+    mock[views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties]
 
   val testController = new ManageAgentController(
     errorHandler = mockCustomErrorHandler,
