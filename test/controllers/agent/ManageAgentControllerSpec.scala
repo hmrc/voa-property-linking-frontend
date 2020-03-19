@@ -64,6 +64,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "myAgents" should "show the my agents page" in {
+    val propertyLinksCount = 1
+
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future.successful(organisationsAgentsList))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))

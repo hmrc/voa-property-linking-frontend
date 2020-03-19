@@ -45,7 +45,7 @@
                     content = Text(messages("propertyRepresentation.showAgents.properties", agent.propertyCount, propertyLinkingCount))
                 ),
                 TableRow(
-                            content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentDProperties", "#")))
+                            content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentDProperties", s"""${controllers.agent.routes.ManageAgentController.manageAgent(Some(agent.representativeCode))}""")))
                 )
 
             )

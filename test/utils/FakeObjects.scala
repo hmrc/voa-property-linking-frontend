@@ -230,5 +230,4 @@ trait FakeObjects {
 
   val agentDetails = AgentDetails(name = "Awesome Agent", address = "1 Awesome Street, AB1 1BA")
 
-  val propertyLinksCount = 1
 }
