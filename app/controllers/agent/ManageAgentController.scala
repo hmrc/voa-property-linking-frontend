@@ -22,8 +22,9 @@ import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.EnumMapping
 import javax.inject.{Inject, Named}
+import models.propertyrepresentation.AppointAgentRequest.submitAppointAgentRequest
 import models.{RepresentationApproved, RepresentationPending}
-import models.propertyrepresentation.{AgentList, AgentOrganisation, AgentSummary, ManageAgentOptions, ManageAgentRequest}
+import models.propertyrepresentation.{AgentList, AgentOrganisation, AgentSummary, AppointAgentRequest, AssignToAllProperties, AssignToSomeProperties, ManageAgentOptions, ManageAgentRequest, UnassignFromAllProperties}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
@@ -43,7 +44,9 @@ class ManageAgentController @Inject()(
       agentRelationshipService: AgentRelationshipService,
       manageAgentPage: views.html.propertyrepresentation.manage.manageAgent,
       removeAgentFromOrganisation: views.html.propertyrepresentation.manage.removeAgentFromOrganisation,
-      unassignAgentFromProperty: views.html.propertyrepresentation.manage.unassignAgentFromProperty)(
+      unassignAgentFromProperty: views.html.propertyrepresentation.manage.unassignAgentFromProperty,
+      addAgentToAllProperty: views.html.propertyrepresentation.manage.addAgentToAllProperties,
+      confirmAddAgentToAllProperty: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -99,7 +102,7 @@ class ManageAgentController @Inject()(
               ManageAgentOptions.multiplePropertyLinksNoAssignedAgentsOptions,
               agent))
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
-          //agent is not assigned to all of the IP's property links
+          //agent is assigned to some (but not all) of the IP's property links
           Some(
             manageAgentPage(
               submitManageAgentForm,
@@ -124,9 +127,27 @@ class ManageAgentController @Inject()(
           case Some(page) => BadRequest(page)
         }
       }, { success =>
-        ??? //fixme this will be implemented in subsequent stories (VTCCA-3208, VTCCA-3207, VTCCA-3205)
+        success.manageAgentOption match {
+          case AssignToSomeProperties => ??? //fixme this will be implemented in VTCCA-3208
+          case AssignToAllProperties =>
+            Future.successful(Ok(addAgentToAllProperty(submitAppointAgentRequest, success.agentName, agentCode)))
+          case _ => ??? //fixme this will be implemented in subsequent stories (VTCCA-3208, VTCCA-3207, VTCCA-3205)
+        }
       }
     )
+  }
+
+  def assignAgentToAll(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      submitAppointAgentRequest.bindFromRequest.fold(
+        errors => {
+          Future.successful(BadRequest(addAgentToAllProperty(errors, agentName, agentCode)))
+        }, { success =>
+          agentRelationshipService
+            .sendAppointAgentRequest(success)
+            .map(_ => Ok(confirmAddAgentToAllProperty(agentName)))
+        }
+      )
   }
 
 }

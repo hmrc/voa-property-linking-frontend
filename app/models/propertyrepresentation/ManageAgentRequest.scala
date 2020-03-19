@@ -21,7 +21,7 @@ import play.api.data.{Form, Forms}
 import play.api.data.Forms.{longNumber, mapping, optional, text}
 import play.api.libs.json.{Json, OFormat}
 
-case class ManageAgentRequest(agentCode: Long, manageAgentOption: ManageAgentOptions)
+case class ManageAgentRequest(agentName: String, manageAgentOption: ManageAgentOptions)
 
 object ManageAgentRequest {
 
@@ -30,7 +30,7 @@ object ManageAgentRequest {
   val submitManageAgentRequest: Form[ManageAgentRequest] =
     Form(
       mapping(
-        "agentCode"         -> longNumber,
+        "agentName"         -> text,
         "manageAgentOption" -> EnumMapping(ManageAgentOptions)
       )(ManageAgentRequest.apply)(ManageAgentRequest.unapply)
     )
