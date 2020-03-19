@@ -186,4 +186,12 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
 
     testService.getAgentNameAndAddress(125L).futureValue mustBe Some(agentDetails)
   }
+
+  "getMyOrganisationPropertyLinksCount" should "return organisation property links count" in {
+    val propertyLinksCount = 1
+
+    when(mockPropertyLinkConnector.getMyOrganisationPropertyLinksCount()).thenReturn(Future.successful(propertyLinksCount))
+
+    testService.getMyOrganisationPropertyLinksCount().futureValue mustBe propertyLinksCount
+  }
 }

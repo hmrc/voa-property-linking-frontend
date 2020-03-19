@@ -107,6 +107,9 @@ class AgentRelationshipService @Inject()(
   def getMyOrganisationAgents()(implicit hc: HeaderCarrier): Future[AgentList] =
     propertyLinks.getMyOrganisationAgents()
 
+  def getMyOrganisationPropertyLinksCount()(implicit hc: HeaderCarrier): Future[Int] =
+    propertyLinks.getMyOrganisationPropertyLinksCount()
+
   private def appointAgent(
         pLink: String,
         agentOrgId: Long,

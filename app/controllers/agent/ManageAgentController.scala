@@ -44,6 +44,7 @@ class ManageAgentController @Inject()(
       authenticated: AuthenticatedAction,
       agentRelationshipService: AgentRelationshipService,
       manageAgentPage: views.html.propertyrepresentation.manage.manageAgent,
+      myAgentsPage: views.html.propertyrepresentation.manage.myAgents,
       removeAgentFromOrganisation: views.html.propertyrepresentation.manage.removeAgentFromOrganisation,
       unassignAgentFromProperty: views.html.propertyrepresentation.manage.unassignAgentFromProperty,
       addAgentToAllProperty: views.html.propertyrepresentation.manage.addAgentToAllProperties,
@@ -55,6 +56,14 @@ class ManageAgentController @Inject()(
 ) extends PropertyLinkingController {
 
   val logger = Logger(this.getClass.getName)
+
+  def showAgents(): Action[AnyContent] = authenticated.async { implicit request =>
+    for {
+      organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
+      propertyLinksCount  <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
+    } yield Ok(myAgentsPage(organisationsAgents.agents, propertyLinksCount))
+
+  }
 
   def manageAgent(agentCode: Option[Long]): Action[AnyContent] = authenticated.async { implicit request =>
     getManageAgentPage(agentCode).map {
