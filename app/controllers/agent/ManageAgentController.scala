@@ -23,9 +23,9 @@ import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.EnumMapping
 import javax.inject.{Inject, Named}
-import models.propertyrepresentation.AppointAgentRequest.submitAppointAgentRequest
+import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.{RepresentationApproved, RepresentationPending}
-import models.propertyrepresentation.{AgentList, AgentOrganisation, AgentSummary, AppointAgentRequest, AssignToAllProperties, AssignToSomeProperties, ManageAgentOptions, ManageAgentRequest, UnassignFromAllProperties}
+import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentList, AgentOrganisation, AgentSummary, AssignToAllProperties, AssignToSomeProperties, ManageAgentOptions, ManageAgentRequest, UnassignFromAllProperties}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
@@ -47,8 +47,10 @@ class ManageAgentController @Inject()(
       myAgentsPage: views.html.propertyrepresentation.manage.myAgents,
       removeAgentFromOrganisation: views.html.propertyrepresentation.manage.removeAgentFromOrganisation,
       unassignAgentFromProperty: views.html.propertyrepresentation.manage.unassignAgentFromProperty,
-      addAgentToAllProperty: views.html.propertyrepresentation.manage.addAgentToAllProperties,
-      confirmAddAgentToAllProperty: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties)(
+      addAgentToAllProperties: views.html.propertyrepresentation.manage.addAgentToAllProperties,
+      confirmAddAgentToAllProperties: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties,
+      unassignAgentFromAllProperties: views.html.propertyrepresentation.manage.unassignAgentFromAllProperties,
+      confirmUnassignAgentFromAllProperties: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -140,8 +142,11 @@ class ManageAgentController @Inject()(
         success.manageAgentOption match {
           case AssignToSomeProperties => Future.successful(joinOldJourney(agentCode))
           case AssignToAllProperties =>
-            Future.successful(Ok(addAgentToAllProperty(submitAppointAgentRequest, success.agentName, agentCode)))
-          case _ => ??? //fixme this will be implemented in subsequent stories (VTCCA-3208, VTCCA-3207, VTCCA-3205)
+            Future.successful(Ok(addAgentToAllProperties(submitAgentAppointmentRequest, success.agentName, agentCode)))
+          case UnassignFromAllProperties =>
+            Future.successful(
+              Ok(unassignAgentFromAllProperties(submitAgentAppointmentRequest, success.agentName, agentCode)))
+          case _ => ??? //fixme this will be implemented in subsequent stories (VTCCA-3206)
         }
       }
     )
@@ -149,13 +154,26 @@ class ManageAgentController @Inject()(
 
   def assignAgentToAll(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
     implicit request =>
-      submitAppointAgentRequest.bindFromRequest.fold(
+      submitAgentAppointmentRequest.bindFromRequest.fold(
         errors => {
-          Future.successful(BadRequest(addAgentToAllProperty(errors, agentName, agentCode)))
+          Future.successful(BadRequest(addAgentToAllProperties(errors, agentName, agentCode)))
         }, { success =>
           agentRelationshipService
-            .sendAppointAgentRequest(success)
-            .map(_ => Ok(confirmAddAgentToAllProperty(agentName)))
+            .assignAgent(success)
+            .map(_ => Ok(confirmAddAgentToAllProperties(agentName)))
+        }
+      )
+  }
+
+  def unassignAgentFromAll(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      submitAgentAppointmentRequest.bindFromRequest.fold(
+        errors => {
+          Future.successful(BadRequest(unassignAgentFromAllProperties(errors, agentName, agentCode)))
+        }, { success =>
+          agentRelationshipService
+            .unassignAgent(success)
+            .map(_ => Ok(confirmUnassignAgentFromAllProperties(agentName)))
         }
       )
   }

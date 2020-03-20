@@ -22,7 +22,7 @@ import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
-import models.propertyrepresentation.{AgentList, AppointAgentRequest, AppointAgentResponse}
+import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList}
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
@@ -167,11 +167,18 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
   def getMyOrganisationPropertyLinksCount()(implicit hc: HeaderCarrier): Future[Int] =
     http.GET[Int](s"$baseUrl/owner/property-links/count")
 
-  def sendAppointAgentRequest(agentRelationshipRequest: AppointAgentRequest)(
-        implicit hc: HeaderCarrier): Future[AppointAgentResponse] =
+  def assignAgent(agentRelationshipRequest: AgentAppointmentChangesRequest)(
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     http
-      .POST[AppointAgentRequest, AppointAgentResponse](
+      .POST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse](
         s"$baseUrl/my-organisation/agent/appoint",
+        agentRelationshipRequest)
+
+  def unassignAgent(agentRelationshipRequest: AgentAppointmentChangesRequest)(
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+    http
+      .POST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse](
+        s"$baseUrl/my-organisation/agent/unassign",
         agentRelationshipRequest)
 
 }

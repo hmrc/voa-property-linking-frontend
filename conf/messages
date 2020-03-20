@@ -473,9 +473,17 @@ propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from you
 
 propertyRepresentation.manageAgent.assignToAllProperties.question=Are you sure you want to assign {0} to all your properties?
 
-propertyRepresentation.manageAgent.confirmation={0} has been assigned to all your properties
-propertyRepresentation.manageAgent.confirmation.whatHappensNext=What happens next
-propertyRepresentation.manageAgent.confirmation.whatHappensNext.p1={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation={0} has been assigned to all your properties
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext=What happens next
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
+
+propertyRepresentation.manageAgent.unassignFromAllProperties.question=Are you sure you want to unassign {0} from all properties?
+
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation={0} has been unassigned from all your properties
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText=This agent has not been removed from your account. They will still be able to add properties to your account on your behalf.
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow=You can now:
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount=Remove this agent from your account
+
 
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties

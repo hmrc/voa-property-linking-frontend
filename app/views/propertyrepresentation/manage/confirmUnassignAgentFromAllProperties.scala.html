@@ -31,17 +31,22 @@
 
     @govukPanel(
         Panel(
-            title = Text(messages("propertyRepresentation.manageAgent.assignToAllProperties.confirmation", agentName)),
+            title = Text(messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation", agentName)),
             content = HtmlContent("")
         )
     )
 
-    <h2 id="whatHappensNext" class="govuk-heading-m">@messages("propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext")</h2>
+    <div class="govuk-inset-text">
+        @messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText")
+    </div>
 
-    <p id="whatHappensNextP1" class="govuk-body">@messages("propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1", agentName)</p>
+    <h2 class="govuk-heading-m">
+        @messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow")
+    </h2>
+    <ul class="govuk-list">
 
-    <p>
-        <a id="homeLink" href="@config.newDashboardUrl("home")">@messages("link.return.home")</a>
-    </p>
+        <li class="govuk-link"><a href="#">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount")</a></li>
+        <li class="govuk-link"><a href="@config.newDashboardUrl("home")">@messages("link.return.home")</a></li>
+    </ul>
 
 }
