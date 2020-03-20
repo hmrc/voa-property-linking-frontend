@@ -114,6 +114,7 @@ GET         /my-organisation/agents                                             
 
 POST        /my-organisation/manage-agent/:agentCode                                                                      @controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)
 POST        /my-organisation/manage-agent/assign/:agentCode/:agentName/to-all-properties                                  @controllers.agent.ManageAgentController.assignAgentToAll(agentCode: Long, agentName: String)
+POST        /my-organisation/manage-agent/unassign/:agentCode/:agentName/from-all-properties                              @controllers.agent.ManageAgentController.unassignAgentFromAll(agentCode: Long, agentName: String)
 
 
 GET         /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.revokeMultipleProperties()

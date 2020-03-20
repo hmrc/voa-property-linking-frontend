@@ -18,7 +18,7 @@ package controllers.agentAppointment
 
 import connectors.AgentsConnector
 import controllers.VoaPropertyLinkingSpec
-import models.propertyrepresentation.{AppointAgentResponse, AppointNewAgentSession, SearchedAgent, SelectedAgent}
+import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, SearchedAgent, SelectedAgent}
 import org.mockito.ArgumentMatchers.any
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.FakeRequest
@@ -282,8 +282,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   }
 
   "appointAgent" should "return Ok for valid appointmentChange" in {
-    when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
-      .thenReturn(Future.successful(AppointAgentResponse("some-id")))
+    when(mockAgentRelationshipService.assignAgent(any())(any()))
+      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.appointAgent()(
       FakeRequest()
@@ -293,8 +293,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   }
 
   "appointAgent" should "return 400 Bad Request when invalid form is submitted - scope is missing" in {
-    when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
-      .thenReturn(Future.successful(AppointAgentResponse("some-id")))
+    when(mockAgentRelationshipService.assignAgent(any())(any()))
+      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.appointAgent()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "123456"))
 
@@ -302,8 +302,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   }
 
   "appointAgent" should "return 400 Bad Request when invalid form is submitted - agentCode is missing" in {
-    when(mockAgentRelationshipService.sendAppointAgentRequest(any())(any()))
-      .thenReturn(Future.successful(AppointAgentResponse("some-id")))
+    when(mockAgentRelationshipService.assignAgent(any())(any()))
+      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.appointAgent()(FakeRequest().withFormUrlEncodedBody("scope" -> "ALL_PROPERTIES"))
 

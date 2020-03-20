@@ -29,8 +29,8 @@ import controllers.agent.routes
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.{EnumMapping, Mappings}
 import models.{RepresentationApproved, RepresentationPending, propertyrepresentation}
-import models.propertyrepresentation.{AddAgentOptions, AppointAgentRequest, AppointNewAgentSession, AppointmentScope, ChooseFromList, ManagingProperty, SearchedAgent, SelectedAgent, Yes}
-import models.propertyrepresentation.AppointAgentRequest.submitAppointAgentRequest
+import models.propertyrepresentation.{AddAgentOptions, AgentAppointmentChangesRequest, AppointNewAgentSession, AppointmentScope, ChooseFromList, ManagingProperty, SearchedAgent, SelectedAgent, Yes}
+import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.searchApi.AgentPropertiesFilter.{Both, No}
 import models.searchApi.AgentPropertiesSortField.Address
 import play.api.data.{Form, FormError, Forms, Mapping}
@@ -151,8 +151,8 @@ class AddAgentController @Inject()(
           } yield {
             propertyLinks.authorisations.size match {
               case 0 => {
-                agentRelationshipService.sendAppointAgentRequest(
-                  AppointAgentRequest(
+                agentRelationshipService.assignAgent(
+                  AgentAppointmentChangesRequest(
                     scope = AppointmentScope.RELATIONSHIP.toString,
                     agentRepresentativeCode = searchedAgent.agentCode
                   )
@@ -232,13 +232,13 @@ class AddAgentController @Inject()(
     PartialFunction
       .condOpt(request.sessionData) {
         case data: ManagingProperty =>
-          Ok(checkYourAnswers(submitAppointAgentRequest, data))
+          Ok(checkYourAnswers(submitAgentAppointmentRequest, data))
       }
       .getOrElse(NotFound(errorHandler.notFoundTemplate))
   }
 
   def appointAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    submitAppointAgentRequest.bindFromRequest.fold(
+    submitAgentAppointmentRequest.bindFromRequest.fold(
       errors => {
         PartialFunction
           .condOpt(request.sessionData) {
@@ -254,7 +254,7 @@ class AddAgentController @Inject()(
       }, { success =>
         {
           agentRelationshipService
-            .sendAppointAgentRequest(success)
+            .assignAgent(success)
             .map(_ => Ok(confirmation(request.agentDetails.name)))
         }
       }

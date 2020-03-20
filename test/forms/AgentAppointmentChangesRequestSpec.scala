@@ -17,30 +17,33 @@
 package forms
 
 import controllers.VoaPropertyLinkingSpec
-import models.propertyrepresentation.{AppointAgentRequest, AppointmentScope}
+import models.propertyrepresentation.{AgentAppointmentChangesRequest, AppointmentScope}
 import org.scalatest.{FlatSpec, MustMatchers}
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.FormBindingVerification._
 import views.helpers.Errors
 
-class AppointAgentRequestSpec extends VoaPropertyLinkingSpec {
+class AgentAppointmentChangesRequestSpec extends VoaPropertyLinkingSpec {
 
   import TestData._
 
   behavior of "Appoint new agent form"
 
   it should "bind when the inputs are all valid - PROPERTY_LIST" in {
-    mustBindTo(form, validData, AppointAgentRequest(agentRepresentativeCode = 12345L, scope = "PROPERTY_LIST"))
+    mustBindTo(
+      form,
+      validData,
+      AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "PROPERTY_LIST"))
   }
 
   it should "bind when the inputs are all valid - ALL_PROPERTIES" in {
     val data = validData.updated("scope", s"${AppointmentScope.ALL_PROPERTIES}")
-    mustBindTo(form, data, AppointAgentRequest(agentRepresentativeCode = 12345L, scope = "ALL_PROPERTIES"))
+    mustBindTo(form, data, AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "ALL_PROPERTIES"))
   }
 
   it should "bind when the inputs are all valid - RELATIONSHIP" in {
     val data = validData.updated("scope", s"${AppointmentScope.RELATIONSHIP}")
-    mustBindTo(form, data, AppointAgentRequest(agentRepresentativeCode = 12345L, scope = "RELATIONSHIP"))
+    mustBindTo(form, data, AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "RELATIONSHIP"))
   }
 
   it should "require an agentCode" in {
@@ -54,7 +57,7 @@ class AppointAgentRequestSpec extends VoaPropertyLinkingSpec {
   }
 
   object TestData {
-    val form = AppointAgentRequest.submitAppointAgentRequest
+    val form = AgentAppointmentChangesRequest.submitAgentAppointmentRequest
     val validData = Map(
       "agentCode" -> "12345",
       "scope"     -> s"${AppointmentScope.PROPERTY_LIST}"
