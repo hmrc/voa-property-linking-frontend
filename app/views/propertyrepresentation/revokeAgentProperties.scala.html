@@ -28,7 +28,7 @@
     model: AppointAgentPropertiesVM,
     pagination: PaginationParameters,
     params: GetPropertyLinksParameters,
-    agentCode: Long
+    agentCode: Long, backLink: String
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{
@@ -40,7 +40,7 @@ heading,
 contentHeaderText = Some(heading),
 contentHeaderHidden = true,
 topBackLink = true,
-backLinkUrl = Some(agentAppointment.routes.AppointAgentController.revokeMultipleProperties().url)
+backLinkUrl = Some(backLink)
 ) {
 
 <div id="linkIdsGroup"  class="column-whole">

@@ -25,7 +25,7 @@ import form.EnumMapping
 import javax.inject.{Inject, Named}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.{RepresentationApproved, RepresentationPending}
-import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentList, AgentOrganisation, AgentSummary, AssignToAllProperties, AssignToSomeProperties, ManageAgentOptions, ManageAgentRequest, UnassignFromAllProperties}
+import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentList, AgentOrganisation, AgentSummary, AssignToAllProperties, AssignToSomeProperties, ManageAgentOptions, ManageAgentRequest, UnassignFromAllProperties, UnassignFromSomeProperties}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
@@ -140,13 +140,13 @@ class ManageAgentController @Inject()(
         }
       }, { success =>
         success.manageAgentOption match {
-          case AssignToSomeProperties => Future.successful(joinOldJourney(agentCode))
+          case AssignToSomeProperties => Future.successful(joinOldAgentAppointJourney(agentCode))
           case AssignToAllProperties =>
             Future.successful(Ok(addAgentToAllProperties(submitAgentAppointmentRequest, success.agentName, agentCode)))
           case UnassignFromAllProperties =>
             Future.successful(
               Ok(unassignAgentFromAllProperties(submitAgentAppointmentRequest, success.agentName, agentCode)))
-          case _ => ??? //fixme this will be implemented in subsequent stories (VTCCA-3206)
+          case UnassignFromSomeProperties => Future.successful(joinOldRevokeAppointJourney(agentCode))
         }
       }
     )
@@ -178,7 +178,7 @@ class ManageAgentController @Inject()(
       )
   }
 
-  private def joinOldJourney(agentCode: Long) =
+  private def joinOldAgentAppointJourney(agentCode: Long) =
     Redirect(
       controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
         pagination = PaginationParameters(page = 1, pageSize = 15),
@@ -190,4 +190,15 @@ class ManageAgentController @Inject()(
         backLink = controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
       ))
 
+  private def joinOldRevokeAppointJourney(agentCode: Long) =
+    Redirect(
+      controllers.agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(
+        pagination = PaginationParameters(page = 1, pageSize = 15),
+        params = GetPropertyLinksParameters(
+          sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
+          sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
+        agentCode = agentCode,
+        backLink = controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
+      ))
+  //selectAgentPropertiesSearchSort
 }
