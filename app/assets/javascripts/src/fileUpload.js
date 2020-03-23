@@ -61,7 +61,7 @@
                             case "png":
                             mime = "image/png";
                             break;
-                    
+
                             default:
                             mime = file.type ? file.type : 'Unknown/Extension missing';
                             break;
@@ -88,18 +88,20 @@
                 },
                 crossDomain: false,
                 cache: false
-            }).error(function(jqXHR, textStatus, errorThrown ){
-                if(jqXHR.status == 400) {
-                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsBusinessRatesAttachmentUnsupportedFiles').text()+'</li>'));
+            }).error(function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status === 400) {
+                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsBusinessRatesAttachmentUnsupportedFiles').text() + '</li>'));
                     $('#message-warning').remove();
-                }else if(jqXHR.status == 413) {
-                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsFileSizeTooLarge').text()+'</li>'));
+                } else if (jqXHR.status === 413) {
+                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsFileSizeTooLarge').text() + '</li>'));
                     $('#message-warning').remove();
-                }else if(jqXHR.status > 400) {
+                } else if (jqXHR.status > 400) {
                     $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsUpscan').text() + '</li>'));
                     $('#message-warning').remove();
+                } else if (!jqXHR.satus) {
+                    window.location.href =
+                        $("#signInPageUrl").text()+"?continue=" + encodeURIComponent(window.location)+ "&origin=voa-property-linking-frontend";
                 }
-
 
             }).done(function(data, statusText, resObject) {
                 fileUpload(resObject.responseJSON, file, csrfToken);
@@ -119,34 +121,6 @@
             $element.trigger('click');
         });
 
-
-        function removeUploadFileOnError(fileReference, csrfToken, upScanError){
-            $.ajax({
-                url: $("#businessRatesAttachmentsRemoveFileURL").text()+fileReference,
-                method: "POST",
-                data: JSON.stringify({"fileName": fileReference}),
-                "csrfToken": csrfToken,
-                headers: {
-                    'Csrf-Token': csrfToken
-                },
-                crossDomain: false,
-                cache: false
-            }).error(function(jqXHR, textStatus, errorThrown ){
-                if(jqXHR.status == 400 || upScanError.status == 400) {
-                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsBusinessRatesAttachmentUnsupportedFiles').text()+'</li>'));
-                }else if(jqXHR.status == 413) {
-                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsFileSizeTooLarge').text()+'</li>'));
-                }else if(jqXHR.status > 400) {
-                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsUpscan').text() + '</li>'));
-                }
-
-                $('#message-warning').remove();
-            }).done(function(data, statusText, resObject) {
-                $('#errorsList').html(errorMessages.replace('<li></li>', '<li>'+ $('#errorsBusinessRatesAttachmentUnsupportedFiles').text()+'</li>'));
-                $('#message-warning').remove();
-            });
-        }
-        
 
         function fileUpload(form, file, csrfToken){
             $('#uploadForm').attr('action', form.uploadRequest.href);
