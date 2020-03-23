@@ -20,10 +20,12 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import auditing.AuditingService
 import auth.GovernmentGatewayProvider
+import config.ApplicationConfig
 import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.{Addresses, DVRCaseManagementConnector}
 import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.Mockito
+import org.mockito.Mockito.mock
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Request
@@ -55,10 +57,13 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockWithLinkingSession: WithLinkingSession = mock[WithLinkingSession]
   val mockPersonalDetailsSessionRepository: PersonalDetailsSessionRepository = mock[PersonalDetailsSessionRepository]
   val mockAgentRelationshipService: AgentRelationshipService = mock[AgentRelationshipService]
+  val mockApplicationConfig = mock[ApplicationConfig]
 
   override protected def beforeEach(): Unit =
     Seq(
       mockAddresses,
+      mockAgentRelationshipService,
+      mockApplicationConfig,
       mockAuditingService,
       mockBusinessRatesAuthorisation,
       mockAuthConnector,
@@ -75,8 +80,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
       mockPropertyLinkingService,
       mockSessionRepository,
       mockWithLinkingSession,
-      mockPersonalDetailsSessionRepository,
-      mockAgentRelationshipService
+      mockPersonalDetailsSessionRepository
     ).foreach(Mockito.reset(_))
 
 }

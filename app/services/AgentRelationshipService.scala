@@ -52,22 +52,37 @@ class AgentRelationshipService @Inject()(
         agentOrgId: Long,
         organisationId: Long,
         individualId: Long,
-        isAgent: Boolean)(implicit hc: HeaderCarrier): Future[Unit] =
-    Future
-      .traverse(pLinkIds)(pLink => appointAgent(pLink, agentOrgId, organisationId, individualId, isAgent))
-      .map { x =>
-        // Introduce a delay here to give modernised a chance to process its queue
-        // This is a temporary measure to avoid duplicating agent requests when appointing multiple agents
-        // TODO https://jira.tools.tax.service.gov.uk/browse/VTCCA-2972
-        Thread.sleep(config.agentAppointDelay * 1000)
+        isAgent: Boolean,
+        agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] = config.newAppointAgentJourneyEnabled match {
+    case true =>
+      assignAgentToSomeProperties(AgentAppointBulkAction(agentCode = agentCode, propertyLinkIds = pLinkIds)).map(_ =>
+        ())
+    case false =>
+      Future
+        .traverse(pLinkIds)(pLink => appointAgent(pLink, agentOrgId, organisationId, individualId, isAgent))
+        .map { x =>
+          // Introduce a delay here to give modernised a chance to process its queue
+          // This is a temporary measure to avoid duplicating agent requests when appointing multiple agents
+          // TODO https://jira.tools.tax.service.gov.uk/browse/VTCCA-2972
+          Thread.sleep(config.agentAppointDelay * 1000)
+          x.reduce((a, b) => a)
+        }
+  }
+
+  def createAndSubmitAgentRevokeRequest(pLinkIds: List[String], agentCode: Long)(
+        implicit hc: HeaderCarrier): Future[Unit] = config.newAppointAgentJourneyEnabled match {
+    case true =>
+      unassignAgentFromSomeProperties(
+        AgentRevokeBulkAction(
+          agentCode = agentCode,
+          propertyLinkIds = pLinkIds
+        )
+      ).map(_ => ())
+    case false =>
+      Future.traverse(pLinkIds)(pLink => revokeAgent(pLink, agentCode)).map { x =>
         x.reduce((a, b) => a)
       }
-
-  def createAndSubitAgentRevokeRequest(pLinkIds: List[String], agentCode: Long)(
-        implicit hc: HeaderCarrier): Future[Unit] =
-    Future.traverse(pLinkIds)(pLink => revokeAgent(pLink, agentCode)).map { x =>
-      x.reduce((a, b) => a)
-    }
+  }
 
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         params: GetPropertyLinksParameters,
@@ -104,9 +119,17 @@ class AgentRelationshipService @Inject()(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     propertyLinks.assignAgent(appointAgentRequest)
 
-  def unassignAgent(appointAgentRequest: AgentAppointmentChangesRequest)(
+  def assignAgentToSomeProperties(request: AgentAppointBulkAction)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    propertyLinks.unassignAgent(appointAgentRequest)
+    propertyLinks.assignAgentToSomeProperties(request)
+
+  def unassignAgent(request: AgentAppointmentChangesRequest)(
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+    propertyLinks.unassignAgent(request)
+
+  def unassignAgentFromSomeProperties(request: AgentRevokeBulkAction)(
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+    propertyLinks.unassignAgentFromSomeProperties(request)
 
   def getMyOrganisationAgents()(implicit hc: HeaderCarrier): Future[AgentList] =
     propertyLinks.getMyOrganisationAgents()

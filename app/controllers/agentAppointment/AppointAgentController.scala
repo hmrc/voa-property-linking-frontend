@@ -189,7 +189,8 @@ class AppointAgentController @Inject()(
                   agentOrgId = group.id,
                   organisationId = request.organisationAccount.id,
                   individualId = request.individualAccount.individualId,
-                  isAgent = request.organisationAccount.isAgent
+                  isAgent = request.organisationAccount.isAgent,
+                  agentCode = action.agentCode
                 )
                 .map(_ => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(action, group.companyName)))
                 .recoverWith {
@@ -341,7 +342,7 @@ class AppointAgentController @Inject()(
           accounts.withAgentCode(action.agentCode.toString) flatMap {
             case Some(group) =>
               agentRelationshipService
-                .createAndSubitAgentRevokeRequest(pLinkIds = action.propertyLinkIds, agentCode = action.agentCode)
+                .createAndSubmitAgentRevokeRequest(pLinkIds = action.propertyLinkIds, agentCode = action.agentCode)
                 .map {
                   case _ => Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
                 }
