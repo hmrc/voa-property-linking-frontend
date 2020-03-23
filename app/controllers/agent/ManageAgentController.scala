@@ -182,7 +182,7 @@ class ManageAgentController @Inject()(
   private def joinOldAgentAppointJourney(agentCode: Long) =
     Redirect(
       controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
-        pagination = PaginationParameters(page = 1, pageSize = 15),
+        pagination = PaginationParameters(),
         params = GetPropertyLinksParameters(
           sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
           sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
@@ -194,7 +194,7 @@ class ManageAgentController @Inject()(
   private def joinOldRevokeAppointJourney(agentCode: Long) =
     Redirect(
       controllers.agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(
-        pagination = PaginationParameters(page = 1, pageSize = 15),
+        pagination = PaginationParameters(),
         params = GetPropertyLinksParameters(
           sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
           sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
