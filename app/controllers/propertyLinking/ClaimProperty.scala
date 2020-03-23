@@ -20,7 +20,7 @@ import java.time.LocalDate
 
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
-import actions.requests.AuthenticatedRequest
+import actions.requests.{AuthenticatedRequest, BasicAuthenticatedRequest}
 import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.Singleton
 import config.ApplicationConfig
@@ -80,7 +80,11 @@ class ClaimProperty @Inject()(
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticatedAction { implicit request =>
-    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn)))
+    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn, backLink(request.headers.get("referer").getOrElse(config.newDashboardUrl("home"))))))
+  }
+
+  private def backLink(link: String) :String = {
+    if (link.contains("/business-rates-find")) link else config.newDashboardUrl("home")
   }
 
   def attemptLink(uarn: Long, address: String): Action[AnyContent] = authenticatedAction.async { implicit request =>
