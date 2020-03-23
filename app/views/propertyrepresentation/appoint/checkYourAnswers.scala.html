@@ -23,11 +23,11 @@
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 @import models.propertyrepresentation.AppointmentScope.RELATIONSHIP
 @import models.propertyrepresentation.All
-@import models.propertyrepresentation.AppointAgentRequest
+@import models.propertyrepresentation.AgentAppointmentChangesRequest
 
 @this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout)
 
-@(form: Form[AppointAgentRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @answerMessageKey = @{
     s"propertyRepresentation.checkYourAnswers.options.${data.managingPropertyChoice}"

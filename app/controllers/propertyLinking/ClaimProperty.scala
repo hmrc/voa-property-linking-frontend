@@ -80,12 +80,14 @@ class ClaimProperty @Inject()(
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticatedAction { implicit request =>
-    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn, backLink(request.headers.get("referer").getOrElse(config.newDashboardUrl("home"))))))
+    Ok(
+      views.html.propertyLinking.declareCapacity(
+        DeclareCapacityVM(declareCapacityForm, address, uarn),
+        backLink(request.headers.get("referer").getOrElse(config.newDashboardUrl("home")))))
   }
 
-  private def backLink(link: String) :String = {
+  private def backLink(link: String): String =
     if (link.contains("/business-rates-find")) link else config.newDashboardUrl("home")
-  }
 
   def attemptLink(uarn: Long, address: String): Action[AnyContent] = authenticatedAction.async { implicit request =>
     ClaimProperty.declareCapacityForm
@@ -93,7 +95,10 @@ class ClaimProperty @Inject()(
       .fold(
         errors =>
           Future.successful(
-            BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn)))),
+            BadRequest(
+              views.html.propertyLinking.declareCapacity(
+                DeclareCapacityVM(errors, address, uarn),
+                backLink(request.headers.get("referer").getOrElse(config.newDashboardUrl("home")))))),
         formData =>
           initialiseSession(formData, uarn, address)
             .map { _ =>
@@ -107,7 +112,10 @@ class ClaimProperty @Inject()(
 
   def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val form = declareCapacityForm.fillAndValidate(request.ses.declaration)
-    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn)))
+    Ok(
+      views.html.propertyLinking.declareCapacity(
+        DeclareCapacityVM(form, request.ses.address, request.ses.uarn),
+        backLink(request.headers.get("referer").getOrElse(config.newDashboardUrl("home")))))
   }
 
   private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(

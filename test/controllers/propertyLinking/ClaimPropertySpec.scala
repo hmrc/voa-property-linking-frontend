@@ -66,11 +66,24 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = HtmlPage(res)
+
     html.mustContainRadioSelect("capacity", CapacityType.options)
     html.mustContainRadioSelect("interestedBefore2017", Seq("true", "false"))
     html.mustContainDateSelect("fromDate")
     html.mustContainRadioSelect("stillInterested", Seq("true", "false"))
     html.mustContainDateSelect("toDate")
+    html.contain("http://localhost:9542/business-rates-dashboard/home")
+  }
+
+  it should "contain link back to business-rates-find if thats where the reques came from" in {
+    val res = testClaimProperty.declareCapacity(positiveLong, shortString)(
+      FakeRequest().withHeaders(
+        ("referer", "http://localhost:9542/business-rates-find/summary/10361354?uarn=156039182")))
+    status(res) mustBe OK
+
+    val html = HtmlPage(res)
+
+    html.contain("http://localhost:9542/business-rates-find/summary/10361354?uarn=156039182")
   }
 
   it should "reject invalid form submissions" in {

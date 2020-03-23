@@ -19,7 +19,7 @@
 @import controllers.propertyLinking.DeclareCapacityVM
 @import config.ApplicationConfig
 
-@(model: DeclareCapacityVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig, backLink: String)
+@(model: DeclareCapacityVM, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(title = Messages("declareCapacity.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backLink)) {
 
