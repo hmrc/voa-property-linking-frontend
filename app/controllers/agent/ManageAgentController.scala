@@ -94,8 +94,9 @@ class ManageAgentController @Inject()(
                                          representationStatusFilter =
                                            Seq(RepresentationApproved, RepresentationPending)
                                        )
+      ipPropertyLinksCount = propertyLinks.total
     } yield {
-      (propertyLinks.total, agentToBeManagedOpt) match {
+      (ipPropertyLinksCount, agentToBeManagedOpt) match {
         case (0, Some(agent)) if agent.propertyCount == 0 =>
           //IP has no property links but still has an agent
           Some(removeAgentFromOrganisation(submitManageAgentForm, agent))
@@ -200,5 +201,4 @@ class ManageAgentController @Inject()(
         agentCode = agentCode,
         backLink = controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
       ))
-  //selectAgentPropertiesSearchSort
 }
