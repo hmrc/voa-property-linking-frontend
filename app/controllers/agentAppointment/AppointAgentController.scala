@@ -260,7 +260,8 @@ class AppointAgentController @Inject()(
   def selectAgentPropertiesSearchSort(
         pagination: PaginationParameters,
         params: GetPropertyLinksParameters,
-        agentCode: Long
+        agentCode: Long,
+        backLink: String = agentAppointment.routes.AppointAgentController.revokeMultipleProperties().url
   ) = authenticated.async { implicit request =>
     accounts.withAgentCode(agentCode.toString) flatMap {
       case Some(group) =>
@@ -282,7 +283,13 @@ class AppointAgentController @Inject()(
         } yield {
           Ok(
             views.html.propertyrepresentation
-              .revokeAgentProperties(None, AppointAgentPropertiesVM(group, response), pagination, params, agentCode))
+              .revokeAgentProperties(
+                None,
+                AppointAgentPropertiesVM(group, response),
+                pagination,
+                params,
+                agentCode,
+                backLink))
         }
       case None => Future.successful(NotFound(s"Unknown Agent: $agentCode"))
     }
@@ -319,10 +326,12 @@ class AppointAgentController @Inject()(
                 BadRequest(
                   views.html.propertyrepresentation.revokeAgentProperties(
                     Some(errors),
-                    AppointAgentPropertiesVM(group, response),
-                    PaginationParameters(),
-                    GetPropertyLinksParameters(),
-                    agentCode))
+                    model = AppointAgentPropertiesVM(group, response),
+                    pagination = PaginationParameters(),
+                    params = GetPropertyLinksParameters(),
+                    agentCode = agentCode,
+                    backLink = agentAppointment.routes.AppointAgentController.revokeMultipleProperties().url
+                  ))
               }
             case _ =>
               Future.successful(notFound)
@@ -353,10 +362,11 @@ class AppointAgentController @Inject()(
                     } yield
                       BadRequest(views.html.propertyrepresentation.revokeAgentProperties(
                         Some(revokeAgentBulkActionForm.withError("appoint.error", "error.transaction")),
-                        AppointAgentPropertiesVM(group, response),
-                        PaginationParameters(),
-                        GetPropertyLinksParameters(),
-                        action.agentCode
+                        model = AppointAgentPropertiesVM(group, response),
+                        pagination = PaginationParameters(),
+                        params = GetPropertyLinksParameters(),
+                        agentCode = action.agentCode,
+                        backLink = agentAppointment.routes.AppointAgentController.revokeMultipleProperties().url
                       ))
                   case e: Exception => throw e
                 }

@@ -119,7 +119,7 @@ POST        /my-organisation/manage-agent/unassign/:agentCode/:agentName/from-al
 
 GET         /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.revokeMultipleProperties()
 POST        /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.submitRevokeMultipleProperties()
-GET         /my-organisation/revoke/properties                                                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long)
+GET         /my-organisation/revoke/properties                                                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, backLink: String ?= "/my-organisation/revoke")
 POST        /my-organisation/revoke/properties/create                                                                     @controllers.agentAppointment.AppointAgentController.revokeAgentSummary()
 
 #REVOKE

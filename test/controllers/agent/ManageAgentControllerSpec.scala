@@ -20,7 +20,7 @@ import actions.AuthenticatedAction
 import config.ApplicationConfig
 import controllers.VoaPropertyLinkingSpec
 import controllers.agent.ManageAgentController
-import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointmentScope, AssignToAllProperties, AssignToSomeProperties, UnassignFromAllProperties}
+import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointmentScope, AssignToAllProperties, AssignToSomeProperties, UnassignFromAllProperties, UnassignFromSomeProperties}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
@@ -261,6 +261,29 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .withFormUrlEncodedBody("manageAgentOption" -> s"${UnassignFromAllProperties.name}", "agentName" -> "Agent Org"))
 
     status(res) mustBe OK
+  }
+
+  "submitManageAgent" should "return 303 Redirect when IP chooses to unassign agent from some properties" in {
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
+      Future.successful(organisationsAgentsList.copy(
+        agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
+    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+    when(mockManageAgentPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
+
+    val res = testController.submitManageAgent(agentCode)(
+      FakeRequest()
+        .withFormUrlEncodedBody(
+          "manageAgentOption" -> s"${UnassignFromSomeProperties.name}",
+          "agentName"         -> "Agent Org"))
+
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe
+      Some(
+        "/business-rates-property-linking/my-organisation/revoke/properties?page=1&pageSize=15" +
+          "&sortfield=ADDRESS&sortorder=ASC&agentCode=12345&backLink=%2Fbusiness-rates-property-linking" +
+          "%2Fmy-organisation%2Fmanage-agent%3FagentCode%3D12345")
   }
 
   "assignAgentToAll" should "return 400 Bad Request when invalid form submitted" in {
