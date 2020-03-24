@@ -171,8 +171,15 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     http
       .POST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse](
-        s"$baseUrl/my-organisation/agent/appoint",
+        s"$baseUrl/my-organisation/agent/assign",
         agentRelationshipRequest)
+
+  def assignAgentToSomeProperties(request: AgentAppointBulkAction)(
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+    http
+      .POST[AgentAppointBulkAction, AgentAppointmentChangesResponse](
+        s"$baseUrl/my-organisation/agent/assign-to-some-properties",
+        request)
 
   def unassignAgent(agentRelationshipRequest: AgentAppointmentChangesRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
@@ -180,5 +187,12 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
       .POST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse](
         s"$baseUrl/my-organisation/agent/unassign",
         agentRelationshipRequest)
+
+  def unassignAgentFromSomeProperties(request: AgentRevokeBulkAction)(
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+    http
+      .POST[AgentRevokeBulkAction, AgentAppointmentChangesResponse](
+        s"$baseUrl/my-organisation/agent/unassign-from-some-properties",
+        request)
 
 }
