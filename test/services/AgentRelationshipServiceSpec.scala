@@ -55,7 +55,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
 
   "createAndSubmitAgentRepRequest" should "return option unit when successful" in {
-    when(mockApplicationConfig.newAppointAgentJourneyEnabled).thenReturn(false)
+    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
 
     val links = SessionPropertyLinks(
       Seq(
@@ -82,7 +82,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "createAndSubmitAgentRepRequest" should "return option unit when successful when new agent relationship is enabled" in {
-    when(mockApplicationConfig.newAppointAgentJourneyEnabled).thenReturn(true)
+    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(true)
 
     val links = SessionPropertyLinks(
       Seq(
@@ -108,7 +108,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "createAndSubitAgentRevokeRequest" should "return option unit when successful" in {
-    when(mockApplicationConfig.newAppointAgentJourneyEnabled).thenReturn(false)
+    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
 
     val links =
       SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", 1l)))))
@@ -123,7 +123,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "createAndSubitAgentRevokeRequest" should "return option unit when successful when new agent relationship enabled" in {
-    when(mockApplicationConfig.newAppointAgentJourneyEnabled).thenReturn(true)
+    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(true)
 
     val links =
       SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", 1l)))))
@@ -139,7 +139,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "createAndSubmitAgentRepRequest" should "throw exception when link doesn't exist in cache" in {
-    when(mockApplicationConfig.newAppointAgentJourneyEnabled).thenReturn(false)
+    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
 
     val links = SessionPropertyLinks(Seq(SessionPropertyLink(2L, "11111", Seq(OwnerAuthAgent(3L, 4L, "", 1l)))))
 
@@ -160,7 +160,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "createAndSubitAgentRevokeRequest" should "throw exception when link doesn't exist in cache" in {
-    when(mockApplicationConfig.newAppointAgentJourneyEnabled).thenReturn(false)
+    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
 
     val links = SessionPropertyLinks(Seq(SessionPropertyLink(2L, "11111", Seq(OwnerAuthAgent(3L, 4L, "", 1l)))))
 
@@ -174,7 +174,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "createAndSubmitAgentRepRequest" should "throw exception when session id doesn't exist in cache (handled by auth)" in {
-    when(mockApplicationConfig.newAppointAgentJourneyEnabled).thenReturn(false)
+    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(None))
 
@@ -194,7 +194,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "createAndSubitAgentRevokeRequest" should "throw exception when session id doesn't exist in cache (handled by auth)" in {
-    when(mockApplicationConfig.newAppointAgentJourneyEnabled).thenReturn(false)
+    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
 
     when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(None))
 
@@ -206,7 +206,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "createAndSubmitAgentRepRequest" should "throw exception session id can't be obtained (handled by auth)" in {
-    when(mockApplicationConfig.newAppointAgentJourneyEnabled).thenReturn(false)
+    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
 
     implicit val hc = HeaderCarrier()
 
@@ -225,7 +225,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "createAndSubitAgentRevokeRequest" should "throw exception session id can't be obtained (handled by auth)" in {
-    when(mockApplicationConfig.newAppointAgentJourneyEnabled).thenReturn(false)
+    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
 
     implicit val hc = HeaderCarrier()
 

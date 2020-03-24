@@ -53,7 +53,7 @@ class AgentRelationshipService @Inject()(
         organisationId: Long,
         individualId: Long,
         isAgent: Boolean,
-        agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] = config.newAppointAgentJourneyEnabled match {
+        agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] = config.newAgentRelationshipJourneyEnabled match {
     case true =>
       assignAgentToSomeProperties(AgentAppointBulkAction(agentCode = agentCode, propertyLinkIds = pLinkIds)).map(_ =>
         ())
@@ -70,7 +70,7 @@ class AgentRelationshipService @Inject()(
   }
 
   def createAndSubmitAgentRevokeRequest(pLinkIds: List[String], agentCode: Long)(
-        implicit hc: HeaderCarrier): Future[Unit] = config.newAppointAgentJourneyEnabled match {
+        implicit hc: HeaderCarrier): Future[Unit] = config.newAgentRelationshipJourneyEnabled match {
     case true =>
       unassignAgentFromSomeProperties(
         AgentRevokeBulkAction(
