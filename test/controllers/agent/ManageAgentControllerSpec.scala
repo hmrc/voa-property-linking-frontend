@@ -50,6 +50,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     mock[views.html.propertyrepresentation.manage.unassignAgentFromAllProperties]
   private val mockConfirmUnassignAgentFromAllProperties =
     mock[views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties]
+  private val mockConfirmRemoveAgentFromOrganisation =
+    mock[views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation]
   private val mockMyAgentsPage = mock[views.html.propertyrepresentation.manage.myAgents]
 
   val testController = new ManageAgentController(
@@ -63,7 +65,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     addAgentToAllProperties = mockAddAgentToAllPropertyPage,
     confirmAddAgentToAllProperties = mockConfirmAddAgentToAllProperty,
     unassignAgentFromAllProperties = mockUnassignAgentFromAllProperties,
-    confirmUnassignAgentFromAllProperties = mockConfirmUnassignAgentFromAllProperties
+    confirmUnassignAgentFromAllProperties = mockConfirmUnassignAgentFromAllProperties,
+    confirmRemoveAgentFromOrganisation = mockConfirmRemoveAgentFromOrganisation
   )
 
   "manageAgent" should "show the manage agent page" in {
@@ -71,7 +74,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 0)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
-    when(mockRemoveAgentFromOrganisationPage.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
+    when(mockRemoveAgentFromOrganisationPage.apply(any(), any(), any())(any(), any(), any())).thenReturn(Html(""))
     val res = testController.manageAgent(None)(FakeRequest())
     status(res) mustBe OK
   }
@@ -81,7 +84,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 0)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
-    when(mockRemoveAgentFromOrganisationPage.apply(any(), any())(any(), any(), any()))
+    when(mockRemoveAgentFromOrganisationPage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("IP has Zero PropertyLinks"))
 
     val res = testController.getManageAgentPage(None)(FakeRequest())
@@ -322,12 +325,44 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "unassignAgentFromAll" should "return 200 Ok a valid form is submitted" in {
     when(mockAgentRelationshipService.unassignAgent(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-    when(mockConfirmUnassignAgentFromAllProperties.apply(any())(any(), any(), any()))
+    when(mockConfirmUnassignAgentFromAllProperties.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("confirmUnassignAgentFromAllProperties"))
 
     val res = testController.unassignAgentFromAll(agentCode, "Some agent org")(
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"))
+
+    status(res) mustBe OK
+  }
+
+  "showRemoveAgentFromIpOrganisation" should "return 200 Ok" in {
+    when(mockRemoveAgentFromOrganisationPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("removeAgentFromOrganisationPage"))
+
+    val res = testController.showRemoveAgentFromIpOrganisation(agentCode, "Some agent org")(FakeRequest())
+
+    status(res) mustBe OK
+  }
+
+  "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted" in {
+    when(mockRemoveAgentFromOrganisationPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("removeAgentFromOrganisationPage"))
+
+    val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org")(
+      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "removeAgentFromIpOrganisation" should "return 200 Ok a valid form is submitted" in {
+    when(mockAgentRelationshipService.removeAgentFromOrganisation(any())(any()))
+      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
+    when(mockConfirmRemoveAgentFromOrganisation.apply(any())(any(), any(), any()))
+      .thenReturn(Html("confirmRemoveAgentFromOrganisation"))
+
+    val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org")(
+      FakeRequest()
+        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.RELATIONSHIP}"))
 
     status(res) mustBe OK
   }

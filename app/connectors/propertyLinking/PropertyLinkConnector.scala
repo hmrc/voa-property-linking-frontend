@@ -181,6 +181,13 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
         s"$baseUrl/my-organisation/agent/assign-to-some-properties",
         request)
 
+  def removeAgentFromOrganisation(agentRelationshipRequest: AgentAppointmentChangesRequest)(
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+    http
+      .POST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse](
+        s"$baseUrl/my-organisation/agent/remove-from-organisation ",
+        agentRelationshipRequest)
+
   def unassignAgent(agentRelationshipRequest: AgentAppointmentChangesRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     http

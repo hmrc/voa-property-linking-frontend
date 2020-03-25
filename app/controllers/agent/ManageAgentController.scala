@@ -25,7 +25,7 @@ import form.EnumMapping
 import javax.inject.{Inject, Named}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.{RepresentationApproved, RepresentationPending}
-import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentList, AgentOrganisation, AgentSummary, AssignToAllProperties, AssignToSomeProperties, ManageAgentOptions, ManageAgentRequest, UnassignFromAllProperties, UnassignFromSomeProperties}
+import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentList, AgentOrganisation, AgentSummary, AssignToAllProperties, AssignToSomeProperties, AssignToYourProperty, ManageAgentOptions, ManageAgentRequest, RemoveFromYourAccount, UnassignFromAllProperties, UnassignFromSomeProperties}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
@@ -50,7 +50,8 @@ class ManageAgentController @Inject()(
       addAgentToAllProperties: views.html.propertyrepresentation.manage.addAgentToAllProperties,
       confirmAddAgentToAllProperties: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties,
       unassignAgentFromAllProperties: views.html.propertyrepresentation.manage.unassignAgentFromAllProperties,
-      confirmUnassignAgentFromAllProperties: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties)(
+      confirmUnassignAgentFromAllProperties: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties,
+      confirmRemoveAgentFromOrganisation: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -99,7 +100,7 @@ class ManageAgentController @Inject()(
       (ipPropertyLinksCount, agentToBeManagedOpt) match {
         case (0, Some(agent)) if agent.propertyCount == 0 =>
           //IP has no property links but still has an agent
-          Some(removeAgentFromOrganisation(submitManageAgentForm, agent))
+          Some(removeAgentFromOrganisation(submitAgentAppointmentRequest, agent.representativeCode, agent.name))
         case (1, Some(agent)) if agent.propertyCount == 0 =>
           //IP has one property link but agent is not assigned
           Some(
@@ -174,7 +175,25 @@ class ManageAgentController @Inject()(
         }, { success =>
           agentRelationshipService
             .unassignAgent(success)
-            .map(_ => Ok(confirmUnassignAgentFromAllProperties(agentName)))
+            .map(_ => Ok(confirmUnassignAgentFromAllProperties(agentName, agentCode)))
+        }
+      )
+  }
+
+  def showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      Future.successful(Ok(removeAgentFromOrganisation(submitAgentAppointmentRequest, agentCode, agentName)))
+  }
+
+  def removeAgentFromIpOrganisation(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      submitAgentAppointmentRequest.bindFromRequest.fold(
+        errors => {
+          Future.successful(BadRequest(removeAgentFromOrganisation(errors, agentCode, agentName)))
+        }, { success =>
+          agentRelationshipService
+            .removeAgentFromOrganisation(success)
+            .map(_ => Ok(confirmRemoveAgentFromOrganisation(agentName)))
         }
       )
   }
