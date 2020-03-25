@@ -115,6 +115,10 @@ class AgentRelationshipService @Inject()(
   def getAgentNameAndAddress(agentCode: Long)(implicit hc: HeaderCarrier) =
     representations.getAgentDetails(agentCode)
 
+  def removeAgentFromOrganisation(appointAgentRequest: AgentAppointmentChangesRequest)(
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+    propertyLinks.removeAgentFromOrganisation(appointAgentRequest)
+
   def assignAgent(appointAgentRequest: AgentAppointmentChangesRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     propertyLinks.assignAgent(appointAgentRequest)
