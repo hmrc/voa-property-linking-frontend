@@ -36,4 +36,5 @@ class PropertyLinkService @Inject()(
       propertyLinkConnector.getMyOrganisationPropertyLink(submissionId)
     else
       propertyLinkConnector.getMyClientsPropertyLink(submissionId)
+
 }

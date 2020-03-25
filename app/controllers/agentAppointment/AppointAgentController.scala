@@ -37,6 +37,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
 import services.AgentRelationshipService
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
@@ -60,12 +61,11 @@ class AppointAgentController @Inject()(
   val logger: Logger = Logger(this.getClass)
 
   def appointMultipleProperties(): Action[AnyContent] = authenticated.async { implicit request =>
-    agentsConnector
-      .ownerAgents(request.organisationId)
+    getAgents(request.organisationId)
       .map { ownerAgents =>
         Ok(
           views.html.propertyrepresentation.appoint.appointAgent(
-            AppointAgentVM(form = appointAgentForm, agents = ownerAgents.agents),
+            AppointAgentVM(form = appointAgentForm, agents = ownerAgents),
             Some(config.newDashboardUrl("your-agents"))))
       }
   }
@@ -75,11 +75,10 @@ class AppointAgentController @Inject()(
       .bindFromRequest()
       .fold(
         hasErrors = errors => {
-          agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
+          getAgents(request.organisationId) map { ownerAgents =>
             BadRequest(
-              views.html.propertyrepresentation.appoint.appointAgent(
-                AppointAgentVM(errors, None, ownerAgents.agents),
-                Some(config.newDashboardUrl("your-agents"))))
+              views.html.propertyrepresentation.appoint
+                .appointAgent(AppointAgentVM(errors, None, ownerAgents), Some(config.newDashboardUrl("your-agents"))))
           }
         },
         success = (agent: AppointAgent) => {
@@ -94,11 +93,11 @@ class AppointAgentController @Inject()(
                     None)))
             case None =>
               val errors: List[FormError] = List(invalidAgentCode)
-              agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
+              getAgents(request.organisationId) flatMap { ownerAgents =>
                 val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) =>
                   f.withError(error)
                 }
-                invalidAppointment(formWithErrors, None, ownerAgents.agents)
+                invalidAppointment(formWithErrors, None, ownerAgents)
               }
           }
         }
@@ -221,12 +220,11 @@ class AppointAgentController @Inject()(
   }
 
   def revokeMultipleProperties() = authenticated.async { implicit request =>
-    agentsConnector
-      .ownerAgents(request.organisationId)
+    getAgents(request.organisationId)
       .map { ownerAgents =>
         Ok(
           views.html.propertyrepresentation
-            .loadAgentsForRemove(AppointAgentVM(form = registeredAgentForm, agents = ownerAgents.agents)))
+            .loadAgentsForRemove(AppointAgentVM(form = registeredAgentForm, agents = ownerAgents)))
       }
   }
 
@@ -235,9 +233,9 @@ class AppointAgentController @Inject()(
       .bindFromRequest()
       .fold(
         hasErrors = errors => {
-          agentsConnector.ownerAgents(request.organisationId) map { ownerAgents =>
+          getAgents(request.organisationId) map { ownerAgents =>
             BadRequest(
-              views.html.propertyrepresentation.loadAgentsForRemove(AppointAgentVM(errors, None, ownerAgents.agents)))
+              views.html.propertyrepresentation.loadAgentsForRemove(AppointAgentVM(errors, None, ownerAgents)))
           }
         },
         success = (agent: AgentId) => {
@@ -247,11 +245,11 @@ class AppointAgentController @Inject()(
                 .selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), agentCode)))
             case _ =>
               val errors: List[FormError] = List(invalidAgentCode)
-              agentsConnector.ownerAgents(request.organisationId) flatMap { ownerAgents =>
+              getAgents(request.organisationId) flatMap { ownerAgents =>
                 val formWithErrors = errors.foldLeft(registeredAgentForm.fill(AgentId(agent.id))) { (f, error) =>
                   f.withError(error)
                 }
-                invalidRevokeAppointment(formWithErrors, None, ownerAgents.agents)
+                invalidRevokeAppointment(formWithErrors, None, ownerAgents)
               }
           }
         }
@@ -426,6 +424,16 @@ class AppointAgentController @Inject()(
         "linkIds"   -> list(text).verifying(nonEmptyList)
       )(AgentRevokeBulkAction.apply)(AgentRevokeBulkAction.unpack _))
 
+  private def getAgents(organisationId: Long)(implicit hc: HeaderCarrier): Future[Seq[OwnerAgent]] =
+    if (config.getExternalAgentsEnabled) {
+      agentRelationshipService
+        .getMyOrganisationAgents()
+        .map(_.agents.map(agent => OwnerAgent(agent.name, agent.representativeCode)))
+    } else {
+      agentsConnector
+        .ownerAgents(organisationId)
+        .map(_.agents)
+    }
 }
 
 case class AppointAgentPropertiesVM(

@@ -87,6 +87,7 @@ GET         /keep-alive                                                         
 #AGENT REPRESENTATION
 #OWNER ONLY
 #APPOINT
+
 GET         /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
 POST        /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.submitAppointMultipleProperties()
 GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, agentAppointed: Option[String], backLink: String ?= "/my-organisation/appoint")

@@ -19,16 +19,19 @@ package models.searchApi
 import play.api.libs.json.Json
 
 case class OwnerAgent(name: String, ref: Long)
+
 object OwnerAgent {
   implicit val format = Json.format[OwnerAgent]
 }
 
 case class OwnerAgents(agents: Seq[OwnerAgent])
+
 object OwnerAgents {
   implicit val format = Json.format[OwnerAgents]
 }
 
 case class AgentId(id: String)
+
 object AgentId {
   implicit val format = Json.format[AgentId]
 }
