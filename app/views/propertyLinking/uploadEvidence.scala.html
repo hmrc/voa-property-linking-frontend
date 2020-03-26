@@ -22,7 +22,13 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import uk.gov.hmrc.play.views.html.helpers.input
 
-@(submissionId: String, errors: List[String] = Nil, uploadedFiles: Map[String, UploadedFileDetails] = Map(), formEvidence: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(
+        submissionId: String,
+        errors: List[String] = Nil,
+        uploadedFiles: Map[String, UploadedFileDetails] = Map(),
+        formEvidence: Form[_],
+        linkingSession: LinkingSession
+)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(title = Messages("uploadEvidence.show.title"),
     bottomBackLink = true,
@@ -146,6 +152,8 @@
         <span id="errorsFileSizeTooLarge" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
         <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
         <span id="errorsBusinessRatesAttachmentUnavailable" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.unavailable")</span>
+        <span id="signInPageUrl" class="label-span visuallyhidden">@{config.ggSignInUrl}</span>
+        <span id="startClaimUrl" class="label-span visuallyhidden">@{ClaimProperty.declareCapacity(linkingSession.uarn, linkingSession.address)}</span>
         <span id="submissionId" class="label-span visuallyhidden">@submissionId</span>
 
     }

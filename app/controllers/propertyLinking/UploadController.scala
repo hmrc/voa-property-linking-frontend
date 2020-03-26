@@ -60,7 +60,9 @@ class UploadController @Inject()(
             uploadRatesBill(
               session.submissionId,
               errorMessage.toList,
-              session.uploadEvidenceData.attachments.getOrElse(Map.empty)))
+              session.uploadEvidenceData.attachments.getOrElse(Map.empty),
+              session
+            ))
             .withHeaders("Access-Control-Allow-Origin" -> "*")
         case EvidenceChoices.OTHER =>
           Ok(
@@ -70,7 +72,8 @@ class UploadController @Inject()(
               session.uploadEvidenceData.attachments.getOrElse(Map.empty),
               session.uploadEvidenceData.fileInfo
                 .map(x => x.evidenceType.fold(form)(e => form.fill(e)))
-                .getOrElse(form)
+                .getOrElse(form),
+              session
             ))
         case _ =>
           BadRequest(errorHandler.badRequestTemplate)
@@ -121,19 +124,20 @@ class UploadController @Inject()(
                   uploadRatesBill(
                     request.ses.submissionId,
                     List("error.businessRatesAttachment.file.not.selected"),
-                    Map()))))
+                    Map(),
+                    session))))
         case EvidenceChoices.OTHER =>
           form
             .bindFromRequest()
             .fold(
               _ =>
-                Future.successful(
-                  BadRequest(
-                    uploadEvidence(
-                      request.ses.submissionId,
-                      List("error.businessRatesAttachment.evidence.not.selected"),
-                      request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
-                      form))),
+                Future.successful(BadRequest(uploadEvidence(
+                  request.ses.submissionId,
+                  List("error.businessRatesAttachment.evidence.not.selected"),
+                  request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
+                  form,
+                  session
+                ))),
               formData => {
                 val updatedSession = session.copy(evidenceType = EvidenceType.fromName(formData.name))
                 val sessionUploadData: UploadEvidenceData = updatedSession.uploadEvidenceData
@@ -148,7 +152,8 @@ class UploadController @Inject()(
                           request.ses.submissionId,
                           List("error.businessRatesAttachment.file.not.selected"),
                           Map(),
-                          form))))
+                          form,
+                          session))))
               }
             )
         case _ =>

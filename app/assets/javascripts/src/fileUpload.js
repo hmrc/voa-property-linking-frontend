@@ -99,8 +99,9 @@
                     $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsUpscan').text() + '</li>'));
                     $('#message-warning').remove();
                 } else if (!jqXHR.satus) {
+                    var continueUrl = $("#startClaimUrl").text();
                     window.location.href =
-                        $("#signInPageUrl").text()+"?continue=" + encodeURIComponent(window.location)+ "&origin=voa-property-linking-frontend";
+                        $("#signInPageUrl").text()+"?continue=" + encodeURIComponent(continueUrl)+ "&origin=voa-property-linking-frontend";
                 }
 
             }).done(function(data, statusText, resObject) {
