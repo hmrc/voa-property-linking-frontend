@@ -169,6 +169,7 @@ class AddAgentController @Inject()(
       }
     )
   }
+
   def oneProperty(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     Future.successful(Ok(agentToManageOneProperty(manageOneProperty, request.agentDetails.name)))
   }
