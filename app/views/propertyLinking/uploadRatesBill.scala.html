@@ -20,7 +20,13 @@
 @import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
 @import models.upscan._
-@(submissionId: String, errors: List[String] = Nil, uploadedFiles: Map[String, UploadedFileDetails] = Map())(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@(
+        submissionId: String,
+        errors: List[String] = Nil,
+        uploadedFiles: Map[String, UploadedFileDetails] = Map(),
+        linkingSession: LinkingSession
+)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
     @main_template(title = Messages("uploadRatesBill.show.title"),
         topBackLink = true,
@@ -113,6 +119,7 @@
     <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
     <span id="errorsBusinessRatesAttachmentUnavailable" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.unavailable")</span>
     <span id="signInPageUrl" class="label-span visuallyhidden">@{config.ggSignInUrl}</span>
+    <span id="startClaimUrl" class="label-span visuallyhidden">@{ClaimProperty.declareCapacity(linkingSession.uarn, linkingSession.address)}</span>
     <span id="submissionId" class="label-span visuallyhidden">@submissionId</span>
 
     }
