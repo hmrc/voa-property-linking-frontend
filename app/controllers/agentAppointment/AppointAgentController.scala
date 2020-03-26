@@ -166,15 +166,14 @@ class AppointAgentController @Inject()(
                              group.id
                            )
               } yield
-                BadRequest(
-                  views.html.propertyrepresentation.appoint.appointAgentProperties(
-                    Some(errors),
-                    AppointAgentPropertiesVM(group, response),
-                    PaginationParameters(),
-                    GetPropertyLinksParameters(),
-                    data("agentCode").toLong,
-                    data.get("agentAppointed")
-                  ))
+                BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(
+                  Some(errors),
+                  AppointAgentPropertiesVM(group, response),
+                  PaginationParameters(),
+                  GetPropertyLinksParameters(),
+                  data("agentCode").toLong,
+                  data.get("agentAppointed")
+                ))
             case None =>
               Future.successful(notFound)
           }
@@ -322,15 +321,14 @@ class AppointAgentController @Inject()(
                              .map(oar => oar.copy(filterTotal = oar.authorisations.size))
                              .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
               } yield {
-                BadRequest(
-                  views.html.propertyrepresentation.revokeAgentProperties(
-                    Some(errors),
-                    model = AppointAgentPropertiesVM(group, response),
-                    pagination = PaginationParameters(),
-                    params = GetPropertyLinksParameters(),
-                    agentCode = agentCode,
-                    backLink = agentAppointment.routes.AppointAgentController.revokeMultipleProperties().url
-                  ))
+                BadRequest(views.html.propertyrepresentation.revokeAgentProperties(
+                  Some(errors),
+                  model = AppointAgentPropertiesVM(group, response),
+                  pagination = PaginationParameters(),
+                  params = GetPropertyLinksParameters(),
+                  agentCode = agentCode,
+                  backLink = agentAppointment.routes.AppointAgentController.revokeMultipleProperties().url
+                ))
               }
             case _ =>
               Future.successful(notFound)
