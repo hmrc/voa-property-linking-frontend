@@ -75,14 +75,14 @@ class AppointAgentController @Inject()(
       .bindFromRequest()
       .fold(
         hasErrors = errors => {
-          getAgents(request.organisationId) map { ownerAgents =>
+          getAgents(request.organisationId).map { ownerAgents =>
             BadRequest(
               views.html.propertyrepresentation.appoint
                 .appointAgent(AppointAgentVM(errors, None, ownerAgents), Some(config.newDashboardUrl("your-agents"))))
           }
         },
         success = (agent: AppointAgent) => {
-          accounts.withAgentCode(agent.getAgentCode().toString) flatMap {
+          accounts.withAgentCode(agent.getAgentCode().toString).flatMap {
             case Some(group) =>
               Future.successful(
                 Redirect(
@@ -93,7 +93,7 @@ class AppointAgentController @Inject()(
                     None)))
             case None =>
               val errors: List[FormError] = List(invalidAgentCode)
-              getAgents(request.organisationId) flatMap { ownerAgents =>
+              getAgents(request.organisationId).flatMap { ownerAgents =>
                 val formWithErrors = errors.foldLeft(appointAgentForm.fill(agent)) { (f, error) =>
                   f.withError(error)
                 }
@@ -156,7 +156,7 @@ class AppointAgentController @Inject()(
       .fold(
         errors => {
           val data: Map[String, String] = errors.data
-          accounts.withAgentCode(data("agentCode")) flatMap {
+          accounts.withAgentCode(data("agentCode")).flatMap {
             case Some(group) =>
               for {
                 response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
@@ -239,13 +239,13 @@ class AppointAgentController @Inject()(
           }
         },
         success = (agent: AgentId) => {
-          accounts.withAgentCode(agent.id) flatMap {
+          accounts.withAgentCode(agent.id).flatMap {
             case Some(AgentGroupAccount(_, agentCode)) =>
               Future.successful(Redirect(routes.AppointAgentController
                 .selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), agentCode)))
             case _ =>
               val errors: List[FormError] = List(invalidAgentCode)
-              getAgents(request.organisationId) flatMap { ownerAgents =>
+              getAgents(request.organisationId).flatMap { ownerAgents =>
                 val formWithErrors = errors.foldLeft(registeredAgentForm.fill(AgentId(agent.id))) { (f, error) =>
                   f.withError(error)
                 }
@@ -262,7 +262,7 @@ class AppointAgentController @Inject()(
         agentCode: Long,
         backLink: String = agentAppointment.routes.AppointAgentController.revokeMultipleProperties().url
   ) = authenticated.async { implicit request =>
-    accounts.withAgentCode(agentCode.toString) flatMap {
+    accounts.withAgentCode(agentCode.toString).flatMap {
       case Some(group) =>
         for {
           response <- agentRelationshipService
@@ -302,7 +302,7 @@ class AppointAgentController @Inject()(
           val data: Map[String, String] = errors.data
           val pagination = AgentPropertiesParameters(agentCode = data("agentCode").toLong)
 
-          accounts.withAgentCode(pagination.agentCode.toString) flatMap {
+          accounts.withAgentCode(pagination.agentCode.toString).flatMap {
             case Some(AgentGroupAccount(group, agentCode)) =>
               for {
                 response <- agentRelationshipService
@@ -337,7 +337,7 @@ class AppointAgentController @Inject()(
           }
         },
         success = (action: AgentRevokeBulkAction) => {
-          accounts.withAgentCode(action.agentCode.toString) flatMap {
+          accounts.withAgentCode(action.agentCode.toString).flatMap {
             case Some(group) =>
               agentRelationshipService
                 .createAndSubmitAgentRevokeRequest(pLinkIds = action.propertyLinkIds, agentCode = action.agentCode)
