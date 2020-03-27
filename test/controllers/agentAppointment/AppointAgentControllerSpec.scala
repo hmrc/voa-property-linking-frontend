@@ -86,7 +86,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "getMyOrganisationPropertyLinksWithAgentFiltering" should "show the appoint agent properties page" in {
 
-    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address", "localAuthorityRef", testAgents)
+    val testOwnerAuth = OwnerAuthorisation(1L, "1111111", 1L, "address", "localAuthorityRef", testAgents)
 
     val testOwnerAuthResult =
       OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = Seq(testOwnerAuth))
@@ -167,7 +167,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   "selectAgentPropertiesSearchSort" should "show a list of properties available for removal from a agent" in {
-    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address", "localAuthorityRef", testAgents)
+    val testOwnerAuth = OwnerAuthorisation(1L, "1111111", 1L, "address", "localAuthorityRef", testAgents)
 
     val testOwnerAuthResult =
       OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = Seq(testOwnerAuth))

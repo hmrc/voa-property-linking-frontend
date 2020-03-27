@@ -473,9 +473,8 @@ package object resources {
   } yield {
     OwnerAuthorisation(
       authorisationId = id,
-      status = status,
-      uarn = uarn,
       submissionId = submissionId,
+      uarn = uarn,
       address = address.toString,
       localAuthorityRef = localAuthorityRef,
       agents = agents)

@@ -177,31 +177,25 @@ trait FakeObjects {
 
   val ownerAuthorisation = OwnerAuthorisation(
     authorisationId = 4222211L,
-    status = "APPROVED",
     submissionId = "PLSubId",
     uarn = 999000111L,
     address = "123, Some address",
     localAuthorityRef = "BAREF",
-    agents = Seq(ownerAuthAgent)
-  )
+    agents = Seq(ownerAuthAgent))
   val ownerAuthorisation2 = OwnerAuthorisation(
     authorisationId = 4222212L,
-    status = "APPROVED",
     submissionId = "PLSubId2",
     uarn = 999000112L,
     address = "124, Some address",
     localAuthorityRef = "BAREF2",
-    agents = Seq(ownerAuthAgent2)
-  )
+    agents = Seq(ownerAuthAgent2))
   val ownerAuthorisationWithNoAgent = OwnerAuthorisation(
     authorisationId = 4222212L,
-    status = "APPROVED",
     submissionId = "PLSubId2",
     uarn = 999000112L,
     address = "124, Some address",
     localAuthorityRef = "BAREF2",
-    agents = Seq.empty
-  )
+    agents = Seq.empty)
 
   val ownerAuthResultWithOneAuthorisation = OwnerAuthResult(
     start = 1,
