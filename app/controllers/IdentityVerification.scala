@@ -88,7 +88,10 @@ class IdentityVerification @Inject()(
         }
       }
     } else {
-      Future.successful(Redirect(controllers.registration.routes.RegistrationController.success(1L)))
+      identityVerificationService.continue("1", request.userDetails).map {
+        case Some(obj) => identityVerificationService.someCase(obj)
+        case None      => identityVerificationService.noneCase
+      }
     }
   }
 }
