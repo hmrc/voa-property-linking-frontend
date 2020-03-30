@@ -26,16 +26,26 @@
 @import config.ApplicationConfig
 @import binders.propertylinks.GetPropertyLinksParameters
 @import controllers.PaginationParams
-@this(govukTable : GovukTable, mainLayout: views.html.mainLayout)
+@import models.searchApi.OwnerAuthResult
+@import controllers.agent.forms.AgentPropertiesForm
+@import views.html.propertyrepresentation.manage.partials.myAgentFormFields
 
-@(agents: List[AgentSummary], propertyLinkingCount: Int)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@this(govukTable : GovukTable, govukInput : GovukInput, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+
+@(form: Form[AgentPropertiesForm], ownerAuthResult: OwnerAuthResult, agentCode: Long, agentDetails:Option[AgentDetails])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.showAgents.title"),
-    backUri = Some(controllers.agent.routes.ManageAgentController.showAgents())
+    pageTitle = messages("propertyRepresentation.manageAgent.title"),
+    backUri = Some(config.newDashboardUrl("home"))
 ) {
 
-    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.showAgents.title")</h1>
+    <h1 class="govuk-heading-xl">@agentDetails.getOrElse("")</h1>
+    @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent(agent.representativeCode)) {
+        <input type="hidden" name="agentCode" value="@agentCode">
+        <input type="hidden" name="agentCode" value="@agentCode">
+        @myAgentFormFields(govukInput, govukButton)
+    }
+
     @govukTable(Table(
         rows = agents.map{ agent =>
             Seq(

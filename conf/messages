@@ -456,10 +456,10 @@ error.propertyRepresentation.agentAlreadyAppointed=This agent has already been a
 propertyRepresentation.showAgents.title=Your agents
 propertyRepresentation.showAgents.properties={0} of {1} properties
 propertyRepresentation.showAgents.viewAgentDProperties=<a class="govuk-link" href="{0}">View</a>
+propertyRepresentation.agentProperties.filter=Search Properties - you must enter something to search for
 
 #Manage Agent
 propertyRepresentation.manageAgent.title=Manage agent
-
 propertyRepresentation.manageAgent.question=What do you want to do to the agent {0}?
 propertyRepresentation.manageAgent.removeFromAccount.question=Would you like to remove {0} from your account?
 propertyRepresentation.manageAgent.unassignFromProperty.question=Would you like to unassign {0} from your property?
@@ -832,10 +832,12 @@ error.common.date.mustBeInPast=Must be in the past
 error.common.noValueSelected=Please select an option
 error.booleanMissing=You must select one
 label.address=Address
+label.localAuthorityReference=Local authority reference
 label.address.line1=Address line 1
 label.address.line2=Address line 2
 label.address.line3=Address line 3
 label.address.line4=Address line 4
+label.submit=Submit
 label.address.postcode=Postcode
 placeholder.address.line1=Address line 1
 placeholder.address.line2=Address line 2
@@ -846,6 +848,8 @@ label.findAddress.tryAgain=Try another postcode
 error.postcode=Invalid postcode
 addressLookup.manual=Enter address manually
 addressLookup.lookup=Find address by postcode
+properties.searchYourProperties=Search your properties
+
 link.continue=Continue
 link.back=Back
 link.update=Update

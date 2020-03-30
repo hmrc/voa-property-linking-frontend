@@ -23,9 +23,10 @@ import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.EnumMapping
 import javax.inject.{Inject, Named}
+
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.{RepresentationApproved, RepresentationPending}
-import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentList, AgentOrganisation, AgentSummary, AssignToAllProperties, AssignToSomeProperties, ManageAgentOptions, ManageAgentRequest, UnassignFromAllProperties}
+import models.propertyrepresentation._
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
@@ -67,11 +68,23 @@ class ManageAgentController @Inject()(
 
   }
 
-  def manageAgent(agentCode: Option[Long]): Action[AnyContent] = authenticated.async { implicit request =>
-    getManageAgentPage(agentCode).map {
-      case None       => NotFound(errorHandler.notFoundTemplate)
-      case Some(page) => Ok(page)
-    }
+  def manageAgent(agentCode: Long,
+                  params: GetPropertyLinksParameters,
+                  pagination: PaginationParams): Action[AnyContent] = authenticated { implicit request => {
+     for {
+       ownerAuthResult <-  agentRelationshipService.getMyAgentPropertyLinks(agentCode, params, pagination.copy(requestTotalRowCount = true))
+       agentDetails <-  agentRelationshipService.getAgentNameAndAddress(agentCode)
+     }yield(
+       Ok(myAgentsPage(organisationsAgents.agents, propertyLinksCount))
+       )
+
+
+  }
+
+  def manageAgentSearchSortProperties(agentCode: Long,
+                  params: GetPropertyLinksParameters,
+                  pagination: PaginationParams): Action[AnyContent] = authenticated { implicit request => {
+    agentRelationshipService.getMyAgentPropertyLinks(agentCode, params, pagination.copy(requestTotalRowCount = true)).map( result => Ok(myAgentsPage(organisationsAgents.agents, propertyLinksCount)))
   }
 
   private[agent] def getManageAgentPage(

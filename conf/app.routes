@@ -109,7 +109,8 @@ GET         /my-organisation/appoint-new-agent/checkYourAnswers                 
 POST        /my-organisation/appoint-agent                                                                                @controllers.agentAppointment.AddAgentController.appointAgent()
 
 #MANAGE AGENT
-GET         /my-organisation/manage-agent                                                                                 @controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
+GET         /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgent(agentCode: Long, searchParams: GetPropertyLinksParameters, params: models.PaginationParams)
+POST        /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgent(agentCode: Long, searchParams: GetPropertyLinksParameters, params: models.PaginationParams)
 GET         /my-organisation/agents                                                                                       @controllers.agent.ManageAgentController.showAgents()
 
 POST        /my-organisation/manage-agent/:agentCode                                                                      @controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)
