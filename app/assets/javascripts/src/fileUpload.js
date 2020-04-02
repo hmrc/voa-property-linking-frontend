@@ -19,10 +19,13 @@
         $element.change(function(){
             $('#error-summary').remove();
             $('#uploadFile').attr('disabled','disabled');
-
-            $(this).after('<div class="message-warning" id="message-warning"><p>Please wait whilst your file is uploading. This may take some time.</p></div>');
-
             var file = this.files[0];
+
+
+            if(file.type != "" && file.type != undefined){
+                $(this).after('<div class="message-warning" id="message-warning"><p>Please wait whilst your file is uploading. This may take some time.</p></div>');
+            }
+
             function resolveMimeType(upload) {
                 if(file.type != "" && file.type != undefined){
                     return file.type;
