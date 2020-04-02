@@ -61,7 +61,7 @@ GET         /planned-improvements                                               
 
 #Enrolment page
 GET         /complete-contact-details                                                         @controllers.registration.RegistrationController.show()
-POST        /complete-contact-details                                                @controllers.registration.RegistrationController.submitOrganisation()
+POST        /complete-contact-details                                                         @controllers.registration.RegistrationController.submitOrganisation()
 GET         /complete-existing-business-contact-details                                       @controllers.registration.RegistrationController.show()
 POST        /complete-existing-business-contact-details                                       @controllers.registration.RegistrationController.submitAdminToExistingOrganisation()
 GET         /complete-your-contact-details                                                    @controllers.registration.RegistrationController.show()
@@ -109,8 +109,9 @@ GET         /my-organisation/appoint-new-agent/checkYourAnswers                 
 POST        /my-organisation/appoint-agent                                                                                @controllers.agentAppointment.AddAgentController.appointAgent()
 
 #MANAGE AGENT
-GET         /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgent(agentCode: Long, searchParams: GetPropertyLinksParameters, params: models.PaginationParams)
-POST        /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgent(agentCode: Long, searchParams: GetPropertyLinksParameters, params: models.PaginationParams)
+GET         /my-organisation/manage-agent                                                                                 @controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
+GET         /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)
+POST        /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgentSearchSortProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)
 GET         /my-organisation/agents                                                                                       @controllers.agent.ManageAgentController.showAgents()
 
 POST        /my-organisation/manage-agent/:agentCode                                                                      @controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)

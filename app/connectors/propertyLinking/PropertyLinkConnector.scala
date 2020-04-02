@@ -22,7 +22,6 @@ import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
 
 import models._
-import models.modernised.externalpropertylink.myorganisations.PropertyLinksWithAgents
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList}
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
@@ -44,12 +43,10 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
   def getMyOrganisationPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
     http.GET[Option[PropertyLink]](s"$baseUrl/owner/property-links/$submissionId")
 
-  def getMyAgentPropertyLinks(         agentCode: Long,
-                                       searchParams: GetPropertyLinksParameters,
-                                       pagination: PaginationParams
-                                     )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
+  def getMyAgentPropertyLinks(agentCode: Long, searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(
+        implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
     http.GET[OwnerAuthResult](
-      s"$baseUrl/my-organisation/agents/${agentCode}/property-links",
+      s"$baseUrl/my-organisation/agents/$agentCode/property-links",
       List(
         searchParams.address.map("address" -> _),
         searchParams.baref.map("baref"     -> _),

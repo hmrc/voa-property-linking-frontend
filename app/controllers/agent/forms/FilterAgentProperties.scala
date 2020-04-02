@@ -16,9 +16,9 @@
 
 package controllers.agent.forms
 
-case class FilterAgentProperties(
-                                  address: Option[String],
-                                  localAuthorityReference: Option[String]) {
+import binders.propertylinks.GetPropertyLinksParameters
+
+case class FilterAgentProperties(address: Option[String], localAuthorityReference: Option[String]) {
 
   def searchCriteriaExists: Boolean =
     if (address.isDefined || localAuthorityReference.isDefined)
@@ -29,4 +29,7 @@ case class FilterAgentProperties(
 
 object FilterAgentProperties {
   val empty = FilterAgentProperties(None, None)
+
+  def apply(params: GetPropertyLinksParameters): FilterAgentProperties =
+  FilterAgentProperties(params.address, params.baref)
 }

@@ -25,14 +25,15 @@
 @import models.propertyrepresentation.AgentSummary
 @import config.ApplicationConfig
 @import binders.propertylinks.GetPropertyLinksParameters
-@import controllers.PaginationParams
+@import binders.pagination.PaginationParameters
+
 @this(govukTable : GovukTable, mainLayout: views.html.mainLayout)
 
 @(agents: List[AgentSummary], propertyLinkingCount: Int)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.showAgents.title"),
-    backUri = Some(controllers.agent.routes.ManageAgentController.showAgents())
+    backUri = Some(config.newDashboardUrl("home"))
 ) {
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.showAgents.title")</h1>
@@ -46,7 +47,7 @@
                     content = Text(messages("propertyRepresentation.showAgents.properties", agent.propertyCount, propertyLinkingCount))
                 ),
                 TableRow(
-                    content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentDProperties", s"""${controllers.agent.routes.ManageAgentController.manageAgent(agent.representativeCode, GetPropertyLinksParameters(), PaginationParams(1, 15, true))}""")))
+                    content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentDProperties", s"${controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters(1, 15)).url}")))
                 )
 
             )
