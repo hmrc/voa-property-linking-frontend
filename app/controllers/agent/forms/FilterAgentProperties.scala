@@ -31,5 +31,5 @@ object FilterAgentProperties {
   val empty = FilterAgentProperties(None, None)
 
   def apply(params: GetPropertyLinksParameters): FilterAgentProperties =
-  FilterAgentProperties(params.address, params.baref)
+    FilterAgentProperties(params.address, params.baref)
 }

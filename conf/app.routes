@@ -61,7 +61,7 @@ GET         /planned-improvements                                               
 
 #Enrolment page
 GET         /complete-contact-details                                                         @controllers.registration.RegistrationController.show()
-POST        /complete-contact-details                                                         @controllers.registration.RegistrationController.submitOrganisation()
+POST        /complete-contact-details                                                @controllers.registration.RegistrationController.submitOrganisation()
 GET         /complete-existing-business-contact-details                                       @controllers.registration.RegistrationController.show()
 POST        /complete-existing-business-contact-details                                       @controllers.registration.RegistrationController.submitAdminToExistingOrganisation()
 GET         /complete-your-contact-details                                                    @controllers.registration.RegistrationController.show()
@@ -87,6 +87,7 @@ GET         /keep-alive                                                         
 #AGENT REPRESENTATION
 #OWNER ONLY
 #APPOINT
+
 GET         /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
 POST        /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.submitAppointMultipleProperties()
 GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, agentAppointed: Option[String], backLink: String ?= "/my-organisation/appoint")
@@ -118,10 +119,13 @@ POST        /my-organisation/manage-agent/:agentCode                            
 POST        /my-organisation/manage-agent/assign/:agentCode/:agentName/to-all-properties                                  @controllers.agent.ManageAgentController.assignAgentToAll(agentCode: Long, agentName: String)
 POST        /my-organisation/manage-agent/unassign/:agentCode/:agentName/from-all-properties                              @controllers.agent.ManageAgentController.unassignAgentFromAll(agentCode: Long, agentName: String)
 
+GET         /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  @controllers.agent.ManageAgentController.showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String)
+POST        /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  @controllers.agent.ManageAgentController.removeAgentFromIpOrganisation(agentCode: Long, agentName: String)
+
 
 GET         /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.revokeMultipleProperties()
 POST        /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.submitRevokeMultipleProperties()
-GET         /my-organisation/revoke/properties                                                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long)
+GET         /my-organisation/revoke/properties                                                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, backLink: String ?= "/my-organisation/revoke")
 POST        /my-organisation/revoke/properties/create                                                                     @controllers.agentAppointment.AppointAgentController.revokeAgentSummary()
 
 #REVOKE

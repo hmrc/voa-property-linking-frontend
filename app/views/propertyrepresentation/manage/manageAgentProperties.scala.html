@@ -25,8 +25,6 @@
 @import models.propertyrepresentation.AgentDetails
 @import models.searchApi.AgentPropertiesFilter
 
-@this(govukTable : GovukTable, mainLayout: views.html.mainLayout)
-
 @(agentPropertiesForm: Form[FilterAgentProperties],
         ownerAuthResult: OwnerAuthResult,
         agentCode: Long,
@@ -57,19 +55,34 @@
             </header>
         </div>
 
+
+        <div class="column-full">
+            <br>
+            <p>
+            <a href="@{controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url}" class="button">@messages("propertyRepresentation.manage.agent")</a>
+            </p>
+        </div>
+
+        <div class="column-full">
+            <p>
+            <h2 class="heading-medium margin-top-0">@messages("propertyRepresentation.agentProperties.assigned")</h2>
+            </p>
+        </div>
+
         <div class="column-full">
 
-            @if(agentPropertiesForm.hasErrors) {
-                <span class="error-message"><a href="#form_errors_id">@Messages("propertyRepresentation.agentProperties.filter")</a></span>
-            }
-            @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.manageAgentSearchSortProperties(agentCode, params, pagination)) {
+            @includes.errorSummary(agentPropertiesForm, Some("ignoreMessagePrefix"))
+
+            @form(action = controllers.agent.routes.ManageAgentController.manageAgentSearchSortProperties(agentCode, params, pagination)) {
 
             <div id="filterProperties" class="@filterPropertiesErrClass searchbar column-full">
                 <div class="row">
-                    <div class="column-full">
+                    <div class="column-full" >
                         <h2 class="heading-small margin-top-0">@messages("properties.searchYourProperties")</h2>
                         @if(agentPropertiesForm.hasErrors) {
-                            <span class="error-message" id="form_errors_id">@Messages("error.agentProperties.filter")</span>
+                            <div id="Group">
+                            <span class="error-message" id="addressGroup">@Messages("error.agentProperties.filter")</span>
+                            </div>
                         }
                     </div>
                 </div>

@@ -76,14 +76,21 @@ class IdentityVerification @Inject()(
   }
 
   def success(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
-    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
-      identityVerificationConnector.verifySuccess(id).flatMap {
-        case true =>
-          identityVerificationService.continue(id, request.userDetails).map {
-            case Some(obj) => identityVerificationService.someCase(obj)
-            case None      => identityVerificationService.noneCase
-          }
-        case false => Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
+    if (config.ivEnabled) {
+      journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+        identityVerificationConnector.verifySuccess(id).flatMap {
+          case true =>
+            identityVerificationService.continue(id, request.userDetails).map {
+              case Some(obj) => identityVerificationService.someCase(obj)
+              case None      => identityVerificationService.noneCase
+            }
+          case false => Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
+        }
+      }
+    } else {
+      identityVerificationService.continue("1", request.userDetails).map {
+        case Some(obj) => identityVerificationService.someCase(obj)
+        case None      => identityVerificationService.noneCase
       }
     }
   }

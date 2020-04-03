@@ -460,16 +460,24 @@ error.propertyRepresentation.agentAlreadyAppointed=This agent has already been a
 
 #Show your agents
 propertyRepresentation.showAgents.title=Your agents
+propertyRepresentation.agentProperties.assigned=Assigned properties
+propertyRepresentation.manage.agent=Manage this agent
 propertyRepresentation.showAgents.properties={0} of {1} properties
 propertyRepresentation.showAgents.viewAgentDProperties=<a class="govuk-link" href="{0}">View</a>
-propertyRepresentation.agentProperties.filter=Search Properties - you must enter something to search for
+error.propertyRepresentation.agentProperties.filter=Search Properties - you must enter something to search for
 error.agentProperties.filter=You must enter either address or Local authority reference something to search for
 
 #Manage Agent
 propertyRepresentation.manageAgent.title=Manage agent
 propertyRepresentation.manageAgent.question=What do you want to do to the agent {0}?
+
 propertyRepresentation.manageAgent.removeFromAccount.question=Would you like to remove {0} from your account?
+propertyRepresentation.manageAgent.removeFromAccount.continue=Confirm and remove
+propertyRepresentation.manageAgent.removeFromAccount.cancel=Cancel and return to home page
+propertyRepresentation.manageAgent.removeFromAccount.confirmation={0} has been removed from your account
+
 propertyRepresentation.manageAgent.unassignFromProperty.question=Would you like to unassign {0} from your property?
+propertyRepresentation.manageAgent.unassignFromProperty.confirm=Confirm and unassign
 
 propertyRepresentation.manageAgent.options.assignToAllProperties=Assign to all properties
 propertyRepresentation.manageAgent.options.assignToSomeProperties=Assign to some properties
@@ -825,6 +833,7 @@ startChallenge.p.3=You should send the form and any supporting evidence to <a hr
 startChallenge.p.4=Please be aware of the risks before sending any confidential information.
 
 #COMMON
+label.youCanNow=You can now:
 label.continue=Continue
 label.confirm=Confirm
 label.companyName=Company name

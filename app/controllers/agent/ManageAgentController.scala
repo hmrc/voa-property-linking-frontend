@@ -17,6 +17,7 @@
 package controllers.agent
 
 import actions.AuthenticatedAction
+import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
@@ -46,14 +47,14 @@ class ManageAgentController @Inject()(
       authenticated: AuthenticatedAction,
       agentRelationshipService: AgentRelationshipService,
       manageAgentPage: views.html.propertyrepresentation.manage.manageAgent,
-      manageAgentPropertiesPage: views.html.propertyrepresentation.manage.manageAgentProperties,
       myAgentsPage: views.html.propertyrepresentation.manage.myAgents,
       removeAgentFromOrganisation: views.html.propertyrepresentation.manage.removeAgentFromOrganisation,
       unassignAgentFromProperty: views.html.propertyrepresentation.manage.unassignAgentFromProperty,
       addAgentToAllProperties: views.html.propertyrepresentation.manage.addAgentToAllProperties,
       confirmAddAgentToAllProperties: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties,
       unassignAgentFromAllProperties: views.html.propertyrepresentation.manage.unassignAgentFromAllProperties,
-      confirmUnassignAgentFromAllProperties: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties)(
+      confirmUnassignAgentFromAllProperties: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties,
+      confirmRemoveAgentFromOrganisation: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -77,47 +78,60 @@ class ManageAgentController @Inject()(
     }
   }
 
-  def manageAgentProperties(agentCode: Long,
-                  params: GetPropertyLinksParameters,
-                  pagination: PaginationParameters): Action[AnyContent] = authenticated.async { implicit request => {
-
-    for {
-      ownerAuthResult <- agentRelationshipService.getMyAgentPropertyLinks(agentCode, params, PaginationParams(pagination.startPoint, pagination.pageSize, true))
-      agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
-    } yield {
-      Ok(manageAgentPropertiesPage(
-        AgentPropertiesForm.filterPropertiesForm.fill(FilterAgentProperties(params)),
-        ownerAuthResult,
-        agentCode,
-        agentDetails,
-        params,
-        pagination))
-    }
-  }
-  }
-
-
-  def manageAgentSearchSortProperties(agentCode: Long,
-                  params: GetPropertyLinksParameters,
-                  pagination: PaginationParameters): Action[AnyContent] = authenticated.async { implicit request => {
-
-  AgentPropertiesForm.filterPropertiesForm.bindFromRequest.fold(
-    errors =>{
-    val errorsUpdated = errors.withError(FormError("address", "error.agentProperties.filter"))
-    for {
-        ownerAuthResult <- agentRelationshipService.getMyAgentPropertyLinks(agentCode, params, PaginationParams(pagination.startPoint, pagination.pageSize, true))
+  def manageAgentProperties(
+        agentCode: Long,
+        params: GetPropertyLinksParameters,
+        pagination: PaginationParameters): Action[AnyContent] = authenticated.async { implicit request =>
+    {
+      for {
+        ownerAuthResult <- agentRelationshipService.getMyAgentPropertyLinks(
+                            agentCode,
+                            params,
+                            PaginationParams(pagination.startPoint, pagination.pageSize, true))
         agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
-      } yield (BadRequest(manageAgentPropertiesPage(errorsUpdated, ownerAuthResult, agentCode, agentDetails, params, pagination)))
-    }
-    ,
-    success =>
-      Future.successful(Redirect(routes.ManageAgentController.manageAgentProperties(
-        agentCode,
-        params.copy(address = success.address, baref = success.localAuthorityReference),
-        pagination)))
-  )
+      } yield {
 
- }
+        Ok(
+          views.html.propertyrepresentation.manage.manageAgentProperties(
+            AgentPropertiesForm.filterPropertiesForm.fill(FilterAgentProperties(params)),
+            ownerAuthResult,
+            agentCode,
+            agentDetails,
+            params,
+            pagination))
+      }
+    }
+  }
+
+  def manageAgentSearchSortProperties(
+        agentCode: Long,
+        params: GetPropertyLinksParameters,
+        pagination: PaginationParameters): Action[AnyContent] = authenticated.async { implicit request =>
+    {
+
+      AgentPropertiesForm.filterPropertiesForm.bindFromRequest.fold(
+        errors => {
+          for {
+            ownerAuthResult <- agentRelationshipService.getMyAgentPropertyLinks(
+                                agentCode,
+                                params,
+                                PaginationParams(pagination.startPoint, pagination.pageSize, true))
+            agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
+          } yield
+            (BadRequest(
+              views.html.propertyrepresentation.manage
+                .manageAgentProperties(errors, ownerAuthResult, agentCode, agentDetails, params, pagination)))
+        },
+        success =>
+          Future.successful(
+            Redirect(
+              routes.ManageAgentController.manageAgentProperties(
+                agentCode,
+                params.copy(address = success.address, baref = success.localAuthorityReference),
+                pagination)))
+      )
+
+    }
   }
   private[agent] def getManageAgentPage(
         agentCode: Option[Long],
@@ -139,11 +153,12 @@ class ManageAgentController @Inject()(
                                          representationStatusFilter =
                                            Seq(RepresentationApproved, RepresentationPending)
                                        )
+      ipPropertyLinksCount = propertyLinks.total
     } yield {
-      (propertyLinks.total, agentToBeManagedOpt) match {
+      (ipPropertyLinksCount, agentToBeManagedOpt) match {
         case (0, Some(agent)) if agent.propertyCount == 0 =>
           //IP has no property links but still has an agent
-          Some(removeAgentFromOrganisation(submitManageAgentForm, agent))
+          Some(removeAgentFromOrganisation(submitAgentAppointmentRequest, agent.representativeCode, agent.name))
         case (1, Some(agent)) if agent.propertyCount == 0 =>
           //IP has one property link but agent is not assigned
           Some(
@@ -185,13 +200,13 @@ class ManageAgentController @Inject()(
         }
       }, { success =>
         success.manageAgentOption match {
-          case AssignToSomeProperties => Future.successful(joinOldJourney(agentCode))
+          case AssignToSomeProperties => Future.successful(joinOldAgentAppointJourney(agentCode))
           case AssignToAllProperties =>
             Future.successful(Ok(addAgentToAllProperties(submitAgentAppointmentRequest, success.agentName, agentCode)))
           case UnassignFromAllProperties =>
             Future.successful(
               Ok(unassignAgentFromAllProperties(submitAgentAppointmentRequest, success.agentName, agentCode)))
-          case _ => ??? //fixme this will be implemented in subsequent stories (VTCCA-3206)
+          case UnassignFromSomeProperties => Future.successful(joinOldRevokeAppointJourney(agentCode))
         }
       }
     )
@@ -205,7 +220,10 @@ class ManageAgentController @Inject()(
         }, { success =>
           agentRelationshipService
             .assignAgent(success)
-            .map(_ => Ok(confirmAddAgentToAllProperties(agentName)))
+            .map { _ =>
+              val page = confirmAddAgentToAllProperties(agentName)
+              Ok(page)
+            }
         }
       )
   }
@@ -218,15 +236,33 @@ class ManageAgentController @Inject()(
         }, { success =>
           agentRelationshipService
             .unassignAgent(success)
-            .map(_ => Ok(confirmUnassignAgentFromAllProperties(agentName)))
+            .map(_ => Ok(confirmUnassignAgentFromAllProperties(agentName, agentCode)))
         }
       )
   }
 
-  private def joinOldJourney(agentCode: Long) =
+  def showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      Future.successful(Ok(removeAgentFromOrganisation(submitAgentAppointmentRequest, agentCode, agentName)))
+  }
+
+  def removeAgentFromIpOrganisation(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      submitAgentAppointmentRequest.bindFromRequest.fold(
+        errors => {
+          Future.successful(BadRequest(removeAgentFromOrganisation(errors, agentCode, agentName)))
+        }, { success =>
+          agentRelationshipService
+            .removeAgentFromOrganisation(success)
+            .map(_ => Ok(confirmRemoveAgentFromOrganisation(agentName)))
+        }
+      )
+  }
+
+  private def joinOldAgentAppointJourney(agentCode: Long) =
     Redirect(
       controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
-        pagination = PaginationParameters(page = 1, pageSize = 15),
+        pagination = PaginationParameters(),
         params = GetPropertyLinksParameters(
           sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
           sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
@@ -235,4 +271,14 @@ class ManageAgentController @Inject()(
         backLink = controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
       ))
 
+  private def joinOldRevokeAppointJourney(agentCode: Long) =
+    Redirect(
+      controllers.agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(
+        pagination = PaginationParameters(),
+        params = GetPropertyLinksParameters(
+          sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
+          sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
+        agentCode = agentCode,
+        backLink = controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
+      ))
 }

@@ -42,7 +42,7 @@
     @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent(agent.representativeCode)) {
         <input type="hidden" name="agentName" value="@agent.name">
         <input type="hidden" name="manageAgentOption" value="@UnassignFromAllProperties.name">
-        @govukButton(Button(content = Text(messages("label.continue"))))
+        @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperty.confirm"))))
     }
 
 }

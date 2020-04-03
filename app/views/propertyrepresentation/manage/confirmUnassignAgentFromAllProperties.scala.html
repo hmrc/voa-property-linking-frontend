@@ -22,7 +22,7 @@
 
 @this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
 
-@(agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, agentCode: Long)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.addAnAgent.title"),
@@ -45,7 +45,7 @@
     </h2>
     <ul class="govuk-list">
 
-        <li class="govuk-link"><a href="#">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount")</a></li>
+        <li class="govuk-link"><a href="@controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation(agentCode, agentName).url">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount")</a></li>
         <li class="govuk-link"><a href="@config.newDashboardUrl("home")">@messages("link.return.home")</a></li>
     </ul>
 

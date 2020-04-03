@@ -18,6 +18,7 @@ package controllers.agentAppointment
 
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
+import config.ApplicationConfig
 import connectors.{AgentsConnector, PropertyRepresentationConnector}
 import controllers.VoaPropertyLinkingSpec
 import models._
@@ -115,7 +116,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(agent)
 
     when(
-      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any())(any[HeaderCarrier]))
+      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any())(
+        any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
     val res = testController.appointAgentSummary()(
@@ -133,7 +135,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(agent)
 
     when(
-      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any())(any[HeaderCarrier]))
+      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any())(
+        any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
     val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
@@ -149,7 +152,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(agent)
 
     when(
-      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any())(any[HeaderCarrier]))
+      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any())(
+        any[HeaderCarrier]))
       .thenReturn(Future.failed(new AppointRevokeException("")))
 
     val res = testController.appointAgentSummary()(

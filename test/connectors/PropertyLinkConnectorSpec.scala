@@ -16,8 +16,9 @@
 
 package connectors
 
+import binders.propertylinks.GetPropertyLinksParameters
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.VoaPropertyLinkingSpec
+import controllers.{PaginationParams, VoaPropertyLinkingSpec}
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
@@ -101,6 +102,12 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   "getMyOrganisationAgents" must "return organisation's agents" in new Setup {
     mockHttpGET[AgentList]("tst-url", organisationsAgentsList)
     whenReady(connector.getMyOrganisationAgents())(_ mustBe organisationsAgentsList)
+  }
+
+  "getMyAgentPropertyLinks" must "return agent's property links" in new Setup {
+    mockHttpGET[OwnerAuthResult]("tst-url", ownerAuthResultWithTwoAuthorisation)
+    whenReady(connector.getMyAgentPropertyLinks(1, GetPropertyLinksParameters(), PaginationParams(1, 15, true)))(
+      _ mustBe ownerAuthResultWithTwoAuthorisation)
   }
 
   "getMyOrganisationPropertyLinksCount" must "return organisation's property links count" in new Setup {

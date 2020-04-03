@@ -20,7 +20,7 @@ import java.time.LocalDate
 
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
-import actions.requests.AuthenticatedRequest
+import actions.requests.{AuthenticatedRequest, BasicAuthenticatedRequest}
 import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.Singleton
 import config.ApplicationConfig
@@ -35,7 +35,7 @@ import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
 import uk.gov.hmrc.http.Upstream5xxResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
@@ -80,7 +80,14 @@ class ClaimProperty @Inject()(
   }
 
   def declareCapacity(uarn: Long, address: String) = authenticatedAction { implicit request =>
-    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn)))
+    Ok(
+      views.html.propertyLinking
+        .declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn), backLink(request)))
+  }
+
+  private def backLink(request: Request[AnyContent]): String = {
+    val link = request.headers.get("referer").getOrElse(config.newDashboardUrl("home"))
+    if (link.contains("/business-rates-find")) link else config.newDashboardUrl("home")
   }
 
   def attemptLink(uarn: Long, address: String): Action[AnyContent] = authenticatedAction.async { implicit request =>
@@ -88,8 +95,8 @@ class ClaimProperty @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn)))),
+          Future.successful(BadRequest(
+            views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn), backLink(request)))),
         formData =>
           initialiseSession(formData, uarn, address)
             .map { _ =>
@@ -103,7 +110,9 @@ class ClaimProperty @Inject()(
 
   def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val form = declareCapacityForm.fillAndValidate(request.ses.declaration)
-    Ok(views.html.propertyLinking.declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn)))
+    Ok(
+      views.html.propertyLinking
+        .declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn), backLink(request)))
   }
 
   private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(
