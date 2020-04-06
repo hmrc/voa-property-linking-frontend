@@ -54,7 +54,8 @@ class ManageAgentController @Inject()(
       confirmAddAgentToAllProperties: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties,
       unassignAgentFromAllProperties: views.html.propertyrepresentation.manage.unassignAgentFromAllProperties,
       confirmUnassignAgentFromAllProperties: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties,
-      confirmRemoveAgentFromOrganisation: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation)(
+      confirmRemoveAgentFromOrganisation: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation,
+      manageAgentSimplePage: views.html.propertyrepresentation.manage.manageAgentSimpleProperties)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -87,21 +88,11 @@ class ManageAgentController @Inject()(
         pagination: PaginationParameters): Action[AnyContent] = authenticated.async { implicit request =>
     {
       for {
-        ownerAuthResult <- agentRelationshipService.getMyAgentPropertyLinks(
-                            agentCode,
-                            params,
-                            PaginationParams(pagination.startPoint, pagination.pageSize, true))
+        ownerAuthResult <- agentRelationshipService
+                            .getMyAgentPropertyLinks(agentCode, params, PaginationParams(1, 1000, true))
         agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
       } yield {
-
-        Ok(
-          views.html.propertyrepresentation.manage.manageAgentProperties(
-            AgentPropertiesForm.filterPropertiesForm.fill(FilterAgentProperties(params)),
-            ownerAuthResult,
-            agentCode,
-            agentDetails,
-            params,
-            pagination))
+        Ok(manageAgentSimplePage(ownerAuthResult, agentCode, agentDetails))
       }
     }
   }
