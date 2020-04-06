@@ -22,12 +22,12 @@
             var file = this.files[0];
 
 
-            if(file.type != "" && file.type != undefined){
+            if(file.type){
                 $(this).after('<div class="message-warning" id="message-warning"><p>Please wait whilst your file is uploading. This may take some time.</p></div>');
             }
 
             function resolveMimeType(upload) {
-                if(file.type != "" && file.type != undefined){
+                if(file.type){
                     return file.type;
                 }
                 var extension = upload.name.substr( (upload.name.lastIndexOf('.') +1) );
