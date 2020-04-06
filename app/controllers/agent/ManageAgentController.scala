@@ -67,7 +67,10 @@ class ManageAgentController @Inject()(
     for {
       organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
       propertyLinksCount  <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
-    } yield Ok(myAgentsPage(organisationsAgents.agents, propertyLinksCount))
+    } yield
+      Ok(
+        myAgentsPage(organisationsAgents.agents, propertyLinksCount)
+      )
 
   }
 

@@ -104,12 +104,6 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.getMyOrganisationAgents())(_ mustBe organisationsAgentsList)
   }
 
-  "getMyAgentPropertyLinks" must "return agent's property links" in new Setup {
-    mockHttpGET[OwnerAuthResult]("tst-url", ownerAuthResultWithTwoAuthorisation)
-    whenReady(connector.getMyAgentPropertyLinks(1, GetPropertyLinksParameters(), PaginationParams(1, 15, true)))(
-      _ mustBe ownerAuthResultWithTwoAuthorisation)
-  }
-
   "getMyOrganisationPropertyLinksCount" must "return organisation's property links count" in new Setup {
     val propertyLinksCount = 1
 
