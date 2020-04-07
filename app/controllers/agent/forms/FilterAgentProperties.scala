@@ -20,11 +20,7 @@ import binders.propertylinks.GetPropertyLinksParameters
 
 case class FilterAgentProperties(address: Option[String], localAuthorityReference: Option[String]) {
 
-  def searchCriteriaExists: Boolean =
-    if (address.isDefined || localAuthorityReference.isDefined)
-      true
-    else
-      false
+  def searchCriteriaExists: Boolean = address.isDefined || localAuthorityReference.isDefined
 }
 
 object FilterAgentProperties {

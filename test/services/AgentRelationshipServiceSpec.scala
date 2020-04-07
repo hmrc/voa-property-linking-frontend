@@ -20,7 +20,7 @@ import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.PaginationParams
+import controllers.{DefaultPaginationParams, PaginationParams}
 import models._
 import models.propertyrepresentation.AgentAppointmentChangesResponse
 import models.searchApi.OwnerAuthAgent
@@ -59,7 +59,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   "getMyAgentPropertyLinks" should "return OwnerAuthResult when successful" in {
     when(mockPropertyLinkConnector.getMyAgentPropertyLinks(any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
-    val res = testService.getMyAgentPropertyLinks(1, GetPropertyLinksParameters(), PaginationParams(1, 15, true))
+    val res = testService.getMyAgentPropertyLinks(1, GetPropertyLinksParameters(), DefaultPaginationParams)
 
     res.futureValue must be(ownerAuthResultWithTwoAuthorisation)
 

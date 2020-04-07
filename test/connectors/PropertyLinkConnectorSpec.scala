@@ -18,7 +18,7 @@ package connectors
 
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{PaginationParams, VoaPropertyLinkingSpec}
+import controllers.{DefaultPaginationParams, PaginationParams, VoaPropertyLinkingSpec}
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
@@ -109,14 +109,11 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "getMyAgentPropertyLinks" must "return agent property links" in new Setup {
-    val emptySearchParams = GetPropertyLinksParameters()
-    val paginationParams = PaginationParams(1, 1, true)
-
     when(mockWSHttp.GET[OwnerAuthResult](any(), any())(any(), any(), any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
 
     connector
-      .getMyAgentPropertyLinks(agentCode, emptySearchParams, paginationParams)
+      .getMyAgentPropertyLinks(agentCode, GetPropertyLinksParameters(), DefaultPaginationParams)
       .futureValue mustBe ownerAuthResultWithOneAuthorisation
 
   }
