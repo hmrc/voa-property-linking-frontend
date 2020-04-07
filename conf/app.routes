@@ -111,6 +111,8 @@ POST        /my-organisation/appoint-agent                                      
 
 #MANAGE AGENT
 GET         /my-organisation/manage-agent                                                                                 @controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
+GET         /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)
+POST        /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgentSearchSortProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)
 GET         /my-organisation/agents                                                                                       @controllers.agent.ManageAgentController.showAgents()
 
 POST        /my-organisation/manage-agent/:agentCode                                                                      @controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)

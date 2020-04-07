@@ -26,7 +26,10 @@
                     @error.key match {
                         case s if Seq("day", "month", "year").exists(s.contains) => { @messages(s"label.${errorParts.head}") - @messages(s"${error.key}.label") }
                         case s if s.contains("address") => { @messages(s"label.${error.key}") }
-                        case _ => { @messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "")) }
+                        case s if s == ""  => {}
+                        case _ => {
+                            @messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", ""))
+                        }
                     }
                 }
                 </span> - @messages(stripIndices(error.message), error.args: _*)

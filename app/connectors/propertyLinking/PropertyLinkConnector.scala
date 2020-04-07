@@ -20,6 +20,7 @@ import actions.requests.BasicAuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
 import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
+
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList}
@@ -41,6 +42,25 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
 
   def getMyOrganisationPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
     http.GET[Option[PropertyLink]](s"$baseUrl/owner/property-links/$submissionId")
+
+  def getMyAgentPropertyLinks(agentCode: Long, searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(
+        implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
+    http.GET[OwnerAuthResult](
+      s"$baseUrl/my-organisation/agents/$agentCode/property-links",
+      List(
+        searchParams.address.map("address" -> _),
+        searchParams.baref.map("baref"     -> _),
+        searchParams.agent.map("agent"     -> _),
+        searchParams.status.map("status"   -> _),
+        Some("sortField"                   -> searchParams.sortfield.toString),
+        Some("sortOrder"                   -> searchParams.sortorder.toString)
+      ).flatten ++
+        List(
+          "startPoint"           -> pagination.startPoint.toString,
+          "pageSize"             -> pagination.pageSize.toString,
+          "requestTotalRowCount" -> pagination.requestTotalRowCount.toString
+        )
+    )
 
   def getMyOrganisationsPropertyLinks(
         searchParams: GetPropertyLinksParameters,

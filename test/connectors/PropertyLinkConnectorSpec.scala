@@ -16,17 +16,22 @@
 
 package connectors
 
+import binders.propertylinks.GetPropertyLinksParameters
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.VoaPropertyLinkingSpec
+import controllers.{DefaultPaginationParams, PaginationParams, VoaPropertyLinkingSpec}
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
 import models.propertyrepresentation.AgentList
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
+import org.mockito.ArgumentMatchers._
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
 import play.api.http.Status.OK
 import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
+
+import scala.concurrent.Future
 
 class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
 
@@ -101,6 +106,16 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   "getMyOrganisationAgents" must "return organisation's agents" in new Setup {
     mockHttpGET[AgentList]("tst-url", organisationsAgentsList)
     whenReady(connector.getMyOrganisationAgents())(_ mustBe organisationsAgentsList)
+  }
+
+  "getMyAgentPropertyLinks" must "return agent property links" in new Setup {
+    when(mockWSHttp.GET[OwnerAuthResult](any(), any())(any(), any(), any()))
+      .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
+
+    connector
+      .getMyAgentPropertyLinks(agentCode, GetPropertyLinksParameters(), DefaultPaginationParams)
+      .futureValue mustBe ownerAuthResultWithOneAuthorisation
+
   }
 
   "getMyOrganisationPropertyLinksCount" must "return organisation's property links count" in new Setup {

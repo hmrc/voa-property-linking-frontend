@@ -23,13 +23,16 @@ import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.EnumMapping
 import javax.inject.{Inject, Named}
+
+import binders.pagination.PaginationParameters
+import controllers.agent.forms.{AgentPropertiesForm, FilterAgentProperties}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.{RepresentationApproved, RepresentationPending}
-import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentList, AgentOrganisation, AgentSummary, AssignToAllProperties, AssignToSomeProperties, AssignToYourProperty, ManageAgentOptions, ManageAgentRequest, RemoveFromYourAccount, UnassignFromAllProperties, UnassignFromSomeProperties}
+import models.propertyrepresentation._
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
-import play.api.data.{Form, Forms}
+import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import services.AgentRelationshipService
@@ -51,7 +54,8 @@ class ManageAgentController @Inject()(
       confirmAddAgentToAllProperties: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties,
       unassignAgentFromAllProperties: views.html.propertyrepresentation.manage.unassignAgentFromAllProperties,
       confirmUnassignAgentFromAllProperties: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties,
-      confirmRemoveAgentFromOrganisation: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation)(
+      confirmRemoveAgentFromOrganisation: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation,
+      manageAgentSimplePage: views.html.propertyrepresentation.manage.manageAgentSimpleProperties)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -64,7 +68,10 @@ class ManageAgentController @Inject()(
     for {
       organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
       propertyLinksCount  <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
-    } yield Ok(myAgentsPage(organisationsAgents.agents, propertyLinksCount))
+    } yield
+      Ok(
+        myAgentsPage(organisationsAgents.agents, propertyLinksCount)
+      )
 
   }
 
@@ -75,6 +82,51 @@ class ManageAgentController @Inject()(
     }
   }
 
+  def manageAgentProperties(
+        agentCode: Long,
+        params: GetPropertyLinksParameters,
+        pagination: PaginationParameters): Action[AnyContent] = authenticated.async { implicit request =>
+    {
+      for {
+        ownerAuthResult <- agentRelationshipService
+                            .getMyAgentPropertyLinks(agentCode, params, PaginationParams(1, 1000, true))
+        agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
+      } yield {
+        Ok(manageAgentSimplePage(ownerAuthResult, agentCode, agentDetails))
+      }
+    }
+  }
+
+  def manageAgentSearchSortProperties(
+        agentCode: Long,
+        params: GetPropertyLinksParameters,
+        pagination: PaginationParameters): Action[AnyContent] = authenticated.async { implicit request =>
+    {
+
+      AgentPropertiesForm.filterPropertiesForm.bindFromRequest.fold(
+        errors => {
+          for {
+            ownerAuthResult <- agentRelationshipService.getMyAgentPropertyLinks(
+                                agentCode,
+                                params,
+                                PaginationParams(pagination.startPoint, pagination.pageSize, true))
+            agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
+          } yield
+            (BadRequest(
+              views.html.propertyrepresentation.manage
+                .manageAgentProperties(errors, ownerAuthResult, agentCode, agentDetails, params, pagination)))
+        },
+        success =>
+          Future.successful(
+            Redirect(
+              routes.ManageAgentController.manageAgentProperties(
+                agentCode,
+                params.copy(address = success.address, baref = success.localAuthorityReference),
+                pagination)))
+      )
+
+    }
+  }
   private[agent] def getManageAgentPage(
         agentCode: Option[Long],
         submitManageAgentForm: Form[ManageAgentRequest] = ManageAgentRequest.submitManageAgentRequest)(
@@ -162,7 +214,10 @@ class ManageAgentController @Inject()(
         }, { success =>
           agentRelationshipService
             .assignAgent(success)
-            .map(_ => Ok(confirmAddAgentToAllProperties(agentName)))
+            .map { _ =>
+              val page = confirmAddAgentToAllProperties(agentName)
+              Ok(page)
+            }
         }
       )
   }

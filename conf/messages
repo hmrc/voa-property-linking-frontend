@@ -10,6 +10,11 @@ main.cookies=Cookies
 footer.termsandconditions=Terms and conditions
 link.privacyPolicy=Privacy
 
+# Page sizes
+pageSize.showing = Showing
+pageSize.properties = properties per page
+pageSize.messages = messages per page
+
 #START PAGE
 start.heading.register=Register to use this service
 start.heading.registration=Registration
@@ -155,6 +160,7 @@ hint.dateOfBirth=For example, 20 3 1976
 hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C.
 error.emailsMustMatch=Email addresses must match. Check them and try again
 error.invalidEmail=Enter a valid email address
+error.title=There is a problem
 
 createAccount.p1=You’ll need to provide information about your business in order to complete the registration process.
 label.createAccount.postcode.help=This should be your preferred postal contact address for your business. <br> <br> You can search for an address in England, Scotland and Wales. If your property is in Northern Ireland or outside of the UK, you’ll need to enter it manually.
@@ -454,12 +460,15 @@ error.propertyRepresentation.agentAlreadyAppointed=This agent has already been a
 
 #Show your agents
 propertyRepresentation.showAgents.title=Your agents
+propertyRepresentation.agentProperties.assigned=Assigned properties
+propertyRepresentation.manage.agent=Manage this agent
 propertyRepresentation.showAgents.properties={0} of {1} properties
 propertyRepresentation.showAgents.viewAgentDProperties=<a class="govuk-link" href="{0}">View</a>
+error.propertyRepresentation.agentProperties.filter=Search Properties - you must enter something to search for
+error.agentProperties.filter=You must enter something to search for
 
 #Manage Agent
 propertyRepresentation.manageAgent.title=Manage agent
-
 propertyRepresentation.manageAgent.question=What do you want to do to the agent {0}?
 
 propertyRepresentation.manageAgent.removeFromAccount.question=Would you like to remove {0} from your account?
@@ -499,6 +508,7 @@ propertyRepresentation.appointAgents.table.select=Select
 propertyRepresentation.appointAgents.table.actions=Actions
 propertyRepresentation.th.ADDRESS=Address
 propertyRepresentation.th.AGENT=Appointed agents
+propertyRepresentation.th.BAREF=Local authority reference
 propertyRepresentation.search=Search for {0}
 propertyRepresentation.pageSize.showing=Showing
 label.linkIds=Select one or more properties
@@ -838,11 +848,20 @@ help.optional.date.day.month.year=For example, 12 3 2011 (Optional)
 error.common.date.mustBeInPast=Must be in the past
 error.common.noValueSelected=Please select an option
 error.booleanMissing=You must select one
+error.subscription.title=There is a problem
+error.noRecords=No matching records found, please search again.
+
 label.address=Address
+label.localAuthorityReference=Local authority reference
+label.status=Status
+label.search=Search
+label.clear.search=Clear Search
+
 label.address.line1=Address line 1
 label.address.line2=Address line 2
 label.address.line3=Address line 3
 label.address.line4=Address line 4
+label.submit=Submit
 label.address.postcode=Postcode
 placeholder.address.line1=Address line 1
 placeholder.address.line2=Address line 2
@@ -853,6 +872,8 @@ label.findAddress.tryAgain=Try another postcode
 error.postcode=Invalid postcode
 addressLookup.manual=Enter address manually
 addressLookup.lookup=Find address by postcode
+properties.searchYourProperties=Search your properties
+
 link.continue=Continue
 link.back=Back
 link.update=Update

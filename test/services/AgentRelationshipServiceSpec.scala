@@ -16,9 +16,11 @@
 
 package services
 
+import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
+import controllers.{DefaultPaginationParams, PaginationParams}
 import models._
 import models.propertyrepresentation.AgentAppointmentChangesResponse
 import models.searchApi.OwnerAuthAgent
@@ -53,6 +55,26 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   private lazy val mockSessionRepo = mock[SessionRepo]
 
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
+
+  "getMyAgentPropertyLinks" should "return OwnerAuthResult when successful" in {
+    when(mockPropertyLinkConnector.getMyAgentPropertyLinks(any(), any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
+    val res = testService.getMyAgentPropertyLinks(1, GetPropertyLinksParameters(), DefaultPaginationParams)
+
+    res.futureValue must be(ownerAuthResultWithTwoAuthorisation)
+
+    verify(mockPropertyLinkConnector, times(1)).getMyAgentPropertyLinks(any(), any(), any())(any())
+  }
+
+  "getMyOrganisationAgents" should "return AgentList when successful" in {
+    when(mockPropertyLinkConnector.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(organisationsAgentsList))
+    val res = testService.getMyOrganisationAgents()
+
+    res.futureValue must be(organisationsAgentsList)
+
+    verify(mockPropertyLinkConnector, times(1)).getMyOrganisationAgents()(any())
+  }
 
   "createAndSubmitAgentRepRequest" should "return option unit when successful" in {
     when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)

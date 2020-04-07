@@ -20,6 +20,7 @@ import models.searchApi.AgentPropertiesFilter.Both
 import play.api.mvc.{AnyContent, QueryStringBindable, Request, Result}
 import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
 import utils.Formatters._
+import utils.QueryParamUtils._
 
 import scala.concurrent.Future
 
@@ -57,7 +58,7 @@ object PaginationParams {
           }
         }
 
-      override def unbind(key: String, value: PaginationParams): String = s"$value"
+      override def unbind(key: String, value: PaginationParams): String = toQueryString(value)
     }
 }
 

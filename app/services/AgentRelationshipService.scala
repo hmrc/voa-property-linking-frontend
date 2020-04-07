@@ -25,6 +25,7 @@ import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PaginationParams
 import javax.inject.{Inject, Named}
+
 import models._
 import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList}
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
@@ -99,6 +100,10 @@ class AgentRelationshipService @Inject()(
       agentOrganisationId = agentOrganisationId,
       agentAppointed = Some(pagination.agentAppointed)
     )
+
+  def getMyAgentPropertyLinks(agentCode: Long, searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(
+        implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
+    propertyLinks.getMyAgentPropertyLinks(agentCode, searchParams, pagination)
 
   def getMyOrganisationsPropertyLinks(
         searchParams: GetPropertyLinksParameters,

@@ -22,7 +22,8 @@
 @import models.propertyrepresentation.UnassignFromAllProperties
 @import models.propertyrepresentation.ManageAgentRequest
 @import models.propertyrepresentation.AgentSummary
-
+@import binders.propertylinks.GetPropertyLinksParameters
+@import binders.pagination.PaginationParameters
 @import config.ApplicationConfig
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
@@ -31,7 +32,7 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.title"),
-    backUri = Some("#")
+    backUri = Some(controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters()).url)
 ) {
 
     @if(form.errors.nonEmpty) {
