@@ -32,7 +32,7 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.title"),
-    backUri = Some(controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters(1, 15)).url)
+    backUri = Some(controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters()).url)
 ) {
 
     @if(form.errors.nonEmpty) {
