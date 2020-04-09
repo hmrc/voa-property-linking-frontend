@@ -24,6 +24,10 @@ sealed trait AppointAgentJourneyStatus extends NamedEnum {
   override def toString = name
 }
 
+case object StartJourney extends AppointAgentJourneyStatus {
+  val name = "StartJourney"
+}
+
 case object AgentSearched extends AppointAgentJourneyStatus {
   val name = "AgentSearched"
 }
@@ -39,5 +43,6 @@ case object ManagingPropertySelected extends AppointAgentJourneyStatus {
 object AppointAgentJourneyStatus extends NamedEnumSupport[AppointAgentJourneyStatus] {
   implicit val format = EnumFormat(AppointAgentJourneyStatus)
 
-  override def all: List[AppointAgentJourneyStatus] = List(AgentSearched, AgentSelected, ManagingPropertySelected)
+  override def all: List[AppointAgentJourneyStatus] =
+    List(StartJourney, AgentSearched, AgentSelected, ManagingPropertySelected)
 }

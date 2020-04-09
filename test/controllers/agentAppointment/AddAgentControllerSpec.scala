@@ -34,13 +34,20 @@ import scala.concurrent.Future
 
 class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
-  "startAppointJourney" should "show the appoint new agent start page" in {
+  "start" should "initialise session and redirect to start page" in {
+    val res = testController.start()(FakeRequest())
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/start")
+  }
+  "showStartPage" should "show the appoint new agent start page" in {
     when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
-    val res = testController.startAppointJourney()(FakeRequest())
+    stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
+    val res = testController.showStartPage()(FakeRequest())
     status(res) mustBe OK
   }
   "getAgentDetails" should "return 400 Bad Request when agentCode is not provided" in {
     when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> ""))
     status(res) mustBe BAD_REQUEST
   }
@@ -50,6 +57,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any())).thenReturn(Future successful None)
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future successful organisationsAgentsList)
+    stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "213414"))
     status(res) mustBe BAD_REQUEST
   }
@@ -105,7 +113,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "false"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent")
+    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/start")
   }
 
   "agentSelected" should "return 200 Ok and go to the confirmation page if organisation have no authorisations" in {

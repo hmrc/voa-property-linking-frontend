@@ -94,8 +94,9 @@ GET         /my-organisation/appoint/properties                                 
 POST        /my-organisation/appoint/properties/create                                                                    @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 
 #NEW AGENT APPOINT JOURNEY
-GET         /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AddAgentController.startAppointJourney()
-POST        /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AddAgentController.getAgentDetails()
+GET         /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AddAgentController.start()
+GET         /my-organisation/appoint-new-agent/start                                                                      @controllers.agentAppointment.AddAgentController.showStartPage()
+POST        /my-organisation/appoint-new-agent/start                                                                      @controllers.agentAppointment.AddAgentController.getAgentDetails()
 
 GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AddAgentController.isCorrectAgent()
 POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AddAgentController.agentSelected()
