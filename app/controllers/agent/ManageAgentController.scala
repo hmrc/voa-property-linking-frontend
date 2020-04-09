@@ -143,12 +143,15 @@ class ManageAgentController @Inject()(
       }, { success =>
         success.manageAgentOption match {
           case AssignToSomeProperties => Future.successful(joinOldAgentAppointJourney(agentCode))
-          case AssignToAllProperties =>
+          case AssignToAllProperties | AssignToYourProperty =>
             Future.successful(Ok(addAgentToAllProperties(submitAgentAppointmentRequest, success.agentName, agentCode)))
           case UnassignFromAllProperties =>
             Future.successful(
               Ok(unassignAgentFromAllProperties(submitAgentAppointmentRequest, success.agentName, agentCode)))
-          case UnassignFromSomeProperties => Future.successful(joinOldRevokeAppointJourney(agentCode))
+          case UnassignFromSomeProperties => Future.successful(joinOldAgentRevokeJourney(agentCode))
+          case RemoveFromYourAccount =>
+            Future.successful(
+              Ok(removeAgentFromOrganisation(submitAgentAppointmentRequest, agentCode, success.agentName)))
         }
       }
     )
@@ -210,7 +213,7 @@ class ManageAgentController @Inject()(
         backLink = controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
       ))
 
-  private def joinOldRevokeAppointJourney(agentCode: Long) =
+  private def joinOldAgentRevokeJourney(agentCode: Long) =
     Redirect(
       controllers.agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(
         pagination = PaginationParameters(),
