@@ -47,6 +47,9 @@
     @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.assignAgentToAll(agentCode, agentName)) {
         <input type="hidden" name="agentCode" value="@agentCode">
         <input type="hidden" name="scope" value="@ALL_PROPERTIES.toString">
+        <p class="govuk-inset-text">
+            @messages("propertyRepresentation.manageAgent.assignToAllProperties.insetText", agentName)
+        </p>
         @govukButton(Button(content = Text(messages("label.confirm"))))
     }
 
