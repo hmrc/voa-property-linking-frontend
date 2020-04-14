@@ -5,4 +5,4 @@ var gulp = require('gulp'),
 // Require all files in the 'tasks' folder
 requireDir('./tasks', { recurse: true });
 // Execute default task
-gulp.task('default', ['copy', 'scripts', 'test']);
+gulp.task('default', ['copy', 'scripts']);
