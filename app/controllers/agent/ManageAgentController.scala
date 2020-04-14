@@ -89,7 +89,7 @@ class ManageAgentController @Inject()(
     {
       for {
         ownerAuthResult <- agentRelationshipService
-                            .getMyAgentPropertyLinks(agentCode, params, PaginationParams(1, 1000, true))
+                            .getMyAgentPropertyLinks(agentCode, params, PaginationParams(1, 100, true))
         agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
       } yield {
         Ok(manageAgentSimplePage(ownerAuthResult, agentCode, agentDetails))
