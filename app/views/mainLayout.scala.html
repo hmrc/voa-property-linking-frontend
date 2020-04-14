@@ -60,7 +60,7 @@
                     href = Some(config.helpGuideUrl),
                     attributes = Map("data-sso" -> "false", "data-journey-click" -> "footer:Click:Help") ),
                 FooterItem(text = Some(messages("link.feedback")),
-                    href = Some("#"),
+                    href = Some(config.businessRatesValuationFrontendUrl("send-beta-feedback")),
                     attributes = Map("target" -> "_blank")),
                 FooterItem(text = Some(messages("main.cookies")),
                     href = Some("#")),

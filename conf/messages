@@ -430,7 +430,7 @@ propertyRepresentation.isThisYourAgent.no=No, enter a new code
 
 propertyRepresentation.onePropertyNoExistingAgent.question=Do you want {0} to manage your property?
 
-propertyRepresentation.oneProperty.question=Do you want {0} to manage your property?
+propertyRepresentation.oneProperty.question=Should {0} manage your property?
 propertyRepresentation.oneProperty.options.yes=Yes
 propertyRepresentation.oneProperty.options.no=No
 

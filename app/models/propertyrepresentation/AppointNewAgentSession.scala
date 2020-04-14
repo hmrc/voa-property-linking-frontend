@@ -22,6 +22,12 @@ sealed trait AppointNewAgentSession {
   val status: AppointAgentJourneyStatus
 }
 
+case class Start(status: AppointAgentJourneyStatus = StartJourney) extends AppointNewAgentSession
+
+object Start {
+  implicit val format: OFormat[Start] = Json.format[Start]
+}
+
 case class SearchedAgent(
       agentCode: Long,
       agentOrganisationName: String,
@@ -78,6 +84,7 @@ object ManagingProperty {
 object AppointNewAgentSession {
 
   val readers: Map[String, Reads[_ <: AppointNewAgentSession]] = Map(
+    StartJourney.name             -> implicitly[Reads[Start]],
     AgentSearched.name            -> implicitly[Reads[SearchedAgent]],
     AgentSelected.name            -> implicitly[Reads[SelectedAgent]],
     ManagingPropertySelected.name -> implicitly[Reads[ManagingProperty]]

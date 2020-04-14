@@ -29,7 +29,7 @@ import controllers.agent.routes
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.{EnumMapping, Mappings}
 import models.{RepresentationApproved, RepresentationPending, propertyrepresentation}
-import models.propertyrepresentation.{AddAgentOptions, AgentAppointmentChangesRequest, AppointNewAgentSession, AppointmentScope, ChooseFromList, ManagingProperty, SearchedAgent, SelectedAgent, Yes}
+import models.propertyrepresentation.{AddAgentOptions, AgentAppointmentChangesRequest, AppointNewAgentSession, AppointmentScope, ChooseFromList, ManagingProperty, SearchedAgent, SelectedAgent, Start, Yes}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.searchApi.AgentPropertiesFilter.{Both, No}
 import models.searchApi.AgentPropertiesSortField.Address
@@ -69,62 +69,70 @@ class AddAgentController @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def startAppointJourney(): Action[AnyContent] = authenticated.async { implicit request =>
+  def start(): Action[AnyContent] = authenticated.async { implicit request =>
+    sessionRepo
+      .start[Start](Start())
+      .map(_ => Redirect(controllers.agentAppointment.routes.AddAgentController.showStartPage()))
+  }
+
+  def showStartPage(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     Future.successful(Ok(startPage(agentCode)))
   }
 
-  def getAgentDetails(): Action[AnyContent] = authenticated.async { implicit request =>
-    agentCode.bindFromRequest.fold(
-      errors => Future.successful(BadRequest(startPage(errors))),
-      success => {
-        Try(success.toLong).toOption match {
-          case None =>
-            Future.successful(
-              BadRequest(
-                startPage(
-                  agentCode.copy(
-                    data = Map("agentCode" -> success),
-                    errors = Seq[FormError](FormError(key = "agentCode", message = "error.agentCode.required")))
-                )))
-          case Some(representativeCode) =>
-            for {
-              organisationsAgents    <- agentRelationshipService.getMyOrganisationAgents()
-              agentNameAndAddressOpt <- agentRelationshipService.getAgentNameAndAddress(success.toLong)
-            } yield {
-              agentNameAndAddressOpt match {
-                case None => {
-                  BadRequest(
-                    startPage(
-                      agentCode.copy(
-                        data = Map("agentCode" -> s"$representativeCode"),
-                        errors = Seq[FormError](
-                          FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent")))
-                    ))
-                }
-                case Some(_) if organisationsAgents.agents.exists(a => a.representativeCode == representativeCode) =>
-                  BadRequest(
-                    startPage(
-                      agentCode.copy(
-                        data = Map("agentCode" -> s"$representativeCode"),
-                        errors = Seq[FormError](
-                          FormError(key = "agentCode", message = "error.propertyRepresentation.agentAlreadyAppointed"))
-                      )
-                    ))
-                case Some(agent) => {
-                  sessionRepo.saveOrUpdate(
-                    SearchedAgent(
-                      agentCode = representativeCode,
-                      agentOrganisationName = agent.name,
-                      agentAddress = agent.address
-                    ))
-                  Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent())
+  def getAgentDetails(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
+    implicit request =>
+      agentCode.bindFromRequest.fold(
+        errors => Future.successful(BadRequest(startPage(errors))),
+        success => {
+          Try(success.toLong).toOption match {
+            case None =>
+              Future.successful(
+                BadRequest(
+                  startPage(
+                    agentCode.copy(
+                      data = Map("agentCode" -> success),
+                      errors = Seq[FormError](FormError(key = "agentCode", message = "error.agentCode.required")))
+                  )))
+            case Some(representativeCode) =>
+              for {
+                organisationsAgents    <- agentRelationshipService.getMyOrganisationAgents()
+                agentNameAndAddressOpt <- agentRelationshipService.getAgentNameAndAddress(success.toLong)
+              } yield {
+                agentNameAndAddressOpt match {
+                  case None => {
+                    BadRequest(
+                      startPage(
+                        agentCode.copy(
+                          data = Map("agentCode" -> s"$representativeCode"),
+                          errors = Seq[FormError](
+                            FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent")))
+                      ))
+                  }
+                  case Some(_) if organisationsAgents.agents.exists(a => a.representativeCode == representativeCode) =>
+                    BadRequest(
+                      startPage(
+                        agentCode.copy(
+                          data = Map("agentCode" -> s"$representativeCode"),
+                          errors = Seq[FormError](FormError(
+                            key = "agentCode",
+                            message = "error.propertyRepresentation.agentAlreadyAppointed"))
+                        )
+                      ))
+                  case Some(agent) => {
+                    sessionRepo.saveOrUpdate(
+                      SearchedAgent(
+                        agentCode = representativeCode,
+                        agentOrganisationName = agent.name,
+                        agentAddress = agent.address
+                      ))
+                    Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent())
+                  }
                 }
               }
-            }
 
+          }
         }
-      }
-    )
+      )
   }
 
   def isCorrectAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
@@ -164,7 +172,7 @@ class AddAgentController @Inject()(
             }
           }
         } else {
-          Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.startAppointJourney()))
+          Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.showStartPage()))
         }
       }
     )
