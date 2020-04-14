@@ -94,7 +94,7 @@
                     <tr style="@{if(model.showAllProperties) "" else "display: none;"}">
                         <th></th>
                         <th>@searchField("address", params.address)</th>
-                        <th>@searchField("agentName", params.agent)</th>
+                        <th>@searchField("agent", params.agent)</th>
                         <th>
                             <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), agentCode, agentAppointed)"
                                 id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
