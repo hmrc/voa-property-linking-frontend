@@ -33,10 +33,10 @@ object AppointAgent {
 }
 
 case class AgentAppointBulkAction(
-                                   agentCode: Long,
-                                   propertyLinkIds: List[String],
-                                   backLinkUrl: String
-                                 )
+      agentCode: Long,
+      propertyLinkIds: List[String],
+      backLinkUrl: String
+)
 
 object AgentAppointBulkAction {
 

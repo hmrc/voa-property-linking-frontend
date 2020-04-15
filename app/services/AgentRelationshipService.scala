@@ -55,8 +55,8 @@ class AgentRelationshipService @Inject()(
         isAgent: Boolean,
         agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] = config.newAgentRelationshipJourneyEnabled match {
     case true =>
-      assignAgentToSomeProperties(AppointAgentToSomePropertiesRequest(agentCode = agentCode, propertyLinkIds = pLinkIds)).map(_ =>
-        ())
+      assignAgentToSomeProperties(
+        AppointAgentToSomePropertiesRequest(agentCode = agentCode, propertyLinkIds = pLinkIds)).map(_ => ())
     case false =>
       Future
         .traverse(pLinkIds)(pLink => appointAgent(pLink, agentOrgId, organisationId, individualId, isAgent))

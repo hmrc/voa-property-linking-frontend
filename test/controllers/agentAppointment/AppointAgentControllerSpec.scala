@@ -126,7 +126,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         "checkPermission"     -> "StartAndContinue",
         "challengePermission" -> "StartAndContinue",
         "linkIds[]"           -> "1",
-        "backLinkUrl" -> "/some/back/link"))
+        "backLinkUrl"         -> "/some/back/link"
+      ))
 
     status(res) mustBe OK
 
@@ -140,8 +141,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val res = testController.appointAgentSummary()(FakeRequest().withFormUrlEncodedBody(
-      "agentCode" -> s"$agentCode", "backLinkUrl" -> "/some/back/link"))
+    val res = testController.appointAgentSummary()(
+      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode", "backLinkUrl" -> "/some/back/link"))
 
     status(res) mustBe BAD_REQUEST
 
@@ -159,8 +160,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.failed(new AppointRevokeException("")))
 
     val res = testController.appointAgentSummary()(
-      FakeRequest().withFormUrlEncodedBody(
-        "agentCode" -> s"$agentCode", "linkIds[]" -> "1", "backLinkUrl" -> "/some/back/link"))
+      FakeRequest()
+        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "linkIds[]" -> "1", "backLinkUrl" -> "/some/back/link"))
 
     status(res) mustBe BAD_REQUEST
 

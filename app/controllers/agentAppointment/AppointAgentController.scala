@@ -85,13 +85,13 @@ class AppointAgentController @Inject()(
           accounts.withAgentCode(agent.getAgentCode().toString).flatMap {
             case Some(group) =>
               Future.successful(
-                Redirect(
-                  routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
-                    pagination = PaginationParameters(),
-                    params = GetPropertyLinksParameters(),
-                    agentCode = agent.getAgentCode(),
-                    agentAppointed = None,
-                    backLink = agentAppointment.routes.AppointAgentController.appointMultipleProperties().url)))
+                Redirect(routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
+                  pagination = PaginationParameters(),
+                  params = GetPropertyLinksParameters(),
+                  agentCode = agent.getAgentCode(),
+                  agentAppointed = None,
+                  backLink = agentAppointment.routes.AppointAgentController.appointMultipleProperties().url
+                )))
             case None =>
               val errors: List[FormError] = List(invalidAgentCode)
               getAgents(request.organisationId).flatMap { ownerAgents =>
@@ -192,10 +192,13 @@ class AppointAgentController @Inject()(
                   isAgent = request.organisationAccount.isAgent,
                   agentCode = action.agentCode
                 )
-                .map(_ => Ok(views.html.propertyrepresentation.appoint.appointAgentSummary(
-                  action = action,
-                  agentOrganisation = group.companyName,
-                  backLinkUrl = action.backLinkUrl)))
+                .map(
+                  _ =>
+                    Ok(
+                      views.html.propertyrepresentation.appoint.appointAgentSummary(
+                        action = action,
+                        agentOrganisation = group.companyName,
+                        backLinkUrl = action.backLinkUrl)))
                 .recoverWith {
                   case e: services.AppointRevokeException =>
                     for {
@@ -246,8 +249,14 @@ class AppointAgentController @Inject()(
         success = (agent: AgentId) => {
           accounts.withAgentCode(agent.id).flatMap {
             case Some(AgentGroupAccount(_, agentCode)) =>
-              Future.successful(Redirect(routes.AppointAgentController
-                .selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), agentCode, config.newDashboardUrl("home"))))
+              Future.successful(
+                Redirect(
+                  routes.AppointAgentController
+                    .selectAgentPropertiesSearchSort(
+                      PaginationParameters(),
+                      GetPropertyLinksParameters(),
+                      agentCode,
+                      config.newDashboardUrl("home"))))
             case _ =>
               val errors: List[FormError] = List(invalidAgentCode)
               getAgents(request.organisationId).flatMap { ownerAgents =>
@@ -417,16 +426,16 @@ class AppointAgentController @Inject()(
   def appointAgentBulkActionForm(implicit request: BasicAuthenticatedRequest[_]) =
     Form(
       mapping(
-        "agentCode" -> longNumber,
-        "linkIds"   -> list(text).verifying(nonEmptyList),
+        "agentCode"   -> longNumber,
+        "linkIds"     -> list(text).verifying(nonEmptyList),
         "backLinkUrl" -> text
       )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack _))
 
   def revokeAgentBulkActionForm(implicit request: BasicAuthenticatedRequest[_]) =
     Form(
       mapping(
-        "agentCode" -> longNumber,
-        "linkIds"   -> list(text).verifying(nonEmptyList),
+        "agentCode"   -> longNumber,
+        "linkIds"     -> list(text).verifying(nonEmptyList),
         "backLinkUrl" -> text
       )(AgentRevokeBulkAction.apply)(AgentRevokeBulkAction.unpack _))
 
