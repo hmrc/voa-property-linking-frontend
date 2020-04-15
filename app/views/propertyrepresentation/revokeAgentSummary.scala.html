@@ -38,7 +38,7 @@ contentHeaderHidden = true
  <p class="lede" id="mainBodyText">@messages("propertyRepresentation.agentRemoveSummary.removed", action.agentCode.toString, action.propertyLinkIds.size)</p>
 
 
- <a class="button" id="selectMorePropertiesButton" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode)" >@messages("propertyRepresentation.agentSummary.select.more")</a>
+ <a class="button" id="selectMorePropertiesButton" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, action.backLinkUrl)" >@messages("propertyRepresentation.agentSummary.select.more")</a>
 
 </div>
 

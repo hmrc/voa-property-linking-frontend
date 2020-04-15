@@ -25,9 +25,8 @@ import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PaginationParams
 import javax.inject.{Inject, Named}
-
 import models._
-import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList}
+import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList, AppointAgentToSomePropertiesRequest}
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
@@ -56,7 +55,7 @@ class AgentRelationshipService @Inject()(
         isAgent: Boolean,
         agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] = config.newAgentRelationshipJourneyEnabled match {
     case true =>
-      assignAgentToSomeProperties(AgentAppointBulkAction(agentCode = agentCode, propertyLinkIds = pLinkIds)).map(_ =>
+      assignAgentToSomeProperties(AppointAgentToSomePropertiesRequest(agentCode = agentCode, propertyLinkIds = pLinkIds)).map(_ =>
         ())
     case false =>
       Future
@@ -74,7 +73,7 @@ class AgentRelationshipService @Inject()(
         implicit hc: HeaderCarrier): Future[Unit] = config.newAgentRelationshipJourneyEnabled match {
     case true =>
       unassignAgentFromSomeProperties(
-        AgentRevokeBulkAction(
+        AppointAgentToSomePropertiesRequest(
           agentCode = agentCode,
           propertyLinkIds = pLinkIds
         )
@@ -128,7 +127,7 @@ class AgentRelationshipService @Inject()(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     propertyLinks.assignAgent(appointAgentRequest)
 
-  def assignAgentToSomeProperties(request: AgentAppointBulkAction)(
+  def assignAgentToSomeProperties(request: AppointAgentToSomePropertiesRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     propertyLinks.assignAgentToSomeProperties(request)
 
@@ -136,7 +135,7 @@ class AgentRelationshipService @Inject()(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     propertyLinks.unassignAgent(request)
 
-  def unassignAgentFromSomeProperties(request: AgentRevokeBulkAction)(
+  def unassignAgentFromSomeProperties(request: AppointAgentToSomePropertiesRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     propertyLinks.unassignAgentFromSomeProperties(request)
 

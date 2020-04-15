@@ -20,10 +20,9 @@ import actions.requests.BasicAuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
 import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
-
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
-import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList}
+import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList, AppointAgentToSomePropertiesRequest}
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
@@ -194,10 +193,10 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
         s"$baseUrl/my-organisation/agent/assign",
         agentRelationshipRequest)
 
-  def assignAgentToSomeProperties(request: AgentAppointBulkAction)(
+  def assignAgentToSomeProperties(request: AppointAgentToSomePropertiesRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     http
-      .POST[AgentAppointBulkAction, AgentAppointmentChangesResponse](
+      .POST[AppointAgentToSomePropertiesRequest, AgentAppointmentChangesResponse](
         s"$baseUrl/my-organisation/agent/assign-to-some-properties",
         request)
 
@@ -215,10 +214,10 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
         s"$baseUrl/my-organisation/agent/unassign",
         agentRelationshipRequest)
 
-  def unassignAgentFromSomeProperties(request: AgentRevokeBulkAction)(
+  def unassignAgentFromSomeProperties(request: AppointAgentToSomePropertiesRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     http
-      .POST[AgentRevokeBulkAction, AgentAppointmentChangesResponse](
+      .POST[AppointAgentToSomePropertiesRequest, AgentAppointmentChangesResponse](
         s"$baseUrl/my-organisation/agent/unassign-from-some-properties",
         request)
 
