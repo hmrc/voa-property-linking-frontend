@@ -48,10 +48,12 @@ case class BasicAuthenticatedRequest[A](
   override def isLoggedIn: Boolean = optAccounts.nonEmpty
 
   override def yourDetailsName: Option[String] = optAccounts.map { acc =>
-    if (s"${acc.person.details.firstName} ${acc.person.details.lastName}" == acc.organisation.companyName) {
-      s"${acc.person.details.firstName} ${acc.person.details.lastName}"
+    val fullName = s"${acc.person.details.firstName} ${acc.person.details.lastName}"
+    val companyName = acc.organisation.companyName
+    if (fullName == companyName) {
+      fullName
     } else {
-      s"${acc.person.details.firstName} ${acc.person.details.lastName} - ${acc.organisation.companyName}"
+      s"$fullName - $companyName"
     }
   }
 }
