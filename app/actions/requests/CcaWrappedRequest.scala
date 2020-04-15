@@ -19,7 +19,15 @@ package actions.requests
 import models.Accounts
 
 trait CcaWrappedRequest {
-  def isLoggedIn: Boolean
   def optAccounts: Option[Accounts]
-  def yourDetailsName: Option[String]
+  def isLoggedIn: Boolean = optAccounts.nonEmpty
+  def yourDetailsName: Option[String] = optAccounts.map { acc =>
+    val fullName = s"${acc.person.details.firstName} ${acc.person.details.lastName}"
+    val companyName = acc.organisation.companyName
+    if (fullName == companyName) {
+      fullName
+    } else {
+      s"$fullName - $companyName"
+    }
+  }
 }

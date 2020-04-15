@@ -28,17 +28,8 @@ case class AppointAgentSessionRequest[A](
       groupAccount: GroupAccount,
       request: Request[A]
 ) extends WrappedRequest[A](request) with CcaWrappedRequest {
-  override def isLoggedIn = true
 
   override def optAccounts = Some(Accounts(organisation = groupAccount, person = individualAccount))
-
-  override def yourDetailsName = optAccounts.map { acc =>
-    if (s"${acc.person.details.firstName} ${acc.person.details.lastName}" == acc.organisation.companyName) {
-      s"${acc.person.details.firstName} ${acc.person.details.lastName}"
-    } else {
-      s"${acc.person.details.firstName} ${acc.person.details.lastName} - ${acc.organisation.companyName}"
-    }
-  }
 
   def organisationId = groupAccount.id
 

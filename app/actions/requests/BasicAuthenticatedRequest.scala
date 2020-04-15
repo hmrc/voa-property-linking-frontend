@@ -44,18 +44,6 @@ case class BasicAuthenticatedRequest[A](
 ) extends AuthenticatedRequest[A](request) with CcaWrappedRequest {
   override def optAccounts: Option[Accounts] =
     Some(Accounts(organisationAccount, individualAccount))
-
-  override def isLoggedIn: Boolean = optAccounts.nonEmpty
-
-  override def yourDetailsName: Option[String] = optAccounts.map { acc =>
-    val fullName = s"${acc.person.details.firstName} ${acc.person.details.lastName}"
-    val companyName = acc.organisation.companyName
-    if (fullName == companyName) {
-      fullName
-    } else {
-      s"$fullName - $companyName"
-    }
-  }
 }
 
 case class AgentRequest[A](
