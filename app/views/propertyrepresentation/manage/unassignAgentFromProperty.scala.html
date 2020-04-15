@@ -20,15 +20,16 @@
 @import models.propertyrepresentation.ManageAgentOptionItem
 @import models.propertyrepresentation.ManageAgentOptions
 @import models.propertyrepresentation.UnassignFromAllProperties
-@import models.propertyrepresentation.ManageAgentRequest
+@import models.propertyrepresentation.AgentAppointmentChangesRequest
 @import models.propertyrepresentation.AgentSummary
 @import binders.propertylinks.GetPropertyLinksParameters
 @import binders.pagination.PaginationParameters
 @import config.ApplicationConfig
+@import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
-@(form: Form[ManageAgentRequest], agent: AgentSummary)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AgentAppointmentChangesRequest], agent: AgentSummary)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.title"),
@@ -40,10 +41,11 @@
     }
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.unassignFromProperty.question", agent.name)</h1>
 
-    @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent(agent.representativeCode)) {
-        <input type="hidden" name="agentName" value="@agent.name">
-        <input type="hidden" name="manageAgentOption" value="@UnassignFromAllProperties.name">
+    @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.unassignAgentFromAll(agent.representativeCode, agent.name)) {
+        <input type="hidden" name="agentCode" value="@agent.representativeCode">
+        <input type="hidden" name="scope" value="@ALL_PROPERTIES.toString">
         @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperty.confirm"))))
     }
+    <a class="govuk-link" href="@config.newDashboardUrl("home")">@messages("propertyRepresentation.manageAgent.unassignFromProperty.cancel")</a>
 
 }
