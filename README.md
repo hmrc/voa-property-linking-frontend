@@ -29,4 +29,4 @@ sm --stop PROPERTY_LINKING
 ### Found a bug?
 
 * Please raise an issue by selecting Issues near the top right hand side of this page.
-* Add comments, logs and screenshots where possible
+* Add comments, logs and screenshots where possible.
