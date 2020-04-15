@@ -16,7 +16,7 @@
 
 package actions.requests
 
-import models.{DetailedIndividualAccount, GroupAccount}
+import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.auth.core.AffinityGroup
 
@@ -36,11 +36,15 @@ case class BasicAuthenticatedRequestWithAffinityGroup[A](
       affinityGroup: AffinityGroup,
       request: Request[A]
 ) extends AuthenticatedRequest[A](request)
+
 case class BasicAuthenticatedRequest[A](
       organisationAccount: GroupAccount,
       individualAccount: DetailedIndividualAccount,
       request: Request[A]
-) extends AuthenticatedRequest[A](request)
+) extends AuthenticatedRequest[A](request) with CcaWrappedRequest {
+  override def optAccounts: Option[Accounts] =
+    Some(Accounts(organisationAccount, individualAccount))
+}
 
 case class AgentRequest[A](
       organisationAccount: GroupAccount,

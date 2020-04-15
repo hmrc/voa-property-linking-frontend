@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package actions.requests
+package models.propertyrepresentation
 
-import models.Accounts
+import play.api.libs.json.{Json, OFormat}
 
-trait CcaWrappedRequest {
-  def optAccounts: Option[Accounts]
-  def isLoggedIn: Boolean = optAccounts.nonEmpty
-  def yourDetailsName: Option[String] = optAccounts.map { acc =>
-    val fullName = s"${acc.person.details.firstName} ${acc.person.details.lastName}"
-    val companyName = acc.organisation.companyName
-    if (fullName == companyName) {
-      fullName
-    } else {
-      s"$fullName - $companyName"
-    }
-  }
+case class AppointAgentToSomePropertiesRequest(agentCode: Long, propertyLinkIds: List[String])
+
+object AppointAgentToSomePropertiesRequest {
+  implicit val format: OFormat[AppointAgentToSomePropertiesRequest] = Json.format
 }

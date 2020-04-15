@@ -90,7 +90,7 @@ GET         /keep-alive                                                         
 
 GET         /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.appointMultipleProperties()
 POST        /my-organisation/appoint                                                                                      @controllers.agentAppointment.AppointAgentController.submitAppointMultipleProperties()
-GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, agentAppointed: Option[String], backLink: String ?= "/my-organisation/appoint")
+GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
 POST        /my-organisation/appoint/properties/create                                                                    @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 
 #NEW AGENT APPOINT JOURNEY
@@ -126,7 +126,7 @@ POST        /my-organisation/manage-agent/remove/:agentCode/:agentName/from-orga
 
 GET         /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.revokeMultipleProperties()
 POST        /my-organisation/revoke                                                                                       @controllers.agentAppointment.AppointAgentController.submitRevokeMultipleProperties()
-GET         /my-organisation/revoke/properties                                                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, backLink: String ?= "/my-organisation/revoke")
+GET         /my-organisation/revoke/properties                                                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, backLink: String)
 POST        /my-organisation/revoke/properties/create                                                                     @controllers.agentAppointment.AppointAgentController.revokeAgentSummary()
 
 #REVOKE

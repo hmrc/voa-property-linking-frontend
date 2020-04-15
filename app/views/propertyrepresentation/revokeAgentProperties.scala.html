@@ -54,12 +54,13 @@ backLinkUrl = Some(backLink)
         <a href="#" id="par-select-all-top">@messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
     </div>
 
-    <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params, agentCode)">
+    <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params, agentCode, backLink)">
         <input type="hidden" name="agentCode" value="@agentCode">
         <input type="hidden" name="pageNumber" value="@pagination.page">
         <input type="hidden" name="pageSize" value="@pagination.pageSize">
         <input type="hidden" name="sortField" value="@params.sortfield">
         <input type="hidden" name="sortOrder" value="@params.sortorder">
+        <input type="hidden" name="backLink" value="@backLink">
         <table  id="agentPropertiesTable" class="margin-bottom-0 dataTable table-font-xsmall no-footer">
             <colgroup>
                 <col style="width: 8%">
@@ -71,7 +72,7 @@ backLinkUrl = Some(backLink)
             <thead>
             <tr role="row">
                 <th>@messages("propertyRepresentation.appointAgents.table.select")</th>
-                <th class="search-sort-table-header">@sortingControl(AgentPropertiesSortField.Address)</th>
+                <th class="search-sort-table-header">@sortingControl(AgentPropertiesSortField.Address, backLink)</th>
                 <th>@messages("propertyRepresentation.appointAgents.table.actions")</th>
             </tr>
             <tr>
@@ -79,7 +80,7 @@ backLinkUrl = Some(backLink)
                 <th>@searchField("address", params.address)</th>
                 <th>
 
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)"
+                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode, backLink)"
                        id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
                 </th>
                 <th></th>
@@ -95,6 +96,7 @@ backLinkUrl = Some(backLink)
     } else {
     @form(agentAppointment.routes.AppointAgentController.revokeAgentSummary()) {
     <input type="hidden" name="agentCode" value="@agentCode">
+    <input type="hidden" name="backLinkUrl" value="@backLink">
 
     <table id="agentPropertiesTableBody" class="dataTable table-font-xsmall margin-bottom-20 no-footer">
         <colgroup>
@@ -157,7 +159,7 @@ backLinkUrl = Some(backLink)
         <span class="page-size-option-current">@len</span>
         } else {
 
-        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.copy(pageSize = len, page = 1), params, agentCode).url">
+        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.copy(pageSize = len, page = 1), params, agentCode, backLink).url">
             @len</a>
         }
         }
@@ -177,19 +179,19 @@ backLinkUrl = Some(backLink)
 
 }
 
-@sortingControl(field: AgentPropertiesSortField) = {
+@sortingControl(field: AgentPropertiesSortField, backLink: String) = {
 
-@if(params.sortfield == field) {
-<div id="sort-by-@field" class="sorting_@params.sortorder">
-    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting, agentCode)">
-        @messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
-</div>
-} else {
-<div id="sort-by-@field" class="sorting">
-    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(field.name.toUpperCase)), agentCode)">
-        @messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
-</div>
-}
+    @if(params.sortfield == field) {
+        <div id="sort-by-@field" class="sorting_@params.sortorder">
+            <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting, agentCode, backLink)">
+                @messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
+        </div>
+    } else {
+        <div id="sort-by-@field" class="sorting">
+            <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(field.name.toUpperCase)), agentCode, backLink)">
+                @messages(s"propertyRepresentation.th.${field.name.toUpperCase}")</a>
+        </div>
+    }
 }
 
 @searchField(fieldName: String, value: Option[String]) = {

@@ -19,7 +19,7 @@
 @import binders.pagination.PaginationParameters
 @import binders.propertylinks.GetPropertyLinksParameters
 
-@(action: AgentAppointBulkAction, agentOrganisation: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(action: AgentAppointBulkAction, agentOrganisation: String, backLinkUrl: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{ Messages("propertyRepresentation.agentSummary.heading") }
 
@@ -36,7 +36,7 @@
 
         <p class="lede" id="mainBodyText">@messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString, "checks and challenges")</p>
 
-        <a class="button" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, None).url">@messages("propertyRepresentation.agentSummary.select.more")</a>
+        <a class="button" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, None, backLinkUrl).url">@messages("propertyRepresentation.agentSummary.select.more")</a>
 
     </div>
 

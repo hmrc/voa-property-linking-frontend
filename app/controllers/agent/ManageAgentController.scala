@@ -17,13 +17,13 @@
 package controllers.agent
 
 import actions.AuthenticatedAction
+import actions.requests.BasicAuthenticatedRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.EnumMapping
 import javax.inject.{Inject, Named}
-
 import binders.pagination.PaginationParameters
 import controllers.agent.forms.{AgentPropertiesForm, FilterAgentProperties}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest

@@ -34,26 +34,28 @@ object AppointAgent {
 
 case class AgentAppointBulkAction(
       agentCode: Long,
-      propertyLinkIds: List[String]
+      propertyLinkIds: List[String],
+      backLinkUrl: String
 )
 
 object AgentAppointBulkAction {
 
-  def unpack(arg: AgentAppointBulkAction): Option[(Long, List[String])] =
-    Some((arg.agentCode, arg.propertyLinkIds))
+  def unpack(arg: AgentAppointBulkAction): Option[(Long, List[String], String)] =
+    Some((arg.agentCode, arg.propertyLinkIds, arg.backLinkUrl))
 
   implicit val format = Json.format[AgentAppointBulkAction]
 }
 
 case class AgentRevokeBulkAction(
       agentCode: Long,
-      propertyLinkIds: List[String]
+      propertyLinkIds: List[String],
+      backLinkUrl: String
 )
 
 object AgentRevokeBulkAction {
 
-  def unpack(arg: AgentRevokeBulkAction): Option[(Long, List[String])] =
-    Some((arg.agentCode, arg.propertyLinkIds))
+  def unpack(arg: AgentRevokeBulkAction): Option[(Long, List[String], String)] =
+    Some((arg.agentCode, arg.propertyLinkIds, arg.backLinkUrl))
 
   implicit val format = Json.format[AgentRevokeBulkAction]
 }
