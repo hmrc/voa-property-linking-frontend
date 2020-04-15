@@ -478,6 +478,7 @@ propertyRepresentation.manageAgent.removeFromAccount.confirmation={0} has been r
 
 propertyRepresentation.manageAgent.unassignFromProperty.question=Would you like to unassign {0} from your property?
 propertyRepresentation.manageAgent.unassignFromProperty.confirm=Confirm and unassign
+propertyRepresentation.manageAgent.unassignFromProperty.cancel=Cancel and return to home page
 
 propertyRepresentation.manageAgent.options.assignToAllProperties=Assign to all properties
 propertyRepresentation.manageAgent.options.assignToSomeProperties=Assign to some properties

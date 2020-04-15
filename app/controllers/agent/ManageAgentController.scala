@@ -159,7 +159,7 @@ class ManageAgentController @Inject()(
             manageAgentPage(submitManageAgentForm, ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions, agent))
         case (1, Some(agent)) if agent.propertyCount == 1 =>
           //IP has one property link and agent is assigned to that property
-          Some(unassignAgentFromProperty(submitManageAgentForm, agent))
+          Some(unassignAgentFromProperty(submitAgentAppointmentRequest, agent))
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
           //IP has more than one property links but agent is not assigned to any
           Some(
