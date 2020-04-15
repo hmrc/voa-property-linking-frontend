@@ -142,7 +142,7 @@ class ManageAgentController @Inject()(
                                          searchParams = GetPropertyLinksParameters(),
                                          pagination = PaginationParams(
                                            startPoint = 1,
-                                           pageSize = 1000,
+                                           pageSize = 100,
                                            requestTotalRowCount = false),
                                          representationStatusFilter =
                                            Seq(RepresentationApproved, RepresentationPending)
