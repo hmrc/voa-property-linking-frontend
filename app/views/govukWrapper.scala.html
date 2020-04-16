@@ -43,8 +43,10 @@
 
     @banner = {
         @config.bannerContent.map { content =>
-            <div class="notification-banner">
-                <p>@Html(content)</p>
+            <div class="new-centered-content">
+                <div class="notification-banner">
+                    <p>@Html(content)</p>
+                </div>
             </div>
         }
     }
