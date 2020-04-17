@@ -35,7 +35,7 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.title"),
-    backUri = Some("#")
+    backUri = Some(controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url)
 ) {
 
     @if(form.errors.nonEmpty) {
