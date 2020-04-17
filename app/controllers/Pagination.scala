@@ -30,7 +30,7 @@ trait ValidPagination extends PropertyLinkingController {
 
   protected def withValidPagination(page: Int, pageSize: Int, getTotal: Boolean = true)(
         default: Pagination => Future[Result])(implicit request: Request[AnyContent]): Future[Result] =
-    if (page <= 0 || pageSize < 10 || pageSize > 500) {
+    if (page <= 0 || pageSize < 10 || pageSize > 100) {
       Future.successful(BadRequest(errorHandler.badRequestTemplate))
     } else {
       default(Pagination(pageNumber = page, pageSize = pageSize, resultCount = getTotal))
