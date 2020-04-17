@@ -290,7 +290,6 @@ class AppointAgentController @Inject()(
                          Seq(RepresentationApproved, RepresentationPending)
                        )
                        .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                       .map(oar => oar.copy(filterTotal = oar.authorisations.size))
                        .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
           _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
         } yield {
