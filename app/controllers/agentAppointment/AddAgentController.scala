@@ -39,7 +39,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import controllers.agent.routes
 import models.searchApi.AgentPropertiesParameters
@@ -95,8 +95,10 @@ class AddAgentController @Inject()(
                   )))
             case Some(representativeCode) =>
               for {
-                organisationsAgents    <- agentRelationshipService.getMyOrganisationAgents()
-                agentNameAndAddressOpt <- agentRelationshipService.getAgentNameAndAddress(success.toLong)
+                organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
+                agentNameAndAddressOpt <- agentRelationshipService.getAgentNameAndAddress(success.toLong) recoverWith {
+                                           case b: BadRequestException => Future.successful(None)
+                                         }
               } yield {
                 agentNameAndAddressOpt match {
                   case None => {
