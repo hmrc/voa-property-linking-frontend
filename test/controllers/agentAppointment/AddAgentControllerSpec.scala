@@ -28,6 +28,7 @@ import tests.AllMocks
 import utils.StubWithAppointAgentSessionRefiner
 import org.mockito.Mockito._
 import play.twirl.api.Html
+import uk.gov.hmrc.http.BadRequestException
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -59,6 +60,17 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future successful organisationsAgentsList)
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "213414"))
+    status(res) mustBe BAD_REQUEST
+  }
+
+  "getAgentDetails" should "return 400 Bad Request when agentCode is too long" in {
+    when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
+      .thenReturn(Future.failed(new BadRequestException("invalid agentCode")))
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future successful organisationsAgentsList)
+    stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
+    val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "123456789012345"))
     status(res) mustBe BAD_REQUEST
   }
 
