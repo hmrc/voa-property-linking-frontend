@@ -46,9 +46,9 @@
             idPrefix = Some("multipleProperties"),
             name = "multipleProperties",
             items = Seq(
-                RadioItem(id = Some("multipleProperties-All"), value = Some(All.name), checked = form.value.fold(false)(_ == All), content = Text(messages("propertyRepresentation.multipleProperties.options.all"))),
-                RadioItem(id = Some("multipleProperties-NoProperties"), value = Some(NoProperties.name), checked = form.value.fold(false)(_ == NoProperties), content = Text(messages("propertyRepresentation.multipleProperties.options.noProperties"))),
-                RadioItem(id = Some("multipleProperties-ChooseFromList"), value = Some(ChooseFromList.name), checked = form.value.fold(false)(_ == ChooseFromList), content = Text(messages("propertyRepresentation.multipleProperties.options.chooseFromList")))
+                RadioItem(id = Some("multipleProperties"), value = Some(All.name), checked = form.value.fold(false)(_ == All), content = Text(messages("propertyRepresentation.multipleProperties.options.all"))),
+                RadioItem(id = None, value = Some(NoProperties.name), checked = form.value.fold(false)(_ == NoProperties), content = Text(messages("propertyRepresentation.multipleProperties.options.noProperties"))),
+                RadioItem(id = None, value = Some(ChooseFromList.name), checked = form.value.fold(false)(_ == ChooseFromList), content = Text(messages("propertyRepresentation.multipleProperties.options.chooseFromList")))
             ))
         )
 

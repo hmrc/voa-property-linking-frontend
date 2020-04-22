@@ -44,8 +44,8 @@
             idPrefix = Some("oneProperty"),
             name = "oneProperty",
             items = Seq(
-                RadioItem(id = Some("oneProperty-yes"), value = Some(Yes.name), checked = form.value.fold(false)(_ == Yes.name), content = Text(messages("propertyRepresentation.oneProperty.options.yes"))),
-                RadioItem(id = Some("oneProperty-no"), value = Some(No.name), checked = form.value.fold(false)(_ == No.name), content = Text(messages("propertyRepresentation.oneProperty.options.no")))
+                RadioItem(id = Some("oneProperty"), value = Some(Yes.name), checked = form.value.fold(false)(_ == Yes.name), content = Text(messages("propertyRepresentation.oneProperty.options.yes"))),
+                RadioItem(id = None, value = Some(No.name), checked = form.value.fold(false)(_ == No.name), content = Text(messages("propertyRepresentation.oneProperty.options.no")))
             ))
         )
 
