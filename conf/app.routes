@@ -110,6 +110,8 @@ POST        /my-organisation/appoint-new-agent/multiple-properties              
 GET         /my-organisation/appoint-new-agent/checkYourAnswers                                                           @controllers.agentAppointment.AddAgentController.checkAnswers()
 POST        /my-organisation/appoint-agent                                                                                @controllers.agentAppointment.AddAgentController.appointAgent()
 
+GET         /my-organisation/appoint-new-agent/guidance                                                                   @controllers.agentAppointment.AddAgentController.showGuidance()
+
 #MANAGE AGENT
 GET         /my-organisation/manage-agent                                                                                 @controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
 GET         /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)

@@ -62,7 +62,8 @@ class AddAgentController @Inject()(
       agentToManageOneProperty: views.html.propertyrepresentation.appoint.agentToManageOneProperty,
       agentToManageMultipleProperties: views.html.propertyrepresentation.appoint.agentToManageMultipleProperties,
       checkYourAnswers: views.html.propertyrepresentation.appoint.checkYourAnswers,
-      confirmation: views.html.propertyrepresentation.appoint.confirmation)(
+      confirmation: views.html.propertyrepresentation.appoint.confirmation,
+      addAgentGuidance: views.html.propertyrepresentation.appoint.guidance)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -279,6 +280,10 @@ class AddAgentController @Inject()(
         }
       }
     )
+  }
+
+  def showGuidance(): Action[AnyContent] = authenticated.async { implicit request =>
+    Future.successful(Ok(addAgentGuidance()))
   }
 
   private def joinOldJourney(agentCode: Long) =

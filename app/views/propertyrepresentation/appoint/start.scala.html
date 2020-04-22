@@ -48,6 +48,24 @@
    value = form.data.get("agentCode")
   ))
 
+  <details class="govuk-details" data-module="govuk-details">
+   <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              @messages("propertyRepresentation.addAnAgent.guidance")
+            </span>
+   </summary>
+   <p>@messages("propertyRepresentation.addAnAgent.guidance.yourAgentCan")</p>
+   <div class="govuk-details__text">
+
+    <ul class="govuk-list govuk-list--bullet">
+     <li>@messages("propertyRepresentation.addAnAgent.guidance.addProperties")</li>
+     <li>@messages("propertyRepresentation.addAnAgent.guidance.discussProperties")</li>
+     <li>@messages("propertyRepresentation.addAnAgent.guidance.challenge")</li>
+    </ul>
+
+   </div>
+  </details>
+
   @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button"))))
  }
 
