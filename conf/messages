@@ -450,9 +450,10 @@ propertyRepresentation.checkYourAnswers.options.yes=Yes
 propertyRepresentation.checkYourAnswers.submit=Submit
 
 propertyRepresentation.confirmation={0} has been appointed for you
-propertyRepresentation.confirmation.emailSent=We have sent you a confirmation email.
 propertyRepresentation.confirmation.whatHappensNext=What happens next
 propertyRepresentation.confirmation.whatHappensNext.p1=We will notify {0} that you have appointed them as your agent.
+propertyRepresentation.confirmation.whatHappensNext.allOrSome={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
+propertyRepresentation.confirmation.whatHappensNext.relationship={0} will be able to add properties to your account on your behalf.
 
 error.propertyRepresentation.title=There is a problem
 error.propertyRepresentation.unknownAgent=There is no agent for the provided agent code

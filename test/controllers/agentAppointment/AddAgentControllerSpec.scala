@@ -117,7 +117,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   }
 
   "agentSelected" should "return 303 See Other and go to start page when user confirms that the presented agent is not their agent" in {
-    when(confirmation.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    when(confirmation.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
       .thenReturn(Future.successful(Some(managingProperty)))
     when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
@@ -129,7 +129,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   }
 
   "agentSelected" should "return 200 Ok and go to the confirmation page if organisation have no authorisations" in {
-    when(confirmation.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    when(confirmation.apply(any(), any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
     when(
       mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
