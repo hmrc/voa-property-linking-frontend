@@ -33,7 +33,7 @@
 @radioItems = @{
     radioOptions.map{item =>
         RadioItem(
-            id = Some(item.id),
+            id = if(radioOptions.nonEmpty && item == radioOptions.head) Some("manageAgentOption") else None,
             value = Some(item.value),
             checked = form.value.fold(false)(_ == item.value),
             content = Text(messages(s"propertyRepresentation.manageAgent.options.${item.titleMessageKeySuffix}")))

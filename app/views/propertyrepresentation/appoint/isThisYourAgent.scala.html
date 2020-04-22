@@ -44,8 +44,8 @@
             idPrefix = Some("isThisYourAgent"),
             name = "isThisYourAgent",
             items = Seq(
-                RadioItem(id = Some("isThisYourAgent-yes"), value = Some("true"), checked = form.value.fold(false)(_ == true), content = Text(messages("propertyRepresentation.isThisYourAgent.yes"))),
-                RadioItem(id = Some("isThisYourAgent-no"), value = Some("false"), checked = form.value.fold(false)(_ == false), content = Text(messages("propertyRepresentation.isThisYourAgent.no")))
+                RadioItem(id = Some("isThisYourAgent"), value = Some("true"), checked = form.value.fold(false)(_ == true), content = Text(messages("propertyRepresentation.isThisYourAgent.yes"))),
+                RadioItem(id = None, value = Some("false"), checked = form.value.fold(false)(_ == false), content = Text(messages("propertyRepresentation.isThisYourAgent.no")))
             ))
         )
 
