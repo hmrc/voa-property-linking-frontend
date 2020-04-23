@@ -1,0 +1,49 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import actions.requests.BasicAuthenticatedRequest
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@import config.ApplicationConfig
+
+@this(mainLayout: views.html.mainLayout)
+
+@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@mainLayout(
+    pageTitle = messages("propertyRepresentation.addAnAgent.title"),
+    backUri = Some(config.newDashboardUrl("home"))
+) {
+
+    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.addAnAgentGuidance.heading")</h1>
+    <p class="govuk-body">@messages("propertyRepresentation.addAnAgentGuidance.p1")</p>
+    <p class="govuk-body">@messages("propertyRepresentation.addAnAgentGuidance.p2")</p>
+    <p class="govuk-body">@messages("propertyRepresentation.addAnAgentGuidance.agentCan")</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>@messages("propertyRepresentation.addAnAgent.guidance.addProperties")</li>
+        <li>@messages("propertyRepresentation.addAnAgent.guidance.discussProperties")</li>
+        <li>@messages("propertyRepresentation.addAnAgent.guidance.challenge")</li>
+    </ul>
+    <p class="govuk-body">@messages("propertyRepresentation.addAnAgentGuidance.p3")</p>
+
+    <h2 class="govuk-heading-m">@messages("propertyRepresentation.addAnAgentGuidance.ifMultipleAgent.heading")</h2>
+    <p class="govuk-body">@messages("propertyRepresentation.addAnAgentGuidance.ifMultipleAgent.text")</p>
+
+    <h2 class="govuk-heading-m">@messages("propertyRepresentation.addAnAgentGuidance.removingAgent.heading")</h2>
+    <p class="govuk-body">@messages("propertyRepresentation.addAnAgentGuidance.removingAgent.text")</p>
+
+}
