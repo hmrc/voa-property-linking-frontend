@@ -18,10 +18,13 @@ package connectors
 
 import controllers.{Pagination, VoaPropertyLinkingSpec}
 import models._
+import models.propertyrepresentation.AgentDetails
 import org.scalacheck.Arbitrary._
 import play.api.http.Status._
 import resources._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.http.{ForbiddenException, HeaderCarrier, HttpResponse, Upstream4xxResponse}
+
+import scala.concurrent.Future
 
 class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
 
@@ -64,5 +67,20 @@ class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
   "revoke" must "patch a revoke request" in new Setup {
     mockHttpPATCH[String, HttpResponse]("tst-url", HttpResponse(OK))
     whenReady(connector.revoke(1))(_ mustBe ())
+  }
+
+  "getAgentDetails" must "get some agent's details" in new Setup {
+    val mockAgentDetails = mock[Option[AgentDetails]]
+
+    mockHttpGET[Option[AgentDetails]]("tst-url", mockAgentDetails)
+    whenReady(connector.getAgentDetails(1))(_ mustBe mockAgentDetails)
+  }
+
+  "getAgentDetails" must "return None for Forbidden response" in new Setup {
+
+    mockHttpGET[Option[AgentDetails]](
+      "tst-url",
+      Future.failed(new Upstream4xxResponse("org is not an agent", 403, 403)))
+    whenReady(connector.getAgentDetails(1))(_ mustBe None)
   }
 }

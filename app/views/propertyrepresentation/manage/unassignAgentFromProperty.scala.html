@@ -29,11 +29,11 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
-@(form: Form[AgentAppointmentChangesRequest], agent: AgentSummary)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AgentAppointmentChangesRequest], agent: AgentSummary, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.title"),
-    backUri = Some(controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters()).url)
+    backUri = Some(backLink)
 ) {
 
     @if(form.errors.nonEmpty) {

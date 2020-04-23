@@ -152,35 +152,55 @@ class ManageAgentController @Inject()(
       (ipPropertyLinksCount, agentToBeManagedOpt) match {
         case (0, Some(agent)) if agent.propertyCount == 0 =>
           //IP has no property links but still has an agent
-          Some(removeAgentFromOrganisation(submitAgentAppointmentRequest, agent.representativeCode, agent.name))
+          Some(
+            removeAgentFromOrganisation(
+              submitAgentAppointmentRequest,
+              agent.representativeCode,
+              agent.name,
+              calculateBackLink(organisationsAgents)))
         case (1, Some(agent)) if agent.propertyCount == 0 =>
           //IP has one property link but agent is not assigned
           Some(
-            manageAgentPage(submitManageAgentForm, ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions, agent))
+            manageAgentPage(
+              submitManageAgentForm,
+              ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions,
+              agent,
+              calculateBackLink(organisationsAgents)))
         case (1, Some(agent)) if agent.propertyCount == 1 =>
           //IP has one property link and agent is assigned to that property
-          Some(unassignAgentFromProperty(submitAgentAppointmentRequest, agent))
+          Some(unassignAgentFromProperty(submitAgentAppointmentRequest, agent, calculateBackLink(organisationsAgents)))
+
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
           //IP has more than one property links but agent is not assigned to any
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksNoAssignedAgentsOptions,
-              agent))
+              agent,
+              calculateBackLink(organisationsAgents)))
+
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
           //agent is assigned to some (but not all) of the IP's property links
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToSomeOptions,
-              agent))
+              agent,
+              controllers.agent.routes.ManageAgentController
+                .manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters())
+                .url
+            ))
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
           //agent is assigned to all of the IP's property links
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToAllOptions,
-              agent))
+              agent,
+              controllers.agent.routes.ManageAgentController
+                .manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters())
+                .url
+            ))
         case _ => None
       }
     }
@@ -203,7 +223,12 @@ class ManageAgentController @Inject()(
           case UnassignFromSomeProperties => Future.successful(joinOldAgentRevokeJourney(agentCode))
           case RemoveFromYourAccount =>
             Future.successful(
-              Ok(removeAgentFromOrganisation(submitAgentAppointmentRequest, agentCode, success.agentName)))
+              Ok(
+                removeAgentFromOrganisation(
+                  submitAgentAppointmentRequest,
+                  agentCode,
+                  success.agentName,
+                  controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url)))
         }
       }
     )
@@ -240,21 +265,32 @@ class ManageAgentController @Inject()(
 
   def showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
     implicit request =>
-      Future.successful(Ok(removeAgentFromOrganisation(submitAgentAppointmentRequest, agentCode, agentName)))
+      Future.successful(
+        Ok(
+          removeAgentFromOrganisation(
+            submitAgentAppointmentRequest,
+            agentCode,
+            agentName,
+            config.newDashboardUrl("home"))))
   }
 
-  def removeAgentFromIpOrganisation(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
-    implicit request =>
+  def removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String): Action[AnyContent] =
+    authenticated.async { implicit request =>
       submitAgentAppointmentRequest.bindFromRequest.fold(
         errors => {
-          Future.successful(BadRequest(removeAgentFromOrganisation(errors, agentCode, agentName)))
+          Future.successful(BadRequest(removeAgentFromOrganisation(errors, agentCode, agentName, backLink)))
         }, { success =>
           agentRelationshipService
             .removeAgentFromOrganisation(success)
             .map(_ => Ok(confirmRemoveAgentFromOrganisation(agentName)))
         }
       )
-  }
+    }
+
+  private def calculateBackLink(organisationsAgents: AgentList) =
+    if (organisationsAgents.resultCount > 1)
+      controllers.agent.routes.ManageAgentController.showAgents().url
+    else config.newDashboardUrl("home")
 
   private def joinOldAgentAppointJourney(agentCode: Long) =
     Redirect(

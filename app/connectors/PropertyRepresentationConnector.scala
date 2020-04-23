@@ -19,7 +19,8 @@ package connectors
 import javax.inject.Inject
 import models._
 import models.propertyrepresentation.AgentDetails
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import play.api.Logger
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, Upstream4xxResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
@@ -28,6 +29,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(
       implicit ec: ExecutionContext) {
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
+  val logger = Logger(this.getClass.getName)
 
   def validateAgentCode(agentCode: Long, authorisationId: Long)(
         implicit hc: HeaderCarrier): Future[AgentCodeValidationResult] =
@@ -52,5 +54,10 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
     }
 
   def getAgentDetails(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentDetails]] =
-    http.GET[Option[AgentDetails]](s"$baseUrl/my-organisation/agent/$agentCode")
+    http.GET[Option[AgentDetails]](s"$baseUrl/my-organisation/agent/$agentCode") recover {
+      case Upstream4xxResponse(_, 403, _, _) => {
+        logger.info(s"Agent code: $agentCode does not belong to an agent organisation")
+        None
+      }
+    }
 }
