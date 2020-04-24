@@ -157,7 +157,7 @@ class ManageAgentController @Inject()(
               submitAgentAppointmentRequest,
               agent.representativeCode,
               agent.name,
-              calculateBackLink(organisationsAgents)))
+              calculateBackLink(organisationsAgents, agent.representativeCode)))
         case (1, Some(agent)) if agent.propertyCount == 0 =>
           //IP has one property link but agent is not assigned
           Some(
@@ -165,10 +165,14 @@ class ManageAgentController @Inject()(
               submitManageAgentForm,
               ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions,
               agent,
-              calculateBackLink(organisationsAgents)))
+              calculateBackLink(organisationsAgents, agent.representativeCode)))
         case (1, Some(agent)) if agent.propertyCount == 1 =>
           //IP has one property link and agent is assigned to that property
-          Some(unassignAgentFromProperty(submitAgentAppointmentRequest, agent, calculateBackLink(organisationsAgents)))
+          Some(
+            unassignAgentFromProperty(
+              submitAgentAppointmentRequest,
+              agent,
+              calculateBackLink(organisationsAgents, agent.representativeCode)))
 
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
           //IP has more than one property links but agent is not assigned to any
@@ -177,18 +181,16 @@ class ManageAgentController @Inject()(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksNoAssignedAgentsOptions,
               agent,
-              calculateBackLink(organisationsAgents)))
+              calculateBackLink(organisationsAgents, agent.representativeCode)
+            ))
 
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
-          //agent is assigned to some (but not all) of the IP's property links
           Some(
             manageAgentPage(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToSomeOptions,
               agent,
-              controllers.agent.routes.ManageAgentController
-                .manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters())
-                .url
+              calculateBackLink(organisationsAgents, agent.representativeCode)
             ))
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
           //agent is assigned to all of the IP's property links
@@ -197,9 +199,7 @@ class ManageAgentController @Inject()(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToAllOptions,
               agent,
-              controllers.agent.routes.ManageAgentController
-                .manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters())
-                .url
+              calculateBackLink(organisationsAgents, agent.representativeCode)
             ))
         case _ => None
       }
@@ -287,9 +287,11 @@ class ManageAgentController @Inject()(
       )
     }
 
-  private def calculateBackLink(organisationsAgents: AgentList) =
+  private def calculateBackLink(organisationsAgents: AgentList, agentCode: Long) =
     if (organisationsAgents.resultCount > 1)
-      controllers.agent.routes.ManageAgentController.showAgents().url
+      controllers.agent.routes.ManageAgentController
+        .manageAgentProperties(agentCode, GetPropertyLinksParameters(), PaginationParameters())
+        .url
     else config.newDashboardUrl("home")
 
   private def joinOldAgentAppointJourney(agentCode: Long) =
