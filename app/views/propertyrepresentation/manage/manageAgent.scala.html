@@ -28,7 +28,7 @@
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
 
-@(form: Form[ManageAgentRequest], radioOptions: List[ManageAgentOptionItem], agent: AgentSummary)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[ManageAgentRequest], radioOptions: List[ManageAgentOptionItem], agent: AgentSummary, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @radioItems = @{
     radioOptions.map{item =>
@@ -42,7 +42,7 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.title"),
-    backUri = Some(controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters()).url)
+    backUri = Some(backLink)
 ) {
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.question", agent.name)</h1>
