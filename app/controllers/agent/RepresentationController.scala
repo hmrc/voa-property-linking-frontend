@@ -69,24 +69,15 @@ class RepresentationController @Inject()(
         .map(futureToFutureTry))
   }
 
-  def revokeClient(authorisationId: Long, clientOrganisationId: Long): Action[AnyContent] = authenticated.asAgent {
-    implicit request =>
-      propertyLinkConnector.clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id) map {
-        case Some(property) => Ok(views.html.propertyrepresentation.revokeClient(property))
-        case None           => notFound
-      }
+  def revokeClient(plSubmissionId: String): Action[AnyContent] = authenticated.asAgent { implicit request =>
+    propertyLinkConnector.clientPropertyLink(plSubmissionId) map {
+      case Some(property) => Ok(views.html.propertyrepresentation.revokeClient(property))
+      case None           => notFound
+    }
   }
 
-  def revokeClientConfirmed(authorisationId: Long, clientOrganisationId: Long) = authenticated.asAgent {
-    implicit request =>
-      (for {
-        clientProperty <- OptionT(
-                           propertyLinkConnector
-                             .clientProperty(authorisationId, clientOrganisationId, request.organisationAccount.id))
-        _ <- OptionT.liftF(reprConnector.revoke(clientProperty.authorisedPartyId))
-      } yield {
-        Redirect(config.newDashboardUrl("client-properties"))
-      }).getOrElse(notFound)
+  def revokeClientPropertyConfirmed(plSubmissionId: String) = authenticated.asAgent { implicit request =>
+    reprConnector.revokeClientProperty(plSubmissionId).map(_ => Redirect(config.newDashboardUrl("client-properties")))
   }
 
 }

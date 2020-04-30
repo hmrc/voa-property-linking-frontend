@@ -83,4 +83,9 @@ class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
       Future.failed(new Upstream4xxResponse("org is not an agent", 403, 403)))
     whenReady(connector.getAgentDetails(1))(_ mustBe None)
   }
+
+  "revokeClientProperty" must "send a DELETE request" in new Setup {
+    mockHttpDELETE[HttpResponse]("tst-url", HttpResponse(NO_CONTENT))
+    whenReady(connector.revokeClientProperty("some-submission-id"))(_ mustBe ())
+  }
 }

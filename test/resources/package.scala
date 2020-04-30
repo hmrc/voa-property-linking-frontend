@@ -244,6 +244,47 @@ package object resources {
     )
   implicit val arbitraryClientProperty = Arbitrary(clientPropertyGen)
 
+  val propertyLinkingStatusGen: Gen[PropertyLinkingStatus] = Gen.oneOf(PropertyLinkingApproved, PropertyLinkingPending)
+  implicit val propertyLinkingStatusGenType = Arbitrary(propertyLinkingStatusGen)
+
+  val clientDetailsGen: Gen[ClientDetails] = for {
+    organisationId   <- arbitrary[Long]
+    organisationName <- shortString
+  } yield
+    ClientDetails(
+      organisationId,
+      organisationName
+    )
+  implicit val arbitaryClientDetailsGen = Arbitrary(clientDetailsGen)
+
+  val clientPropertyLinkGen: Gen[ClientPropertyLink] = for {
+    authorisationId   <- arbitrary[Long]
+    authorisedPartyId <- arbitrary[Long]
+    status            <- arbitrary[PropertyLinkingStatus]
+    startDate         <- arbitrary[LocalDate]
+    endDate           <- Gen.option(arbitrary[LocalDate])
+    submissionId      <- shortString
+    capacity          <- shortString
+    uarn              <- arbitrary[Long]
+    address           <- shortString
+    localAuthorityRef <- shortString
+    client            <- arbitrary[ClientDetails]
+  } yield
+    models.ClientPropertyLink(
+      authorisationId,
+      authorisedPartyId,
+      status,
+      startDate,
+      endDate,
+      submissionId,
+      capacity,
+      uarn,
+      address,
+      localAuthorityRef,
+      client
+    )
+  implicit val arbitaryClientPropertyLinkGen = Arbitrary(clientPropertyLinkGen)
+
   val propertyLinkGen: Gen[PropertyLink] = for {
     linkId            <- arbitrary[Int]
     submissionId      <- shortString

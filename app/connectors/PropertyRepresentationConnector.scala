@@ -53,6 +53,11 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
       ()
     }
 
+  def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] =
+    http.DELETE[HttpResponse](s"$baseUrl/property-representations/revoke-client-property/$submissionId") map { _ =>
+      ()
+    }
+
   def getAgentDetails(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentDetails]] =
     http.GET[Option[AgentDetails]](s"$baseUrl/my-organisation/agent/$agentCode") recover {
       case Upstream4xxResponse(_, 403, _, _) => {
