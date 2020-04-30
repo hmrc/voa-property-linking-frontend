@@ -438,7 +438,7 @@ propertyRepresentation.addAnAgentGuidance.p3=You will still receive messages fro
 propertyRepresentation.addAnAgentGuidance.ifMultipleAgent.heading=If you have more than one agent
 propertyRepresentation.addAnAgentGuidance.ifMultipleAgent.text=You can assign more than one agent to a property. They will both be able to act for you at the same time.
 propertyRepresentation.addAnAgentGuidance.removingAgent.heading=Removing an agent
-propertyRepresentation.addAnAgentGuidance.removingAgent.text=You can unassign your agent from properties, but they will still be linked to your account and able to add properties. To remove them entirely, you will need to select ‘remove this agent from your account’ after unassigning them.
+propertyRepresentation.addAnAgentGuidance.removingAgent.text=You can unassign your agent from properties, but they will still be linked to your account and able to add properties. To remove them entirely after unassigning them, go to ‘Manage agents’. Select the agent you want to remove then choose the ‘remove from your account’ option.
 
 propertyRepresentation.isThisYourAgent.question=Is this your agent?
 propertyRepresentation.isThisYourAgent.yes=Yes
