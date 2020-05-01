@@ -71,4 +71,6 @@ object StubPropertyRepresentationConnector
     Future.successful(Unit)
 
   override def revoke(permissionId: Long)(implicit hc: HeaderCarrier) = Future.successful(Unit)
+
+  override def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 }

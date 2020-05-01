@@ -146,6 +146,13 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
     http.GET[Option[ClientProperty]](url) recover { case _: NotFoundException => None }
   }
 
+  def clientPropertyLink(plSubmissionId: String)(implicit hc: HeaderCarrier): Future[Option[ClientPropertyLink]] = {
+    val url =
+      s"$baseUrl/agent/property-links/$plSubmissionId?projection=clientsPropertyLink"
+
+    http.GET[Option[ClientPropertyLink]](url) recover { case _: NotFoundException => None }
+  }
+
   def getOwnerAssessmentsWithCapacity(submissionId: String)(
         implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
     http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId")

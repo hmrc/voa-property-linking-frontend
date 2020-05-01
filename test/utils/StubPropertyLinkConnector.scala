@@ -34,6 +34,7 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(servicesConfig, m
 
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil
+  private var stubbedClientPropertyLinks: Seq[ClientPropertyLink] = Nil
   private var stubbedOwnerAuthResult: OwnerAuthResult =
     OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
 
@@ -58,6 +59,11 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(servicesConfig, m
     stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId)
   }
 
+  override def clientPropertyLink(submissionId: String)(
+        implicit hc: HeaderCarrier): Future[Option[ClientPropertyLink]] = Future.successful {
+    stubbedClientPropertyLinks.find(p => p.submissionId == submissionId)
+  }
+
   def stubLink(link: PropertyLink) =
     stubbedLinks :+= link
 
@@ -66,6 +72,9 @@ object StubPropertyLinkConnector extends PropertyLinkConnector(servicesConfig, m
 
   def stubClientProperty(clientProperty: ClientProperty) =
     stubbedClientProperties :+= clientProperty
+
+  def stubClientPropertyLink(clientProperty: ClientPropertyLink) =
+    stubbedClientPropertyLinks :+= clientProperty
 
   def reset() = {
     stubbedLinks = Nil

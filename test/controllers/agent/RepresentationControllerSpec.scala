@@ -43,13 +43,13 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
         stubMessagesControllerComponents()
       )
 
-  behavior of "revokeClientConfirmed method"
+  behavior of "revokeClientPropertyConfirmed method"
   it should "revoke an agent and redirect to the client properties page" in {
-    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+    val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
 
-    StubPropertyLinkConnector.stubClientProperty(clientProperty)
+    StubPropertyLinkConnector.stubClientPropertyLink(clientProperty)
     val res =
-      TestController.revokeClientConfirmed(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
+      TestController.revokeClientPropertyConfirmed(clientProperty.submissionId)(request)
 
     status(res) must be(SEE_OTHER)
     redirectLocation(res) must be(Some(applicationConfig.newDashboardUrl("client-properties")))
@@ -57,21 +57,21 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
   behavior of "revokeClient method"
   it should "revoke an agent and display the revoke client page" in {
-    val clientProperty: ClientProperty = arbitrary[ClientProperty]
+    val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
 
-    StubPropertyLinkConnector.stubClientProperty(clientProperty)
-    val res = TestController.revokeClient(clientProperty.authorisationId, clientProperty.ownerOrganisationId)(request)
+    StubPropertyLinkConnector.stubClientPropertyLink(clientProperty)
+    val res = TestController.revokeClient(clientProperty.submissionId)(request)
 
     status(res) must be(OK)
 
     contentAsString(res) contains "Revoking client" mustBe true
     contentAsString(res) contains "Are you sure you no longer want to act on behalf of" mustBe true
   }
-  it should "revoke an agent should return not found when clientProperty cannot be found" in {
+  it should "revoke an agent should return not found when clientPropertyLink cannot be found" in {
     when(mockCustomErrorHandler.notFoundTemplate(any()))
       .thenReturn(Html("NOT FOUND"))
 
-    val res = TestController.revokeClient(12L, 34L)(request)
+    val res = TestController.revokeClient("some-id")(request)
     status(res) must be(NOT_FOUND)
   }
 

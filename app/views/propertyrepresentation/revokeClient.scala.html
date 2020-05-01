@@ -15,8 +15,9 @@
  *@
 
 @import config.ApplicationConfig
+@import uk.gov.hmrc.play.views.html.helpers.form
 
-@(clientProperty: ClientProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(clientProperty: ClientPropertyLink)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @main_template(
@@ -32,15 +33,14 @@
             @messages("propertyRepresentation.revokeClient.title")
             </h1>
 
-            <p>@messages("propertyRepresentation.revokeClient.message", clientProperty.ownerOrganisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
+            <p>@messages("propertyRepresentation.revokeClient.message", clientProperty.client.organisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
             <p>
-                <a href="@controllers.agent.routes.RepresentationController.revokeClientConfirmed(clientProperty.authorisationId, clientProperty.ownerOrganisationId)">
+                <a href="@controllers.agent.routes.RepresentationController.revokeClientPropertyConfirmed(clientProperty.submissionId)">
                     <button type="submit" class="button">
                         @messages("propertyRepresentation.revokeClient.button")
                     </button>
                 </a>
             </p>
-
         </div>
     </div>
 }
