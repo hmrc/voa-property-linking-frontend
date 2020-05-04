@@ -168,10 +168,7 @@ class AddAgentController @Inject()(
                     agentRepresentativeCode = searchedAgent.agentCode
                   )
                 )
-                Ok(
-                  confirmation(
-                    request.agentDetails.name,
-                    "propertyRepresentation.confirmation.whatHappensNext.relationship"))
+                Ok(confirmation(request.agentDetails.name, None))
               }
               case 1 => Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty())
               case _ => Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties())
@@ -273,8 +270,8 @@ class AddAgentController @Inject()(
             .map { _ =>
               val key =
                 if (success.scope == AppointmentScope.RELATIONSHIP.toString)
-                  "propertyRepresentation.confirmation.whatHappensNext.relationship"
-                else "propertyRepresentation.confirmation.whatHappensNext.allOrSome"
+                  None
+                else Some("propertyRepresentation.confirmation.whatHappensNext.allOrSome")
               Ok(confirmation(agentName = request.agentDetails.name, guidanceMessageKey = key))
             }
         }
