@@ -22,7 +22,7 @@
 
 @this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
 
-@(agentName: String, guidanceMessageKey: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, guidanceMessageKey: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.addAnAgent.title"),
@@ -35,7 +35,9 @@
     ))
 
     <h2 id="whatHappensNext" class="govuk-heading-m">@messages("propertyRepresentation.confirmation.whatHappensNext")</h2>
-    <p id="whatHappensNextP1" class="govuk-body">@messages(guidanceMessageKey, agentName)</p>
+    @guidanceMessageKey.map{ messageKey =>
+        <p id="whatHappensNextP1" class="govuk-body">@messages(messageKey, agentName)</p>
+    }
 
     <p>
         <a class="govuk-link" id="homeLink" href="@config.newDashboardUrl("home")">@messages("link.return.home")</a>
