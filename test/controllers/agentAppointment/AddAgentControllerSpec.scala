@@ -16,7 +16,6 @@
 
 package controllers.agentAppointment
 
-import connectors.AgentsConnector
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, SearchedAgent, SelectedAgent}
 import org.mockito.ArgumentMatchers.any
@@ -134,7 +133,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(
       mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
-    when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsNoAgents))
     when(mockSessionRepo.get[SearchedAgent](any(), any()))
       .thenReturn(Future.successful(Some(searchedAgent)))
     when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
@@ -150,7 +148,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(
       mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
-    when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsNoAgents))
     when(mockSessionRepo.get[SearchedAgent](any(), any()))
       .thenReturn(Future.successful(Some(searchedAgent)))
 
@@ -166,7 +163,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(
       mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
-    when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsWithOneAgent))
     when(mockSessionRepo.get[SearchedAgent](any(), any()))
       .thenReturn(Future.successful(Some(searchedAgent)))
     when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
@@ -184,7 +180,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(
       mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
-    when(mockAgentsConnector.ownerAgents(any())(any())).thenReturn(Future.successful(ownerAgentsWithOneAgent))
     when(mockSessionRepo.get[SearchedAgent](any(), any()))
       .thenReturn(Future.successful(Some(searchedAgent)))
     when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
@@ -337,7 +332,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     preAuthenticatedActionBuilders(),
     stubWithAppointAgentSession,
     mockAgentRelationshipService,
-    mockAgentsConnector,
     mockSessionRepo,
     startPage,
     isTheCorrectAgent,
@@ -347,8 +341,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     confirmation,
     addAgentGuidance
   )
-
-  private lazy val mockAgentsConnector = mock[AgentsConnector]
 
   private lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

@@ -56,19 +56,6 @@ class RepresentationController @Inject()(
     Future.successful(Redirect(config.newDashboardUrl("client-properties")))
   }
 
-  private def getFutureListOfActions(data: RepresentationBulkAction, personId: Long)(
-        implicit hc: HeaderCarrier): Future[List[Try[Unit]]] = {
-    def futureToFutureTry(f: Future[Unit]): Future[Try[Unit]] = f.map(Try.apply(_)).recover({ case x => Failure(x) })
-
-    val actionType =
-      if (data.action.toLowerCase == "accept") RepresentationResponseApproved else RepresentationResponseDeclined
-
-    Future.sequence(
-      data.requestIds
-        .map(id => reprConnector.response(RepresentationResponse(id, personId, actionType)))
-        .map(futureToFutureTry))
-  }
-
   def revokeClient(plSubmissionId: String): Action[AnyContent] = authenticated.asAgent { implicit request =>
     propertyLinkConnector.clientPropertyLink(plSubmissionId) map {
       case Some(property) => Ok(views.html.propertyrepresentation.revokeClient(property))

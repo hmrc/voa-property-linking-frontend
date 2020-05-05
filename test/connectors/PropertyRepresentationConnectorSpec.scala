@@ -36,39 +36,6 @@ class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
     }
   }
 
-  "validateAgentCode" must "return an agent code validation result" in new Setup {
-    val agentCodeValidationResult = mock[AgentCodeValidationResult]
-
-    mockHttpGET[AgentCodeValidationResult]("tst-url", agentCodeValidationResult)
-    whenReady(connector.validateAgentCode(1, 1))(_ mustBe agentCodeValidationResult)
-  }
-
-  "create" must "post a representation request" in new Setup {
-    val representationRequest = mock[RepresentationRequest]
-
-    mockHttpPOST[RepresentationRequest, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.create(representationRequest))(_ mustBe ())
-  }
-
-  "response" must "put a response to a representation request" in new Setup {
-    val representationResponse = mock[RepresentationResponse]
-
-    mockHttpPUT[RepresentationResponse, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.response(representationResponse))(_ mustBe ())
-  }
-
-  "update" must "put a response to a representation request" in new Setup {
-    val representationResponse = mock[RepresentationResponse]
-
-    mockHttpPUT[RepresentationResponse, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.response(representationResponse))(_ mustBe ())
-  }
-
-  "revoke" must "patch a revoke request" in new Setup {
-    mockHttpPATCH[String, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.revoke(1))(_ mustBe ())
-  }
-
   "getAgentDetails" must "get some agent's details" in new Setup {
     val mockAgentDetails = mock[Option[AgentDetails]]
 

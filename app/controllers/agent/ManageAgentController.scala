@@ -313,7 +313,7 @@ class ManageAgentController @Inject()(
         params = GetPropertyLinksParameters(
           sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
           sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
-        agentCode = agentCode,
-        backLink = controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
-      ))
+        agentCode = agentCode
+      )
+    )
 }

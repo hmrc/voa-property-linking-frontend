@@ -19,7 +19,7 @@ package controllers.agentAppointment
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
-import connectors.{AgentsConnector, PropertyRepresentationConnector}
+import connectors.PropertyRepresentationConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
 import models.searchApi._
@@ -45,44 +45,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   val agent = groupAccount(true).copy(agentCode = Some(agentCode))
 
   val testAgents = Seq(OwnerAuthAgent(1L, agent.id, "organisationName", 1L))
-
-  "appointMultipleProperties" should "show the appoint agent page with a known agent listed for selection with no agent appointment session" in {
-    val testOwnerAgents = OwnerAgents(Seq(OwnerAgent("test-agent", 1L)))
-    when(mockAgentsConnector.ownerAgents(any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAgents))
-    val res = testController.appointMultipleProperties()(FakeRequest())
-    status(res) mustBe OK
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainTable("#middle-radio-buttons")
-    page.mustContainText("test-agent")
-  }
-
-  "appointMultipleProperties" should "show the appoint agent page with no known agents listed for selection" in {
-    val testOwnerAgents = OwnerAgents(Seq())
-    when(mockAgentsConnector.ownerAgents(any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAgents))
-    val res = testController.appointMultipleProperties()(FakeRequest())
-    status(res) mustBe OK
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustNotContainTable("#middle-radio-buttons")
-  }
-
-  "getAgentsForRemove" should "show the revoke agent page with a known agent listed for selection with no agent appointment session" in {
-    val testOwnerAgents = OwnerAgents(Seq(OwnerAgent("test-agent", 1L)))
-    when(mockAgentsConnector.ownerAgents(any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAgents))
-    val res = testController.revokeMultipleProperties()(FakeRequest())
-    status(res) mustBe OK
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainTable("#middle-radio-buttons")
-    page.mustContainText("test-agent")
-  }
-
-  "getAgentsForRemove" should "show the appoint agent page with no known agents listed for selection" in {
-    val testOwnerAgents = OwnerAgents(Seq())
-    when(mockAgentsConnector.ownerAgents(any())(any[HeaderCarrier])).thenReturn(Future.successful(testOwnerAgents))
-    val res = testController.revokeMultipleProperties()(FakeRequest())
-    status(res) mustBe OK
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustNotContainTable("#middle-radio-buttons")
-  }
 
   "getMyOrganisationPropertyLinksWithAgentFiltering" should "show the appoint agent properties page" in {
 
@@ -217,15 +179,12 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     mockCustomErrorHandler,
     mockRepresentationConnector,
     StubGroupAccountConnector,
-    mockAgentsConnector,
     preAuthenticatedActionBuilders(),
     mockAppointRevokeService,
     mockSessionRepo
   )
 
   private lazy val mockRepresentationConnector = mock[PropertyRepresentationConnector]
-
-  private lazy val mockAgentsConnector = mock[AgentsConnector]
 
   private lazy val mockSessionRepo = mock[SessionRepo]
 

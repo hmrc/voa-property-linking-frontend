@@ -24,7 +24,6 @@ import actions.requests.BasicAuthenticatedRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.ApplicationConfig
-import connectors.AgentsConnector
 import controllers.agent.routes
 import controllers.{PaginationParams, PropertyLinkingController}
 import form.{EnumMapping, Mappings}
@@ -55,7 +54,6 @@ class AddAgentController @Inject()(
       authenticated: AuthenticatedAction,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
       agentRelationshipService: AgentRelationshipService,
-      agentsConnector: AgentsConnector,
       @Named("appointNewAgentSession") val sessionRepo: SessionRepo,
       startPage: views.html.propertyrepresentation.appoint.start,
       isTheCorrectAgent: views.html.propertyrepresentation.appoint.isThisYourAgent,
