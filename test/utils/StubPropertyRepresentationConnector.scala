@@ -58,19 +58,5 @@ object StubPropertyRepresentationConnector
     stubbedValidCodes = Nil
   }
 
-  override def validateAgentCode(agentCode: Long, authorisationId: Long)(implicit hc: HeaderCarrier) =
-    Future.successful {
-      if (stubbedValidCodes.contains(agentCode)) { AgentCodeValidationResult(Some(123), None) } else {
-        AgentCodeValidationResult(None, Some("INVALID_CODE"))
-      }
-    }
-
-  override def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier) = Future.successful(Unit)
-
-  override def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier) =
-    Future.successful(Unit)
-
-  override def revoke(permissionId: Long)(implicit hc: HeaderCarrier) = Future.successful(Unit)
-
   override def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 }

@@ -36,7 +36,6 @@ class Dashboard @Inject()(
       val errorHandler: CustomErrorHandler,
       draftCases: DraftCases,
       propertyLinks: AgentRelationshipService,
-      agentsConnector: AgentsConnector,
       groupAccounts: GroupAccounts,
       authenticated: AuthenticatedAction,
       override val controllerComponents: MessagesControllerComponents

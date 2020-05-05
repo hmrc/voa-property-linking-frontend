@@ -16,7 +16,7 @@
 
 package controllers
 
-import connectors.{AgentsConnector, DraftCases, GroupAccounts}
+import connectors.{DraftCases, GroupAccounts}
 import models._
 import models.searchApi._
 import org.scalacheck.Arbitrary.arbitrary
@@ -59,7 +59,6 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
         mockCustomErrorHandler,
         mock[DraftCases],
         mock[AgentRelationshipService],
-        mock[AgentsConnector],
         mock[GroupAccounts],
         preAuthenticatedActionBuilders(),
         stubMessagesControllerComponents()

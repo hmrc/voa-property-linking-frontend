@@ -76,35 +76,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
     verify(mockPropertyLinkConnector, times(1)).getMyOrganisationAgents()(any())
   }
 
-  "createAndSubmitAgentRepRequest" should "return option unit when successful" in {
-    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
-
-    val links = SessionPropertyLinks(
-      Seq(
-        SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", 1l)))
-      )
-    )
-
-    when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
-    when(mockRepresentationConnector.revoke(any())(any())).thenReturn(Future.successful())
-    when(mockRepresentationConnector.create(any())(any())).thenReturn(Future.successful())
-
-    val res = testService.createAndSubmitAgentRepRequest(
-      pLinkIds = List("1"),
-      agentOrgId = 1L,
-      organisationId = 1L,
-      individualId = 1L,
-      isAgent = true,
-      agentCode = 12312L
-    )
-
-    res.futureValue must be(())
-
-    verify(mockRepresentationConnector, times(1)).create(any())(any())
-  }
-
   "createAndSubmitAgentRepRequest" should "return option unit when successful when new agent relationship is enabled" in {
-    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(true)
 
     val links = SessionPropertyLinks(
       Seq(
@@ -129,23 +101,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
     verify(mockPropertyLinkConnector, times(1)).assignAgentToSomeProperties(any())(any())
   }
 
-  "createAndSubitAgentRevokeRequest" should "return option unit when successful" in {
-    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
-
-    val links =
-      SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", 1l)))))
-
-    when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
-    when(mockRepresentationConnector.revoke(any())(any())).thenReturn(Future.successful())
-    when(mockRepresentationConnector.create(any())(any())).thenReturn(Future.successful())
-
-    val res = testService.createAndSubmitAgentRevokeRequest(List("1"), 1L)
-
-    res.futureValue must be(())
-  }
-
   "createAndSubitAgentRevokeRequest" should "return option unit when successful when new agent relationship enabled" in {
-    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(true)
 
     val links =
       SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", 1l)))))
@@ -158,103 +114,6 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
     res.futureValue must be(())
 
     verify(mockPropertyLinkConnector).unassignAgentFromSomeProperties(any())(any())
-  }
-
-  "createAndSubmitAgentRepRequest" should "throw exception when link doesn't exist in cache" in {
-    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
-
-    val links = SessionPropertyLinks(Seq(SessionPropertyLink(2L, "11111", Seq(OwnerAuthAgent(3L, 4L, "", 1l)))))
-
-    when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
-
-    val res = testService
-      .createAndSubmitAgentRepRequest(
-        pLinkIds = List("999", "8888"),
-        agentOrgId = 5L,
-        organisationId = 6L,
-        individualId = 7L,
-        isAgent = true,
-        agentCode = 13444L
-      )
-
-    res.failed.futureValue must be(
-      new services.AppointRevokeException("Property link 999 not found in property links cache."))
-  }
-
-  "createAndSubitAgentRevokeRequest" should "throw exception when link doesn't exist in cache" in {
-    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
-
-    val links = SessionPropertyLinks(Seq(SessionPropertyLink(2L, "11111", Seq(OwnerAuthAgent(3L, 4L, "", 1l)))))
-
-    when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(Some(links)))
-
-    val res = testService.createAndSubmitAgentRevokeRequest(List("999", "8888"), 5L)
-
-    res.failed.futureValue must be(
-      new services.AppointRevokeException(
-        "Agent 5 for the property link with submission ID 999 doesn't exist in cache - this shouldn't be possible."))
-  }
-
-  "createAndSubmitAgentRepRequest" should "throw exception when session id doesn't exist in cache (handled by auth)" in {
-    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
-
-    when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(None))
-
-    val res = testService
-      .createAndSubmitAgentRepRequest(
-        pLinkIds = List("999", "8888"),
-        agentOrgId = 5L,
-        organisationId = 6L,
-        individualId = 7L,
-        isAgent = true,
-        agentCode = 134434L
-      )
-
-    res.failed.futureValue must be(
-      new services.AppointRevokeException(
-        "Session ID SessionId(1111) no longer in property links cache - should be redirected to login by auth."))
-  }
-
-  "createAndSubitAgentRevokeRequest" should "throw exception when session id doesn't exist in cache (handled by auth)" in {
-    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
-
-    when(mockSessionRepo.get[SessionPropertyLinks](any(), any())).thenReturn(Future.successful(None))
-
-    val res = testService.createAndSubmitAgentRevokeRequest(List("999", "8888"), 5L)
-
-    res.failed.futureValue must be(
-      new services.AppointRevokeException(
-        "Session ID SessionId(1111) no longer in property links cache - should be redirected to login by auth."))
-  }
-
-  "createAndSubmitAgentRepRequest" should "throw exception session id can't be obtained (handled by auth)" in {
-    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
-
-    implicit val hc = HeaderCarrier()
-
-    val res = testService
-      .createAndSubmitAgentRepRequest(
-        pLinkIds = List("999", "8888"),
-        agentOrgId = 5L,
-        organisationId = 6L,
-        individualId = 7L,
-        isAgent = true,
-        agentCode = 13674L
-      )
-
-    res.failed.futureValue must be(new services.AppointRevokeException(
-      "Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
-  }
-
-  "createAndSubitAgentRevokeRequest" should "throw exception session id can't be obtained (handled by auth)" in {
-    when(mockApplicationConfig.newAgentRelationshipJourneyEnabled).thenReturn(false)
-
-    implicit val hc = HeaderCarrier()
-
-    val res = testService.createAndSubmitAgentRevokeRequest(List("999", "8888"), 5L)
-
-    res.failed.futureValue must be(new services.AppointRevokeException(
-      "Unable to obtain session ID from request to retrieve property links cache - should be redirected to login by auth."))
   }
 
   "getAgentNameAndAddress" should "return agent details" in {

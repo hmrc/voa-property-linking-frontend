@@ -31,7 +31,6 @@ class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
         mockCustomErrorHandler,
         mock[DraftCases],
         mock[AgentRelationshipService],
-        StubAgentConnector,
         mock[GroupAccounts],
         preAuthenticatedActionBuilders(),
         stubMessagesControllerComponents()

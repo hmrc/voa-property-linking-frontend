@@ -58,7 +58,6 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
         mockCustomErrorHandler,
         mockDraftCases,
         mockRepService,
-        StubAgentConnector,
         StubGroupAccountConnector,
         preAuthenticatedActionBuilders(),
         stubMessagesControllerComponents()

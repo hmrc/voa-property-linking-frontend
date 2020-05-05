@@ -31,28 +31,6 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
   val logger = Logger(this.getClass.getName)
 
-  def validateAgentCode(agentCode: Long, authorisationId: Long)(
-        implicit hc: HeaderCarrier): Future[AgentCodeValidationResult] =
-    http.GET[AgentCodeValidationResult](
-      s"$baseUrl/property-representations/validate-agent-code/$agentCode/$authorisationId")
-
-  def create(reprRequest: RepresentationRequest)(implicit hc: HeaderCarrier): Future[Unit] =
-    http.POST[RepresentationRequest, HttpResponse](s"$baseUrl/property-representations/create", reprRequest) map { _ =>
-      () //TODO https://jira.tools.tax.service.gov.uk/browse/VTCCA-3348 FAILED get treated as SUCCESS
-    }
-
-  def response(representationResponse: RepresentationResponse)(implicit hc: HeaderCarrier): Future[Unit] =
-    http.PUT[RepresentationResponse, HttpResponse](
-      s"$baseUrl/property-representations/response",
-      representationResponse) map { _ =>
-      ()
-    }
-
-  def revoke(authorisedPartyId: Long)(implicit hc: HeaderCarrier): Future[Unit] =
-    http.PATCH[String, HttpResponse](s"$baseUrl/property-representations/revoke/$authorisedPartyId", "") map { _ =>
-      ()
-    }
-
   def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] =
     http.DELETE[HttpResponse](s"$baseUrl/property-representations/revoke-client-property/$submissionId") map { _ =>
       ()
