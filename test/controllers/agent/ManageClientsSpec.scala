@@ -57,12 +57,15 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
 
   }
 
+  val revokeClientPropertyPage = mock[views.html.propertyrepresentation.revokeClient]
+
   object TestController
       extends RepresentationController(
         mockCustomErrorHandler,
         StubPropertyRepresentationConnector,
         preAuthenticatedActionBuilders(),
         StubPropertyLinkConnector,
+        revokeClientPropertyPage,
         stubMessagesControllerComponents()
       )
 

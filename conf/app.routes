@@ -31,7 +31,7 @@ GET         /managed-properties/:agentCode                                      
 GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
 
 GET         /client-properties/revoke/:plSubmissionId                                         @controllers.agent.RepresentationController.revokeClient(plSubmissionId: String)
-GET         /client-properties/revoke-client-property/:plSubmissionId/confirmed               @controllers.agent.RepresentationController.revokeClientPropertyConfirmed(plSubmissionId: String)
+POST        /client-properties/revoke-client-property/:plSubmissionId/confirmed               @controllers.agent.RepresentationController.revokeClientPropertyConfirmed(plSubmissionId: String)
 
 GET         /property-link/:submissionId/assessments                                          @uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.valuations(submissionId: String, owner: Boolean ?= true)
 GET         /property-link/clients/all/:submissionId/assessments                              @uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.valuations(submissionId: String, owner: Boolean ?= false)

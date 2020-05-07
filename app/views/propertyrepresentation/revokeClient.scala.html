@@ -14,33 +14,30 @@
  * limitations under the License.
  *@
 
+@import actions.requests.BasicAuthenticatedRequest
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
 @import config.ApplicationConfig
-@import uk.gov.hmrc.play.views.html.helpers.form
+
+@this(form: FormWithCSRF, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+
 
 @(clientProperty: ClientPropertyLink)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-
-@main_template(
-    title = Messages("propertyRepresentation.revokeClient.title"),
-    topNavigation = true,
-    topBackLink = true,
-    bottomBackLink = true
+@mainLayout(
+    pageTitle = messages("propertyRepresentation.revokeClient.title"),
+    backUri = Some(config.newDashboardUrl("client-properties"))
 ) {
-    <div class="grid-row">
-        <div class="column-two-thirds">
 
-            <h1 class="heading-xlarge">
-            @messages("propertyRepresentation.revokeClient.title")
-            </h1>
+    <h1 class="govuk-heading-xl">
+        @messages("propertyRepresentation.revokeClient.title")
+    </h1>
 
-            <p>@messages("propertyRepresentation.revokeClient.message", clientProperty.client.organisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
-            <p>
-                <a href="@controllers.agent.routes.RepresentationController.revokeClientPropertyConfirmed(clientProperty.submissionId)">
-                    <button type="submit" class="button">
-                        @messages("propertyRepresentation.revokeClient.button")
-                    </button>
-                </a>
-            </p>
-        </div>
-    </div>
+    <p class="govuk-body">@messages("propertyRepresentation.revokeClient.message", clientProperty.client.organisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
+
+    @form(action = controllers.agent.routes.RepresentationController.revokeClientPropertyConfirmed(clientProperty.submissionId)) {
+        @govukButton(Button(content = Text(messages("propertyRepresentation.revokeClient.button"))))
+    }
+
 }
