@@ -46,6 +46,7 @@ class RepresentationController @Inject()(
       authenticated: AuthenticatedAction,
       propertyLinkConnector: PropertyLinkConnector,
       revokeClientPropertyPage: views.html.propertyrepresentation.revokeClient,
+      confirmRevokeClientPropertyPage: views.html.propertyrepresentation.confirmRevokeClientProperty,
       override val controllerComponents: MessagesControllerComponents
 )(
       implicit executionContext: ExecutionContext,
@@ -64,8 +65,9 @@ class RepresentationController @Inject()(
     }
   }
 
-  def revokeClientPropertyConfirmed(plSubmissionId: String) = authenticated.async { implicit request =>
-    reprConnector.revokeClientProperty(plSubmissionId).map(_ => Redirect(config.newDashboardUrl("client-properties")))
+  def revokeClientPropertyConfirmed(plSubmissionId: String, address: String) = authenticated.async {
+    implicit request =>
+      reprConnector.revokeClientProperty(plSubmissionId).map(_ => Ok(confirmRevokeClientPropertyPage(address)))
   }
 
 }

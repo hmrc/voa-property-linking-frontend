@@ -35,6 +35,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
   val revokeClientPropertyPage = mock[views.html.propertyrepresentation.revokeClient]
+  val confirmRevokeClientPropertyPage = mock[views.html.propertyrepresentation.confirmRevokeClientProperty]
 
   object TestController
       extends RepresentationController(
@@ -43,20 +44,21 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
         preAuthenticatedActionBuilders(),
         StubPropertyLinkConnector,
         revokeClientPropertyPage,
+        confirmRevokeClientPropertyPage,
         stubMessagesControllerComponents()
       )
 
   behavior of "revokeClientPropertyConfirmed method"
-  it should "revoke an agent and redirect to the client properties page" in {
+  it should "revoke an agent and show the confirmation page" in {
     when(revokeClientPropertyPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    when(confirmRevokeClientPropertyPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
     val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
 
     StubPropertyLinkConnector.stubClientPropertyLink(clientProperty)
     val res =
-      TestController.revokeClientPropertyConfirmed(clientProperty.submissionId)(request)
+      TestController.revokeClientPropertyConfirmed(clientProperty.submissionId, clientProperty.address)(request)
 
-    status(res) must be(SEE_OTHER)
-    redirectLocation(res) must be(Some(applicationConfig.newDashboardUrl("client-properties")))
+    status(res) must be(OK)
   }
 
   behavior of "revokeClient method"

@@ -517,6 +517,8 @@ propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetT
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow=You can now:
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount=Remove this agent from your account
 
+propertyRepresentation.revokeClientProperty.confirmation=You have successfully revoked client property: {0}
+propertyRepresentation.revokeClientProperty.returnToClientProperties=Return to client properties
 
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
