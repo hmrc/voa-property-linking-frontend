@@ -23,7 +23,7 @@ import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.{contentAsString, _}
 import play.twirl.api.Html
 import resources._
 import uk.gov.hmrc.http.HeaderCarrier
@@ -48,7 +48,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
   behavior of "revokeClientPropertyConfirmed method"
   it should "revoke an agent and redirect to the client properties page" in {
-    when(revokeClientPropertyPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    when(revokeClientPropertyPage.apply(any())(any(), any(), any())).thenReturn(Html("Revoking client"))
     val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
 
     StubPropertyLinkConnector.stubClientPropertyLink(clientProperty)
@@ -61,13 +61,17 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
   behavior of "revokeClient method"
   it should "revoke an agent and display the revoke client page" in {
-    when(revokeClientPropertyPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
+    when(revokeClientPropertyPage.apply(any())(any(), any(), any()))
+      .thenReturn(Html("Revoking client <br/> Are you sure you no longer want to act on behalf of"))
     val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
 
     StubPropertyLinkConnector.stubClientPropertyLink(clientProperty)
     val res = TestController.revokeClient(clientProperty.submissionId)(request)
 
     status(res) must be(OK)
+
+    contentAsString(res) contains "Revoking client" mustBe true
+    contentAsString(res) contains "Are you sure you no longer want to act on behalf of" mustBe true
   }
   it should "revoke an agent should return not found when clientPropertyLink cannot be found" in {
     when(mockCustomErrorHandler.notFoundTemplate(any()))
