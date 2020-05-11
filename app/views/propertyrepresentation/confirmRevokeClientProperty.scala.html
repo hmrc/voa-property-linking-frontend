@@ -20,24 +20,28 @@
 
 @import config.ApplicationConfig
 
-@this(form: FormWithCSRF, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
 
-
-@(clientProperty: ClientPropertyLink)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.revokeClient.title"),
-    backUri = Some(config.newDashboardUrl("client-properties"))
+    backUri = None
 ) {
 
-    <h1 class="govuk-heading-xl">
-        @messages("propertyRepresentation.revokeClient.title")
-    </h1>
+    @govukPanel(
+        Panel(
+            title = Text(messages("propertyRepresentation.revokeClientProperty.confirmation", address)),
+            content = HtmlContent("")
+        )
+    )
 
-    <p class="govuk-body">@messages("propertyRepresentation.revokeClient.message", clientProperty.client.organisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
-
-    @form(action = controllers.agent.routes.RepresentationController.revokeClientPropertyConfirmed(clientProperty.submissionId, clientProperty.address)) {
-        @govukButton(Button(content = Text(messages("propertyRepresentation.revokeClient.button"))))
-    }
+    <h2 class="govuk-heading-m">
+        @messages("label.youCanNow")
+    </h2>
+    <ul class="govuk-list">
+        <li class="govuk-link"><a href="@config.newDashboardUrl("home")">@messages("link.return.home")</a></li>
+        <li class="govuk-link"><a href="@config.newDashboardUrl("client-properties")">@messages("propertyRepresentation.revokeClientProperty.returnToClientProperties")</a></li>
+    </ul>
 
 }
