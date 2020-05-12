@@ -41,8 +41,7 @@ class Assessments @Inject()(
       businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
       override val controllerComponents: MessagesControllerComponents,
       @Named("detailed-valuation.external") isExternalValuation: Boolean,
-      @Named("detailed-valuation.skip") isSkipAssessment: Boolean,
-      @Named("summary-valuation.newRoute") isSummaryValuationNewRoute: Boolean
+      @Named("detailed-valuation.skip") isSkipAssessment: Boolean
 )(
       implicit override val messagesApi: MessagesApi,
       val config: ApplicationConfig,
@@ -59,14 +58,10 @@ class Assessments @Inject()(
 
   private def viewSummary(uarn: Long, isOwner: Boolean, isPending: Boolean = false): Action[AnyContent] = Action {
     implicit request =>
-      if (isSummaryValuationNewRoute) {
-        if (isOwner) {
-          Redirect(config.valuationFrontendUrl + s"/property-link/$uarn/valuation/summary")
-        } else {
-          Redirect(config.valuationFrontendUrl + s"/property-link/clients/all/$uarn/valuation/summary")
-        }
+      if (isOwner) {
+        Redirect(config.valuationFrontendUrl + s"/property-link/$uarn/valuation/summary")
       } else {
-        Redirect(config.vmvUrl + s"/detail/$uarn?isPending=$isPending")
+        Redirect(config.valuationFrontendUrl + s"/property-link/clients/all/$uarn/valuation/summary")
       }
   }
 

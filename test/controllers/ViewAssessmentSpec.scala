@@ -38,8 +38,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
         mockBusinessRatesAuthorisation,
         stubMessagesControllerComponents(),
         isExternalValuation = false,
-        isSkipAssessment = false,
-        isSummaryValuationNewRoute = true
+        isSkipAssessment = false
       )
 
   // TODO Delete or fix these tests
