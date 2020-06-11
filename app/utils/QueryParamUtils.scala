@@ -16,9 +16,8 @@
 
 package utils
 
-import java.nio.charset.Charset
-
-import play.utils.UriEncoding
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets.UTF_8
 
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
@@ -40,5 +39,5 @@ object QueryParamUtils {
       .mkString("&")
   }
 
-  def uriEncode(value: String): String = UriEncoding.encodePathSegment(value, Charset.defaultCharset)
+  def uriEncode(value: String): String = URLEncoder.encode(value, UTF_8.name())
 }
