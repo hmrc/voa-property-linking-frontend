@@ -78,8 +78,8 @@
             <div id="challengeContent">
                 <h2 class="heading-medium">@messages("challenge.valuation.whatToDo")</h2>
                 <p>
-                    @messages("challenge.valuation.makeChallenge") <a id="download-form" href="@routes.Assets.at("downloads/Challenge your valuation.pdf")" title="Challenge your valuation PDF (Opens in a new window)" target="_blank">@messages("challenge.valuation.download")</a>.
-                    @messages("challenge.valuation.also") <a id="download-guidance" href="@routes.Assets.at("downloads/Challenge your valuation guidance.pdf")" target="_blank" title="Challenge your valuation guidance PDF (Opens in a new window)">@messages("challenge.valuation.guidance")</a> @messages("challenge.valuation.completing") @messages("challenge.valuation.supportingEvidence") <a id="email-address" href="mailto:ccaservice@@voa.gsi.gov.uk"> @messages("challenge.valuation.email")</a> @messages("challenge.valuation.post")
+                    @messages("challenge.valuation.makeChallenge") <a id="download-form" href="@config.businessRatesValuationFrontendUrl("assets/downloads/Challenge your valuation.pdf")" title="Challenge your valuation PDF (Opens in a new window)" target="_blank">@messages("challenge.valuation.download")</a>.
+                    @messages("challenge.valuation.also") <a id="download-guidance" href="@config.businessRatesValuationFrontendUrl("assets/downloads/Challenge your valuation guidance.pdf")" target="_blank" title="Challenge your valuation guidance PDF (Opens in a new window)">@messages("challenge.valuation.guidance")</a> @messages("challenge.valuation.completing") @messages("challenge.valuation.supportingEvidence") <a id="email-address" href="mailto:ccaservice@@voa.gsi.gov.uk"> @messages("challenge.valuation.email")</a> @messages("challenge.valuation.post")
                 </p>
 
                 <ul>  <p id="postal-address">
