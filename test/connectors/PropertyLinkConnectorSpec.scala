@@ -20,6 +20,8 @@ import binders.propertylinks.GetPropertyLinksParameters
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{DefaultPaginationParams, PaginationParams, VoaPropertyLinkingSpec}
 import models._
+import models.dvr.cases.check.myclients.CheckCasesWithClient
+import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
 import models.propertyrepresentation.AgentList
@@ -137,6 +139,16 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
 
     mockHttpFailedGET[ClientPropertyLink]("tst-url", new NotFoundException("Client property not found"))
     whenReady(connector.clientPropertyLink("some-submission-id"))(_ mustBe None)
+  }
+
+  "getMyOrganisationsCheckCases" must "return organisation's submitted check cases for the given property link" in new Setup {
+    mockHttpGET[CheckCasesWithAgent]("tst-url", ownerCheckCasesResponse)
+    whenReady(connector.getMyOrganisationsCheckCases("PL1343"))(_ mustBe List(ownerCheckCaseDetails))
+  }
+
+  "getMyClientsCheckCases" must "return organisation's submitted check cases for the given property link" in new Setup {
+    mockHttpGET[CheckCasesWithClient]("tst-url", agentCheckCasesResponse)
+    whenReady(connector.getMyClientsCheckCases("PL1343"))(_ mustBe List(agentCheckCaseDetails))
   }
 
 }

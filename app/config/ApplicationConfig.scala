@@ -78,6 +78,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val fileUploadEnabled: Boolean = loadBooleanConfig("featureFlags.fileUploadEnabled")
   lazy val downtimePageEnabled: Boolean = loadBooleanConfig("featureFlags.downtimePageEnabled")
   lazy val dvrEnabled: Boolean = loadBooleanConfig("featureFlags.dvrEnabled")
+  lazy val dvrCheckEnabled: Boolean = loadBooleanConfig("featureFlags.dvrCheckEnabled")
   lazy val getExternalAgentsEnabled: Boolean = loadBooleanConfig("featureFlags.getExternalAgentsEnabled")
 
   lazy val stubEnrolment: Boolean = loadBooleanConfig("enrolment.useStub")
