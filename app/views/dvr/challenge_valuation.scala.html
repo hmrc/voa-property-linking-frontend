@@ -18,13 +18,13 @@
 @import helpers._
 @import config.ApplicationConfig
 
-@(submissionId: String, valuationId: Long, owner: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(submissionId: String, valuationId: Long, uarn: Long, owner: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(Messages("challenge.valuation.heading"), topBackLink = true, bottomBackLink = true,
     backLinkUrl = Some(if (owner)
-                            controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, valuationId).url
+                            controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, valuationId, uarn).url
                         else
-                            controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, valuationId).url)) {
+                            controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, valuationId, uarn).url)) {
     <script>
             function showChallengeContent(){
                 document.getElementById('challengeContent').style.display ='block';

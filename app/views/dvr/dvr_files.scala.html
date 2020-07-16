@@ -19,8 +19,13 @@
 @import models.dvr._
 @import helpers._
 @import config.ApplicationConfig
+@import models.dvr.cases.check.projection.CaseDetails
 
-@(model: AvailableRequestDetailedValuation, submissionId: String, owner: Boolean, backUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation, submissionId: String, owner: Boolean, authorisationId: Long, backUrl: String, startCheckUrl: String, checkCases: List[CaseDetails])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@paperChallengeUrl = @{
+    config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/assessment/${model.valuationId}/startChallenge?submissionId=$submissionId&isOwner=$owner")
+}
 
 @main_template(Messages("available.requestvaluation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backUrl)) {
 <div class="grid-row">
@@ -32,17 +37,44 @@
         <p>@Html(Messages("available.requestvaluation.p2"))</p>
 
         <h1 class="heading-medium">@messages("available.requestvaluation.check.title")</h1>
-        <p>@Html(Messages("available.requestvaluation.check.p1", evaluateRoute(model.check)))</p>
-        <p>@Html(Messages("available.requestvaluation.check.p2"))</p>
-        <p>@Html(Messages("available.requestvaluation.address"))</p>
+        @if(config.dvrCheckEnabled){
+            <p>@Html(messages("available.requestvaluation.dvrCheck.p1", evaluateRoute(model.check)))</p>
+            <p>@messages("available.requestvaluation.dvrCheck.p2")</p>
+            <a class="button" href="@startCheckUrl">@messages("available.requestvaluation.dvrCheck.startCheck")</a>
 
-        <h2 class="heading-medium">@messages("auto.requestDetailedValuation.heading.challenge")</h2>
+            <br/>
 
-        <p>@messages("auto.requestDetailedValuation.challenge.p1")</p>
+            @checkCasesDetails(submissionId, owner, model.uarn, authorisationId, model.valuationId, checkCases)
 
-        <p>@messages("auto.requestDetailedValuation.challenge.p2")</p>
+            <details role="group">
+                <summary role="button" aria-controls="details-content-0" aria-expanded="false"><span class="summary">@Messages("challengeRules.summary")</span></summary>
+                <div class="panel panel-border-narrow" id="details-content-0" aria-hidden="true">
+                    <p>@Messages("challengeRules.rules")</p>
+                    <ul class="list bullets">
+                        <li>@Messages("challengeRules.rules.1")</li>
+                        <li>@Messages("challengeRules.rules.2")</li>
+                        <li>@Messages("challengeRules.rules.3")</li>
+                    </ul>
+                </div>
 
-        <p><a href="@routes.Assessments.startChallengeFromDVR(submissionId, model.valuationId, owner).url">@messages("auto.requestDetailedValuation.challenge.start")</a></p>
+                <p>@Html(Messages("challengeRules.rules.paper", paperChallengeUrl))</p>
+
+            </details>
+            <br/>
+
+        }else{
+            <p>@Html(Messages("available.requestvaluation.check.p1", evaluateRoute(model.check)))</p>
+            <p>@Html(Messages("available.requestvaluation.check.p2"))</p>
+            <p>@Html(Messages("available.requestvaluation.address"))</p>
+
+            <h2 class="heading-medium">@messages("auto.requestDetailedValuation.heading.challenge")</h2>
+
+            <p>@messages("auto.requestDetailedValuation.challenge.p1")</p>
+
+            <p>@messages("auto.requestDetailedValuation.challenge.p2")</p>
+
+            <p><a href="@routes.Assessments.startChallengeFromDVR(submissionId, model.valuationId, model.uarn, owner).url">@messages("auto.requestDetailedValuation.challenge.start")</a></p>
+        }
 
         <a href="@routes.Dashboard.home()">@messages("link.return.home")</a>
 

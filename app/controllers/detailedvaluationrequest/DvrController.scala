@@ -25,11 +25,12 @@ import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import javax.inject.Inject
+import models.ApiAssessments
 import models.dvr.DetailedValuationRequest
 import play.api.Logger
 import play.api.http.HttpEntity
 import play.api.i18n.MessagesApi
-import play.api.mvc._
+import play.api.mvc.{Action, _}
 import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
@@ -53,25 +54,35 @@ class DvrController @Inject()(
 
   def myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId: String,
-        valuationId: Long): Action[AnyContent] =
-    detailedValuationRequestCheck(propertyLinkSubmissionId, valuationId, true)
+        valuationId: Long,
+        uarn: Long): Action[AnyContent] =
+    detailedValuationRequestCheck(propertyLinkSubmissionId, valuationId, uarn, true)
 
-  def myClientsRequestDetailValuationCheck(propertyLinkSubmissionId: String, valuationId: Long): Action[AnyContent] =
-    detailedValuationRequestCheck(propertyLinkSubmissionId, valuationId, false)
+  def myClientsRequestDetailValuationCheck(
+        propertyLinkSubmissionId: String,
+        valuationId: Long,
+        uarn: Long): Action[AnyContent] =
+    detailedValuationRequestCheck(propertyLinkSubmissionId, valuationId, uarn, false)
 
   private def detailedValuationRequestCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
+        uarn: Long,
         owner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
     val pLink =
       if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
       else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
 
     pLink.flatMap {
-      case Some(link) =>
+      case Some(link: ApiAssessments) =>
         for {
           optDocuments <- dvrCaseManagement.getDvrDocuments(link.uarn, valuationId, link.submissionId)
           backUrl      <- calculateBackLink(propertyLinkSubmissionId, owner)
+          startCheckUrl = config.businessRatesCheckUrl(
+            s"property-link/${link.authorisationId}/assessment/$valuationId?propertyLinkSubmissionId=$propertyLinkSubmissionId&uarn=$uarn&dvrCheck=true")
+          checkCases <- if (owner)
+                         propertyLinks.getMyOrganisationsCheckCases(link.submissionId)
+                       else propertyLinks.getMyClientsCheckCases(link.submissionId)
         } yield
           optDocuments match {
             case Some(documents) =>
@@ -82,11 +93,15 @@ class DvrController @Inject()(
                     documents.detailedValuation.documentSummary.documentId,
                     valuationId,
                     link.assessments.head.billingAuthorityReference,
-                    link.address
+                    link.address,
+                    uarn
                   ),
                   submissionId = propertyLinkSubmissionId,
                   owner = owner,
-                  backUrl = backUrl
+                  authorisationId = link.authorisationId,
+                  backUrl = backUrl,
+                  startCheckUrl = startCheckUrl,
+                  checkCases = checkCases
                 ))
             case None =>
               Redirect(
@@ -219,9 +234,11 @@ class DvrController @Inject()(
                   valuationId,
                   link.address,
                   formatter.format(effectiveDate),
-                  assessment.rateableValue),
+                  assessment.rateableValue,
+                  link.uarn),
                 owner,
-                backUrl))
+                backUrl
+              ))
           }
         }
       case None =>
@@ -251,7 +268,7 @@ class DvrController @Inject()(
     val pLink =
       if (owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
     pLink.flatMap {
-      case Some(link) =>
+      case Some(link: ApiAssessments) =>
         dvrCaseManagement
           .getDvrDocument(link.uarn, valuationId, link.submissionId, fileRef)
           .map { response =>
@@ -281,13 +298,55 @@ class DvrController @Inject()(
           .url
     }
   }
+
+  def canChallenge(
+        plSubmissionId: String,
+        assessmnetRef: Long,
+        caseRef: String,
+        authorisationId: Long,
+        uarn: Long,
+        isOwner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
+    propertyLinks.canChallenge(plSubmissionId, assessmnetRef, caseRef, isOwner) flatMap {
+      case None =>
+        Future.successful(Redirect(config.businessRatesValuationFrontendUrl(
+          s"/property-link/$plSubmissionId/assessment/$assessmnetRef/startChallenge?propertyLinkId=$authorisationId&isOwner=$isOwner")))
+      case Some(response) => {
+        response.result match {
+          case true => {
+            val party = if (isOwner) "client" else "agent"
+            Future.successful(
+              Redirect(config.businessRatesChallengeStartPageUrl(
+                s"property-link/$plSubmissionId/valuation/$assessmnetRef/check/$caseRef/party/$party/start")))
+          }
+          case false =>
+            Future successful Ok(
+              views.html.dvr.cannotRaiseChallenge(
+                model = response,
+                homePageUrl = config.newDashboardUrl("home"),
+                authorisationId = authorisationId,
+                backLinkUrl =
+                  if (isOwner)
+                    routes.DvrController
+                      .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmnetRef, uarn)
+                      .url
+                  else
+                    routes.DvrController
+                      .myClientsRequestDetailValuationCheck(plSubmissionId, assessmnetRef, uarn)
+                      .url
+              ))
+        }
+      }
+    }
+  }
+
 }
 
 case class RequestDetailedValuationWithoutForm(
       assessmentRef: Long,
       address: String,
       effectiveDate: String,
-      rateableValue: Option[Long]
+      rateableValue: Option[Long],
+      uarn: Long
 )
 
 case class AvailableRequestDetailedValuation(
@@ -295,5 +354,6 @@ case class AvailableRequestDetailedValuation(
       valuation: String,
       valuationId: Long,
       baRef: String,
-      address: String
+      address: String,
+      uarn: Long
 )

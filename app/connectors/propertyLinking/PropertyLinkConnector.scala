@@ -21,6 +21,9 @@ import binders.propertylinks.GetPropertyLinksParameters
 import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
 import models._
+import models.dvr.cases.check.myclients.CheckCasesWithClient
+import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
+import models.dvr.cases.check.projection.CaseDetails
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList, AppointAgentToSomePropertiesRequest}
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
@@ -167,10 +170,10 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
   def getClientAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
     http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId")
 
-  def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isAgentOwnProperty: Boolean)(
+  def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isOwner: Boolean)(
         implicit request: BasicAuthenticatedRequest[_],
         hc: HeaderCarrier): Future[Option[CanChallengeResponse]] = {
-    val interestedParty = if (request.organisationAccount.isAgent && !isAgentOwnProperty) "agent" else "client"
+    val interestedParty = if (isOwner) "client" else "agent"
     http
       .GET[HttpResponse](
         s"$baseUrl/property-links/$plSubmissionId/check-cases/$caseRef/canChallenge?valuationId=$assessmentRef&party=$interestedParty")
@@ -227,5 +230,16 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
       .POST[AppointAgentToSomePropertiesRequest, AgentAppointmentChangesResponse](
         s"$baseUrl/my-organisation/agent/unassign-from-some-properties",
         request)
+
+  def getMyOrganisationsCheckCases(propertyLinkSubmissionId: String)(
+        implicit hc: HeaderCarrier): Future[List[CaseDetails]] =
+    http
+      .GET[CheckCasesWithAgent](s"$baseUrl/check-cases/$propertyLinkSubmissionId/client")
+      .map(_.checkCases.map(CaseDetails.apply))
+
+  def getMyClientsCheckCases(propertyLinkSubmissionId: String)(implicit hc: HeaderCarrier): Future[List[CaseDetails]] =
+    http
+      .GET[CheckCasesWithClient](s"$baseUrl/check-cases/$propertyLinkSubmissionId/agent")
+      .map(_.checkCases.map(CaseDetails.apply))
 
 }

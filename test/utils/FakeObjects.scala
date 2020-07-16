@@ -16,13 +16,18 @@
 
 package utils
 
-import java.time.{Instant, LocalDate, Month}
+import java.time.{Instant, LocalDate, LocalDateTime, Month}
 import java.util.UUID
 
 import auth.Principal
 import models._
 import models.attachment._
 import models.domain.Nino
+import models.dvr.cases.check.CheckCaseStatus
+import models.dvr.cases.check.common.{Agent, Client}
+import models.dvr.cases.check.myclients.{CheckCaseWithClient, CheckCasesWithClient}
+import models.dvr.cases.check.myorganisation.{CheckCaseWithAgent, CheckCasesWithAgent}
+import models.dvr.cases.check.projection.CaseDetails
 import models.propertyrepresentation.{AgentDetails, AgentList, AgentOrganisation, AgentSummary, AppointNewAgentSession, ManagingProperty, OrganisationLatestDetail, SearchedAgent, SelectedAgent, Start}
 import models.registration._
 import models.searchApi.{OwnerAgent, OwnerAgents, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
@@ -255,5 +260,57 @@ trait FakeObjects {
   val emptyOrganisationsAgentsList = AgentList(resultCount = 0, agents = List.empty)
 
   val agentDetails = AgentDetails(name = "Awesome Agent", address = "1 Awesome Street, AB1 1BA")
+
+  val ownerCheckCaseDetails =
+    CaseDetails(
+      submittedDate = LocalDateTime.parse("2020-07-11T17:19:33"),
+      status = "CLOSED",
+      caseReference = "CHK10000732",
+      closedDate = Some(LocalDate.parse("2020-07-12")),
+      clientOrAgent = "Some organisation",
+      submittedBy = "Some other person"
+    )
+
+  val agentCheckCaseDetails =
+    CaseDetails(
+      submittedDate = LocalDateTime.parse("2020-07-21T17:19:33"),
+      status = "OPEN",
+      caseReference = "CHK10000742",
+      closedDate = Some(LocalDate.parse("2020-07-22")),
+      clientOrAgent = "Some organisation 2",
+      submittedBy = "Some other person 2"
+    )
+
+  lazy val ownerCheckCase = CheckCaseWithAgent(
+    checkCaseSubmissionId = "123344",
+    checkCaseReference = "CHK10000732",
+    checkCaseStatus = CheckCaseStatus.CLOSED,
+    address = "CHK-1234",
+    uarn = 1000L,
+    createdDateTime = LocalDateTime.parse("2020-07-11T17:19:33"),
+    settledDate = Some(LocalDate.parse("2020-07-12")),
+    agent = Some(Agent(10000L, 10000L, "Some organisation")),
+    submittedBy = "Some other person",
+    originatingAssessmentReference = 1L
+  )
+
+  lazy val agentCheckCase = new CheckCaseWithClient(
+    checkCaseSubmissionId = "123344",
+    checkCaseReference = "CHK10000742",
+    checkCaseStatus = CheckCaseStatus.OPEN,
+    address = "CHK-1234",
+    uarn = 1000L,
+    createdDateTime = LocalDateTime.parse("2020-07-21T17:19:33"),
+    settledDate = Some(LocalDate.parse("2020-07-22")),
+    client = Client(10000L, "Some organisation 2"),
+    submittedBy = "Some other person 2",
+    originatingAssessmentReference = 1L
+  )
+
+  lazy val ownerCheckCasesResponse =
+    CheckCasesWithAgent(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(ownerCheckCase))
+
+  lazy val agentCheckCasesResponse =
+    CheckCasesWithClient(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(agentCheckCase))
 
 }

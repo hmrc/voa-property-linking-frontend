@@ -100,10 +100,10 @@ class Assessments @Inject()(
                 Redirect(
                   if (owner)
                     controllers.detailedvaluationrequest.routes.DvrController
-                      .myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
+                      .myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
                   else
                     controllers.detailedvaluationrequest.routes.DvrController
-                      .myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
+                      .myClientsRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
                 )
             }
         } else {
@@ -132,10 +132,10 @@ class Assessments @Inject()(
                 Redirect(
                   if (owner)
                     controllers.detailedvaluationrequest.routes.DvrController
-                      .myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef)
+                      .myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
                   else
                     controllers.detailedvaluationrequest.routes.DvrController
-                      .myClientsRequestDetailValuationCheck(submissionId, assessmentRef)
+                      .myClientsRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
                 )
             }
         }
@@ -146,9 +146,10 @@ class Assessments @Inject()(
   def startChallengeFromDVR(
         submissionId: String,
         valuationId: Long,
+        uarn: Long,
         owner: Boolean
   ): Action[AnyContent] = authenticated { implicit request =>
-    Ok(views.html.dvr.challenge_valuation(submissionId, valuationId, owner))
+    Ok(views.html.dvr.challenge_valuation(submissionId, valuationId, uarn, owner))
   }
 }
 

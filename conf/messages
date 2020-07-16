@@ -823,6 +823,31 @@ available.requestvaluation.check.p1=To submit a check for this property you will
 available.requestvaluation.check.p2=You can email the form to <a href="mailto:CCAService@voa.gsi.gov.uk">CCAService@voa.gsi.gov.uk</a> or post it to:
 available.requestvaluation.address=Check and challenge service, PO Box 308, PLYMOUTH, PL5 9DT
 
+available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need to <a href="{0}">download and complete a check form</a>.
+available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
+available.requestvaluation.dvrCheck.startCheck=Send my completed check form
+
+cannotRaiseChallenge.title=You cannot raise a challenge
+
+property.details.cases.table.1=Submitted date
+property.details.cases.table.2=Submitted ID
+property.details.cases.table.3=Status
+property.details.cases.table.4=Check reference
+property.details.cases.table.5=Closed date
+property.details.cases.table.6=Agent
+property.details.cases.table.7=Client
+property.details.cases.table.8=Submitted By
+property.details.cases.table.challenge=Challenge this valuation
+property.details.div.submitted=Submitted check cases
+property.details.div.noSubmittedCheck=There are no check cases available for your property.
+
+challengeRules.summary=When you may challenge
+challengeRules.rules=You can challenge a valuation if you’ve submitted a check and:
+challengeRules.rules.1=had a decision in the last 4 months
+challengeRules.rules.2=haven’t had a decision in the last 12 months
+challengeRules.rules.3=told us about a change in the local area of a property less than 16 months ago
+challengeRules.rules.paper=If no valid check cases are shown but you still think you have the right to challenge, you will need to <a href="{0}">download and complete a challenge form</a>.
+
 label.requestType=How would you like to receive the detailed valuation?
 requestType.email=By email
 requestType.post=By post
