@@ -74,7 +74,7 @@ class DvrController @Inject()(
       else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
 
     pLink.flatMap {
-      case Some(link: ApiAssessments) =>
+      case Some(link) =>
         for {
           optDocuments <- dvrCaseManagement.getDvrDocuments(link.uarn, valuationId, link.submissionId)
           backUrl      <- calculateBackLink(propertyLinkSubmissionId, owner)
