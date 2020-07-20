@@ -36,7 +36,7 @@
     <tr>
         <td>@(Formatters.formatDateTimeToDate(submittedDate))</td>
         <td>@status</td>
-        <td><a href="@viewCaseUrl(checkReference, propertyLinkSubmissionId)">@checkReference</a></td>
+        <td>@checkReference</td>
         <td>@if(closedDate.isDefined){@Formatters.formatDate(closedDate.get)}</td>
         <td>@clientOrAgent</td>
         <td>@submittedBy</td>
