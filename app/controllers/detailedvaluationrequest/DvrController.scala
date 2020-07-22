@@ -309,7 +309,7 @@ class DvrController @Inject()(
     propertyLinks.canChallenge(plSubmissionId, assessmnetRef, caseRef, isOwner) flatMap {
       case None =>
         Future.successful(Redirect(config.businessRatesValuationFrontendUrl(
-          s"/property-link/$plSubmissionId/assessment/$assessmnetRef/startChallenge?propertyLinkId=$authorisationId&isOwner=$isOwner")))
+          s"property-link/$plSubmissionId/assessment/$assessmnetRef/startChallenge?propertyLinkId=$authorisationId&isOwner=$isOwner")))
       case Some(response) => {
         response.result match {
           case true => {
