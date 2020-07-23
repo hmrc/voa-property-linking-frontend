@@ -24,7 +24,7 @@
 @(model: AvailableRequestDetailedValuation, submissionId: String, owner: Boolean, authorisationId: Long, backUrl: String, startCheckUrl: String, checkCases: List[CaseDetails])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @paperChallengeUrl = @{
-    config.businessRatesValuationFrontendUrl(s"property-link/$authorisationId/assessment/${model.valuationId}/startChallenge?submissionId=$submissionId&isOwner=$owner")
+    controllers.routes.Assessments.startChallengeFromDVR(submissionId, model.valuationId, model.uarn, owner).url
 }
 
 @main_template(Messages("available.requestvaluation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backUrl)) {
