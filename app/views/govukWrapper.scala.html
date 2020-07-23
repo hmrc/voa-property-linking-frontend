@@ -30,6 +30,13 @@
         headScripts: Html = HtmlFormat.empty,
         scriptElem: Option[Html] = None)(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
 
+    @head = {
+    @uiLayouts.head(
+        linkElem = None,
+        headScripts = Option(headScripts))
+        <meta name="format-detection" content="telephone=no" />
+    }
+
     @bodyEnd = {
         @uiLayouts.footer(
             analyticsToken = None,
@@ -96,7 +103,7 @@
 
     @GovukTemplate(
         pageTitle = Some(title),
-        headBlock = Some(headScripts),
+        headBlock = Some(head),
         headerBlock = headerBlock,
         beforeContentBlock = Some(beforeContentBlock),
         bodyEndBlock = Some(bodyEnd),

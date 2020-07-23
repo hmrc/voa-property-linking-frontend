@@ -64,13 +64,9 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
 
   lazy val agentAppointDelay: Int = loadInt("agent.appoint.async.delay")
 
-  lazy val analyticsTagManagerCode = loadConfig("google-analytics.tag.managerCode")
   lazy val analyticsToken: String = loadConfig("google-analytics.token")
   lazy val analyticsHost: String = loadConfig("google-analytics.host")
-  lazy val voaPersonID: String = loadConfig("google-analytics.dimensions.voaPersonId")
-  lazy val loggedInUser: Option[String] = configuration.getOptional[String]("google-analytics.dimensions.loggedInUser")
-  lazy val isAgentLoggedIn: Option[String] =
-    configuration.getOptional[String]("google-analytics.dimensions.isAgentLoggedIn")
+
   lazy val pingdomToken: Option[String] = configuration.getOptional[String]("pingdom.performance.monitor.token")
 
   lazy val editNameEnabled: Boolean = loadBooleanConfig("featureFlags.editNameEnabled")

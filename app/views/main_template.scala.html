@@ -35,40 +35,39 @@
 @import uk.gov.hmrc.play.views.html.layouts
 
 @headScripts = {
-@views.html.includes.stylesheets()
-@views.html.includes.pingdomPerformanceMonitor()
-@views.html.includes.analyticsTagManagerCodeScript()
-
+    @views.html.includes.stylesheets()
+    @views.html.includes.pingdomPerformanceMonitor()
 }
-@scriptElem = {
-@views.html.includes.javascripts()
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=@config.analyticsTagManagerCode"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <!--<script type="text/javascript">-->
-            <!--&lt;!&ndash;initializes gov uk polyfill js for detials- summary on ie &ndash;&gt;-->
-            <!--window.GOVUK.details.init();-->
-            <!--window.GOVUK.timeoutDialog({-->
-                <!--timeout: 50,-->
-                <!--countdown: 30,-->
-                <!--restart_on_yes: true,-->
-                <!--title: '@messages("timeout.dialog.title")',-->
-                <!--keepAliveUrl: '/business-rates-property-linking/keep-alive',-->
-                <!--signOutUrl: '@config.newDashboardUrl("sign-out")'-->
-            <!--});-->
-            <!--var dialogOpen;-->
-    <!--</script>-->
+@scriptElem = {
+    @views.html.includes.javascripts()
+
+    @********************************************************************************************
+    * commented out until we have reviewed html                                                 *
+    * <script type="text/javascript">                                                           *
+    *         <!--initializes gov uk polyfill js for details-summary on ie --!>                 *
+    *         window.GOVUK.details.init();                                                      *
+    *         window.GOVUK.timeoutDialog({                                                      *
+    *             timeout: 900,                                                                 *
+    *             countdown: 300,                                                               *
+    *             restart_on_yes: true,                                                         *
+    *             title: '@Messages("timeout.dialog.title")',                                   *
+    *             keepAliveUrl: '/business-rates-property-linking',                             *
+    *             signOutUrl: '@config.newDashboardUrl("sign-out")'                             *
+    *         });                                                                               *
+    *         var dialogOpen;                                                                   *
+    * </script>                                                                                 *
+    ********************************************************************************************@
 }
 
 
 @serviceInfoContent = {
-
 }
 
 @sidebar = {
-@if(sidebarLinks.isDefined) {
-    @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
-}
+    @if(sidebarLinks.isDefined) {
+        @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
+    }
 }
 
 
