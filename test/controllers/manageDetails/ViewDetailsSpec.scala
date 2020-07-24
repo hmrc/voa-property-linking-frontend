@@ -53,8 +53,6 @@ class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     when(addressesConnector.findById(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Some(personalAddress)))
     when(mockConfig.pingdomToken).thenReturn(Some("token"))
     when(mockConfig.editNameEnabled).thenReturn(true)
-    when(mockConfig.loggedInUser).thenReturn(Some("loggedInUser"))
-    when(mockConfig.isAgentLoggedIn).thenReturn(Some("true"))
     when(mockConfig.analyticsToken).thenReturn("token")
     when(mockConfig.analyticsHost).thenReturn("host")
     when(mockConfig.bannerContent).thenReturn(None)
