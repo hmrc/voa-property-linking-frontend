@@ -16,34 +16,25 @@
 
 package controllers.agentAppointment
 
-import javax.inject.{Inject, Named}
 import actions.AuthenticatedAction
 import actions.agentrelationship.WithAppointAgentSessionRefiner
-import actions.agentrelationship.request.AppointAgentSessionRequest
-import actions.requests.BasicAuthenticatedRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.ApplicationConfig
-import controllers.agent.routes
-import controllers.{PaginationParams, PropertyLinkingController}
-import form.{EnumMapping, Mappings}
-import models.{RepresentationApproved, RepresentationPending, propertyrepresentation}
-import models.propertyrepresentation.{AddAgentOptions, AgentAppointmentChangesRequest, AppointNewAgentSession, AppointmentScope, ChooseFromList, ManagingProperty, SearchedAgent, SelectedAgent, Start, Yes}
+import controllers.PropertyLinkingController
+import controllers.agentAppointment.AppointNewAgentForms._
+import javax.inject.{Inject, Named}
+import models.propertyrepresentation
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
-import models.searchApi.AgentPropertiesFilter.{Both, No}
-import models.searchApi.AgentPropertiesSortField.Address
-import play.api.data.{Form, FormError, Forms, Mapping}
-import play.api.data.Forms.{boolean, longNumber, mapping, nonEmptyText, optional, single, text}
+import models.propertyrepresentation._
+import models.searchApi.AgentPropertiesFilter.Both
+import models.searchApi.AgentPropertiesParameters
+import play.api.data.FormError
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
-import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier}
-import uk.gov.hmrc.play.HeaderCarrierConverter
-import controllers.agent.routes
-import models.searchApi.AgentPropertiesParameters
-import views.html.propertyrepresentation.appoint._
-import controllers.agentAppointment.AppointNewAgentForms._
+import uk.gov.hmrc.http.BadRequestException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -60,8 +51,7 @@ class AddAgentController @Inject()(
       agentToManageOneProperty: views.html.propertyrepresentation.appoint.agentToManageOneProperty,
       agentToManageMultipleProperties: views.html.propertyrepresentation.appoint.agentToManageMultipleProperties,
       checkYourAnswers: views.html.propertyrepresentation.appoint.checkYourAnswers,
-      confirmation: views.html.propertyrepresentation.appoint.confirmation,
-      addAgentGuidance: views.html.propertyrepresentation.appoint.guidance)(
+      confirmation: views.html.propertyrepresentation.appoint.confirmation)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -277,17 +267,11 @@ class AddAgentController @Inject()(
     )
   }
 
-  def showGuidance(): Action[AnyContent] = authenticated.async { implicit request =>
-    Future.successful(Ok(addAgentGuidance()))
-  }
-
   private def joinOldJourney(agentCode: Long) =
     Redirect(
       controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
-        pagination = PaginationParameters(page = 1, pageSize = 15),
-        params = GetPropertyLinksParameters(
-          sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
-          sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
+        pagination = PaginationParameters(),
+        params = GetPropertyLinksParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
         backLink = controllers.agentAppointment.routes.AddAgentController.multipleProperties().url

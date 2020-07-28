@@ -338,8 +338,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     agentToManageOneProperty,
     agentToManageMultipleProperties,
     checkYourAnswers,
-    confirmation,
-    addAgentGuidance
+    confirmation
   )
 
   private lazy val mockSessionRepo = {
@@ -355,6 +354,5 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     mock[views.html.propertyrepresentation.appoint.agentToManageMultipleProperties]
   private lazy val checkYourAnswers = mock[views.html.propertyrepresentation.appoint.checkYourAnswers]
   private lazy val confirmation = mock[views.html.propertyrepresentation.appoint.confirmation]
-  private lazy val addAgentGuidance = mock[views.html.propertyrepresentation.appoint.guidance]
 
 }
