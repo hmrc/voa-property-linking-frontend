@@ -424,20 +424,12 @@ propertyRepresentation.addAnAgent.title=Add an agent
 propertyRepresentation.addAnAgent.question=Agent code
 propertyRepresentation.addAnAgent.caption=You need to ask your agent for their code if you do not have it.
 propertyRepresentation.addAnAgent.agentCode=Agent code
+
+
 propertyRepresentation.addAnAgent.guidance=What can my agent do?
 propertyRepresentation.addAnAgent.guidance.yourAgentCan=Your agent can:
 propertyRepresentation.addAnAgent.guidance.discussProperties=discuss your property’s valuation with the VOA
 propertyRepresentation.addAnAgent.guidance.challenge=challenge the value if necessary
-
-propertyRepresentation.addAnAgentGuidance.heading=Appoint someone to deal with VOA on your behalf
-propertyRepresentation.addAnAgentGuidance.p1=You can authorise someone else to deal with the Valuation Office Agency (VOA) for you, such as a rating agent, friend or relative.
-propertyRepresentation.addAnAgentGuidance.p2=To appoint an agent you’ll need their unique code, which you can only get from them. You can then assign them to the properties you want them to manage for you.
-propertyRepresentation.addAnAgentGuidance.agentCan=An agent can:
-propertyRepresentation.addAnAgentGuidance.p3=You will still receive messages from the VOA to let you know when your agent does something for you. You do not need to respond to them unless you want to.
-propertyRepresentation.addAnAgentGuidance.ifMultipleAgent.heading=If you have more than one agent
-propertyRepresentation.addAnAgentGuidance.ifMultipleAgent.text=You can assign more than one agent to a property. They will both be able to act for you at the same time.
-propertyRepresentation.addAnAgentGuidance.removingAgent.heading=Removing an agent
-propertyRepresentation.addAnAgentGuidance.removingAgent.text=You can unassign your agent from properties, but they will still be linked to your account. To remove them entirely after unassigning them, go to ‘Manage agents’. Select the agent you want to remove then choose the ‘remove from your account’ option.
 
 propertyRepresentation.isThisYourAgent.question=Is this your agent?
 propertyRepresentation.isThisYourAgent.yes=Yes
