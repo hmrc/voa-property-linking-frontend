@@ -22,6 +22,7 @@ import auditing.AuditingService
 import auth.GovernmentGatewayProvider
 import config.ApplicationConfig
 import connectors.authorisation.BusinessRatesAuthorisationConnector
+import connectors.challenge.ChallengeConnector
 import connectors.{Addresses, DVRCaseManagementConnector}
 import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.Mockito
@@ -57,6 +58,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockWithLinkingSession: WithLinkingSession = mock[WithLinkingSession]
   val mockPersonalDetailsSessionRepository: PersonalDetailsSessionRepository = mock[PersonalDetailsSessionRepository]
   val mockAgentRelationshipService: AgentRelationshipService = mock[AgentRelationshipService]
+  val mockChallengeConnector: ChallengeConnector = mock[ChallengeConnector]
   val mockApplicationConfig = mock[ApplicationConfig]
 
   override protected def beforeEach(): Unit =
@@ -80,7 +82,8 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
       mockPropertyLinkingService,
       mockSessionRepository,
       mockWithLinkingSession,
-      mockPersonalDetailsSessionRepository
+      mockPersonalDetailsSessionRepository,
+      mockChallengeConnector
     ).foreach(Mockito.reset(_))
 
 }
