@@ -321,9 +321,8 @@ class DvrController @Inject()(
         response.result match {
           case true => {
             val party = if (isOwner) "client" else "agent"
-            Future.successful(
-              Redirect(config.businessRatesChallengeStartPageUrl(
-                s"property-link/$plSubmissionId/valuation/$assessmnetRef/check/$caseRef/party/$party/start")))
+            Future.successful(Redirect(config.businessRatesChallengeStartPageUrl(
+              s"property-link/$plSubmissionId/valuation/$assessmnetRef/check/$caseRef/party/$party/start?isDvr=true")))
           }
           case false =>
             Future successful Ok(
