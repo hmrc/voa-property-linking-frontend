@@ -87,7 +87,7 @@ class DvrController @Inject()(
                        else propertyLinks.getMyClientsCheckCases(link.submissionId)
           challengeCases <- if (owner)
                              challengeConnector.getMyOrganisationsChallengeCases(link.submissionId)
-                           else challengeConnector.getMyClientChallengeCases(link.submissionId)
+                           else challengeConnector.getMyClientsChallengeCases(link.submissionId)
         } yield
           optDocuments match {
             case Some(documents) =>

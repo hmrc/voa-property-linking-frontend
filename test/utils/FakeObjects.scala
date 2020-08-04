@@ -22,6 +22,9 @@ import java.util.UUID
 import auth.Principal
 import models._
 import models.attachment._
+import models.challenge.ChallengeCaseStatus
+import models.challenge.myclients.{ChallengeCaseWithClient, ChallengeCasesWithClient}
+import models.challenge.myorganisations.{ChallengeCaseWithAgent, ChallengeCasesWithAgent}
 import models.domain.Nino
 import models.dvr.cases.check.CheckCaseStatus
 import models.dvr.cases.check.common.{Agent, Client}
@@ -281,6 +284,26 @@ trait FakeObjects {
       submittedBy = "Some other person 2"
     )
 
+  val ownerChallengeCaseDetails =
+    CaseDetails(
+      submittedDate = LocalDateTime.parse("2020-07-11T17:19:33"),
+      status = "CLOSED",
+      caseReference = "CHG10000732",
+      closedDate = Some(LocalDate.parse("2020-07-12")),
+      clientOrAgent = "Some organisation",
+      submittedBy = "Some other person"
+    )
+
+  val agentChallengeCaseDetails =
+    CaseDetails(
+      submittedDate = LocalDateTime.parse("2020-07-21T17:19:33"),
+      status = "OPEN",
+      caseReference = "CHG10000742",
+      closedDate = Some(LocalDate.parse("2020-07-22")),
+      clientOrAgent = "Some organisation 2",
+      submittedBy = "Some other person 2"
+    )
+
   lazy val ownerCheckCase = CheckCaseWithAgent(
     checkCaseSubmissionId = "123344",
     checkCaseReference = "CHK10000732",
@@ -307,10 +330,52 @@ trait FakeObjects {
     originatingAssessmentReference = 1L
   )
 
+  lazy val agentChallengeCase = new ChallengeCaseWithClient(
+    challengeCaseSubmissionId = "123344",
+    challengeCaseReference = "CHG10000742",
+    challengeCaseStatus = ChallengeCaseStatus.OPEN,
+    address = "CHG-1234",
+    uarn = 1000L,
+    createdDateTime = LocalDateTime.parse("2020-07-21T17:19:33"),
+    settledDate = Some(LocalDate.parse("2020-07-22")),
+    client = Client(10000L, "Some organisation 2"),
+    submittedBy = "Some other person 2",
+    originatingAssessmentReference = 1L
+  )
+
+  lazy val ownerChallengeCase = ChallengeCaseWithAgent(
+    challengeCaseSubmissionId = "123344",
+    challengeCaseReference = "CHG10000732",
+    challengeCaseStatus = ChallengeCaseStatus.CLOSED,
+    address = "CHG-1234",
+    uarn = 1000L,
+    createdDateTime = LocalDateTime.parse("2020-07-11T17:19:33"),
+    settledDate = Some(LocalDate.parse("2020-07-12")),
+    agent = Some(Agent(10000L, 10000L, "Some organisation")),
+    submittedBy = "Some other person",
+    originatingAssessmentReference = 1L
+  )
+
   lazy val ownerCheckCasesResponse =
     CheckCasesWithAgent(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(ownerCheckCase))
 
   lazy val agentCheckCasesResponse =
     CheckCasesWithClient(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(agentCheckCase))
+
+  lazy val ownerChallengeCasesResponse =
+    ChallengeCasesWithAgent(
+      start = 1,
+      size = 15,
+      filterTotal = 1,
+      total = 1,
+      challengeCases = List(ownerChallengeCase))
+
+  lazy val agentChallengeCasesResponse =
+    ChallengeCasesWithClient(
+      start = 1,
+      size = 15,
+      filterTotal = 1,
+      total = 1,
+      challengeCases = List(agentChallengeCase))
 
 }

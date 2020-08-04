@@ -29,7 +29,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class ChallengeConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("business-rates-challenge") + s"/business-rates-challenge"
 
-  def getMyClientChallengeCases(propertyLinkSubmissionId: String)(
+  def getMyClientsChallengeCases(propertyLinkSubmissionId: String)(
         implicit hc: HeaderCarrier): Future[List[CaseDetails]] =
     http
       .GET[ChallengeCasesWithClient](
