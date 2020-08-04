@@ -18,6 +18,8 @@ package models.dvr.cases.check.projection
 
 import java.time.{LocalDate, LocalDateTime}
 
+import models.challenge.myclients.ChallengeCaseWithClient
+import models.challenge.myorganisations.ChallengeCaseWithAgent
 import models.dvr.cases.check.myclients.CheckCaseWithClient
 import models.dvr.cases.check.myorganisation.CheckCaseWithAgent
 import play.api.libs.json.{Json, OFormat}
@@ -53,5 +55,25 @@ object CaseDetails {
       closedDate = check.settledDate,
       clientOrAgent = check.client.organisationName,
       submittedBy = check.submittedBy
+    )
+
+  def apply(challenge: ChallengeCaseWithAgent): CaseDetails =
+    CaseDetails(
+      submittedDate = challenge.createdDateTime,
+      status = challenge.challengeCaseStatus.toString,
+      caseReference = challenge.challengeCaseReference,
+      closedDate = challenge.settledDate,
+      clientOrAgent = challenge.agent.fold("")(_.organisationName),
+      submittedBy = challenge.submittedBy
+    )
+
+  def apply(challenge: ChallengeCaseWithClient): CaseDetails =
+    CaseDetails(
+      submittedDate = challenge.createdDateTime,
+      status = challenge.challengeCaseStatus.toString,
+      caseReference = challenge.challengeCaseReference,
+      closedDate = challenge.settledDate,
+      clientOrAgent = challenge.client.organisationName,
+      submittedBy = challenge.submittedBy
     )
 }

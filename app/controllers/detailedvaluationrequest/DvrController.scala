@@ -22,6 +22,7 @@ import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
 import connectors.authorisation.BusinessRatesAuthorisationConnector
+import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import javax.inject.Inject
@@ -39,6 +40,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class DvrController @Inject()(
       val errorHandler: CustomErrorHandler,
       propertyLinks: PropertyLinkConnector,
+      challengeConnector: ChallengeConnector,
       authenticated: AuthenticatedAction,
       submissionIds: SubmissionIdConnector,
       dvrCaseManagement: DVRCaseManagementConnector,
@@ -83,6 +85,9 @@ class DvrController @Inject()(
           checkCases <- if (owner)
                          propertyLinks.getMyOrganisationsCheckCases(link.submissionId)
                        else propertyLinks.getMyClientsCheckCases(link.submissionId)
+          challengeCases <- if (owner)
+                             challengeConnector.getMyOrganisationsChallengeCases(link.submissionId)
+                           else challengeConnector.getMyClientsChallengeCases(link.submissionId)
         } yield
           optDocuments match {
             case Some(documents) =>
@@ -101,7 +106,8 @@ class DvrController @Inject()(
                   authorisationId = link.authorisationId,
                   backUrl = backUrl,
                   startCheckUrl = startCheckUrl,
-                  checkCases = checkCases
+                  checkCases = checkCases,
+                  challengeCases = challengeCases
                 ))
             case None =>
               Redirect(

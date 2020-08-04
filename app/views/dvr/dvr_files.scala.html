@@ -21,7 +21,7 @@
 @import config.ApplicationConfig
 @import models.dvr.cases.check.projection.CaseDetails
 
-@(model: AvailableRequestDetailedValuation, submissionId: String, owner: Boolean, authorisationId: Long, backUrl: String, startCheckUrl: String, checkCases: List[CaseDetails])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation, submissionId: String, owner: Boolean, authorisationId: Long, backUrl: String, startCheckUrl: String, checkCases: List[CaseDetails], challengeCases: List[CaseDetails])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @paperChallengeUrl = @{
     controllers.routes.Assessments.startChallengeFromDVR(submissionId, model.valuationId, model.uarn, owner).url
@@ -60,6 +60,10 @@
                 <p>@Html(Messages("challengeRules.rules.paper", paperChallengeUrl))</p>
 
             </details>
+            <br/>
+
+            @challengeCasesDetails(authorisationId, challengeCases, owner)
+
             <br/>
 
         }else{

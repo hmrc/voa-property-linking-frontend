@@ -1,0 +1,64 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import models.dvr.cases.check.projection.CaseDetails
+@import utils.Formatters
+@import config.ApplicationConfig
+@import controllers.detailedvaluationrequest.routes
+
+@import java.time.LocalDateTime
+@import java.time.LocalDate
+
+@(authorisationId: Long, challengeCases: List[CaseDetails], isOwner: Boolean)(implicit messages: Messages)
+
+@challengeRow(submittedDate: LocalDateTime, status: String, challengeReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = {
+    <tr>
+        <td>@Formatters.formatDateTimeToDate(submittedDate)</td>
+        <td>@status</td>
+        <td>@challengeReference</td>
+        <td>@if(closedDate.isDefined){@Formatters.formatDate(closedDate.get)}</td>
+        <td>@clientOrAgent</td>
+        <td>@submittedBy</td>
+    </tr>
+}
+
+
+@if(challengeCases.size > 0) {
+    <h2 class="heading-large">@Messages("property.details.div.submitted.challenge.cases")</h2>
+
+    <div id="details-content-challengecases">
+        <table id="challengecases-table" class="margin-bottom-10 margin-top-10">
+            <tbody>
+                <tr>
+                    <th><span class="margin-left-5">@Messages("property.details.cases.table.1")</span></th>
+                    <th><span class="margin-left-5">@Messages("property.details.cases.table.3")</span></th>
+                    <th><span class="margin-left-5">@Messages("property.details.challenge.cases.table.4")</span></th>
+                    <th><span class="margin-left-5">@Messages("property.details.cases.table.5")</span></th>
+                    @if(isOwner) {
+                        <th><span class="margin-left-5">@Messages("property.details.cases.table.6")</span></th>
+                    }else{
+                        <th><span class="margin-left-5">@Messages("property.details.cases.table.7")</span></th>
+                    }
+                    <th><span class="margin-left-5">@Messages("property.details.cases.table.8")</span></th>
+                </tr>
+
+                @for(caseDetails <- challengeCases) {
+                    @challengeRow(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
+                }
+            </tbody>
+        </table>
+    </div>
+}

@@ -833,6 +833,9 @@ property.details.cases.table.challenge=Challenge this valuation
 property.details.div.submitted=Submitted check cases
 property.details.div.noSubmittedCheck=There are no check cases available for your property.
 
+property.details.div.submitted.challenge.cases=Submitted challenge cases
+property.details.challenge.cases.table.4=Challenge reference
+
 challengeRules.summary=When you may challenge
 challengeRules.rules=You can challenge a valuation if you’ve submitted a check and:
 challengeRules.rules.1=had a decision in the last 4 months

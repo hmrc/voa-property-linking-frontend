@@ -36,6 +36,27 @@ trait WSHTTPMock { this: MockitoSugar =>
         .GET[T](Matchers.anyString())(Matchers.any[HttpReads[T]](), Matchers.any[HeaderCarrier](), Matchers.any()))
       .thenReturn(Future.successful(thenReturn))
 
+  def mockHttpGETWithQueryParam[T](url: String, thenReturn: T): OngoingStubbing[Future[T]] =
+    when(
+      mockWSHttp
+        .GET[T](url = Matchers.anyString(), queryParams = Matchers.any())(
+          Matchers.any[HttpReads[T]](),
+          Matchers.any[HeaderCarrier](),
+          Matchers.any()))
+      .thenReturn(Future.successful(thenReturn))
+
+  def mockHttpGETWithQueryParam[T](
+        url: String,
+        thenReturn: T,
+        queryParameters: Seq[(String, String)] = Matchers.any()): OngoingStubbing[Future[T]] =
+    when(
+      mockWSHttp
+        .GET[T](url = Matchers.anyString(), queryParams = queryParameters)(
+          Matchers.any[HttpReads[T]](),
+          Matchers.any[HeaderCarrier](),
+          Matchers.any()))
+      .thenReturn(Future.successful(thenReturn))
+
   def mockHttpGET[T](url: String, thenReturn: Future[T]): OngoingStubbing[Future[T]] =
     when(
       mockWSHttp

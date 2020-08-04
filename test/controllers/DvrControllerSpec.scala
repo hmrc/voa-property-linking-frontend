@@ -40,6 +40,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val controller = new DvrController(
       mockCustomErrorHandler,
       mockPropertyLinkConnector,
+      mockChallengeConnector,
       preAuthenticatedActionBuilders(),
       mockSubmissionIds,
       mockDvrCaseManagement,
