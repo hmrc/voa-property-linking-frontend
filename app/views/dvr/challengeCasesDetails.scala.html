@@ -43,16 +43,16 @@
         <table id="challengecases-table" class="margin-bottom-10 margin-top-10">
             <tbody>
                 <tr>
-                    <th><span class="margin-left-5">@Messages("property.details.cases.table.1")</span></th>
-                    <th><span class="margin-left-5">@Messages("property.details.cases.table.3")</span></th>
-                    <th><span class="margin-left-5">@Messages("property.details.challenge.cases.table.4")</span></th>
-                    <th><span class="margin-left-5">@Messages("property.details.cases.table.5")</span></th>
+                    <th>@Messages("property.details.cases.table.1")</th>
+                    <th>@Messages("property.details.cases.table.3")</th>
+                    <th>@Messages("property.details.challenge.cases.table.4")</th>
+                    <th>@Messages("property.details.cases.table.5")</th>
                     @if(isOwner) {
-                        <th><span class="margin-left-5">@Messages("property.details.cases.table.6")</span></th>
+                        <th>@Messages("property.details.cases.table.6")</th>
                     }else{
-                        <th><span class="margin-left-5">@Messages("property.details.cases.table.7")</span></th>
+                        <th>@Messages("property.details.cases.table.7")</th>
                     }
-                    <th><span class="margin-left-5">@Messages("property.details.cases.table.8")</span></th>
+                    <th>@Messages("property.details.cases.table.8")</th>
                 </tr>
 
                 @for(caseDetails <- challengeCases) {
