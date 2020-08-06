@@ -40,7 +40,7 @@ start.register=Register now
 
 label.login=Sign in
 label.register=Register
-
+label.action=Action
 app.common.errorSummaryLabel            = The following errors were identified on this page.
 
 label.appoint.error=Failed to appoint agent to all properties
