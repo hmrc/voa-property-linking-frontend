@@ -19,7 +19,7 @@
 @import controllers.propertyLinking.DeclareCapacityVM
 @import config.ApplicationConfig
 
-@(model: DeclareCapacityVM, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: DeclareCapacityVM, clientId: Option[Long] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(title = Messages("declareCapacity.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backLink)) {
 
@@ -44,7 +44,7 @@
             </p>
 
 
-            @form(controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address)) {
+            @form(controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientId)) {
 
                 <details>
                     <summary><span>@messages("declareCapacity.details.ownerOrOccupier")</span></summary>

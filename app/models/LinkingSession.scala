@@ -25,7 +25,8 @@ case class LinkingSession(
       personId: Long,
       declaration: CapacityDeclaration,
       uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty,
-      evidenceType: Option[EvidenceType] = None)
+      evidenceType: Option[EvidenceType] = None,
+      clientId: Option[Long] = None)
 
 object LinkingSession {
   implicit val format = Json.format[LinkingSession]
