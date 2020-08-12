@@ -59,13 +59,18 @@
                         @Html(Messages("declareCapacity.details.notOwner.text", routes.Application.contactUs()))
                     </div>
                 </details>
+            @clientId match {
+            case Some(id) => { }
+            case _          => {
+                                    <details>
+                                        <summary><span>@messages("declareCapacity.details.agent")</span></summary>
+                                        <div class="panel-indent">
+                                            @messages("declareCapacity.details.agent.text")
+                                        </div>
+                                    </details>
+                                }
+            }
 
-                <details>
-                    <summary><span>@messages("declareCapacity.details.agent")</span></summary>
-                    <div class="panel-indent">
-                        @messages("declareCapacity.details.agent.text")
-                    </div>
-                </details>
 
                 <br />
 
@@ -73,7 +78,10 @@
                         field = model.form("capacity"),
                         options = CapacityType.options,
                         args = Seq(
-                            '_label -> Messages("label.capacity"),
+                            '_label -> {clientId match {
+                                                    case Some(id)   => {messages("label.client.capacity")}
+                                                    case _          => {messages("label.capacity")}
+                            }},
                             '_labelClass -> "form-label-bold",
                             '_legend -> true)
                     )
@@ -85,7 +93,10 @@
                         ("false", "data-toggle-id", "interestedAfter2017")
                     ),
                     args = Seq(
-                        '_label -> Messages("label.interestedBefore2017"),
+                        '_label -> {clientId match {
+                                                case Some(id)   => {messages("label.client.interestedBefore2017")}
+                                                case _          => {messages("label.interestedBefore2017")}
+                        }},
                         '_labelClass -> "form-label-bold",
                         '_legend -> true
                     )
@@ -110,7 +121,10 @@
                         ("false", "data-toggle-id", "endDate")
                     ),
                     args = Seq(
-                        '_label -> Messages("label.stillInterested"),
+                        '_label -> { clientId match {
+                                                case Some(id)   => {messages("label.client.stillInterested")}
+                                                case _          => {messages("label.stillInterested")}
+                        }},
                         '_labelClass -> "form-label-bold",
                         '_legend -> true,
                         '_fieldsetClass -> "inline"
