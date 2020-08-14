@@ -81,7 +81,7 @@ class DvrController @Inject()(
           optDocuments <- dvrCaseManagement.getDvrDocuments(link.uarn, valuationId, link.submissionId)
           backUrl      <- calculateBackLink(propertyLinkSubmissionId, owner)
           startCheckUrl = config.businessRatesCheckUrl(
-            s"property-link/${link.authorisationId}/assessment/$valuationId?propertyLinkSubmissionId=$propertyLinkSubmissionId&uarn=$uarn&dvrCheck=true&isOwner=$owner")
+            s"property-link/${link.authorisationId}/assessment/$valuationId?propertyLinkSubmissionId=$propertyLinkSubmissionId&uarn=$uarn&dvrCheck=true")
           checkCases <- if (owner)
                          propertyLinks.getMyOrganisationsCheckCases(link.submissionId)
                        else propertyLinks.getMyClientsCheckCases(link.submissionId)
