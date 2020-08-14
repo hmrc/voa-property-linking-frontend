@@ -60,18 +60,18 @@ class ValuationsController @Inject()(
     }
 
     (pLink flatMap {
-      case Some(ApiAssessments(_, _, _, _, _, _, Seq(), _)) => Future successful notFound
+      case Some(ApiAssessments(_, _, _, _, _, _, Seq(), _)) => Future.successful(notFound)
       case Some(link) =>
         if (!link.pending && link.assessments.size == 1 && isSkipAssessment) {
-          Future successful Redirect(
+          Future.successful(Redirect(
             controllers.routes.Assessments.viewDetailedAssessment(
               submissionId,
               link.authorisationId,
               link.assessments.head.assessmentRef,
               link.assessments.head.billingAuthorityReference,
-              owner))
+              owner)))
         } else if (link.pending && link.assessments.size == 1 && isSkipAssessment) {
-          Future successful Redirect(getViewSummaryCall(link.uarn, link.pending, owner))
+          Future.successful(Redirect(getViewSummaryCall(link.uarn, link.pending, owner)))
         } else {
           propertyLinks.clientPropertyLink(submissionId).map {
             case None => notFound
@@ -92,7 +92,7 @@ class ValuationsController @Inject()(
             }
           }
         }
-      case None => Future successful notFound
+      case None => Future.successful(notFound)
     }).recoverWith {
       case e =>
         logger.warn("property link assessment call failed", e)
