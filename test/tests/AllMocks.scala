@@ -23,6 +23,7 @@ import auth.GovernmentGatewayProvider
 import config.ApplicationConfig
 import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.challenge.ChallengeConnector
+import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{Addresses, DVRCaseManagementConnector}
 import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.Mockito
@@ -31,8 +32,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Request
 import repositories.{PersonalDetailsSessionRepository, SessionRepository}
-import services.AgentRelationshipService
-import services.EnrolmentService
+import services.{AgentRelationshipService, BusinessRatesAttachmentsService, EnrolmentService}
 import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
@@ -44,6 +44,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockAuditingService: AuditingService = mock[AuditingService]
   val mockAuthConnector: AuthConnector = mock[AuthConnector]
   val mockAuthenticatedAction: AuthenticatedAction = mock[AuthenticatedAction]
+  val mockBusinessRatesAttachmentsService: BusinessRatesAttachmentsService = mock[BusinessRatesAttachmentsService]
   val mockBusinessRatesAuthorisation: BusinessRatesAuthorisationConnector = mock[BusinessRatesAuthorisationConnector]
   val mockCustomErrorHandler: CustomErrorHandler = mock[CustomErrorHandler]
   val mockDetailedIndividualAccount: DetailedIndividualAccount = mock[DetailedIndividualAccount]
@@ -52,6 +53,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockRequest: Request[_] = mock[Request[_]]
   val mockGovernmentGatewayProvider: GovernmentGatewayProvider = mock[GovernmentGatewayProvider]
   val mockGroupAccount: GroupAccount = mock[GroupAccount]
+  val mockPropertyLinkConnector = mock[PropertyLinkConnector]
   val mockPropertyLinkService: PropertyLinkService = mock[PropertyLinkService]
   val mockPropertyLinkingService: PropertyLinkingService = mock[PropertyLinkingService]
   val mockSessionRepository: SessionRepository = mock[SessionRepository]
@@ -70,6 +72,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
       mockBusinessRatesAuthorisation,
       mockAuthConnector,
       mockAuthenticatedAction,
+      mockBusinessRatesAttachmentsService,
       mockBusinessRatesAuthorisation,
       mockCustomErrorHandler,
       mockDetailedIndividualAccount,
@@ -78,6 +81,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
       mockRequest,
       mockGovernmentGatewayProvider,
       mockGroupAccount,
+      mockPropertyLinkConnector,
       mockPropertyLinkService,
       mockPropertyLinkingService,
       mockSessionRepository,

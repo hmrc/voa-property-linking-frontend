@@ -48,8 +48,6 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
     mockSessionRepo,
     mockApplicationConfig)
 
-  private lazy val mockPropertyLinkConnector = mock[PropertyLinkConnector]
-
   private lazy val mockRepresentationConnector = mock[PropertyRepresentationConnector]
 
   private lazy val mockSessionRepo = mock[SessionRepo]

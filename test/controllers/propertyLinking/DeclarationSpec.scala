@@ -44,6 +44,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
           mockCustomErrorHandler,
           mockPropertyLinkingService,
           mockSessionRepo,
+          mockBusinessRatesAttachmentService,
           preAuthenticatedActionBuilders(),
           preEnrichedActionRefiner()
         )
@@ -80,7 +81,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
 
   it should "require the user to wait until evidence receipt received" in new Setup {
 
-    when(mockPropertyLinkingService.submit(any())(any(), any()))
+    when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.apply[Future, AttachmentException, Unit](Future.successful(Left(NotAllFilesReadyToUpload))))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
@@ -91,7 +92,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "submit the property link if the user accepts the declaration" in new Setup {
-    when(mockPropertyLinkingService.submit(any())(any(), any()))
+    when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
@@ -100,30 +101,30 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
 
-    verify(mockPropertyLinkingService, times(1)).submit(any())(any(), any[HeaderCarrier])
+    verify(mockPropertyLinkingService, times(1)).submit(any(), any())(any(), any[HeaderCarrier])
   }
 
   it should "submit the property link on client behalf if the user accepts the declaration" in new Setup {
-    when(mockPropertyLinkingService.submitOnClientBehalf(any(), any())(any(), any()))
+    when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
-    val linkingSession: LinkingSession = arbitrary[LinkingSession]
     val testDeclaration = new Declaration(
       mockCustomErrorHandler,
       mockPropertyLinkingService,
       mockSessionRepo,
+      mockBusinessRatesAttachmentService,
       preAuthenticatedActionBuilders(),
       preEnrichedActionRefiner(Some(100))
     )
-    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    val res = testDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
 
-    verify(mockPropertyLinkingService, times(1)).submitOnClientBehalf(any(), any())(any(), any[HeaderCarrier])
+    verify(mockPropertyLinkingService, times(1)).submit(any(), any())(any(), any[HeaderCarrier])
   }
 
   it should "display the normal confirmation page when the user has uploaded a rates bill" in new Setup {
-    when(mockPropertyLinkingService.submit(any())(any(), any()))
+    when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     val linkingSession: LinkingSession = arbitrary[LinkingSession]
@@ -144,7 +145,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the normal confirmation page when the user has uploaded other evidence" in new Setup {
-    when(mockPropertyLinkingService.submit(any())(any(), any()))
+    when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
@@ -161,7 +162,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
 
   "The confirmation page" should "display the submission ID" in new Setup {
 
-    when(mockPropertyLinkingService.submit(any())(any(), any()))
+    when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     val linkingSession: LinkingSession = arbitrary[LinkingSession]

@@ -45,6 +45,7 @@ class Declaration @Inject()(
       val errorHandler: CustomErrorHandler,
       propertyLinkService: PropertyLinkingService,
       @Named("propertyLinkingSession") sessionRepository: SessionRepo,
+      businessRatesAttachmentService: BusinessRatesAttachmentsService,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession
 )(
