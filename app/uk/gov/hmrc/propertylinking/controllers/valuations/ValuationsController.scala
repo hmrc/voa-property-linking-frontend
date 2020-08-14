@@ -23,10 +23,11 @@ import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{AssessmentsVM, PropertyLinkingController}
 import javax.inject.{Inject, Named, Singleton}
-import models.{ApiAssessment, ApiAssessments}
+import models.{ApiAssessment, ApiAssessments, ClientDetails}
 import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.propertylinking.services.PropertyLinkService
 
@@ -58,36 +59,40 @@ class ValuationsController @Inject()(
         propertyLinks.getClientAssessmentsWithCapacity(submissionId)
     }
 
-    (pLink map {
-      case Some(ApiAssessments(_, _, _, _, _, _, Seq(), _)) => notFound
+    (pLink flatMap {
+      case Some(ApiAssessments(_, _, _, _, _, _, Seq(), _)) => Future.successful(notFound)
       case Some(link) =>
         if (!link.pending && link.assessments.size == 1 && isSkipAssessment) {
-          Redirect(
+          Future.successful(Redirect(
             controllers.routes.Assessments.viewDetailedAssessment(
               submissionId,
               link.authorisationId,
               link.assessments.head.assessmentRef,
               link.assessments.head.billingAuthorityReference,
-              owner))
+              owner)))
         } else if (link.pending && link.assessments.size == 1 && isSkipAssessment) {
-          Redirect(getViewSummaryCall(link.uarn, link.pending, owner))
+          Future.successful(Redirect(getViewSummaryCall(link.uarn, link.pending, owner)))
         } else {
-          Ok(
-            views.html.dashboard.assessments(
-              model = AssessmentsVM(
-                assessmentsWithLinks = link.assessments
-                  .sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(
-                    Ordering.by[LocalDate, Long](_.toEpochDay))
-                  .reverse
-                  .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
-                backLink = calculateBackLink(owner),
-                address = link.address,
-                capacity = link.capacity
-              ),
-              owner = owner
-            ))
+          propertyLinks.clientPropertyLink(submissionId).map {
+            case None => notFound
+            case Some(clientPropertyLink) => {
+              Ok(views.html.dashboard.assessments(
+                model = AssessmentsVM(
+                  assessmentsWithLinks = link.assessments
+                    .sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(
+                      Ordering.by[LocalDate, Long](_.toEpochDay))
+                    .reverse
+                    .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
+                  backLink = calculateBackLink(owner, Some(clientPropertyLink.client)),
+                  address = link.address,
+                  capacity = link.capacity
+                ),
+                owner = owner
+              ))
+            }
+          }
         }
-      case None => notFound
+      case None => Future.successful(notFound)
     }).recoverWith {
       case e =>
         logger.warn("property link assessment call failed", e)
@@ -126,6 +131,13 @@ class ValuationsController @Inject()(
           .url -> assessment
     }
 
-  private def calculateBackLink(agentOwnsProperty: Boolean): String =
-    config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
+  private def calculateBackLink(agentOwnsProperty: Boolean, clientDetails: Option[ClientDetails] = None): String =
+    if (config.clientPropertiesEnabled) {
+      clientDetails match {
+        case Some(client) =>
+          config.newDashboardUrl(
+            s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}&pageNumber=1&pageSize=15&sortField=ADDRESS&sortOrder=ASC")
+        case _ => config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
+      }
+    } else config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
 }

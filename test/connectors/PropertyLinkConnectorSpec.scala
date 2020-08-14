@@ -71,6 +71,13 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.createPropertyLink(mock[PropertyLinkPayload]))(_ mustBe response)
   }
 
+  "linkToProperty" must "successfully post a property link request on client behalf" in new Setup {
+    val response = HttpResponse(OK)
+    val clientId = 100
+    mockHttpPOST[PropertyLinkRequest, HttpResponse]("/clients/clientId/property-links", response)
+    whenReady(connector.createPropertyLinkOnClientBehalf(mock[PropertyLinkPayload], clientId))(_ mustBe response)
+  }
+
   "appointableProperties" must "return the properties appointable to an agent" in new Setup {
     val agentPropertiesParameters = AgentPropertiesParameters(agentCode = 1)
     val ownerAuthResult = OwnerAuthResult(

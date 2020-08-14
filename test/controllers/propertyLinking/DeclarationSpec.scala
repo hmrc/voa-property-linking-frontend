@@ -44,7 +44,6 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
           mockCustomErrorHandler,
           mockPropertyLinkingService,
           mockSessionRepo,
-          mockBusinessRatesAttachmentService,
           preAuthenticatedActionBuilders(),
           preEnrichedActionRefiner()
         )
@@ -102,6 +101,25 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
 
     verify(mockPropertyLinkingService, times(1)).submit(any())(any(), any[HeaderCarrier])
+  }
+
+  it should "submit the property link on client behalf if the user accepts the declaration" in new Setup {
+    when(mockPropertyLinkingService.submitOnClientBehalf(any(), any())(any(), any()))
+      .thenReturn(EitherT.rightT[Future, AttachmentException](()))
+
+    val linkingSession: LinkingSession = arbitrary[LinkingSession]
+    val testDeclaration = new Declaration(
+      mockCustomErrorHandler,
+      mockPropertyLinkingService,
+      mockSessionRepo,
+      preAuthenticatedActionBuilders(),
+      preEnrichedActionRefiner(Some(100))
+    )
+    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
+
+    verify(mockPropertyLinkingService, times(1)).submitOnClientBehalf(any(), any())(any(), any[HeaderCarrier])
   }
 
   it should "display the normal confirmation page when the user has uploaded a rates bill" in new Setup {

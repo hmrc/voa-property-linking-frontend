@@ -35,7 +35,12 @@
             @includes.errorSummary(model.form)
 
 
-            <p class="heading-medium">@messages("declareCapacity.message")</p>
+
+            @clientId match {
+                case Some(id)   => { <p class="heading-medium">@messages("declareCapacity.client.message")</p> }
+                case _          => { <p class="heading-medium">@messages("declareCapacity.message")</p> }
+            }
+
 
 
             <p class="panel panel-border-wide">
