@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.propertylinking.controllers.valuations
 
+import java.net.URLEncoder
 import java.time.LocalDate
 
 import actions.AuthenticatedAction
@@ -74,24 +75,44 @@ class ValuationsController @Inject()(
         } else if (link.pending && link.assessments.size == 1 && isSkipAssessment) {
           Future.successful(Redirect(getViewSummaryCall(link.uarn, link.pending, owner)))
         } else {
-          propertyLinks.clientPropertyLink(submissionId).map {
-            case None => notFound
-            case Some(clientPropertyLink) => {
-              Ok(views.html.dashboard.assessments(
-                model = AssessmentsVM(
-                  assessmentsWithLinks = link.assessments
-                    .sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(
-                      Ordering.by[LocalDate, Long](_.toEpochDay))
-                    .reverse
-                    .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
-                  backLink = calculateBackLink(owner, Some(clientPropertyLink.client)),
-                  address = link.address,
-                  capacity = link.capacity
-                ),
-                owner = owner
-              ))
+          if (owner) {
+            Future.successful(
+              Ok(
+                views.html.dashboard.assessments(
+                  model = AssessmentsVM(
+                    assessmentsWithLinks = link.assessments
+                      .sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(
+                        Ordering.by[LocalDate, Long](_.toEpochDay))
+                      .reverse
+                      .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
+                    backLink = config.newDashboardUrl("your-properties"),
+                    address = link.address,
+                    capacity = link.capacity
+                  ),
+                  owner = owner
+                ))
+            )
+          } else {
+            propertyLinks.clientPropertyLink(submissionId).map {
+              case None => notFound
+              case Some(clientPropertyLink) =>
+                Ok(views.html.dashboard.assessments(
+                  model = AssessmentsVM(
+                    assessmentsWithLinks = link.assessments
+                      .sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(
+                        Ordering.by[LocalDate, Long](_.toEpochDay))
+                      .reverse
+                      .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
+                    backLink = calculateBackLink(owner, Some(clientPropertyLink.client)),
+                    address = link.address,
+                    capacity = link.capacity
+                  ),
+                  owner = owner
+                ))
+
             }
           }
+
         }
       case None => Future.successful(notFound)
     }).recoverWith {
@@ -137,7 +158,9 @@ class ValuationsController @Inject()(
       clientDetails match {
         case Some(client) =>
           config.newDashboardUrl(
-            s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}&pageNumber=1&pageSize=15&sortField=ADDRESS&sortOrder=ASC")
+            s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${URLEncoder
+              .encode(client.organisationName, "UTF-8")}&pageNumber=1&pageSize=15&sortField=ADDRESS&sortOrder=ASC")
+
         case _ => config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
       }
     } else config.newDashboardUrl(if (!agentOwnsProperty) "client-properties" else "your-properties")
