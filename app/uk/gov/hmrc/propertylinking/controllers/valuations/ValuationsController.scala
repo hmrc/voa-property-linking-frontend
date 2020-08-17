@@ -63,13 +63,14 @@ class ValuationsController @Inject()(
       case Some(ApiAssessments(_, _, _, _, _, _, Seq(), _)) => Future.successful(notFound)
       case Some(link) =>
         if (!link.pending && link.assessments.size == 1 && isSkipAssessment) {
-          Future.successful(Redirect(
-            controllers.routes.Assessments.viewDetailedAssessment(
-              submissionId,
-              link.authorisationId,
-              link.assessments.head.assessmentRef,
-              link.assessments.head.billingAuthorityReference,
-              owner)))
+          Future.successful(
+            Redirect(
+              controllers.routes.Assessments.viewDetailedAssessment(
+                submissionId,
+                link.authorisationId,
+                link.assessments.head.assessmentRef,
+                link.assessments.head.billingAuthorityReference,
+                owner)))
         } else if (link.pending && link.assessments.size == 1 && isSkipAssessment) {
           Future.successful(Redirect(getViewSummaryCall(link.uarn, link.pending, owner)))
         } else {

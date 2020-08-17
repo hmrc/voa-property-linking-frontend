@@ -42,7 +42,8 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
   def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[HttpResponse] =
     http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/property-links", propertyLinkPayload)
 
-  def createPropertyLinkOnClientBehalf(propertyLinkPayload: PropertyLinkPayload, clientId: Long)(implicit hc: HeaderCarrier): Future[HttpResponse] =
+  def createPropertyLinkOnClientBehalf(propertyLinkPayload: PropertyLinkPayload, clientId: Long)(
+        implicit hc: HeaderCarrier): Future[HttpResponse] =
     http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/clients/$clientId/property-links", propertyLinkPayload)
 
   def getMyOrganisationPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =

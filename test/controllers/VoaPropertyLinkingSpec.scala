@@ -95,7 +95,7 @@ trait VoaPropertyLinkingSpec
             block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = super.invokeBlock(request, block)
     }
 
-  def preEnrichedActionRefiner(clientId :Option[Long] = None): WithLinkingSession =
+  def preEnrichedActionRefiner(clientId: Option[Long] = None): WithLinkingSession =
     new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
 
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =

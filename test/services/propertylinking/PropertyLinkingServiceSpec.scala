@@ -35,14 +35,13 @@ import scala.util.Success
 
 class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
 
-  private lazy val testService = new PropertyLinkingService(
-    mockBusinessRatesAttachmentsService,
-    mockPropertyLinkConnector)
+  private lazy val testService =
+    new PropertyLinkingService(mockBusinessRatesAttachmentsService, mockPropertyLinkConnector)
   val httpResponse = HttpResponse(200)
   val clientId = 100
   val mockPropertyLinkRequest = mock[PropertyLinkRequest]
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
-  implicit def linkingSessionRequest(clientId: Option[Long] = None) =  LinkingSessionRequest(
+  implicit def linkingSessionRequest(clientId: Option[Long] = None) = LinkingSessionRequest(
     LinkingSession(
       address = "",
       uarn = 1L,
@@ -70,8 +69,8 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
       .thenReturn(Future.successful(httpResponse))
     when(mockBusinessRatesAttachmentsService.submit(any(), any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](List(attachment)))
-    val res:EitherT[Future, AttachmentException, Unit] = testService.submit(mockPropertyLinkRequest, None)
-    res.value.futureValue must be (Right(()))
+    val res: EitherT[Future, AttachmentException, Unit] = testService.submit(mockPropertyLinkRequest, None)
+    res.value.futureValue must be(Right(()))
     verify(mockPropertyLinkConnector, times(1)).createPropertyLink(any())(any())
   }
 
@@ -81,8 +80,9 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
       .thenReturn(Future.successful(httpResponse))
     when(mockBusinessRatesAttachmentsService.submit(any(), any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](List(attachment)))
-    val res:EitherT[Future, AttachmentException, Unit] = testService.submitOnClientBehalf(mockPropertyLinkRequest, clientId)
-    res.value.futureValue must be (Right(()))
+    val res: EitherT[Future, AttachmentException, Unit] =
+      testService.submitOnClientBehalf(mockPropertyLinkRequest, clientId)
+    res.value.futureValue must be(Right(()))
     verify(mockPropertyLinkConnector, times(1)).createPropertyLinkOnClientBehalf(any(), any())(any())
   }
 
