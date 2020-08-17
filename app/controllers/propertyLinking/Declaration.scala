@@ -75,7 +75,7 @@ class Declaration @Inject()(
         },
         _ =>
           propertyLinkService
-            .submit(PropertyLinkRequest(request.ses, request.organisationId))
+            .submit(PropertyLinkRequest(request.ses, request.organisationId), request.ses.clientId)
             .fold(
               {
                 case NotAllFilesReadyToUpload =>

@@ -19,7 +19,7 @@
 @import controllers.propertyLinking.DeclareCapacityVM
 @import config.ApplicationConfig
 
-@(model: DeclareCapacityVM, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: DeclareCapacityVM, clientId: Option[Long] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(title = Messages("declareCapacity.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backLink)) {
 
@@ -35,7 +35,12 @@
             @includes.errorSummary(model.form)
 
 
-            <p class="heading-medium">@messages("declareCapacity.message")</p>
+
+            @clientId match {
+                case Some(id)   => { <p class="heading-medium">@messages("declareCapacity.client.message")</p> }
+                case _          => { <p class="heading-medium">@messages("declareCapacity.message")</p> }
+            }
+
 
 
             <p class="panel panel-border-wide">
@@ -44,7 +49,7 @@
             </p>
 
 
-            @form(controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address)) {
+            @form(controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientId)) {
 
                 <details>
                     <summary><span>@messages("declareCapacity.details.ownerOrOccupier")</span></summary>
@@ -59,13 +64,18 @@
                         @Html(Messages("declareCapacity.details.notOwner.text", routes.Application.contactUs()))
                     </div>
                 </details>
+            @clientId match {
+            case Some(id) => { }
+            case _          => {
+                                    <details>
+                                        <summary><span>@messages("declareCapacity.details.agent")</span></summary>
+                                        <div class="panel-indent">
+                                            @messages("declareCapacity.details.agent.text")
+                                        </div>
+                                    </details>
+                                }
+            }
 
-                <details>
-                    <summary><span>@messages("declareCapacity.details.agent")</span></summary>
-                    <div class="panel-indent">
-                        @messages("declareCapacity.details.agent.text")
-                    </div>
-                </details>
 
                 <br />
 
@@ -73,7 +83,10 @@
                         field = model.form("capacity"),
                         options = CapacityType.options,
                         args = Seq(
-                            '_label -> Messages("label.capacity"),
+                            '_label -> {clientId match {
+                                                    case Some(id)   => {messages("label.client.capacity")}
+                                                    case _          => {messages("label.capacity")}
+                            }},
                             '_labelClass -> "form-label-bold",
                             '_legend -> true)
                     )
@@ -85,7 +98,10 @@
                         ("false", "data-toggle-id", "interestedAfter2017")
                     ),
                     args = Seq(
-                        '_label -> Messages("label.interestedBefore2017"),
+                        '_label -> {clientId match {
+                                                case Some(id)   => {messages("label.client.interestedBefore2017")}
+                                                case _          => {messages("label.interestedBefore2017")}
+                        }},
                         '_labelClass -> "form-label-bold",
                         '_legend -> true
                     )
@@ -110,7 +126,10 @@
                         ("false", "data-toggle-id", "endDate")
                     ),
                     args = Seq(
-                        '_label -> Messages("label.stillInterested"),
+                        '_label -> { clientId match {
+                                                case Some(id)   => {messages("label.client.stillInterested")}
+                                                case _          => {messages("label.stillInterested")}
+                        }},
                         '_labelClass -> "form-label-bold",
                         '_legend -> true,
                         '_fieldsetClass -> "inline"

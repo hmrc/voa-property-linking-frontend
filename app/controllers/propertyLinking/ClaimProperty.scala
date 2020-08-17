@@ -79,10 +79,11 @@ class ClaimProperty @Inject()(
     }
   }
 
-  def declareCapacity(uarn: Long, address: String) = authenticatedAction { implicit request =>
-    Ok(
-      views.html.propertyLinking
-        .declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn), backLink(request)))
+  def declareCapacity(uarn: Long, address: String, clientId: Option[Long] = None) = authenticatedAction {
+    implicit request =>
+      Ok(
+        views.html.propertyLinking
+          .declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn), clientId, backLink(request)))
   }
 
   private def backLink(request: Request[AnyContent]): String = {
@@ -90,37 +91,51 @@ class ClaimProperty @Inject()(
     if (link.contains("/business-rates-find")) link else config.newDashboardUrl("home")
   }
 
-  def attemptLink(uarn: Long, address: String): Action[AnyContent] = authenticatedAction.async { implicit request =>
-    ClaimProperty.declareCapacityForm
-      .bindFromRequest()
-      .fold(
-        errors =>
-          Future.successful(BadRequest(
-            views.html.propertyLinking.declareCapacity(DeclareCapacityVM(errors, address, uarn), backLink(request)))),
-        formData =>
-          initialiseSession(formData, uarn, address)
-            .map { _ =>
-              Redirect(routes.ChooseEvidence.show())
+  def attemptLink(uarn: Long, address: String, clientId: Option[Long] = None): Action[AnyContent] =
+    authenticatedAction.async { implicit request =>
+      ClaimProperty.declareCapacityForm
+        .bindFromRequest()
+        .fold(
+          errors =>
+            Future.successful(
+              BadRequest(views.html.propertyLinking
+                .declareCapacity(DeclareCapacityVM(errors, address, uarn), clientId, backLink(request)))),
+          formData =>
+            initialiseSession(formData, uarn, address, clientId)
+              .map { _ =>
+                Redirect(routes.ChooseEvidence.show())
+              }
+              .recover {
+                case Upstream5xxResponse(_, 503, _) => ServiceUnavailable(views.html.errors.serviceUnavailable())
             }
-            .recover {
-              case Upstream5xxResponse(_, 503, _) => ServiceUnavailable(views.html.errors.serviceUnavailable())
-          }
-      )
-  }
+        )
+    }
 
   def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val form = declareCapacityForm.fillAndValidate(request.ses.declaration)
     Ok(
       views.html.propertyLinking
-        .declareCapacity(DeclareCapacityVM(form, request.ses.address, request.ses.uarn), backLink(request)))
+        .declareCapacity(
+          DeclareCapacityVM(form, request.ses.address, request.ses.uarn),
+          request.ses.clientId,
+          backLink(request)))
   }
 
-  private def initialiseSession(declaration: CapacityDeclaration, uarn: Long, address: String)(
-        implicit request: AuthenticatedRequest[_]): Future[Unit] =
+  private def initialiseSession(
+        declaration: CapacityDeclaration,
+        uarn: Long,
+        address: String,
+        clientId: Option[Long] = None)(implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
       submissionId <- submissionIdConnector.get()
       _ <- sessionRepository.start[LinkingSession](
-            LinkingSession(address, uarn, submissionId, request.personId, declaration))
+            LinkingSession(
+              address = address,
+              uarn = uarn,
+              submissionId = submissionId,
+              personId = request.personId,
+              declaration = declaration,
+              clientId = clientId))
     } yield ()
 
 }

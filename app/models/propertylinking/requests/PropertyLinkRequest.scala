@@ -30,7 +30,8 @@ case class PropertyLinkRequest(
       linkBasis: LinkBasis,
       fileInfo: List[FileInfo],
       references: List[String],
-      submissionId: String
+      submissionId: String,
+      clientId: Option[Long] = None
 )
 
 object PropertyLinkRequest {
@@ -46,6 +47,7 @@ object PropertyLinkRequest {
       session.uploadEvidenceData.linkBasis,
       session.uploadEvidenceData.fileInfo.toList,
       session.uploadEvidenceData.attachments.toList.flatMap(_.keys),
-      session.submissionId
+      session.submissionId,
+      session.clientId
     )
 }
