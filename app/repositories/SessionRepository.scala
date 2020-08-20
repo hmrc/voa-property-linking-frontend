@@ -52,6 +52,10 @@ class PropertyLinksSessionRepository @Inject()(mongo: ReactiveMongoComponent)
 class AppointAgentSessionRepository @Inject()(mongo: ReactiveMongoComponent)
     extends SessionRepository("appointNewAgent", mongo)
 
+@Singleton
+class AssessmentsPageSessionRepository @Inject()(mongo: ReactiveMongoComponent)
+    extends SessionRepository("assessmentPage", mongo)
+
 class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
     extends ReactiveRepository[SessionData, String](
       "sessions",

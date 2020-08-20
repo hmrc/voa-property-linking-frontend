@@ -16,6 +16,7 @@
 
 package controllers.detailedvaluationrequest
 
+import java.net.URLEncoder
 import java.time.format.DateTimeFormatter
 
 import actions.AuthenticatedAction
@@ -26,7 +27,7 @@ import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import javax.inject.Inject
-import models.ApiAssessments
+import models.{ApiAssessments, ClientDetails, ClientPropertyLink}
 import models.dvr.DetailedValuationRequest
 import play.api.Logger
 import play.api.http.HttpEntity
@@ -79,7 +80,9 @@ class DvrController @Inject()(
       case Some(link) =>
         for {
           optDocuments <- dvrCaseManagement.getDvrDocuments(link.uarn, valuationId, link.submissionId)
-          backUrl      <- calculateBackLink(propertyLinkSubmissionId, owner)
+          backUrl = uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
+            .valuations(propertyLinkSubmissionId, owner)
+            .url
           startCheckUrl = config.businessRatesCheckUrl(
             s"property-link/${link.authorisationId}/assessment/$valuationId?propertyLinkSubmissionId=$propertyLinkSubmissionId&uarn=$uarn&dvrCheck=true")
           checkCases <- if (owner)
@@ -227,8 +230,10 @@ class DvrController @Inject()(
         val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
 
         for {
-          exists  <- dvrCaseManagement.dvrExists(request.organisationAccount.id, valuationId)
-          backUrl <- calculateBackLink(submissionId, owner)
+          exists <- dvrCaseManagement.dvrExists(request.organisationAccount.id, valuationId)
+          backUrl = uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
+            .valuations(submissionId, owner)
+            .url
         } yield {
           if (exists) {
             Ok(views.html.dvr.already_requested_detailed_valuation(backUrl))
@@ -287,21 +292,6 @@ class DvrController @Inject()(
           }
       case None =>
         Future.successful(BadRequest(views.html.errors.propertyMissing()))
-    }
-  }
-
-  private def calculateBackLink(submissionId: String, isOwner: Boolean)(implicit hc: HeaderCarrier): Future[String] = {
-    val linkFOpt =
-      if (isOwner) propertyLinks.getOwnerAssessments(submissionId)
-      else propertyLinks.getClientAssessments(submissionId)
-
-    linkFOpt.map {
-      case Some(link) if link.assessments.size == 1 =>
-        config.newDashboardUrl(if (!isOwner) "client-properties" else "your-properties")
-      case _ =>
-        uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
-          .valuations(submissionId, isOwner)
-          .url
     }
   }
 
