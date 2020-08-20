@@ -15,11 +15,12 @@
  *@
 
 @import actions.requests.AuthenticatedRequest
+@import actions.assessments.request.AssessmentsPageSessionRequest
 @import utils.Formatters
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
 
-@(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 
 <div id="details-content-valuations">
