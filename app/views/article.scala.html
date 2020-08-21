@@ -69,6 +69,11 @@
                                     </a><span class="separator"> |</span> </li>
                                 }
                             }
+                            case req: CcaWrappedRequest => {
+                                <li><a href="@routes.Dashboard.yourDetails()">
+                                    @req.yourDetailsName.getOrElse(Messages("navigation.your.details"))
+                                </a><span class="separator"> |</span> </li>
+                            }
                             case _ => {}
                         }
                         <li><a href="@routes.Application.logOut">@messages("logout.link")</a></li>
