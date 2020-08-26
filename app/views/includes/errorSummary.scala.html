@@ -16,19 +16,25 @@
 
 @import play.api.data._
 
-@(form: Form[_], messagePrefix: Option[String] = None)(implicit requestHeader: RequestHeader, messages: Messages)
+@(form: Form[_], messagePrefix: Option[String] = None, clientId: Option[Long] = None)(implicit requestHeader: RequestHeader, messages: Messages)
 
+    @clientSuffix = @{
+                clientId match {
+                            case Some(id) => { ".client"}
+                            case _        => {""}
+                            }
+                    }
     @removeInvalid(error: FormError) = @{ error.key.replace("[", "").replace(".", "").replace("]", "").replace("__", "") }
     @showError(error: FormError) = {
         <li>
             <a href="#@removeInvalid(error)Group" data-focuses="@removeInvalid(error)Group">
                 <span>@defining(error.key.split("\\.")) { errorParts =>
                     @error.key match {
-                        case s if Seq("day", "month", "year").exists(s.contains) => { @messages(s"label.${errorParts.head}") - @messages(s"${error.key}.label") }
+                        case s if Seq("day", "month", "year").exists(s.contains) => { @messages(s"label.${errorParts.head}$clientSuffix") - @messages(s"${error.key}.label") }
                         case s if s.contains("address") => { @messages(s"label.${error.key}") }
                         case s if s == ""  => {}
                         case _ => {
-                            @messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", ""))
+                            @messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "") + clientSuffix)
                         }
                     }
                 }

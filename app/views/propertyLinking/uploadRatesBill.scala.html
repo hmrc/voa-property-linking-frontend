@@ -28,7 +28,12 @@
         linkingSession: LinkingSession
 )(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-    @main_template(title = Messages("uploadRatesBill.show.title"),
+@title = @{linkingSession.clientId match {
+    case Some(id)   => {messages("uploadRatesBill.show.client.title")}
+    case _          => {messages("uploadRatesBill.show.title")}
+}}
+
+    @main_template(title = title,
         topBackLink = true,
         bottomBackLink = true,
         backLinkUrl = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url)
@@ -37,7 +42,7 @@
             <div class="grid-row">
                 <div class="column-two-thirds">
                     <h1 class="heading-xlarge">
-                        @messages("uploadRatesBill.show.title")
+                        @title
                     </h1>
 
                     <p>@messages("uploadFile.allowedTypes.mustbe")</p>

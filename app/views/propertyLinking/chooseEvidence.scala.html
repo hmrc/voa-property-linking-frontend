@@ -19,9 +19,13 @@
 @import controllers.propertyLinking.ChooseEvidence.keys
 @import config.ApplicationConfig
 
-@(f: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(f: Form[_], clientId: Option[Long])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-    @main_template(Messages("chooseEvidence.title"),
+@title = @{clientId match {
+    case Some(id)   => {messages("chooseEvidence.client.title")}
+    case _          => {messages("chooseEvidence.title")}
+}}
+    @main_template(title,
         topBackLink = true,
         bottomBackLink = true,
         backLinkUrl = Some(controllers.propertyLinking.routes.ClaimProperty.back().url)
@@ -29,7 +33,7 @@
         <div class="grid-row">
             <div class="column-two-thirds">
 
-                <h1 class="heading-xlarge">@messages("chooseEvidence.title")</h1>
+                <h1 class="heading-xlarge">@title</h1>
 
                 @form(controllers.propertyLinking.routes.ChooseEvidence.submit) {
 

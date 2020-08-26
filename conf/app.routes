@@ -25,7 +25,7 @@ GET         /identity-verification/success                                      
 #Dashboard
 GET         /home                                                                             @controllers.Dashboard.home()
 GET         /your-details                                                                     @controllers.Dashboard.yourDetails()
-GET         /properties                                                                       @controllers.Dashboard.manageProperties()
+GET         /properties                                                                       @controllers.Dashboard.manageProperties(clientId: Option[Long] ?= None, clientName: Option[String] ?= None)
 GET         /managed-properties/:agentCode                                                    @controllers.Dashboard.viewManagedProperties(agentCode: Long, owner: Boolean ?= true)
 
 GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
@@ -143,10 +143,10 @@ GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId
 GET         /can-challenge                                                                                                            @controllers.detailedvaluationrequest.DvrController.canChallenge(plSubmissionId: String, assessmnetRef: Long, caseRef: String, authorisationId: Long, uarn: Long, isOwner: Boolean)
 
 #Claiming a property link
-GET         /my-organisation/claim/property-links/property-search                             @controllers.propertyLinking.ClaimProperty.show()
+GET         /my-organisation/claim/property-links/property-search                             @controllers.propertyLinking.ClaimProperty.show(clientId: Option[Long] ?= None, clientName: Option[String] ?= None)
 GET         /my-organisation/claim/property-links/before-you-start                            @controllers.propertyLinking.ClaimProperty.checkPropertyLinks()
-GET         /my-organisation/claim/property-links/capacity/:uarn                              @controllers.propertyLinking.ClaimProperty.declareCapacity(uarn: Long, address, clientId: Option[Long] ?= None)
-POST        /my-organisation/claim/property-links/capacity/:uarn                              @controllers.propertyLinking.ClaimProperty.attemptLink(uarn: Long, address, clientId: Option[Long] ?= None)
+GET         /my-organisation/claim/property-links/capacity/:uarn                              @controllers.propertyLinking.ClaimProperty.declareCapacity(uarn: Long, address, clientId: Option[Long] ?= None, clientName: Option[String] ?= None)
+POST        /my-organisation/claim/property-links/capacity/:uarn                              @controllers.propertyLinking.ClaimProperty.attemptLink(uarn: Long, address, clientId: Option[Long] ?= None, clientName: Option[String] ?= None)
 GET         /my-organisation/claim/property-links                                             @controllers.propertyLinking.ClaimProperty.back()
 GET         /my-organisation/claim/property-links/evidence                                    @controllers.propertyLinking.ChooseEvidence.show()
 POST        /my-organisation/claim/property-links/evidence                                    @controllers.propertyLinking.ChooseEvidence.submit()

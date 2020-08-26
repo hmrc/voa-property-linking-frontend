@@ -31,7 +31,12 @@
         <div class="column-two-thirds">
 
             <div class="transaction-banner--complete">
-                <h1 class="transaction-banner__heading" id="pageHeading">@messages("linkingRequestSubmitted.title1") @model.address.toString @messages("linkingRequestSubmitted.title2")</h1>
+                <h1 class="transaction-banner__heading" id="pageHeading">@messages("linkingRequestSubmitted.title1")
+                    @model.clientId match {
+                    case Some(id)   => { @model.address.toString @messages("linkingRequestSubmitted.client.title2") }
+                    case _          => { @model.address.toString @messages("linkingRequestSubmitted.title2") }
+                    }
+                </h1>
                 <p class="heading-medium no-margin">@messages("linkingRequestSubmitted.title3")</p>
                 <p class="heading-medium no-margin" id="submissionIdText">@model.refId</p>
             </div>
@@ -43,9 +48,9 @@
             <p>@messages("linkSubmitted.whatNext.3")</p>
             <p>@messages("linkSubmitted.whatNext.4")</p>
 
-            <p><a href="@controllers.propertyLinking.routes.ClaimProperty.show" class="link">@messages("link.addAnotherProperty")</a></p>
+            <p><a href="@controllers.propertyLinking.routes.ClaimProperty.show(model.clientId, model.clientName)" class="link">@messages("link.addAnotherProperty")</a></p>
 
-            <p><a href="@routes.Dashboard.manageProperties()" id="backToDashBoard" class="button" role="button">@messages("link.manageProperties")</a></p>
+            <p><a href="@routes.Dashboard.manageProperties(model.clientId, model.clientName)" id="backToDashBoard" class="button" role="button">@messages("link.manageProperties")</a></p>
 
         </div>
     </div>

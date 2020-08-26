@@ -59,7 +59,7 @@ class Declaration @Inject()(
 
   def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis == RatesBillFlag
-    Ok(declaration(DeclarationVM(form), isRatesBillEvidence))
+    Ok(declaration(DeclarationVM(form), isRatesBillEvidence, request.ses.clientId))
   }
 
   /*
@@ -71,7 +71,8 @@ class Declaration @Inject()(
       .fold(
         _ => {
           val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
-          Future.successful(BadRequest(declaration(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence)))
+          Future.successful(
+            BadRequest(declaration(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence, request.ses.clientId)))
         },
         _ =>
           propertyLinkService
@@ -85,7 +86,8 @@ class Declaration @Inject()(
                   BadRequest(
                     declaration(
                       DeclarationVM(form.fill(true).withError("declaration", "declaration.file.receipt")),
-                      isRatesBillEvidence))
+                      isRatesBillEvidence,
+                      request.ses.clientId))
                 case MissingRequiredNumberOfFiles =>
                   logger.warn(
                     s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")
@@ -105,7 +107,13 @@ class Declaration @Inject()(
 
   def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     sessionRepository.remove().map { _ =>
-      Ok(views.html.linkingRequestSubmitted(RequestSubmittedVM(request.ses.address, request.ses.submissionId)))
+      Ok(
+        views.html.linkingRequestSubmitted(
+          RequestSubmittedVM(
+            request.ses.address,
+            request.ses.submissionId,
+            request.ses.clientId,
+            request.ses.clientName)))
     }
   }
 
@@ -115,4 +123,8 @@ class Declaration @Inject()(
 
 case class DeclarationVM(form: Form[_])
 
-case class RequestSubmittedVM(address: String, refId: String)
+case class RequestSubmittedVM(
+      address: String,
+      refId: String,
+      clientId: Option[Long] = None,
+      clientName: Option[String] = None)

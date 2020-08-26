@@ -62,8 +62,13 @@ class ClaimProperty @Inject()(
 
   import ClaimProperty._
 
-  def show() = authenticatedAction { implicit request =>
-    Redirect(s"${config.vmvUrl}/search")
+  def show(clientId: Option[Long] = None, clientName: Option[String] = None) = authenticatedAction {
+    implicit request =>
+      val uri = (clientId, clientName) match {
+        case (Some(id), Some(name)) => s"search?clientId=$id&clientName=$name"
+        case _                      => s"search"
+      }
+      Redirect(s"${config.vmvUrl}/$uri")
   }
 
   def checkPropertyLinks() = authenticatedAction.async { implicit request =>
@@ -79,19 +84,27 @@ class ClaimProperty @Inject()(
     }
   }
 
-  def declareCapacity(uarn: Long, address: String, clientId: Option[Long] = None) = authenticatedAction {
-    implicit request =>
+  def declareCapacity(uarn: Long, address: String, clientId: Option[Long] = None, clientName: Option[String] = None) =
+    authenticatedAction { implicit request =>
       Ok(
         views.html.propertyLinking
-          .declareCapacity(DeclareCapacityVM(declareCapacityForm, address, uarn), clientId, backLink(request)))
-  }
+          .declareCapacity(
+            DeclareCapacityVM(declareCapacityForm, address, uarn),
+            clientId,
+            clientName,
+            backLink(request)))
+    }
 
   private def backLink(request: Request[AnyContent]): String = {
     val link = request.headers.get("referer").getOrElse(config.newDashboardUrl("home"))
-    if (link.contains("/business-rates-find")) link else config.newDashboardUrl("home")
+    if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
   }
 
-  def attemptLink(uarn: Long, address: String, clientId: Option[Long] = None): Action[AnyContent] =
+  def attemptLink(
+        uarn: Long,
+        address: String,
+        clientId: Option[Long] = None,
+        clientName: Option[String] = None): Action[AnyContent] =
     authenticatedAction.async { implicit request =>
       ClaimProperty.declareCapacityForm
         .bindFromRequest()
@@ -99,9 +112,9 @@ class ClaimProperty @Inject()(
           errors =>
             Future.successful(
               BadRequest(views.html.propertyLinking
-                .declareCapacity(DeclareCapacityVM(errors, address, uarn), clientId, backLink(request)))),
+                .declareCapacity(DeclareCapacityVM(errors, address, uarn), clientId, clientName, backLink(request)))),
           formData =>
-            initialiseSession(formData, uarn, address, clientId)
+            initialiseSession(formData, uarn, address, clientId, clientName)
               .map { _ =>
                 Redirect(routes.ChooseEvidence.show())
               }
@@ -118,14 +131,17 @@ class ClaimProperty @Inject()(
         .declareCapacity(
           DeclareCapacityVM(form, request.ses.address, request.ses.uarn),
           request.ses.clientId,
-          backLink(request)))
+          request.ses.clientName,
+          backLink(request)
+        ))
   }
 
   private def initialiseSession(
         declaration: CapacityDeclaration,
         uarn: Long,
         address: String,
-        clientId: Option[Long] = None)(implicit request: AuthenticatedRequest[_]): Future[Unit] =
+        clientId: Option[Long] = None,
+        clientName: Option[String] = None)(implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
       submissionId <- submissionIdConnector.get()
       _ <- sessionRepository.start[LinkingSession](
@@ -135,7 +151,8 @@ class ClaimProperty @Inject()(
               submissionId = submissionId,
               personId = request.personId,
               declaration = declaration,
-              clientId = clientId))
+              clientId = clientId,
+              clientName = clientName))
     } yield ()
 
 }
