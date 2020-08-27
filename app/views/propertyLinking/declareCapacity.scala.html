@@ -49,8 +49,7 @@
                 <a href="@{controllers.propertyLinking.routes.ClaimProperty.show().url + clientParameter}">@messages("declareCapacity.incorrectProperty.link")</a>
             </p>
 
-
-            @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientDetails)) {
+            @form(controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientDetails)) {
 
             @clientId match {
                     case Some(id)   => {
