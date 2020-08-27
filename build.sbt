@@ -108,7 +108,7 @@ def oneForkedJvmPerTest(tests: Seq[TestDefinition]) =
 val appName = "voa-property-linking-frontend"
 
 val playSettings: Seq[Setting[_]] = Seq(
-  routesImport ++= Seq("binders.propertylinks._", "binders.propertylinks.EvidenceChoices._", "binders.pagination._", "models.SortOrder", "models.messages.MessagePagination", "models.searchApi.AgentPropertiesParameters"),
+  routesImport ++= Seq("binders.propertylinks._", "binders.propertylinks.EvidenceChoices._", "binders.pagination._", "models.SortOrder", "models.messages.MessagePagination", "models.searchApi.AgentPropertiesParameters", "models.ClientDetails"),
   // Add the views to the dist
   unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
   // Dont include the source assets in the dist package (public folder)

@@ -53,13 +53,13 @@ class Dashboard @Inject()(
     Redirect(config.newDashboardUrl("your-details"))
   }
 
-  def manageProperties(clientId: Option[Long] = None, clientName: Option[String] = None) = authenticated {
-    implicit request =>
-      (clientId, clientName) match {
-        case (Some(id), Some(name)) =>
-          Redirect(config.newDashboardUrl(s"selected-client-properties?clientOrganisationId=$id&clientName=$name"))
-        case _ => Redirect(config.newDashboardUrl("your-properties"))
-      }
+  def manageProperties(clientDetails: Option[ClientDetails] = None) = authenticated { implicit request =>
+    clientDetails match {
+      case Some(client) =>
+        Redirect(config.newDashboardUrl(
+          s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}"))
+      case _ => Redirect(config.newDashboardUrl("your-properties"))
+    }
   }
 
   def manageAgents() = authenticated { implicit request =>

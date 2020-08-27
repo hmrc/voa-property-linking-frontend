@@ -28,7 +28,7 @@
         linkingSession: LinkingSession
 )(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@title = @{linkingSession.clientId match {
+@title = @{linkingSession.clientDetails.map(_.organisationId) match {
     case Some(id)   => {messages("uploadRatesBill.show.client.title")}
     case _          => {messages("uploadRatesBill.show.title")}
 }}

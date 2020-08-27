@@ -41,7 +41,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
   val clientId = 100
   val mockPropertyLinkRequest = mock[PropertyLinkRequest]
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
-  implicit def linkingSessionRequest(clientId: Option[Long] = None) = LinkingSessionRequest(
+  implicit def linkingSessionRequest(clientDetails: Option[ClientDetails] = None) = LinkingSessionRequest(
     LinkingSession(
       address = "",
       uarn = 1L,
@@ -55,7 +55,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
         toDate = None),
       uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
       evidenceType = Some(RatesBillType),
-      clientId = None
+      clientDetails = clientDetails
     ),
     organisationId = 1L,
     individualAccount = detailedIndividualAccount,
@@ -75,7 +75,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "submit with clientId" should "return Unit when successful" in {
-    implicit val updatedLinkingSession = linkingSessionRequest(Some(clientId))
+    implicit val updatedLinkingSession = linkingSessionRequest(Some(ClientDetails(100, "ABC")))
     when(mockPropertyLinkConnector.createPropertyLinkOnClientBehalf(any(), any())(any()))
       .thenReturn(Future.successful(httpResponse))
     when(mockBusinessRatesAttachmentsService.submit(any(), any(), any())(any(), any()))

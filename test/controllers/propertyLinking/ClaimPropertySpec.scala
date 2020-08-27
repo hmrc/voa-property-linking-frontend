@@ -78,8 +78,8 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec {
   "The claim property page on client behalf" should "contain the claim property form" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = testClaimProperty.declareCapacity(positiveLong, shortString, Some(positiveLong), Some(shortString))(
-      FakeRequest())
+    val res = testClaimProperty
+      .declareCapacity(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -94,9 +94,10 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec {
   }
 
   it should "contain link back to business-rates-find if thats where the request came from" in {
-    val res = testClaimProperty.declareCapacity(positiveLong, shortString, Some(positiveLong), Some(shortString))(
-      FakeRequest().withHeaders(
-        ("referer", "http://localhost:9542/business-rates-find/summary/10361354?uarn=156039182")))
+    val res =
+      testClaimProperty.declareCapacity(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(
+        FakeRequest().withHeaders(
+          ("referer", "http://localhost:9542/business-rates-find/summary/10361354?uarn=156039182")))
     status(res) mustBe OK
 
     val html = HtmlPage(res)

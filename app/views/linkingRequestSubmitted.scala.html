@@ -19,6 +19,12 @@
 
 @(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@clientParameter = @{
+        (model.clientDetails)  match {
+            case Some(client) => { s"?organisationId=${client.organisationId}&organisationName=${client.organisationName}"  }
+            case _        => ""
+        }
+}
 @main_template(
     title = Messages("linkingRequestSubmitted.title"),
     topBackLink = false,
@@ -32,7 +38,7 @@
 
             <div class="transaction-banner--complete">
                 <h1 class="transaction-banner__heading" id="pageHeading">@messages("linkingRequestSubmitted.title1")
-                    @model.clientId match {
+                    @model.clientDetails.map(_.organisationId) match {
                     case Some(id)   => { @model.address.toString @messages("linkingRequestSubmitted.client.title2") }
                     case _          => { @model.address.toString @messages("linkingRequestSubmitted.title2") }
                     }
@@ -48,9 +54,9 @@
             <p>@messages("linkSubmitted.whatNext.3")</p>
             <p>@messages("linkSubmitted.whatNext.4")</p>
 
-            <p><a href="@controllers.propertyLinking.routes.ClaimProperty.show(model.clientId, model.clientName)" class="link">@messages("link.addAnotherProperty")</a></p>
+            <p><a href="@{controllers.propertyLinking.routes.ClaimProperty.show().url + clientParameter}" class="link">@messages("link.addAnotherProperty")</a></p>
 
-            <p><a href="@routes.Dashboard.manageProperties(model.clientId, model.clientName)" id="backToDashBoard" class="button" role="button">@messages("link.manageProperties")</a></p>
+            <p><a href="@{routes.Dashboard.manageProperties().url + clientParameter}" id="backToDashBoard" class="button" role="button">@messages("link.manageProperties")</a></p>
 
         </div>
     </div>

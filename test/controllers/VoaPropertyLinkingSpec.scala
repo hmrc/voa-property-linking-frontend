@@ -95,7 +95,7 @@ trait VoaPropertyLinkingSpec
             block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = super.invokeBlock(request, block)
     }
 
-  def preEnrichedActionRefiner(clientId: Option[Long] = None): WithLinkingSession =
+  def preEnrichedActionRefiner(): WithLinkingSession =
     new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
 
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
@@ -115,7 +115,7 @@ trait VoaPropertyLinkingSpec
                   toDate = None),
                 uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
                 evidenceType = Some(RatesBillType),
-                clientId = clientId
+                clientDetails = Some(ClientDetails(100, "ABC"))
               ),
               organisationId = 1L,
               individualAccount = request.individualAccount,

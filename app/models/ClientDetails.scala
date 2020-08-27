@@ -16,10 +16,41 @@
 
 package models
 
+import binders.validation.ValidationUtils
 import play.api.libs.json.{Format, Json}
+import play.api.mvc.QueryStringBindable
 
 case class ClientDetails(organisationId: Long, organisationName: String)
 
-object ClientDetails {
-  implicit val format: Format[ClientDetails] = Json.format[ClientDetails]
+object ClientDetails extends ValidationUtils {
+  implicit val format = Json.format[ClientDetails]
+
+  implicit def queryStringBinder(
+                                  implicit strBinder: QueryStringBindable[String],
+                                  longBinder: QueryStringBindable[Long]) =
+    new QueryStringBindable[Option[ClientDetails]] {
+      override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, Option[ClientDetails]]] =
+        for {
+          organisationId      <- longBinder.bind("organisationId", params)
+          organisationName    <- strBinder.bind("organisationName", params)
+        } yield {
+          (organisationId, organisationName) match {
+            case (Right(organisationId), Right(organisationName)) =>
+              Right(
+                Some(ClientDetails(
+                  organisationId = organisationId,
+                  organisationName = organisationName)))
+            case _ =>
+              Left("Unable to bind a ClientDetails")
+          }
+        }
+
+      override def unbind(key: String, params: Option[ClientDetails]): String =
+        params match {
+          case Some(client)   => strBinder.unbind("organisationId", client.organisationId.toString) + "&" + strBinder
+            .unbind("organisationName", client.organisationName)
+          case _ => ""
+        }
+    }
+
 }

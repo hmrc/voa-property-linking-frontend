@@ -19,9 +19,9 @@
 @import controllers.propertyLinking.ChooseEvidence.keys
 @import config.ApplicationConfig
 
-@(f: Form[_], clientId: Option[Long])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(f: Form[_], clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@title = @{clientId match {
+@title = @{clientDetails.map(_.organisationId) match {
     case Some(id)   => {messages("chooseEvidence.client.title")}
     case _          => {messages("chooseEvidence.title")}
 }}

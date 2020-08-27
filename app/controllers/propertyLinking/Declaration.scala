@@ -25,7 +25,7 @@ import controllers.PropertyLinkingController
 import form.Mappings._
 import javax.inject.Named
 import models.propertylinking.requests.PropertyLinkRequest
-import models.{RatesBillFlag, RatesBillType}
+import models.{ClientDetails, RatesBillFlag, RatesBillType}
 import play.api.Logger
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
@@ -59,7 +59,7 @@ class Declaration @Inject()(
 
   def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis == RatesBillFlag
-    Ok(declaration(DeclarationVM(form), isRatesBillEvidence, request.ses.clientId))
+    Ok(declaration(DeclarationVM(form), isRatesBillEvidence, request.ses.clientDetails))
   }
 
   /*
@@ -71,12 +71,14 @@ class Declaration @Inject()(
       .fold(
         _ => {
           val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
-          Future.successful(
-            BadRequest(declaration(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence, request.ses.clientId)))
+          Future.successful(BadRequest(
+            declaration(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence, request.ses.clientDetails)))
         },
         _ =>
           propertyLinkService
-            .submit(PropertyLinkRequest(request.ses, request.organisationId), request.ses.clientId)
+            .submit(
+              PropertyLinkRequest(request.ses, request.organisationId),
+              request.ses.clientDetails.map(_.organisationId))
             .fold(
               {
                 case NotAllFilesReadyToUpload =>
@@ -87,7 +89,7 @@ class Declaration @Inject()(
                     declaration(
                       DeclarationVM(form.fill(true).withError("declaration", "declaration.file.receipt")),
                       isRatesBillEvidence,
-                      request.ses.clientId))
+                      request.ses.clientDetails))
                 case MissingRequiredNumberOfFiles =>
                   logger.warn(
                     s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")
@@ -107,13 +109,8 @@ class Declaration @Inject()(
 
   def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     sessionRepository.remove().map { _ =>
-      Ok(
-        views.html.linkingRequestSubmitted(
-          RequestSubmittedVM(
-            request.ses.address,
-            request.ses.submissionId,
-            request.ses.clientId,
-            request.ses.clientName)))
+      Ok(views.html.linkingRequestSubmitted(
+        RequestSubmittedVM(request.ses.address, request.ses.submissionId, request.ses.clientDetails)))
     }
   }
 
@@ -123,8 +120,4 @@ class Declaration @Inject()(
 
 case class DeclarationVM(form: Form[_])
 
-case class RequestSubmittedVM(
-      address: String,
-      refId: String,
-      clientId: Option[Long] = None,
-      clientName: Option[String] = None)
+case class RequestSubmittedVM(address: String, refId: String, clientDetails: Option[ClientDetails] = None)

@@ -19,11 +19,16 @@
 @import controllers.propertyLinking.DeclareCapacityVM
 @import config.ApplicationConfig
 
-@(model: DeclareCapacityVM, clientId: Option[Long] = None, clientName: Option[String] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: DeclareCapacityVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@clientId = @{clientDetails.map(_.organisationId)}
+@clientParameter = @{
+    clientDetails  match {
+        case Some(client) => { s"?organisationId=${client.organisationId}&organisationName=${client.organisationName}"  }
+        case _        => ""
+    }
+}
 
 @main_template(title = Messages("declareCapacity.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backLink)) {
-
-
     <div class="grid-row">
         <div class="column-two-thirds">
 
@@ -41,12 +46,11 @@
 
             <p class="panel panel-border-wide">
                 @messages("declareCapacity.incorrectProperty.prefix")
-                <a href="@controllers.propertyLinking.routes.ClaimProperty.show(clientId, clientName)">@messages("declareCapacity.incorrectProperty.link")</a>
+                <a href="@{controllers.propertyLinking.routes.ClaimProperty.show().url + clientParameter}">@messages("declareCapacity.incorrectProperty.link")</a>
             </p>
 
 
-            @form(controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientId, clientName)) {
-
+            @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientDetails)) {
 
             @clientId match {
                     case Some(id)   => {
@@ -150,7 +154,6 @@
                 <div id="endDate" data-toggle-hidden>
                     @dateFields(model.form, "toDate", label = Some(clientId.fold("label.toDate"){_ => "label.toDate.client"}))
                 </div>
-
                 <p>
                     <button type="submit" id="continue" name="continue_button" class="button">@messages("declareCapacity.submit.button")</button>
                 </p>
