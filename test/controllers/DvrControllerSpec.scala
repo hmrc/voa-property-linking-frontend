@@ -24,11 +24,10 @@ import org.mockito.ArgumentMatchers.{any, eq => matching}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
-import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.StubPropertyLinkConnector
+import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class DvrControllerSpec extends VoaPropertyLinkingSpec {
@@ -43,8 +42,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       mockChallengeConnector,
       preAuthenticatedActionBuilders(),
       mockSubmissionIds,
-      mockDvrCaseManagement,
-      mockBusinessRatesAuthorisation
+      mockDvrCaseManagement
     )
 
     lazy val mockSubmissionIds = {

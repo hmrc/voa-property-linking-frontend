@@ -16,7 +16,6 @@
 
 package connectors.propertyLinking
 
-import actions.requests.BasicAuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
 import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
@@ -175,8 +174,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
     http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId")
 
   def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isOwner: Boolean)(
-        implicit request: BasicAuthenticatedRequest[_],
-        hc: HeaderCarrier): Future[Option[CanChallengeResponse]] = {
+        implicit hc: HeaderCarrier): Future[Option[CanChallengeResponse]] = {
     val interestedParty = if (isOwner) "client" else "agent"
     http
       .GET[HttpResponse](

@@ -41,7 +41,7 @@ trait IdentityVerificationService {
   val proxyConnector: IdentityVerificationProxyConnector
   val config: ApplicationConfig
 
-  def start(userData: IVDetails)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Link] =
+  def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] =
     proxyConnector
       .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
 

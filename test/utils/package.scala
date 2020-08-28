@@ -24,7 +24,9 @@ import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, Ow
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, _}
 
-package object resources {
+import scala.language.implicitConversions
+
+package object utils {
 
   implicit def getArbitrary[T](t: Gen[T]): T = t.sample.get
 

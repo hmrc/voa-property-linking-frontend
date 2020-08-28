@@ -19,16 +19,12 @@ package controllers
 import connectors.DraftCases
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
-import org.scalatest.mockito.MockitoSugar
 import play.api.http.Status._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{redirectLocation, status}
-import resources.randomDraftCase
-import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.StubPropertyLinkConnector
+import utils.{StubPropertyLinkConnector, randomDraftCase}
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class ManageDraftCasesSpec extends VoaPropertyLinkingSpec {

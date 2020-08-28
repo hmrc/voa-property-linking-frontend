@@ -17,14 +17,10 @@
 package controllers.agent
 
 import actions.AuthenticatedAction
-import actions.requests.AgentRequest
-import cats.data.OptionT
-import cats.instances.future._
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.agent.RepresentationController.ManagePropertiesVM
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
 import form.FormValidation._
 import models._
@@ -32,12 +28,10 @@ import models.searchApi.AgentAuthResult
 import play.api.data.Form
 import play.api.data.Forms.{mapping, _}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
-import uk.gov.hmrc.http.HeaderCarrier
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.{Failure, Try}
 
 @Singleton()
 class RepresentationController @Inject()(
@@ -54,7 +48,7 @@ class RepresentationController @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController with ValidPagination {
 
-  def viewClientProperties(): Action[AnyContent] = authenticated.asAgent { implicit request =>
+  def viewClientProperties(): Action[AnyContent] = authenticated.asAgent { _ =>
     Future.successful(Redirect(config.newDashboardUrl("client-properties")))
   }
 
@@ -65,7 +59,7 @@ class RepresentationController @Inject()(
     }
   }
 
-  def revokeClientPropertyConfirmed(plSubmissionId: String, address: String) = authenticated.async {
+  def revokeClientPropertyConfirmed(plSubmissionId: String, address: String): Action[AnyContent] = authenticated.async {
     implicit request =>
       reprConnector.revokeClientProperty(plSubmissionId).map(_ => Ok(confirmRevokeClientPropertyPage(address)))
   }

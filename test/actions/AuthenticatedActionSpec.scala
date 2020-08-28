@@ -137,7 +137,7 @@ class AuthenticatedActionSpec
 
     implicit val hc: HeaderCarrier = HeaderCarrier()
 
-    def success: Unit = ()
+    def success(): Unit = ()
 
     def exception: Option[AuthorisationException] = None
 
@@ -145,7 +145,7 @@ class AuthenticatedActionSpec
       override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(
             implicit hc: HeaderCarrier,
             ec: ExecutionContext): Future[A] =
-        exception.fold(Future.successful(success.asInstanceOf[A]))(Future.failed(_))
+        exception.fold(Future.successful(success().asInstanceOf[A]))(Future.failed(_))
     }
 
     implicit val appConfig: ApplicationConfig = Configs.applicationConfig

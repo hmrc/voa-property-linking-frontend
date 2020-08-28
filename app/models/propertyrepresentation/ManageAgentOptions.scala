@@ -17,7 +17,7 @@
 package models.propertyrepresentation
 
 import models.{EnumFormat, NamedEnum, NamedEnumSupport}
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json.Json
 
 sealed trait ManageAgentOptions extends NamedEnum {
   val name: String

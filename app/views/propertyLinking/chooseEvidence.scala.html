@@ -16,7 +16,6 @@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
-@import controllers.propertyLinking.ChooseEvidence.keys
 @import config.ApplicationConfig
 
 @(f: Form[_], clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -40,7 +39,7 @@
                     @includes.errorSummary(f)
 
                     @inputRadioGroup(
-                        f(keys.hasRatesBill),
+                        f("hasRatesBill"),
                         options = Seq("true", "false"),
                         args = Seq(
                             '_label -> Messages("label.hasRatesBill"),

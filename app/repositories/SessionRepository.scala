@@ -16,47 +16,48 @@
 
 package repositories
 
-import javax.inject.Inject
-
 import com.google.inject.Singleton
-import models.messages.Message
+import javax.inject.Inject
 import play.api.libs.json._
 import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.api.DB
 import reactivemongo.api.indexes.{Index, IndexType}
-import reactivemongo.bson.{BSONDateTime, BSONDocument, BSONString}
+import reactivemongo.bson.{BSONDateTime, BSONDocument, BSONString, _}
+import reactivemongo.play.json.ImplicitBSONHandlers._
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.NoSessionException
 import uk.gov.hmrc.mongo.ReactiveRepository
-import reactivemongo.bson._
-import reactivemongo.play.json.ImplicitBSONHandlers._
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-import scala.concurrent.duration._
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.logging.Mdc
 
+import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.duration._
+
 @Singleton
-class PersonalDetailsSessionRepository @Inject()(mongo: ReactiveMongoComponent)
+class PersonalDetailsSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
+      implicit executionContext: ExecutionContext)
     extends SessionRepository("personDetails", mongo)
 
 @Singleton
-class PropertyLinkingSessionRepository @Inject()(mongo: ReactiveMongoComponent)
+class PropertyLinkingSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
+      implicit executionContext: ExecutionContext)
     extends SessionRepository("propertyLinking", mongo)
 
 @Singleton
-class PropertyLinksSessionRepository @Inject()(mongo: ReactiveMongoComponent)
+class PropertyLinksSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
+      implicit executionContext: ExecutionContext)
     extends SessionRepository("propertyLinks", mongo)
 
 @Singleton
-class AppointAgentSessionRepository @Inject()(mongo: ReactiveMongoComponent)
+class AppointAgentSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
+      implicit executionContext: ExecutionContext)
     extends SessionRepository("appointNewAgent", mongo)
 
 @Singleton
-class AssessmentsPageSessionRepository @Inject()(mongo: ReactiveMongoComponent)
+class AssessmentsPageSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
+      implicit executionContext: ExecutionContext)
     extends SessionRepository("assessmentPage", mongo)
 
-class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
+class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)(
+      implicit executionContext: ExecutionContext)
     extends ReactiveRepository[SessionData, String](
       "sessions",
       mongo.mongoConnector.db,
@@ -70,14 +71,16 @@ class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
     Mdc.preservingMdc {
       for {
         sessionId <- getSessionId
-        _ <- collection.update(
-              BSONDocument("_id" -> BSONString(sessionId)),
-              BSONDocument(
-                "$set"         -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
-                "$setOnInsert" -> BSONDocument("createdAt"     -> BSONDateTime(System.currentTimeMillis))
-              ),
-              upsert = true
-            )
+        _ <- collection
+              .update(false)
+              .one(
+                BSONDocument("_id" -> BSONString(sessionId)),
+                BSONDocument(
+                  "$set"         -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
+                  "$setOnInsert" -> BSONDocument("createdAt"     -> BSONDateTime(System.currentTimeMillis))
+                ),
+                upsert = true
+              )
       } yield {
         ()
       }
@@ -103,10 +106,12 @@ class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
     Mdc.preservingMdc {
       for {
         sessionId <- getSessionId
-        _ <- collection.update(
-              BSONDocument("_id"    -> BSONString(sessionId)),
-              BSONDocument("$unset" -> BSONDocument(s"data.$formId" -> 1))
-            )
+        _ <- collection
+              .update(false)
+              .one(
+                BSONDocument("_id"    -> BSONString(sessionId)),
+                BSONDocument("$unset" -> BSONDocument(s"data.$formId" -> 1))
+              )
       } yield {
         ()
       }
@@ -118,7 +123,7 @@ class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)
     Index(
       key = Seq(("createdAt", IndexType.Ascending)),
       name = Some("sessionTTL"),
-      options = BSONDocument("expireAfterSeconds" -> (2 hours).toSeconds)
+      options = BSONDocument("expireAfterSeconds" -> (2.hours).toSeconds)
     )
   )
 

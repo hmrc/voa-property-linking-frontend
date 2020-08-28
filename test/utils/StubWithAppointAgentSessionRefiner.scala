@@ -26,16 +26,15 @@ import play.api.mvc.Result
 import repositories.SessionRepo
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class StubWithAppointAgentSessionRefiner(sessionRepository: SessionRepo)
-    extends WithAppointAgentSessionRefiner(mock(classOf[CustomErrorHandler]), sessionRepository) {
+    extends WithAppointAgentSessionRefiner(mock(classOf[CustomErrorHandler]), sessionRepository)(
+      ExecutionContext.global) {
 
   private var stubbedSession: Option[(AppointNewAgentSession, DetailedIndividualAccount, GroupAccount)] = None
 
-  override def refine[A](
-        request: BasicAuthenticatedRequest[A]): Future[Either[Result, AppointAgentSessionRequest[A]]] =
+  override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, AppointAgentSessionRequest[A]]] =
     stubbedSession.fold(throw new Exception("Appoint agent session not stubbed")) {
       case (appointAgentSession, person, organisation) =>
         Future.successful(Right(AppointAgentSessionRequest(appointAgentSession, person, organisation, request)))

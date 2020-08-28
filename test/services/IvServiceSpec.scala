@@ -24,7 +24,7 @@ import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import repositories.SessionRepo
-import resources._
+import utils._
 import services.iv.IvService
 import uk.gov.hmrc.auth.core.AffinityGroup._
 import uk.gov.hmrc.http.HeaderCarrier

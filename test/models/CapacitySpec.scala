@@ -18,7 +18,7 @@ package models
 
 import org.scalatest.{FlatSpec, MustMatchers}
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
-import resources._
+import utils._
 
 class CapacitySpec extends FlatSpec with MustMatchers with ScalaCheckDrivenPropertyChecks {
   "Capacity" must "create from CapacityDeclaration" in {

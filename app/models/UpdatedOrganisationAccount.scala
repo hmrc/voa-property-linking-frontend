@@ -16,7 +16,7 @@
 
 package models
 
-import java.time.{Instant, LocalDate}
+import java.time.Instant
 
 import play.api.libs.json.{Format, Json}
 

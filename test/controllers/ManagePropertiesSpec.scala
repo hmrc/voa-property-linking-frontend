@@ -16,13 +16,12 @@
 
 package controllers
 
-import connectors.{DraftCases, GroupAccounts}
+import connectors.GroupAccounts
 import models._
 import models.searchApi._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
 import services.AgentRelationshipService
 import utils._
 
@@ -42,7 +41,7 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
     var arbitraryOwnerAuthorisation: Seq[OwnerAuthorisation] = Nil
 
     (1 to numberOfLinks) foreach { _ =>
-      arbitraryOwnerAuthorisation :+= arbitrary[OwnerAuthorisation].copy(authorisationId = groupAccount.id.toLong)
+      arbitraryOwnerAuthorisation :+= arbitrary[OwnerAuthorisation].copy(authorisationId = groupAccount.id)
     }
 
     StubPropertyLinkConnector.stubOwnerAuthResult(
@@ -57,7 +56,6 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
   private object TestDashboardController
       extends Dashboard(
         mockCustomErrorHandler,
-        mock[DraftCases],
         mock[AgentRelationshipService],
         mock[GroupAccounts],
         preAuthenticatedActionBuilders(),

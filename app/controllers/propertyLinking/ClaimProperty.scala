@@ -20,7 +20,7 @@ import java.time.LocalDate
 
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
-import actions.requests.{AuthenticatedRequest, BasicAuthenticatedRequest}
+import actions.requests.AuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.Singleton
 import config.ApplicationConfig

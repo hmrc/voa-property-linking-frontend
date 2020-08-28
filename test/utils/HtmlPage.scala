@@ -16,15 +16,14 @@
 
 package utils
 
-import org.scalatest.{AppendedClues, MustMatchers}
 import org.jsoup.Jsoup
-import play.api.test.Helpers._
-
-import scala.collection.JavaConverters._
-import org.jsoup.nodes.{Document, Element}
+import org.jsoup.nodes.Document
+import org.scalatest.{AppendedClues, MustMatchers}
 import play.api.mvc.Result
+import play.api.test.Helpers._
 import play.twirl.api.Html
 
+import scala.collection.JavaConverters._
 import scala.concurrent.Future
 
 case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {

@@ -18,7 +18,6 @@ package controllers.manageDetails
 
 import actions.AuthenticatedAction
 import config.ApplicationConfig
-import connectors.Addresses
 import controllers.PropertyLinkingController
 import javax.inject.Inject
 import play.api.i18n.MessagesApi
@@ -27,7 +26,6 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class ViewDetails @Inject()(
       val errorHandler: CustomErrorHandler,
-      addressesConnector: Addresses,
       authenticated: AuthenticatedAction
 )(
       implicit override val messagesApi: MessagesApi,
@@ -35,8 +33,6 @@ class ViewDetails @Inject()(
       config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def show(): Action[AnyContent] = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("your-details"))
-  }
+  def show(): Action[AnyContent] = authenticated(Redirect(config.newDashboardUrl("your-details")))
 
 }

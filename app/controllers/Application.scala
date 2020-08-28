@@ -32,9 +32,7 @@ class Application @Inject()(
     Ok(views.html.addUserToGG())
   }
 
-  def manageBusinessTaxAccount = Action { implicit request =>
-    Redirect(config.businessTaxAccountUrl("manage-account"))
-  }
+  def manageBusinessTaxAccount = Action(Redirect(config.businessTaxAccountUrl("manage-account")))
 
   def start() = Action { implicit request =>
     Ok(views.html.start(RegisterHelper.choiceForm))

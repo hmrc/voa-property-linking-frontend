@@ -178,7 +178,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
 
   it must "create an address record, and update the user's record with the generated address ID, if they enter the address manually" in {
     val addressId = Random.nextLong()
-    val address: Address = resources.addressGen.sample.get.copy(addressUnitId = None)
+    val address: Address = utils.addressGen.sample.get.copy(addressUnitId = None)
 
     when(mockAddressConnector.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(addressId))
     when(mockManageDetails.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))

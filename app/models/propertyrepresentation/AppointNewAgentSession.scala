@@ -16,7 +16,7 @@
 
 package models.propertyrepresentation
 
-import play.api.libs.json.{JsError, JsResult, JsValue, Json, OFormat, Reads, __}
+import play.api.libs.json._
 
 sealed trait AppointNewAgentSession {
   val status: AppointAgentJourneyStatus

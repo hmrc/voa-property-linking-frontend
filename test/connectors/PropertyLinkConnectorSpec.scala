@@ -18,7 +18,7 @@ package connectors
 
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{DefaultPaginationParams, PaginationParams, VoaPropertyLinkingSpec}
+import controllers.{DefaultPaginationParams, VoaPropertyLinkingSpec}
 import models._
 import models.dvr.cases.check.myclients.CheckCasesWithClient
 import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
@@ -30,8 +30,8 @@ import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
 import play.api.http.Status.OK
-import resources._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
+import utils._
 
 import scala.concurrent.Future
 
@@ -53,19 +53,6 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "linkToProperty" must "successfully post a property link request" in new Setup {
-    val individualAccount = arbitrary[DetailedIndividualAccount]
-    val groupAccount = arbitrary[GroupAccount]
-    val capacityDeclaration =
-      CapacityDeclaration(capacity = Occupier, interestedBefore2017 = true, fromDate = None, stillInterested = true)
-    val linkingSession = LinkingSession(
-      address = "123 Test Lane",
-      uarn = 1,
-      submissionId = "a001",
-      personId = individualAccount.individualId,
-      declaration = capacityDeclaration,
-      uploadEvidenceData = uploadEvidenceData
-    )
-
     val response = HttpResponse(OK)
     mockHttpPOST[PropertyLinkRequest, HttpResponse]("tst-url", response)
     whenReady(connector.createPropertyLink(mock[PropertyLinkPayload]))(_ mustBe response)
@@ -99,8 +86,6 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "clientProperty" must "return None if the client property is not found" in new Setup {
-    val clientProperty = arbitrary[ClientProperty].sample.get
-
     mockHttpFailedGET[ClientProperty]("tst-url", new NotFoundException("Client property not found"))
     whenReady(connector.clientProperty(1, 1, 1))(_ mustBe None)
   }
@@ -142,8 +127,6 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "clientPropertyLink" must "return None if the client property link is not found" in new Setup {
-    val clientProperty = mock[ClientPropertyLink]
-
     mockHttpFailedGET[ClientPropertyLink]("tst-url", new NotFoundException("Client property not found"))
     whenReady(connector.clientPropertyLink("some-submission-id"))(_ mustBe None)
   }

@@ -17,36 +17,24 @@
 package services
 
 import binders.propertylinks.GetPropertyLinksParameters
-import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
-import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{DefaultPaginationParams, PaginationParams}
-import models._
+import controllers.DefaultPaginationParams
 import models.propertyrepresentation.AgentAppointmentChangesResponse
-import models.searchApi.OwnerAuthAgent
-import repositories.SessionRepo
-import uk.gov.hmrc.http.HeaderCarrier
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
+import org.mockito.Mockito.{when, _}
+import repositories.SessionRepo
+import tests.AllMocks
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.logging.SessionId
 
 import scala.concurrent.Future
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
-import tests.AllMocks
 
 class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
 
-  import scala.concurrent.ExecutionContext.Implicits.global
-
   when(mockApplicationConfig.agentAppointDelay).thenReturn(0)
 
-  private lazy val testService = new AgentRelationshipService(
-    mockAuditingService,
-    mockRepresentationConnector,
-    mockPropertyLinkConnector,
-    mockSessionRepo,
-    mockApplicationConfig)
+  private lazy val testService =
+    new AgentRelationshipService(mockRepresentationConnector, mockPropertyLinkConnector, mockSessionRepo)
 
   private lazy val mockRepresentationConnector = mock[PropertyRepresentationConnector]
 
@@ -76,23 +64,10 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
 
   "createAndSubmitAgentRepRequest" should "return option unit when successful when new agent relationship is enabled" in {
 
-    val links = SessionPropertyLinks(
-      Seq(
-        SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", 1l)))
-      )
-    )
-
     when(mockPropertyLinkConnector.assignAgentToSomeProperties(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))
 
-    val res = testService.createAndSubmitAgentRepRequest(
-      pLinkIds = List("1"),
-      agentOrgId = 1L,
-      organisationId = 1L,
-      individualId = 1L,
-      isAgent = true,
-      agentCode = 12312L
-    )
+    val res = testService.createAndSubmitAgentRepRequest(pLinkIds = List("1"), agentCode = 12312L)
 
     res.futureValue must be(())
 
@@ -100,9 +75,6 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   }
 
   "createAndSubitAgentRevokeRequest" should "return option unit when successful when new agent relationship enabled" in {
-
-    val links =
-      SessionPropertyLinks(Seq(SessionPropertyLink(1L, "1", Seq(OwnerAuthAgent(1l, 1l, "organisationName", 1l)))))
 
     when(mockPropertyLinkConnector.unassignAgentFromSomeProperties(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))

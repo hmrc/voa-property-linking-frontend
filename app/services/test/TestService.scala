@@ -18,19 +18,18 @@ package services.test
 
 import connectors.test.TestTaxEnrolmentConnector
 import javax.inject.Inject
-import services.{Failure, Success}
+import services.{EnrolmentResult, Failure, Success}
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
 
-class TestService @Inject()(taxEnrolmentsConnector: TestTaxEnrolmentConnector) {
+class TestService @Inject()(taxEnrolmentsConnector: TestTaxEnrolmentConnector)(
+      implicit executionContext: ExecutionContext) {
 
-  def deEnrolUser(personID: Long)(implicit hc: HeaderCarrier) =
+  def deEnrolUser(personID: Long)(implicit hc: HeaderCarrier): Future[EnrolmentResult] =
     taxEnrolmentsConnector
       .deEnrol(personID)
       .map(_ => Success)
-      .recover {
-        case _: Throwable => Failure
-      }
+      .recover { case _: Throwable => Failure }
 
 }

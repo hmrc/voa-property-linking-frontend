@@ -21,16 +21,14 @@ import models.registration.GroupAccountDetails
 import models.{Address, DetailedAddress}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
-import resources._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import utils.Configs._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 
-object StubAddresses extends Addresses(servicesConfig, mock(classOf[HttpClient])) {
+object StubAddresses extends Addresses(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
   val noResultPostcode = "NO RESULT"
 
   override def create(address: Address)(implicit hc: HeaderCarrier) = Future.successful(Random.nextInt)

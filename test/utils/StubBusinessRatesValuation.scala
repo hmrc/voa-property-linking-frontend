@@ -22,11 +22,10 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import utils.Configs._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 object StubBusinessRatesValuation
-    extends BusinessRatesValuationConnector(applicationConfig, mock(classOf[HttpClient])) {
+    extends BusinessRatesValuationConnector(applicationConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
   private var stubbedValuations: Map[Long, Boolean] = Map()
 
   def stubValuation(assessmentRef: Long, isViewable: Boolean) =

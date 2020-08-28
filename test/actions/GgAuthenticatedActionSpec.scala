@@ -24,7 +24,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
 import play.api.mvc.Results.{Ok, Redirect}
 import play.api.mvc._
@@ -38,7 +38,6 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.test.UnitSpec
 import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class GgAuthenticatedActionSpec
@@ -58,7 +57,7 @@ class GgAuthenticatedActionSpec
     }
 
     "redirect to the login page when the user is not logged in (NoActiveSession)" in new Setup {
-      override def exception: Option[Throwable] = Some(new MissingBearerToken("error"))
+      override def exception: Option[Throwable] = Some(MissingBearerToken("error"))
 
       when(mockGovernmentGatewayProvider.redirectToLogin(any[Request[_]]))
         .thenReturn(Future.successful(Redirect("sign-in-page")))

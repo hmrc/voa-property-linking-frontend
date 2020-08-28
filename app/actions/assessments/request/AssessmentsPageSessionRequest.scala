@@ -17,11 +17,10 @@
 package actions.assessments.request
 
 import actions.requests.CcaWrappedRequest
+import models.assessments.AssessmentsPageSession
 import models.assessments.PreviousPage.PreviousPage
-import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.mvc.{Request, WrappedRequest}
-import uk.gov.hmrc.play.HeaderCarrierConverter
 
 case class AssessmentsPageSessionRequest[A](
       sessionData: AssessmentsPageSession,

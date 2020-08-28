@@ -21,24 +21,19 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.OptionValues
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
+import utils._
 import utils.{StubBusinessRatesValuation, _}
-
-import scala.concurrent.ExecutionContext.Implicits.global
 
 class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
   private object TestAssessmentController
       extends Assessments(
         mockCustomErrorHandler,
-        StubPropertyLinkConnector,
         mockPropertyLinkService,
         preAuthenticatedActionBuilders(),
         StubBusinessRatesValuation,
-        mockBusinessRatesAuthorisation,
         stubMessagesControllerComponents(),
-        isExternalValuation = false,
-        isSkipAssessment = false
+        isExternalValuation = false
       )
 
   // TODO Delete or fix these tests

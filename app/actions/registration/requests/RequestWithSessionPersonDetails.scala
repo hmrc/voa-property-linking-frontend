@@ -19,9 +19,7 @@ package actions.registration.requests
 import models.registration.User
 import play.api.mvc.WrappedRequest
 
-class RequestWithSessionPersonDetails[A](
-      val sessionPersonDetails: Option[User],
-      val request: RequestWithUserDetails[A])
+class RequestWithSessionPersonDetails[A](val sessionPersonDetails: Option[User], val request: RequestWithUserDetails[A])
     extends WrappedRequest[A](request) {
 
   def externalId = request.externalId

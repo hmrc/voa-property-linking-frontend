@@ -27,10 +27,10 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import utils.Configs._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-object StubPropertyLinkConnector extends PropertyLinkConnector(servicesConfig, mock(classOf[HttpClient])) {
+object StubPropertyLinkConnector
+    extends PropertyLinkConnector(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
 
   var stubbedLinks: Seq[PropertyLink] = Nil
   private var stubbedClientProperties: Seq[ClientProperty] = Nil

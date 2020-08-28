@@ -18,14 +18,14 @@ package form
 
 import java.time.LocalDate
 
-import models.{Address, Assessment, NamedEnum, NamedEnumSupport}
+import models.{Address, NamedEnum, NamedEnumSupport}
 import play.api.data.Forms._
 import play.api.data.format.{Formats, Formatter}
 import play.api.data.validation._
 import play.api.data.{FormError, Forms, Mapping}
 import uk.gov.voa.play.form.Condition
-import utils.Conditionals.IfCondition
 import views.helpers.Errors
+
 import scala.util.Try
 
 object Mappings extends DateMappings {

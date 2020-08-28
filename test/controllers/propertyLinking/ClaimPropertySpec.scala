@@ -27,7 +27,7 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
-import resources._
+import utils._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession}
 

@@ -23,7 +23,7 @@ import models._
 import models.messages.MessageCount
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
@@ -40,7 +40,6 @@ class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   object TestViewDetails
       extends ViewDetails(
         mockCustomErrorHandler,
-        addressesConnector,
         preAuthenticatedActionBuilders()
       )
 

@@ -71,7 +71,7 @@ class RegistrationService @Inject()(
         option: Option[DetailedIndividualAccount],
         addressId: Long,
         groupAccount: Option[GroupAccount],
-        affinityGroupOpt: Option[AffinityGroup] = None)(
+        affinityGroupOpt: Option[AffinityGroup])(
         userDetails: UserDetails)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] =
     if (config.stubEnrolment) {
       option match {
@@ -96,7 +96,7 @@ class RegistrationService @Inject()(
         userDetails: UserDetails,
         detailedIndividualAccount: DetailedIndividualAccount,
         groupAccount: Option[GroupAccount],
-        affinityGroupOpt: Option[AffinityGroup] = None)(
+        affinityGroupOpt: Option[AffinityGroup])(
         implicit hc: HeaderCarrier,
         ec: ExecutionContext): Future[RegistrationResult] = {
     Logger.info(s"New ${userDetails.affinityGroup} ${userDetails.credentialRole} successfully registered for VOA")

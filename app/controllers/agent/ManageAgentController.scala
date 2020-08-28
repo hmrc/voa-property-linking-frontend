@@ -17,30 +17,24 @@
 package controllers.agent
 
 import actions.AuthenticatedAction
-import actions.requests.BasicAuthenticatedRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.ApplicationConfig
+import controllers.agent.forms.AgentPropertiesForm
 import controllers.{PaginationParams, PropertyLinkingController}
-import form.EnumMapping
-import javax.inject.{Inject, Named}
-import binders.pagination.PaginationParameters
-import controllers.agent.forms.{AgentPropertiesForm, FilterAgentProperties}
+import javax.inject.Inject
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
-import models.{RepresentationApproved, RepresentationPending}
 import models.propertyrepresentation._
 import models.searchApi.AgentPropertiesFilter.Both
-import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
+import models.searchApi.OwnerAuthResult
 import play.api.Logger
-import play.api.data.{Form, FormError, Forms}
+import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import services.AgentRelationshipService
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.Try
 
 class ManageAgentController @Inject()(
       val errorHandler: CustomErrorHandler,
@@ -112,9 +106,9 @@ class ManageAgentController @Inject()(
                                 PaginationParams(pagination.startPoint, pagination.pageSize, true))
             agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
           } yield
-            (BadRequest(
+            BadRequest(
               views.html.propertyrepresentation.manage
-                .manageAgentProperties(errors, ownerAuthResult, agentCode, agentDetails, params, pagination)))
+                .manageAgentProperties(errors, ownerAuthResult, agentCode, agentDetails, params, pagination))
         },
         success =>
           Future.successful(
@@ -143,9 +137,7 @@ class ManageAgentController @Inject()(
                                          pagination = PaginationParams(
                                            startPoint = 1,
                                            pageSize = 100,
-                                           requestTotalRowCount = false),
-                                         representationStatusFilter =
-                                           Seq(RepresentationApproved, RepresentationPending)
+                                           requestTotalRowCount = false)
                                        )
       ipPropertyLinksCount = propertyLinks.total
     } yield {

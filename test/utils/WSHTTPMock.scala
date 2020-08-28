@@ -105,10 +105,7 @@ trait WSHTTPMock { this: MockitoSugar =>
         Matchers.any()))
       .thenReturn(Future.successful(thenReturn))
 
-  def mockHttpPATCH[I, O](
-        url: String,
-        thenReturn: O,
-        mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+  def mockHttpPATCH[I, O](url: String, thenReturn: O, mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
     when(
       mockWSHttp.PATCH[I, O](Matchers.anyString(), Matchers.any[I](), Matchers.any[Seq[(String, String)]])(
         Matchers.any[Writes[I]](),

@@ -17,35 +17,30 @@
 package controllers.agentAppointment
 
 import actions.AuthenticatedAction
-import actions.requests.BasicAuthenticatedRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.ApplicationConfig
 import connectors._
 import controllers._
 import form.FormValidation.nonEmptyList
-import form.Mappings._
 import javax.inject.{Inject, Named}
 import models.GroupAccount.AgentGroupAccount
 import models._
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi._
 import play.api.Logger
+import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.{Form, FormError}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfEqual
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class AppointAgentController @Inject()(
       val errorHandler: CustomErrorHandler,
-      representations: PropertyRepresentationConnector,
       accounts: GroupAccounts,
       authenticated: AuthenticatedAction,
       agentRelationshipService: AgentRelationshipService,
@@ -140,10 +135,6 @@ class AppointAgentController @Inject()(
               agentRelationshipService
                 .createAndSubmitAgentRepRequest(
                   pLinkIds = action.propertyLinkIds,
-                  agentOrgId = group.id,
-                  organisationId = request.organisationAccount.id,
-                  individualId = request.individualAccount.individualId,
-                  isAgent = request.organisationAccount.isAgent,
                   agentCode = action.agentCode
                 )
                 .map(
@@ -196,8 +187,7 @@ class AppointAgentController @Inject()(
                            agent = Some(group.companyName),
                            sortfield = params.sortfield,
                            sortorder = params.sortorder),
-                         PaginationParams(pagination.startPoint, pagination.pageSize, false),
-                         Seq(RepresentationApproved, RepresentationPending)
+                         PaginationParams(pagination.startPoint, pagination.pageSize, false)
                        )
                        .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                        .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
@@ -238,8 +228,7 @@ class AppointAgentController @Inject()(
                                  sortorder = ExternalPropertyLinkManagementSortOrder.withName(
                                    pagination.sortOrder.name.toUpperCase)
                                ),
-                               PaginationParams(pagination.startPoint, pagination.pageSize, false),
-                               Seq(RepresentationApproved, RepresentationPending)
+                               PaginationParams(pagination.startPoint, pagination.pageSize, false)
                              )
                              .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                              .map(oar => oar.copy(filterTotal = oar.authorisations.size))
@@ -272,8 +261,7 @@ class AppointAgentController @Inject()(
                       response <- agentRelationshipService
                                    .getMyOrganisationsPropertyLinks(
                                      GetPropertyLinksParameters(agent = Some(group.companyName)),
-                                     DefaultPaginationParams,
-                                     Seq(RepresentationApproved, RepresentationPending))
+                                     DefaultPaginationParams)
                                    .map(oar =>
                                      oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                                    .map(oar => oar.copy(filterTotal = oar.authorisations.size))
@@ -301,21 +289,21 @@ class AppointAgentController @Inject()(
   def filterProperties(authorisations: Seq[OwnerAuthorisation], agentId: Long): Seq[OwnerAuthorisation] =
     authorisations.filter(auth => auth.agents.map(_.organisationId).contains(agentId))
 
-  def appointAgentBulkActionForm(implicit request: BasicAuthenticatedRequest[_]) =
+  def appointAgentBulkActionForm =
     Form(
       mapping(
         "agentCode"   -> longNumber,
         "linkIds"     -> list(text).verifying(nonEmptyList),
         "backLinkUrl" -> text
-      )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack _))
+      )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack))
 
-  def revokeAgentBulkActionForm(implicit request: BasicAuthenticatedRequest[_]) =
+  def revokeAgentBulkActionForm =
     Form(
       mapping(
         "agentCode"   -> longNumber,
         "linkIds"     -> list(text).verifying(nonEmptyList),
         "backLinkUrl" -> text
-      )(AgentRevokeBulkAction.apply)(AgentRevokeBulkAction.unpack _))
+      )(AgentRevokeBulkAction.apply)(AgentRevokeBulkAction.unpack))
 
 }
 

@@ -21,13 +21,13 @@ import models.{DetailedIndividualAccount, IndividualAccountSubmission}
 import org.mockito.Mockito.mock
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import utils.Configs._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
-import Configs._
 
-object StubIndividualAccountConnector extends IndividualAccounts(servicesConfig, mock(classOf[HttpClient])) {
+object StubIndividualAccountConnector
+    extends IndividualAccounts(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
 
   private var stubbedIndividuals: Seq[DetailedIndividualAccount] = Nil
 
@@ -55,9 +55,7 @@ object StubIndividualAccountConnector extends IndividualAccounts(servicesConfig,
 
   override def create(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = {
     val personId = Random.nextInt(Int.MaxValue)
-    Future.successful(stubAccount(detailed(personId, account))).map { _ =>
-      personId
-    }
+    Future.successful(stubAccount(detailed(personId, account))).map(_ => personId)(ExecutionContext.global)
   }
 
   private def detailed(personId: Int, account: IndividualAccountSubmission): DetailedIndividualAccount =

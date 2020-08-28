@@ -26,12 +26,11 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
-import resources._
+import utils._
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.HtmlPage
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {

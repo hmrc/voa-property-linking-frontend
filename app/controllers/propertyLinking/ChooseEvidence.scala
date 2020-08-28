@@ -68,8 +68,5 @@ class ChooseEvidence @Inject()(
 }
 
 object ChooseEvidence {
-  lazy val form = Form(single(keys.hasRatesBill -> mandatoryBoolean))
-  lazy val keys = new {
-    val hasRatesBill = "hasRatesBill"
-  }
+  lazy val form = Form(single("hasRatesBill" -> mandatoryBoolean))
 }

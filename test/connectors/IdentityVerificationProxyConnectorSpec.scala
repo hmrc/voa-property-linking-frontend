@@ -25,20 +25,19 @@ import org.scalatest.concurrent.ScalaFutures._
 import org.scalatest.{FlatSpec, MustMatchers}
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
-import resources._
 import uk.gov.hmrc.auth.core.ConfidenceLevel
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import utils.Configs
+import utils._
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class IdentityVerificationProxyConnectorSpec
     extends FlatSpec with MustMatchers with MockitoSugar with ScalaCheckDrivenPropertyChecks with Configs {
 
   implicit val headerCarrier = HeaderCarrier()
-
-  import scala.concurrent.ExecutionContext.Implicits.global
 
   "IdentityVerificationProxy" must "make a successful POST to Identity Verification Proxy Service" in {
 

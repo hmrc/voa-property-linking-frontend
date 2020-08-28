@@ -25,11 +25,10 @@ import play.api.mvc.Result
 import repositories.SessionRepo
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class StubWithLinkingSession(sessionRepository: SessionRepo)
-    extends WithLinkingSession(mock(classOf[CustomErrorHandler]), sessionRepository) {
+    extends WithLinkingSession(mock(classOf[CustomErrorHandler]), sessionRepository)(ExecutionContext.global) {
 
   private var stubbedSession: Option[(LinkingSession, DetailedIndividualAccount, GroupAccount)] = None
 

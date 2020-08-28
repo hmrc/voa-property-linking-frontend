@@ -19,7 +19,7 @@ package controllers.agentAppointment
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, SearchedAgent, SelectedAgent}
 import org.mockito.ArgumentMatchers.any
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
@@ -29,7 +29,6 @@ import org.mockito.Mockito._
 import play.twirl.api.Html
 import uk.gov.hmrc.http.BadRequestException
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
@@ -153,8 +152,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
+    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
   }
 
   "agentSelected" should "return 303 See Other and go to the agentToManageOneProperty page if organisation has only one authorisation and an existing agent" in {
@@ -170,8 +168,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
+    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
   }
 
   "agentSelected" should "return 303 See Other and go to the agentToManageMultipleProperties page if organisation has only multiple authorisations" in {

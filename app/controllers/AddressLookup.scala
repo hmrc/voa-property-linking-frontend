@@ -43,8 +43,8 @@ class AddressLookup @Inject()(
           Seq.empty
       }
       .map {
-        case Seq()          => NotFound
-        case seq @ Seq(_ *) => Ok(Json.toJson(seq))
+        case Seq()         => NotFound
+        case seq @ Seq(_*) => Ok(Json.toJson(seq))
       }
   }
 

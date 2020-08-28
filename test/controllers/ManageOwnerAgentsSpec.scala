@@ -20,7 +20,6 @@ import connectors._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.AgentRelationshipService
-import utils._
 
 class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
 
@@ -29,7 +28,6 @@ class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
   object TestDashboardController
       extends Dashboard(
         mockCustomErrorHandler,
-        mock[DraftCases],
         mock[AgentRelationshipService],
         mock[GroupAccounts],
         preAuthenticatedActionBuilders(),

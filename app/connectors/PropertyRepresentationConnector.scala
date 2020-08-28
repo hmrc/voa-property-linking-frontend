@@ -17,7 +17,6 @@
 package connectors
 
 import javax.inject.Inject
-import models._
 import models.propertyrepresentation.AgentDetails
 import play.api.Logger
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, Upstream4xxResponse}
@@ -38,9 +37,8 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
 
   def getAgentDetails(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentDetails]] =
     http.GET[Option[AgentDetails]](s"$baseUrl/my-organisation/agent/$agentCode") recover {
-      case Upstream4xxResponse(_, 403, _, _) => {
+      case Upstream4xxResponse(_, 403, _, _) =>
         logger.info(s"Agent code: $agentCode does not belong to an agent organisation")
         None
-      }
     }
 }

@@ -25,13 +25,11 @@ import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
 import services.AgentRelationshipService
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
@@ -48,7 +46,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   lazy val mockRepService = {
     val m = mock[AgentRelationshipService]
-    when(m.getMyOrganisationsPropertyLinks(any(), any(), any())(any()))
+    when(m.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(stubbedOwnerAuthResult))
     m
   }
@@ -56,7 +54,6 @@ class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
   object TestDashboard
       extends Dashboard(
         mockCustomErrorHandler,
-        mockDraftCases,
         mockRepService,
         StubGroupAccountConnector,
         preAuthenticatedActionBuilders(),

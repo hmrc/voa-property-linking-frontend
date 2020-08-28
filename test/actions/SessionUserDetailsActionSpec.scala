@@ -21,7 +21,7 @@ import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWi
 import models.registration._
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
-import org.scalatest.BeforeAndAfterEach
+import org.scalatest.{BeforeAndAfterEach, Inside}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.FakeRequest
@@ -35,7 +35,7 @@ import scala.concurrent.Future
 
 class SessionUserDetailsActionSpec
     extends UnitSpec with MockitoSugar with ScalaFutures with BeforeAndAfterEach with AllMocks
-    with NoMetricsOneAppPerSuite with GlobalExecutionContext with FakeObjects {
+    with NoMetricsOneAppPerSuite with GlobalExecutionContext with FakeObjects with Inside {
 
   "SessionUserDetailsAction" should {
     "transform a RequestWithUserDetails into a RequestWithSessionPersonDetails - for Individual" in new Setup {
@@ -51,9 +51,9 @@ class SessionUserDetailsActionSpec
       val futureResult = action.callTransform(request)
 
       whenReady(futureResult) { result =>
-        result.sessionPersonDetails.isDefined shouldBe true
-        result.sessionPersonDetails.isInstanceOf[Option[IndividualUserAccountDetails]] shouldBe true
-        result.sessionPersonDetails.get shouldBe individualUserAccountDetails
+        inside(result.sessionPersonDetails) {
+          case Some(acc: IndividualUserAccountDetails) => acc shouldBe individualUserAccountDetails
+        }
       }
     }
 
@@ -70,9 +70,10 @@ class SessionUserDetailsActionSpec
       val futureResult = action.callTransform(request)
 
       whenReady(futureResult) { result =>
-        result.sessionPersonDetails.isDefined shouldBe true
-        result.sessionPersonDetails.isInstanceOf[Option[AdminInExistingOrganisationAccountDetails]] shouldBe true
-        result.sessionPersonDetails.get shouldBe adminInExistingOrganisationAccountDetails
+        inside(result.sessionPersonDetails) {
+          case Some(acc: AdminInExistingOrganisationAccountDetails) =>
+            acc shouldBe adminInExistingOrganisationAccountDetails
+        }
       }
     }
 
@@ -89,9 +90,9 @@ class SessionUserDetailsActionSpec
       val futureResult = action.callTransform(request)
 
       whenReady(futureResult) { result =>
-        result.sessionPersonDetails.isDefined shouldBe true
-        result.sessionPersonDetails.isInstanceOf[Option[AdminOrganisationAccountDetails]] shouldBe true
-        result.sessionPersonDetails.get shouldBe adminOrganisationAccountDetails
+        inside(result.sessionPersonDetails) {
+          case Some(acc: AdminOrganisationAccountDetails) => acc shouldBe adminOrganisationAccountDetails
+        }
       }
     }
   }

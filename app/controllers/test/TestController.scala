@@ -18,12 +18,10 @@ package controllers.test
 
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
-import connectors._
 import connectors.attachments.BusinessRatesAttachmentsConnector
 import connectors.test.{TestCheckConnector, TestPropertyLinkingConnector}
-import controllers.{Pagination, PropertyLinkingController}
+import controllers.PropertyLinkingController
 import javax.inject.Inject
-import models._
 import models.test.TestUserDetails
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -39,11 +37,9 @@ class TestController @Inject()(
       authenticated: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       testService: TestService,
-      individualAccounts: IndividualAccounts,
       testPropertyLinkingConnector: TestPropertyLinkingConnector,
       businessRatesAttachmentsConnector: BusinessRatesAttachmentsConnector,
-      testCheckConnector: TestCheckConnector,
-      reprConnector: PropertyRepresentationConnector
+      testCheckConnector: TestCheckConnector
 )(implicit executionContext: ExecutionContext, override val controllerComponents: MessagesControllerComponents)
     extends PropertyLinkingController with Cats {
 
@@ -88,10 +84,8 @@ class TestController @Inject()(
       }
   }
 
-  def revokeAgentAppointments(agentOrgId: String) = authenticated.async { implicit request =>
-    //TODO need more context around what this is used for.
-    Future.successful(Ok("Agent appointments revoked"))
-  }
+  def revokeAgentAppointments(agentOrgId: String) =
+    authenticated.async(Future.successful(Ok("Agent appointments revoked")))
 
   def clearDvrRecords = authenticated.async { implicit request =>
     testPropertyLinkingConnector
@@ -119,8 +113,7 @@ class TestController @Inject()(
   def clearCheckCases(propertyLinksSubmissionId: String) = authenticated.async { implicit request =>
     testPropertyLinkingConnector
       .deleteCheckCases(propertyLinksSubmissionId)
-      .map(res =>
-        Ok(s"Successfully cleared the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId"))
+      .map(res => Ok(s"Successfully cleared the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId"))
       .recover {
         case e =>
           Ok(

@@ -21,14 +21,12 @@ import javax.inject.Inject
 import models.PropertyLink
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 /*
   TODO will move PropertyLinkingService into this.
  */
-class PropertyLinkService @Inject()(
-      propertyLinkConnector: PropertyLinkConnector
-)(implicit executionContext: ExecutionContext) {
+class PropertyLinkService @Inject()(propertyLinkConnector: PropertyLinkConnector) {
 
   def getSingularPropertyLink(submissionId: String, isOwner: Boolean)(
         implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
