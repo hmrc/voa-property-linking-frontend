@@ -784,7 +784,6 @@ declaration.client.2=the file/details that I have uploaded contains proof of my 
 declaration.p.2=I understand that I could be taken to court if I knowingly submit false information.
 declaration.client.p.2=I understand that my client could be taken to court if I knowingly submit false information.
 declaration.p.3=Once you submit the form you will not be able to go back and make any changes.
-declaration.p.3=Once you submit the form you will not be able to go back and make any changes.
 
 label.declaration=Declaration
 declaration.iAgree=I agree to the above declaration
