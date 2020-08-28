@@ -29,7 +29,6 @@ import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
-import resources._
 import services.iv.IdentityVerificationService
 import services.{RegistrationService, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Organisation}
@@ -189,7 +188,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
       .thenReturn(Future.successful(RegistrationSuccess(1L)))
-    when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
+    when(mockIdentityVerificationService.start(any())(any())).thenReturn(Future.successful(Link("")))
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubIndividualAccountConnector.stubAccount(
       DetailedIndividualAccount(externalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
@@ -223,7 +222,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   "Submitting a valid organisation form" should "return a redirect" in {
-    when(mockIdentityVerificationService.start(any())(any(), any())).thenReturn(Future.successful(Link("")))
+    when(mockIdentityVerificationService.start(any())(any())).thenReturn(Future.successful(Link("")))
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
       .thenReturn(Future.successful(RegistrationSuccess(1L)))

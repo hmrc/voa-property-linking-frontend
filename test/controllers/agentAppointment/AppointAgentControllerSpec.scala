@@ -18,26 +18,20 @@ package controllers.agentAppointment
 
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
-import config.ApplicationConfig
-import connectors.PropertyRepresentationConnector
 import controllers.VoaPropertyLinkingSpec
-import models._
 import models.searchApi._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
-import org.scalacheck.Arbitrary._
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
-import resources._
 import services.{AgentRelationshipService, AppointRevokeException}
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubGroupAccountConnector}
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
@@ -77,9 +71,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "appointAgentSummary" should "show the summary page" in {
     StubGroupAccountConnector.stubAccount(agent)
 
-    when(
-      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any())(
-        any[HeaderCarrier]))
+    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
     val res = testController.appointAgentSummary()(
@@ -98,9 +90,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "appointAgentSummary with form errors" should "show the appoint agent properties page" in {
     StubGroupAccountConnector.stubAccount(agent)
 
-    when(
-      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any())(
-        any[HeaderCarrier]))
+    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
     val res = testController.appointAgentSummary()(
@@ -116,10 +106,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "appointAgentSummary" should "show the appoint agent properties page when an appointment fails" in {
     StubGroupAccountConnector.stubAccount(agent)
 
-    when(
-      mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any(), any(), any(), any(), any())(
-        any[HeaderCarrier]))
-      .thenReturn(Future.failed(new AppointRevokeException("")))
+    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.failed(AppointRevokeException("")))
 
     val res = testController.appointAgentSummary()(
       FakeRequest()
@@ -140,7 +128,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     StubGroupAccountConnector.stubAccount(agent)
 
-    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
 
     val res =
@@ -161,7 +149,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testOwnerAuthResult = OwnerAuthResult(start = 1, size = 15, filterTotal = 0, total = 0, authorisations = Seq())
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
 
     val res = testController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), 1L)(
@@ -177,14 +165,11 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   private lazy val testController = new AppointAgentController(
     mockCustomErrorHandler,
-    mockRepresentationConnector,
     StubGroupAccountConnector,
     preAuthenticatedActionBuilders(),
     mockAppointRevokeService,
     mockSessionRepo
   )
-
-  private lazy val mockRepresentationConnector = mock[PropertyRepresentationConnector]
 
   private lazy val mockSessionRepo = mock[SessionRepo]
 

@@ -22,10 +22,8 @@ import models.searchApi.{AgentAuthClient, AgentAuthResult, AgentAuthorisation}
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
 import utils._
-
-import scala.concurrent.ExecutionContext.Implicits.global
+import utils._
 
 class ManageClientsSpec extends VoaPropertyLinkingSpec {
 

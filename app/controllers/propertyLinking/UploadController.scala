@@ -102,8 +102,7 @@ class UploadController @Inject()(
 
   def continue(evidence: EvidenceChoices): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async {
     implicit request =>
-      def upload(uploadedData: UploadEvidenceData)(
-            implicit request: LinkingSessionRequest[_]): Option[Future[Result]] =
+      def upload(uploadedData: UploadEvidenceData)(implicit request: LinkingSessionRequest[_]): Option[Future[Result]] =
         PartialFunction.condOpt(request.ses.uploadEvidenceData.attachments) {
           case Some(fileData) if fileData.nonEmpty =>
             businessRatesAttachmentsService

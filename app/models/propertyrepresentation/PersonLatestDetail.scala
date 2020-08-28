@@ -16,8 +16,6 @@
 
 package models.propertyrepresentation
 
-import java.time.LocalDateTime
-
 import play.api.libs.json.{Json, OFormat}
 
 case class PersonLatestDetail(

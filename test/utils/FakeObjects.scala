@@ -31,9 +31,9 @@ import models.dvr.cases.check.common.{Agent, Client}
 import models.dvr.cases.check.myclients.{CheckCaseWithClient, CheckCasesWithClient}
 import models.dvr.cases.check.myorganisation.{CheckCaseWithAgent, CheckCasesWithAgent}
 import models.dvr.cases.check.projection.CaseDetails
-import models.propertyrepresentation.{AgentDetails, AgentList, AgentOrganisation, AgentSummary, AppointNewAgentSession, ManagingProperty, OrganisationLatestDetail, SearchedAgent, SelectedAgent, Start}
+import models.propertyrepresentation._
 import models.registration._
-import models.searchApi.{OwnerAgent, OwnerAgents, OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
+import models.searchApi._
 import models.upscan._
 import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole, User}
 
@@ -363,12 +363,7 @@ trait FakeObjects {
     CheckCasesWithClient(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(agentCheckCase))
 
   lazy val ownerChallengeCasesResponse =
-    ChallengeCasesWithAgent(
-      start = 1,
-      size = 15,
-      filterTotal = 1,
-      total = 1,
-      challengeCases = List(ownerChallengeCase))
+    ChallengeCasesWithAgent(start = 1, size = 15, filterTotal = 1, total = 1, challengeCases = List(ownerChallengeCase))
 
   lazy val agentChallengeCasesResponse =
     ChallengeCasesWithClient(

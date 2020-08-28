@@ -16,10 +16,10 @@
 
 package controllers.agentAppointment
 
-import form.{EnumMapping, Mappings}
+import form.EnumMapping
 import models.propertyrepresentation.AddAgentOptions
+import play.api.data.Forms.{boolean, optional, single, text}
 import play.api.data.{Form, Forms}
-import play.api.data.Forms.{boolean, longNumber, mapping, optional, single, text}
 
 object AppointNewAgentForms {
   val agentCode: Form[String] =

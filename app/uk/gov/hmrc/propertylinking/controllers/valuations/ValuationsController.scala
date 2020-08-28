@@ -21,22 +21,18 @@ import java.time.LocalDate
 
 import actions.AuthenticatedAction
 import actions.assessments.WithAssessmentsPageSessionRefiner
-import actions.assessments.request.AssessmentsPageSessionRequest
-import actions.requests.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{AssessmentsVM, PropertyLinkingController}
 import javax.inject.{Inject, Named, Singleton}
 import models.assessments.{AssessmentsPageSession, PreviousPage}
-import models.assessments.PreviousPage.PreviousPage
-import models.{ApiAssessment, ApiAssessments, ClientDetails}
+import models.{ApiAssessment, ApiAssessments}
 import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-import uk.gov.hmrc.propertylinking.services.PropertyLinkService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -46,7 +42,6 @@ import scala.concurrent.{ExecutionContext, Future}
 class ValuationsController @Inject()(
       val errorHandler: CustomErrorHandler,
       propertyLinks: PropertyLinkConnector,
-      propertyLinkService: PropertyLinkService,
       authenticated: AuthenticatedAction,
       @Named("assessmentPage") val sessionRepo: SessionRepo,
       withAssessmentsPageSession: WithAssessmentsPageSessionRefiner,
@@ -151,7 +146,7 @@ class ValuationsController @Inject()(
         assessment: ApiAssessment,
         isPending: Boolean,
         owner: Boolean
-  )(implicit request: Request[_]): (String, ApiAssessment) =
+  ): (String, ApiAssessment) =
     assessment.rateableValue match {
       case None                 => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
       case Some(_) if isPending => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
@@ -166,8 +161,7 @@ class ValuationsController @Inject()(
           .url -> assessment
     }
 
-  private def calculateBackLink(
-        submissionId: String)(implicit hc: HeaderCarrier, request: Request[_]): Future[String] =
+  private def calculateBackLink(submissionId: String)(implicit hc: HeaderCarrier): Future[String] =
     if (config.clientPropertiesEnabled) {
       sessionRepo.get[AssessmentsPageSession].flatMap {
         case None => Future.successful(config.newDashboardUrl("home"))

@@ -57,8 +57,6 @@ class ManageDetailsSpec extends ServiceSpec {
   private val mockAddress = Address(Some(1L), "1, The Place", "", "", "", "AA11 1AA")
 
   implicit private lazy val hc: HeaderCarrier = HeaderCarrier()
-  private lazy val manageDetails = new ManageVoaDetails(
-    taxEnrolments = mockTaxEnrolments,
-    addresses = mockAddresses,
-    config = mock[ApplicationConfig])
+  private lazy val manageDetails =
+    new ManageVoaDetails(taxEnrolments = mockTaxEnrolments, addresses = mockAddresses, config = mock[ApplicationConfig])
 }

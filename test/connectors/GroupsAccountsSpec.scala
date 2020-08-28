@@ -21,7 +21,7 @@ import models.{GroupAccount, GroupAccountSubmission, UpdatedOrganisationAccount}
 import org.scalacheck.Arbitrary._
 import play.api.http.Status._
 import play.api.libs.json.{JsValue, Json}
-import resources._
+import utils._
 import uk.gov.hmrc.http.HttpResponse
 
 class GroupsAccountsSpec extends VoaPropertyLinkingSpec {
@@ -56,7 +56,7 @@ class GroupsAccountsSpec extends VoaPropertyLinkingSpec {
   "update" must "successfully update a group account" in new Setup {
     val updatedOrganisationAccount = arbitrary[UpdatedOrganisationAccount].sample.get
     mockHttpPUT[UpdatedOrganisationAccount, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.update(1, updatedOrganisationAccount))(_ mustBe ())
+    whenReady(connector.update(1, updatedOrganisationAccount))(_ mustBe ((): Unit))
   }
 
   "create" must "create a group account and return the ID" in new Setup {

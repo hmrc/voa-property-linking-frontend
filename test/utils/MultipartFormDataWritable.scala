@@ -17,7 +17,7 @@
 package utils
 //taken from: http://tech.fongmun.com/post/125479939452/test-multipartformdata-in-play
 
-import java.nio.file.{Files, Paths}
+import java.nio.file.Files
 
 import play.api.http.{HeaderNames, Writeable}
 import play.api.libs.Files.TemporaryFile
@@ -58,7 +58,7 @@ object MultipartFormDataWritable {
     transform = { form: MultipartFormData[TemporaryFile] =>
       formatDataParts(form.dataParts) ++
         form.files.flatMap { file =>
-          val fileBytes = Files.readAllBytes(Paths.get(file.ref.file.getAbsolutePath))
+          val fileBytes = Files.readAllBytes(file.ref.path)
           filePartHeader(file) ++ fileBytes ++ Codec.utf_8.encode("\r\n")
         } ++
         Codec.utf_8.encode(s"--$boundary--")

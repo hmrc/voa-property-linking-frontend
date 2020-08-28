@@ -17,17 +17,14 @@
 package connectors.authorisation
 
 import config.AuthorisationFailed
-import connectors.authorisation.errorhandler.AuthorisationHttpErrorFunctions
-import connectors.authorisation.errorhandler.exceptions.BraAuthorisationFailure
 import connectors.BaseConnector
 import connectors.authorisation.errorhandler.AuthorisationHttpErrorFunctions
 import javax.inject.Inject
 import models.{Accounts, PropertyLinkIds}
 import play.api.Logger
-import play.api.libs.json.Json
 import uk.gov.hmrc.http.{ForbiddenException, HeaderCarrier, Upstream4xxResponse}
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 

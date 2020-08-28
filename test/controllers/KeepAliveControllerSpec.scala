@@ -20,7 +20,7 @@ import models.DetailedIndividualAccount
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import resources._
+import utils._
 import utils.StubIndividualAccountConnector
 
 class KeepAliveControllerSpec extends VoaPropertyLinkingSpec {

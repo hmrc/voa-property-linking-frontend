@@ -17,10 +17,9 @@
 package actions.agentrelationship.request
 
 import actions.requests.CcaWrappedRequest
-import models.propertyrepresentation.{AgentDetails, AppointNewAgentSession, ManagingProperty, SearchedAgent, SelectedAgent}
-import models.{Accounts, DetailedIndividualAccount, GroupAccount, LinkingSession}
+import models.propertyrepresentation._
+import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.mvc.{Request, WrappedRequest}
-import uk.gov.hmrc.play.HeaderCarrierConverter
 
 case class AppointAgentSessionRequest[A](
       sessionData: AppointNewAgentSession,
@@ -34,17 +33,11 @@ case class AppointAgentSessionRequest[A](
   def organisationId = groupAccount.id
 
   def agentDetails = sessionData match {
-    case SearchedAgent(agentCode, agentOrganisationName, agentAddress, status) =>
+    case SearchedAgent(_, agentOrganisationName, agentAddress, _) =>
       AgentDetails(agentOrganisationName, agentAddress)
-    case SelectedAgent(agentCode, agentOrganisationName, agentAddress, isCorrectAgent, status) =>
+    case SelectedAgent(_, agentOrganisationName, agentAddress, _, _) =>
       AgentDetails(agentOrganisationName, agentAddress)
-    case ManagingProperty(
-        agentCode,
-        agentOrganisationName,
-        agentAddress,
-        isCorrectAgent,
-        managingPropertyChoice,
-        status) =>
+    case ManagingProperty(_, agentOrganisationName, agentAddress, _, _, _) =>
       AgentDetails(agentOrganisationName, agentAddress)
   }
 }

@@ -21,8 +21,6 @@ import play.api.test.Helpers._
 import tests.AllMocks
 import utils.StubAddresses
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
 class AddressLookupSpec extends VoaPropertyLinkingSpec with AllMocks {
   implicit val request = FakeRequest()
 

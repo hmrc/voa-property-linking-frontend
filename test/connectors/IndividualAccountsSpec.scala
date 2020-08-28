@@ -21,7 +21,7 @@ import models._
 import org.scalacheck.Arbitrary._
 import play.api.http.Status._
 import play.api.libs.json.{JsValue, Json}
-import resources._
+import utils._
 import uk.gov.hmrc.http.HttpResponse
 
 class IndividualAccountsSpec extends VoaPropertyLinkingSpec {
@@ -50,7 +50,7 @@ class IndividualAccountsSpec extends VoaPropertyLinkingSpec {
     val validDetailedIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
 
     mockHttpPUT[IndividualAccount, HttpResponse]("tst-url", HttpResponse(OK))
-    whenReady(connector.update(validDetailedIndividualAccount))(_ mustBe ())
+    whenReady(connector.update(validDetailedIndividualAccount))(_ mustBe ((): Unit))
   }
 
   "create" must "create an individual account and return the ID" in new Setup {

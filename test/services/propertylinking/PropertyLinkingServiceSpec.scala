@@ -21,17 +21,17 @@ import cats.data.EitherT
 import cats.implicits._
 import models._
 import models.propertylinking.requests.PropertyLinkRequest
-import services.ServiceSpec
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{when, _}
 import play.api.test.FakeRequest
+import services.ServiceSpec
 import tests.AllMocks
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.propertylinking.exceptions.attachments.AttachmentException
 
 import scala.concurrent.Future
-import scala.util.Success
+import scala.language.implicitConversions
 
 class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
 

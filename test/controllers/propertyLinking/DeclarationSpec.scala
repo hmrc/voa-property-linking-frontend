@@ -19,19 +19,16 @@ package controllers.propertyLinking
 import cats.data.EitherT
 import cats.instances.future._
 import controllers.VoaPropertyLinkingSpec
-import models._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
-import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
-import resources._
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.exceptions.attachments.{AttachmentException, NotAllFilesReadyToUpload}
-import utils.HtmlPage
+import utils.{HtmlPage, _}
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
@@ -95,8 +92,6 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
-    val linkingSession: LinkingSession = arbitrary[LinkingSession]
-
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
@@ -126,8 +121,6 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
   it should "display the normal confirmation page when the user has uploaded a rates bill" in new Setup {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
-
-    val linkingSession: LinkingSession = arbitrary[LinkingSession]
 
     when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any(), any[HeaderCarrier]))
       .thenReturn(Future.successful(attachment))
@@ -164,8 +157,6 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
 
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
-
-    val linkingSession: LinkingSession = arbitrary[LinkingSession]
 
     val res = TestDeclaration.confirmation()(FakeRequest())
     status(res) mustBe OK

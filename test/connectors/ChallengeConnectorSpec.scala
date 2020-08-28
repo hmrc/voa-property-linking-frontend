@@ -17,16 +17,10 @@
 package connectors
 
 import connectors.challenge.ChallengeConnector
-import controllers.{DefaultPaginationParams, VoaPropertyLinkingSpec}
-import models._
-import models.challenge.myclients.{ChallengeCaseWithClient, ChallengeCasesWithClient}
-import models.challenge.myorganisations.{ChallengeCaseWithAgent, ChallengeCasesWithAgent}
-import models.dvr.cases.check.myclients.CheckCasesWithClient
-import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
-import org.mockito.ArgumentMatchers
-
-import scala.concurrent.Future
+import controllers.VoaPropertyLinkingSpec
+import models.challenge.myclients.ChallengeCasesWithClient
+import models.challenge.myorganisations.ChallengeCasesWithAgent
+import uk.gov.hmrc.http.HeaderCarrier
 
 class ChallengeConnectorSpec extends VoaPropertyLinkingSpec {
 

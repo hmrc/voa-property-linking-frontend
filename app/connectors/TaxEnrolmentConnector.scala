@@ -32,13 +32,11 @@ class TaxEnrolmentConnector @Inject()(
       servicesConfig: ServicesConfig
 ) {
   private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
-  private val emacUrl = servicesConfig.baseUrl("emac") + "/enrolment-store-proxy"
-
-  private val updateUrl: Long => String = personId =>
-    s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}"
   private val enrolUrl = s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment"
 
-  def enrol(personId: Long, postcode: String)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[HttpResponse] = {
+  def enrol(personId: Long, postcode: String)(
+        implicit hc: HeaderCarrier,
+        ex: ExecutionContext): Future[HttpResponse] = {
     val payload = EnrolmentPayload(
       identifiers = List(KeyValuePair("VOAPersonID", personId.toString)),
       verifiers = List(KeyValuePair("BusPostcode", postcode))

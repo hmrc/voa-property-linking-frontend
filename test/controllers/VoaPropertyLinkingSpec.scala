@@ -19,7 +19,6 @@ package controllers
 import java.time.{Clock, Instant, ZoneId}
 
 import actions.AuthenticatedAction
-import actions.agentrelationship.request.AppointAgentSessionRequest
 import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}

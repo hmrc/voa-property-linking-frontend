@@ -18,10 +18,7 @@ package forms
 
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation.{AgentAppointmentChangesRequest, AppointmentScope}
-import org.scalatest.{FlatSpec, MustMatchers}
-import uk.gov.hmrc.play.test.UnitSpec
 import utils.FormBindingVerification._
-import views.helpers.Errors
 
 class AgentAppointmentChangesRequestSpec extends VoaPropertyLinkingSpec {
 

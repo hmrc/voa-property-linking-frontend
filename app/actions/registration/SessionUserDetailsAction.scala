@@ -31,8 +31,8 @@ class SessionUserDetailsAction @Inject()(
 )(implicit override val executionContext: ExecutionContext)
     extends ActionTransformer[RequestWithUserDetails, RequestWithSessionPersonDetails] {
 
-  override protected def transform[A](request: RequestWithUserDetails[A]): Future[RequestWithSessionPersonDetails[A]] = {
-    implicit val req: Request[A] = request
+  override protected def transform[A](
+        request: RequestWithUserDetails[A]): Future[RequestWithSessionPersonDetails[A]] = {
     implicit val hc: HeaderCarrier = fromHeadersAndSession(request.headers, Some(request.session))
 
     personalDetailsSessionRepo.get[AdminUser].map {

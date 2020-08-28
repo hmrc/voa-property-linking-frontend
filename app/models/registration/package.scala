@@ -18,7 +18,7 @@ package models
 
 package object registration {
 
-  lazy val keys = new {
+  object keys {
     val companyName = "companyName"
     val firstName = "firstName"
     val lastName = "lastName"

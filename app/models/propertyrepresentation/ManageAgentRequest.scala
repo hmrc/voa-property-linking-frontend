@@ -17,8 +17,8 @@
 package models.propertyrepresentation
 
 import form.EnumMapping
-import play.api.data.{Form, Forms}
-import play.api.data.Forms.{longNumber, mapping, optional, text}
+import play.api.data.Form
+import play.api.data.Forms.{mapping, text}
 import play.api.libs.json.{Json, OFormat}
 
 case class ManageAgentRequest(agentName: String, manageAgentOption: ManageAgentOptions)

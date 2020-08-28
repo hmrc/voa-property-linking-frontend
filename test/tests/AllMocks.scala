@@ -27,13 +27,12 @@ import connectors.propertyLinking.PropertyLinkConnector
 import connectors.{Addresses, DVRCaseManagementConnector}
 import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.Mockito
-import org.mockito.Mockito.mock
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Request
 import repositories.{PersonalDetailsSessionRepository, SessionRepository}
-import services.{AgentRelationshipService, BusinessRatesAttachmentsService, EnrolmentService}
 import services.propertylinking.PropertyLinkingService
+import services.{AgentRelationshipService, BusinessRatesAttachmentsService, EnrolmentService}
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.propertylinking.services.PropertyLinkService

@@ -16,24 +16,21 @@
 
 package controllers.detailedvaluationrequest
 
-import java.net.URLEncoder
 import java.time.format.DateTimeFormatter
 
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
-import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
 import javax.inject.Inject
-import models.{ApiAssessments, ClientDetails, ClientPropertyLink}
+import models.ApiAssessments
 import models.dvr.DetailedValuationRequest
-import play.api.Logger
 import play.api.http.HttpEntity
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, _}
-import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -44,16 +41,13 @@ class DvrController @Inject()(
       challengeConnector: ChallengeConnector,
       authenticated: AuthenticatedAction,
       submissionIds: SubmissionIdConnector,
-      dvrCaseManagement: DVRCaseManagementConnector,
-      businessRatesAuthorisation: BusinessRatesAuthorisationConnector
+      dvrCaseManagement: DVRCaseManagementConnector
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig)
     extends PropertyLinkingController {
-
-  private val logger = Logger(this.getClass.getName)
 
   def myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId: String,
@@ -157,9 +151,9 @@ class DvrController @Inject()(
           propertyLink.assessments.head.billingAuthorityReference
         )
       }
-      result <- dvr
-                 .map(dvrCaseManagement.requestDetailedValuationV2)
-                 .getOrElse(Future.failed(throw new NotFoundException("property link does not exist")))
+      _ <- dvr
+            .map(dvrCaseManagement.requestDetailedValuationV2)
+            .getOrElse(Future.failed(throw new NotFoundException("property link does not exist")))
     } yield {
       pLink match {
         case Some(p) =>

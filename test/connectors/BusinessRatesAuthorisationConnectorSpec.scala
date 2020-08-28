@@ -22,7 +22,7 @@ import connectors.authorisation.BusinessRatesAuthorisationConnector
 import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalacheck.Arbitrary._
-import resources._
+import utils._
 import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
 
 class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {

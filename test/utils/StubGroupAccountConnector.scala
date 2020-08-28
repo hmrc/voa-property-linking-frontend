@@ -23,12 +23,12 @@ import org.scalacheck.Arbitrary.arbitrary
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 import Configs._
 
-object StubGroupAccountConnector extends GroupAccounts(servicesConfig, mock(classOf[HttpClient])) {
+object StubGroupAccountConnector
+    extends GroupAccounts(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
 
   private var stubbedGroups: Seq[GroupAccount] = Nil
 

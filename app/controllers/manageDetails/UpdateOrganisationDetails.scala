@@ -59,8 +59,9 @@ class UpdateOrganisationDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(BadRequest(
-            views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+          Future.successful(
+            BadRequest(
+              views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         businessName => updateDetails(name = Some(businessName))
       )
   }

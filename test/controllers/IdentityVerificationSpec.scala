@@ -28,7 +28,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import repositories.PersonalDetailsSessionRepository
-import resources._
+import utils._
 import services.RegistrationService
 import services.iv.IvService
 import uk.gov.hmrc.auth.core.AffinityGroup._

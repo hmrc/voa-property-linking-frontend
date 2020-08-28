@@ -23,8 +23,7 @@ import javax.inject.Inject
 import models.Address
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 trait ManageDetails {
   def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(
@@ -32,7 +31,8 @@ trait ManageDetails {
         request: BasicAuthenticatedRequest[_]): Future[EnrolmentResult]
 }
 
-class ManageVoaDetails @Inject()(taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, config: ApplicationConfig)
+class ManageVoaDetails @Inject()(taxEnrolments: TaxEnrolmentConnector, addresses: Addresses, config: ApplicationConfig)(
+      implicit executionContext: ExecutionContext)
     extends ManageDetails with RequestContext {
   def updatePostcode(personId: Long, currentAddressId: Long, addressId: Long)(
         implicit hc: HeaderCarrier,

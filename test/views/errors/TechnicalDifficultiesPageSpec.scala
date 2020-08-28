@@ -19,7 +19,7 @@ package views.errors
 import java.time.LocalDateTime
 
 import play.api.test.FakeRequest
-import resources._
+import utils._
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.StubMessageControllerComponents._
 import utils.{Configs, NoMetricsOneAppPerSuite}

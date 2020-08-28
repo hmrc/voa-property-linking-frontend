@@ -22,7 +22,6 @@ import models.registration.keys
 import models.{NamedEnum, NamedEnumSupport}
 import org.scalatest.{AppendedClues, MustMatchers}
 import play.api.data.Form
-import utils.FormBindingVerification.{verifyError, verifyddmmyy}
 import views.helpers.Errors
 
 object FormBindingVerification extends BasicVerification with DateVerification with ContactDetailsVerification {
@@ -190,13 +189,9 @@ trait BasicVerification extends MustMatchers with AppendedClues with FormCheckin
     mustBind(form, validData - field)
 
   def verifyCharacterLimit(form: Form[_], validData: Map[String, String], field: String, limit: Int): Unit = {
-    mustBind(form, validData.updated(field, 1 to limit map { _ =>
-      "a"
-    } mkString))
+    mustBind(form, validData.updated(field, (1 to limit).map(_ => "a").mkString))
 
-    val f = form.bind(validData.updated(field, (1 to limit + 1) map { _ =>
-      "b"
-    } mkString))
+    val f = form.bind(validData.updated(field, (1 to limit + 1).map(_ => "b").mkString))
     mustContainError(f, field, "error.maxLength", Some(Seq(limit)))
   }
 

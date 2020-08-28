@@ -34,7 +34,6 @@ import scala.concurrent.ExecutionContext
 
 class Dashboard @Inject()(
       val errorHandler: CustomErrorHandler,
-      draftCases: DraftCases,
       propertyLinks: AgentRelationshipService,
       groupAccounts: GroupAccounts,
       authenticated: AuthenticatedAction,
@@ -45,13 +44,9 @@ class Dashboard @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def home() = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("home"))
-  }
+  def home() = authenticated(Redirect(config.newDashboardUrl("home")))
 
-  def yourDetails() = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("your-details"))
-  }
+  def yourDetails() = authenticated(Redirect(config.newDashboardUrl("your-details")))
 
   def manageProperties(clientDetails: Option[ClientDetails] = None) = authenticated { implicit request =>
     clientDetails match {
@@ -62,9 +57,7 @@ class Dashboard @Inject()(
     }
   }
 
-  def manageAgents() = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("your-agents"))
-  }
+  def manageAgents() = authenticated(Redirect(config.newDashboardUrl("your-agents")))
 
   def viewManagedProperties(agentCode: Long, owner: Boolean): Action[AnyContent] = authenticated.async {
     implicit request =>
@@ -74,8 +67,7 @@ class Dashboard @Inject()(
         agentOrganisationId = group.map(_.id)
         authResult <- propertyLinks.getMyOrganisationsPropertyLinks(
                        GetPropertyLinksParameters(agent = group.map(_.companyName)),
-                       PaginationParams(1, 1000, false),
-                       Seq(RepresentationApproved, RepresentationPending))
+                       PaginationParams(1, 1000, false))
       } yield
         Ok(
           views.html.dashboard.managedByAgentsProperties(
@@ -83,13 +75,9 @@ class Dashboard @Inject()(
             owner))
   }
 
-  def viewMessages() = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("inbox"))
-  }
+  def viewMessages() = authenticated(Redirect(config.newDashboardUrl("inbox")))
 
-  def viewMessage(messageId: String) = authenticated { implicit request =>
-    Redirect(config.newDashboardUrl("inbox"))
-  }
+  def viewMessage(messageId: String) = authenticated(Redirect(config.newDashboardUrl("inbox")))
 }
 
 case class ManagePropertiesVM(organisationId: Long, result: OwnerAuthResult, pagination: PaginationSearchSort)

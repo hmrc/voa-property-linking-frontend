@@ -24,10 +24,7 @@ import tests.AllMocks
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
-import scala.concurrent.ExecutionContext.global
-
-class TaxEnrolmentConnectorSpec @Inject()(servicesConfig: ServicesConfig)
-    extends VoaPropertyLinkingSpec with AllMocks {
+class TaxEnrolmentConnectorSpec @Inject()(servicesConfig: ServicesConfig) extends VoaPropertyLinkingSpec with AllMocks {
 
   implicit val hc = HeaderCarrier()
 

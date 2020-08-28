@@ -21,7 +21,7 @@ import models.{Address, DetailedAddress}
 import models.registration.GroupAccountDetails
 import org.scalacheck.Arbitrary._
 import play.api.libs.json.{JsValue, Json}
-import resources._
+import utils._
 import uk.gov.hmrc.http.HeaderCarrier
 
 class AddressesSpec extends VoaPropertyLinkingSpec {

@@ -16,11 +16,10 @@
 
 package binders.propertylinks
 
+import binders.propertylinks.ExternalPropertyLinkManagementSortField._
+import binders.propertylinks.ExternalPropertyLinkManagementSortOrder._
 import binders.validation.ValidationUtils
 import binders.{Params, ValidationResult}
-import ExternalPropertyLinkManagementSortField._
-import binders.propertylinks.ExternalPropertyLinkManagementSortOrder._
-import play.api.Logger
 import play.api.mvc.QueryStringBindable
 import utils.Cats
 import utils.QueryParamUtils.toQueryString
@@ -42,8 +41,6 @@ case class GetPropertyLinksParameters(
 }
 
 object GetPropertyLinksParameters extends ValidationUtils {
-
-  private val logger = Logger(this.getClass.getName)
 
   implicit object Binder extends QueryStringBindable[GetPropertyLinksParameters] with Cats {
 

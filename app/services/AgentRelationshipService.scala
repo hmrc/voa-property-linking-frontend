@@ -16,20 +16,14 @@
 
 package services
 
-import java.time.Instant
-
-import auditing.AuditingService
 import binders.propertylinks.GetPropertyLinksParameters
-import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PaginationParams
 import javax.inject.{Inject, Named}
-import models._
-import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList, AppointAgentToSomePropertiesRequest}
+import models.propertyrepresentation._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
-import play.api.libs.json.Json
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -39,21 +33,15 @@ case class AppointRevokeException(message: String)
     extends Exception(s"Failed to appoint agent to multiple properties: $message")
 
 class AgentRelationshipService @Inject()(
-      auditingService: AuditingService,
       representations: PropertyRepresentationConnector,
       propertyLinks: PropertyLinkConnector,
-      @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
-      config: ApplicationConfig)(implicit val executionContext: ExecutionContext) {
+      @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo)(
+      implicit val executionContext: ExecutionContext) {
 
   val logger: Logger = Logger(this.getClass)
 
-  def createAndSubmitAgentRepRequest(
-        pLinkIds: List[String],
-        agentOrgId: Long,
-        organisationId: Long,
-        individualId: Long,
-        isAgent: Boolean,
-        agentCode: Long)(implicit hc: HeaderCarrier): Future[Unit] =
+  def createAndSubmitAgentRepRequest(pLinkIds: List[String], agentCode: Long)(
+        implicit hc: HeaderCarrier): Future[Unit] =
     assignAgentToSomeProperties(AppointAgentToSomePropertiesRequest(agentCode = agentCode, propertyLinkIds = pLinkIds))
       .map(_ => ())
 
@@ -86,10 +74,8 @@ class AgentRelationshipService @Inject()(
         implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
     propertyLinks.getMyAgentPropertyLinks(agentCode, searchParams, pagination)
 
-  def getMyOrganisationsPropertyLinks(
-        searchParams: GetPropertyLinksParameters,
-        pagination: PaginationParams,
-        representationStatusFilter: Seq[RepresentationStatus])(implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
+  def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(
+        implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
     val ownerAuthResult = propertyLinks.getMyOrganisationsPropertyLinks(searchParams, pagination)
 
     ownerAuthResult.map(
@@ -98,7 +84,7 @@ class AgentRelationshipService @Inject()(
           .filter(auth => auth.agents.nonEmpty)))
   }
 
-  def getAgentNameAndAddress(agentCode: Long)(implicit hc: HeaderCarrier) =
+  def getAgentNameAndAddress(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentDetails]] =
     representations.getAgentDetails(agentCode)
 
   def removeAgentFromOrganisation(appointAgentRequest: AgentAppointmentChangesRequest)(

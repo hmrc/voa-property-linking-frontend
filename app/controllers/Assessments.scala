@@ -19,11 +19,8 @@ package controllers
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
-import connectors.authorisation.BusinessRatesAuthorisationConnector
-import connectors.propertyLinking.PropertyLinkConnector
 import javax.inject.{Inject, Named}
 import models._
-import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -34,21 +31,16 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class Assessments @Inject()(
       val errorHandler: CustomErrorHandler,
-      propertyLinks: PropertyLinkConnector,
       propertyLinkService: PropertyLinkService,
       authenticated: AuthenticatedAction,
       businessRatesValuations: BusinessRatesValuationConnector,
-      businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
       override val controllerComponents: MessagesControllerComponents,
-      @Named("detailed-valuation.external") isExternalValuation: Boolean,
-      @Named("detailed-valuation.skip") isSkipAssessment: Boolean
+      @Named("detailed-valuation.external") isExternalValuation: Boolean
 )(
       implicit override val messagesApi: MessagesApi,
       val config: ApplicationConfig,
       executionContext: ExecutionContext
 ) extends PropertyLinkingController {
-
-  private val logger = Logger(this.getClass.getName)
 
   def viewOwnerSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] =
     viewSummary(uarn, isOwner = true, isPending)
@@ -56,13 +48,12 @@ class Assessments @Inject()(
   def viewClientSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] =
     viewSummary(uarn, isOwner = false, isPending)
 
-  private def viewSummary(uarn: Long, isOwner: Boolean, isPending: Boolean = false): Action[AnyContent] = Action {
-    implicit request =>
-      if (isOwner) {
-        Redirect(config.valuationFrontendUrl + s"/property-link/$uarn/valuation/summary")
-      } else {
-        Redirect(config.valuationFrontendUrl + s"/property-link/clients/all/$uarn/valuation/summary")
-      }
+  private def viewSummary(uarn: Long, isOwner: Boolean, isPending: Boolean): Action[AnyContent] = Action {
+    if (isOwner) {
+      Redirect(config.valuationFrontendUrl + s"/property-link/$uarn/valuation/summary")
+    } else {
+      Redirect(config.valuationFrontendUrl + s"/property-link/clients/all/$uarn/valuation/summary")
+    }
   }
 
   def viewDetailedAssessment(

@@ -19,10 +19,10 @@ object JavaScriptBuild {
   val javaScriptUiSettings = Seq(
 
     // the JavaScript application resides in "ui"
-    uiDirectory <<= (baseDirectory in Compile) { _ /"app" / "assets" },
+    uiDirectory := (baseDirectory in Compile) { _ /"app" / "assets" }.value,
 
     // add "npm" and "gulp" commands in sbt
-    commands <++= uiDirectory { base => Seq(Gulp.gulpCommand(base), npmCommand(base))},
+    commands ++= uiDirectory { base => Seq(Gulp.gulpCommand(base), npmCommand(base))}.value,
 
     npmInstall := {
       val result = Gulp.npmProcess(uiDirectory.value, "install").run().exitValue()
@@ -44,13 +44,13 @@ object JavaScriptBuild {
      result
     },
 
-    gulpTest <<= gulpTest dependsOn npmInstall,
-    gulpBuild <<= gulpBuild dependsOn npmInstall,
+    gulpTest := {gulpTest dependsOn npmInstall}.value,
+    gulpBuild := {gulpBuild dependsOn npmInstall}.value,
 
     // runs gulp before staging the application
-    dist <<= dist dependsOn gulpBuild,
+    dist := {dist dependsOn gulpBuild}.value,
 
-    (test in Test) <<= (test in Test) dependsOn gulpTest,
+    (test in Test) := {(test in Test) dependsOn gulpTest}.value,
 
     // Turn off play's internal less compiler
     //lessEntryPoints := Nil,
@@ -60,15 +60,15 @@ object JavaScriptBuild {
     //coffeescriptEntryPoints := Nil,
 
     // integrate JavaScript build into play build
-    PlayKeys.playRunHooks <+= uiDirectory.map(ui => Gulp(ui))
+    PlayKeys.playRunHooks += {uiDirectory.map(ui => Gulp(ui))}.value
   )
 
   def npmCommand(base: File) = Command.args("npm", "<npm-command>") { (state, args) =>
     if (sys.props("os.name").toLowerCase contains "windows") {
-      Process("cmd" :: "/c" :: "npm" :: args.toList, base) !
+      scala.sys.process.Process("cmd" :: "/c" :: "npm" :: args.toList, base) !
     }
     else {
-      Process("npm" :: args.toList, base) !
+      scala.sys.process.Process("npm" :: args.toList, base) !
     }
     state
   }

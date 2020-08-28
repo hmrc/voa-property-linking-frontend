@@ -17,7 +17,7 @@
 package models.assessments
 
 import models.assessments.PreviousPage.PreviousPage
-import play.api.libs.json.{JsError, JsResult, JsValue, Json, OFormat, Reads, __}
+import play.api.libs.json.{Json, OFormat}
 
 case class AssessmentsPageSession(previousPage: PreviousPage)
 
