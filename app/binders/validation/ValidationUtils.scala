@@ -52,6 +52,12 @@ trait ValidationUtils extends Cats {
       .leftMap(_ => ValidationError(key, "value cannot be parsed to an int"))
       .toValidatedNel
 
+  def asLong(value: String)(implicit key: String): ValidatedNel[ValidationError, Long] =
+    Validated
+      .fromTry(Try(value.toLong))
+      .leftMap(_ => ValidationError(key, "value cannot be parsed to an Long"))
+      .toValidatedNel
+
   private[validation] class ValidatedOptional[E, A](validated: Validated[E, Option[A]]) {
 
     def ifPresent[B](f: A => Validated[E, B]): Validated[E, Option[B]] =

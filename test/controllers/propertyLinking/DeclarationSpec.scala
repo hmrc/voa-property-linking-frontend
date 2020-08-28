@@ -114,7 +114,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
       mockSessionRepo,
       mockBusinessRatesAttachmentService,
       preAuthenticatedActionBuilders(),
-      preEnrichedActionRefiner(Some(100))
+      preEnrichedActionRefiner()
     )
     val res = testDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER

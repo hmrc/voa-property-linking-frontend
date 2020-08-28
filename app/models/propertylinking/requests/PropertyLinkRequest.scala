@@ -48,6 +48,6 @@ object PropertyLinkRequest {
       session.uploadEvidenceData.fileInfo.toList,
       session.uploadEvidenceData.attachments.toList.flatMap(_.keys),
       session.submissionId,
-      session.clientId
+      session.clientDetails.map(_.organisationId)
     )
 }

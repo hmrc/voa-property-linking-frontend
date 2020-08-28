@@ -52,14 +52,14 @@ class ChooseEvidence @Inject()(
     logger.debug("show choose evidence page")
     businessRatesAttachmentService
       .persistSessionData(request.ses, UploadEvidenceData.empty)
-      .map(_ => Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form)))
+      .map(_ => Ok(views.html.propertyLinking.chooseEvidence(ChooseEvidence.form, request.ses.clientDetails)))
   }
 
   def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     ChooseEvidence.form
       .bindFromRequest()
       .fold(
-        errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors)), {
+        errors => BadRequest(views.html.propertyLinking.chooseEvidence(errors, request.ses.clientDetails)), {
           case true  => Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
           case false => Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
         }

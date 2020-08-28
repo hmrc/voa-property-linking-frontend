@@ -20,7 +20,7 @@
 @import controllers.propertyLinking.DeclarationVM
 @import config.ApplicationConfig
 
-@(model: DeclarationVM, isRatesBillEvidence: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: DeclarationVM, isRatesBillEvidence: Boolean, clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @backLink = @{if (isRatesBillEvidence) {
                     controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.RATES_BILL).url
@@ -28,7 +28,7 @@
                     controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url
                 }
 }
-
+@clientId = @{clientDetails.map(_.organisationId)}
 @main_template(
     Messages("declaration.title"),
     topBackLink = true,
@@ -50,11 +50,16 @@
 
                 <ul class="list-bullet">
                     <li>@messages("declaration.1")</li>
-                    <li>@messages("declaration.2")</li>
+                    <li> @clientId match {
+                        case Some(id)   => { @messages("declaration.client.2") }
+                        case _          => { @messages("declaration.2") }
+                    }</li>
                 </ul>
 
-                <p>@messages("declaration.p.2")</p>
-
+            @clientId match {
+                case Some(id)   => { @messages("declaration.client.p.2") }
+                case _          => { @messages("declaration.p.2") }
+            }
                 <div class="notice">
                     <i class="icon icon-important">
                         <span class="visually-hidden">Warning</span>

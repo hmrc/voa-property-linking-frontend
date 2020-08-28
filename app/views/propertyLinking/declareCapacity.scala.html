@@ -19,11 +19,16 @@
 @import controllers.propertyLinking.DeclareCapacityVM
 @import config.ApplicationConfig
 
-@(model: DeclareCapacityVM, clientId: Option[Long] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: DeclareCapacityVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@clientId = @{clientDetails.map(_.organisationId)}
+@clientParameter = @{
+    clientDetails  match {
+        case Some(client) => { s"?organisationId=${client.organisationId}&organisationName=${client.organisationName}"  }
+        case _        => ""
+    }
+}
 
 @main_template(title = Messages("declareCapacity.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backLink)) {
-
-
     <div class="grid-row">
         <div class="column-two-thirds">
 
@@ -32,59 +37,60 @@
                 <span class="heading-main" id="addressSpan">@model.address.toString</span>
             </h1>
 
-            @includes.errorSummary(model.form)
-
-
+            @includes.errorSummary(model.form, clientId = clientId)
 
             @clientId match {
-                case Some(id)   => { <p class="heading-medium">@messages("declareCapacity.client.message")</p> }
+                case Some(id)   => { <p class="heading-medium">@messages("declareCapacity.message.client")</p> }
                 case _          => { <p class="heading-medium">@messages("declareCapacity.message")</p> }
             }
 
-
-
             <p class="panel panel-border-wide">
                 @messages("declareCapacity.incorrectProperty.prefix")
-                <a href="@controllers.propertyLinking.routes.ClaimProperty.show">@messages("declareCapacity.incorrectProperty.link")</a>
+                <a href="@{controllers.propertyLinking.routes.ClaimProperty.show().url + clientParameter}">@messages("declareCapacity.incorrectProperty.link")</a>
             </p>
 
+            @form(controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientDetails)) {
 
-            @form(controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientId)) {
-
-                <details>
-                    <summary><span>@messages("declareCapacity.details.ownerOrOccupier")</span></summary>
-                    <div class="panel-indent">
-                        @Html(Messages("declareCapacity.details.ownerOrOccupier.text", routes.Application.contactUs()))
-                    </div>
-                </details>
-
-                <details>
-                    <summary><span>@messages("declareCapacity.details.notOwner")</span></summary>
-                    <div class="panel-indent">
-                        @Html(Messages("declareCapacity.details.notOwner.text", routes.Application.contactUs()))
-                    </div>
-                </details>
             @clientId match {
-            case Some(id) => { }
-            case _          => {
-                                    <details>
-                                        <summary><span>@messages("declareCapacity.details.agent")</span></summary>
-                                        <div class="panel-indent">
-                                            @messages("declareCapacity.details.agent.text")
-                                        </div>
-                                    </details>
-                                }
+                    case Some(id)   => {
+                                            <details>
+                                                <summary><span>@messages("declareCapacity.details.ownerOrOccupier.client")</span></summary>
+                                                <div class="panel-indent">
+                                                    @Html(Messages("declareCapacity.details.ownerOrOccupier.text.client", routes.Application.contactUs()))
+                                                </div>
+                                            </details>
+
+                                            <details>
+                                                <summary><span>@messages("declareCapacity.details.notOwner.client")</span></summary>
+                                                <div class="panel-indent">
+                                                    @Html(Messages("declareCapacity.details.notOwner.text.client", routes.Application.contactUs()))
+                                                </div>
+                                            </details>
+                                            }
+                    case _          => {
+                                            <details>
+                                                <summary><span>@messages("declareCapacity.details.ownerOrOccupier")</span></summary>
+                                                <div class="panel-indent">
+                                                    @Html(Messages("declareCapacity.details.ownerOrOccupier.text", routes.Application.contactUs()))
+                                                </div>
+                                            </details>
+
+                                            <details>
+                                                <summary><span>@messages("declareCapacity.details.notOwner")</span></summary>
+                                                <div class="panel-indent">
+                                                    @Html(Messages("declareCapacity.details.notOwner.text", routes.Application.contactUs()))
+                                                </div>
+                                            </details>
+                    }
             }
 
-
                 <br />
-
                 @inputRadioGroup(
                         field = model.form("capacity"),
                         options = CapacityType.options,
                         args = Seq(
                             '_label -> {clientId match {
-                                                    case Some(id)   => {messages("label.client.capacity")}
+                                                    case Some(id)   => {messages("label.capacity.client")}
                                                     case _          => {messages("label.capacity")}
                             }},
                             '_labelClass -> "form-label-bold",
@@ -99,7 +105,7 @@
                     ),
                     args = Seq(
                         '_label -> {clientId match {
-                                                case Some(id)   => {messages("label.client.interestedBefore2017")}
+                                                case Some(id)   => {messages("label.interestedBefore2017.client")}
                                                 case _          => {messages("label.interestedBefore2017")}
                         }},
                         '_labelClass -> "form-label-bold",
@@ -108,12 +114,20 @@
                 )
 
                 <div id="interestedAfter2017" data-toggle-hidden>
-                    @dateFields(model.form, "fromDate")
+                    @dateFields(model.form, "fromDate", label = Some(clientId.fold("label.fromDate"){_ => "label.fromDate.client"}))
 
                     <details>
-                        <summary><span>@messages("declareCapacity.details.haveOwned")</span></summary>
+                        <summary><span>
+                            @clientId match {
+                                case Some(id)   => {@messages("declareCapacity.details.haveOwned.client")}
+                                case _          => {@messages("declareCapacity.details.haveOwned")}
+                            }
+                        </span></summary>
                         <div class="panel-indent">
-                            @messages("declareCapacity.details.haveOwned.text")
+                            @clientId match {
+                                case Some(id)   => {@messages("declareCapacity.details.haveOwned.text.client")}
+                                case _          => {@messages("declareCapacity.details.haveOwned.text")}
+                            }
                         </div>
                     </details>
                     <br />
@@ -127,7 +141,7 @@
                     ),
                     args = Seq(
                         '_label -> { clientId match {
-                                                case Some(id)   => {messages("label.client.stillInterested")}
+                                                case Some(id)   => {messages("label.stillInterested.client")}
                                                 case _          => {messages("label.stillInterested")}
                         }},
                         '_labelClass -> "form-label-bold",
@@ -137,9 +151,8 @@
                 )
 
                 <div id="endDate" data-toggle-hidden>
-                    @dateFields(model.form, "toDate")
+                    @dateFields(model.form, "toDate", label = Some(clientId.fold("label.toDate"){_ => "label.toDate.client"}))
                 </div>
-
                 <p>
                     <button type="submit" id="continue" name="continue_button" class="button">@messages("declareCapacity.submit.button")</button>
                 </p>
