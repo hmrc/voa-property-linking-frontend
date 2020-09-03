@@ -396,7 +396,8 @@ draftCases.confirm.delete.return.button=Return to drafts list
 propertyRepresentation.removeAgent.title=Remove agent permissions
 propertyRepresentation.removeAgent.message.p1=You can remove an agent''s ability to carry out checks and challenges on your behalf.
 propertyRepresentation.removeAgent.message.p2=Select an agent from the list below to remove them from one or more properties.
-propertyRepresentation.removeAgentProperties.title=Remove an agent
+propertyRepresentation.removeAgentProperties.title=Which properties should the agent be removed from
+propertyRepresentation.removeAgentProperties.heading=Remove an agent
 propertyRepresentation.removeAgentProperties.message.p1=You can remove {0}''s (Agent ID: {1}) ability to carry out checks and challenges for any of these properties:
 
 #Appoint agent
@@ -431,16 +432,19 @@ propertyRepresentation.addAnAgent.guidance.yourAgentCan=Your agent can:
 propertyRepresentation.addAnAgent.guidance.discussProperties=discuss your property’s valuation with the VOA
 propertyRepresentation.addAnAgent.guidance.challenge=challenge the value if necessary
 
+propertyRepresentation.isThisYourAgent.title=Confirm Agent
 propertyRepresentation.isThisYourAgent.question=Is this your agent?
 propertyRepresentation.isThisYourAgent.yes=Yes
 propertyRepresentation.isThisYourAgent.no=No, enter a new code
 
 propertyRepresentation.onePropertyNoExistingAgent.question=Do you want {0} to manage your property?
 
+propertyRepresentation.oneProperty.title=Should the agent manage your property
 propertyRepresentation.oneProperty.question=Should {0} manage your property?
 propertyRepresentation.oneProperty.options.yes=Yes
 propertyRepresentation.oneProperty.options.no=No
 
+propertyRepresentation.multipleProperties.title=Which properties should the agent manage
 propertyRepresentation.multipleProperties.question=Which properties would you like {0} to manage?
 propertyRepresentation.multipleProperties.options.all=All
 propertyRepresentation.multipleProperties.options.noProperties=None
@@ -456,6 +460,7 @@ propertyRepresentation.checkYourAnswers.options.yes=Yes
 
 propertyRepresentation.checkYourAnswers.submit=Submit
 
+propertyRepresentation.confirmation.title=Agent has been appointed
 propertyRepresentation.confirmation={0} has been appointed for you
 propertyRepresentation.confirmation.whatHappensNext=What happens next
 propertyRepresentation.confirmation.whatHappensNext.p1=We will notify {0} that you have appointed them as your agent.
@@ -479,9 +484,12 @@ error.agentProperties.filter=You must enter something to search for
 propertyRepresentation.manageAgent.title=Manage agent
 propertyRepresentation.manageAgent.question=What do you want to do to the agent {0}?
 
+propertyRepresentation.manageAgent.removeFromAccount.title=Remove agent from your account
 propertyRepresentation.manageAgent.removeFromAccount.question=Would you like to remove {0} from your account?
 propertyRepresentation.manageAgent.removeFromAccount.continue=Confirm and remove
 propertyRepresentation.manageAgent.removeFromAccount.cancel=Cancel and return to home page
+
+propertyRepresentation.manageAgent.removeFromAccount.title=Agent has been removed from your account
 propertyRepresentation.manageAgent.removeFromAccount.confirmation={0} has been removed from your account
 
 propertyRepresentation.manageAgent.unassignFromProperty.question=Would you like to unassign {0} from your property?
@@ -495,6 +503,7 @@ propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Unassign f
 propertyRepresentation.manageAgent.options.assignToYourProperty=Assign to your property
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from your account
 
+propertyRepresentation.manageAgent.assignToAllProperties.title=Confirm you want to assign agent to all properties
 propertyRepresentation.manageAgent.assignToAllProperties.question=Are you sure you want to assign {0} to all your properties?
 propertyRepresentation.manageAgent.assignToAllProperties.insetText={0} will be added to all of your properties
 
@@ -502,13 +511,16 @@ propertyRepresentation.manageAgent.assignToAllProperties.confirmation={0} has be
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext=What happens next
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
 
+propertyRepresentation.manageAgent.unassignFromAllProperties.title=Confirm you want to unassign agent to all properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.question=Are you sure you want to unassign {0} from all properties?
 
+propertyRepresentation.manageAgent.unassignFromAllProperties.title=Agent has been unassigned from all your properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation={0} has been unassigned from all your properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText=This agent has not been removed from your account.
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow=You can now:
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount=Remove this agent from your account
 
+propertyRepresentation.revokeClientProperty.title=Client has been revoked
 propertyRepresentation.revokeClientProperty.confirmation=You have successfully revoked client property: {0}
 propertyRepresentation.revokeClientProperty.returnToClientProperties=Return to client properties
 

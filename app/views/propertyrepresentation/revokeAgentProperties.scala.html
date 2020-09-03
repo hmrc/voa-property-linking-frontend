@@ -31,12 +31,16 @@
     agentCode: Long, backLink: String
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@heading = @{
+@title = @{
     Messages("propertyRepresentation.removeAgentProperties.title")
 }
 
+@heading = @{
+    Messages("propertyRepresentation.removeAgentProperties.heading")
+}
+
 @main_template(
-heading,
+title,
 contentHeaderText = Some(heading),
 contentHeaderHidden = true,
 topBackLink = true,
@@ -44,7 +48,7 @@ backLinkUrl = Some(backLink)
 ) {
 
 <div id="linkIdsGroup"  class="column-whole">
-    <h1 class="heading-large">@messages("propertyRepresentation.removeAgentProperties.title")</h1>
+    <h1 class="heading-large">@messages("propertyRepresentation.removeAgentProperties.heading")</h1>
     <p class="lede">@messages("propertyRepresentation.removeAgentProperties.message.p1", model.agentGroup.companyName, agentCode.toString)</p>
 
 

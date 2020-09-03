@@ -29,7 +29,7 @@
 @(form: Form[AddAgentOptions], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.addAnAgent.title"),
+    pageTitle = messages("propertyRepresentation.oneProperty.title"),
     backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent().url)
 ) {
 
