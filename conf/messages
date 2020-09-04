@@ -489,7 +489,7 @@ propertyRepresentation.manageAgent.removeFromAccount.question=Would you like to 
 propertyRepresentation.manageAgent.removeFromAccount.continue=Confirm and remove
 propertyRepresentation.manageAgent.removeFromAccount.cancel=Cancel and return to home page
 
-propertyRepresentation.manageAgent.removeFromAccount.title=Agent has been removed from your account
+propertyRepresentation.manageAgent.removeFromAccount.confirmation.title=Agent has been removed from your account
 propertyRepresentation.manageAgent.removeFromAccount.confirmation={0} has been removed from your account
 
 propertyRepresentation.manageAgent.unassignFromProperty.question=Would you like to unassign {0} from your property?
@@ -514,7 +514,7 @@ propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappen
 propertyRepresentation.manageAgent.unassignFromAllProperties.title=Confirm you want to unassign agent to all properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.question=Are you sure you want to unassign {0} from all properties?
 
-propertyRepresentation.manageAgent.unassignFromAllProperties.title=Agent has been unassigned from all your properties
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title=Agent has been unassigned from all your properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation={0} has been unassigned from all your properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText=This agent has not been removed from your account.
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow=You can now:
