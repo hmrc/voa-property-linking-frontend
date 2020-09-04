@@ -511,7 +511,7 @@ propertyRepresentation.manageAgent.assignToAllProperties.confirmation={0} has be
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext=What happens next
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
 
-propertyRepresentation.manageAgent.unassignFromAllProperties.title=Confirm you want to unassign agent to all properties
+propertyRepresentation.manageAgent.unassignFromAllProperties.title=Confirm you want to unassign agent from all properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.question=Are you sure you want to unassign {0} from all properties?
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title=Agent has been unassigned from all your properties
