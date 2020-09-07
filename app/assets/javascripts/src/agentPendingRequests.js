@@ -30,6 +30,12 @@
             $(this).prop('checked', !allselected);
         });
 
+        if ( $(this).text() == $('#selectAll').text() ) {
+           $('#par-select-all-top, #par-select-all-bottom').text($('#deselectAll').text())
+        }else{
+           $('#par-select-all-top, #par-select-all-bottom').text($('#selectAll').text())
+        }
+
         return false;
     });
 
