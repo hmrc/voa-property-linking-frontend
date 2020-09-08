@@ -70,7 +70,9 @@
             @if(f.isDefined){ @includes.errorSummary(f.get) }
 
             <div class="hide-if-no-js">
-                <a href="#" id="par-select-all-top">@messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+                <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
+                <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
+                <a href="#" id="par-select-all-top">@messages("propertyRepresentation.appointAgentProperties.select")</a>
                 |
                 @agentPropertiesFilter(model.showAllProperties, backLinkAsString)
             </div>
@@ -211,7 +213,7 @@
             </div>
 
             <div class="hide-if-no-js margin-top-20">
-                <a href="#" id="par-select-all-top">@messages("propertyRepresentation.appointAgentProperties.selectDeselect")</a>
+                <a href="#" id="par-select-all-bottom">@messages("propertyRepresentation.appointAgentProperties.select")</a>
             </div>
 
             <div class="margin-top-20">

@@ -527,7 +527,8 @@ propertyRepresentation.revokeClientProperty.returnToClientProperties=Return to c
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
 propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent ''{0}'' (Agent ID: {1}) to submit {2} for any of these properties:
-propertyRepresentation.appointAgentProperties.selectDeselect=Select all / deselect all
+propertyRepresentation.appointAgentProperties.select=Select all
+propertyRepresentation.appointAgentProperties.deselect=Deselect all
 propertyRepresentation.appointAgents.table.select=Select
 propertyRepresentation.appointAgents.table.actions=Actions
 propertyRepresentation.th.ADDRESS=Address
