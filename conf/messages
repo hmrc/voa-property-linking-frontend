@@ -678,7 +678,7 @@ fromDate.year.label=Year
 label.fromDate=On what date did you become the owner or occupier?
 label.fromDate.client=On what date did your client become the owner or occupier?
 label.toDate=When was your last day as the owner or occupier of the property?
-label.toDate.client=When was your client's last day as the owner or occupier of the property?
+label.toDate.client=When was your client''s last day as the owner or occupier of the property?
 toDate.day.label=Day
 toDate.month.label=Month
 toDate.year.label=Year
@@ -703,14 +703,14 @@ declareCapacity.details.haveOwned.text.client=If your client has owned or occupi
 
 #UPLOAD RATES BILL
 uploadRatesBill.show.title=Submit a copy of your business rates bill
-uploadRatesBill.show.client.title=Submit a copy of your client's business rates bill
+uploadRatesBill.show.client.title=Submit a copy of your client''s business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
 uploadFile.allowedTypes.l1=Only Word, Excel, PDF and JPEG files can be accepted and maximum file size is 10MB
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Confirm
 chooseEvidence.title=Provide a copy of your business rates bill
-chooseEvidence.client.title=Provide a copy of your client's business rates bill
+chooseEvidence.client.title=Provide a copy of your client''s business rates bill
 label.hasRatesBill=Please upload a copy of the business rates bill for this property.
 hasRatesBill.true=I have a business rates bill
 hasRatesBill.false=I don’t have a business rates bill
