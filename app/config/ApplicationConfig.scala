@@ -77,6 +77,10 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val dvrCheckEnabled: Boolean = loadBooleanConfig("featureFlags.dvrCheckEnabled")
   lazy val clientPropertiesEnabled: Boolean = loadBooleanConfig("featureFlags.clientPropertiesEnabled")
   lazy val getExternalAgentsEnabled: Boolean = loadBooleanConfig("featureFlags.getExternalAgentsEnabled")
+  lazy val signOutUrl =
+    s"${loadConfig("sign-out.url")}?continue=${newDashboardUrl("home")}&accountType=organisation&origin=voa"
+  lazy val signOutTimeout = loadInt("sign-out.timeout")
+  lazy val signOutCountdown = loadInt("sign-out.countdown")
 
   lazy val stubEnrolment: Boolean = loadBooleanConfig("enrolment.useStub")
 
