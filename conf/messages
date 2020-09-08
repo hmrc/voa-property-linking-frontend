@@ -534,6 +534,7 @@ propertyRepresentation.appointAgents.table.actions=Actions
 propertyRepresentation.th.ADDRESS=Address
 propertyRepresentation.th.AGENT=Appointed agents
 propertyRepresentation.th.BAREF=Local authority reference
+propertyRepresentation.search.filter=Filter properties
 propertyRepresentation.search=Search for {0}
 propertyRepresentation.pageSize.showing=Showing
 label.linkIds=Select one or more properties

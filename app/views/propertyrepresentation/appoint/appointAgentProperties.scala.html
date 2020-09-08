@@ -84,33 +84,42 @@
                 <input type="hidden" name="sortField" value="@params.sortfield">
                 <input type="hidden" name="sortOrder" value="@params.sortorder">
                 <input type="hidden" name="backLink" value="@backLink">
-                <table  id="agentPropertiesTable" class="margin-bottom-0 dataTable table-font-xsmall no-footer">
-                <colgroup>
-                    <col style="width: 8%">
-                    <col style="width: 50%">
-                    <col style="width: 30%">
-                    <col style="width: 12%">
-                </colgroup>
 
-                <thead>
-                    <tr role="row">
-                        <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.select")</th>
-                        <th class="search-sort-table-header" aria-sort="@ariaSortOrder(params.sortorder , params.sortfield == ADDRESS)">@sortingControl(ADDRESS, backLinkAsString)</th>
-                        <th class="search-sort-table-header" aria-sort="@ariaSortOrder(params.sortorder , params.sortfield == AGENT)">@sortingControl(AGENT, backLinkAsString)</th>
-                        <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.actions")</th>
-                    </tr>
-                    <tr style="@{if(model.showAllProperties) "" else "display: none;"}">
-                        <th></th>
-                        <th>@searchField("address", params.address)</th>
-                        <th>@searchField("agent", params.agent)</th>
-                        <th>
-                            <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), agentCode, agentAppointed, backLinkAsString)"
-                                id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                </table>
+                <div id="filterProperties" class="searchbar column-full">
+                    <div class="row">
+                        <div class="column-full">
+                            <h2 class="heading-small margin-top-0">@messages("propertyRepresentation.search.filter")</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column-one-half">
+                            <div class="form-group" data-error="">
+                                <label class=" " for="address">
+                                    @messages("propertyRepresentation.th.ADDRESS")
+                                    <span class="form-hint"></span>
+                                </label>
+                                @searchField("address", params.address)
+                            </div>
+                        </div>
+
+                        <div class="column-one-half">
+
+                            <div class="form-group" data-error="">
+                                <label class=" " for="agent">
+                                    @messages("propertyRepresentation.th.AGENT")
+                                    <span class="form-hint"></span>
+                                </label>
+                                @searchField("agent", params.agent)
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="column-full">
+                                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), agentCode, agentAppointed, backLinkAsString)"
+                                   id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
+                            </div>
+                        </div>
+                </div>
             </form>
         </div>
 
@@ -129,7 +138,13 @@
                         <col style="width: 30%">
                         <col style="width: 12%">
                     </colgroup>
-                 <thead></thead>
+                 <thead>
+                     <tr role="row">
+                         <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.select")</th>
+                         <th class="search-sort-table-header" aria-sort="@ariaSortOrder(params.sortorder , params.sortfield == ADDRESS)">@sortingControl(ADDRESS, backLinkAsString)</th>
+                         <th class="search-sort-table-header" aria-sort="@ariaSortOrder(params.sortorder , params.sortfield == AGENT)" colspan="2">@sortingControl(AGENT, backLinkAsString)</th>
+                     </tr>
+                 </thead>
                  <tbody>
                     @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
                         @defining(s"checkbox-${index + 1}") { checkboxId: String =>
@@ -227,12 +242,12 @@
 
 @sortingControl(field: ExternalPropertyLinkManagementSortField, backLinkUrl: String) = {
     @if(model.showAllProperties){
-            <div id="sort-by-@field" class="@sortOrder(params.sortorder, params.sortfield == field)">
+            <div id="sort-by-@field" class="search-sort-table-header @sortOrder(params.sortorder, params.sortfield == field)">
                 <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, params.reverseSorting.copy(sortfield = field), agentCode, agentAppointed = None, backLinkUrl).url">
                 @messages(s"propertyRepresentation.th.$field")</a>
             </div>
     } else {
-            <div id="sort-by-@field" class="@sortOrder(params.sortorder, params.sortfield == field)">
+            <div id="sort-by-@field" class="search-sort-table-header @sortOrder(params.sortorder, params.sortfield == field)">
                 <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, params.reverseSorting.copy(sortfield = field), agentCode, agentAppointed = Some(AgentPropertiesFilter.No.name), backLinkUrl).url">
                 @messages(s"propertyRepresentation.th.$field")</a>
             </div>
@@ -241,7 +256,7 @@
 
 @searchField(fieldName: String, value: Option[String]) = {
     <div class="searchfield">
-        <label for="@fieldName" class="visually-hidden">@messages(s"propertyRepresentation.th.$fieldName")</label>
+        <label for="@fieldName" class="visually-hidden">@messages(s"propertyRepresentation.th.${fieldName.toUpperCase()}")</label>
         <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
         <button id="@{
             fieldName
