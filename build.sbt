@@ -48,6 +48,7 @@ val compileDependencies = Seq(
   "uk.gov.hmrc" %% "mongo-lock" % "6.15.0-play-26",
   "uk.gov.hmrc" %% "reactive-circuit-breaker" % "3.5.0",
   "uk.gov.hmrc" %% "play-frontend-govuk" % "0.37.0-play-26",
+  "uk.gov.hmrc" %% "play-frontend-hmrc"  % "0.18.0-play-26",
   "uk.gov.hmrc" %% "auth-client" % "2.32.2-play-26"
 )
 

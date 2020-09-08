@@ -21,6 +21,7 @@
         new VOA.ShowDialog();
         new VOA.viewMessage();
         new VOA.FileUpload();
+        new VOA.TimeOutReminder();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));
