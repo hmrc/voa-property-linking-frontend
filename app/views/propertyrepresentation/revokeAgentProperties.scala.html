@@ -48,7 +48,7 @@ topBackLink = true,
 backLinkUrl = Some(backLink)
 ) {
 
-<div id="linkIdsGroup"  class="column-whole">
+<div id="linkIdsGroup"  class="column-full">
     <h1 class="heading-large">@messages("propertyRepresentation.removeAgentProperties.heading")</h1>
     <p class="lede">@messages("propertyRepresentation.removeAgentProperties.message.p1", model.agentGroup.companyName, agentCode.toString)</p>
 
@@ -68,41 +68,35 @@ backLinkUrl = Some(backLink)
         <input type="hidden" name="sortField" value="@params.sortfield">
         <input type="hidden" name="sortOrder" value="@params.sortorder">
         <input type="hidden" name="backLink" value="@backLink">
-        <table  id="agentPropertiesTable" class="margin-bottom-0 dataTable table-font-xsmall no-footer">
-            <colgroup>
-                <col style="width: 8%">
-                <col style="width: 50%">
-                <col style="width: 30%">
-                <col style="width: 12%">
-            </colgroup>
 
-            <thead>
-            <tr role="row">
-                <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.select")</th>
-                <th class="search-sort-table-header" class="@sortAddress" aria-sort="@ariaSortAddress">
-                    <div id="sort-by-address">
-                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)">
-                            @messages(s"propertyRepresentation.th.${ADDRESS.toString}")</a>
+        <div id="filterProperties" class="searchbar column-full">
+            <div class="row">
+                <div class="column-full">
+                    <h2 class="heading-small margin-top-0">@messages("propertyRepresentation.search.filter")</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column-one-half">
+                    <div class="form-group" data-error="">
+                        <label class=" " for="address">
+                            @messages("propertyRepresentation.th.ADDRESS")
+                            <span class="form-hint"></span>
+                        </label>
+                        @searchField("address", params.address)
                     </div>
-                </th>
-                <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.actions")</th>
-            </tr>
-            <tr>
-                <th></th>
-                <th>@searchField("address", params.address)</th>
-                <th>
+                </div>
 
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)"
-                       id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
-                </th>
-                <th></th>
-            </tr>
-            </thead>
-        </table>
+                <div class="row">
+                    <div class="column-full">
+                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)"
+                           id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
+                    </div>
+                </div>
+            </div>
     </form>
 </div>
 
-<div class="column-whole">
+<div class="column-full">
     @if(model.response.authorisations.isEmpty){
     <h2 class="heading-secondary margin-top-30">@messages("dashboard.manageProperties.noProperties")</h2>
     } else {
@@ -117,7 +111,18 @@ backLinkUrl = Some(backLink)
             <col style="width: 30%">
             <col style="width: 12%">
         </colgroup>
-        <thead></thead>
+        <thead>
+            <tr role="row">
+                <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.select")</th>
+                <th class="@sortAddress search-sort-table-header" aria-sort="@ariaSortAddress">
+                    <div id="sort-by-address">
+                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)">
+                            @messages(s"propertyRepresentation.th.${ADDRESS.toString}")</a>
+                    </div>
+                </th>
+                <th class="search-sort-table-header" aria-sort="none" colspan="2">@messages(s"propertyRepresentation.th.AGENT")</th>
+            </tr>
+        </thead>
         <tbody>
         @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
         @defining(s"checkbox-${index + 1}") { checkboxId: String =>
