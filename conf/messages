@@ -473,6 +473,7 @@ error.propertyRepresentation.agentAlreadyAppointed=This agent has already been a
 
 #Show your agents
 propertyRepresentation.showAgents.title=Your agents
+propertyRepresentation.agentProperties.assigned.title=Your agent
 propertyRepresentation.agentProperties.assigned=Assigned properties
 propertyRepresentation.manage.agent=Manage this agent
 propertyRepresentation.showAgents.properties={0} of {1} properties
@@ -492,6 +493,7 @@ propertyRepresentation.manageAgent.removeFromAccount.cancel=Cancel and return to
 propertyRepresentation.manageAgent.removeFromAccount.confirmation.title=Agent has been removed from your account
 propertyRepresentation.manageAgent.removeFromAccount.confirmation={0} has been removed from your account
 
+propertyRepresentation.manageAgent.unassignFromProperty.title=Unassign from your property
 propertyRepresentation.manageAgent.unassignFromProperty.question=Would you like to unassign {0} from your property?
 propertyRepresentation.manageAgent.unassignFromProperty.confirm=Confirm and unassign
 propertyRepresentation.manageAgent.unassignFromProperty.cancel=Cancel and return to home page
