@@ -240,7 +240,6 @@ backLinkUrl = Some(backLink)
 
 @searchField(fieldName: String, value: Option[String]) = {
 <div class="searchfield">
-    <label for="@fieldName" class="visually-hidden">@messages(s"propertyRepresentation.th.$fieldName")</label>
     <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
     <button id="@{
             fieldName
