@@ -1183,7 +1183,7 @@ challenge.valuation.beforeStarting=Before you start
 challenge.valuation.eligibility=You’ll need to confirm why you’re eligible to make a challenge. The challenge form will only be available after you’ve selected one of these options:
 challenge.valuation.b1=I received my check decision less than 4 months ago
 challenge.valuation.b2=I submitted a check more than 12 months ago and I have not had a decision
-challenge.valuation.b3=I informed you about a change in the surrounding area of my property less than 16 months ago
+challenge.valuation.b3=I submitted a check in the last 16 months and want to tell you about a change to the surrounding area of my property
 
 challenge.valuation.whatToDo=What you need to do
 challenge.valuation.makeChallenge=You’ll need to
