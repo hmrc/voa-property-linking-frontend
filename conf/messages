@@ -873,10 +873,10 @@ property.details.div.submitted.challenge.cases=Submitted challenge cases
 property.details.challenge.cases.table.4=Challenge reference
 
 challengeRules.summary=When you may challenge
-challengeRules.rules=You can challenge a valuation if you’ve submitted a check and:
-challengeRules.rules.1=had a decision in the last 4 months
-challengeRules.rules.2=haven’t had a decision in the last 12 months
-challengeRules.rules.3=told us about a change in the local area of a property less than 16 months ago
+challengeRules.rules=You can challenge the valuation if you have:
+challengeRules.rules.1=had a check decision in the last 4 months
+challengeRules.rules.2=submitted a check and have not had a decision in the last 12 months
+challengeRules.rules.3=submitted a check in the last 16 months and your challenge is about a change in the local area of a property
 challengeRules.rules.paper=If no valid check cases are shown but you still think you have the right to challenge, you will need to <a href="{0}">download and complete a challenge form</a>.
 
 label.requestType=How would you like to receive the detailed valuation?
@@ -1183,7 +1183,7 @@ challenge.valuation.beforeStarting=Before you start
 challenge.valuation.eligibility=You’ll need to confirm why you’re eligible to make a challenge. The challenge form will only be available after you’ve selected one of these options:
 challenge.valuation.b1=I received my check decision less than 4 months ago
 challenge.valuation.b2=I submitted a check more than 12 months ago and I have not had a decision
-challenge.valuation.b3=I informed you about a change in the surrounding area of my property less than 16 months ago
+challenge.valuation.b3=I submitted a check in the last 16 months and want to tell you about a change to the surrounding area of my property
 
 challenge.valuation.whatToDo=What you need to do
 challenge.valuation.makeChallenge=You’ll need to
