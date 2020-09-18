@@ -194,7 +194,7 @@
                     <ul class="pagination" style="margin: 0px">
                         @if(pagination.page > 1) {
                             <li class="previous ">
-                                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination.previousPage, params, agentCode, agentAppointed, backLinkAsString).url"role="link">
+                                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination.previousPage, params, agentCode, agentAppointed, backLinkAsString).url "role="link">
                                     <i class="previous-arrow"></i>Previous</a>
                             </li>
                         } else {
@@ -204,7 +204,7 @@
                         <li class="active">@pagination.page</li>
                         @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                             <li class="next">
-                                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination.nextPage, params, agentCode, agentAppointed, backLinkAsString).url"role="link">Next<i class="next-arrow"></i></a></li>
+                                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination.nextPage, params, agentCode, agentAppointed, backLinkAsString).url" role="link">Next<i class="next-arrow"></i></a></li>
                         } else {
                             <li class="next disabled"><i class="next-arrow"></i>Next</li>
                         }
@@ -244,12 +244,12 @@
 @sortingControl(field: ExternalPropertyLinkManagementSortField, backLinkUrl: String) = {
     @if(model.showAllProperties){
             <div id="sort-by-@field" class="search-sort-table-header @sortOrder(params.sortorder, params.sortfield == field)">
-                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, params.reverseSorting.copy(sortfield = field), agentCode, agentAppointed = None, backLinkUrl).url"role="link">
+                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, params.reverseSorting.copy(sortfield = field), agentCode, agentAppointed = None, backLinkUrl).url" role="link">
                 @messages(s"propertyRepresentation.th.$field")</a>
             </div>
     } else {
             <div id="sort-by-@field" class="search-sort-table-header @sortOrder(params.sortorder, params.sortfield == field)">
-                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, params.reverseSorting.copy(sortfield = field), agentCode, agentAppointed = Some(AgentPropertiesFilter.No.name), backLinkUrl).url"role="link">
+                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, params.reverseSorting.copy(sortfield = field), agentCode, agentAppointed = Some(AgentPropertiesFilter.No.name), backLinkUrl).url" role="link">
                 @messages(s"propertyRepresentation.th.$field")</a>
             </div>
     }
