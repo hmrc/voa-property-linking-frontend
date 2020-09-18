@@ -193,8 +193,8 @@
                 <div role="navigation" aria-label="Pagination" class="pull-right">
                     <ul class="pagination" style="margin: 0px">
                         @if(pagination.page > 1) {
-                            <li class="previous ">
-                                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination.previousPage, params, agentCode, agentAppointed, backLinkAsString).url "role="link">
+                            <li class="previous">
+                                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination.previousPage, params, agentCode, agentAppointed, backLinkAsString).url" role="link">
                                     <i class="previous-arrow"></i>Previous</a>
                             </li>
                         } else {
