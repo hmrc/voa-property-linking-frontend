@@ -59,7 +59,7 @@
         <div class="column-full">
             <br>
             <p>
-            <a href="@{controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url}" class="button">@messages("propertyRepresentation.manage.agent")</a>
+            <a href="@{controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url}" class="link">@messages("propertyRepresentation.manage.agent")</a>
             </p>
         </div>
 
@@ -115,7 +115,7 @@
                         <button class="button" id="search-submit" type="submit">@messages("label.search") </button>
 
                         <a
-                        href="@{controllers.agent.routes.ManageAgentController.manageAgentSearchSortProperties(agentCode, GetPropertyLinksParameters(), PaginationParameters()).url}"
+                        href="@{controllers.agent.routes.ManageAgentController.manageAgentSearchSortProperties(agentCode, GetPropertyLinksParameters(), PaginationParameters()).url}" role="link"
                         id="clear-search"
                         class="clear pull-right">
                         @messages("label.clear.search")
@@ -152,10 +152,10 @@
                     <tr role="row" valign="top">
                         <td>
                             @if(propertyDetails.status == "APPROVED") {
-                                <a href="@{uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController.valuations(propertyDetails.submissionId, true).url}">
+                                <a href="@{uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController.valuations(propertyDetails.submissionId, true).url}" role="link">
                                 @capitaliseAdress(propertyDetails.address)</a>
                             } else {
-                                <a href="@{controllers.routes.Assessments.viewOwnerSummary(propertyDetails.uarn)}">
+                                <a href="@{controllers.routes.Assessments.viewOwnerSummary(propertyDetails.uarn)}" role="link">
                                 @capitaliseAdress(propertyDetails.address)</a>
                             }
                         </td>
@@ -191,7 +191,7 @@
                     <ul class="pagination" style="margin: 0px">
                         @if(pagination.page > 1) {
                             <li class="previous ">
-                                <a href="@controllers.agent.routes.ManageAgentController.manageAgentSearchSortProperties(agentCode, params, pagination.previousPage).url">
+                                <a href="@controllers.agent.routes.ManageAgentController.manageAgentSearchSortProperties(agentCode, params, pagination.previousPage).url" role="link">
                                     <i class="previous-arrow"></i>Previous</a>
                             </li>
                         } else {
@@ -201,7 +201,7 @@
                         <li class="active">@pagination.page</li>
                         @if(ownerAuthResult.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                             <li class="next">
-                                <a href="@controllers.agent.routes.ManageAgentController.manageAgentSearchSortProperties(agentCode, params, pagination.nextPage).url">Next<i class="next-arrow"></i></a></li>
+                                <a href="@controllers.agent.routes.ManageAgentController.manageAgentSearchSortProperties(agentCode, params, pagination.nextPage).url" role="link">Next<i class="next-arrow"></i></a></li>
                         } else {
                             <li class="next disabled"><i class="next-arrow"></i>Next</li>
                         }
