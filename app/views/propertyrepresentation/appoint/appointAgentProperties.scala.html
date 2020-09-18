@@ -221,7 +221,7 @@
                     @if(pagination.pageSize == len) {
                         <span class="page-size-option-current">@len</span>
                     } else {
-                        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination.copy(pageSize = len, page = 1), params, agentCode, agentAppointed, backLinkAsString).url">
+                        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination.copy(pageSize = len, page = 1), params, agentCode, agentAppointed, backLinkAsString).url" role="link">
                         @len</a>
                     }
                 }
