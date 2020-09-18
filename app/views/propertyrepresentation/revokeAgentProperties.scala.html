@@ -88,7 +88,7 @@ backLinkUrl = Some(backLink)
 
                 <div class="row">
                     <div class="column-full">
-                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)"
+                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)" role="link">
                            id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
                     </div>
                 </div>
@@ -117,7 +117,7 @@ backLinkUrl = Some(backLink)
                 <th class="@sortAddress search-sort-table-header" aria-sort="@ariaSortAddress">
                 <th scope="col" width="30px" role="columnheader">
                     <div id="sort-by-address">
-                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)">
+                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)" role="link">
                             @messages(s"propertyRepresentation.th.${ADDRESS.toString}")</a>
 
                     </div>
@@ -172,7 +172,7 @@ backLinkUrl = Some(backLink)
             <ul class="pagination" style="margin: 0px">
                 @if(pagination.page > 1) {
                 <li class="previous ">
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.previousPage, params, agentCode).url">
+                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.previousPage, params, agentCode).url" role="link">
                         <i class="previous-arrow"></i>Previous</a>
                 </li>
                 } else {
@@ -182,7 +182,7 @@ backLinkUrl = Some(backLink)
                 <li class="active">@pagination.page</li>
                 @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                 <li class="next">
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.nextPage, params, agentCode).url">Next<i class="next-arrow"></i></a></li>
+                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.nextPage, params, agentCode).url" role="link">Next<i class="next-arrow"></i></a></li>
                 } else {
                 <li class="next disabled"><i class="next-arrow"></i>Next</li>
                 }
