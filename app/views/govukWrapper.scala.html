@@ -97,7 +97,9 @@
                 FooterItem(text = Some(messages("footer.termsandconditions")),
                     href = None),
                 FooterItem(text = Some(messages("link.privacyPolicy")),
-                    href = Some("https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice"))
+                    href = Some("https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice")),
+                FooterItem(text = Some(messages("footer.links.accessibility.text")),
+                    href = Some(config.accessibilityStatementUrl))
             )
         )))))
     }

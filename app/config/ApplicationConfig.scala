@@ -94,6 +94,8 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
 
   val baseUrl: String = if (Set("Dev", "Test").contains(runMode.env)) "http://localhost:9523" else ""
 
+  def accessibilityStatementUrl: String = loadConfig("accessibility-statement.url")
+
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
