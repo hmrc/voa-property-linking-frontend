@@ -117,7 +117,7 @@ backLinkUrl = Some(backLink)
                 <th class="@sortAddress search-sort-table-header" aria-sort="@ariaSortAddress">
                 <th scope="col" width="30px" role="columnheader"><caption class="visuallyhidden">@messages("propertyRepresentation.removeAgentProperties.heading")</caption>
                     <div id="sort-by-address">
-                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)" r ole="link">
+                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)" role="link">
                             @messages(s"propertyRepresentation.th.${ADDRESS.toString}")</a>
 
                     </div>
