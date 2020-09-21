@@ -81,6 +81,7 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
     s"${loadConfig("sign-out.url")}?continue=${newDashboardUrl("home")}&accountType=organisation&origin=voa"
   lazy val signOutTimeout = loadInt("sign-out.timeout")
   lazy val signOutCountdown = loadInt("sign-out.countdown")
+  lazy val keepAliveUrl = loadConfig("sign-out.keep-alive-url")
 
   lazy val stubEnrolment: Boolean = loadBooleanConfig("enrolment.useStub")
 

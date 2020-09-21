@@ -35,7 +35,7 @@
         linkElem = None,
         headScripts = Option(headScripts))
         <meta name="format-detection" content="telephone=no" />
-        <meta name="hmrc-timeout-dialog" content="hmrc-timeout-dialog" data-language="en" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown" data-keep-alive-url="?continue=true" data-sign-out-url="@config.signOutUrl"/>
+        <meta name="hmrc-timeout-dialog" content="hmrc-timeout-dialog" data-language="en" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown" data-keep-alive-url="@config.keepAliveUrl" data-sign-out-url="@config.signOutUrl"/>
     }
 
     @bodyEnd = {
