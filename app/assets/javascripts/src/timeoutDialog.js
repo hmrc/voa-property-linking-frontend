@@ -13,11 +13,13 @@
         var signOutUrl = $('#signOut').attr('data-url');
         var timeout = $('#signOut').attr('data-timeout');
         var countdown = $('#signOut').attr('data-countdown');
+        var keepAliveUrl = $('#signOut').attr('data-keep-alive-url');
+
         if (window.GOVUK.timeoutDialog && signOutUrl) {
             window.GOVUK.timeoutDialog({
                 timeout: timeout,
                 countdown: countdown,
-                keepAliveUrl: window.location,
+                keepAliveUrl: keepAliveUrl,
                 signOutUrl: signOutUrl
             });
         }
