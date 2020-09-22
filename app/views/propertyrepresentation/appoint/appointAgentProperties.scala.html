@@ -143,8 +143,8 @@
                          <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.select")</th>
                          <th class="search-sort-table-header" aria-sort="@ariaSortOrder(params.sortorder , params.sortfield == ADDRESS)">@sortingControl(ADDRESS, backLinkAsString)</th>
                          <th class="search-sort-table-header" aria-sort="@ariaSortOrder(params.sortorder , params.sortfield == AGENT)" colspan="2">@sortingControl(AGENT, backLinkAsString)</th>
-                         <th scope="col" width="30px" role="columnheader">
-                     </tr>
+                         <th scope="col" width="30px" role="columnheader"><caption class="visuallyhidden">@messages("propertyRepresentation.appointAgentProperties.title")</caption></th>
+
                  </thead>
                  <tbody>
                     @model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
