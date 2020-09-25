@@ -88,8 +88,8 @@ backLinkUrl = Some(backLink)
 
                 <div class="row">
                     <div class="column-full">
-                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)" role="link">
-                           id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
+                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)" role="link"
+                           id="clear-search" class="clear"@messages("manageProperties.table.clear.search")</a>
                     </div>
                 </div>
             </div>
@@ -115,12 +115,12 @@ backLinkUrl = Some(backLink)
             <tr role="row">
                 <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.select")</th>
                 <th class="@sortAddress search-sort-table-header" aria-sort="@ariaSortAddress"></th>
-                <th scope="col" width="30px" role="columnheader" id="sort-by-address" class="
+                <th scope="col" width="15px" role="columnheader" id="sort-by-address" class="
                 ascending">
                         <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)" role="link">
-                            @messages(s"propertyRepresentation.th.${ADDRESS.toString}")</a><caption class="visuallyhidden">@messages("propertyRepresentation.removeAgentProperties.heading")</caption>
+                            @messages(s"propertyRepresentation.th.${ADDRESS.toString}")</a>
                 </th>
-                <th class="search-sort-table-header" aria-sort="none" colspan="2">@messages(s"propertyRepresentation.th.AGENT")<caption class="visuallyhidden">@messages(s"propertyRepresentation.th.AGENT")</caption></th>
+                <th class="search-sort-table-header" aria-sort="none" colspan="2">@messages(s"propertyRepresentation.th.AGENT")
             </tr>
         </thead>
         <tbody>
@@ -155,7 +155,7 @@ backLinkUrl = Some(backLink)
     </table>
 
     <div>
-        <div class="pull-left">
+        <div role="status" class="pull-left">
             Showing
             @if(model.response.authorisations.isEmpty) {
             0
