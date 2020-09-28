@@ -115,7 +115,8 @@
 
                         <div class="row">
                             <div class="column-full">
-                                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), agentCode, agentAppointed, backLinkAsString)" id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
+                                <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), agentCode, agentAppointed, backLinkAsString)"
+                                   id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
                             </div>
                         </div>
                 </div>
@@ -176,7 +177,7 @@
             </table>
 
             <div>
-                <div class="pull-left">
+                <div role="status" class="pull-left">
                     Showing
                     @if(model.response.authorisations.isEmpty) {
                         0
