@@ -88,7 +88,7 @@ backLinkUrl = Some(backLink)
 
                 <div class="row">
                     <div class="column-full">
-                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)"
+                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)" role="link"
                            id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
                     </div>
                 </div>
@@ -114,13 +114,13 @@ backLinkUrl = Some(backLink)
         <thead>
             <tr role="row">
                 <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.select")</th>
-                <th class="@sortAddress search-sort-table-header" aria-sort="@ariaSortAddress">
-                    <div id="sort-by-address">
-                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)">
+                <th class="@sortAddress search-sort-table-header" aria-sort="@ariaSortAddress"></th>
+                <th scope="col" width="15px" role="columnheader" id="sort-by-address" class="
+                ascending">
+                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)" role="link"
                             @messages(s"propertyRepresentation.th.${ADDRESS.toString}")</a>
-                    </div>
                 </th>
-                <th class="search-sort-table-header" aria-sort="none" colspan="2">@messages(s"propertyRepresentation.th.AGENT")</th>
+                <th class="search-sort-table-header" aria-sort="none" colspan="2">@messages(s"propertyRepresentation.th.AGENT")<caption class="visuallyhidden">@messages(s"propertyRepresentation.th.AGENT")</caption></th>
             </tr>
         </thead>
         <tbody>
@@ -155,14 +155,14 @@ backLinkUrl = Some(backLink)
     </table>
 
     <div>
-        <div class="pull-left">
+        <div role="status" class="pull-left">
             Showing
             @if(model.response.authorisations.isEmpty) {
             0
             } else {
             @pagination.startPoint
             } to @{
-            model.response.total.min(pagination.startPoint + pagination.pageSize - 1)
+            model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1)
             } of @model.response.filterTotal
         </div>
 
@@ -170,7 +170,7 @@ backLinkUrl = Some(backLink)
             <ul class="pagination" style="margin: 0px">
                 @if(pagination.page > 1) {
                 <li class="previous ">
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.previousPage, params, agentCode).url">
+                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.previousPage, params, agentCode).url" role="link">
                         <i class="previous-arrow"></i>Previous</a>
                 </li>
                 } else {
@@ -180,7 +180,7 @@ backLinkUrl = Some(backLink)
                 <li class="active">@pagination.page</li>
                 @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                 <li class="next">
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.nextPage, params, agentCode).url">Next<i class="next-arrow"></i></a></li>
+                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.nextPage, params, agentCode).url" role="link">Next<i class="next-arrow"></i></a></li>
                 } else {
                 <li class="next disabled"><i class="next-arrow"></i>Next</li>
                 }

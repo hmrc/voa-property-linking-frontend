@@ -35,7 +35,7 @@
         linkElem = None,
         headScripts = Option(headScripts))
         <meta name="format-detection" content="telephone=no" />
-        <meta name="hmrc-timeout-dialog" content="hmrc-timeout-dialog" data-language="en" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown" data-keep-alive-url="?continue=true" data-sign-out-url="@config.signOutUrl"/>
+        <meta name="hmrc-timeout-dialog" content="hmrc-timeout-dialog" data-language="en" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown" data-keep-alive-url="@config.keepAliveUrl" data-sign-out-url="@config.signOutUrl"/>
     }
 
     @bodyEnd = {
@@ -97,7 +97,9 @@
                 FooterItem(text = Some(messages("footer.termsandconditions")),
                     href = None),
                 FooterItem(text = Some(messages("link.privacyPolicy")),
-                    href = Some("https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice"))
+                    href = Some("https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice")),
+                FooterItem(text = Some(messages("footer.links.accessibility.text")),
+                    href = Some(config.accessibilityStatementUrl))
             )
         )))))
     }
