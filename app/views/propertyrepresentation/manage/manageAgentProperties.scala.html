@@ -183,7 +183,7 @@
                     } else {
                         @pagination.startPoint
                     } to @{
-                    ownerAuthResult.total.min(pagination.startPoint + pagination.pageSize - 1)
+                    ownerAuthResult.filterTotal.min(pagination.startPoint + pagination.pageSize - 1)
                 } of @ownerAuthResult.filterTotal
                 </div>
 
