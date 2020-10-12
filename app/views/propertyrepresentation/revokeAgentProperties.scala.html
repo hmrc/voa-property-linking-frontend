@@ -78,7 +78,7 @@ backLinkUrl = Some(backLink)
             <div class="row">
                 <div class="column-one-half">
                     <div class="form-group" data-error="">
-                        <label class=" " for="address">
+                        <label class=" " for="Address">
                             @messages("propertyRepresentation.th.ADDRESS")
                             <span class="form-hint"></span>
                         </label>
@@ -114,13 +114,13 @@ backLinkUrl = Some(backLink)
         <thead>
             <tr role="row">
                 <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.select")</th>
-                <th scope="col" width="30px" role="columnheader" class="@sortAddress search-sort-table-header" aria-sort="@ariaSortAddress">
+                <th scope="col" width="30px" role="columnheader" class="search-sort-table-header @sortAddress" aria-sort="@ariaSortAddress">
                 <div id="sort-by-address">
-                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)" role="link"
+                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)" role="link">
                             @messages(s"propertyRepresentation.th.${ADDRESS.toString}")</a>
                 </div>
                 </th>
-                <th class="search-sort-table-header" aria-sort="none" colspan="2">@messages(s"propertyRepresentation.th.AGENT")<caption class="visuallyhidden">@messages(s"propertyRepresentation.th.AGENT")</caption></th>
+                <th cope="col" width="15px" role="columnheader" class="search-sort-table-header" aria-sort="none" colspan="2">@messages(s"propertyRepresentation.th.AGENT")<caption class="visuallyhidden">@messages(s"propertyRepresentation.th.AGENT")</caption></th>
             </tr>
         </thead>
         <tbody>
