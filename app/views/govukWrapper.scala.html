@@ -64,7 +64,7 @@
         @GovukPhaseBanner(
             PhaseBanner(
                 tag = Some(Tag(Text("beta"))),
-                content = HtmlContent(messages("label.phase.banner.text", config.businessRatesValuationFrontendUrl("send-beta-feedback")))
+                content = HtmlContent(messages("label.phase.banner.text", s"${config.vmvUrl}/send-beta-feedback?serviceIdentifier=CCA"))
             )
         )
     }
