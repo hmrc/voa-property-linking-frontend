@@ -56,11 +56,15 @@
 
 @afterHeader = {}
 
+@feedbackUrl = @{
+    s"${config.vmvUrl}/send-beta-feedback?serviceIdentifier=CCA"
+}
+
 @betaBanner = {
     @uiLayouts.betaBanner(
         userLoggedIn = false,
-        betaFeedbackUrl = config.businessRatesValuationFrontendUrl("send-beta-feedback"),
-        betaFeedbackUnauthenticatedUrl = config.businessRatesValuationFrontendUrl("send-beta-feedback"),
+        betaFeedbackUrl = feedbackUrl,
+        betaFeedbackUnauthenticatedUrl = feedbackUrl,
         showFeedbackLinkInBetaBanner = true
     )
 }
