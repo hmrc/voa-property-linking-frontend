@@ -42,7 +42,8 @@ import scala.concurrent.{ExecutionContext, Future}
 trait VoaPropertyLinkingSpec
     extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
     with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with StubMessageControllerComponents
-    with WSHTTPMock with ScalaFutures with Configs with FakeObjects with GlobalExecutionContext with AllMocks {
+    with WSHTTPMock with ScalaFutures with Configs with FakeObjects with GlobalExecutionContext with AllMocks
+    with HttpResponseUtils {
 
   val token: (String, String) = "Csrf-Token" -> "nocheck"
 
@@ -51,6 +52,7 @@ trait VoaPropertyLinkingSpec
   implicit val messagesControllerComponents: MessagesControllerComponents = stubMessagesControllerComponents()
   implicit lazy val messageApi: MessagesApi = messagesControllerComponents.messagesApi
   implicit val clock: Clock = Clock.fixed(Instant.now(), ZoneId.systemDefault())
+
   override implicit lazy val applicationConfig: ApplicationConfig = app.injector.instanceOf[ApplicationConfig]
 
   def preAuthenticatedActionBuilders(
@@ -122,4 +124,5 @@ trait VoaPropertyLinkingSpec
               request = request
             )))
     }
+
 }

@@ -17,9 +17,9 @@
 package services
 
 import org.scalatest.concurrent.{PatienceConfiguration, ScalaFutures}
-import org.scalatestplus.mockito.MockitoSugar
 import org.scalatest.time.{Millis, Seconds, Span}
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import tests.AllMocks
@@ -28,7 +28,7 @@ import utils._
 trait ServiceSpec
     extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
     with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with ScalaFutures with FakeObjects
-    with GlobalExecutionContext with PatienceConfiguration with AllMocks {
+    with GlobalExecutionContext with PatienceConfiguration with AllMocks with HttpResponseUtils {
 
   override implicit def patienceConfig: PatienceConfig =
     PatienceConfig(timeout = Span(1, Seconds), interval = Span(15, Millis))
@@ -46,4 +46,5 @@ trait ServiceSpec
     StubSubmissionIdConnector.reset()
     StubPropertyRepresentationConnector.reset()
   }
+
 }

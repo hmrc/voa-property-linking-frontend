@@ -22,7 +22,7 @@ import models.Address
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.test.FakeRequest
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
@@ -37,7 +37,8 @@ class EnrolmentServiceSpec extends ServiceSpec {
   "enrol" should " return success with valid details" in {
     when(mockAddresses.findById(any())(any()))
       .thenReturn(Future.successful(Some(Address(Some(1), "", "", "", "", ""))))
-    when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any())).thenReturn(Future.successful(HttpResponse(204)))
+    when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any()))
+      .thenReturn(Future.successful(emptyJsonHttpResponse(204)))
     val result = enrolmentService.enrol(1L, 1)
     result.futureValue must be(Success)
   }

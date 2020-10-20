@@ -49,7 +49,7 @@ class IndividualAccountsSpec extends VoaPropertyLinkingSpec {
   "update" must "successfully update an individual account" in new Setup {
     val validDetailedIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
 
-    mockHttpPUT[IndividualAccount, HttpResponse]("tst-url", HttpResponse(OK))
+    mockHttpPUT[IndividualAccount, HttpResponse]("tst-url", emptyJsonHttpResponse(OK))
     whenReady(connector.update(validDetailedIndividualAccount))(_ mustBe ((): Unit))
   }
 

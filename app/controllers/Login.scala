@@ -26,6 +26,6 @@ class Login @Inject()(config: ApplicationConfig, override val controllerComponen
   val show = Action(
     Redirect(
       config.ggSignInUrl,
-      Map("continue" -> Seq(config.baseUrl + controllers.routes.Dashboard.home().url), "origin" -> Seq("voa"))))
+      Map("continue" -> Seq(controllers.routes.Dashboard.home().url), "origin" -> Seq("voa"))))
 
 }

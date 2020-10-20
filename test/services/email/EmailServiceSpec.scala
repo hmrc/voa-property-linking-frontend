@@ -25,15 +25,15 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.Status.OK
 import play.api.libs.json.Writes
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReads, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.test.UnitSpec
+import utils.HttpResponseUtils
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class EmailServiceSpec extends UnitSpec with MockitoSugar {
+class EmailServiceSpec extends UnitSpec with MockitoSugar with HttpResponseUtils {
 
   private implicit val headerCarrier = HeaderCarrier()
   val config = mock[ServicesConfig]
@@ -56,7 +56,7 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar {
           any[HttpReads[HttpResponse]](),
           any[HeaderCarrier](),
           any()))
-        .thenReturn(Future.successful(HttpResponse(OK)))
+        .thenReturn(Future.successful(emptyJsonHttpResponse(OK)))
 
       val individualDetails =
         IndividualDetails("firstName", "lastName", "email@email.com", "012345567788", None, 12345L)

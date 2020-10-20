@@ -22,8 +22,8 @@ import connectors.authorisation.BusinessRatesAuthorisationConnector
 import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalacheck.Arbitrary._
+import uk.gov.hmrc.http.{HeaderCarrier, UpstreamErrorResponse}
 import utils._
-import uk.gov.hmrc.http.{HeaderCarrier, Upstream4xxResponse}
 
 class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
 
@@ -61,7 +61,7 @@ class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "authorise" must "return a forbidden response if the user is not authorised to view an assessment" in new Setup {
-    val forbiddenResponse = Upstream4xxResponse("FORBIDDEN", 403, 403, Map.empty)
+    val forbiddenResponse = UpstreamErrorResponse("FORBIDDEN", 403, 403)
     mockHttpFailedGET[Accounts]("tst-url", forbiddenResponse)
     whenReady(connector.authorise(1, 1).failed)(_ mustBe forbiddenResponse)
   }
@@ -77,7 +77,7 @@ class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "authorise" must "return a forbidden response if the user is not authorised to view assessments for a property link" in new Setup {
-    val forbiddenResponse = Upstream4xxResponse("FORBIDDEN", 403, 403, Map.empty)
+    val forbiddenResponse = UpstreamErrorResponse("FORBIDDEN", 403, 403)
     mockHttpFailedGET[Accounts]("tst-url", forbiddenResponse)
     whenReady(connector.authorise(1))(_ mustBe ForbiddenResponse)
   }

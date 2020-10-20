@@ -33,7 +33,7 @@ class TaxEnrolmentConnectorSpec @Inject()(servicesConfig: ServicesConfig) extend
   }
 
   "enrol" must "enrol a user successfully" in new Setup {
-    val validHttpResponse = HttpResponse(OK)
+    val validHttpResponse = emptyJsonHttpResponse(OK)
 
     mockHttpPUT[EnrolmentPayload, HttpResponse]("tst-url", validHttpResponse)
     whenReady(connector.enrol(1, "AB12 C34"))(_ mustBe validHttpResponse)
@@ -49,7 +49,7 @@ class TaxEnrolmentConnectorSpec @Inject()(servicesConfig: ServicesConfig) extend
   "updatePostcode" must "update a postcode and return the result if successful" in new Setup {
     val successEnrolmentResult = Success
 
-    mockHttpPUT[PayLoad, HttpResponse]("tst-url", HttpResponse(OK))
+    mockHttpPUT[PayLoad, HttpResponse]("tst-url", emptyJsonHttpResponse(OK))
     whenReady(connector.updatePostcode(1, "NE12 W34", "OL00 D1"))(_ mustBe successEnrolmentResult)
   }
 

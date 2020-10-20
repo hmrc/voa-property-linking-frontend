@@ -17,7 +17,7 @@
 package models
 
 import binders.validation.ValidationUtils
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.Json
 import play.api.mvc.QueryStringBindable
 
 case class ClientDetails(organisationId: Long, organisationName: String)

@@ -20,10 +20,9 @@ import com.typesafe.config.ConfigFactory
 import config.ApplicationConfig
 import connectors.SubmissionIdConnector
 import org.mockito.Mockito.mock
-import play.api.{Configuration, Mode}
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import play.api.Configuration
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -31,11 +30,9 @@ import scala.concurrent.Future
 trait Configs {
   def configuration: Configuration = Configuration(ConfigFactory.parseResources("application.conf"))
 
-  def runMode: RunMode = new RunMode(configuration, Mode.Test)
+  def servicesConfig = new ServicesConfig(configuration)
 
-  def servicesConfig = new ServicesConfig(configuration, runMode)
-
-  def applicationConfig: ApplicationConfig = new ApplicationConfig(configuration, runMode)
+  def applicationConfig: ApplicationConfig = new ApplicationConfig(configuration)
 }
 
 object Configs extends Configs

@@ -29,12 +29,12 @@ class BusinessRatesValuationConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new BusinessRatesValuationConnector(applicationConfig, mockWSHttp)
+    val connector = new BusinessRatesValuationConnector(servicesConfig, mockWSHttp)
   }
 
   "isViewable" must "return true if detailed valuation is found" in new Setup {
     when(mockWSHttp.GET[HttpResponse](any())(any(), any(), any()))
-      .thenReturn(Future.successful(HttpResponse(OK)))
+      .thenReturn(Future.successful(emptyJsonHttpResponse(OK)))
 
     whenReady(connector.isViewable(1, 1, 123L))(_ mustBe true)
   }
