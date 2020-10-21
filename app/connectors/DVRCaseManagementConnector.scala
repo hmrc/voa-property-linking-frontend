@@ -21,8 +21,8 @@ import models.dvr.DetailedValuationRequest
 import models.dvr.documents.DvrDocumentFiles
 import play.api.libs.ws.{WSClient, WSResponse}
 import uk.gov.hmrc.http._
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 

@@ -53,13 +53,13 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "linkToProperty" must "successfully post a property link request" in new Setup {
-    val response = HttpResponse(OK)
+    val response = emptyJsonHttpResponse(OK)
     mockHttpPOST[PropertyLinkRequest, HttpResponse]("tst-url", response)
     whenReady(connector.createPropertyLink(mock[PropertyLinkPayload]))(_ mustBe response)
   }
 
   "linkToProperty" must "successfully post a property link request on client behalf" in new Setup {
-    val response = HttpResponse(OK)
+    val response = emptyJsonHttpResponse(OK)
     val clientId = 100
     mockHttpPOST[PropertyLinkRequest, HttpResponse]("/clients/clientId/property-links", response)
     whenReady(connector.createPropertyLinkOnClientBehalf(mock[PropertyLinkPayload], clientId))(_ mustBe response)

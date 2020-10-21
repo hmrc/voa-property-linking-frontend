@@ -28,9 +28,9 @@ import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppoi
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
+import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 

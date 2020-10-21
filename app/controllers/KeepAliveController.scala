@@ -19,7 +19,7 @@ package controllers
 import actions.AuthenticatedAction
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 
 class KeepAliveController @Inject()(
       authenticatedAction: AuthenticatedAction,

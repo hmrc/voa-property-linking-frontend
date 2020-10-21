@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-import com.typesafe.sbt.web.SbtWeb.autoImport._
-import play.sbt.PlayImport._
-import play.sbt.routes.RoutesKeys._
-import sbt.Keys._
 import sbt.Tests.{Group, SubProcess}
-import sbt._
 import uk.gov.hmrc.DefaultBuildSettings._
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.versioning.SbtGitVersioning
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
-
-lazy val plugins: Seq[Plugins] = Seq(play.sbt.PlayScala, SbtDistributablesPlugin)
 
 
 val compileDependencies = Seq(
@@ -37,8 +30,7 @@ val compileDependencies = Seq(
   "uk.gov.hmrc" %% "simple-reactivemongo" % "7.22.0-play-26",
   "com.codahale.metrics" % "metrics-graphite" % "3.0.1",
   "com.google.guava" % "guava" % "18.0",
-  "joda-time" % "joda-time" % "2.10.4",
-  "uk.gov.hmrc" %% "bootstrap-play-26" % "1.3.0",
+  "uk.gov.hmrc" %% "bootstrap-frontend-play-26" % "2.24.0",
   "uk.gov.hmrc" %% "play-ui" % "8.3.0-play-26",
   "uk.gov.hmrc" %% "govuk-template" % "5.43.0-play-26",
   "uk.gov.hmrc" %% "http-caching-client" % "9.0.0-play-26",
@@ -66,12 +58,11 @@ lazy val TemplateTest = config("tt") extend Test
 lazy val TemplateItTest = config("tit") extend IntegrationTest
 
 lazy val microservice = Project(appName, file("."))
-  .enablePlugins(plugins: _*)
+  .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory, SbtWeb)
   .disablePlugins(sbt.plugins.JUnitXmlReportPlugin)
   .settings(playSettings ++ scoverageSettings: _*)
   .settings(scalaSettings: _*)
   .settings(publishingSettings: _*)
-  .settings(organization := "uk.gov.hmrc")
   .settings(PlayKeys.playDefaultPort := 9523)
   .settings(majorVersion := 0)
   .settings(
@@ -83,7 +74,6 @@ lazy val microservice = Project(appName, file("."))
     ),
     parallelExecution in Test := false,
     fork in Test := true,
-    retrieveManaged := true,
     testGrouping := oneForkedJvmPerTest((definedTests in Test).value)
   )
   .settings(scalaVersion := "2.12.12")
@@ -104,7 +94,6 @@ lazy val microservice = Project(appName, file("."))
     )
   )
   .settings(evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTransitiveEvictions(false).withWarnDirectEvictions(false).withWarnScalaVersionEviction(false))
-  .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory)
 
 
 def oneForkedJvmPerTest(tests: Seq[TestDefinition]) = tests.map { test =>

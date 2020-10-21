@@ -44,7 +44,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
   "requestDetailedValuation" must "successfully post a detailed valuation request" in new Setup {
     val detailedValuationRequest = mock[DetailedValuationRequest]
 
-    mockHttpPOST[DetailedValuationRequest, HttpResponse]("tst-url", HttpResponse(OK))
+    mockHttpPOST[DetailedValuationRequest, HttpResponse]("tst-url", emptyJsonHttpResponse(OK))
     whenReady(connector.requestDetailedValuation(detailedValuationRequest))(_ mustBe ((): Unit))
   }
 
@@ -57,7 +57,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
 
     val dvrUrl = s"/dvr-case-management-api/dvr_case/create_dvr_case"
 
-    mockHttpPOST(dvrUrl, HttpResponse(200))
+    mockHttpPOST(dvrUrl, emptyJsonHttpResponse(200))
 
     val dvr = DetailedValuationRequest(
       authorisationId = 123456,

@@ -55,7 +55,7 @@ class GroupsAccountsSpec extends VoaPropertyLinkingSpec {
 
   "update" must "successfully update a group account" in new Setup {
     val updatedOrganisationAccount = arbitrary[UpdatedOrganisationAccount].sample.get
-    mockHttpPUT[UpdatedOrganisationAccount, HttpResponse]("tst-url", HttpResponse(OK))
+    mockHttpPUT[UpdatedOrganisationAccount, HttpResponse]("tst-url", emptyJsonHttpResponse(OK))
     whenReady(connector.update(1, updatedOrganisationAccount))(_ mustBe ((): Unit))
   }
 

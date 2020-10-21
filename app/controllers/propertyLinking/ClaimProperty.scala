@@ -37,7 +37,7 @@ import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
-import uk.gov.hmrc.http.Upstream5xxResponse
+import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
@@ -114,7 +114,8 @@ class ClaimProperty @Inject()(
                 Redirect(routes.ChooseEvidence.show())
               }
               .recover {
-                case Upstream5xxResponse(_, 503, _) => ServiceUnavailable(views.html.errors.serviceUnavailable())
+                case UpstreamErrorResponse.Upstream5xxResponse(_) =>
+                  ServiceUnavailable(views.html.errors.serviceUnavailable())
             }
         )
     }

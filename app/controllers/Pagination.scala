@@ -18,7 +18,7 @@ package controllers
 
 import models.searchApi.AgentPropertiesFilter.Both
 import play.api.mvc.{AnyContent, QueryStringBindable, Request, Result}
-import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
+import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
 import utils.Formatters._
 import utils.QueryParamUtils._
 

@@ -20,11 +20,9 @@ import java.util.Base64
 
 import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
-import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 
 @Singleton()
-class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode)
-    extends ServicesConfig(configuration, runMode) {
+class ApplicationConfig @Inject()(configuration: Configuration) {
 
   protected def loadConfig(key: String): String =
     configuration.getOptional[String](key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
@@ -91,8 +89,6 @@ class ApplicationConfig @Inject()(configuration: Configuration, runMode: RunMode
   lazy val plannedImprovementsContent: Option[String] = configuration
     .getOptional[String]("plannedImprovementsContent")
     .map(e => new String(Base64.getUrlDecoder.decode(e)))
-
-  val baseUrl: String = if (Set("Dev", "Test").contains(runMode.env)) "http://localhost:9523" else ""
 
   def accessibilityStatementUrl: String = loadConfig("accessibility-statement.url")
 

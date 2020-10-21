@@ -17,14 +17,13 @@
 package connectors.authorisation
 
 import config.AuthorisationFailed
-import connectors.BaseConnector
 import connectors.authorisation.errorhandler.AuthorisationHttpErrorFunctions
 import javax.inject.Inject
 import models.{Accounts, PropertyLinkIds}
 import play.api.Logger
-import uk.gov.hmrc.http.{ForbiddenException, HeaderCarrier, Upstream4xxResponse}
+import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.{ForbiddenException, HeaderCarrier, HttpClient, Upstream4xxResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -32,7 +31,7 @@ class BusinessRatesAuthorisationConnector @Inject()(
       config: ServicesConfig,
       http: HttpClient
 )(implicit executionContext: ExecutionContext)
-    extends BaseConnector with AuthorisationHttpErrorFunctions {
+    extends AuthorisationHttpErrorFunctions {
   val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
   import AuthorisationResult._

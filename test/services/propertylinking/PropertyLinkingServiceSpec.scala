@@ -26,8 +26,8 @@ import org.mockito.Mockito.{when, _}
 import play.api.test.FakeRequest
 import services.ServiceSpec
 import tests.AllMocks
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.logging.SessionId
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.propertylinking.exceptions.attachments.AttachmentException
 
 import scala.concurrent.Future
@@ -37,7 +37,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
 
   private lazy val testService =
     new PropertyLinkingService(mockBusinessRatesAttachmentsService, mockPropertyLinkConnector)
-  val httpResponse = HttpResponse(200)
+  val httpResponse = emptyJsonHttpResponse(200)
   val clientId = 100
   val mockPropertyLinkRequest = mock[PropertyLinkRequest]
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))

@@ -18,14 +18,13 @@ package utils
 
 import connectors.BusinessRatesValuationConnector
 import org.mockito.Mockito.mock
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import utils.Configs._
 
 import scala.concurrent.{ExecutionContext, Future}
 
 object StubBusinessRatesValuation
-    extends BusinessRatesValuationConnector(applicationConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
+    extends BusinessRatesValuationConnector(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
   private var stubbedValuations: Map[Long, Boolean] = Map()
 
   def stubValuation(assessmentRef: Long, isViewable: Boolean) =

@@ -26,7 +26,6 @@ import play.api._
 import repositories._
 import services._
 import services.iv.{IdentityVerificationService, IvService}
-import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 
 import scala.util.Try
 
@@ -40,8 +39,6 @@ class GuiceModule(
     bindBoolean("feature.externalValuation", "detailed-valuation.external")
     bindBoolean("feature.assessmentSkip", "detailed-valuation.skip")
 
-    bind(classOf[ServicesConfig])
-      .toInstance(new ServicesConfig(configuration, new RunMode(configuration, environment.mode)))
     bind(classOf[SessionRepo])
       .annotatedWith(Names.named("propertyLinkingSession"))
       .to(classOf[PropertyLinkingSessionRepository])

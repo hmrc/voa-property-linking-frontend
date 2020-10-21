@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package connectors
+package utils
 
-import uk.gov.hmrc.http.{JsonHttpReads, OptionHttpReads, RawReads}
+import play.api.libs.json.JsNull
+import uk.gov.hmrc.http.HttpResponse
 
-trait BaseConnector extends JsonHttpReads with OptionHttpReads with RawReads
+trait HttpResponseUtils {
+  def emptyJsonHttpResponse(status: Int): HttpResponse =
+    HttpResponse(status = status, json = JsNull, headers = Map[String, Seq[String]]())
+}

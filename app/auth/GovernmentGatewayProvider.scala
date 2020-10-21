@@ -33,5 +33,5 @@ class GovernmentGatewayProvider @Inject()(
   def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
 
   def redirectToLogin(implicit request: Request[_]): Future[Result] =
-    Future.successful(toGGLogin(applicationConfig.baseUrl + request.uri))
+    Future.successful(toGGLogin(request.uri))
 }

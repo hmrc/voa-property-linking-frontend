@@ -18,7 +18,6 @@ package uk.gov.hmrc.propertylinking.errorhandler
 
 import java.time.{Instant, LocalDateTime, ZoneId}
 
-import auth.GovernmentGatewayProvider
 import config.ApplicationConfig
 import connectors.authorisation.errorhandler.exceptions.BraAuthorisationFailure
 import javax.inject.Inject
@@ -28,13 +27,11 @@ import play.api.mvc.Results.Redirect
 import play.api.mvc.{Request, RequestHeader, Result}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderNames
-import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
+import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
 
 import scala.concurrent.Future
 
-class CustomErrorHandler @Inject()(
-      provider: GovernmentGatewayProvider
-)(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig)
+class CustomErrorHandler @Inject()()(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig)
     extends FrontendErrorHandler with I18nSupport {
 
   val logger: Logger = Logger(this.getClass)
@@ -60,10 +57,7 @@ class CustomErrorHandler @Inject()(
     exception match {
       case error: BraAuthorisationFailure =>
         logger.info(s"business rates authorisation returned ${error.message}, redirecting to login.")
-        Future.successful(
-          Redirect(
-            appConfig.ggSignInUrl,
-            Map("continue" -> Seq(appConfig.baseUrl + request.uri), "origin" -> Seq("voa"))))
+        Future.successful(Redirect(appConfig.ggSignInUrl, Map("continue" -> Seq(request.uri), "origin" -> Seq("voa"))))
       case _ =>
         super.onServerError(request, exception)
 

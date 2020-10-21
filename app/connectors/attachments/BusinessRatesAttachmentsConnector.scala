@@ -22,20 +22,20 @@ import models.attachment._
 import models.attachment.request.MetaDataRequest
 import models.upscan.PreparedUpload
 import play.api.Logger
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class BusinessRatesAttachmentsConnector @Inject()(
       val http: HttpClient,
-      val appConfig: ServicesConfig
+      val servicesConfig: ServicesConfig
 )(implicit executionContext: ExecutionContext)
     extends AttachmentHttpErrorFunctions {
 
-  val baseURL: String = appConfig.baseUrl("business-rates-attachments")
+  val baseURL: String = servicesConfig.baseUrl("business-rates-attachments")
 
   def initiateAttachmentUpload(uploadSettings: InitiateAttachmentPayload)(
         implicit headerCarrier: HeaderCarrier): Future[PreparedUpload] =
