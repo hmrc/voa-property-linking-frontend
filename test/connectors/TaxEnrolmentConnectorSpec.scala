@@ -29,7 +29,7 @@ class TaxEnrolmentConnectorSpec @Inject()(servicesConfig: ServicesConfig) extend
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new TaxEnrolmentConnector(mockWSHttp, mockAuditingService, servicesConfig)
+    val connector = new TaxEnrolmentConnector(mockHttpClient, mockAuditingService, servicesConfig)
   }
 
   "enrol" must "enrol a user successfully" in new Setup {

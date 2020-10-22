@@ -40,7 +40,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new PropertyLinkConnector(servicesConfig, mockWSHttp) {
+    val connector = new PropertyLinkConnector(servicesConfig, mockHttpClient) {
       override lazy val baseUrl: String = "tst-url"
     }
   }
@@ -103,7 +103,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "getMyAgentPropertyLinks" must "return agent property links" in new Setup {
-    when(mockWSHttp.GET[OwnerAuthResult](any(), any())(any(), any(), any()))
+    when(mockHttpClient.GET[OwnerAuthResult](any(), any())(any(), any(), any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
 
     connector

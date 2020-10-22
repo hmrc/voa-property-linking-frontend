@@ -17,36 +17,28 @@
 package connectors
 
 import javax.inject.Inject
-import play.api.Logger
 import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: HttpClient)(
       implicit val executionContext: ExecutionContext) {
 
-  def isViewableExternal(uarn: Long, valuationId: Long, propertyLinkSubmissionId: String)(
+  def isViewable(uarn: Long, valuationId: Long, propertyLinkSubmissionId: String)(
         implicit hc: HeaderCarrier): Future[Boolean] = {
 
     val url = config.baseUrl("business-rates-valuation")
 
-    Logger.warn(s"**********>    isViewableExternal url: $url/properties/$uarn/valuations/$valuationId")
     http
       .GET[HttpResponse](
         s"$url/properties/$uarn/valuations/$valuationId",
         Seq("propertyLinkSubmissionId" -> propertyLinkSubmissionId, "projection" -> "detailed")
       )
-      .map { res =>
-        Logger.warn(s"**********>    SUCCESS: $res")
-        true
-      }
-      .recover {
-        case ex =>
-          Logger.warn(s"**********>    RECOVERED: $ex")
-          false
+      .map {
+        case HttpResponse(404, body, _) => false
+        case _                          => true
       }
   }
 }

@@ -25,19 +25,19 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReads}
 
 import scala.concurrent.Future
 
-trait WSHTTPMock { this: MockitoSugar =>
+trait HTTPClientMock { this: MockitoSugar =>
 
-  lazy val mockWSHttp = mock[HttpClient]
+  lazy val mockHttpClient = mock[HttpClient]
 
   def mockHttpGET[T](url: String, thenReturn: T): OngoingStubbing[Future[T]] =
     when(
-      mockWSHttp
+      mockHttpClient
         .GET[T](Matchers.anyString())(Matchers.any[HttpReads[T]](), Matchers.any[HeaderCarrier](), Matchers.any()))
       .thenReturn(Future.successful(thenReturn))
 
   def mockHttpGETWithQueryParam[T](url: String, thenReturn: T): OngoingStubbing[Future[T]] =
     when(
-      mockWSHttp
+      mockHttpClient
         .GET[T](url = Matchers.anyString(), queryParams = Matchers.any())(
           Matchers.any[HttpReads[T]](),
           Matchers.any[HeaderCarrier](),
@@ -49,7 +49,7 @@ trait WSHTTPMock { this: MockitoSugar =>
         thenReturn: T,
         queryParameters: Seq[(String, String)] = Matchers.any()): OngoingStubbing[Future[T]] =
     when(
-      mockWSHttp
+      mockHttpClient
         .GET[T](url = Matchers.anyString(), queryParams = queryParameters)(
           Matchers.any[HttpReads[T]](),
           Matchers.any[HeaderCarrier](),
@@ -58,19 +58,22 @@ trait WSHTTPMock { this: MockitoSugar =>
 
   def mockHttpGET[T](url: String, thenReturn: Future[T]): OngoingStubbing[Future[T]] =
     when(
-      mockWSHttp
+      mockHttpClient
         .GET[T](Matchers.anyString())(Matchers.any[HttpReads[T]](), Matchers.any[HeaderCarrier](), Matchers.any()))
       .thenReturn(thenReturn)
 
   def mockHttpGETOption[T](url: String, thenReturn: T): OngoingStubbing[Future[Option[T]]] =
     when(
-      mockWSHttp.GET[Option[T]](Matchers.anyString())(
+      mockHttpClient.GET[Option[T]](Matchers.anyString())(
         Matchers.any[HttpReads[Option[T]]](),
         Matchers.any[HeaderCarrier](),
         Matchers.any()))
       .thenReturn(Future.successful(Some(thenReturn)))
 
-  def mockHttpDELETE[O](url: String, thenReturn: O, mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+  def mockHttpDELETE[O](
+        url: String,
+        thenReturn: O,
+        mockWSHttp: HttpClient = mockHttpClient): OngoingStubbing[Future[O]] =
     when(
       mockWSHttp.DELETE[O](Matchers.anyString(), Matchers.any())(
         Matchers.any[HttpReads[O]](),
@@ -78,7 +81,10 @@ trait WSHTTPMock { this: MockitoSugar =>
         Matchers.any()))
       .thenReturn(Future.successful(thenReturn))
 
-  def mockHttpPOST[I, O](url: String, thenReturn: O, mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+  def mockHttpPOST[I, O](
+        url: String,
+        thenReturn: O,
+        mockWSHttp: HttpClient = mockHttpClient): OngoingStubbing[Future[O]] =
     when(
       mockWSHttp.POST[I, O](Matchers.anyString(), Matchers.any[I](), Matchers.any())(
         Matchers.any[Writes[I]](),
@@ -90,12 +96,15 @@ trait WSHTTPMock { this: MockitoSugar =>
   def mockHttpPOSTEmpty[O](
         url: String,
         thenReturn: O,
-        mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+        mockWSHttp: HttpClient = mockHttpClient): OngoingStubbing[Future[O]] =
     when(mockWSHttp
       .POSTEmpty[O](Matchers.anyString())(Matchers.any[HttpReads[O]](), Matchers.any[HeaderCarrier](), Matchers.any()))
       .thenReturn(Future.successful(thenReturn))
 
-  def mockHttpPUT[I, O](url: String, thenReturn: O, mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+  def mockHttpPUT[I, O](
+        url: String,
+        thenReturn: O,
+        mockWSHttp: HttpClient = mockHttpClient): OngoingStubbing[Future[O]] =
     when(
       mockWSHttp.PUT[I, O](Matchers.anyString(), Matchers.any[I](), Matchers.any[Seq[(String, String)]])(
         Matchers.any[Writes[I]](),
@@ -104,7 +113,10 @@ trait WSHTTPMock { this: MockitoSugar =>
         Matchers.any()))
       .thenReturn(Future.successful(thenReturn))
 
-  def mockHttpPATCH[I, O](url: String, thenReturn: O, mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+  def mockHttpPATCH[I, O](
+        url: String,
+        thenReturn: O,
+        mockWSHttp: HttpClient = mockHttpClient): OngoingStubbing[Future[O]] =
     when(
       mockWSHttp.PATCH[I, O](Matchers.anyString(), Matchers.any[I](), Matchers.any[Seq[(String, String)]])(
         Matchers.any[Writes[I]](),
@@ -115,14 +127,14 @@ trait WSHTTPMock { this: MockitoSugar =>
 
   def mockHttpFailedGET[T](url: String, exception: Exception): OngoingStubbing[Future[T]] =
     when(
-      mockWSHttp
+      mockHttpClient
         .GET[T](Matchers.anyString())(Matchers.any[HttpReads[T]](), Matchers.any[HeaderCarrier](), Matchers.any()))
       .thenReturn(Future.failed(exception))
 
   def mockHttpFailedPOST[I, O](
         url: String,
         exception: Exception,
-        mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+        mockWSHttp: HttpClient = mockHttpClient): OngoingStubbing[Future[O]] =
     when(
       mockWSHttp.POST[I, O](Matchers.anyString(), Matchers.any[I](), Matchers.any())(
         Matchers.any[Writes[I]](),
@@ -134,7 +146,7 @@ trait WSHTTPMock { this: MockitoSugar =>
   def mockHttpFailedPOSTEmpty[O](
         url: String,
         exception: Exception,
-        mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+        mockWSHttp: HttpClient = mockHttpClient): OngoingStubbing[Future[O]] =
     when(mockWSHttp
       .POSTEmpty[O](Matchers.anyString())(Matchers.any[HttpReads[O]](), Matchers.any[HeaderCarrier](), Matchers.any()))
       .thenReturn(Future.failed(exception))
@@ -142,7 +154,7 @@ trait WSHTTPMock { this: MockitoSugar =>
   def mockHttpFailedPATCH[I, O](
         url: String,
         exception: Exception,
-        mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+        mockWSHttp: HttpClient = mockHttpClient): OngoingStubbing[Future[O]] =
     when(
       mockWSHttp.PATCH[I, O](Matchers.anyString(), Matchers.any[I](), Matchers.any[Seq[(String, String)]])(
         Matchers.any[Writes[I]](),
@@ -154,7 +166,7 @@ trait WSHTTPMock { this: MockitoSugar =>
   def mockHttpFailedDELETE[O](
         url: String,
         exception: Exception,
-        mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+        mockWSHttp: HttpClient = mockHttpClient): OngoingStubbing[Future[O]] =
     when(
       mockWSHttp.DELETE[O](Matchers.anyString(), Matchers.any())(
         Matchers.any[HttpReads[O]](),
@@ -165,7 +177,7 @@ trait WSHTTPMock { this: MockitoSugar =>
   def mockHttpFailedPUT[I, O](
         url: String,
         exception: Exception,
-        mockWSHttp: HttpClient = mockWSHttp): OngoingStubbing[Future[O]] =
+        mockWSHttp: HttpClient = mockHttpClient): OngoingStubbing[Future[O]] =
     when(
       mockWSHttp.PUT[I, O](Matchers.anyString(), Matchers.any[I](), Matchers.any[Seq[(String, String)]])(
         Matchers.any[Writes[I]](),

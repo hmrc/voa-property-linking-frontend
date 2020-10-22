@@ -30,7 +30,7 @@ class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new BusinessRatesAuthorisationConnector(servicesConfig, mockWSHttp) {
+    val connector = new BusinessRatesAuthorisationConnector(servicesConfig, mockHttpClient) {
       override val url: String = "tst-url"
     }
   }

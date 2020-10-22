@@ -36,7 +36,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
 
   class Setup {
     val mockWsClient = mock[WSClient]
-    val connector = new DVRCaseManagementConnector(servicesConfig, mockWsClient, mockWSHttp) {
+    val connector = new DVRCaseManagementConnector(servicesConfig, mockWsClient, mockHttpClient) {
       override val url: String = "tst-url"
     }
   }
@@ -81,7 +81,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val now = LocalDateTime.now()
 
     when(
-      mockWSHttp.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(
+      mockHttpClient.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(
         Matchers.any(),
         Matchers.any[HeaderCarrier](),
         Matchers.any()))
@@ -106,7 +106,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val propertyLinkId = "PL-123456789"
 
     when(
-      mockWSHttp.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(
+      mockHttpClient.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(
         Matchers.any(),
         Matchers.any[HeaderCarrier](),
         Matchers.any()))

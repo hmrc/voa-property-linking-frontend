@@ -28,7 +28,7 @@ class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new PropertyRepresentationConnector(servicesConfig, mockWSHttp) {
+    val connector = new PropertyRepresentationConnector(servicesConfig, mockHttpClient) {
       override lazy val baseUrl: String = "tst-url"
     }
   }

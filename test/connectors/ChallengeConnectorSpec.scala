@@ -27,7 +27,7 @@ class ChallengeConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new ChallengeConnector(servicesConfig, mockWSHttp) {
+    val connector = new ChallengeConnector(servicesConfig, mockHttpClient) {
       override lazy val baseUrl: String = "tst-url"
     }
   }

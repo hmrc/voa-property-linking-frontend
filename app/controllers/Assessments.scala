@@ -65,7 +65,7 @@ class Assessments @Inject()(
     propertyLinkService.getSingularPropertyLink(submissionId, owner).flatMap {
       case Some(propertyLink) =>
         businessRatesValuations
-          .isViewableExternal(propertyLink.uarn, assessmentRef, submissionId)
+          .isViewable(propertyLink.uarn, assessmentRef, submissionId)
           .map {
             case true =>
               if (owner) {

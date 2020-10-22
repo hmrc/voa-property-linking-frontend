@@ -16,7 +16,7 @@
 
 package services
 
-import org.scalatest.concurrent.{PatienceConfiguration, ScalaFutures}
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{Millis, Seconds, Span}
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
 import org.scalatestplus.mockito.MockitoSugar
@@ -28,11 +28,12 @@ import utils._
 trait ServiceSpec
     extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
     with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with ScalaFutures with FakeObjects
-    with GlobalExecutionContext with PatienceConfiguration with AllMocks with HttpResponseUtils {
+    with GlobalExecutionContext with AllMocks with HttpResponseUtils {
 
   override implicit def patienceConfig: PatienceConfig =
-    PatienceConfig(timeout = Span(1, Seconds), interval = Span(15, Millis))
+    PatienceConfig(timeout = Span(10, Seconds), interval = Span(20, Millis))
 
+  // FIXME we should be removing all "Csrf-Token" -> "nocheck"
   val token = "Csrf-Token" -> "nocheck"
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]

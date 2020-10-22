@@ -25,7 +25,7 @@ class DraftCasesSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new DraftCases(mockWSHttp, servicesConfig)(ec) {
+    val connector = new DraftCases(mockHttpClient, servicesConfig)(ec) {
       override lazy val checkUrl: String = "tst-url"
     }
   }

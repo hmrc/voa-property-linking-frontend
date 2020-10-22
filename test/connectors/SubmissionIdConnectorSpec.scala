@@ -24,7 +24,7 @@ class SubmissionIdConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new SubmissionIdConnector(servicesConfig, mockWSHttp)(ec) {
+    val connector = new SubmissionIdConnector(servicesConfig, mockHttpClient)(ec) {
       val url: String = "tst-url"
     }
   }
