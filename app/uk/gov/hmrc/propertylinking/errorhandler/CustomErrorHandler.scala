@@ -60,6 +60,5 @@ class CustomErrorHandler @Inject()()(implicit override val messagesApi: Messages
         Future.successful(Redirect(appConfig.ggSignInUrl, Map("continue" -> Seq(request.uri), "origin" -> Seq("voa"))))
       case _ =>
         super.onServerError(request, exception)
-
     }
 }

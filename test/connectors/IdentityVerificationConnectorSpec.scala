@@ -26,7 +26,7 @@ class IdentityVerificationConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new IdentityVerificationConnector(servicesConfig, applicationConfig, mockWSHttp)
+    val connector = new IdentityVerificationConnector(servicesConfig, applicationConfig, mockHttpClient)
   }
 
   "verifySuccess" must "return true if IV was successful" in new Setup {

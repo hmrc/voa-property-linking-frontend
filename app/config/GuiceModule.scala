@@ -36,7 +36,6 @@ class GuiceModule(
 
   def configure() = {
 
-    bindBoolean("feature.externalValuation", "detailed-valuation.external")
     bindBoolean("feature.assessmentSkip", "detailed-valuation.skip")
 
     bind(classOf[SessionRepo])

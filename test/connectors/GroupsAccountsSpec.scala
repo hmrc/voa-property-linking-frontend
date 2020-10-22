@@ -27,7 +27,7 @@ import uk.gov.hmrc.http.HttpResponse
 class GroupsAccountsSpec extends VoaPropertyLinkingSpec {
 
   class Setup {
-    val connector = new GroupAccounts(servicesConfig, mockWSHttp) {
+    val connector = new GroupAccounts(servicesConfig, mockHttpClient) {
       override val url: String = "tst-url"
     }
   }

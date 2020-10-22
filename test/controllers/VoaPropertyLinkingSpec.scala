@@ -27,7 +27,8 @@ import actions.requests.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import models._
 import models.registration.{User, UserDetails}
-import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.concurrent.{PatienceConfiguration, ScalaFutures}
+import org.scalatest.time.{Millis, Seconds, Span}
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
@@ -42,10 +43,14 @@ import scala.concurrent.{ExecutionContext, Future}
 trait VoaPropertyLinkingSpec
     extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
     with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with StubMessageControllerComponents
-    with WSHTTPMock with ScalaFutures with Configs with FakeObjects with GlobalExecutionContext with AllMocks
+    with HTTPClientMock with ScalaFutures with Configs with FakeObjects with GlobalExecutionContext with AllMocks
     with HttpResponseUtils {
 
+  // FIXME we should be removing all "Csrf-Token" -> "nocheck"
   val token: (String, String) = "Csrf-Token" -> "nocheck"
+
+  override implicit val patienceConfig: PatienceConfig =
+    PatienceConfig(timeout = Span(10, Seconds), interval = Span(20, Millis))
 
   implicit val ec: ExecutionContext = ExecutionContext.Implicits.global
   implicit val headerCarrier: HeaderCarrier = HeaderCarrier()

@@ -29,7 +29,7 @@ class AddressesSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new Addresses(servicesConfig, mockWSHttp) {
+    val connector = new Addresses(servicesConfig, mockHttpClient) {
       override val url: String = "tst-url"
     }
   }

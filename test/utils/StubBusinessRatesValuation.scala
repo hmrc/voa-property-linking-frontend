@@ -18,10 +18,10 @@ package utils
 
 import connectors.BusinessRatesValuationConnector
 import org.mockito.Mockito.mock
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.HttpClient
 import utils.Configs._
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 object StubBusinessRatesValuation
     extends BusinessRatesValuationConnector(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
@@ -32,8 +32,4 @@ object StubBusinessRatesValuation
 
   def reset() =
     stubbedValuations = Map()
-
-  override def isViewable(uarn: Long, valuationId: Long, propertyLinkId: Long)(
-        implicit hc: HeaderCarrier): Future[Boolean] =
-    Future.successful(stubbedValuations(valuationId))
 }
