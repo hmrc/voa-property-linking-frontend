@@ -19,7 +19,7 @@ package controllers
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
-import javax.inject.{Inject, Named}
+import javax.inject.Inject
 import models._
 import play.api.data.Form
 import play.api.i18n.MessagesApi
@@ -34,8 +34,7 @@ class Assessments @Inject()(
       propertyLinkService: PropertyLinkService,
       authenticated: AuthenticatedAction,
       businessRatesValuations: BusinessRatesValuationConnector,
-      override val controllerComponents: MessagesControllerComponents,
-      @Named("detailed-valuation.external") isExternalValuation: Boolean
+      override val controllerComponents: MessagesControllerComponents
 )(
       implicit override val messagesApi: MessagesApi,
       val config: ApplicationConfig,
@@ -60,76 +59,32 @@ class Assessments @Inject()(
         submissionId: String,
         authorisationId: Long,
         assessmentRef: Long,
-        baRef: String,
+        baRef: String, // TODO remove - find which service links here (just Dashboard?)
         owner: Boolean
   ): Action[AnyContent] = authenticated.async { implicit request =>
     propertyLinkService.getSingularPropertyLink(submissionId, owner).flatMap {
       case Some(propertyLink) =>
-        if (isExternalValuation) {
-          businessRatesValuations
-            .isViewableExternal(propertyLink.uarn, assessmentRef, submissionId)
-            .map {
-              case true =>
-                if (owner) {
-                  if (isExternalValuation) {
-                    Redirect(config.businessRatesValuationFrontendUrl(
-                      s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
-                  } else {
-                    Redirect(config.businessRatesValuationFrontendUrl(
-                      s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
-                  }
-                } else {
-                  if (isExternalValuation) {
-                    Redirect(config.businessRatesValuationFrontendUrl(
-                      s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
-                  } else {
-                    Redirect(config.businessRatesValuationFrontendUrl(
-                      s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
-                  }
-                }
-              case false =>
-                Redirect(
-                  if (owner)
-                    controllers.detailedvaluationrequest.routes.DvrController
-                      .myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
-                  else
-                    controllers.detailedvaluationrequest.routes.DvrController
-                      .myClientsRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
-                )
-            }
-        } else {
-          businessRatesValuations
-            .isViewable(propertyLink.uarn, assessmentRef, propertyLink.authorisationId)
-            .map {
-              case true =>
-                if (owner) {
-                  if (isExternalValuation) {
-                    Redirect(config.businessRatesValuationFrontendUrl(
-                      s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
-                  } else {
-                    Redirect(config.businessRatesValuationFrontendUrl(
-                      s"property-link/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
-                  }
-                } else {
-                  if (isExternalValuation) {
-                    Redirect(config.businessRatesValuationFrontendUrl(
-                      s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
-                  } else {
-                    Redirect(config.businessRatesValuationFrontendUrl(
-                      s"property-link/clients/$authorisationId/assessment/$assessmentRef?submissionId=$submissionId"))
-                  }
-                }
-              case false =>
-                Redirect(
-                  if (owner)
-                    controllers.detailedvaluationrequest.routes.DvrController
-                      .myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
-                  else
-                    controllers.detailedvaluationrequest.routes.DvrController
-                      .myClientsRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
-                )
-            }
-        }
+        businessRatesValuations
+          .isViewableExternal(propertyLink.uarn, assessmentRef, submissionId)
+          .map {
+            case true =>
+              if (owner) {
+                Redirect(config.businessRatesValuationFrontendUrl(
+                  s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+              } else {
+                Redirect(config.businessRatesValuationFrontendUrl(
+                  s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+              }
+            case false =>
+              Redirect(
+                if (owner)
+                  controllers.detailedvaluationrequest.routes.DvrController
+                    .myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
+                else
+                  controllers.detailedvaluationrequest.routes.DvrController
+                    .myClientsRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
+              )
+          }
       case None => Future.successful(notFound)
     }
   }
