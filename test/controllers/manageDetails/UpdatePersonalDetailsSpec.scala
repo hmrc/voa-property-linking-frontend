@@ -150,7 +150,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=addresspostcode] span.error-message").text mustBe ""
+    html.select("label[for=addresspostcode] span.error-message").text mustBe "This must be filled in"
   }
 
   it must "update the user's address ID if they use the lookup" in {
@@ -190,7 +190,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
       "address.line4"    -> address.line4,
       "address.postcode" -> address.postcode
     )
-
     val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(validFormData: _*))
     status(res) must be(SEE_OTHER)
     redirectLocation(res) must be(Some(viewDetailsPage))
@@ -202,6 +201,25 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
       any[HeaderCarrier])
     verify(mockManageDetails)
       .updatePostcode(matching(detailedIndividualAccount.individualId), any(), matching(addressId))(any(), any())
+  }
+
+  it must "reject an address record, if the manually entered postcode is blank" in {
+    val addressId = Random.nextLong()
+    val address: Address = utils.addressGen.sample.get.copy(addressUnitId = None)
+
+    when(mockAddressConnector.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(addressId))
+    when(mockManageDetails.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))
+
+    val validFormData: Seq[(String, String)] = Seq(
+      "address.line1"    -> address.line1,
+      "address.line2"    -> address.line2,
+      "address.line3"    -> address.line3,
+      "address.line4"    -> address.line4,
+      "address.postcode" -> "   "
+    )
+
+    val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(validFormData: _*))
+    status(res) must be(BAD_REQUEST)
   }
 
   "The update mobile number page" must "update the user's mobile number if they submit a valid form" in {

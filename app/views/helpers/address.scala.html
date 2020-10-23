@@ -91,6 +91,7 @@
                 '_label -> Messages("label.address.postcode"),
                 '_labelClass -> "form-label-bold",
                 'class -> "form-control form-control-1-4",
+                '_error -> form.error("address.postcode"),
                 '_value -> addressData.fold("")(_.postcode)
             )
 
