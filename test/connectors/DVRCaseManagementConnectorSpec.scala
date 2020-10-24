@@ -26,7 +26,7 @@ import org.mockito.Mockito.when
 import org.mockito.{ArgumentMatchers => Matchers}
 import play.api.libs.ws.{WSClient, WSRequest}
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.Future
 
@@ -77,25 +77,22 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val propertyLinkId = "PL-123456789"
 
     val now = LocalDateTime.now()
+    private val someDvrDocumentFiles: Some[DvrDocumentFiles] = Some(
+      DvrDocumentFiles(
+        checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+        detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
+      ))
 
     when(
       mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any())(
         Matchers.any(),
         Matchers.any[HeaderCarrier](),
         Matchers.any()))
-      .thenReturn(
-        Future.successful(
-          Some(DvrDocumentFiles(
-            checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-            detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-          ))))
+      .thenReturn(Future.successful(someDvrDocumentFiles))
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
-    result mustBe Some(
-      DvrDocumentFiles(
-        checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-        detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-      ))
+
+    result mustBe someDvrDocumentFiles
   }
 
   "get dvr documents" must "return None when the documents don't exist" in new Setup {

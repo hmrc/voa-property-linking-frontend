@@ -22,7 +22,6 @@ import actions.propertylinking.requests.LinkingSessionRequest
 import binders.propertylinks.EvidenceChoices
 import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import config.ApplicationConfig
-import connectors.attachments.errorhandler.exceptions.FileAttachmentFailed
 import controllers.PropertyLinkingController
 import javax.inject.Inject
 import models.EvidenceType.form
@@ -34,6 +33,7 @@ import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.BusinessRatesAttachmentsService
+import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import views.html.propertyLinking.{uploadEvidence, uploadRatesBill}
 
@@ -91,7 +91,8 @@ class UploadController @Inject()(
           ))
           .map(response => Ok(Json.toJson(response)))
           .recover {
-            case _: FileAttachmentFailed =>
+            case UpstreamErrorResponse.WithStatusCode(BAD_REQUEST, ex) =>
+              Logger.warn(s"Initiate Upload was Bad Request: ${ex.message}")
               BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
             case ex: Exception =>
               Logger.warn("FileAttachmentFailed Exception:", ex)

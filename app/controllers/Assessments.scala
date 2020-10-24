@@ -76,7 +76,6 @@ class Assessments @Inject()(
                   s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
               }
             case false =>
-              play.api.Logger.info(s"**** Assessments.viewDetailedAssessment cannot view")
               Redirect(
                 if (owner)
                   controllers.detailedvaluationrequest.routes.DvrController

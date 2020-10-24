@@ -71,8 +71,6 @@ class DvrController @Inject()(
       if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
       else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
 
-    Logger.info(s"**** detailedValuationRequestCheck")
-
     pLink.flatMap {
       case Some(link) =>
         for {

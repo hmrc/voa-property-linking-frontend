@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
-package connectors.attachments.errorhandler.exceptions
+package connectors.authorisation.errorhandler.exceptions
 
-case class FileAttachmentFailed(errorMessage: String) extends Exception
+import uk.gov.hmrc.http.HttpException
+
+class AuthorisationFailure(message: String, responseCode: Int) extends HttpException(message, responseCode)
+
+object AuthorisationFailure {
+
+  def apply(message: String, responseCode: Int = 401): AuthorisationFailure =
+    new AuthorisationFailure(message, responseCode)
+}
