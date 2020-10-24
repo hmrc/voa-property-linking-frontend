@@ -23,6 +23,10 @@ import uk.gov.hmrc.http._
 
 trait AttachmentHttpErrorFunctions extends HttpErrorFunctions {
 
+  // TODO custom HttpErrorFunctions no longer work
+  // TODO so this code *never* gets called
+  // TODO no FileAttachmentFailed will ever be thrown
+
   override def handleResponse(httpMethod: String, url: String)(response: HttpResponse): HttpResponse =
     response.status match {
       case BAD_REQUEST =>

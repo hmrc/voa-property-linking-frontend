@@ -58,7 +58,9 @@ class CustomErrorHandler @Inject()()(implicit override val messagesApi: Messages
       case error: BraAuthorisationFailure =>
         logger.info(s"business rates authorisation returned ${error.message}, redirecting to login.")
         Future.successful(Redirect(appConfig.ggSignInUrl, Map("continue" -> Seq(request.uri), "origin" -> Seq("voa"))))
-      case _ =>
+      case e => {
+        Logger.info(s"**** CustomErrorHandler onServerError $e")
         super.onServerError(request, exception)
+      }
     }
 }

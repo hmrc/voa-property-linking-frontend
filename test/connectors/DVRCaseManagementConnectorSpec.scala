@@ -32,8 +32,6 @@ import scala.concurrent.Future
 
 class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
 
-  implicit val hc = HeaderCarrier()
-
   class Setup {
     val mockWsClient = mock[WSClient]
     val connector = new DVRCaseManagementConnector(servicesConfig, mockWsClient, mockHttpClient) {
@@ -81,16 +79,16 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val now = LocalDateTime.now()
 
     when(
-      mockHttpClient.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(
+      mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any())(
         Matchers.any(),
         Matchers.any[HeaderCarrier](),
         Matchers.any()))
       .thenReturn(
         Future.successful(
-          DvrDocumentFiles(
+          Some(DvrDocumentFiles(
             checkForm = Document(DocumentSummary("1L", "Check Document", now)),
             detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-          )))
+          ))))
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
     result mustBe Some(
@@ -106,11 +104,11 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val propertyLinkId = "PL-123456789"
 
     when(
-      mockHttpClient.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(
+      mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any())(
         Matchers.any(),
         Matchers.any[HeaderCarrier](),
         Matchers.any()))
-      .thenReturn(Future.failed(new NotFoundException("Documents dont exist")))
+      .thenReturn(Future.successful(None))
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
     result mustBe None

@@ -13,7 +13,7 @@
 
   <logger name="com.ning.http.client" level="${logger.com.ning.http.client:-INFO}"/>
 
-  <root level="DEBUG">
+  <root level="INFO">
     <appender-ref ref="STDOUT"/>
   </root>
 </configuration>

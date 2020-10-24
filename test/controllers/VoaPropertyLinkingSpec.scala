@@ -27,7 +27,7 @@ import actions.requests.BasicAuthenticatedRequest
 import config.ApplicationConfig
 import models._
 import models.registration.{User, UserDetails}
-import org.scalatest.concurrent.{PatienceConfiguration, ScalaFutures}
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{Millis, Seconds, Span}
 import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
 import org.scalatestplus.mockito.MockitoSugar
