@@ -17,12 +17,10 @@
 package connectors.authorisation
 
 import config.AuthorisationFailed
-import connectors.authorisation.errorhandler.AuthorisationHttpErrorFunctions
+import connectors.authorisation.errorhandler.exceptions.AuthorisationExceptionThrowingReads
 import javax.inject.Inject
 import models.{Accounts, PropertyLinkIds}
-import play.api.Logger
-import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.{ForbiddenException, HeaderCarrier, HttpClient, Upstream4xxResponse}
+import uk.gov.hmrc.http.{ForbiddenException, HeaderCarrier, HttpClient, UpstreamErrorResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -31,12 +29,11 @@ class BusinessRatesAuthorisationConnector @Inject()(
       config: ServicesConfig,
       http: HttpClient
 )(implicit executionContext: ExecutionContext)
-    extends AuthorisationHttpErrorFunctions {
-  val url = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
+    extends AuthorisationExceptionThrowingReads {
+
+  val url: String = config.baseUrl("business-rates-authorisation") + "/business-rates-authorisation"
 
   import AuthorisationResult._
-
-  val logger = Logger(this.getClass.getName)
 
   def authenticate(implicit hc: HeaderCarrier): Future[AuthorisationResult] =
     http
@@ -45,21 +42,6 @@ class BusinessRatesAuthorisationConnector @Inject()(
       .recover {
         case AuthorisationFailed(err) => handleUnauthenticated(err)
       }
-
-  def authorise(authorisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] =
-    http.GET[Accounts](s"$url/property-link/$authorisationId/assessment/$assessmentRef") map {
-      Authenticated
-    } recover {
-      case AuthorisationFailed(err) => handleUnauthenticated(err)
-    }
-
-  def authorise(authorisationId: Long)(implicit hc: HeaderCarrier): Future[AuthorisationResult] =
-    http.GET[Accounts](s"$url/property-link/$authorisationId") map {
-      Authenticated
-    } recover {
-      case AuthorisationFailed(err)          => handleUnauthenticated(err)
-      case Upstream4xxResponse(_, 403, _, _) => ForbiddenResponse
-    }
 
   private def handleUnauthenticated(error: String) = error match {
     case "INVALID_GATEWAY_SESSION" => InvalidGGSession
@@ -72,7 +54,7 @@ class BusinessRatesAuthorisationConnector @Inject()(
   def isAgentOwnProperty(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Boolean] =
     http.GET[PropertyLinkIds](s"$url/$authorisationId/ids") map { ids =>
       ids.caseCreator.organisationId == ids.interestedParty.organisationId
-    } recover { case Upstream4xxResponse(_, 403, _, _) => throw new ForbiddenException("Not Authorised") }
+    } recover { case UpstreamErrorResponse.WithStatusCode(403, _) => throw new ForbiddenException("Not Authorised") }
 
 }
 

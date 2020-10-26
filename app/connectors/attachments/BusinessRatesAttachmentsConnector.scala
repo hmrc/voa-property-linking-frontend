@@ -16,7 +16,6 @@
 
 package connectors.attachments
 
-import connectors.attachments.errorhandler.AttachmentHttpErrorFunctions
 import javax.inject.{Inject, Singleton}
 import models.attachment._
 import models.attachment.request.MetaDataRequest
@@ -32,8 +31,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class BusinessRatesAttachmentsConnector @Inject()(
       val http: HttpClient,
       val servicesConfig: ServicesConfig
-)(implicit executionContext: ExecutionContext)
-    extends AttachmentHttpErrorFunctions {
+)(implicit executionContext: ExecutionContext) {
 
   val baseURL: String = servicesConfig.baseUrl("business-rates-attachments")
 

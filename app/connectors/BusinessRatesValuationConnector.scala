@@ -37,8 +37,8 @@ class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: Ht
         Seq("propertyLinkSubmissionId" -> propertyLinkSubmissionId, "projection" -> "detailed")
       )
       .map {
-        case HttpResponse(404, body, _) => false
-        case _                          => true
+        case HttpResponse(404, _, _) => false
+        case _                       => true
       }
   }
 }

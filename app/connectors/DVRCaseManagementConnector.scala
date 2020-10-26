@@ -20,19 +20,15 @@ import javax.inject.Inject
 import models.dvr.DetailedValuationRequest
 import models.dvr.documents.DvrDocumentFiles
 import play.api.libs.ws.{WSClient, WSResponse}
-import uk.gov.hmrc.http._
 import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http._
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DVRCaseManagementConnector @Inject()(
-      config: ServicesConfig,
-      val wsClient: WSClient,
-      http: HttpClient
-)(
-      implicit val executionContext: ExecutionContext
-) extends HttpErrorFunctions {
+class DVRCaseManagementConnector @Inject()(config: ServicesConfig, val wsClient: WSClient, http: HttpClient)(
+      implicit val executionContext: ExecutionContext) {
+
   val url = config.baseUrl("property-linking") + "/property-linking"
 
   def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] =
@@ -50,15 +46,10 @@ class DVRCaseManagementConnector @Inject()(
 
   def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(
         implicit hc: HeaderCarrier): Future[Option[DvrDocumentFiles]] =
-    http
-      .GET[DvrDocumentFiles](
-        s"$url/properties/$uarn/valuation/$valuationId/files",
-        Seq("propertyLinkId" -> propertyLinkId))
-      .map(Some.apply)
-      .recover {
-        case _: NotFoundException => None
-        case e                    => throw e
-      }
+    http.GET[Option[DvrDocumentFiles]](
+      s"$url/properties/$uarn/valuation/$valuationId/files",
+      Seq("propertyLinkId" -> propertyLinkId)
+    )
 
   def getDvrDocument(uarn: Long, valuationId: Long, propertyLinkId: String, fileRef: String)(
         implicit hc: HeaderCarrier): Future[WSResponse] =

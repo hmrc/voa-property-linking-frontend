@@ -19,7 +19,7 @@ package uk.gov.hmrc.propertylinking.errorhandler
 import java.time.{Instant, LocalDateTime, ZoneId}
 
 import config.ApplicationConfig
-import connectors.authorisation.errorhandler.exceptions.BraAuthorisationFailure
+import connectors.authorisation.errorhandler.exceptions.AuthorisationFailure
 import javax.inject.Inject
 import play.api.Logger
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -55,7 +55,7 @@ class CustomErrorHandler @Inject()()(implicit override val messagesApi: Messages
 
   override def onServerError(request: RequestHeader, exception: Throwable): Future[Result] =
     exception match {
-      case error: BraAuthorisationFailure =>
+      case error: AuthorisationFailure =>
         logger.info(s"business rates authorisation returned ${error.message}, redirecting to login.")
         Future.successful(Redirect(appConfig.ggSignInUrl, Map("continue" -> Seq(request.uri), "origin" -> Seq("voa"))))
       case _ =>

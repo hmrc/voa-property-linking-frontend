@@ -26,13 +26,11 @@ import org.mockito.Mockito.when
 import org.mockito.{ArgumentMatchers => Matchers}
 import play.api.libs.ws.{WSClient, WSRequest}
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.Future
 
 class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
-
-  implicit val hc = HeaderCarrier()
 
   class Setup {
     val mockWsClient = mock[WSClient]
@@ -79,25 +77,22 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val propertyLinkId = "PL-123456789"
 
     val now = LocalDateTime.now()
-
-    when(
-      mockHttpClient.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(
-        Matchers.any(),
-        Matchers.any[HeaderCarrier](),
-        Matchers.any()))
-      .thenReturn(
-        Future.successful(
-          DvrDocumentFiles(
-            checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-            detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-          )))
-
-    val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
-    result mustBe Some(
+    private val someDvrDocumentFiles: Some[DvrDocumentFiles] = Some(
       DvrDocumentFiles(
         checkForm = Document(DocumentSummary("1L", "Check Document", now)),
         detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
       ))
+
+    when(
+      mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any())(
+        Matchers.any(),
+        Matchers.any[HeaderCarrier](),
+        Matchers.any()))
+      .thenReturn(Future.successful(someDvrDocumentFiles))
+
+    val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
+
+    result mustBe someDvrDocumentFiles
   }
 
   "get dvr documents" must "return None when the documents don't exist" in new Setup {
@@ -106,11 +101,11 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val propertyLinkId = "PL-123456789"
 
     when(
-      mockHttpClient.GET[DvrDocumentFiles](Matchers.anyString(), Matchers.any())(
+      mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any())(
         Matchers.any(),
         Matchers.any[HeaderCarrier](),
         Matchers.any()))
-      .thenReturn(Future.failed(new NotFoundException("Documents dont exist")))
+      .thenReturn(Future.successful(None))
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
     result mustBe None
