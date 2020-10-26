@@ -25,8 +25,11 @@ import play.api.data.validation._
 import play.api.data.{FormError, Forms, Mapping}
 import uk.gov.voa.play.form.Condition
 import views.helpers.Errors
+import org.apache.commons.lang3.StringUtils.isNotBlank
+import play.api.data.validation.Constraints._
 
 import scala.util.Try
+import uk.gov.voa.play.form.ConditionalMappings._
 
 object Mappings extends DateMappings {
 
@@ -46,13 +49,17 @@ object Mappings extends DateMappings {
 
   val addressMapping: Mapping[Address] = mapping(
     "addressId" -> addressId,
-    "line1"     -> text(maxLength = 36),
-    "line2"     -> text(maxLength = 36),
-    "line3"     -> text(maxLength = 36),
-    "line4"     -> text(maxLength = 36),
-    "postcode"  -> text(maxLength = 8).transform[String](_.toUpperCase, identity)
-  )(Address.apply)(Address.unapply).verifying("error.required", form => {
-    !(form.postcode.isEmpty && form.line1.isEmpty && form.addressUnitId.isEmpty)
+    "line1" -> mandatoryIf(!_.contains("addressId"), text.verifying(nonEmpty, maxLength(36)))
+      .transform[String](_.getOrElse(""), s => Some(s)),
+    "line2" -> text(maxLength = 36),
+    "line3" -> text(maxLength = 36),
+    "line4" -> text(maxLength = 36),
+    "postcode" -> mandatoryIf(
+      !_.contains("addressId"),
+      text.verifying(nonEmpty, maxLength(8)).transform[String](_.toUpperCase, identity))
+      .transform[String](_.getOrElse(""), s => Some(s))
+  )(Address.apply)(Address.unapply).verifying("error.required", address => {
+    address.addressUnitId.isDefined || (isNotBlank(address.postcode) && isNotBlank(address.line1))
   })
 
   lazy val addressId: Mapping[Option[Long]] =
