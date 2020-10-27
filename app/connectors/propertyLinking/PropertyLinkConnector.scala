@@ -17,6 +17,7 @@
 package connectors.propertyLinking
 
 import binders.propertylinks.GetPropertyLinksParameters
+import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
 import models._
@@ -28,15 +29,19 @@ import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppoi
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
 import play.api.Logger
 import play.api.libs.json.Json
-import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, NotFoundException}
+//import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReads, HttpResponse, NotFoundException}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
+class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext)
+  extends ExceptionThrowingReads {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
+
+  // exceptionThrowingReads
+  implicit def customReads[A]: HttpReads[A] = { import HttpReads.Implicits._; exceptionThrowingReads }
 
   def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[HttpResponse] =
     http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/property-links", propertyLinkPayload)

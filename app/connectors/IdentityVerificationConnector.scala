@@ -17,11 +17,12 @@
 package connectors
 
 import config.ApplicationConfig
+import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.Inject
 import models.identityVerificationProxy.IvResult
 import models.identityVerificationProxy.IvResult.IvFailure
 import play.api.libs.json.{JsObject, JsValue}
-import uk.gov.hmrc.http.HttpReads.Implicits._
+//import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
@@ -31,7 +32,7 @@ class IdentityVerificationConnector @Inject()(
       serverConfig: ServicesConfig,
       config: ApplicationConfig,
       http: HttpClient
-)(implicit val executionContext: ExecutionContext) {
+)(implicit val executionContext: ExecutionContext) extends ExceptionThrowingReads {
 
   val baseUrl = serverConfig.baseUrl("identity-verification")
 

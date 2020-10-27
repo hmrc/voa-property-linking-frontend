@@ -17,6 +17,7 @@
 package connectors
 
 import auditing.AuditingService
+import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import controllers.{EnrolmentPayload, KeyValuePair, PayLoad, Previous}
 import javax.inject.Inject
 import services.{EnrolmentResult, Success}
@@ -30,7 +31,7 @@ class TaxEnrolmentConnector @Inject()(
       wSHttp: HttpClient,
       auditingService: AuditingService,
       servicesConfig: ServicesConfig
-) {
+) extends ExceptionThrowingReads {
   private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
   private val enrolUrl = s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment"
 

@@ -16,15 +16,16 @@
 
 package connectors
 
+import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.Inject
 import models.DraftCase
-import uk.gov.hmrc.http.HttpReads.Implicits._
+//import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DraftCases @Inject()(http: HttpClient, config: ServicesConfig)(implicit ec: ExecutionContext) {
+class DraftCases @Inject()(http: HttpClient, config: ServicesConfig)(implicit ec: ExecutionContext) extends ExceptionThrowingReads {
   lazy val checkUrl = config.baseUrl("business-rates-check")
 
   def get(personId: Long)(implicit hc: HeaderCarrier): Future[Seq[DraftCase]] =

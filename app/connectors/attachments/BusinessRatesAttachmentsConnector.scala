@@ -16,12 +16,13 @@
 
 package connectors.attachments
 
+import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.{Inject, Singleton}
 import models.attachment._
 import models.attachment.request.MetaDataRequest
 import models.upscan.PreparedUpload
 import play.api.Logger
-import uk.gov.hmrc.http.HttpReads.Implicits._
+//import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
@@ -31,7 +32,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class BusinessRatesAttachmentsConnector @Inject()(
       val http: HttpClient,
       val servicesConfig: ServicesConfig
-)(implicit executionContext: ExecutionContext) {
+)(implicit executionContext: ExecutionContext) extends ExceptionThrowingReads {
 
   val baseURL: String = servicesConfig.baseUrl("business-rates-attachments")
 

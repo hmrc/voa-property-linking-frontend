@@ -16,17 +16,18 @@
 
 package connectors
 
+import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.Inject
 import models.propertyrepresentation.AgentDetails
 import play.api.Logger
-import uk.gov.hmrc.http.HttpReads.Implicits._
+//import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, Upstream4xxResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(
-      implicit ec: ExecutionContext) {
+      implicit ec: ExecutionContext) extends ExceptionThrowingReads {
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
   val logger = Logger(this.getClass.getName)
 
