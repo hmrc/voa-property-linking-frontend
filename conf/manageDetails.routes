@@ -1,28 +1,28 @@
-GET         /details                                @controllers.manageDetails.ViewDetails.show()
+GET         /details                                controllers.manageDetails.ViewDetails.show()
 
-GET         /update-details/email                   @controllers.manageDetails.UpdatePersonalDetails.viewEmail()
-POST        /update-details/email                   @controllers.manageDetails.UpdatePersonalDetails.updateEmail()
+GET         /update-details/email                   controllers.manageDetails.UpdatePersonalDetails.viewEmail()
+POST        /update-details/email                   controllers.manageDetails.UpdatePersonalDetails.updateEmail()
 
-GET         /update-details/telephone               @controllers.manageDetails.UpdatePersonalDetails.viewPhone()
-POST        /update-details/telephone               @controllers.manageDetails.UpdatePersonalDetails.updatePhone()
+GET         /update-details/telephone               controllers.manageDetails.UpdatePersonalDetails.viewPhone()
+POST        /update-details/telephone               controllers.manageDetails.UpdatePersonalDetails.updatePhone()
 
-GET         /update-details/name                    @controllers.manageDetails.UpdatePersonalDetails.viewName()
-POST        /update-details/name                    @controllers.manageDetails.UpdatePersonalDetails.updateName()
+GET         /update-details/name                    controllers.manageDetails.UpdatePersonalDetails.viewName()
+POST        /update-details/name                    controllers.manageDetails.UpdatePersonalDetails.updateName()
 
-GET         /update-details/address                 @controllers.manageDetails.UpdatePersonalDetails.viewAddress()
-POST        /update-details/address                 @controllers.manageDetails.UpdatePersonalDetails.updateAddress()
+GET         /update-details/address                 controllers.manageDetails.UpdatePersonalDetails.viewAddress()
+POST        /update-details/address                 controllers.manageDetails.UpdatePersonalDetails.updateAddress()
 
-GET         /update-details/mobile                  @controllers.manageDetails.UpdatePersonalDetails.viewMobile()
-POST        /update-details/mobile                  @controllers.manageDetails.UpdatePersonalDetails.updateMobile()
+GET         /update-details/mobile                  controllers.manageDetails.UpdatePersonalDetails.viewMobile()
+POST        /update-details/mobile                  controllers.manageDetails.UpdatePersonalDetails.updateMobile()
 
-GET         /update-details/business-name           @controllers.manageDetails.UpdateOrganisationDetails.viewBusinessName
-POST        /update-details/business-name           @controllers.manageDetails.UpdateOrganisationDetails.updateBusinessName
+GET         /update-details/business-name           controllers.manageDetails.UpdateOrganisationDetails.viewBusinessName
+POST        /update-details/business-name           controllers.manageDetails.UpdateOrganisationDetails.updateBusinessName
 
-GET         /update-details/business-address        @controllers.manageDetails.UpdateOrganisationDetails.viewBusinessAddress
-POST        /update-details/business-address        @controllers.manageDetails.UpdateOrganisationDetails.updateBusinessAddress
+GET         /update-details/business-address        controllers.manageDetails.UpdateOrganisationDetails.viewBusinessAddress
+POST        /update-details/business-address        controllers.manageDetails.UpdateOrganisationDetails.updateBusinessAddress
 
-GET         /update-details/business-phone          @controllers.manageDetails.UpdateOrganisationDetails.viewBusinessPhone
-POST        /update-details/business-phone          @controllers.manageDetails.UpdateOrganisationDetails.updateBusinessPhone
+GET         /update-details/business-phone          controllers.manageDetails.UpdateOrganisationDetails.viewBusinessPhone
+POST        /update-details/business-phone          controllers.manageDetails.UpdateOrganisationDetails.updateBusinessPhone
 
-GET         /update-details/business-email          @controllers.manageDetails.UpdateOrganisationDetails.viewBusinessEmail
-POST        /update-details/business-email          @controllers.manageDetails.UpdateOrganisationDetails.updateBusinessEmail
+GET         /update-details/business-email          controllers.manageDetails.UpdateOrganisationDetails.viewBusinessEmail
+POST        /update-details/business-email          controllers.manageDetails.UpdateOrganisationDetails.updateBusinessEmail

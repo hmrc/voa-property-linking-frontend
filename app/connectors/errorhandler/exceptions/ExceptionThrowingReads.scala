@@ -22,19 +22,19 @@ import uk.gov.hmrc.http._
 import utils.Cats._
 
 /****
- * This reads is designed to maintain behaviour of error handling
- * after the bootstrap-frontend-play26 upgrade
- *
- * Before the upgrade, 400 and 404 responses would throw exceptions:
- * (BadRequestException and NotFoundException)
- *
- * After the upgrade, no exceptions are thrown (by the library HttpErrorFunctions).
- *
- * This custom HttpReads should therefore recognise 400 and 404 http responses
- * and throw BadRequestException or NotFoundException
- *
- * TODO: this may be a temporary measure (tbd)
- */
+  * This reads is designed to maintain behaviour of error handling
+  * after the bootstrap-frontend-play26 upgrade
+  *
+  * Before the upgrade, 400 and 404 responses would throw exceptions:
+  * (BadRequestException and NotFoundException)
+  *
+  * After the upgrade, no exceptions are thrown (by the library HttpErrorFunctions).
+  *
+  * This custom HttpReads should therefore recognise 400 and 404 http responses
+  * and throw BadRequestException or NotFoundException
+  *
+  * TODO: this may be a temporary measure (tbd)
+  */
 trait ExceptionThrowingReads extends HttpErrorFunctions {
 
   def exceptionThrowingReads[A](implicit hrds: HttpReads[A]): HttpReads[A] = {
@@ -57,4 +57,8 @@ trait ExceptionThrowingReads extends HttpErrorFunctions {
         HttpReadsInstances.readEitherOf[A].map(_.leftMap(mapToException(method, url, response)).merge)
     }
   }
+}
+
+object ExceptionThrowingReadsInstances extends HttpReadsInstances with ExceptionThrowingReads {
+  override implicit val readRaw: HttpReads[HttpResponse] = exceptionThrowingReads(HttpReadsInstances.readRaw)
 }

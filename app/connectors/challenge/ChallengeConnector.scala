@@ -16,18 +16,17 @@
 
 package connectors.challenge
 
-import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.Inject
 import models.challenge.myclients.ChallengeCasesWithClient
 import models.challenge.myorganisations.ChallengeCasesWithAgent
 import models.dvr.cases.check.projection.CaseDetails
-//import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ChallengeConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) extends ExceptionThrowingReads {
+class ChallengeConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("business-rates-challenge") + s"/business-rates-challenge"
 
   def getMyClientsChallengeCases(propertyLinkSubmissionId: String)(

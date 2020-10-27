@@ -16,15 +16,14 @@
 
 package connectors
 
-import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.Inject
-//import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SubmissionIdConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) extends ExceptionThrowingReads {
+class SubmissionIdConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
 
   def get(prefix: String = "PL")(implicit hc: HeaderCarrier): Future[String] =

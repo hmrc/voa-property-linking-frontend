@@ -27,7 +27,6 @@ import controllers.PropertyLinkingController
 import javax.inject.Inject
 import models.ApiAssessments
 import models.dvr.DetailedValuationRequest
-import play.Logger
 import play.api.http.HttpEntity
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, _}

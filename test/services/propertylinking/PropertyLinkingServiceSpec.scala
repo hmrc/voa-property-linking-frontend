@@ -63,24 +63,6 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
     request = FakeRequest()
   )
 
-  // DPP
-  "submit with error" should "throw a BadRequestException" in {
-    implicit val linkingSession = linkingSessionRequest()
-
-    when(mockPropertyLinkConnector.createPropertyLink(any())(any()))
-      .thenReturn(Future.successful(emptyJsonHttpResponse(400))) // BAD REQUEST
-
-    when(mockBusinessRatesAttachmentsService.submit(any(), any(), any())(any(), any()))
-      .thenReturn(EitherT.rightT[Future, AttachmentException](List(attachment)))
-
-    val res: EitherT[Future, AttachmentException, Unit] = testService.submit(mockPropertyLinkRequest, None)
-
-//    res.value.futureValue must be(Right(()))
-//    verify(mockPropertyLinkConnector, times(1)).createPropertyLink(any())(any())
-  }
-  // DPP
-
-
   "submit with None clientId" should "return Unit when successful" in {
     implicit val linkingSession = linkingSessionRequest()
     when(mockPropertyLinkConnector.createPropertyLink(any())(any()))

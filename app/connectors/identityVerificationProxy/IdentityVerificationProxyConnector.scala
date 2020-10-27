@@ -16,17 +16,16 @@
 
 package connectors.identityVerificationProxy
 
-import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.Inject
 import models.identityVerificationProxy._
-//import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(
-      implicit ec: ExecutionContext) extends ExceptionThrowingReads {
+      implicit ec: ExecutionContext) {
   private lazy val url = serverConfig.baseUrl("identity-verification-proxy")
   private val path = "identity-verification-proxy/journey"
 

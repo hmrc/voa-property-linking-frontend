@@ -16,19 +16,18 @@
 
 package connectors
 
-import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.Inject
 import models.dvr.DetailedValuationRequest
 import models.dvr.documents.DvrDocumentFiles
 import play.api.libs.ws.{WSClient, WSResponse}
-//import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http._
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class DVRCaseManagementConnector @Inject()(config: ServicesConfig, val wsClient: WSClient, http: HttpClient)(
-      implicit val executionContext: ExecutionContext) extends ExceptionThrowingReads {
+      implicit val executionContext: ExecutionContext) {
 
   val url = config.baseUrl("property-linking") + "/property-linking"
 

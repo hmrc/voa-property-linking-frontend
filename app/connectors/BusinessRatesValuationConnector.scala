@@ -16,7 +16,6 @@
 
 package connectors
 
-import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.Inject
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
@@ -25,7 +24,7 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import scala.concurrent.{ExecutionContext, Future}
 
 class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: HttpClient)(
-      implicit val executionContext: ExecutionContext) extends ExceptionThrowingReads {
+      implicit val executionContext: ExecutionContext) {
 
   def isViewable(uarn: Long, valuationId: Long, propertyLinkSubmissionId: String)(
         implicit hc: HeaderCarrier): Future[Boolean] = {

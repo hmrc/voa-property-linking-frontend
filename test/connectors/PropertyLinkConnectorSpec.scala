@@ -29,7 +29,7 @@ import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthor
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
-import play.api.http.Status.OK
+import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import utils._
 

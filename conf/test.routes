@@ -1,9 +1,9 @@
-GET        /user-details                                          @controllers.test.TestController.getUserDetails
-GET        /de-enrol                                              @controllers.test.TestController.deEnrol
-GET        /de-register                                           @controllers.test.TestController.deRegister
-GET        /revoke-agent-appointments/:agentOrgId                 @controllers.test.TestController.revokeAgentAppointments(agentOrgId)
-GET        /clear-dvr-records                                     @controllers.test.TestController.clearDvrRecords
-GET        /clear-draft-cases                                     @controllers.test.TestController.clearDraftCases
-GET        /submitted-check/:submissionId                         @controllers.test.TestController.getSubmittedCheck(submissionId: String)
-GET        /delete-check-cases/:plSubmissionId                    @controllers.test.TestController.clearCheckCases(plSubmissionId: String)
-GET        /attachments                                           @controllers.test.TestController.getAttachments
+GET        /user-details                                          controllers.test.TestController.getUserDetails
+GET        /de-enrol                                              controllers.test.TestController.deEnrol
+GET        /de-register                                           controllers.test.TestController.deRegister
+GET        /revoke-agent-appointments/:agentOrgId                 controllers.test.TestController.revokeAgentAppointments(agentOrgId)
+GET        /clear-dvr-records                                     controllers.test.TestController.clearDvrRecords
+GET        /clear-draft-cases                                     controllers.test.TestController.clearDraftCases
+GET        /submitted-check/:submissionId                         controllers.test.TestController.getSubmittedCheck(submissionId: String)
+GET        /delete-check-cases/:plSubmissionId                    controllers.test.TestController.clearCheckCases(plSubmissionId: String)
+GET        /attachments                                           controllers.test.TestController.getAttachments

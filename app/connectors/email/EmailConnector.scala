@@ -16,7 +16,6 @@
 
 package connectors.email
 
-import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.Inject
 import models.email.EmailRequest
 import uk.gov.hmrc.http.HttpReads.Implicits._
@@ -25,7 +24,7 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class EmailConnector @Inject()(config: ServicesConfig, http: HttpClient) extends ExceptionThrowingReads {
+class EmailConnector @Inject()(config: ServicesConfig, http: HttpClient) {
 
   private val serviceUrl = config.baseUrl("email")
 

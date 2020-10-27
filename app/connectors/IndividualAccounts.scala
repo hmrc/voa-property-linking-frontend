@@ -16,17 +16,16 @@
 
 package connectors
 
-import connectors.errorhandler.exceptions.ExceptionThrowingReads
 import javax.inject.Inject
 import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
-//import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class IndividualAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) extends ExceptionThrowingReads {
+class IndividualAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
 
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking/individuals"
 
@@ -44,9 +43,11 @@ class IndividualAccounts @Inject()(config: ServicesConfig, http: HttpClient)(imp
       }
     }
 
-  def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] =
+  def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
+    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
     http.PUT[IndividualAccount, HttpResponse](baseUrl + s"/${account.individualId}", account.toIndividualAccount) map {
       _ =>
         ()
     }
+  }
 }

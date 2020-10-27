@@ -54,8 +54,9 @@ class BusinessRatesAuthorisationConnector @Inject()(
   def isAgentOwnProperty(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Boolean] =
     http.GET[PropertyLinkIds](s"$url/$authorisationId/ids") map { ids =>
       ids.caseCreator.organisationId == ids.interestedParty.organisationId
-    } recover { case UpstreamErrorResponse.WithStatusCode(403, _) => throw new ForbiddenException("Not Authorised") }
-
+    } recover {
+      case UpstreamErrorResponse.WithStatusCode(403, _) => throw new ForbiddenException("Not Authorised")
+    }
 }
 
 sealed trait AuthorisationResult
