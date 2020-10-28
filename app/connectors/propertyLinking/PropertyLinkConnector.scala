@@ -17,6 +17,7 @@
 package connectors.propertyLinking
 
 import binders.propertylinks.GetPropertyLinksParameters
+import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances
 import controllers.PaginationParams
 import javax.inject.{Inject, Singleton}
 import models._
@@ -33,18 +34,19 @@ import uk.gov.hmrc.http._
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
+
 @Singleton
 class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
 
   def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
-    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
+    import ExceptionThrowingReadsInstances._
     http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/property-links", propertyLinkPayload)
   }
 
   def createPropertyLinkOnClientBehalf(propertyLinkPayload: PropertyLinkPayload, clientId: Long)(
         implicit hc: HeaderCarrier): Future[HttpResponse] = {
-    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
+    import ExceptionThrowingReadsInstances._
     http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/clients/$clientId/property-links", propertyLinkPayload)
   }
   def getMyOrganisationPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
@@ -111,7 +113,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
         searchParams.status.map("status"    -> _),
         Some("sortfield"                    -> searchParams.sortfield.toString),
         Some("sortorder"                    -> searchParams.sortorder.toString),
-        agentAppointed.map("agentAppointed" -> _.toString),
+        agentAppointed.map("agentAppointed" -> _),
         Some("organisationId"               -> organisationId.toString),
         Some("agentOrganisationId"          -> agentOrganisationId.toString)
       ).flatten ++

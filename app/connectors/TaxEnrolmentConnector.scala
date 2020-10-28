@@ -17,6 +17,7 @@
 package connectors
 
 import auditing.AuditingService
+import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances
 import controllers.{EnrolmentPayload, KeyValuePair, PayLoad, Previous}
 import javax.inject.Inject
 import services.{EnrolmentResult, Success}
@@ -41,7 +42,7 @@ class TaxEnrolmentConnector @Inject()(
       identifiers = List(KeyValuePair("VOAPersonID", personId.toString)),
       verifiers = List(KeyValuePair("BusPostcode", postcode))
     )
-    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
+    import ExceptionThrowingReadsInstances._
     http
       .PUT[EnrolmentPayload, HttpResponse](enrolUrl, payload)
       .map { result =>
@@ -58,13 +59,12 @@ class TaxEnrolmentConnector @Inject()(
   def updatePostcode(personId: Long, postcode: String, previousPostcode: String)(
         implicit hc: HeaderCarrier,
         executionContext: ExecutionContext): Future[EnrolmentResult] = {
-    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
 
     val payload = PayLoad(
       verifiers = Seq(KeyValuePair(key = "BusPostcode", value = postcode)),
       legacy = Some(Previous(previousVerifiers = List(KeyValuePair(key = "BusPostcode", value = previousPostcode))))
     )
-    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
+    import ExceptionThrowingReadsInstances._
     http
       .PUT[PayLoad, HttpResponse](
         s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}",
