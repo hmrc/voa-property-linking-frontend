@@ -16,6 +16,7 @@
 
 package connectors
 
+import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances
 import javax.inject.Inject
 import models.{DetailedIndividualAccount, IndividualAccount, IndividualAccountSubmission}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
@@ -44,7 +45,7 @@ class IndividualAccounts @Inject()(config: ServicesConfig, http: HttpClient)(imp
     }
 
   def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
-    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
+    import ExceptionThrowingReadsInstances._
     http.PUT[IndividualAccount, HttpResponse](baseUrl + s"/${account.individualId}", account.toIndividualAccount) map {
       _ =>
         ()

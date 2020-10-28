@@ -16,6 +16,7 @@
 
 package connectors
 
+import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances
 import javax.inject.Inject
 import models.propertyrepresentation.AgentDetails
 import play.api.Logger
@@ -31,7 +32,7 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
   val logger = Logger(this.getClass.getName)
 
   def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
-    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
+    import ExceptionThrowingReadsInstances._
     http.DELETE[HttpResponse](s"$baseUrl/property-representations/revoke-client-property/$submissionId") map { _ =>
       ()
     }
