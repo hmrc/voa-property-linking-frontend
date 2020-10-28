@@ -431,6 +431,7 @@ propertyRepresentation.addAnAgent.guidance=What can my agent do?
 propertyRepresentation.addAnAgent.guidance.yourAgentCan=Your agent can:
 propertyRepresentation.addAnAgent.guidance.discussProperties=discuss your property’s valuation with the VOA
 propertyRepresentation.addAnAgent.guidance.challenge=challenge the value if necessary
+propertyRepresentation.addAnAgent.guidance.addProperty=add your properties to your account
 
 propertyRepresentation.isThisYourAgent.title=Confirm Agent
 propertyRepresentation.isThisYourAgent.question=Is this your agent?
