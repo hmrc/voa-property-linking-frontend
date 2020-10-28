@@ -43,9 +43,11 @@ class IndividualAccounts @Inject()(config: ServicesConfig, http: HttpClient)(imp
       }
     }
 
-  def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] =
+  def update(account: DetailedIndividualAccount)(implicit hc: HeaderCarrier): Future[Unit] = {
+    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
     http.PUT[IndividualAccount, HttpResponse](baseUrl + s"/${account.individualId}", account.toIndividualAccount) map {
       _ =>
         ()
     }
+  }
 }

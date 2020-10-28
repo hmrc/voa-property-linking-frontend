@@ -20,7 +20,7 @@ import controllers.VoaPropertyLinkingSpec
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito.when
 import play.api.http.Status._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.Future
 

@@ -20,7 +20,7 @@ import javax.inject.Inject
 import models.propertyrepresentation.AgentDetails
 import play.api.Logger
 import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, Upstream4xxResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, UpstreamErrorResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -30,14 +30,15 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
   val logger = Logger(this.getClass.getName)
 
-  def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] =
+  def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
+    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
     http.DELETE[HttpResponse](s"$baseUrl/property-representations/revoke-client-property/$submissionId") map { _ =>
       ()
     }
-
+  }
   def getAgentDetails(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentDetails]] =
     http.GET[Option[AgentDetails]](s"$baseUrl/my-organisation/agent/$agentCode") recover {
-      case Upstream4xxResponse(_, 403, _, _) =>
+      case UpstreamErrorResponse.WithStatusCode(403, _) =>
         logger.info(s"Agent code: $agentCode does not belong to an agent organisation")
         None
     }

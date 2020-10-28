@@ -20,7 +20,8 @@ import controllers.VoaPropertyLinkingSpec
 import org.mockito.Mockito.when
 import org.scalatest.Matchers.convertToAnyShouldWrapper
 import play.api.http.Status._
-import uk.gov.hmrc.http.{HttpResponse, Upstream4xxResponse, Upstream5xxResponse, UpstreamErrorResponse}
+import uk.gov.hmrc.http.{HttpResponse, UpstreamErrorResponse}
+import uk.gov.hmrc.http.HttpReads.Implicits._
 
 class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
   trait Setup {

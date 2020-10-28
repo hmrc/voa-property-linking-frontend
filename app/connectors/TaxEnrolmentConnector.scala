@@ -20,14 +20,13 @@ import auditing.AuditingService
 import controllers.{EnrolmentPayload, KeyValuePair, PayLoad, Previous}
 import javax.inject.Inject
 import services.{EnrolmentResult, Success}
-import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class TaxEnrolmentConnector @Inject()(
-      wSHttp: HttpClient,
+      http: HttpClient,
       auditingService: AuditingService,
       servicesConfig: ServicesConfig
 ) {
@@ -37,11 +36,13 @@ class TaxEnrolmentConnector @Inject()(
   def enrol(personId: Long, postcode: String)(
         implicit hc: HeaderCarrier,
         ex: ExecutionContext): Future[HttpResponse] = {
+
     val payload = EnrolmentPayload(
       identifiers = List(KeyValuePair("VOAPersonID", personId.toString)),
       verifiers = List(KeyValuePair("BusPostcode", postcode))
     )
-    wSHttp
+    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
+    http
       .PUT[EnrolmentPayload, HttpResponse](enrolUrl, payload)
       .map { result =>
         auditingService.sendEvent[EnrolmentPayload]("Enrolment Success", payload)
@@ -57,11 +58,14 @@ class TaxEnrolmentConnector @Inject()(
   def updatePostcode(personId: Long, postcode: String, previousPostcode: String)(
         implicit hc: HeaderCarrier,
         executionContext: ExecutionContext): Future[EnrolmentResult] = {
+    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
+
     val payload = PayLoad(
       verifiers = Seq(KeyValuePair(key = "BusPostcode", value = postcode)),
       legacy = Some(Previous(previousVerifiers = List(KeyValuePair(key = "BusPostcode", value = previousPostcode))))
     )
-    wSHttp
+    import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances._
+    http
       .PUT[PayLoad, HttpResponse](
         s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}",
         payload)
