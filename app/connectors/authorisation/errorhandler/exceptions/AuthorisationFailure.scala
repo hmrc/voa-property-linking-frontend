@@ -16,12 +16,4 @@
 
 package connectors.authorisation.errorhandler.exceptions
 
-import uk.gov.hmrc.http.HttpException
-
-class AuthorisationFailure(message: String, responseCode: Int) extends HttpException(message, responseCode)
-
-object AuthorisationFailure {
-
-  def apply(message: String, responseCode: Int = 401): AuthorisationFailure =
-    new AuthorisationFailure(message, responseCode)
-}
+case class AuthorisationFailure(message: String) extends Exception(message)

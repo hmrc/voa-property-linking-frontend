@@ -36,7 +36,8 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
   "when handling a 2xx http response" must "return the response" in new Setup {
     when(mockHttpResponse.status).thenReturn(OK)
 
-    val response = exceptionThrowingReads.authorisationReads[HttpResponse].read("GET", "URL", mockHttpResponse)
+    val response: HttpResponse =
+      exceptionThrowingReads.authorisationReads[HttpResponse].read("GET", "URL", mockHttpResponse)
     response mustBe mockHttpResponse
   }
 

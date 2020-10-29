@@ -16,9 +16,9 @@
 
 package connectors
 
-import config.AuthorisationFailed
 import connectors.authorisation.AuthorisationResult._
 import connectors.authorisation.BusinessRatesAuthorisationConnector
+import connectors.authorisation.errorhandler.exceptions.AuthorisationFailure
 import controllers.VoaPropertyLinkingSpec
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import org.scalacheck.Arbitrary._
@@ -46,7 +46,7 @@ class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "authenticate" must "return a failed authentication result and be handled if authentication was unsuccessful" in new Setup {
-    mockHttpFailedGET[Accounts]("tst-url", AuthorisationFailed("NO_CUSTOMER_RECORD"))
+    mockHttpFailedGET[Accounts]("tst-url", AuthorisationFailure("NO_CUSTOMER_RECORD"))
     whenReady(connector.authenticate)(_ mustBe NoVOARecord)
   }
 }
