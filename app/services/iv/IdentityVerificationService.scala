@@ -22,6 +22,7 @@ import javax.inject.{Inject, Named}
 import models._
 import models.identityVerificationProxy.{Journey, Link}
 import models.registration._
+import play.api.Logger
 import play.api.i18n.Messages
 import play.api.mvc.Results._
 import play.api.mvc.{Request, Result}
@@ -41,9 +42,12 @@ trait IdentityVerificationService {
   val proxyConnector: IdentityVerificationProxyConnector
   val config: ApplicationConfig
 
-  def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] =
+  def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] = {
+    val journey = Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData)
+    Logger.info("****** DPP proxyConnector: $")
     proxyConnector
-      .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
+      .start(journey)
+  }
 
   def someCase(obj: B)(implicit request: Request[_], messages: Messages): Result
 

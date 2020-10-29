@@ -21,6 +21,7 @@ import config.ApplicationConfig
 import javax.inject.{Inject, Named}
 import models.identityVerificationProxy.IvResult
 import models.registration.AdminUser
+import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
@@ -43,13 +44,20 @@ class IdentityVerification @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
+  val logger = Logger(this.getClass.getName)
+
   val startIv: Action[AnyContent] = ggAction.async { implicit request =>
     if (config.ivEnabled) {
       for {
         userDetails <- personalDetailsSessionRepo.get[AdminUser]
+        _ = logger.info(s"**** DPP: $userDetails")
         links <- identityVerificationService.start(
                   userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
-      } yield Redirect(links.getLink(config.ivBaseUrl))
+      } yield {
+        val url = links.getLink(config.ivBaseUrl)
+        logger.info(s"**** DPP: $url")
+        Redirect(url)
+      }
     } else {
       Future.successful(Redirect(routes.IdentityVerification.success(Some(java.util.UUID.randomUUID().toString))))
     }
@@ -76,6 +84,7 @@ class IdentityVerification @Inject()(
   }
 
   def success(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
+    logger.info(s"**** DPP: SUCCESS: $journeyId")
     if (config.ivEnabled) {
       journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
         identityVerificationConnector.verifySuccess(id).flatMap {
