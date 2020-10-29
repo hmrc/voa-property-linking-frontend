@@ -16,8 +16,7 @@
 
 package connectors.authorisation
 
-import config.AuthorisationFailed
-import connectors.authorisation.errorhandler.exceptions.AuthorisationExceptionThrowingReads
+import connectors.authorisation.errorhandler.exceptions.{AuthorisationExceptionThrowingReads, AuthorisationFailure}
 import javax.inject.Inject
 import models.{Accounts, PropertyLinkIds}
 import uk.gov.hmrc.http.{ForbiddenException, HeaderCarrier, HttpClient, UpstreamErrorResponse}
@@ -40,7 +39,7 @@ class BusinessRatesAuthorisationConnector @Inject()(
       .GET[Accounts](s"$url/authenticate")
       .map(Authenticated.apply)
       .recover {
-        case AuthorisationFailed(err) => handleUnauthenticated(err)
+        case AuthorisationFailure(err) => handleUnauthenticated(err)
       }
 
   private def handleUnauthenticated(error: String) = error match {
