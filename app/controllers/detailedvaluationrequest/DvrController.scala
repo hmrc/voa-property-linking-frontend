@@ -291,22 +291,22 @@ class DvrController @Inject()(
 
   def canChallenge(
         plSubmissionId: String,
-        assessmnetRef: Long,
+        assessmentRef: Long,
         caseRef: String,
         authorisationId: Long,
         uarn: Long,
         isOwner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
-    propertyLinks.canChallenge(plSubmissionId, assessmnetRef, caseRef, isOwner) flatMap {
+    propertyLinks.canChallenge(plSubmissionId, assessmentRef, caseRef, isOwner) flatMap {
       case None =>
         Future.successful(
           Redirect(
-            controllers.routes.Assessments.startChallengeFromDVR(plSubmissionId, assessmnetRef, uarn, isOwner).url))
+            controllers.routes.Assessments.startChallengeFromDVR(plSubmissionId, assessmentRef, uarn, isOwner).url))
       case Some(response) => {
         response.result match {
           case true => {
             val party = if (isOwner) "client" else "agent"
             Future.successful(Redirect(config.businessRatesChallengeStartPageUrl(
-              s"property-link/$plSubmissionId/valuation/$assessmnetRef/check/$caseRef/party/$party/start?isDvr=true")))
+              s"property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/$party/start?isDvr=true")))
           }
           case false =>
             Future successful Ok(
@@ -317,11 +317,11 @@ class DvrController @Inject()(
                 backLinkUrl =
                   if (isOwner)
                     routes.DvrController
-                      .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmnetRef, uarn)
+                      .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn)
                       .url
                   else
                     routes.DvrController
-                      .myClientsRequestDetailValuationCheck(plSubmissionId, assessmnetRef, uarn)
+                      .myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn)
                       .url
               ))
         }
