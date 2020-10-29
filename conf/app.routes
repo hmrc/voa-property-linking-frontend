@@ -4,160 +4,160 @@
 ->          /hmrc-frontend                                                                    hmrcfrontend.Routes
 
 #Start
-GET         /                                                                                 controllers.Application.start()
+GET         /                                                                                 @controllers.Application.start()
 
-GET         /start                                                                            controllers.Application.start()
+GET         /start                                                                            @controllers.Application.start()
 
-GET         /contact-us                                                                       controllers.Application.contactUs()
+GET         /contact-us                                                                       @controllers.Application.contactUs()
 
 #Registration
-GET         /login                                                                            controllers.Login.show
-GET         /register                                                                         controllers.Register.show
-POST        /regiser-user                                                                     controllers.Register.choice
-GET         /logout                                                                           controllers.Application.logOut
-GET         /invalid-account                                                                  controllers.Application.invalidAccountType
+GET         /login                                                                            @controllers.Login.show
+GET         /register                                                                         @controllers.Register.show
+POST        /regiser-user                                                                     @controllers.Register.choice
+GET         /logout                                                                           @controllers.Application.logOut
+GET         /invalid-account                                                                  @controllers.Application.invalidAccountType
 
 #Identity verification
-GET         /identity-verification/start                                                      controllers.IdentityVerification.startIv
-GET         /identity-verification/failed                                                     controllers.IdentityVerification.fail(journeyId: Option[String])
-GET         /identity-verification/restore-session                                            controllers.IdentityVerification.restoreSession
-GET         /identity-verification/success                                                    controllers.IdentityVerification.success(journeyId: Option[String])
+GET         /identity-verification/start                                                      @controllers.IdentityVerification.startIv
+GET         /identity-verification/failed                                                     @controllers.IdentityVerification.fail(journeyId: Option[String])
+GET         /identity-verification/restore-session                                            @controllers.IdentityVerification.restoreSession
+GET         /identity-verification/success                                                    @controllers.IdentityVerification.success(journeyId: Option[String])
 
 #Dashboard
-GET         /home                                                                             controllers.Dashboard.home()
-GET         /your-details                                                                     controllers.Dashboard.yourDetails()
-GET         /properties                                                                       controllers.Dashboard.manageProperties(clientDetails: Option[ClientDetails] ?= None)
-GET         /managed-properties/:agentCode                                                    controllers.Dashboard.viewManagedProperties(agentCode: Long, owner: Boolean ?= true)
+GET         /home                                                                             @controllers.Dashboard.home()
+GET         /your-details                                                                     @controllers.Dashboard.yourDetails()
+GET         /properties                                                                       @controllers.Dashboard.manageProperties(clientDetails: Option[ClientDetails] ?= None)
+GET         /managed-properties/:agentCode                                                    @controllers.Dashboard.viewManagedProperties(agentCode: Long, owner: Boolean ?= true)
 
-GET         /manage-agents                                                                    controllers.Dashboard.manageAgents()
+GET         /manage-agents                                                                    @controllers.Dashboard.manageAgents()
 
-GET         /client-properties/revoke/:plSubmissionId                                         controllers.agent.RepresentationController.revokeClient(plSubmissionId: String)
-POST        /client-properties/revoke-client-property/:plSubmissionId/:address/confirmed      controllers.agent.RepresentationController.revokeClientPropertyConfirmed(plSubmissionId: String, address: String)
+GET         /client-properties/revoke/:plSubmissionId                                         @controllers.agent.RepresentationController.revokeClient(plSubmissionId: String)
+POST        /client-properties/revoke-client-property/:plSubmissionId/:address/confirmed      @controllers.agent.RepresentationController.revokeClientPropertyConfirmed(plSubmissionId: String, address: String)
 
-GET         /property-link/:submissionId/assessments/start                                    uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.savePreviousPage(previousPage: String, submissionId: String, owner: Boolean ?= true)
-GET         /property-link/:submissionId/assessments                                          uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.valuations(submissionId: String, owner: Boolean ?= true)
-GET         /property-link/clients/all/:submissionId/assessments/start                        uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.savePreviousPage(previousPage: String, submissionId: String, owner: Boolean ?= false)
-GET         /property-link/clients/all/:submissionId/assessments                              uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.valuations(submissionId: String, owner: Boolean ?= false)
+GET         /property-link/:submissionId/assessments/start                                    @uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.savePreviousPage(previousPage: String, submissionId: String, owner: Boolean ?= true)
+GET         /property-link/:submissionId/assessments                                          @uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.valuations(submissionId: String, owner: Boolean ?= true)
+GET         /property-link/clients/all/:submissionId/assessments/start                        @uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.savePreviousPage(previousPage: String, submissionId: String, owner: Boolean ?= false)
+GET         /property-link/clients/all/:submissionId/assessments                              @uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.valuations(submissionId: String, owner: Boolean ?= false)
 
-GET         /property-link/:uarn/valuation/summary                                            controllers.Assessments.viewOwnerSummary(uarn: Long, isPending: Boolean ?= false)
-GET         /property-link/clients/all/:uarn/valuation/summary                                controllers.Assessments.viewClientSummary(uarn: Long, isPending: Boolean ?= false)
-GET         /detailed/:authorisationId/:assessmentRef                                         controllers.Assessments.viewDetailedAssessment(submissionId: String, authorisationId: Long, assessmentRef: Long, baRef, owner: Boolean ?= true)
-GET         /property-link/:submissionId/valuations/:valuationId/start-challenge              controllers.Assessments.startChallengeFromDVR(submissionId: String, valuationId: Long, uarn: Long, owner: Boolean ?= true)
+GET         /property-link/:uarn/valuation/summary                                            @controllers.Assessments.viewOwnerSummary(uarn: Long, isPending: Boolean ?= false)
+GET         /property-link/clients/all/:uarn/valuation/summary                                @controllers.Assessments.viewClientSummary(uarn: Long, isPending: Boolean ?= false)
+GET         /detailed/:authorisationId/:assessmentRef                                         @controllers.Assessments.viewDetailedAssessment(submissionId: String, authorisationId: Long, assessmentRef: Long, baRef, owner: Boolean ?= true)
+GET         /property-link/:submissionId/valuations/:valuationId/start-challenge              @controllers.Assessments.startChallengeFromDVR(submissionId: String, valuationId: Long, uarn: Long, owner: Boolean ?= true)
 
 #Linking outcomes
-GET         /manual-verification-required                                                     controllers.LinkErrors.manualVerificationRequired()
-GET         /linking-conflict                                                                 controllers.LinkErrors.conflict()
+GET         /manual-verification-required                                                     @controllers.LinkErrors.manualVerificationRequired()
+GET         /linking-conflict                                                                 @controllers.LinkErrors.conflict()
 
 
 #AGENT
 #Dashboard
 #TODO: Move to dashboard
-GET         /manage-clients                                                                   controllers.agent.RepresentationController.viewClientProperties()
+GET         /manage-clients                                                                   @controllers.agent.RepresentationController.viewClientProperties()
 
-GET         /add-user-to-gg                                                                   controllers.Application.addUserToGG
+GET         /add-user-to-gg                                                                   @controllers.Application.addUserToGG
 
 #Address lookup
-GET         /lookup                                                                           controllers.AddressLookup.findByPostcode(postcode)
+GET         /lookup                                                                           @controllers.AddressLookup.findByPostcode(postcode)
 
 #Downtime page
-GET         /planned-improvements                                                             controllers.DowntimePage.plannedImprovements
+GET         /planned-improvements                                                             @controllers.DowntimePage.plannedImprovements
 
 #Enrolment page
-GET         /complete-contact-details                                                         controllers.registration.RegistrationController.show()
-POST        /complete-contact-details                                                         controllers.registration.RegistrationController.submitOrganisation()
-GET         /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.show()
-POST        /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.submitAdminToExistingOrganisation()
-GET         /complete-your-contact-details                                                    controllers.registration.RegistrationController.show()
-POST        /complete-your-contact-details                                                    controllers.registration.RegistrationController.submitIndividual()
-GET         /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.show()
-POST        /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.submitAssistant()
-GET         /create-success                                                                   controllers.registration.RegistrationController.success(personId: Long)
+GET         /complete-contact-details                                                         @controllers.registration.RegistrationController.show()
+POST        /complete-contact-details                                                         @controllers.registration.RegistrationController.submitOrganisation()
+GET         /complete-existing-business-contact-details                                       @controllers.registration.RegistrationController.show()
+POST        /complete-existing-business-contact-details                                       @controllers.registration.RegistrationController.submitAdminToExistingOrganisation()
+GET         /complete-your-contact-details                                                    @controllers.registration.RegistrationController.show()
+POST        /complete-your-contact-details                                                    @controllers.registration.RegistrationController.submitIndividual()
+GET         /complete-business-contact-details-assistant                                      @controllers.registration.RegistrationController.show()
+POST        /complete-business-contact-details-assistant                                      @controllers.registration.RegistrationController.submitAssistant()
+GET         /create-success                                                                   @controllers.registration.RegistrationController.success(personId: Long)
 
 #Draft Checks
-GET         /draft-cases                                                                      controllers.ManageDrafts.viewDraftCases()
-POST        /delete-draft                                                                     controllers.ManageDrafts.deleteDraftCase()
-POST        /confirm-delete-draft                                                             controllers.ManageDrafts.confirmDelete(draftId: String)
-POST        /continue-draft-check                                                             controllers.ManageDrafts.continueCheck()
+GET         /draft-cases                                                                      @controllers.ManageDrafts.viewDraftCases()
+POST        /delete-draft                                                                     @controllers.ManageDrafts.deleteDraftCase()
+POST        /confirm-delete-draft                                                             @controllers.ManageDrafts.confirmDelete(draftId: String)
+POST        /continue-draft-check                                                             @controllers.ManageDrafts.continueCheck()
 
 #Business tax account
-GET         /manage-business-tax-account                                                      controllers.Application.manageBusinessTaxAccount()
+GET         /manage-business-tax-account                                                      @controllers.Application.manageBusinessTaxAccount()
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                                                     controllers.Assets.at(path="/public", file)
+GET         /assets/*file                                                                     @controllers.Assets.at(path="/public", file)
 
-GET         /keep-alive                                                                       controllers.KeepAliveController.keepAlive()
+GET         /keep-alive                                                                       @controllers.KeepAliveController.keepAlive()
 
 #AGENT REPRESENTATION
 #OWNER ONLY
 #APPOINT
 
-GET         /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
-POST        /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.appointAgentSummary()
+GET         /my-organisation/appoint/properties                                                                           @controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
+POST        /my-organisation/appoint/properties/create                                                                    @controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 
 #NEW AGENT APPOINT JOURNEY
-GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start()
-GET         /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.showStartPage()
-POST        /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.getAgentDetails()
+GET         /my-organisation/appoint-new-agent                                                                            @controllers.agentAppointment.AddAgentController.start()
+GET         /my-organisation/appoint-new-agent/start                                                                      @controllers.agentAppointment.AddAgentController.showStartPage()
+POST        /my-organisation/appoint-new-agent/start                                                                      @controllers.agentAppointment.AddAgentController.getAgentDetails()
 
-GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.isCorrectAgent()
-POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.agentSelected()
+GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AddAgentController.isCorrectAgent()
+POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           @controllers.agentAppointment.AddAgentController.agentSelected()
 
-GET         /my-organisation/appoint-new-agent/one-property                                                               controllers.agentAppointment.AddAgentController.oneProperty()
-POST        /my-organisation/appoint-new-agent/one-property                                                               controllers.agentAppointment.AddAgentController.submitOneProperty()
+GET         /my-organisation/appoint-new-agent/one-property                                                               @controllers.agentAppointment.AddAgentController.oneProperty()
+POST        /my-organisation/appoint-new-agent/one-property                                                               @controllers.agentAppointment.AddAgentController.submitOneProperty()
 
-GET         /my-organisation/appoint-new-agent/multiple-properties                                                        controllers.agentAppointment.AddAgentController.multipleProperties()
-POST        /my-organisation/appoint-new-agent/multiple-properties                                                        controllers.agentAppointment.AddAgentController.submitMultipleProperties()
+GET         /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AddAgentController.multipleProperties()
+POST        /my-organisation/appoint-new-agent/multiple-properties                                                        @controllers.agentAppointment.AddAgentController.submitMultipleProperties()
 
-GET         /my-organisation/appoint-new-agent/checkYourAnswers                                                           controllers.agentAppointment.AddAgentController.checkAnswers()
-POST        /my-organisation/appoint-agent                                                                                controllers.agentAppointment.AddAgentController.appointAgent()
+GET         /my-organisation/appoint-new-agent/checkYourAnswers                                                           @controllers.agentAppointment.AddAgentController.checkAnswers()
+POST        /my-organisation/appoint-agent                                                                                @controllers.agentAppointment.AddAgentController.appointAgent()
 
 #MANAGE AGENT
-GET         /my-organisation/manage-agent                                                                                 controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
-GET         /my-organisation/manage-agent/property-links                                                                  controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)
-POST        /my-organisation/manage-agent/property-links                                                                  controllers.agent.ManageAgentController.manageAgentSearchSortProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)
-GET         /my-organisation/agents                                                                                       controllers.agent.ManageAgentController.showAgents()
+GET         /my-organisation/manage-agent                                                                                 @controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
+GET         /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)
+POST        /my-organisation/manage-agent/property-links                                                                  @controllers.agent.ManageAgentController.manageAgentSearchSortProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)
+GET         /my-organisation/agents                                                                                       @controllers.agent.ManageAgentController.showAgents()
 
-POST        /my-organisation/manage-agent/:agentCode                                                                      controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)
-POST        /my-organisation/manage-agent/assign/:agentCode/:agentName/to-all-properties                                  controllers.agent.ManageAgentController.assignAgentToAll(agentCode: Long, agentName: String)
-POST        /my-organisation/manage-agent/unassign/:agentCode/:agentName/from-all-properties                              controllers.agent.ManageAgentController.unassignAgentFromAll(agentCode: Long, agentName: String)
+POST        /my-organisation/manage-agent/:agentCode                                                                      @controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)
+POST        /my-organisation/manage-agent/assign/:agentCode/:agentName/to-all-properties                                  @controllers.agent.ManageAgentController.assignAgentToAll(agentCode: Long, agentName: String)
+POST        /my-organisation/manage-agent/unassign/:agentCode/:agentName/from-all-properties                              @controllers.agent.ManageAgentController.unassignAgentFromAll(agentCode: Long, agentName: String)
 
-GET         /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  controllers.agent.ManageAgentController.showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String)
-POST        /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  controllers.agent.ManageAgentController.removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String)
+GET         /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  @controllers.agent.ManageAgentController.showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String)
+POST        /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  @controllers.agent.ManageAgentController.removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String)
 
 
-GET         /my-organisation/revoke/properties                                                                            controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long)
-POST        /my-organisation/revoke/properties/create                                                                     controllers.agentAppointment.AppointAgentController.revokeAgentSummary()
+GET         /my-organisation/revoke/properties                                                                            @controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: PaginationParameters, params: GetPropertyLinksParameters, agentCode: Long)
+POST        /my-organisation/revoke/properties/create                                                                     @controllers.agentAppointment.AppointAgentController.revokeAgentSummary()
 
 #DVR
 #Owner Routes
-GET         /my-organisation/property-link/:propertyLinkSubmissionId/confirmation                                                     controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
-GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId                                          controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long)
-POST        /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId                                          controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
-GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId/exists                                   controllers.detailedvaluationrequest.DvrController.myOrganisationAlreadyRequestedDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
-GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId/file/:ref                                controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailedValuationRequestFile(propertyLinkSubmissionId: String, valuationId: Long, ref: String)
+GET         /my-organisation/property-link/:propertyLinkSubmissionId/confirmation                                                     @controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
+GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId                                          @controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long)
+POST        /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId                                          @controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId/exists                                   @controllers.detailedvaluationrequest.DvrController.myOrganisationAlreadyRequestedDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId/file/:ref                                @controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailedValuationRequestFile(propertyLinkSubmissionId: String, valuationId: Long, ref: String)
 
 #Agent Routes
-GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/confirmation                                         controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
-GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId                              controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuationCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long)
-POST        /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId                              controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
-GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/exists                       controllers.detailedvaluationrequest.DvrController.myClientsAlreadyRequestedDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
-GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/file/:ref                    controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailedValuationRequestFile(propertyLinkSubmissionId: String, valuationId: Long, ref: String)
+GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/confirmation                                         @controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String)
+GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId                              @controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuationCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long)
+POST        /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId                              @controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/exists                       @controllers.detailedvaluationrequest.DvrController.myClientsAlreadyRequestedDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
+GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/file/:ref                    @controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailedValuationRequestFile(propertyLinkSubmissionId: String, valuationId: Long, ref: String)
 
-GET         /can-challenge                                                                                                            controllers.detailedvaluationrequest.DvrController.canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, authorisationId: Long, uarn: Long, isOwner: Boolean)
+GET         /can-challenge                                                                                                            @controllers.detailedvaluationrequest.DvrController.canChallenge(plSubmissionId: String, assessmnetRef: Long, caseRef: String, authorisationId: Long, uarn: Long, isOwner: Boolean)
 
 #Claiming a property link
-GET         /my-organisation/claim/property-links/property-search                             controllers.propertyLinking.ClaimProperty.show(clientDetails: Option[ClientDetails] ?= None)
-GET         /my-organisation/claim/property-links/before-you-start                            controllers.propertyLinking.ClaimProperty.checkPropertyLinks()
-GET         /my-organisation/claim/property-links/capacity/:uarn                              controllers.propertyLinking.ClaimProperty.declareCapacity(uarn: Long, address: String, clientDetails: Option[ClientDetails] ?= None)
-POST        /my-organisation/claim/property-links/capacity/:uarn                              controllers.propertyLinking.ClaimProperty.attemptLink(uarn: Long, address: String, clientDetails: Option[ClientDetails] ?= None)
-GET         /my-organisation/claim/property-links                                             controllers.propertyLinking.ClaimProperty.back()
-GET         /my-organisation/claim/property-links/evidence                                    controllers.propertyLinking.ChooseEvidence.show()
-POST        /my-organisation/claim/property-links/evidence                                    controllers.propertyLinking.ChooseEvidence.submit()
-GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorMessage: Option[String] ?= None)
-POST        /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.continue(choice: EvidenceChoices)
-POST        /my-organisation/claim/property-links/evidence/:choice/upload/initiate            controllers.propertyLinking.UploadController.initiate(choice: EvidenceChoices)
-GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorMessage: Option[String])
-POST        /my-organisation/claim/property-links/evidence/:choice/upload/remove              controllers.propertyLinking.UploadController.remove(fileReference: String, choice: EvidenceChoices)
-GET         /my-organisation/claim/property-links/summary                                     controllers.propertyLinking.Declaration.show()
-POST        /my-organisation/claim/property-links/summary                                     controllers.propertyLinking.Declaration.submit()
-GET         /my-organisation/claim/property-links/confirmation                                controllers.propertyLinking.Declaration.confirmation
+GET         /my-organisation/claim/property-links/property-search                             @controllers.propertyLinking.ClaimProperty.show(clientDetails: Option[ClientDetails] ?= None)
+GET         /my-organisation/claim/property-links/before-you-start                            @controllers.propertyLinking.ClaimProperty.checkPropertyLinks()
+GET         /my-organisation/claim/property-links/capacity/:uarn                              @controllers.propertyLinking.ClaimProperty.declareCapacity(uarn: Long, address: String, clientDetails: Option[ClientDetails] ?= None)
+POST        /my-organisation/claim/property-links/capacity/:uarn                              @controllers.propertyLinking.ClaimProperty.attemptLink(uarn: Long, address: String, clientDetails: Option[ClientDetails] ?= None)
+GET         /my-organisation/claim/property-links                                             @controllers.propertyLinking.ClaimProperty.back()
+GET         /my-organisation/claim/property-links/evidence                                    @controllers.propertyLinking.ChooseEvidence.show()
+POST        /my-organisation/claim/property-links/evidence                                    @controllers.propertyLinking.ChooseEvidence.submit()
+GET         /my-organisation/claim/property-links/evidence/:choice/upload                     @controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorMessage: Option[String] ?= None)
+POST        /my-organisation/claim/property-links/evidence/:choice/upload                     @controllers.propertyLinking.UploadController.continue(choice: EvidenceChoices)
+POST        /my-organisation/claim/property-links/evidence/:choice/upload/initiate            @controllers.propertyLinking.UploadController.initiate(choice: EvidenceChoices)
+GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               @controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorMessage: Option[String])
+POST        /my-organisation/claim/property-links/evidence/:choice/upload/remove              @controllers.propertyLinking.UploadController.remove(fileReference: String, choice: EvidenceChoices)
+GET         /my-organisation/claim/property-links/summary                                     @controllers.propertyLinking.Declaration.show()
+POST        /my-organisation/claim/property-links/summary                                     @controllers.propertyLinking.Declaration.submit()
+GET         /my-organisation/claim/property-links/confirmation                                @controllers.propertyLinking.Declaration.confirmation
