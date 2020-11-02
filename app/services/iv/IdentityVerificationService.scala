@@ -68,7 +68,8 @@ class IvService @Inject()(
 
   type B = RegistrationResult
 
-  protected val successUrl: String = controllers.routes.IdentityVerification.success(None).url
+  protected val successUrl: String = "https://www.qa.tax.service.gov.uk/business-rates-property-linking/identity-verification/success"
+  //controllers.routes.IdentityVerification.success(None).url
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages): Result = obj match {
     case RegistrationSuccess(personId) =>
