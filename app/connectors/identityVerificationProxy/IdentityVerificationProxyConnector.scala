@@ -18,6 +18,7 @@ package connectors.identityVerificationProxy
 
 import javax.inject.Inject
 import models.identityVerificationProxy._
+import play.api.Logger
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
@@ -29,6 +30,8 @@ class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig,
   private lazy val url = serverConfig.baseUrl("identity-verification-proxy")
   private val path = "identity-verification-proxy/journey"
 
-  def start(journey: Journey)(implicit hc: HeaderCarrier): Future[Link] =
+  def start(journey: Journey)(implicit hc: HeaderCarrier): Future[Link] = {
+    Logger.info(s"*** DPP(IdentityVerificationProxyConnector): [$journey]")
     http.POST[Journey, Link](s"$url/$path/start", journey)
+  }
 }
