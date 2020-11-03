@@ -21,7 +21,6 @@ import config.ApplicationConfig
 import javax.inject.{Inject, Named}
 import models.identityVerificationProxy.IvResult
 import models.registration.AdminUser
-import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
@@ -50,7 +49,6 @@ class IdentityVerification @Inject()(
         userDetails <- personalDetailsSessionRepo.get[AdminUser]
         links <- identityVerificationService.start(
                   userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
-        _ = Logger.info(s"*** DPP(startIv): [$links]")
       } yield Redirect(links.getLink(config.ivBaseUrl))
     } else {
       Future.successful(Redirect(routes.IdentityVerification.success(Some(java.util.UUID.randomUUID().toString))))
