@@ -18,7 +18,7 @@ package services.iv
 
 import config.ApplicationConfig
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
-import javax.inject.{Inject, Named}
+import javax.inject.{Inject, Named, Singleton}
 import models._
 import models.identityVerificationProxy.{Journey, Link}
 import models.registration._
@@ -41,9 +41,7 @@ trait IdentityVerificationService {
   val proxyConnector: IdentityVerificationProxyConnector
   val config: ApplicationConfig
 
-  def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] =
-    proxyConnector
-      .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
+  def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link]
 
   def someCase(obj: B)(implicit request: Request[_], messages: Messages): Result
 
@@ -53,11 +51,12 @@ trait IdentityVerificationService {
         implicit hc: HeaderCarrier,
         ec: ExecutionContext): Future[Option[B]]
 
-  protected val successUrl: String
+  val successUrl: String
 
-  private val failureUrl = controllers.routes.IdentityVerification.fail(None).url
+  val failureUrl: String
 }
 
+@Singleton
 class IvService @Inject()(
       val errorHandler: CustomErrorHandler,
       registrationService: RegistrationService,
@@ -68,8 +67,21 @@ class IvService @Inject()(
 
   type B = RegistrationResult
 
-  protected val successUrl: String = "https://www.qa.tax.service.gov.uk/business-rates-property-linking/identity-verification/success"
-  //controllers.routes.IdentityVerification.success(None).url
+  val successUrl: String = {
+    println(s"*** DPP SUCCESS ${controllers.routes.IdentityVerification.success(None).url}")
+    controllers.routes.IdentityVerification.success(None).url
+  }
+
+  val failureUrl: String = {
+    println(s"*** DPP FAIL ${controllers.routes.IdentityVerification.fail(None).url}")
+    controllers.routes.IdentityVerification.success(None).url
+  }
+
+  def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] = {
+    println(s"*** DPP START $successUrl")
+    proxyConnector
+      .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
+  }
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages): Result = obj match {
     case RegistrationSuccess(personId) =>
