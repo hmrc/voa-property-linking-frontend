@@ -31,4 +31,5 @@ class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig,
 
   def start(journey: Journey)(implicit hc: HeaderCarrier): Future[Link] =
     http.POST[Journey, Link](s"$url/$path/start", journey)
+
 }
