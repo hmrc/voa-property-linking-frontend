@@ -25,7 +25,7 @@ import play.api.data.validation._
 import play.api.data.{FormError, Forms, Mapping}
 import uk.gov.voa.play.form.Condition
 import views.helpers.Errors
-import org.apache.commons.lang3.StringUtils.isNotBlank
+import org.apache.commons.lang3.StringUtils.{isNotBlank, isNumeric}
 import play.api.data.validation.Constraints._
 
 import scala.util.Try
@@ -47,17 +47,17 @@ object Mappings extends DateMappings {
   val mandatoryBoolean: Mapping[Boolean] =
     optional(boolean).verifying("error.boolean", _.isDefined).transform(_.get, Some.apply)
 
+  val addressEnteredManually: Condition = paramMap => !paramMap.get("address.addressId").exists(isNumeric)
+
   val addressMapping: Mapping[Address] = mapping(
     "addressId" -> addressId,
-    "line1" -> mandatoryIf(!_.contains("addressId"), text.verifying(nonEmpty, maxLength(36)))
-      .transform[String](_.getOrElse(""), s => Some(s)),
-    "line2" -> text(maxLength = 36),
-    "line3" -> text(maxLength = 36),
-    "line4" -> text(maxLength = 36),
-    "postcode" -> mandatoryIf(
-      !_.contains("addressId"),
-      text.verifying(nonEmpty, maxLength(8)).transform[String](_.toUpperCase, identity))
-      .transform[String](_.getOrElse(""), s => Some(s))
+    "line1"     -> onlyIf(addressEnteredManually, text.verifying(nonEmpty, maxLength(36)))(""),
+    "line2"     -> text(maxLength = 36),
+    "line3"     -> text(maxLength = 36),
+    "line4"     -> text(maxLength = 36),
+    "postcode" -> onlyIf(
+      addressEnteredManually,
+      text.verifying(nonEmpty, maxLength(8)).transform[String](_.toUpperCase, identity))("")
   )(Address.apply)(Address.unapply).verifying("error.required", address => {
     address.addressUnitId.isDefined || (isNotBlank(address.postcode) && isNotBlank(address.line1))
   })
