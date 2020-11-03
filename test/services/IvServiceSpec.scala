@@ -24,8 +24,7 @@ import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import repositories.SessionRepo
-import utils._
-import services.iv.IvService
+import services.iv.IdentityVerificationService
 import uk.gov.hmrc.auth.core.AffinityGroup._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
@@ -99,7 +98,7 @@ class IvServiceSpec extends ServiceSpec {
 
     protected val ivProxy = mock[IdentityVerificationProxyConnector]
 
-    protected val identityVerification = new IvService(
+    protected val identityVerification = new IdentityVerificationService(
       mockCustomErrorHandler,
       mockRegistrationService,
       mockSessionRepoOrgDetails,

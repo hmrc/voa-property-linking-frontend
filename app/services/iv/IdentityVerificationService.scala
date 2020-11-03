@@ -35,54 +35,22 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait IdentityVerificationService {
-
-  type B
-
-  val proxyConnector: IdentityVerificationProxyConnector
-  val config: ApplicationConfig
-
-  def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link]
-
-  def someCase(obj: B)(implicit request: Request[_], messages: Messages): Result
-
-  def noneCase(implicit request: Request[_], messages: Messages): Result
-
-  def continue(journeyId: String, userDetails: UserDetails)(
-        implicit hc: HeaderCarrier,
-        ec: ExecutionContext): Future[Option[B]]
-
-  val successUrl: String
-
-  val failureUrl: String
-}
-
 @Singleton
-class IvService @Inject()(
+class IdentityVerificationService @Inject()(
       val errorHandler: CustomErrorHandler,
       registrationService: RegistrationService,
       @Named("personSession") personalDetailsSessionRepo: SessionRepo,
-      override val proxyConnector: IdentityVerificationProxyConnector,
-      implicit val config: ApplicationConfig)
-    extends IdentityVerificationService {
+      val proxyConnector: IdentityVerificationProxyConnector,
+      implicit val config: ApplicationConfig) {
 
-  type B = RegistrationResult
+  // lazy is required here to ensure that the reverse route lookup
+  // includes the context (/business-rates-property-linking) in the URL
+  lazy val successUrl: String = controllers.routes.IdentityVerification.success(None).url
+  lazy val failureUrl: String = controllers.routes.IdentityVerification.fail(None).url
 
-  lazy val successUrl: String = {
-    Logger.info(s"*** DPP SUCCESS ${controllers.routes.IdentityVerification.success(None).url}")
-    controllers.routes.IdentityVerification.success(None).url
-  }
-
-  lazy val failureUrl: String = {
-    Logger.info(s"*** DPP FAIL ${controllers.routes.IdentityVerification.fail(None).url}")
-    controllers.routes.IdentityVerification.success(None).url
-  }
-
-  def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] = {
-    Logger.info(s"*** DPP START $successUrl")
+  def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] =
     proxyConnector
       .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
-  }
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages): Result = obj match {
     case RegistrationSuccess(personId) =>

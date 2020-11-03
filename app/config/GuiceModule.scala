@@ -25,7 +25,6 @@ import com.typesafe.config.ConfigException
 import play.api._
 import repositories._
 import services._
-import services.iv.{IdentityVerificationService, IvService}
 
 import scala.util.Try
 
@@ -54,7 +53,6 @@ class GuiceModule(
       .annotatedWith(Names.named("assessmentPage"))
       .to(classOf[AssessmentsPageSessionRepository])
     bind(classOf[ManageDetails]).to(classOf[ManageVoaDetails])
-    bind(classOf[IdentityVerificationService]).to(classOf[IvService])
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
   }
 
