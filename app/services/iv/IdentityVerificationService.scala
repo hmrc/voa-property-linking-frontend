@@ -22,6 +22,7 @@ import javax.inject.{Inject, Named, Singleton}
 import models._
 import models.identityVerificationProxy.{Journey, Link}
 import models.registration._
+import play.api.Logger
 import play.api.i18n.Messages
 import play.api.mvc.Results._
 import play.api.mvc.{Request, Result}
@@ -68,17 +69,17 @@ class IvService @Inject()(
   type B = RegistrationResult
 
   lazy val successUrl: String = {
-    println(s"*** DPP SUCCESS ${controllers.routes.IdentityVerification.success(None).url}")
+    Logger.info(s"*** DPP SUCCESS ${controllers.routes.IdentityVerification.success(None).url}")
     controllers.routes.IdentityVerification.success(None).url
   }
 
   lazy val failureUrl: String = {
-    println(s"*** DPP FAIL ${controllers.routes.IdentityVerification.fail(None).url}")
+    Logger.info(s"*** DPP FAIL ${controllers.routes.IdentityVerification.fail(None).url}")
     controllers.routes.IdentityVerification.success(None).url
   }
 
   def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] = {
-    println(s"*** DPP START $successUrl")
+    Logger.info(s"*** DPP START $successUrl")
     proxyConnector
       .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
   }
