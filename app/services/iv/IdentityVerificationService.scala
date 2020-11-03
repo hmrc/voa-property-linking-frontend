@@ -67,12 +67,12 @@ class IvService @Inject()(
 
   type B = RegistrationResult
 
-  val successUrl: String = {
+  lazy val successUrl: String = {
     println(s"*** DPP SUCCESS ${controllers.routes.IdentityVerification.success(None).url}")
     controllers.routes.IdentityVerification.success(None).url
   }
 
-  val failureUrl: String = {
+  lazy val failureUrl: String = {
     println(s"*** DPP FAIL ${controllers.routes.IdentityVerification.fail(None).url}")
     controllers.routes.IdentityVerification.success(None).url
   }
