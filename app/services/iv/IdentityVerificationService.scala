@@ -18,10 +18,11 @@ package services.iv
 
 import config.ApplicationConfig
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
-import javax.inject.{Inject, Named}
+import javax.inject.{Inject, Named, Singleton}
 import models._
 import models.identityVerificationProxy.{Journey, Link}
 import models.registration._
+import play.api.Logger
 import play.api.i18n.Messages
 import play.api.mvc.Results._
 import play.api.mvc.{Request, Result}
@@ -34,41 +35,22 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait IdentityVerificationService {
+@Singleton
+class IdentityVerificationService @Inject()(
+      val errorHandler: CustomErrorHandler,
+      registrationService: RegistrationService,
+      @Named("personSession") personalDetailsSessionRepo: SessionRepo,
+      val proxyConnector: IdentityVerificationProxyConnector,
+      implicit val config: ApplicationConfig) {
 
-  type B
-
-  val proxyConnector: IdentityVerificationProxyConnector
-  val config: ApplicationConfig
+  // lazy is required here to ensure that the reverse route lookup
+  // includes the context (/business-rates-property-linking) in the URL
+  lazy val successUrl: String = controllers.routes.IdentityVerification.success(None).url
+  lazy val failureUrl: String = controllers.routes.IdentityVerification.fail(None).url
 
   def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] =
     proxyConnector
       .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
-
-  def someCase(obj: B)(implicit request: Request[_], messages: Messages): Result
-
-  def noneCase(implicit request: Request[_], messages: Messages): Result
-
-  def continue(journeyId: String, userDetails: UserDetails)(
-        implicit hc: HeaderCarrier,
-        ec: ExecutionContext): Future[Option[B]]
-
-  protected val successUrl: String
-
-  private val failureUrl = controllers.routes.IdentityVerification.fail(None).url
-}
-
-class IvService @Inject()(
-      val errorHandler: CustomErrorHandler,
-      registrationService: RegistrationService,
-      @Named("personSession") personalDetailsSessionRepo: SessionRepo,
-      override val proxyConnector: IdentityVerificationProxyConnector,
-      implicit val config: ApplicationConfig)
-    extends IdentityVerificationService {
-
-  type B = RegistrationResult
-
-  protected val successUrl: String = controllers.routes.IdentityVerification.success(None).url
 
   def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages): Result = obj match {
     case RegistrationSuccess(personId) =>

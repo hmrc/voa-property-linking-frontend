@@ -28,9 +28,8 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import repositories.PersonalDetailsSessionRepository
-import utils._
 import services.RegistrationService
-import services.iv.IvService
+import services.iv.IdentityVerificationService
 import uk.gov.hmrc.auth.core.AffinityGroup._
 import utils._
 
@@ -165,7 +164,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     lazy val mockRegistrationService = mock[RegistrationService]
 
     lazy val stubIdentityVerificationServiceEnrolmentOrg =
-      new IvService(
+      new IdentityVerificationService(
         errorHandler = mockCustomErrorHandler,
         registrationService = mockRegistrationService,
         personalDetailsSessionRepo = mockSessionRepoOrgDetails,
