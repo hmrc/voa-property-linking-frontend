@@ -43,15 +43,7 @@
             <col style="width: 10%">
         </colgroup>
         <tbody>
-            @if(config.editNameEnabled) {
-                @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName())
-            } else {
-                <tr>
-                    <td>@messages("details.personal.name")</td>
-                    <td>@individualAccount.details.firstName @individualAccount.details.lastName</td>
-                    <td></td>
-                </tr>
-            }
+            @tableRow("name", s"${individualAccount.details.firstName} ${individualAccount.details.lastName}", controllers.manageDetails.routes.UpdatePersonalDetails.viewName())
             @tableRow("address", Formatters.capitalizedAddress(personalAddress), controllers.manageDetails.routes.UpdatePersonalDetails.viewAddress())
             @tableRow("phone", individualAccount.details.phone1, controllers.manageDetails.routes.UpdatePersonalDetails.viewPhone())
             @tableRow("mobile", individualAccount.details.phone2.getOrElse(Messages("details.mobile.notSet")), controllers.manageDetails.routes.UpdatePersonalDetails.viewMobile())

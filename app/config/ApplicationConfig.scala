@@ -67,14 +67,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   lazy val pingdomToken: Option[String] = configuration.getOptional[String]("pingdom.performance.monitor.token")
 
-  lazy val editNameEnabled: Boolean = loadBooleanConfig("featureFlags.editNameEnabled")
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
-  lazy val fileUploadEnabled: Boolean = loadBooleanConfig("featureFlags.fileUploadEnabled")
-  lazy val downtimePageEnabled: Boolean = loadBooleanConfig("featureFlags.downtimePageEnabled")
-  lazy val dvrEnabled: Boolean = loadBooleanConfig("featureFlags.dvrEnabled")
-  lazy val dvrCheckEnabled: Boolean = loadBooleanConfig("featureFlags.dvrCheckEnabled")
-  lazy val clientPropertiesEnabled: Boolean = loadBooleanConfig("featureFlags.clientPropertiesEnabled")
-  lazy val getExternalAgentsEnabled: Boolean = loadBooleanConfig("featureFlags.getExternalAgentsEnabled")
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue=${newDashboardUrl("home")}&accountType=organisation&origin=voa"
   lazy val signOutTimeout = loadInt("sign-out.timeout")

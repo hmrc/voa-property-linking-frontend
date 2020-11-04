@@ -36,8 +36,6 @@ class GuiceModule(
 
   def configure() = {
 
-    bindBoolean("feature.assessmentSkip", "detailed-valuation.skip")
-
     bind(classOf[SessionRepo])
       .annotatedWith(Names.named("propertyLinkingSession"))
       .to(classOf[PropertyLinkingSessionRepository])
