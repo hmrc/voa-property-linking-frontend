@@ -105,26 +105,18 @@ class UpdatePersonalDetails @Inject()(
   }
 
   def viewName() = authenticated { implicit request =>
-    if (config.editNameEnabled) {
-      Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
-    } else {
-      notFound
-    }
+    Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
   }
 
   def updateName() = authenticated.async { implicit request =>
-    if (config.editNameEnabled) {
-      nameForm
-        .bindFromRequest()
-        .fold(
-          errors =>
-            Future.successful(
-              BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details)))),
-          name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
-        )
-    } else {
-      Future.successful(notFound)
-    }
+    nameForm
+      .bindFromRequest()
+      .fold(
+        errors =>
+          Future.successful(
+            BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details)))),
+        name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
+      )
   }
 
   def viewMobile() = authenticated { implicit request =>
