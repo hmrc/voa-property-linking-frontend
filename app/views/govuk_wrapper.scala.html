@@ -14,11 +14,8 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.http.SessionKeys
-@import _root_.actions.propertylinking.requests._
 @import config.ApplicationConfig
 @import play.twirl.api._
-@import actions.requests._
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
 
 @(title: String,
@@ -80,9 +77,6 @@
 }
 
 @footerTop = {@includes.timeoutDialog(config)}
-@footerLinks = {
-    @views.html.partials.footer_links()
-}
 
 @banner = {
     @config.bannerContent.map { content =>
@@ -122,4 +116,4 @@
     )
 }
 
-@views.html.layouts.govuk_template(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(footerLinks), true)(content)
+@views.html.layouts.govuk_template(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links()), true)(content)
