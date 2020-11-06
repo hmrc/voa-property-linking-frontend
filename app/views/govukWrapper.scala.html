@@ -17,10 +17,7 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
 
-@import uk.gov.hmrc.govukfrontend.views.html.components
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.Footer
 @import play.twirl.api.HtmlFormat
 
 @(
@@ -83,32 +80,11 @@
         ))
     }
 
-    @footerBlock() = @{
-        GovukFooter(new Footer(meta = Some(Meta(items = Some(
-            Seq(
-                FooterItem(text = Some(messages("footer.link.help")),
-                    href = Some(config.helpGuideUrl),
-                    attributes = Map("data-sso" -> "false", "data-journey-click" -> "footer:Click:Help") ),
-                FooterItem(text = Some(messages("link.feedback")),
-                    href = Some(config.businessRatesValuationFrontendUrl("send-beta-feedback")),
-                    attributes = Map("target" -> "_blank")),
-                FooterItem(text = Some(messages("main.cookies")),
-                    href = None),
-                FooterItem(text = Some(messages("footer.termsandconditions")),
-                    href = None),
-                FooterItem(text = Some(messages("link.privacyPolicy")),
-                    href = Some("https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice")),
-                FooterItem(text = Some(messages("footer.links.accessibility.text")),
-                    href = Some(config.accessibilityStatementUrl))
-            )
-        )))))
-    }
-
     @GovukTemplate(
         pageTitle = Some(title),
         headBlock = Some(head),
         headerBlock = headerBlock,
         beforeContentBlock = Some(beforeContentBlock),
         bodyEndBlock = Some(bodyEnd),
-        footerBlock = footerBlock
+        footerBlock = uiLayouts.footer_links()
     )(content)
