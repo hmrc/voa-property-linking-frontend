@@ -104,6 +104,13 @@ case class AssessmentsVM(
       backLink: String,
       address: String,
       capacity: Option[String]
-)
+) {
+
+  val localAuthorityReference = assessmentsWithLinks.headOption.map(_._2.billingAuthorityReference)
+  val currentAssessments = assessmentsWithLinks.filter(a => a._2.listType == ListType.CURRENT)
+  val draftAssessments = assessmentsWithLinks.filter(a => a._2.listType == ListType.DRAFT)
+  val historicAssessments = assessmentsWithLinks.filter(a => a._2.listType == ListType.PREVIOUS)
+
+}
 
 case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)

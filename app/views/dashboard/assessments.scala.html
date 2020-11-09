@@ -31,12 +31,19 @@
 ) {
 
 
-    <h2 class="heading-secondary"> @messages("property.details.title")</h2>
+
+    <p class="govuk-body-s">
+        @model.localAuthorityReference.map{ localAuthorityRef =>
+            <span class="govuk-!-font-weight-bold">@messages("assessments.localAuthorityRef")</span> &nbsp;@localAuthorityRef<br>
+        }
+        <span class="govuk-!-font-weight-bold">@messages("assessments.property")</span> &nbsp;@model.address
+    </p>
+
     <h1 class="heading-xlarge margin-bottom-0 clear-right">
-        @(Formatters.capitalizedAddress(model.address))
+        @messages("assessments.pageTitle")
     </h1>
     <br/>
-    <p>@messages("property.details.p1")</p>
+    <p>@messages("assessments.paragraph")</p>
 
     @assessmentDetails(model, owner)
 }

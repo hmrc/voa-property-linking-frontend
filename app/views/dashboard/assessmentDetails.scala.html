@@ -22,77 +22,99 @@
 
 @(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
+@tableHeaderRow = {
+    <tr>
+        <th><span>@messages("assessments.table.1")</span></th>
+        <th><span>@messages("assessments.table.2")</span></th>
+        <th><span>@messages("assessments.table.3")</span></th>
+        <th><span>@messages("assessments.table.4")</span></th>
+        <th><span>@messages("assessments.table.5")</span></th>
+        <th><span>@messages("assessments.table.action")</span></th>
+    </tr>
+}
+
+@table(list: Seq[(String, ApiAssessment)], tableId: String) = {
+    <div id="viewAssessmentRadioGroup_@tableId" class="form-group">
+        <div class="table-wrapper-no-pad">
+            <table id="@tableId" class="margin-bottom-10 margin-top-10">
+                <caption class="visuallyhidden">@messages("assessments.table.caption")</caption>
+                <tbody>
+                    <tr>
+                        <th><span>@messages("assessments.table.1")</span></th>
+                        <th><span>@messages("assessments.table.2")</span></th>
+                        <th><span>@messages("assessments.table.3")</span></th>
+                        <th><span>@messages("assessments.table.4")</span></th>
+                        <th><span>@messages("assessments.table.5")</span></th>
+                        <th><span>@messages("assessments.table.action")</span></th>
+                    </tr>
+
+                    @list.map {  case (url, assessment) =>
+                        <tr>
+                            <td>
+                                @assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")
+                            </td>
+                            @assessment.rateableValue match {
+                                case Some(rv) => {
+                                    <td>£@rv</td>
+                                }
+                                case None => {
+                                    <td>N/A
+                                        <a href="#my-rv-is-na" data-toggle="dialog" data-target="no-rv-help" class="help">
+                                            <i><span class="visuallyhidden">@messages("label.help", Messages("rv.na"))</span></i>
+                                        </a>
+                                    </td>
+                                }
+                            }
+                            @model.capacity match {
+                                case Some(cap) => {
+                                    <td>@messages(s"capacity.${cap}")</td>
+                                }
+                                case None => {
+                                    <td></td>
+                                }
+                            }
+
+                            <td>
+                                @assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
+                            </td>
+                            <td>
+                                @{
+                                    (assessment.currentFromDate, assessment.currentToDate) match {
+                                        case (None, None)        => ""
+                                        case (Some(_), None)     => Messages("assessments.enddate.present")
+                                        case (Some(_), Some(to)) => Formatters.formatDate(to)
+                                        case (None, Some(to))    => ""
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <a id="viewAssessmentRadio-@assessment.assessmentRef" href="@url">@messages("assessments.historic.select")</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
 
 <div id="details-content-valuations">
-    <h2 class="heading-large">@messages("assessments.title")</h2>
 
-        <fieldset>
-            <div id="viewAssessmentRadioGroup" class="form-group">
-                <div class="table-wrapper-no-pad">
-                    <table id="middle-radio-buttons" class="margin-bottom-10 margin-top-10">
-                        <caption class="visuallyhidden">@messages("assessments.table.caption")</caption>
-                        <tbody>
-                            <tr>
-                                <th><span>@messages("assessments.table.1")</span></th>
-                                <th><span>@messages("assessments.table.2")</span></th>
-                                <th><span>@messages("assessments.table.3")</span></th>
-                                <th><span>@messages("assessments.table.4")</span></th>
-                                <th><span>@messages("assessments.table.5")</span></th>
-                            </tr>
+    @if(model.currentAssessments.nonEmpty){
+    <h3 class="heading-medium">@messages("assessments.current.title")</h3>
+        @table(model.currentAssessments, "currentAssessments")
+    }
+    <br/>
+    <br/>
+    @if(model.draftAssessments.nonEmpty){
+        <h3 class="heading-medium">@messages("assessments.draft.title")</h3>
+        @table(model.draftAssessments, "draftAssessments")
+    }
+    <br/>
+    @if(model.historicAssessments.nonEmpty){
+        <h3 class="heading-medium">@messages("assessments.historic.title")</h3>
+        @table(model.historicAssessments, "historicAssessments")
+    }
 
 
-                            @model.assessmentsWithLinks.map {  case (url, assessment) =>
-                                <tr>
-                                    <td>
-                                        <a id="viewAssessmentRadio-@assessment.assessmentRef" href="@url">@assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")</a>
-                                    </td>
-                                    @assessment.rateableValue match {
-                                        case Some(rv) => {
-                                            <td>£@rv</td>
-                                        }
-                                        case None => {
-                                            <td>N/A
-                                                <a href="#my-rv-is-na" data-toggle="dialog" data-target="no-rv-help" class="help">
-                                                    <i><span class="visuallyhidden">@messages("label.help", Messages("rv.na"))</span></i>
-                                                </a>
-                                            </td>
-                                        }
-                                    }
-                                    @model.capacity match {
-                                        case Some(cap) => {
-                                            <td>@messages(s"capacity.${cap}")</td>
-                                        }
-                                        case None => {
-                                            <td></td>
-                                        }
-                                    }
-
-                                    <td>
-                                    @assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
-                                    </td>
-                                    <td>
-                                    @{
-                                        (assessment.currentFromDate, assessment.currentToDate) match {
-                                            case (None, None)        => ""
-                                            case (Some(_), None)     => Messages("assessments.enddate.present")
-                                            case (Some(_), Some(to)) => Formatters.formatDate(to)
-                                            case (None, Some(to))    => ""
-                                        }
-                                    }
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-
-                @if(model.assessmentsWithLinks.exists{case (_, assessment) => assessment.rateableValue.isEmpty}) {
-                    <div id="my-rv-is-na">
-                        <p>@messages("rv.na.p.1")</p>
-                        <p>@messages("rv.na.p.2")</p>
-                        <p>@messages("rv.na.p.3")</p>
-                    </div>
-                }
-            </div>
-        </fieldset>
 </div>
