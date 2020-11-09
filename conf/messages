@@ -363,10 +363,23 @@ assessments.table.3=Capacity
 assessments.table.4=From
 assessments.table.5=To
 assessments.table.6=Actions
+assessments.table.action=Action
 assessments.enddate.present=Present
 assessments.view.valuation=View valuation
 assessments.view.summary=View summary valuation
 label.viewAssessmentRadio=Valuation
+
+assessments.localAuthorityRef=Local authority reference:
+assessments.property=Property:
+assessments.pageTitle=Select a valuation to check
+assessments.paragraph=The rateable value of a property is reassessed by the VOA each time they publish a new business rates valuation list. You may check the facts and the rateable value for each of the published valuations.
+
+assessments.current.title=Current valuation
+assessments.draft.title=Draft new valuation
+assessments.historic.title=Historic valuation
+assessments.historic.select=Select this valuation
+
+
 
 label.help=Help with {0}
 rv.na=Rateable value is N/A

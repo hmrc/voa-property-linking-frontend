@@ -18,6 +18,7 @@ package models
 
 import java.time.LocalDate
 
+import models.ListType.ListType
 import play.api.libs.json.{Format, Json}
 
 case class PropertyLink(authorisationId: Long, submissionId: String, uarn: Long, address: String, agents: Seq[Party])
@@ -50,6 +51,7 @@ case class ApiAssessment(
       rateableValue: Option[Long],
       address: PropertyAddress,
       billingAuthorityReference: String,
+      listType: ListType,
       currentFromDate: Option[LocalDate] = None,
       currentToDate: Option[LocalDate] = None
 )
