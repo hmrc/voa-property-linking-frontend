@@ -371,8 +371,10 @@ label.viewAssessmentRadio=Valuation
 
 assessments.localAuthorityRef=Local authority reference:
 assessments.property=Property:
+assessments.title=Select a valuation to check - Valuation Office Agency - GOV.UK
 assessments.pageTitle=Select a valuation to check
 assessments.paragraph=The rateable value of a property is reassessed by the VOA each time they publish a new business rates valuation list. You may check the facts and the rateable value for each of the published valuations.
+assessments.propertyRemoved=This property is no longer on the rating list
 
 assessments.current.title=Current valuation
 assessments.draft.title=Draft new valuation
