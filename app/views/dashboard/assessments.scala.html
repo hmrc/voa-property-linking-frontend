@@ -23,7 +23,7 @@
 @(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @main_template(
-    title = Messages("property.details.title"),
+    title = Messages("assessments.title"),
     topBackLink = true,
     bottomBackLink = true,
     individualId = Some(request.personId),
@@ -43,7 +43,8 @@
         @messages("assessments.pageTitle")
     </h1>
     <br/>
-    <p>@messages("assessments.paragraph")</p>
-
+    <div style="width: 66.6%">
+        <p>@messages("assessments.paragraph")</p>
+    </div>
     @assessmentDetails(model, owner)
 }

@@ -33,7 +33,7 @@
     </tr>
 }
 
-@table(list: Seq[(String, ApiAssessment)], tableId: String) = {
+@table(list: Seq[(String, ApiAssessment)], tableId: String, isDraft: Boolean = false) = {
     <div id="viewAssessmentRadioGroup_@tableId" class="form-group">
         <div class="table-wrapper-no-pad">
             <table id="@tableId" class="margin-bottom-10 margin-top-10">
@@ -79,11 +79,13 @@
                             </td>
                             <td>
                                 @{
-                                    (assessment.currentFromDate, assessment.currentToDate) match {
-                                        case (None, None)        => ""
-                                        case (Some(_), None)     => Messages("assessments.enddate.present")
-                                        case (Some(_), Some(to)) => Formatters.formatDate(to)
-                                        case (None, Some(to))    => ""
+                                    if(!isDraft){
+                                        (assessment.currentFromDate, assessment.currentToDate) match {
+                                            case (None, None)        => ""
+                                            case (Some(_), None)     => Messages("assessments.enddate.present")
+                                            case (Some(_), Some(to)) => Formatters.formatDate(to)
+                                            case (None, Some(to))    => ""
+                                        }
                                     }
                                 }
                             </td>
@@ -101,18 +103,18 @@
 <div id="details-content-valuations">
 
     @if(model.currentAssessments.nonEmpty){
-    <h3 class="heading-medium">@messages("assessments.current.title")</h3>
+    <h2 class="heading-medium">@messages("assessments.current.title")</h2>
         @table(model.currentAssessments, "currentAssessments")
     }
-    <br/>
+    &nbsp;
     <br/>
     @if(model.draftAssessments.nonEmpty){
-        <h3 class="heading-medium">@messages("assessments.draft.title")</h3>
-        @table(model.draftAssessments, "draftAssessments")
+        <h2 class="heading-medium">@messages("assessments.draft.title")</h2>
+        @table(model.draftAssessments, "draftAssessments", true)
     }
     <br/>
     @if(model.historicAssessments.nonEmpty){
-        <h3 class="heading-medium">@messages("assessments.historic.title")</h3>
+        <h2 class="heading-medium">@messages("assessments.historic.title")</h2>
         @table(model.historicAssessments, "historicAssessments")
     }
 
