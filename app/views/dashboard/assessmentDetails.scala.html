@@ -106,6 +106,9 @@
     <h2 class="heading-medium">@messages("assessments.current.title")</h2>
         @table(model.currentAssessments, "currentAssessments")
     }
+    @if(model.currentAssessments.isEmpty && model.draftAssessments.isEmpty && model.historicAssessments.nonEmpty){
+        <h2 class="heading-medium">@messages("assessments.propertyRemoved")</h2>
+    }
     &nbsp;
     <br/>
     @if(model.draftAssessments.nonEmpty){
