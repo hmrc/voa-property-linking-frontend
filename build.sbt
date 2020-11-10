@@ -21,38 +21,6 @@ import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.versioning.SbtGitVersioning
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
-val compileDependencies = Seq(
-  guice,
-  filters,
-  ws,
-  "ai.x"                 %% "play-json-extensions"          % "0.10.0",
-  "uk.gov.hmrc"          %% "simple-reactivemongo"          % "7.22.0-play-26",
-  "com.codahale.metrics" % "metrics-graphite"               % "3.0.1",
-  "com.google.guava"     % "guava"                          % "18.0",
-  "uk.gov.hmrc"          %% "bootstrap-frontend-play-26"    % "2.24.0",
-  "uk.gov.hmrc"          %% "play-ui"                       % "8.13.0-play-26",
-  "uk.gov.hmrc"          %% "govuk-template"                % "5.43.0-play-26",
-  "uk.gov.hmrc"          %% "http-caching-client"           % "9.0.0-play-26",
-  "org.typelevel"        %% "cats-core"                     % "1.6.1",
-  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.2.0-play-26",
-  "uk.gov.hmrc"          %% "play-whitelist-filter"         % "3.1.0-play-26",
-  "uk.gov.hmrc"          %% "mongo-lock"                    % "6.15.0-play-26",
-  "uk.gov.hmrc"          %% "reactive-circuit-breaker"      % "3.5.0",
-  "uk.gov.hmrc"          %% "play-frontend-govuk"           % "0.37.0-play-26",
-  "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "0.18.0-play-26",
-  "uk.gov.hmrc"          %% "auth-client"                   % "2.32.2-play-26"
-)
-
-val testDependencies = Seq(
-  "uk.gov.hmrc"            %% "hmrctest"           % "3.6.0-play-26" % Test,
-  "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.0"         % Test,
-  "org.scalatest"          %% "scalatest"          % "3.0.6"         % Test,
-  "org.scalacheck"         %% "scalacheck"         % "1.13.4"        % Test,
-  "org.pegdown"            % "pegdown"             % "1.6.0"         % "test,it",
-  "org.jsoup"              % "jsoup"               % "1.9.1"         % Test,
-  "org.mockito"            % "mockito-core"        % "2.25.0"        % Test
-)
-
 lazy val TemplateTest = config("tt") extend Test
 lazy val TemplateItTest = config("tit") extend IntegrationTest
 
@@ -143,5 +111,38 @@ scalacOptions += "-P:silencer:pathFilters=target/.*"
 // Make sure you only exclude warnings for the project directories, i.e. make builds reproducible
 scalacOptions += s"-P:silencer:sourceRoots=${baseDirectory.value.getCanonicalPath}"
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation", "-feature")
+
+
+lazy val compileDependencies = Seq(
+  guice,
+  filters,
+  ws,
+  "ai.x"                 %% "play-json-extensions"          % "0.10.0",
+  "com.codahale.metrics" % "metrics-graphite"               % "3.0.1",
+  "com.google.guava"     % "guava"                          % "18.0",
+  "org.typelevel"        %% "cats-core"                     % "1.6.1",
+  "uk.gov.hmrc"          %% "auth-client"                   % "2.32.2-play-26",
+  "uk.gov.hmrc"          %% "bootstrap-frontend-play-26"    % "2.24.0",
+  "uk.gov.hmrc"          %% "govuk-template"                % "5.43.0-play-26",
+  "uk.gov.hmrc"          %% "http-caching-client"           % "9.0.0-play-26",
+  "uk.gov.hmrc"          %% "mongo-lock"                    % "6.15.0-play-26",
+  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.2.0-play-26",
+  "uk.gov.hmrc"          %% "play-frontend-govuk"           % "0.49.0-play-26",
+  "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "0.19.0-play-26",
+  "uk.gov.hmrc"          %% "play-ui"                       % "8.13.0-play-26",
+  "uk.gov.hmrc"          %% "play-whitelist-filter"         % "3.1.0-play-26",
+  "uk.gov.hmrc"          %% "reactive-circuit-breaker"      % "3.5.0",
+  "uk.gov.hmrc"          %% "simple-reactivemongo"          % "7.22.0-play-26"
+)
+
+lazy val testDependencies = Seq(
+  "uk.gov.hmrc"            %% "hmrctest"           % "3.6.0-play-26" % Test,
+  "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.0"         % Test,
+  "org.scalatest"          %% "scalatest"          % "3.0.6"         % Test,
+  "org.scalacheck"         %% "scalacheck"         % "1.13.4"        % Test,
+  "org.pegdown"            % "pegdown"             % "1.6.0"         % "test,it",
+  "org.jsoup"              % "jsoup"               % "1.9.1"         % Test,
+  "org.mockito"            % "mockito-core"        % "2.25.0"        % Test
+)
 
 addCommandAlias("precommit", ";scalafmt;test:scalafmt;coverage;test;coverageReport")
