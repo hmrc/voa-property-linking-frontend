@@ -108,11 +108,11 @@ case class AssessmentsVM(
 
   val localAuthorityReference = assessmentsWithLinks.headOption.map(_._2.billingAuthorityReference)
   val currentAssessments =
-    assessmentsWithLinks.filter(a => a._2.listType == ListType.CURRENT && a._2.currentToDate.isEmpty)
+    assessmentsWithLinks.filter(a =>
+      a._2.listType == ListType.CURRENT && a._2.currentFromDate.nonEmpty && a._2.currentToDate.isEmpty)
   val draftAssessments = assessmentsWithLinks.filter(a => a._2.listType == ListType.DRAFT)
   val historicAssessments =
-    assessmentsWithLinks.filter(a => a._2.listType == ListType.CURRENT && a._2.currentToDate.nonEmpty) ++ assessmentsWithLinks
-      .filter(a => a._2.listType == ListType.PREVIOUS)
+    assessmentsWithLinks.filterNot(currentAssessments.contains).filterNot(draftAssessments.contains)
 
 }
 
