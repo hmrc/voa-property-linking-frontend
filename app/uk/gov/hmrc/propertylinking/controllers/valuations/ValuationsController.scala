@@ -134,9 +134,8 @@ class ValuationsController @Inject()(
         owner: Boolean
   ): (String, ApiAssessment) =
     assessment.rateableValue match {
-      case None                 => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
       case Some(_) if isPending => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
-      case Some(_) =>
+      case _ =>
         controllers.routes.Assessments
           .viewDetailedAssessment(
             submissionId,
