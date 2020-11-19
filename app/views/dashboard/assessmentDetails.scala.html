@@ -66,11 +66,7 @@
                                     <td>£@rv</td>
                                 }
                                 case None => {
-                                    <td>N/A
-                                        <a href="#my-rv-is-na" data-toggle="dialog" data-target="no-rv-help" class="help">
-                                            <i><span class="visuallyhidden">@messages("label.help", Messages("rv.na"))</span></i>
-                                        </a>
-                                    </td>
+                                    <td>N/A</td>
                                 }
                             }
                             @model.capacity match {
@@ -113,6 +109,18 @@
     @if(model.currentAssessments.nonEmpty){
     <h2 class="heading-medium">@messages("assessments.current.title")</h2>
         @table(model.currentAssessments, "currentAssessments")
+        @if(model.currentAssessments.filter(a => a._2.rateableValue.isEmpty).nonEmpty){
+            <details class="print-hide" role="group">
+                <summary role="button" aria-controls="details-content-1" aria-expanded="true">
+                    <span class="summary">@Messages("rv.na")</span>
+                </summary>
+                <div id="details-content-1" class="panel panel-border-narrow" aria-hidden="false">
+                    <p>@Messages("rv.na.p.1")</p>
+                    <p>@Messages("rv.na.p.2")</p>
+                    <p>@Messages("rv.na.p.3")</p>
+                </div>
+            </details>
+        }
     }
     @if(model.currentAssessments.isEmpty && model.draftAssessments.isEmpty && model.historicAssessments.nonEmpty){
         <h2 class="heading-medium">@messages("assessments.propertyRemoved")</h2>
@@ -128,6 +136,5 @@
         <h2 class="heading-medium">@messages("assessments.historic.title")</h2>
         @table(model.historicAssessments, "historicAssessments")
     }
-
 
 </div>
