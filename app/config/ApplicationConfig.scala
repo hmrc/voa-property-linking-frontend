@@ -54,7 +54,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   lazy val ivBaseUrl = loadConfig("microservice.services.identity-verification.url")
   lazy val vmvUrl = loadConfig("vmv-frontend.url")
   lazy val valuationFrontendUrl = loadConfig("business-rates-valuation.url")
-  lazy val ggSignInUrl: String = loadConfig("bas-gateway-sign-in.url")
+  lazy val basGatewaySignInUrl: String = loadConfig("bas-gateway-sign-in.url")
   lazy val ggRegistrationUrl: String = loadConfig("gg-registration.url")
   lazy val serviceUrl: String = loadConfig("voa-property-linking-frontend.url")
   lazy val checkUrl = loadConfig("microservice.services.business-rates-check-frontend.url")
@@ -69,7 +69,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
   lazy val signOutUrl =
-    s"${loadConfig("sign-out.url")}?continue=${newDashboardUrl("home")}&accountType=organisation&origin=voa"
+    s"${loadConfig("sign-out.url")}?continue_url=${newDashboardUrl("home")}&accountType=organisation&origin=voa"
   lazy val signOutTimeout = loadInt("sign-out.timeout")
   lazy val signOutCountdown = loadInt("sign-out.countdown")
   lazy val keepAliveUrl = loadConfig("sign-out.keep-alive-url")

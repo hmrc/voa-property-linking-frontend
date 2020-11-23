@@ -57,7 +57,8 @@ class CustomErrorHandler @Inject()()(implicit override val messagesApi: Messages
     exception match {
       case error: AuthorisationFailure =>
         logger.info(s"business rates authorisation returned ${error.message}, redirecting to login.")
-        Future.successful(Redirect(appConfig.ggSignInUrl, Map("continue" -> Seq(request.uri), "origin" -> Seq("voa"))))
+        Future.successful(
+          Redirect(appConfig.basGatewaySignInUrl, Map("continue_url" -> Seq(request.uri), "origin" -> Seq("voa"))))
       case _ =>
         super.onServerError(request, exception)
     }
