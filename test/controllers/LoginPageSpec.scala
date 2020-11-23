@@ -31,7 +31,7 @@ class LoginPageSpec extends VoaPropertyLinkingSpec {
     status(result) mustBe SEE_OTHER
 
     redirectLocation(result) mustBe Some(
-      "http://localhost:9553/bas-gateway/sign-in?continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
+      "http://localhost:9553/bas-gateway/sign-in?continue_url=%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
 
   }
 
