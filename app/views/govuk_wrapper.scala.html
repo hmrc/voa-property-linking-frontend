@@ -76,7 +76,7 @@
       analyticsAdditionalJs = None)
 }
 
-@footerTop = {@includes.timeoutDialog(config)}
+@footerTop = {@includes.timeoutDialog(config)(request)}
 
 @banner = {
     @config.bannerContent.map { content =>

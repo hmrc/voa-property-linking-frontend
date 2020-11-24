@@ -15,5 +15,8 @@
  *@
 
 @import config.ApplicationConfig
-@(config: ApplicationConfig)
-<div id="signOut" data-keep-alive-url="@config.keepAliveUrl" data-url="@config.signOutUrl" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown"/>
+@import uk.gov.hmrc.http.SessionKeys
+@(config: ApplicationConfig)(implicit request: RequestHeader)
+@if(request.session.get(SessionKeys.sessionId)) {
+ <div id="signOut" data-keep-alive-url="@config.keepAliveUrl" data-url="@config.signOutUrl" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown"/>
+}
