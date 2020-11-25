@@ -380,7 +380,7 @@ assessments.draft.title=Draft new valuation
 assessments.historic.title=Historic valuations
 assessments.historic.select=Select this valuation
 
-
+assessments.na=N/A
 
 label.help=Help with {0}
 rv.na=Rateable value is N/A

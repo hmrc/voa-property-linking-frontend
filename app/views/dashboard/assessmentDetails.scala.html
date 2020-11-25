@@ -66,7 +66,7 @@
                                     <td>£@rv</td>
                                 }
                                 case None => {
-                                    <td>N/A</td>
+                                    <td>@messages("assessments.na")</td>
                                 }
                             }
                             @model.capacity match {
@@ -94,7 +94,14 @@
                                 }
                             </td>
                             <td>
-                                <a id="viewAssessmentRadio-@assessment.assessmentRef" href="@url">@messages("assessments.historic.select")</a>
+                                @assessment.rateableValue match {
+                                    case Some(rv) => {
+                                        <a id="viewAssessmentRadio-@assessment.assessmentRef" href="@url">@messages("assessments.historic.select")</a>
+                                    }
+                                    case None => {
+                                        @messages("assessments.na")
+                                    }
+                                }
                             </td>
                         </tr>
                     }
