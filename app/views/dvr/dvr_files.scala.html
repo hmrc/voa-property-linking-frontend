@@ -23,7 +23,7 @@
 
 @(model: AvailableRequestDetailedValuation, submissionId: String, owner: Boolean, authorisationId: Long, backUrl: String, startCheckUrl: String, checkCases: List[CaseDetails], challengeCases: List[CaseDetails])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@challengeFromBackLinkUrl = @{
+@returnUrl = @{
     if (owner)
         s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, model.valuationId, model.uarn).url}"
     else
@@ -60,7 +60,7 @@
                 </ul>
             </div>
 
-            <p>@Html(Messages("challengeRules.rules.paper", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=${challengeFromBackLinkUrl}")))</p>
+            <p>@Html(Messages("challengeRules.rules.paper", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=${returnUrl}")))</p>
 
         </details>
         <br/>

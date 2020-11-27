@@ -298,9 +298,16 @@ class DvrController @Inject()(
         isOwner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
     propertyLinks.canChallenge(plSubmissionId, assessmentRef, caseRef, isOwner) flatMap {
       case None =>
-        Future.successful(
+        Future.successful {
+          val returnUrl =
+            if (isOwner)
+              s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn).url}"
+            else
+              s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn).url}"
           Redirect(
-            controllers.routes.Assessments.startChallengeFromDVR(plSubmissionId, assessmentRef, uarn, isOwner).url))
+
+            config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=${returnUrl}"))
+        }
       case Some(response) => {
         response.result match {
           case true => {

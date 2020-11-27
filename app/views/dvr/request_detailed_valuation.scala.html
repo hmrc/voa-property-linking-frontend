@@ -21,7 +21,12 @@
 @import config.ApplicationConfig
 
 @(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
+@returnUrl = @{
+    if (owner)
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, model.assessmentRef, model.uarn).url}"
+    else
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, model.assessmentRef, model.uarn).url}"
+}
     @main_template(Messages("auto.requestDetailedValuation.title"), topBackLink = true, bottomBackLink = true, backLinkUrl = Some(backUrl)) {
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -61,7 +66,7 @@
 
                 <p>@messages("auto.requestDetailedValuation.challenge.p2")</p>
 
-                <a href="@routes.Assessments.startChallengeFromDVR(submissionId, model.assessmentRef, model.uarn, owner).url">@messages("requestDetailedValuation.challenge.start")</a>
+                <a href="@{config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=${returnUrl}")}">@messages("requestDetailedValuation.challenge.start")</a>
 
             </div>
         </div>

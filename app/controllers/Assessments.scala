@@ -89,14 +89,6 @@ class Assessments @Inject()(
     }
   }
 
-  def startChallengeFromDVR(
-        submissionId: String,
-        valuationId: Long,
-        uarn: Long,
-        owner: Boolean
-  ): Action[AnyContent] = authenticated { implicit request =>
-    Ok(views.html.dvr.challenge_valuation(submissionId, valuationId, uarn, owner))
-  }
 }
 
 case class AssessmentsVM(
