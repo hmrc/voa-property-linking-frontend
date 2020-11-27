@@ -885,14 +885,6 @@ property.details.div.noSubmittedCheck=There are no check cases available for you
 
 property.details.div.submitted.challenge.cases=Submitted challenge cases
 property.details.challenge.cases.table.4=Challenge reference
-
-challengeRules.summary=When you may challenge
-challengeRules.rules=You can challenge the valuation if you have:
-challengeRules.rules.1=had a check decision in the last 4 months
-challengeRules.rules.2=submitted a check and have not had a decision in the last 12 months
-challengeRules.rules.3=submitted a check in the last 16 months and your challenge is about a change in the local area of a property
-challengeRules.rules.paper=If no valid check cases are shown but you still think you have the right to challenge, you will need to <a href="{0}">download and complete a challenge form</a>.
-
 label.requestType=How would you like to receive the detailed valuation?
 requestType.email=By email
 requestType.post=By post
