@@ -258,7 +258,6 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.reset()
     StubIdentityVerification.reset()
     StubPropertyLinkConnector.reset()
-    StubBusinessRatesValuation.reset()
     StubSubmissionIdConnector.reset()
     StubPropertyRepresentationConnector.reset()
   }

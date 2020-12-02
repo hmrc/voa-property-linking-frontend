@@ -130,7 +130,7 @@ class DvrController @Inject()(
   def myClientsRequestDetailValuation(propertyLinkSubmissionId: String, valuationId: Long): Action[AnyContent] =
     requestDetailedValuation(propertyLinkSubmissionId, valuationId, false)
 
-  private def requestDetailedValuation(
+  private[detailedvaluationrequest] def requestDetailedValuation(
         propertyLinkSubmissionId: String,
         valuationId: Long,
         owner: Boolean
@@ -181,7 +181,7 @@ class DvrController @Inject()(
         submissionId: String): Action[AnyContent] =
     confirmation(propertyLinkSubmissionId, submissionId, false)
 
-  private def confirmation(
+  private[detailedvaluationrequest] def confirmation(
         propertyLinkSubmissionId: String,
         submissionId: String,
         owner: Boolean
@@ -207,7 +207,7 @@ class DvrController @Inject()(
         valuationId: Long): Action[AnyContent] =
     alreadySubmittedDetailedValuationRequest(propertyLinkSubmissionId, valuationId, false)
 
-  private def alreadySubmittedDetailedValuationRequest(
+  private[detailedvaluationrequest] def alreadySubmittedDetailedValuationRequest(
         submissionId: String,
         valuationId: Long,
         owner: Boolean

@@ -207,7 +207,7 @@ class AppointAgentController @Inject()(
     }
   }
 
-  def revokeAgentSummary() = authenticated.async { implicit request =>
+  def revokeAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
     revokeAgentBulkActionForm
       .bindFromRequest()
       .fold(
@@ -228,11 +228,17 @@ class AppointAgentController @Inject()(
                                  sortorder = ExternalPropertyLinkManagementSortOrder.withName(
                                    pagination.sortOrder.name.toUpperCase)
                                ),
-                               PaginationParams(pagination.startPoint, pagination.pageSize, false)
+                               PaginationParams(
+                                 startPoint = pagination.startPoint,
+                                 pageSize = pagination.pageSize,
+                                 requestTotalRowCount = false)
                              )
-                             .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                             .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                             .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
+                             .map { oar =>
+                               val filteredProperties = filterProperties(oar.authorisations, group.id)
+                               oar.copy(
+                                 authorisations = filteredProperties.take(pagination.pageSize),
+                                 filterTotal = filteredProperties.size)
+                             }
               } yield {
                 BadRequest(views.html.propertyrepresentation.revokeAgentProperties(
                   Some(errors),
@@ -252,9 +258,7 @@ class AppointAgentController @Inject()(
             case Some(group) =>
               agentRelationshipService
                 .createAndSubmitAgentRevokeRequest(pLinkIds = action.propertyLinkIds, agentCode = action.agentCode)
-                .map {
-                  case _ => Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName))
-                }
+                .map(_ => Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName)))
                 .recoverWith {
                   case e: services.AppointRevokeException =>
                     for {
@@ -262,12 +266,12 @@ class AppointAgentController @Inject()(
                                    .getMyOrganisationsPropertyLinks(
                                      GetPropertyLinksParameters(agent = Some(group.companyName)),
                                      DefaultPaginationParams)
-                                   .map(oar =>
-                                     oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                                   .map(oar => oar.copy(filterTotal = oar.authorisations.size))
-                                   .map(oar =>
+                                   .map { oar =>
+                                     val filteredProperties = filterProperties(oar.authorisations, group.id)
                                      oar.copy(
-                                       authorisations = oar.authorisations.take(DefaultPaginationParams.pageSize)))
+                                       authorisations = filteredProperties.take(DefaultPaginationParams.pageSize),
+                                       filterTotal = filteredProperties.size)
+                                   }
                     } yield
                       BadRequest(views.html.propertyrepresentation.revokeAgentProperties(
                         Some(revokeAgentBulkActionForm.withError("appoint.error", "error.transaction")),

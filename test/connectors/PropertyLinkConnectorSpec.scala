@@ -18,7 +18,7 @@ package connectors
 
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.propertyLinking.PropertyLinkConnector
-import controllers.{DefaultPaginationParams, VoaPropertyLinkingSpec}
+import controllers.{DefaultPaginationParams, PaginationParams, VoaPropertyLinkingSpec}
 import models._
 import models.dvr.cases.check.myclients.CheckCasesWithClient
 import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
@@ -30,6 +30,7 @@ import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
 import play.api.http.Status._
+import play.api.libs.json.Json
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import utils._
 
@@ -46,7 +47,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "get" must "return a property link" in new Setup {
-    val propertyLink = arbitrary[PropertyLink].sample.get.copy()
+    val propertyLink: PropertyLink = arbitrary[PropertyLink]
 
     mockHttpGETOption[PropertyLink]("tst-url", propertyLink)
     whenReady(connector.getMyOrganisationPropertyLink("11111"))(_ mustBe Some(propertyLink))
@@ -139,6 +140,54 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   "getMyClientsCheckCases" must "return organisation's submitted check cases for the given property link" in new Setup {
     mockHttpGET[CheckCasesWithClient]("tst-url", agentCheckCasesResponse)
     whenReady(connector.getMyClientsCheckCases("PL1343"))(_ mustBe List(agentCheckCaseDetails))
+  }
+
+  "getMyOrganisationsPropertyLinks" must "return OwnerAuthResult" in new Setup {
+    mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
+    val res: Future[OwnerAuthResult] = connector.getMyOrganisationsPropertyLinks(
+      GetPropertyLinksParameters(status = Some("APPROVED")),
+      PaginationParams(1, 10, requestTotalRowCount = false))
+    whenReady(res)(_ mustBe ownerAuthResultResponse)
+  }
+
+  "getMyOrganisationPropertyLinksWithAgentFiltering" must "return OwnerAuthResult" in new Setup {
+    mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
+    val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
+      searchParams = GetPropertyLinksParameters(status = Some("APPROVED")),
+      pagination = PaginationParams(1, 10, requestTotalRowCount = false),
+      organisationId = 1L,
+      agentOrganisationId = 1L,
+      agentAppointed = None
+    )
+    whenReady(res)(_ mustBe ownerAuthResultResponse)
+  }
+
+  "canChallenge" must "return CanChallengeResponse" in new Setup {
+    mockHttpGET[HttpResponse](
+      "tst-url",
+      HttpResponse(status = 200, json = Json.obj("result" -> true, "reasonCode" -> "CODE"), headers = Map.empty)
+    )
+    val res: Future[Option[CanChallengeResponse]] = connector.canChallenge(
+      plSubmissionId = "PL123",
+      assessmentRef = 1234L,
+      caseRef = "CHK-123",
+      isOwner = true
+    )
+    whenReady(res)(_ mustBe Some(CanChallengeResponse(result = true, reasonCode = Some("CODE"), reason = None)))
+  }
+
+  "canChallenge" must "return None [CanChallengeResponse] when anything goes wrong" in new Setup {
+    mockHttpGET[HttpResponse](
+      "tst-url",
+      HttpResponse(status = 502, body = "Bad Gateway")
+    )
+    val res: Future[Option[CanChallengeResponse]] = connector.canChallenge(
+      plSubmissionId = "PL123",
+      assessmentRef = 1234L,
+      caseRef = "CHK-123",
+      isOwner = true
+    )
+    whenReady(res)(_ mustBe None)
   }
 
 }

@@ -40,6 +40,10 @@ case class ApiAssessments(
 
 object ApiAssessments {
   implicit val format: Format[ApiAssessments] = Json.format[ApiAssessments]
+
+  object EmptyAssessments {
+    def unapply(arg: ApiAssessments): Boolean = arg.assessments.isEmpty
+  }
 }
 
 case class ApiAssessment(
@@ -58,6 +62,10 @@ case class ApiAssessment(
 
 object ApiAssessment {
   implicit val format: Format[ApiAssessment] = Json.format[ApiAssessment]
+
+  object AssessmentWithFromDate {
+    def unapply(arg: ApiAssessment): Option[LocalDate] = arg.currentFromDate
+  }
 }
 
 case class PropertyLinkResponse(resultCount: Option[Long], propertyLinks: Seq[PropertyLink])

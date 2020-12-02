@@ -26,13 +26,12 @@ import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.AgentRelationshipService
-import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
 import scala.concurrent.Future
 
-class DashboardSpec extends VoaPropertyLinkingSpec with AllMocks {
+class DashboardSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
   lazy val mockDraftCases = {
