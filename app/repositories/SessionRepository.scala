@@ -56,7 +56,7 @@ class AssessmentsPageSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
       implicit executionContext: ExecutionContext)
     extends SessionRepository("assessmentPage", mongo)
 
-class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)(
+abstract class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)(
       implicit executionContext: ExecutionContext)
     extends ReactiveRepository[SessionData, String](
       "sessions",

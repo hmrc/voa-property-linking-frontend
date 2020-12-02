@@ -163,6 +163,68 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.mustContainText("There are no properties to display")
   }
 
+  "revoke agent summary page" should "render a success screen when all is well" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful((): Unit))
+
+    val res = testController.revokeAgentSummary()(
+      FakeRequest().withFormUrlEncodedBody(
+        "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
+        "linkIds[]"   -> ownerAuthorisation.submissionId,
+        "backLinkUrl" -> "backlink url"
+      ))
+
+    status(res) mustBe OK
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText("You have removed Agent")
+  }
+
+  "submitting an incomplete revoke agent form" should "re-render the page with form errors reported to user" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful((): Unit))
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultResponse))
+
+    val res = testController.revokeAgentSummary()(
+      FakeRequest().withFormUrlEncodedBody(
+        "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
+        //"linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
+        "backLinkUrl" -> "backlink url"
+      ))
+
+    status(res) mustBe BAD_REQUEST
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText("Select one or more properties")
+  }
+
+  "errors during handling of revoke agent form" should "re-render the page with form errors reported to user" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.failed(services.AppointRevokeException("something went awry")))
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultResponse))
+
+    val res = testController.revokeAgentSummary()(
+      FakeRequest().withFormUrlEncodedBody(
+        "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
+        "linkIds[]"   -> ownerAuthorisation.submissionId,
+        "backLinkUrl" -> "backlink url"
+      ))
+    status(res) mustBe BAD_REQUEST
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText("Failed to appoint agent to all properties")
+  }
+
   private lazy val testController = new AppointAgentController(
     mockCustomErrorHandler,
     StubGroupAccountConnector,

@@ -98,7 +98,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         searchParams: GetPropertyLinksParameters,
         pagination: PaginationParams,
-        representationStatusFilter: Seq[RepresentationStatus] = Seq(RepresentationApproved, RepresentationPending),
         organisationId: Long,
         agentOrganisationId: Long,
         agentAppointed: Option[String] = None
@@ -129,16 +128,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
       oar.copy(authorisations = oar.authorisations.map(auth => auth.copy(agents = auth.agents))))
   }
 
-  def filterAgents(
-        ownerAuthResult: Future[OwnerAuthResult],
-        representationStatusFilter: Seq[RepresentationStatus]): Future[OwnerAuthResult] =
-    ownerAuthResult.map(
-      oar =>
-        oar.copy(
-          authorisations = oar.authorisations
-            .map(auth => auth.copy(agents = auth.agents))
-            .filter(auth => auth.agents.nonEmpty)))
-
   def appointableProperties(organisationId: Long, pagination: AgentPropertiesParameters)(
         implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
     http.GET[OwnerAuthResult](
@@ -162,14 +151,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
 
     http.GET[Option[ClientPropertyLink]](url) recover { case _: NotFoundException => None }
   }
-
-  def getOwnerAssessmentsWithCapacity(submissionId: String)(
-        implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
-    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId")
-
-  def getClientAssessmentsWithCapacity(submissionId: String)(
-        implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
-    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId")
 
   def getOwnerAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
     http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId")

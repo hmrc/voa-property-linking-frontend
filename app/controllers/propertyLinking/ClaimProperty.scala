@@ -135,7 +135,7 @@ class ClaimProperty @Inject()(
         declaration: CapacityDeclaration,
         uarn: Long,
         address: String,
-        clientDetails: Option[ClientDetails] = None)(implicit request: AuthenticatedRequest[_]): Future[Unit] =
+        clientDetails: Option[ClientDetails])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
       submissionId <- submissionIdConnector.get()
       _ <- sessionRepository.start[LinkingSession](

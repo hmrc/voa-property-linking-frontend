@@ -21,6 +21,7 @@ import java.util.UUID
 
 import auth.Principal
 import models._
+import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.attachment._
 import models.challenge.ChallengeCaseStatus
 import models.challenge.myclients.{ChallengeCaseWithClient, ChallengeCasesWithClient}
@@ -185,7 +186,7 @@ trait FakeObjects {
     agentCode = 6754L
   )
 
-  val ownerAuthorisation = OwnerAuthorisation(
+  lazy val ownerAuthorisation = OwnerAuthorisation(
     authorisationId = 4222211L,
     status = "APPROVED",
     submissionId = "PLSubId",
@@ -362,6 +363,9 @@ trait FakeObjects {
   lazy val agentCheckCasesResponse =
     CheckCasesWithClient(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(agentCheckCase))
 
+  lazy val ownerAuthResultResponse =
+    OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = List(ownerAuthorisation))
+
   lazy val ownerChallengeCasesResponse =
     ChallengeCasesWithAgent(start = 1, size = 15, filterTotal = 1, total = 1, challengeCases = List(ownerChallengeCase))
 
@@ -372,5 +376,60 @@ trait FakeObjects {
       filterTotal = 1,
       total = 1,
       challengeCases = List(agentChallengeCase))
+
+  lazy val assessmentPageSession: AssessmentsPageSession = AssessmentsPageSession(PreviousPage.SelectedClient)
+  lazy val appointNewAgentSession: AppointNewAgentSession = SelectedAgent(
+    agentCode = agentCode,
+    agentOrganisationName = agentDetails.name,
+    agentAddress = agentDetails.address,
+    isCorrectAgent = true)
+
+  lazy val april2017 = LocalDate.of(2017, 4, 1)
+
+  def apiAssessments(a: OwnerAuthorisation) =
+    ApiAssessments(
+      authorisationId = a.authorisationId,
+      submissionId = a.submissionId,
+      uarn = a.uarn,
+      address = a.address,
+      pending = a.status == "PENDING",
+      capacity = Some("OWNER"),
+      assessments = List(
+        ApiAssessment(
+          authorisationId = a.authorisationId,
+          assessmentRef = 1234L,
+          listYear = "2017",
+          uarn = a.uarn,
+          effectiveDate = Some(april2017),
+          rateableValue = Some(123L),
+          address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
+          billingAuthorityReference = a.localAuthorityRef,
+          listType = ListType.CURRENT,
+          currentFromDate = Some(april2017),
+          currentToDate = Some(april2017.plusMonths(2L))
+        ),
+        ApiAssessment(
+          authorisationId = a.authorisationId,
+          assessmentRef = 1235L,
+          listYear = "2017",
+          uarn = a.uarn,
+          effectiveDate = Some(april2017),
+          rateableValue = Some(1234L),
+          address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
+          billingAuthorityReference = a.localAuthorityRef,
+          listType = ListType.CURRENT,
+          currentFromDate = Some(april2017.plusMonths(2L)),
+          currentToDate = None
+        )
+      ),
+      agents = a.agents.map(
+        agent =>
+          Party(
+            authorisedPartyId = agent.authorisedPartyId,
+            agentCode = agent.agentCode,
+            organisationName = agent.organisationName,
+            organisationId = agent.organisationId
+        ))
+    )
 
 }

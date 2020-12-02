@@ -22,7 +22,6 @@ import javax.inject.{Inject, Named, Singleton}
 import models._
 import models.identityVerificationProxy.{Journey, Link}
 import models.registration._
-import play.api.Logger
 import play.api.i18n.Messages
 import play.api.mvc.Results._
 import play.api.mvc.{Request, Result}
@@ -52,14 +51,14 @@ class IdentityVerificationService @Inject()(
     proxyConnector
       .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
 
-  def someCase(obj: RegistrationResult)(implicit request: Request[_], messages: Messages): Result = obj match {
+  def someCase(obj: RegistrationResult)(implicit request: Request[_]): Result = obj match {
     case RegistrationSuccess(personId) =>
       Redirect(controllers.registration.routes.RegistrationController.success(personId))
     case EnrolmentFailure => InternalServerError(errorHandler.internalServerErrorTemplate)
     case DetailsMissing   => InternalServerError(errorHandler.internalServerErrorTemplate)
   }
 
-  def noneCase(implicit request: Request[_], messages: Messages): Result =
+  def noneCase(implicit request: Request[_]): Result =
     InternalServerError(errorHandler.internalServerErrorTemplate)
 
   def continue(journeyId: String, userDetails: UserDetails)(

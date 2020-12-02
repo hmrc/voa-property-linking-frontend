@@ -24,7 +24,7 @@ import config.ApplicationConfig
 import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
-import connectors.{Addresses, DVRCaseManagementConnector}
+import connectors.{Addresses, BusinessRatesValuationConnector, DVRCaseManagementConnector}
 import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.Mockito
 import org.scalatest.BeforeAndAfterEach
@@ -45,6 +45,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockAuthenticatedAction: AuthenticatedAction = mock[AuthenticatedAction]
   val mockBusinessRatesAttachmentsService: BusinessRatesAttachmentsService = mock[BusinessRatesAttachmentsService]
   val mockBusinessRatesAuthorisation: BusinessRatesAuthorisationConnector = mock[BusinessRatesAuthorisationConnector]
+  val mockBusinessRatesValuationConnector: BusinessRatesValuationConnector = mock[BusinessRatesValuationConnector]
   val mockCustomErrorHandler: CustomErrorHandler = mock[CustomErrorHandler]
   val mockDetailedIndividualAccount: DetailedIndividualAccount = mock[DetailedIndividualAccount]
   val mockDvrCaseManagement: DVRCaseManagementConnector = mock[DVRCaseManagementConnector]
@@ -52,7 +53,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockRequest: Request[_] = mock[Request[_]]
   val mockGovernmentGatewayProvider: GovernmentGatewayProvider = mock[GovernmentGatewayProvider]
   val mockGroupAccount: GroupAccount = mock[GroupAccount]
-  val mockPropertyLinkConnector = mock[PropertyLinkConnector]
+  val mockPropertyLinkConnector: PropertyLinkConnector = mock[PropertyLinkConnector]
   val mockPropertyLinkService: PropertyLinkService = mock[PropertyLinkService]
   val mockPropertyLinkingService: PropertyLinkingService = mock[PropertyLinkingService]
   val mockSessionRepository: SessionRepository = mock[SessionRepository]
@@ -60,7 +61,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockPersonalDetailsSessionRepository: PersonalDetailsSessionRepository = mock[PersonalDetailsSessionRepository]
   val mockAgentRelationshipService: AgentRelationshipService = mock[AgentRelationshipService]
   val mockChallengeConnector: ChallengeConnector = mock[ChallengeConnector]
-  val mockApplicationConfig = mock[ApplicationConfig]
+  val mockApplicationConfig: ApplicationConfig = mock[ApplicationConfig]
 
   override protected def beforeEach(): Unit =
     Seq(
@@ -69,6 +70,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
       mockApplicationConfig,
       mockAuditingService,
       mockBusinessRatesAuthorisation,
+      mockBusinessRatesValuationConnector,
       mockAuthConnector,
       mockAuthenticatedAction,
       mockBusinessRatesAttachmentsService,

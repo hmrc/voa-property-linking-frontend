@@ -29,7 +29,7 @@ import models._
 import models.registration.{User, UserDetails}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{Millis, Seconds, Span}
-import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
+import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, Inside, MustMatchers}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
 import play.api.mvc.{MessagesControllerComponents, Request, Result}
@@ -44,7 +44,7 @@ trait VoaPropertyLinkingSpec
     extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
     with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with StubMessageControllerComponents
     with HTTPClientMock with ScalaFutures with Configs with FakeObjects with GlobalExecutionContext with AllMocks
-    with HttpResponseUtils {
+    with HttpResponseUtils with Inside {
 
   // FIXME we should be removing all "Csrf-Token" -> "nocheck"
   val token: (String, String) = "Csrf-Token" -> "nocheck"

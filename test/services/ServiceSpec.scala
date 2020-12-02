@@ -43,7 +43,6 @@ trait ServiceSpec
     StubGroupAccountConnector.reset()
     StubIdentityVerification.reset()
     StubPropertyLinkConnector.reset()
-    StubBusinessRatesValuation.reset()
     StubSubmissionIdConnector.reset()
     StubPropertyRepresentationConnector.reset()
   }

@@ -25,6 +25,7 @@ import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{AssessmentsVM, PropertyLinkingController}
 import javax.inject.{Inject, Named, Singleton}
+import models.ApiAssessments.EmptyAssessments
 import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.{ApiAssessment, ApiAssessments}
 import play.api.Logger
@@ -63,63 +64,49 @@ class ValuationsController @Inject()(
             .valuations(submissionId, owner)))
     }
 
+  private[controllers] def assessmentsWithLinks(apiAssessments: ApiAssessments, submissionId: String, owner: Boolean) =
+    apiAssessments.assessments
+      .sortBy(-_.currentFromDate.fold(LocalDate.of(2017, 4, 7).toEpochDay)(_.toEpochDay))
+      .map(decideNextUrl(submissionId, apiAssessments.authorisationId, _, apiAssessments.pending, owner))
+
   def valuations(submissionId: String, owner: Boolean): Action[AnyContent] =
     authenticated.andThen(withAssessmentsPageSession).async { implicit request =>
       val pLink: Future[Option[ApiAssessments]] = {
         if (owner)
-          propertyLinks.getOwnerAssessmentsWithCapacity(submissionId)
+          propertyLinks.getOwnerAssessments(submissionId)
         else
-          propertyLinks.getClientAssessmentsWithCapacity(submissionId)
+          propertyLinks.getClientAssessments(submissionId)
       }
 
-      (pLink flatMap {
-        case Some(ApiAssessments(_, _, _, _, _, _, Seq(), _)) => Future.successful(notFound)
-        case Some(link) =>
-          if (owner) {
-            Future.successful(
-              Ok(views.html.dashboard.assessments(
-                model = AssessmentsVM(
-                  assessmentsWithLinks = link.assessments
-                    .sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(
-                      Ordering.by[LocalDate, Long](_.toEpochDay))
-                    .reverse
-                    .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
-                  backLink = config.newDashboardUrl("your-properties"),
-                  address = link.address,
-                  capacity = link.capacity
-                ),
-                owner = owner
-              ))
-            )
-          } else {
-            calculateBackLink(submissionId).map { backLinkUrl =>
-              Ok(views.html.dashboard.assessments(
-                model = AssessmentsVM(
-                  assessmentsWithLinks = link.assessments
-                    .sortBy(_.currentFromDate.getOrElse(LocalDate.of(2017, 4, 7)))(
-                      Ordering.by[LocalDate, Long](_.toEpochDay))
-                    .reverse
-                    .map(decideNextUrl(submissionId, link.authorisationId, _, link.pending, owner)),
-                  backLink = backLinkUrl,
-                  address = link.address,
-                  capacity = link.capacity
-                ),
-                owner = owner
-              ))
+      def okResponse(assessments: ApiAssessments, backlink: String) =
+        Ok(
+          views.html.dashboard.assessments(
+            AssessmentsVM(
+              assessmentsWithLinks(assessments, submissionId, owner),
+              backlink,
+              assessments.address,
+              assessments.capacity),
+            owner
+          ))
+
+      pLink
+        .flatMap {
+          case Some(EmptyAssessments()) | None => Future.successful(notFound)
+          case Some(assessments) =>
+            if (owner) Future.successful(okResponse(assessments, config.newDashboardUrl("your-properties")))
+            else calculateBackLink(submissionId).map(backlink => okResponse(assessments, backlink))
+        }
+        .recoverWith {
+          case e =>
+            logger.warn("property link assessment call failed", e)
+            val linkF =
+              if (owner) propertyLinks.getMyOrganisationPropertyLink(submissionId)
+              else propertyLinks.getMyClientsPropertyLink(submissionId)
+            linkF.map {
+              case Some(link) => Redirect(getViewSummaryCall(link.uarn, pending = true, owner))
+              case None       => notFound
             }
-          }
-        case None => Future.successful(notFound)
-      }).recoverWith {
-        case e =>
-          logger.warn("property link assessment call failed", e)
-          val linkF =
-            if (owner) propertyLinks.getMyOrganisationPropertyLink(submissionId)
-            else propertyLinks.getMyClientsPropertyLink(submissionId)
-          linkF.map {
-            case Some(link) => Redirect(getViewSummaryCall(link.uarn, pending = true, owner))
-            case None       => notFound
-          }
-      }
+        }
     }
 
   private def getViewSummaryCall(uarn: Long, pending: Boolean, owner: Boolean): Call =
@@ -152,7 +139,7 @@ class ValuationsController @Inject()(
       case Some(sessionData) =>
         sessionData.previousPage match {
           case PreviousPage.AllClients => Future.successful(config.newDashboardUrl("client-properties"))
-          case PreviousPage.SelectedClient => {
+          case PreviousPage.SelectedClient =>
             propertyLinks.clientPropertyLink(submissionId).map {
               case None =>
                 throw new IllegalArgumentException(s"Client not fount for propertyLinkSubmissionId: $submissionId")
@@ -161,7 +148,6 @@ class ValuationsController @Inject()(
                   s"selected-client-properties?clientOrganisationId=${clientPropertyLink.client.organisationId}&clientName=${URLEncoder
                     .encode(clientPropertyLink.client.organisationName, "UTF-8")}&pageNumber=1&pageSize=15&sortField=ADDRESS&sortOrder=ASC")
             }
-          }
         }
     }
 }
