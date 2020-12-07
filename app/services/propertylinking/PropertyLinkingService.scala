@@ -50,15 +50,13 @@ class PropertyLinkingService @Inject()(
     for {
       _ <- businessRatesAttachmentService.submit(propertyLinkRequest.submissionId, propertyLinkRequest.references)
       _ <- EitherT.liftF(propertyLinkConnector.createPropertyLink(PropertyLinkPayload(propertyLinkRequest)))
-    } yield ()
+    } 
+    yield ()
 
-  def submitOnClientBehalf(
-        propertyLinkRequest: PropertyLinkRequest,
-        clientId: Long
-  )(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): EitherT[Future, AttachmentException, Unit] =
+  def submitOnClientBehalf( propertyLinkRequest: PropertyLinkRequest, clientId: Long)(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): EitherT[Future, AttachmentException, Unit] =
     for {
-      _ <- businessRatesAttachmentService.submit(propertyLinkRequest.submissionId, propertyLinkRequest.references)
-      _ <- EitherT.liftF(
-            propertyLinkConnector.createPropertyLinkOnClientBehalf(PropertyLinkPayload(propertyLinkRequest), clientId))
+            _ <- businessRatesAttachmentService.submit(propertyLinkRequest.submissionId, propertyLinkRequest.references)
+            _ <- EitherT.liftF(
+                  propertyLinkConnector.createPropertyLinkOnClientBehalf(PropertyLinkPayload(propertyLinkRequest), clientId))
     } yield ()
 }
