@@ -85,7 +85,8 @@ class RegistrationService @Inject()(
           enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
             case Success => success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
             case Failure =>
-              Logger.warn("Failed to enrol new VOA user")
+              Logger.warn(
+                s"Failed to enrol VOA user organisation ID ${detailIndiv.organisationId}, individual ID ${detailIndiv.individualId}")
               success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
           }
         case (None, _) => Future.successful(DetailsMissing)

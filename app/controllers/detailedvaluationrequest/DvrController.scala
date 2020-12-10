@@ -305,8 +305,7 @@ class DvrController @Inject()(
             else
               s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn).url}"
           Redirect(
-
-            config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=${returnUrl}"))
+            config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl"))
         }
       case Some(response) => {
         response.result match {

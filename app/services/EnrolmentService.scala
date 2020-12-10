@@ -16,14 +16,14 @@
 
 package services
 
-import javax.inject.Inject
-
 import auditing.AuditingService
 import connectors.{Addresses, TaxEnrolmentConnector}
 import models.Address
+import org.apache.commons.lang3.StringUtils.isNotBlank
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.HeaderCarrier
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class EnrolmentService @Inject()(
@@ -31,18 +31,30 @@ class EnrolmentService @Inject()(
       addresses: Addresses,
       auditingService: AuditingService) {
 
+  private val logger = play.api.Logger(this.getClass)
+
   def enrol(personId: Long, addressId: Long)(
         implicit hc: HeaderCarrier,
-        ex: ExecutionContext): Future[EnrolmentResult] =
-    (for {
+        ex: ExecutionContext): Future[EnrolmentResult] = {
+
+    def skipEnrolmentForBlankPostcode: Future[Unit] = {
+      logger.info(s"Skipping enrolment for personId $personId, addressId $addressId because of a blank postcode")
+      Future.successful((): Unit)
+    }
+
+    val enrol = for {
       optAddress <- addresses.findById(addressId)
       address    <- getAddress(optAddress)
-      _          <- taxEnrolmentsConnector.enrol(personId, address.postcode)
-    } yield Success).recover {
+      _ <- if (isNotBlank(address.postcode)) taxEnrolmentsConnector.enrol(personId, address.postcode)
+          else skipEnrolmentForBlankPostcode
+    } yield Success
+
+    enrol.recover {
       case _: Throwable =>
         auditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))
         Failure
     }
+  }
 
   private def getAddress(opt: Option[Address]): Future[Address] = opt match {
     case None    => Future.failed(throw new IllegalArgumentException())
