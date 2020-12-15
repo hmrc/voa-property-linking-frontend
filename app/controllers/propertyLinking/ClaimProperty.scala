@@ -52,8 +52,8 @@ class ClaimProperty @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       val propertyLinksConnector: PropertyLinkConnector,
-      val runModeConfiguration: Configuration
-)(
+      val runModeConfiguration: Configuration,
+      declareCapacityView : views.html.propertyLinking.declareCapacity)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -87,8 +87,7 @@ class ClaimProperty @Inject()(
   def declareCapacity(uarn: Long, address: String, clientDetails: Option[ClientDetails] = None) =
     authenticatedAction { implicit request =>
       Ok(
-        views.html.propertyLinking
-          .declareCapacity(
+          declareCapacityView(
             DeclareCapacityVM(declareCapacityForm, address, uarn),
             clientDetails = clientDetails,
             backLink(request)))
@@ -106,8 +105,7 @@ class ClaimProperty @Inject()(
         .fold(
           errors =>
             Future.successful(
-              BadRequest(views.html.propertyLinking
-                .declareCapacity(DeclareCapacityVM(errors, address, uarn), clientDetails, backLink(request)))),
+              BadRequest(declareCapacityView(DeclareCapacityVM(errors, address, uarn), clientDetails, backLink(request)))),
           formData =>
             initialiseSession(formData, uarn, address, clientDetails)
               .map { _ =>
@@ -123,8 +121,7 @@ class ClaimProperty @Inject()(
   def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val form = declareCapacityForm.fillAndValidate(request.ses.declaration)
     Ok(
-      views.html.propertyLinking
-        .declareCapacity(
+        declareCapacityView(
           DeclareCapacityVM(form, request.ses.address, request.ses.uarn),
           request.ses.clientDetails,
           backLink(request)
