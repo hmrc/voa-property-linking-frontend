@@ -929,6 +929,7 @@ help.date.day.month.year=For example, 12 3 2011
 help.optional.date.day.month.year=For example, 12 3 2011 (Optional)
 error.common.date.mustBeInPast=Must be in the past
 error.common.noValueSelected=Please select an option
+error.common.invalid.date=Please enter valid date
 error.booleanMissing=You must select one
 error.subscription.title=There is a problem
 error.noRecords=No matching records found, please search again.

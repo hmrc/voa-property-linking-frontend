@@ -20,6 +20,7 @@
 @import config.ApplicationConfig
 @import controllers.propertyLinking.DeclareCapacityVM
 @import helpers._
+
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout)
 @(model: DeclareCapacityVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 @clientId = @{clientDetails.map(_.organisationId)}
@@ -30,43 +31,70 @@
         case _        => ""
     }
 }
+@getFiledErrorMessage(field: String) = @{
+    form.error(field).map{ error =>
+        ErrorMessage(
+            content = Text(messages(error.message))
+        )
+    }
+}
+
+@getDateFiledErrorMessage = @{
+    (form.error("fromDate.day"), form.error("fromDate.month"), form.error("fromDate.year")) match
+    {
+        case (None, None, None ) => None
+        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
+    }
+}
+
 @formDateHtml = {
     <div id="interestedAfter2017">
         @govukDateInput(DateInput(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(
                     content = Text(clientId.fold(messages("label.fromDate")){_ => messages("label.fromDate.client")}),
-                    isPageHeading = false,
-                    classes = "govuk-visually-hidden"
+                    isPageHeading = true,
+                    classes = "govuk-fieldset__legend--s"
                 ))
             )),
             id = "fromDate",
-            namePrefix = Some("fromDate"),
             items = Seq(
                 InputItem(
-                    id = s"fromDatNamePrefix.day",
-                    classes = s"govuk-input--width-2${if(form("fromDate").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-input--error" else ""}",
-                    name =  s"fromDatNamePrefix.day",
-                    label = Some(messages("date.day")),
-                    value = form(s"fromDatNamePrefix.day").value
+                    id = s"fromDate.day",
+                    classes = s"govuk-input--width-2${if(form("fromDate.day").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                    name =  s"fromDate.day",
+                    label = Some(messages("fromDate.day.label")),
+                    value = form(s"fromDate.day").value
                 ),
                 InputItem(
-                    id = s"fromDatNamePrefix.month",
-                    classes = s"govuk-input--width-2${if(form("fromDate").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-input--error" else ""}",
-                    name = s"fromDatNamePrefix.month",
-                    label = Some(messages("date.month")),
-                    value = form(s"fromDatNamePrefix.month").value
+                    id = s"fromDate.month",
+                    classes = s"govuk-input--width-2${if(form("fromDate.month").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                    name = s"fromDate.month",
+                    label = Some(messages("fromDate.month.label")),
+                    value = form(s"fromDate.month").value
                 ),
                 InputItem(
-                    id = s"fromDatNamePrefix.year",
-                    classes = s"govuk-input--width-4${if(form("fromDate").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-input--error" else ""}",
-                    name = s"fromDatNamePrefix.year",
-                    label = Some(messages("date.year")),
-                    value = form(s"fromDatNamePrefix.year").value
+                    id = s"fromDate.year",
+                    classes = s"govuk-input--width-4${if(form("fromDate.year").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                    name = s"fromDate.year",
+                    label = Some(messages("fromDate.year.label")),
+                    value = form(s"fromDate.year").value
                 )
             ),
-            errorMessage = form("fromDate").error.fold(form.errors.find(_.key.isEmpty))(err => Some(err)).map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))
-            )))
+            errorMessage = getDateFiledErrorMessage
+            ))
+        @govukDetails(Details(
+            summary = Text( clientId match {
+                case Some(clientId)   => {messages("declareCapacity.details.haveOwned.client")}
+                case _          => {messages("declareCapacity.details.haveOwned")}
+            }),
+            content = Text( clientId match {
+                case Some(id)   => {messages("declareCapacity.details.haveOwned.text.client")}
+                case _          => {messages("declareCapacity.details.haveOwned.text")}
+            }))
+        )
+    </div>
+    }
 
 
 @mainLayout(
@@ -76,138 +104,147 @@
 
     <h1 id="assessment-address">
         <span class="govuk-caption-xl">@messages("declareCapacity.title")</span>
-        <span class="govuk-heading-s" id="addressSpan">@model.address.toString</span>
+        <span class="govuk-heading-l" id="addressSpan">@model.address.toString</span>
     </h1>
 
-            @if(form.errors.nonEmpty) {
-                @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
-            }
-            @clientId match {
-                case Some(id)   => { <p class="heading-medium">@messages("declareCapacity.message.client")</p> }
-                case _          => { <p class="heading-medium">@messages("declareCapacity.message")</p> }
-            }
-
-            <p class="govuk-body">
-                @messages("declareCapacity.incorrectProperty.prefix")
-                <a href="@{controllers.propertyLinking.routes.ClaimProperty.show().url + clientParameter}">@messages("declareCapacity.incorrectProperty.link")</a>
-            </p>
-
-
-            @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientDetails)) {
-
-                @clientId match {
-                        case Some(id)   => {
-                            @govukDetails(Details(
-                                summary = Text(messages("declareCapacity.details.ownerOrOccupier.client")),
-                                content = HtmlContent(Html(Messages("declareCapacity.details.ownerOrOccupier.text.client", routes.Application.contactUs())))
-                            ))
-                            @govukDetails(Details(
-                                summary = Text(messages("declareCapacity.details.notOwner.client")),
-                                content = HtmlContent(Html(Messages("declareCapacity.details.notOwner.text.client", routes.Application.contactUs()))))
-                            )) }
-                        case _          => {
-                            @govukDetails(Details(
-                                summary = Text(messages("declareCapacity.details.ownerOrOccupier")),
-                                content = HtmlContent(Html(Messages("declareCapacity.details.ownerOrOccupier.text", routes.Application.contactUs()))))
-                            ))
-                            @govukDetails(Details(
-                                summary = Text(messages("declareCapacity.details.notOwner")),
-                                content = HtmlContent(Html(Messages("declareCapacity.details.notOwner.text", routes.Application.contactUs()))))
-                            ))
-                        }
-                }
-
-                <br />
-
-                @govukRadios(Radios(
-                    fieldset = Some(Fieldset(
-                        legend = Some(Legend(
-                            content = Text(
-                                clientId match {
-                                case Some(id)   => {messages("label.capacity.client")}
-                                case _          => {messages("label.capacity")}
-                            }),
-                            classes = "govuk-fieldset__legend--l"
-                        ))
-                    )),
-                    idPrefix = Some("capacity_"),
-                    name = "capacity",
-                    items = CapacityType.options.map{item =>
-                        RadioItem(
-                            value = Some(item),
-                            content = Text(messages(s"capacity.${item}")))
-                    })
-                ))
-
-
-                        @govukDetails(Details(
-                            summary = Text( clientId match {
-                                case Some(clientId)   => {messages("declareCapacity.details.haveOwned.client")}
-                                case _          => {messages("declareCapacity.details.haveOwned")}
-                            }),
-                            content = Text( clientId match {
-                                case Some(id)   => {messages("declareCapacity.details.haveOwned.text.client")}
-                                case _          => {messages("declareCapacity.details.haveOwned.text")}
-                            }))
-                        ))
-                    </div>
-                }
-
-                @govukRadios(Radios(
-                    fieldset = Some(Fieldset(
-                        legend = Some(Legend(
-                            content = Text(
-                                clientId match {
-                                case Some(id)   => {messages("label.interestedBefore2017.client")}
-                                case _          => {messages("label.interestedBefore2017")}
-                            }),
-                            classes = "govuk-fieldset__legend--l",
-                            isPageHeading = true
-                        ))
-                    )),
-                    name = "interestedAfter2017",
-                    items = Seq(
-                        RadioItem(
-                            content = Text("Yes"),
-                            value = Some("yes")
-                        ),
-                        RadioItem(
-                            conditionalHtml = Some(formDateHtml),
-                            content = Text("No"),
-                            value = Some("no")
-                        )
-                    ),
-                    classes = "govuk-radios--inline"
-                ))
-
-                @govukRadios(Radios(
-                    fieldset = Some(Fieldset(
-                        legend = Some(Legend(
-                            content = Text(
-                                clientId match {
-                                    case Some(id)   => {messages("label.stillInterested.client")}
-                                    case _          => {messages("label.stillInterested")}
-                                }),
-                            classes = "govuk-fieldset__legend--l",
-                            isPageHeading = true
-                        ))
-                    )),
-                    name = "stillInterested",
-                    items = Seq(
-                        RadioItem(
-                            content = Text("Yes"),
-                            value = Some("yes")
-                        ),
-                        RadioItem(
-                            content = Text("No"),
-                            value = Some("no")
-                        )
-                    ),
-                    classes = "govuk-radios--inline"
-                ))
-
-                @govukButton(Button(content = Text(messages("declareCapacity.submit.button"))))
-
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+    }
+    @clientId match {
+        case Some(id) => {
+            <h2 class="govuk-heading-m">@messages("declareCapacity.message.client")</h2>
+        }
+        case _ => {
+            <h2 class="govuk-heading-m">@messages("declareCapacity.message")</h2>
         }
     }
 
+    <p class="govuk-details__text">
+        @messages("declareCapacity.incorrectProperty.prefix")
+        <a href="@{
+            controllers.propertyLinking.routes.ClaimProperty.show().url + clientParameter
+        }">@messages("declareCapacity.incorrectProperty.link")</a>
+    </p>
+
+    @clientId match {
+        case Some(id) => {
+            @govukDetails(Details(
+                summary = Text(messages("declareCapacity.details.ownerOrOccupier.client")),
+                content = HtmlContent(Html(Messages("declareCapacity.details.ownerOrOccupier.text.client", routes.Application.contactUs())))))
+            @govukDetails(Details(
+                summary = Text(messages("declareCapacity.details.notOwner.client")),
+                content = HtmlContent(Html(Messages("declareCapacity.details.notOwner.text.client", routes.Application.contactUs())))))
+        }
+        case _ => {
+            @govukDetails(Details(
+                summary = Text(messages("declareCapacity.details.ownerOrOccupier")),
+                content = HtmlContent(Html(Messages("declareCapacity.details.ownerOrOccupier.text", routes.Application.contactUs()))))
+            )
+            @govukDetails(Details(
+                summary = Text(messages("declareCapacity.details.notOwner")),
+                content = HtmlContent(Html(Messages("declareCapacity.details.notOwner.text", routes.Application.contactUs())))))
+        }
+    }
+    @form.errors
+    @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientDetails)) {
+        @govukRadios(Radios(
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(
+                        clientId match {
+                            case Some(id) => {
+                                messages("label.capacity.client")
+                            }
+                            case _ => {
+                                messages("label.capacity")
+                            }
+                        }),
+                    classes = "govuk-fieldset__legend--l"
+                ))
+            )),
+            idPrefix = Some("capacity"),
+            name = "capacity",
+            items = CapacityType.options.map { item =>
+                RadioItem(
+                    value = Some(item),
+                    content = Text(messages(s"capacity.${item}")),
+                    checked = form.data.get("capacity").fold(false)(_ == item)
+                )
+            },
+            errorMessage =  getFiledErrorMessage("capacity"))
+        )
+
+        @govukRadios(Radios(
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(
+                        clientId match {
+                            case Some(id) => {
+                                messages("label.interestedBefore2017.client")
+                            }
+                            case _ => {
+                                messages("label.interestedBefore2017")
+                            }
+                        }),
+                    classes = "govuk-fieldset__legend--l",
+                    isPageHeading = true
+                ))
+            )),
+            idPrefix = Some("interestedBefore2017"),
+            name = "interestedBefore2017",
+            items = Seq(
+                RadioItem(
+                    content = Text(messages("interestedBefore2017.true")),
+                    value = Some("true"),
+                    checked = form.data.get("interestedBefore2017").fold(false)(_ == "true")
+                ),
+                RadioItem(
+                    conditionalHtml = Some(formDateHtml),
+                    content = Text(messages("interestedBefore2017.false")),
+                    value = Some("false"),
+                    checked = form.data.get("interestedBefore2017").fold(false)(_ == "false")
+                )
+            ),
+            errorMessage =  getFiledErrorMessage("interestedBefore2017"),
+            classes = "govuk-radios--inline"
+        ))
+
+        @govukRadios(Radios(
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(
+                        clientId match {
+                            case Some(id) => {
+                                messages("label.stillInterested.client")
+                            }
+                            case _ => {
+                                messages("label.stillInterested")
+                            }
+                        }),
+                    classes = "govuk-fieldset__legend--l",
+                    isPageHeading = true
+                ))
+            )),
+            name = "stillInterested",
+            items = Seq(
+                RadioItem(
+                    content = Text("Yes"),
+                    value = Some("true"),
+                    checked = form.data.get("stillInterested").fold(false)(_ == "true")
+                ),
+                RadioItem(
+                    content = Text("No"),
+                    value = Some("false"),
+                    checked = form.data.get("stillInterested").fold(false)(_ == "false")
+                )
+            ),
+            errorMessage =  getFiledErrorMessage("stillInterested"),
+            classes = "govuk-radios--inline"
+        ))
+
+        @govukButton(Button(content = Text(messages("declareCapacity.submit.button"))))
+
+
+    }
+
+}
