@@ -58,29 +58,16 @@
                 ))
             )),
             id = "fromDate",
-            items = Seq(
-                InputItem(
-                    id = s"fromDate.day",
-                    classes = s"govuk-input--width-2${if(form("fromDate.day").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
-                    name =  s"fromDate.day",
-                    label = Some(messages("fromDate.day.label")),
-                    value = form(s"fromDate.day").value
-                ),
-                InputItem(
-                    id = s"fromDate.month",
-                    classes = s"govuk-input--width-2${if(form("fromDate.month").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
-                    name = s"fromDate.month",
-                    label = Some(messages("fromDate.month.label")),
-                    value = form(s"fromDate.month").value
-                ),
-                InputItem(
-                    id = s"fromDate.year",
-                    classes = s"govuk-input--width-4${if(form("fromDate.year").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
-                    name = s"fromDate.year",
-                    label = Some(messages("fromDate.year.label")),
-                    value = form(s"fromDate.year").value
-                )
-            ),
+            items = Seq("day", "month", "year").map {
+                        item =>
+                            InputItem(
+                                id = s"fromDate.$item",
+                                classes = s"govuk-input--width-2${if(form(s"fromDate.$item").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                                name =  s"fromDate.$item",
+                                label = Some(messages(s"fromDate.$item.label")),
+                                value = form(s"fromDate.$item").value
+                            )
+            },
             errorMessage = getDateFiledErrorMessage
             ))
         @govukDetails(Details(
