@@ -21,7 +21,7 @@
 @import models.upscan._
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import uk.gov.hmrc.play.views.html.helpers.input
-
+@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout)
 @(
         submissionId: String,
         errors: List[String] = Nil,
@@ -30,20 +30,32 @@
         linkingSession: LinkingSession
 )(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(title = Messages("uploadEvidence.show.title"),
-    bottomBackLink = true,
-    topBackLink = true,
-    backLinkUrl = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url)) {
 
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <h1 class="heading-xlarge">
-                    @messages("uploadEvidence.show.title")
-                </h1>
+@mainLayout(
+    pageTitle = Messages("uploadEvidence.show.title"),
+    backUri = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url),
+    hasErrors = formEvidence.hasErrors || errors.nonEmpty
+) {
+    @if(errors.nonEmpty) {
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
 
-                <p>@messages("uploadEvidence.p.1")</p>
-                <p>@messages("uploadEvidence.evidenceTypes")</p>
-                <ul class="list list-bullet">
+            <h2 class="govuk-error-summary__title" id="error-summary-heading">@messages("error.summary.title")</h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                @errors.map { error =>
+                    <li><a href="#newFile">@messages(error)</a></li>
+                }
+                </ul>
+            </div>
+        </div>
+    }
+    <div id="errorsList"></div>
+    <h1 class="govuk-heading-xl">@messages("uploadEvidence.show.title")</h1>
+    <h2 class="govuk-heading-m">
+        @messages("uploadEvidence.p.1")
+    </h2>
+    <h3 class="govuk-heading-s">@messages("uploadEvidence.evidenceTypes")</h3>
+    <ul class="govuk-list govuk-list--bullet">
                     <li>@messages("uploadEvidence.evidenceTypes.1")</li>
                     <li>@messages("uploadEvidence.evidenceTypes.2")</li>
                     <li>@messages("uploadEvidence.evidenceTypes.3")</li>
@@ -51,96 +63,79 @@
                     <li>@messages("uploadEvidence.evidenceTypes.5")</li>
                     <li>@messages("uploadEvidence.evidenceTypes.6")</li>
                     <li>@messages("uploadEvidence.evidenceTypes.7")</li>
-                </ul>
+    </ul>
 
-                <details class="print-hide" id="noEvidenceDetails">
-                    <summary aria-controls="details-content-1" >
-                        <span class="summary" id="noEvidenceDetailsSpan">@messages("uploadEvidence.noEvidence")</span>
-                    </summary>
-                    <div id="details-content-1" class="panel panel-border-narrow">
-                        @Html(Messages("uploadEvidence.noEvidence.p1"))
-                        @Html(Messages("uploadEvidence.noEvidence.p2"))
-                        @Html(Messages("uploadEvidence.noEvidence.p3"))
-                        @Html(Messages("uploadEvidence.noEvidence.p4"))
-                        @Html(Messages("uploadEvidence.noEvidence.p5"))
-                    </div>
-                </details>
+    @govukDetails(Details(
+        id = Some("noEvidenceDetails"),
+        summary = Text(messages("uploadEvidence.noEvidence")),
+        content = HtmlContent(Html(
+            s"${messages("uploadEvidence.noEvidence.p1")}${messages("uploadEvidence.noEvidence.p2")}${messages("uploadEvidence.noEvidence.p3")}"
+        ))))
 
-                <p>@messages("uploadFile.allowedTypes.mustbe")</p>
+    <h3 class="govuk-heading-s">@messages("uploadFile.allowedTypes.mustbe")</h3>
 
-                <ul class="list list-bullet">
-                    <li id="allowedFileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
-                </ul>
-
-                <br />
-                <div id="errorsList">
-
-                </div>
-                @if(errors.nonEmpty) {
-                    <div class="error-summary error-summary--show" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
-
-                        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">@messages("error.summary.title")</h2>
-                        <p>@messages("error.summary.text")</p>
-                        <ul class="error-summary-list">
-                        @errors.map { error =>
-                            <li>@messages(error)</li>
-                        }
-                        </ul>
-                    </div>
-                }
-
-                    @form(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
-
-                    <div id="initiateFields">
-
-                    </div>
-                    <div>
+    <ul class="govuk-list govuk-list--bullet">
+        <li id="allowedFileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
+    </ul>
+                    @FormWithCSRF(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+                    <div id="initiateFields"></div>
 
                         @if(uploadedFiles.size < 1){
-                            <div id="newFileGroup" class="form-group  ">
-                                <label class="" for="newFile">
-                                    <span class="label-span visuallyhidden">Choose file to upload</span>
+                            <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty){govuk-form-group--error}">
+                                <label class="govuk-label" for="newFile">
+                                    <span class="govuk-visually-hidden">@messages("fileupload.chooseFile")</span>
+                                    <input class="govuk-file-upload  @if(errors.nonEmpty){govuk-file-upload--error}" id="newFile" name="newFile" type="file" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
                                 </label>
-                                <input type="file" id="newFile" name="file" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999">
-                                <a id="newFileButton" href="#" class="button-secondary">Choose a file to upload</a>
+                                @if(errors.nonEmpty){
+                                    <span id="file-upload-1-error" class="govuk-error-message">
+                                    @errors.map { error =>
+                                        <span class="govuk-visually-hidden">Error:</span> @messages(error)
+                                    }
+                                    </span>
+                                }
+                                <a id="newFileButton" href="#" class="govuk-button govuk-button--secondary">@messages("fileupload.chooseFile")</a>
                             </div>
                         }else{
-                            <h3 id="fileSizeLimitText">@messages("businessRatesAttachment.file.size.reached.max.limit")</h3>
+                            @GovukWarningText(WarningText(
+                                iconFallbackText = "Warning",
+                                content = Text(messages("businessRatesAttachment.file.size.reached.max.limit"))
+                            ))
                         }
 
-                        <ul class="upload-list">
+                        <div class="message-warning govuk-visually-hidden" id="message-warning"><p class="govuk-body">@messages("fileupload.pleaseWait")</p></div>
+                        <table class="govuk-table">
+                            <tbody class="govuk-table__body">
                             @uploadedFiles.map { case (fileReference, upload) =>
-                                <li>
-                                    <span class="upload-list-file-name" id="uploadedFileText">@{upload.fileMetadata.toDisplayFileName}</span>
-
-                                    <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
-
-                                    <span class="upload-list-file-remove">
-
-                                        <input type="submit" id="removeEvidenceButton" name="delete-upload-evidence" class="button-link remove-link" value="@messages("remove.file")" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
-
-                                    </span>
-                                </li>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">@{upload.fileMetadata.toDisplayFileName}</td>
+                                <td class="govuk-table__cell">@*(@upload.size.formatted)*@</td>
+                                <td class="govuk-table__cell">
+                                    <button type="submit" class="govuk-button govuk-button--secondary" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)">
+                                    @Messages("remove.file")
+                            </button>
+                            </td>
+                            </tr>
                             }
-                        </ul>
-                    </div>
+                            </tbody>
+                        </table>
                 }
 
-                @form(action = UploadController.continue(EvidenceChoices.OTHER)) {
-                    @inputSelect(
-                        field = formEvidence("evidenceType"),
-                        options = EvidenceType.options,
-                        displayEmptyValue = true,
-                        args = Seq(
-                            '_label -> Messages("evidenceType.label"),
-                            '_labelClass -> "form-label-bold",
-                            '_class -> "form"
-                        )
-                    )
+                @FormWithCSRF(action = UploadController.continue(EvidenceChoices.OTHER)) {
 
-                    <p>
-                        <button id="uploadFile" class="button">@messages("uploadRatesBill.show.button")</button>
-                    </p>
+                    @govukSelect(Select(
+                        id = "evidenceType",
+                        name = "evidenceType",
+                        items = EvidenceType.options.map(item =>
+                            SelectItem(
+                            value = Some(item),
+                            text = messages(s"evidenceType.${item}"),
+                            selected = formEvidence.data.get("evidenceType").fold(false)(_ == item)
+                        )),
+                        label = Label(
+                            content = Text(messages("evidenceType.label"))
+                        )
+                    ))
+                    @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
                 }
 
             </div>

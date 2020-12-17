@@ -11,20 +11,26 @@
     var FileUpload = function (){
         var $element = $('#newFile');
 
-        var errorMessages = '<div id="error-summary" class="error-summary error-summary--show" role="group" aria-labelledby="error-summary-heading" tabindex="-1">'+
-            '<h2 class="heading-medium error-summary-heading" id="error-summary-heading">There&rsquo;s been a problem</h2>'+
-            '<p>Check the following</p>'+
-            '<ul class="error-summary-list"><li></li></ul></div>';
+        var errorMessages = '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">'+
+            '<h2 class="govuk-error-summary__title" id="error-summary-heading">There is a problem</h2>'+
+            '<ul class="govuk-list govuk-error-summary__list"><li></li></ul></div>';
 
         $element.change(function(){
-            $('#error-summary').remove();
-            $('#uploadFile').attr('disabled','disabled');
             var file = this.files[0];
 
-
-            if(file.type){
-                $(this).after('<div class="message-warning" id="message-warning"><p role="status">Please wait whilst your file is uploading. This may take some time.</p></div>');
+            if(!file) {
+                $('#error-summary').remove();
+                $('button.govuk-button').attr('disabled','disabled');
+                return;
             }
+
+            clearErrors();
+            $('#error-summary').remove();
+            $('#newFile').attr('disabled','disabled');
+            $('#newFileButton').css('display', 'none');
+            $('button.govuk-button').attr('disabled','disabled');
+
+            $('#message-warning').removeClass('govuk-visually-hidden');
 
             function resolveMimeType(upload) {
                 if(file.type){
@@ -72,11 +78,11 @@
                         }
                  return mime;
             }
+
             var resolvedMimeType = resolveMimeType(file);
             var csrfToken = $("#uploadForm input[name='csrfToken']").val();
             var fileName = file.name.replace(/[^0-9A-Za-z. -]/g,' ');
             var submissionId = $("#submissionId").text();
-            //$(this).closest('form').submit();
             $.ajax({
                 url: $("#businessRatesAttachmentsInitiateUploadURL").text(),
                 method: "POST",
@@ -93,28 +99,28 @@
                 cache: false
             }).error(function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.status === 400) {
-                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsBusinessRatesAttachmentUnsupportedFiles').text() + '</li>'));
-                    $('#message-warning').remove();
+                    addError(jqXHR.responseText);
                 } else if (jqXHR.status === 413) {
-                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsFileSizeTooLarge').text() + '</li>'));
-                    $('#message-warning').remove();
+                    $('#message-warning').addClass('govuk-visually-hidden');
+                    addError($('#errorsFileSizeTooLarge').text());
                 } else if (jqXHR.status > 400) {
-                    $('#errorsList').html(errorMessages.replace('<li></li>', '<li>' + $('#errorsUpscan').text() + '</li>'));
-                    $('#message-warning').remove();
+                    $('#message-warning').addClass('govuk-visually-hidden');
+                    addError($('#errorsUpscan').text());
                 } else if (!jqXHR.satus) {
                     var continueUrl = $("#startClaimUrl").text();
                     window.location.href =
                         $("#signInPageUrl").text()+"?continue=" + encodeURIComponent(continueUrl)+ "&origin=voa-property-linking-frontend";
                 }
-
+                $('#newFile').removeAttr('disabled');
+                $('#newFileButton').css('display', '');
+                $('button.govuk-button').removeAttr('disabled');
             }).done(function(data, statusText, resObject) {
                 fileUpload(resObject.responseJSON, file, csrfToken);
-                $('#message-warning').remove();
+                $('#message-warning').addClass('govuk-visually-hidden');
             });
 
             $(this).closest('.form-group').removeClass('error');
             $(this).closest('.form-group').find('.error-message').remove();
-            //$('#newFileButton').remove();
         });
 
         $element.attr({'tabindex':'-1', 'style': 'position: absolute; left: -9999px; top: -9999px; z-index: -9999'});
@@ -125,7 +131,29 @@
             $element.trigger('click');
         });
 
+        var errorTitlePrefix = 'Error: ';
+        var title = $(document).prop('title');
+        function addError(message){
+            if(title.startsWith(errorTitlePrefix)){
+                $(document).prop('title', title);
+            } else {
+                $(document).prop('title', errorTitlePrefix + title);
+            }
+            $('#errorsList').html(errorMessages.replace('<li></li>', '<li><a href="#newFileGroup">'+ message +'</a></li>'));
+            $('<span id="file-upload-1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>'+ message +'</span>').insertBefore('#newFileButton');
+            $('#newFileGroup').addClass('govuk-form-group--error');
+            $('#message-warning').addClass('govuk-visually-hidden');
+            $('#error-summary').focus();
+        }
 
+        function clearErrors(){
+            $(document).prop('title', title.replace(errorTitlePrefix,''));
+            $('#errorsList').html("");
+            $('.govuk-error-summary').remove();
+            $('#file-upload-1-error').remove();
+            $('#newFileGroup').removeClass('govuk-form-group--error');
+        }
+        
         function fileUpload(form, file, csrfToken){
             $('#uploadForm').attr('action', form.uploadRequest.href);
 

@@ -9,6 +9,8 @@ link.feedback=Feedback
 main.cookies=Cookies
 footer.termsandconditions=Terms and conditions
 link.privacyPolicy=Privacy
+common.titleErrorPrefix=Error:
+common.titleSuffix=- Valuation Office Agency - GOV.UK
 
 # Page sizes
 pageSize.showing = Showing
@@ -148,7 +150,7 @@ dropdown.createAccount.nino.p1=You need to provide your National Insurance numbe
 dropdown.createAccount.nino.p2=If you don''t have a National Insurance number and you are not eligible to apply for one, you should contact us.
 dropdown.createAccount.nino.emailHeading=Email
 dropdown.createAccount.nino.telephoneHeading=Telephone
-dropdown.createAccount.nino.email=<a href="mailto:ccaservice@voa.gsi.gov.uk">ccaservice@voa.gsi.gov.uk</a>
+dropdown.createAccount.nino.email=<a href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>
 dropdown.createAccount.nino.telephone=03000 501 501
 dropdown.createAccount.nino.opening=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
 dateOfBirth.label=Date of birth
@@ -186,7 +188,7 @@ failedIdentityVerification.p.2=You can either <a href="{0}">try again</a> or con
 failedIv.telephone.england=Telephone
 failedIv.telephone.england.number=03000 501 501
 failedIv.email=Email
-failedIv.emailaddress=<a href="mailto:{0}">ccaservice@voa.gsi.gov.uk</a>
+failedIv.emailaddress=<a href="mailto:{0}">ccaservice@voa.gov.uk</a>
 failedIv.telephone.openingHours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
 iv.success.title=Identity verification successful
 iv.success.confirmation=We’ve verified your identity
@@ -386,8 +388,8 @@ label.help=Help with {0}
 rv.na=Rateable value is N/A
 rv.na.p.1=This property has been removed from the rating list. This could be because it has a new address, the description has changed or it has been split or merged with another property.
 rv.na.p.2=If you want to view the detailed valuation or check or challenge this property, you’ll need to claim the new entry. You should only claim the property if you are eligible to do so as the owner or occupier for the period of time that the new entry relates to.
-rv.na.p.3=If you are looking to view the detailed valuation or check or challenge the previous entry, you should contact the VOA by emailing ccaservice@voa.gsi.gov.uk.
-#rv.na.p.3=If you are looking to view the detailed valuation or check or challenge the previous entry, you should contact the VOA on 03000 501 501 or by emailing ccaservice@voa.gsi.gov.uk.
+rv.na.p.3=If you are looking to view the detailed valuation or check or challenge the previous entry, you should contact the VOA by emailing ccaservice@voa.gov.uk.
+#rv.na.p.3=If you are looking to view the detailed valuation or check or challenge the previous entry, you should contact the VOA on 03000 501 501 or by emailing ccaservice@voa.gov.uk.
 
 #DASHBOARD DRAFT CASES
 draftCases.title=Draft cases
@@ -718,6 +720,12 @@ declareCapacity.details.haveOwned=I have owned or occupied the property on more 
 declareCapacity.details.haveOwned.client=My client has owned or occupied the property on more than one occasion
 declareCapacity.details.haveOwned.text=If you have owned or occupied the property on more than one occasion, you should enter the date that you moved in (and if relevant the date that you moved out) for the period of time that you want to check or challenge the rateable value.
 declareCapacity.details.haveOwned.text.client=If your client has owned or occupied the property on more than one occasion, you should enter the date that your client moved in (and if relevant the date that your client moved out) for the period of time that you want to check or challenge the rateable value.
+label.fromDate.day=On what date did you become the owner or occupier? - Day
+label.fromDate.day.client=On what date did your client become the owner or occupier? - Day
+label.fromDate.month=On what date did you become the owner or occupier? - Month
+label.fromDate.month.client=On what date did your client become the owner or occupier? - Month
+label.fromDate.year=On what date did you become the owner or occupier? - Year
+label.fromDate.year.client=On what date did your client become the owner or occupier? - Year
 
 #UPLOAD RATES BILL
 uploadRatesBill.show.title=Submit a copy of your business rates bill
@@ -775,9 +783,8 @@ uploadEvidence.evidenceTypes.7=other utility bills
 uploadEvidence.noEvidence=I’m unable to provide any of these documents.
 uploadEvidence.noEvidence.p1=<p>If you can’t provide one of the documents listed to prove your link to the property, you won’t be able to claim it or view the detailed valuation.</p>
 uploadEvidence.noEvidence.p2=<p>You’ll need to contact us to discuss other documents that prove your link to this property.</p>
-uploadEvidence.noEvidence.p3=<p>Email: ccaservice@voa.gsi.gov.uk</p>
-uploadEvidence.noEvidence.p4=
-uploadEvidence.noEvidence.p5=
+uploadEvidence.noEvidence.p3=<p>Email: ccaservice@voa.gov.uk</p>
+fileupload.chooseFile=Choose a file to upload
 evidenceType.assignment=Assignment
 evidenceType.label=Type of evidence
 evidenceType.lease=Lease
@@ -862,7 +869,7 @@ available.requestvaluation.p2=You should read through the detailed valuation and
 
 available.requestvaluation.check.title=Submit a check
 available.requestvaluation.check.p1=To submit a check for this property you will need to <a href={0}> download the Check Form </a>
-available.requestvaluation.check.p2=You can email the form to <a href="mailto:CCAService@voa.gsi.gov.uk">CCAService@voa.gsi.gov.uk</a> or post it to:
+available.requestvaluation.check.p2=You can email the form to <a href="mailto:CCAService@voa.gov.uk">CCAService@voa.gov.uk</a> or post it to:
 available.requestvaluation.address=Check and challenge service, PO Box 308, PLYMOUTH, PL5 9DT
 
 available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need to <a href="{0}">download and complete a check form</a>.
@@ -900,18 +907,18 @@ auto.detailedValuationRequested.p.1=The valuation will be available within 20 wo
 
 duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.
 duplicateRequestDetailedValuation.request=We’ve received your request for a copy of the detailed valuation for this property in the last 14 days. You should receive your copy by post or email (whichever you chose as your preference) shortly.
-duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email ccaservice@voa.gsi.gov.uk and ask for your request to be prioritised.
+duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email ccaservice@voa.gov.uk and ask for your request to be prioritised.
 duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and reference number of your detailed valuation request within the email.
 
 auto.duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.
 auto.duplicateRequestDetailedValuation.request=We received your request for this detailed valuation in the last 14 days. It will be available shortly.
-auto.duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email <a href="mailto:ccaservice@voa.gsi.gov.uk">ccaservice@voa.gsi.gov.uk</a> and ask for your request to be prioritised.
+auto.duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email <a href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> and ask for your request to be prioritised.
 auto.duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and reference number of your detailed valuation request within the email.
 
 startChallenge.title=Challenge the valuation
 startChallenge.p.1=Your challenge must be submitted within 4 months of the VOA decision, or within 16 months of the date you told the VOA about a change in the surrounding area of your property. You can also submit a challenge if you told the VOA about a change and you haven’t received a decision within 12 months.
 startChallenge.p.2=To submit a challenge you’ll need to <a href="{0}">download and complete the form</a>. You can <a href="{1}">download guidance for completing the form</a>.
-startChallenge.p.3=You should send the form and any supporting evidence to <a href=mailto:ccaservice@voa.gsi.gov.uk>ccaservice@voa.gsi.gov.uk</a>.
+startChallenge.p.3=You should send the form and any supporting evidence to <a href=mailto:ccaservice@voa.gov.uk>ccaservice@voa.gov.uk</a>.
 startChallenge.p.4=Please be aware of the risks before sending any confidential information.
 
 #COMMON
@@ -929,7 +936,7 @@ help.date.day.month.year=For example, 12 3 2011
 help.optional.date.day.month.year=For example, 12 3 2011 (Optional)
 error.common.date.mustBeInPast=Must be in the past
 error.common.noValueSelected=Please select an option
-error.common.invalid.date=Please enter valid date
+error.common.invalid.date=Enter a valid date
 error.booleanMissing=You must select one
 error.subscription.title=There is a problem
 error.noRecords=No matching records found, please search again.
@@ -1199,7 +1206,7 @@ challenge.valuation.also=You should also
 challenge.valuation.guidance=download and read the guidance
 challenge.valuation.completing=before completing the form.
 challenge.valuation.supportingEvidence=You can send the challenge form, along with your supporting evidence, to
-challenge.valuation.email=ccaservice@voa.gsi.gov.uk
+challenge.valuation.email=ccaservice@voa.gov.uk
 challenge.valuation.post=or post it to:
 challenge.valuation.address1=Check and challenge service
 challenge.valuation.address2=PO Box 308

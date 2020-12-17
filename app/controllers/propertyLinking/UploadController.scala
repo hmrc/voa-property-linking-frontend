@@ -43,7 +43,8 @@ class UploadController @Inject()(
       val errorHandler: CustomErrorHandler,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
-      businessRatesAttachmentsService: BusinessRatesAttachmentsService
+      businessRatesAttachmentsService: BusinessRatesAttachmentsService,
+      uploadEvidenceView : views.html.propertyLinking.uploadEvidence
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -66,7 +67,7 @@ class UploadController @Inject()(
             .withHeaders("Access-Control-Allow-Origin" -> "*")
         case EvidenceChoices.OTHER =>
           Ok(
-            uploadEvidence(
+            uploadEvidenceView(
               session.submissionId,
               errorMessage.toList,
               session.uploadEvidenceData.attachments.getOrElse(Map.empty),
@@ -131,7 +132,7 @@ class UploadController @Inject()(
             .bindFromRequest()
             .fold(
               _ =>
-                Future.successful(BadRequest(uploadEvidence(
+                Future.successful(BadRequest(uploadEvidenceView(
                   request.ses.submissionId,
                   List("error.businessRatesAttachment.evidence.not.selected"),
                   request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
@@ -148,7 +149,7 @@ class UploadController @Inject()(
                   .getOrElse(
                     Future.successful(
                       BadRequest(
-                        uploadEvidence(
+                        uploadEvidenceView(
                           request.ses.submissionId,
                           List("error.businessRatesAttachment.file.not.selected"),
                           Map(),

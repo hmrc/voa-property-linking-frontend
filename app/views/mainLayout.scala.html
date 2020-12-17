@@ -35,7 +35,8 @@
         footerItems: Seq[FooterItem] = Seq.empty,
         bodyEndBlock: Option[Html] = None,
         scriptsBlock: Option[Html] = None,
-        backUri: Option[String] = None
+        backUri: Option[String] = None,
+        hasErrors: Boolean = false
 )(contentBlock: Html)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
@@ -80,7 +81,7 @@
     <script src='@routes.Assets.at("lib/govuk-frontend/govuk/all.js")'></script>
     <script src='@routes.Assets.at("lib/hmrc-frontend/hmrc/all.js")'></script>
     <script>window.GOVUKFrontend.initAll();</script>
-    <script>window.HMRCFrontend.initAll();</script>>
+    <script>window.HMRCFrontend.initAll();</script>
 }
 
 @bodyEndDefault = {
@@ -107,9 +108,14 @@
     @navigationBar(backUri)
 }
 
+@title = @{
+    if(hasErrors){
+        s"${messages("common.titleErrorPrefix")} $pageTitle ${messages("common.titleSuffix")}"
+    } else s"$pageTitle ${messages("common.titleSuffix")}"
+}
 
 @govukWrapper(
-    title = pageTitle,
+    title = title,
     headScripts = headScripts,
     content = mainContent,
     navigation = navigation,

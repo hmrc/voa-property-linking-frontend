@@ -25,17 +25,29 @@
 @(model: DeclareCapacityVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 @clientId = @{clientDetails.map(_.organisationId)}
 @form = @{model.form}
+@clientSuffix = @{
+    clientId match {
+        case Some(id) => { ".client"}
+        case _        => {""}
+    }
+}
 @clientParameter = @{
     clientDetails  match {
         case Some(client) => { s"?organisationId=${client.organisationId}&organisationName=${client.organisationName}"  }
         case _        => ""
     }
 }
+
+
+@getEnrichedErrorLinks = @{
+    form.errors.map{ error =>
+        ErrorLink(href = Some(s"#${error.key}"),
+            content = HtmlContent(s"${messages(s"label.${error.key}$clientSuffix")} - ${messages(error.message)}") )}
+}
+
 @getFiledErrorMessage(field: String) = @{
     form.error(field).map{ error =>
-        ErrorMessage(
-            content = Text(messages(error.message))
-        )
+        ErrorMessage(content = Text(messages(error.message)))
     }
 }
 
@@ -52,7 +64,7 @@
         @govukDateInput(DateInput(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(
-                    content = Text(clientId.fold(messages("label.fromDate")){_ => messages("label.fromDate.client")}),
+                    content = Text(messages(s"label.fromDate$clientSuffix")),
                     isPageHeading = true,
                     classes = "govuk-fieldset__legend--s"
                 ))
@@ -71,22 +83,17 @@
             errorMessage = getDateFiledErrorMessage
             ))
         @govukDetails(Details(
-            summary = Text( clientId match {
-                case Some(clientId)   => {messages("declareCapacity.details.haveOwned.client")}
-                case _          => {messages("declareCapacity.details.haveOwned")}
-            }),
-            content = Text( clientId match {
-                case Some(id)   => {messages("declareCapacity.details.haveOwned.text.client")}
-                case _          => {messages("declareCapacity.details.haveOwned.text")}
-            }))
-        )
+            summary = Text(messages(s"declareCapacity.details.haveOwned$clientSuffix")),
+            content = Text(messages(s"declareCapacity.details.haveOwned.text$clientSuffix"))
+            ))
     </div>
     }
 
 
 @mainLayout(
     pageTitle = messages("declareCapacity.title"),
-    backUri = Some(backLink)
+    backUri = Some(backLink),
+    hasErrors = form.hasErrors
 ) {
 
     <h1 id="assessment-address">
@@ -95,16 +102,9 @@
     </h1>
 
     @if(form.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+        @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    @clientId match {
-        case Some(id) => {
-            <h2 class="govuk-heading-m">@messages("declareCapacity.message.client")</h2>
-        }
-        case _ => {
-            <h2 class="govuk-heading-m">@messages("declareCapacity.message")</h2>
-        }
-    }
+    <h2 class="govuk-heading-m">@messages(s"declareCapacity.message$clientSuffix")</h2>
 
     <p class="govuk-details__text">
         @messages("declareCapacity.incorrectProperty.prefix")
@@ -113,39 +113,18 @@
         }">@messages("declareCapacity.incorrectProperty.link")</a>
     </p>
 
-    @clientId match {
-        case Some(id) => {
-            @govukDetails(Details(
-                summary = Text(messages("declareCapacity.details.ownerOrOccupier.client")),
-                content = HtmlContent(Html(Messages("declareCapacity.details.ownerOrOccupier.text.client", routes.Application.contactUs())))))
-            @govukDetails(Details(
-                summary = Text(messages("declareCapacity.details.notOwner.client")),
-                content = HtmlContent(Html(Messages("declareCapacity.details.notOwner.text.client", routes.Application.contactUs())))))
-        }
-        case _ => {
-            @govukDetails(Details(
-                summary = Text(messages("declareCapacity.details.ownerOrOccupier")),
-                content = HtmlContent(Html(Messages("declareCapacity.details.ownerOrOccupier.text", routes.Application.contactUs()))))
-            )
-            @govukDetails(Details(
-                summary = Text(messages("declareCapacity.details.notOwner")),
-                content = HtmlContent(Html(Messages("declareCapacity.details.notOwner.text", routes.Application.contactUs())))))
-        }
-    }
-    @form.errors
+    @govukDetails(Details(
+        summary = Text(messages(s"declareCapacity.details.ownerOrOccupier$clientSuffix")),
+        content = HtmlContent(Html(Messages(s"declareCapacity.details.ownerOrOccupier.text$clientSuffix", routes.Application.contactUs())))))
+    @govukDetails(Details(
+        summary = Text(messages(s"declareCapacity.details.notOwner$clientSuffix")),
+        content = HtmlContent(Html(Messages(s"declareCapacity.details.notOwner.text$clientSuffix", routes.Application.contactUs())))))
+
     @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientDetails)) {
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(
-                    content = Text(
-                        clientId match {
-                            case Some(id) => {
-                                messages("label.capacity.client")
-                            }
-                            case _ => {
-                                messages("label.capacity")
-                            }
-                        }),
+                    content = Text(messages(s"label.capacity$clientSuffix")),
                     classes = "govuk-fieldset__legend--l"
                 ))
             )),
@@ -164,15 +143,7 @@
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(
-                    content = Text(
-                        clientId match {
-                            case Some(id) => {
-                                messages("label.interestedBefore2017.client")
-                            }
-                            case _ => {
-                                messages("label.interestedBefore2017")
-                            }
-                        }),
+                    content = Text(messages(s"label.interestedBefore2017$clientSuffix")),
                     classes = "govuk-fieldset__legend--l",
                     isPageHeading = true
                 ))
@@ -199,15 +170,7 @@
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(
-                    content = Text(
-                        clientId match {
-                            case Some(id) => {
-                                messages("label.stillInterested.client")
-                            }
-                            case _ => {
-                                messages("label.stillInterested")
-                            }
-                        }),
+                    content = Text(messages(s"label.stillInterested$clientSuffix")),
                     classes = "govuk-fieldset__legend--l",
                     isPageHeading = true
                 ))
