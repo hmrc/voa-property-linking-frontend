@@ -17,7 +17,7 @@
 @import config.ApplicationConfig
 
 @import actions.requests.CcaWrappedRequest
-@(backUri: Option[String])(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
+@(backUri: Option[String], backLinkClass: String = "govuk-back-link")(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
 
     @homeLink = @{
         config.newDashboardUrl("home")
@@ -31,7 +31,7 @@
 
     @noAccountLinks = {
         <li style="display:inline"><a id="login-link" href="@homeLink">@Messages("link.login")</a><span class="separator"> |</span></li>
-        <li style="display:inline"><a id="register-link" href="#">@Messages("link.register")</a></li>
+        <li style="display:inline"><a id="register-link" href="@{controllers.routes.Application.start().url}">@Messages("link.register")</a></li>
     }
 
     <div class="govuk-grid-row">
@@ -43,7 +43,7 @@
         }
         </div>
         <div class="govuk-grid-column-two-thirds">
-            <ul class="govuk-list" style="text-align:right; margin-top:13px;">
+            <ul class="govuk-list" style="text-align:right; margin-top:10px;">
             @request match {
                 case req: CcaWrappedRequest => {
                     @if(req.isLoggedIn) {

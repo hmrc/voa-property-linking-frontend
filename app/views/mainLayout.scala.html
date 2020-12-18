@@ -15,6 +15,7 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.includes._
 @import config.ApplicationConfig
 
 @this(
@@ -28,14 +29,10 @@
 
 @(
         pageTitle: String,
-        headBlock: Option[Html] = Some(head()),
-        headerBlock: Option[Html] = None,
-        beforeContentBlock: Option[Html] = None,
-        footerBlock: Option[Html] = None,
-        footerItems: Seq[FooterItem] = Seq.empty,
-        bodyEndBlock: Option[Html] = None,
-        scriptsBlock: Option[Html] = None,
+        mainClass: Option[String] = None,
         backUri: Option[String] = None,
+        headExtra: Html = Html(""),
+        backLinkClass: String = "govuk-back-link",
         hasErrors: Boolean = false
 )(contentBlock: Html)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -43,61 +40,20 @@
 @headScripts = {
     @includes.pingdomPerformanceMonitor()
     @views.html.includes.designSystemsStylesheets()
+    @headExtra
 }
 
-@headerDefault = {
-    @headerBlock.getOrElse {
-        @govukHeader(Header(
-            homepageUrl = Some(config.newDashboardUrl("home")),
-            serviceName = Some(messages("service.name")),
-            serviceUrl = None,
-            containerClasses = Some("govuk-width-container")))
-    }
-}
-
-@footerDefault = {
-    @footerBlock.getOrElse {
-        @govukFooter(new Footer(meta = Some(Meta(items = Some(
-            Seq(
-                FooterItem(text = Some(messages("footer.link.help")),
-                    href = Some(config.helpGuideUrl),
-                    attributes = Map("data-sso" -> "false", "data-journey-click" -> "footer:Click:Help") ),
-                FooterItem(text = Some(messages("link.feedback")),
-                    href = Some(config.businessRatesValuationFrontendUrl("send-beta-feedback")),
-                    attributes = Map("target" -> "_blank")),
-                FooterItem(text = Some(messages("main.cookies")),
-                    href = Some("#")),
-                FooterItem(text = Some(messages("footer.termsandconditions")),
-                    href = Some("#")),
-                FooterItem(text = Some(messages("link.privacyPolicy")),
-                    href = Some("https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice"))
-            )
-        )))))
-    }
-}
-
-@scriptElem = {
-    <script src="/business-rates-property-linking/assets/lib/govuk-frontend/govuk/all.js"></script>
-    <script src='@routes.Assets.at("lib/govuk-frontend/govuk/all.js")'></script>
-    <script src='@routes.Assets.at("lib/hmrc-frontend/hmrc/all.js")'></script>
-    <script>window.GOVUKFrontend.initAll();</script>
-    <script>window.HMRCFrontend.initAll();</script>
-}
-
-@bodyEndDefault = {
-    @bodyEndBlock
-    @scriptsBlock
-}
+@scriptElem = {}
 
 @mainContent = {
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
+        <div class="@mainClass.getOrElse("govuk-grid-column-two-thirds")">
             @contentBlock
 
             @govukDetails(
                 Details(
                     summary = Text(messages("getHelpLink")),
-                    content = HtmlContent(Html(messages("getHelpContent", "ccaservice@voa.gsi.gov.uk")))
+                    content = HtmlContent(Html(messages("getHelpContent", "ccaservice@voa.gov.uk")))
                 )
             )
         </div>
@@ -105,7 +61,7 @@
 }
 
 @navigation = {
-    @navigationBar(backUri)
+    @navigationBar(backUri, backLinkClass)
 }
 
 @title = @{

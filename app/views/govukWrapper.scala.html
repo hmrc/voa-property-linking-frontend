@@ -16,9 +16,10 @@
 
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
-
+@import uk.gov.hmrc.http.SessionKeys
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import play.twirl.api.HtmlFormat
+@import views.html.includes._
 
 @(
         title: String,
@@ -28,22 +29,20 @@
         scriptElem: Option[Html] = None)(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
 
     @head = {
-    @uiLayouts.head(
+    @headPartial(
         linkElem = None,
-        headScripts = Option(headScripts))
-        <meta name="format-detection" content="telephone=no" />
+        headScripts = Option(headScripts)
+    )
+
+    @if(request.session.get(SessionKeys.userId).isDefined){
         <meta name="hmrc-timeout-dialog" content="hmrc-timeout-dialog" data-language="en" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown" data-keep-alive-url="@config.keepAliveUrl" data-sign-out-url="@config.signOutUrl"/>
     }
 
+    }
+
     @bodyEnd = {
-        @uiLayouts.footer(
-            analyticsToken = None,
-            analyticsHost = config.analyticsHost,
-            ssoUrl = None,
-            scriptElem = scriptElem,
-            gaCalls = None,
-            analyticsAdditionalJs = None
-        )
+        @scriptElem
+        @scripts()
     }
 
     @banner = {
@@ -79,8 +78,10 @@
             serviceUrl = Some("#")
         ))
     }
-
+    @* we need to set 'htmlClasses = Some("no-js")' to enable no-javascript behaviour on *@
+    @* pages that are not yet fully converted to use the new play-frontend-govuk templates *@
     @GovukTemplate(
+        htmlClasses = Some("no-js"),
         pageTitle = Some(title),
         headBlock = Some(head),
         headerBlock = headerBlock,

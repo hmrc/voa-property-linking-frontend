@@ -77,7 +77,8 @@
     <ul class="govuk-list govuk-list--bullet">
         <li id="allowedFileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
     </ul>
-                    @FormWithCSRF(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+    @form(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+
                     <div id="initiateFields"></div>
 
                         @if(uploadedFiles.size < 1){
@@ -140,15 +141,15 @@
 
             </div>
         </div>
-        <span id="businessRatesAttachmentsRemoveFileURL" class="label-span visuallyhidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/OTHER/upload/remove?fileReference="}</span>
-        <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${UploadController.initiate(EvidenceChoices.OTHER)}"}</span>
-        <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${UploadController.show(EvidenceChoices.OTHER)}"}</span>
-        <span id="errorsUpscan" class="label-span visuallyhidden">@Html(messages("error.upscan.unavailable"))</span>
-        <span id="errorsFileSizeTooLarge" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
-        <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
-        <span id="errorsBusinessRatesAttachmentUnavailable" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.unavailable")</span>
-        <span id="signInPageUrl" class="label-span visuallyhidden">@{config.basGatewaySignInUrl}</span>
-        <span id="startClaimUrl" class="label-span visuallyhidden">@{ClaimProperty.declareCapacity(linkingSession.uarn, linkingSession.address)}</span>
-        <span id="submissionId" class="label-span visuallyhidden">@submissionId</span>
+        <span id="businessRatesAttachmentsRemoveFileURL" class="govuk-visually-hidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/OTHER/upload/remove?fileReference="}</span>
+        <span id="businessRatesAttachmentsInitiateUploadURL" class="govuk-visually-hidden">@{s"${UploadController.initiate(EvidenceChoices.OTHER)}"}</span>
+        <span id="businessRatesAttachmentsFileUploadURL" class="govuk-visually-hidden">@{s"${UploadController.show(EvidenceChoices.OTHER)}"}</span>
+        <span id="errorsUpscan" class="govuk-visually-hidden">@Html(messages("error.upscan.unavailable"))</span>
+        <span id="errorsFileSizeTooLarge" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
+        <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
+        <span id="errorsBusinessRatesAttachmentUnavailable" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.unavailable")</span>
+        <span id="signInPageUrl" class="govuk-visually-hidden">@{config.basGatewaySignInUrl}</span>
+        <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimProperty.declareCapacity(linkingSession.uarn, linkingSession.address)}</span>
+        <span id="submissionId" class="govuk-visually-hidden">@submissionId</span>
 
     }
