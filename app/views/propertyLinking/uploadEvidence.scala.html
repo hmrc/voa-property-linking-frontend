@@ -85,7 +85,7 @@
                             <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty){govuk-form-group--error}">
                                 <label class="govuk-label" for="newFile">
                                     <span class="govuk-visually-hidden">@messages("fileupload.chooseFile")</span>
-                                    <input class="govuk-file-upload  @if(errors.nonEmpty){govuk-file-upload--error}" id="newFile" name="newFile" type="file" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
+                                    <input type="file" id="newFile" name="file" class="govuk-file-upload  @if(errors.nonEmpty){govuk-file-upload--error}" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
                                 </label>
                                 @if(errors.nonEmpty){
                                     <span id="file-upload-1-error" class="govuk-error-message">

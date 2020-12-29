@@ -82,7 +82,8 @@ class UploadController @Inject()(
     }
 
   def initiate(evidence: EvidenceChoices): Action[JsValue] =
-    authenticatedAction.andThen(withLinkingSession).async(parse.json) { implicit request =>
+    authenticatedAction.andThen(withLinkingSession).async(parse.json) {
+      implicit request =>
       withJsonBody[InitiateAttachmentRequest] { attachmentRequest =>
         businessRatesAttachmentsService
           .initiateAttachmentUpload(InitiateAttachmentPayload(
