@@ -1344,3 +1344,5 @@ error.businessRatesAttachment.file.not.selected=Please select file you want to u
 error.businessRatesAttachment.does.not.support.file.types=Only Word, Excel, PDF and JPEG files can be accepted and maximum file size is 10MB
 businessRatesAttachment.file.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit
 fileupload.support.documents.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit
+fileupload.pleaseWait=Please wait whilst your file is uploading. This may take some time.
+

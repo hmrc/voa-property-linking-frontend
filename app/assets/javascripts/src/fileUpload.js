@@ -115,6 +115,7 @@
                 $('#newFileButton').css('display', '');
                 $('button.govuk-button').removeAttr('disabled');
             }).done(function(data, statusText, resObject) {
+                alert("DONE="+JSON.stringify(resObject.responseJSON,null,'\t'));
                 fileUpload(resObject.responseJSON, file, csrfToken);
                 $('#message-warning').addClass('govuk-visually-hidden');
             });
