@@ -62,8 +62,16 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   lazy val agentAppointDelay: Int = loadInt("agent.appoint.async.delay")
 
-  lazy val analyticsToken: String = loadConfig("google-analytics.token")
-  lazy val analyticsHost: String = loadConfig("google-analytics.host")
+  // Google Analytics (GTM)
+  lazy val analyticsToken: String = configuration.get[String]("google-analytics.token")
+  lazy val analyticsHost: String = configuration.get[String]("google-analytics.host")
+  // looks clunky, but spaces not allowed in app-config yaml, so construct the dimension here
+  lazy val personIdDimension: String =
+    s"VOA_person_ID (${configuration.get[String]("google-analytics.dimension.personId")})"
+  lazy val loggedInDimension: String =
+    s"Logged_in (${configuration.get[String]("google-analytics.dimension.loggedIn")})"
+  lazy val ccaAgentDimension: String =
+    s"CCA_Agent (${configuration.get[String]("google-analytics.dimension.ccaAgent")})"
 
   lazy val pingdomToken: Option[String] = configuration.getOptional[String]("pingdom.performance.monitor.token")
 

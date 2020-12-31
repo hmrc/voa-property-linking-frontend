@@ -22,13 +22,11 @@ import uk.gov.hmrc.auth.core.AffinityGroup
 
 sealed abstract class AuthenticatedRequest[A](request: Request[A]) extends WrappedRequest[A](request) {
   def organisationAccount: GroupAccount
-
   def individualAccount: DetailedIndividualAccount
-
   def organisationId: Long = organisationAccount.id
-
   def personId: Long = individualAccount.individualId
 }
+
 //need to decouple to authentication away from the group account and individual account.
 case class BasicAuthenticatedRequestWithAffinityGroup[A](
       organisationAccount: GroupAccount,

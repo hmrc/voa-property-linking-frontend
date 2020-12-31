@@ -10,6 +10,8 @@ main.cookies=Cookies
 footer.termsandconditions=Terms and conditions
 link.privacyPolicy=Privacy
 
+navigation.your.details=Your details
+
 # Page sizes
 pageSize.showing = Showing
 pageSize.properties = properties per page
