@@ -14,12 +14,12 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.play.views.html.helpers._
-@import helpers._
 @import binders.propertylinks._
 @import controllers.propertyLinking.DeclarationVM
 @import config.ApplicationConfig
-
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 @(model: DeclarationVM, isRatesBillEvidence: Boolean, clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @backLink = @{if (isRatesBillEvidence) {
@@ -29,61 +29,53 @@
                 }
 }
 @clientId = @{clientDetails.map(_.organisationId)}
-@main_template(
-    Messages("declaration.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    topNavigation = true,
-    showLogout = true,
-    backLinkUrl = Some(backLink) ) {
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+@mainLayout(
+    pageTitle = messages("declaration.title"),
+    backUri = Some(backLink),
+    hasErrors = model.form.hasErrors
+) {
 
-            <h1 class="heading-xlarge">@messages("declaration.title")</h1>
+    <h1 class="govuk-heading-xl">@messages("declaration.title")</h1>
 
-            @includes.errorSummary(model.form)
+    @FormWithCSRF(action = controllers.propertyLinking.routes.Declaration.submit()) {
 
-            @form(controllers.propertyLinking.routes.Declaration.submit()) {
+        @if(model.form.errors.nonEmpty) {
+            @govukErrorSummary(ErrorSummary(errorList = model.form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+        }
 
-                <p>@messages("declaration.p.1")</p>
+        <p class="govuk-body">@messages("declaration.p.1")</p>
 
-                <ul class="list-bullet">
-                    <li>@messages("declaration.1")</li>
-                    <li> @clientId match {
-                        case Some(id)   => { @messages("declaration.client.2") }
-                        case _          => { @messages("declaration.2") }
-                    }</li>
-                </ul>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>@messages("declaration.1")</li>
+            <li> @clientId match {
+                case Some(id)   => { @messages("declaration.client.2") }
+                case _          => { @messages("declaration.2") }
+            }</li>
+        </ul>
 
+        <p class="govuk-body">@messages("declaration.p.2")</p>
 
-                <p>@messages("declaration.p.2")</p>
+        @govukWarningText(WarningText(
+            iconFallbackText = "Warning",
+            content = Text(messages("declaration.p.3"))
+        ))
 
-      
-
-                <div class="notice">
-                    <i class="icon icon-important">
-                        <span class="visually-hidden">Warning</span>
-                    </i>
-                    <strong class="bold-small">
-                        @messages("declaration.p.3")
-                    </strong>
-                </div>
-
-                @singleCheckbox(
-                    field = model.form("declaration"),
-                    '_label -> "declaration.iAgree",
-                    '_labelClass -> "",
-                    '_text -> Messages("declaration.iAgree"),
-                    '_class -> "form-control",
-                    '_id -> "declarationCheckBox",
-                    '_noTopLabel -> true
+        @govukCheckboxes(Checkboxes(
+            idPrefix = Some("declaration"),
+            name = "declaration",
+            items = Seq(
+                CheckboxItem(
+                    content = Text(messages("declaration.iAgree")),
+                    value = "true"
                 )
-                <p>
-                    <button id="continue" class="button">@messages("label.continue")</button>
-                </p>
-            }
+            ),
+            errorMessage =  { model.form.error("declaration").map{ error =>
+                ErrorMessage(content = Text(messages(error.message)))
+            }}
+        ))
 
-        </div>
-    </div>
+        @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
+
+        }
 }

@@ -12,6 +12,8 @@ link.privacyPolicy=Privacy
 common.titleErrorPrefix=Error:
 common.titleSuffix=- Valuation Office Agency - GOV.UK
 
+navigation.your.details=Your details
+
 # Page sizes
 pageSize.showing = Showing
 pageSize.properties = properties per page

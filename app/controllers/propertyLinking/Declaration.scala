@@ -47,7 +47,9 @@ class Declaration @Inject()(
       @Named("propertyLinkingSession") sessionRepository: SessionRepo,
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
       authenticatedAction: AuthenticatedAction,
-      withLinkingSession: WithLinkingSession
+      withLinkingSession: WithLinkingSession,
+      declarationView : views.html.propertyLinking.declaration,
+      linkingRequestSubmittedView: views.html.linkingRequestSubmitted
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -59,7 +61,7 @@ class Declaration @Inject()(
 
   def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis == RatesBillFlag
-    Ok(declaration(DeclarationVM(form), isRatesBillEvidence, request.ses.clientDetails))
+    Ok(declarationView(DeclarationVM(form), isRatesBillEvidence, request.ses.clientDetails))
   }
 
   /*
@@ -72,7 +74,7 @@ class Declaration @Inject()(
         _ => {
           val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
           Future.successful(BadRequest(
-            declaration(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence, request.ses.clientDetails)))
+            declarationView(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence, request.ses.clientDetails)))
         },
         _ =>
           propertyLinkService
@@ -86,7 +88,7 @@ class Declaration @Inject()(
                     s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page")
                   val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
                   BadRequest(
-                    declaration(
+                    declarationView(
                       DeclarationVM(form.fill(true).withError("declaration", "declaration.file.receipt")),
                       isRatesBillEvidence,
                       request.ses.clientDetails))
@@ -109,7 +111,7 @@ class Declaration @Inject()(
 
   def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     sessionRepository.remove().map { _ =>
-      Ok(views.html.linkingRequestSubmitted(
+      Ok(linkingRequestSubmittedView(
         RequestSubmittedVM(request.ses.address, request.ses.submissionId, request.ses.clientDetails)))
     }
   }

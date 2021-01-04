@@ -20,6 +20,7 @@
 @import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
 @import models.upscan._
+@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
 @(
         submissionId: String,
@@ -33,89 +34,81 @@
     case _          => {messages("uploadRatesBill.show.title")}
 }}
 
-    @main_template(title = title,
-        topBackLink = true,
-        bottomBackLink = true,
-        backLinkUrl = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url)
+@mainLayout(
+    pageTitle = title,
+    backUri = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url)
+    hasErrors = errors.isEmpty
 ) {
 
-            <div class="grid-row">
-                <div class="column-two-thirds">
-                    <h1 class="heading-xlarge">
-                        @title
-                    </h1>
+    @if(errors.nonEmpty) {
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
 
-                    <p>@messages("uploadFile.allowedTypes.mustbe")</p>
-
-                    <ul class="list list-bullet">
-                        <li id="fileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
-                    </ul>
-
-                    <br />
-                    <div id="errorsList">
-
-                    </div>
-                    @if(errors.nonEmpty) {
-                        <div class="error-summary error-summary--show" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
-
-                            <h2 class="heading-medium error-summary-heading" id="error-summary-heading">@messages("error.summary.title")</h2>
-                            <p>@messages("error.summary.text")</p>
-                            <ul class="error-summary-list">
-                            @errors.map { error =>
-                                <li>@messages(error)</li>
-                            }
-                            </ul>
-                        </div>
-                    }
-
-                    @form(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
-
-                    <div id="initiateFields">
-
-                    </div>
-
-                        <div>
-
-                           @if(uploadedFiles.size < 1) {
-                                <div id="newFileGroup" class="form-group  ">
-                                    <label class="" for="newFile">
-                                        <span class="label-span visuallyhidden">Choose file to upload</span>
-                                    </label>
-                                    <input type="file" id="newFile" name="file" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999">
-                                    <a id="newFileButton" href="#" class="button-secondary">Choose a file to upload</a>
-                                </div>
-                            } else {
-                                <h3 id="fileLimitText">@messages("businessRatesAttachment.file.size.reached.max.limit")</h3>
-                            }
-
-                            <ul class="upload-list">
-                            @uploadedFiles.map { case (fileReference, upload) =>
-                            <li>
-                                <span class="upload-list-file-name" id="uploadedFileSpan">@{upload.fileMetadata.toDisplayFileName}</span>
-
-                                <span class="upload-list-file-size"><p>&nbsp;</p>@*(@upload.size.formatted)*@</span>
-
-                                <span class="upload-list-file-remove">
-                                    <input type="submit" name="delete-upload_rate_bill" class="button-link remove-link" id="deleteRatesBillButton" value="@messages("remove.file")" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)" onclick='Javascript: this.form.action = this.getAttribute("formaction");' />
-                               </span>
-                            </li>
-                            }
-                            </ul>
-                        </div>
-
-
-                    }
-
-                    @form(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
-                        <p>
-                            <button id="uploadFile" class="button">@messages("uploadRatesBill.show.button")</button>
-                        </p>
-                    }
-
-
-
-                </div>
+            <h2 class="govuk-error-summary__title" id="error-summary-heading">@messages("error.summary.title")</h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                @errors.map { error =>
+                    <li><a href="#newFile">@messages(error)</a></li>
+                }
+                </ul>
             </div>
+        </div>
+    }
+    <div id="errorsList"></div>
+    <h1 class="govuk-heading-xl">@title</h1>
+    <p class="govuk-body">@messages("uploadFile.allowedTypes.mustbe")</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li id="fileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
+    </ul>
+
+
+    @FormWithCSRF(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+                    <div id="initiateFields"></div>
+
+        @if(uploadedFiles.size < 1){
+            <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty){govuk-form-group--error}">
+                <label class="govuk-label" for="newFile">
+                    <span class="govuk-visually-hidden">@messages("fileupload.chooseFile")</span>
+                    <input type="file" id="newFile" name="file" class="govuk-file-upload  @if(errors.nonEmpty){govuk-file-upload--error}" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
+                </label>
+                @if(errors.nonEmpty){
+                    <span id="file-upload-1-error" class="govuk-error-message">
+                    @errors.map { error =>
+                        <span class="govuk-visually-hidden">Error:</span> @messages(error)
+                    }
+                    </span>
+                }
+                <a id="newFileButton" href="#" class="govuk-button govuk-button--secondary">@messages("fileupload.chooseFile")</a>
+            </div>
+        }else{
+            @GovukWarningText(WarningText(
+                iconFallbackText = "Warning",
+                content = Text(messages("businessRatesAttachment.file.size.reached.max.limit"))
+            ))
+        }
+
+        <div class="message-warning govuk-visually-hidden" id="message-warning"><p class="govuk-body">@messages("fileupload.pleaseWait")</p></div>
+        <table class="govuk-table">
+            <tbody class="govuk-table__body">
+            @uploadedFiles.map { case (fileReference, upload) =>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">@{upload.fileMetadata.toDisplayFileName}</td>
+                <td class="govuk-table__cell">@*(@upload.size.formatted)*@</td>
+                <td class="govuk-table__cell">
+                    <button type="submit" class="govuk-button govuk-button--secondary" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)">
+                    @Messages("remove.file")
+            </button>
+            </td>
+            </tr>
+            }
+            </tbody>
+        </table>
+
+    }
+    @FormWithCSRF(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
+        @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
+    }
+
     <span id="businessRatesAttachmentsRemoveFileURL" class="label-span visuallyhidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/remove?fileReference="}</span>
     <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${UploadController.initiate(EvidenceChoices.RATES_BILL)}"}</span>
     <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${UploadController.show(EvidenceChoices.RATES_BILL)}"}</span>

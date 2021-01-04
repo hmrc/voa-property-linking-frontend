@@ -15,8 +15,9 @@
  *@
 
 @import config.ApplicationConfig
-
 @import actions.requests.CcaWrappedRequest
+@import actions.requests.CcaWrappedRequestHelper._
+
 @(backUri: Option[String], backLinkClass: String = "govuk-back-link")(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
 
     @homeLink = @{

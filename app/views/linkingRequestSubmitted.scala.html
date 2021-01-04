@@ -17,6 +17,10 @@
 @import controllers.propertyLinking.RequestSubmittedVM
 @import config.ApplicationConfig
 
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@this(govukPanel: GovukPanel, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+
 @(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @clientParameter = @{
@@ -25,39 +29,29 @@
             case _        => ""
         }
 }
-@main_template(
-    title = Messages("linkingRequestSubmitted.title"),
-    topBackLink = false,
-    bottomBackLink = false,
-    topNavigation = true,
-    showLogout = true
+@clientSuffix = @{
+    model.clientDetails match {
+        case Some(id) => { ".client"}
+        case _        => {""}
+    }
+}
+@mainLayout(
+    pageTitle = messages("linkingRequestSubmitted.title")
 ) {
+    @govukPanel(Panel(
+        title = Text( s"${messages("linkingRequestSubmitted.title1")}${messages(s"linkingRequestSubmitted$clientSuffix.title2")}"),
+        content = HtmlContent(s"${messages("linkingRequestSubmitted.title3")}<br><strong>${model.refId}</strong>")
+    ))
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+            <h2 class="govuk-heading-m">@messages("heading.whatNext")</h2>
 
-            <div class="transaction-banner--complete">
-                <h1 class="transaction-banner__heading" id="pageHeading">@messages("linkingRequestSubmitted.title1")
-                    @model.clientDetails.map(_.organisationId) match {
-                    case Some(id)   => { @model.address.toString @messages("linkingRequestSubmitted.client.title2") }
-                    case _          => { @model.address.toString @messages("linkingRequestSubmitted.title2") }
-                    }
-                </h1>
-                <p class="heading-medium no-margin">@messages("linkingRequestSubmitted.title3")</p>
-                <p class="heading-medium no-margin" id="submissionIdText">@model.refId</p>
-            </div>
+            <p class="govuk-body">@messages("linkSubmitted.whatNext.1")</p>
+            <p class="govuk-body">@messages("linkSubmitted.whatNext.2")</p>
+            <p class="govuk-body">@messages("linkSubmitted.whatNext.3")</p>
+            <p class="govuk-body">@messages("linkSubmitted.whatNext.4")</p>
 
-            <h2 class="heading-medium">@messages("heading.whatNext")</h2>
+            <p class="govuk-body"><a href="@{controllers.propertyLinking.routes.ClaimProperty.show().url + clientParameter}">@messages("link.addAnotherProperty")</a></p>
 
-            <p>@messages("linkSubmitted.whatNext.1")</p>
-            <p>@messages("linkSubmitted.whatNext.2")</p>
-            <p>@messages("linkSubmitted.whatNext.3")</p>
-            <p>@messages("linkSubmitted.whatNext.4")</p>
+            <p class="govuk-body"><a href="@{routes.Dashboard.manageProperties().url + clientParameter}" id="backToDashBoard" class="govuk-button" role="button">@messages("link.manageProperties")</a></p>
 
-            <p><a href="@{controllers.propertyLinking.routes.ClaimProperty.show().url + clientParameter}" class="link">@messages("link.addAnotherProperty")</a></p>
-
-            <p><a href="@{routes.Dashboard.manageProperties().url + clientParameter}" id="backToDashBoard" class="button" role="button">@messages("link.manageProperties")</a></p>
-
-        </div>
-    </div>
 }

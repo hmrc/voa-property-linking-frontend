@@ -19,9 +19,7 @@
 @import controllers.propertyLinking.routes._
 @import helpers._
 @import models.upscan._
-@import uk.gov.hmrc.play.views.html.helpers.form
-@import uk.gov.hmrc.play.views.html.helpers.input
-@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 @(
         submissionId: String,
         errors: List[String] = Nil,
@@ -77,10 +75,8 @@
     <ul class="govuk-list govuk-list--bullet">
         <li id="allowedFileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
     </ul>
-    @form(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
-
+    @FormWithCSRF(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
                     <div id="initiateFields"></div>
-
                         @if(uploadedFiles.size < 1){
                             <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty){govuk-form-group--error}">
                                 <label class="govuk-label" for="newFile">
@@ -124,12 +120,12 @@
                 @FormWithCSRF(action = UploadController.continue(EvidenceChoices.OTHER)) {
 
                     @govukSelect(Select(
-                        id = "evidenceType",
-                        name = "evidenceType",
-                        items = EvidenceType.options.map(item =>
+                        id    = "evidenceType",
+                        name  = "evidenceType",
+                        items = SelectItem() +: EvidenceType.options.map(item =>
                             SelectItem(
                             value = Some(item),
-                            text = messages(s"evidenceType.${item}"),
+                            text  = messages(s"evidenceType.${item}"),
                             selected = formEvidence.data.get("evidenceType").fold(false)(_ == item)
                         )),
                         label = Label(

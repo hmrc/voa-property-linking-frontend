@@ -15,7 +15,9 @@
  *@
 
 @import actions.requests._
+@import actions.requests.CcaWrappedRequestHelper._
 @import actions.propertylinking.requests._
+
 @(content: Html,
         includeGridWrapper: Boolean = false,
         articleClasses: Option[String] = None,
@@ -44,8 +46,13 @@
                     @if(showLogout) {
                         <li><a href="@routes.Dashboard.home()">@messages("link.home")</a><span class="separator"> |</span></li>
                         @requestHeader match {
-                            case request: AuthenticatedRequest[_] => {
+                            case req: CcaWrappedRequest => {
+                                <li><a href="@routes.Dashboard.yourDetails()">
+                                @req.yourDetailsName.getOrElse(Messages("navigation.your.details"))
+                                </a><span class="separator"> |</span> </li>
+                            }
 
+                            case request: AuthenticatedRequest[_] => {
                                 @if(request.individualAccount.details.firstName + " " + request.individualAccount.details.lastName != request.organisationAccount.companyName){
                                     <li><a href="@routes.Dashboard.yourDetails()">
                                         @request.individualAccount.details.firstName @request.individualAccount.details.lastName  - @request.organisationAccount.companyName
@@ -55,10 +62,8 @@
                                         @request.individualAccount.details.firstName @request.individualAccount.details.lastName
                                     </a><span class="separator"> |</span> </li>
                                 }
-
                             }
                             case linkingRequest: LinkingSessionRequest[_] => {
-
                                 @if(linkingRequest.individualAccount.details.firstName + " " + linkingRequest.individualAccount.details.lastName != linkingRequest.groupAccount.companyName){
                                     <li><a href="@routes.Dashboard.yourDetails()">
                                         @linkingRequest.individualAccount.details.firstName @linkingRequest.individualAccount.details.lastName - @linkingRequest.groupAccount.companyName
@@ -68,11 +73,6 @@
                                         @linkingRequest.individualAccount.details.firstName @linkingRequest.individualAccount.details.lastName
                                     </a><span class="separator"> |</span> </li>
                                 }
-                            }
-                            case req: CcaWrappedRequest => {
-                                <li><a href="@routes.Dashboard.yourDetails()">
-                                    @req.yourDetailsName.getOrElse(Messages("navigation.your.details"))
-                                </a><span class="separator"> |</span> </li>
                             }
                             case _ => {}
                         }
