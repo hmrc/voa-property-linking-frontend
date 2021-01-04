@@ -16,7 +16,7 @@
 
 package tests
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{Matchers, OptionValues, WordSpec}
 import utils.FakeObjects
 
-trait BaseUnitSpec extends WordSpec with Matchers with FakeObjects
+trait BaseUnitSpec extends WordSpec with Matchers with OptionValues with FakeObjects

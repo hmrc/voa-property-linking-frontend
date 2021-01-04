@@ -16,9 +16,6 @@
 
 package utils
 
-import java.time.{Instant, LocalDate, LocalDateTime, Month}
-import java.util.UUID
-
 import auth.Principal
 import models._
 import models.assessments.{AssessmentsPageSession, PreviousPage}
@@ -37,6 +34,9 @@ import models.registration._
 import models.searchApi._
 import models.upscan._
 import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole, User}
+
+import java.time.{Instant, LocalDate, LocalDateTime, Month}
+import java.util.UUID
 
 trait FakeObjects {
 
@@ -77,12 +77,25 @@ trait FakeObjects {
   val uploadEvidenceData =
     UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
   val detailedIndividualAccount =
-    DetailedIndividualAccount(ggExternalId, "", 1L, 2L, IndividualDetails("", "", "", "", None, 12))
+    DetailedIndividualAccount(
+      ggExternalId,
+      "",
+      1L,
+      2L,
+      IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12))
   val individualUserDetails: UserDetails = userDetails(AffinityGroup.Individual)
   val orgUserDetails: UserDetails = userDetails(AffinityGroup.Organisation)
 
   def groupAccount(agent: Boolean): GroupAccount =
-    GroupAccount(1L, ggGroupId, ggExternalId, 1, email, phone, isAgent = agent, Some(300L).filter(_ => agent))
+    GroupAccount(
+      id = 1L,
+      groupId = ggGroupId,
+      companyName = ggExternalId,
+      addressId = 1,
+      email = email,
+      phone = phone,
+      isAgent = agent,
+      agentCode = Some(300L).filter(_ => agent))
 
   val groupAccountDetails = GroupAccountDetails(companyName, address, email, email, phone, isAgent = false)
   val testAccounts = Accounts(groupAccount(agent = true), detailedIndividualAccount)
