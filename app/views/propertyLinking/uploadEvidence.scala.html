@@ -1,5 +1,5 @@
 @*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,7 +103,7 @@
                             ))
                         }
 
-                        <div class="message-warning" id="message-warning"><p class="govuk-body">@messages("fileupload.pleaseWait")</p></div>
+                        <div class="message-warning govuk-visually-hidden" id="message-warning"><p class="govuk-body">@messages("fileupload.pleaseWait")</p></div>
                         <table class="govuk-table">
                             <tbody class="govuk-table__body">
                             @uploadedFiles.map { case (fileReference, upload) =>
