@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package form
 
 import java.time.LocalDate
-
 import models.{Address, NamedEnum, NamedEnumSupport}
 import play.api.data.Forms._
 import play.api.data.format.{Formats, Formatter}
@@ -31,23 +30,19 @@ import play.api.data.validation.Constraints._
 import scala.util.Try
 import uk.gov.voa.play.form.ConditionalMappings._
 
+import scala.util.matching.Regex
+
 object Mappings extends DateMappings {
 
   def trueOnly(error: String): Mapping[Boolean] =
     text.verifying(error, _ == "true").transform[Boolean](_.toBoolean, _.toString)
 
-  def line3IsLast(): Condition =
-    data =>
-      (data.getOrElse("address.line3", ""), data.getOrElse("address.line4", "")) match {
-        case (line3, line4) => line3.length > 0 && line4.length == 0
-    }
-
-  def line4IsLast(): Condition = data => data.getOrElse("address.line4", "").length > 0
-
   val mandatoryBoolean: Mapping[Boolean] =
     optional(boolean).verifying("error.boolean", _.isDefined).transform(_.get, Some.apply)
 
   val addressEnteredManually: Condition = paramMap => !paramMap.get("address.addressId").exists(isNumeric)
+  val postcodeRegex: Regex =
+    """^([A-Za-z][A-Za-z]\d\d|[A-Za-z][A-Za-z]\d|[A-Za-z]\d|[A-Za-z]\d\d|[A-Za-z]\d[A-Za-z]|[A-Za-z]{2}\d[A-Za-z]) {0,1}\d[A-Za-z]{2}$|.{0}""".r
 
   val addressMapping: Mapping[Address] = mapping(
     "addressId" -> addressId,
@@ -57,7 +52,13 @@ object Mappings extends DateMappings {
     "line4"     -> text(maxLength = 36),
     "postcode" -> onlyIf(
       addressEnteredManually,
-      text.verifying(nonEmpty, maxLength(8)).transform[String](_.toUpperCase, identity))("")
+      text
+        .verifying(
+          nonEmpty,
+          pattern(postcodeRegex, error = "error.invalidPostcode")
+        )
+        .transform[String](_.toUpperCase, identity)
+    )("")
   )(Address.apply)(Address.unapply).verifying("error.required", address => {
     address.addressUnitId.isDefined || (isNotBlank(address.postcode) && isNotBlank(address.line1))
   })

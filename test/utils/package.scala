@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
  */
 
 import java.time.{Instant, LocalDate, LocalDateTime, ZoneId}
-
 import models._
 import models.domain._
 import models.messages.{Message, MessageSearchResults}
 import models.registration.{AdminOrganisationAccountDetails, IndividualUserAccountDetails}
 import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Gen.{alphaChar, listOf, listOfN}
 import org.scalacheck.{Arbitrary, _}
 
 import scala.language.implicitConversions
@@ -38,9 +38,16 @@ package object utils {
       .choose(0L, Instant.now().toEpochMilli)
       .map(l => Instant.ofEpochMilli(l).atZone(ZoneId.systemDefault).toLocalDate)
 
-  def shortString = Gen.listOfN(20, Gen.alphaChar).map(_.mkString)
+  def shortString = listOfN(20, alphaChar).map(_.mkString)
 
-  private def postcode = Gen.listOfN(8, Gen.alphaChar).map(_.mkString.toUpperCase)
+  val postcodeGen: Gen[String] =
+    for {
+      firstTwoLetters <- listOfN(2, alphaChar)
+      firstNumber     <- listOfN(1, Gen.numChar)
+      space = List(' ')
+      secondNumber   <- listOfN(1, Gen.numChar)
+      lastTwoLetters <- listOfN(2, alphaChar)
+    } yield (firstTwoLetters ++ firstNumber ++ space ++ secondNumber ++ lastTwoLetters).mkString.toUpperCase
 
   def randomEmail = {
     val mailbox: String = shortString
@@ -102,7 +109,7 @@ package object utils {
     line2    <- shortString
     line3    <- shortString
     line4    <- shortString
-    postcode <- postcode
+    postcode <- postcodeGen
   } yield Address(Some(id), line1, line2, line3, line4, postcode)
 
   implicit val arbitraryAddress = Arbitrary(addressGen)
@@ -119,7 +126,7 @@ package object utils {
     doubleDependentLocality   <- shortString
     dependentLocality         <- shortString
     postTown                  <- shortString
-    postcode                  <- postcode
+    postcode                  <- postcodeGen
   } yield
     DetailedAddress(
       Some(addressUnitId),
@@ -141,8 +148,8 @@ package object utils {
   val individualDetailsGen: Gen[IndividualDetails] = for {
     fistName  <- shortString
     lastName  <- shortString
-    phone1    <- Gen.listOfN(8, Gen.numChar)
-    phone2    <- Gen.option(Gen.listOfN(8, Gen.numChar).map(_.mkString))
+    phone1    <- listOfN(8, Gen.numChar)
+    phone2    <- Gen.option(listOfN(8, Gen.numChar).map(_.mkString))
     addressId <- arbitrary[Int]
   } yield IndividualDetails(fistName, lastName, randomEmail, phone1.mkString, phone2, addressId)
   implicit val arbitraryIndividualDetails = Arbitrary(individualDetailsGen)
@@ -161,7 +168,7 @@ package object utils {
     groupId     <- shortString
     companyName <- arbitrary[String]
     addressId   <- arbitrary[Int]
-    phone       <- Gen.listOfN(8, Gen.numChar)
+    phone       <- listOfN(8, Gen.numChar)
     isAgent     <- arbitrary[Boolean]
     agentCode   <- positiveLong
   } yield
@@ -334,8 +341,8 @@ package object utils {
     prefix <- (for {
                prefix1 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'Q', 'U', 'V').contains))
                prefix2 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'O', 'Q', 'U', 'V').contains))
-             } yield (s"$prefix1$prefix2")) retryUntil (!List("BG", "GB", "NK", "KN", "TN", "NT", "ZZ").contains(_))
-    number <- Gen.listOfN(6, Gen.numChar)
+             } yield s"$prefix1$prefix2") retryUntil (!List("BG", "GB", "NK", "KN", "TN", "NT", "ZZ").contains(_))
+    number <- listOfN(6, Gen.numChar)
     suffix <- Gen.oneOf('A' to 'D')
   } yield Nino(s"$prefix${number.mkString}$suffix".grouped(2).mkString(" "))
 
@@ -363,7 +370,7 @@ package object utils {
     dob       <- dateInPast
     nino      <- arbitrary[Nino]
     email = randomEmail
-    phone   <- Gen.listOfN(8, Gen.numChar)
+    phone   <- listOfN(8, Gen.numChar)
     address <- arbitrary[Address]
   } yield PersonalDetails(firstName, lastName, dob, nino, email, email, phone.mkString, None, address)
 
@@ -376,7 +383,7 @@ package object utils {
     companyName <- shortString
     nino        <- arbitrary[Nino]
     email = randomEmail
-    phone   <- Gen.listOfN(8, Gen.numChar)
+    phone   <- listOfN(8, Gen.numChar)
     address <- arbitrary[Address]
     isAgent <- arbitrary[Boolean]
   } yield
@@ -402,7 +409,7 @@ package object utils {
     companyName <- shortString
     nino        <- arbitrary[Nino]
     email = randomEmail
-    phone   <- Gen.listOfN(8, Gen.numChar)
+    phone   <- listOfN(8, Gen.numChar)
     address <- arbitrary[Address]
     isAgent <- arbitrary[Boolean]
   } yield
@@ -512,7 +519,7 @@ package object utils {
     submissionId      <- shortString
     address           <- shortString
     localAuthorityRef <- shortString
-    agents            <- Gen.listOfN(1, arbitrary[OwnerAuthAgent])
+    agents            <- listOfN(1, arbitrary[OwnerAuthAgent])
   } yield {
     OwnerAuthorisation(
       authorisationId = id,
@@ -564,7 +571,7 @@ package object utils {
   val messageSearchResultsGen: Gen[MessageSearchResults] = for {
     start    <- Gen.choose[Int](min = 1, max = 30)
     size     <- Gen.choose[Int](min = start, max = 30)
-    messages <- Gen.listOfN(size, arbitrary[Message])
+    messages <- listOfN(size, arbitrary[Message])
   } yield {
     MessageSearchResults(start = start, size = size, messages = messages)
   }

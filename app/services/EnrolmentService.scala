@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package services
 
 import auditing.AuditingService
 import connectors.{Addresses, TaxEnrolmentConnector}
+import form.Mappings
+import form.Mappings.postcodeRegex
 import models.Address
 import org.apache.commons.lang3.StringUtils.isNotBlank
 import play.api.libs.json.Json
@@ -42,10 +44,13 @@ class EnrolmentService @Inject()(
       Future.successful((): Unit)
     }
 
+    def canEnrol(postcode: String): Boolean =
+      isNotBlank(postcode) && postcodeRegex.pattern.matcher(postcode).matches()
+
     val enrol = for {
       optAddress <- addresses.findById(addressId)
       address    <- getAddress(optAddress)
-      _ <- if (isNotBlank(address.postcode)) taxEnrolmentsConnector.enrol(personId, address.postcode)
+      _ <- if (canEnrol(address.postcode)) taxEnrolmentsConnector.enrol(personId, address.postcode)
           else skipEnrolmentForBlankPostcode
     } yield Success
 
