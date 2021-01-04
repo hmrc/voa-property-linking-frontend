@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -204,7 +204,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       "address.line2"    -> Seq(""),
       "address.line3"    -> Seq(""),
       "address.line4"    -> Seq(""),
-      "address.postcode" -> Seq("12345"),
+      "address.postcode" -> Seq("BN1 2CD"),
       "nino"             -> Seq("AA000001B"),
       "dob.day"          -> Seq("11"),
       "dob.month"        -> Seq("02"),
@@ -238,7 +238,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       "address.line2"          -> Seq(""),
       "address.line3"          -> Seq(""),
       "address.line4"          -> Seq(""),
-      "address.postcode"       -> Seq("post"),
+      "address.postcode"       -> Seq("BN1 2CD"),
       "phone"                  -> Seq("12345"),
       "email"                  -> Seq("x@x.com"),
       "confirmedBusinessEmail" -> Seq("x@x.com"),

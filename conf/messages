@@ -161,6 +161,7 @@ hint.dateOfBirth=For example, 20 3 1976
 hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C.
 error.emailsMustMatch=Email addresses must match. Check them and try again
 error.invalidEmail=Enter a valid email address
+error.invalidPostcode=Enter a real postcode
 error.title=There is a problem
 
 createAccount.p1=You’ll need to provide information about your business in order to complete the registration process.

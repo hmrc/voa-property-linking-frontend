@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -86,7 +86,6 @@ trait ContactDetailsVerification { this: BasicVerification =>
     verifyCharacterLimit(form, validData, s"$field.line2", 36)
     verifyCharacterLimit(form, validData, s"$field.line3", 36)
     verifyCharacterLimit(form, validData, s"$field.line4", 36)
-    verifyCharacterLimit(form, validData, s"$field.postcode", 8)
   }
 }
 trait DateVerification { this: BasicVerification =>
