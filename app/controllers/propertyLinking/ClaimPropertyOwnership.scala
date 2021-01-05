@@ -30,6 +30,7 @@ import controllers._
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import javax.inject.{Inject, Named}
+
 import models.{CapacityDeclaration, _}
 import play.api.Configuration
 import play.api.data.Form
@@ -37,6 +38,7 @@ import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
+import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
@@ -45,114 +47,60 @@ import views.helpers.Errors
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ClaimProperty @Inject()(
+class ClaimPropertyOwnership @Inject()(
       val errorHandler: CustomErrorHandler,
       val submissionIdConnector: SubmissionIdConnector,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       val propertyLinksConnector: PropertyLinkConnector,
+      businessRatesAttachmentService: BusinessRatesAttachmentsService,
       val runModeConfiguration: Configuration,
-      declareCapacityView : views.html.propertyLinking.declareCapacity)(
+      ownershipToPropertyView : views.html.propertyLinking.ownershipToProperty)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  import ClaimProperty._
+  import ClaimPropertyOwnership._
 
-  def show(clientDetails: Option[ClientDetails] = None) = authenticatedAction { implicit request =>
-    val uri = clientDetails match {
-      case Some(client) =>
-        s"search?organisationId=${client.organisationId}&organisationName=${client.organisationName}"
-      case _ => s"search"
-    }
-    Redirect(s"${config.vmvUrl}/$uri")
+  def showOwnership(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
+    val form = request.ses.propertyOwnership.fold(ownershipForm) { ownership => ownershipForm.fillAndValidate(ownership) }
+    Ok(
+      ownershipToPropertyView(
+        ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
+        request.ses.clientDetails,
+        controllers.propertyLinking.routes.ClaimPropertyRelationship.back().url
+      ))
   }
 
-  def checkPropertyLinks() = authenticatedAction.async { implicit request =>
-    val pLinks = propertyLinksConnector
-      .getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(), PaginationParams(1, 20, false))
-
-    pLinks.map { res =>
-      if (res.authorisations.nonEmpty) {
-        Redirect(s"${config.vmvUrl}/search")
-      } else {
-        Ok(views.html.propertyLinking.beforeYouStart())
-      }
-    }
-  }
-
-  def declareCapacity(uarn: Long, address: String, clientDetails: Option[ClientDetails] = None) =
-    authenticatedAction { implicit request =>
-      Ok(
-          declareCapacityView(
-            DeclareCapacityVM(declareCapacityForm, address, uarn),
-            clientDetails = clientDetails,
-            backLink(request)))
-    }
-
-  private def backLink(request: Request[AnyContent]): String = {
-    val link = request.headers.get("referer").getOrElse(config.newDashboardUrl("home"))
-    if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
-  }
-
-  def attemptLink(uarn: Long, address: String, clientDetails: Option[ClientDetails] = None): Action[AnyContent] =
-    authenticatedAction.async { implicit request =>
-      ClaimProperty.declareCapacityForm
+  def submitOwnership(): Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+      ownershipForm
         .bindFromRequest()
         .fold(
           errors =>
             Future.successful(
-              BadRequest(declareCapacityView(DeclareCapacityVM(errors, address, uarn), clientDetails, backLink(request)))),
+              BadRequest(ownershipToPropertyView(ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.uarn), request.ses.clientDetails, controllers.propertyLinking.routes.ClaimPropertyRelationship.back().url))),
           formData =>
-            initialiseSession(formData, uarn, address, clientDetails)
+            businessRatesAttachmentService
+              .persistSessionData(request.ses.copy(propertyOwnership = Some(formData)))
               .map { _ =>
                 Redirect(routes.ChooseEvidence.show())
               }
               .recover {
                 case UpstreamErrorResponse.Upstream5xxResponse(_) =>
                   ServiceUnavailable(views.html.errors.serviceUnavailable())
-            }
+              }
         )
     }
-
-  def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
-    val form = declareCapacityForm
-    Ok(
-        declareCapacityView(
-          DeclareCapacityVM(form, request.ses.address, request.ses.uarn),
-          request.ses.clientDetails,
-          backLink(request)
-        ))
-  }
-
-  private def initialiseSession(
-        declaration: CapacityDeclaration,
-        uarn: Long,
-        address: String,
-        clientDetails: Option[ClientDetails])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
-    for {
-      submissionId <- submissionIdConnector.get()
-      _ <- sessionRepository.start[LinkingSession](
-            LinkingSession(
-              address = address,
-              uarn = uarn,
-              submissionId = submissionId,
-              personId = request.personId,
-              None,
-              None,
-              clientDetails = clientDetails))
-    } yield ()
-
 }
+  
+object ClaimPropertyOwnership {
 
-object ClaimProperty {
-
-  lazy val declareCapacityForm = Form(
+   lazy val ownershipForm = Form(
     mapping(
-      "capacity"             -> EnumMapping(CapacityType),
       "interestedBefore2017" -> mandatoryBoolean,
       "fromDate" -> mandatoryIfFalse(
         "interestedBefore2017",
@@ -164,7 +112,7 @@ object ClaimProperty {
           .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
           .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
       )
-    )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
+    )(PropertyOwnership.apply)(PropertyOwnership.unapply))
 }
 
-case class DeclareCapacityVM(form: Form[_], address: String, uarn: Long)
+case class ClaimPropertyOwnershipVM(form: Form[_], address: String, uarn: Long)

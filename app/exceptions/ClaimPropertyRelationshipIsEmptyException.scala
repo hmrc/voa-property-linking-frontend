@@ -14,22 +14,6 @@
  * limitations under the License.
  */
 
-package models
+package exceptions
 
-import play.api.libs.json.Json
-
-case class LinkingSession(
-      address: String,
-      uarn: Long,
-      submissionId: String,
-      personId: Long,
-      propertyRelationship: Option[PropertyRelationship],
-      propertyOwnership: Option[PropertyOwnership],
-      uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty,
-      evidenceType: Option[EvidenceType] = None,
-      clientDetails: Option[ClientDetails] = None)
-
-object LinkingSession {
-  implicit val format = Json.format[LinkingSession]
-
-}
+case class ClaimPropertyRelationshipIsEmptyException(message: String) extends Exception(message)

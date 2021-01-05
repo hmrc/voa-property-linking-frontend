@@ -19,7 +19,7 @@ package models
 import java.time.LocalDate
 
 import play.api.libs.json.Json
-
+import exceptions._
 case class Capacity(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate])
 
 object Capacity {
@@ -27,6 +27,13 @@ object Capacity {
 
   lazy val defaultFromDate = LocalDate.of(2017, 4, 1)
 
+  def apply(linkingSession: LinkingSession): Capacity =
+    new Capacity(
+      linkingSession.propertyRelationship.map{relationship => relationship.capacity }.getOrElse(throw new ClaimPropertyRelationshipIsEmptyException("property claim relationship should not be empty")),
+      linkingSession.propertyOwnership.flatMap{ownership => ownership.fromDate}.getOrElse(defaultFromDate),
+      linkingSession.propertyOwnership.flatMap{ownership => ownership.toDate})
+
   def fromDeclaration(declaration: CapacityDeclaration) =
     Capacity(declaration.capacity, declaration.fromDate.getOrElse(defaultFromDate), declaration.toDate)
+
 }

@@ -18,11 +18,11 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
-@import controllers.propertyLinking.DeclareCapacityVM
+@import controllers.propertyLinking.ClaimPropertyOwnershipVM
 @import helpers._
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout)
-@(model: DeclareCapacityVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout)
+@(model: ClaimPropertyOwnershipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 @clientId = @{clientDetails.map(_.organisationId)}
 @form = @{model.form}
 @clientSuffix = @{
@@ -71,23 +71,23 @@
             )),
             id = "fromDate",
             items = Seq("day", "month", "year").map {
-                        item =>
-                            InputItem(
-                                id = s"fromDate.$item",
-                                classes = s"govuk-input--width-2${if(form(s"fromDate.$item").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
-                                name =  s"fromDate.$item",
-                                label = Some(messages(s"fromDate.$item.label")),
-                                value = form(s"fromDate.$item").value
-                            )
+                item =>
+                    InputItem(
+                        id = s"fromDate.$item",
+                        classes = s"govuk-input--width-2${if(form(s"fromDate.$item").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                        name =  s"fromDate.$item",
+                        label = Some(messages(s"fromDate.$item.label")),
+                        value = form(s"fromDate.$item").value
+                    )
             },
             errorMessage = getDateFiledErrorMessage
-            ))
+        ))
         @govukDetails(Details(
             summary = Text(messages(s"declareCapacity.details.haveOwned$clientSuffix")),
             content = Text(messages(s"declareCapacity.details.haveOwned.text$clientSuffix"))
-            ))
+        ))
     </div>
-    }
+}
 
 
 @mainLayout(
@@ -104,38 +104,8 @@
     }
 
     <p class="govuk-body">@messages(s"declareCapacity.message$clientSuffix")</p>
-    <p class="govuk-inset-text">Note: @messages("declareCapacity.incorrectProperty.prefix")
-        <a href="@{
-            controllers.propertyLinking.routes.ClaimProperty.show().url + clientParameter
-        }">@messages("declareCapacity.incorrectProperty.link")</a>
-    </p>
 
-    @govukDetails(Details(
-        summary = Text(messages(s"declareCapacity.details.ownerOrOccupier$clientSuffix")),
-        content = HtmlContent(Html(Messages(s"declareCapacity.details.ownerOrOccupier.text$clientSuffix", routes.Application.contactUs())))))
-    @govukDetails(Details(
-        summary = Text(messages(s"declareCapacity.details.notOwner$clientSuffix")),
-        content = HtmlContent(Html(Messages(s"declareCapacity.details.notOwner.text$clientSuffix", routes.Application.contactUs())))))
-
-    @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimProperty.attemptLink(model.uarn, model.address, clientDetails)) {
-        @govukRadios(Radios(
-            fieldset = Some(Fieldset(
-                legend = Some(Legend(
-                    content = Text(messages(s"label.capacity$clientSuffix")),
-                    classes = "govuk-fieldset__legend--l"
-                ))
-            )),
-            idPrefix = Some("capacity"),
-            name = "capacity",
-            items = CapacityType.options.map { item =>
-                RadioItem(
-                    value = Some(item),
-                    content = Text(messages(s"capacity.${item}")),
-                    checked = form.data.get("capacity").fold(false)(_ == item)
-                )
-            },
-            errorMessage =  getFiledErrorMessage("capacity"))
-        )
+    @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimProperty.submitOwnership(model.uarn, model.address, clientDetails)) {
 
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
@@ -189,7 +159,7 @@
             classes = "govuk-radios--inline"
         ))
 
-        @govukButton(Button(content = Text(messages("declareCapacity.submit.button"))))
+        @govukButton(Button(content = Text(messages("label.continue"))))
 
 
     }

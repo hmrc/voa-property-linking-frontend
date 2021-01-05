@@ -16,20 +16,17 @@
 
 package models
 
+import java.time.LocalDate
+
 import play.api.libs.json.Json
 
-case class LinkingSession(
-      address: String,
-      uarn: Long,
-      submissionId: String,
-      personId: Long,
-      propertyRelationship: Option[PropertyRelationship],
-      propertyOwnership: Option[PropertyOwnership],
-      uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty,
-      evidenceType: Option[EvidenceType] = None,
-      clientDetails: Option[ClientDetails] = None)
+case class PropertyOwnership(
+                                interestedBefore2017: Boolean,
+                                fromDate: Option[LocalDate],
+                                stillInterested: Boolean,
+                                toDate: Option[LocalDate] = None
+                              )
 
-object LinkingSession {
-  implicit val format = Json.format[LinkingSession]
-
+object PropertyOwnership {
+  implicit val format = Json.format[PropertyOwnership]
 }

@@ -36,8 +36,8 @@
 
 @mainLayout(
     pageTitle = title,
-    backUri = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url)
-    hasErrors = errors.isEmpty
+    backUri = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url),
+    hasErrors = !errors.isEmpty
 ) {
 
     @if(errors.nonEmpty) {
@@ -55,7 +55,7 @@
     }
     <div id="errorsList"></div>
     <h1 class="govuk-heading-xl">@title</h1>
-    <p class="govuk-body">@messages("uploadFile.allowedTypes.mustbe")</p>
+    <h3 class="govuk-heading-s">@messages("uploadFile.allowedTypes.mustbe")</h3>
 
     <ul class="govuk-list govuk-list--bullet">
         <li id="fileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
@@ -63,7 +63,7 @@
 
 
     @FormWithCSRF(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
-                    <div id="initiateFields"></div>
+                    <div class="govuk-visually-hidden" id="initiateFields"></div>
 
         @if(uploadedFiles.size < 1){
             <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty){govuk-form-group--error}">
@@ -103,21 +103,20 @@
             }
             </tbody>
         </table>
-
     }
     @FormWithCSRF(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
         @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
     }
 
-    <span id="businessRatesAttachmentsRemoveFileURL" class="label-span visuallyhidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/remove?fileReference="}</span>
-    <span id="businessRatesAttachmentsInitiateUploadURL" class="label-span visuallyhidden">@{s"${UploadController.initiate(EvidenceChoices.RATES_BILL)}"}</span>
-    <span id="businessRatesAttachmentsFileUploadURL" class="label-span visuallyhidden">@{s"${UploadController.show(EvidenceChoices.RATES_BILL)}"}</span>
-    <span id="errorsUpscan" class="label-span visuallyhidden">@Html(messages("error.upscan.unavailable"))</span>
-    <span id="errorsFileSizeTooLarge" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
-    <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
-    <span id="errorsBusinessRatesAttachmentUnavailable" class="label-span visuallyhidden">@messages("error.businessRatesAttachment.unavailable")</span>
-    <span id="signInPageUrl" class="label-span visuallyhidden">@{config.basGatewaySignInUrl}</span>
-    <span id="startClaimUrl" class="label-span visuallyhidden">@{ClaimProperty.declareCapacity(linkingSession.uarn, linkingSession.address)}</span>
-    <span id="submissionId" class="label-span visuallyhidden">@submissionId</span>
+    <span id="businessRatesAttachmentsRemoveFileURL" class="govuk-visually-hidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/remove?fileReference="}</span>
+    <span id="businessRatesAttachmentsInitiateUploadURL" class="govuk-visually-hidden">@{s"${UploadController.initiate(EvidenceChoices.RATES_BILL)}"}</span>
+    <span id="businessRatesAttachmentsFileUploadURL" class="govuk-visually-hidden">@{s"${UploadController.show(EvidenceChoices.RATES_BILL)}"}</span>
+    <span id="errorsUpscan" class="govuk-visually-hidden">@Html(messages("error.upscan.unavailable"))</span>
+    <span id="errorsFileSizeTooLarge" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
+    <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
+    <span id="errorsBusinessRatesAttachmentUnavailable" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.unavailable")</span>
+    <span id="signInPageUrl" class="govuk-visually-hidden">@{config.basGatewaySignInUrl}</span>
+    <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimProperty.declareCapacity(linkingSession.uarn, linkingSession.address)}</span>
+    <span id="submissionId" class="govuk-visually-hidden">@submissionId</span>
 
     }

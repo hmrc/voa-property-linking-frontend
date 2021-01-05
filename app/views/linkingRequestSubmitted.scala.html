@@ -39,7 +39,7 @@
     pageTitle = messages("linkingRequestSubmitted.title")
 ) {
     @govukPanel(Panel(
-        title = Text( s"${messages("linkingRequestSubmitted.title1")}${messages(s"linkingRequestSubmitted$clientSuffix.title2")}"),
+        title = Text( s"${messages("linkingRequestSubmitted.title1")} ${model.address.toString} ${messages(s"linkingRequestSubmitted$clientSuffix.title2")}"),
         content = HtmlContent(s"${messages("linkingRequestSubmitted.title3")}<br><strong>${model.refId}</strong>")
     ))
 

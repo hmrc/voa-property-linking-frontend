@@ -42,7 +42,7 @@ object PropertyLinkRequest {
       session.uarn,
       organisationId,
       session.personId,
-      Capacity.fromDeclaration(session.declaration),
+      Capacity(session),
       Instant.now,
       session.uploadEvidenceData.linkBasis,
       session.uploadEvidenceData.fileInfo.toList,

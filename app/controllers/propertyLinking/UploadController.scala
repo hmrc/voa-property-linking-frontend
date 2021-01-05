@@ -35,7 +35,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-import views.html.propertyLinking.{uploadEvidence, uploadRatesBill}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -44,7 +43,9 @@ class UploadController @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       businessRatesAttachmentsService: BusinessRatesAttachmentsService,
+      uploadRatesBillView : views.html.propertyLinking.uploadRatesBill,
       uploadEvidenceView : views.html.propertyLinking.uploadEvidence
+
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -58,7 +59,7 @@ class UploadController @Inject()(
       evidence match {
         case EvidenceChoices.RATES_BILL =>
           Ok(
-            uploadRatesBill(
+            uploadRatesBillView(
               session.submissionId,
               errorMessage.toList,
               session.uploadEvidenceData.attachments.getOrElse(Map.empty),
@@ -123,7 +124,7 @@ class UploadController @Inject()(
             .getOrElse(
               Future.successful(
                 BadRequest(
-                  uploadRatesBill(
+                  uploadRatesBillView(
                     request.ses.submissionId,
                     List("error.businessRatesAttachment.file.not.selected"),
                     Map(),
