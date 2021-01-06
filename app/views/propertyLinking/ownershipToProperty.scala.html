@@ -51,8 +51,16 @@
     }
 }
 
-@getDateFiledErrorMessage = @{
+@getFromDateFiledErrorMessage = @{
     (form.error("fromDate.day"), form.error("fromDate.month"), form.error("fromDate.year")) match
+    {
+        case (None, None, None ) => None
+        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
+    }
+}
+
+@getToDateFiledErrorMessage = @{
+    (form.error("toDate.day"), form.error("toDate.month"), form.error("toDate.year")) match
     {
         case (None, None, None ) => None
         case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
@@ -80,7 +88,7 @@
                         value = form(s"fromDate.$item").value
                     )
             },
-            errorMessage = getDateFiledErrorMessage
+            errorMessage = getFromDateFiledErrorMessage
         ))
         @govukDetails(Details(
             summary = Text(messages(s"declareCapacity.details.haveOwned$clientSuffix")),
@@ -89,6 +97,31 @@
     </div>
 }
 
+@toDateHtml = {
+    <div id="endDate">
+        @govukDateInput(DateInput(
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(messages(s"label.toDate$clientSuffix")),
+                    isPageHeading = true,
+                    classes = "govuk-fieldset__legend--s"
+                ))
+            )),
+            id = "toDate",
+            items = Seq("day", "month", "year").map {
+                item =>
+                    InputItem(
+                        id = s"toDate.$item",
+                        classes = s"govuk-input--width-2${if(form(s"toDate.$item").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                        name =  s"toDate.$item",
+                        label = Some(messages(s"toDate.$item.label")),
+                        value = form(s"toDate.$item").value
+                    )
+            },
+            errorMessage = getToDateFiledErrorMessage
+        ))
+    </div>
+}
 
 @mainLayout(
     pageTitle = messages("declareCapacity.title"),
@@ -105,7 +138,7 @@
 
     <p class="govuk-body">@messages(s"declareCapacity.message$clientSuffix")</p>
 
-    @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimProperty.submitOwnership(model.uarn, model.address, clientDetails)) {
+    @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOwnership.submitOwnership()) {
 
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
@@ -150,6 +183,7 @@
                     checked = form.data.get("stillInterested").fold(false)(_ == "true")
                 ),
                 RadioItem(
+                    conditionalHtml = Some(toDateHtml),
                     content = Text("No"),
                     value = Some("false"),
                     checked = form.data.get("stillInterested").fold(false)(_ == "false")

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,21 +80,24 @@ package object utils {
   val capacityTypeGen: Gen[CapacityType] = Gen.oneOf(Owner, OwnerOccupier, Occupier)
   implicit val arbitratyCapacityType = Arbitrary(capacityTypeGen)
 
-  val capacityDeclarationGen: Gen[CapacityDeclaration] = for {
-    capacity             <- arbitrary[CapacityType]
+  val propertyOwnershipGen: Gen[PropertyOwnership] = for {
     interestedBefore2017 <- arbitrary[Boolean]
     fromDate             <- dateAfterApril2017
     stillInterested      <- arbitrary[Boolean]
     days                 <- Gen.choose(1, 5000)
     toDate = fromDate.plusDays(days)
   } yield
-    CapacityDeclaration(
-      capacity,
+    PropertyOwnership(
       interestedBefore2017,
       if (interestedBefore2017) None else Some(fromDate),
       stillInterested,
       if (stillInterested) None else Some(toDate))
-  implicit val arbitraryCapacityDeclaration = Arbitrary(capacityDeclarationGen)
+  implicit val arbitrarypropertyOwnership = Arbitrary(propertyOwnershipGen)
+
+  val propertyRelationshipGen: Gen[PropertyRelationship] = for {
+    capacity <- arbitrary[CapacityType]
+  } yield PropertyRelationship(capacity)
+  implicit val arbitraryPropertyRelationshipGen = Arbitrary(propertyRelationshipGen)
 
   val addressGen: Gen[Address] = for {
     id       <- arbitrary[Int]
@@ -427,9 +430,10 @@ package object utils {
     envelopeId         <- shortString
     submissionId       <- shortString
     personId           <- positiveLong
-    declaration        <- capacityDeclarationGen
+    relationship       <- propertyRelationshipGen
+    ownership          <- propertyOwnershipGen
     uploadEvidenceData <- Gen.const(UploadEvidenceData.empty)
-  } yield LinkingSession(address, uarn, submissionId, personId, declaration, uploadEvidenceData)
+  } yield LinkingSession(address, uarn, submissionId, personId, Some(relationship), Some(ownership), uploadEvidenceData)
 
   implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)
 

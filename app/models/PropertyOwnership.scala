@@ -21,11 +21,11 @@ import java.time.LocalDate
 import play.api.libs.json.Json
 
 case class PropertyOwnership(
-                                interestedBefore2017: Boolean,
-                                fromDate: Option[LocalDate],
-                                stillInterested: Boolean,
-                                toDate: Option[LocalDate] = None
-                              )
+      interestedBefore2017: Boolean,
+      fromDate: Option[LocalDate],
+      stillInterested: Boolean,
+      toDate: Option[LocalDate] = None
+)
 
 object PropertyOwnership {
   implicit val format = Json.format[PropertyOwnership]

@@ -48,7 +48,7 @@ class Declaration @Inject()(
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
-      declarationView : views.html.propertyLinking.declaration,
+      declarationView: views.html.propertyLinking.declaration,
       linkingRequestSubmittedView: views.html.linkingRequestSubmitted
 )(
       implicit executionContext: ExecutionContext,

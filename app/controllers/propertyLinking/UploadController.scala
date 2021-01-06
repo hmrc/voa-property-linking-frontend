@@ -43,9 +43,8 @@ class UploadController @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       businessRatesAttachmentsService: BusinessRatesAttachmentsService,
-      uploadRatesBillView : views.html.propertyLinking.uploadRatesBill,
-      uploadEvidenceView : views.html.propertyLinking.uploadEvidence
-
+      uploadRatesBillView: views.html.propertyLinking.uploadRatesBill,
+      uploadEvidenceView: views.html.propertyLinking.uploadEvidence
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -83,8 +82,7 @@ class UploadController @Inject()(
     }
 
   def initiate(evidence: EvidenceChoices): Action[JsValue] =
-    authenticatedAction.andThen(withLinkingSession).async(parse.json) {
-      implicit request =>
+    authenticatedAction.andThen(withLinkingSession).async(parse.json) { implicit request =>
       withJsonBody[InitiateAttachmentRequest] { attachmentRequest =>
         businessRatesAttachmentsService
           .initiateAttachmentUpload(InitiateAttachmentPayload(

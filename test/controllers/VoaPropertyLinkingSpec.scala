@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,12 +113,13 @@ trait VoaPropertyLinkingSpec
                 uarn = 1L,
                 submissionId = "PL-123456",
                 personId = 1L,
-                declaration = CapacityDeclaration(
-                  capacity = Owner,
-                  interestedBefore2017 = true,
-                  fromDate = None,
-                  stillInterested = false,
-                  toDate = None),
+                propertyRelationship = Some(PropertyRelationship(Owner)),
+                propertyOwnership = Some(
+                  PropertyOwnership(
+                    interestedBefore2017 = true,
+                    fromDate = None,
+                    stillInterested = false,
+                    toDate = None)),
                 uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
                 evidenceType = Some(RatesBillType),
                 clientDetails = Some(ClientDetails(100, "ABC"))

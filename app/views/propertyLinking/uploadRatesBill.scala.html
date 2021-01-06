@@ -116,7 +116,7 @@
     <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
     <span id="errorsBusinessRatesAttachmentUnavailable" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.unavailable")</span>
     <span id="signInPageUrl" class="govuk-visually-hidden">@{config.basGatewaySignInUrl}</span>
-    <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimProperty.declareCapacity(linkingSession.uarn, linkingSession.address)}</span>
+    <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimPropertyRelationship.submitRelationship(linkingSession.uarn, linkingSession.address)}</span>
     <span id="submissionId" class="govuk-visually-hidden">@submissionId</span>
 
     }

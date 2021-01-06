@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,13 +43,17 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   implicit lazy val hc = HeaderCarrier()
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
-
+  private val mockUploadRatesBillView = mock[views.html.propertyLinking.uploadRatesBill]
+  private val mockUploadEvidenceView = mock[views.html.propertyLinking.uploadEvidence]
   object TestFileUploadController
       extends UploadController(
         mockCustomErrorHandler,
         preAuthenticatedActionBuilders(),
         withLinkingSession,
-        mockBusinessRatesAttachmentService)
+        mockBusinessRatesAttachmentService,
+        mockUploadRatesBillView,
+        mockUploadEvidenceView
+      )
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

@@ -30,7 +30,7 @@ import controllers._
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import javax.inject.{Inject, Named}
-import models.{CapacityDeclaration, _}
+import models._
 import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
@@ -53,7 +53,7 @@ class ClaimPropertyRelationship @Inject()(
       withLinkingSession: WithLinkingSession,
       val propertyLinksConnector: PropertyLinkConnector,
       val runModeConfiguration: Configuration,
-      relationshipToPropertyView : views.html.propertyLinking.relationshipToProperty)(
+      relationshipToPropertyView: views.html.propertyLinking.relationshipToProperty)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -88,16 +88,15 @@ class ClaimPropertyRelationship @Inject()(
     authenticatedAction { implicit request =>
       Ok(
         relationshipToPropertyView(
-            ClaimPropertyRelationshipVM(relationshipForm, address, uarn),
-            clientDetails = clientDetails,
-            backLink(request)))
+          ClaimPropertyRelationshipVM(relationshipForm, address, uarn),
+          clientDetails = clientDetails,
+          backLink(request)))
     }
 
   private def backLink(request: Request[AnyContent]): String = {
     val link = request.headers.get("referer").getOrElse(config.newDashboardUrl("home"))
     if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
   }
-
 
   def submitRelationship(uarn: Long, address: String, clientDetails: Option[ClientDetails] = None): Action[AnyContent] =
     authenticatedAction.async { implicit request =>
@@ -106,7 +105,11 @@ class ClaimPropertyRelationship @Inject()(
         .fold(
           errors =>
             Future.successful(
-              BadRequest(relationshipToPropertyView(ClaimPropertyRelationshipVM(errors, address, uarn), clientDetails, backLink(request)))),
+              BadRequest(
+                relationshipToPropertyView(
+                  ClaimPropertyRelationshipVM(errors, address, uarn),
+                  clientDetails,
+                  backLink(request)))),
           formData =>
             initialiseSession(formData, uarn, address, clientDetails)
               .map { _ =>
@@ -120,31 +123,34 @@ class ClaimPropertyRelationship @Inject()(
     }
 
   def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
-    val form = request.ses.propertyRelationship.fold(relationshipForm) { relationship => relationshipForm.fillAndValidate(relationship) }
+    val form = request.ses.propertyRelationship.fold(relationshipForm) { relationship =>
+      relationshipForm.fillAndValidate(relationship)
+    }
     Ok(
-        relationshipToPropertyView(
-          ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn),
-          request.ses.clientDetails,
-          backLink(request)
-        ))
+      relationshipToPropertyView(
+        ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn),
+        request.ses.clientDetails,
+        backLink(request)
+      ))
   }
 
   private def initialiseSession(
-                                 propertyRelationship: PropertyRelationship,
-                                 uarn: Long,
-                                 address: String,
-                                 clientDetails: Option[ClientDetails])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
+        propertyRelationship: PropertyRelationship,
+        uarn: Long,
+        address: String,
+        clientDetails: Option[ClientDetails])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
       submissionId <- submissionIdConnector.get()
       _ <- sessionRepository.start[LinkingSession](
-        LinkingSession(
-          address = address,
-          uarn = uarn,
-          submissionId = submissionId,
-          personId = request.personId,
-          propertyRelationship = Some(propertyRelationship),
-          None,
-          clientDetails = clientDetails))
+            LinkingSession(
+              address = address,
+              uarn = uarn,
+              submissionId = submissionId,
+              personId = request.personId,
+              propertyRelationship = Some(propertyRelationship),
+              None,
+              clientDetails = clientDetails
+            ))
     } yield ()
 
 }
@@ -152,7 +158,7 @@ class ClaimPropertyRelationship @Inject()(
 object ClaimPropertyRelationship {
   lazy val relationshipForm = Form(
     mapping(
-      "capacity"             -> EnumMapping(CapacityType)
+      "capacity" -> EnumMapping(CapacityType)
     )(PropertyRelationship.apply)(PropertyRelationship.unapply))
 }
 

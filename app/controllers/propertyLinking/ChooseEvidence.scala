@@ -39,7 +39,7 @@ class ChooseEvidence @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
-      chooseEvidenceView : views.html.propertyLinking.chooseEvidence
+      chooseEvidenceView: views.html.propertyLinking.chooseEvidence
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,

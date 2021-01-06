@@ -80,8 +80,7 @@ class BusinessRatesAttachmentsService @Inject()(
     )
   }
 
-  def persistSessionData(linkingSession: LinkingSession)(
-    implicit hc: HeaderCarrier): Future[Unit] =
+  def persistSessionData(linkingSession: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] =
     sessionRepository.saveOrUpdate[LinkingSession](linkingSession)
 
   def persistSessionData(linkingSession: LinkingSession, updatedSessionData: UploadEvidenceData)(

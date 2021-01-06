@@ -31,7 +31,7 @@ import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import javax.inject.{Inject, Named}
 
-import models.{CapacityDeclaration, _}
+import models._
 import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
@@ -56,7 +56,7 @@ class ClaimPropertyOwnership @Inject()(
       val propertyLinksConnector: PropertyLinkConnector,
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
       val runModeConfiguration: Configuration,
-      ownershipToPropertyView : views.html.propertyLinking.ownershipToProperty)(
+      ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -66,7 +66,9 @@ class ClaimPropertyOwnership @Inject()(
   import ClaimPropertyOwnership._
 
   def showOwnership(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
-    val form = request.ses.propertyOwnership.fold(ownershipForm) { ownership => ownershipForm.fillAndValidate(ownership) }
+    val form = request.ses.propertyOwnership.fold(ownershipForm) { ownership =>
+      ownershipForm.fillAndValidate(ownership)
+    }
     Ok(
       ownershipToPropertyView(
         ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
@@ -81,8 +83,11 @@ class ClaimPropertyOwnership @Inject()(
         .bindFromRequest()
         .fold(
           errors =>
-            Future.successful(
-              BadRequest(ownershipToPropertyView(ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.uarn), request.ses.clientDetails, controllers.propertyLinking.routes.ClaimPropertyRelationship.back().url))),
+            Future.successful(BadRequest(ownershipToPropertyView(
+              ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.uarn),
+              request.ses.clientDetails,
+              controllers.propertyLinking.routes.ClaimPropertyRelationship.back().url
+            ))),
           formData =>
             businessRatesAttachmentService
               .persistSessionData(request.ses.copy(propertyOwnership = Some(formData)))
@@ -92,14 +97,14 @@ class ClaimPropertyOwnership @Inject()(
               .recover {
                 case UpstreamErrorResponse.Upstream5xxResponse(_) =>
                   ServiceUnavailable(views.html.errors.serviceUnavailable())
-              }
+            }
         )
     }
 }
-  
+
 object ClaimPropertyOwnership {
 
-   lazy val ownershipForm = Form(
+  lazy val ownershipForm = Form(
     mapping(
       "interestedBefore2017" -> mandatoryBoolean,
       "fromDate" -> mandatoryIfFalse(

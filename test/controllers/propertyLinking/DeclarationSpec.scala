@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,9 @@ import scala.collection.JavaConverters._
 import scala.concurrent.Future
 
 class DeclarationSpec extends VoaPropertyLinkingSpec {
+  implicit val hc = HeaderCarrier()
+  private val mockDeclarationView = mock[views.html.propertyLinking.declaration]
+  private val mockLinkingRequestSubmittedView = mock[views.html.linkingRequestSubmitted]
 
   trait Setup {
     object TestDeclaration
@@ -43,7 +46,9 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
           mockSessionRepo,
           mockBusinessRatesAttachmentService,
           preAuthenticatedActionBuilders(),
-          preEnrichedActionRefiner()
+          preEnrichedActionRefiner(),
+          mockDeclarationView,
+          mockLinkingRequestSubmittedView
         )
 
     lazy val mockSessionRepo = {
@@ -109,7 +114,9 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
       mockSessionRepo,
       mockBusinessRatesAttachmentService,
       preAuthenticatedActionBuilders(),
-      preEnrichedActionRefiner()
+      preEnrichedActionRefiner(),
+      mockDeclarationView,
+      mockLinkingRequestSubmittedView
     )
     val res = testDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER

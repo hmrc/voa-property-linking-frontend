@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,13 @@ package forms
 
 import java.time.LocalDate
 
-import controllers.propertyLinking.ClaimProperty
-import models.{CapacityDeclaration, CapacityType, Occupier}
+import controllers.propertyLinking.ClaimPropertyOwnership
+import models.{CapacityType, PropertyOwnership}
 import org.scalatest.{FlatSpec, MustMatchers}
 import utils.FormBindingVerification._
 import views.helpers.Errors
 
-class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
+class PropertyOwnershipFormSpec extends FlatSpec with MustMatchers {
 
   import TestData._
 
@@ -34,7 +34,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
     mustBindTo(
       form,
       validData,
-      CapacityDeclaration(Occupier, false, Some(LocalDate.of(2017, 4, 20)), false, Some(LocalDate.of(2017, 4, 23))))
+      PropertyOwnership(false, Some(LocalDate.of(2017, 4, 20)), false, Some(LocalDate.of(2017, 4, 23))))
   }
 
   it should "mandate a capacity" in {
@@ -66,7 +66,7 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
       .updated("toDate.day", "19")
       .updated("toDate.month", "4")
       .updated("toDate.year", "2017")
-    mustBindTo(form, data, CapacityDeclaration(Occupier, true, None, false, Some(LocalDate.of(2017, 4, 19))))
+    mustBindTo(form, data, PropertyOwnership(true, None, false, Some(LocalDate.of(2017, 4, 19))))
   }
 
   it should "require end date after 1st April 2017 if the occupation/ownership started before 1st April 2017" in {
@@ -130,9 +130,8 @@ class CapacityDeclarationFormSpec extends FlatSpec with MustMatchers {
   }
 
   object TestData {
-    val form = ClaimProperty.declareCapacityForm
+    val form = ClaimPropertyOwnership.ownershipForm
     val validData = Map(
-      "capacity"             -> Occupier.name,
       "interestedBefore2017" -> "false",
       "fromDate.day"         -> "20",
       "fromDate.month"       -> "4",
