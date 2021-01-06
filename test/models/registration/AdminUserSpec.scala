@@ -101,9 +101,6 @@ class AdminUserSpec extends BaseUnitSpec {
       }
     }
     "ensure 'Is Agent'" should {
-      "is optional" in {
-        verifyOptional(form, validData, keys.isAgent)
-      }
       "is 'true' or 'false'" in {
         verifyBoolean(form, validData, keys.isAgent)
       }
@@ -259,7 +256,7 @@ class AdminUserSpec extends BaseUnitSpec {
       phone = phone,
       email = email,
       confirmedEmail = email,
-      isAgent = Some(false),
+      isAgent = false,
       selectedAddress = None
     )
   }

@@ -397,7 +397,7 @@ package object utils {
       phone.mkString,
       email,
       email,
-      Some(isAgent))
+      isAgent)
 
   implicit val arbitraryEnrolmentOrganisationAccountDetails: Arbitrary[AdminOrganisationAccountDetails] = Arbitrary(
     enrolmentOrgAccountDetailsGen)
