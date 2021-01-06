@@ -131,7 +131,7 @@ trait FakeObjects {
     confirmedEmail = email,
     companyName = "Trading name",
     selectedAddress = None,
-    isAgent = Some(false)
+    isAgent = false
   )
 
   def userDetails(
