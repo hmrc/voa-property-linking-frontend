@@ -437,7 +437,7 @@ propertyRepresentation.table.title.agentName=Agent name
 propertyRepresentation.table.title.remove=Select
 
 #New appoint agent journey
-propertyRepresentation.addAnAgent.title=Add an agent
+propertyRepresentation.addAnAgent.title=Appoint an agent
 
 propertyRepresentation.addAnAgent.question=Agent code
 propertyRepresentation.addAnAgent.caption=You need to ask your agent for their code if you do not have it.
