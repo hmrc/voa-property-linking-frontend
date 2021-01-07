@@ -1309,6 +1309,7 @@ before.you.start.startButton=Start
 app.common.saveAndContinue = Save and continue
 app.common.yes = Yes
 app.common.no = No
+common.titleSuffix=- Valuation Office Agency - GOV.UK
 
 #Registration Failure
 registration.error.title=Registration failed

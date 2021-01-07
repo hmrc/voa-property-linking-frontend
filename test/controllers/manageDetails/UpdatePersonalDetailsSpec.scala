@@ -244,7 +244,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update email"
+    html.title mustBe "Update email - Valuation Office Agency - GOV.UK"
   }
 
   "viewAddress" should "display the users address" in {
@@ -253,7 +253,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update address"
+    html.title mustBe "Update address - Valuation Office Agency - GOV.UK"
   }
 
   "viewPhone" should "display the users phone number" in {
@@ -262,7 +262,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update telephone number"
+    html.title mustBe "Update telephone number - Valuation Office Agency - GOV.UK"
   }
 
   "viewName" should "display the users name" in {
@@ -271,7 +271,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update your name"
+    html.title mustBe "Update your name - Valuation Office Agency - GOV.UK"
   }
 
   "viewMobile" should "display the users name" in {
@@ -280,7 +280,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update mobile number"
+    html.title mustBe "Update mobile number - Valuation Office Agency - GOV.UK"
   }
 
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url

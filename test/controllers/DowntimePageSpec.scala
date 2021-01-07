@@ -33,7 +33,7 @@ class DowntimePageSpec extends VoaPropertyLinkingSpec with AllMocks {
     status(result) mustBe OK
 
     val html = Jsoup.parse(contentAsString(result))
-    html.title mustBe "Service unavailable"
+    html.title mustBe "Service unavailable - Valuation Office Agency - GOV.UK"
 
   }
 

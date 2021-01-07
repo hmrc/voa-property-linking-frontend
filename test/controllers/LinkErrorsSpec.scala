@@ -43,7 +43,7 @@ class LinkErrorsSpec extends VoaPropertyLinkingSpec with AllMocks {
     status(result) mustBe OK
 
     val html = Jsoup.parse(contentAsString(result))
-    html.title mustBe "Property already linked to another customer record"
+    html.title mustBe "Property already linked to another customer record - Valuation Office Agency - GOV.UK"
   }
 
 }
