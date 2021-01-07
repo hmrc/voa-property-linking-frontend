@@ -60,13 +60,14 @@ object AdminUser {
 
   lazy val individual: Form[IndividualUserAccountDetails] = Form(
     mapping(
-      keys.firstName       -> nonEmptyText,
-      keys.lastName        -> nonEmptyText,
-      keys.address         -> addressMapping,
-      keys.dateOfBirth     -> dmyPastDate,
-      keys.nino            -> nino,
-      keys.phone           -> nonEmptyText(maxLength = 15),
-      keys.mobilePhone     -> nonEmptyText(maxLength = 15),
+      keys.firstName   -> nonEmptyText,
+      keys.lastName    -> nonEmptyText,
+      keys.address     -> addressMapping,
+      keys.dateOfBirth -> dmyPastDate,
+      keys.nino        -> nino,
+      keys.phone       -> nonEmptyText(maxLength = 15).verifying("error.invalidPhoneNumber", num => num.forall(_.isDigit)),
+      keys.mobilePhone -> nonEmptyText(maxLength = 15)
+        .verifying("error.invalidPhoneNumber", num => num.forall(_.isDigit)),
       keys.email           -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
       keys.confirmedEmail  -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.tradingName     -> optional(text(maxLength = 45)),
@@ -81,7 +82,7 @@ object AdminUser {
       keys.address                -> addressMapping,
       keys.dateOfBirth            -> dmyPastDate,
       keys.nino                   -> nino,
-      keys.phone                  -> nonEmptyText(maxLength = 15),
+      keys.phone                  -> nonEmptyText(maxLength = 15).verifying("error.invalidPhoneNumber", num => num.forall(_.isDigit)),
       keys.email                  -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
       keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.isAgent                -> mandatoryBoolean,

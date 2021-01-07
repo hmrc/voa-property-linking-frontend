@@ -72,7 +72,7 @@ class AdminUserSpec extends BaseUnitSpec {
         verifyMandatory(form, validData, keys.phone)
       }
       "has maximum length of 15" in {
-        verifyCharacterLimit(form, validData, keys.phone, 15)
+        verifyPhoneCharacterLimit(form, validData, keys.phone, 15)
       }
     }
 
@@ -149,7 +149,7 @@ class AdminUserSpec extends BaseUnitSpec {
         verifyMandatory(form, validData, keys.phone)
       }
       "has maximum length of 15" in {
-        verifyCharacterLimit(form, validData, keys.phone, 15)
+        verifyPhoneCharacterLimit(form, validData, keys.phone, 15)
       }
     }
     "ensure mobile phone" when {
@@ -157,7 +157,7 @@ class AdminUserSpec extends BaseUnitSpec {
         verifyMandatory(form, validData, keys.mobilePhone)
       }
       "has maximum length of 15" in {
-        verifyCharacterLimit(form, validData, keys.mobilePhone, 15)
+        verifyPhoneCharacterLimit(form, validData, keys.mobilePhone, 15)
       }
     }
     "ensure email address" when {

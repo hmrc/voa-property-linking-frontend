@@ -194,6 +194,13 @@ trait BasicVerification extends MustMatchers with AppendedClues with FormCheckin
     mustContainError(f, field, "error.maxLength", Some(Seq(limit)))
   }
 
+  def verifyPhoneCharacterLimit(form: Form[_], validData: Map[String, String], field: String, limit: Int): Unit = {
+    mustBind(form, validData.updated(field, (1 to limit).map(_ => "0").mkString))
+
+    val f = form.bind(validData.updated(field, (1 to limit + 1).map(_ => "1").mkString))
+    mustContainError(f, field, "error.maxLength", Some(Seq(limit)))
+  }
+
   protected def verifyNonEmptyString[T](
         form: Form[T],
         validData: Map[String, String],

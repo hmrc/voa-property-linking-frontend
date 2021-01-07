@@ -163,6 +163,7 @@ error.emailsMustMatch=Email addresses must match. Check them and try again
 error.invalidEmail=Enter a valid email address
 error.invalidPostcode=Enter a real postcode
 error.title=There is a problem
+error.invalidPhoneNumber=Numeric value expected
 
 createAccount.p1=You’ll need to provide information about your business in order to complete the registration process.
 label.createAccount.postcode.help=This should be your preferred postal contact address for your business. <br> <br> You can search for an address in England, Scotland and Wales. If your property is in Northern Ireland or outside of the UK, you’ll need to enter it manually.
