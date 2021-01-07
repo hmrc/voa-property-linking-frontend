@@ -26,10 +26,10 @@ import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.Html
 import repositories.SessionRepo
-import utils._
+import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession}
 
 import scala.concurrent.Future
 
@@ -60,32 +60,36 @@ class ClaimPropertyRelationshipSpec extends VoaPropertyLinkingSpec {
 
   lazy val propertyLinkingConnector = mock[PropertyLinkConnector]
 
-  "The claim property relationship page" should "contain the claim property form" in {
+  "The claim property relationship page" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
+
+    when(mockRelationshipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("claim property relationship page"))
 
     val res = testClaimProperty.showRelationship(positiveLong, shortString)(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-
-    html.mustContainRadioSelect("capacity", CapacityType.options)
+    html.mustContainText("claim property relationship page")
 
   }
 
-  "The claim property relationship page on client behalf" should "contain the claim property form" in {
+  "The claim property relationship page on client behalf" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
+    when(mockRelationshipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("claim property relationship page on client behalf"))
+
     val res = testClaimProperty
-      .submitRelationship(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
+      .showRelationship(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-
-    html.mustContainRadioSelect("capacity", CapacityType.options)
-    html.contain("http://localhost:9542/business-rates-dashboard/home")
+    html.mustContainText("claim property relationship page on client behalf")
   }
 
   it should "contain link back to business-rates-find if thats where the request came from" in {
+
     val res =
       testClaimProperty.showRelationship(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(
         FakeRequest().withHeaders(

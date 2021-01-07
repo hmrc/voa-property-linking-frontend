@@ -42,7 +42,6 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
   }
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
   private val mockChooseEvidencePage = mock[views.html.propertyLinking.chooseEvidence]
-
   private class TestChooseEvidence(withLinkingSession: WithLinkingSession)
       extends ChooseEvidence(
         mockCustomErrorHandler,
