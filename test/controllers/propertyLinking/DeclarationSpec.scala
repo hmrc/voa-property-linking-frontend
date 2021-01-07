@@ -133,7 +133,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
     status(confirmation) mustBe OK
 
     val html = Jsoup.parse(contentAsString(confirmation))
-    html.title mustBe s"We’ve received your request to add the property to your business’s customer record"
+    html.title mustBe s"We’ve received your request to add the property to your business’s customer record - Valuation Office Agency - GOV.UK"
     html.body().text must include("PL-123456")
   }
 
@@ -149,7 +149,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
     status(confirmation) mustBe OK
 
     val html = Jsoup.parse(contentAsString(confirmation))
-    html.title mustBe s"We’ve received your request to add the property to your business’s customer record"
+    html.title mustBe s"We’ve received your request to add the property to your business’s customer record - Valuation Office Agency - GOV.UK"
     html.body().text must include("PL-123456")
   }
 

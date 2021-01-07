@@ -54,8 +54,12 @@
     }
 }
 
+@pageTitle = @{
+    s"$title ${messages("common.titleSuffix")}"
+}
 
-@govuk_wrapper(title = title,
+
+@govuk_wrapper(title = pageTitle,
     mainClass = mainClass,
     bodyClasses = bodyClasses,
     sidebar = sidebar,
