@@ -66,8 +66,7 @@ class ClaimPropertyOwnership @Inject()(
   import ClaimPropertyOwnership._
 
   def showOwnership(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
-    val form = request.ses.propertyOwnership.fold(ownershipForm) {
-      ownership =>
+    val form = request.ses.propertyOwnership.fold(ownershipForm) { ownership =>
       ownershipForm.fillAndValidate(ownership)
     }
     Ok(
