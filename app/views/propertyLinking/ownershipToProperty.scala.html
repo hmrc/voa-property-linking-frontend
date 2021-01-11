@@ -82,7 +82,7 @@
                 item =>
                     InputItem(
                         id = s"fromDate.$item",
-                        classes = s"govuk-input--width-2${if(form(s"fromDate.$item").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                        classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(form(s"fromDate.$item").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
                         name =  s"fromDate.$item",
                         label = Some(messages(s"fromDate.$item.label")),
                         value = form(s"fromDate.$item").value
@@ -112,7 +112,7 @@
                 item =>
                     InputItem(
                         id = s"toDate.$item",
-                        classes = s"govuk-input--width-2${if(form(s"toDate.$item").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                        classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(form(s"toDate.$item").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
                         name =  s"toDate.$item",
                         label = Some(messages(s"toDate.$item.label")),
                         value = form(s"toDate.$item").value

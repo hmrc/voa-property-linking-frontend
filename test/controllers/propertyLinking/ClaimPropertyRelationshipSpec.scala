@@ -108,7 +108,7 @@ class ClaimPropertyRelationshipSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe BAD_REQUEST
   }
 
-  it should "redirect to the claim ownership page on valid submissions" in {
+  it should "redirect to the claim relationship page on valid submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.submitRelationship(positiveLong, shortString)(

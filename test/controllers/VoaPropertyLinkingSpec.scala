@@ -103,9 +103,6 @@ trait VoaPropertyLinkingSpec
             block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = super.invokeBlock(request, block)
     }
 
-
-
-
   def preEnrichedActionRefiner(): WithLinkingSession =
     preEnrichedActionRefiner(UploadEvidenceData(fileInfo = None, attachments = None))
 
