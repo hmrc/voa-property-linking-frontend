@@ -58,16 +58,18 @@ sealed trait AdminUser extends User {
 
 object AdminUser {
 
+  val phoneNumberRegex =
+    "((\\+44\\s?\\(0\\)\\s?\\d{2,4})|(\\+44\\s?(01|02|03|07|08)\\d{2,3})|(\\+44\\s?(1|2|3|7|8)\\d{2,3})|(\\(\\+44\\)\\s?\\d{3,4})|(\\(\\d{5}\\))|((01|02|03|07|08)\\d{2,3})|(\\d{5}))(\\s|-|.)(((\\d{3,4})(\\s|-)(\\d{3,4}))|((\\d{6,7})))"
+
   lazy val individual: Form[IndividualUserAccountDetails] = Form(
     mapping(
-      keys.firstName   -> nonEmptyText,
-      keys.lastName    -> nonEmptyText,
-      keys.address     -> addressMapping,
-      keys.dateOfBirth -> dmyPastDate,
-      keys.nino        -> nino,
-      keys.phone       -> nonEmptyText(maxLength = 15).verifying("error.invalidPhoneNumber", num => num.forall(_.isDigit)),
-      keys.mobilePhone -> nonEmptyText(maxLength = 15)
-        .verifying("error.invalidPhoneNumber", num => num.forall(_.isDigit)),
+      keys.firstName       -> nonEmptyText,
+      keys.lastName        -> nonEmptyText,
+      keys.address         -> addressMapping,
+      keys.dateOfBirth     -> dmyPastDate,
+      keys.nino            -> nino,
+      keys.phone           -> validatePhoneNumber,
+      keys.mobilePhone     -> validatePhoneNumber, //FIXME mobile phone regex
       keys.email           -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
       keys.confirmedEmail  -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.tradingName     -> optional(text(maxLength = 45)),
@@ -82,12 +84,24 @@ object AdminUser {
       keys.address                -> addressMapping,
       keys.dateOfBirth            -> dmyPastDate,
       keys.nino                   -> nino,
-      keys.phone                  -> nonEmptyText(maxLength = 15).verifying("error.invalidPhoneNumber", num => num.forall(_.isDigit)),
+      keys.phone                  -> validatePhoneNumber,
       keys.email                  -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
       keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.isAgent                -> mandatoryBoolean,
       keys.selectedAddress        -> optional(text)
     )(AdminOrganisationAccountDetails.apply)(AdminOrganisationAccountDetails.unapply))
+
+  private def validatePhoneNumber = {
+    def validPhoneNumberLength(num: String) =
+      num.length >= 11 && num.length <= 20
+
+    text
+      .verifying("error.phoneNumber.required", num => num.nonEmpty)
+      .verifying("error.phoneNumber.invalidLength", num => if (num.nonEmpty) validPhoneNumberLength(num) else true)
+      .verifying(
+        "error.phoneNumber.invalidFormat",
+        num => if (num.nonEmpty && validPhoneNumberLength(num)) num.matches(phoneNumberRegex) else true)
+  }
 
   private lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
 

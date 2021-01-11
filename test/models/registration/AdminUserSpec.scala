@@ -68,11 +68,25 @@ class AdminUserSpec extends BaseUnitSpec {
       }
     }
     "ensure phone" when {
+      "is valid with +44" in {
+        verifyMandatory(form, validData.updated(keys.phone, "+44 (0)7591 231 233"), keys.phone)
+      }
       "is mandatory" in {
         verifyMandatory(form, validData, keys.phone)
       }
-      "has maximum length of 15" in {
-        verifyPhoneCharacterLimit(form, validData, keys.phone, 15)
+      "does not accept invalid length" in {
+        val invalid = Seq("0134567", "0123456789", "012345678901234567890123456789")
+        invalid.foreach { phone =>
+          val data = validData.updated(keys.phone, phone)
+          verifyError(form, data, keys.phone, "error.phoneNumber.invalidLength")
+        }
+      }
+      "does not accept invalid format" in {
+        val invalid = Seq("+12345788875", "+01235 456 789", "845 8888 9999")
+        invalid.foreach { phone =>
+          val data = validData.updated(keys.phone, phone)
+          verifyError(form, data, keys.phone, "error.phoneNumber.invalidFormat")
+        }
       }
     }
 
@@ -148,16 +162,27 @@ class AdminUserSpec extends BaseUnitSpec {
       "is mandatory" in {
         verifyMandatory(form, validData, keys.phone)
       }
-      "has maximum length of 15" in {
-        verifyPhoneCharacterLimit(form, validData, keys.phone, 15)
+      "is valid with +44" in {
+        verifyMandatory(form, validData.updated(keys.phone, "+44 07591 231 233"), keys.phone)
+      }
+      "does not accept invalid length" in {
+        val invalid = Seq("0134567", "0123456789", "012345678901234567890123456789")
+        invalid.foreach { phone =>
+          val data = validData.updated(keys.phone, phone)
+          verifyError(form, data, keys.phone, "error.phoneNumber.invalidLength")
+        }
       }
     }
     "ensure mobile phone" when {
       "is mandatory" in {
         verifyMandatory(form, validData, keys.mobilePhone)
       }
-      "has maximum length of 15" in {
-        verifyPhoneCharacterLimit(form, validData, keys.mobilePhone, 15)
+      "does not accept invalid length" in {
+        val invalid = Seq("0134567", "0123456789", "012345678901234567890123456789")
+        invalid.foreach { phone =>
+          val data = validData.updated(keys.phone, phone)
+          verifyError(form, data, keys.phone, "error.phoneNumber.invalidLength")
+        }
       }
     }
     "ensure email address" when {
