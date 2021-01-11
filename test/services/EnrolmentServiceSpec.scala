@@ -36,13 +36,13 @@ class EnrolmentServiceSpec extends ServiceSpec {
 
   "enrol" should " return success with valid details" in {
     when(mockAddresses.findById(any())(any()))
-      .thenReturn(Future.successful(Some(Address(Some(1), "l1", "l2", "", "", "postcode"))))
+      .thenReturn(Future.successful(Some(Address(Some(1), "l1", "l2", "", "", "BN1 2CD"))))
     when(mockTaxEnrolmentConnector.enrol(any(), any())(any(), any()))
       .thenReturn(Future.successful(emptyJsonHttpResponse(204)))
 
     enrolmentService.enrol(1L, 1).futureValue mustBe Success
 
-    verify(mockTaxEnrolmentConnector).enrol(mEq(1L), mEq("postcode"))(any(), any())
+    verify(mockTaxEnrolmentConnector).enrol(mEq(1L), mEq("BN1 2CD"))(any(), any())
   }
 
   "enrol" should " return failure when None is returned for the address" in {
@@ -54,6 +54,16 @@ class EnrolmentServiceSpec extends ServiceSpec {
     reset(mockTaxEnrolmentConnector)
     when(mockAddresses.findById(any())(any()))
       .thenReturn(Future.successful(Some(Address(Some(1), "l1", "l2", "", "", "   "))))
+
+    enrolmentService.enrol(1L, 1).futureValue mustBe Success
+
+    verify(mockTaxEnrolmentConnector, never()).enrol(any(), any())(any(), any())
+  }
+
+  "enrol" should "skip enrolling a user that has an invalid postcode (does not match our postcode regex)" in {
+    reset(mockTaxEnrolmentConnector)
+    when(mockAddresses.findById(any())(any()))
+      .thenReturn(Future.successful(Some(Address(Some(1), "l1", "l2", "", "", "HAPPY POSTCODE"))))
 
     enrolmentService.enrol(1L, 1).futureValue mustBe Success
 

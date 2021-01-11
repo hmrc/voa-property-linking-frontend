@@ -86,7 +86,6 @@ trait ContactDetailsVerification { this: BasicVerification =>
     verifyCharacterLimit(form, validData, s"$field.line2", 36)
     verifyCharacterLimit(form, validData, s"$field.line3", 36)
     verifyCharacterLimit(form, validData, s"$field.line4", 36)
-    verifyCharacterLimit(form, validData, s"$field.postcode", 8)
   }
 }
 trait DateVerification { this: BasicVerification =>

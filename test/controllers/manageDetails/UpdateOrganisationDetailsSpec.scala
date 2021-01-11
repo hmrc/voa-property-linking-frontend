@@ -186,7 +186,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update business name"
+    html.title mustBe "Update business name - Valuation Office Agency - GOV.UK"
   }
 
   "viewBusinessAddress" should "display the business address" in new Setup {
@@ -195,7 +195,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update business address"
+    html.title mustBe "Update business address - Valuation Office Agency - GOV.UK"
   }
 
   "viewBusinessPhone" should "display the business phone number" in new Setup {
@@ -204,7 +204,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update business telephone number"
+    html.title mustBe "Update business telephone number - Valuation Office Agency - GOV.UK"
   }
 
   "viewBusinessEmail" should "display the users email" in new Setup {
@@ -213,7 +213,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update business email"
+    html.title mustBe "Update business email - Valuation Office Agency - GOV.UK"
   }
 
   trait Setup {

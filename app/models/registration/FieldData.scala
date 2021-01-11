@@ -28,7 +28,7 @@ case class FieldData(
       businessName: String = "",
       businessPhoneNumber: String = "",
       businessAddress: Address = Address.empty,
-      isAgent: Option[Boolean] = None,
+      isAgent: Boolean = false,
       nino: String = "",
       dob: Option[LocalDate] = None,
       mobilePhone: String = "",
@@ -47,7 +47,7 @@ object FieldData {
       businessName = "",
       businessPhoneNumber = "",
       businessAddress = Address(None, "", "", "", "", ""),
-      isAgent = None
+      isAgent = false
     )
   }
 
@@ -63,7 +63,7 @@ object FieldData {
       nino = personDetails.nino.nino,
       dob = Some(personDetails.dob),
       mobilePhone = personDetails.mobilePhone,
-      isAgent = None,
+      isAgent = false,
       selectedAddress = personDetails.selectedAddress
     )
 
@@ -87,13 +87,15 @@ object FieldData {
       firstName = personDetails.firstName,
       lastName = personDetails.lastName,
       nino = personDetails.nino.nino,
-      dob = Some(personDetails.dob)
+      dob = Some(personDetails.dob),
+      isAgent = false
     )
 
   def apply(personDetails: AssistantUserAccountDetails) =
     new FieldData(
       firstName = personDetails.firstName,
-      lastName = personDetails.lastName
+      lastName = personDetails.lastName,
+      isAgent = false
     )
 
 }

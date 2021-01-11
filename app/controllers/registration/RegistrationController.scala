@@ -212,7 +212,7 @@ class RegistrationController @Inject()(
         email = acc.email,
         businessName = acc.companyName,
         businessPhoneNumber = acc.phone,
-        isAgent = Some(acc.isAgent)
+        isAgent = acc.isAgent
       )
     }).value
 }
