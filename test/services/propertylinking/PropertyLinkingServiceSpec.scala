@@ -41,18 +41,16 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
   val clientId = 100
   val mockPropertyLinkRequest = mock[PropertyLinkRequest]
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
+
   implicit def linkingSessionRequest(clientDetails: Option[ClientDetails] = None) = LinkingSessionRequest(
     LinkingSession(
       address = "",
       uarn = 1L,
       submissionId = "PL-123456",
       personId = 1L,
-      declaration = CapacityDeclaration(
-        capacity = Owner,
-        interestedBefore2017 = true,
-        fromDate = None,
-        stillInterested = false,
-        toDate = None),
+      propertyRelationship = Some(PropertyRelationship(Owner)),
+      propertyOwnership =
+        Some(PropertyOwnership(interestedBefore2017 = true, fromDate = None, stillInterested = false, toDate = None)),
       uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
       evidenceType = Some(RatesBillType),
       clientDetails = clientDetails

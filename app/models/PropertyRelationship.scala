@@ -16,18 +16,11 @@
 
 package models
 
-import java.time.LocalDate
-
 import play.api.libs.json.Json
-
-case class CapacityDeclaration(
-      capacity: CapacityType,
-      interestedBefore2017: Boolean,
-      fromDate: Option[LocalDate],
-      stillInterested: Boolean,
-      toDate: Option[LocalDate] = None
+case class PropertyRelationship(
+      capacity: CapacityType
 )
 
-object CapacityDeclaration {
-  implicit val format = Json.format[CapacityDeclaration]
+object PropertyRelationship {
+  implicit val format = Json.format[PropertyRelationship]
 }

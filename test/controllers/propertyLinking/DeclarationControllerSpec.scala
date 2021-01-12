@@ -24,6 +24,7 @@ import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.Html
 import repositories.SessionRepo
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
@@ -33,17 +34,22 @@ import utils.{HtmlPage, _}
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
 
-class DeclarationSpec extends VoaPropertyLinkingSpec {
+class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
+  implicit val hc = HeaderCarrier()
+  private val mockDeclarationView = mock[views.html.propertyLinking.declaration]
+  private val mockLinkingRequestSubmittedView = mock[views.html.linkingRequestSubmitted]
 
   trait Setup {
     object TestDeclaration
-        extends Declaration(
+        extends DeclarationController(
           mockCustomErrorHandler,
           mockPropertyLinkingService,
           mockSessionRepo,
           mockBusinessRatesAttachmentService,
           preAuthenticatedActionBuilders(),
-          preEnrichedActionRefiner()
+          preEnrichedActionRefiner(),
+          mockDeclarationView,
+          mockLinkingRequestSubmittedView
         )
 
     lazy val mockSessionRepo = {
@@ -59,33 +65,33 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
     lazy val envelopeId: String = shortString
   }
 
-  "The declaration page" should "include a checkbox to allow the user to accept the declaration" in new Setup {
+  "The declaration page" should "return valid page" in new Setup {
+
+    when(mockDeclarationView.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("The declaration page"))
     val res = TestDeclaration.show()(FakeRequest())
     status(res) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(res))
-    html.select("input[type=checkbox]").asScala.map(_.id) must contain("declaration")
+    val html = HtmlPage(res)
+    html.mustContainText("The declaration page")
   }
 
   it should "require the user to accept the declaration to continue" in new Setup {
 
     val res = TestDeclaration.submit()(FakeRequest())
     status(res) mustBe BAD_REQUEST
-
-    val html = HtmlPage(res)
-    html.mustContainSummaryErrors(("declaration", "Declaration", "You must agree to the declaration to continue"))
   }
 
   it should "require the user to wait until evidence receipt received" in new Setup {
 
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.apply[Future, AttachmentException, Unit](Future.successful(Left(NotAllFilesReadyToUpload))))
-
+    when(mockDeclarationView.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("please try again in a moment"))
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.mustContainSummaryErrors(("declaration", "Declaration", "please try again in a moment"))
+    html.mustContainText("please try again in a moment")
   }
 
   it should "submit the property link if the user accepts the declaration" in new Setup {
@@ -94,7 +100,7 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
+    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation().url)
 
     verify(mockPropertyLinkingService, times(1)).submit(any(), any())(any(), any[HeaderCarrier])
   }
@@ -103,17 +109,19 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
-    val testDeclaration = new Declaration(
+    val testDeclaration = new DeclarationController(
       mockCustomErrorHandler,
       mockPropertyLinkingService,
       mockSessionRepo,
       mockBusinessRatesAttachmentService,
       preAuthenticatedActionBuilders(),
-      preEnrichedActionRefiner()
+      preEnrichedActionRefiner(),
+      mockDeclarationView,
+      mockLinkingRequestSubmittedView
     )
     val res = testDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
+    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation().url)
 
     verify(mockPropertyLinkingService, times(1)).submit(any(), any())(any(), any[HeaderCarrier])
   }
@@ -124,39 +132,41 @@ class DeclarationSpec extends VoaPropertyLinkingSpec {
 
     when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any(), any[HeaderCarrier]))
       .thenReturn(Future.successful(attachment))
+    when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
+      .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
+    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation().url)
 
     val confirmation = TestDeclaration.confirmation()(FakeRequest())
     status(confirmation) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(confirmation))
-    html.title mustBe s"We’ve received your request to add the property to your business’s customer record - Valuation Office Agency - GOV.UK"
-    html.body().text must include("PL-123456")
+    val html = HtmlPage(confirmation)
+    html.mustContainText("We’ve received your request to add the property to your business’s customer record")
   }
 
   it should "display the normal confirmation page when the user has uploaded other evidence" in new Setup {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
+    when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
+      .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.Declaration.confirmation().url)
+    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation().url)
 
     val confirmation = TestDeclaration.confirmation()(FakeRequest())
     status(confirmation) mustBe OK
-
-    val html = Jsoup.parse(contentAsString(confirmation))
-    html.title mustBe s"We’ve received your request to add the property to your business’s customer record - Valuation Office Agency - GOV.UK"
-    html.body().text must include("PL-123456")
+    val html = HtmlPage(confirmation)
+    html.mustContainText("We’ve received your request to add the property to your business’s customer record")
   }
 
   "The confirmation page" should "display the submission ID" in new Setup {
 
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
+    when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
+      .thenReturn(Html("PL-123456"))
 
     val res = TestDeclaration.confirmation()(FakeRequest())
     status(res) mustBe OK

@@ -24,8 +24,9 @@ import actions.propertylinking.requests.LinkingSessionRequest
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
 import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import actions.requests.BasicAuthenticatedRequest
+import akka.stream.Materializer
 import config.ApplicationConfig
-import models._
+import models.{UploadEvidenceData, _}
 import models.registration.{User, UserDetails}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{Millis, Seconds, Span}
@@ -59,6 +60,7 @@ trait VoaPropertyLinkingSpec
   implicit val clock: Clock = Clock.fixed(Instant.now(), ZoneId.systemDefault())
 
   override implicit lazy val applicationConfig: ApplicationConfig = app.injector.instanceOf[ApplicationConfig]
+  implicit def materializer: Materializer = app.injector.instanceOf[Materializer]
 
   def preAuthenticatedActionBuilders(
         userIsAgent: Boolean = true
@@ -102,6 +104,9 @@ trait VoaPropertyLinkingSpec
     }
 
   def preEnrichedActionRefiner(): WithLinkingSession =
+    preEnrichedActionRefiner(UploadEvidenceData(fileInfo = None, attachments = None))
+
+  def preEnrichedActionRefiner(evidenceData: UploadEvidenceData): WithLinkingSession =
     new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
 
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
@@ -109,17 +114,18 @@ trait VoaPropertyLinkingSpec
           Right(
             LinkingSessionRequest[A](
               LinkingSession(
-                address = "",
+                address = "LS",
                 uarn = 1L,
                 submissionId = "PL-123456",
                 personId = 1L,
-                declaration = CapacityDeclaration(
-                  capacity = Owner,
-                  interestedBefore2017 = true,
-                  fromDate = None,
-                  stillInterested = false,
-                  toDate = None),
-                uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+                propertyRelationship = Some(PropertyRelationship(Owner)),
+                propertyOwnership = Some(
+                  PropertyOwnership(
+                    interestedBefore2017 = true,
+                    fromDate = None,
+                    stillInterested = false,
+                    toDate = None)),
+                uploadEvidenceData = evidenceData,
                 evidenceType = Some(RatesBillType),
                 clientDetails = Some(ClientDetails(100, "ABC"))
               ),

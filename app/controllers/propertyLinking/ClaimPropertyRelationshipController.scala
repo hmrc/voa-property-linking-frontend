@@ -30,7 +30,7 @@ import controllers._
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
 import javax.inject.{Inject, Named}
-import models.{CapacityDeclaration, _}
+import models._
 import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
@@ -45,22 +45,22 @@ import views.helpers.Errors
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ClaimProperty @Inject()(
+class ClaimPropertyRelationshipController @Inject()(
       val errorHandler: CustomErrorHandler,
       val submissionIdConnector: SubmissionIdConnector,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       val propertyLinksConnector: PropertyLinkConnector,
-      val runModeConfiguration: Configuration
-)(
+      val runModeConfiguration: Configuration,
+      relationshipToPropertyView: views.html.propertyLinking.relationshipToProperty)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  import ClaimProperty._
+  import ClaimPropertyRelationship._
 
   def show(clientDetails: Option[ClientDetails] = None) = authenticatedAction { implicit request =>
     val uri = clientDetails match {
@@ -84,14 +84,13 @@ class ClaimProperty @Inject()(
     }
   }
 
-  def declareCapacity(uarn: Long, address: String, clientDetails: Option[ClientDetails] = None) =
+  def showRelationship(uarn: Long, address: String, clientDetails: Option[ClientDetails] = None) =
     authenticatedAction { implicit request =>
       Ok(
-        views.html.propertyLinking
-          .declareCapacity(
-            DeclareCapacityVM(declareCapacityForm, address, uarn),
-            clientDetails = clientDetails,
-            backLink(request)))
+        relationshipToPropertyView(
+          ClaimPropertyRelationshipVM(relationshipForm, address, uarn),
+          clientDetails = clientDetails,
+          backLink(request)))
     }
 
   private def backLink(request: Request[AnyContent]): String = {
@@ -99,19 +98,22 @@ class ClaimProperty @Inject()(
     if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
   }
 
-  def attemptLink(uarn: Long, address: String, clientDetails: Option[ClientDetails] = None): Action[AnyContent] =
+  def submitRelationship(uarn: Long, address: String, clientDetails: Option[ClientDetails] = None): Action[AnyContent] =
     authenticatedAction.async { implicit request =>
-      ClaimProperty.declareCapacityForm
+      relationshipForm
         .bindFromRequest()
         .fold(
           errors =>
             Future.successful(
-              BadRequest(views.html.propertyLinking
-                .declareCapacity(DeclareCapacityVM(errors, address, uarn), clientDetails, backLink(request)))),
+              BadRequest(
+                relationshipToPropertyView(
+                  ClaimPropertyRelationshipVM(errors, address, uarn),
+                  clientDetails,
+                  backLink(request)))),
           formData =>
             initialiseSession(formData, uarn, address, clientDetails)
               .map { _ =>
-                Redirect(routes.ChooseEvidence.show())
+                Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
               }
               .recover {
                 case UpstreamErrorResponse.Upstream5xxResponse(_) =>
@@ -121,18 +123,19 @@ class ClaimProperty @Inject()(
     }
 
   def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
-    val form = declareCapacityForm.fillAndValidate(request.ses.declaration)
+    val form = request.ses.propertyRelationship.fold(relationshipForm) { relationship =>
+      relationshipForm.fillAndValidate(relationship)
+    }
     Ok(
-      views.html.propertyLinking
-        .declareCapacity(
-          DeclareCapacityVM(form, request.ses.address, request.ses.uarn),
-          request.ses.clientDetails,
-          backLink(request)
-        ))
+      relationshipToPropertyView(
+        ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn),
+        request.ses.clientDetails,
+        backLink(request)
+      ))
   }
 
   private def initialiseSession(
-        declaration: CapacityDeclaration,
+        propertyRelationship: PropertyRelationship,
         uarn: Long,
         address: String,
         clientDetails: Option[ClientDetails])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
@@ -144,29 +147,19 @@ class ClaimProperty @Inject()(
               uarn = uarn,
               submissionId = submissionId,
               personId = request.personId,
-              declaration = declaration,
-              clientDetails = clientDetails))
+              propertyRelationship = Some(propertyRelationship),
+              None,
+              clientDetails = clientDetails
+            ))
     } yield ()
 
 }
 
-object ClaimProperty {
-
-  lazy val declareCapacityForm = Form(
+object ClaimPropertyRelationship {
+  lazy val relationshipForm = Form(
     mapping(
-      "capacity"             -> EnumMapping(CapacityType),
-      "interestedBefore2017" -> mandatoryBoolean,
-      "fromDate" -> mandatoryIfFalse(
-        "interestedBefore2017",
-        dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))),
-      "stillInterested" -> mandatoryBoolean,
-      "toDate" -> mandatoryIfFalse(
-        "stillInterested",
-        ConditionalDateAfter("interestedBefore2017", "fromDate")
-          .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
-          .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
-      )
-    )(CapacityDeclaration.apply)(CapacityDeclaration.unapply))
+      "capacity" -> EnumMapping(CapacityType)
+    )(PropertyRelationship.apply)(PropertyRelationship.unapply))
 }
 
-case class DeclareCapacityVM(form: Form[_], address: String, uarn: Long)
+case class ClaimPropertyRelationshipVM(form: Form[_], address: String, uarn: Long)

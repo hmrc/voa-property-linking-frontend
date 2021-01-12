@@ -25,6 +25,7 @@ import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.Html
 import repositories.SessionRepo
 import utils._
 import services.BusinessRatesAttachmentsService
@@ -33,7 +34,7 @@ import utils.HtmlPage
 
 import scala.concurrent.Future
 
-class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
+class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
@@ -41,13 +42,14 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
     f
   }
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
-
+  private val mockChooseEvidencePage = mock[views.html.propertyLinking.chooseEvidence]
   private class TestChooseEvidence(withLinkingSession: WithLinkingSession)
-      extends ChooseEvidence(
+      extends ChooseEvidenceController(
         mockCustomErrorHandler,
         preAuthenticatedActionBuilders(),
         preEnrichedActionRefiner(),
-        mockBusinessRatesAttachmentService) {
+        mockBusinessRatesAttachmentService,
+        mockChooseEvidencePage) {
     val property = testProperty
   }
 
@@ -60,25 +62,27 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
   "The choose evidence page" must "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
+    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
+      .thenReturn(Html("The choose evidence page"))
 
     val res = testChooseEvidence.show()(request)
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-    html.mustContainRadioSelect("hasRatesBill", Seq("true", "false"))
+    html.mustContainText("The choose evidence page")
   }
 
   it must "require the user to select whether they have a rates bill" in {
-
+    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
+      .thenReturn(Html("require the user to select whether they have a rates bill"))
     val res = testChooseEvidence.submit()(request)
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.mustContainFieldErrors("hasRatesBill" -> "Please select an option")
+    html.mustContainText("require the user to select whether they have a rates bill")
   }
 
   it must "redirect to the rates bill upload page if the user has a rates bill" in {
-
     val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)

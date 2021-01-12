@@ -14,46 +14,57 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.play.views.html.helpers.form
-@import helpers._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout)
 
-@(f: Form[_], clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[_], clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{clientDetails.map(_.organisationId) match {
     case Some(id)   => {messages("chooseEvidence.client.title")}
     case _          => {messages("chooseEvidence.title")}
 }}
-    @main_template(title,
-        topBackLink = true,
-        bottomBackLink = true,
-        backLinkUrl = Some(controllers.propertyLinking.routes.ClaimProperty.back().url)
-    ){
-        <div class="grid-row">
-            <div class="column-two-thirds">
 
-                <h1 class="heading-xlarge">@title</h1>
+@mainLayout(
+    pageTitle = messages("declaration.title"),
+    backUri = Some(controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url),
+    hasErrors = form.hasErrors
+) {
 
-                @form(controllers.propertyLinking.routes.ChooseEvidence.submit) {
+                @FormWithCSRF(action = controllers.propertyLinking.routes.ChooseEvidenceController.submit) {
 
-                    @includes.errorSummary(f)
+                    @if(form.errors.nonEmpty) {
+                        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+                    }
+                    @govukRadios(Radios(
+                        fieldset = Some(Fieldset(
+                            legend = Some(Legend(
+                                content = Text(messages(s"label.hasRatesBill")),
+                                classes = "govuk-fieldset__legend--l",
+                                isPageHeading = true
+                            ))
+                        )),
+                        hint = Some(Hint(Some(messages("label.ratesBill.help")))),
+                        name = "hasRatesBill",
+                        items = Seq(
+                            RadioItem(
+                                content = Text(messages("hasRatesBill.true")),
+                                value = Some("true"),
+                                checked = form.data.get("hasRatesBill").fold(false)(_ == "true")
+                            ),
+                            RadioItem(
+                                content = Text(messages("hasRatesBill.false")),
+                                value = Some("false"),
+                                checked = form.data.get("hasRatesBill").fold(false)(_ == "false")
+                            )
+                        ),
+                        errorMessage =  { form.error("hasRatesBill").map{ error =>
+                            ErrorMessage(content = Text(messages(error.message)))
+                        }},
+                        classes = "govuk-radios--inline"
+                    ))
 
-                    @inputRadioGroup(
-                        f("hasRatesBill"),
-                        options = Seq("true", "false"),
-                        args = Seq(
-                            '_label -> Messages("label.hasRatesBill"),
-                            '_labelClass -> "form-label-bold",
-                            '_legend -> true,
-                            '_help -> Messages("label.ratesBill.help")
-                        )
-                    )
-
-                <p>
-                    <button type="submit" id="continue" class="button">@messages("label.continue")</button>
-                </p>
+                    @govukButton(Button(content = Text(messages("label.continue"))))
                 }
-
-            </div>
-        </div>
     }

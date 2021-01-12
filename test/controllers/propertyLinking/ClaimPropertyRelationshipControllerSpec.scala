@@ -26,23 +26,26 @@ import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.Html
 import repositories.SessionRepo
-import utils._
+import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession}
 
 import scala.concurrent.Future
 
-class ClaimPropertySpec extends VoaPropertyLinkingSpec {
+class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
-  private lazy val testClaimProperty = new ClaimProperty(
+  implicit val hc = HeaderCarrier()
+  private val mockRelationshipToPropertyPage = mock[views.html.propertyLinking.relationshipToProperty]
+  private lazy val testClaimProperty = new ClaimPropertyRelationshipController(
     mockCustomErrorHandler,
     StubSubmissionIdConnector,
     mockSessionRepo,
     preAuthenticatedActionBuilders(),
     new StubWithLinkingSession(mock[SessionRepo]),
     propertyLinkingConnector,
-    configuration
+    configuration,
+    mockRelationshipToPropertyPage
   )
 
   lazy val submissionId: String = shortString
@@ -57,45 +60,38 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec {
 
   lazy val propertyLinkingConnector = mock[PropertyLinkConnector]
 
-  implicit val hc = HeaderCarrier()
-
-  "The claim property page" should "contain the claim property form" in {
+  "The claim property relationship page" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = testClaimProperty.declareCapacity(positiveLong, shortString)(FakeRequest())
+    when(mockRelationshipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("claim property relationship page"))
+
+    val res = testClaimProperty.showRelationship(positiveLong, shortString)(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
+    html.mustContainText("claim property relationship page")
 
-    html.mustContainRadioSelect("capacity", CapacityType.options)
-    html.mustContainRadioSelect("interestedBefore2017", Seq("true", "false"))
-    html.mustContainDateSelect("fromDate")
-    html.mustContainRadioSelect("stillInterested", Seq("true", "false"))
-    html.mustContainDateSelect("toDate")
-    html.contain("http://localhost:9542/business-rates-dashboard/home")
   }
 
-  "The claim property page on client behalf" should "contain the claim property form" in {
+  "The claim property relationship page on client behalf" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
+    when(mockRelationshipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("claim property relationship page on client behalf"))
+
     val res = testClaimProperty
-      .declareCapacity(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
+      .showRelationship(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-
-    html.mustContainRadioSelect("capacity", CapacityType.options)
-    html.mustContainRadioSelect("interestedBefore2017", Seq("true", "false"))
-    html.mustContainDateSelect("fromDate")
-    html.mustContainRadioSelect("stillInterested", Seq("true", "false"))
-    html.mustContainDateSelect("toDate")
-
-    html.contain("http://localhost:9542/business-rates-dashboard/home")
+    html.mustContainText("claim property relationship page on client behalf")
   }
 
   it should "contain link back to business-rates-find if thats where the request came from" in {
+
     val res =
-      testClaimProperty.declareCapacity(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(
+      testClaimProperty.showRelationship(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(
         FakeRequest().withHeaders(
           ("referer", "http://localhost:9542/business-rates-find/summary/10361354?uarn=156039182")))
     status(res) mustBe OK
@@ -108,21 +104,19 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec {
   it should "reject invalid form submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = testClaimProperty.attemptLink(positiveLong, shortString)(FakeRequest())
+    val res = testClaimProperty.submitRelationship(positiveLong, shortString)(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
-  it should "redirect to the choose evidence page on valid submissions" in {
+  it should "redirect to the claim relationship page on valid submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = testClaimProperty.attemptLink(positiveLong, shortString)(
+    val res = testClaimProperty.submitRelationship(positiveLong, shortString)(
       FakeRequest().withFormUrlEncodedBody(
-        "capacity"             -> "OWNER",
-        "interestedBefore2017" -> "true",
-        "stillInterested"      -> "true"
+        "capacity" -> "OWNER"
       ))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.ChooseEvidence.show.url)
+    redirectLocation(res) mustBe Some(routes.ClaimPropertyOwnershipController.showOwnership.url)
   }
 
   it should "initialise the linking session on submission" in {
@@ -131,20 +125,9 @@ class ClaimPropertySpec extends VoaPropertyLinkingSpec {
     val uarn: Long = positiveLong
     val address: String = shortString
 
-    val declaration: CapacityDeclaration =
-      CapacityDeclaration(Owner, false, Some(LocalDate.of(2017, 4, 2)), false, Some(LocalDate.of(2017, 4, 5)))
-
-    val res = testClaimProperty.attemptLink(uarn, address)(
+    val res = testClaimProperty.submitRelationship(uarn, address)(
       FakeRequest().withFormUrlEncodedBody(
-        "capacity"             -> declaration.capacity.toString,
-        "interestedBefore2017" -> declaration.interestedBefore2017.toString,
-        "fromDate.year"        -> declaration.fromDate.fold("")(_.getYear.toString),
-        "fromDate.month"       -> declaration.fromDate.fold("")(_.getMonthValue.toString),
-        "fromDate.day"         -> declaration.fromDate.fold("")(_.getDayOfMonth.toString),
-        "stillInterested"      -> declaration.stillInterested.toString,
-        "toDate.year"          -> declaration.fromDate.fold("")(_.getYear.toString),
-        "toDate.month"         -> declaration.toDate.fold("")(_.getMonthValue.toString),
-        "toDate.day"           -> declaration.toDate.fold("")(_.getDayOfMonth.toString)
+        "capacity" -> Owner.toString
       ))
 
     status(res) mustBe SEE_OTHER

@@ -14,22 +14,6 @@
  * limitations under the License.
  */
 
-package models
+package exceptions
 
-import org.scalatest.{FlatSpec, MustMatchers}
-import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
-import utils._
-
-class CapacitySpec extends FlatSpec with MustMatchers with ScalaCheckDrivenPropertyChecks {
-  "Capacity" must "create from CapacityDeclaration" in {
-    forAll({ declaration: CapacityDeclaration =>
-      {
-        val capacity = Capacity.fromDeclaration(declaration)
-        (capacity match {
-          case c: Capacity => true
-          case _           => false
-        }) must be(true)
-      }
-    })
-  }
-}
+case class PropertyRelationshipException(message: String) extends Exception(message)
