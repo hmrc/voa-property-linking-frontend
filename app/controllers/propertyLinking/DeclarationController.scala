@@ -41,7 +41,7 @@ import views.html.propertyLinking.declaration
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class Declaration @Inject()(
+class DeclarationController @Inject()(
       val errorHandler: CustomErrorHandler,
       propertyLinkService: PropertyLinkingService,
       @Named("propertyLinkingSession") sessionRepository: SessionRepo,
@@ -101,10 +101,10 @@ class Declaration @Inject()(
                     case Some(_) =>
                       Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
                     case None =>
-                      Redirect(routes.ChooseEvidence.show())
+                      Redirect(routes.ChooseEvidenceController.show())
                   }
               },
-              _ => Redirect(routes.Declaration.confirmation())
+              _ => Redirect(routes.DeclarationController.confirmation())
           )
       )
   }

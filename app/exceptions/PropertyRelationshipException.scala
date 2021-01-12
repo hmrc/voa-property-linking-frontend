@@ -16,4 +16,4 @@
 
 package exceptions
 
-case class ClaimPropertyRelationshipIsEmptyException(message: String) extends Exception(message)
+case class PropertyRelationshipException(message: String) extends Exception(message)

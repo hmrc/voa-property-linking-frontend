@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import net.ground5hark.sbt.concat.Import._
 import sbt.Tests.{Group, SubProcess}
 import uk.gov.hmrc.DefaultBuildSettings._
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin

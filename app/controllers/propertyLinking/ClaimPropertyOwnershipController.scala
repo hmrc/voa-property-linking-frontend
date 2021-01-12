@@ -47,7 +47,7 @@ import views.helpers.Errors
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ClaimPropertyOwnership @Inject()(
+class ClaimPropertyOwnershipController @Inject()(
       val errorHandler: CustomErrorHandler,
       val submissionIdConnector: SubmissionIdConnector,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
@@ -73,7 +73,7 @@ class ClaimPropertyOwnership @Inject()(
       ownershipToPropertyView(
         ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
         request.ses.clientDetails,
-        controllers.propertyLinking.routes.ClaimPropertyRelationship.back().url
+        controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url
       ))
   }
 
@@ -86,13 +86,13 @@ class ClaimPropertyOwnership @Inject()(
             Future.successful(BadRequest(ownershipToPropertyView(
               ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.uarn),
               request.ses.clientDetails,
-              controllers.propertyLinking.routes.ClaimPropertyRelationship.back().url
+              controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url
             ))),
           formData =>
             businessRatesAttachmentService
               .persistSessionData(request.ses.copy(propertyOwnership = Some(formData)))
               .map { _ =>
-                Redirect(routes.ChooseEvidence.show())
+                Redirect(routes.ChooseEvidenceController.show())
               }
               .recover {
                 case UpstreamErrorResponse.Upstream5xxResponse(_) =>

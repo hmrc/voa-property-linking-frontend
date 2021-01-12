@@ -36,14 +36,14 @@ import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
 
 import scala.concurrent.Future
 
-class ClaimPropertyOwnershipSpec extends VoaPropertyLinkingSpec {
+class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
   private val mockOwnershipToPropertyPage = mock[views.html.propertyLinking.ownershipToProperty]
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  private lazy val testClaimProperty = new ClaimPropertyOwnership(
+  private lazy val testClaimProperty = new ClaimPropertyOwnershipController(
     mockCustomErrorHandler,
     StubSubmissionIdConnector,
     mockSessionRepo,
@@ -110,7 +110,7 @@ class ClaimPropertyOwnershipSpec extends VoaPropertyLinkingSpec {
         "stillInterested"      -> "true"
       ))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.ChooseEvidence.show.url)
+    redirectLocation(res) mustBe Some(routes.ChooseEvidenceController.show.url)
   }
 
 }

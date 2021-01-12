@@ -45,7 +45,7 @@ import views.helpers.Errors
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ClaimPropertyRelationship @Inject()(
+class ClaimPropertyRelationshipController @Inject()(
       val errorHandler: CustomErrorHandler,
       val submissionIdConnector: SubmissionIdConnector,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
@@ -113,7 +113,7 @@ class ClaimPropertyRelationship @Inject()(
           formData =>
             initialiseSession(formData, uarn, address, clientDetails)
               .map { _ =>
-                Redirect(routes.ClaimPropertyOwnership.showOwnership())
+                Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
               }
               .recover {
                 case UpstreamErrorResponse.Upstream5xxResponse(_) =>

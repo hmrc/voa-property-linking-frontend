@@ -28,11 +28,11 @@
 
 @mainLayout(
     pageTitle = messages("declaration.title"),
-    backUri = Some(controllers.propertyLinking.routes.ClaimPropertyOwnership.showOwnership().url),
+    backUri = Some(controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url),
     hasErrors = form.hasErrors
 ) {
 
-                @FormWithCSRF(action = controllers.propertyLinking.routes.ChooseEvidence.submit) {
+                @FormWithCSRF(action = controllers.propertyLinking.routes.ChooseEvidenceController.submit) {
 
                     @if(form.errors.nonEmpty) {
                         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))

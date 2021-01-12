@@ -50,7 +50,7 @@
             <p class="govuk-body">@messages("linkSubmitted.whatNext.3")</p>
             <p class="govuk-body">@messages("linkSubmitted.whatNext.4")</p>
 
-            <p class="govuk-body"><a href="@{controllers.propertyLinking.routes.ClaimPropertyRelationship.show().url + clientParameter}">@messages("link.addAnotherProperty")</a></p>
+            <p class="govuk-body"><a href="@{controllers.propertyLinking.routes.ClaimPropertyRelationshipController.show().url + clientParameter}">@messages("link.addAnotherProperty")</a></p>
 
             <p class="govuk-body"><a href="@{routes.Dashboard.manageProperties().url + clientParameter}" id="backToDashBoard" class="govuk-button" role="button">@messages("link.manageProperties")</a></p>
 

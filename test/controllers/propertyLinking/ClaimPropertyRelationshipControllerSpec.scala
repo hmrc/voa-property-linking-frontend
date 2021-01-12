@@ -33,11 +33,11 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class ClaimPropertyRelationshipSpec extends VoaPropertyLinkingSpec {
+class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   private val mockRelationshipToPropertyPage = mock[views.html.propertyLinking.relationshipToProperty]
-  private lazy val testClaimProperty = new ClaimPropertyRelationship(
+  private lazy val testClaimProperty = new ClaimPropertyRelationshipController(
     mockCustomErrorHandler,
     StubSubmissionIdConnector,
     mockSessionRepo,
@@ -116,7 +116,7 @@ class ClaimPropertyRelationshipSpec extends VoaPropertyLinkingSpec {
         "capacity" -> "OWNER"
       ))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.ClaimPropertyOwnership.showOwnership.url)
+    redirectLocation(res) mustBe Some(routes.ClaimPropertyOwnershipController.showOwnership.url)
   }
 
   it should "initialise the linking session on submission" in {

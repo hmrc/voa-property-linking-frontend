@@ -19,6 +19,8 @@
 @import controllers.propertyLinking.routes._
 @import helpers._
 @import models.upscan._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 @(
         submissionId: String,
@@ -31,9 +33,12 @@
 
 @mainLayout(
     pageTitle = Messages("uploadEvidence.show.title"),
-    backUri = Some(controllers.propertyLinking.routes.ChooseEvidence.show().url),
+    backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show().url),
     hasErrors = formEvidence.hasErrors || errors.nonEmpty
 ) {
+    @if(formEvidence.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = formEvidence.errors.asTextErrorLinks, title = Text(messages("uploadEvidence.show.title"))))
+    }
     @if(errors.nonEmpty) {
         <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
 
@@ -128,7 +133,10 @@
                         )),
                         label = Label(
                             content = Text(messages("evidenceType.label"))
-                        )
+                        ),
+                        errorMessage =  { formEvidence.error("evidenceType").map{ error =>
+                            ErrorMessage(content = Text(messages(error.message)))
+                        }}
                     ))
                     @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
                 }
@@ -143,7 +151,7 @@
         <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
         <span id="errorsBusinessRatesAttachmentUnavailable" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.unavailable")</span>
         <span id="signInPageUrl" class="govuk-visually-hidden">@{config.basGatewaySignInUrl}</span>
-        <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimPropertyRelationship.submitRelationship(linkingSession.uarn, linkingSession.address)}</span>
+        <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimPropertyRelationshipController.submitRelationship(linkingSession.uarn, linkingSession.address)}</span>
         <span id="submissionId" class="govuk-visually-hidden">@submissionId</span>
 
     }

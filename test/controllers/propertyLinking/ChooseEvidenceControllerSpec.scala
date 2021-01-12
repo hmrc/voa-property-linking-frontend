@@ -34,7 +34,7 @@ import utils.HtmlPage
 
 import scala.concurrent.Future
 
-class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
+class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
@@ -44,7 +44,7 @@ class ChooseEvidenceSpec extends VoaPropertyLinkingSpec {
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
   private val mockChooseEvidencePage = mock[views.html.propertyLinking.chooseEvidence]
   private class TestChooseEvidence(withLinkingSession: WithLinkingSession)
-      extends ChooseEvidence(
+      extends ChooseEvidenceController(
         mockCustomErrorHandler,
         preAuthenticatedActionBuilders(),
         preEnrichedActionRefiner(),

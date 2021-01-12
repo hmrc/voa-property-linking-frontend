@@ -24,11 +24,13 @@ import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import javax.inject.Inject
+
 import models.EvidenceType.form
 import models._
 import models.attachment.InitiateAttachmentPayload
 import models.attachment.request.InitiateAttachmentRequest
 import play.api.Logger
+import play.api.data.FormError
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
@@ -109,7 +111,7 @@ class UploadController @Inject()(
           case Some(fileData) if fileData.nonEmpty =>
             businessRatesAttachmentsService
               .persistSessionData(request.ses, uploadedData)
-              .map(x => Redirect(routes.Declaration.show().url))
+              .map(x => Redirect(routes.DeclarationController.show().url))
         }
 
       val session = request.ses
@@ -134,9 +136,9 @@ class UploadController @Inject()(
               _ =>
                 Future.successful(BadRequest(uploadEvidenceView(
                   request.ses.submissionId,
-                  List("error.businessRatesAttachment.evidence.not.selected"),
+                  Nil,
                   request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
-                  form,
+                  form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
                   session
                 ))),
               formData => {

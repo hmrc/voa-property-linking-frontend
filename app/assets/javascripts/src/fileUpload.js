@@ -25,10 +25,6 @@
             }
 
             clearErrors();
-            $('#error-summary').remove();
-            //$('#newFile').attr('disabled','disabled');
-           // $('#newFileButton').css('display', 'none');
-            $('#uploadFile').attr('disabled','disabled');
             $('button.govuk-button').attr('disabled','disabled');
             $('#message-warning').removeClass('govuk-visually-hidden');
 

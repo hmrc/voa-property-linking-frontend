@@ -33,8 +33,7 @@ object Capacity {
         .map { relationship =>
           relationship.capacity
         }
-        .getOrElse(
-          throw new ClaimPropertyRelationshipIsEmptyException("property claim relationship should not be empty")),
+        .getOrElse(throw new PropertyRelationshipException("property claim relationship should not be empty")),
       linkingSession.propertyOwnership
         .flatMap { ownership =>
           ownership.fromDate

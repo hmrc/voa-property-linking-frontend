@@ -138,7 +138,7 @@
 
     <p class="govuk-body">@messages(s"declareCapacity.message$clientSuffix")</p>
 
-    @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOwnership.submitOwnership()) {
+    @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOwnershipController.submitOwnership()) {
 
         @govukRadios(Radios(
             fieldset = Some(Fieldset(

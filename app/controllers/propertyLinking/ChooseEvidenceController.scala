@@ -34,7 +34,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext
 
-class ChooseEvidence @Inject()(
+class ChooseEvidenceController @Inject()(
       val errorHandler: CustomErrorHandler,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
