@@ -64,9 +64,9 @@
                                 }
                             }
                             case linkingRequest: LinkingSessionRequest[_] => {
-                                @if(linkingRequest.individualAccount.details.firstName + " " + linkingRequest.individualAccount.details.lastName != linkingRequest.groupAccount.companyName){
+                                @if(linkingRequest.individualAccount.details.firstName + " " + linkingRequest.individualAccount.details.lastName != linkingRequest.organisationAccount.companyName){
                                     <li><a href="@routes.Dashboard.yourDetails()">
-                                        @linkingRequest.individualAccount.details.firstName @linkingRequest.individualAccount.details.lastName - @linkingRequest.groupAccount.companyName
+                                        @linkingRequest.individualAccount.details.firstName @linkingRequest.individualAccount.details.lastName - @linkingRequest.organisationAccount.companyName
                                     </a><span class="separator"> |</span> </li>
                                 }else{
                                     <li><a href="@routes.Dashboard.yourDetails()">

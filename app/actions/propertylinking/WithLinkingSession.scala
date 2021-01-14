@@ -19,7 +19,8 @@ package actions.propertylinking
 import actions.propertylinking.requests.LinkingSessionRequest
 import actions.requests.BasicAuthenticatedRequest
 import javax.inject.{Inject, Named}
-import models.LinkingSession
+
+import models.{GroupAccount, LinkingSession}
 import play.api.libs.json.Reads
 import play.api.mvc.Results._
 import play.api.mvc._

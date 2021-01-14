@@ -31,15 +31,21 @@
 )(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
+@fileUploadErrorLinks = @{
+    errors.map{ error =>
+        ErrorLink(href = Some(s"#newFile"),
+            content = HtmlContent(messages(error)) )}
+}
+
 @mainLayout(
     pageTitle = Messages("uploadEvidence.show.title"),
     backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show().url),
     hasErrors = formEvidence.hasErrors || errors.nonEmpty
 ) {
     @if(formEvidence.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = formEvidence.errors.asTextErrorLinks, title = Text(messages("uploadEvidence.show.title"))))
+        @govukErrorSummary(ErrorSummary(errorList = fileUploadErrorLinks ++ formEvidence.errors.asTextErrorLinks , title = Text(messages("uploadEvidence.show.title"))))
     }
-    @if(errors.nonEmpty) {
+    @if(errors.nonEmpty && formEvidence.errors.isEmpty) {
         <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
 
             <h2 class="govuk-error-summary__title" id="error-summary-heading">@messages("error.summary.title")</h2>

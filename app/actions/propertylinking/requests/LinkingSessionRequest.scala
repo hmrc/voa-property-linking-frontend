@@ -16,17 +16,20 @@
 
 package actions.propertylinking.requests
 
-import models.{DetailedIndividualAccount, GroupAccount, LinkingSession}
+import actions.requests.{AuthenticatedRequest, CcaWrappedRequest}
+import models.{Accounts, DetailedIndividualAccount, GroupAccount, LinkingSession}
 import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
 case class LinkingSessionRequest[A](
       ses: LinkingSession,
-      organisationId: Long,
+      override val organisationId: Long,
       individualAccount: DetailedIndividualAccount,
-      groupAccount: GroupAccount,
+      organisationAccount: GroupAccount,
       request: Request[A]
-) extends WrappedRequest[A](request) {
+) extends AuthenticatedRequest[A](request) with CcaWrappedRequest {
+  override def optAccounts: Option[Accounts] =
+    Some(Accounts(organisationAccount, individualAccount))
   def sessionId: String =
     HeaderCarrierConverter
       .fromHeadersAndSession(request.headers, Some(request.session))

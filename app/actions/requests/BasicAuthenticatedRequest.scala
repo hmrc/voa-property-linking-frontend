@@ -20,7 +20,7 @@ import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.auth.core.AffinityGroup
 
-sealed abstract class AuthenticatedRequest[A](request: Request[A]) extends WrappedRequest[A](request) {
+abstract class AuthenticatedRequest[A](request: Request[A]) extends WrappedRequest[A](request) {
   def organisationAccount: GroupAccount
   def individualAccount: DetailedIndividualAccount
   def organisationId: Long = organisationAccount.id

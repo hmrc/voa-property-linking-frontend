@@ -57,7 +57,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
     ),
     organisationId = 1L,
     individualAccount = detailedIndividualAccount,
-    groupAccount = groupAccount(true),
+    organisationAccount = groupAccount(true),
     request = FakeRequest()
   )
 

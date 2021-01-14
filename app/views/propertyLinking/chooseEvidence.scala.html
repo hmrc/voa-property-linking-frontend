@@ -27,7 +27,7 @@
 }}
 
 @mainLayout(
-    pageTitle = messages("declaration.title"),
+    pageTitle = messages(title),
     backUri = Some(controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url),
     hasErrors = form.hasErrors
 ) {

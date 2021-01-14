@@ -131,7 +131,7 @@ trait VoaPropertyLinkingSpec
               ),
               organisationId = 1L,
               individualAccount = request.individualAccount,
-              groupAccount = request.organisationAccount,
+              organisationAccount = request.organisationAccount,
               request = request
             )))
     }
