@@ -36,13 +36,13 @@
     hasErrors = model.form.hasErrors
 ) {
 
+    @if(model.form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = model.form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+    }
+
     <h1 class="govuk-heading-xl">@messages("declaration.title")</h1>
 
     @FormWithCSRF(action = controllers.propertyLinking.routes.DeclarationController.submit()) {
-
-        @if(model.form.errors.nonEmpty) {
-            @govukErrorSummary(ErrorSummary(errorList = model.form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
-        }
 
         <p class="govuk-body">@messages("declaration.p.1")</p>
 

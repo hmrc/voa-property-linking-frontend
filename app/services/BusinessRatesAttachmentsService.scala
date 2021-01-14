@@ -131,7 +131,7 @@ class BusinessRatesAttachmentsService @Inject()(
     auditingService.sendEvent(
       auditType = "property link evidence upload",
       obj = Json.obj(
-        "ggGroupId"                -> request.groupAccount.groupId,
+        "ggGroupId"                -> request.organisationAccount.groupId,
         "ggExternalId"             -> request.individualAccount.externalId,
         "propertyLinkSubmissionId" -> submissionId)
     )

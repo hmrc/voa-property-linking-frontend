@@ -136,7 +136,12 @@ class UploadController @Inject()(
               _ =>
                 Future.successful(BadRequest(uploadEvidenceView(
                   request.ses.submissionId,
-                  Nil,
+                  PartialFunction
+                    .condOpt(session.uploadEvidenceData.attachments) {
+                      case Some(fileData) if fileData.isEmpty =>
+                        List("error.businessRatesAttachment.file.not.selected")
+                    }
+                    .getOrElse(Nil),
                   request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
                   form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
                   session
@@ -155,7 +160,7 @@ class UploadController @Inject()(
                           request.ses.submissionId,
                           List("error.businessRatesAttachment.file.not.selected"),
                           Map(),
-                          form,
+                          form.fill(formData),
                           session))))
               }
             )

@@ -124,17 +124,17 @@
 }
 
 @mainLayout(
-    pageTitle = messages("declareCapacity.title"),
+    pageTitle = messages("declarePropertyOwnership.title"),
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
 
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages("declareCapacity.title"):</h1>
-    <h2 id="assessment-address" class="govuk-heading-m govuk-!-margin-top-1">@model.address.toString</h2>
-
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
+
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages("declarePropertyOwnership.title"):</h1>
+    <h2 id="assessment-address" class="govuk-heading-m govuk-!-margin-top-1">@model.address.toString</h2>
 
     <p class="govuk-body">@messages(s"declareCapacity.message$clientSuffix")</p>
 
