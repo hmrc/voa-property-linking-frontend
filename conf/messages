@@ -532,6 +532,7 @@ propertyRepresentation.manageAgent.assignToAllProperties.title=Confirm you want 
 propertyRepresentation.manageAgent.assignToAllProperties.question=Are you sure you want to assign {0} to all your properties?
 propertyRepresentation.manageAgent.assignToAllProperties.insetText={0} will be added to all of your properties
 
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title=Agent assigned to all properties
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation={0} has been assigned to all your properties
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext=What happens next
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
