@@ -17,6 +17,7 @@
 package actions.requests
 
 import models.analytics.GoogleAnalyticsUserData
+import play.api.mvc.Request
 
 object CcaWrappedRequestHelper {
   implicit class CcaWrappedRequestOps(ccaRequest: CcaWrappedRequest) {
@@ -32,4 +33,17 @@ object CcaWrappedRequestHelper {
 
     val googleAnalyticsUserData: GoogleAnalyticsUserData = GoogleAnalyticsUserData(ccaRequest)
   }
+
+  implicit class RequestOps(val request: Request[_]) extends AnyVal {
+    def isLoggedIn: Boolean = request match {
+      case r: CcaWrappedRequest => r.isLoggedIn
+      case _                    => false
+    }
+
+    def loggedInUserName: Option[String] = request match {
+      case r: CcaWrappedRequest => new CcaWrappedRequestOps(r).yourDetailsName()
+      case _                    => None
+    }
+  }
+
 }
