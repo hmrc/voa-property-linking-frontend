@@ -21,5 +21,5 @@ import models.Accounts
 trait CcaWrappedRequest {
   def optAccounts: Option[Accounts] // must be defined in implementing class
   def isLoggedIn: Boolean = optAccounts.isDefined
-  def isAgent: Boolean = optAccounts.map(_.organisation.isAgent).getOrElse(false)
+  def isAgent: Boolean = optAccounts.exists(_.organisation.isAgent)
 }

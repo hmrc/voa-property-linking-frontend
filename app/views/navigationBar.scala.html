@@ -15,7 +15,6 @@
  *@
 
 @import config.ApplicationConfig
-@import actions.requests.CcaWrappedRequest
 @import actions.requests.CcaWrappedRequestHelper._
 
 @(backUri: Option[String], backLinkClass: String = "govuk-back-link")(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
@@ -45,20 +44,15 @@
         </div>
         <div class="govuk-grid-column-two-thirds">
             <ul class="govuk-list" style="text-align:right; margin-top:10px;">
-            @request match {
-                case req: CcaWrappedRequest => {
-                    @if(req.isLoggedIn) {
-                        <li style="display:inline"><a id="home-link" href="@homeLink" class="govuk-link">@Messages("link.home")</a> |
-                        </li>
-                        <li style="display:inline">
-                            <a id="your-details-link" href="@yourDetailsLink" class="govuk-link">@req.yourDetailsName.getOrElse(Messages("navigation.your.details"))</a> |
-                        </li>
-                        <li style="display:inline"><a id="sign-out-link" href="@signOutLink" class="govuk-link">@Messages("link.logout")</a>
-                        </li>
-                    } else { @noAccountLinks }
-                }
-                case _ => { @noAccountLinks }
-            }
+            @if(request.isLoggedIn) {
+                <li style="display:inline"><a id="home-link" href="@homeLink" class="govuk-link">@Messages("link.home")</a> |
+                </li>
+                <li style="display:inline">
+                    <a id="your-details-link" href="@yourDetailsLink" class="govuk-link">@request.loggedInUserName.getOrElse(Messages("navigation.your.details"))</a> |
+                </li>
+                <li style="display:inline"><a id="sign-out-link" href="@signOutLink" class="govuk-link">@Messages("link.logout")</a>
+                </li>
+            } else { @noAccountLinks }
             </ul>
         </div>
     </div>
