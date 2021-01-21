@@ -15,8 +15,10 @@
  *@
 
 @import config.ApplicationConfig
-@import uk.gov.hmrc.http.SessionKeys
+@import actions.requests.CcaWrappedRequestHelper.RequestOps
+
 @(config: ApplicationConfig)(implicit request: RequestHeader)
-@if(request.session.get(SessionKeys.sessionId)) {
+
+ @if(request.isLoggedIn) {
  <div id="signOut" data-keep-alive-url="@config.keepAliveUrl" data-url="@config.signOutUrl" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown"/>
 }

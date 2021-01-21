@@ -61,13 +61,13 @@ class CcaWrappedRequestHelperSpec extends BaseUnitSpec {
   "your details name" when {
     "full name is the same as company name" should {
       "return just full name" in new Setup(sameName = true) {
-        testRequest.yourDetailsName().value shouldBe personName
+        testRequest.yourDetailsName.value shouldBe personName
       }
     }
 
     "full name is different from company name" should {
       "return 'full name - company name'" in new Setup(sameName = false) {
-        testRequest.yourDetailsName().value shouldBe s"$personName - $companyName"
+        testRequest.yourDetailsName.value shouldBe s"$personName - $companyName"
       }
     }
   }

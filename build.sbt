@@ -30,7 +30,6 @@ lazy val microservice = Project(appName, file("."))
     SbtAutoBuildPlugin,
     SbtGitVersioning,
     SbtDistributablesPlugin,
-    SbtArtifactory,
     SbtWeb)
   .disablePlugins(sbt.plugins.JUnitXmlReportPlugin)
   .settings(playSettings ++ scoverageSettings: _*)
@@ -127,7 +126,7 @@ lazy val compileDependencies = Seq(
   "uk.gov.hmrc"          %% "govuk-template"                % "5.60.0-play-26",
   "uk.gov.hmrc"          %% "play-frontend-govuk"           % "0.56.0-play-26",
   "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "0.32.0-play-26",
-  "uk.gov.hmrc"          %% "play-ui"                       % "8.16.0-play-26",
+  "uk.gov.hmrc"          %% "play-ui"                       % "8.20.0-play-26",
   "uk.gov.hmrc"          %% "http-caching-client"           % "9.2.0-play-26",
   "uk.gov.hmrc"          %% "mongo-lock"                    % "6.15.0-play-26",
   "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.2.0-play-26",
