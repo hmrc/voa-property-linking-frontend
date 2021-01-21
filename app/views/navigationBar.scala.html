@@ -48,7 +48,7 @@
                 <li style="display:inline"><a id="home-link" href="@homeLink" class="govuk-link">@Messages("link.home")</a> |
                 </li>
                 <li style="display:inline">
-                    <a id="your-details-link" href="@yourDetailsLink" class="govuk-link">@request.loggedInUserName.getOrElse(Messages("navigation.your.details"))</a> |
+                    <a id="your-details-link" href="@yourDetailsLink" class="govuk-link">@request.yourDetailsName.getOrElse(Messages("navigation.your.details"))</a> |
                 </li>
                 <li style="display:inline"><a id="sign-out-link" href="@signOutLink" class="govuk-link">@Messages("link.logout")</a>
                 </li>

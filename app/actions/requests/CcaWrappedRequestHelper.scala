@@ -17,32 +17,29 @@
 package actions.requests
 
 import models.analytics.GoogleAnalyticsUserData
-import play.api.mvc.Request
+import play.api.mvc.RequestHeader
 
 object CcaWrappedRequestHelper {
   implicit class CcaWrappedRequestOps(ccaRequest: CcaWrappedRequest) {
-
-    def yourDetailsName(): Option[String] =
-      ccaRequest.optAccounts.map { acc =>
-        if (s"${acc.person.details.firstName} ${acc.person.details.lastName}" == acc.organisation.companyName) {
-          s"${acc.person.details.firstName} ${acc.person.details.lastName}"
-        } else {
-          s"${acc.person.details.firstName} ${acc.person.details.lastName} - ${acc.organisation.companyName}"
-        }
-      }
-
     val googleAnalyticsUserData: GoogleAnalyticsUserData = GoogleAnalyticsUserData(ccaRequest)
   }
 
-  implicit class RequestOps(val request: Request[_]) extends AnyVal {
+  implicit class RequestOps(val request: RequestHeader) extends AnyVal {
     def isLoggedIn: Boolean = request match {
       case r: CcaWrappedRequest => r.isLoggedIn
       case _                    => false
     }
 
-    def loggedInUserName: Option[String] = request match {
-      case r: CcaWrappedRequest => new CcaWrappedRequestOps(r).yourDetailsName()
-      case _                    => None
+    def yourDetailsName: Option[String] = request match {
+      case r: CcaWrappedRequest =>
+        r.optAccounts.map { acc =>
+          if (s"${acc.person.details.firstName} ${acc.person.details.lastName}" == acc.organisation.companyName) {
+            s"${acc.person.details.firstName} ${acc.person.details.lastName}"
+          } else {
+            s"${acc.person.details.firstName} ${acc.person.details.lastName} - ${acc.organisation.companyName}"
+          }
+        }
+      case _ => None
     }
   }
 

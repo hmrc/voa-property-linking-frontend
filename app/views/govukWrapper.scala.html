@@ -19,6 +19,8 @@
 @import play.twirl.api.HtmlFormat
 @import views.html.includes._
 @import actions.requests.CcaWrappedRequestHelper.RequestOps
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTrackingConsentSnippet
+
 @(
         title: String,
         content: Html = HtmlFormat.empty,
@@ -27,10 +29,8 @@
         scriptElem: Option[Html] = None)(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
 
     @head = {
-        @headPartial(
-            linkElem = None,
-            headScripts = Option(headScripts)
-        )
+        @HmrcTrackingConsentSnippet()
+        @headScripts
         @if(request.isLoggedIn){
             <meta name="hmrc-timeout-dialog" content="hmrc-timeout-dialog" data-language="en" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown" data-keep-alive-url="@config.keepAliveUrl" data-sign-out-url="@config.signOutUrl"/>
         }
