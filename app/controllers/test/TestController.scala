@@ -19,9 +19,8 @@ package controllers.test
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import connectors.attachments.BusinessRatesAttachmentsConnector
-import connectors.test.{TestCheckConnector, TestPropertyLinkingConnector}
+import connectors.test.TestCheckConnector
 import controllers.PropertyLinkingController
-import javax.inject.Inject
 import models.test.TestUserDetails
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -30,14 +29,14 @@ import services.{Failure, Success}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.Cats
 
-import scala.concurrent.{ExecutionContext, Future}
+import javax.inject.Inject
+import scala.concurrent.ExecutionContext
 
 class TestController @Inject()(
       override val errorHandler: CustomErrorHandler,
       authenticated: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       testService: TestService,
-      testPropertyLinkingConnector: TestPropertyLinkingConnector,
       businessRatesAttachmentsConnector: BusinessRatesAttachmentsConnector,
       testCheckConnector: TestCheckConnector
 )(implicit executionContext: ExecutionContext, override val controllerComponents: MessagesControllerComponents)
@@ -65,36 +64,12 @@ class TestController @Inject()(
     }))
   }
 
-  def deRegister(): Action[AnyContent] = authenticated.async { implicit request =>
-    val orgId = request.individualAccount.organisationId
-    testPropertyLinkingConnector
-      .deRegister(orgId)
-      .map(_ => Ok(s"Successfully de-registered organisation with ID: $orgId"))
-      .recover {
-        case e => Ok(s"Failed to de-register organisation with ID: $orgId with error: ${e.getMessage}")
-      }
-  }
-
   def deEnrol() = authenticated.async { implicit request =>
     testService
       .deEnrolUser(request.individualAccount.individualId)
       .map {
         case Success => Ok("Successful")
         case Failure => Ok("Failure")
-      }
-  }
-
-  def revokeAgentAppointments(agentOrgId: String) =
-    authenticated.async(Future.successful(Ok("Agent appointments revoked")))
-
-  def clearDvrRecords = authenticated.async { implicit request =>
-    testPropertyLinkingConnector
-      .clearDvrRecords(request.organisationAccount.id)
-      .map(res => Ok(s"Successfully cleared DVR records for organisation with ID: ${request.organisationAccount.id}"))
-      .recover {
-        case e =>
-          Ok(
-            s"Failed to clear DVR records for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
       }
   }
 
@@ -107,17 +82,6 @@ class TestController @Inject()(
         case e =>
           Ok(
             s"Failed to clear draft check cases for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
-      }
-  }
-
-  def clearCheckCases(propertyLinksSubmissionId: String) = authenticated.async { implicit request =>
-    testPropertyLinkingConnector
-      .deleteCheckCases(propertyLinksSubmissionId)
-      .map(res => Ok(s"Successfully cleared the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId"))
-      .recover {
-        case e =>
-          Ok(
-            s"Failed to delete the check cases for propertyLinksSubmissionId: $propertyLinksSubmissionId with error: ${e.getMessage}")
       }
   }
 
