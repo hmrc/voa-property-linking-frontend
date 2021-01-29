@@ -15,10 +15,8 @@
         new VOA.JqueryFiler();
         new VOA.postcodeLookup();
         new VOA.ErrorSummary();
-        new VOA.DataTableManageProperties();
-        new VOA.DataTableManageClients();
-        new VOA.DataTablePendingRequests();
         new VOA.ShowDialog();
+        new VOA.DataTablePendingRequests();
         new VOA.viewMessage();
         new VOA.FileUpload();
         new VOA.TimeOutReminder();
