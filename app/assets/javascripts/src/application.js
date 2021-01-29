@@ -16,6 +16,7 @@
         new VOA.postcodeLookup();
         new VOA.ErrorSummary();
         new VOA.ShowDialog();
+        new VOA.DataTablePendingRequests();
         new VOA.viewMessage();
         new VOA.FileUpload();
         new VOA.TimeOutReminder();
