@@ -33,7 +33,7 @@ class GuiceModule(
       configuration: Configuration
 ) extends AbstractModule {
 
-  def configure() = {
+  override def configure() = {
 
     bind(classOf[SessionRepo])
       .annotatedWith(Names.named("propertyLinkingSession"))

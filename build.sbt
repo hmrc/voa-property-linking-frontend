@@ -121,27 +121,27 @@ lazy val compileDependencies = Seq(
   "com.codahale.metrics" %  "metrics-graphite"              % "3.0.1",
   "com.google.guava"     %  "guava"                         % "18.0",
   "org.typelevel"        %% "cats-core"                     % "1.6.1",
-  "uk.gov.hmrc"          %% "auth-client"                   % "2.32.2-play-26",
-  "uk.gov.hmrc"          %% "bootstrap-frontend-play-26"    % "2.24.0",
-  "uk.gov.hmrc"          %% "govuk-template"                % "5.60.0-play-26",
-  "uk.gov.hmrc"          %% "play-frontend-govuk"           % "0.56.0-play-26",
-  "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "0.32.0-play-26",
-  "uk.gov.hmrc"          %% "play-ui"                       % "8.20.0-play-26",
-  "uk.gov.hmrc"          %% "http-caching-client"           % "9.2.0-play-26",
-  "uk.gov.hmrc"          %% "mongo-lock"                    % "6.15.0-play-26",
-  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.2.0-play-26",
-  "uk.gov.hmrc"          %% "play-whitelist-filter"         % "3.1.0-play-26",
+  "uk.gov.hmrc"          %% "auth-client"                   % "3.3.0-play-27",
+  "uk.gov.hmrc"          %% "bootstrap-frontend-play-27"    % "3.2.0",
+  "uk.gov.hmrc"          %% "govuk-template"                % "5.61.0-play-27",
+  "uk.gov.hmrc"          %% "play-frontend-govuk"           % "0.56.0-play-27",
+  "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "0.34.0-play-27",
+  "uk.gov.hmrc"          %% "play-ui"                       % "8.20.0-play-27",
+  "uk.gov.hmrc"          %% "http-caching-client"           % "9.2.0-play-27",
+  "uk.gov.hmrc"          %% "mongo-lock"                    % "6.24.0-play-27",
+  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.5.0-play-27",
+  "uk.gov.hmrc"          %% "play-whitelist-filter"         % "3.4.0-play-27",
   "uk.gov.hmrc"          %% "reactive-circuit-breaker"      % "3.5.0",
-  "uk.gov.hmrc"          %% "simple-reactivemongo"          % "7.22.0-play-26"
+  "uk.gov.hmrc"          %% "simple-reactivemongo"          % "7.31.0-play-27"
 )
 
 lazy val testDependencies = Seq(
-  "uk.gov.hmrc"            %% "hmrctest"           % "3.6.0-play-26" % Test,
-  "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2"         % Test,
-  "org.scalatest"          %% "scalatest"          % "3.0.6"         % Test,
+  "uk.gov.hmrc"            %% "hmrctest"           % "3.9.0-play-26" % Test,
+  "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3"         % Test,
+  "org.scalatest"          %% "scalatest"          % "3.0.8"         % Test,
   "org.scalacheck"         %% "scalacheck"         % "1.13.4"        % Test,
   "org.pegdown"            %  "pegdown"            % "1.6.0"         % "test,it",
-  "org.jsoup"              %  "jsoup"              % "1.10.3"         % Test,
+  "org.jsoup"              %  "jsoup"              % "1.12.1"         % Test,
   "org.mockito"            %  "mockito-core"       % "2.27.0"        % Test
 )
 
