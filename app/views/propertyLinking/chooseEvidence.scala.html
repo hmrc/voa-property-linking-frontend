@@ -19,7 +19,7 @@
 @import config.ApplicationConfig
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout)
 
-@(form: Form[_], clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[_], clientDetails: Option[ClientDetails] = None, backlink: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{clientDetails.map(_.organisationId) match {
     case Some(id)   => {messages("chooseEvidence.client.title")}
@@ -28,7 +28,7 @@
 
 @mainLayout(
     pageTitle = messages(title),
-    backUri = Some(controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url),
+    backUri = backlink,
     hasErrors = form.hasErrors
 ) {
 

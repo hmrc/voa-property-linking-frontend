@@ -29,9 +29,11 @@ import play.twirl.api.Html
 import repositories.SessionRepo
 import utils._
 import services.BusinessRatesAttachmentsService
+import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.HtmlPage
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
@@ -49,7 +51,9 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
         preAuthenticatedActionBuilders(),
         preEnrichedActionRefiner(),
         mockBusinessRatesAttachmentService,
-        mockChooseEvidencePage) {
+        mockPropertyLinkingService,
+        mockChooseEvidencePage
+      ) {
     val property = testProperty
   }
 
@@ -59,11 +63,28 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val request = FakeRequest().withSession(token)
 
-  "The choose evidence page" must "ask the user whether they have a rates bill" in {
+  "The choose evidence page with earliest start date in the past" must "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
-    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
+    when(mockChooseEvidencePage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("The choose evidence page"))
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
+
+    val res = testChooseEvidence.show()(request)
+    status(res) mustBe OK
+
+    val html = HtmlPage(res)
+    html.mustContainText("The choose evidence page")
+  }
+
+  "The choose evidence page with earliest start date in the future" must "ask the user whether they have a rates bill" in {
+    when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+    when(mockChooseEvidencePage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("The choose evidence page"))
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
     val res = testChooseEvidence.show()(request)
     status(res) mustBe OK
@@ -73,8 +94,11 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it must "require the user to select whether they have a rates bill" in {
-    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
+    when(mockChooseEvidencePage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("require the user to select whether they have a rates bill"))
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
+
     val res = testChooseEvidence.submit()(request)
     status(res) mustBe BAD_REQUEST
 

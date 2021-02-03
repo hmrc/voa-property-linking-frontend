@@ -22,23 +22,28 @@ import binders.propertylinks.EvidenceChoices
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
+
 import javax.inject.Inject
-import models.UploadEvidenceData
+import models.{LinkingSession, PropertyOwnership, UploadEvidenceData}
 import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.BusinessRatesAttachmentsService
+import services.propertylinking.PropertyLinkingService
+import uk.gov.hmrc.http.{HeaderCarrier, UpstreamErrorResponse}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-import scala.concurrent.ExecutionContext
+import java.time.LocalDate
+import scala.concurrent.{ExecutionContext, Future}
 
 class ChooseEvidenceController @Inject()(
       val errorHandler: CustomErrorHandler,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
+      propertyLinkingService: PropertyLinkingService,
       chooseEvidenceView: views.html.propertyLinking.chooseEvidence
 )(
       implicit executionContext: ExecutionContext,
@@ -51,18 +56,40 @@ class ChooseEvidenceController @Inject()(
 
   def show: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     logger.debug("show choose evidence page")
-    businessRatesAttachmentService
-      .persistSessionData(request.ses, UploadEvidenceData.empty)
-      .map(_ => Ok(chooseEvidenceView(ChooseEvidence.form, request.ses.clientDetails)))
+    for {
+      _         <- businessRatesAttachmentService.persistSessionData(request.ses, UploadEvidenceData.empty)
+      backLink  <- backlink(request.ses)
+    } yield {
+      Ok(chooseEvidenceView(ChooseEvidence.form, request.ses.clientDetails, Some(backLink)))
+    }
   }
 
-  def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
+  private def backlink(ses: LinkingSession)(implicit hc: HeaderCarrier) =
+    propertyLinkingService.findEarliestStartDate(ses.uarn).map { startDate =>
+      startDate match {
+        case Some(date) if date.isAfter(LocalDate.now()) =>
+          controllers.propertyLinking.routes.ClaimPropertyRelationshipController
+            .showRelationship(
+              ses.uarn,
+              ses.address,
+              ses.clientDetails
+            )
+            .url
+        case _ =>
+          controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url
+      }
+    }
+
+  def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     ChooseEvidence.form
       .bindFromRequest()
       .fold(
-        errors => BadRequest(chooseEvidenceView(errors, request.ses.clientDetails)), {
-          case true  => Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
-          case false => Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
+        errors =>
+          backlink(request.ses).map { back =>
+            BadRequest(chooseEvidenceView(errors, request.ses.clientDetails, Some(back)))
+        }, {
+          case true  => Future.successful(Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL)))
+          case false => Future.successful(Redirect(routes.UploadController.show(EvidenceChoices.OTHER)))
         }
       )
   }
