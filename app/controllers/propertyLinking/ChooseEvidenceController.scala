@@ -57,7 +57,6 @@ class ChooseEvidenceController @Inject()(
   def show: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     logger.debug("show choose evidence page")
     for {
-      startDate <- propertyLinkingService.findEarliestStartDate(request.ses.uarn)
       _         <- businessRatesAttachmentService.persistSessionData(request.ses, UploadEvidenceData.empty)
       backLink  <- backlink(request.ses)
     } yield {
