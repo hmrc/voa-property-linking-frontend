@@ -52,7 +52,8 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
     propertyLinkingConnector,
     mockBusinessRatesAttachmentService,
     configuration,
-    mockOwnershipToPropertyPage
+    mockOwnershipToPropertyPage,
+    mockPropertyLinkingService
   )
 
   lazy val submissionId: String = shortString
@@ -67,10 +68,12 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val propertyLinkingConnector = mock[PropertyLinkConnector]
 
-  "The claim ownership page" should "return valid page" in {
+  "The claim ownership page with earliest start date in the past" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
     when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim ownership page loaded"))
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
     val res = testClaimProperty.showOwnership()(FakeRequest())
     status(res) mustBe OK
@@ -80,10 +83,26 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
 
   }
 
+  "The claim ownership page with earliest start date in the future" should "return redirect to choose evidence page" in {
+    StubSubmissionIdConnector.stubId(submissionId)
+    when(mockBusinessRatesAttachmentService.persistSessionData(any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+    when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("claim ownership page loaded"))
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
+
+    val res = testClaimProperty.showOwnership()(FakeRequest())
+    status(res) mustBe SEE_OTHER
+
+  }
+
   "The claim ownership page on client behalf" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
     when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim ownership page on client behalf"))
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
     val res = testClaimProperty
       .showOwnership()(FakeRequest())

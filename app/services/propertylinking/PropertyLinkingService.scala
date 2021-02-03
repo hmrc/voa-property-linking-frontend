@@ -19,14 +19,19 @@ package services.propertylinking
 import actions.propertylinking.requests.LinkingSessionRequest
 import cats.data.EitherT
 import connectors.propertyLinking.PropertyLinkConnector
+import models.ListType
+import models.properties.ValuationStatus
+
 import javax.inject.Inject
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
+import play.api.Logger
 import services.BusinessRatesAttachmentsService
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier}
 import uk.gov.hmrc.propertylinking.exceptions.attachments.AttachmentException
 import utils.Cats
 
+import java.time.LocalDate
 import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyLinkingService @Inject()(
@@ -34,6 +39,7 @@ class PropertyLinkingService @Inject()(
       propertyLinkConnector: PropertyLinkConnector
 )(implicit executionContext: ExecutionContext)
     extends Cats {
+  private val logger = Logger(this.getClass.getName)
 
   def submit(
         propertyLinkRequest: PropertyLinkRequest,
@@ -61,4 +67,13 @@ class PropertyLinkingService @Inject()(
       _ <- EitherT.liftF(
             propertyLinkConnector.createPropertyLinkOnClientBehalf(PropertyLinkPayload(propertyLinkRequest), clientId))
     } yield ()
+
+  def findEarliestStartDate(uarn: Long)(implicit hc: HeaderCarrier): Future[Option[LocalDate]] =
+    for {
+      propertyHistory <- propertyLinkConnector.getPropertyHistory(uarn)
+      earliestStartDate: Option[LocalDate] = propertyHistory.history
+        .find(pv => pv.listType == ListType.CURRENT && pv.valuationStatus == ValuationStatus.CURRENT)
+        .map(_.propertyLinkEarliestStartDate)
+        .getOrElse(None)
+    } yield earliestStartDate
 }

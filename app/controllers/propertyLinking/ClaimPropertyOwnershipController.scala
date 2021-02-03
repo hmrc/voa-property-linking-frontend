@@ -17,11 +17,8 @@
 package controllers.propertyLinking
 
 import java.time.LocalDate
-
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
-import actions.requests.AuthenticatedRequest
-import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import connectors.SubmissionIdConnector
@@ -29,8 +26,8 @@ import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
-import javax.inject.{Inject, Named}
 
+import javax.inject.{Inject, Named}
 import models._
 import play.api.Configuration
 import play.api.data.Form
@@ -39,6 +36,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
 import services.BusinessRatesAttachmentsService
+import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
@@ -56,7 +54,8 @@ class ClaimPropertyOwnershipController @Inject()(
       val propertyLinksConnector: PropertyLinkConnector,
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
       val runModeConfiguration: Configuration,
-      ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty)(
+      ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty,
+      propertyLinkingService: PropertyLinkingService)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -65,16 +64,42 @@ class ClaimPropertyOwnershipController @Inject()(
 
   import ClaimPropertyOwnership._
 
-  def showOwnership(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
-    val form = request.ses.propertyOwnership.fold(ownershipForm) { ownership =>
-      ownershipForm.fillAndValidate(ownership)
+  def showOwnership(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+    {
+      val form = request.ses.propertyOwnership.fold(ownershipForm) { ownership =>
+        ownershipForm.fillAndValidate(ownership)
+      }
+      propertyLinkingService.findEarliestStartDate(request.ses.uarn).flatMap { startDate =>
+        startDate match {
+          case Some(date) if date.isAfter(LocalDate.now()) => {
+            businessRatesAttachmentService
+              .persistSessionData(
+                request.ses.copy(
+                  propertyOwnership = Some(
+                    PropertyOwnership(
+                      interestedBefore2017 = false,
+                      fromDate = Some(date),
+                      stillInterested = true,
+                      toDate = None))))
+              .map { _ =>
+                Redirect(routes.ChooseEvidenceController.show())
+              }
+              .recover {
+                case UpstreamErrorResponse.Upstream5xxResponse(_) =>
+                  ServiceUnavailable(views.html.errors.serviceUnavailable())
+              }
+          }
+          case _ =>
+            Future.successful(Ok(ownershipToPropertyView(
+              ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
+              request.ses.clientDetails,
+              controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url
+            )))
+        }
+
+      }
     }
-    Ok(
-      ownershipToPropertyView(
-        ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
-        request.ses.clientDetails,
-        controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url
-      ))
+
   }
 
   def submitOwnership(): Action[AnyContent] =

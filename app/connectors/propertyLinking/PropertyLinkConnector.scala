@@ -19,11 +19,13 @@ package connectors.propertyLinking
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances
 import controllers.PaginationParams
+
 import javax.inject.{Inject, Singleton}
 import models._
 import models.dvr.cases.check.myclients.CheckCasesWithClient
 import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
 import models.dvr.cases.check.projection.CaseDetails
+import models.properties.PropertyHistory
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList, AppointAgentToSomePropertiesRequest}
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
@@ -38,6 +40,7 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
+  lazy val vmBaseUrl: String = config.baseUrl("vmv") + s"/vmv"
 
   def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
     import ExceptionThrowingReadsInstances._
@@ -228,5 +231,9 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
     http
       .GET[CheckCasesWithClient](s"$baseUrl/check-cases/$propertyLinkSubmissionId/agent")
       .map(_.checkCases.map(CaseDetails.apply))
+
+  // Check history about this Endpoint https://jira.tools.tax.service.gov.uk/browse/VTCCA-3210
+  def getPropertyHistory(uarn: Long)(implicit hc: HeaderCarrier): Future[PropertyHistory] =
+    http.GET[PropertyHistory](s"$vmBaseUrl/rating-listing/api/properties/$uarn")
 
 }
