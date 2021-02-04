@@ -29,7 +29,9 @@ import models.dvr.cases.check.common.{Agent, Client}
 import models.dvr.cases.check.myclients.{CheckCaseWithClient, CheckCasesWithClient}
 import models.dvr.cases.check.myorganisation.{CheckCaseWithAgent, CheckCasesWithAgent}
 import models.dvr.cases.check.projection.CaseDetails
+import models.properties.{AllowedAction, PropertyHistory, PropertyValuation, ValuationStatus}
 import models.propertyrepresentation._
+import models.referencedata.ReferenceData
 import models.registration._
 import models.searchApi._
 import models.upscan._
@@ -444,5 +446,44 @@ trait FakeObjects {
             organisationId = agent.organisationId
         ))
     )
+
+  val testPropertyValuations = Seq(
+    PropertyValuation(
+      valuationId = 123,
+      valuationStatus = ValuationStatus.CURRENT,
+      rateableValue = Some(BigDecimal(1000)),
+      scatCode = Some("scatCode"),
+      effectiveDate = LocalDate.of(2019, 2, 21),
+      currentFromDate = LocalDate.of(2019, 2, 21),
+      currentToDate = None,
+      listYear = "current",
+      primaryDescription = ReferenceData("code", "description"),
+      allowedActions = AllowedAction.values.toList,
+      listType = ListType.CURRENT,
+      propertyLinkEarliestStartDate = None
+    ),
+    PropertyValuation(
+      valuationId = 123,
+      valuationStatus = ValuationStatus.CURRENT,
+      rateableValue = Some(BigDecimal(1000)),
+      scatCode = Some("scatCode"),
+      effectiveDate = LocalDate.of(2019, 2, 21),
+      currentFromDate = LocalDate.of(2019, 2, 21),
+      currentToDate = None,
+      listYear = "current",
+      primaryDescription = ReferenceData("code", "description"),
+      allowedActions = AllowedAction.values.toList,
+      listType = ListType.CURRENT,
+      propertyLinkEarliestStartDate = Some(LocalDate.now().plusYears(1))
+    )
+  )
+  val propertyHistory = new PropertyHistory(
+    uarn = 4500,
+    addressFull = address.toString,
+    localAuthorityCode = "4500",
+    localAuthorityReference = "BACODE",
+    history = testPropertyValuations,
+    allowedActions = List(AllowedAction.PROPERTY_LINK)
+  )
 
 }
