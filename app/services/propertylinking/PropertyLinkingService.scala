@@ -72,7 +72,7 @@ class PropertyLinkingService @Inject()(
     for {
       propertyHistory <- propertyLinkConnector.getPropertyHistory(uarn)
       earliestStartDate: Option[LocalDate] = propertyHistory.history
-        .find(pv => pv.listType == ListType.CURRENT && pv.valuationStatus == ValuationStatus.CURRENT)
+        .find(_.propertyLinkEarliestStartDate.isDefined)
         .map(_.propertyLinkEarliestStartDate)
         .getOrElse(None)
     } yield earliestStartDate

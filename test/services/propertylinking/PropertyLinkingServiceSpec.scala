@@ -30,6 +30,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.logging.SessionId
 import uk.gov.hmrc.propertylinking.exceptions.attachments.AttachmentException
 
+import java.time.LocalDate
 import scala.concurrent.Future
 import scala.language.implicitConversions
 
@@ -82,6 +83,16 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
       testService.submitOnClientBehalf(mockPropertyLinkRequest, clientId)
     res.value.futureValue must be(Right(()))
     verify(mockPropertyLinkConnector, times(1)).createPropertyLinkOnClientBehalf(any(), any())(any())
+  }
+
+  "find earliest start date" should "return valid start date" in {
+    implicit val linkingSession = linkingSessionRequest()
+    when(mockPropertyLinkConnector.getPropertyHistory(any())(any()))
+      .thenReturn(Future.successful(propertyHistory))
+    val res: Future[Option[LocalDate]] =
+      testService.findEarliestStartDate(propertyHistory.uarn)
+    res.futureValue must be(Some(LocalDate.now().plusYears(1)))
+    verify(mockPropertyLinkConnector, times(1)).getPropertyHistory(any())(any())
   }
 
 }
