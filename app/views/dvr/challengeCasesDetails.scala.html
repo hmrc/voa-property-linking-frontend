@@ -25,12 +25,8 @@
 
 @(authorisationId: Long, challengeCases: List[CaseDetails], isOwner: Boolean, submissionId: String)(implicit messages: Messages, config: ApplicationConfig)
 
-@isAgent = @{
-    if(isOwner) false else true
-}
-
 @challengeCaseDetailsUrl(challengeCaseRef: String) = @{
-    config.businessRatesChallengeUrl(s"summary/property-link/$authorisationId/submission-id/$submissionId/challenge-cases/$challengeCaseRef?isAgent=$isAgent&isDvr=true")
+    config.businessRatesChallengeUrl(s"summary/property-link/$authorisationId/submission-id/$submissionId/challenge-cases/$challengeCaseRef?isAgent=${!isOwner}&isDvr=true")
 }
 
 @challengeRow(submittedDate: LocalDateTime, status: String, challengeReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = {
