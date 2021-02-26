@@ -131,13 +131,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
       oar.copy(authorisations = oar.authorisations.map(auth => auth.copy(agents = auth.agents))))
   }
 
-  def appointableProperties(organisationId: Long, pagination: AgentPropertiesParameters)(
-        implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
-    http.GET[OwnerAuthResult](
-      s"$baseUrl/property-links-appointable?" +
-        s"ownerId=$organisationId" +
-        s"&${pagination.queryString}")
-
   def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(
         implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
     val url =

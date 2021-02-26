@@ -50,10 +50,6 @@ object StubPropertyLinkConnector
         implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
     Future.successful(stubbedOwnerAuthResult)
 
-  override def appointableProperties(organisationId: Long, pagination: AgentPropertiesParameters)(
-        implicit hc: HeaderCarrier) =
-    Future.successful(stubbedOwnerAuthResult)
-
   override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(
         implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {
     stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId)

@@ -66,19 +66,6 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.createPropertyLinkOnClientBehalf(mock[PropertyLinkPayload], clientId))(_ mustBe response)
   }
 
-  "appointableProperties" must "return the properties appointable to an agent" in new Setup {
-    val agentPropertiesParameters = AgentPropertiesParameters(agentCode = 1)
-    val ownerAuthResult = OwnerAuthResult(
-      start = 1,
-      size = 1,
-      filterTotal = 1,
-      total = 1,
-      authorisations = Seq(arbitrary[OwnerAuthorisation].sample.get))
-
-    mockHttpGET[OwnerAuthResult]("tst-url", ownerAuthResult)
-    whenReady(connector.appointableProperties(1, agentPropertiesParameters))(_ mustBe ownerAuthResult)
-  }
-
   "clientProperty" must "return a client property if it exists" in new Setup {
     val clientProperty = arbitrary[ClientProperty].sample.get
 
