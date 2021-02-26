@@ -46,8 +46,8 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   def businessRatesCheckCaseSummaryUrl(page: String): String =
     loadConfig("business-rates-check-case-summary.url") + s"/$page"
 
-  def businessRatesChallengeStartPageUrl(page: String): String =
-    loadConfig("business-rates-challenge-start-page.url") + s"/$page"
+  def businessRatesChallengeUrl(page: String): String =
+    loadConfig("business-rates-challenge-frontend.url") + s"/$page"
 
   lazy val helpGuideUrl = loadConfig("help-guide.url")
 
