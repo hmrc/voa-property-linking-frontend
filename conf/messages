@@ -362,7 +362,7 @@ property.details.cases.table.7=Client
 property.details.cases.table.8=Submitted By
 property.details.cases.table.challenge=Challenge
 
-assessments.title=Valuations
+
 assessments.table.caption=Valuations
 assessments.table.1=Effective date
 assessments.table.2=Rateable value
@@ -741,16 +741,16 @@ label.toDate.month.client=When was your client''s last day as the owner or occup
 label.toDate.year=When was your last day as the owner or occupier of the property? - Year
 label.toDate.year.client=When was your client''s last day as the owner or occupier of the property? - Year
 #UPLOAD RATES BILL
-uploadRatesBill.show.title=Submit a copy of your business rates bill
-uploadRatesBill.show.client.title=Submit a copy of your client''s business rates bill
+uploadRatesBill.show.title=Provide a copy of your business rates bill
+uploadRatesBill.show.client.title=Provide a copy of your client''s business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
 uploadFile.allowedTypes.l1=Only Word, Excel, PDF and JPEG files can be accepted and maximum file size is 10MB
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Confirm
-chooseEvidence.title=Provide a copy of your business rates bill
+chooseEvidence.title=Do you have a copy of the business rates bill for this property?
 chooseEvidence.client.title=Provide a copy of your client''s business rates bill
-label.hasRatesBill=Please upload a copy of the business rates bill for this property
+label.hasRatesBill=Do you have a copy of the business rates bill for this property?
 hasRatesBill.true=I have a business rates bill
 hasRatesBill.false=I don’t have a business rates bill
 label.ratesBill=Please upload a copy of the rates bill
@@ -782,7 +782,7 @@ link.addAgent=Add an agent
 link.manageProperties=Manage properties
 
 #UPLOAD EVIDENCE
-uploadEvidence.show.title=Upload other evidence
+uploadEvidence.show.title=Provide other evidence
 uploadEvidence.p.1=You’ve indicated that you don’t have a business rates bill for this property. Please provide other evidence.
 uploadEvidence.evidenceTypes=Evidence that we may accept includes:
 uploadEvidence.evidenceTypes.1=the lease agreement
@@ -810,7 +810,7 @@ evidenceType.ratesBill=Rates bill
 evidenceType.landRegistryTitle=Land Registry title
 
 label.evidence=Please upload evidence so that we can verify your link to the property
-evidence.label=Upload other evidence
+evidence.label=Provide other evidence
 error.missingFiles=Please upload some evidence
 uploadEvidence.show.button=Continue
 uploadEvidence.evidenceUploaded.title=Evidence successfully uploaded
