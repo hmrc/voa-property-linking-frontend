@@ -18,17 +18,22 @@
 @import utils.Formatters
 @import config.ApplicationConfig
 @import controllers.detailedvaluationrequest.routes
+@import config.ApplicationConfig
 
 @import java.time.LocalDateTime
 @import java.time.LocalDate
 
-@(authorisationId: Long, challengeCases: List[CaseDetails], isOwner: Boolean)(implicit messages: Messages)
+@(authorisationId: Long, challengeCases: List[CaseDetails], isOwner: Boolean, submissionId: String)(implicit messages: Messages, config: ApplicationConfig)
+
+@challengeCaseDetailsUrl(challengeCaseRef: String) = @{
+    config.businessRatesChallengeUrl(s"summary/property-link/$authorisationId/submission-id/$submissionId/challenge-cases/$challengeCaseRef?isAgent=${!isOwner}&isDvr=true")
+}
 
 @challengeRow(submittedDate: LocalDateTime, status: String, challengeReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = {
     <tr>
         <td>@Formatters.formatDateTimeToDate(submittedDate)</td>
         <td>@status</td>
-        <td>@challengeReference</td>
+        <td><a class="govuk-link" href="@challengeCaseDetailsUrl(challengeReference)">@challengeReference</a></td>
         <td>@if(closedDate.isDefined){@Formatters.formatDate(closedDate.get)}</td>
         <td>@clientOrAgent</td>
         <td>@submittedBy</td>
