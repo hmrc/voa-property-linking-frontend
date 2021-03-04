@@ -112,16 +112,13 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
       case _ =>
         http.GET[OwnerAuthResult](
           s"$baseUrl/my-organisation/agents/$agentCode/available-property-links",
-          List(
-            searchParams.address.map("address" -> _),
-            Some("sortField"                   -> searchParams.sortfield.toString),
-            Some("sortOrder"                   -> searchParams.sortorder.toString)
-          ).flatten ++
-            List(
-              "startPoint"           -> pagination.startPoint.toString,
-              "pageSize"             -> pagination.pageSize.toString,
-              "requestTotalRowCount" -> pagination.requestTotalRowCount.toString
-            )
+          searchParams.address.map("address" -> _).toList ++ List(
+            "sortField"            -> searchParams.sortfield.toString,
+            "sortOrder"            -> searchParams.sortorder.toString,
+            "startPoint"           -> pagination.startPoint.toString,
+            "pageSize"             -> pagination.pageSize.toString,
+            "requestTotalRowCount" -> pagination.requestTotalRowCount.toString
+          )
         )
     }
     // filter agents on representationStatus
