@@ -67,7 +67,8 @@ class AgentRelationshipService @Inject()(
         requestTotalRowCount = false),
       organisationId = organisationId,
       agentOrganisationId = agentOrganisationId,
-      agentAppointed = Some(pagination.agentAppointed)
+      agentAppointed = Some(pagination.agentAppointed),
+      agentCode = pagination.agentCode
     )
 
   def getMyAgentPropertyLinks(agentCode: Long, searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(

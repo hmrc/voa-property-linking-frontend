@@ -103,29 +103,27 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
         pagination: PaginationParams,
         organisationId: Long,
         agentOrganisationId: Long,
-        agentAppointed: Option[String] = None
+        agentAppointed: Option[String] = None,
+        agentCode: Long
   )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
-
-    val ownerAuthResult = http.GET[OwnerAuthResult](
-      s"$baseUrl/owner/property-links/appointable",
-      List(
-        searchParams.address.map("address"  -> _),
-        searchParams.baref.map("baref"      -> _),
-        searchParams.agent.map("agent"      -> _),
-        searchParams.status.map("status"    -> _),
-        Some("sortfield"                    -> searchParams.sortfield.toString),
-        Some("sortorder"                    -> searchParams.sortorder.toString),
-        agentAppointed.map("agentAppointed" -> _),
-        Some("organisationId"               -> organisationId.toString),
-        Some("agentOrganisationId"          -> agentOrganisationId.toString)
-      ).flatten ++
-        List(
-          "startPoint"           -> pagination.startPoint.toString,
-          "pageSize"             -> pagination.pageSize.toString,
-          "requestTotalRowCount" -> pagination.requestTotalRowCount.toString
+    val ownerAuthResult = agentAppointed.getOrElse("BOTH") match {
+      case "NO" =>
+        getMyOrganisationsPropertyLinks(searchParams, pagination)
+      case _ =>
+        http.GET[OwnerAuthResult](
+          s"$baseUrl/my-organisation/agents/$agentCode/available-property-links",
+          List(
+            searchParams.address.map("address" -> _),
+            Some("sortField"                   -> searchParams.sortfield.toString),
+            Some("sortOrder"                   -> searchParams.sortorder.toString)
+          ).flatten ++
+            List(
+              "startPoint"           -> pagination.startPoint.toString,
+              "pageSize"             -> pagination.pageSize.toString,
+              "requestTotalRowCount" -> pagination.requestTotalRowCount.toString
+            )
         )
-    )
-
+    }
     // filter agents on representationStatus
     ownerAuthResult.map(oar =>
       oar.copy(authorisations = oar.authorisations.map(auth => auth.copy(agents = auth.agents))))
