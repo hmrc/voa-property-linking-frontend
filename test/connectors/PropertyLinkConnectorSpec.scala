@@ -25,7 +25,7 @@ import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
 import models.propertyrepresentation.AgentList
-import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
+import models.searchApi.OwnerAuthResult
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
@@ -41,7 +41,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   class Setup {
-    val connector = new PropertyLinkConnector(servicesConfig, mockHttpClient) {
+    val connector = new PropertyLinkConnector(config = servicesConfig, http = mockHttpClient) {
       override lazy val baseUrl: String = "tst-url"
     }
   }
@@ -137,16 +137,29 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(res)(_ mustBe ownerAuthResultResponse)
   }
 
-  "getMyOrganisationPropertyLinksWithAgentFiltering" must "return OwnerAuthResult" in new Setup {
+  "Owner request for getMyOrganisationPropertyLinksWithAgentFiltering" must "return OwnerAuthResult" in new Setup {
     mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
     val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
       searchParams = GetPropertyLinksParameters(status = Some("APPROVED")),
       pagination = PaginationParams(1, 10, requestTotalRowCount = false),
       organisationId = 1L,
       agentOrganisationId = 1L,
-      agentAppointed = None
+      agentAppointed = Some("NO"),
+      agentCode = 1L
     )
     whenReady(res)(_ mustBe ownerAuthResultResponse)
+  }
+
+  "Agent request for getMyOrganisationPropertyLinksWithAgentFiltering" must "return OwnerAuthResult" in new Setup {
+    mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
+    val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
+      searchParams = GetPropertyLinksParameters(status = Some("APPROVED")),
+      pagination = PaginationParams(1, 10, requestTotalRowCount = false),
+      organisationId = 1L,
+      agentOrganisationId = 1L,
+      agentAppointed = Some("BOTH"),
+      agentCode = 1L
+    )
   }
 
   "canChallenge" must "return CanChallengeResponse" in new Setup {
