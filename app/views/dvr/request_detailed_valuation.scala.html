@@ -46,7 +46,7 @@
 
                 <p>@Html(Messages("auto.requestDetailedValuation.p.2"))</p>
 
-                <p>@Html(Messages("auto.requestDetailedValuation.p.3", routes.Dashboard.home()))</p>
+                <p>@Html(Messages("auto.requestDetailedValuation.p.3", config.dashboardUrl("home")))</p>
 
                 @form(
                     if (owner)

@@ -257,13 +257,8 @@ class ManageAgentController @Inject()(
 
   def showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
     implicit request =>
-      Future.successful(
-        Ok(
-          removeAgentFromOrganisation(
-            submitAgentAppointmentRequest,
-            agentCode,
-            agentName,
-            config.newDashboardUrl("home"))))
+      Future.successful(Ok(
+        removeAgentFromOrganisation(submitAgentAppointmentRequest, agentCode, agentName, config.dashboardUrl("home"))))
   }
 
   def removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String): Action[AnyContent] =
@@ -284,7 +279,7 @@ class ManageAgentController @Inject()(
       controllers.agent.routes.ManageAgentController
         .manageAgentProperties(agentCode, GetPropertyLinksParameters(), PaginationParameters())
         .url
-    else config.newDashboardUrl("home")
+    else config.dashboardUrl("home")
 
   private def joinOldAgentAppointJourney(agentCode: Long) =
     Redirect(

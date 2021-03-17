@@ -20,13 +20,13 @@
 @(backUri: Option[String], backLinkClass: String = "govuk-back-link")(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
 
     @homeLink = @{
-        config.newDashboardUrl("home")
+        config.dashboardUrl("home")
     }
     @signOutLink = @{
-        config.newDashboardUrl("sign-out")
+        config.dashboardUrl("sign-out")
     }
     @yourDetailsLink = @{
-        config.newDashboardUrl("your-details")
+        config.dashboardUrl("your-details")
     }
 
     @noAccountLinks = {

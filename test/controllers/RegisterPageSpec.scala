@@ -56,7 +56,7 @@ class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaProper
     val testAccountType = "testAccountType"
     applicationTestController.continue(testAccountType) mustBe Map(
       "accountType" -> Seq(testAccountType),
-      "continue"    -> Seq(routes.Dashboard.home().url),
+      "continue"    -> Seq("dashboard-url"), //fixme fix url if needed
       "origin"      -> Seq("voa"))
   }
 

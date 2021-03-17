@@ -41,7 +41,7 @@
 
             <p>@Html(Messages("account.confirmation.disclaimer"))</p>
 
-            <a href="@routes.Dashboard.home()" class="button" role="button">@messages("account.enrolment.link.success")</a>
+            <a href="@config.dashboardUrl("home")" class="button" role="button">@messages("account.enrolment.link.success")</a>
         </div>
     </div>
 }

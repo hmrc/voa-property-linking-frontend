@@ -44,20 +44,20 @@ class Dashboard @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def home() = authenticated(Redirect(config.newDashboardUrl("home")))
+  def home() = authenticated(Redirect(config.dashboardUrl("home")))
 
-  def yourDetails() = authenticated(Redirect(config.newDashboardUrl("your-details")))
+  def yourDetails() = authenticated(Redirect(config.dashboardUrl("your-details")))
 
-  def manageProperties(clientDetails: Option[ClientDetails] = None) = authenticated { implicit request =>
+  def manageProperties(clientDetails: Option[ClientDetails] = None) = authenticated {
     clientDetails match {
       case Some(client) =>
-        Redirect(config.newDashboardUrl(
+        Redirect(config.dashboardUrl(
           s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}"))
-      case _ => Redirect(config.newDashboardUrl("your-properties"))
+      case _ => Redirect(config.dashboardUrl("your-properties"))
     }
   }
 
-  def manageAgents() = authenticated(Redirect(config.newDashboardUrl("your-agents")))
+  def manageAgents() = authenticated(Redirect(config.dashboardUrl("your-agents")))
 
   def viewManagedProperties(agentCode: Long, owner: Boolean): Action[AnyContent] = authenticated.async {
     implicit request =>
@@ -75,9 +75,9 @@ class Dashboard @Inject()(
             owner))
   }
 
-  def viewMessages() = authenticated(Redirect(config.newDashboardUrl("inbox")))
+  def viewMessages() = authenticated(Redirect(config.dashboardUrl("inbox")))
 
-  def viewMessage(messageId: String) = authenticated(Redirect(config.newDashboardUrl("inbox")))
+  def viewMessage(messageId: String) = authenticated(Redirect(config.dashboardUrl("inbox")))
 }
 
 case class ManagePropertiesVM(organisationId: Long, result: OwnerAuthResult, pagination: PaginationSearchSort)
@@ -92,24 +92,4 @@ case class ManageAgentsVM(agents: Seq[AgentInfo])
 
 case class DraftCasesVM(draftCases: Seq[DraftCase])
 
-case class PropertyLinkRepresentations(
-      name: String,
-      linkId: String,
-      capacity: CapacityType,
-      linkedDate: LocalDate,
-      representations: Seq[PropertyRepresentation])
-
-case class PendingPropertyLinkRepresentations(
-      name: String,
-      linkId: String,
-      capacity: CapacityType,
-      linkedDate: LocalDate,
-      representations: Seq[PropertyRepresentation])
-
-case class LinkedPropertiesRepresentations(
-      added: Seq[PropertyLinkRepresentations],
-      pending: Seq[PendingPropertyLinkRepresentations])
-
 case class AgentInfo(organisationName: String, agentCode: Long)
-
-case class ClientPropertiesVM(properties: Seq[ClientProperty])

@@ -39,7 +39,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   def businessTaxAccountUrl(page: String): String = loadConfig("business-tax-account.url") + s"/$page"
 
-  def newDashboardUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
+  def dashboardUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
 
   def yourDetailsUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
 
@@ -75,7 +75,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
   lazy val signOutUrl =
-    s"${loadConfig("sign-out.url")}?continue_url=${newDashboardUrl("home")}&accountType=organisation&origin=voa"
+    s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
   lazy val signOutTimeout = loadInt("sign-out.timeout")
   lazy val signOutCountdown = loadInt("sign-out.countdown")
   lazy val keepAliveUrl = loadConfig("sign-out.keep-alive-url")

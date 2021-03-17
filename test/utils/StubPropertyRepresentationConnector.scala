@@ -28,17 +28,10 @@ import scala.concurrent.{ExecutionContext, Future}
 
 object StubPropertyRepresentationConnector
     extends PropertyRepresentationConnector(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
-  private var stubbedRepresentations: Seq[PropertyRepresentation] = Nil
+
   private var stubbedValidCodes: Seq[Long] = Nil
   private var stubbedAgentAuthResult: AgentAuthResult =
     AgentAuthResult(start = 15, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[AgentAuthorisation])
-
-  def stubbedRepresentations(status: RepresentationStatus = RepresentationApproved): Seq[PropertyRepresentation] =
-    stubbedRepresentations.filter(_.status == status)
-
-  def stubRepresentation(rep: PropertyRepresentation) = stubbedRepresentations :+= rep
-
-  def stubRepresentations(reps: Seq[PropertyRepresentation]) = stubbedRepresentations ++= reps
 
   def stubAgentAuthResult(reps: AgentAuthResult) = stubbedAgentAuthResult = reps
 
@@ -47,10 +40,8 @@ object StubPropertyRepresentationConnector
   def stubAgentCode(agentCode: Long) =
     stubbedValidCodes :+= agentCode
 
-  def reset(): Unit = {
-    stubbedRepresentations = Nil
+  def reset(): Unit =
     stubbedValidCodes = Nil
-  }
 
   override def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier) = Future.successful(Unit)
 }

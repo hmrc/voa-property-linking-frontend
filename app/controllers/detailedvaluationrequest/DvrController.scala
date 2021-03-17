@@ -318,7 +318,7 @@ class DvrController @Inject()(
             Future successful Ok(
               views.html.dvr.cannotRaiseChallenge(
                 model = response,
-                homePageUrl = config.newDashboardUrl("home"),
+                homePageUrl = config.dashboardUrl("home"),
                 authorisationId = authorisationId,
                 backLinkUrl =
                   if (isOwner)

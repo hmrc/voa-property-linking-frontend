@@ -55,7 +55,7 @@ class RegistrationController @Inject()(
   def show(): Action[AnyContent] = (ggAuthenticated andThen sessionUserDetailsAction).async { implicit request =>
     individualAccounts.withExternalId(request.externalId).flatMap {
       case Some(voaUser) =>
-        Future.successful(Redirect(controllers.routes.Dashboard.home()))
+        Future.successful(Redirect(config.dashboardUrl("home")))
       case None =>
         request.userDetails match {
           case user @ IndividualUserDetails() =>

@@ -49,6 +49,6 @@
         <input type="hidden" name="scope" value="@ALL_PROPERTIES.toString">
         @govukButton(Button(content = Text(messages("label.confirm"))))
     }
-    <a class="govuk-link" href="@config.newDashboardUrl("home")">@messages("link.cancel")</a>
+    <a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.cancel")</a>
 
 }

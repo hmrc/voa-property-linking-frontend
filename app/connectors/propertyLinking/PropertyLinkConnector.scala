@@ -126,16 +126,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
       oar.copy(authorisations = oar.authorisations.map(auth => auth.copy(agents = auth.agents))))
   }
 
-  def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(
-        implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = {
-    val url =
-      s"$baseUrl/property-links/client-property/$authorisationId" +
-        s"?clientOrganisationId=$clientOrgId" +
-        s"&agentOrganisationId=$agentOrgId"
-
-    http.GET[Option[ClientProperty]](url) recover { case _: NotFoundException => None }
-  }
-
   def clientPropertyLink(plSubmissionId: String)(implicit hc: HeaderCarrier): Future[Option[ClientPropertyLink]] = {
     val url =
       s"$baseUrl/agent/property-links/$plSubmissionId?projection=clientsPropertyLink"

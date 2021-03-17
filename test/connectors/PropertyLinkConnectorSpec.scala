@@ -66,18 +66,6 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.createPropertyLinkOnClientBehalf(mock[PropertyLinkPayload], clientId))(_ mustBe response)
   }
 
-  "clientProperty" must "return a client property if it exists" in new Setup {
-    val clientProperty = arbitrary[ClientProperty].sample.get
-
-    mockHttpGETOption[ClientProperty]("tst-url", clientProperty)
-    whenReady(connector.clientProperty(1, 1, 1))(_ mustBe Some(clientProperty))
-  }
-
-  "clientProperty" must "return None if the client property is not found" in new Setup {
-    mockHttpFailedGET[ClientProperty]("tst-url", new NotFoundException("Client property not found"))
-    whenReady(connector.clientProperty(1, 1, 1))(_ mustBe None)
-  }
-
   "getLink" must "return a property link if it exists" in new Setup {
     val propertyLink = arbitrary[PropertyLink].sample.get
 

@@ -219,9 +219,6 @@ package object utils {
       capacity)
   implicit val arbitraryAssessment = Arbitrary(assessmentGen)
 
-  val representationStatusGen: Gen[RepresentationStatus] = Gen.oneOf(RepresentationApproved, RepresentationPending)
-  implicit val representationStatusType = Arbitrary(representationStatusGen)
-
   val party: Gen[Party] = for {
     authorisedPartyId <- arbitrary[Long]
     agentCode         <- arbitrary[Long]
@@ -229,32 +226,6 @@ package object utils {
     organisationId    <- arbitrary[Long]
   } yield models.Party(authorisedPartyId, agentCode, organisationName, organisationId)
   implicit val arbitraryParty = Arbitrary(party)
-
-  val clientPropertyGen: Gen[ClientProperty] = for {
-    ownerOrganisationId       <- arbitrary[Long]
-    ownerOrganisationName     <- shortString
-    billingAuthorityReference <- shortString
-    authorisedPartyId         <- arbitrary[Long]
-    authorisationId           <- arbitrary[Long]
-    authorisationStatus       <- arbitrary[Boolean]
-    authorisedPartyStatus     <- arbitrary[RepresentationStatus]
-    checkPermission           <- shortString
-    challengePermission       <- shortString
-    address                   <- shortString
-  } yield
-    models.ClientProperty(
-      ownerOrganisationId,
-      ownerOrganisationName,
-      billingAuthorityReference,
-      authorisedPartyId,
-      authorisationId,
-      authorisationStatus,
-      authorisedPartyStatus,
-      checkPermission,
-      challengePermission,
-      address
-    )
-  implicit val arbitraryClientProperty = Arbitrary(clientPropertyGen)
 
   val propertyLinkingStatusGen: Gen[PropertyLinkingStatus] = Gen.oneOf(PropertyLinkingApproved, PropertyLinkingPending)
   implicit val propertyLinkingStatusGenType = Arbitrary(propertyLinkingStatusGen)
@@ -318,27 +289,6 @@ package object utils {
       agents = agents)
   }
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
-
-  val propertyRepresentationGen: Gen[PropertyRepresentation] = for {
-    authorisationId           <- arbitrary[Long]
-    billingAuthorityReference <- shortString
-    submissionId              <- shortString
-    organisationId            <- arbitrary[Long]
-    organisationName          <- shortString
-    address                   <- arbitrary[PropertyAddress]
-    status                    <- arbitrary[RepresentationStatus]
-  } yield {
-    PropertyRepresentation(
-      authorisationId = authorisationId,
-      billingAuthorityReference = billingAuthorityReference,
-      submissionId = submissionId,
-      organisationId = organisationId,
-      organisationName = organisationName,
-      address = address.toString,
-      status = status
-    )
-  }
-  implicit val arbitraryPropertyRepresentation = Arbitrary(propertyRepresentationGen)
 
   private val ninoGen: Gen[Nino] = for {
     prefix <- (for {
@@ -472,12 +422,7 @@ package object utils {
     authorisedPartyId <- arbitrary[Long]
     organisationId    <- arbitrary[Long]
     organisationName  <- shortString
-    status <- Gen.oneOf(
-               RepresentationApproved.name,
-               RepresentationDeclined.name,
-               RepresentationPending.name,
-               RepresentationRevoked.name)
-    agentCode <- arbitrary[Long]
+    agentCode         <- arbitrary[Long]
   } yield {
     OwnerAuthAgent(authorisedPartyId, organisationId, organisationName, agentCode)
   }
@@ -488,21 +433,15 @@ package object utils {
     authorisationId   <- arbitrary[Long]
     authorisedPartyId <- arbitrary[Long]
     uarn              <- arbitrary[Long]
-    status <- Gen.oneOf(
-               RepresentationApproved.name,
-               RepresentationDeclined.name,
-               RepresentationPending.name,
-               RepresentationRevoked.name)
-    submissionId         <- shortString
-    address              <- arbitrary[PropertyAddress]
-    localAuthorityRef    <- shortString
-    client               <- arbitrary[AgentAuthClient]
-    representationStatus <- arbitrary[String]
+    submissionId      <- shortString
+    address           <- arbitrary[PropertyAddress]
+    localAuthorityRef <- shortString
+    client            <- arbitrary[AgentAuthClient]
   } yield {
     AgentAuthorisation(
       authorisationId = authorisationId,
       authorisedPartyId = authorisedPartyId,
-      status = status,
+      status = "APPROVED",
       uarn = uarn,
       submissionId = submissionId,
       address = address.toString,
@@ -513,13 +452,8 @@ package object utils {
   implicit val arbitraryAgentAuthorisationGen = Arbitrary(agentAuthorisationGen)
 
   val ownerAuthorisationGen: Gen[OwnerAuthorisation] = for {
-    id   <- arbitrary[Long]
-    uarn <- arbitrary[Long]
-    status <- Gen.oneOf(
-               RepresentationApproved.name,
-               RepresentationDeclined.name,
-               RepresentationPending.name,
-               RepresentationRevoked.name)
+    id                <- arbitrary[Long]
+    uarn              <- arbitrary[Long]
     submissionId      <- shortString
     address           <- shortString
     localAuthorityRef <- shortString
@@ -527,7 +461,7 @@ package object utils {
   } yield {
     OwnerAuthorisation(
       authorisationId = id,
-      status = status,
+      status = "APPROVED",
       uarn = uarn,
       submissionId = submissionId,
       address = address.toString,
