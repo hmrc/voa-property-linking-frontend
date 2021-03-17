@@ -92,22 +92,4 @@ case class ManageAgentsVM(agents: Seq[AgentInfo])
 
 case class DraftCasesVM(draftCases: Seq[DraftCase])
 
-case class PropertyLinkRepresentations(
-      name: String,
-      linkId: String,
-      capacity: CapacityType,
-      linkedDate: LocalDate,
-      representations: Seq[PropertyRepresentation])
-
-case class PendingPropertyLinkRepresentations(
-      name: String,
-      linkId: String,
-      capacity: CapacityType,
-      linkedDate: LocalDate,
-      representations: Seq[PropertyRepresentation])
-
-case class LinkedPropertiesRepresentations(
-      added: Seq[PropertyLinkRepresentations],
-      pending: Seq[PendingPropertyLinkRepresentations])
-
 case class AgentInfo(organisationName: String, agentCode: Long)

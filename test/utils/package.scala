@@ -290,28 +290,6 @@ package object utils {
   }
   implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
 
-  val propertyRepresentationGen: Gen[PropertyRepresentation] = for {
-    authorisationId           <- arbitrary[Long]
-    billingAuthorityReference <- shortString
-    submissionId              <- shortString
-    organisationId            <- arbitrary[Long]
-    organisationName          <- shortString
-    address                   <- arbitrary[PropertyAddress]
-//    status                    <- arbitrary[RepresentationStatus]
-  } yield {
-    PropertyRepresentation(
-      authorisationId = authorisationId,
-      billingAuthorityReference = billingAuthorityReference,
-      submissionId = submissionId,
-      organisationId = organisationId,
-      organisationName = organisationName,
-      address = address.toString
-//      ,
-//      status = status
-    )
-  }
-  implicit val arbitraryPropertyRepresentation = Arbitrary(propertyRepresentationGen)
-
   private val ninoGen: Gen[Nino] = for {
     prefix <- (for {
                prefix1 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'Q', 'U', 'V').contains))
