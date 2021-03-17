@@ -94,7 +94,7 @@ class ClaimPropertyRelationshipController @Inject()(
     }
 
   private def backLink(request: Request[AnyContent]): String = {
-    val link = request.headers.get("referer").getOrElse(config.newDashboardUrl("home"))
+    val link = request.headers.get("referer").getOrElse(config.dashboardUrl("home"))
     if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
   }
 

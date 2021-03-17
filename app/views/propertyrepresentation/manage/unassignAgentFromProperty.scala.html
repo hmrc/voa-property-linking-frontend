@@ -46,6 +46,6 @@
         <input type="hidden" name="scope" value="@ALL_PROPERTIES.toString">
         @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperty.confirm"))))
     }
-    <a class="govuk-link" href="@config.newDashboardUrl("home")">@messages("propertyRepresentation.manageAgent.unassignFromProperty.cancel")</a>
+    <a class="govuk-link" href="@config.dashboardUrl("home")">@messages("propertyRepresentation.manageAgent.unassignFromProperty.cancel")</a>
 
 }

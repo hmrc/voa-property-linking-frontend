@@ -33,7 +33,7 @@ class Register @Inject()(
 ) extends PropertyLinkingController {
 
   def continue(accountType: String): Map[String, Seq[String]] =
-    Map("accountType" -> Seq(accountType), "continue" -> Seq(config.newDashboardUrl("home")), "origin" -> Seq("voa"))
+    Map("accountType" -> Seq(accountType), "continue" -> Seq(config.dashboardUrl("home")), "origin" -> Seq("voa"))
 
   def show(): Action[AnyContent] = Action(redirect("organisation"))
 

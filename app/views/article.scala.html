@@ -33,7 +33,7 @@
     @articleClasses.get
 }">
     @backLink = {
-        <a href=@backLinkUrl.orElse(requestHeader.headers.get("referer")).getOrElse(config.newDashboardUrl("home")) class="link-back">@messages("link.back")</a>
+        <a href=@backLinkUrl.orElse(requestHeader.headers.get("referer")).getOrElse(config.dashboardUrl("home")) class="link-back">@messages("link.back")</a>
     }
 
     @if(topNavigation) {
@@ -45,32 +45,32 @@
                     }
                     <ul class="admin-nav">
                     @if(showLogout) {
-                        <li><a href="@config.newDashboardUrl("home")">@messages("link.home")</a><span class="separator"> |</span></li>
+                        <li><a href="@config.dashboardUrl("home")">@messages("link.home")</a><span class="separator"> |</span></li>
                         @requestHeader match {
                             case req: CcaWrappedRequest => {
-                                <li><a href="@config.newDashboardUrl("your-details")">
+                                <li><a href="@config.dashboardUrl("your-details")">
                                 @req.yourDetailsName.getOrElse(Messages("navigation.your.details"))
                                 </a><span class="separator"> |</span> </li>
                             }
 
                             case request: AuthenticatedRequest[_] => {
                                 @if(request.individualAccount.details.firstName + " " + request.individualAccount.details.lastName != request.organisationAccount.companyName){
-                                    <li><a href="@config.newDashboardUrl("your-details")">
+                                    <li><a href="@config.dashboardUrl("your-details")">
                                         @request.individualAccount.details.firstName @request.individualAccount.details.lastName  - @request.organisationAccount.companyName
                                     </a><span class="separator"> |</span> </li>
                                 }else{
-                                    <li><a href="@config.newDashboardUrl("your-details")">
+                                    <li><a href="@config.dashboardUrl("your-details")">
                                         @request.individualAccount.details.firstName @request.individualAccount.details.lastName
                                     </a><span class="separator"> |</span> </li>
                                 }
                             }
                             case linkingRequest: LinkingSessionRequest[_] => {
                                 @if(linkingRequest.individualAccount.details.firstName + " " + linkingRequest.individualAccount.details.lastName != linkingRequest.organisationAccount.companyName){
-                                    <li><a href="@config.newDashboardUrl("your-details")">
+                                    <li><a href="@config.dashboardUrl("your-details")">
                                         @linkingRequest.individualAccount.details.firstName @linkingRequest.individualAccount.details.lastName - @linkingRequest.organisationAccount.companyName
                                     </a><span class="separator"> |</span> </li>
                                 }else{
-                                    <li><a href="@config.newDashboardUrl("your-details")">
+                                    <li><a href="@config.dashboardUrl("your-details")">
                                         @linkingRequest.individualAccount.details.firstName @linkingRequest.individualAccount.details.lastName
                                     </a><span class="separator"> |</span> </li>
                                 }

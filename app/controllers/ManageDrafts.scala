@@ -56,7 +56,7 @@ class ManageDrafts @Inject()(
     case _              => ("Invalid Id", "Invalid Url")
   }
 
-  def viewDraftCases() = authenticated(Redirect(config.newDashboardUrl("your-drafts")))
+  def viewDraftCases() = authenticated(Redirect(config.dashboardUrl("your-drafts")))
 
   def continueCheck = authenticated.async { implicit request =>
     draftCaseForm.bindFromRequest

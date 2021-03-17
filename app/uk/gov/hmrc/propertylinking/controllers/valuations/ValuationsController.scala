@@ -93,7 +93,7 @@ class ValuationsController @Inject()(
         .flatMap {
           case Some(EmptyAssessments()) | None => Future.successful(notFound)
           case Some(assessments) =>
-            if (owner) Future.successful(okResponse(assessments, config.newDashboardUrl("your-properties")))
+            if (owner) Future.successful(okResponse(assessments, config.dashboardUrl("your-properties")))
             else calculateBackLink(submissionId).map(backlink => okResponse(assessments, backlink))
         }
         .recoverWith {
@@ -135,16 +135,16 @@ class ValuationsController @Inject()(
 
   private def calculateBackLink(submissionId: String)(implicit hc: HeaderCarrier): Future[String] =
     sessionRepo.get[AssessmentsPageSession].flatMap {
-      case None => Future.successful(config.newDashboardUrl("home"))
+      case None => Future.successful(config.dashboardUrl("home"))
       case Some(sessionData) =>
         sessionData.previousPage match {
-          case PreviousPage.AllClients => Future.successful(config.newDashboardUrl("client-properties"))
+          case PreviousPage.AllClients => Future.successful(config.dashboardUrl("client-properties"))
           case PreviousPage.SelectedClient =>
             propertyLinks.clientPropertyLink(submissionId).map {
               case None =>
                 throw new IllegalArgumentException(s"Client not fount for propertyLinkSubmissionId: $submissionId")
               case Some(clientPropertyLink) =>
-                config.newDashboardUrl(
+                config.dashboardUrl(
                   s"selected-client-properties?clientOrganisationId=${clientPropertyLink.client.organisationId}&clientName=${URLEncoder
                     .encode(clientPropertyLink.client.organisationName, "UTF-8")}&pageNumber=1&pageSize=15&sortField=ADDRESS&sortOrder=ASC")
             }

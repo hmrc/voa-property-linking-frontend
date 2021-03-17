@@ -49,7 +49,7 @@ class RepresentationController @Inject()(
 ) extends PropertyLinkingController with ValidPagination {
 
   def viewClientProperties(): Action[AnyContent] = authenticated.asAgent { _ =>
-    Future.successful(Redirect(config.newDashboardUrl("client-properties")))
+    Future.successful(Redirect(config.dashboardUrl("client-properties")))
   }
 
   def revokeClient(plSubmissionId: String): Action[AnyContent] = authenticated.async { implicit request =>

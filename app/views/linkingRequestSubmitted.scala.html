@@ -32,10 +32,10 @@
 @managePropertiesUrl = @{
     (model.clientDetails)  match {
         case Some(client) => {
-            config.newDashboardUrl(
+            config.dashboardUrl(
                 s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}")
         }
-        case _        => config.newDashboardUrl("your-properties")
+        case _        => config.dashboardUrl("your-properties")
     }
 }
 @clientSuffix = @{
