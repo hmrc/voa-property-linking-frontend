@@ -33,9 +33,6 @@ object StubPropertyRepresentationConnector
   private var stubbedAgentAuthResult: AgentAuthResult =
     AgentAuthResult(start = 15, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[AgentAuthorisation])
 
-  def stubbedRepresentations(status: RepresentationStatus = RepresentationApproved): Seq[PropertyRepresentation] =
-    stubbedRepresentations.filter(_.status == status)
-
   def stubRepresentation(rep: PropertyRepresentation) = stubbedRepresentations :+= rep
 
   def stubRepresentations(reps: Seq[PropertyRepresentation]) = stubbedRepresentations ++= reps

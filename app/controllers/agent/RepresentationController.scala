@@ -66,18 +66,18 @@ class RepresentationController @Inject()(
 
 }
 
-object RepresentationController {
-
-  case class ManagePropertiesVM(
-        propertyRepresentations: Seq[PropertyRepresentation],
-        totalPendingRequests: Long,
-        pagination: Pagination,
-        action: Option[String] = None,
-        requestIds: Option[List[String]] = None,
-        complete: Option[Int] = None,
-        afterCancel: Boolean = false)
-
-}
+//object RepresentationController {
+//
+//  case class ManagePropertiesVM(
+//        propertyRepresentations: Seq[PropertyRepresentation],
+//        totalPendingRequests: Long,
+//        pagination: Pagination,
+//        action: Option[String] = None,
+//        requestIds: Option[List[String]] = None,
+//        complete: Option[Int] = None,
+//        afterCancel: Boolean = false)
+//
+//}
 
 object BulkActionsForm {
   lazy val form: Form[RepresentationBulkAction] = Form(

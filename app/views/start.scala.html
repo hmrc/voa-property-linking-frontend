@@ -59,8 +59,8 @@
                 <span class=" label-span">@Html(Messages("create-account.type.question"))</span>
             </legend>
 
-            <p>@Html(Messages("start.registration.individual.hyperlink", config.ggRegistrationUrl, routes.Dashboard.home(), "voa"))</p>
-            <p>@Html(Messages("start.registration.organisation.hyperlink", config.ggRegistrationUrl, "organisation", routes.Dashboard.home(), "voa"))</p>
+            <p>@Html(Messages("start.registration.individual.hyperlink", config.ggRegistrationUrl, config.newDashboardUrl("home"), "voa"))</p>
+            <p>@Html(Messages("start.registration.organisation.hyperlink", config.ggRegistrationUrl, "organisation", config.newDashboardUrl("home"), "voa"))</p>
 
             <p>@Html(Messages("start.registration.enrolment.hyperlink", routes.Login.show))</p>
 

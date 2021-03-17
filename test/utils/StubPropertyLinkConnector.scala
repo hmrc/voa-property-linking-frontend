@@ -21,7 +21,7 @@ import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PaginationParams
 import models._
 import models.propertylinking.payload.PropertyLinkPayload
-import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult, OwnerAuthorisation}
+import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import org.mockito.Mockito.mock
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import utils.Configs._
@@ -33,7 +33,6 @@ object StubPropertyLinkConnector
     with HttpResponseUtils {
 
   var stubbedLinks: Seq[PropertyLink] = Nil
-  private var stubbedClientProperties: Seq[ClientProperty] = Nil
   private var stubbedClientPropertyLinks: Seq[ClientPropertyLink] = Nil
   private var stubbedOwnerAuthResult: OwnerAuthResult =
     OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
@@ -50,11 +49,6 @@ object StubPropertyLinkConnector
         implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
     Future.successful(stubbedOwnerAuthResult)
 
-  override def clientProperty(authorisationId: Long, clientOrgId: Long, agentOrgId: Long)(
-        implicit hc: HeaderCarrier): Future[Option[ClientProperty]] = Future.successful {
-    stubbedClientProperties.find(p => p.authorisationId == authorisationId && p.ownerOrganisationId == clientOrgId)
-  }
-
   override def clientPropertyLink(submissionId: String)(
         implicit hc: HeaderCarrier): Future[Option[ClientPropertyLink]] = Future.successful {
     stubbedClientPropertyLinks.find(p => p.submissionId == submissionId)
@@ -66,15 +60,11 @@ object StubPropertyLinkConnector
   def stubLinks(links: Seq[PropertyLink]) =
     stubbedLinks ++= links
 
-  def stubClientProperty(clientProperty: ClientProperty) =
-    stubbedClientProperties :+= clientProperty
-
   def stubClientPropertyLink(clientProperty: ClientPropertyLink) =
     stubbedClientPropertyLinks :+= clientProperty
 
   def reset() = {
     stubbedLinks = Nil
-    stubbedClientProperties = Nil
     stubbedOwnerAuthResult = stubbedOwnerAuthResult.copy(authorisations = Seq.empty[OwnerAuthorisation])
   }
 }

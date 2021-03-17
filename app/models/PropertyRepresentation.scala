@@ -24,8 +24,9 @@ case class PropertyRepresentation(
       submissionId: String,
       organisationId: Long,
       organisationName: String,
-      address: String,
-      status: RepresentationStatus
+      address: String
+//      ,
+//      status: RepresentationStatus
 )
 
 object PropertyRepresentation {

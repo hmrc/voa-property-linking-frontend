@@ -74,7 +74,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val res = testRegistrationController(userDetails()).show()(FakeRequest())
 
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(controllers.routes.Dashboard.home().url)
+    redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/home")
   }
 
   "Going to the create account page, when logged in with an account that has not registered and has an Individual affinity group" should

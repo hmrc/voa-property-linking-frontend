@@ -48,7 +48,7 @@ class Dashboard @Inject()(
 
   def yourDetails() = authenticated(Redirect(config.newDashboardUrl("your-details")))
 
-  def manageProperties(clientDetails: Option[ClientDetails] = None) = authenticated { implicit request =>
+  def manageProperties(clientDetails: Option[ClientDetails] = None) = authenticated {
     clientDetails match {
       case Some(client) =>
         Redirect(config.newDashboardUrl(
@@ -111,5 +111,3 @@ case class LinkedPropertiesRepresentations(
       pending: Seq[PendingPropertyLinkRepresentations])
 
 case class AgentInfo(organisationName: String, agentCode: Long)
-
-case class ClientPropertiesVM(properties: Seq[ClientProperty])

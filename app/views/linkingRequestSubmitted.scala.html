@@ -29,6 +29,15 @@
             case _        => ""
         }
 }
+@managePropertiesUrl = @{
+    (model.clientDetails)  match {
+        case Some(client) => {
+            config.newDashboardUrl(
+                s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}")
+        }
+        case _        => config.newDashboardUrl("your-properties")
+    }
+}
 @clientSuffix = @{
     model.clientDetails match {
         case Some(id) => { ".client"}
@@ -52,6 +61,6 @@
 
             <p class="govuk-body"><a class="govuk-link" href="@{controllers.propertyLinking.routes.ClaimPropertyRelationshipController.show().url + clientParameter}">@messages("link.addAnotherProperty")</a></p>
 
-            <p class="govuk-body"><a href="@{routes.Dashboard.manageProperties().url + clientParameter}" id="backToDashBoard" class="govuk-button" role="button">@messages("link.manageProperties")</a></p>
+            <p class="govuk-body"><a href="@managePropertiesUrl" id="backToDashBoard" class="govuk-button" role="button">@messages("link.manageProperties")</a></p>
 
 }
