@@ -163,20 +163,4 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     status(result) mustBe OK
   }
 
-  "already submitted detailed valuation request" must "return 200 OK when DVR already exists" in new Setup {
-
-    when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
-      .thenReturn(Future.successful(Some(assessments.copy(assessments = assessments.assessments.map(a =>
-        a.copy(assessmentRef = 1L))))))
-    when(mockBusinessRatesAuthorisation.isAgentOwnProperty(any())(any()))
-      .thenReturn(Future successful true)
-    when(mockDvrCaseManagement.dvrExists(any(), any())(any())).thenReturn(Future.successful(true))
-
-    val result = controller.alreadySubmittedDetailedValuationRequest(
-      submissionId = link.submissionId,
-      valuationId = 1L,
-      owner = false)(request)
-
-    status(result) mustBe OK
-  }
 }
