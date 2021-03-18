@@ -49,13 +49,6 @@ class BusinessRatesAuthorisationConnector @Inject()(
     case "INVALID_ACCOUNT_TYPE"    => InvalidAccountType
     case "NON_GROUPID_ACCOUNT"     => NonGroupIDAccount
   }
-
-  def isAgentOwnProperty(authorisationId: Long)(implicit hc: HeaderCarrier): Future[Boolean] =
-    http.GET[PropertyLinkIds](s"$url/$authorisationId/ids") map { ids =>
-      ids.caseCreator.organisationId == ids.interestedParty.organisationId
-    } recover {
-      case UpstreamErrorResponse.WithStatusCode(403, _) => throw new ForbiddenException("Not Authorised")
-    }
 }
 
 sealed trait AuthorisationResult
