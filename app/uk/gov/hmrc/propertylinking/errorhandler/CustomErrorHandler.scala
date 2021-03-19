@@ -17,16 +17,17 @@
 package uk.gov.hmrc.propertylinking.errorhandler
 
 import java.time.{Instant, LocalDateTime, ZoneId}
-
 import config.ApplicationConfig
 import connectors.authorisation.errorhandler.exceptions.AuthorisationFailure
+
 import javax.inject.Inject
 import play.api.Logger
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Results.Redirect
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
+import play.api.mvc.Results.{Forbidden, Redirect}
 import play.api.mvc.{Request, RequestHeader, Result}
+import play.mvc.Http.Status.FORBIDDEN
 import play.twirl.api.Html
-import uk.gov.hmrc.http.HeaderNames
+import uk.gov.hmrc.http.{HeaderNames, UpstreamErrorResponse}
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
 
 import scala.concurrent.Future
@@ -43,6 +44,11 @@ class CustomErrorHandler @Inject()()(implicit override val messagesApi: Messages
   override def internalServerErrorTemplate(implicit request: Request[_]): Html =
     views.html.errors.technicalDifficulties(extractErrorReference(request), getDateTime)
 
+  def forbiddenErrorTemplate(implicit request: RequestHeader): Html = {
+    val messages: Messages = messagesApi.preferred(request)
+    views.html.errors.forbidden()(request, messages, appConfig)
+  }
+
   private def getDateTime: LocalDateTime = {
     val instant = Instant.ofEpochMilli(System.currentTimeMillis)
     LocalDateTime.ofInstant(instant, ZoneId.of("Europe/London"))
@@ -53,12 +59,20 @@ class CustomErrorHandler @Inject()()(implicit override val messagesApi: Messages
       _.split("-")(2)
     }
 
+  override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] =
+    statusCode match {
+      case FORBIDDEN => Future.successful(Forbidden(forbiddenErrorTemplate(request)))
+      case _         => super.onClientError(request, statusCode, message)
+    }
+
   override def onServerError(request: RequestHeader, exception: Throwable): Future[Result] =
     exception match {
       case error: AuthorisationFailure =>
         logger.info(s"business rates authorisation returned ${error.message}, redirecting to login.")
         Future.successful(
           Redirect(appConfig.basGatewaySignInUrl, Map("continue_url" -> Seq(request.uri), "origin" -> Seq("voa"))))
+      case upstreamEx: UpstreamErrorResponse if upstreamEx.statusCode == FORBIDDEN =>
+        Future.successful(Forbidden(forbiddenErrorTemplate(request)))
       case _ =>
         super.onServerError(request, exception)
     }
