@@ -17,7 +17,10 @@
 package controllers.agentAppointment
 
 import actions.AuthenticatedAction
+import actions.requests.AuthenticatedRequest
+import models.propertyrepresentation.{FilterAppointProperties, FilterRevokePropertiesSessionData}
 import binders.pagination.PaginationParameters
+import binders.propertylinks.ExternalPropertyLinkManagementSortField.ExternalPropertyLinkManagementSortField
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.ApplicationConfig
 import connectors._
@@ -35,6 +38,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -44,7 +48,9 @@ class AppointAgentController @Inject()(
       accounts: GroupAccounts,
       authenticated: AuthenticatedAction,
       agentRelationshipService: AgentRelationshipService,
-      @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo
+      @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
+      @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
+      @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo
 )(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -54,17 +60,108 @@ class AppointAgentController @Inject()(
 
   val logger: Logger = Logger(this.getClass)
 
+  lazy val addressForm = Form(single("address" -> text))
+
+  lazy val filterAppointPropertiesForm =
+    Form(
+      mapping(
+        "address" -> optional(text),
+        "agent"   -> optional(text)
+      )(FilterAppointPropertiesForm.apply)(FilterAppointPropertiesForm.unapply))
+
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         pagination: PaginationParameters,
-        params: GetPropertyLinksParameters,
         agentCode: Long,
         agentAppointed: Option[String],
         backLink: String
   ): Action[AnyContent] = authenticated.async { implicit request =>
+    searchForAppointableProperties(pagination, agentCode, agentAppointed, backLink, Some(GetPropertyLinksParameters()))
+  }
+
+  def filterPropertiesForAppoint(
+        pagination: PaginationParameters,
+        agentCode: Long,
+        agentAppointed: Option[String],
+        backLink: String
+  ): Action[AnyContent] = authenticated.async { implicit request =>
+    filterAppointPropertiesForm
+      .bindFromRequest()
+      .fold(
+        hasErrors = errors => searchForAppointableProperties(pagination, agentCode, agentAppointed, backLink),
+        success = (filter: FilterAppointPropertiesForm) =>
+          searchForAppointableProperties(
+            pagination,
+            agentCode,
+            agentAppointed,
+            backLink,
+            Some(GetPropertyLinksParameters().copy(address = filter.address, agent = filter.agent)))
+      )
+  }
+
+  def paginatePropertiesForAppoint(
+        pagination: PaginationParameters,
+        agentCode: Long,
+        agentAppointed: Option[String],
+        backLink: String
+  ): Action[AnyContent] = authenticated.async { implicit request =>
+    searchForAppointableProperties(pagination, agentCode, agentAppointed, backLink)
+  }
+
+  def sortPropertiesForAppoint(
+        sortField: ExternalPropertyLinkManagementSortField,
+        pagination: PaginationParameters,
+        agentCode: Long,
+        agentAppointed: Option[String],
+        backLink: String
+  ): Action[AnyContent] = authenticated.async { implicit request =>
+    appointAgentPropertiesSession.get[FilterAppointProperties].flatMap {
+      case Some(sessionData) =>
+        searchForAppointableProperties(
+          pagination,
+          agentCode,
+          agentAppointed,
+          backLink,
+          Some(
+            GetPropertyLinksParameters()
+              .copy(
+                address = sessionData.address,
+                agent = sessionData.agent,
+                sortorder = sessionData.sortOrder,
+                sortfield = sortField)
+              .reverseSorting)
+        )
+      case None =>
+        searchForAppointableProperties(
+          pagination,
+          agentCode,
+          agentAppointed,
+          backLink,
+          Some(GetPropertyLinksParameters().copy(sortfield = sortField).reverseSorting))
+    }
+  }
+
+  private def searchForAppointableProperties(
+        pagination: PaginationParameters,
+        agentCode: Long,
+        agentAppointed: Option[String],
+        backLink: String,
+        searchParamsOpt: Option[GetPropertyLinksParameters] = None)(
+        implicit request: AuthenticatedRequest[_],
+        hc: HeaderCarrier) =
     for {
+      sessionDataOpt    <- appointAgentPropertiesSession.get[FilterAppointProperties]
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
+      searchParams = searchParamsOpt match {
+        case Some(params) => params
+        case None =>
+          GetPropertyLinksParameters().copy(
+            address = sessionDataOpt.map(_.address).flatten,
+            agent = sessionDataOpt.map(_.agent).flatten,
+            sortorder = sessionDataOpt.fold(ExternalPropertyLinkManagementSortOrder.ASC)(_.sortOrder)
+          )
+      }
       response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
-                   params = params,
+                   params = searchParams,
                    pagination = AgentPropertiesParameters(
                      agentCode = agentCode,
                      pageNumber = pagination.page,
@@ -75,6 +172,13 @@ class AppointAgentController @Inject()(
                    agentOrganisationId =
                      agentOrganisation.fold(throw new IllegalArgumentException("agent organisation required."))(_.id)
                  )
+      _ <- appointAgentPropertiesSession.saveOrUpdate[FilterAppointProperties](
+            FilterAppointProperties(
+              address = searchParams.address,
+              agent = searchParams.agent,
+              sortOrder = searchParams.sortorder
+            )
+          )
       _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
     } yield {
       agentOrganisation match {
@@ -89,16 +193,16 @@ class AppointAgentController @Inject()(
                 !agentAppointed.contains("NO")
               ),
               pagination = pagination,
-              params = params,
+              params = searchParams,
               agentCode = agentCode,
               agentAppointed = agentAppointed,
-              backLink = Some(backLink)
+              backLink = Some(backLink),
+              filterAppointPropertiesForm.fill(FilterAppointPropertiesForm(searchParams.address, searchParams.agent))
             ))
         case None =>
           notFound
       }
     }
-  }
 
   def appointAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentBulkActionForm
@@ -123,7 +227,8 @@ class AppointAgentController @Inject()(
                   GetPropertyLinksParameters(),
                   data("agentCode").toLong,
                   data.get("agentAppointed"),
-                  backLink = Some(data("backLinkUrl"))
+                  backLink = Some(data("backLinkUrl")),
+                  filterAppointPropertiesForm
                 ))
             case None =>
               Future.successful(notFound)
@@ -161,7 +266,8 @@ class AppointAgentController @Inject()(
                         params = GetPropertyLinksParameters(),
                         agentCode = action.agentCode,
                         agentAppointed = None,
-                        backLink = Some(action.backLinkUrl)
+                        backLink = Some(action.backLinkUrl),
+                        filterAppointPropertiesForm
                       ))
                   case e: Exception => throw e
                 }
@@ -174,23 +280,70 @@ class AppointAgentController @Inject()(
 
   def selectAgentPropertiesSearchSort(
         pagination: PaginationParameters,
-        params: GetPropertyLinksParameters,
         agentCode: Long
   ) = authenticated.async { implicit request =>
+    searchPropertiesForRevoke(pagination, agentCode, Some(GetPropertyLinksParameters()))
+  }
+
+  def paginateRevokeProperties(
+        pagination: PaginationParameters,
+        agentCode: Long
+  ) = authenticated.async { implicit request =>
+    searchPropertiesForRevoke(pagination, agentCode)
+  }
+
+  def sortRevokePropertiesByAddress(pagination: PaginationParameters, agentCode: Long) = authenticated.async {
+    implicit request =>
+      revokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData].flatMap {
+        case Some(sessionData) =>
+          searchPropertiesForRevoke(
+            pagination,
+            agentCode,
+            Some(
+              GetPropertyLinksParameters()
+                .copy(
+                  address = sessionData.address,
+                  sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
+                  sortorder = sessionData.sortOrder)
+                .reverseSorting)
+          )
+        case None =>
+          searchPropertiesForRevoke(
+            pagination,
+            agentCode,
+            Some(
+              GetPropertyLinksParameters().reverseSorting
+                .copy(sortfield = ExternalPropertyLinkManagementSortField.ADDRESS)))
+      }
+  }
+
+  private def searchPropertiesForRevoke(
+        pagination: PaginationParameters,
+        agentCode: Long,
+        searchParamsOpt: Option[GetPropertyLinksParameters] = None)(
+        implicit request: AuthenticatedRequest[_],
+        hc: HeaderCarrier) =
     accounts.withAgentCode(agentCode.toString).flatMap {
       case Some(group) =>
         for {
-          response <- agentRelationshipService
-                       .getMyOrganisationsPropertyLinks(
-                         GetPropertyLinksParameters(
-                           address = params.address,
-                           agent = Some(group.companyName),
-                           sortfield = params.sortfield,
-                           sortorder = params.sortorder),
-                         PaginationParams(pagination.startPoint, pagination.pageSize, false)
-                       )
-                       .map(oar => oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
-                       .map(oar => oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
+          sessionDataOpt <- revokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData]
+          searchParams = searchParamsOpt match {
+            case Some(params) => params
+            case None =>
+              GetPropertyLinksParameters().copy(
+                address = sessionDataOpt.map(_.address).flatten,
+                sortorder = sessionDataOpt.fold(ExternalPropertyLinkManagementSortOrder.ASC)(_.sortOrder))
+          }
+          response: OwnerAuthResult <- agentRelationshipService
+                                        .getMyOrganisationsPropertyLinks(
+                                          searchParams,
+                                          PaginationParams(pagination.startPoint, pagination.pageSize, false))
+                                        .map(oar =>
+                                          oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
+                                        .map(oar =>
+                                          oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
+          _ <- revokeAgentPropertiesSessionRepo.saveOrUpdate[FilterRevokePropertiesSessionData](
+                FilterRevokePropertiesSessionData(address = searchParams.address, sortOrder = searchParams.sortorder))
           _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
         } yield {
           Ok(
@@ -199,13 +352,28 @@ class AppointAgentController @Inject()(
                 None,
                 AppointAgentPropertiesVM(group, response),
                 pagination,
-                params,
+                searchParams,
                 agentCode,
-                agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url))
+                agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url,
+                addressForm.fill(sessionDataOpt.fold("")(_.address.getOrElse("")))
+              ))
         }
       case None => Future.successful(NotFound(s"Unknown Agent: $agentCode"))
     }
-  }
+
+  def filterPropertiesForRevoke(pagination: PaginationParameters, agentCode: Long): Action[AnyContent] =
+    authenticated.async { implicit request =>
+      addressForm
+        .bindFromRequest()
+        .fold(
+          hasErrors = errors => searchPropertiesForRevoke(pagination, agentCode),
+          success = (address: String) =>
+            searchPropertiesForRevoke(
+              pagination,
+              agentCode,
+              Some(GetPropertyLinksParameters().copy(address = Some(address))))
+        )
+    }
 
   def revokeAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
     revokeAgentBulkActionForm
@@ -246,7 +414,8 @@ class AppointAgentController @Inject()(
                   pagination = PaginationParameters(),
                   params = GetPropertyLinksParameters(),
                   agentCode = agentCode,
-                  backLink = data("backLinkUrl")
+                  backLink = data("backLinkUrl"),
+                  addressForm
                 ))
               }
             case _ =>
@@ -279,7 +448,8 @@ class AppointAgentController @Inject()(
                         pagination = PaginationParameters(),
                         params = GetPropertyLinksParameters(),
                         agentCode = action.agentCode,
-                        backLink = action.backLinkUrl
+                        backLink = action.backLinkUrl,
+                        addressForm = addressForm
                       ))
                   case e: Exception => throw e
                 }
@@ -290,8 +460,8 @@ class AppointAgentController @Inject()(
       )
   }
 
-  def filterProperties(authorisations: Seq[OwnerAuthorisation], agentId: Long): Seq[OwnerAuthorisation] =
-    authorisations.filter(auth => auth.agents.map(_.organisationId).contains(agentId))
+  def filterProperties(authorisations: Seq[OwnerAuthorisation], agentOrganisaionId: Long): Seq[OwnerAuthorisation] =
+    authorisations.filter(auth => auth.agents.map(_.organisationId).contains(agentOrganisaionId))
 
   def appointAgentBulkActionForm =
     Form(
@@ -317,3 +487,5 @@ case class AppointAgentPropertiesVM(
       agentCode: Option[Long] = None,
       showAllProperties: Boolean = false
 )
+
+case class FilterAppointPropertiesForm(address: Option[String], agent: Option[String])

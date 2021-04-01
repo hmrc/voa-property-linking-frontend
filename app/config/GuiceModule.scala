@@ -25,6 +25,7 @@ import com.typesafe.config.ConfigException
 import play.api._
 import repositories._
 import services._
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.util.Try
 
@@ -32,6 +33,8 @@ class GuiceModule(
       environment: Environment,
       configuration: Configuration
 ) extends AbstractModule {
+
+  lazy val servicesConfig: ServicesConfig = new ServicesConfig(configuration)
 
   override def configure() = {
 
@@ -50,14 +53,37 @@ class GuiceModule(
     bind(classOf[SessionRepo])
       .annotatedWith(Names.named("assessmentPage"))
       .to(classOf[AssessmentsPageSessionRepository])
+    bind(classOf[SessionRepo])
+      .annotatedWith(Names.named("revokeAgentPropertiesSession"))
+      .to(classOf[RevokeAgentPropertiesSessionRepository])
+    bind(classOf[SessionRepo])
+      .annotatedWith(Names.named("appointAgentPropertiesSession"))
+      .to(classOf[AppointAgentPropertiesSessionRepository])
     bind(classOf[ManageDetails]).to(classOf[ManageVoaDetails])
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
+
+    bindEndpoints(
+      Map(
+        "vmv.singularPropertyUrl" -> "resources.vmv.singularProperty.path"
+      ),
+      servicesConfig.baseUrl("vmv")
+    )
   }
 
   protected def bindBoolean(path: String, name: String = ""): Unit =
     bindConstant()
       .annotatedWith(named(resolveAnnotationName(path, name)))
       .to(Try(configuration.get[String](path).toBoolean).toOption.getOrElse(configException(path))) //We need to parse as string, due to the process of adding in from app-config-<env> it is seen as a string
+
+  private def bindEndpoints(endpoints: Map[String, String], baseUrl: String): Unit =
+    endpoints.toList.foreach {
+      case (boundName, configPath) => bindStringWithPrefix(configPath, baseUrl, boundName)
+    }
+
+  protected def bindStringWithPrefix(path: String, prefix: String, name: String = ""): Unit =
+    bindConstant()
+      .annotatedWith(named(resolveAnnotationName(path, name)))
+      .to(s"$prefix${configuration.get[String](path)}")
 
   private def resolveAnnotationName(path: String, name: String): String = name match {
     case "" => path

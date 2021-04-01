@@ -53,7 +53,7 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
   }
 
   def mustNotContainText(text: String) {
-    html.body.text.contains(text) mustBe false withClue s"HTML did not contain: $text\nHTML:\n${html.body.text}"
+    html.body.text.contains(text) mustBe false withClue s"HTML did contain: $text\nHTML:\n${html.body.text}"
   }
 
   def inputMustContain(fieldId: String, text: String): Unit =

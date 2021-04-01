@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package binders.propertylinks
+package models.propertyrepresentation
 
-import utils.JsonUtils
+import binders.propertylinks.ExternalPropertyLinkManagementSortOrder
+import binders.propertylinks.ExternalPropertyLinkManagementSortOrder.ExternalPropertyLinkManagementSortOrder
+import play.api.libs.json.Json
 
-object ExternalPropertyLinkManagementSortOrder extends Enumeration {
-  type ExternalPropertyLinkManagementSortOrder = Value
+case class FilterRevokePropertiesSessionData(
+      address: Option[String],
+      sortOrder: ExternalPropertyLinkManagementSortOrder = ExternalPropertyLinkManagementSortOrder.ASC
+)
 
-  val ASC = Value("ASC")
-  val DESC = Value("DESC")
+object FilterRevokePropertiesSessionData {
 
-  implicit val format = JsonUtils.enumFormat(ExternalPropertyLinkManagementSortOrder)
+  implicit val format = Json.format[FilterRevokePropertiesSessionData]
 }

@@ -269,7 +269,6 @@ class AddAgentController @Inject()(
     Redirect(
       controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
         pagination = PaginationParameters(),
-        params = GetPropertyLinksParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
         backLink = controllers.agentAppointment.routes.AddAgentController.multipleProperties().url

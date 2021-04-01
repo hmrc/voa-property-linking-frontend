@@ -36,7 +36,7 @@
 
         <p class="lede" id="mainBodyText">@messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString, "checks and challenges")</p>
 
-        <a class="button" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), GetPropertyLinksParameters(), action.agentCode, None, backLinkUrl).url">@messages("propertyRepresentation.agentSummary.select.more")</a>
+        <a class="button" href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), action.agentCode, None, backLinkUrl).url">@messages("propertyRepresentation.agentSummary.select.more")</a>
 
     </div>
 

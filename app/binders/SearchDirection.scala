@@ -14,31 +14,28 @@
  * limitations under the License.
  */
 
-package binders.propertylinks
+package binders
 
 import play.api.mvc.QueryStringBindable
 
-object ExternalPropertyLinkManagementSortField extends Enumeration {
-  type ExternalPropertyLinkManagementSortField = Value
+object SearchDirection extends Enumeration {
+  type SearchDirection = Value
 
-  val ADDRESS = Value("ADDRESS")
-  val BAREF = Value("BAREF")
-  val AGENT = Value("AGENT")
-  val STATUS = Value("STATUS")
-  val REPRESENTATION_STATUS = Value("REPRESENTATION_STATUS")
+  val FORWARD = Value("FORWARD")
+  val BACKWARD = Value("BACKWARD")
 
-  implicit val queryStringBindable: QueryStringBindable[ExternalPropertyLinkManagementSortField] =
-    new QueryStringBindable[ExternalPropertyLinkManagementSortField] {
+  implicit val queryStringBindable: QueryStringBindable[SearchDirection] =
+    new QueryStringBindable[SearchDirection] {
       override def bind(
             key: String,
             params: Map[String, Seq[String]]
-      ): Option[Either[String, ExternalPropertyLinkManagementSortField]] =
+      ): Option[Either[String, SearchDirection]] =
         params.get(key).collect {
           case Seq(s) =>
-            ExternalPropertyLinkManagementSortField.values.find(_.toString == s).toRight("invalid value")
+            SearchDirection.values.find(_.toString == s).toRight("invalid value")
         }
 
-      override def unbind(key: String, value: ExternalPropertyLinkManagementSortField): String =
+      override def unbind(key: String, value: SearchDirection): String =
         implicitly[QueryStringBindable[String]].unbind(key, value.toString)
     }
 }

@@ -71,7 +71,6 @@ class ChooseEvidenceController @Inject()(
           controllers.propertyLinking.routes.ClaimPropertyRelationshipController
             .showRelationship(
               ses.uarn,
-              ses.address,
               ses.clientDetails
             )
             .url

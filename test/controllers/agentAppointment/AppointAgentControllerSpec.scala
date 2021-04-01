@@ -17,8 +17,9 @@
 package controllers.agentAppointment
 
 import binders.pagination.PaginationParameters
-import binders.propertylinks.GetPropertyLinksParameters
+import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder}
 import controllers.VoaPropertyLinkingSpec
+import models.propertyrepresentation.{FilterAppointProperties, FilterRevokePropertiesSessionData}
 import models.searchApi._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
@@ -53,12 +54,15 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(testOwnerAuthResult))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
+    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
+      .thenReturn(Future.successful(Some(FilterAppointProperties(None, None))))
+    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
     StubGroupAccountConnector.stubAccount(agent)
 
     val res = testController.getMyOrganisationPropertyLinksWithAgentFiltering(
       PaginationParameters(),
-      GetPropertyLinksParameters(),
       agentCode,
       None,
       "/my-organisation/appoint")(FakeRequest())
@@ -66,6 +70,109 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainTable("#agentPropertiesTableBody")
+  }
+
+  "paginatePropertiesForAppoint" should "show the requested appoint agent properties page" in {
+
+    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address", "localAuthorityRef", testAgents)
+
+    val testOwnerAuthResult =
+      OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = Seq(testOwnerAuth))
+
+    when(
+      mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
+        any[HeaderCarrier]))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+
+    when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
+    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
+      .thenReturn(Future.successful(Some(FilterAppointProperties(None, None))))
+    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
+      .thenReturn(Future.successful(()))
+
+    StubGroupAccountConnector.stubAccount(agent)
+
+    val res = testController.paginatePropertiesForAppoint(
+      PaginationParameters().nextPage,
+      agentCode,
+      None,
+      "/my-organisation/appoint")(FakeRequest())
+    status(res) mustBe OK
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainTable("#agentPropertiesTableBody")
+  }
+
+  "sortPropertiesForAppoint" should "show a sorted appoint agent properties page" in {
+
+    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address 1", "localAuthorityRef", testAgents)
+    val testOwnerAuth2 =
+      OwnerAuthorisation(2L, "APPROVED", "1111112", 1L, "address 2", "localAuthorityRef2", testAgents)
+
+    val testOwnerAuthResult =
+      OwnerAuthResult(
+        start = 1,
+        size = 15,
+        filterTotal = 2,
+        total = 2,
+        authorisations = Seq(testOwnerAuth, testOwnerAuth2))
+
+    when(
+      mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
+        any[HeaderCarrier]))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+
+    when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
+    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
+      .thenReturn(
+        Future.successful(Some(FilterAppointProperties(None, None, ExternalPropertyLinkManagementSortOrder.ASC))))
+    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
+      .thenReturn(Future.successful(()))
+
+    StubGroupAccountConnector.stubAccount(agent)
+
+    val res = testController.sortPropertiesForAppoint(
+      ExternalPropertyLinkManagementSortField.ADDRESS,
+      PaginationParameters(),
+      agentCode,
+      None,
+      "/my-organisation/appoint")(FakeRequest())
+    status(res) mustBe OK
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContain("#sort-by-ADDRESS.sorting_desc", 1)
+  }
+
+  "filterPropertiesForAppoint" should "show a filtered appoint agent properties page" in {
+
+    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address 1", "localAuthorityRef", testAgents)
+
+    val testOwnerAuthResult =
+      OwnerAuthResult(start = 1, size = 15, filterTotal = 2, total = 2, authorisations = Seq(testOwnerAuth))
+
+    when(
+      mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
+        any[HeaderCarrier]))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+
+    when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
+    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
+      .thenReturn(Future.successful(Some(FilterAppointProperties(None, None))))
+    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
+      .thenReturn(Future.successful(()))
+
+    StubGroupAccountConnector.stubAccount(agent)
+
+    val res =
+      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, "/my-organisation/appoint")(
+        FakeRequest().withFormUrlEncodedBody(
+          "address" -> "address 1"
+        ))
+
+    status(res) mustBe OK
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText("address 1")
   }
 
   "appointAgentSummary" should "show the summary page" in {
@@ -130,9 +237,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
+      .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[FilterRevokePropertiesSessionData](any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
     val res =
-      testController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), agentCode)(
+      testController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode)(
         FakeRequest().withFormUrlEncodedBody(
           "agentCode"      -> s"$agentCode",
           "agentCodeRadio" -> "1"
@@ -143,6 +254,88 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.mustContainText(testOwnerAuth.address)
   }
 
+  "paginateRevokeProperties" should "show the requested revoke properties page" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address", "localAuthorityRef", testAgents)
+
+    val testOwnerAuthResult =
+      OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = Seq(testOwnerAuth))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
+      .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[FilterRevokePropertiesSessionData](any())(any(), any()))
+      .thenReturn(Future.successful(()))
+
+    val res = testController.paginateRevokeProperties(PaginationParameters().nextPage, 1L)(FakeRequest())
+
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText(testOwnerAuth.address)
+  }
+
+  "sortRevokePropertiesByAddress" should "show a sorted revoke properties page" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address 1", "localAuthorityRef", testAgents)
+    val testOwnerAuth2 =
+      OwnerAuthorisation(2L, "APPROVED", "1122222", 2L, "address 2", "localAuthorityRef2", testAgents)
+
+    val testOwnerAuthResult =
+      OwnerAuthResult(
+        start = 1,
+        size = 15,
+        filterTotal = 2,
+        total = 2,
+        authorisations = Seq(testOwnerAuth, testOwnerAuth2))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
+      .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[FilterRevokePropertiesSessionData](any())(any(), any()))
+      .thenReturn(Future.successful(()))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
+      .thenReturn(Future.successful(()))
+
+    val res = testController.sortRevokePropertiesByAddress(PaginationParameters(), 1L)(FakeRequest())
+
+    status(res) mustBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContain("th.sorting_desc", 1)
+  }
+
+  "filterPropertiesForRevoke" should "show a filtered revoke properties page" in {
+
+    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address 1", "localAuthorityRef", testAgents)
+
+    val testOwnerAuthResult =
+      OwnerAuthResult(start = 1, size = 15, filterTotal = 2, total = 2, authorisations = Seq(testOwnerAuth))
+
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+
+    when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
+    when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
+      .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
+      .thenReturn(Future.successful(()))
+
+    StubGroupAccountConnector.stubAccount(agent)
+
+    val res = testController.filterPropertiesForRevoke(PaginationParameters(), agentCode)(
+      FakeRequest().withFormUrlEncodedBody(
+        "address" -> "address 1"
+      ))
+
+    status(res) mustBe OK
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText("address 1")
+  }
+
   "viewing select agent properties search sort page" should "show no properties when the agent has no properties appointed" in {
     val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
 
@@ -151,8 +344,12 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(testAgentAccount)
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
+      .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[FilterRevokePropertiesSessionData](any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
-    val res = testController.selectAgentPropertiesSearchSort(PaginationParameters(), GetPropertyLinksParameters(), 1L)(
+    val res = testController.selectAgentPropertiesSearchSort(PaginationParameters(), 1L)(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"      -> "1",
         "agentCodeRadio" -> "1"
@@ -230,10 +427,14 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector,
     preAuthenticatedActionBuilders(),
     mockAppointRevokeService,
-    mockSessionRepo
+    mockSessionRepo,
+    mockRevokeAgentPropertiesSessionRepo,
+    mockAppointAgentPropertiesSessionRepo
   )
 
   private lazy val mockSessionRepo = mock[SessionRepo]
+  private lazy val mockRevokeAgentPropertiesSessionRepo = mock[SessionRepo]
+  private lazy val mockAppointAgentPropertiesSessionRepo = mock[SessionRepo]
 
   private lazy val mockAppointRevokeService = mock[AgentRelationshipService]
 
