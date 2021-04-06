@@ -34,7 +34,7 @@
     params: GetPropertyLinksParameters,
     agentCode: Long,
     agentAppointed: Option[String],
-    backLink: Option[String], filterForm: Form[FilterAppointPropertiesForm]
+    backLink: Option[String]
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{

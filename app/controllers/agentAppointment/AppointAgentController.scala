@@ -196,8 +196,7 @@ class AppointAgentController @Inject()(
               params = searchParams,
               agentCode = agentCode,
               agentAppointed = agentAppointed,
-              backLink = Some(backLink),
-              filterAppointPropertiesForm.fill(FilterAppointPropertiesForm(searchParams.address, searchParams.agent))
+              backLink = Some(backLink)
             ))
         case None =>
           notFound
@@ -227,8 +226,7 @@ class AppointAgentController @Inject()(
                   GetPropertyLinksParameters(),
                   data("agentCode").toLong,
                   data.get("agentAppointed"),
-                  backLink = Some(data("backLinkUrl")),
-                  filterAppointPropertiesForm
+                  backLink = Some(data("backLinkUrl"))
                 ))
             case None =>
               Future.successful(notFound)
@@ -266,8 +264,7 @@ class AppointAgentController @Inject()(
                         params = GetPropertyLinksParameters(),
                         agentCode = action.agentCode,
                         agentAppointed = None,
-                        backLink = Some(action.backLinkUrl),
-                        filterAppointPropertiesForm
+                        backLink = Some(action.backLinkUrl)
                       ))
                   case e: Exception => throw e
                 }
@@ -354,8 +351,7 @@ class AppointAgentController @Inject()(
                 pagination,
                 searchParams,
                 agentCode,
-                agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url,
-                addressForm.fill(sessionDataOpt.fold("")(_.address.getOrElse("")))
+                agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
               ))
         }
       case None => Future.successful(NotFound(s"Unknown Agent: $agentCode"))
@@ -414,8 +410,7 @@ class AppointAgentController @Inject()(
                   pagination = PaginationParameters(),
                   params = GetPropertyLinksParameters(),
                   agentCode = agentCode,
-                  backLink = data("backLinkUrl"),
-                  addressForm
+                  backLink = data("backLinkUrl")
                 ))
               }
             case _ =>
@@ -448,8 +443,7 @@ class AppointAgentController @Inject()(
                         pagination = PaginationParameters(),
                         params = GetPropertyLinksParameters(),
                         agentCode = action.agentCode,
-                        backLink = action.backLinkUrl,
-                        addressForm = addressForm
+                        backLink = action.backLinkUrl
                       ))
                   case e: Exception => throw e
                 }

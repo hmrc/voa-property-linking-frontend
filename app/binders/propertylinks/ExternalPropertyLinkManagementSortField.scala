@@ -35,7 +35,7 @@ object ExternalPropertyLinkManagementSortField extends Enumeration {
       ): Option[Either[String, ExternalPropertyLinkManagementSortField]] =
         params.get(key).collect {
           case Seq(s) =>
-            ExternalPropertyLinkManagementSortField.values.find(_.toString == s).toRight("invalid value")
+            ExternalPropertyLinkManagementSortField.values.find(_.toString == s).toRight("invalid sort field parameter")
         }
 
       override def unbind(key: String, value: ExternalPropertyLinkManagementSortField): String =

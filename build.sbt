@@ -81,11 +81,11 @@ val playSettings: Seq[Setting[_]] = Seq(
   routesImport ++= Seq(
     "binders.propertylinks._",
     "binders.propertylinks.EvidenceChoices._",
+    "binders.propertylinks.ExternalPropertyLinkManagementSortField._",
     "binders.pagination._",
     "models.SortOrder",
     "models.messages.MessagePagination",
     "models.searchApi.AgentPropertiesParameters",
-    "binders.propertylinks.ExternalPropertyLinkManagementSortField._",
     "models.ClientDetails"
   ),
   // Add the views to the dist
