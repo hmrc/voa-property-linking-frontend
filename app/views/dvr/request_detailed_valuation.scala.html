@@ -14,11 +14,9 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.play.views.html.helpers.form
-@import controllers.detailedvaluationrequest.RequestDetailedValuationWithoutForm
-@import models.dvr._
-@import helpers._
 @import config.ApplicationConfig
+@import controllers.detailedvaluationrequest.RequestDetailedValuationWithoutForm
+@import uk.gov.hmrc.play.views.html.helpers.form
 
 @(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 @returnUrl = @{
@@ -42,8 +40,12 @@
                     <p>@Html(Messages("auto.requestDetailedValuation.rateableValue", model.rateableValue.get))</p>
                 }
 
-                <p>@messages("auto.requestDetailedValuation.p.1")</p>
-
+                @if(model.isDraftList) {
+                    <p>@messages("auto.requestDetailedValuation.p.1.draft")</p>
+                } else {
+                    <p>@messages("auto.requestDetailedValuation.p.1")</p>
+                }
+                
                 <p>@Html(Messages("auto.requestDetailedValuation.p.2"))</p>
 
                 <p>@Html(Messages("auto.requestDetailedValuation.p.3", config.dashboardUrl("home")))</p>
@@ -60,14 +62,17 @@
                     </p>
                 }
 
-                <h2 class="heading-medium">@messages("auto.requestDetailedValuation.heading.challenge")</h2>
+                @if(!model.isDraftList) {
+                    <h2 class="heading-medium">@messages("auto.requestDetailedValuation.heading.challenge")</h2>
 
-                <p>@messages("auto.requestDetailedValuation.challenge.p1")</p>
+                    <p>@messages("auto.requestDetailedValuation.challenge.p1")</p>
 
-                <p>@messages("auto.requestDetailedValuation.challenge.p2")</p>
+                    <p>@messages("auto.requestDetailedValuation.challenge.p2")</p>
 
-                <a href="@{config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=${returnUrl}")}">@messages("requestDetailedValuation.challenge.start")</a>
-
+                    <a href="@{
+                        config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")
+                    }">@messages("requestDetailedValuation.challenge.start")</a>
+                }
             </div>
         </div>
 }

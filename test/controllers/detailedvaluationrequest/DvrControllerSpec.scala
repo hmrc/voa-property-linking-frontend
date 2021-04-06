@@ -17,13 +17,12 @@
 package controllers.detailedvaluationrequest
 
 import java.time.LocalDateTime
-
 import connectors.SubmissionIdConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
 import org.mockito.ArgumentMatchers.{any, eq => matching}
-import org.mockito.Mockito.when
+import org.mockito.Mockito.{never, verify, when}
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -81,11 +80,49 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
-        valuationId = link.authorisationId,
-        uarn = 1L)(request)
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
 
     status(result) mustBe OK
     contentAsString(result) must include("You can download the")
+
+    verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
+    verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
+  }
+
+  "draft detailed valuation" must "return 200 OK and not fetch checks/challenges " in new Setup {
+    val now = LocalDateTime.now()
+    val firstAssessment: ApiAssessment =
+      assessments.assessments.headOption.getOrElse(fail("expected to find at least 1 assessment"))
+    val draftAssessment: ApiAssessment = firstAssessment.copy(listType = ListType.DRAFT)
+
+    val ownerAssessments: ApiAssessments =
+      assessments.copy(assessments = draftAssessment :: assessments.assessments.tail.toList)
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(ownerAssessments)))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(
+      Future.successful(
+        Some(
+          DvrDocumentFiles(
+            checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+            detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
+          ))))
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId = firstAssessment.assessmentRef,
+        uarn = 1L
+      )(request)
+
+    status(result) mustBe OK
+    contentAsString(result) must include("You can download the")
+
+    verify(mockPropertyLinkConnector, never()).getMyOrganisationsCheckCases(any())(any())
+    verify(mockChallengeConnector, never()).getMyOrganisationsChallengeCases(any())(any())
   }
 
   "detailed valuation check" must "return 303 SEE_OTHER when DVR case does exist" in new Setup {
@@ -161,6 +198,49 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         request)
 
     status(result) mustBe OK
+    contentAsString(result) must include("Already submitted a check?")
+  }
+
+  "already submitted detailed valuation request" must "return 200 OK without challenge section when viewing a draft assessment" in new Setup {
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments.copy(assessments = assessments.assessments.map(a =>
+        a.copy(assessmentRef = 1L, listType = ListType.DRAFT))))))
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any())).thenReturn(Future.successful(false))
+
+    val result =
+      controller.alreadySubmittedDetailedValuationRequest(submissionId = "11111", valuationId = 1L, owner = true)(
+        request)
+
+    status(result) mustBe OK
+    contentAsString(result) must not include "Already submitted a check?"
+  }
+
+  "already submitted detailed valuation request" must "return 200 OK with check text when viewing a non-draft assessment" in new Setup {
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments.copy(assessments = assessments.assessments.map(a =>
+        a.copy(assessmentRef = 1L, listType = ListType.CURRENT))))))
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any())).thenReturn(Future.successful(true))
+
+    val result =
+      controller.alreadySubmittedDetailedValuationRequest(submissionId = "11111", valuationId = 1L, owner = true)(
+        request)
+
+    status(result) mustBe OK
+    contentAsString(result) must include("If you need to submit a check urgently because of a change")
+  }
+
+  "already submitted detailed valuation request" must "return 200 OK without check text when viewing a draft assessment" in new Setup {
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments.copy(assessments = assessments.assessments.map(a =>
+        a.copy(assessmentRef = 1L, listType = ListType.DRAFT))))))
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any())).thenReturn(Future.successful(true))
+
+    val result =
+      controller.alreadySubmittedDetailedValuationRequest(submissionId = "11111", valuationId = 1L, owner = true)(
+        request)
+
+    status(result) mustBe OK
+    contentAsString(result) must not include "If you need to submit a check urgently because of a change"
   }
 
 }

@@ -55,10 +55,14 @@ case class ApiAssessment(
       rateableValue: Option[Long],
       address: PropertyAddress,
       billingAuthorityReference: String,
+      billingAuthorityCode: Option[String],
       listType: ListType,
       currentFromDate: Option[LocalDate] = None,
       currentToDate: Option[LocalDate] = None
-)
+) {
+  def isWelsh: Boolean = billingAuthorityCode.exists(_.startsWith("6"))
+  def isDraft: Boolean = listType == ListType.DRAFT
+}
 
 object ApiAssessment {
   implicit val format: Format[ApiAssessment] = Json.format[ApiAssessment]

@@ -860,6 +860,7 @@ requestDetailedValuation.button=Request a valuation
 auto.requestDetailedValuation.title=Request a detailed valuation
 auto.requestDetailedValuation.smallTitle=Detailed valuation request for
 auto.requestDetailedValuation.p.1=You need to request this detailed valuation if you want to view it or submit a check.
+auto.requestDetailedValuation.p.1.draft=You need to request this detailed valuation if you want to view it.
 auto.requestDetailedValuation.p.2=Once your request is approved, it will be available to view on this page.
 auto.requestDetailedValuation.p.3=If you don’t want to request this, you can <a href={0}>return to your home page.</a>
 auto.requestDetailedValuation.button=Request a valuation
@@ -878,7 +879,8 @@ auto.requestDetailedValuation.challenge.start=Challenge this valuation
 #VIEW REQUEST DETAILED VALUATION
 available.requestvaluation.title=View property valuation
 available.requestvaluation.p1=You can download the <a href={0}> Detailed Valuation for {1} </a>
-available.requestvaluation.p2=You should read through the detailed valuation and tell us if any of the property details are incorrect or missing. If you think the rateable value is wrong, you must complete a Check Form and confirm the property details with the VOA before you can make a challenge.
+available.requestvaluation.p2.englishProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a check against the current valuation. Any changes will carry over to the draft valuation.
+available.requestvaluation.p2.welshProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a proposal against the current valuation. Any changes will carry over to the draft valuation.
 
 available.requestvaluation.check.title=Submit a check
 available.requestvaluation.check.p1=To submit a check for this property you will need to <a href={0}> download the Check Form </a>
