@@ -19,8 +19,10 @@ package controllers.propertyLinking
 import java.time.LocalDate
 
 import connectors.propertyLinking.PropertyLinkConnector
+import connectors.vmv.VmvConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
+import models.properties.PropertyHistory
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
@@ -44,6 +46,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     preAuthenticatedActionBuilders(),
     new StubWithLinkingSession(mock[SessionRepo]),
     propertyLinkingConnector,
+    vmvConnector,
     configuration,
     mockRelationshipToPropertyPage
   )
@@ -60,13 +63,19 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val propertyLinkingConnector = mock[PropertyLinkConnector]
 
+  lazy val vmvConnector = {
+    val vmvConnector = mock[VmvConnector]
+    when(vmvConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(propertyHistory))
+    vmvConnector
+  }
+
   "The claim property relationship page" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
     when(mockRelationshipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim property relationship page"))
 
-    val res = testClaimProperty.showRelationship(positiveLong, shortString)(FakeRequest())
+    val res = testClaimProperty.showRelationship(positiveLong)(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -81,7 +90,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Html("claim property relationship page on client behalf"))
 
     val res = testClaimProperty
-      .showRelationship(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
+      .showRelationship(positiveLong, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -91,7 +100,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   it should "contain link back to business-rates-find if thats where the request came from" in {
 
     val res =
-      testClaimProperty.showRelationship(positiveLong, shortString, Some(ClientDetails(positiveLong, shortString)))(
+      testClaimProperty.showRelationship(positiveLong, Some(ClientDetails(positiveLong, shortString)))(
         FakeRequest().withHeaders(
           ("referer", "http://localhost:9542/business-rates-find/summary/10361354?uarn=156039182")))
     status(res) mustBe OK
@@ -104,14 +113,14 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   it should "reject invalid form submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = testClaimProperty.submitRelationship(positiveLong, shortString)(FakeRequest())
+    val res = testClaimProperty.submitRelationship(positiveLong)(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
   it should "redirect to the claim relationship page on valid submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
-    val res = testClaimProperty.submitRelationship(positiveLong, shortString)(
+    val res = testClaimProperty.submitRelationship(positiveLong)(
       FakeRequest().withFormUrlEncodedBody(
         "capacity" -> "OWNER"
       ))
@@ -125,7 +134,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     val uarn: Long = positiveLong
     val address: String = shortString
 
-    val res = testClaimProperty.submitRelationship(uarn, address)(
+    val res = testClaimProperty.submitRelationship(uarn)(
       FakeRequest().withFormUrlEncodedBody(
         "capacity" -> Owner.toString
       ))

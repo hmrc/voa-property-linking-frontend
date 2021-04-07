@@ -52,6 +52,16 @@ class AppointAgentSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
     extends SessionRepository("appointNewAgent", mongo)
 
 @Singleton
+class RevokeAgentPropertiesSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
+      implicit executionContext: ExecutionContext)
+    extends SessionRepository("revokeAgentProperties", mongo)
+
+@Singleton
+class AppointAgentPropertiesSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
+      implicit executionContext: ExecutionContext)
+    extends SessionRepository("appointAgentProperties", mongo)
+
+@Singleton
 class AssessmentsPageSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
       implicit executionContext: ExecutionContext)
     extends SessionRepository("assessmentPage", mongo)

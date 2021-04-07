@@ -61,12 +61,9 @@ backLinkUrl = Some(backLink)
         <a href="#" id="par-select-all-top">@messages("propertyRepresentation.appointAgentProperties.select")</a>
     </div>
 
-    <form method="GET" action="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params, agentCode)">
-        <input type="hidden" name="agentCode" value="@agentCode">
-        <input type="hidden" name="pageNumber" value="@pagination.page">
+    @form(agentAppointment.routes.AppointAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
         <input type="hidden" name="pageSize" value="@pagination.pageSize">
-        <input type="hidden" name="sortField" value="@params.sortfield">
-        <input type="hidden" name="sortOrder" value="@params.sortorder">
+
         <input type="hidden" name="backLink" value="@backLink">
 
         <div id="filterProperties" class="searchbar column-full">
@@ -88,12 +85,12 @@ backLinkUrl = Some(backLink)
 
                 <div class="row">
                     <div class="column-full">
-                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, GetPropertyLinksParameters(), agentCode)" role="link"
+                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode)" role="link"
                            id="clear-search" class="clear">@messages("manageProperties.table.clear.search")</a>
                     </div>
                 </div>
             </div>
-    </form>
+    }
 </div>
 
 <div class="column-full">
@@ -116,7 +113,7 @@ backLinkUrl = Some(backLink)
                 <th aria-sort="none">@messages("propertyRepresentation.appointAgents.table.select")</th>
                 <th scope="col" width="30px" role="columnheader" class="search-sort-table-header @sortAddress" aria-sort="@ariaSortAddress">
                 <div id="sort-by-address">
-                        <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination, params.reverseSorting.copy(sortfield = ExternalPropertyLinkManagementSortField.withName(ADDRESS.toString)), agentCode)" role="link">
+                        <a href="@agentAppointment.routes.AppointAgentController.sortRevokePropertiesByAddress(pagination, agentCode)" role="link">
                             @messages(s"propertyRepresentation.th.${ADDRESS.toString}")</a>
                 </div>
                 </th>
@@ -162,7 +159,7 @@ backLinkUrl = Some(backLink)
             } else {
             @pagination.startPoint
             } to @{
-            model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1)
+            model.response.authorisations.size.min(pagination.startPoint + pagination.pageSize - 1)
             } of @model.response.filterTotal
         </div>
 
@@ -170,7 +167,7 @@ backLinkUrl = Some(backLink)
             <ul class="pagination" style="margin: 0px">
                 @if(pagination.page > 1) {
                 <li class="previous ">
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.previousPage, params, agentCode).url" role="link">
+                    <a href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.previousPage, agentCode).url" role="link">
                         <i class="previous-arrow"></i>Previous</a>
                 </li>
                 } else {
@@ -180,7 +177,7 @@ backLinkUrl = Some(backLink)
                 <li class="active">@pagination.page</li>
                 @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                 <li class="next">
-                    <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.nextPage, params, agentCode).url" role="link">Next<i class="next-arrow"></i></a></li>
+                    <a href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.nextPage, agentCode).url" role="link">Next<i class="next-arrow"></i></a></li>
                 } else {
                 <li class="next disabled"><i class="next-arrow"></i>Next</li>
                 }
@@ -198,7 +195,7 @@ backLinkUrl = Some(backLink)
         <span class="page-size-option-current">@len</span>
         } else {
 
-        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(pagination.copy(pageSize = len, page = 1), params, agentCode).url">
+        <a class="page-size-option" href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.copy(pageSize = len, page = 1), agentCode).url">
             @len</a>
         }
         }
@@ -239,10 +236,10 @@ backLinkUrl = Some(backLink)
 }
 
 @searchField(fieldName: String, value: Option[String]) = {
-<div class="searchfield">
-    <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
-    <button id="@{
-            fieldName
-        }Button" class="search-submit ss-button">@messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
-</div>
+    <div class="searchfield">
+        <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
+        <button id="@{
+                fieldName
+            }Button" class="search-submit ss-button">@messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
+    </div>
 }

@@ -285,9 +285,6 @@ class ManageAgentController @Inject()(
     Redirect(
       controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
         pagination = PaginationParameters(),
-        params = GetPropertyLinksParameters(
-          sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
-          sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
         backLink = controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
@@ -297,9 +294,6 @@ class ManageAgentController @Inject()(
     Redirect(
       controllers.agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(
         pagination = PaginationParameters(),
-        params = GetPropertyLinksParameters(
-          sortfield = ExternalPropertyLinkManagementSortField.ADDRESS,
-          sortorder = ExternalPropertyLinkManagementSortOrder.ASC),
         agentCode = agentCode
       )
     )

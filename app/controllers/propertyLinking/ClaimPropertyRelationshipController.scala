@@ -26,6 +26,7 @@ import com.google.inject.Singleton
 import config.ApplicationConfig
 import connectors.SubmissionIdConnector
 import connectors.propertyLinking.PropertyLinkConnector
+import connectors.vmv.VmvConnector
 import controllers._
 import form.Mappings._
 import form.{ConditionalDateAfter, EnumMapping}
@@ -52,6 +53,7 @@ class ClaimPropertyRelationshipController @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       val propertyLinksConnector: PropertyLinkConnector,
+      val vmvConnector: VmvConnector,
       val runModeConfiguration: Configuration,
       relationshipToPropertyView: views.html.propertyLinking.relationshipToProperty)(
       implicit executionContext: ExecutionContext,
@@ -84,13 +86,15 @@ class ClaimPropertyRelationshipController @Inject()(
     }
   }
 
-  def showRelationship(uarn: Long, address: String, clientDetails: Option[ClientDetails] = None) =
-    authenticatedAction { implicit request =>
-      Ok(
-        relationshipToPropertyView(
-          ClaimPropertyRelationshipVM(relationshipForm, address, uarn),
-          clientDetails = clientDetails,
-          backLink(request)))
+  def showRelationship(uarn: Long, clientDetails: Option[ClientDetails] = None) =
+    authenticatedAction.async { implicit request =>
+      vmvConnector.getPropertyHistory(uarn).map { property =>
+        Ok(
+          relationshipToPropertyView(
+            ClaimPropertyRelationshipVM(relationshipForm, property.addressFull, uarn),
+            clientDetails = clientDetails,
+            backLink(request)))
+      }
     }
 
   private def backLink(request: Request[AnyContent]): String = {
@@ -98,27 +102,30 @@ class ClaimPropertyRelationshipController @Inject()(
     if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
   }
 
-  def submitRelationship(uarn: Long, address: String, clientDetails: Option[ClientDetails] = None): Action[AnyContent] =
+  def submitRelationship(uarn: Long, clientDetails: Option[ClientDetails] = None): Action[AnyContent] =
     authenticatedAction.async { implicit request =>
       relationshipForm
         .bindFromRequest()
         .fold(
           errors =>
-            Future.successful(
+            vmvConnector.getPropertyHistory(uarn).map { property =>
               BadRequest(
                 relationshipToPropertyView(
-                  ClaimPropertyRelationshipVM(errors, address, uarn),
+                  ClaimPropertyRelationshipVM(errors, property.addressFull, uarn),
                   clientDetails,
-                  backLink(request)))),
+                  backLink(request)))
+          },
           formData =>
-            initialiseSession(formData, uarn, address, clientDetails)
-              .map { _ =>
-                Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
-              }
-              .recover {
-                case UpstreamErrorResponse.Upstream5xxResponse(_) =>
-                  ServiceUnavailable(views.html.errors.serviceUnavailable())
-            }
+            vmvConnector.getPropertyHistory(uarn).flatMap { property =>
+              initialiseSession(formData, uarn, property.addressFull, clientDetails)
+                .map { _ =>
+                  Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
+                }
+                .recover {
+                  case UpstreamErrorResponse.Upstream5xxResponse(_) =>
+                    ServiceUnavailable(views.html.errors.serviceUnavailable())
+                }
+          }
         )
     }
 

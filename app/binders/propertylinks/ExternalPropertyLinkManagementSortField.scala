@@ -16,6 +16,8 @@
 
 package binders.propertylinks
 
+import play.api.mvc.QueryStringBindable
+
 object ExternalPropertyLinkManagementSortField extends Enumeration {
   type ExternalPropertyLinkManagementSortField = Value
 
@@ -24,4 +26,19 @@ object ExternalPropertyLinkManagementSortField extends Enumeration {
   val AGENT = Value("AGENT")
   val STATUS = Value("STATUS")
   val REPRESENTATION_STATUS = Value("REPRESENTATION_STATUS")
+
+  implicit val queryStringBindable: QueryStringBindable[ExternalPropertyLinkManagementSortField] =
+    new QueryStringBindable[ExternalPropertyLinkManagementSortField] {
+      override def bind(
+            key: String,
+            params: Map[String, Seq[String]]
+      ): Option[Either[String, ExternalPropertyLinkManagementSortField]] =
+        params.get(key).collect {
+          case Seq(s) =>
+            ExternalPropertyLinkManagementSortField.values.find(_.toString == s).toRight("invalid sort field parameter")
+        }
+
+      override def unbind(key: String, value: ExternalPropertyLinkManagementSortField): String =
+        implicitly[QueryStringBindable[String]].unbind(key, value.toString)
+    }
 }

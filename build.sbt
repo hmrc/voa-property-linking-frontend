@@ -81,6 +81,7 @@ val playSettings: Seq[Setting[_]] = Seq(
   routesImport ++= Seq(
     "binders.propertylinks._",
     "binders.propertylinks.EvidenceChoices._",
+    "binders.propertylinks.ExternalPropertyLinkManagementSortField._",
     "binders.pagination._",
     "models.SortOrder",
     "models.messages.MessagePagination",
@@ -132,7 +133,8 @@ lazy val compileDependencies = Seq(
   "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.5.0-play-27",
   "uk.gov.hmrc"          %% "play-whitelist-filter"         % "3.4.0-play-27",
   "uk.gov.hmrc"          %% "reactive-circuit-breaker"      % "3.5.0",
-  "uk.gov.hmrc"          %% "simple-reactivemongo"          % "7.31.0-play-27"
+  "uk.gov.hmrc"          %% "simple-reactivemongo"          % "7.31.0-play-27",
+  "uk.gov.hmrc"          %% "uri-template"                  % "1.7.0"
 )
 
 lazy val testDependencies = Seq(

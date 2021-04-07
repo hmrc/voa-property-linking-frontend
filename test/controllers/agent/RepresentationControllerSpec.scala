@@ -18,6 +18,7 @@ package controllers.agent
 
 import controllers.VoaPropertyLinkingSpec
 import models._
+import models.properties.PropertyHistory
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
@@ -27,6 +28,8 @@ import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
+
+import scala.concurrent.Future
 
 class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
@@ -40,6 +43,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
       extends RepresentationController(
         mockCustomErrorHandler,
         StubPropertyRepresentationConnector,
+        mockVmvConnector,
         preAuthenticatedActionBuilders(),
         StubPropertyLinkConnector,
         revokeClientPropertyPage,
@@ -49,13 +53,17 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
   behavior of "revokeClientPropertyConfirmed method"
   it should "revoke an agent and show the confirmation page" in {
+    val mockPropertyHistory = mock[PropertyHistory]
+
+    when(mockPropertyHistory.addressFull).thenReturn("1 Some address")
+    when(mockVmvConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(mockPropertyHistory))
     when(revokeClientPropertyPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
     when(confirmRevokeClientPropertyPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
     val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
 
     StubPropertyLinkConnector.stubClientPropertyLink(clientProperty)
     val res =
-      TestController.revokeClientPropertyConfirmed(clientProperty.submissionId, clientProperty.address)(request)
+      TestController.revokeClientPropertyConfirmed(clientProperty.uarn)(request)
 
     status(res) must be(OK)
   }

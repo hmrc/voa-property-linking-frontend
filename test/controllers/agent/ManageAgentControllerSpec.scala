@@ -268,8 +268,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe
       Some(
-        "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&sortfield" +
-          "=ADDRESS&sortorder=ASC&agentCode=12345&agentAppointed=BOTH&backLink=%2F" +
+        "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&" +
+          "agentCode=12345&agentAppointed=BOTH&backLink=%2F" +
           "business-rates-property-linking%2Fmy-organisation%2Fmanage-agent%3FagentCode%3D12345")
   }
 
@@ -306,7 +306,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     redirectLocation(res) mustBe
       Some(
         "/business-rates-property-linking/my-organisation/revoke/properties?page=1&pageSize=15" +
-          "&sortfield=ADDRESS&sortorder=ASC&agentCode=12345")
+          "&agentCode=12345")
   }
 
   "submitManageAgent" should "return 200 Ok when IP chooses to remove agent from account" in {

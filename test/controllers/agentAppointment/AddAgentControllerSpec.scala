@@ -275,7 +275,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some(
       "/business-rates-property-linking/my-organisation/appoint/properties?page=1" +
-        "&pageSize=15&sortfield=ADDRESS&sortorder=ASC&agentCode=12345" +
+        "&pageSize=15&agentCode=12345" +
         "&agentAppointed=BOTH" +
         "&backLink=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fmultiple-properties")
 
