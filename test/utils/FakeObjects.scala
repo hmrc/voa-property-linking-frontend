@@ -419,6 +419,7 @@ trait FakeObjects {
           rateableValue = Some(123L),
           address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
           billingAuthorityReference = a.localAuthorityRef,
+          billingAuthorityCode = Some("2715"),
           listType = ListType.CURRENT,
           currentFromDate = Some(april2017),
           currentToDate = Some(april2017.plusMonths(2L))
@@ -432,6 +433,7 @@ trait FakeObjects {
           rateableValue = Some(1234L),
           address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
           billingAuthorityReference = a.localAuthorityRef,
+          billingAuthorityCode = Some("2715"),
           listType = ListType.CURRENT,
           currentFromDate = Some(april2017.plusMonths(2L)),
           currentToDate = None
