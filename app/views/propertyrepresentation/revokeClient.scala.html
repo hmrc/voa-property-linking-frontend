@@ -36,7 +36,7 @@
 
     <p class="govuk-body">@messages("propertyRepresentation.revokeClient.message", clientProperty.client.organisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
 
-    @form(action = controllers.agent.routes.RepresentationController.revokeClientPropertyConfirmed(clientProperty.submissionId, clientProperty.address)) {
+    @form(action = controllers.agent.routes.RepresentationController.revokeClientPropertyConfirmed(clientProperty.uarn)) {
         @govukButton(Button(content = Text(messages("propertyRepresentation.revokeClient.button"))))
     }
 

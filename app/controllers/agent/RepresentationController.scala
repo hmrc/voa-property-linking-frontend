@@ -21,6 +21,7 @@ import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
+import connectors.vmv.VmvConnector
 import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
 import form.FormValidation._
 import models._
@@ -37,6 +38,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class RepresentationController @Inject()(
       val errorHandler: CustomErrorHandler,
       reprConnector: PropertyRepresentationConnector,
+      vmvConnector: VmvConnector,
       authenticated: AuthenticatedAction,
       propertyLinkConnector: PropertyLinkConnector,
       revokeClientPropertyPage: views.html.propertyrepresentation.revokeClient,
@@ -59,9 +61,8 @@ class RepresentationController @Inject()(
     }
   }
 
-  def revokeClientPropertyConfirmed(plSubmissionId: String, address: String): Action[AnyContent] = authenticated.async {
-    implicit request =>
-      reprConnector.revokeClientProperty(plSubmissionId).map(_ => Ok(confirmRevokeClientPropertyPage(address)))
+  def revokeClientPropertyConfirmed(uarn: Long): Action[AnyContent] = authenticated.async { implicit request =>
+    vmvConnector.getPropertyHistory(uarn).map(property => Ok(confirmRevokeClientPropertyPage(property.addressFull)))
   }
 
 }
