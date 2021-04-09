@@ -32,7 +32,7 @@ GET         /managed-properties/:agentCode                                      
 GET         /manage-agents                                                                    controllers.Dashboard.manageAgents()
 
 GET         /client-properties/revoke/:plSubmissionId                                         controllers.agent.RepresentationController.revokeClient(plSubmissionId: String)
-POST        /client-properties/revoke-client-property/:uarn/confirmed                         controllers.agent.RepresentationController.revokeClientPropertyConfirmed(uarn: Long)
+POST        /client-properties/revoke-client-property/:uarn/confirmed                         controllers.agent.RepresentationController.revokeClientPropertyConfirmed(uarn: Long, plSubmissionId: String)
 
 GET         /property-link/:submissionId/assessments/start                                    uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.savePreviousPage(previousPage: String, submissionId: String, owner: Boolean ?= true)
 GET         /property-link/:submissionId/assessments                                          uk.gov.hmrc.propertylinking.controllers.valuations.ValuationsController.valuations(submissionId: String, owner: Boolean ?= true)
