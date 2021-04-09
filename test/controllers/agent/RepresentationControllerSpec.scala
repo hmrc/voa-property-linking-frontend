@@ -63,7 +63,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     StubPropertyLinkConnector.stubClientPropertyLink(clientProperty)
     val res =
-      TestController.revokeClientPropertyConfirmed(clientProperty.uarn)(request)
+      TestController.revokeClientPropertyConfirmed(clientProperty.uarn, clientProperty.submissionId)(request)
 
     status(res) must be(OK)
   }

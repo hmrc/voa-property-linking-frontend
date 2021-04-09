@@ -61,8 +61,12 @@ class RepresentationController @Inject()(
     }
   }
 
-  def revokeClientPropertyConfirmed(uarn: Long): Action[AnyContent] = authenticated.async { implicit request =>
-    vmvConnector.getPropertyHistory(uarn).map(property => Ok(confirmRevokeClientPropertyPage(property.addressFull)))
+  def revokeClientPropertyConfirmed(uarn: Long, plSubmissionId: String): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      for {
+        property <- vmvConnector.getPropertyHistory(uarn)
+        _        <- reprConnector.revokeClientProperty(plSubmissionId)
+      } yield Ok(confirmRevokeClientPropertyPage(property.addressFull))
   }
 
 }
