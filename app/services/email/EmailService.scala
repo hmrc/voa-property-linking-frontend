@@ -17,13 +17,14 @@
 package services.email
 
 import connectors.email.EmailConnector
+
 import javax.inject.Inject
 import models.email.EmailRequest
 import models.{DetailedIndividualAccount, GroupAccount}
 import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class EmailService @Inject()(emailConnector: EmailConnector) {
 
@@ -31,7 +32,7 @@ class EmailService @Inject()(emailConnector: EmailConnector) {
         to: String,
         detailedIndividualAccount: DetailedIndividualAccount,
         groupAccount: Option[GroupAccount],
-        affinityGroupOpt: Option[AffinityGroup])(implicit hc: HeaderCarrier, ex: ExecutionContext) =
+        affinityGroupOpt: Option[AffinityGroup])(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Unit] =
     send(EmailRequest.registration(to, detailedIndividualAccount, groupAccount, affinityGroupOpt))
 
   private def send(emailRequest: EmailRequest)(implicit hc: HeaderCarrier, ex: ExecutionContext) =

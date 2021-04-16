@@ -67,7 +67,7 @@ object EmailRequest {
             )
           )
       }
-    case None => throw new IllegalStateException("No GroupAccount is the session")
+    case None => throw new IllegalStateException("No GroupAccount in the session")
   }
 
 }
