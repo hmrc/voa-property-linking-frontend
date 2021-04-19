@@ -20,9 +20,8 @@ import actions.requests.{AgentRequest, BasicAuthenticatedRequest}
 import auth.GovernmentGatewayProvider
 import config.ApplicationConfig
 import connectors.authorisation._
-import javax.inject.Inject
 import models.Accounts
-import play.api.Logger
+import play.api.Logging
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Results._
 import play.api.mvc._
@@ -33,6 +32,7 @@ import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class AuthenticatedAction @Inject()(
@@ -44,9 +44,8 @@ class AuthenticatedAction @Inject()(
       implicit controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig,
       override val executionContext: ExecutionContext
-) extends ActionBuilder[BasicAuthenticatedRequest, AnyContent] with AuthorisedFunctions with I18nSupport {
-
-  val logger = Logger(this.getClass.getName)
+) extends ActionBuilder[BasicAuthenticatedRequest, AnyContent] with AuthorisedFunctions with I18nSupport
+    with Logging {
 
   override val parser: BodyParser[AnyContent] = controllerComponents.parsers.anyContent
 
@@ -74,17 +73,21 @@ class AuthenticatedAction @Inject()(
         hc: HeaderCarrier): Future[Result] = {
     def handleError: PartialFunction[Throwable, Future[Result]] = {
       case _: InsufficientEnrolments =>
-        logger.info("CCA account holder with insufficent enrolments, Migrating")
+        logger.info("CCA account holder with insufficient enrolments. Migrating")
+        // this is causing 409 conflicts in some cases when we PUT more than one enrolment in
+        // it takes some time for an enrolment to be setup and to reflect after a call to auth
+        // in case the user is being redirected, it's likely this method will be called twice in a rapid succession
+        // this may lead to WARN log messages in Enrolment Store logs
         enrolmentService.enrol(accounts.person.individualId, accounts.organisation.addressId).flatMap {
           case Success =>
-            Logger.info("Existing VOA user successfully enrolled")
+            logger.info("Existing VOA user successfully enrolled")
             body(
               BasicAuthenticatedRequest(
                 organisationAccount = accounts.organisation,
                 individualAccount = accounts.person,
                 request = request))
           case Failure =>
-            Logger.warn("Failed to enrol existing VOA user")
+            logger.warn("Failed to enrol existing VOA user")
             body(
               BasicAuthenticatedRequest(
                 organisationAccount = accounts.organisation,
@@ -102,7 +105,7 @@ class AuthenticatedAction @Inject()(
       case _: NoActiveSession =>
         provider.redirectToLogin
       case otherException =>
-        Logger.warn(s"Exception thrown on authorisation with message:", otherException)
+        logger.warn(s"Exception thrown on authorisation with message:", otherException)
         throw otherException
     }
 

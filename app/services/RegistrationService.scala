@@ -18,14 +18,14 @@ package services
 
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts}
-import javax.inject.Inject
 import models.registration._
 import models.{DetailedIndividualAccount, GroupAccount, IndividualAccountSubmission}
-import play.api.Logger
+import play.api.Logging
 import services.email.EmailService
 import uk.gov.hmrc.auth.core.{AffinityGroup, Assistant}
 import uk.gov.hmrc.http.HeaderCarrier
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationService @Inject()(
@@ -34,7 +34,8 @@ class RegistrationService @Inject()(
       enrolmentService: EnrolmentService,
       addresses: Addresses,
       emailService: EmailService,
-      config: ApplicationConfig) {
+      config: ApplicationConfig)
+    extends Logging {
 
   def create(
         groupDetails: GroupAccountDetails,
@@ -75,32 +76,39 @@ class RegistrationService @Inject()(
         userDetails: UserDetails)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] =
     if (config.stubEnrolment) {
       option match {
-        case Some(detailIndiv) => success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
-        case _                 => Future.successful(DetailsMissing)
+        case Some(detailIndiv) =>
+          registrationSuccess(userDetails, detailIndiv, groupAccount, affinityGroupOpt, enrolmentSuccess = true)
+        case _ => Future.successful(DetailsMissing)
       }
     } else {
       (option, userDetails.credentialRole) match {
-        case (Some(detailIndiv), Assistant) => success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
+        case (Some(detailIndiv), Assistant) =>
+          registrationSuccess(userDetails, detailIndiv, groupAccount, affinityGroupOpt, enrolmentSuccess = true)
         case (Some(detailIndiv), _) =>
           enrolmentService.enrol(detailIndiv.individualId, addressId).flatMap {
-            case Success => success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
+            case Success =>
+              registrationSuccess(userDetails, detailIndiv, groupAccount, affinityGroupOpt, enrolmentSuccess = true)
             case Failure =>
-              Logger.warn(
+              logger.warn(
                 s"Failed to enrol VOA user organisation ID ${detailIndiv.organisationId}, individual ID ${detailIndiv.individualId}")
-              success(userDetails, detailIndiv, groupAccount, affinityGroupOpt)
+              registrationSuccess(userDetails, detailIndiv, groupAccount, affinityGroupOpt, enrolmentSuccess = false)
           }
         case (None, _) => Future.successful(DetailsMissing)
       }
     }
 
-  private def success(
+  private def registrationSuccess(
         userDetails: UserDetails,
         detailedIndividualAccount: DetailedIndividualAccount,
         groupAccount: Option[GroupAccount],
-        affinityGroupOpt: Option[AffinityGroup])(
-        implicit hc: HeaderCarrier,
-        ec: ExecutionContext): Future[RegistrationResult] = {
-    Logger.info(s"New ${userDetails.affinityGroup} ${userDetails.credentialRole} successfully registered for VOA")
+        affinityGroupOpt: Option[AffinityGroup],
+        enrolmentSuccess: Boolean)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
+    if (enrolmentSuccess) {
+      logger.info(s"New ${userDetails.affinityGroup} ${userDetails.credentialRole} successfully registered for VOA")
+    } else {
+      logger.warn(
+        "${userDetails.affinityGroup} ${userDetails.credentialRole} registered for VOA although enrolment for CCA failed.")
+    }
     emailService
       .sendNewRegistrationSuccess(userDetails.email, detailedIndividualAccount, groupAccount, affinityGroupOpt)
       .map(_ => RegistrationSuccess(detailedIndividualAccount.individualId))

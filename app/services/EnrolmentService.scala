@@ -18,7 +18,6 @@ package services
 
 import auditing.AuditingService
 import connectors.{Addresses, TaxEnrolmentConnector}
-import form.Mappings
 import form.Mappings.postcodeRegex
 import models.Address
 import org.apache.commons.lang3.StringUtils.isNotBlank
