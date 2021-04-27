@@ -58,7 +58,6 @@ lazy val microservice = Project(appName, file("."))
     addTestReportOption(IntegrationTest, "int-test-reports"),
     parallelExecution in IntegrationTest := false
   )
-  .settings(resolvers += Resolver.bintrayRepo("hmrc", "releases"))
   .settings(resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/")
   .settings(
     TwirlKeys.templateImports ++= Seq(
