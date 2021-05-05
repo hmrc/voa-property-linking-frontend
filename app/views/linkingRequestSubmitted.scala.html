@@ -18,37 +18,35 @@
 @import config.ApplicationConfig
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @this(govukPanel: GovukPanel, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
 @(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @clientParameter = @{
-        (model.clientDetails)  match {
-            case Some(client) => { s"?organisationId=${client.organisationId}&organisationName=${client.organisationName}"  }
+        model.clientDetails match {
+            case Some(client) => s"?organisationId=${client.organisationId}&organisationName=${client.organisationName}"
             case _        => ""
         }
 }
 @managePropertiesUrl = @{
-    (model.clientDetails)  match {
-        case Some(client) => {
+    model.clientDetails match {
+        case Some(client) =>
             config.dashboardUrl(
                 s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}")
-        }
         case _        => config.dashboardUrl("your-properties")
     }
 }
 @clientSuffix = @{
     model.clientDetails match {
-        case Some(id) => { ".client"}
-        case _        => {""}
+        case Some(id) => ".client"
+        case _        => ""
     }
 }
 @mainLayout(
     pageTitle = messages("linkingRequestSubmitted.title")
 ) {
     @govukPanel(Panel(
-        title = Text( s"${messages("linkingRequestSubmitted.title1")} ${model.address.toString} ${messages(s"linkingRequestSubmitted$clientSuffix.title2")}"),
+        title = Text( s"${messages("linkingRequestSubmitted.title1")} ${model.address} ${messages(s"linkingRequestSubmitted$clientSuffix.title2")}"),
         content = HtmlContent(s"${messages("linkingRequestSubmitted.title3")}<br><strong>${model.refId}</strong>")
     ))
 

@@ -19,19 +19,16 @@ package controllers.propertyLinking
 import cats.data.EitherT
 import cats.instances.future._
 import controllers.VoaPropertyLinkingSpec
-import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import repositories.SessionRepo
-import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.exceptions.attachments.{AttachmentException, NotAllFilesReadyToUpload}
 import utils.{HtmlPage, _}
 
-import scala.collection.JavaConverters._
 import scala.concurrent.Future
 
 class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
@@ -45,7 +42,6 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
           mockCustomErrorHandler,
           mockPropertyLinkingService,
           mockSessionRepo,
-          mockBusinessRatesAttachmentService,
           preAuthenticatedActionBuilders(),
           preEnrichedActionRefiner(),
           mockDeclarationView,
@@ -59,8 +55,6 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       when(f.remove()(any())).thenReturn(Future.successful(()))
       f
     }
-
-    lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
 
     lazy val envelopeId: String = shortString
   }
@@ -113,7 +107,6 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       mockCustomErrorHandler,
       mockPropertyLinkingService,
       mockSessionRepo,
-      mockBusinessRatesAttachmentService,
       preAuthenticatedActionBuilders(),
       preEnrichedActionRefiner(),
       mockDeclarationView,
@@ -130,8 +123,6 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
-    when(mockBusinessRatesAttachmentService.patchMetadata(any[String], any[String])(any(), any[HeaderCarrier]))
-      .thenReturn(Future.successful(attachment))
     when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
       .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
