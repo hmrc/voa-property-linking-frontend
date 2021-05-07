@@ -42,7 +42,12 @@ class DvrController @Inject()(
       challengeConnector: ChallengeConnector,
       authenticated: AuthenticatedAction,
       submissionIds: SubmissionIdConnector,
-      dvrCaseManagement: DVRCaseManagementConnector
+      dvrCaseManagement: DVRCaseManagementConnector,
+      alreadyRequestedDetailedValuationView: views.html.dvr.alreadyRequestedDetailedValuation,
+      requestDetailedValuationView: views.html.dvr.requestDetailedValuation,
+      requestedDetailedValuationView: views.html.dvr.requestedDetailedValuation,
+      dvrFilesView: views.html.dvr.dvrFiles,
+      cannotRaiseChallengeView: views.html.dvr.cannotRaiseChallenge
 )(
       implicit val executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -103,7 +108,7 @@ class DvrController @Inject()(
               }
 
             caseDetails.map { optCases =>
-              Ok(views.html.dvr.dvr_files(
+              Ok(dvrFilesView(
                 model = AvailableRequestDetailedValuation(
                   check = documents.checkForm.documentSummary.documentId,
                   valuation = documents.detailedValuation.documentSummary.documentId,
@@ -209,7 +214,7 @@ class DvrController @Inject()(
       else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
     pLink.map {
       case Some(link) =>
-        Ok(views.html.dvr.requested_detailed_valuation(submissionId, link.address))
+        Ok(requestedDetailedValuationView(submissionId, link.address))
       case None =>
         BadRequest(views.html.errors.propertyMissing())
     }
@@ -245,10 +250,10 @@ class DvrController @Inject()(
             .url
         } yield {
           if (exists) {
-            Ok(views.html.dvr.already_requested_detailed_valuation(backUrl, isDraftList = assessment.isDraft))
+            Ok(alreadyRequestedDetailedValuationView(backUrl, isDraftList = assessment.isDraft))
           } else {
             Ok(
-              views.html.dvr.request_detailed_valuation(
+              requestDetailedValuationView(
                 submissionId = submissionId,
                 model = RequestDetailedValuationWithoutForm(link, assessment),
                 owner = owner,
@@ -324,7 +329,7 @@ class DvrController @Inject()(
               s"property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/$party/start?isDvr=true")))
         } else {
           Future successful Ok(
-            views.html.dvr.cannotRaiseChallenge(
+            cannotRaiseChallengeView(
               model = response,
               homePageUrl = config.dashboardUrl("home"),
               authorisationId = authorisationId,

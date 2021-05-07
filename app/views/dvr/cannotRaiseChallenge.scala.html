@@ -17,23 +17,24 @@
 @import models.CanChallengeResponse
 @import config.ApplicationConfig
 
+@this(mainLayout: views.html.mainLayout)
+
 @(model: CanChallengeResponse, homePageUrl: String, authorisationId: Long, backLinkUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    title = Messages("cannotRaiseChallenge.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = Some(backLinkUrl)
+@mainLayout(
+    pageTitle = messages("cannotRaiseChallenge.title"),
+    backUri = Some(backLinkUrl)
 ) {
 
     <div id="cannot-raise-challenge">
-        <h2 class="heading-large">@Messages("cannotRaiseChallenge.title")</h2>
+        <h1 class="govuk-heading-l">@Messages("cannotRaiseChallenge.title")</h1>
 
-        <p>@model.reason.getOrElse("")</p>
+        <p class="govuk-body">@model.reason.getOrElse("")</p>
 
-        <a id="confirm" href="@homePageUrl" class="button">
-            @Messages("link.go.home")
-        </a>
+        <p class="govuk-body"><a class="govuk-link" id="confirm" href="@homePageUrl" class="button">
+            @messages("link.go.home")
+        </a></p>
+
         <br/>
         <br/>
     </div>
