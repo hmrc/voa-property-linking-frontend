@@ -31,12 +31,10 @@ import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
-import services.BusinessRatesAttachmentsService
 import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
 import utils.Cats
-import views.html.propertyLinking.declaration
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -45,7 +43,6 @@ class DeclarationController @Inject()(
       val errorHandler: CustomErrorHandler,
       propertyLinkService: PropertyLinkingService,
       @Named("propertyLinkingSession") sessionRepository: SessionRepo,
-      businessRatesAttachmentService: BusinessRatesAttachmentsService,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       declarationView: views.html.propertyLinking.declaration,

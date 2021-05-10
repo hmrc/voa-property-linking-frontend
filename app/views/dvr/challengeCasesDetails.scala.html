@@ -15,9 +15,7 @@
  *@
 
 @import models.dvr.cases.check.projection.CaseDetails
-@import utils.Formatters
-@import config.ApplicationConfig
-@import controllers.detailedvaluationrequest.routes
+@import utils.Formatters._
 @import config.ApplicationConfig
 
 @import java.time.LocalDateTime
@@ -30,36 +28,39 @@
 }
 
 @challengeRow(submittedDate: LocalDateTime, status: String, challengeReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = {
-    <tr>
-        <td>@Formatters.formatDateTimeToDate(submittedDate)</td>
-        <td>@status</td>
-        <td><a class="govuk-link" href="@challengeCaseDetailsUrl(challengeReference)">@challengeReference</a></td>
-        <td>@if(closedDate.isDefined){@Formatters.formatDate(closedDate.get)}</td>
-        <td>@clientOrAgent</td>
-        <td>@submittedBy</td>
+    <tr class="govuk-table__row">
+        <td class="govuk-table__cell">@formatDateTimeToDate(submittedDate)</td>
+        <td class="govuk-table__cell">@status</td>
+        <td class="govuk-table__cell"><a class="govuk-link" href="@challengeCaseDetailsUrl(challengeReference)">@challengeReference</a></td>
+        <td class="govuk-table__cell">@for(d <- closedDate){@formatDate(d)}</td>
+        <td class="govuk-table__cell">@clientOrAgent</td>
+        <td class="govuk-table__cell">@submittedBy</td>
     </tr>
 }
 
 
-@if(challengeCases.size > 0) {
-    <h2 class="heading-large">@Messages("property.details.div.submitted.challenge.cases")</h2>
+@if(challengeCases.nonEmpty) {
+    <h2 class="govuk-heading-l">@messages("property.details.div.submitted.challenge.cases")</h2>
 
     <div id="details-content-challengecases">
-        <table id="challengecases-table" class="margin-bottom-10 margin-top-10">
-            <tbody>
-                <tr>
-                    <th>@Messages("property.details.cases.table.1")</th>
-                    <th>@Messages("property.details.cases.table.3")</th>
-                    <th>@Messages("property.details.challenge.cases.table.4")</th>
-                    <th>@Messages("property.details.cases.table.5")</th>
+        <table id="challengecases-table" class="govuk-table margin-top-10">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@messages("property.details.cases.table.1")</th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@messages("property.details.cases.table.3")</th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@messages("property.details.challenge.cases.table.4")</th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@messages("property.details.cases.table.5")</th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">
                     @if(isOwner) {
-                        <th>@Messages("property.details.cases.table.6")</th>
+                        @messages("property.details.cases.table.6")
                     }else{
-                        <th>@Messages("property.details.cases.table.7")</th>
+                        @messages("property.details.cases.table.7")
                     }
-                    <th>@Messages("property.details.cases.table.8")</th>
+                    </th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@messages("property.details.cases.table.8")</th>
                 </tr>
-
+            </thead>
+            <tbody class="govuk-table__body">
                 @for(caseDetails <- challengeCases) {
                     @challengeRow(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
                 }

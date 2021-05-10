@@ -16,7 +16,6 @@
 
 package controllers.detailedvaluationrequest
 
-import java.time.LocalDateTime
 import connectors.SubmissionIdConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
@@ -26,8 +25,11 @@ import org.mockito.Mockito.{never, verify, when}
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import uk.gov.hmrc.govukfrontend.views.html.components._
 import utils.{StubPropertyLinkConnector, _}
+import views.html.dvr._
 
+import java.time.LocalDateTime
 import scala.concurrent.Future
 
 class DvrControllerSpec extends VoaPropertyLinkingSpec {
@@ -36,12 +38,17 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     implicit val request = FakeRequest()
 
     val controller = new DvrController(
-      mockCustomErrorHandler,
-      mockPropertyLinkConnector,
-      mockChallengeConnector,
-      preAuthenticatedActionBuilders(),
-      mockSubmissionIds,
-      mockDvrCaseManagement
+      errorHandler = mockCustomErrorHandler,
+      propertyLinks = mockPropertyLinkConnector,
+      challengeConnector = mockChallengeConnector,
+      authenticated = preAuthenticatedActionBuilders(),
+      submissionIds = mockSubmissionIds,
+      dvrCaseManagement = mockDvrCaseManagement,
+      alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout),
+      requestDetailedValuationView = new requestDetailedValuation(mainLayout, GovukButton, FormWithCSRF),
+      requestedDetailedValuationView = new requestedDetailedValuation(mainLayout),
+      dvrFilesView = new dvrFiles(mainLayout, GovukButton, GovukDetails),
+      cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout)
     )
 
     lazy val mockSubmissionIds = {

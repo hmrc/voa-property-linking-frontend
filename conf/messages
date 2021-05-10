@@ -878,16 +878,16 @@ auto.requestDetailedValuation.challenge.start=Challenge this valuation
 
 #VIEW REQUEST DETAILED VALUATION
 available.requestvaluation.title=View property valuation
-available.requestvaluation.p1=You can download the <a href={0}> Detailed Valuation for {1} </a>
+available.requestvaluation.p1=You can download the <a class="govuk-link" href={0}> Detailed Valuation for {1} </a>
 available.requestvaluation.p2.englishProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a check against the current valuation. Any changes will carry over to the draft valuation.
 available.requestvaluation.p2.welshProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a proposal against the current valuation. Any changes will carry over to the draft valuation.
 
 available.requestvaluation.check.title=Submit a check
-available.requestvaluation.check.p1=To submit a check for this property you will need to <a href={0}> download the Check Form </a>
-available.requestvaluation.check.p2=You can email the form to <a href="mailto:CCAService@voa.gov.uk">CCAService@voa.gov.uk</a> or post it to:
+available.requestvaluation.check.p1=To submit a check for this property you will need to <a class="govuk-link" href={0}> download the Check Form </a>
+available.requestvaluation.check.p2=You can email the form to <a class="govuk-link" href="mailto:CCAService@voa.gov.uk">CCAService@voa.gov.uk</a> or post it to:
 available.requestvaluation.address=Check and challenge service, PO Box 308, PLYMOUTH, PL5 9DT
 
-available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need to <a href="{0}">download and complete a check form</a>.
+available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need to <a class="govuk-link" href="{0}">download and complete a check form</a>.
 available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
 available.requestvaluation.dvrCheck.startCheck=Send my completed check form
 
@@ -932,8 +932,8 @@ auto.duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: exte
 
 startChallenge.title=Challenge the valuation
 startChallenge.p.1=Your challenge must be submitted within 4 months of the VOA decision, or within 16 months of the date you told the VOA about a change in the surrounding area of your property. You can also submit a challenge if you told the VOA about a change and you haven’t received a decision within 12 months.
-startChallenge.p.2=To submit a challenge you’ll need to <a href="{0}">download and complete the form</a>. You can <a href="{1}">download guidance for completing the form</a>.
-startChallenge.p.3=You should send the form and any supporting evidence to <a href=mailto:ccaservice@voa.gov.uk>ccaservice@voa.gov.uk</a>.
+startChallenge.p.2=To submit a challenge you’ll need to <a class="govuk-link" href="{0}">download and complete the form</a>. You can <a class="govuk-link" href="{1}">download guidance for completing the form</a>.
+startChallenge.p.3=You should send the form and any supporting evidence to <a class="govuk-link" href=mailto:ccaservice@voa.gov.uk>ccaservice@voa.gov.uk</a>.
 startChallenge.p.4=Please be aware of the risks before sending any confidential information.
 
 #COMMON

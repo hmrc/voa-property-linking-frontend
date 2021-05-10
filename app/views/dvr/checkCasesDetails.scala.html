@@ -15,7 +15,7 @@
  *@
 
 @import models.dvr.cases.check.projection.CaseDetails
-@import utils.Formatters
+@import utils.Formatters._
 @import config.ApplicationConfig
 @import controllers.detailedvaluationrequest.routes
 
@@ -33,45 +33,47 @@
 }
 
 @row(submittedDate: LocalDateTime, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = {
-    <tr>
-        <td>@(Formatters.formatDateTimeToDate(submittedDate))</td>
-        <td>@status</td>
-        <td>@checkReference</td>
-        <td>@if(closedDate.isDefined){@Formatters.formatDate(closedDate.get)}</td>
-        <td>@clientOrAgent</td>
-        <td>@submittedBy</td>
-        <td><a href="@canChallengeLink(assessmentRef, checkReference)">@messages("property.details.cases.table.challenge")</a></td>
+    <tr class="govuk-table__row">
+        <td class="govuk-table__cell">@(formatDateTimeToDate(submittedDate))</td>
+        <td class="govuk-table__cell">@status</td>
+        <td class="govuk-table__cell">@checkReference</td>
+        <td class="govuk-table__cell">@for(d <- closedDate){@formatDate(d)}</td>
+        <td class="govuk-table__cell">@clientOrAgent</td>
+        <td class="govuk-table__cell">@submittedBy</td>
+        <td class="govuk-table__cell"><a class="govuk-link" href="@canChallengeLink(assessmentRef, checkReference)">@messages("property.details.cases.table.challenge")</a></td>
     </tr>
 }
-<h2 class="heading-large">@Messages("property.details.div.submitted")</h2>
+<h2 class="govuk-heading-l">@Messages("property.details.div.submitted")</h2>
 
-@if(checkCases.size > 0) {
+@if(checkCases.nonEmpty) {
     <div id="details-content-checkcases">
-        <table id="checkcases-table" class="margin-bottom-10 margin-top-10">
-            <tbody>
-            <tr>
-                <th>@Messages("property.details.cases.table.1")</th>
-                <th>@Messages("property.details.cases.table.3")</th>
-                <th>@Messages("property.details.cases.table.4")</th>
-                <th>@Messages("property.details.cases.table.5")</th>
-                @if(isOwner) {
-                    <th>@Messages("property.details.cases.table.6")</th>
-                }else{
-                    <th>@Messages("property.details.cases.table.7")</th>
-                }
-                <th>@Messages("property.details.cases.table.8")</th>
-                <th>@Messages("label.action")</th>
+        <table id="checkcases-table" class="govuk-table margin-top-10">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("property.details.cases.table.1")</th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("property.details.cases.table.3")</th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("property.details.cases.table.4")</th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("property.details.cases.table.5")</th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@if(isOwner) {
+                        @Messages("property.details.cases.table.6")
+                    } else {
+                        @Messages("property.details.cases.table.7")
+                    }
+                    </th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("property.details.cases.table.8")</th>
+                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("label.action")</th>
 
-            </tr>
-
-            @for(caseDetails <- checkCases) {
-                @row(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
-            }
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                 @for(caseDetails <- checkCases) {
+                     @row(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
+                 }
             </tbody>
         </table>
     </div>
 } else {
-    <p id="no-submitted-checks">@Messages("property.details.div.noSubmittedCheck")</p>
+    <p class="govuk-body" id="no-submitted-checks">@Messages("property.details.div.noSubmittedCheck")</p>
 }
 
 <br/>
