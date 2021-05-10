@@ -25,7 +25,6 @@ import org.mockito.Mockito.{never, verify, when}
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.govukfrontend.views.Layouts
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import utils.{StubPropertyLinkConnector, _}
 import views.html.dvr._
@@ -33,18 +32,10 @@ import views.html.dvr._
 import java.time.LocalDateTime
 import scala.concurrent.Future
 
-class DvrControllerSpec extends VoaPropertyLinkingSpec with Layouts {
+class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   trait Setup {
     implicit val request = FakeRequest()
-
-    val realMainLayout = new views.html.mainLayout(
-      GovukTemplate,
-      GovukHeader,
-      GovukFooter,
-      GovukBackLink,
-      GovukDetails,
-      new views.html.head())
 
     val controller = new DvrController(
       errorHandler = mockCustomErrorHandler,
@@ -53,11 +44,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec with Layouts {
       authenticated = preAuthenticatedActionBuilders(),
       submissionIds = mockSubmissionIds,
       dvrCaseManagement = mockDvrCaseManagement,
-      alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(realMainLayout),
-      requestDetailedValuationView = new requestDetailedValuation(realMainLayout, GovukButton, FormWithCSRF),
-      requestedDetailedValuationView = new requestedDetailedValuation(realMainLayout),
-      dvrFilesView = new dvrFiles(realMainLayout, GovukButton, GovukDetails),
-      cannotRaiseChallengeView = new cannotRaiseChallenge(realMainLayout)
+      alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout),
+      requestDetailedValuationView = new requestDetailedValuation(mainLayout, GovukButton, FormWithCSRF),
+      requestedDetailedValuationView = new requestedDetailedValuation(mainLayout),
+      dvrFilesView = new dvrFiles(mainLayout, GovukButton, GovukDetails),
+      cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout)
     )
 
     lazy val mockSubmissionIds = {
