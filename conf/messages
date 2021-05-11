@@ -852,7 +852,7 @@ linkError.conflict.home.link=Manage your properties
 error.select.valuation.required=Please select a Valuation
 requestDetailedValuation.title=This detailed valuation isn’t available to view online.
 requestDetailedValuation.p.1=We’re working to make more detailed valuations available to view online in the next few months. If you need to view this detailed valuation sooner, please request a copy by email or post.
-requestDetailedValuation.p.2=If you don’t want to request this, you can <a href={0}>return to the home page.</a>
+requestDetailedValuation.p.2=If you don’t want to request this, you can <a class="govuk-link" href={0}>return to the home page.</a>
 requestDetailedValuation.p.3=The majority of our customers prefer us to send information by email as it means we can get it to them quicker. Although we take care to protect the security of your property data, we cannot guarantee that your detailed valuation will be secure once sent.
 requestDetailedValuation.p.4=If you’d prefer us to send this by post, we’ll send it to the address that you provided on the ‘your contact details’ page during registration.
 requestDetailedValuation.button=Request a valuation
@@ -862,7 +862,7 @@ auto.requestDetailedValuation.smallTitle=Detailed valuation request for
 auto.requestDetailedValuation.p.1=You need to request this detailed valuation if you want to view it or submit a check.
 auto.requestDetailedValuation.p.1.draft=You need to request this detailed valuation if you want to view it.
 auto.requestDetailedValuation.p.2=Once your request is approved, it will be available to view on this page.
-auto.requestDetailedValuation.p.3=If you don’t want to request this, you can <a href={0}>return to your home page.</a>
+auto.requestDetailedValuation.p.3=If you don’t want to request this, you can <a class="govuk-link" href={0}>return to your home page.</a>
 auto.requestDetailedValuation.button=Request a valuation
 auto.requestDetailedValuation.effectiveDate=<b>Effective date:</b> {0}
 auto.requestDetailedValuation.rateableValue=<b>Rateable Value:</b> £{0}
@@ -922,18 +922,18 @@ auto.detailedValuationRequested.p.1=The valuation will be available within 20 wo
 
 duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.
 duplicateRequestDetailedValuation.request=We’ve received your request for a copy of the detailed valuation for this property in the last 14 days. You should receive your copy by post or email (whichever you chose as your preference) shortly.
-duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email ccaservice@voa.gov.uk and ask for your request to be prioritised.
+duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> and ask for your request to be prioritised.
 duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and reference number of your detailed valuation request within the email.
 
 auto.duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.
 auto.duplicateRequestDetailedValuation.request=We received your request for this detailed valuation in the last 14 days. It will be available shortly.
-auto.duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email <a href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> and ask for your request to be prioritised.
+auto.duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> and ask for your request to be prioritised.
 auto.duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and reference number of your detailed valuation request within the email.
 
 startChallenge.title=Challenge the valuation
 startChallenge.p.1=Your challenge must be submitted within 4 months of the VOA decision, or within 16 months of the date you told the VOA about a change in the surrounding area of your property. You can also submit a challenge if you told the VOA about a change and you haven’t received a decision within 12 months.
 startChallenge.p.2=To submit a challenge you’ll need to <a class="govuk-link" href="{0}">download and complete the form</a>. You can <a class="govuk-link" href="{1}">download guidance for completing the form</a>.
-startChallenge.p.3=You should send the form and any supporting evidence to <a class="govuk-link" href=mailto:ccaservice@voa.gov.uk>ccaservice@voa.gov.uk</a>.
+startChallenge.p.3=You should send the form and any supporting evidence to <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>.
 startChallenge.p.4=Please be aware of the risks before sending any confidential information.
 
 #COMMON
@@ -1343,7 +1343,7 @@ challengeRules.rules=You can challenge the valuation if you have:
 challengeRules.rules.1=had a check decision in the last 4 months
 challengeRules.rules.2=submitted a check and have not had a decision in the last 12 months
 challengeRules.rules.3=submitted a check in the last 16 months and your challenge is about a change in the local area of a property
-challengeRules.rules.paper=If no valid check cases are shown but you still think you have the right to challenge, you will need to <a href="{0}">download and complete a challenge form</a>.
+challengeRules.rules.paper=If no valid check cases are shown but you still think you have the right to challenge, you will need to <a class="govuk-link" href="{0}">download and complete a challenge form</a>.
 
 ## TIME OUT DIALOG
 timeout.dialog.title = You are about to be timed out
