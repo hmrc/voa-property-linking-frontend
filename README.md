@@ -3,7 +3,18 @@ voa-property-linking-frontend
 A frontend service for the CCA (Business Rates) project at VOA. It communicates with voa-property-linking, and business-rates-authorisation microservices.
  
 # Installation
+Running the service is sensitive to installed versions of node/npm
+
+Recommended versions:
+* node: v8.5.0
   
+* npm: v5.3.0 
+
+  
+Use 'nvm' to manage multiple versions of node/npm.
+
+see:
+* https://stackoverflow.com/questions/7718313/how-to-change-to-an-older-version-of-node-js
 ### Cloning:
 
 SSH
@@ -16,10 +27,10 @@ https://github.com/hmrc/voa-property-linking-frontend.git
 ```
 ### Running the application
 
-Ensure that you have the latest versions of the required services and that they are running. This can be done via service manager using the PROPERTY_LINKING profile
+Ensure that you have the latest versions of the required services and that they are running. This can be done via service manager using the BUSINESS_RATES_ALL profile
 ```
-sm --start PROPERTY_LINKING -f
-sm --stop PROPERTY_LINKING
+sm --start BUSINESS_RATES_ALL -v
+sm --stop VOA_PROPERTY_LINKING_FRONTEND
 ```
 * `cd` to the root of the project.
 * `sbt run`
