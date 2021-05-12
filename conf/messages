@@ -314,6 +314,7 @@ manageProperties.viewAssessments=View valuations
 link.dashboard.home=Back to dashboard
 search.sort.page.size.view=View
 search.sort.page.size.properties.per.page=properties per page
+search.sort.showing=Showing {0} to {1} of {2}
 
 
 #MANAGED BY AGENT PROPERTIES
@@ -552,7 +553,7 @@ propertyRepresentation.revokeClientProperty.returnToClientProperties=Return to c
 
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
-propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent ''{0}'' (Agent ID: {1}) to submit {2} for any of these properties:
+propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent ''{0}'' (Agent ID: {1}) to submit checks and challenges for any of these properties:
 propertyRepresentation.appointAgentProperties.select=Select all
 propertyRepresentation.appointAgentProperties.deselect=Deselect all
 propertyRepresentation.appointAgents.table.select=Select
@@ -574,7 +575,7 @@ propertyRepresentation.appointAgents.showAllProperties.link=<a href="{0}">Show a
 ##Appoint agent summary
 propertyRepresentation.agentSummary.heading=Agent appointed
 propertyRepresentation.agentSummary.title=Agent ''{0}'' appointed
-propertyRepresentation.agentSummary.appointed=You have appointed agent ''{0}'' ({1}) with the ability to submit {2} to the selected properties.
+propertyRepresentation.agentSummary.appointed=You have appointed agent ''{0}'' ({1}) with the ability to submit checks and challenges to the selected properties.
 propertyRepresentation.agentSummary.warning=Your agent has 180 days to accept your request. Otherwise your request will be rejected and you will need to send a new request.
 propertyRepresentation.agentSummary.back=Back to dashboard
 propertyRepresentation.agentSummary.select.more=Select more properties

@@ -65,7 +65,7 @@
             <h1 class="heading-large">@messages("propertyRepresentation.appointAgentProperties.title")</h1>
 
 
-            <p class="lede">@messages("propertyRepresentation.appointAgentProperties.appointAgent", model.agentGroup.companyName, agentCode.toString, "checks and challenges")</p>
+            <p class="lede">@messages("propertyRepresentation.appointAgentProperties.appointAgent", model.agentGroup.companyName, agentCode.toString)</p>
 
 
             @if(f.isDefined){ @includes.errorSummary(f.get) }
@@ -121,8 +121,8 @@
                             </div>
                         </div>
                 </div>
+             </div>
             }
-        </div>
 
         <div class="column-whole">
         @if(model.response.authorisations.isEmpty){
@@ -259,7 +259,7 @@
         <input id="@fieldName" name="@fieldName" value="@value" class="ss-input">
         <button id="@{
             fieldName
-        }Button" class="search-submit ss-button">@messages("propertyRepresentation.search", Messages(s"propertyRepresentation.th.$fieldName"))</button>
+        }Button" class="search-submit ss-button">@messages("propertyRepresentation.search", messages(s"propertyRepresentation.th.${fieldName.toUpperCase}"))</button>
     </div>
 }
 
