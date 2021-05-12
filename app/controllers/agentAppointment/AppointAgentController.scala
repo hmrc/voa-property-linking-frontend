@@ -18,7 +18,6 @@ package controllers.agentAppointment
 
 import actions.AuthenticatedAction
 import actions.requests.AuthenticatedRequest
-import models.propertyrepresentation.{FilterAppointProperties, FilterRevokePropertiesSessionData}
 import binders.pagination.PaginationParameters
 import binders.propertylinks.ExternalPropertyLinkManagementSortField.ExternalPropertyLinkManagementSortField
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
@@ -26,9 +25,9 @@ import config.ApplicationConfig
 import connectors._
 import controllers._
 import form.FormValidation.nonEmptyList
-import javax.inject.{Inject, Named}
 import models.GroupAccount.AgentGroupAccount
 import models._
+import models.propertyrepresentation.{FilterAppointProperties, FilterRevokePropertiesSessionData}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi._
 import play.api.Logger
@@ -41,6 +40,7 @@ import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class AppointAgentController @Inject()(
@@ -50,7 +50,8 @@ class AppointAgentController @Inject()(
       agentRelationshipService: AgentRelationshipService,
       @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
       @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
-      @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo
+      @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
+      appointAgentSummaryView: views.html.propertyrepresentation.appoint.appointAgentSummary
 )(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -60,9 +61,9 @@ class AppointAgentController @Inject()(
 
   val logger: Logger = Logger(this.getClass)
 
-  lazy val addressForm = Form(single("address" -> text))
+  lazy val addressForm: Form[String] = Form(single("address" -> text))
 
-  lazy val filterAppointPropertiesForm =
+  lazy val filterAppointPropertiesForm: Form[FilterAppointPropertiesForm] =
     Form(
       mapping(
         "address" -> optional(text),
@@ -155,8 +156,8 @@ class AppointAgentController @Inject()(
         case Some(params) => params
         case None =>
           GetPropertyLinksParameters().copy(
-            address = sessionDataOpt.map(_.address).flatten,
-            agent = sessionDataOpt.map(_.agent).flatten,
+            address = sessionDataOpt.flatMap(_.address),
+            agent = sessionDataOpt.flatMap(_.agent),
             sortorder = sessionDataOpt.fold(ExternalPropertyLinkManagementSortOrder.ASC)(_.sortOrder)
           )
       }
@@ -243,7 +244,7 @@ class AppointAgentController @Inject()(
                 .map(
                   _ =>
                     Ok(
-                      views.html.propertyrepresentation.appoint.appointAgentSummary(
+                      appointAgentSummaryView(
                         action = action,
                         agentOrganisation = group.companyName,
                         backLinkUrl = action.backLinkUrl)))
@@ -275,22 +276,18 @@ class AppointAgentController @Inject()(
       )
   }
 
-  def selectAgentPropertiesSearchSort(
-        pagination: PaginationParameters,
-        agentCode: Long
-  ) = authenticated.async { implicit request =>
-    searchPropertiesForRevoke(pagination, agentCode, Some(GetPropertyLinksParameters()))
-  }
+  def selectAgentPropertiesSearchSort(pagination: PaginationParameters, agentCode: Long): Action[AnyContent] =
+    authenticated.async { implicit request =>
+      searchPropertiesForRevoke(pagination, agentCode, Some(GetPropertyLinksParameters()))
+    }
 
-  def paginateRevokeProperties(
-        pagination: PaginationParameters,
-        agentCode: Long
-  ) = authenticated.async { implicit request =>
-    searchPropertiesForRevoke(pagination, agentCode)
-  }
+  def paginateRevokeProperties(pagination: PaginationParameters, agentCode: Long): Action[AnyContent] =
+    authenticated.async { implicit request =>
+      searchPropertiesForRevoke(pagination, agentCode)
+    }
 
-  def sortRevokePropertiesByAddress(pagination: PaginationParameters, agentCode: Long) = authenticated.async {
-    implicit request =>
+  def sortRevokePropertiesByAddress(pagination: PaginationParameters, agentCode: Long): Action[AnyContent] =
+    authenticated.async { implicit request =>
       revokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData].flatMap {
         case Some(sessionData) =>
           searchPropertiesForRevoke(
@@ -312,7 +309,7 @@ class AppointAgentController @Inject()(
               GetPropertyLinksParameters().reverseSorting
                 .copy(sortfield = ExternalPropertyLinkManagementSortField.ADDRESS)))
       }
-  }
+    }
 
   private def searchPropertiesForRevoke(
         pagination: PaginationParameters,
@@ -328,13 +325,16 @@ class AppointAgentController @Inject()(
             case Some(params) => params
             case None =>
               GetPropertyLinksParameters().copy(
-                address = sessionDataOpt.map(_.address).flatten,
+                address = sessionDataOpt.flatMap(_.address),
                 sortorder = sessionDataOpt.fold(ExternalPropertyLinkManagementSortOrder.ASC)(_.sortOrder))
           }
           response: OwnerAuthResult <- agentRelationshipService
                                         .getMyOrganisationsPropertyLinks(
                                           searchParams,
-                                          PaginationParams(pagination.startPoint, pagination.pageSize, false))
+                                          PaginationParams(
+                                            pagination.startPoint,
+                                            pagination.pageSize,
+                                            requestTotalRowCount = false))
                                         .map(oar =>
                                           oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                                         .map(oar =>
@@ -457,7 +457,7 @@ class AppointAgentController @Inject()(
   def filterProperties(authorisations: Seq[OwnerAuthorisation], agentOrganisaionId: Long): Seq[OwnerAuthorisation] =
     authorisations.filter(auth => auth.agents.map(_.organisationId).contains(agentOrganisaionId))
 
-  def appointAgentBulkActionForm =
+  def appointAgentBulkActionForm: Form[AgentAppointBulkAction] =
     Form(
       mapping(
         "agentCode"   -> longNumber,
@@ -465,7 +465,7 @@ class AppointAgentController @Inject()(
         "backLinkUrl" -> text
       )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack))
 
-  def revokeAgentBulkActionForm =
+  def revokeAgentBulkActionForm: Form[AgentRevokeBulkAction] =
     Form(
       mapping(
         "agentCode"   -> longNumber,
