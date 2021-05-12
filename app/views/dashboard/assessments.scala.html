@@ -20,19 +20,15 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
 
+@this(mainLayout: views.html.mainLayout)
+
 @(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    title = Messages("assessments.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    individualId = Some(request.personId),
-    backLinkUrl = Some(model.backLink)
+@mainLayout(
+    pageTitle = messages("assessments.title"),
+    backUri = Some(model.backLink)
 ) {
-
-
-
-    <p class="govuk-body-s">
+    <p class="govuk-body">
         @model.localAuthorityReference.map{ localAuthorityRef =>
             <span class="govuk-!-font-weight-bold">@messages("assessments.localAuthorityRef")</span> &nbsp;@localAuthorityRef<br>
         }

@@ -44,6 +44,7 @@ class ValuationsController @Inject()(
       val errorHandler: CustomErrorHandler,
       propertyLinks: PropertyLinkConnector,
       authenticated: AuthenticatedAction,
+      assessmentsView: views.html.dashboard.assessments,
       @Named("assessmentPage") val sessionRepo: SessionRepo,
       withAssessmentsPageSession: WithAssessmentsPageSessionRefiner,
       override val controllerComponents: MessagesControllerComponents
@@ -80,7 +81,7 @@ class ValuationsController @Inject()(
 
       def okResponse(assessments: ApiAssessments, backlink: String) =
         Ok(
-          views.html.dashboard.assessments(
+          assessmentsView(
             AssessmentsVM(
               assessmentsWithLinks(assessments, submissionId, owner),
               backlink,
