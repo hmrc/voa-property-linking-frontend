@@ -314,6 +314,7 @@ manageProperties.viewAssessments=View valuations
 link.dashboard.home=Back to dashboard
 search.sort.page.size.view=View
 search.sort.page.size.properties.per.page=properties per page
+search.sort.showing=Showing {0} to {1} of {2}
 
 
 #MANAGED BY AGENT PROPERTIES
@@ -552,7 +553,7 @@ propertyRepresentation.revokeClientProperty.returnToClientProperties=Return to c
 
 #Appoint agents properties
 propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
-propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent ''{0}'' (Agent ID: {1}) to submit {2} for any of these properties:
+propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent ''{0}'' (Agent ID: {1}) to submit checks and challenges for any of these properties:
 propertyRepresentation.appointAgentProperties.select=Select all
 propertyRepresentation.appointAgentProperties.deselect=Deselect all
 propertyRepresentation.appointAgents.table.select=Select
