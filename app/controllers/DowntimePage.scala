@@ -19,19 +19,18 @@ package controllers
 import com.google.inject.Inject
 import config.ApplicationConfig
 import play.api.i18n.MessagesApi
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class DowntimePage @Inject()(
       val errorHandler: CustomErrorHandler,
-      override val controllerComponents: MessagesControllerComponents
+      override val controllerComponents: MessagesControllerComponents,
+      downtimePageView: views.html.downtimePage
 )(
       implicit override val messagesApi: MessagesApi,
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def plannedImprovements() = Action { implicit request =>
-    Ok(views.html.downtimePage())
-  }
+  def plannedImprovements(): Action[AnyContent] = Action(implicit request => Ok(downtimePageView()))
 
 }

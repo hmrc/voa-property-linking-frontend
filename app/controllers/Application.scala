@@ -40,10 +40,6 @@ class Application @Inject()(
 
   def logOut() = Action(Redirect(routes.Application.start()).withNewSession)
 
-  def contactUs() = Action { implicit request =>
-    Ok(views.html.contactUs())
-  }
-
   def invalidAccountType = Action { implicit request =>
     Unauthorized(views.html.errors.invalidAccountType())
   }
