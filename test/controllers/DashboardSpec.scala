@@ -16,29 +16,21 @@
 
 package controllers
 
-import connectors._
 import models._
 import models.messages.Message
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
-import org.mockito.ArgumentMatchers.{any, anyLong}
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.AgentRelationshipService
-import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
 import scala.concurrent.Future
 
 class DashboardSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
-
-  lazy val mockDraftCases = {
-    val m = mock[DraftCases]
-    when(m.get(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Nil))
-    m
-  }
 
   private val stubbedOwnerAuthResult: OwnerAuthResult =
     OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])
@@ -79,7 +71,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     StubGroupAccountConnector.stubAccount(clientGroup)
     StubGroupAccountConnector.stubAccount(agentGroup)
 
-    val res = TestDashboard.viewManagedProperties(agentGroup.agentCode.get, false)(request)
+    val res = TestDashboard.viewManagedProperties(agentGroup.agentCode.get, owner = false)(request)
 
     status(res) mustBe OK
     contentAsString(res) must include("Properties managed by Test Agent Company")
