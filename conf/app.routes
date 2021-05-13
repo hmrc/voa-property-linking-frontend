@@ -72,12 +72,6 @@ GET         /complete-business-contact-details-assistant                        
 POST        /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.submitAssistant()
 GET         /create-success                                                                   controllers.registration.RegistrationController.success(personId: Long)
 
-#Draft Checks
-GET         /draft-cases                                                                      controllers.ManageDrafts.viewDraftCases()
-POST        /delete-draft                                                                     controllers.ManageDrafts.deleteDraftCase()
-POST        /confirm-delete-draft                                                             controllers.ManageDrafts.confirmDelete(draftId: String)
-POST        /continue-draft-check                                                             controllers.ManageDrafts.continueCheck()
-
 #Business tax account
 GET         /manage-business-tax-account                                                      controllers.Application.manageBusinessTaxAccount()
 
