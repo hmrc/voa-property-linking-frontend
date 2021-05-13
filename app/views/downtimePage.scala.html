@@ -16,23 +16,10 @@
 
 @import config.ApplicationConfig
 
+@this(mainLayout: views.html.mainLayout)
+
 @()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-
-@main_template(
-    title = Messages("plannedImprovements.title"),
-    topNavigation = false
-) {
-
-    <div class="grid-row">
-
-        <div class="column-two-thirds">
-            <br>
-            @config.plannedImprovementsContent.map { content =>
-                @Html(content)
-            }
-        </div>
-
-    </div>
-
+@mainLayout(pageTitle = Messages("plannedImprovements.title")) {
+    @config.plannedImprovementsContent.map(Html.apply)
 }

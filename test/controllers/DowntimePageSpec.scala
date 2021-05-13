@@ -19,12 +19,14 @@ package controllers
 import org.jsoup.Jsoup
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import tests.AllMocks
+import views.html.downtimePage
 
-class DowntimePageSpec extends VoaPropertyLinkingSpec with AllMocks {
+class DowntimePageSpec extends VoaPropertyLinkingSpec {
+
   implicit val request = FakeRequest()
 
-  val applicationTestController = new DowntimePage(mockCustomErrorHandler, stubMessagesControllerComponents())
+  val applicationTestController =
+    new DowntimePage(mockCustomErrorHandler, stubMessagesControllerComponents(), new downtimePage(mainLayout))
 
   "plannedImprovements" should "display the downtime page" in {
 

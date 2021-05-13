@@ -64,16 +64,6 @@ class ApplicationSpec extends VoaPropertyLinkingSpec {
     redirectLocation(result) mustBe Some("/business-rates-property-linking")
   }
 
-  "contactUs" should "take the user to the contact us page" in {
-
-    val result = applicationTestController.contactUs()(FakeRequest())
-
-    status(result) mustBe OK
-
-    val html = contentAsString(result)
-    html must include("Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.")
-  }
-
   "invalidAccountType" should "take the user to the invalid account page as they are unauthorized" in {
 
     val result = applicationTestController.invalidAccountType()(FakeRequest())
