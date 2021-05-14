@@ -23,13 +23,13 @@
 @(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @tableHeaderRow = {
-    <tr>
-        <th><span>@messages("assessments.table.1")</span></th>
-        <th><span>@messages("assessments.table.2")</span></th>
-        <th><span>@messages("assessments.table.3")</span></th>
-        <th><span>@messages("assessments.table.4")</span></th>
-        <th><span>@messages("assessments.table.5")</span></th>
-        <th><span>@messages("assessments.table.action")</span></th>
+    <tr class="govuk-table__row">
+        <th class="govuk-table__cell"><span>@messages("assessments.table.1")</span></th>
+        <th class="govuk-table__cell"><span>@messages("assessments.table.2")</span></th>
+        <th class="govuk-table__cell"><span>@messages("assessments.table.3")</span></th>
+        <th class="govuk-table__cell"><span>@messages("assessments.table.4")</span></th>
+        <th class="govuk-table__cell"><span>@messages("assessments.table.5")</span></th>
+        <th class="govuk-table__cell"><span>@messages("assessments.table.action")</span></th>
     </tr>
 }
 
@@ -37,7 +37,7 @@
     <div id="viewAssessmentRadioGroup_@tableId" class="form-group">
         <div class="table-wrapper-no-pad">
             <table id="@tableId" class="margin-bottom-10 margin-top-10">
-                <caption class="visuallyhidden">@messages("assessments.table.caption")</caption>
+                <caption class="govuk-visually-hidden">@messages("assessments.table.caption")</caption>
                 <colgroup>
                     <col style="width: 16%">
                     <col style="width: 16%">
@@ -46,42 +46,42 @@
                     <col style="width: 16%">
                     <col style="width: 20%">
                 </colgroup>
-                <tbody>
-                    <tr>
-                        <th><span>@messages("assessments.table.1")</span></th>
-                        <th><span>@messages("assessments.table.2")</span></th>
-                        <th><span>@messages("assessments.table.3")</span></th>
-                        <th><span>@messages("assessments.table.4")</span></th>
-                        <th><span>@messages("assessments.table.5")</span></th>
-                        <th><span>@messages("assessments.table.action")</span></th>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <th class="govuk-table__cell"><span>@messages("assessments.table.1")</span></th>
+                        <th class="govuk-table__cell"><span>@messages("assessments.table.2")</span></th>
+                        <th class="govuk-table__cell"><span>@messages("assessments.table.3")</span></th>
+                        <th class="govuk-table__cell"><span>@messages("assessments.table.4")</span></th>
+                        <th class="govuk-table__cell"><span>@messages("assessments.table.5")</span></th>
+                        <th class="govuk-table__cell"><span>@messages("assessments.table.action")</span></th>
                     </tr>
 
                     @list.map {  case (url, assessment) =>
-                        <tr>
-                            <td>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
                                 @assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")
                             </td>
                             @assessment.rateableValue match {
                                 case Some(rv) => {
-                                    <td>£@rv</td>
+                                    <td class="govuk-table__cell">£@rv</td>
                                 }
                                 case None => {
-                                    <td>@messages("assessments.na")</td>
+                                    <td class="govuk-table__cell">@messages("assessments.na")</td>
                                 }
                             }
                             @model.capacity match {
                                 case Some(cap) => {
-                                    <td>@messages(s"capacity.${cap}")</td>
+                                    <td class="govuk-table__cell">@messages(s"capacity.${cap}")</td>
                                 }
                                 case None => {
-                                    <td></td>
+                                    <td class="govuk-table__cell"></td>
                                 }
                             }
 
-                            <td>
+                            <td class="govuk-table__cell">
                                 @assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
                             </td>
-                            <td>
+                            <td class="govuk-table__cell">
                                 @{
                                     if(!isDraft){
                                         (assessment.currentFromDate, assessment.currentToDate) match {
@@ -93,7 +93,7 @@
                                     }
                                 }
                             </td>
-                            <td>
+                            <td class="govuk-table__cell">
                                 @assessment.rateableValue match {
                                     case Some(rv) => {
                                         <a id="viewAssessmentRadio-@assessment.assessmentRef" href="@url">@messages("assessments.historic.select")</a>
@@ -111,13 +111,13 @@
     </div>
 }
 
-<div id="details-content-valuations">
+<div id="details-content-valuations" class="govuk-body">
 
     @if(model.currentAssessments.nonEmpty){
-    <h2 class="heading-medium">@messages("assessments.current.title")</h2>
+    <h2 class="govuk-heading-m">@messages("assessments.current.title")</h2>
         @table(model.currentAssessments, "currentAssessments")
         @if(model.currentAssessments.filter(a => a._2.rateableValue.isEmpty).nonEmpty){
-            <details class="print-hide" role="group">
+            <details class="print-hide" role="group" >
                 <summary role="button" aria-controls="details-content-1" aria-expanded="true">
                     <span class="summary">@Messages("rv.na")</span>
                 </summary>
@@ -135,12 +135,12 @@
     &nbsp;
     <br/>
     @if(model.draftAssessments.nonEmpty){
-        <h2 class="heading-medium">@messages("assessments.draft.title")</h2>
+        <h2 class="govuk-heading-m">@messages("assessments.draft.title")</h2>
         @table(model.draftAssessments, "draftAssessments", true)
     }
     <br/>
     @if(model.historicAssessments.nonEmpty){
-        <h2 class="heading-medium">@messages("assessments.historic.title")</h2>
+        <h2 class="govuk-heading-m">@messages("assessments.historic.title")</h2>
         @table(model.historicAssessments, "historicAssessments")
     }
 
