@@ -22,14 +22,15 @@ import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class Application @Inject()(
-      val errorHandler: CustomErrorHandler
+      val errorHandler: CustomErrorHandler,
+      addUserToGGPage: views.html.addUserToGG
 )(
       implicit override val controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig
 ) extends PropertyLinkingController {
 
   def addUserToGG = Action { implicit request =>
-    Ok(views.html.addUserToGG())
+    Ok(addUserToGGPage())
   }
 
   def manageBusinessTaxAccount = Action(Redirect(config.businessTaxAccountUrl("manage-account")))
