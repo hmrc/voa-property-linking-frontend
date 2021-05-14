@@ -20,31 +20,29 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
 
+@this(mainLayout: views.html.mainLayout)
+
 @(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    title = Messages("assessments.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    individualId = Some(request.personId),
-    backLinkUrl = Some(model.backLink)
+@mainLayout(
+    pageTitle = messages("assessments.title"),
+    backUri = Some(model.backLink),
+    mainClass = Some("govuk-grid-column-full")
 ) {
-
-
-
-    <p class="govuk-body-s">
+    <p class="govuk-body">
         @model.localAuthorityReference.map{ localAuthorityRef =>
             <span class="govuk-!-font-weight-bold">@messages("assessments.localAuthorityRef")</span> &nbsp;@localAuthorityRef<br>
         }
         <span class="govuk-!-font-weight-bold">@messages("assessments.property")</span> &nbsp;@model.address
     </p>
 
-    <h1 class="heading-xlarge margin-bottom-0 clear-right">
+    <h1 class="govuk-heading-xl">
         @messages("assessments.pageTitle")
     </h1>
+
+    <p class="govuk-body">@messages("assessments.paragraph")</p>
+
     <br/>
-    <div style="width: 66.6%">
-        <p>@messages("assessments.paragraph")</p>
-    </div>
+
     @assessmentDetails(model, owner)
 }
