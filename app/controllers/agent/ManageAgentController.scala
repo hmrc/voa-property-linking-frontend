@@ -18,11 +18,10 @@ package controllers.agent
 
 import actions.AuthenticatedAction
 import binders.pagination.PaginationParameters
-import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
+import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
 import controllers.agent.forms.AgentPropertiesForm
 import controllers.{PaginationParams, PropertyLinkingController}
-import javax.inject.Inject
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.propertyrepresentation._
 import models.searchApi.AgentPropertiesFilter.Both
@@ -34,22 +33,23 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import services.AgentRelationshipService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class ManageAgentController @Inject()(
       val errorHandler: CustomErrorHandler,
       authenticated: AuthenticatedAction,
       agentRelationshipService: AgentRelationshipService,
-      manageAgentPage: views.html.propertyrepresentation.manage.manageAgent,
-      myAgentsPage: views.html.propertyrepresentation.manage.myAgents,
-      removeAgentFromOrganisation: views.html.propertyrepresentation.manage.removeAgentFromOrganisation,
-      unassignAgentFromProperty: views.html.propertyrepresentation.manage.unassignAgentFromProperty,
-      addAgentToAllProperties: views.html.propertyrepresentation.manage.addAgentToAllProperties,
-      confirmAddAgentToAllProperties: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties,
-      unassignAgentFromAllProperties: views.html.propertyrepresentation.manage.unassignAgentFromAllProperties,
-      confirmUnassignAgentFromAllProperties: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties,
-      confirmRemoveAgentFromOrganisation: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation,
-      manageAgentSimplePage: views.html.propertyrepresentation.manage.manageAgentSimpleProperties)(
+      manageAgentView: views.html.propertyrepresentation.manage.manageAgent,
+      myAgentsView: views.html.propertyrepresentation.manage.myAgents,
+      removeAgentFromOrganisationView: views.html.propertyrepresentation.manage.removeAgentFromOrganisation,
+      unassignAgentFromPropertyView: views.html.propertyrepresentation.manage.unassignAgentFromProperty,
+      addAgentToAllPropertiesView: views.html.propertyrepresentation.manage.addAgentToAllProperties,
+      confirmAddAgentToAllPropertiesView: views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties,
+      unassignAgentFromAllPropertiesView: views.html.propertyrepresentation.manage.unassignAgentFromAllProperties,
+      confirmUnassignAgentFromAllPropertiesView: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties,
+      confirmRemoveAgentFromOrganisationView: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation,
+      manageAgentSimpleView: views.html.propertyrepresentation.manage.manageAgentSimpleProperties)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -64,13 +64,13 @@ class ManageAgentController @Inject()(
       propertyLinksCount  <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
     } yield
       Ok(
-        myAgentsPage(organisationsAgents.agents, propertyLinksCount)
+        myAgentsView(organisationsAgents.agents, propertyLinksCount)
       )
 
   }
 
   def manageAgent(agentCode: Option[Long]): Action[AnyContent] = authenticated.async { implicit request =>
-    getManageAgentPage(agentCode).map {
+    getManageAgentView(agentCode).map {
       case None       => NotFound(errorHandler.notFoundTemplate)
       case Some(page) => Ok(page)
     }
@@ -86,7 +86,7 @@ class ManageAgentController @Inject()(
                             .getMyAgentPropertyLinks(agentCode, params, PaginationParams(1, 100, true))
         agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
       } yield {
-        Ok(manageAgentSimplePage(ownerAuthResult, agentCode, agentDetails))
+        Ok(manageAgentSimpleView(ownerAuthResult, agentCode, agentDetails))
       }
     }
   }
@@ -121,7 +121,7 @@ class ManageAgentController @Inject()(
 
     }
   }
-  private[agent] def getManageAgentPage(
+  private[agent] def getManageAgentView(
         agentCode: Option[Long],
         submitManageAgentForm: Form[ManageAgentRequest] = ManageAgentRequest.submitManageAgentRequest)(
         implicit request: Request[_]) =
@@ -145,7 +145,7 @@ class ManageAgentController @Inject()(
         case (0, Some(agent)) if agent.propertyCount == 0 =>
           //IP has no property links but still has an agent
           Some(
-            removeAgentFromOrganisation(
+            removeAgentFromOrganisationView(
               submitAgentAppointmentRequest,
               agent.representativeCode,
               agent.name,
@@ -153,7 +153,7 @@ class ManageAgentController @Inject()(
         case (1, Some(agent)) if agent.propertyCount == 0 =>
           //IP has one property link but agent is not assigned
           Some(
-            manageAgentPage(
+            manageAgentView(
               submitManageAgentForm,
               ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions,
               agent,
@@ -161,7 +161,7 @@ class ManageAgentController @Inject()(
         case (1, Some(agent)) if agent.propertyCount == 1 =>
           //IP has one property link and agent is assigned to that property
           Some(
-            unassignAgentFromProperty(
+            unassignAgentFromPropertyView(
               submitAgentAppointmentRequest,
               agent,
               calculateBackLink(organisationsAgents, agent.representativeCode)))
@@ -169,7 +169,7 @@ class ManageAgentController @Inject()(
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
           //IP has more than one property links but agent is not assigned to any
           Some(
-            manageAgentPage(
+            manageAgentView(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksNoAssignedAgentsOptions,
               agent,
@@ -178,7 +178,7 @@ class ManageAgentController @Inject()(
 
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
           Some(
-            manageAgentPage(
+            manageAgentView(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToSomeOptions,
               agent,
@@ -187,7 +187,7 @@ class ManageAgentController @Inject()(
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
           //agent is assigned to all of the IP's property links
           Some(
-            manageAgentPage(
+            manageAgentView(
               submitManageAgentForm,
               ManageAgentOptions.multiplePropertyLinksAgentAssignedToAllOptions,
               agent,
@@ -200,7 +200,7 @@ class ManageAgentController @Inject()(
   def submitManageAgent(agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
     ManageAgentRequest.submitManageAgentRequest.bindFromRequest.fold(
       errors => {
-        getManageAgentPage(Some(agentCode), errors).map {
+        getManageAgentView(Some(agentCode), errors).map {
           case None       => NotFound(errorHandler.notFoundTemplate)
           case Some(page) => BadRequest(page)
         }
@@ -208,15 +208,16 @@ class ManageAgentController @Inject()(
         success.manageAgentOption match {
           case AssignToSomeProperties => Future.successful(joinOldAgentAppointJourney(agentCode))
           case AssignToAllProperties | AssignToYourProperty =>
-            Future.successful(Ok(addAgentToAllProperties(submitAgentAppointmentRequest, success.agentName, agentCode)))
+            Future.successful(
+              Ok(addAgentToAllPropertiesView(submitAgentAppointmentRequest, success.agentName, agentCode)))
           case UnassignFromAllProperties =>
             Future.successful(
-              Ok(unassignAgentFromAllProperties(submitAgentAppointmentRequest, success.agentName, agentCode)))
+              Ok(unassignAgentFromAllPropertiesView(submitAgentAppointmentRequest, success.agentName, agentCode)))
           case UnassignFromSomeProperties => Future.successful(joinOldAgentRevokeJourney(agentCode))
           case RemoveFromYourAccount =>
             Future.successful(
               Ok(
-                removeAgentFromOrganisation(
+                removeAgentFromOrganisationView(
                   submitAgentAppointmentRequest,
                   agentCode,
                   success.agentName,
@@ -230,12 +231,12 @@ class ManageAgentController @Inject()(
     implicit request =>
       submitAgentAppointmentRequest.bindFromRequest.fold(
         errors => {
-          Future.successful(BadRequest(addAgentToAllProperties(errors, agentName, agentCode)))
+          Future.successful(BadRequest(addAgentToAllPropertiesView(errors, agentName, agentCode)))
         }, { success =>
           agentRelationshipService
             .assignAgent(success)
             .map { _ =>
-              val page = confirmAddAgentToAllProperties(agentName)
+              val page = confirmAddAgentToAllPropertiesView(agentName)
               Ok(page)
             }
         }
@@ -246,30 +247,35 @@ class ManageAgentController @Inject()(
     implicit request =>
       submitAgentAppointmentRequest.bindFromRequest.fold(
         errors => {
-          Future.successful(BadRequest(unassignAgentFromAllProperties(errors, agentName, agentCode)))
+          Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
         }, { success =>
           agentRelationshipService
             .unassignAgent(success)
-            .map(_ => Ok(confirmUnassignAgentFromAllProperties(agentName, agentCode)))
+            .map(_ => Ok(confirmUnassignAgentFromAllPropertiesView(agentName, agentCode)))
         }
       )
   }
 
   def showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
     implicit request =>
-      Future.successful(Ok(
-        removeAgentFromOrganisation(submitAgentAppointmentRequest, agentCode, agentName, config.dashboardUrl("home"))))
+      Future.successful(
+        Ok(
+          removeAgentFromOrganisationView(
+            submitAgentAppointmentRequest,
+            agentCode,
+            agentName,
+            config.dashboardUrl("home"))))
   }
 
   def removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String): Action[AnyContent] =
     authenticated.async { implicit request =>
       submitAgentAppointmentRequest.bindFromRequest.fold(
         errors => {
-          Future.successful(BadRequest(removeAgentFromOrganisation(errors, agentCode, agentName, backLink)))
+          Future.successful(BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, backLink)))
         }, { success =>
           agentRelationshipService
             .removeAgentFromOrganisation(success)
-            .map(_ => Ok(confirmRemoveAgentFromOrganisation(agentName)))
+            .map(_ => Ok(confirmRemoveAgentFromOrganisationView(agentName)))
         }
       )
     }

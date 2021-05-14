@@ -23,7 +23,6 @@ import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import controllers.agentAppointment.AppointNewAgentForms._
-import javax.inject.{Inject, Named}
 import models.propertyrepresentation
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.propertyrepresentation._
@@ -37,6 +36,7 @@ import services.AgentRelationshipService
 import uk.gov.hmrc.http.BadRequestException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
@@ -46,12 +46,12 @@ class AddAgentController @Inject()(
       withAppointAgentSession: WithAppointAgentSessionRefiner,
       agentRelationshipService: AgentRelationshipService,
       @Named("appointNewAgentSession") val sessionRepo: SessionRepo,
-      startPage: views.html.propertyrepresentation.appoint.start,
-      isTheCorrectAgent: views.html.propertyrepresentation.appoint.isThisYourAgent,
-      agentToManageOneProperty: views.html.propertyrepresentation.appoint.agentToManageOneProperty,
-      agentToManageMultipleProperties: views.html.propertyrepresentation.appoint.agentToManageMultipleProperties,
-      checkYourAnswers: views.html.propertyrepresentation.appoint.checkYourAnswers,
-      confirmation: views.html.propertyrepresentation.appoint.confirmation)(
+      startPageView: views.html.propertyrepresentation.appoint.start,
+      isTheCorrectAgentView: views.html.propertyrepresentation.appoint.isThisYourAgent,
+      agentToManageOnePropertyView: views.html.propertyrepresentation.appoint.agentToManageOneProperty,
+      agentToManageMultiplePropertiesView: views.html.propertyrepresentation.appoint.agentToManageMultipleProperties,
+      checkYourAnswersView: views.html.propertyrepresentation.appoint.checkYourAnswers,
+      confirmationView: views.html.propertyrepresentation.appoint.confirmation)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -65,18 +65,18 @@ class AddAgentController @Inject()(
   }
 
   def showStartPage(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(startPage(agentCode)))
+    Future.successful(Ok(startPageView(agentCode)))
   }
 
   def getAgentDetails(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     agentCode.bindFromRequest.fold(
-      errors => Future.successful(BadRequest(startPage(errors))),
+      errors => Future.successful(BadRequest(startPageView(errors))),
       success => {
         Try(success.toLong).toOption match {
           case None =>
             Future.successful(
               BadRequest(
-                startPage(
+                startPageView(
                   agentCode.copy(
                     data = Map("agentCode" -> success),
                     errors = Seq[FormError](FormError(key = "agentCode", message = "error.agentCode.required")))
@@ -89,25 +89,24 @@ class AddAgentController @Inject()(
                                        }
             } yield {
               agentNameAndAddressOpt match {
-                case None => {
+                case None =>
                   BadRequest(
-                    startPage(
+                    startPageView(
                       agentCode.copy(
                         data = Map("agentCode" -> s"$representativeCode"),
                         errors = Seq[FormError](
                           FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent")))
                     ))
-                }
                 case Some(_) if organisationsAgents.agents.exists(a => a.representativeCode == representativeCode) =>
                   BadRequest(
-                    startPage(
+                    startPageView(
                       agentCode.copy(
                         data = Map("agentCode" -> s"$representativeCode"),
                         errors = Seq[FormError](
                           FormError(key = "agentCode", message = "error.propertyRepresentation.agentAlreadyAppointed"))
                       )
                     ))
-                case Some(agent) => {
+                case Some(agent) =>
                   sessionRepo.saveOrUpdate(
                     SearchedAgent(
                       agentCode = representativeCode,
@@ -115,7 +114,6 @@ class AddAgentController @Inject()(
                       agentAddress = agent.address
                     ))
                   Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent())
-                }
               }
             }
 
@@ -125,13 +123,13 @@ class AddAgentController @Inject()(
   }
 
   def isCorrectAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(isTheCorrectAgent(isThisTheCorrectAgent, request.agentDetails)))
+    Future.successful(Ok(isTheCorrectAgentView(isThisTheCorrectAgent, request.agentDetails)))
   }
 
   def agentSelected(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     isThisTheCorrectAgent.bindFromRequest.fold(
       errors => {
-        Future.successful(BadRequest(isTheCorrectAgent(errors, request.agentDetails)))
+        Future.successful(BadRequest(isTheCorrectAgentView(errors, request.agentDetails)))
       },
       success => {
         if (success) {
@@ -147,15 +145,14 @@ class AddAgentController @Inject()(
                             )
           } yield {
             propertyLinks.authorisations.size match {
-              case 0 => {
+              case 0 =>
                 agentRelationshipService.assignAgent(
                   AgentAppointmentChangesRequest(
                     scope = AppointmentScope.RELATIONSHIP.toString,
                     agentRepresentativeCode = searchedAgent.agentCode
                   )
                 )
-                Ok(confirmation(request.agentDetails.name, None))
-              }
+                Ok(confirmationView(request.agentDetails.name, None))
               case 1 => Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty())
               case _ => Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties())
             }
@@ -168,19 +165,14 @@ class AddAgentController @Inject()(
   }
 
   def oneProperty(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(agentToManageOneProperty(manageOneProperty, request.agentDetails.name)))
+    Future.successful(Ok(agentToManageOnePropertyView(manageOneProperty, request.agentDetails.name)))
   }
 
   def submitOneProperty(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
       manageOneProperty.bindFromRequest.fold(
         errors => {
-          Future.successful(
-            BadRequest(
-              agentToManageOneProperty(
-                errors,
-                request.agentDetails.name
-              )))
+          Future.successful(BadRequest(agentToManageOnePropertyView(errors, request.agentDetails.name)))
         },
         success => {
           for {
@@ -196,19 +188,14 @@ class AddAgentController @Inject()(
 
   def multipleProperties(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
-      Future.successful(Ok(agentToManageMultipleProperties(manageMultipleProperties, request.agentDetails.name)))
+      Future.successful(Ok(agentToManageMultiplePropertiesView(manageMultipleProperties, request.agentDetails.name)))
   }
 
   def submitMultipleProperties(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
       manageMultipleProperties.bindFromRequest.fold(
         errors => {
-          Future.successful(
-            BadRequest(
-              agentToManageMultipleProperties(
-                errors,
-                request.agentDetails.name
-              )))
+          Future.successful(BadRequest(agentToManageMultiplePropertiesView(errors, request.agentDetails.name)))
         },
         success => {
           for {
@@ -230,7 +217,7 @@ class AddAgentController @Inject()(
     PartialFunction
       .condOpt(request.sessionData) {
         case data: ManagingProperty =>
-          Ok(checkYourAnswers(submitAgentAppointmentRequest, data))
+          Ok(checkYourAnswersView(submitAgentAppointmentRequest, data))
       }
       .getOrElse(NotFound(errorHandler.notFoundTemplate))
   }
@@ -241,12 +228,7 @@ class AddAgentController @Inject()(
         PartialFunction
           .condOpt(request.sessionData) {
             case data: ManagingProperty =>
-              Future.successful(
-                BadRequest(
-                  checkYourAnswers(
-                    errors,
-                    data
-                  )))
+              Future.successful(BadRequest(checkYourAnswersView(errors, data)))
           }
           .getOrElse(Future.successful(NotFound(errorHandler.notFoundTemplate)))
       }, { success =>
@@ -258,7 +240,7 @@ class AddAgentController @Inject()(
                 if (success.scope == AppointmentScope.RELATIONSHIP.toString)
                   None
                 else Some("propertyRepresentation.confirmation.whatHappensNext.allOrSome")
-              Ok(confirmation(agentName = request.agentDetails.name, guidanceMessageKey = key))
+              Ok(confirmationView(agentName = request.agentDetails.name, guidanceMessageKey = key))
             }
         }
       }
