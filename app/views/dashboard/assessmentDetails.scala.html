@@ -96,7 +96,7 @@
                             <td class="govuk-table__cell">
                                 @assessment.rateableValue match {
                                     case Some(rv) => {
-                                        <a id="viewAssessmentRadio-@assessment.assessmentRef" href="@url">@messages("assessments.historic.select")</a>
+                                        <a class="govuk-link" id="viewAssessmentRadio-@assessment.assessmentRef" href="@url">@messages("assessments.historic.select")</a>
                                     }
                                     case None => {
                                         @messages("assessments.na")
