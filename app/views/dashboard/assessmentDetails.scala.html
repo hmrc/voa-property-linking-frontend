@@ -133,14 +133,14 @@
         <h2 class="heading-medium">@messages("assessments.propertyRemoved")</h2>
     }
     &nbsp;
-    <br/>
+
     @if(model.draftAssessments.nonEmpty){
-        <h2 class="govuk-heading-m">@messages("assessments.draft.title")</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.draft.title")</h2>
         @table(model.draftAssessments, "draftAssessments", true)
     }
-    <br/>
+
     @if(model.historicAssessments.nonEmpty){
-        <h2 class="govuk-heading-m">@messages("assessments.historic.title")</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.historic.title")</h2>
         @table(model.historicAssessments, "historicAssessments")
     }
 

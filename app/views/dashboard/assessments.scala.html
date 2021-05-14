@@ -26,7 +26,8 @@
 
 @mainLayout(
     pageTitle = messages("assessments.title"),
-    backUri = Some(model.backLink)
+    backUri = Some(model.backLink),
+    mainClass = Some("govuk-grid-column-full")
 ) {
     <p class="govuk-body">
         @model.localAuthorityReference.map{ localAuthorityRef =>
