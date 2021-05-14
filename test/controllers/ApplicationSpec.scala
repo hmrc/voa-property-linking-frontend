@@ -18,11 +18,12 @@ package controllers
 
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import views.html.addUserToGG
 
 class ApplicationSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
-  val applicationTestController = new Application(mockCustomErrorHandler)
+  val applicationTestController = new Application(mockCustomErrorHandler, new addUserToGG(mainLayout))
 
   "addUserToGG" should "display the add users to GG page" in {
 

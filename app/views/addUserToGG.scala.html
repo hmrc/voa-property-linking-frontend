@@ -16,28 +16,19 @@
 
 @import config.ApplicationConfig
 
+@this(mainLayout: views.html.mainLayout)
+
 @()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@mainLayout(pageTitle = Messages("addUserToGG.heading"), showTopNavigation = false) {
 
-@main_template(
-    title = Messages("addUserToGG.heading"),
-    topNavigation = false,
-    bottomBackLink = false,
-    backLinkUrl = None
-) {
+    <h1 class="govuk-heading-xl">@messages("addUserToGG.heading")</h1>
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+    <p class="govuk-body">@messages("addUserToGG.p1")</p>
+    <p class="govuk-body">@messages("addUserToGG.p2")</p>
+    <p class="govuk-body">@Html(Messages("addUserToGG.p3"))</p>
 
-            <h1 class="heading-xlarge">@messages("addUserToGG.heading")</h1>
+    <a href="@routes.Application.manageBusinessTaxAccount" class="govuk-button" role="button">@messages("addUserToGG.l1")</a>
 
-            <p>@messages("addUserToGG.p1")</p>
-            <p>@messages("addUserToGG.p2")</p>
-            <p>@Html(Messages("addUserToGG.p3"))</p>
-
-            <a href="@routes.Application.manageBusinessTaxAccount" class="button" role="button">@messages("addUserToGG.l1")</a>
-        </div>
-
-    </div>
 
 }

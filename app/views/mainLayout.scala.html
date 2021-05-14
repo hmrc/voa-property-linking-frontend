@@ -17,6 +17,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.includes._
 @import config.ApplicationConfig
+@import play.twirl.api.HtmlFormat
 
 @this(
         govukTemplate: GovukTemplate,
@@ -33,7 +34,8 @@
         backUri: Option[String] = None,
         headExtra: Html = Html(""),
         backLinkClass: String = "govuk-back-link",
-        hasErrors: Boolean = false
+        hasErrors: Boolean = false,
+        showTopNavigation: Boolean = true
 )(contentBlock: Html)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
@@ -61,7 +63,11 @@
 }
 
 @navigation = {
-@navigationBar(backUri, backLinkClass)
+    @if(showTopNavigation){
+        @navigationBar(backUri, backLinkClass)
+    }else{
+        @HtmlFormat.empty
+    }
 }
 
 @title = @{
