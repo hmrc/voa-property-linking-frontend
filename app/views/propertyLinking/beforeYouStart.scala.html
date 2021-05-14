@@ -16,22 +16,27 @@
 
 @import config.ApplicationConfig
 
-@import controllers.propertyLinking.routes
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
 
 @()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    title = Messages("before.you.start.title"),
-    topNavigation = false
+@mainLayout(
+    pageTitle = Messages("before.you.start.title"),
+    mainClass = Some("govuk-grid-column-full"),
+    showTopNavigation = false
 ) {
 
-    <h1 class="heading-xlarge">@messages("before.you.start.title")</h1>
+    <h1 class="govuk-heading-xl">@messages("before.you.start.title")</h1>
 
-    <p>@messages("before.you.start.p1")</p>
-    <p>@messages("before.you.start.p2")</p>
-    <p>@messages("before.you.start.p3")</p>
-    <p>@messages("before.you.start.p4")</p>
+    <p class="govuk-body">@messages("before.you.start.p1")</p>
+    <p class="govuk-body">@messages("before.you.start.p2")</p>
+    <p class="govuk-body">@messages("before.you.start.p3")</p>
+    <p class="govuk-body">@messages("before.you.start.p4")</p>
 
-    <a href="@controllers.propertyLinking.routes.ClaimPropertyRelationshipController.show()" class="button button-start" id="startButton">@messages("before.you.start.startButton")</a>
+    @govukButton(Button(
+        content = Text(messages("before.you.start.startButton")),
+        isStartButton = true,
+        href = Some(controllers.propertyLinking.routes.ClaimPropertyRelationshipController.show().url),
+        attributes = Map("id" -> "startButton")))
 
 }

@@ -22,7 +22,7 @@ import config.ApplicationConfig
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
-import controllers.{Pagination, PaginationSearchSort, PropertyLinkingController, ValidPagination}
+import controllers.{PaginationSearchSort, PropertyLinkingController, ValidPagination}
 import form.FormValidation._
 import models._
 import models.searchApi.AgentAuthResult
@@ -41,8 +41,8 @@ class RepresentationController @Inject()(
       vmvConnector: VmvConnector,
       authenticated: AuthenticatedAction,
       propertyLinkConnector: PropertyLinkConnector,
-      revokeClientPropertyPage: views.html.propertyrepresentation.revokeClient,
-      confirmRevokeClientPropertyPage: views.html.propertyrepresentation.confirmRevokeClientProperty,
+      revokeClientPropertyView: views.html.propertyrepresentation.revokeClient,
+      confirmRevokeClientPropertyView: views.html.propertyrepresentation.confirmRevokeClientProperty,
       override val controllerComponents: MessagesControllerComponents
 )(
       implicit executionContext: ExecutionContext,
@@ -56,7 +56,7 @@ class RepresentationController @Inject()(
 
   def revokeClient(plSubmissionId: String): Action[AnyContent] = authenticated.async { implicit request =>
     propertyLinkConnector.clientPropertyLink(plSubmissionId) map {
-      case Some(property) => Ok(revokeClientPropertyPage(property))
+      case Some(property) => Ok(revokeClientPropertyView(property))
       case None           => notFound
     }
   }
@@ -66,7 +66,7 @@ class RepresentationController @Inject()(
       for {
         property <- vmvConnector.getPropertyHistory(uarn)
         _        <- reprConnector.revokeClientProperty(plSubmissionId)
-      } yield Ok(confirmRevokeClientPropertyPage(property.addressFull))
+      } yield Ok(confirmRevokeClientPropertyView(property.addressFull))
   }
 
 }

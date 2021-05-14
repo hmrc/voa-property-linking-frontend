@@ -16,13 +16,10 @@
 
 package controllers.propertyLinking
 
-import java.time.LocalDate
-
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
-import models.properties.PropertyHistory
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
@@ -30,15 +27,16 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import repositories.SessionRepo
-import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
+import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
 import uk.gov.hmrc.http.HeaderCarrier
+import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
 
 import scala.concurrent.Future
 
 class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
-  private val mockRelationshipToPropertyPage = mock[views.html.propertyLinking.relationshipToProperty]
+  private val mockRelationshipToPropertyView = mock[views.html.propertyLinking.relationshipToProperty]
   private lazy val testClaimProperty = new ClaimPropertyRelationshipController(
     mockCustomErrorHandler,
     StubSubmissionIdConnector,
@@ -48,7 +46,8 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     propertyLinkingConnector,
     vmvConnector,
     configuration,
-    mockRelationshipToPropertyPage
+    mockRelationshipToPropertyView,
+    beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, GovukButton)
   )
 
   lazy val submissionId: String = shortString
@@ -72,7 +71,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   "The claim property relationship page" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
-    when(mockRelationshipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
+    when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim property relationship page"))
 
     val res = testClaimProperty.showRelationship(positiveLong)(FakeRequest())
@@ -86,7 +85,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   "The claim property relationship page on client behalf" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
-    when(mockRelationshipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
+    when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim property relationship page on client behalf"))
 
     val res = testClaimProperty
@@ -132,7 +131,6 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     StubSubmissionIdConnector.stubId(submissionId)
 
     val uarn: Long = positiveLong
-    val address: String = shortString
 
     val res = testClaimProperty.submitRelationship(uarn)(
       FakeRequest().withFormUrlEncodedBody(

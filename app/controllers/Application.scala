@@ -23,14 +23,14 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class Application @Inject()(
       val errorHandler: CustomErrorHandler,
-      addUserToGGPage: views.html.addUserToGG
+      addUserToGGView: views.html.addUserToGG
 )(
       implicit override val controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig
 ) extends PropertyLinkingController {
 
   def addUserToGG = Action { implicit request =>
-    Ok(addUserToGGPage())
+    Ok(addUserToGGView())
   }
 
   def manageBusinessTaxAccount = Action(Redirect(config.businessTaxAccountUrl("manage-account")))

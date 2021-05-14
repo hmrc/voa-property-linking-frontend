@@ -16,8 +16,6 @@
 
 package controllers.propertyLinking
 
-import java.time.LocalDate
-
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import actions.requests.AuthenticatedRequest
@@ -28,9 +26,7 @@ import connectors.SubmissionIdConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import controllers._
-import form.Mappings._
-import form.{ConditionalDateAfter, EnumMapping}
-import javax.inject.{Inject, Named}
+import form.EnumMapping
 import models._
 import play.api.Configuration
 import play.api.data.Form
@@ -40,9 +36,8 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
 import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-import uk.gov.voa.play.form.ConditionalMappings._
-import views.helpers.Errors
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
@@ -55,7 +50,8 @@ class ClaimPropertyRelationshipController @Inject()(
       val propertyLinksConnector: PropertyLinkConnector,
       val vmvConnector: VmvConnector,
       val runModeConfiguration: Configuration,
-      relationshipToPropertyView: views.html.propertyLinking.relationshipToProperty)(
+      relationshipToPropertyView: views.html.propertyLinking.relationshipToProperty,
+      beforeYouStartView: views.html.propertyLinking.beforeYouStart)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -81,7 +77,7 @@ class ClaimPropertyRelationshipController @Inject()(
       if (res.authorisations.nonEmpty) {
         Redirect(s"${config.vmvUrl}/search")
       } else {
-        Ok(views.html.propertyLinking.beforeYouStart())
+        Ok(beforeYouStartView())
       }
     }
   }
