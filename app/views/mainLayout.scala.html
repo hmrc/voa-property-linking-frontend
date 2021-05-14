@@ -34,7 +34,8 @@
         backUri: Option[String] = None,
         headExtra: Html = Html(""),
         backLinkClass: String = "govuk-back-link",
-        hasErrors: Boolean = false, showTopNavigation: Boolean = true
+        hasErrors: Boolean = false,
+        showTopNavigation: Boolean = true
 )(contentBlock: Html)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
