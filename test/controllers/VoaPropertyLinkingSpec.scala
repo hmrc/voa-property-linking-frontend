@@ -16,8 +16,6 @@
 
 package controllers
 
-import java.time.{Clock, Instant, ZoneId}
-
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
@@ -26,19 +24,21 @@ import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import actions.requests.BasicAuthenticatedRequest
 import akka.stream.Materializer
 import config.ApplicationConfig
-import models.{UploadEvidenceData, _}
 import models.registration.{User, UserDetails}
+import models.{UploadEvidenceData, _}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{Millis, Seconds, Span}
-import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, Inside, MustMatchers}
+import org.scalatest._
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
 import play.api.mvc.{MessagesControllerComponents, Request, Result}
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import tests.AllMocks
+import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
+import java.time.{Clock, Instant, ZoneId}
 import scala.concurrent.{ExecutionContext, Future}
 
 trait VoaPropertyLinkingSpec
@@ -70,7 +70,11 @@ trait VoaPropertyLinkingSpec
       mockGovernmentGatewayProvider,
       mockBusinessRatesAuthorisation,
       mockEnrolmentService,
-      mockAuthConnector) {
+      mockAuthConnector,
+      errorView = new views.html.errors.error(mainLayout),
+      forbiddenView = new views.html.errors.forbidden(mainLayout),
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
+    ) {
       override def invokeBlock[A](
             request: Request[A],
             block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] =
@@ -78,7 +82,11 @@ trait VoaPropertyLinkingSpec
     }
 
   def ggPreauthenticated(userDetails: UserDetails): GgAuthenticatedAction =
-    new GgAuthenticatedAction(messageApi, mockGovernmentGatewayProvider, mockAuthConnector) {
+    new GgAuthenticatedAction(
+      messageApi,
+      mockGovernmentGatewayProvider,
+      mockAuthConnector,
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)) {
       override def invokeBlock[A](
             request: Request[A],
             block: RequestWithUserDetails[A] => Future[Result]): Future[Result] =
@@ -97,7 +105,11 @@ trait VoaPropertyLinkingSpec
       mockGovernmentGatewayProvider,
       mockBusinessRatesAuthorisation,
       mockEnrolmentService,
-      mockAuthConnector) {
+      mockAuthConnector,
+      errorView = new views.html.errors.error(mainLayout),
+      forbiddenView = new views.html.errors.forbidden(mainLayout),
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
+    ) {
       override def invokeBlock[A](
             request: Request[A],
             block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = super.invokeBlock(request, block)

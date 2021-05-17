@@ -26,7 +26,7 @@
         content: Html = HtmlFormat.empty,
         navigation: Html = HtmlFormat.empty,
         headScripts: Html = HtmlFormat.empty,
-        scriptElem: Option[Html] = None)(implicit request: Request[_], config: ApplicationConfig, messages: Messages)
+        scriptElem: Option[Html] = None)(implicit request: RequestHeader, config: ApplicationConfig, messages: Messages)
 
     @head = {
         @HmrcTrackingConsentSnippet()

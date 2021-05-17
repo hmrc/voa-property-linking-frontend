@@ -16,7 +16,6 @@
 
 package controllers.propertyLinking
 
-import java.time.LocalDate
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import com.google.inject.Singleton
@@ -24,16 +23,14 @@ import config.ApplicationConfig
 import connectors.SubmissionIdConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
+import form.ConditionalDateAfter
 import form.Mappings._
-import form.{ConditionalDateAfter, EnumMapping}
-
-import javax.inject.{Inject, Named}
 import models._
 import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.BusinessRatesAttachmentsService
 import services.propertylinking.PropertyLinkingService
@@ -42,6 +39,8 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
 
+import java.time.LocalDate
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
@@ -55,6 +54,7 @@ class ClaimPropertyOwnershipController @Inject()(
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
       val runModeConfiguration: Configuration,
       ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty,
+      serviceUnavailableView: views.html.errors.serviceUnavailable,
       propertyLinkingService: PropertyLinkingService)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -69,34 +69,30 @@ class ClaimPropertyOwnershipController @Inject()(
       val form = request.ses.propertyOwnership.fold(ownershipForm) { ownership =>
         ownershipForm.fillAndValidate(ownership)
       }
-      propertyLinkingService.findEarliestStartDate(request.ses.uarn).flatMap { startDate =>
-        startDate match {
-          case Some(date) if date.isAfter(LocalDate.now()) => {
-            businessRatesAttachmentService
-              .persistSessionData(
-                request.ses.copy(
-                  propertyOwnership = Some(
-                    PropertyOwnership(
-                      interestedBefore2017 = false,
-                      fromDate = Some(date),
-                      stillInterested = true,
-                      toDate = None))))
-              .map { _ =>
-                Redirect(routes.ChooseEvidenceController.show())
-              }
-              .recover {
-                case UpstreamErrorResponse.Upstream5xxResponse(_) =>
-                  ServiceUnavailable(views.html.errors.serviceUnavailable())
-              }
-          }
-          case _ =>
-            Future.successful(Ok(ownershipToPropertyView(
-              ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
-              request.ses.clientDetails,
-              controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url
-            )))
-        }
-
+      propertyLinkingService.findEarliestStartDate(request.ses.uarn).flatMap {
+        case Some(date) if date.isAfter(LocalDate.now()) =>
+          businessRatesAttachmentService
+            .persistSessionData(
+              request.ses.copy(
+                propertyOwnership = Some(
+                  PropertyOwnership(
+                    interestedBefore2017 = false,
+                    fromDate = Some(date),
+                    stillInterested = true,
+                    toDate = None))))
+            .map { _ =>
+              Redirect(routes.ChooseEvidenceController.show())
+            }
+            .recover {
+              case UpstreamErrorResponse.Upstream5xxResponse(_) =>
+                ServiceUnavailable(serviceUnavailableView())
+            }
+        case _ =>
+          Future.successful(Ok(ownershipToPropertyView(
+            ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
+            request.ses.clientDetails,
+            controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url
+          )))
       }
     }
 
@@ -121,7 +117,7 @@ class ClaimPropertyOwnershipController @Inject()(
               }
               .recover {
                 case UpstreamErrorResponse.Upstream5xxResponse(_) =>
-                  ServiceUnavailable(views.html.errors.serviceUnavailable())
+                  ServiceUnavailable(serviceUnavailableView())
             }
         )
     }

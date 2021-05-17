@@ -18,22 +18,22 @@
 @import java.time.LocalDateTime
 @import config.ApplicationConfig
 
-@(reference: Option[String], dateTime: LocalDateTime)(implicit requestHeader: RequestHeader, messages: Messages, config: ApplicationConfig)
+@this(mainLayout: views.html.mainLayout)
 
-@main_template(Messages("global.error.InternalServerError500.title"), topNavigation = false) {
+@(reference: Option[String], dateTime: LocalDateTime)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-    <h1 class="heading-xlarge">@messages("global.error.InternalServerError500.heading")</h1>
+@mainLayout(pageTitle = messages("global.error.InternalServerError500.title"), showTopNavigation = false) {
 
-    <p>@messages("internalServerError.p.1")</p>
+    <h1 class="govuk-heading-xl">@messages("global.error.InternalServerError500.heading")</h1>
 
-    <p>@messages("internalServerError.p.2")</p>
+    <p class="govuk-body">@messages("internalServerError.p.1")</p>
+    <p class="govuk-body">@messages("internalServerError.p.2")</p>
 
-    @reference.map { r =>
-        <p>@messages("internalServerError.reference", r)</p>
+    @for(ref <- reference){
+        <p class="govuk-body">@messages("internalServerError.reference", ref)</p>
     }
 
-    <p>@messages("internalServerError.date", formatDate(dateTime.toLocalDate))</p>
-
-    <p>@messages("internalServerError.time", formatTime(dateTime.toLocalTime))</p>
+    <p class="govuk-body">@messages("internalServerError.date", formatDate(dateTime.toLocalDate))</p>
+    <p class="govuk-body">@messages("internalServerError.time", formatTime(dateTime.toLocalTime))</p>
 
 }

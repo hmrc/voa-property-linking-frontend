@@ -16,8 +16,10 @@
 
 @import config.ApplicationConfig
 
+@this(mainLayout: views.html.mainLayout)
+
 @()(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
-@main_template(Messages("title.error.403"), topNavigation = false) {
-    <h1 class="heading-large">@messages("title.error.403")</h1>
+@mainLayout(pageTitle = messages("title.error.403"), showTopNavigation = false) {
+    <h1 class="govuk-heading-l">@messages("title.error.403")</h1>
 }

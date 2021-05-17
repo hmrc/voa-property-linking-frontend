@@ -33,6 +33,7 @@ import services.iv.IdentityVerificationService
 import services.{RegistrationService, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Organisation}
 import uk.gov.hmrc.auth.core.{AffinityGroup, Assistant, User}
+import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
 import utils.{StubGroupAccountConnector, _}
 
 import scala.concurrent.Future
@@ -63,6 +64,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       StubIndividualAccountConnector,
       StubAddresses,
       mockRegistrationService,
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton),
+      invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout),
       mockSessionRepo
     )
 

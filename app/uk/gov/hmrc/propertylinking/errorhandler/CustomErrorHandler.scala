@@ -32,21 +32,26 @@ import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
 
 import scala.concurrent.Future
 
-class CustomErrorHandler @Inject()()(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig)
+class CustomErrorHandler @Inject()(
+      errorView: views.html.errors.error,
+      forbiddenView: views.html.errors.forbidden,
+      technicalDifficultiesView: views.html.errors.technicalDifficulties)(
+      implicit override val messagesApi: MessagesApi,
+      appConfig: ApplicationConfig)
     extends FrontendErrorHandler with I18nSupport {
 
   val logger: Logger = Logger(this.getClass)
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(
         implicit request: Request[_]): Html =
-    views.html.errors.error(pageTitle, heading, message)
+    errorView(pageTitle, heading, message)
 
   override def internalServerErrorTemplate(implicit request: Request[_]): Html =
-    views.html.errors.technicalDifficulties(extractErrorReference(request), getDateTime)
+    technicalDifficultiesView(extractErrorReference(request), getDateTime)
 
   def forbiddenErrorTemplate(implicit request: RequestHeader): Html = {
     val messages: Messages = messagesApi.preferred(request)
-    views.html.errors.forbidden()(request, messages, appConfig)
+    forbiddenView()(request, messages, appConfig)
   }
 
   private def getDateTime: LocalDateTime = {

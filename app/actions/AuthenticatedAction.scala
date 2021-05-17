@@ -40,7 +40,10 @@ class AuthenticatedAction @Inject()(
       provider: GovernmentGatewayProvider,
       businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
       enrolmentService: EnrolmentService,
-      override val authConnector: AuthConnector)(
+      override val authConnector: AuthConnector,
+      errorView: views.html.errors.error,
+      forbiddenView: views.html.errors.forbidden,
+      invalidAccountTypeView: views.html.errors.invalidAccountType)(
       implicit controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig,
       override val executionContext: ExecutionContext
@@ -64,8 +67,7 @@ class AuthenticatedAction @Inject()(
     this.async { implicit request =>
       request.organisationAccount.agentCode
         .map(code => body(AgentRequest(request.organisationAccount, request.individualAccount, code, request)))
-        .getOrElse(Future.successful(
-          Unauthorized(views.html.errors.error("Bad Request", "Bad Request", "Agent account required"))))
+        .getOrElse(Future.successful(Unauthorized(errorView("Bad Request", "Bad Request", "Agent account required"))))
     }
 
   def success[A](accounts: Accounts, body: BasicAuthenticatedRequest[A] => Future[Result])(
@@ -98,10 +100,10 @@ class AuthenticatedAction @Inject()(
         logger.warn(
           s"unsupported credential role on existing VOA account, with message ${ex.msg}, for reason ${ex.reason}",
           ex)
-        Future.successful(Ok(views.html.errors.invalidAccountType()))
+        Future.successful(Ok(invalidAccountTypeView()))
       case _: UnsupportedAffinityGroup =>
         logger.warn("invalid account type already has a CCA account")
-        Future.successful(Ok(views.html.errors.invalidAccountType()))
+        Future.successful(Ok(invalidAccountTypeView()))
       case _: NoActiveSession =>
         provider.redirectToLogin
       case otherException =>
@@ -129,7 +131,7 @@ class AuthenticatedAction @Inject()(
       case NoVOARecord             => Future.successful(Redirect(controllers.registration.routes.RegistrationController.show()))
       case IncorrectTrustId        => Future.successful(Unauthorized("Trust ID does not match"))
       case InvalidAccountType      => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
-      case ForbiddenResponse       => Future.successful(Forbidden(views.html.errors.forbidden()))
+      case ForbiddenResponse       => Future.successful(Forbidden(forbiddenView()))
       case NonGroupIDAccount       => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
     }
   }

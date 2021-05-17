@@ -47,7 +47,8 @@ class DvrController @Inject()(
       requestDetailedValuationView: views.html.dvr.requestDetailedValuation,
       requestedDetailedValuationView: views.html.dvr.requestedDetailedValuation,
       dvrFilesView: views.html.dvr.dvrFiles,
-      cannotRaiseChallengeView: views.html.dvr.cannotRaiseChallenge
+      cannotRaiseChallengeView: views.html.dvr.cannotRaiseChallenge,
+      propertyMissingView: views.html.errors.propertyMissing
 )(
       implicit val executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -143,7 +144,7 @@ class DvrController @Inject()(
               ))
         }
       case None =>
-        Future.successful(BadRequest(views.html.errors.propertyMissing()))
+        Future.successful(BadRequest(propertyMissingView()))
     }
   }
 
@@ -216,7 +217,7 @@ class DvrController @Inject()(
       case Some(link) =>
         Ok(requestedDetailedValuationView(submissionId, link.address))
       case None =>
-        BadRequest(views.html.errors.propertyMissing())
+        BadRequest(propertyMissingView())
     }
   }
 
@@ -261,7 +262,7 @@ class DvrController @Inject()(
           }
         }
       case None =>
-        Future.successful(BadRequest(views.html.errors.propertyMissing()))
+        Future.successful(BadRequest(propertyMissingView()))
     }
 
   }
@@ -299,7 +300,7 @@ class DvrController @Inject()(
               .withHeaders(CONTENT_DISPOSITION -> s"""attachment;filename="${link.submissionId}.pdf"""")
           }
       case None =>
-        Future.successful(BadRequest(views.html.errors.propertyMissing()))
+        Future.successful(BadRequest(propertyMissingView()))
     }
   }
 

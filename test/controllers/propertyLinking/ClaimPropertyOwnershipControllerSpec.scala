@@ -16,13 +16,9 @@
 
 package controllers.propertyLinking
 
-import java.time.LocalDate
-
-import actions.propertylinking.WithLinkingSession
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
-import models.propertyrepresentation.AppointNewAgentSession
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
@@ -34,6 +30,7 @@ import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
@@ -53,6 +50,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
     mockBusinessRatesAttachmentService,
     configuration,
     mockOwnershipToPropertyPage,
+    serviceUnavailableView = new views.html.errors.serviceUnavailable(mainLayout),
     mockPropertyLinkingService
   )
 

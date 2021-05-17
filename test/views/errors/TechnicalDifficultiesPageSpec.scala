@@ -24,15 +24,19 @@ import uk.gov.hmrc.play.test.UnitSpec
 import utils.StubMessageControllerComponents._
 import utils.{Configs, NoMetricsOneAppPerSuite}
 
-class TechnicalDifficultiesPageSpec extends UnitSpec with NoMetricsOneAppPerSuite {
+class TechnicalDifficultiesPageSpec extends UnitSpec with NoMetricsOneAppPerSuite with DesignSystemTestSupport {
 
   "The technical difficulties page" should {
     val ref: String = shortString
     val req = FakeRequest()
-    lazy val html = views.html.errors.technicalDifficulties(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(
-      req,
-      messagesApi.preferred(req),
-      Configs.applicationConfig)
+
+    //the LAZY keyword is actually important here
+    //without LAZY you get
+    //An exception or error caused a run to abort: java.lang.RuntimeException was thrown inside "The technical difficulties page" should, construction cannot continue: "There is no started application"
+    lazy val view = new views.html.errors.technicalDifficulties(mainLayout)
+
+    lazy val html =
+      view(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(req, messagesApi.preferred(req), Configs.applicationConfig)
     lazy val page = html.toString
 
     "display an error reference number" in {
