@@ -19,7 +19,7 @@
 @import binders.propertylinks._
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
 
 @(
  action: AgentRevokeBulkAction,
@@ -29,7 +29,7 @@
 @heading = @{ Messages("propertyRepresentation.agentRemoveSummary.heading") }
 
 @mainLayout(
- heading,
+ pageTitle = heading,
  mainClass = Some("govuk-grid-column-full")
 ) {
 
@@ -37,6 +37,9 @@
 
  <p class="govuk-body" id="mainBodyText">@messages("propertyRepresentation.agentRemoveSummary.removed", action.agentCode.toString, action.propertyLinkIds.size)</p>
 
- <a class="govuk-button" id="selectMorePropertiesButton" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), action.agentCode)" >@messages("propertyRepresentation.agentSummary.select.more")</a>
+ @govukButton(Button(
+  href = Some(agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), action.agentCode).url),
+  content = Text(messages("propertyRepresentation.agentSummary.select.more"))
+ ))
 
 }
