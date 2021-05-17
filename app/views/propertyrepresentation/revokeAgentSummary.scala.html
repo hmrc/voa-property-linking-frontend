@@ -18,7 +18,7 @@
 @import binders.pagination._
 @import binders.propertylinks._
 @import config.ApplicationConfig
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
+@this(mainLayout: views.html.mainLayout)
 @(
  action: AgentRevokeBulkAction,
  agentOrganisation: String
@@ -35,10 +35,6 @@
 
  <p class="govuk-body" id="mainBodyText">@messages("propertyRepresentation.agentRemoveSummary.removed", action.agentCode.toString, action.propertyLinkIds.size)</p>
 
- @govukButton(Button(
-  content = Text(messages("propertyRepresentation.agentSummary.select.more")),
-  isStartButton = false,
-  href = Some(agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), action.agentCode).url),
-  attributes = Map("id" -> "selectMorePropertiesButton")))
+ <a class="govuk-button" id="selectMorePropertiesButton" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), action.agentCode)" >@messages("propertyRepresentation.agentSummary.select.more")</a>
 
 }

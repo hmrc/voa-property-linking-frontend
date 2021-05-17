@@ -433,7 +433,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     mockRevokeAgentPropertiesSessionRepo,
     mockAppointAgentPropertiesSessionRepo,
     new appointAgentSummary(mainLayout, GovukButton),
-    revokeAgentSummaryView = new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, GovukButton)
+    revokeAgentSummaryView = new views.html.propertyrepresentation.revokeAgentSummary(mainLayout)
   )
 
   private lazy val mockSessionRepo = mock[SessionRepo]
