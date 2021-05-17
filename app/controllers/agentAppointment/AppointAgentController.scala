@@ -51,7 +51,8 @@ class AppointAgentController @Inject()(
       @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
       @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
       @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
-      appointAgentSummaryView: views.html.propertyrepresentation.appoint.appointAgentSummary
+      appointAgentSummaryView: views.html.propertyrepresentation.appoint.appointAgentSummary,
+      revokeAgentSummaryView: views.html.propertyrepresentation.revokeAgentSummary
 )(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -422,7 +423,7 @@ class AppointAgentController @Inject()(
             case Some(group) =>
               agentRelationshipService
                 .createAndSubmitAgentRevokeRequest(pLinkIds = action.propertyLinkIds, agentCode = action.agentCode)
-                .map(_ => Ok(views.html.propertyrepresentation.revokeAgentSummary(action, group.companyName)))
+                .map(_ => Ok(revokeAgentSummaryView(action, group.companyName)))
                 .recoverWith {
                   case e: services.AppointRevokeException =>
                     for {

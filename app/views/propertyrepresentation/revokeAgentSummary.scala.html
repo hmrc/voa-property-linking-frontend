@@ -18,6 +18,9 @@
 @import binders.pagination._
 @import binders.propertylinks._
 @import config.ApplicationConfig
+
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
+
 @(
  action: AgentRevokeBulkAction,
  agentOrganisation: String
@@ -25,21 +28,18 @@
 
 @heading = @{ Messages("propertyRepresentation.agentRemoveSummary.heading") }
 
-@main_template(
-heading,
-contentHeaderText = Some(heading),
-contentHeaderHidden = true
+@mainLayout(
+ pageTitle = heading,
+ mainClass = Some("govuk-grid-column-full")
 ) {
 
-<div class="column-whole clearfix">
+ <h1 class="govuk-heading-l">@messages("propertyRepresentation.agentRemoveSummary.heading")</h1>
 
- <h1 class="heading-large">@messages("propertyRepresentation.agentRemoveSummary.heading")</h1>
+ <p class="govuk-body" id="mainBodyText">@messages("propertyRepresentation.agentRemoveSummary.removed", action.agentCode.toString, action.propertyLinkIds.size)</p>
 
- <p class="lede" id="mainBodyText">@messages("propertyRepresentation.agentRemoveSummary.removed", action.agentCode.toString, action.propertyLinkIds.size)</p>
-
-
- <a class="button" id="selectMorePropertiesButton" href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), action.agentCode)" >@messages("propertyRepresentation.agentSummary.select.more")</a>
-
-</div>
+ @govukButton(Button(
+  href = Some(agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), action.agentCode).url),
+  content = Text(messages("propertyRepresentation.agentSummary.select.more"))
+ ))
 
 }
