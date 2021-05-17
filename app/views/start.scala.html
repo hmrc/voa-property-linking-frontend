@@ -20,8 +20,7 @@
 @import views.html.mainLayout
 @import views.html._
 
-
-@this(mainLayout: views.html.mainLayout)
+@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout)
 
 @(data: Form[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -48,31 +47,19 @@ mainClass = Some("govuk-grid-column-two-thirds")
             <li>@messages("start.registration.youNeed.3")</li>
         </ul>
 
-        @GovukInsetText(InsetText(
+        @govukInsetText(InsetText(
         content = Text(messages("start.registration.p.5"))
         ))
 
-        @GovukDetails(Details(
+        @govukDetails(Details(
         summary = Text(messages("start.registration.IdontHave")),
-        content = Html(messages("start.registration.IdontHave.answer"))
+        content = HtmlContent(messages("start.registration.IdontHave.answer"))
         ))
 
-        <details>
-            <summary><span class="summary">@messages("start.registration.IdontHave")</span></summary>
-            <div class="panel-indent">
-                @Html(Messages("start.registration.IdontHave.answer"))
-            </div>
-        </details>
-
-        <br/>
-
-        <legend class="form-label-bold">
-            <span class=" label-span">@Html(Messages("create-account.type.question"))</span>
-        </legend>
+        <h4 class="govuk-label govuk-label--m">@Html(Messages("create-account.type.question"))</h4>
 
         <p>@Html(Messages("start.registration.individual.hyperlink", config.ggRegistrationUrl, config.dashboardUrl("home"), "voa"))</p>
         <p>@Html(Messages("start.registration.organisation.hyperlink", config.ggRegistrationUrl, "organisation", config.dashboardUrl("home"), "voa"))</p>
-
         <p>@Html(Messages("start.registration.enrolment.hyperlink", routes.Login.show))</p>
 
     </div>
