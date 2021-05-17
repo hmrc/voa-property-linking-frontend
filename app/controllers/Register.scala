@@ -25,7 +25,8 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class Register @Inject()(
-      override val errorHandler: CustomErrorHandler
+      override val errorHandler: CustomErrorHandler,
+      startPage: views.html.start
 )(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -41,7 +42,7 @@ class Register @Inject()(
     RegisterHelper.choiceForm
       .bindFromRequest()
       .fold(
-        errors => BadRequest(views.html.start(errors)),
+        errors => BadRequest(startPage(errors)),
         success => redirect(success)
       )
   }
