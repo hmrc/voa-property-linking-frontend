@@ -26,7 +26,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class Register @Inject()(
       override val errorHandler: CustomErrorHandler,
-      startPage: views.html.start
+      startView: views.html.start
 )(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -42,7 +42,7 @@ class Register @Inject()(
     RegisterHelper.choiceForm
       .bindFromRequest()
       .fold(
-        errors => BadRequest(startPage(errors)),
+        errors => BadRequest(startView(errors)),
         success => redirect(success)
       )
   }

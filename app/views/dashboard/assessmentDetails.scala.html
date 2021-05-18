@@ -133,7 +133,7 @@
     @if(model.currentAssessments.isEmpty && model.draftAssessments.isEmpty && model.historicAssessments.nonEmpty){
         <h2 class="govuk-heading-m">@messages("assessments.propertyRemoved")</h2>
     }
-    &nbsp;
+
     @if(model.draftAssessments.nonEmpty){
         <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.draft.title")</h2>
         @table(model.draftAssessments, "draftAssessments", true)
