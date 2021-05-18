@@ -34,6 +34,7 @@ import tests.AllMocks
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.{Name, Retrieval, ~}
+import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.test.UnitSpec
 import utils._
@@ -42,7 +43,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class GgAuthenticatedActionSpec
     extends UnitSpec with MockitoSugar with ScalaFutures with BeforeAndAfterEach with AllMocks
-    with NoMetricsOneAppPerSuite with GlobalExecutionContext {
+    with NoMetricsOneAppPerSuite with GlobalExecutionContext with DesignSystemTestSupport {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
   implicit lazy val controllerComponents = app.injector.instanceOf[ControllerComponents]
@@ -122,7 +123,11 @@ class GgAuthenticatedActionSpec
     }
 
     implicit val appConfig: ApplicationConfig = Configs.applicationConfig
-    lazy val testAction = new GgAuthenticatedAction(messageApi, mockGovernmentGatewayProvider, authConnector)
+    lazy val testAction = new GgAuthenticatedAction(
+      messageApi,
+      mockGovernmentGatewayProvider,
+      authConnector,
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton))
   }
 
 }

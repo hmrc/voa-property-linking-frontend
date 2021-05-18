@@ -17,31 +17,33 @@
 package controllers
 
 import config.ApplicationConfig
+
 import javax.inject.Inject
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class Application @Inject()(
       val errorHandler: CustomErrorHandler,
-      addUserToGGView: views.html.addUserToGG
+      addUserToGGView: views.html.addUserToGG,
+      invalidAccountTypeView: views.html.errors.invalidAccountType
 )(
       implicit override val controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def addUserToGG = Action { implicit request =>
+  def addUserToGG(): Action[AnyContent] = Action { implicit request =>
     Ok(addUserToGGView())
   }
 
-  def manageBusinessTaxAccount = Action(Redirect(config.businessTaxAccountUrl("manage-account")))
+  def manageBusinessTaxAccount: Action[AnyContent] = Action(Redirect(config.businessTaxAccountUrl("manage-account")))
 
-  def start() = Action { implicit request =>
+  def start(): Action[AnyContent] = Action { implicit request =>
     Ok(views.html.start(RegisterHelper.choiceForm))
   }
 
-  def logOut() = Action(Redirect(routes.Application.start()).withNewSession)
+  def logOut(): Action[AnyContent] = Action(Redirect(routes.Application.start()).withNewSession)
 
-  def invalidAccountType = Action { implicit request =>
-    Unauthorized(views.html.errors.invalidAccountType())
+  def invalidAccountType: Action[AnyContent] = Action { implicit request =>
+    Unauthorized(invalidAccountTypeView())
   }
 }

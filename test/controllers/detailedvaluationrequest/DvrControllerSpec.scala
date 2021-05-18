@@ -28,6 +28,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import utils.{StubPropertyLinkConnector, _}
 import views.html.dvr._
+import views.html.errors.propertyMissing
 
 import java.time.LocalDateTime
 import scala.concurrent.Future
@@ -48,7 +49,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       requestDetailedValuationView = new requestDetailedValuation(mainLayout, GovukButton, FormWithCSRF),
       requestedDetailedValuationView = new requestedDetailedValuation(mainLayout),
       dvrFilesView = new dvrFiles(mainLayout, GovukButton, GovukDetails),
-      cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout)
+      cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout),
+      propertyMissingView = new propertyMissing(mainLayout)
     )
 
     lazy val mockSubmissionIds = {

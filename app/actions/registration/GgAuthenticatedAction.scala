@@ -19,7 +19,6 @@ package actions.registration
 import actions.registration.requests.RequestWithUserDetails
 import auth.GovernmentGatewayProvider
 import config.ApplicationConfig
-import javax.inject.Inject
 import models.registration.UserDetails
 import play.api.Logger
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -33,12 +32,14 @@ import uk.gov.hmrc.auth.core.retrieve.~
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class GgAuthenticatedAction @Inject()(
       override val messagesApi: MessagesApi,
       provider: GovernmentGatewayProvider,
-      override val authConnector: AuthConnector
+      override val authConnector: AuthConnector,
+      invalidAccountTypeView: views.html.errors.invalidAccountType
 )(
       implicit override val executionContext: ExecutionContext,
       controllerComponents: ControllerComponents,
@@ -61,7 +62,7 @@ class GgAuthenticatedAction @Inject()(
         provider.redirectToLogin
       case unsupportedAffinityGroup: UnsupportedAffinityGroup =>
         logger.warn("invalid account type:", unsupportedAffinityGroup)
-        Future.successful(Ok(views.html.errors.invalidAccountType()))
+        Future.successful(Ok(invalidAccountTypeView()))
       case otherException: Throwable =>
         Logger.debug(s"Exception thrown on authorisation with message:", otherException)
         throw otherException

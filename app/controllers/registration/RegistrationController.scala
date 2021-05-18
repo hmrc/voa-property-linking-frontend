@@ -22,7 +22,6 @@ import cats.implicits._
 import config.ApplicationConfig
 import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.PropertyLinkingController
-import javax.inject.{Inject, Named}
 import models.registration.UserDetails._
 import models.registration._
 import play.api.i18n.MessagesApi
@@ -34,6 +33,7 @@ import uk.gov.hmrc.auth.core.{Assistant, User}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController @Inject()(
@@ -44,6 +44,8 @@ class RegistrationController @Inject()(
       individualAccounts: IndividualAccounts,
       addresses: Addresses,
       registrationService: RegistrationService,
+      invalidAccountTypeView: views.html.errors.invalidAccountType,
+      invalidAccountCreationView: views.html.errors.invalidAccountCreation,
       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
 )(
       implicit executionContext: ExecutionContext,
@@ -67,8 +69,8 @@ class RegistrationController @Inject()(
           case user @ OrganisationUserDetails() =>
             orgShow(user, request.sessionPersonDetails)
           case user @ AgentUserDetails() =>
-            Future.successful(Ok(views.html.errors.invalidAccountType()))
-          case _ => Future.successful(Ok(views.html.errors.invalidAccountType()))
+            Future.successful(Ok(invalidAccountTypeView()))
+          case _ => Future.successful(Ok(invalidAccountTypeView()))
         }
     }
   }
@@ -190,7 +192,7 @@ class RegistrationController @Inject()(
       case None =>
         userDetails.credentialRole match {
           case Assistant =>
-            Ok(views.html.errors.invalidAccountCreation())
+            Ok(invalidAccountCreationView())
           case _ =>
             val data = sessionPersonDetails match {
               case None                                       => FieldData(userDetails)

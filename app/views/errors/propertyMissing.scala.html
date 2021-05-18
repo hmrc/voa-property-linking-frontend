@@ -15,19 +15,15 @@
  *@
 
 @import config.ApplicationConfig
-@import uk.gov.hmrc.play.views.html.helpers.form
-@import helpers._
+
+@this(mainLayout: views.html.mainLayout)
 
 @()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template("This property does not exist.", topNavigation = false) {
-<div class="grid-row">
-    <div class="column-two-thirds">
+@mainLayout(pageTitle = messages("title.propertyMissing"), showTopNavigation = false) {
 
-        <h1 class="heading-xlarge">@messages("title.error.404")</h1>
+    <h1 class="govuk-heading-xl">@messages("title.error.404")</h1>
 
-        <p>@messages("dvr.error.description")</p>
+    <p class="govuk-body">@messages("dvr.error.description")</p>
 
-    </div>
-</div>
 }

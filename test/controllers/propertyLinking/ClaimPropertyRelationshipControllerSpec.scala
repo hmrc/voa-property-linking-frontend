@@ -47,7 +47,8 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     vmvConnector,
     configuration,
     mockRelationshipToPropertyView,
-    beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, GovukButton)
+    beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, GovukButton),
+    serviceUnavailableView = new views.html.errors.serviceUnavailable(mainLayout)
   )
 
   lazy val submissionId: String = shortString

@@ -51,7 +51,8 @@ class ClaimPropertyRelationshipController @Inject()(
       val vmvConnector: VmvConnector,
       val runModeConfiguration: Configuration,
       relationshipToPropertyView: views.html.propertyLinking.relationshipToProperty,
-      beforeYouStartView: views.html.propertyLinking.beforeYouStart)(
+      beforeYouStartView: views.html.propertyLinking.beforeYouStart,
+      serviceUnavailableView: views.html.errors.serviceUnavailable)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -119,7 +120,7 @@ class ClaimPropertyRelationshipController @Inject()(
                 }
                 .recover {
                   case UpstreamErrorResponse.Upstream5xxResponse(_) =>
-                    ServiceUnavailable(views.html.errors.serviceUnavailable())
+                    ServiceUnavailable(serviceUnavailableView())
                 }
           }
         )
