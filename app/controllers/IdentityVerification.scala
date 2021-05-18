@@ -35,6 +35,7 @@ class IdentityVerification @Inject()(
       ggAction: GgAuthenticatedAction,
       identityVerificationConnector: connectors.IdentityVerificationConnector,
       identityVerificationService: IdentityVerificationService,
+      ivFailedView: views.html.ivFailed,
       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
 )(
       implicit val executionContext: ExecutionContext,
@@ -61,7 +62,7 @@ class IdentityVerification @Inject()(
         case IvResult.IvSuccess =>
           Redirect(controllers.routes.IdentityVerification.success(journeyId))
         case ivFailureReason: IvResult.IvFailure =>
-          Ok(views.html.identityVerification.failed(ivFailureReason))
+          Ok(ivFailedView(ivFailureReason))
       }
     }
 

@@ -32,6 +32,7 @@ import services.RegistrationService
 import services.iv.IdentityVerificationService
 import uk.gov.hmrc.auth.core.AffinityGroup._
 import utils._
+import views.html.ivFailed
 
 import scala.concurrent.Future
 
@@ -178,7 +179,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
         ggAction = ggPreauthenticated(userDetails),
         identityVerificationConnector = StubIdentityVerification,
         identityVerificationService = stubIdentityVerificationServiceEnrolmentOrg,
-        personalDetailsSessionRepo = mockSessionRepoOrgDetails
+        personalDetailsSessionRepo = mockSessionRepoOrgDetails,
+        ivFailedView = new ivFailed(mainLayout)
       )
 
     def requestWithJourneyId(id: String) = FakeRequest(GET, s"/?journeyId=$id").withSession("journeyId" -> id)

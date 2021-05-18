@@ -18,11 +18,9 @@ package services.iv
 
 import config.ApplicationConfig
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
-import javax.inject.{Inject, Named, Singleton}
 import models._
 import models.identityVerificationProxy.{Journey, Link}
 import models.registration._
-import play.api.i18n.Messages
 import play.api.mvc.Results._
 import play.api.mvc.{Request, Result}
 import repositories.SessionRepo
@@ -32,6 +30,7 @@ import uk.gov.hmrc.auth.core.{Assistant, ConfidenceLevel}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
+import javax.inject.{Inject, Named, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
