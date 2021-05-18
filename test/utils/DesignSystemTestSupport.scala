@@ -17,9 +17,11 @@
 package utils
 
 import uk.gov.hmrc.govukfrontend.views.Layouts
-import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukDetails, GovukFooter, GovukHeader}
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukButton, GovukDetails, GovukFooter, GovukHeader, GovukInsetText}
+import views.html.{addUserToGG, start}
 
 trait DesignSystemTestSupport extends Layouts {
+  //all deprecated classes should be located in this file until DI is introduced
 
   val mainLayout = new views.html.mainLayout(
     GovukTemplate,
@@ -28,5 +30,10 @@ trait DesignSystemTestSupport extends Layouts {
     GovukBackLink,
     GovukDetails,
     new views.html.head())
+
+  val startView = new start(GovukInsetText, GovukDetails, mainLayout)
+  val addUsertoGGView = new addUserToGG(mainLayout)
+  val assessmentsView = new views.html.dashboard.assessments(mainLayout, GovukDetails)
+  val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
 
 }

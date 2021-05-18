@@ -26,7 +26,7 @@ class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaProper
   implicit val mode = Mode.Test
   implicit val runConfig = configuration
 
-  val applicationTestController = new Register(mockCustomErrorHandler)
+  val applicationTestController = new Register(mockCustomErrorHandler, startView)
 
   "show" should "redirect to the organisation page" in {
 

@@ -18,16 +18,15 @@ package controllers
 
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
-import views.html.addUserToGG
 
 class ApplicationSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
   val applicationTestController = new Application(
-    mockCustomErrorHandler,
-    new addUserToGG(mainLayout),
-    invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton))
+    errorHandler = mockCustomErrorHandler,
+    addUserToGGView = addUsertoGGView,
+    invalidAccountTypeView = invalidAccountTypeView,
+    startView = startView)
 
   "addUserToGG" should "display the add users to GG page" in {
 

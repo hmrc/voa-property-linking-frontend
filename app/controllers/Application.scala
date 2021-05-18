@@ -25,7 +25,8 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 class Application @Inject()(
       val errorHandler: CustomErrorHandler,
       addUserToGGView: views.html.addUserToGG,
-      invalidAccountTypeView: views.html.errors.invalidAccountType
+      invalidAccountTypeView: views.html.errors.invalidAccountType,
+      startView: views.html.start
 )(
       implicit override val controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig
@@ -38,7 +39,7 @@ class Application @Inject()(
   def manageBusinessTaxAccount: Action[AnyContent] = Action(Redirect(config.businessTaxAccountUrl("manage-account")))
 
   def start(): Action[AnyContent] = Action { implicit request =>
-    Ok(views.html.start(RegisterHelper.choiceForm))
+    Ok(startView(RegisterHelper.choiceForm))
   }
 
   def logOut(): Action[AnyContent] = Action(Redirect(routes.Application.start()).withNewSession)
