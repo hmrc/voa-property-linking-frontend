@@ -20,7 +20,7 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.views.html.helpers.form
 
-@this(mainLayout: views.html.mainLayout)
+@this(mainLayout: views.html.mainLayout, govukDetails: GovukDetails)
 
 @(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
@@ -44,5 +44,5 @@
 
     <br/>
 
-    @assessmentDetails(model, owner)
+    @assessmentDetails(model, owner, govukDetails)
 }

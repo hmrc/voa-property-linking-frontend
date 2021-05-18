@@ -51,7 +51,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
       propertyLinks = mockPropertyLinkConnector,
       authenticated = preAuthenticatedActionBuilders(),
       sessionRepo = mockSessionRepository,
-      assessmentsView = new views.html.dashboard.assessments(mainLayout),
+      assessmentsView = assessmentsView,
       withAssessmentsPageSession = new WithAssessmentsPageSessionRefiner(mockCustomErrorHandler, mockSessionRepository),
       controllerComponents = stubMessagesControllerComponents()
     )
