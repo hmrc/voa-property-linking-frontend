@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukButt
 import views.html.{addUserToGG, start}
 
 trait DesignSystemTestSupport extends Layouts {
-  //all deprecated classes located in this file until DI is introduced
+  //all deprecated classes should be located in this file until DI is introduced
 
   val mainLayout = new views.html.mainLayout(
     GovukTemplate,
