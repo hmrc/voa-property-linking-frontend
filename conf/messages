@@ -190,16 +190,13 @@ failedIdentityVerification.failureReason.lockedOut=you answered questions incorr
 failedIdentityVerification.failureReason.userAborted=you have chosen not to continue
 failedIdentityVerification.failureReason.timeout=you have been timed out due to inactivity
 failedIdentityVerification.failureReason.technicalIssue=of a technical issue with this service
-failedIdentityVerification.p.2=You can either <a href="{0}">try again</a> or contact us to continue your registration.
+failedIdentityVerification.p.2=You can either <a class="govuk-link" href="{0}">try again</a> or contact us to continue your registration.
 failedIv.telephone.england=Telephone
 failedIv.telephone.england.number=03000 501 501
 failedIv.email=Email
-failedIv.emailaddress=<a href="mailto:{0}">ccaservice@voa.gov.uk</a>
+failedIv.emailaddress=<a class="govuk-link" href="mailto:{0}">ccaservice@voa.gov.uk</a>
 failedIv.telephone.openingHours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
-iv.success.title=Identity verification successful
-iv.success.confirmation=We’ve verified your identity
 heading.whatNext=What happens next
-iv.success.p.1=You’ll need to provide information about your business in order to complete the registration process.
 link.createGroupAccount=Register your business
 
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
