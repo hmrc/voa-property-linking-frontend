@@ -36,4 +36,12 @@ trait DesignSystemTestSupport extends Layouts {
   val assessmentsView = new views.html.dashboard.assessments(mainLayout, GovukDetails)
   val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
 
+  val registerIndividual = new views.html.createAccount.register_individual(GovukInsetText, GovukDetails, mainLayout)
+  val registerOrganistaion =
+    new views.html.createAccount.register_organisation(GovukInsetText, GovukDetails, mainLayout)
+  val registerAssAdmin = new views.html.createAccount.register_assistant_admin(GovukInsetText, GovukDetails, mainLayout)
+  val registerAssistant = new views.html.createAccount.register_assistant(GovukInsetText, GovukDetails, mainLayout)
+  val registerConfirmation =
+    new views.html.createAccount.registration_confirmation(GovukInsetText, GovukDetails, mainLayout)
+
 }

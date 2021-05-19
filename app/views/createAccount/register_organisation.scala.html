@@ -19,11 +19,14 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models.registration.FieldData
 @import config.ApplicationConfig
+@import views.html.mainLayout
+@import views.html._
+
+@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout)
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-
-@main_template(title = Messages("enrolment.title"), topNavigation = false) {
+@mainLayout(pageTitle = messages("enrolment.title"), mainClass = Some("govuk-grid-column-full")) {
 
     <div class="grid-row">
         <div class="column-two-thirds">
