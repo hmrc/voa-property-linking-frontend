@@ -44,14 +44,17 @@
 
             @form(controllers.registration.routes.RegistrationController.submitOrganisation()) {
 
+
+            <h1 class="govuk-heading-l">Your details</h1>
+
+
             @govukInput(Input(
-            id = "event-name",
-            name = "event-name",
+            id = "firstName",
+            name = "firstName",
             label = Label(
-            isPageHeading = true,
-            classes = "govuk-label--l",
             content = Text(messages("enrolment.firstName"))
-            )
+            ),
+            value = Some(messages("organisationFieldData.firstName"))
             ))
 
             @inputText(
