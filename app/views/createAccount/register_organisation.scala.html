@@ -22,27 +22,25 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout)
+@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary)
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(pageTitle = messages("enrolment.title"), mainClass = Some("govuk-grid-column-full")) {
 
-    <div class="grid-row">
+    <div class="govuk-body">
         <div class="column-two-thirds">
 
             <h1 class="heading-xlarge">@messages("enrolment.title")</h1>
 
-            <details>
-                <summary><span class="summary">@messages("createAccount.group.details.header.agent")</span></summary>
-                <div class="panel-indent">
-                @messages("createAccount.group.details.content.agent")
-                </div>
-            </details>
+            @govukDetails(Details(
+            summary = Text(messages("createAccount.group.details.header.agent")),
+            content = Text(messages("createAccount.group.details.content.agent"))
+            ))
 
-            <br />
 
             @includes.errorSummary(model, messagePrefix = Some("createAccount"))
+
 
             @form(controllers.registration.routes.RegistrationController.submitOrganisation()) {
 
