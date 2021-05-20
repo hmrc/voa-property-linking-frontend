@@ -22,7 +22,7 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary)
+@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput)
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -39,12 +39,22 @@
             ))
 
 
-            @includes.errorSummary(model, messagePrefix = Some("createAccount"))
+            @includes.errorSummaryGDS(form = model, messagePrefix = Some("createAccount"), govukErrorSummary = govukErrorSummary)
 
 
             @form(controllers.registration.routes.RegistrationController.submitOrganisation()) {
 
-                @inputText(
+            @govukInput(Input(
+            id = "event-name",
+            name = "event-name",
+            label = Label(
+            isPageHeading = true,
+            classes = "govuk-label--l",
+            content = Text(messages("enrolment.firstName"))
+            )
+            ))
+
+            @inputText(
                     field = model(keys.firstName),
                     '_label -> Messages("enrolment.firstName"),
                     '_labelClass -> "form-label-bold",
@@ -79,14 +89,13 @@
                     selectedAddress = organisationFieldData.selectedAddress
                 )
 
-                <details>
-                    <summary><span class="summary">@messages("createAccount.group.details.header.multipleAddress")</span></summary>
-                    <div class="panel-indent">
-                    @messages("createAccount.group.details.content.multipleAddress")
-                    </div>
-                </details>
 
-                <br />
+
+            @govukDetails(Details(
+            summary = Text(messages("createAccount.group.details.header.multipleAddress")),
+            content = Text(messages("createAccount.group.details.content.multipleAddress"))
+            ))
+
 
                 @inputText(
                     field = model(keys.phone),

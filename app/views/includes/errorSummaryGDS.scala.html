@@ -1,0 +1,64 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import play.api.data._
+
+@(form: Form[_], messagePrefix: Option[String] = None, clientId: Option[Long] = None, govukErrorSummary : GovukErrorSummary)(implicit requestHeader: RequestHeader, messages: Messages)
+
+@clientSuffix = @{
+clientId match {
+case Some(id) => { ".client"}
+case _        => {""}
+}
+}
+@removeInvalid(error: FormError) = @{ error.key.replace("[", "").replace(".", "").replace("]", "").replace("__", "") }
+@showError(error: FormError) = {
+<li>
+    <a href="#@removeInvalid(error)Group">
+        @defining(error.key.split("\\.")) { errorParts =>
+        @error.key match {
+        case s if Seq("day", "month", "year").exists(s.contains) => { @messages(s"label.${errorParts.head}$clientSuffix") - @messages(s"${error.key}.label") }
+        case s if s.contains("address") => { @messages(s"label.${error.key}") }
+        case s if s == ""  => {}
+        case _ => {
+        @messages("label." + messagePrefix.map(_ + ".").getOrElse("") + error.key.replace("[", "").replace("]", "") + clientSuffix)
+        }
+        }
+        }
+        - @messages(stripIndices(error.message), error.args: _*)
+    </a>
+</li>
+
+}
+
+@stripIndices(field: String) = @{
+field.replaceAll("""\[[0-9]\]""", "")
+}
+
+
+@if(form.hasErrors) {
+<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+    <h2 id="error-summary-heading" class="govuk-error-summary__title">@messages("label.checkTheForm")</h2>
+    <p class="govuk-body">@messages("label.fixTheFollowing")</p>
+    <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+            @for(error <- form.errors) {
+            @showError(error)
+            }
+        </ul>
+    </div>
+</div>
+}
