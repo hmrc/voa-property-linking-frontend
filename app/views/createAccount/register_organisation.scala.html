@@ -21,6 +21,8 @@
 @import config.ApplicationConfig
 @import views.html.mainLayout
 @import views.html._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput)
 
@@ -34,136 +36,129 @@
             <h1 class="heading-xlarge">@messages("enrolment.title")</h1>
 
             @govukDetails(Details(
-            summary = Text(messages("createAccount.group.details.header.agent")),
-            content = Text(messages("createAccount.group.details.content.agent"))
+                summary = Text(messages("createAccount.group.details.header.agent")),
+                content = Text(messages("createAccount.group.details.content.agent"))
             ))
-
-
-            @includes.errorSummaryGDS(form = model, messagePrefix = Some("createAccount"), govukErrorSummary = govukErrorSummary)
-
-
-            @form(controllers.registration.routes.RegistrationController.submitOrganisation()) {
-
 
             <h1 class="govuk-heading-l">Your details</h1>
 
+            @if(model.errors.nonEmpty) {
+                @govukErrorSummary(ErrorSummary(errorList = model.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+            }
 
-            @govukInput(Input(
-            id = "firstName",
-            name = "firstName",
-            label = Label(
-            content = Text(messages("enrolment.firstName"))
-            ),
-            value = Some(organisationFieldData.firstName)
-            ))
+            @FormWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisation()) {
 
-            @inputText(
-                    field = model(keys.firstName),
-                    '_label -> Messages("enrolment.firstName"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> organisationFieldData.firstName
-                )
-
-                @inputText(
-                    field = model(keys.lastName),
-                    '_label -> Messages("enrolment.lastName"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> organisationFieldData.lastName
-                )
-
-                @inputText(
-                    field = model(keys.companyName),
-                    '_label -> Messages("enrolment.organisation.name"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> organisationFieldData.businessName
-                )
-
-                @address(
-                    form = model,
-                    fieldName = keys.address,
-                    postcode = organisationFieldData.postcode,
-                    addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)},
-                    selectedAddress = organisationFieldData.selectedAddress
-                )
+                @govukInput(Input(
+                    id = "firstName",
+                    name = "firstName",
+                    label = Label(
+                    content = HtmlContent(messages("enrolment.firstName"))
+                    ),
+                    value = Some(organisationFieldData.firstName),
+                    errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
 
 
-
-            @govukDetails(Details(
-            summary = Text(messages("createAccount.group.details.header.multipleAddress")),
-            content = Text(messages("createAccount.group.details.content.multipleAddress"))
-            ))
+                ))
 
 
-                @inputText(
-                    field = model(keys.phone),
-                    '_label -> Messages("enrolment.businessPhoneNumber"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> organisationFieldData.businessPhoneNumber
-                )
-
-                @inputText(
-                    field = model(keys.email),
-                    '_label -> Messages("enrolment.emailAddress"),
-                    '_help -> Messages("enrolment.emailAddress.hint"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> organisationFieldData.email
-                )
-
-                @inputText(
-                    field = model(keys.confirmedBusinessEmail),
-                    '_label -> Messages("enrolment.confirmEmailAddress"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> organisationFieldData.email
-                )
-
-                @inputRadioGroup(
-                    field = model(keys.isAgent),
-                    options = Seq("true", "false"),
-                    dataAttributes = Nil,
-                    args = Seq(
-                        '_label -> Messages("enrolment.organisation.individualOrCompany"),
+                    @inputText(
+                        field = model(keys.lastName),
+                        '_label -> Messages("enrolment.lastName"),
                         '_labelClass -> "form-label-bold",
-                        '_legend -> true,
-                        '_fieldsetClass -> "inline"
+                        '_showConstraints -> false,
+                        'class -> "form-control",
+                        '_value -> organisationFieldData.lastName
                     )
-                )
 
-                <p class="panel panel-border-wide">@messages("isAgent.details")</p>
+                    @inputText(
+                        field = model(keys.companyName),
+                        '_label -> Messages("enrolment.organisation.name"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control",
+                        '_value -> organisationFieldData.businessName
+                    )
 
-                @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")), fieldData = organisationFieldData.dob)
+                    @address(
+                        form = model,
+                        fieldName = keys.address,
+                        postcode = organisationFieldData.postcode,
+                        addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)},
+                        selectedAddress = organisationFieldData.selectedAddress
+                    )
 
-                @inputText(
-                    field = model(keys.nino),
-                    '_label -> Messages(s"label.createAccount.${keys.nino}"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_help -> Messages("hint.nino"),
-                    '_value -> organisationFieldData.nino
-                )
 
-                <details>
-                    <summary><span class="summary">@messages("start.registration.IdontHave")</span></summary>
-                    <div class="panel-indent">
-                    @Html(Messages("start.registration.IdontHave.answer"))
-                    </div>
-                </details>
 
-                <p>
-                    <button type="submit" id="save-and-continue" class="button">@messages("app.common.saveAndContinue")</button>
-                </p>
+                @govukDetails(Details(
+                summary = Text(messages("createAccount.group.details.header.multipleAddress")),
+                content = Text(messages("createAccount.group.details.content.multipleAddress"))
+                ))
+
+
+                    @inputText(
+                        field = model(keys.phone),
+                        '_label -> Messages("enrolment.businessPhoneNumber"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control",
+                        '_value -> organisationFieldData.businessPhoneNumber
+                    )
+
+                    @inputText(
+                        field = model(keys.email),
+                        '_label -> Messages("enrolment.emailAddress"),
+                        '_help -> Messages("enrolment.emailAddress.hint"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control",
+                        '_value -> organisationFieldData.email
+                    )
+
+                    @inputText(
+                        field = model(keys.confirmedBusinessEmail),
+                        '_label -> Messages("enrolment.confirmEmailAddress"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control",
+                        '_value -> organisationFieldData.email
+                    )
+
+                    @inputRadioGroup(
+                        field = model(keys.isAgent),
+                        options = Seq("true", "false"),
+                        dataAttributes = Nil,
+                        args = Seq(
+                            '_label -> Messages("enrolment.organisation.individualOrCompany"),
+                            '_labelClass -> "form-label-bold",
+                            '_legend -> true,
+                            '_fieldsetClass -> "inline"
+                        )
+                    )
+
+                    <p class="panel panel-border-wide">@messages("isAgent.details")</p>
+
+                    @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")), fieldData = organisationFieldData.dob)
+
+                    @inputText(
+                        field = model(keys.nino),
+                        '_label -> Messages(s"label.createAccount.${keys.nino}"),
+                        '_labelClass -> "form-label-bold",
+                        '_showConstraints -> false,
+                        'class -> "form-control",
+                        '_help -> Messages("hint.nino"),
+                        '_value -> organisationFieldData.nino
+                    )
+
+                    <details>
+                        <summary><span class="summary">@messages("start.registration.IdontHave")</span></summary>
+                        <div class="panel-indent">
+                        @Html(Messages("start.registration.IdontHave.answer"))
+                        </div>
+                    </details>
+
+                    <p>
+                        <button type="submit" id="save-and-continue" class="button">@messages("app.common.saveAndContinue")</button>
+                    </p>
             }
 
         </div>
