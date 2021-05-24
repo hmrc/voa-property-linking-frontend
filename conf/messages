@@ -935,6 +935,16 @@ startChallenge.p.3=You should send the form and any supporting evidence to <a cl
 startChallenge.p.4=Please be aware of the risks before sending any confidential information.
 
 #COMMON
+label.email=Email
+label.confirmedBusinessEmail=Confirm email
+label.firstName=First name
+label.lastName=Last name
+label.dob.day=Date of Birth - Day
+label.dob.month=Date of Birth - Month
+label.dob.year=Date of Birth - Year
+label.nino=NINO
+label.phone=Phone
+label.isAgent=Agent
 label.youCanNow=You can now:
 label.continue=Continue
 label.confirm=Confirm
@@ -1312,6 +1322,7 @@ enrolment.confirmEmailAddress = Confirm business email address
 enrolment.organisation.individualOrCompany = Do you want to register as an agent?
 enrolment.yes = Yes
 enrolment.no = No
+enrolment.businessName = Business name
 
 
 before.you.start.title=Claim a property

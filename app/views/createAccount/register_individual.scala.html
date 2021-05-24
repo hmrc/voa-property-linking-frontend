@@ -22,7 +22,8 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout)
+@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput)
+
 
 @(model: Form[IndividualUserAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -55,13 +56,7 @@
                     '_value -> individualFieldData.lastName
                 )
 
-                @address(
-                    form = model,
-                    fieldName = keys.address,
-                    postcode = individualFieldData.postcode,
-                    addressData = Some(individualFieldData.businessAddress),
-                    selectedAddress = individualFieldData.selectedAddress
-                )
+
 
                 @inputText(
                     field = model(keys.email),

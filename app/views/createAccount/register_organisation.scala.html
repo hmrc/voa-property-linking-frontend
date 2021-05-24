@@ -28,6 +28,13 @@
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@getEnrichedErrorLinks = @{
+    model.errors.map{ error =>
+        ErrorLink(href = Some(s"#${error.key}"),
+                  content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
+}
+
+
 @mainLayout(pageTitle = messages("enrolment.title"), mainClass = Some("govuk-grid-column-full")) {
 
     <div class="govuk-body">
@@ -43,48 +50,44 @@
             <h1 class="govuk-heading-l">Your details</h1>
 
             @if(model.errors.nonEmpty) {
-                @govukErrorSummary(ErrorSummary(errorList = model.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+                @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
             }
 
             @FormWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisation()) {
 
-                @govukInput(Input(
-                    id = "firstName",
-                    name = "firstName",
-                    label = Label(
-                    content = HtmlContent(messages("enrolment.firstName"))
-                    ),
-                    value = Some(organisationFieldData.firstName),
-                    errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages("First name", err.args:_*)))),
-                ))
+            @govukInput(Input(
+                id = "firstName",
+                name = "firstName",
+                label = Label(content = HtmlContent(messages("enrolment.firstName"))),
+                value =  model("firstName").value.orElse(Some(organisationFieldData.firstName)),
+                errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            ))
+
+            @govukInput(Input(
+            id = "lastName",
+            name = "lastName",
+            label = Label(content = HtmlContent(messages("enrolment.lastName"))),
+            value =  model("lastName").value.orElse(Some(organisationFieldData.lastName)),
+            errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            ))
 
 
-                    @inputText(
-                        field = model(keys.lastName),
-                        '_label -> Messages("enrolment.lastName"),
-                        '_labelClass -> "form-label-bold",
-                        '_showConstraints -> false,
-                        'class -> "form-control",
-                        '_value -> organisationFieldData.lastName
-                    )
+            @govukInput(Input(
+            id = "companyName",
+            name = "companyName",
+            label = Label(content = HtmlContent(messages("enrolment.organisation.name"))),
+            value =  model("companyName").value.orElse(Some(organisationFieldData.businessName)),
+            errorMessage = model("companyName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            ))
 
-                    @inputText(
-                        field = model(keys.companyName),
-                        '_label -> Messages("enrolment.organisation.name"),
-                        '_labelClass -> "form-label-bold",
-                        '_showConstraints -> false,
-                        'class -> "form-control",
-                        '_value -> organisationFieldData.businessName
-                    )
 
-                    @address(
-                        form = model,
-                        fieldName = keys.address,
-                        postcode = organisationFieldData.postcode,
-                        addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)},
-                        selectedAddress = organisationFieldData.selectedAddress
-                    )
-
+            @address(
+                form = model,
+                fieldName = keys.address,
+                postcode = organisationFieldData.postcode,
+                addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)},
+                selectedAddress = organisationFieldData.selectedAddress
+            )
 
 
                 @govukDetails(Details(
@@ -92,34 +95,58 @@
                 content = Text(messages("createAccount.group.details.content.multipleAddress"))
                 ))
 
+            @govukInput(Input(
+            id = "phone",
+            name = "phone",
+            label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber"))),
+            value =  model(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
+            errorMessage = model(keys.phone).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            ))
 
-                    @inputText(
-                        field = model(keys.phone),
-                        '_label -> Messages("enrolment.businessPhoneNumber"),
-                        '_labelClass -> "form-label-bold",
-                        '_showConstraints -> false,
-                        'class -> "form-control",
-                        '_value -> organisationFieldData.businessPhoneNumber
-                    )
+            @govukInput(Input(
+            id = "email",
+            name = "email",
+            label = Label(content = HtmlContent(messages("enrolment.emailAddress"))),
+            value =  model(keys.email).value.orElse(Some(organisationFieldData.email)),
+            errorMessage = model(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            ))
 
-                    @inputText(
-                        field = model(keys.email),
-                        '_label -> Messages("enrolment.emailAddress"),
-                        '_help -> Messages("enrolment.emailAddress.hint"),
-                        '_labelClass -> "form-label-bold",
-                        '_showConstraints -> false,
-                        'class -> "form-control",
-                        '_value -> organisationFieldData.email
-                    )
 
-                    @inputText(
-                        field = model(keys.confirmedBusinessEmail),
-                        '_label -> Messages("enrolment.confirmEmailAddress"),
-                        '_labelClass -> "form-label-bold",
-                        '_showConstraints -> false,
-                        'class -> "form-control",
-                        '_value -> organisationFieldData.email
-                    )
+            @govukInput(Input(
+            id = "confirmedBusinessEmail",
+            name = "confirmedBusinessEmail",
+            label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress"))),
+            value =  model(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
+            errorMessage = model(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            ))
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            Have you changed your name?
+                        </h1>
+                    </legend>
+                    <div id="changed-name-hint" class="govuk-hint">
+                        This includes changing your last name or spelling your name differently.
+                    </div>
+                    <div class="govuk-radios govuk-radios--inline">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="changed-name" name="changed-name" type="radio" value="yes">
+                            <label class="govuk-label govuk-radios__label" for="changed-name">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="changed-name-2" name="changed-name" type="radio" value="no">
+                            <label class="govuk-label govuk-radios__label" for="changed-name-2">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
 
                     @inputRadioGroup(
                         field = model(keys.isAgent),
