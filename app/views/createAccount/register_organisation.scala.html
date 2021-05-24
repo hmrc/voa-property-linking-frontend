@@ -24,7 +24,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput)
+@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios)
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -120,45 +120,29 @@
             errorMessage = model(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             ))
 
-            <div class="govuk-form-group">
-                <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <h1 class="govuk-fieldset__heading">
-                            Have you changed your name?
-                        </h1>
-                    </legend>
-                    <div id="changed-name-hint" class="govuk-hint">
-                        This includes changing your last name or spelling your name differently.
-                    </div>
-                    <div class="govuk-radios govuk-radios--inline">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="changed-name" name="changed-name" type="radio" value="yes">
-                            <label class="govuk-label govuk-radios__label" for="changed-name">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="changed-name-2" name="changed-name" type="radio" value="no">
-                            <label class="govuk-label govuk-radios__label" for="changed-name-2">
-                                No
-                            </label>
-                        </div>
-                    </div>
+            @govukRadios(Radios(
+                fieldset = Some(Fieldset(
+                    legend = Some(Legend(
+                    content = Text(messages("enrolment.organisation.individualOrCompany")),
+                    classes = "govuk-fieldset__legend--s",
+                    isPageHeading = true
+                 ))
+                )),
+                idPrefix = Some("isAgent"),
+                name = "isAgent",
+                items = Seq(
+                    RadioItem(
+                    content = Text("Yes"),
+                    value = Some("true"),
+                ),
+                    RadioItem(
+                    content = Text("No"),
+                    value = Some("false"),
+                )
+                )
+            ))
 
-                </fieldset>
-            </div>
 
-                    @inputRadioGroup(
-                        field = model(keys.isAgent),
-                        options = Seq("true", "false"),
-                        dataAttributes = Nil,
-                        args = Seq(
-                            '_label -> Messages("enrolment.organisation.individualOrCompany"),
-                            '_labelClass -> "form-label-bold",
-                            '_legend -> true,
-                            '_fieldsetClass -> "inline"
-                        )
-                    )
 
                     <p class="panel panel-border-wide">@messages("isAgent.details")</p>
 
