@@ -55,9 +55,7 @@
                     content = HtmlContent(messages("enrolment.firstName"))
                     ),
                     value = Some(organisationFieldData.firstName),
-                    errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-
-
+                    errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages("First name", err.args:_*)))),
                 ))
 
 
