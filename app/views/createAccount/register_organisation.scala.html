@@ -24,7 +24,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios)
+@this(govukDateInput:GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios)
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -32,6 +32,14 @@
     model.errors.map{ error =>
         ErrorLink(href = Some(s"#${error.key}"),
                   content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
+}
+
+@getFromDateFiledErrorMessage = @{
+    (model.error("dob.day"), model.error("dob.month"), model.error("dob.year")) match
+    {
+        case (None, None, None ) => None
+        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
+    }
 }
 
 
@@ -121,30 +129,59 @@
             ))
 
             @govukRadios(Radios(
-            fieldset = Some(Fieldset(
-            legend = Some(Legend(
-            content = Text(messages("error.boolean")),
-            classes = "govuk-fieldset__legend--s",
-            isPageHeading = true
-            ))
-            )),
-            errorMessage = model(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            idPrefix = Some("isAgent"),
-            name = "isAgent",
+                fieldset = Some(Fieldset(
+                                        legend = Some(Legend(
+                                        content = Text(messages("enrolment.organisation.individualOrCompany")),
+                                        classes = "govuk-fieldset__legend--s",
+                                        isPageHeading = true
+                ))
+                )),
+                errorMessage = model(keys.isAgent).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                idPrefix = Some("isAgent"),
+                name = "isAgent",
             items = Seq(
-            RadioItem(
-            content = Text("Yes"),
-            value = Some("yes")
-            ),
-            RadioItem(
-            content = Text("No"),
-            value = Some("no")
-            )
-            ),
+                RadioItem(
+                        content = Text("Yes"),
+                        value = Some("yes")
+                ),
+                RadioItem(
+                        content = Text("No"),
+                        value = Some("no")
+                )
+                ),
             classes = "govuk-radios--inline"
             ))
 
-                    <p class="panel panel-border-wide">@messages("isAgent.details")</p>
+
+            @govukInsetText(InsetText(
+            content = Text(messages("isAgent.details"))
+            ))
+
+            @govukDateInput(DateInput(
+                fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                content = Text(messages("label.dob")),
+                isPageHeading = true,
+                classes = "govuk-fieldset__legend--l"
+                ))
+                )),
+                id = "dob",
+                hint = Some(Hint(
+                content = Text(messages("hint.dateOfBirth"))
+                )),
+                items = Seq("day", "month", "year").map {
+                item =>
+                InputItem(
+                id = s"dob.$item",
+                classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors || model.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                name =  s"dob.$item",
+                label = Some(messages(s"dob.$item.label")),
+                value = model(s"dob.$item").value
+                )
+                },
+                errorMessage = getFromDateFiledErrorMessage,
+            ))
+
 
                     @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")), fieldData = organisationFieldData.dob)
 

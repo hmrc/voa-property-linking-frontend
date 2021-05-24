@@ -37,21 +37,21 @@ import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController @Inject()(
-                                        val errorHandler: CustomErrorHandler,
-                                        ggAuthenticated: GgAuthenticatedAction,
-                                        sessionUserDetailsAction: SessionUserDetailsAction,
-                                        groupAccounts: GroupAccounts,
-                                        individualAccounts: IndividualAccounts,
-                                        addresses: Addresses,
-                                        registrationService: RegistrationService,
-                                        invalidAccountTypeView: views.html.errors.invalidAccountType,
-                                        invalidAccountCreationView: views.html.errors.invalidAccountCreation,
-                                        registerIndividual: views.html.createAccount.register_individual,
-                                        registerOrganisation: views.html.createAccount.register_organisation,
-                                        registerAssAdmin: views.html.createAccount.register_assistant_admin,
-                                        registerAssistant: views.html.createAccount.register_assistant,
-                                        registerConfirmation: views.html.createAccount.registration_confirmation,
-                                        @Named("personSession") val personalDetailsSessionRepo: SessionRepo
+      val errorHandler: CustomErrorHandler,
+      ggAuthenticated: GgAuthenticatedAction,
+      sessionUserDetailsAction: SessionUserDetailsAction,
+      groupAccounts: GroupAccounts,
+      individualAccounts: IndividualAccounts,
+      addresses: Addresses,
+      registrationService: RegistrationService,
+      invalidAccountTypeView: views.html.errors.invalidAccountType,
+      invalidAccountCreationView: views.html.errors.invalidAccountCreation,
+      registerIndividual: views.html.createAccount.register_individual,
+      registerOrganisation: views.html.createAccount.register_organisation,
+      registerAssAdmin: views.html.createAccount.register_assistant_admin,
+      registerAssistant: views.html.createAccount.register_assistant,
+      registerConfirmation: views.html.createAccount.registration_confirmation,
+      @Named("personSession") val personalDetailsSessionRepo: SessionRepo
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
