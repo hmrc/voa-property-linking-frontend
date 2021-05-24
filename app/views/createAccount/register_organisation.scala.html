@@ -121,28 +121,28 @@
             ))
 
             @govukRadios(Radios(
-                fieldset = Some(Fieldset(
-                    legend = Some(Legend(
-                    content = Text(messages("enrolment.organisation.individualOrCompany")),
-                    classes = "govuk-fieldset__legend--s",
-                    isPageHeading = true
-                 ))
-                )),
-                idPrefix = Some("isAgent"),
-                name = "isAgent",
-                items = Seq(
-                    RadioItem(
-                    content = Text("Yes"),
-                    value = Some("true"),
-                ),
-                    RadioItem(
-                    content = Text("No"),
-                    value = Some("false"),
-                )
-                )
+            fieldset = Some(Fieldset(
+            legend = Some(Legend(
+            content = Text(messages("error.boolean")),
+            classes = "govuk-fieldset__legend--s",
+            isPageHeading = true
             ))
-
-
+            )),
+            errorMessage = model(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            idPrefix = Some("isAgent"),
+            name = "isAgent",
+            items = Seq(
+            RadioItem(
+            content = Text("Yes"),
+            value = Some("yes")
+            ),
+            RadioItem(
+            content = Text("No"),
+            value = Some("no")
+            )
+            ),
+            classes = "govuk-radios--inline"
+            ))
 
                     <p class="panel panel-border-wide">@messages("isAgent.details")</p>
 
