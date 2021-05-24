@@ -24,7 +24,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(govukDateInput:GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios)
+@this(govukButton: GovukButton, govukDateInput: GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios)
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -46,7 +46,7 @@
 @mainLayout(pageTitle = messages("enrolment.title"), mainClass = Some("govuk-grid-column-full")) {
 
     <div class="govuk-body">
-        <div class="column-two-thirds">
+        <div class="govuk-grid-column-full">
 
             <h1 class="heading-xlarge">@messages("enrolment.title")</h1>
 
@@ -159,52 +159,49 @@
 
             @govukDateInput(DateInput(
                 fieldset = Some(Fieldset(
-                legend = Some(Legend(
-                content = Text(messages("label.dob")),
-                isPageHeading = true,
-                classes = "govuk-fieldset__legend--l"
+                                        legend = Some(Legend(
+                                        content = Text(messages("label.dob")),
+                                        isPageHeading = true,
+                                        classes = "govuk-fieldset__legend--l"
                 ))
                 )),
                 id = "dob",
                 hint = Some(Hint(
-                content = Text(messages("hint.dateOfBirth"))
+                                content = Text(messages("hint.dateOfBirth"))
                 )),
                 items = Seq("day", "month", "year").map {
                 item =>
                 InputItem(
-                id = s"dob.$item",
-                classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors || model.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
-                name =  s"dob.$item",
-                label = Some(messages(s"dob.$item.label")),
-                value = model(s"dob.$item").value
+                        id = s"dob.$item",
+                        classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors || model.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                        name =  s"dob.$item",
+                        label = Some(messages(s"dob.$item.label")),
+                        value = model(s"dob.$item").value
                 )
                 },
                 errorMessage = getFromDateFiledErrorMessage,
             ))
 
+            @govukInput(Input(
+                            id = "nino",
+                            name = "nino",
+                            label = Label(content = HtmlContent(messages(s"label.createAccount.${keys.nino}"))),
+                            value =  model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
+                            errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                            hint = Some(Hint(
+                            content = Text(messages("hint.nino"))
+                            ))
+            ))
 
-                    @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")), fieldData = organisationFieldData.dob)
+            @govukDetails(Details(
+            summary = HtmlContent(messages("start.registration.IdontHave")),
+            content = HtmlContent(messages("start.registration.IdontHave.answer"))
+            ))
 
-                    @inputText(
-                        field = model(keys.nino),
-                        '_label -> Messages(s"label.createAccount.${keys.nino}"),
-                        '_labelClass -> "form-label-bold",
-                        '_showConstraints -> false,
-                        'class -> "form-control",
-                        '_help -> Messages("hint.nino"),
-                        '_value -> organisationFieldData.nino
-                    )
+            @govukButton(Button(
+            content = Text(messages("app.common.saveAndContinue"))
+            ))
 
-                    <details>
-                        <summary><span class="summary">@messages("start.registration.IdontHave")</span></summary>
-                        <div class="panel-indent">
-                        @Html(Messages("start.registration.IdontHave.answer"))
-                        </div>
-                    </details>
-
-                    <p>
-                        <button type="submit" id="save-and-continue" class="button">@messages("app.common.saveAndContinue")</button>
-                    </p>
             }
 
         </div>
