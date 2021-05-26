@@ -132,7 +132,7 @@
                 fieldset = Some(Fieldset(
                                         legend = Some(Legend(
                                         content = Text(messages("enrolment.organisation.individualOrCompany")),
-                                        classes = "govuk-fieldset__legend--s",
+                                        classes = "govuk-fieldset__legend--l",
                                         isPageHeading = true
                 ))
                 )),
@@ -185,7 +185,7 @@
             @govukInput(Input(
                             id = "nino",
                             name = "nino",
-                            label = Label(content = HtmlContent(messages(s"label.createAccount.${keys.nino}"))),
+                            label = Label(content = HtmlContent(messages("label.ninoText"))),
                             value =  model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
                             errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                             hint = Some(Hint(

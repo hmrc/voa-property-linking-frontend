@@ -943,6 +943,7 @@ label.dob.day=Date of Birth - Day
 label.dob.month=Date of Birth - Month
 label.dob.year=Date of Birth - Year
 label.nino=NINO
+label.ninoText=<h1 class="govuk-heading-l">National Insurance number</h1>
 label.phone=Phone
 label.isAgent=Agent
 label.youCanNow=You can now:
@@ -1299,26 +1300,26 @@ create.success.personId=VOA Personal ID:
 create-account.type.question=Which type of account would you like to create?
 
 enrolment.title = Complete your contact details
-enrolment.organisation.name = Business name
+enrolment.organisation.name = <h1 class="govuk-heading-l">Business name</h1>
 enrolment.organisation.name.label = Organisation name
 
 enrolment.assistant.hint = You have been added as a user to your organisation, please confirm your details below
 enrolment.assistant.organisation.details.title = Your organisation details
 
-enrolment.firstName = First name
-enrolment.lastName = Last name
+enrolment.firstName = <h1 class="govuk-heading-l">First name</h1>
+enrolment.lastName = <h1 class="govuk-heading-l">Last name</h1>
 enrolment.address1 = Address line 1
 enrolment.address2 = Address line 2
 enrolment.address3 = Address line 3
 enrolment.address4 = Address line 4
 enrolment.postcode = Postcode
-enrolment.businessPhoneNumber = Business telephone number
+enrolment.businessPhoneNumber = <h1 class="govuk-heading-l">Business telephone number</h1>
 enrolment.phoneNumber = Telephone number
 enrolment.mobileNumber = Mobile number
-enrolment.emailAddress = Business email address
+enrolment.emailAddress = <h1 class="govuk-heading-l">Business email address</h1>
 enrolment.emailAddress.hint = This should be your email address and not your agent’s. The email address should be monitored
 enrolment.tradingName = Trading name
-enrolment.confirmEmailAddress = Confirm business email address
+enrolment.confirmEmailAddress = <h1 class="govuk-heading-l">Confirm business email address</h1>
 enrolment.organisation.individualOrCompany = Do you want to register as an agent?
 enrolment.yes = Yes
 enrolment.no = No
