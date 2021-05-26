@@ -69,6 +69,7 @@
                 label = Label(content = HtmlContent(messages("enrolment.firstName"))),
                 value =  model("firstName").value.orElse(Some(organisationFieldData.firstName)),
                 errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-!-width-one-quarter"
             ))
 
             @govukInput(Input(
@@ -77,6 +78,7 @@
             label = Label(content = HtmlContent(messages("enrolment.lastName"))),
             value =  model("lastName").value.orElse(Some(organisationFieldData.lastName)),
             errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
             ))
 
 
@@ -86,6 +88,7 @@
             label = Label(content = HtmlContent(messages("enrolment.organisation.name"))),
             value =  model("companyName").value.orElse(Some(organisationFieldData.businessName)),
             errorMessage = model("companyName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
             ))
 
 
@@ -109,6 +112,7 @@
             label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber"))),
             value =  model(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
             errorMessage = model(keys.phone).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
             ))
 
             @govukInput(Input(
@@ -117,6 +121,7 @@
             label = Label(content = HtmlContent(messages("enrolment.emailAddress"))),
             value =  model(keys.email).value.orElse(Some(organisationFieldData.email)),
             errorMessage = model(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
             ))
 
 
@@ -126,6 +131,7 @@
             label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress"))),
             value =  model(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
             errorMessage = model(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
             ))
 
             @govukRadios(Radios(
@@ -188,6 +194,7 @@
                             label = Label(content = HtmlContent(messages("label.ninoText"))),
                             value =  model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
                             errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                             classes = "govuk-!-width-one-quarter",
                             hint = Some(Hint(
                             content = Text(messages("hint.nino"))
                             ))
