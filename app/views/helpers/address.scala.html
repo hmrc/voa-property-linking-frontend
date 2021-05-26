@@ -56,47 +56,44 @@
             classes = "govuk-!-width-one-quarter"
             ))
 
+            @GovukInput(Input(
+            id = "addressline2",
+            name = "address.line2",
+            label = Label(content = HtmlContent(messages(s"label.$fieldName"))),
+            value =  Some(addressData.fold("")(_.line2)),
+            errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
+
+            @GovukInput(Input(
+            id = "addressline3",
+            name = "address.line3",
+            label = Label(content = HtmlContent(messages(s"label.$fieldName"))),
+            value =  Some(addressData.fold("")(_.line3)),
+            errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
 
 
+            @GovukInput(Input(
+            id = "addressline4",
+            name = "address.line4",
+            label = Label(content = HtmlContent(messages(s"label.$fieldName"))),
+            value =  Some(addressData.fold("")(_.line4)),
+            errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
 
-            @inputText(
-                field = form(s"$fieldName.line2"),
-                '_label -> Messages(s"label.$fieldName.line2"),
-                '_labelClass -> "visuallyhidden",
-                'class -> "form-control",
-                'placeholder -> Messages("placeholder.address.line2"),
-                '_fieldsetClass -> "margin-bottom-0",
-                '_value -> addressData.fold("")(_.line2)
-            )
+            @GovukInput(Input(
+            id = "postcodeSearch",
+            name = "postcodeSearch",
+            label = Label(content = HtmlContent(messages("label.address.postcode"))),
+            value =  Some(addressData.fold("")(_.postcode)),
+            errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
 
-            @inputText(
-                field = form(s"$fieldName.line3"),
-                '_label -> Messages(s"label.$fieldName.line3"),
-                '_labelClass -> "visuallyhidden",
-                'class -> "form-control",
-                'placeholder -> Messages("placeholder.address.line3"),
-                '_fieldsetClass -> "margin-bottom-0",
-                '_value -> addressData.fold("")(_.line3)
-            )
 
-            @inputText(
-                field = form(s"$fieldName.line4"),
-                '_label -> Messages(s"label.$fieldName.line4"),
-                '_labelClass -> "visuallyhidden",
-                'class -> "form-control",
-                'placeholder -> Messages("placeholder.address.line4"),
-                '_fieldsetClass -> "margin-bottom-20",
-                '_value -> addressData.fold("")(_.line4)
-            )
-
-            @inputText(
-                field = form(s"$fieldName.postcode"),
-                '_label -> Messages("label.address.postcode"),
-                '_labelClass -> "form-label-bold",
-                'class -> "form-control form-control-1-4",
-                '_error -> form.error("address.postcode"),
-                '_value -> addressData.fold("")(_.postcode)
-            )
 
             <a href="#" class="lookupAddress hide-if-no-js">@messages("addressLookup.lookup")</a>
         </div>
@@ -106,14 +103,14 @@
     <div class="form-group postcode-lookup-group"  id="addressGroup">
 
         <div class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
-            @inputText(
-                field = form("postcodeSearch"),
-                '_label -> Messages("label.address.postcode"),
-                '_labelClass -> "form-label-bold",
-                'class -> "form-control form-control-1-4",
-                '_help -> Html(Messages(helpText)),
-                '_value -> postcode
-            )
+            @GovukInput(Input(
+            id = "postcodeSearch",
+            name = "postcodeSearch",
+            label = Label(content = HtmlContent(messages("label.address.postcode"))),
+            value =  Some(postcode),
+            errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
 
         <div class="form-group">
             <a href="#" id="postcodeLookupButton" class="button button-secondary" role="button">@messages("label.findAddress")</a>
