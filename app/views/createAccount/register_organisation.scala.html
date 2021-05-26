@@ -192,7 +192,7 @@
                             label = Label(content = HtmlContent(messages("label.ninoText"))),
                             value =  model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
                             errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                             classes = "govuk-!-width-one-quarter",
+                            classes = "govuk-!-width-one-quarter",
                             hint = Some(Hint(
                             content = Text(messages("hint.nino"))
                             ))

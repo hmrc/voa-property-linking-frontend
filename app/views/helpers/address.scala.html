@@ -23,6 +23,8 @@
 @addressIdValue = @{
     val loadedData = addressData.fold("")(_.addressUnitId.fold("")(_.toString))
     form(s"${fieldName}.addressId").value.getOrElse(loadedData)
+println(s"*****")
+println(form)
 }
 
 
@@ -45,21 +47,23 @@
             </div>
         </div>
 
-        <div class="address--fields show-if-no-js" @if(addressData.isEmpty | selectedAddress.nonEmpty){style="display: none"} else {style="display: block;"}>
+<div class="address--fields show-if-no-js" @if(addressData.isEmpty | selectedAddress.nonEmpty){style="display: none"} else {style="display: block;"}>
+
 
             @GovukInput(Input(
             id = "addressline1",
             name = "address.line1",
-            label = Label(content = HtmlContent(messages(s"label.$fieldName"))),
-            value =  Some(addressData.fold("")(_.line1)),
+            label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--l" ),
+            value =  form("addressline1").value.orElse(Some(addressData.fold("")(_.line1))),
             errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
             ))
 
+
             @GovukInput(Input(
             id = "addressline2",
             name = "address.line2",
-            label = Label(content = HtmlContent(messages(s"label.$fieldName"))),
+
             value =  Some(addressData.fold("")(_.line2)),
             errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
@@ -68,7 +72,7 @@
             @GovukInput(Input(
             id = "addressline3",
             name = "address.line3",
-            label = Label(content = HtmlContent(messages(s"label.$fieldName"))),
+
             value =  Some(addressData.fold("")(_.line3)),
             errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
@@ -78,7 +82,7 @@
             @GovukInput(Input(
             id = "addressline4",
             name = "address.line4",
-            label = Label(content = HtmlContent(messages(s"label.$fieldName"))),
+
             value =  Some(addressData.fold("")(_.line4)),
             errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
@@ -87,9 +91,9 @@
             @GovukInput(Input(
             id = "postcodeSearch",
             name = "postcodeSearch",
-            label = Label(content = HtmlContent(messages("label.address.postcode"))),
+            label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "govuk-label--l" ),
             value =  Some(addressData.fold("")(_.postcode)),
-            errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            errorMessage = form("addressData").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
             ))
 
@@ -106,9 +110,9 @@
             @GovukInput(Input(
             id = "postcodeSearch",
             name = "postcodeSearch",
-            label = Label(content = HtmlContent(messages("label.address.postcode"))),
+            label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "govuk-label--l" ),
             value =  Some(postcode),
-            errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            errorMessage = form("addressData").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
             ))
 
