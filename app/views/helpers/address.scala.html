@@ -16,6 +16,8 @@
 
 @import helpers._
 
+@this(govukInput: GovukInput)
+
 @(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "", addressData: Option[Address] = None, selectedAddress: Option[String] = None)(implicit request: Request[_], messages: Messages)
 
 @addressIdValue = @{
@@ -43,6 +45,15 @@
         </div>
 
         <div class="address--fields show-if-no-js" @if(addressData.isEmpty | selectedAddress.nonEmpty){style="display: none"} else {style="display: block;"}>
+
+            @govukInput(Input(
+            id = "firstName",
+            name = "firstName",
+            label = Label(content = HtmlContent(messages(s"label.$fieldName"))),
+            value =  Some(addressData.fold("")(_.line1)),
+            errorMessage = form("address").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
 
 
             @inputText(

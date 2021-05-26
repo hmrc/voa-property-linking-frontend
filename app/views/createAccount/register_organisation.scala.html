@@ -48,14 +48,13 @@
     <div class="govuk-body">
         <div class="govuk-grid-column-full">
 
-            <h1 class="heading-xlarge">@messages("enrolment.title")</h1>
+            <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
 
             @govukDetails(Details(
                 summary = Text(messages("createAccount.group.details.header.agent")),
                 content = Text(messages("createAccount.group.details.content.agent"))
             ))
 
-            <h1 class="govuk-heading-l">Your details</h1>
 
             @if(model.errors.nonEmpty) {
                 @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
