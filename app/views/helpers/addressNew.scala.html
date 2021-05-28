@@ -1,0 +1,130 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import helpers._
+
+
+
+@(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "", addressData: Option[Address] = None, selectedAddress: Option[String] = None)(implicit request: Request[_], messages: Messages)
+
+@addressIdValue = @{
+    val loadedData = addressData.fold("")(_.addressUnitId.fold("")(_.toString))
+    form(s"${fieldName}.addressId").value.getOrElse(loadedData)
+}
+
+
+
+    @addressForm = {
+        <div id="textAddressDiv" @if(selectedAddress.isEmpty){style="display: none"} else {style="display: block;"}>
+            <div id="text-form-group" class="form-group">
+                <div id="lastNameGroup" class="">
+                    <label class="form-label-bold" for="lastName">
+                        <span class=" label-span">@messages("label.address")</span>
+                    </label>
+                    <input type="hidden" id="@{
+                        fieldName
+                    }_addressId_text" name="@{
+                        fieldName
+                    }.addressId" value="@addressIdValue"/>
+                    <input type="hidden" id="selectedAddress" name="selectedAddress" value="@form("selectedAddress").value.getOrElse(selectedAddress.getOrElse(""))">
+                    <div id="textAddressData"></div>
+                </div>
+            </div>
+        </div>
+
+<div class="address--fields show-if-no-js" @if(addressData.isEmpty | selectedAddress.nonEmpty){style="display: none"} else {style="display: block;"}>
+
+
+            @GovukInput(Input(
+            id = "address.line1",
+            name = "address.line1",
+            label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--l" ),
+            value =  form("address.line1").value.orElse(Some(addressData.fold("")(_.line1))),
+            errorMessage = form("address.line1").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
+
+
+            @GovukInput(Input(
+            id = "address.line2",
+            name = "address.line2",
+            value =  form("address.line2").value.orElse(Some(addressData.fold("")(_.line2))),
+            errorMessage = form("address.line2").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
+
+            @GovukInput(Input(
+            id = "address.line3",
+            name = "address.line3",
+            value =  form("address.line3").value.orElse(Some(addressData.fold("")(_.line3))),
+            errorMessage = form("address.line3").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
+
+
+            @GovukInput(Input(
+            id = "address.line4",
+            name = "address.line4",
+            value =  form("address.line4").value.orElse(Some(addressData.fold("")(_.line4))),
+            errorMessage = form("address.line4").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
+
+
+            @GovukInput(Input(
+            id = "address.postcode",
+            name = "address.postcode",
+            label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "govuk-label--l" ),
+            value =  form("address.postcode").value.orElse(Some(addressData.fold("")(_.postcode))),
+            errorMessage = form("address.postcode").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
+
+            <a href="#" class="lookupAddress hide-if-no-js">@messages("addressLookup.lookup")</a>
+        </div>
+    }
+
+
+    <div class="form-group postcode-lookup-group"  id="addressGroup">
+
+        <div class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
+            @GovukInput(Input(
+            id = "postcodeSearch",
+            name = "postcodeSearch",
+            label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "govuk-label--l" ),
+            value =  Some(postcode),
+            errorMessage = form("addressData").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-!-width-one-quarter"
+            ))
+
+        <div class="form-group">
+            @GovukButton(Button(
+            attributes = Map("id" -> "postcodeLookupButton"),
+            classes = "govuk-button--secondary lookupAddress hide-if-no-js",
+            content = Text(messages("label.findAddress"))
+            ))
+
+        </div>
+
+        </div>
+
+        @addressForm
+
+        <p><a href="#" class="manualAddress hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"}>@messages("addressLookup.manual")</a></p>
+
+        <p><a href="#" class="lookupAddressCancel" style="display: none">@messages("label.findAddress.tryAgain")</a></p>
+
+    </div>
