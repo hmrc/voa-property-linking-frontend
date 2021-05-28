@@ -21,39 +21,45 @@
 @import controllers.manageDetails.UpdateDetailsVM
 @import config.ApplicationConfig
 
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput)
+
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    Messages("updatePhone.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = Some(controllers.manageDetails.routes.ViewDetails.show().url)
-) {
-    <div class="grid-row">
-        <div class="column-two-thirds">
+@mainLayout(
+    pageTitle = Messages("updatePhone.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    backUri = Some(controllers.manageDetails.routes.ViewDetails.show().url)
+){
+    <h1 class="govuk-heading-l">@messages("updatePhone.title")</h1>
 
-            <h1 class="heading-large">@messages("updatePhone.title")</h1>
+    @FormWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updatePhone()) {
 
-            @form(controllers.manageDetails.routes.UpdatePersonalDetails.updatePhone()) {
+        @govukInput(Input(
+            value = Some(model.currentDetails.phone1),
+            id = "phone",
+            name = "phone",
+            classes = "form-control govuk-input--width-10",
+            label = Label(
+                isPageHeading = false,
+                classes = "govuk-label--m",
+                content = Text(Messages("details.edit.label.telephone"))
+            ),
+            hint = Some(Hint(
+                content = Text(Messages("details.edit.phone.help"))
+            ))
+        ))
 
-                @inputText(
-                    field = prepopulated(model.form("phone"), model.currentDetails.phone1),
-                    '_label -> Messages("details.edit.label.telephone"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    '_help -> Messages("details.edit.phone.help"),
-                    'class -> "form-control"
-                )
-
-                <p>
-                    <button type="submit" id="update" class="button">@messages("link.update")</button>
-
-                    <a href="@controllers.manageDetails.routes.ViewDetails.show" class="button-secondary">
-                    @messages("link.cancel")
-                    </a>
-                </p>
-            }
-
+        <div class="govuk-button-group">
+            @govukButton(Button(
+                content = Text(messages("link.update")),
+                attributes = Map("id" -> "update")
+            ))
+            @govukButton(Button(
+                href = Some(controllers.manageDetails.routes.ViewDetails.show().url),
+                content = Text(messages("link.cancel")),
+                classes = "govuk-button--secondary"
+            ))
         </div>
-    </div>
+    }
+
 }

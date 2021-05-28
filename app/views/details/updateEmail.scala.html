@@ -20,50 +20,60 @@
 @import config.ApplicationConfig
 
 @import controllers.manageDetails.UpdateDetailsVM
+
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput)
+
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    Messages("updateEmail.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = Some(controllers.manageDetails.routes.ViewDetails.show.url)
+@mainLayout(
+    pageTitle = Messages("updateEmail.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url)
 ) {
+    <h1 class="govuk-heading-xl">@messages("details.edit.personalEmail")</h1>
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+    @FormWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateEmail()) {
 
-            <h1 class="heading-large margin-bottom-0 clear-right">
-            @messages("details.edit.personalEmail")
-            </h1>
+        @govukInput(Input(
+            value = Some(model.currentDetails.email),
+            id = "email",
+            name = "email",
+            classes = "form-control govuk-input--width-20",
+            label = Label(
+                isPageHeading = false,
+                classes = "govuk-label--m",
+                content = Text(Messages("label.createAccount.businessEmail"))
+            ),
+            hint = Some(Hint(
+                content = Text(Messages("details.edit.email.help"))
+            ))
+        ))
 
-            @form(controllers.manageDetails.routes.UpdatePersonalDetails.updateEmail()) {
+        @govukInput(Input(
+            value = Some(model.currentDetails.email),
+            id = "confirmedEmail",
+            name = "confirmedEmail",
+            classes = "form-control govuk-input--width-20",
+            label = Label(
+                isPageHeading = false,
+                classes = "govuk-label--m",
+                content = Text(Messages("details.edit.label.email.confirm"))
+            ),
+            hint = Some(Hint(
+                content = Text(Messages("details.edit.email.help"))
+            ))
+        ))
 
-                @inputText(
-                    field = prepopulated(model.form("email"), model.currentDetails.email),
-                    '_label -> Messages("details.edit.label.email"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    '_help -> Messages("details.edit.email.help"),
-                    'class -> "form-control"
-                )
-
-                @inputText(
-                    field = prepopulated(model.form("confirmedEmail"), model.currentDetails.email),
-                    '_label -> Messages("details.edit.label.email.confirm"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    '_help -> Messages("details.edit.email.help"),
-                    'class -> "form-control"
-                )
-
-                <p>
-                    <button type="submit" id="update" class="button">@messages("link.update")</button>
-
-                    <a href="@controllers.manageDetails.routes.ViewDetails.show" class="button-secondary">
-                    @messages("link.cancel")
-                    </a>
-                </p>
-            }
+        <div class="govuk-button-group">
+            @govukButton(Button(
+                content = Text(messages("link.update")),
+                attributes = Map("id" -> "update")
+            ))
+            @govukButton(Button(
+                href = Some(controllers.manageDetails.routes.ViewDetails.show().url),
+                content = Text(messages("link.cancel")),
+                classes = "govuk-button--secondary"
+            ))
         </div>
-    </div>
+    }
 }

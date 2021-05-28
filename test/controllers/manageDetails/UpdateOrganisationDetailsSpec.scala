@@ -17,7 +17,6 @@
 package controllers.manageDetails
 
 import java.time.{Clock, Instant, ZoneId}
-
 import connectors.GroupAccounts
 import controllers.VoaPropertyLinkingSpec
 import models._
@@ -27,6 +26,7 @@ import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.{ManageDetails, Success}
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukButton, GovukInput}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -246,7 +246,11 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
       preAuthenticatedActionBuilders(),
       mockGroups,
       mockAddresses,
-      mockManageDetails
+      mockManageDetails,
+      updateBusinessAddressView = new views.html.details.updateBusinessAddress(mainLayout, GovukButton),
+      updateBusinessNameView = new views.html.details.updateBusinessName(mainLayout, GovukButton, GovukInput),
+      updateBusinessPhoneView = new views.html.details.updateBusinessPhone(mainLayout, GovukButton, GovukInput),
+      updateBusinessEmailView = new views.html.details.updateBusinessEmail(mainLayout, GovukButton, GovukInput)
     )(
       executionContext,
       clock,

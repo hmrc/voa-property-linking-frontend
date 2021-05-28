@@ -19,27 +19,31 @@
 @import controllers.manageDetails.UpdateDetailsVM
 @import config.ApplicationConfig
 
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
+
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    Messages("updateAddress.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = Some(controllers.manageDetails.routes.ViewDetails.show().url)
+@mainLayout(
+    pageTitle = Messages("updateAddress.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    backUri = Some(controllers.manageDetails.routes.ViewDetails.show().url)
 ) {
-    <div class="grid-row">
-        <div class="column-two-thirds">
-            <h1 class="heading-large">@messages("updateAddress.title")</h1>
+    <h1 class="govuk-heading-l">@messages("updateAddress.title")</h1>
 
-            @form(controllers.manageDetails.routes.UpdatePersonalDetails.updateAddress()) {
-                @address(model.form, "address", helpText = "details.edit.postcode.help")
 
-                <p>
-                    <button type="submit" id="update" class="button">@messages("link.update")</button>
-                    <a href="@controllers.manageDetails.routes.ViewDetails.show" class="button-secondary">@messages("link.cancel")</a>
-                </p>
+    @form(controllers.manageDetails.routes.UpdatePersonalDetails.updateAddress()) {
+        @address(model.form, "address", helpText = "details.edit.postcode.help")
 
-            </div>
-    </div>
-}
+        <div class="govuk-button-group">
+            @govukButton(Button(
+                content = Text(messages("link.update")),
+                attributes = Map("id" -> "update")
+            ))
+            @govukButton(Button(
+                href = Some(controllers.manageDetails.routes.ViewDetails.show().url),
+                content = Text(messages("link.cancel")),
+                classes = "govuk-button--secondary"
+            ))
+        </div>
+    }
 }

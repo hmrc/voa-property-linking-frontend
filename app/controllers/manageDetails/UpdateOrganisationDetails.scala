@@ -40,7 +40,11 @@ class UpdateOrganisationDetails @Inject()(
       authenticated: AuthenticatedAction,
       groups: GroupAccounts,
       addresses: Addresses,
-      manageDetails: ManageDetails
+      manageDetails: ManageDetails,
+      updateBusinessAddressView: views.html.details.updateBusinessAddress,
+      updateBusinessNameView: views.html.details.updateBusinessName,
+      updateBusinessPhoneView: views.html.details.updateBusinessPhone,
+      updateBusinessEmailView: views.html.details.updateBusinessEmail
 )(
       implicit executionContext: ExecutionContext,
       clock: Clock,
@@ -50,8 +54,7 @@ class UpdateOrganisationDetails @Inject()(
 
   def viewBusinessName: Action[AnyContent] = authenticated { implicit request =>
     Ok(
-      views.html.details
-        .updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
+      updateBusinessNameView(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
   }
 
   def updateBusinessName(): Action[AnyContent] = authenticated.async { implicit request =>
@@ -61,13 +64,13 @@ class UpdateOrganisationDetails @Inject()(
         errors =>
           Future.successful(
             BadRequest(
-              views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+              updateBusinessNameView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         businessName => updateDetails(name = Some(businessName))
       )
   }
 
   def viewBusinessAddress: Action[AnyContent] = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(addressForm, request.organisationAccount)))
+    Ok(updateBusinessAddressView(UpdateOrganisationDetailsVM(addressForm, request.organisationAccount)))
   }
 
   def updateBusinessAddress(): Action[AnyContent] = authenticated.async { implicit request =>
@@ -76,8 +79,7 @@ class UpdateOrganisationDetails @Inject()(
       .fold(
         errors =>
           Future.successful(
-            BadRequest(views.html.details
-              .updateBusinessAddress(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+            BadRequest(updateBusinessAddressView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         address =>
           address.addressUnitId match {
             case Some(id) => updateDetails(addressId = Some(id))
@@ -90,7 +92,7 @@ class UpdateOrganisationDetails @Inject()(
   }
 
   def viewBusinessPhone: Action[AnyContent] = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(phoneForm, request.organisationAccount)))
+    Ok(updateBusinessPhoneView(UpdateOrganisationDetailsVM(phoneForm, request.organisationAccount)))
   }
 
   def updateBusinessPhone: Action[AnyContent] = authenticated.async { implicit request =>
@@ -99,13 +101,13 @@ class UpdateOrganisationDetails @Inject()(
       .fold(
         errors =>
           Future.successful(BadRequest(
-            views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+            updateBusinessPhoneView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         phone => updateDetails(phone = Some(phone))
       )
   }
 
   def viewBusinessEmail: Action[AnyContent] = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(emailForm, request.organisationAccount)))
+    Ok(updateBusinessEmailView(UpdateOrganisationDetailsVM(emailForm, request.organisationAccount)))
   }
 
   def updateBusinessEmail: Action[AnyContent] = authenticated.async { implicit request =>
@@ -114,7 +116,7 @@ class UpdateOrganisationDetails @Inject()(
       .fold(
         errors =>
           Future.successful(BadRequest(
-            views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+            updateBusinessEmailView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         email => updateDetails(email = Some(email))
       )
   }

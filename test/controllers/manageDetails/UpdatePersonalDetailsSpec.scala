@@ -25,6 +25,7 @@ import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.{ManageDetails, Success}
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukButton, GovukInput}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -292,7 +293,12 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
         mockAddressConnector,
         mockIndividualAccounts,
         mockManageDetails,
-        mockGroupAccounts
+        mockGroupAccounts,
+        updateAddressView = new views.html.details.updateAddress(mainLayout, GovukButton),
+        updatePhoneView = new views.html.details.updatePhone(mainLayout, GovukButton, GovukInput),
+        updateMobileView = new views.html.details.updateMobile(mainLayout, GovukButton, GovukInput),
+        updateEmailView = new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput),
+        updateNameView = new views.html.details.updateName(mainLayout, GovukButton, GovukInput)
       )
 
   lazy val mockIndividualAccounts: IndividualAccounts = {
