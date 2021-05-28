@@ -14,7 +14,7 @@
         function showFields() {
             $('.address--fields').css('display', 'block');
             $('.postcode-lookup-fields, .manualAddress').css('display', 'none');
-            $('.address--fields input').attr('placeholder', '');
+            $('.address--fields').attr('placeholder', '');
         }
 
         function clearFields(_this) {
@@ -22,14 +22,14 @@
         }
 
         function errorCheck() {
-            if($('#error-summary').length || $('#addressline1Group').find('.error-message').length || $('#addresspostcodeGroup').find('.error-message').length) {
+            if($('.govuk-error-summary').length) {
                 showFields();
             }
         }
 
         function showLookupError() {
-            $('#postcodeSearchGroup').find('.error-message').remove();
-            $('#postcodeSearch').before('<p class="error-message">' + messages.errors.postcodeLookupError + '</p>').closest('.form-group').addClass('error');
+            $('#postcodeSearch').find('.govuk-error-message').remove();
+            $('#postcodeSearch').before('<p class="govuk-error-message">' + messages.errors.postcodeLookupError + '</p>').closest('.form-group').addClass('error');
             active = true;
         }
 
@@ -60,7 +60,7 @@
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
                     statusCode: {
                         404: function(res) {
-                            $('#postcodeSearchGroup').find('.error-message').text(messages.errors.postcodeLookupError);
+                            $('#postcodeSearch').find('.govuk-error-message').text(messages.errors.postcodeLookupError);
                         }
                     },
                     success: function(data) {
@@ -182,8 +182,8 @@
             $('#textAddressDiv').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'block');
             $('.manualAddress').css('display', 'inline-block');
-            $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
-            $('#postcodeSearchGroup').find('.error-message').remove();
+            $('#postcodeSearch').closest('.form-group').removeClass('error');
+            $('#postcodeSearch').find('.govuk-error-message').remove();
             $('#postcodeSearch').val('');
             active = true;
         });
@@ -193,8 +193,8 @@
             $('.address--fields').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'block');
             $('.manualAddress').css('display', 'inline-block');
-            $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
-            $('#postcodeSearchGroup').find('.error-message').remove();
+            $('#postcodeSearch').closest('.form-group').removeClass('error');
+            $('#postcodeSearch').find('.govuk-error-message').remove();
             $('#postcodeSearch').val('').focus();
             $('#addressSelect, [for="addressSelect"], #addressHelp').remove();
             $(this).css('display', 'none');
