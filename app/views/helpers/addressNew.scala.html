@@ -29,7 +29,7 @@
 
     @addressForm = {
         <div id="textAddressDiv" @if(selectedAddress.isEmpty){style="display: none"} else {style="display: block;"}>
-            <div id="text-form-group" class="form-group">
+            <div id="text-form-group" class="govuk-form-group">
                 <div id="lastNameGroup" class="">
                     <label class="form-label-bold" for="lastName">
                         <span class=" label-span">@messages("label.address")</span>
@@ -98,7 +98,7 @@
     }
 
 
-    <div class="form-group postcode-lookup-group"  id="addressGroup">
+    <div class="govuk-form-group postcode-lookup-group"  id="addressGroup">
 
         <div class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
             @GovukInput(Input(
@@ -110,7 +110,7 @@
             classes = "govuk-!-width-one-quarter"
             ))
 
-        <div class="form-group">
+        <div class="govuk-form-group">
             @GovukButton(Button(
             attributes = Map("id" -> "postcodeLookupButton"),
             classes = "govuk-button--secondary lookupAddress hide-if-no-js",

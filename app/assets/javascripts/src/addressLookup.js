@@ -14,7 +14,7 @@
         function showFields() {
             $('.address--fields').css('display', 'block');
             $('.postcode-lookup-fields, .manualAddress').css('display', 'none');
-            $('.address--fields').attr('placeholder', '');
+            $('.address--fields input').attr('placeholder', '');
         }
 
         function clearFields(_this) {
@@ -28,7 +28,7 @@
         }
 
         function showLookupError() {
-            $('#postcodeSearch').find('.govuk-error-message').remove();
+            $('#postcodeSearchGroup').find('.govuk-error-message').remove();
             $('#postcodeSearch').before('<p class="govuk-error-message">' + messages.errors.postcodeLookupError + '</p>').closest('.form-group').addClass('error');
             active = true;
         }
@@ -60,7 +60,7 @@
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
                     statusCode: {
                         404: function(res) {
-                            $('#postcodeSearch').find('.govuk-error-message').text(messages.errors.postcodeLookupError);
+                            $('#postcodeSearchGroup').find('.error-message').text(messages.errors.postcodeLookupError);
                         }
                     },
                     success: function(data) {
@@ -182,8 +182,8 @@
             $('#textAddressDiv').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'block');
             $('.manualAddress').css('display', 'inline-block');
-            $('#postcodeSearch').closest('.form-group').removeClass('error');
-            $('#postcodeSearch').find('.govuk-error-message').remove();
+            $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
+            $('#postcodeSearchGroup').find('.error-message').remove();
             $('#postcodeSearch').val('');
             active = true;
         });
