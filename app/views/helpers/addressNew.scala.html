@@ -100,13 +100,13 @@
 
     <div class="govuk-form-group postcode-lookup-group"  id="addressGroup">
 
-        <div class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
+        <div id="postcodeSearchJS"  class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
             @GovukInput(Input(
             id = "postcodeSearch",
             name = "postcodeSearch",
             label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "govuk-label--l" ),
             value =  Some(postcode),
-            errorMessage = form("addressData").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            errorMessage = form("postcodeSearch").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
             ))
 

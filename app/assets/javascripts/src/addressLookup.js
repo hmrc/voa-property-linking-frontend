@@ -28,8 +28,9 @@
         }
 
         function showLookupError() {
-            $('#postcodeSearchGroup').find('.govuk-error-message').remove();
-            $('#postcodeSearch').before('<p class="govuk-error-message">' + messages.errors.postcodeLookupError + '</p>').closest('.form-group').addClass('error');
+            $('#postcodeSearch').find('.govuk-error-message').remove();
+            $('#postcodeSearch').before('<p class="govuk-form-group govuk-form-group--error">' + messages.errors.postcodeLookupError + '</p>').closest('.govuk-form-group').addClass('error');
+
             active = true;
         }
 
@@ -60,7 +61,7 @@
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
                     statusCode: {
                         404: function(res) {
-                            $('#postcodeSearchGroup').find('.error-message').text(messages.errors.postcodeLookupError);
+                            $('#postcodeSearchGroup').find('.govuk-error-message').text(messages.errors.postcodeLookupError);
                         }
                     },
                     success: function(data) {
@@ -183,7 +184,7 @@
             $('.postcode-lookup-fields').css('display', 'block');
             $('.manualAddress').css('display', 'inline-block');
             $('#postcodeSearchGroup').closest('.form-group').removeClass('error');
-            $('#postcodeSearchGroup').find('.error-message').remove();
+            $('#postcodeSearchGroup').find('.govuk-error-message').remove();
             $('#postcodeSearch').val('');
             active = true;
         });
@@ -193,7 +194,7 @@
             $('.address--fields').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'block');
             $('.manualAddress').css('display', 'inline-block');
-            $('#postcodeSearch').closest('.form-group').removeClass('error');
+            $('#postcodeSearch').closest('.govuk-form-group').removeClass('error');
             $('#postcodeSearch').find('.govuk-error-message').remove();
             $('#postcodeSearch').val('').focus();
             $('#addressSelect, [for="addressSelect"], #addressHelp').remove();
