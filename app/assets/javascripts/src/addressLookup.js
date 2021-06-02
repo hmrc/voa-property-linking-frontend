@@ -29,7 +29,8 @@
 
         function showLookupError() {
             $('#postcodeSearch').find('.govuk-error-message').remove();
-            $('#postcodeSearch').before('<p class="govuk-form-group govuk-form-group--error">' + messages.errors.postcodeLookupError + '</p>').closest('.govuk-form-group').addClass('error');
+            $('#postcodeSearch').before('<p class="govuk-form-group govuk-form-group--error">'
+            + messages.errors.postcodeLookupError + '</p>').closest('.govuk-form-group').addClass('error');
 
             active = true;
         }
