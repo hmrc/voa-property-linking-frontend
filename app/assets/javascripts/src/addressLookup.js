@@ -54,6 +54,7 @@
             $(this).closest('.postcode-lookup-group').find('#addressSelect, [for="addressSelect"]').remove();
 
             var postcode = $('#postcodeSearch').val();
+            console.log("postcode: " + postcode);
 
             if(postcode !== '' && active) {
                 active = false;
@@ -62,12 +63,16 @@
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
                     statusCode: {
                         404: function(res) {
+                              console.log("status code: 404");
                             $('#postcodeSearchGroup').find('.govuk-error-message').text(messages.errors.postcodeLookupError);
                         }
                     },
                     success: function(data) {
+
                         if (data.length > 0) {
-                            $('.postcode-lookup-group').prepend('<label for="addressSelect" class="form-label-bold">'+ messages.labels.selectValue +'</label><span class="form-hint" id="addressHelp">' + messages.labels.addressHelp + '</span><select id="addressSelect" class="addressList form-control"></select>');
+                            $('.postcode-lookup-group').prepend('<label for="addressSelect" class="govuk-label--m">'+
+                            messages.labels.selectValue +'</label><span class="govuk-hint" id="addressHelp">' +
+                            messages.labels.addressHelp + '</span><select id="addressSelect" class="addressList form-control"></select>');
                             $('#addressSelect').append('<option value="" selected disabled>' + messages.labels.selectValue + '</option>');
                             $('.postcode-lookup-fields').css('display', 'none');
                             $('.lookupAddressCancel').css('display', 'inline-block');
@@ -98,6 +103,8 @@
                                     addressLine(dependentLocality) +
                                     addressLine(postTown) +
                                     postcode;
+
+                                console.log("address : " + address.size);
 
                                 $('.addressList').append('<option value="' + i + '">' +  window.xssEscape(address) + '</option>');
                             });

@@ -31,9 +31,7 @@
         <div id="textAddressDiv" @if(selectedAddress.isEmpty){style="display: none"} else {style="display: block;"}>
             <div id="text-form-group" class="govuk-form-group">
                 <div id="lastNameGroup" class="">
-                    <label class="form-label-bold" for="lastName">
-                        <span class=" label-span">@messages("label.address")</span>
-                    </label>
+                        <label class="govuk-label govuk-label--s" for="selectedAddress">@messages("label.address")</label>
                     <input type="hidden" id="@{
                         fieldName
                     }_addressId_text" name="@{
@@ -100,7 +98,7 @@
 
     <div class="govuk-form-group postcode-lookup-group"  id="addressGroup">
 
-        <div id="postcodeSearchJS"  class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
+        <div class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
             @GovukInput(Input(
             id = "postcodeSearch",
             name = "postcodeSearch",
