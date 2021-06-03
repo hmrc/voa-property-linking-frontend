@@ -38,7 +38,7 @@
                         fieldName
                     }.addressId" value="@addressIdValue"/>
                     <input type="hidden" id="selectedAddress" name="selectedAddress" value="@form("selectedAddress").value.getOrElse(selectedAddress.getOrElse(""))">
-                    <div id="textAddressData"></div>
+                    <div class="govuk-body" id="textAddressData"></div>
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
             classes = "govuk-!-width-one-quarter"
             ))
 
-            <a href="#" class="lookupAddress hide-if-no-js">@messages("addressLookup.lookup")</a>
+            <a href="#" class="govuk-link lookupAddress hide-if-no-js">@messages("addressLookup.lookup")</a>
         </div>
     }
 
@@ -100,7 +100,7 @@
 
         <div class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
 
-            <div class="postcodeserachGroup">
+            <div class="postcodeserachGroup govuk-body">
                 @GovukInput(Input(
                                     id = "postcodeSearch",
                                     name = "postcodeSearch",
@@ -124,8 +124,8 @@
 
         @addressForm
 
-        <p><a href="#" class="manualAddress hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"}>@messages("addressLookup.manual")</a></p>
+        <p><a href="#" class="govuk-link manualAddress hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"}>@messages("addressLookup.manual")</a></p>
 
-        <p><a href="#" class="lookupAddressCancel" style="display: none">@messages("label.findAddress.tryAgain")</a></p>
+        <p><a href="#" class="govuk-link lookupAddressCancel" style="display: none">@messages("label.findAddress.tryAgain")</a></p>
 
     </div>

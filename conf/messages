@@ -1307,6 +1307,13 @@ enrolment.organisation.name.label = Organisation name
 enrolment.assistant.hint = You have been added as a user to your organisation, please confirm your details below
 enrolment.assistant.organisation.details.title = Your organisation details
 
+label.mobilePhone = Mobile number
+optional.label = Optional
+enrolment.tradeName = <h1 class="govuk-heading-m">Trading name (Optional)</h1>
+enrolment.mobphone = <h1 class="govuk-heading-m">Mobile number</h1>
+enrolment.phone = <h1 class="govuk-heading-m">Telephone number</h1>
+enrolment.confirmedEmail = <h1 class="govuk-heading-m">Confirm email address</h1>
+enrolment.email = <h1 class="govuk-heading-m">Email address</h1>
 enrolment.firstName = <h1 class="govuk-heading-m">First name</h1>
 enrolment.lastName = <h1 class="govuk-heading-m">Last name</h1>
 enrolment.address1 = Address line 1
