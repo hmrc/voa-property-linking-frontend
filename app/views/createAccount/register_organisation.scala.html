@@ -146,11 +146,13 @@
             items = Seq(
                 RadioItem(
                         content = Text("Yes"),
-                        value = Some("true")
+                        value = Some("true"),
+                        checked = model.data.get("isAgent").fold(false)(_ == "true")
                 ),
                 RadioItem(
                         content = Text("No"),
-                        value = Some("false")
+                        value = Some("false"),
+                        checked = model.data.get("isAgent").fold(true)(_ == "false")
                 )
                 ),
             classes = "govuk-radios--inline"

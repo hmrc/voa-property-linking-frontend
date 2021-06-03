@@ -29,8 +29,8 @@
 
         function showLookupError() {
             $('#postcodeSearch').find('.govuk-error-message').remove();
-            $('#postcodeSearch').before('<p class="govuk-form-group govuk-form-group--error">'
-            + messages.errors.postcodeLookupError + '</p>').closest('.govuk-form-group').addClass('error');
+            $('#postcodeSearch').before('<span class="govuk-form-group govuk-form-group--error">'
+            + messages.errors.postcodeLookupError + '</span>').closest('.govuk-form-group').addClass('error');
 
             active = true;
         }
@@ -63,7 +63,6 @@
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
                     statusCode: {
                         404: function(res) {
-
                             $('#postcodeSearchGroup').find('.govuk-error-message').text(messages.errors.postcodeLookupError);
                         }
                     },

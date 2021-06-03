@@ -102,7 +102,7 @@
             @GovukInput(Input(
             id = "postcodeSearch",
             name = "postcodeSearch",
-            label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "govuk-label--l" ),
+            label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "postcodeSearch govuk-label--l" ),
             value =  Some(postcode),
             errorMessage = form("postcodeSearch").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
