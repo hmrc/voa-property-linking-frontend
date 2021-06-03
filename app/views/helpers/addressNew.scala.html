@@ -49,7 +49,7 @@
             @GovukInput(Input(
             id = "address.line1",
             name = "address.line1",
-            label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--l" ),
+            label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--m" ),
             value =  form("address.line1").value.orElse(Some(addressData.fold("")(_.line1))),
             errorMessage = form("address.line1").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
@@ -85,7 +85,7 @@
             @GovukInput(Input(
             id = "address.postcode",
             name = "address.postcode",
-            label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "govuk-label--l" ),
+            label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "govuk-label--m" ),
             value =  form("address.postcode").value.orElse(Some(addressData.fold("")(_.postcode))),
             errorMessage = form("address.postcode").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
@@ -99,20 +99,23 @@
     <div class="govuk-form-group postcode-lookup-group"  id="addressGroup">
 
         <div class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
-            @GovukInput(Input(
-            id = "postcodeSearch",
-            name = "postcodeSearch",
-            label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "postcodeSearch govuk-label--l" ),
-            value =  Some(postcode),
-            errorMessage = form("postcodeSearch").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
-            ))
+
+            <div class="postcodeserachGroup">
+                @GovukInput(Input(
+                                    id = "postcodeSearch",
+                                    name = "postcodeSearch",
+                                    label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "postcodeSearch govuk-label--m" ),
+                                    value =  Some(postcode),
+                                    errorMessage = form("postcodeSearch").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                                    classes = "govuk-!-width-one-quarter"
+                                    ))
+            </div>
 
         <div class="govuk-form-group">
             @GovukButton(Button(
-            attributes = Map("id" -> "postcodeLookupButton"),
-            classes = "govuk-button--secondary lookupAddress hide-if-no-js",
-            content = Text(messages("label.findAddress"))
+                                attributes = Map("id" -> "postcodeLookupButton"),
+                                classes = "govuk-button--secondary lookupAddress hide-if-no-js",
+                                content = Text(messages("label.findAddress"))
             ))
 
         </div>
