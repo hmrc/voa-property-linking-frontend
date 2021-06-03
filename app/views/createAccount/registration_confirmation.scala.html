@@ -34,20 +34,20 @@
 <div class="grid-row">
     <div class="column-two-thirds">
 
-        <div class="transaction-banner--complete">
-            <h1 class="transaction-banner__heading">@messages("account.confirmation.heading")</h1>
-            <h2 class="transaction-banner__heading">@messages("create.success.personId") @id</h2>
+        <div class="govuk-body">
+            <h1 class="govuk-heading-xl">@messages("account.confirmation.heading")</h1>
+            <h2 class="govuk-heading-l">@messages("create.success.personId") @id</h2>
         </div>
-        <p>@messages("create.success.keepNote")</p>
-        <p>@messages("create.success.keepUsingGg")</p>
+        <p class="govuk-body">@messages("create.success.keepNote")</p>
+        <p class="govuk-body">@messages("create.success.keepUsingGg")</p>
 
         @if(affinityGroup != Individual && credentialRole != Assistant) {
-        <p>@Html(Messages("account.confirmation.addToGG", routes.Application.addUserToGG()))</p>
+        <p class="govuk-body">@Html(Messages("account.confirmation.addToGG", routes.Application.addUserToGG()))</p>
         }
 
-        <p>@Html(Messages("account.confirmation.disclaimer"))</p>
+        <p class="govuk-body">@Html(Messages("account.confirmation.disclaimer"))</p>
 
-        <a href="@config.dashboardUrl("home")" class="button" role="button">@messages("account.enrolment.link.success")</a>
+        <a href="@config.dashboardUrl("home")" class="govuk-button" role="button">@messages("account.enrolment.link.success")</a>
     </div>
 </div>
 }

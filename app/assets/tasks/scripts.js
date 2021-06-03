@@ -18,7 +18,6 @@ gulp.task('jshint', function() {
 gulp.task('javascripts', function(callback) {
   return gulp.src([
    './javascripts/src/*.js',
-    './javascripts/vendor/xss-escape.js',
     './node_modules/govuk_frontend_toolkit/javascripts/vendor/polyfills/bind.js',
     './node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js'
     ])

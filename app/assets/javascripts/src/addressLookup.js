@@ -54,7 +54,7 @@
             $(this).closest('.postcode-lookup-group').find('#addressSelect, [for="addressSelect"]').remove();
 
             var postcode = $('#postcodeSearch').val();
-            console.log("postcode: " + postcode);
+
 
             if(postcode !== '' && active) {
                 active = false;
@@ -63,7 +63,7 @@
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
                     statusCode: {
                         404: function(res) {
-                              console.log("status code: 404");
+
                             $('#postcodeSearchGroup').find('.govuk-error-message').text(messages.errors.postcodeLookupError);
                         }
                     },
@@ -104,14 +104,13 @@
                                     addressLine(postTown) +
                                     postcode;
 
-                                console.log("address : " + address.size);
-
                                 $('.addressList').append('<option value="' + i + '">' +  window.xssEscape(address) + '</option>');
                             });
                             $('#addressSelect').focus();
                             $('#addressSelect').change(function (e) {
                                 $("#textAddressData").empty();
                                 $('[for="addressSelect"], .lookupAddressCancel').css('display', 'none');
+                                $('#addressHelp, .lookupAddressCancel').css('display', 'none');
                                 var index = $(this).find('option:selected').index() - 1;
                                 $('.address--fields').css('display', 'none');
                                 $('#textAddressDiv').css('display', 'block');
