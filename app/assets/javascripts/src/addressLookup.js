@@ -28,10 +28,18 @@
         }
 
         function showLookupError() {
+
+            var isContains = $('#postcodeSearchOnly').text().indexOf('Enter a valid postcode') > -1;
+
+    console.log(isContains)
+    if(isContains == true){
+         $('span[id^="invalidPostcode"]').remove();
+    }
+
             $('#postcodeSearchGroup').find('.govuk-error-message').remove();
             $('#postcodeSearchGroup').before('<span class="govuk-form-group govuk-form-group--error">'
                 + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
-            $('#postcodeSearch').before('<span class="govuk-error-message">'
+            $('#postcodeSearch').before('<span id="invalidPostcode" class="govuk-error-message">'
             + messages.errors.postcodeLookupError + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
 
             active = true;
