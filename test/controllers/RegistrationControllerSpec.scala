@@ -99,7 +99,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.inputMustContain("confirmedEmail", user.email)
     html.inputMustContain("firstName", user.firstName.get)
     html.inputMustContain("lastName", user.lastName.get)
-    html.inputMustContain("addresspostcode", user.postcode.get)
+    html.inputMustContain("address.postcode", user.postcode.get)
   }
 
   "Going to the create account page, when logged in with an account that is an Agent" should
@@ -118,7 +118,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-    html.inputMustContain("addresspostcode", user.postcode.get)
+    html.inputMustContain("address.postcode", user.postcode.get)
 
     html.mustContainText("Business name")
     html.inputMustContain("email", user.email)
@@ -153,7 +153,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.mustContainText("Last Name - This must be filled in")
+    html.mustContainText("Last name - This must be filled in")
     html.mustNotContainText("First Name - This must be filled in")
   }
 

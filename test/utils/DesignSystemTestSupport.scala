@@ -17,7 +17,7 @@
 package utils
 
 import uk.gov.hmrc.govukfrontend.views.Layouts
-import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukButton, GovukDetails, GovukFooter, GovukHeader, GovukInsetText}
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukButton, GovukDateInput, GovukDetails, GovukErrorSummary, GovukFooter, GovukHeader, GovukInput, GovukInsetText, GovukRadios}
 import views.html.{addUserToGG, start}
 
 trait DesignSystemTestSupport extends Layouts {
@@ -36,11 +36,39 @@ trait DesignSystemTestSupport extends Layouts {
   val assessmentsView = new views.html.dashboard.assessments(mainLayout, GovukDetails)
   val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
 
-  val registerIndividual = new views.html.createAccount.register_individual(GovukInsetText, GovukDetails, mainLayout)
+  val registerIndividual = new views.html.createAccount.register_individual(
+    GovukInsetText,
+    GovukDetails,
+    mainLayout,
+    GovukErrorSummary,
+    GovukInput,
+    GovukDateInput,
+    GovukButton)
   val registerOrganistaion =
-    new views.html.createAccount.register_organisation(GovukInsetText, GovukDetails, mainLayout)
-  val registerAssAdmin = new views.html.createAccount.register_assistant_admin(GovukInsetText, GovukDetails, mainLayout)
-  val registerAssistant = new views.html.createAccount.register_assistant(GovukInsetText, GovukDetails, mainLayout)
+    new views.html.createAccount.register_organisation(
+      GovukButton,
+      GovukDateInput,
+      GovukInsetText,
+      GovukDetails,
+      mainLayout,
+      GovukErrorSummary,
+      GovukInput,
+      GovukRadios)
+  val registerAssAdmin = new views.html.createAccount.register_assistant_admin(
+    GovukInsetText,
+    GovukDetails,
+    mainLayout,
+    GovukErrorSummary,
+    GovukInput,
+    GovukButton,
+    GovukDateInput)
+  val registerAssistant = new views.html.createAccount.register_assistant(
+    GovukInsetText,
+    GovukDetails,
+    mainLayout,
+    GovukErrorSummary,
+    GovukInput,
+    GovukButton)
   val registerConfirmation =
     new views.html.createAccount.registration_confirmation(GovukInsetText, GovukDetails, mainLayout)
 

@@ -98,9 +98,9 @@
 
     <div class="govuk-form-group postcode-lookup-group"  id="addressGroup">
 
-        <div class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
+        <div id="postcodeSearchOnly" class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
 
-            <div class="postcodeserachGroup govuk-body">
+            <div class="postcodeSearchGroup govuk-body">
                 @GovukInput(Input(
                                     id = "postcodeSearch",
                                     name = "postcodeSearch",
