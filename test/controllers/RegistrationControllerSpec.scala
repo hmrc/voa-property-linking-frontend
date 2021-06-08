@@ -64,13 +64,13 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       individualAccounts = StubIndividualAccountConnector,
       addresses = StubAddresses,
       registrationService = mockRegistrationService,
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton),
-      invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout),
-      registerIndividual = registerIndividual,
-      registerOrganisation = registerOrganistaion,
-      registerAssAdmin = registerAssAdmin,
-      registerAssistant = registerAssistant,
-      registerConfirmation = registerConfirmation,
+      invalidAccountTypeView = invalidAccountTypeView,
+      invalidAccountCreationView = invalidAccountCreationView,
+      registerIndividualView = registerIndividualView,
+      registerOrganisationView = registerOrganisationView,
+      registerAssAdminView = registerAssAdminView,
+      registerAssistantView = registerAssistantView,
+      registerConfirmationView = registerConfirmationView,
       personalDetailsSessionRepo = mockSessionRepo
     )
 

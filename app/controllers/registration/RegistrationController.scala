@@ -46,11 +46,11 @@ class RegistrationController @Inject()(
       registrationService: RegistrationService,
       invalidAccountTypeView: views.html.errors.invalidAccountType,
       invalidAccountCreationView: views.html.errors.invalidAccountCreation,
-      registerIndividual: views.html.createAccount.register_individual,
-      registerOrganisation: views.html.createAccount.register_organisation,
-      registerAssAdmin: views.html.createAccount.register_assistant_admin,
-      registerAssistant: views.html.createAccount.register_assistant,
-      registerConfirmation: views.html.createAccount.registration_confirmation,
+      registerIndividualView: views.html.createAccount.register_individual,
+      registerOrganisationView: views.html.createAccount.register_organisation,
+      registerAssAdminView: views.html.createAccount.register_assistant_admin,
+      registerAssistantView: views.html.createAccount.register_assistant,
+      registerConfirmationView: views.html.createAccount.registration_confirmation,
       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
 )(
       implicit executionContext: ExecutionContext,
@@ -70,7 +70,7 @@ class RegistrationController @Inject()(
               case None                                                     => FieldData(user)
               case Some(sessionPersonDetails: IndividualUserAccountDetails) => FieldData(sessionPersonDetails)
             }
-            Future.successful(Ok(registerIndividual(AdminUser.individual, fieldData)))
+            Future.successful(Ok(registerIndividualView(AdminUser.individual, fieldData)))
           case user @ OrganisationUserDetails() =>
             orgShow(user, request.sessionPersonDetails)
           case user @ AgentUserDetails() =>
@@ -84,7 +84,7 @@ class RegistrationController @Inject()(
     AdminUser.individual
       .bindFromRequest()
       .fold(
-        errors => Future.successful(BadRequest(registerIndividual(errors, FieldData()))),
+        errors => Future.successful(BadRequest(registerIndividualView(errors, FieldData()))),
         (success: IndividualUserAccountDetails) =>
           personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
             Redirect(controllers.routes.IdentityVerification.startIv())
@@ -96,7 +96,7 @@ class RegistrationController @Inject()(
     AdminUser.organisation
       .bindFromRequest()
       .fold(
-        errors => Future.successful(BadRequest(registerOrganisation(errors, FieldData()))),
+        errors => Future.successful(BadRequest(registerOrganisationView(errors, FieldData()))),
         (success: AdminOrganisationAccountDetails) =>
           personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
             Redirect(controllers.routes.IdentityVerification.startIv())
@@ -112,7 +112,7 @@ class RegistrationController @Inject()(
           getCompanyDetails(request.groupIdentifier).map {
             case Some(fieldData) =>
               BadRequest(
-                registerAssAdmin(
+                registerAssAdminView(
                   errors,
                   fieldData
                 ))
@@ -141,7 +141,7 @@ class RegistrationController @Inject()(
           getCompanyDetails(request.groupIdentifier).map {
             case Some(fieldData) =>
               BadRequest(
-                registerAssistant(
+                registerAssistantView(
                   errors,
                   fieldData
                 ))
@@ -171,7 +171,7 @@ class RegistrationController @Inject()(
 
   def success(personId: Long): Action[AnyContent] = ggAuthenticated { implicit request =>
     val user = request.userDetails
-    Ok(registerConfirmation(personId.toString, user.affinityGroup, user.credentialRole))
+    Ok(registerConfirmationView(personId.toString, user.affinityGroup, user.credentialRole))
   }
 
   private def orgShow(userDetails: UserDetails, sessionPersonDetails: Option[User])(
@@ -185,13 +185,13 @@ class RegistrationController @Inject()(
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
 
-            Ok(registerAssAdmin(AdminInExistingOrganisationUser.organisation, data))
+            Ok(registerAssAdminView(AdminInExistingOrganisationUser.organisation, data))
           case Assistant =>
             val data = sessionPersonDetails match {
               case None                                                 => fieldData
               case Some(spd: AdminInExistingOrganisationAccountDetails) => FieldData(spd)
             }
-            Ok(registerAssistant(AssistantUser.assistant, data))
+            Ok(registerAssistantView(AssistantUser.assistant, data))
         }
       case None =>
         userDetails.credentialRole match {
@@ -203,7 +203,7 @@ class RegistrationController @Inject()(
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
 
-            Ok(registerOrganisation(AdminUser.organisation, data))
+            Ok(registerOrganisationView(AdminUser.organisation, data))
         }
     }
 
