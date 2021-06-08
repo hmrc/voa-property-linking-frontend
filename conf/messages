@@ -943,7 +943,7 @@ label.dob.day=Date of Birth - Day
 label.dob.month=Date of Birth - Month
 label.dob.year=Date of Birth - Year
 label.nino=NINO
-label.ninoText=<h1 class="govuk-heading-m">National Insurance number</h1>
+label.ninoText=National Insurance number
 label.phone=Phone
 label.isAgent=Agent
 label.youCanNow=You can now:
@@ -971,7 +971,6 @@ label.status=Status
 label.search=Search
 label.clear.search=Clear Search
 
-label.Address=<h1 class="govuk-heading-l">Address<h1/>
 label.address.line1=Address line 1
 label.address.line2=Address line 2
 label.address.line3=Address line 3
@@ -1301,7 +1300,7 @@ create.success.personId=VOA Personal ID:
 create-account.type.question=Which type of account would you like to create?
 
 enrolment.title = Complete your contact details
-enrolment.organisation.name = <h1 class="govuk-heading-m">Business name</h1>
+enrolment.organisation.name = Business name
 enrolment.organisation.name.label = Organisation name
 
 enrolment.assistant.hint = You have been added as a user to your organisation, please confirm your details below
@@ -1309,7 +1308,7 @@ enrolment.assistant.organisation.details.title = Your organisation details
 
 label.mobilePhone = Mobile number
 optional.label = Optional
-enrolment.tradeName = <h1 class="govuk-heading-m">Trading name (Optional)</h1>
+enrolment.tradeName = Trading name (Optional)
 enrolment.mobphone = <h1 class="govuk-heading-m">Mobile number</h1>
 enrolment.phone = <h1 class="govuk-heading-m">Telephone number</h1>
 enrolment.confirmedEmail = <h1 class="govuk-heading-m">Confirm email address</h1>

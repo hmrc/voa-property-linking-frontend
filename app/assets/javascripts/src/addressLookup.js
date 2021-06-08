@@ -31,7 +31,7 @@
 
             var isError = $('#postcodeSearchOnly').text().indexOf('Enter a valid postcode') > -1;
 
-            if(isError == true){
+            if(isError){
                  $('span[id^="invalidPostcode"]').remove();
             }
 

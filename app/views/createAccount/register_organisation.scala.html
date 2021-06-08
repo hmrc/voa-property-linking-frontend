@@ -191,7 +191,8 @@
             @govukInput(Input(
                             id = "nino",
                             name = "nino",
-                            label = Label(content = HtmlContent(messages("label.ninoText"))),
+                            label = Label(content = HtmlContent(messages("label.ninoText")),
+                            classes="govuk-label--m"),
                             value =  model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
                             errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                             classes = "govuk-!-width-one-quarter",
