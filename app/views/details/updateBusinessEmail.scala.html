@@ -34,7 +34,7 @@
     @FormWithCSRF(controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessEmail()) {
 
         @govukInput(Input(
-            value = Some(model.currentDetails.email),
+            value = model.form("email").value.orElse(Some(model.currentDetails.email)),
             id = "email",
             name = "email",
             classes = "form-control govuk-input--width-20",
@@ -42,11 +42,12 @@
                 isPageHeading = false,
                 classes = "govuk-label--m",
                 content = Text(Messages("label.createAccount.businessEmail"))
-            )
+            ),
+            errorMessage = model.form("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))
 
         @govukInput(Input(
-            value = Some(model.currentDetails.email),
+            value = model.form("confirmedEmail").value.orElse(Some(model.currentDetails.email)),
             id = "confirmedEmail",
             name = "confirmedEmail",
             classes = "form-control govuk-input--width-20",
@@ -54,7 +55,8 @@
                 isPageHeading = false,
                 classes = "govuk-label--m",
                 content = Text(Messages("label.createAccount.confirmedBusinessEmail"))
-            )
+            ),
+            errorMessage = model.form("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))
 
         <div class="govuk-button-group">

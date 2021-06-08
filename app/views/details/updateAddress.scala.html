@@ -31,8 +31,12 @@
     <h1 class="govuk-heading-l">@messages("updateAddress.title")</h1>
 
 
-    @form(controllers.manageDetails.routes.UpdatePersonalDetails.updateAddress()) {
-        @address(model.form, "address", helpText = "details.edit.postcode.help")
+    @FormWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateAddress()) {
+        @addressNew(
+            form = model.form,
+            fieldName = "address",
+            helpText = "details.edit.postcode.help"
+        )
 
         <div class="govuk-button-group">
             @govukButton(Button(

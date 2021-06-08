@@ -66,8 +66,7 @@ class UpdatePersonalDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(updateEmailView(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          Future.successful(BadRequest(updateEmailView(UpdateDetailsVM(errors, request.individualAccount.details)))),
         email => updateDetails(email = Some(email))
       )
   }
@@ -81,8 +80,7 @@ class UpdatePersonalDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(updateAddressView(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          Future.successful(BadRequest(updateAddressView(UpdateDetailsVM(errors, request.individualAccount.details)))),
         address =>
           address.addressUnitId match {
             case Some(id) => updateDetails(addressId = Some(id))
@@ -103,8 +101,7 @@ class UpdatePersonalDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(updatePhoneView(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          Future.successful(BadRequest(updatePhoneView(UpdateDetailsVM(errors, request.individualAccount.details)))),
         phone => updateDetails(phone = Some(phone))
       )
   }
@@ -118,8 +115,7 @@ class UpdatePersonalDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(updateNameView(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          Future.successful(BadRequest(updateNameView(UpdateDetailsVM(errors, request.individualAccount.details)))),
         name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
       )
   }
@@ -133,8 +129,7 @@ class UpdatePersonalDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(updateMobileView(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          Future.successful(BadRequest(updateMobileView(UpdateDetailsVM(errors, request.individualAccount.details)))),
         mobile => updateDetails(mobile = Some(mobile))
       )
   }

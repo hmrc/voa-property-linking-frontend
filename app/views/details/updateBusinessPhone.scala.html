@@ -34,7 +34,7 @@
     @FormWithCSRF(controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessPhone()) {
 
         @govukInput(Input(
-            value = Some(model.currentDetails.phone),
+            value = model.form("phone").value.orElse(Some(model.currentDetails.phone)),
             id = "phone",
             name = "phone",
             classes = "form-control govuk-input--width-20",
@@ -42,7 +42,8 @@
                 isPageHeading = false,
                 classes = "govuk-label--m",
                 content = Text(Messages("label.createAccount.businessPhone"))
-            )
+            ),
+            errorMessage = model.form("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))
 
         <div class="govuk-button-group">

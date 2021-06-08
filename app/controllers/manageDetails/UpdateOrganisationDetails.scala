@@ -53,8 +53,7 @@ class UpdateOrganisationDetails @Inject()(
 ) extends PropertyLinkingController {
 
   def viewBusinessName: Action[AnyContent] = authenticated { implicit request =>
-    Ok(
-      updateBusinessNameView(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
+    Ok(updateBusinessNameView(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
   }
 
   def updateBusinessName(): Action[AnyContent] = authenticated.async { implicit request =>
@@ -63,8 +62,7 @@ class UpdateOrganisationDetails @Inject()(
       .fold(
         errors =>
           Future.successful(
-            BadRequest(
-              updateBusinessNameView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+            BadRequest(updateBusinessNameView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         businessName => updateDetails(name = Some(businessName))
       )
   }
@@ -100,8 +98,8 @@ class UpdateOrganisationDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(BadRequest(
-            updateBusinessPhoneView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+          Future.successful(
+            BadRequest(updateBusinessPhoneView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         phone => updateDetails(phone = Some(phone))
       )
   }
@@ -115,8 +113,8 @@ class UpdateOrganisationDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(BadRequest(
-            updateBusinessEmailView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+          Future.successful(
+            BadRequest(updateBusinessEmailView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         email => updateDetails(email = Some(email))
       )
   }

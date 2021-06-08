@@ -35,7 +35,7 @@
     @FormWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateName()) {
 
         @govukInput(Input(
-            value = Some(model.currentDetails.firstName),
+            value = model.form("firstName").value.orElse(Some(model.currentDetails.firstName)),
             id = "firstName",
             name = "firstName",
             classes = "form-control govuk-input--width-20",
@@ -43,11 +43,12 @@
                 isPageHeading = false,
                 classes = "govuk-label--m",
                 content = Text(Messages("details.edit.label.firstName"))
-            )
+            ),
+            errorMessage = model.form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))
 
         @govukInput(Input(
-            value = Some(model.currentDetails.lastName),
+            value = model.form("lastName").value.orElse(Some(model.currentDetails.lastName)),
             id = "lastName",
             name = "lastName",
             classes = "form-control govuk-input--width-20",
@@ -55,7 +56,8 @@
                 isPageHeading = false,
                 classes = "govuk-label--m",
                 content = Text(Messages("details.edit.label.lastName"))
-            )
+            ),
+            errorMessage = model.form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))
 
         <div class="govuk-button-group">

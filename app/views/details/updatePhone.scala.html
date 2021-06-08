@@ -35,7 +35,7 @@
     @FormWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updatePhone()) {
 
         @govukInput(Input(
-            value = Some(model.currentDetails.phone1),
+            value = model.form("phone").value.orElse(Some(model.currentDetails.phone1)),
             id = "phone",
             name = "phone",
             classes = "form-control govuk-input--width-10",
@@ -46,7 +46,8 @@
             ),
             hint = Some(Hint(
                 content = Text(Messages("details.edit.phone.help"))
-            ))
+            )),
+            errorMessage = model.form("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))
 
         <div class="govuk-button-group">

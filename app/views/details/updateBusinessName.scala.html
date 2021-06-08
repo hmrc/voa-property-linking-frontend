@@ -33,7 +33,7 @@
 
     @FormWithCSRF(controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessName()) {
         @govukInput(Input(
-            value = Some(model.currentDetails.companyName),
+            value = model.form("businessName").value.orElse(Some(model.currentDetails.companyName)),
             id = "businessName",
             name = "businessName",
             classes = "form-control govuk-input--width-20",
@@ -41,7 +41,8 @@
                 isPageHeading = false,
                 classes = "govuk-label--m",
                 content = Text(Messages("label.companyName"))
-            )
+            ),
+            errorMessage = model.form("businessName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))
 
         <div class="govuk-button-group">
