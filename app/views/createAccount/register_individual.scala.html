@@ -29,17 +29,17 @@
 
 
 @getEnrichedErrorLinks = @{
-model.errors.map{ error =>
-ErrorLink(href = Some(s"#${error.key}"),
-content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
+    model.errors.map{ error =>
+    ErrorLink(href = Some(s"#${error.key}"),
+    content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
 }
 
 @getFromDateFiledErrorMessage = @{
-(model.error("dob.day"), model.error("dob.month"), model.error("dob.year")) match
-{
-case (None, None, None ) => None
-case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
-}
+    (model.error("dob.day"), model.error("dob.month"), model.error("dob.year")) match
+    {
+        case (None, None, None ) => None
+        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
+    }
 }
 
 
@@ -48,85 +48,84 @@ case _                   => Some(ErrorMessage(content = Text(messages("error.com
     <div class="grid-row">
         <div class="column-two-thirds">
 
-            <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
-
             @if(model.errors.nonEmpty) {
                 @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
             }
 
+            <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
 
             @FormWithCSRF(controllers.registration.routes.RegistrationController.submitIndividual()) {
 
             @govukInput(Input(
-            id = "firstName",
-            name = "firstName",
-            label = Label(content = HtmlContent(messages("enrolment.firstName"))),
-            value =  model("firstName").value.orElse(Some(individualFieldData.firstName)),
-            errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+                id = "firstName",
+                name = "firstName",
+                label = Label(content = HtmlContent(messages("enrolment.firstName"))),
+                value =  model("firstName").value.orElse(Some(individualFieldData.firstName)),
+                errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-!-width-one-quarter"
             ))
 
             @govukInput(Input(
-            id = "lastName",
-            name = "lastName",
-            label = Label(content = HtmlContent(messages("enrolment.lastName"))),
-            value =  model("lastName").value.orElse(Some(individualFieldData.lastName)),
-            errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+                id = "lastName",
+                name = "lastName",
+                label = Label(content = HtmlContent(messages("enrolment.lastName"))),
+                value =  model("lastName").value.orElse(Some(individualFieldData.lastName)),
+                errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-!-width-one-quarter"
             ))
 
 
             @addressNew(
-            form = model,
-            fieldName = keys.address,
-            postcode = individualFieldData.postcode,
-            addressData = if(individualFieldData.businessAddress == Address.empty){None} else {Some(individualFieldData.businessAddress)},
-            selectedAddress = individualFieldData.selectedAddress
+                form = model,
+                fieldName = keys.address,
+                postcode = individualFieldData.postcode,
+                addressData = if(individualFieldData.businessAddress == Address.empty){None} else {Some(individualFieldData.businessAddress)},
+                selectedAddress = individualFieldData.selectedAddress
             )
 
             @govukInput(Input(
-            id = "email",
-            name = "email",
-            label = Label(content = HtmlContent(messages("enrolment.email"))),
-            value =  model("email").value.orElse(Some(individualFieldData.email)),
-            errorMessage = model("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+                id = "email",
+                name = "email",
+                label = Label(content = HtmlContent(messages("enrolment.email"))),
+                value =  model("email").value.orElse(Some(individualFieldData.email)),
+                errorMessage = model("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-!-width-one-quarter"
             ))
 
             @govukInput(Input(
-            id = "confirmedEmail",
-            name = "confirmedEmail",
-            label = Label(content = HtmlContent(messages("enrolment.confirmedEmail"))),
-            value =  model("confirmedEmail").value.orElse(Some(individualFieldData.email)),
-            errorMessage = model("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+                id = "confirmedEmail",
+                name = "confirmedEmail",
+                label = Label(content = HtmlContent(messages("enrolment.confirmedEmail"))),
+                value =  model("confirmedEmail").value.orElse(Some(individualFieldData.email)),
+                errorMessage = model("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-!-width-one-quarter"
             ))
 
             @govukInput(Input(
-            id = "phone",
-            name = "phone",
-            label = Label(content = HtmlContent(messages("enrolment.phone"))),
-            value =  model("phone").value.orElse(Some(individualFieldData.businessPhoneNumber)),
-            errorMessage = model("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+                id = "phone",
+                name = "phone",
+                label = Label(content = HtmlContent(messages("enrolment.phone"))),
+                value =  model("phone").value.orElse(Some(individualFieldData.businessPhoneNumber)),
+                errorMessage = model("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-!-width-one-quarter"
             ))
 
             @govukInput(Input(
-            id = "mobilePhone",
-            name = "mobilePhone",
-            label = Label(content = HtmlContent(messages("enrolment.mobphone"))),
-            value =  model("mobilePhone").value.orElse(Some(individualFieldData.mobilePhone)),
-            errorMessage = model("mobilePhone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+                id = "mobilePhone",
+                name = "mobilePhone",
+                label = Label(content = HtmlContent(messages("enrolment.mobphone"))),
+                value =  model("mobilePhone").value.orElse(Some(individualFieldData.mobilePhone)),
+                errorMessage = model("mobilePhone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-!-width-one-quarter"
             ))
 
             @govukInput(Input(
-            id = "tradingName",
-            name = "tradingName",
-            label = Label(content = HtmlContent(messages("enrolment.tradeName"))),
-            value =  model("tradingName").value.orElse(Some(individualFieldData.businessName)),
-            hint = Some(Hint( content = Text(messages("optional.label")) )),
-            classes = "govuk-!-width-one-quarter"
+                id = "tradingName",
+                name = "tradingName",
+                label = Label(content = HtmlContent(messages("enrolment.tradeName"))),
+                value =  model("tradingName").value.orElse(Some(individualFieldData.businessName)),
+                hint = Some(Hint( content = Text(messages("optional.label")) )),
+                classes = "govuk-!-width-one-quarter"
             ))
 
 

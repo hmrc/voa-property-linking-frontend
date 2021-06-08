@@ -44,6 +44,7 @@ trait DesignSystemTestSupport extends Layouts {
     GovukInput,
     GovukDateInput,
     GovukButton)
+
   val registerOrganistaion =
     new views.html.createAccount.register_organisation(
       GovukButton,
@@ -54,6 +55,7 @@ trait DesignSystemTestSupport extends Layouts {
       GovukErrorSummary,
       GovukInput,
       GovukRadios)
+
   val registerAssAdmin = new views.html.createAccount.register_assistant_admin(
     GovukInsetText,
     GovukDetails,
@@ -62,6 +64,7 @@ trait DesignSystemTestSupport extends Layouts {
     GovukInput,
     GovukButton,
     GovukDateInput)
+
   val registerAssistant = new views.html.createAccount.register_assistant(
     GovukInsetText,
     GovukDetails,
@@ -69,6 +72,7 @@ trait DesignSystemTestSupport extends Layouts {
     GovukErrorSummary,
     GovukInput,
     GovukButton)
+
   val registerConfirmation =
     new views.html.createAccount.registration_confirmation(GovukInsetText, GovukDetails, mainLayout)
 

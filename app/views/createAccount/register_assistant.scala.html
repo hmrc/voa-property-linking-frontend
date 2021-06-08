@@ -28,87 +28,87 @@
 
 @(model: Form[AssistantUserAccountDetails], assistantFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@isAgent(selected:Boolean) = @{if(selected) """checked="checked""" else """ disabled="disabled" """}
+@isAgent(selected: Boolean) = @{
+if(selected) """checked="checked""" else """ disabled="disabled" """
+}
 
 @getEnrichedErrorLinks = @{
-model.errors.map{ error =>
-ErrorLink(href = Some(s"#${error.key}"),
-content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
+    model.errors.map{ error =>
+    ErrorLink(href = Some(s"#${error.key}"),
+    content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
 }
 
 @mainLayout(pageTitle = messages("assessments.title"), mainClass = Some("govuk-grid-column-full")) {
 
+<div class="grid-row">
+    <div class="column-two-thirds">
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+        @if(model.errors.nonEmpty) {
+            @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title =
+            Text(messages("error.propertyRepresentation.title"))))
+        }
 
-            <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
+        <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
 
-            @if(model.errors.nonEmpty) {
-            @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
-            }
+        <p class="govuk-hint">@messages("enrolment.assistant.hint")</p>
+        <h2 class="govuk-heading-m">@messages("enrolment.assistant.organisation.details.title")</h2>
 
-
-            <p class="govuk-hint">@messages("enrolment.assistant.hint")</p>
-            <h2 class="govuk-heading-m">@messages("enrolment.assistant.organisation.details.title")</h2>
-
-                <table class="govuk-table">
-                <tbody class="govuk-table__body">
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header">@messages("enrolment.organisation.name.label")</th>
-                    <td class="govuk-table__cell">@assistantFieldData.businessName</td>
-                </tr>
-                    <tr class="govuk-table__row">
-                        <th class="govuk-table__header">@messages("label.postal.address")</th>
-                        <td class="govuk-table__cell">@Html(capitalizedAddress(assistantFieldData.businessAddress).replaceAll(", ", "<br>"))
-                        </td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <th class="govuk-table__header">@messages("label.telephone.number")</th>
-                        <td class="govuk-table__cell">@assistantFieldData.businessPhoneNumber</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <th class="govuk-table__header">@messages("label.correspondence.email.address")</th>
-                        <td class="govuk-table__cell">@assistantFieldData.email</td>
-                    </tr>
-                </tbody></table>
-
-
-
-            @FormWithCSRF(controllers.registration.routes.RegistrationController.submitAssistant()) {
-
-                <h2 class="govuk-heading-m">@messages("label.your.details")</h2>
+        <table class="govuk-table">
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("enrolment.organisation.name.label")</th>
+                <td class="govuk-table__cell">@assistantFieldData.businessName</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("label.postal.address")</th>
+                <td class="govuk-table__cell">@Html(capitalizedAddress(assistantFieldData.businessAddress).replaceAll(", ", "<br>"))
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("label.telephone.number")</th>
+                <td class="govuk-table__cell">@assistantFieldData.businessPhoneNumber</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("label.correspondence.email.address")</th>
+                <td class="govuk-table__cell">@assistantFieldData.email</td>
+            </tr>
+            </tbody>
+        </table>
 
 
+        @FormWithCSRF(controllers.registration.routes.RegistrationController.submitAssistant()) {
+
+        <h2 class="govuk-heading-m">@messages("label.your.details")</h2>
 
 
-            @govukInput(Input(
+        @govukInput(Input(
             id = "firstName",
             name = "firstName",
             label = Label(content = HtmlContent(messages("enrolment.firstName"))),
-            value =  model("firstName").value.orElse(Some(assistantFieldData.firstName)),
-            errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            value = model("firstName").value.orElse(Some(assistantFieldData.firstName)),
+            errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
+            err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
-            ))
+        ))
 
-            @govukInput(Input(
+        @govukInput(Input(
             id = "lastName",
             name = "lastName",
             label = Label(content = HtmlContent(messages("enrolment.lastName"))),
-            value =  model("lastName").value.orElse(Some(assistantFieldData.lastName)),
-            errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            value = model("lastName").value.orElse(Some(assistantFieldData.lastName)),
+            errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
+            err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
-            ))
+        ))
 
 
-            @govukButton(Button(
+        @govukButton(Button(
             content = Text(messages("label.confirm"))
-            ))
+        ))
 
+        }
 
-            }
-
-        </div>
     </div>
+</div>
 
 }

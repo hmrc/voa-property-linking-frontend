@@ -57,21 +57,21 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         userDetails: UserDetails,
         sessionUserDetails: User = adminOrganisationAccountDetails): RegistrationController =
     new RegistrationController(
-      mockCustomErrorHandler,
-      ggPreauthenticated(userDetails),
-      sessionUserDetailsAction(sessionUserDetails),
-      StubGroupAccountConnector,
-      StubIndividualAccountConnector,
-      StubAddresses,
-      mockRegistrationService,
+      errorHandler = mockCustomErrorHandler,
+      ggAuthenticated = ggPreauthenticated(userDetails),
+      sessionUserDetailsAction = sessionUserDetailsAction(sessionUserDetails),
+      groupAccounts = StubGroupAccountConnector,
+      individualAccounts = StubIndividualAccountConnector,
+      addresses = StubAddresses,
+      registrationService = mockRegistrationService,
       invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton),
       invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout),
-      registerIndividual,
-      registerOrganistaion,
-      registerAssAdmin,
-      registerAssistant,
-      registerConfirmation,
-      mockSessionRepo
+      registerIndividual = registerIndividual,
+      registerOrganisation = registerOrganistaion,
+      registerAssAdmin = registerAssAdmin,
+      registerAssistant = registerAssistant,
+      registerConfirmation = registerConfirmation,
+      personalDetailsSessionRepo = mockSessionRepo
     )
 
   "Going directly to the complete-contact-details page, when logged in with an already registered VOA account" should
@@ -170,9 +170,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.mustContainText("You have been added as a user to your organisation, please confirm your details below")
     html.mustContainTextInput("#firstName")
     html.mustContainTextInput("#lastName")
-    html.mustContainTextInput("#dobday")
-    html.mustContainTextInput("#dobmonth")
-    html.mustContainTextInput("#dobyear")
+    html.mustContainDateSelect("dob")
     html.mustContainTextInput("#nino")
   }
 

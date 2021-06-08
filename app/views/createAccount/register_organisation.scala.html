@@ -48,6 +48,10 @@
     <div class="govuk-body">
         <div class="govuk-grid-column-full">
 
+            @if(model.errors.nonEmpty) {
+            @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+            }
+
             <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
 
             @govukDetails(Details(
@@ -55,10 +59,6 @@
                 content = Text(messages("createAccount.group.details.content.agent"))
             ))
 
-
-            @if(model.errors.nonEmpty) {
-                @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
-            }
 
             @FormWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisation()) {
 
