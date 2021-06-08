@@ -31,9 +31,9 @@
 
             var isError = $('#postcodeSearchOnly').text().indexOf('Enter a valid postcode') > -1;
 
-    if(isError == true){
-         $('span[id^="invalidPostcode"]').remove();
-    }
+            if(isError == true){
+                 $('span[id^="invalidPostcode"]').remove();
+            }
 
             $('#postcodeSearchGroup').find('.govuk-error-message').remove();
             $('#postcodeSearchGroup').before('<span class="govuk-form-group govuk-form-group--error">'
