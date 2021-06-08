@@ -29,10 +29,9 @@
 
         function showLookupError() {
 
-            var isContains = $('#postcodeSearchOnly').text().indexOf('Enter a valid postcode') > -1;
+            var isError = $('#postcodeSearchOnly').text().indexOf('Enter a valid postcode') > -1;
 
-    console.log(isContains)
-    if(isContains == true){
+    if(isError == true){
          $('span[id^="invalidPostcode"]').remove();
     }
 
