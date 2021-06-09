@@ -19,117 +19,161 @@
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import models.registration.FieldData
 @import config.ApplicationConfig
+@import views.html.mainLayout
+@import views.html._
+
+@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukDateInput: GovukDateInput, govukButton: GovukButton)
+
 
 @(model: Form[IndividualUserAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(title = Messages("enrolment.title"), topNavigation = false) {
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+@getEnrichedErrorLinks = @{
+    model.errors.map{ error =>
+    ErrorLink(href = Some(s"#${error.key}"),
+    content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
+}
 
-            <h1 class="heading-xlarge">@messages("enrolment.title")</h1>
+@getFromDateFiledErrorMessage = @{
+    (model.error("dob.day"), model.error("dob.month"), model.error("dob.year")) match
+    {
+        case (None, None, None ) => None
+        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
+    }
+}
 
-            @includes.errorSummary(model, messagePrefix = Some("createAccount"))
 
-            @form(controllers.registration.routes.RegistrationController.submitIndividual()) {
+@mainLayout(pageTitle = messages("enrolment.title")) {
 
-                @inputText(
-                    field = model(keys.firstName),
-                    '_label -> Messages("enrolment.firstName"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> individualFieldData.firstName
-                )
 
-                @inputText(
-                    field = model(keys.lastName),
-                    '_label -> Messages("enrolment.lastName"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> individualFieldData.lastName
-                )
-
-                @address(
-                    form = model,
-                    fieldName = keys.address,
-                    postcode = individualFieldData.postcode,
-                    addressData = Some(individualFieldData.businessAddress),
-                    selectedAddress = individualFieldData.selectedAddress
-                )
-
-                @inputText(
-                    field = model(keys.email),
-                    '_label -> Messages(s"label.createAccount.${keys.email}"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> individualFieldData.email
-                )
-
-                @inputText(
-                    field = model(keys.confirmedEmail),
-                    '_label -> Messages(s"label.createAccount.${keys.confirmedEmail}"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> individualFieldData.email
-                )
-
-                @inputText(
-                    field = model(keys.phone),
-                    '_label -> Messages(s"enrolment.phoneNumber"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> individualFieldData.businessPhoneNumber
-                )
-
-                @inputText(
-                    field = model(keys.mobilePhone),
-                    '_label -> Messages(s"enrolment.mobileNumber"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> individualFieldData.mobilePhone
-                )
-
-            @inputText(
-                    field = model(keys.tradingName),
-                    '_label -> Messages(s"enrolment.tradingName"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_optional -> true,
-                    '_value -> individualFieldData.businessName
-                )
-
-            @dateFields(model, keys.dateOfBirth, helpText = Some(Messages("hint.dateOfBirth")), fieldData = individualFieldData.dob)
-
-            @inputText(
-                field = model(keys.nino),
-                '_label -> Messages(s"label.createAccount.${keys.nino}"),
-                '_labelClass -> "form-label-bold",
-                '_showConstraints -> false,
-                'class -> "form-control",
-                '_help -> Messages("hint.nino"),
-                '_value -> individualFieldData.nino
-            )
-
-                <details>
-                    <summary><span class="summary">@messages("start.registration.IdontHave")</span></summary>
-                    <div class="panel-indent">
-                    @Html(Messages("start.registration.IdontHave.answer"))
-                    </div>
-                </details>
-
-                <p>
-                    <button type="submit" id="save-and-continue" class="button">@messages("app.common.saveAndContinue")</button>
-                </p>
+            @if(model.errors.nonEmpty) {
+                @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
             }
 
-        </div>
-    </div>
+            <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
+
+            @FormWithCSRF(controllers.registration.routes.RegistrationController.submitIndividual()) {
+
+            @govukInput(Input(
+                id = "firstName",
+                name = "firstName",
+                label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
+                value =  model("firstName").value.orElse(Some(individualFieldData.firstName)),
+                errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
+            ))
+
+            @govukInput(Input(
+                id = "lastName",
+                name = "lastName",
+                label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
+                value =  model("lastName").value.orElse(Some(individualFieldData.lastName)),
+                errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
+            ))
+
+
+            @addressNew(
+                form = model,
+                fieldName = keys.address,
+                postcode = individualFieldData.postcode,
+                addressData = if(individualFieldData.businessAddress == Address.empty){None} else {Some(individualFieldData.businessAddress)},
+                selectedAddress = individualFieldData.selectedAddress
+            )
+
+            @govukInput(Input(
+                id = "email",
+                name = "email",
+                label = Label(content = HtmlContent(messages("enrolment.email")), classes="govuk-label--m"),
+                value =  model("email").value.orElse(Some(individualFieldData.email)),
+                errorMessage = model("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
+            ))
+
+            @govukInput(Input(
+                id = "confirmedEmail",
+                name = "confirmedEmail",
+                label = Label(content = HtmlContent(messages("enrolment.confirmedEmail")), classes="govuk-label--m"),
+                value =  model("confirmedEmail").value.orElse(Some(individualFieldData.email)),
+                errorMessage = model("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
+            ))
+
+            @govukInput(Input(
+                id = "phone",
+                name = "phone",
+                label = Label(content = HtmlContent(messages("enrolment.phone")), classes="govuk-label--m"),
+                value =  model("phone").value.orElse(Some(individualFieldData.businessPhoneNumber)),
+                errorMessage = model("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
+            ))
+
+            @govukInput(Input(
+                id = "mobilePhone",
+                name = "mobilePhone",
+                label = Label(content = HtmlContent(messages("enrolment.mobphone")), classes="govuk-label--m"),
+                value =  model("mobilePhone").value.orElse(Some(individualFieldData.mobilePhone)),
+                errorMessage = model("mobilePhone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
+            ))
+
+            @govukInput(Input(
+                id = "tradingName",
+                name = "tradingName",
+                label = Label(content = HtmlContent(messages("enrolment.tradeName")), classes="govuk-label--m"),
+                value =  model("tradingName").value.orElse(Some(individualFieldData.businessName)),
+                hint = Some(Hint( content = Text(messages("optional.label")) )),
+                classes = "govuk-input govuk-!-width-one-third"
+            ))
+
+
+            @govukDateInput(DateInput(
+                fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                content = Text(messages("label.dob")),
+                isPageHeading = true,
+                classes = "govuk-fieldset__legend--m"
+            ))
+            )),
+            id = "dob",
+            hint = Some(Hint(
+            content = Text(messages("hint.dateOfBirth"))
+            )),
+            items = Seq("day", "month", "year").map {
+            item =>
+            InputItem(
+            id = s"dob.$item",
+            classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors || model.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+            name =  s"dob.$item",
+            label = Some(messages(s"dob.$item.label")),
+            value = model(s"dob.$item").value
+            )
+            },
+            errorMessage = getFromDateFiledErrorMessage,
+            ))
+
+            @govukInput(Input(
+            id = "nino",
+            name = "nino",
+            label = Label(content = HtmlContent(messages("label.ninoText")), classes="govuk-label--m"),
+            value =  model(keys.nino).value.orElse(Some(individualFieldData.nino)),
+            errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-input govuk-!-width-one-third",
+            hint = Some(Hint(
+            content = Text(messages("hint.nino"))
+            ))
+            ))
+
+            @govukDetails(Details(
+            summary = HtmlContent(messages("start.registration.IdontHave")),
+            content = HtmlContent(messages("start.registration.IdontHave.answer"))
+            ))
+
+            @govukButton(Button(
+            content = Text(messages("app.common.saveAndContinue"))
+            ))
+
+            }
+
 
 }

@@ -17,7 +17,7 @@
 package utils
 
 import uk.gov.hmrc.govukfrontend.views.Layouts
-import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukButton, GovukDetails, GovukFooter, GovukHeader, GovukInsetText}
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukButton, GovukDateInput, GovukDetails, GovukErrorSummary, GovukFooter, GovukHeader, GovukInput, GovukInsetText, GovukRadios}
 import views.html.{addUserToGG, start}
 
 trait DesignSystemTestSupport extends Layouts {
@@ -35,5 +35,46 @@ trait DesignSystemTestSupport extends Layouts {
   val addUsertoGGView = new addUserToGG(mainLayout)
   val assessmentsView = new views.html.dashboard.assessments(mainLayout, GovukDetails)
   val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
+  val invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout)
+
+  val registerIndividualView = new views.html.createAccount.register_individual(
+    GovukInsetText,
+    GovukDetails,
+    mainLayout,
+    GovukErrorSummary,
+    GovukInput,
+    GovukDateInput,
+    GovukButton)
+
+  val registerOrganisationView =
+    new views.html.createAccount.register_organisation(
+      GovukButton,
+      GovukDateInput,
+      GovukInsetText,
+      GovukDetails,
+      mainLayout,
+      GovukErrorSummary,
+      GovukInput,
+      GovukRadios)
+
+  val registerAssAdminView = new views.html.createAccount.register_assistant_admin(
+    GovukInsetText,
+    GovukDetails,
+    mainLayout,
+    GovukErrorSummary,
+    GovukInput,
+    GovukButton,
+    GovukDateInput)
+
+  val registerAssistantView = new views.html.createAccount.register_assistant(
+    GovukInsetText,
+    GovukDetails,
+    mainLayout,
+    GovukErrorSummary,
+    GovukInput,
+    GovukButton)
+
+  val registerConfirmationView =
+    new views.html.createAccount.registration_confirmation(GovukInsetText, GovukDetails, mainLayout)
 
 }

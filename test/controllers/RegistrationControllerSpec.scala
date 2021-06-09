@@ -57,16 +57,21 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         userDetails: UserDetails,
         sessionUserDetails: User = adminOrganisationAccountDetails): RegistrationController =
     new RegistrationController(
-      mockCustomErrorHandler,
-      ggPreauthenticated(userDetails),
-      sessionUserDetailsAction(sessionUserDetails),
-      StubGroupAccountConnector,
-      StubIndividualAccountConnector,
-      StubAddresses,
-      mockRegistrationService,
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton),
-      invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout),
-      mockSessionRepo
+      errorHandler = mockCustomErrorHandler,
+      ggAuthenticated = ggPreauthenticated(userDetails),
+      sessionUserDetailsAction = sessionUserDetailsAction(sessionUserDetails),
+      groupAccounts = StubGroupAccountConnector,
+      individualAccounts = StubIndividualAccountConnector,
+      addresses = StubAddresses,
+      registrationService = mockRegistrationService,
+      invalidAccountTypeView = invalidAccountTypeView,
+      invalidAccountCreationView = invalidAccountCreationView,
+      registerIndividualView = registerIndividualView,
+      registerOrganisationView = registerOrganisationView,
+      registerAssAdminView = registerAssAdminView,
+      registerAssistantView = registerAssistantView,
+      registerConfirmationView = registerConfirmationView,
+      personalDetailsSessionRepo = mockSessionRepo
     )
 
   "Going directly to the complete-contact-details page, when logged in with an already registered VOA account" should
@@ -94,7 +99,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.inputMustContain("confirmedEmail", user.email)
     html.inputMustContain("firstName", user.firstName.get)
     html.inputMustContain("lastName", user.lastName.get)
-    html.inputMustContain("addresspostcode", user.postcode.get)
+    html.inputMustContain("address.postcode", user.postcode.get)
   }
 
   "Going to the create account page, when logged in with an account that is an Agent" should
@@ -113,7 +118,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) mustBe OK
 
     val html = HtmlPage(res)
-    html.inputMustContain("addresspostcode", user.postcode.get)
+    html.inputMustContain("address.postcode", user.postcode.get)
 
     html.mustContainText("Business name")
     html.inputMustContain("email", user.email)
@@ -148,7 +153,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.mustContainText("Last Name - This must be filled in")
+    html.mustContainText("Last name - This must be filled in")
     html.mustNotContainText("First Name - This must be filled in")
   }
 
@@ -165,9 +170,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.mustContainText("You have been added as a user to your organisation, please confirm your details below")
     html.mustContainTextInput("#firstName")
     html.mustContainTextInput("#lastName")
-    html.mustContainTextInput("#dobday")
-    html.mustContainTextInput("#dobmonth")
-    html.mustContainTextInput("#dobyear")
+    html.mustContainDateSelect("dob")
     html.mustContainTextInput("#nino")
   }
 
