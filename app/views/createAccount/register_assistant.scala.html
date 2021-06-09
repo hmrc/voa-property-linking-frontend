@@ -21,72 +21,91 @@
 @import models.registration.FieldData
 @import config.ApplicationConfig
 @import utils.Formatters._
+@import views.html.mainLayout
+@import views.html._
+
+@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton)
 
 @(model: Form[AssistantUserAccountDetails], assistantFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@isAgent(selected:Boolean) = @{if(selected) """checked="checked""" else """ disabled="disabled" """}
-@main_template(title = Messages("enrolment.title"), topNavigation = false) {
+@isAgent(selected: Boolean) = @{
+if(selected) """checked="checked""" else """ disabled="disabled" """
+}
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+@getEnrichedErrorLinks = @{
+    model.errors.map{ error =>
+    ErrorLink(href = Some(s"#${error.key}"),
+    content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
+}
 
-            <h1 class="heading-xlarge">@messages("enrolment.title")</h1>
-            <p class="form-hint">@messages("enrolment.assistant.hint")</p>
-            <h2 class="heading-medium">@messages("enrolment.assistant.organisation.details.title")</h2>
-
-                <table>
-                <tbody><tr>
-                    <th>@messages("enrolment.organisation.name.label")</th>
-                    <td>@assistantFieldData.businessName</td>
-                </tr>
-                    <tr>
-                        <th>@messages("label.postal.address")</th>
-                        <td>@Html(capitalizedAddress(assistantFieldData.businessAddress).replaceAll(", ", "<br>"))
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>@messages("label.telephone.number")</th>
-                        <td>@assistantFieldData.businessPhoneNumber</td>
-                    </tr>
-                    <tr>
-                        <th>@messages("label.correspondence.email.address")</th>
-                        <td>@assistantFieldData.email</td>
-                    </tr>
-                </tbody></table>
+@mainLayout(pageTitle = messages("assessments.title")) {
 
 
+        @if(model.errors.nonEmpty) {
+            @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title =
+            Text(messages("error.propertyRepresentation.title"))))
+        }
 
-            @form(controllers.registration.routes.RegistrationController.submitAssistant()) {
+        <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
 
-                <h2 class="heading-medium">@messages("label.your.details")</h2>
+        <p class="govuk-hint">@messages("enrolment.assistant.hint")</p>
+        <h2 class="govuk-heading-m">@messages("enrolment.assistant.organisation.details.title")</h2>
 
-                @includes.errorSummary(model, messagePrefix = Some("createAccount"))
+        <table class="govuk-table">
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("enrolment.organisation.name.label")</th>
+                <td class="govuk-table__cell">@assistantFieldData.businessName</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("label.postal.address")</th>
+                <td class="govuk-table__cell">@Html(capitalizedAddress(assistantFieldData.businessAddress).replaceAll(", ", "<br>"))
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("label.telephone.number")</th>
+                <td class="govuk-table__cell">@assistantFieldData.businessPhoneNumber</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("label.correspondence.email.address")</th>
+                <td class="govuk-table__cell">@assistantFieldData.email</td>
+            </tr>
+            </tbody>
+        </table>
 
 
-                @inputText(
-                    field = model(keys.firstName),
-                    '_label -> Messages("enrolment.firstName"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> assistantFieldData.firstName
-                )
+        @FormWithCSRF(controllers.registration.routes.RegistrationController.submitAssistant()) {
 
-                @inputText(
-                    field = model(keys.lastName),
-                    '_label -> Messages("enrolment.lastName"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control",
-                    '_value -> assistantFieldData.lastName
-                )
+        <h2 class="govuk-heading-m">@messages("label.your.details")</h2>
 
-                <p>
-                    <button type="submit" id="save-and-continue" class="button">@messages("label.confirm")</button>
-                </p>
-            }
 
-        </div>
-    </div>
+        @govukInput(Input(
+            id = "firstName",
+            name = "firstName",
+            label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
+            value = model("firstName").value.orElse(Some(assistantFieldData.firstName)),
+            errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
+            err.args:_*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
+
+        @govukInput(Input(
+            id = "lastName",
+            name = "lastName",
+            label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
+            value = model("lastName").value.orElse(Some(assistantFieldData.lastName)),
+            errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
+            err.args:_*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
+
+
+        @govukButton(Button(
+            content = Text(messages("label.confirm"))
+        ))
+
+        }
+
+
 
 }

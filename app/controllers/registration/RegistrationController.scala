@@ -46,6 +46,11 @@ class RegistrationController @Inject()(
       registrationService: RegistrationService,
       invalidAccountTypeView: views.html.errors.invalidAccountType,
       invalidAccountCreationView: views.html.errors.invalidAccountCreation,
+      registerIndividualView: views.html.createAccount.register_individual,
+      registerOrganisationView: views.html.createAccount.register_organisation,
+      registerAssAdminView: views.html.createAccount.register_assistant_admin,
+      registerAssistantView: views.html.createAccount.register_assistant,
+      registerConfirmationView: views.html.createAccount.registration_confirmation,
       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
 )(
       implicit executionContext: ExecutionContext,
@@ -65,7 +70,7 @@ class RegistrationController @Inject()(
               case None                                                     => FieldData(user)
               case Some(sessionPersonDetails: IndividualUserAccountDetails) => FieldData(sessionPersonDetails)
             }
-            Future.successful(Ok(views.html.createAccount.register_individual(AdminUser.individual, fieldData)))
+            Future.successful(Ok(registerIndividualView(AdminUser.individual, fieldData)))
           case user @ OrganisationUserDetails() =>
             orgShow(user, request.sessionPersonDetails)
           case user @ AgentUserDetails() =>
@@ -79,7 +84,7 @@ class RegistrationController @Inject()(
     AdminUser.individual
       .bindFromRequest()
       .fold(
-        errors => Future.successful(BadRequest(views.html.createAccount.register_individual(errors, FieldData()))),
+        errors => Future.successful(BadRequest(registerIndividualView(errors, FieldData()))),
         (success: IndividualUserAccountDetails) =>
           personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
             Redirect(controllers.routes.IdentityVerification.startIv())
@@ -91,7 +96,7 @@ class RegistrationController @Inject()(
     AdminUser.organisation
       .bindFromRequest()
       .fold(
-        errors => Future.successful(BadRequest(views.html.createAccount.register_organisation(errors, FieldData()))),
+        errors => Future.successful(BadRequest(registerOrganisationView(errors, FieldData()))),
         (success: AdminOrganisationAccountDetails) =>
           personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
             Redirect(controllers.routes.IdentityVerification.startIv())
@@ -107,7 +112,7 @@ class RegistrationController @Inject()(
           getCompanyDetails(request.groupIdentifier).map {
             case Some(fieldData) =>
               BadRequest(
-                views.html.createAccount.register_assistant_admin(
+                registerAssAdminView(
                   errors,
                   fieldData
                 ))
@@ -136,7 +141,7 @@ class RegistrationController @Inject()(
           getCompanyDetails(request.groupIdentifier).map {
             case Some(fieldData) =>
               BadRequest(
-                views.html.createAccount.register_assistant(
+                registerAssistantView(
                   errors,
                   fieldData
                 ))
@@ -166,7 +171,7 @@ class RegistrationController @Inject()(
 
   def success(personId: Long): Action[AnyContent] = ggAuthenticated { implicit request =>
     val user = request.userDetails
-    Ok(views.html.createAccount.registration_confirmation(personId.toString, user.affinityGroup, user.credentialRole))
+    Ok(registerConfirmationView(personId.toString, user.affinityGroup, user.credentialRole))
   }
 
   private def orgShow(userDetails: UserDetails, sessionPersonDetails: Option[User])(
@@ -180,14 +185,13 @@ class RegistrationController @Inject()(
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
 
-            Ok(views.html.createAccount.register_assistant_admin(AdminInExistingOrganisationUser.organisation, data))
+            Ok(registerAssAdminView(AdminInExistingOrganisationUser.organisation, data))
           case Assistant =>
             val data = sessionPersonDetails match {
               case None                                                 => fieldData
               case Some(spd: AdminInExistingOrganisationAccountDetails) => FieldData(spd)
             }
-
-            Ok(views.html.createAccount.register_assistant(AssistantUser.assistant, data))
+            Ok(registerAssistantView(AssistantUser.assistant, data))
         }
       case None =>
         userDetails.credentialRole match {
@@ -199,7 +203,7 @@ class RegistrationController @Inject()(
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
 
-            Ok(views.html.createAccount.register_organisation(AdminUser.organisation, data))
+            Ok(registerOrganisationView(AdminUser.organisation, data))
         }
     }
 

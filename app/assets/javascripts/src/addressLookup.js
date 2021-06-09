@@ -21,14 +21,17 @@
         }
         function showLookupError() {
             var isError = $('#postcodeSearchOnly').text().indexOf('Enter a valid postcode') > -1;
+
             if(isError){
-                $('span[id^="invalidPostcode"]').remove();
+                 $('span[id^="invalidPostcode"]').remove();
             }
+
             $('#postcodeSearchGroup').find('.govuk-error-message').remove();
             $('#postcodeSearchGroup').before('<span class="govuk-form-group govuk-form-group--error">'
                 + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
             $('#postcodeSearch').before('<span id="invalidPostcode" class="govuk-error-message">'
-                + messages.errors.postcodeLookupError + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
+
+            + messages.errors.postcodeLookupError + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
             active = true;
         }
         function addressLine(s) {
@@ -45,6 +48,7 @@
             e.preventDefault();
             $(this).closest('.postcode-lookup-group').find('#addressSelect, [for="addressSelect"]').remove();
             var postcode = $('#postcodeSearch').val();
+          
             if(postcode !== '' && active) {
                 active = false;
                 $.ajax({
@@ -56,10 +60,11 @@
                         }
                     },
                     success: function(data) {
+
                         if (data.length > 0) {
                             $('.postcode-lookup-group').prepend('<label for="addressSelect" class="govuk-label--m">'+
-                                messages.labels.selectValue +'</label><span class="govuk-hint" id="addressHelp">' +
-                                messages.labels.addressHelp + '</span><select id="addressSelect" class="addressList form-control"></select>');
+                            messages.labels.selectValue +'</label><span class="govuk-hint" id="addressHelp">' +
+                            messages.labels.addressHelp + '</span><select id="addressSelect" class="addressList form-control"></select>');
                             $('#addressSelect').append('<option value="" selected disabled>' + messages.labels.selectValue + '</option>');
                             $('.postcode-lookup-fields').css('display', 'none');
                             $('.lookupAddressCancel').css('display', 'inline-block');

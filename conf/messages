@@ -202,7 +202,7 @@ link.createGroupAccount=Register your business
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
 groupAlreadyExists.title={0} has already registered.
 groupAlreadyExists.addedToGroup=You’ve been added to their customer record.
-account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a href="https://www.tax.service.gov.uk/business-rates-valuation/terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
+account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="https://www.tax.service.gov.uk/business-rates-valuation/terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
 
 #CREATE GROUP ACCOUNT
 createAccount.group.title=Your business details
@@ -225,7 +225,7 @@ createAccount.group.details.content=If you are a non-commercial organisation suc
 #ACCOUNT CREATED
 account.confirmation.title=You’ve successfully registered your business.
 account.confirmation.heading=You’ve successfully registered for this service.
-account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
+account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a class="govuk-link" href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
 account.confirmation.youCan=You can now manage your properties.
 link.dashboard=Go to your dashboard
 link.return.home=Return to your home page
@@ -935,6 +935,17 @@ startChallenge.p.3=You should send the form and any supporting evidence to <a cl
 startChallenge.p.4=Please be aware of the risks before sending any confidential information.
 
 #COMMON
+label.email=Email
+label.confirmedBusinessEmail=Confirm email
+label.firstName=First name
+label.lastName=Last name
+label.dob.day=Date of Birth - Day
+label.dob.month=Date of Birth - Month
+label.dob.year=Date of Birth - Year
+label.nino=NINO
+label.ninoText=National Insurance number
+label.phone=Phone
+label.isAgent=Agent
 label.youCanNow=You can now:
 label.continue=Continue
 label.confirm=Confirm
@@ -1295,6 +1306,13 @@ enrolment.organisation.name.label = Organisation name
 enrolment.assistant.hint = You have been added as a user to your organisation, please confirm your details below
 enrolment.assistant.organisation.details.title = Your organisation details
 
+label.mobilePhone = Mobile number
+optional.label = Optional
+enrolment.tradeName = Trading name (Optional)
+enrolment.mobphone = Mobile number
+enrolment.phone = Telephone number
+enrolment.confirmedEmail = Confirm email address
+enrolment.email = Email address
 enrolment.firstName = First name
 enrolment.lastName = Last name
 enrolment.address1 = Address line 1
@@ -1312,6 +1330,7 @@ enrolment.confirmEmailAddress = Confirm business email address
 enrolment.organisation.individualOrCompany = Do you want to register as an agent?
 enrolment.yes = Yes
 enrolment.no = No
+enrolment.businessName = Business name
 
 
 before.you.start.title=Claim a property
