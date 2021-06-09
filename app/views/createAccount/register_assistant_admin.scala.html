@@ -44,8 +44,7 @@ case _                   => Some(ErrorMessage(content = Text(messages("error.com
 }
 }
 @mainLayout(pageTitle = messages("enrolment.title"), mainClass = Some("govuk-grid-column-full")) {
-<div class="grid-row">
-    <div class="column-two-thirds">
+
         @if(model.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title =
         Text(messages("error.propertyRepresentation.title"))))
@@ -84,7 +83,7 @@ case _                   => Some(ErrorMessage(content = Text(messages("error.com
         value = model("firstName").value.orElse(Some(organisationFieldData.firstName)),
         errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
         err.args:_*)))),
-        classes = "govuk-!-width-one-quarter"
+        classes = "govuk-input govuk-!-width-one-third"
         ))
         @govukInput(Input(
         id = "lastName",
@@ -93,7 +92,7 @@ case _                   => Some(ErrorMessage(content = Text(messages("error.com
         value = model("lastName").value.orElse(Some(organisationFieldData.lastName)),
         errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
         err.args:_*)))),
-        classes = "govuk-!-width-one-quarter"
+        classes = "govuk-input govuk-!-width-one-third"
         ))
         @govukDateInput(DateInput(
         fieldset = Some(Fieldset(
@@ -127,7 +126,7 @@ case _                   => Some(ErrorMessage(content = Text(messages("error.com
         value = model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
         errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message,
         err.args:_*)))),
-        classes = "govuk-!-width-one-quarter",
+        classes = "govuk-input govuk-!-width-one-third",
         hint = Some(Hint(
         content = Text(messages("hint.nino"))
         ))
@@ -136,6 +135,5 @@ case _                   => Some(ErrorMessage(content = Text(messages("error.com
         content = Text(messages("label.confirm"))
         ))
         }
-    </div>
-</div>
+
 }

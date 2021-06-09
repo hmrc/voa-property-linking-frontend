@@ -45,8 +45,6 @@
 
 @mainLayout(pageTitle = messages("enrolment.title"), mainClass = Some("govuk-grid-column-full")) {
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
 
             @if(model.errors.nonEmpty) {
                 @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
@@ -62,7 +60,7 @@
                 label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
                 value =  model("firstName").value.orElse(Some(individualFieldData.firstName)),
                 errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-!-width-one-quarter"
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @govukInput(Input(
@@ -71,7 +69,7 @@
                 label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
                 value =  model("lastName").value.orElse(Some(individualFieldData.lastName)),
                 errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-!-width-one-quarter"
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
 
@@ -89,7 +87,7 @@
                 label = Label(content = HtmlContent(messages("enrolment.email")), classes="govuk-label--m"),
                 value =  model("email").value.orElse(Some(individualFieldData.email)),
                 errorMessage = model("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-!-width-one-quarter"
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @govukInput(Input(
@@ -98,7 +96,7 @@
                 label = Label(content = HtmlContent(messages("enrolment.confirmedEmail")), classes="govuk-label--m"),
                 value =  model("confirmedEmail").value.orElse(Some(individualFieldData.email)),
                 errorMessage = model("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-!-width-one-quarter"
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @govukInput(Input(
@@ -107,7 +105,7 @@
                 label = Label(content = HtmlContent(messages("enrolment.phone")), classes="govuk-label--m"),
                 value =  model("phone").value.orElse(Some(individualFieldData.businessPhoneNumber)),
                 errorMessage = model("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-!-width-one-quarter"
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @govukInput(Input(
@@ -116,7 +114,7 @@
                 label = Label(content = HtmlContent(messages("enrolment.mobphone")), classes="govuk-label--m"),
                 value =  model("mobilePhone").value.orElse(Some(individualFieldData.mobilePhone)),
                 errorMessage = model("mobilePhone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-!-width-one-quarter"
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @govukInput(Input(
@@ -125,7 +123,7 @@
                 label = Label(content = HtmlContent(messages("enrolment.tradeName")), classes="govuk-label--m"),
                 value =  model("tradingName").value.orElse(Some(individualFieldData.businessName)),
                 hint = Some(Hint( content = Text(messages("optional.label")) )),
-                classes = "govuk-!-width-one-quarter"
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
 
@@ -160,7 +158,7 @@
             label = Label(content = HtmlContent(messages("label.ninoText")), classes="govuk-label--m"),
             value =  model(keys.nino).value.orElse(Some(individualFieldData.nino)),
             errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter",
+            classes = "govuk-input govuk-!-width-one-third",
             hint = Some(Hint(
             content = Text(messages("hint.nino"))
             ))
@@ -177,7 +175,5 @@
 
             }
 
-        </div>
-    </div>
 
 }

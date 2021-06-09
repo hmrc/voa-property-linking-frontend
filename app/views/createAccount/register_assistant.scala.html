@@ -40,8 +40,6 @@ if(selected) """checked="checked""" else """ disabled="disabled" """
 
 @mainLayout(pageTitle = messages("assessments.title"), mainClass = Some("govuk-grid-column-full")) {
 
-<div class="grid-row">
-    <div class="column-two-thirds">
 
         @if(model.errors.nonEmpty) {
             @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title =
@@ -88,7 +86,7 @@ if(selected) """checked="checked""" else """ disabled="disabled" """
             value = model("firstName").value.orElse(Some(assistantFieldData.firstName)),
             errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
             err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+            classes = "govuk-input govuk-!-width-one-third"
         ))
 
         @govukInput(Input(
@@ -98,7 +96,7 @@ if(selected) """checked="checked""" else """ disabled="disabled" """
             value = model("lastName").value.orElse(Some(assistantFieldData.lastName)),
             errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
             err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+            classes = "govuk-input govuk-!-width-one-third"
         ))
 
 
@@ -108,7 +106,6 @@ if(selected) """checked="checked""" else """ disabled="disabled" """
 
         }
 
-    </div>
-</div>
+
 
 }

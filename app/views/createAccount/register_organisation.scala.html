@@ -43,10 +43,8 @@
 }
 
 
-@mainLayout(pageTitle = messages("enrolment.title"), mainClass = Some("govuk-grid-column-full")) {
+@mainLayout(pageTitle = messages("enrolment.title")) {
 
-    <div class="govuk-body">
-        <div class="govuk-grid-column-full">
 
             @if(model.errors.nonEmpty) {
             @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
@@ -68,7 +66,7 @@
                 label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
                 value =  model("firstName").value.orElse(Some(organisationFieldData.firstName)),
                 errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-!-width-one-quarter"
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @govukInput(Input(
@@ -77,7 +75,7 @@
             label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
             value =  model("lastName").value.orElse(Some(organisationFieldData.lastName)),
             errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+            classes = "govuk-input govuk-!-width-one-third"
             ))
 
 
@@ -87,7 +85,7 @@
             label = Label(content = HtmlContent(messages("enrolment.organisation.name")), classes="govuk-label--m"),
             value =  model("companyName").value.orElse(Some(organisationFieldData.businessName)),
             errorMessage = model("companyName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+            classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @addressNew(
@@ -110,7 +108,7 @@
             label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber")), classes="govuk-label--m"),
             value =  model(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
             errorMessage = model(keys.phone).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+            classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @govukInput(Input(
@@ -119,7 +117,7 @@
             label = Label(content = HtmlContent(messages("enrolment.emailAddress")), classes="govuk-label--m"),
             value =  model(keys.email).value.orElse(Some(organisationFieldData.email)),
             errorMessage = model(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+            classes = "govuk-input govuk-!-width-one-third"
             ))
 
 
@@ -129,7 +127,7 @@
             label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress")), classes="govuk-label--m"),
             value =  model(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
             errorMessage = model(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-!-width-one-quarter"
+            classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @govukRadios(Radios(
@@ -195,7 +193,7 @@
                             classes="govuk-label--m"),
                             value =  model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
                             errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                            classes = "govuk-!-width-one-quarter",
+                            classes = "govuk-input govuk-!-width-one-third",
                             hint = Some(Hint(
                             content = Text(messages("hint.nino"))
                             ))
@@ -212,7 +210,5 @@
 
             }
 
-        </div>
-    </div>
 
 }
