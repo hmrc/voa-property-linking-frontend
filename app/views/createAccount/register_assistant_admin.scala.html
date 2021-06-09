@@ -43,7 +43,7 @@ case (None, None, None ) => None
 case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
 }
 }
-@mainLayout(pageTitle = messages("enrolment.title"), mainClass = Some("govuk-grid-column-full")) {
+@mainLayout(pageTitle = messages("enrolment.title")) {
 
         @if(model.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title =
