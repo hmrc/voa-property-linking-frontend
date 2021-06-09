@@ -44,7 +44,12 @@ class UpdatePersonalDetails @Inject()(
       addressesConnector: Addresses,
       individualAccountConnector: IndividualAccounts,
       manageDetails: ManageDetails,
-      groupAccounts: GroupAccounts
+      groupAccounts: GroupAccounts,
+      updateAddressView: views.html.details.updateAddress,
+      updatePhoneView: views.html.details.updatePhone,
+      updateMobileView: views.html.details.updateMobile,
+      updateEmailView: views.html.details.updateEmail,
+      updateNameView: views.html.details.updateName
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -53,7 +58,7 @@ class UpdatePersonalDetails @Inject()(
 ) extends PropertyLinkingController {
 
   def viewEmail() = authenticated { implicit request =>
-    Ok(views.html.details.updateEmail(UpdateDetailsVM(emailForm, request.individualAccount.details)))
+    Ok(updateEmailView(UpdateDetailsVM(emailForm, request.individualAccount.details)))
   }
 
   def updateEmail() = authenticated.async { implicit request =>
@@ -61,14 +66,13 @@ class UpdatePersonalDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(views.html.details.updateEmail(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          Future.successful(BadRequest(updateEmailView(UpdateDetailsVM(errors, request.individualAccount.details)))),
         email => updateDetails(email = Some(email))
       )
   }
 
   def viewAddress() = authenticated { implicit request =>
-    Ok(views.html.details.updateAddress(UpdateDetailsVM(addressForm, request.individualAccount.details)))
+    Ok(updateAddressView(UpdateDetailsVM(addressForm, request.individualAccount.details)))
   }
 
   def updateAddress() = authenticated.async { implicit request =>
@@ -76,8 +80,7 @@ class UpdatePersonalDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(views.html.details.updateAddress(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          Future.successful(BadRequest(updateAddressView(UpdateDetailsVM(errors, request.individualAccount.details)))),
         address =>
           address.addressUnitId match {
             case Some(id) => updateDetails(addressId = Some(id))
@@ -90,7 +93,7 @@ class UpdatePersonalDetails @Inject()(
   }
 
   def viewPhone() = authenticated { implicit request =>
-    Ok(views.html.details.updatePhone(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
+    Ok(updatePhoneView(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
   }
 
   def updatePhone() = authenticated.async { implicit request =>
@@ -98,14 +101,13 @@ class UpdatePersonalDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(views.html.details.updatePhone(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          Future.successful(BadRequest(updatePhoneView(UpdateDetailsVM(errors, request.individualAccount.details)))),
         phone => updateDetails(phone = Some(phone))
       )
   }
 
   def viewName() = authenticated { implicit request =>
-    Ok(views.html.details.updateName(UpdateDetailsVM(nameForm, request.individualAccount.details)))
+    Ok(updateNameView(UpdateDetailsVM(nameForm, request.individualAccount.details)))
   }
 
   def updateName() = authenticated.async { implicit request =>
@@ -113,14 +115,13 @@ class UpdatePersonalDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(views.html.details.updateName(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          Future.successful(BadRequest(updateNameView(UpdateDetailsVM(errors, request.individualAccount.details)))),
         name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
       )
   }
 
   def viewMobile() = authenticated { implicit request =>
-    Ok(views.html.details.updateMobile(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
+    Ok(updateMobileView(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
   }
 
   def updateMobile() = authenticated.async { implicit request =>
@@ -128,8 +129,7 @@ class UpdatePersonalDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(
-            BadRequest(views.html.details.updateMobile(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          Future.successful(BadRequest(updateMobileView(UpdateDetailsVM(errors, request.individualAccount.details)))),
         mobile => updateDetails(mobile = Some(mobile))
       )
   }

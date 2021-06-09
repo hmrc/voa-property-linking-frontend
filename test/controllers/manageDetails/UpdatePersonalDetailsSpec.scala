@@ -25,6 +25,7 @@ import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.{ManageDetails, Success}
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukButton, GovukInput}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -42,7 +43,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=email] span.error-message").text mustBe "Enter a valid email address"
+    html.select("span.govuk-error-message").text mustBe "Error: Enter a valid email address"
   }
 
   it must "require the confirmed email to match" in {
@@ -56,8 +57,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
 
     val html = Jsoup.parse(contentAsString(res))
     html
-      .select("label[for=confirmedEmail] span.error-message")
-      .text mustBe "Email addresses must match. Check them and try again"
+      .select("span.govuk-error-message")
+      .text mustBe "Error: Email addresses must match. Check them and try again"
   }
 
   it must "update the user's email when they make a valid submission" in {
@@ -87,7 +88,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=firstName] span.error-message").text mustBe "This must be filled in"
+    html.select("span.govuk-error-message").text mustBe "Error: This must be filled in"
   }
 
   it must "require a non-empty last name" in {
@@ -99,7 +100,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=lastName] span.error-message").text mustBe "This must be filled in"
+    html.select("span.govuk-error-message").text mustBe "Error: This must be filled in"
   }
 
   it must "update the user's name when they make a valid submission" in {
@@ -126,7 +127,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=phone] span.error-message").text mustBe "This must be filled in"
+    html.select("span.govuk-error-message").text mustBe "Error: This must be filled in"
   }
 
   it must "update the user's phone number when they make a valid submission" in {
@@ -150,7 +151,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) mustBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("label[for=addresspostcode] span.error-message").text mustBe "This must be filled in"
+    html.select("span.govuk-error-message").text contains "Error: This must be filled in"
   }
 
   it must "update the user's address ID if they use the lookup" in {
@@ -292,7 +293,12 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
         mockAddressConnector,
         mockIndividualAccounts,
         mockManageDetails,
-        mockGroupAccounts
+        mockGroupAccounts,
+        updateAddressView = new views.html.details.updateAddress(mainLayout, GovukButton),
+        updatePhoneView = new views.html.details.updatePhone(mainLayout, GovukButton, GovukInput),
+        updateMobileView = new views.html.details.updateMobile(mainLayout, GovukButton, GovukInput),
+        updateEmailView = new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput),
+        updateNameView = new views.html.details.updateName(mainLayout, GovukButton, GovukInput)
       )
 
   lazy val mockIndividualAccounts: IndividualAccounts = {

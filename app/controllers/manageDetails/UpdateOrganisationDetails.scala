@@ -40,7 +40,11 @@ class UpdateOrganisationDetails @Inject()(
       authenticated: AuthenticatedAction,
       groups: GroupAccounts,
       addresses: Addresses,
-      manageDetails: ManageDetails
+      manageDetails: ManageDetails,
+      updateBusinessAddressView: views.html.details.updateBusinessAddress,
+      updateBusinessNameView: views.html.details.updateBusinessName,
+      updateBusinessPhoneView: views.html.details.updateBusinessPhone,
+      updateBusinessEmailView: views.html.details.updateBusinessEmail
 )(
       implicit executionContext: ExecutionContext,
       clock: Clock,
@@ -49,9 +53,7 @@ class UpdateOrganisationDetails @Inject()(
 ) extends PropertyLinkingController {
 
   def viewBusinessName: Action[AnyContent] = authenticated { implicit request =>
-    Ok(
-      views.html.details
-        .updateBusinessName(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
+    Ok(updateBusinessNameView(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
   }
 
   def updateBusinessName(): Action[AnyContent] = authenticated.async { implicit request =>
@@ -60,14 +62,13 @@ class UpdateOrganisationDetails @Inject()(
       .fold(
         errors =>
           Future.successful(
-            BadRequest(
-              views.html.details.updateBusinessName(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+            BadRequest(updateBusinessNameView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         businessName => updateDetails(name = Some(businessName))
       )
   }
 
   def viewBusinessAddress: Action[AnyContent] = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessAddress(UpdateOrganisationDetailsVM(addressForm, request.organisationAccount)))
+    Ok(updateBusinessAddressView(UpdateOrganisationDetailsVM(addressForm, request.organisationAccount)))
   }
 
   def updateBusinessAddress(): Action[AnyContent] = authenticated.async { implicit request =>
@@ -76,8 +77,7 @@ class UpdateOrganisationDetails @Inject()(
       .fold(
         errors =>
           Future.successful(
-            BadRequest(views.html.details
-              .updateBusinessAddress(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+            BadRequest(updateBusinessAddressView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         address =>
           address.addressUnitId match {
             case Some(id) => updateDetails(addressId = Some(id))
@@ -90,7 +90,7 @@ class UpdateOrganisationDetails @Inject()(
   }
 
   def viewBusinessPhone: Action[AnyContent] = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(phoneForm, request.organisationAccount)))
+    Ok(updateBusinessPhoneView(UpdateOrganisationDetailsVM(phoneForm, request.organisationAccount)))
   }
 
   def updateBusinessPhone: Action[AnyContent] = authenticated.async { implicit request =>
@@ -98,14 +98,14 @@ class UpdateOrganisationDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(BadRequest(
-            views.html.details.updateBusinessPhone(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+          Future.successful(
+            BadRequest(updateBusinessPhoneView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         phone => updateDetails(phone = Some(phone))
       )
   }
 
   def viewBusinessEmail: Action[AnyContent] = authenticated { implicit request =>
-    Ok(views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(emailForm, request.organisationAccount)))
+    Ok(updateBusinessEmailView(UpdateOrganisationDetailsVM(emailForm, request.organisationAccount)))
   }
 
   def updateBusinessEmail: Action[AnyContent] = authenticated.async { implicit request =>
@@ -113,8 +113,8 @@ class UpdateOrganisationDetails @Inject()(
       .bindFromRequest()
       .fold(
         errors =>
-          Future.successful(BadRequest(
-            views.html.details.updateBusinessEmail(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
+          Future.successful(
+            BadRequest(updateBusinessEmailView(UpdateOrganisationDetailsVM(errors, request.organisationAccount)))),
         email => updateDetails(email = Some(email))
       )
   }

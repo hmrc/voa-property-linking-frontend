@@ -1,34 +1,25 @@
 (function () {
     'use strict';
-
     var root = this, $ = root.jQuery;
-
     if (typeof VOA === 'undefined') {
         root.VOA = {};
     }
-
     root.VOA.postcodeLookup = function () {
-
         var messages = VOA.messages.en;
-
         function showFields() {
             $('.address--fields').css('display', 'block');
             $('.postcode-lookup-fields, .manualAddress').css('display', 'none');
             $('.address--fields input').attr('placeholder', '');
         }
-
         function clearFields(_this) {
             $(_this).closest('.postcode-lookup-group').find('.address--fields input').val('');
         }
-
         function errorCheck() {
             if($('.govuk-error-summary').length) {
                 showFields();
             }
         }
-
         function showLookupError() {
-
             var isError = $('#postcodeSearchOnly').text().indexOf('Enter a valid postcode') > -1;
 
             if(isError){
@@ -39,32 +30,25 @@
             $('#postcodeSearchGroup').before('<span class="govuk-form-group govuk-form-group--error">'
                 + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
             $('#postcodeSearch').before('<span id="invalidPostcode" class="govuk-error-message">'
-            + messages.errors.postcodeLookupError + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
 
+            + messages.errors.postcodeLookupError + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
             active = true;
         }
-
         function addressLine(s) {
             if (s) { return s + ', '; } else { return ''; }
         }
-
         function clearId() {
             $('.postcode-lookup-group input').change(function(){
                 $('#address_addressId_text').val('');
             });
         }
-
         errorCheck();
-
         var active = true;
-
         $('#postcodeLookupButton').click(function (e) {
             e.preventDefault();
             $(this).closest('.postcode-lookup-group').find('#addressSelect, [for="addressSelect"]').remove();
-
             var postcode = $('#postcodeSearch').val();
-
-
+          
             if(postcode !== '' && active) {
                 active = false;
                 $.ajax({
@@ -84,8 +68,6 @@
                             $('#addressSelect').append('<option value="" selected disabled>' + messages.labels.selectValue + '</option>');
                             $('.postcode-lookup-fields').css('display', 'none');
                             $('.lookupAddressCancel').css('display', 'inline-block');
-
-
                             $.each(data, function(i, item) {
                                 var organisationName = item['organisationName'];
                                 var departmentName = item['departmentName'];
@@ -98,7 +80,6 @@
                                 var dependentLocality = item['dependentLocality'];
                                 var postTown = item['postTown'];
                                 var postcode = item['postcode'];
-
                                 var address =
                                     addressLine(departmentName) +
                                     addressLine(organisationName) +
@@ -111,7 +92,6 @@
                                     addressLine(dependentLocality) +
                                     addressLine(postTown) +
                                     postcode;
-
                                 $('.addressList').append('<option value="' + i + '">' +  window.xssEscape(address) + '</option>');
                             });
                             $('#addressSelect').focus();
@@ -123,7 +103,6 @@
                                 $('.address--fields').css('display', 'none');
                                 $('#textAddressDiv').css('display', 'block');
                                 $('#text-form-group input:eq(0)').val(data[index]['addressUnitId']).attr('placeholder', '');
-
                                 if(data[index]['departmentName'] != undefined) {
                                     $('#textAddressData').append("<span>" + data[index]['departmentName']+ "</span><br>");
                                 }
@@ -159,9 +138,7 @@
                                 if(data[index]['postcode'] != undefined) {
                                     $('#textAddressData').append("<span>" + data[index]['postcode']+ "</span>");
                                 }
-
                                 $('#selectedAddress').attr('value', $('#textAddressData').html());
-
                                 $(this).closest('.form-group').find('[for="addressSelect"], #addressHelp').remove();
                                 $(this).remove();
                             });
@@ -179,8 +156,6 @@
                 showLookupError();
             }
         });
-
-
         $('.manualAddress').click(function (e) {
             e.preventDefault();
             $('#textAddressDiv').css('display', 'none');
@@ -191,7 +166,6 @@
             showFields();
             clearFields(this);
         });
-
         $('.lookupAddress').click(function (e) {
             e.preventDefault();
             $('.address--fields').css('display', 'none');
@@ -203,7 +177,6 @@
             $('#postcodeSearch').val('');
             active = true;
         });
-
         $('.lookupAddressCancel').click(function (e) {
             e.preventDefault();
             $('.address--fields').css('display', 'none');
@@ -216,7 +189,6 @@
             $(this).css('display', 'none');
             active = true;
         });
-
         if($('#text-form-group input:eq(0)').val() != ""){
             $('.address--fields').css('display', 'none');
             $('.postcode-lookup-fields').css('display', 'none');
@@ -224,9 +196,5 @@
             $('#textAddressDiv').css('display', 'block');
             $('#textAddressData').append($("#selectedAddress").val());
         }
-
-
-
     };
-
 }).call(this);

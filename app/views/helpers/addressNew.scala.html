@@ -25,8 +25,6 @@
     form(s"${fieldName}.addressId").value.getOrElse(loadedData)
 }
 
-
-
     @addressForm = {
         <div id="textAddressDiv" @if(selectedAddress.isEmpty){style="display: none"} else {style="display: block;"}>
             <div id="text-form-group" class="govuk-form-group">
@@ -57,6 +55,7 @@
 
 
             @GovukInput(Input(
+
             id = "address.line2",
             name = "address.line2",
             value =  form("address.line2").value.orElse(Some(addressData.fold("")(_.line2))),

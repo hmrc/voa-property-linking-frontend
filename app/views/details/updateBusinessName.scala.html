@@ -20,37 +20,42 @@
 @import _root_.template.FormSupport._
 @import config.ApplicationConfig
 
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput)
+
 @(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    Messages("updateBusinessName.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = Some(controllers.manageDetails.routes.ViewDetails.show().url)
+@mainLayout(
+    pageTitle = Messages("updateBusinessName.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    backUri = Some(controllers.manageDetails.routes.ViewDetails.show().url)
 ) {
-    <div class="grid-row">
-        <div class="column-two-thirds">
+    <h1 class="govuk-heading-xl">@messages("updateBusinessName.title")</h1>
 
-            <h1 class="heading-xlarge">@messages("updateBusinessName.title")</h1>
+    @FormWithCSRF(controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessName()) {
+        @govukInput(Input(
+            value = model.form("businessName").value.orElse(Some(model.currentDetails.companyName)),
+            id = "businessName",
+            name = "businessName",
+            classes = "form-control govuk-input--width-20",
+            label = Label(
+                isPageHeading = false,
+                classes = "govuk-label--m",
+                content = Text(Messages("label.companyName"))
+            ),
+            errorMessage = model.form("businessName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+        ))
 
-            @form(controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessName()) {
-
-                @inputText(
-                    field = prepopulated(model.form("businessName"), model.currentDetails.companyName),
-                    '_label -> Messages("label.companyName"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control"
-                )
-
-                <p>
-                    <button type="submit" id="continue" class="button">@messages("link.update")</button>
-                    <a href="@controllers.manageDetails.routes.ViewDetails.show().url" class="button-secondary">
-                    @messages("link.cancel")
-                    </a>
-                </p>
-            }
-
+        <div class="govuk-button-group">
+            @govukButton(Button(
+                content = Text(messages("link.update")),
+                attributes = Map("id" -> "update")
+            ))
+            @govukButton(Button(
+                href = Some(controllers.manageDetails.routes.ViewDetails.show().url),
+                content = Text(messages("link.cancel")),
+                classes = "govuk-button--secondary"
+            ))
         </div>
-    </div>
+    }
+
 }

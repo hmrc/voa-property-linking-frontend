@@ -14,34 +14,39 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.play.views.html.helpers.form
 @import helpers._
 @import controllers.manageDetails.UpdateOrganisationDetailsVM
 @import config.ApplicationConfig
 
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
+
 @(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    Messages("updateBusinessAddress.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = Some(controllers.manageDetails.routes.ViewDetails.show().url)
+@mainLayout(
+    pageTitle = Messages("updateBusinessAddress.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    backUri = Some(controllers.manageDetails.routes.ViewDetails.show().url)
 ) {
-    <div class="grid-row">
-        <div class="column-two-thirds">
+    <h1 class="govuk-heading-xl">@messages("updateBusinessAddress.title")</h1>
 
-            <h1 class="heading-xlarge">@messages("updateBusinessAddress.title")</h1>
+    @FormWithCSRF(action = controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessAddress()) {
 
-            @form(controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessAddress()) {
 
-                @address(model.form, "address")
+        @addressNew(
+            form = model.form,
+            fieldName = "address"
+        )
 
-                <p>
-                    <button type="submit" id="continue" class="button">@messages("link.update")</button>
-                    <a href="@controllers.manageDetails.routes.ViewDetails.show().url" class="button-secondary">@messages("link.cancel")</a>
-                </p>
-            }
-
+        <div class="govuk-button-group">
+            @govukButton(Button(
+                content = Text(messages("link.update")),
+                attributes = Map("id" -> "update")
+            ))
+            @govukButton(Button(
+                href = Some(controllers.manageDetails.routes.ViewDetails.show().url),
+                content = Text(messages("link.cancel")),
+                classes = "govuk-button--secondary"
+            ))
         </div>
-    </div>
+    }
 }

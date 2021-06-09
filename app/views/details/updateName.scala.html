@@ -21,49 +21,55 @@
 @import controllers.manageDetails.UpdateDetailsVM
 @import config.ApplicationConfig
 
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput)
+
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    Messages("updateName.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = Some(controllers.manageDetails.routes.ViewDetails.show().url)
+@mainLayout(
+    pageTitle = Messages("updateName.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    backUri = Some(controllers.manageDetails.routes.ViewDetails.show().url)
 ) {
+    <h1 class="govuk-heading-l">@messages("updateName.title")</h1>
 
-    <div class="grid-row">
-        <div class="column-two-thirds">
+    @FormWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateName()) {
 
-            <h1 class="heading-large">
-            @messages("updateName.title")
-            </h1>
+        @govukInput(Input(
+            value = model.form("firstName").value.orElse(Some(model.currentDetails.firstName)),
+            id = "firstName",
+            name = "firstName",
+            classes = "form-control govuk-input--width-20",
+            label = Label(
+                isPageHeading = false,
+                classes = "govuk-label--m",
+                content = Text(Messages("details.edit.label.firstName"))
+            ),
+            errorMessage = model.form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+        ))
 
-            @form(controllers.manageDetails.routes.UpdatePersonalDetails.updateName()) {
+        @govukInput(Input(
+            value = model.form("lastName").value.orElse(Some(model.currentDetails.lastName)),
+            id = "lastName",
+            name = "lastName",
+            classes = "form-control govuk-input--width-20",
+            label = Label(
+                isPageHeading = false,
+                classes = "govuk-label--m",
+                content = Text(Messages("details.edit.label.lastName"))
+            ),
+            errorMessage = model.form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+        ))
 
-                @inputText(
-                    field = prepopulated(model.form("firstName"), model.currentDetails.firstName),
-                    '_label -> Messages("details.edit.label.firstName"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control"
-                )
-
-                @inputText(
-                    field = prepopulated(model.form("lastName"), model.currentDetails.lastName),
-                    '_label -> Messages("details.edit.label.lastName"),
-                    '_labelClass -> "form-label-bold",
-                    '_showConstraints -> false,
-                    'class -> "form-control"
-                )
-
-                <p>
-                    <button id="update" class="button">@messages("link.update")</button>
-
-                    <a href="@controllers.manageDetails.routes.ViewDetails.show" class="button-secondary">
-                    @messages("link.cancel")
-                    </a>
-                </p>
-
-            </div>
-    </div>
-}
+        <div class="govuk-button-group">
+            @govukButton(Button(
+                content = Text(messages("link.update")),
+                attributes = Map("id" -> "update")
+            ))
+            @govukButton(Button(
+                href = Some(controllers.manageDetails.routes.ViewDetails.show().url),
+                content = Text(messages("link.cancel")),
+                classes = "govuk-button--secondary"
+            ))
+        </div>
+    }
 }

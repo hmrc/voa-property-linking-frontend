@@ -20,38 +20,45 @@
 @import config.ApplicationConfig
 @import controllers.manageDetails.UpdateDetailsVM
 
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput)
+
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    Messages("updateMobile.title"),
-    topBackLink = true,
-    bottomBackLink = true,
-    backLinkUrl = Some(controllers.manageDetails.routes.ViewDetails.show().url)
+@mainLayout(
+    pageTitle = Messages("updateMobile.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    backUri = Some(controllers.manageDetails.routes.ViewDetails.show().url)
 ) {
-    <div class="grid-row">
-        <div class="column-two-thirds">
+    <h1 class="govuk-heading-xl">@messages("updateMobile.title")</h1>
 
-            <h1 class="heading-xlarge">@messages("updateMobile.title")</h1>
+    @FormWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateMobile()) {
 
-            @form(controllers.manageDetails.routes.UpdatePersonalDetails.updateMobile()) {
+        @govukInput(Input(
+            value = model.form("phone").value.orElse(model.currentDetails.phone2),
+            id = "phone",
+            name = "phone",
+            classes = "form-control govuk-input--width-20",
+            label = Label(
+                isPageHeading = false,
+                classes = "govuk-label--m",
+                content = Text(Messages("label.updateMobile"))
+            ),
+            hint = Some(Hint(
+                content = Text(Messages("details.edit.mobile.help"))
+            )),
+            errorMessage = model.form("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+        ))
 
-                @inputText(
-                    field = prepopulated(model.form("phone"), model.currentDetails.phone2.getOrElse("")),
-                    '_label -> Messages("label.updateMobile"),
-                    '_labelClass -> "form-label-bold",
-                    '_help -> Messages("details.edit.mobile.help"),
-                    '_showConstraints -> false,
-                    'class -> "form-control"
-                )
-
-                <p>
-                    <button type="submit" id="continue" class="button">@messages("link.update")</button>
-                    <a href="@controllers.manageDetails.routes.ViewDetails.show().url" class="button-secondary">
-                    @messages("link.back")
-                    </a>
-                </p>
-            }
-
+        <div class="govuk-button-group">
+            @govukButton(Button(
+                content = Text(messages("link.update")),
+                attributes = Map("id" -> "update")
+            ))
+            @govukButton(Button(
+                href = Some(controllers.manageDetails.routes.ViewDetails.show().url),
+                content = Text(messages("link.cancel")),
+                classes = "govuk-button--secondary"
+            ))
         </div>
-    </div>
+    }
 }
