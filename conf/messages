@@ -1309,24 +1309,24 @@ enrolment.assistant.organisation.details.title = Your organisation details
 label.mobilePhone = Mobile number
 optional.label = Optional
 enrolment.tradeName = Trading name (Optional)
-enrolment.mobphone = <h1 class="govuk-heading-m">Mobile number</h1>
-enrolment.phone = <h1 class="govuk-heading-m">Telephone number</h1>
-enrolment.confirmedEmail = <h1 class="govuk-heading-m">Confirm email address</h1>
-enrolment.email = <h1 class="govuk-heading-m">Email address</h1>
-enrolment.firstName = <h1 class="govuk-heading-m">First name</h1>
-enrolment.lastName = <h1 class="govuk-heading-m">Last name</h1>
+enrolment.mobphone = Mobile number
+enrolment.phone = Telephone number
+enrolment.confirmedEmail = Confirm email address
+enrolment.email = Email address
+enrolment.firstName = First name
+enrolment.lastName = Last name
 enrolment.address1 = Address line 1
 enrolment.address2 = Address line 2
 enrolment.address3 = Address line 3
 enrolment.address4 = Address line 4
 enrolment.postcode = Postcode
-enrolment.businessPhoneNumber = <h1 class="govuk-heading-m">Business telephone number</h1>
+enrolment.businessPhoneNumber = Business telephone number
 enrolment.phoneNumber = Telephone number
 enrolment.mobileNumber = Mobile number
-enrolment.emailAddress = <h1 class="govuk-heading-m">Business email address</h1>
+enrolment.emailAddress = Business email address
 enrolment.emailAddress.hint = This should be your email address and not your agent’s. The email address should be monitored
 enrolment.tradingName = Trading name
-enrolment.confirmEmailAddress = <h1 class="govuk-heading-m">Confirm business email address</h1>
+enrolment.confirmEmailAddress = Confirm business email address
 enrolment.organisation.individualOrCompany = Do you want to register as an agent?
 enrolment.yes = Yes
 enrolment.no = No

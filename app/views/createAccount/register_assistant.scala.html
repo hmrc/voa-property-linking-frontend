@@ -84,7 +84,7 @@ if(selected) """checked="checked""" else """ disabled="disabled" """
         @govukInput(Input(
             id = "firstName",
             name = "firstName",
-            label = Label(content = HtmlContent(messages("enrolment.firstName"))),
+            label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
             value = model("firstName").value.orElse(Some(assistantFieldData.firstName)),
             errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
             err.args:_*)))),
@@ -94,7 +94,7 @@ if(selected) """checked="checked""" else """ disabled="disabled" """
         @govukInput(Input(
             id = "lastName",
             name = "lastName",
-            label = Label(content = HtmlContent(messages("enrolment.lastName"))),
+            label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
             value = model("lastName").value.orElse(Some(assistantFieldData.lastName)),
             errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
             err.args:_*)))),

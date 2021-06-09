@@ -65,7 +65,7 @@
             @govukInput(Input(
                 id = "firstName",
                 name = "firstName",
-                label = Label(content = HtmlContent(messages("enrolment.firstName"))),
+                label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
                 value =  model("firstName").value.orElse(Some(organisationFieldData.firstName)),
                 errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-!-width-one-quarter"
@@ -74,7 +74,7 @@
             @govukInput(Input(
             id = "lastName",
             name = "lastName",
-            label = Label(content = HtmlContent(messages("enrolment.lastName"))),
+            label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
             value =  model("lastName").value.orElse(Some(organisationFieldData.lastName)),
             errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
@@ -84,7 +84,7 @@
             @govukInput(Input(
             id = "companyName",
             name = "companyName",
-            label = Label(content = HtmlContent(messages("enrolment.organisation.name"))),
+            label = Label(content = HtmlContent(messages("enrolment.organisation.name")), classes="govuk-label--m"),
             value =  model("companyName").value.orElse(Some(organisationFieldData.businessName)),
             errorMessage = model("companyName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
@@ -107,7 +107,7 @@
             @govukInput(Input(
             id = "phone",
             name = "phone",
-            label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber"))),
+            label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber")), classes="govuk-label--m"),
             value =  model(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
             errorMessage = model(keys.phone).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
@@ -116,7 +116,7 @@
             @govukInput(Input(
             id = "email",
             name = "email",
-            label = Label(content = HtmlContent(messages("enrolment.emailAddress"))),
+            label = Label(content = HtmlContent(messages("enrolment.emailAddress")), classes="govuk-label--m"),
             value =  model(keys.email).value.orElse(Some(organisationFieldData.email)),
             errorMessage = model(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"
@@ -126,7 +126,7 @@
             @govukInput(Input(
             id = "confirmedBusinessEmail",
             name = "confirmedBusinessEmail",
-            label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress"))),
+            label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress")), classes="govuk-label--m"),
             value =  model(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
             errorMessage = model(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-!-width-one-quarter"

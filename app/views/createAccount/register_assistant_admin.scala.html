@@ -80,7 +80,7 @@ case _                   => Some(ErrorMessage(content = Text(messages("error.com
         @govukInput(Input(
         id = "firstName",
         name = "firstName",
-        label = Label(content = HtmlContent(messages("enrolment.firstName"))),
+        label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
         value = model("firstName").value.orElse(Some(organisationFieldData.firstName)),
         errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
         err.args:_*)))),
@@ -89,7 +89,7 @@ case _                   => Some(ErrorMessage(content = Text(messages("error.com
         @govukInput(Input(
         id = "lastName",
         name = "lastName",
-        label = Label(content = HtmlContent(messages("enrolment.lastName"))),
+        label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
         value = model("lastName").value.orElse(Some(organisationFieldData.lastName)),
         errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
         err.args:_*)))),
