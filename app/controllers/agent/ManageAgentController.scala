@@ -49,7 +49,10 @@ class ManageAgentController @Inject()(
       unassignAgentFromAllPropertiesView: views.html.propertyrepresentation.manage.unassignAgentFromAllProperties,
       confirmUnassignAgentFromAllPropertiesView: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties,
       confirmRemoveAgentFromOrganisationView: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation,
-      manageAgentSimpleView: views.html.propertyrepresentation.manage.manageAgentSimpleProperties)(
+      manageAgentSimpleView: views.html.propertyrepresentation.manage.manageAgentSimpleProperties,
+      manageAgentPropertiesView: views.html.propertyrepresentation.manage.manageAgentProperties
+
+)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -107,8 +110,7 @@ class ManageAgentController @Inject()(
             agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
           } yield
             BadRequest(
-              views.html.propertyrepresentation.manage
-                .manageAgentProperties(errors, ownerAuthResult, agentCode, agentDetails, params, pagination))
+             manageAgentPropertiesView(errors, ownerAuthResult, agentCode, agentDetails, params, pagination))
         },
         success =>
           Future.successful(
