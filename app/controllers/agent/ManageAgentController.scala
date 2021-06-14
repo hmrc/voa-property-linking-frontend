@@ -49,8 +49,7 @@ class ManageAgentController @Inject()(
       unassignAgentFromAllPropertiesView: views.html.propertyrepresentation.manage.unassignAgentFromAllProperties,
       confirmUnassignAgentFromAllPropertiesView: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties,
       confirmRemoveAgentFromOrganisationView: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation,
-      manageAgentSimpleView: views.html.propertyrepresentation.manage.manageAgentSimpleProperties,
-      manageAgentPropertiesView: views.html.propertyrepresentation.manage.manageAgentProperties
+      manageAgentSimpleView: views.html.propertyrepresentation.manage.manageAgentSimpleProperties
 
 )(
       implicit override val messagesApi: MessagesApi,
@@ -94,35 +93,6 @@ class ManageAgentController @Inject()(
     }
   }
 
-  def manageAgentSearchSortProperties(
-        agentCode: Long,
-        params: GetPropertyLinksParameters,
-        pagination: PaginationParameters): Action[AnyContent] = authenticated.async { implicit request =>
-    {
-
-      AgentPropertiesForm.filterPropertiesForm.bindFromRequest.fold(
-        errors => {
-          for {
-            ownerAuthResult <- agentRelationshipService.getMyAgentPropertyLinks(
-                                agentCode,
-                                params,
-                                PaginationParams(pagination.startPoint, pagination.pageSize, true))
-            agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
-          } yield
-            BadRequest(
-             manageAgentPropertiesView(errors, ownerAuthResult, agentCode, agentDetails, params, pagination))
-        },
-        success =>
-          Future.successful(
-            Redirect(
-              routes.ManageAgentController.manageAgentProperties(
-                agentCode,
-                params.copy(address = success.address, baref = success.localAuthorityReference),
-                pagination)))
-      )
-
-    }
-  }
   private[agent] def getManageAgentView(
         agentCode: Option[Long],
         submitManageAgentForm: Form[ManageAgentRequest] = ManageAgentRequest.submitManageAgentRequest)(
