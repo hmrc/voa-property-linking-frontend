@@ -20,6 +20,7 @@
 @import config.ApplicationConfig
 @import models.searchApi.OwnerAuthResult
 @import models.propertyrepresentation.AgentDetails
+
 @this(govukTable : GovukTable, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
 @(      ownerAuthResult: OwnerAuthResult,
@@ -33,7 +34,6 @@
 
 ) {
 
-<h1>zizu</h1>
     <h1 class="govuk-heading-xl">@agentDetails.map(_.name).getOrElse("")</h1>
 
     <a class="govuk-button" href="@{controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url}">@messages("propertyRepresentation.manage.agent")</a>
