@@ -75,6 +75,6 @@ trait DesignSystemTestSupport extends Layouts {
     GovukButton)
 
   val registerConfirmationView =
-    new views.html.createAccount.registration_confirmation(GovukInsetText, GovukDetails, mainLayout)
+    new views.html.createAccount.registration_confirmation(GovukInsetText, GovukDetails, mainLayout, GovukButton)
 
 }
