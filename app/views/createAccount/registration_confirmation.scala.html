@@ -25,7 +25,7 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout,govukButton:GovukButton )
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukButton: GovukButton)
 
 @(id: String, affinityGroup: AffinityGroup, credentialRole: CredentialRole)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 

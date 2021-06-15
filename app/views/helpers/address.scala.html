@@ -18,7 +18,7 @@
 
 
 
-@(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "", addressData: Option[Address] = None, selectedAddress: Option[String] = None)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "", addressData: Option[Address] = None, selectedAddress: Option[String] = None)(implicit request: Request[_], messages: Messages, govukInput: GovukInput, govukButton:GovukButton)
 
 @addressIdValue = @{
     val loadedData = addressData.fold("")(_.addressUnitId.fold("")(_.toString))
@@ -44,7 +44,7 @@
 <div class="address--fields show-if-no-js" @if(addressData.isEmpty | selectedAddress.nonEmpty){style="display: none"} else {style="display: block;"}>
 
 
-            @GovukInput(Input(
+            @govukInput(Input(
             id = "address.line1",
             name = "address.line1",
             label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--m" ),
@@ -54,8 +54,7 @@
             ))
 
 
-            @GovukInput(Input(
-
+            @govukInput(Input(
             id = "address.line2",
             name = "address.line2",
             value =  form("address.line2").value.orElse(Some(addressData.fold("")(_.line2))),
@@ -63,7 +62,7 @@
             classes = "govuk-input govuk-!-width-one-third"
             ))
 
-            @GovukInput(Input(
+            @govukInput(Input(
             id = "address.line3",
             name = "address.line3",
             value =  form("address.line3").value.orElse(Some(addressData.fold("")(_.line3))),
@@ -72,7 +71,7 @@
             ))
 
 
-            @GovukInput(Input(
+            @govukInput(Input(
             id = "address.line4",
             name = "address.line4",
             value =  form("address.line4").value.orElse(Some(addressData.fold("")(_.line4))),
@@ -81,7 +80,7 @@
             ))
 
 
-            @GovukInput(Input(
+            @govukInput(Input(
             id = "address.postcode",
             name = "address.postcode",
             label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "govuk-label--m" ),
@@ -91,6 +90,7 @@
             ))
 
             <a href="#" class="govuk-link lookupAddress hide-if-no-js">@messages("addressLookup.lookup")</a>
+
         </div>
     }
 
@@ -100,7 +100,7 @@
         <div id="postcodeSearchOnly" class="postcode-lookup-fields hide-if-no-js" @if(addressData.nonEmpty){ style="display: none;"} >
 
             <div class="postcodeSearchGroup govuk-body">
-                @GovukInput(Input(
+                @govukInput(Input(
                                     id = "postcodeSearch",
                                     name = "postcodeSearch",
                                     label = Label(content = HtmlContent(messages("label.address.postcode")), classes = "postcodeSearch govuk-label--m" ),
@@ -111,7 +111,7 @@
             </div>
 
         <div class="govuk-form-group">
-            @GovukButton(Button(
+            @govukButton(Button(
                                 attributes = Map("id" -> "postcodeLookupButton"),
                                 classes = "govuk-button--secondary lookupAddress hide-if-no-js",
                                 content = Text(messages("label.findAddress"))
