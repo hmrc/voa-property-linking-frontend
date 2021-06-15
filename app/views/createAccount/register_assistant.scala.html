@@ -38,7 +38,7 @@ if(selected) """checked="checked""" else """ disabled="disabled" """
     content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
 }
 
-@mainLayout(pageTitle = messages("assessments.title")) {
+@mainLayout(pageTitle = messages("enrolment.title")) {
 
 
         @if(model.errors.nonEmpty) {

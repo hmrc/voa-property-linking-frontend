@@ -31,11 +31,11 @@ start.registration.youNeed.2=UK passport
 start.registration.youNeed.3=P60
 start.registration.p.5=You should allow approximately 15 minutes without interruption to complete the registration process.
 start.registration.IdontHave=I don’t have these details
-start.registration.IdontHave.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to <a href="https://www.gov.uk/contact-voa">contact the Valuation Office Agency (VOA).</a></p>
+start.registration.IdontHave.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to <a class="govuk-link" href="https://www.gov.uk/contact-voa">contact the Valuation Office Agency (VOA).</a></p>
 start.registration.IdontHave.enrolment.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
-start.registration.enrolment.hyperlink=<a href="{0}">I want to register using my existing Government Gateway account</a>
-start.registration.individual.hyperlink=<a href="{0}/are-you-trying-to-file-for-sa?continue={1}&origin={2}">Individual (you represent yourself)</a> – you won’t be able to add others to this account
-start.registration.organisation.hyperlink=<a href="{0}?accountType={1}&continue={2}&origin={3}">Organisation (you represent a business, charity or other organisation)</a> – you’ll be able to add others to this account
+start.registration.enrolment.hyperlink=<a class="govuk-link" href="{0}">I want to register using my existing Government Gateway account</a>
+start.registration.individual.hyperlink=<a class="govuk-link" href="{0}/are-you-trying-to-file-for-sa?continue={1}&origin={2}">Individual (you represent yourself)</a> – you won’t be able to add others to this account
+start.registration.organisation.hyperlink=<a class="govuk-link" href="{0}?accountType={1}&continue={2}&origin={3}">Organisation (you represent a business, charity or other organisation)</a> – you’ll be able to add others to this account
 
 start.heading.agents=Agents
 start.agents.p.1=If you plan to act as an agent on behalf of another business, you’ll be able to indicate this during the registration process.
@@ -152,7 +152,7 @@ dropdown.createAccount.nino.p1=You need to provide your National Insurance numbe
 dropdown.createAccount.nino.p2=If you don''t have a National Insurance number and you are not eligible to apply for one, you should contact us.
 dropdown.createAccount.nino.emailHeading=Email
 dropdown.createAccount.nino.telephoneHeading=Telephone
-dropdown.createAccount.nino.email=<a href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>
+dropdown.createAccount.nino.email=<a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>
 dropdown.createAccount.nino.telephone=03000 501 501
 dropdown.createAccount.nino.opening=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
 dateOfBirth.label=Date of birth
