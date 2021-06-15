@@ -64,7 +64,7 @@
                         if (data.length > 0) {
                             $('.postcode-lookup-group').prepend('<label for="addressSelect" class="govuk-label--m">'+
                             messages.labels.selectValue +'</label><span class="govuk-hint" id="addressHelp">' +
-                            messages.labels.addressHelp + '</span><select id="addressSelect" class="addressList form-control"></select>');
+                            messages.labels.addressHelp + '</span><select id="addressSelect" class="addressList govuk-select"></select>');
                             $('#addressSelect').append('<option value="" selected disabled>' + messages.labels.selectValue + '</option>');
                             $('.postcode-lookup-fields').css('display', 'none');
                             $('.lookupAddressCancel').css('display', 'inline-block');
