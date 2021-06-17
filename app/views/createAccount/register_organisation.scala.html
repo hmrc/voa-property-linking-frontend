@@ -24,7 +24,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(govukButton: GovukButton, govukDateInput: GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios)
+@this(mainLayout: mainLayout, govukButton: GovukButton, govukDateInput: GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails,govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios)
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -205,7 +205,8 @@
             ))
 
             @govukButton(Button(
-                content = Text(messages("app.common.saveAndContinue"))
+                content = Text(messages("app.common.saveAndContinue")),
+                attributes = Map("id" -> "save-and-continue")
             ))
 
             }

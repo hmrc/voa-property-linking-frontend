@@ -23,7 +23,7 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, govukDateInput:GovukDateInput)
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, govukDateInput:GovukDateInput)
 
 @(model: Form[AdminInExistingOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -138,7 +138,8 @@
         ))
 
         @govukButton(Button(
-         content = Text(messages("label.confirm"))
+         content = Text(messages("label.confirm")),
+         attributes = Map("id" -> "save-and-continue")
         ))
         }
 
