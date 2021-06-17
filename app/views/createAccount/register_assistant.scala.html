@@ -29,7 +29,7 @@
 @(model: Form[AssistantUserAccountDetails], assistantFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @isAgent(selected: Boolean) = @{
-if(selected) """checked="checked""" else """ disabled="disabled" """
+    if(selected) """checked="checked""" else """ disabled="disabled" """
 }
 
 @getEnrichedErrorLinks = @{

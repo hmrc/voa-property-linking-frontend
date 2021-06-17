@@ -16,9 +16,8 @@
 
 @import helpers._
 
+@(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "", addressData: Option[Address] = None, selectedAddress: Option[String] = None)(govukInput: GovukInput, govukButton: GovukButton)(implicit request: Request[_], messages: Messages)
 
-
-@(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "", addressData: Option[Address] = None, selectedAddress: Option[String] = None)(implicit request: Request[_], messages: Messages, govukInput: GovukInput, govukButton:GovukButton)
 
 @addressIdValue = @{
     val loadedData = addressData.fold("")(_.addressUnitId.fold("")(_.toString))

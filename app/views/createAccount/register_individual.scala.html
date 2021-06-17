@@ -79,7 +79,7 @@
                 postcode = individualFieldData.postcode,
                 addressData = if(individualFieldData.businessAddress == Address.empty){None} else {Some(individualFieldData.businessAddress)},
                 selectedAddress = individualFieldData.selectedAddress
-            )
+            )(govukInput, govukButton)
 
             @govukInput(Input(
                 id = "email",
@@ -135,45 +135,43 @@
                 classes = "govuk-fieldset__legend--m"
             ))
             )),
-            id = "dob",
-            hint = Some(Hint(
-            content = Text(messages("hint.dateOfBirth"))
+                id = "dob",
+                hint = Some(Hint(
+                content = Text(messages("hint.dateOfBirth"))
             )),
-            items = Seq("day", "month", "year").map {
-            item =>
-            InputItem(
-            id = s"dob.$item",
-            classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors || model.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
-            name =  s"dob.$item",
-            label = Some(messages(s"dob.$item.label")),
-            value = model(s"dob.$item").value
+                items = Seq("day", "month", "year").map {
+                item =>
+                InputItem(
+                    id = s"dob.$item",
+                    classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors || model.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                    name =  s"dob.$item",
+                    label = Some(messages(s"dob.$item.label")),
+                    value = model(s"dob.$item").value
             )
             },
             errorMessage = getFromDateFiledErrorMessage,
             ))
 
             @govukInput(Input(
-            id = "nino",
-            name = "nino",
-            label = Label(content = HtmlContent(messages("label.ninoText")), classes="govuk-label--m"),
-            value =  model(keys.nino).value.orElse(Some(individualFieldData.nino)),
-            errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-input govuk-!-width-one-third",
-            hint = Some(Hint(
-            content = Text(messages("hint.nino"))
+                id = "nino",
+                name = "nino",
+                label = Label(content = HtmlContent(messages("label.ninoText")), classes="govuk-label--m"),
+                value =  model(keys.nino).value.orElse(Some(individualFieldData.nino)),
+                errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third",
+                hint = Some(Hint(
+                content = Text(messages("hint.nino"))
             ))
             ))
 
             @govukDetails(Details(
-            summary = HtmlContent(messages("start.registration.IdontHave")),
-            content = HtmlContent(messages("start.registration.IdontHave.answer"))
+                summary = HtmlContent(messages("start.registration.IdontHave")),
+                content = HtmlContent(messages("start.registration.IdontHave.answer"))
             ))
 
             @govukButton(Button(
-            content = Text(messages("app.common.saveAndContinue"))
+                content = Text(messages("app.common.saveAndContinue"))
             ))
 
             }
-
-
 }

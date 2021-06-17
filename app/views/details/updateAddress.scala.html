@@ -19,7 +19,7 @@
 @import controllers.manageDetails.UpdateDetailsVM
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput)
 
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -35,7 +35,7 @@
             form = model.form,
             fieldName = "address",
             helpText = "details.edit.postcode.help"
-        )
+        )(govukInput, govukButton)
 
         <div class="govuk-button-group">
             @govukButton(Button(

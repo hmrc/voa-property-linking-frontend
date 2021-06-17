@@ -18,7 +18,7 @@
 @import controllers.manageDetails.UpdateOrganisationDetailsVM
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput)
 
 @(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -34,7 +34,7 @@
         @address(
             form = model.form,
             fieldName = "address"
-        )
+        )(govukInput, govukButton)
 
         <div class="govuk-button-group">
             @govukButton(Button(
