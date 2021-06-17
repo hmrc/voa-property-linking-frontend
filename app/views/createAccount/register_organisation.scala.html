@@ -24,7 +24,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(govukButton: GovukButton, govukDateInput: GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios)
+@this(mainLayout: mainLayout, govukButton: GovukButton, govukDateInput: GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails,govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios)
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -70,64 +70,64 @@
             ))
 
             @govukInput(Input(
-            id = "lastName",
-            name = "lastName",
-            label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
-            value =  model("lastName").value.orElse(Some(organisationFieldData.lastName)),
-            errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-input govuk-!-width-one-third"
+                id = "lastName",
+                name = "lastName",
+                label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
+                value =  model("lastName").value.orElse(Some(organisationFieldData.lastName)),
+                errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
 
             @govukInput(Input(
-            id = "companyName",
-            name = "companyName",
-            label = Label(content = HtmlContent(messages("enrolment.organisation.name")), classes="govuk-label--m"),
-            value =  model("companyName").value.orElse(Some(organisationFieldData.businessName)),
-            errorMessage = model("companyName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-input govuk-!-width-one-third"
+                id = "companyName",
+                name = "companyName",
+                label = Label(content = HtmlContent(messages("enrolment.organisation.name")), classes="govuk-label--m"),
+                value =  model("companyName").value.orElse(Some(organisationFieldData.businessName)),
+                errorMessage = model("companyName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
-            @addressNew(
+            @address(
                 form = model,
                 fieldName = keys.address,
                 postcode = organisationFieldData.postcode,
                 addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)},
                 selectedAddress = organisationFieldData.selectedAddress
-            )
+            )(govukInput, govukButton)
 
 
-                @govukDetails(Details(
+            @govukDetails(Details(
                 summary = Text(messages("createAccount.group.details.header.multipleAddress")),
                 content = Text(messages("createAccount.group.details.content.multipleAddress"))
-                ))
-
-            @govukInput(Input(
-            id = "phone",
-            name = "phone",
-            label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber")), classes="govuk-label--m"),
-            value =  model(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
-            errorMessage = model(keys.phone).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @govukInput(Input(
-            id = "email",
-            name = "email",
-            label = Label(content = HtmlContent(messages("enrolment.emailAddress")), classes="govuk-label--m"),
-            value =  model(keys.email).value.orElse(Some(organisationFieldData.email)),
-            errorMessage = model(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-input govuk-!-width-one-third"
+                id = "phone",
+                name = "phone",
+                label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber")), classes="govuk-label--m"),
+                value =  model(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
+                errorMessage = model(keys.phone).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
+            ))
+
+            @govukInput(Input(
+                id = "email",
+                name = "email",
+                label = Label(content = HtmlContent(messages("enrolment.emailAddress")), classes="govuk-label--m"),
+                value =  model(keys.email).value.orElse(Some(organisationFieldData.email)),
+                errorMessage = model(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
 
             @govukInput(Input(
-            id = "confirmedBusinessEmail",
-            name = "confirmedBusinessEmail",
-            label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress")), classes="govuk-label--m"),
-            value =  model(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
-            errorMessage = model(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-            classes = "govuk-input govuk-!-width-one-third"
+                id = "confirmedBusinessEmail",
+                name = "confirmedBusinessEmail",
+                label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress")), classes="govuk-label--m"),
+                value =  model(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
+                errorMessage = model(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @govukRadios(Radios(
@@ -158,7 +158,7 @@
 
 
             @govukInsetText(InsetText(
-            content = Text(messages("isAgent.details"))
+                content = Text(messages("isAgent.details"))
             ))
 
             @govukDateInput(DateInput(
@@ -200,12 +200,13 @@
             ))
 
             @govukDetails(Details(
-            summary = HtmlContent(messages("start.registration.IdontHave")),
-            content = HtmlContent(messages("start.registration.IdontHave.answer"))
+                summary = HtmlContent(messages("start.registration.IdontHave")),
+                content = HtmlContent(messages("start.registration.IdontHave.answer"))
             ))
 
             @govukButton(Button(
-            content = Text(messages("app.common.saveAndContinue"))
+                content = Text(messages("app.common.saveAndContinue")),
+                attributes = Map("id" -> "save-and-continue")
             ))
 
             }

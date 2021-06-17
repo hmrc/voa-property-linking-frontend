@@ -294,7 +294,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
         mockIndividualAccounts,
         mockManageDetails,
         mockGroupAccounts,
-        updateAddressView = new views.html.details.updateAddress(mainLayout, GovukButton),
+        updateAddressView = new views.html.details.updateAddress(mainLayout, GovukButton, GovukInput),
         updatePhoneView = new views.html.details.updatePhone(mainLayout, GovukButton, GovukInput),
         updateMobileView = new views.html.details.updateMobile(mainLayout, GovukButton, GovukInput),
         updateEmailView = new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput),

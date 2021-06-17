@@ -23,25 +23,26 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, govukDateInput:GovukDateInput)
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, govukDateInput:GovukDateInput)
 
 @(model: Form[AdminInExistingOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @isAgent(selected: Boolean) = @{
-if(selected) """checked="checked""" else """ disabled="disabled" """
+    if(selected) """checked="checked""" else """ disabled="disabled" """
 }
 
 @getEnrichedErrorLinks = @{
-model.errors.map{ error =>
-ErrorLink(href = Some(s"#${error.key}"),
-content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
+    model.errors.map{ error =>
+    ErrorLink(href = Some(s"#${error.key}"),
+    content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
 }
+
 @getFromDateFiledErrorMessage = @{
-(model.error("dob.day"), model.error("dob.month"), model.error("dob.year")) match
-{
-case (None, None, None ) => None
-case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
-}
+    (model.error("dob.day"), model.error("dob.month"), model.error("dob.year")) match
+    {
+        case (None, None, None ) => None
+        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
+    }
 }
 @mainLayout(pageTitle = messages("enrolment.title")) {
 
@@ -76,63 +77,69 @@ case _                   => Some(ErrorMessage(content = Text(messages("error.com
             </tbody>
         </table>
         <h2 class="govuk-heading-m">@messages("label.your.details")</h2>
+
         @govukInput(Input(
-        id = "firstName",
-        name = "firstName",
-        label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
-        value = model("firstName").value.orElse(Some(organisationFieldData.firstName)),
-        errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
-        err.args:_*)))),
-        classes = "govuk-input govuk-!-width-one-third"
+            id = "firstName",
+            name = "firstName",
+            label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
+            value = model("firstName").value.orElse(Some(organisationFieldData.firstName)),
+            errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
+            err.args:_*)))),
+            classes = "govuk-input govuk-!-width-one-third"
         ))
+
         @govukInput(Input(
-        id = "lastName",
-        name = "lastName",
-        label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
-        value = model("lastName").value.orElse(Some(organisationFieldData.lastName)),
-        errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
-        err.args:_*)))),
-        classes = "govuk-input govuk-!-width-one-third"
+            id = "lastName",
+            name = "lastName",
+            label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
+            value = model("lastName").value.orElse(Some(organisationFieldData.lastName)),
+            errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
+            err.args:_*)))),
+            classes = "govuk-input govuk-!-width-one-third"
         ))
+
         @govukDateInput(DateInput(
-        fieldset = Some(Fieldset(
-        legend = Some(Legend(
-        content = Text(messages("label.dob")),
-        isPageHeading = true,
-        classes = "govuk-fieldset__legend--m"
+            fieldset = Some(Fieldset(
+            legend = Some(Legend(
+            content = Text(messages("label.dob")),
+                isPageHeading = true,
+                classes = "govuk-fieldset__legend--m"
+            ))
+            )),
+            id = "dob",
+            hint = Some(Hint(
+                 content = Text(messages("hint.dateOfBirth"))
+            )),
+                items = Seq("day", "month", "year").map {
+            item =>
+            InputItem(
+                id = s"dob.$item",
+                classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors ||
+                model.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                name = s"dob.$item",
+                label = Some(messages(s"dob.$item.label")),
+                value = model(s"dob.$item").value
+            )
+            },
+            errorMessage = getFromDateFiledErrorMessage,
         ))
-        )),
-        id = "dob",
-        hint = Some(Hint(
-        content = Text(messages("hint.dateOfBirth"))
-        )),
-        items = Seq("day", "month", "year").map {
-        item =>
-        InputItem(
-        id = s"dob.$item",
-        classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors ||
-        model.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
-        name = s"dob.$item",
-        label = Some(messages(s"dob.$item.label")),
-        value = model(s"dob.$item").value
-        )
-        },
-        errorMessage = getFromDateFiledErrorMessage,
-        ))
+
         @govukInput(Input(
-        id = "nino",
-        name = "nino",
-        label = Label(content = HtmlContent(messages("label.ninoText"))),
-        value = model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
-        errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message,
-        err.args:_*)))),
-        classes = "govuk-input govuk-!-width-one-third",
-        hint = Some(Hint(
-        content = Text(messages("hint.nino"))
+            id = "nino",
+            name = "nino",
+            label = Label(content = HtmlContent(messages("label.ninoText")), classes="govuk-label--m"),
+            value = model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
+            errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message,
+            err.args:_*)))),
+            classes = "govuk-input govuk-!-width-one-third",
+            hint = Some(Hint(
+            content = Text(messages("hint.nino"))
         ))
         ))
+
         @govukButton(Button(
-        content = Text(messages("label.confirm"))
+         content = Text(messages("label.confirm")),
+         attributes = Map("id" -> "save-and-continue")
         ))
         }
 

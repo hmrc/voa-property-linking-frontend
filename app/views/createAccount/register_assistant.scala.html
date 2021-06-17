@@ -24,12 +24,12 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton)
+@this( mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton)
 
 @(model: Form[AssistantUserAccountDetails], assistantFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @isAgent(selected: Boolean) = @{
-if(selected) """checked="checked""" else """ disabled="disabled" """
+    if(selected) """checked="checked""" else """ disabled="disabled" """
 }
 
 @getEnrichedErrorLinks = @{
@@ -38,7 +38,7 @@ if(selected) """checked="checked""" else """ disabled="disabled" """
     content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
 }
 
-@mainLayout(pageTitle = messages("assessments.title")) {
+@mainLayout(pageTitle = messages("enrolment.title")) {
 
 
         @if(model.errors.nonEmpty) {
@@ -101,7 +101,8 @@ if(selected) """checked="checked""" else """ disabled="disabled" """
 
 
         @govukButton(Button(
-            content = Text(messages("label.confirm"))
+            content = Text(messages("label.confirm")),
+            attributes = Map("id" -> "save-and-continue")
         ))
 
         }

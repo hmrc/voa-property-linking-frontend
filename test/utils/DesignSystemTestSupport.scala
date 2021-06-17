@@ -38,9 +38,9 @@ trait DesignSystemTestSupport extends Layouts {
   val invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout)
 
   val registerIndividualView = new views.html.createAccount.register_individual(
+    mainLayout,
     GovukInsetText,
     GovukDetails,
-    mainLayout,
     GovukErrorSummary,
     GovukInput,
     GovukDateInput,
@@ -48,33 +48,33 @@ trait DesignSystemTestSupport extends Layouts {
 
   val registerOrganisationView =
     new views.html.createAccount.register_organisation(
+      mainLayout,
       GovukButton,
       GovukDateInput,
       GovukInsetText,
       GovukDetails,
-      mainLayout,
       GovukErrorSummary,
       GovukInput,
       GovukRadios)
 
   val registerAssAdminView = new views.html.createAccount.register_assistant_admin(
+    mainLayout,
     GovukInsetText,
     GovukDetails,
-    mainLayout,
     GovukErrorSummary,
     GovukInput,
     GovukButton,
     GovukDateInput)
 
   val registerAssistantView = new views.html.createAccount.register_assistant(
+    mainLayout,
     GovukInsetText,
     GovukDetails,
-    mainLayout,
     GovukErrorSummary,
     GovukInput,
     GovukButton)
 
   val registerConfirmationView =
-    new views.html.createAccount.registration_confirmation(GovukInsetText, GovukDetails, mainLayout)
+    new views.html.createAccount.registration_confirmation(mainLayout, GovukInsetText, GovukDetails, GovukButton)
 
 }

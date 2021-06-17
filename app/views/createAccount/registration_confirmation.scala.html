@@ -25,7 +25,7 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this(govukInsetText: GovukInsetText, govukDetails: GovukDetails, mainLayout: mainLayout)
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukButton: GovukButton)
 
 @(id: String, affinityGroup: AffinityGroup, credentialRole: CredentialRole)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -46,6 +46,10 @@
 
         <p class="govuk-body">@Html(Messages("account.confirmation.disclaimer"))</p>
 
-        <a href="@config.dashboardUrl("home")" class="govuk-button" role="button">@messages("account.enrolment.link.success")</a>
+        @govukButton(Button(
+            href = Some(config.dashboardUrl("home")),
+            content = Text(messages("account.enrolment.link.success")),
+            attributes = Map("id" -> "continue")
+        ))
 
 }
