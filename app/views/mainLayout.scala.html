@@ -15,8 +15,10 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 @import config.ApplicationConfig
 @import play.twirl.api.HtmlFormat
+
 
 @this(
         govukTemplate: GovukTemplate,
@@ -24,6 +26,9 @@
         govukFooter: GovukFooter,
         govukBackLink: GovukBackLink,
         govukDetails: GovukDetails,
+        govukPhaseBanner: GovukPhaseBanner,
+        hmrcStandardFooter: HmrcStandardFooter,
+        hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet,
         head: head
 )
 
@@ -80,5 +85,11 @@
     headScripts = headScripts,
     content = mainContent,
     navigation = navigation,
-    scriptElem = Some(scriptElem)
+    scriptElem = Some(scriptElem))(
+    govukTemplate = govukTemplate,
+    govukHeader = govukHeader,
+    govukPhaseBanner = govukPhaseBanner,
+    hmrcStandardFooter = hmrcStandardFooter,
+    hmrcTrackingConsentSnippet = hmrcTrackingConsentSnippet
 )
+

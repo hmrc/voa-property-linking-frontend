@@ -45,7 +45,7 @@ trait VoaPropertyLinkingSpec
     extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
     with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with StubMessageControllerComponents
     with HTTPClientMock with ScalaFutures with Configs with FakeObjects with GlobalExecutionContext with AllMocks
-    with HttpResponseUtils with Inside with DesignSystemTestSupport {
+    with HttpResponseUtils with Inside with FakeViews {
 
   // FIXME we should be removing all "Csrf-Token" -> "nocheck"
   val token: (String, String) = "Csrf-Token" -> "nocheck"

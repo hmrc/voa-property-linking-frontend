@@ -16,20 +16,25 @@
 
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 @import play.twirl.api.HtmlFormat
 @import views.html.includes._
 @import actions.requests.CcaWrappedRequestHelper.RequestOps
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTrackingConsentSnippet
 
 @(
         title: String,
         content: Html = HtmlFormat.empty,
         navigation: Html = HtmlFormat.empty,
         headScripts: Html = HtmlFormat.empty,
-        scriptElem: Option[Html] = None)(implicit request: RequestHeader, config: ApplicationConfig, messages: Messages)
+        scriptElem: Option[Html] = None)(
+        govukTemplate: GovukTemplate,
+        govukHeader: GovukHeader,
+        govukPhaseBanner: GovukPhaseBanner,
+        hmrcStandardFooter: HmrcStandardFooter,
+        hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet)(implicit request: RequestHeader, config: ApplicationConfig, messages: Messages)
 
     @head = {
-        @HmrcTrackingConsentSnippet()
+        @hmrcTrackingConsentSnippet()
         @headScripts
         @if(request.isLoggedIn){
             <meta name="hmrc-timeout-dialog" content="hmrc-timeout-dialog" data-language="en" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown" data-keep-alive-url="@config.keepAliveUrl" data-sign-out-url="@config.signOutUrl"/>
@@ -54,7 +59,7 @@
 
 
     @phaseBanner = {
-    @GovukPhaseBanner(
+    @govukPhaseBanner(
         PhaseBanner(
             tag = Some(Tag(Text("beta"))),
             content = HtmlContent(messages("label.phase.banner.text", s"${config.vmvUrl}/send-beta-feedback?serviceIdentifier=CCA"))
@@ -69,7 +74,7 @@
     }
 
     @headerBlock = {
-    @GovukHeader(Header(
+    @govukHeader(Header(
         homepageUrl = Some(config.dashboardUrl("home")),
         serviceName = Some(messages("service.name")),
         serviceUrl = Some("#")
@@ -77,12 +82,12 @@
     }
     @* we need to set 'htmlClasses = Some("no-js")' to enable no-javascript behaviour on *@
     @* pages that are not yet fully converted to use the new play-frontend-govuk templates *@
-    @GovukTemplate(
+    @govukTemplate(
         htmlClasses = Some("no-js"),
         pageTitle = Some(title),
         headBlock = Some(head),
         headerBlock = headerBlock,
         beforeContentBlock = Some(beforeContentBlock),
         bodyEndBlock = Some(bodyEnd),
-        footerBlock = uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter()
+        footerBlock = hmrcStandardFooter()
     )(content)

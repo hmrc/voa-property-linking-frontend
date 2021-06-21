@@ -68,7 +68,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       invalidAccountCreationView = invalidAccountCreationView,
       registerIndividualView = registerIndividualView,
       registerOrganisationView = registerOrganisationView,
-      registerAssAdminView = registerAssAdminView,
+      registerAssistantAdminView = registerAssistantAdminView,
       registerAssistantView = registerAssistantView,
       registerConfirmationView = registerConfirmationView,
       personalDetailsSessionRepo = mockSessionRepo

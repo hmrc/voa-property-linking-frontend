@@ -43,7 +43,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class GgAuthenticatedActionSpec
     extends UnitSpec with MockitoSugar with ScalaFutures with BeforeAndAfterEach with AllMocks
-    with NoMetricsOneAppPerSuite with GlobalExecutionContext with DesignSystemTestSupport {
+    with NoMetricsOneAppPerSuite with GlobalExecutionContext with FakeViews {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
   implicit lazy val controllerComponents = app.injector.instanceOf[ControllerComponents]

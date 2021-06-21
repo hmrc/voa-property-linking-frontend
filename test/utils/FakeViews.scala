@@ -17,19 +17,25 @@
 package utils
 
 import uk.gov.hmrc.govukfrontend.views.Layouts
-import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukButton, GovukDateInput, GovukDetails, GovukErrorSummary, GovukFooter, GovukHeader, GovukInput, GovukInsetText, GovukRadios}
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.html.deprecated.helpers._
+import views.html.propertyrepresentation.appoint.{appointAgentProperties, appointAgentSummary}
 import views.html.{addUserToGG, start}
 
-trait DesignSystemTestSupport extends Layouts {
+trait FakeViews extends Layouts {
   //all deprecated classes should be located in this file until DI is introduced
 
   val mainLayout = new views.html.mainLayout(
-    GovukTemplate,
-    GovukHeader,
-    GovukFooter,
-    GovukBackLink,
-    GovukDetails,
-    new views.html.head())
+    govukTemplate = GovukTemplate,
+    govukHeader = GovukHeader,
+    govukFooter = GovukFooter,
+    govukBackLink = GovukBackLink,
+    govukDetails = GovukDetails,
+    govukPhaseBanner = GovukPhaseBanner,
+    hmrcStandardFooter = HmrcStandardFooter,
+    hmrcTrackingConsentSnippet = HmrcTrackingConsentSnippet,
+    head = new views.html.head()
+  )
 
   val startView = new start(GovukInsetText, GovukDetails, mainLayout)
   val addUsertoGGView = new addUserToGG(mainLayout)
@@ -57,7 +63,7 @@ trait DesignSystemTestSupport extends Layouts {
       GovukInput,
       GovukRadios)
 
-  val registerAssAdminView = new views.html.createAccount.register_assistant_admin(
+  val registerAssistantAdminView = new views.html.createAccount.register_assistant_admin(
     mainLayout,
     GovukInsetText,
     GovukDetails,
@@ -77,4 +83,7 @@ trait DesignSystemTestSupport extends Layouts {
   val registerConfirmationView =
     new views.html.createAccount.registration_confirmation(mainLayout, GovukInsetText, GovukDetails, GovukButton)
 
+  val revokeAgentSummaryView = new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, GovukButton)
+  val appointAgentSummaryView = new appointAgentSummary(mainLayout, GovukButton)
+  val appointAgentPropertiesView = new appointAgentProperties(GovukTable, GovukButton, mainLayout, GovukErrorSummary)
 }
