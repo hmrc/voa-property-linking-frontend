@@ -50,7 +50,6 @@ class ManageAgentController @Inject()(
       confirmUnassignAgentFromAllPropertiesView: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties,
       confirmRemoveAgentFromOrganisationView: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation,
       manageAgentSimpleView: views.html.propertyrepresentation.manage.manageAgentSimpleProperties
-
 )(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,

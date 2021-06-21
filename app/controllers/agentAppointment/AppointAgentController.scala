@@ -44,16 +44,16 @@ import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class AppointAgentController @Inject()(
-                                        val errorHandler: CustomErrorHandler,
-                                        accounts: GroupAccounts,
-                                        authenticated: AuthenticatedAction,
-                                        agentRelationshipService: AgentRelationshipService,
-                                        @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
-                                        @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
-                                        @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
-                                        appointAgentSummaryView: views.html.propertyrepresentation.appoint.appointAgentSummary,
-                                        revokeAgentSummaryView: views.html.propertyrepresentation.revokeAgentSummary,
-                                        appointAgentPropertiesView: views.html.propertyrepresentation.appoint.appointAgentProperties
+      val errorHandler: CustomErrorHandler,
+      accounts: GroupAccounts,
+      authenticated: AuthenticatedAction,
+      agentRelationshipService: AgentRelationshipService,
+      @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
+      @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
+      @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
+      appointAgentSummaryView: views.html.propertyrepresentation.appoint.appointAgentSummary,
+      revokeAgentSummaryView: views.html.propertyrepresentation.revokeAgentSummary,
+      appointAgentPropertiesView: views.html.propertyrepresentation.appoint.appointAgentProperties
 )(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
