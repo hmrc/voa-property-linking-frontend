@@ -18,14 +18,18 @@ package utils
 
 import uk.gov.hmrc.govukfrontend.views.Layouts
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
-import views.html.propertyrepresentation.appoint.{appointAgentProperties, appointAgentSummary}
+import uk.gov.hmrc.hmrcfrontend.views.html.deprecated.helpers._
+import views.html.propertyrepresentation.appoint._
 import views.html.{addUserToGG, start}
 
 trait FakeViews extends Layouts {
-  //all deprecated classes should be located in this file until DI is introduced
 
-  val mainLayout = new views.html.mainLayout(
+  // all deprecated classes should be located in this file until DI is introduced
+
+  // all val's referencing mainLayout need to be lazy as some of the deprecated objects
+  // are not available until the fake application is running
+  // (e.g. HmrcStandardFooter & HmrcTrackingConsentSnippet)
+  lazy val mainLayout = new views.html.mainLayout(
     govukTemplate = GovukTemplate,
     govukHeader = GovukHeader,
     govukFooter = GovukFooter,
@@ -37,13 +41,13 @@ trait FakeViews extends Layouts {
     head = new views.html.head()
   )
 
-  val startView = new start(GovukInsetText, GovukDetails, mainLayout)
-  val addUsertoGGView = new addUserToGG(mainLayout)
-  val assessmentsView = new views.html.dashboard.assessments(mainLayout, GovukDetails)
-  val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
-  val invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout)
+  lazy val startView = new start(mainLayout, GovukInsetText, GovukDetails)
+  lazy val addUsertoGGView = new addUserToGG(mainLayout)
+  lazy val assessmentsView = new views.html.dashboard.assessments(mainLayout, GovukDetails)
+  lazy val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
+  lazy val invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout)
 
-  val registerIndividualView = new views.html.createAccount.register_individual(
+  lazy val registerIndividualView = new views.html.createAccount.register_individual(
     mainLayout,
     GovukInsetText,
     GovukDetails,
@@ -52,7 +56,7 @@ trait FakeViews extends Layouts {
     GovukDateInput,
     GovukButton)
 
-  val registerOrganisationView =
+  lazy val registerOrganisationView =
     new views.html.createAccount.register_organisation(
       mainLayout,
       GovukButton,
@@ -63,7 +67,7 @@ trait FakeViews extends Layouts {
       GovukInput,
       GovukRadios)
 
-  val registerAssistantAdminView = new views.html.createAccount.register_assistant_admin(
+  lazy val registerAssistantAdminView = new views.html.createAccount.register_assistant_admin(
     mainLayout,
     GovukInsetText,
     GovukDetails,
@@ -72,7 +76,7 @@ trait FakeViews extends Layouts {
     GovukButton,
     GovukDateInput)
 
-  val registerAssistantView = new views.html.createAccount.register_assistant(
+  lazy val registerAssistantView = new views.html.createAccount.register_assistant(
     mainLayout,
     GovukInsetText,
     GovukDetails,
@@ -80,10 +84,11 @@ trait FakeViews extends Layouts {
     GovukInput,
     GovukButton)
 
-  val registerConfirmationView =
+  lazy val registerConfirmationView =
     new views.html.createAccount.registration_confirmation(mainLayout, GovukInsetText, GovukDetails, GovukButton)
 
-  val revokeAgentSummaryView = new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, GovukButton)
-  val appointAgentSummaryView = new appointAgentSummary(mainLayout, GovukButton)
-  val appointAgentPropertiesView = new appointAgentProperties(GovukTable, GovukButton, mainLayout, GovukErrorSummary)
+  lazy val revokeAgentSummaryView = new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, GovukButton)
+  lazy val appointAgentSummaryView = new appointAgentSummary(mainLayout, GovukButton)
+  lazy val appointAgentPropertiesView =
+    new appointAgentProperties(mainLayout, GovukTable, GovukButton, GovukErrorSummary)
 }
