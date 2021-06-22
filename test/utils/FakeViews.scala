@@ -18,7 +18,7 @@ package utils
 
 import uk.gov.hmrc.govukfrontend.views.Layouts
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.html.deprecated.helpers._
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 import views.html.propertyrepresentation.appoint.{appointAgentProperties, appointAgentSummary}
 import views.html.{addUserToGG, start}
 
