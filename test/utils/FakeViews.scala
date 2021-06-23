@@ -54,7 +54,8 @@ trait FakeViews extends Layouts {
     GovukErrorSummary,
     GovukInput,
     GovukDateInput,
-    GovukButton)
+    GovukButton,
+    FormWithCSRF)
 
   lazy val registerOrganisationView =
     new views.html.createAccount.register_organisation(
@@ -65,7 +66,8 @@ trait FakeViews extends Layouts {
       GovukDetails,
       GovukErrorSummary,
       GovukInput,
-      GovukRadios)
+      GovukRadios,
+      FormWithCSRF)
 
   lazy val registerAssistantAdminView = new views.html.createAccount.register_assistant_admin(
     mainLayout,
@@ -74,7 +76,8 @@ trait FakeViews extends Layouts {
     GovukErrorSummary,
     GovukInput,
     GovukButton,
-    GovukDateInput)
+    GovukDateInput,
+    FormWithCSRF)
 
   lazy val registerAssistantView = new views.html.createAccount.register_assistant(
     mainLayout,
@@ -82,7 +85,8 @@ trait FakeViews extends Layouts {
     GovukDetails,
     GovukErrorSummary,
     GovukInput,
-    GovukButton)
+    GovukButton,
+    FormWithCSRF)
 
   lazy val registerConfirmationView =
     new views.html.createAccount.registration_confirmation(mainLayout, GovukInsetText, GovukDetails, GovukButton)

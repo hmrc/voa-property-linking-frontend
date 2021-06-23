@@ -25,40 +25,40 @@
 @import models._
 @import controllers.agentAppointment.FilterAppointPropertiesForm
 @import binders.propertylinks.ExternalPropertyLinkManagementSortOrder._
-
 @import models.searchApi.AgentPropertiesFilter
+
 @(
-f: Option[Form[_]],
-model: AppointAgentPropertiesVM,
-pagination: PaginationParameters,
-params: GetPropertyLinksParameters,
-agentCode: Long,
-agentAppointed: Option[String],
-backLink: Option[String]
+    f: Option[Form[_]],
+    model: AppointAgentPropertiesVM,
+    pagination: PaginationParameters,
+    params: GetPropertyLinksParameters,
+    agentCode: Long,
+    agentAppointed: Option[String],
+    backLink: Option[String]
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{
-Messages("propertyRepresentation.appointAgentProperties.title")
+    Messages("propertyRepresentation.appointAgentProperties.title")
 }
 
 @agentPropertiesFilter(showAllProperties: Boolean, backLink: String) = @{
-if(showAllProperties){
-Html(Messages("propertyRepresentation.appointAgents.showPropertiesNoAgent.link", agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, agentCode, agentAppointed = Some(AgentPropertiesFilter.No.name), backLink).url))
-} else {
-Html(Messages("propertyRepresentation.appointAgents.showAllProperties.link", agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, agentCode, None, backLink).url))
-}
+    if(showAllProperties){
+        Html(Messages("propertyRepresentation.appointAgents.showPropertiesNoAgent.link", agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, agentCode, agentAppointed = Some(AgentPropertiesFilter.No.name), backLink).url))
+    } else {
+        Html(Messages("propertyRepresentation.appointAgents.showAllProperties.link", agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, agentCode, None, backLink).url))
+    }
 }
 
 @backLinkAsString = @{
-backLink.getOrElse(config.dashboardUrl("home"))
+    backLink.getOrElse(config.dashboardUrl("home"))
 }
 
 @main_template(
-heading,
-contentHeaderText = Some(heading),
-contentHeaderHidden = true,
-topBackLink = true,
-backLinkUrl = backLink
+    heading,
+    contentHeaderText = Some(heading),
+    contentHeaderHidden = true,
+    topBackLink = true,
+    backLinkUrl = backLink
 ) {
 
 <div id="linkIdsGroup"  class="column-whole">
@@ -265,24 +265,24 @@ backLinkUrl = backLink
 
     @sortOrder(order: ExternalPropertyLinkManagementSortOrder, isSortField: Boolean) = {
     @{
-    if(isSortField){
-    order match {
-    case ExternalPropertyLinkManagementSortOrder.ASC => "sorting_asc"
-    case ExternalPropertyLinkManagementSortOrder.DESC => "sorting_desc"
-    case _ => "sorting"
-    }
-    } else "sorting"
+        if(isSortField){
+            order match {
+                case ExternalPropertyLinkManagementSortOrder.ASC => "sorting_asc"
+                case ExternalPropertyLinkManagementSortOrder.DESC => "sorting_desc"
+                case _ => "sorting"
+            }
+        } else "sorting"
     }
     }
 
     @ariaSortOrder(order: ExternalPropertyLinkManagementSortOrder, isSortField: Boolean) = {
     @{
-    if(isSortField){
-    order match {
-    case ExternalPropertyLinkManagementSortOrder.ASC => "ascending"
-    case ExternalPropertyLinkManagementSortOrder.DESC => "descending"
-    case _ => "none"
-    }
-    } else "none"
+        if(isSortField){
+            order match {
+                case ExternalPropertyLinkManagementSortOrder.ASC => "ascending"
+                case ExternalPropertyLinkManagementSortOrder.DESC => "descending"
+                case _ => "none"
+            }
+        } else "none"
     }
     }
