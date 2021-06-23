@@ -24,7 +24,7 @@ import uk.gov.hmrc.play.test.UnitSpec
 import utils.StubMessageControllerComponents._
 import utils.{Configs, NoMetricsOneAppPerSuite}
 
-class TechnicalDifficultiesPageSpec extends UnitSpec with NoMetricsOneAppPerSuite with DesignSystemTestSupport {
+class TechnicalDifficultiesPageSpec extends UnitSpec with NoMetricsOneAppPerSuite with FakeViews {
 
   "The technical difficulties page" should {
     val ref: String = shortString
