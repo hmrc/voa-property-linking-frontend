@@ -52,8 +52,7 @@ class AppointAgentController @Inject()(
       @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
       @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
       appointAgentSummaryView: views.html.propertyrepresentation.appoint.appointAgentSummary,
-      revokeAgentSummaryView: views.html.propertyrepresentation.revokeAgentSummary,
-      appointAgentPropertiesView: views.html.propertyrepresentation.appoint.appointAgentProperties
+      revokeAgentSummaryView: views.html.propertyrepresentation.revokeAgentSummary
 )(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -187,7 +186,7 @@ class AppointAgentController @Inject()(
       agentOrganisation match {
         case Some(organisation) =>
           Ok(
-            appointAgentPropertiesView(
+            views.html.propertyrepresentation.appoint.appointAgentProperties(
               f = None,
               model = AppointAgentPropertiesVM(
                 organisation,
@@ -222,7 +221,7 @@ class AppointAgentController @Inject()(
                              group.id
                            )
               } yield
-                BadRequest(appointAgentPropertiesView(
+                BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(
                   Some(errors),
                   AppointAgentPropertiesVM(group, response),
                   PaginationParameters(),
@@ -260,7 +259,7 @@ class AppointAgentController @Inject()(
                                    group.id
                                  )
                     } yield
-                      BadRequest(appointAgentPropertiesView(
+                      BadRequest(views.html.propertyrepresentation.appoint.appointAgentProperties(
                         f = Some(appointAgentBulkActionForm.withError("appoint.error", "error.transaction")),
                         model = AppointAgentPropertiesVM(group, response),
                         pagination = PaginationParameters(),
