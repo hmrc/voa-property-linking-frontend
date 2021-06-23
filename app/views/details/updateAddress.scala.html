@@ -19,7 +19,7 @@
 @import controllers.manageDetails.UpdateDetailsVM
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
 
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -30,7 +30,7 @@
     <h1 class="govuk-heading-l">@messages("updateAddress.title")</h1>
 
 
-    @FormWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateAddress()) {
+    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateAddress()) {
         @address(
             form = model.form,
             fieldName = "address",

@@ -19,7 +19,7 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 @(model: DeclarationVM, isRatesBillEvidence: Boolean, clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @backLink = @{if (isRatesBillEvidence) {
@@ -42,7 +42,7 @@
 
     <h1 class="govuk-heading-xl">@messages("declaration.title")</h1>
 
-    @FormWithCSRF(action = controllers.propertyLinking.routes.DeclarationController.submit()) {
+    @formWithCSRF(action = controllers.propertyLinking.routes.DeclarationController.submit()) {
 
         <p class="govuk-body">@messages("declaration.p.1")</p>
 

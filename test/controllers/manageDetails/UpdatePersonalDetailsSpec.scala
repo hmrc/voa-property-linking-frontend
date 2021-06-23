@@ -25,7 +25,7 @@ import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.{ManageDetails, Success}
-import uk.gov.hmrc.govukfrontend.views.html.components.{GovukButton, GovukInput}
+import uk.gov.hmrc.govukfrontend.views.html.components.{FormWithCSRF, GovukButton, GovukInput}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -294,11 +294,11 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
         mockIndividualAccounts,
         mockManageDetails,
         mockGroupAccounts,
-        updateAddressView = new views.html.details.updateAddress(mainLayout, GovukButton, GovukInput),
-        updatePhoneView = new views.html.details.updatePhone(mainLayout, GovukButton, GovukInput),
-        updateMobileView = new views.html.details.updateMobile(mainLayout, GovukButton, GovukInput),
-        updateEmailView = new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput),
-        updateNameView = new views.html.details.updateName(mainLayout, GovukButton, GovukInput)
+        updateAddressView = new views.html.details.updateAddress(mainLayout, GovukButton, GovukInput, FormWithCSRF),
+        updatePhoneView = new views.html.details.updatePhone(mainLayout, GovukButton, GovukInput, FormWithCSRF),
+        updateMobileView = new views.html.details.updateMobile(mainLayout, GovukButton, GovukInput, FormWithCSRF),
+        updateEmailView = new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF),
+        updateNameView = new views.html.details.updateName(mainLayout, GovukButton, GovukInput, FormWithCSRF)
       )
 
   lazy val mockIndividualAccounts: IndividualAccounts = {

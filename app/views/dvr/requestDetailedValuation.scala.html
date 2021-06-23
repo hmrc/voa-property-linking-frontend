@@ -16,7 +16,7 @@
 
 @import config.ApplicationConfig
 @import controllers.detailedvaluationrequest.RequestDetailedValuationWithoutForm
-@this(mainLayout: views.html.mainLayout, govukButton : GovukButton, form: FormWithCSRF)
+@this(mainLayout: views.html.mainLayout, govukButton : GovukButton, formWithCSRF: FormWithCSRF)
 
 @(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 @returnUrl = @{
@@ -48,7 +48,7 @@
 
     <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.p.3", config.dashboardUrl("home")))</p>
 
-    @form(
+    @formWithCSRF)(
         if (owner)
                 controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuation(submissionId, model.assessmentRef)
         else

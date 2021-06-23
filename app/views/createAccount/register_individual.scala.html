@@ -22,7 +22,7 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukDateInput: GovukDateInput, govukButton: GovukButton)
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukDateInput: GovukDateInput, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
 
 
 @(model: Form[IndividualUserAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -52,7 +52,7 @@
 
             <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
 
-            @FormWithCSRF(controllers.registration.routes.RegistrationController.submitIndividual()) {
+            @formWithCSRF(controllers.registration.routes.RegistrationController.submitIndividual()) {
 
             @govukInput(Input(
                 id = "firstName",

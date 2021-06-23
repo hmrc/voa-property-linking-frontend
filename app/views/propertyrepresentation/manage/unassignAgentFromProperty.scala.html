@@ -27,7 +27,7 @@
 @import config.ApplicationConfig
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AgentAppointmentChangesRequest], agent: AgentSummary, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -41,7 +41,7 @@
     }
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.unassignFromProperty.question", agent.name)</h1>
 
-    @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.unassignAgentFromAll(agent.representativeCode, agent.name)) {
+    @formWithCSRF(action = controllers.agent.routes.ManageAgentController.unassignAgentFromAll(agent.representativeCode, agent.name)) {
         <input type="hidden" name="agentCode" value="@agent.representativeCode">
         <input type="hidden" name="scope" value="@ALL_PROPERTIES.toString">
         @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperty.confirm"))))

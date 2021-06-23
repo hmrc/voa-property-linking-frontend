@@ -25,7 +25,7 @@
 @import models.propertyrepresentation.All
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
 
-@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -75,7 +75,7 @@
         firstCellIsHeader = false
     ))
 
-    @FormWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.appointAgent()) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.appointAgent()) {
         <input type="hidden" name="agentCode" value="@data.agentCode">
         <input type="hidden" name="scope" value="@appointmentScope">
 

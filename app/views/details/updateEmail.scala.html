@@ -21,7 +21,7 @@
 
 @import controllers.manageDetails.UpdateDetailsVM
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
 
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -31,7 +31,7 @@
 ) {
     <h1 class="govuk-heading-xl">@messages("details.edit.personalEmail")</h1>
 
-    @FormWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateEmail()) {
+    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateEmail()) {
 
         @govukInput(Input(
             value = model.form("email").value.orElse(Some(model.currentDetails.email)),

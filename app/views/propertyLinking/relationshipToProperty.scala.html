@@ -18,7 +18,7 @@
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyRelationshipVM
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 @(model: ClaimPropertyRelationshipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 @clientId = @{clientDetails.map(_.organisationId)}
 @form = @{model.form}
@@ -84,7 +84,7 @@
         summary = Text(messages(s"declareCapacity.details.notOwner$clientSuffix")),
         content = HtmlContent(Html(Messages(s"declareCapacity.details.notOwner.text$clientSuffix")))))
 
-    @FormWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyRelationshipController.submitRelationship(model.uarn, clientDetails)) {
+    @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyRelationshipController.submitRelationship(model.uarn, clientDetails)) {
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(

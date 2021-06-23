@@ -24,7 +24,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(mainLayout: mainLayout, govukButton: GovukButton, govukDateInput: GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails,govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios)
+@this(mainLayout: mainLayout, govukButton: GovukButton, govukDateInput: GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails,govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios, formWithCSRF: FormWithCSRF)
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -58,7 +58,7 @@
             ))
 
 
-            @FormWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisation()) {
+            @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisation()) {
 
             @govukInput(Input(
                 id = "firstName",
