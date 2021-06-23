@@ -433,8 +433,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     revokeAgentPropertiesSessionRepo = mockRevokeAgentPropertiesSessionRepo,
     appointAgentPropertiesSession = mockAppointAgentPropertiesSessionRepo,
     revokeAgentSummaryView = revokeAgentSummaryView,
-    appointAgentSummaryView = appointAgentSummaryView,
-    appointAgentPropertiesView = appointAgentPropertiesView
+    appointAgentSummaryView = appointAgentSummaryView
   )
 
   private lazy val mockSessionRepo = mock[SessionRepo]

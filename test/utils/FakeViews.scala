@@ -89,6 +89,5 @@ trait FakeViews extends Layouts {
 
   lazy val revokeAgentSummaryView = new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, GovukButton)
   lazy val appointAgentSummaryView = new appointAgentSummary(mainLayout, GovukButton)
-  lazy val appointAgentPropertiesView =
-    new appointAgentProperties(mainLayout, GovukTable, GovukButton, GovukErrorSummary)
+
 }
