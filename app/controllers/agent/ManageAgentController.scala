@@ -20,7 +20,6 @@ import actions.AuthenticatedAction
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
-import controllers.agent.forms.AgentPropertiesForm
 import controllers.{PaginationParams, PropertyLinkingController}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.propertyrepresentation._
@@ -49,7 +48,8 @@ class ManageAgentController @Inject()(
       unassignAgentFromAllPropertiesView: views.html.propertyrepresentation.manage.unassignAgentFromAllProperties,
       confirmUnassignAgentFromAllPropertiesView: views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties,
       confirmRemoveAgentFromOrganisationView: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation,
-      manageAgentSimpleView: views.html.propertyrepresentation.manage.manageAgentSimpleProperties)(
+      manageAgentPropertiesView: views.html.propertyrepresentation.manage.manageAgentProperties
+)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
@@ -86,41 +86,11 @@ class ManageAgentController @Inject()(
                             .getMyAgentPropertyLinks(agentCode, params, PaginationParams(1, 100, true))
         agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
       } yield {
-        Ok(manageAgentSimpleView(ownerAuthResult, agentCode, agentDetails))
+        Ok(manageAgentPropertiesView(ownerAuthResult, agentCode, agentDetails))
       }
     }
   }
 
-  def manageAgentSearchSortProperties(
-        agentCode: Long,
-        params: GetPropertyLinksParameters,
-        pagination: PaginationParameters): Action[AnyContent] = authenticated.async { implicit request =>
-    {
-
-      AgentPropertiesForm.filterPropertiesForm.bindFromRequest.fold(
-        errors => {
-          for {
-            ownerAuthResult <- agentRelationshipService.getMyAgentPropertyLinks(
-                                agentCode,
-                                params,
-                                PaginationParams(pagination.startPoint, pagination.pageSize, true))
-            agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
-          } yield
-            BadRequest(
-              views.html.propertyrepresentation.manage
-                .manageAgentProperties(errors, ownerAuthResult, agentCode, agentDetails, params, pagination))
-        },
-        success =>
-          Future.successful(
-            Redirect(
-              routes.ManageAgentController.manageAgentProperties(
-                agentCode,
-                params.copy(address = success.address, baref = success.localAuthorityReference),
-                pagination)))
-      )
-
-    }
-  }
   private[agent] def getManageAgentView(
         agentCode: Option[Long],
         submitManageAgentForm: Form[ManageAgentRequest] = ManageAgentRequest.submitManageAgentRequest)(

@@ -48,7 +48,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   private val mockConfirmRemoveAgentFromOrganisationView =
     mock[views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation]
   private val mockMyAgentsView = mock[views.html.propertyrepresentation.manage.myAgents]
-  private val mockManageAgentSimpleView = mock[views.html.propertyrepresentation.manage.manageAgentSimpleProperties]
+  private val mockManageAgentPropertiesView = mock[views.html.propertyrepresentation.manage.manageAgentProperties]
 
   val testController = new ManageAgentController(
     errorHandler = mockCustomErrorHandler,
@@ -63,7 +63,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     unassignAgentFromAllPropertiesView = mockUnassignAgentFromAllPropertiesView,
     confirmUnassignAgentFromAllPropertiesView = mockConfirmUnassignAgentFromAllPropertiesView,
     confirmRemoveAgentFromOrganisationView = mockConfirmRemoveAgentFromOrganisationView,
-    mockManageAgentSimpleView
+    mockManageAgentPropertiesView
   )
 
   "showAgents" should "show the manage agent page" in {
@@ -95,7 +95,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
     when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
       .thenReturn(Future.successful(Some(agentDetails)))
-    when(mockManageAgentSimpleView.apply(any(), any(), any())(any(), any(), any()))
+    when(mockManageAgentPropertiesView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html(""))
     val res = testController.manageAgentProperties(agentCode, GetPropertyLinksParameters(), PaginationParameters())(
       FakeRequest())

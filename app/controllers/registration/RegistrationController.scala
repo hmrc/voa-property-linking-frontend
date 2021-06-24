@@ -48,7 +48,7 @@ class RegistrationController @Inject()(
       invalidAccountCreationView: views.html.errors.invalidAccountCreation,
       registerIndividualView: views.html.createAccount.register_individual,
       registerOrganisationView: views.html.createAccount.register_organisation,
-      registerAssAdminView: views.html.createAccount.register_assistant_admin,
+      registerAssistantAdminView: views.html.createAccount.register_assistant_admin,
       registerAssistantView: views.html.createAccount.register_assistant,
       registerConfirmationView: views.html.createAccount.registration_confirmation,
       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
@@ -112,7 +112,7 @@ class RegistrationController @Inject()(
           getCompanyDetails(request.groupIdentifier).map {
             case Some(fieldData) =>
               BadRequest(
-                registerAssAdminView(
+                registerAssistantAdminView(
                   errors,
                   fieldData
                 ))
@@ -185,7 +185,7 @@ class RegistrationController @Inject()(
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
 
-            Ok(registerAssAdminView(AdminInExistingOrganisationUser.organisation, data))
+            Ok(registerAssistantAdminView(AdminInExistingOrganisationUser.organisation, data))
           case Assistant =>
             val data = sessionPersonDetails match {
               case None                                                 => fieldData

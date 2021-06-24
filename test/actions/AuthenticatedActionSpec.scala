@@ -35,14 +35,14 @@ import uk.gov.hmrc.auth.core.retrieve.Retrieval
 import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.test.UnitSpec
-import utils.{Configs, DesignSystemTestSupport, FakeObjects, NoMetricsOneAppPerSuite}
+import utils.{Configs, FakeObjects, FakeViews, NoMetricsOneAppPerSuite}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class AuthenticatedActionSpec
     extends UnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks with NoMetricsOneAppPerSuite
-    with DesignSystemTestSupport {
+    with FakeViews {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
   implicit lazy val messagesControllerComponents: MessagesControllerComponents =
