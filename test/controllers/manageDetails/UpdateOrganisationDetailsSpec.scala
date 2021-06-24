@@ -247,14 +247,10 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
       mockGroups,
       mockAddresses,
       mockManageDetails,
-      updateBusinessAddressView =
-        new views.html.details.updateBusinessAddress(mainLayout, GovukButton, GovukInput, FormWithCSRF),
-      updateBusinessNameView =
-        new views.html.details.updateBusinessName(mainLayout, GovukButton, GovukInput, FormWithCSRF),
-      updateBusinessPhoneView =
-        new views.html.details.updateBusinessPhone(mainLayout, GovukButton, GovukInput, FormWithCSRF),
-      updateBusinessEmailView =
-        new views.html.details.updateBusinessEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF)
+      updateBusinessAddressView,
+      updateBusinessNameView,
+      updateBusinessPhoneView,
+      updateBusinessEmailView
     )(
       executionContext,
       clock,

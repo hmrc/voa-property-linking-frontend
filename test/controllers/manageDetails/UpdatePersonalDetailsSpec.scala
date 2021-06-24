@@ -294,11 +294,11 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
         mockIndividualAccounts,
         mockManageDetails,
         mockGroupAccounts,
-        updateAddressView = new views.html.details.updateAddress(mainLayout, GovukButton, GovukInput, FormWithCSRF),
-        updatePhoneView = new views.html.details.updatePhone(mainLayout, GovukButton, GovukInput, FormWithCSRF),
-        updateMobileView = new views.html.details.updateMobile(mainLayout, GovukButton, GovukInput, FormWithCSRF),
-        updateEmailView = new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF),
-        updateNameView = new views.html.details.updateName(mainLayout, GovukButton, GovukInput, FormWithCSRF)
+        updateAddressView,
+        updatePhoneView,
+        updateMobileView,
+        updateEmailView,
+        updateNameView
       )
 
   lazy val mockIndividualAccounts: IndividualAccounts = {
