@@ -21,7 +21,7 @@
 
 @import config.ApplicationConfig
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[Boolean], agentDetails: AgentDetails)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -39,7 +39,7 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    @FormWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected()) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected()) {
         @govukRadios(Radios(
             idPrefix = Some("isThisYourAgent"),
             name = "isThisYourAgent",

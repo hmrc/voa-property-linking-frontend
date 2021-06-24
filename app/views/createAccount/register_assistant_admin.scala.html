@@ -23,7 +23,7 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, govukDateInput:GovukDateInput)
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, govukDateInput:GovukDateInput, formWithCSRF: FormWithCSRF)
 
 @(model: Form[AdminInExistingOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -53,7 +53,7 @@
         <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
         <p class="govuk-hint">@messages("enrolment.assistant.hint")</p>
         <h2 class="govuk-heading-m">@messages("enrolment.assistant.organisation.details.title")</h2>
-        @FormWithCSRF(controllers.registration.routes.RegistrationController.submitAdminToExistingOrganisation()) {
+        @formWithCSRF(controllers.registration.routes.RegistrationController.submitAdminToExistingOrganisation()) {
         <table class="govuk-table">
             <tbody class="govuk-table__body">
             <tr class="govuk-table__row">

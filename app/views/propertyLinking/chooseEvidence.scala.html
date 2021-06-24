@@ -17,7 +17,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
-@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[_], clientDetails: Option[ClientDetails] = None, backlink: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -32,7 +32,7 @@
     hasErrors = form.hasErrors
 ) {
 
-                @FormWithCSRF(action = controllers.propertyLinking.routes.ChooseEvidenceController.submit) {
+                @formWithCSRF(action = controllers.propertyLinking.routes.ChooseEvidenceController.submit) {
 
                     @if(form.errors.nonEmpty) {
                         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))

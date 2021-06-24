@@ -26,7 +26,7 @@
 
 @import config.ApplicationConfig
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 
 @(form: Form[AgentAppointmentChangesRequest], agentCode: Long, agentName: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -43,7 +43,7 @@
     }
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.removeFromAccount.question", agentName)</h1>
 
-    @FormWithCSRF(action = controllers.agent.routes.ManageAgentController.removeAgentFromIpOrganisation(agentCode, agentName, backLink)) {
+    @formWithCSRF(action = controllers.agent.routes.ManageAgentController.removeAgentFromIpOrganisation(agentCode, agentName, backLink)) {
         <input type="hidden" name="agentCode" value="@agentCode">
         <input type="hidden" name="scope" value="@RELATIONSHIP.toString">
         @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.removeFromAccount.continue"))))

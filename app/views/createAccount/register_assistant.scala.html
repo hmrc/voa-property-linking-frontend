@@ -24,7 +24,7 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this( mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton)
+@this( mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
 
 @(model: Form[AssistantUserAccountDetails], assistantFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -74,7 +74,7 @@
         </table>
 
 
-        @FormWithCSRF(controllers.registration.routes.RegistrationController.submitAssistant()) {
+        @formWithCSRF(controllers.registration.routes.RegistrationController.submitAssistant()) {
 
         <h2 class="govuk-heading-m">@messages("label.your.details")</h2>
 

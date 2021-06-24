@@ -26,7 +26,7 @@
 @import models.propertyrepresentation.NoProperties
 @import models.propertyrepresentation.ChooseFromList
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AddAgentOptions], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -41,7 +41,7 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    @FormWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitMultipleProperties()) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitMultipleProperties()) {
         @govukRadios(Radios(
             idPrefix = Some("multipleProperties"),
             name = "multipleProperties",

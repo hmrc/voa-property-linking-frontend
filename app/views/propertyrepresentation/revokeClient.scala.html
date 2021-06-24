@@ -18,7 +18,7 @@
 
 @import config.ApplicationConfig
 
-@this(form: FormWithCSRF, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(formWithCSRF: FormWithCSRF, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
 
 @(clientProperty: ClientPropertyLink)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -34,7 +34,7 @@
 
     <p class="govuk-body">@messages("propertyRepresentation.revokeClient.message", clientProperty.client.organisationName, utils.Formatters.capitalizedAddress(clientProperty.address))</p>
 
-    @form(action = controllers.agent.routes.RepresentationController.revokeClientPropertyConfirmed(clientProperty.uarn, clientProperty.submissionId)) {
+    @formWithCSRF(action = controllers.agent.routes.RepresentationController.revokeClientPropertyConfirmed(clientProperty.uarn, clientProperty.submissionId)) {
         @govukButton(Button(content = Text(messages("propertyRepresentation.revokeClient.button"))))
     }
 

@@ -21,7 +21,7 @@
 @import models.upscan._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 @(
         submissionId: String,
         errors: List[String] = Nil,
@@ -86,7 +86,7 @@
     <ul class="govuk-list govuk-list--bullet">
         <li id="allowedFileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
     </ul>
-    @FormWithCSRF(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+    @formWithCSRF(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
                     <div class="govuk-visually-hidden" id="initiateFields"></div>
                         @if(uploadedFiles.size < 1){
                             <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty){govuk-form-group--error}">
@@ -127,7 +127,7 @@
                             </tbody>
                         </table>
                 }
-                @FormWithCSRF(action = UploadController.continue(EvidenceChoices.OTHER)) {
+                @formWithCSRF(action = UploadController.continue(EvidenceChoices.OTHER)) {
                     @govukSelect(Select(
                         id    = "evidenceType",
                         name  = "evidenceType",

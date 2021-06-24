@@ -20,7 +20,7 @@
 @import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
 @import models.upscan._
-@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(
         submissionId: String,
@@ -62,7 +62,7 @@
     </ul>
 
 
-    @FormWithCSRF(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+    @formWithCSRF(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
                     <div class="govuk-visually-hidden" id="initiateFields"></div>
 
         @if(uploadedFiles.size < 1){
@@ -104,7 +104,7 @@
             </tbody>
         </table>
     }
-    @FormWithCSRF(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
+    @formWithCSRF(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
         @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
     }
 
