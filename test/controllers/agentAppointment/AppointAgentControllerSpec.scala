@@ -30,7 +30,7 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import services.{AgentRelationshipService, AppointRevokeException}
 import tests.AllMocks
-import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
+import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubGroupAccountConnector}
 import views.html.propertyrepresentation.appoint.appointAgentSummary
@@ -433,7 +433,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     mockRevokeAgentPropertiesSessionRepo,
     mockAppointAgentPropertiesSessionRepo,
     new appointAgentSummary(mainLayout, GovukButton),
-    revokeAgentSummaryView = new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, GovukButton)
+    revokeAgentSummaryView = new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, GovukButton),
+    revokeAgentPropertiesView = new views.html.propertyrepresentation.revokeAgentProperties(
+      mainLayout,
+      GovukErrorSummary,
+      GovukInput,
+      GovukTable,
+      GovukButton)
   )
 
   private lazy val mockSessionRepo = mock[SessionRepo]
