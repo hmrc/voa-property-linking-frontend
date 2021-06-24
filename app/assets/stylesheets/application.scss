@@ -51,3 +51,25 @@ $hmrc-assets-path: "/business-rates-property-linking/assets/lib/hmrc-frontend/hm
 details.govuk-details {
     margin-top: 3em;
 }
+.pagination{
+    float: right;
+}
+.pagination li{
+    display:inline-block;
+    margin:0 .2em
+}
+.pagination li.disabled a{
+    color:#6f777b;
+    text-decoration:none;
+    display:inline-block
+}
+.pagination li.next{
+    margin-right:0
+}
+.pagination li.previous{
+    margin-left:0
+}
+.pagination li .current{
+    text-decoration:none;
+    color:#0b0c0c
+}

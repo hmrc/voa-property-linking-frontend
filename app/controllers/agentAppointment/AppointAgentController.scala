@@ -52,7 +52,8 @@ class AppointAgentController @Inject()(
       @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
       @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
       appointAgentSummaryView: views.html.propertyrepresentation.appoint.appointAgentSummary,
-      revokeAgentSummaryView: views.html.propertyrepresentation.revokeAgentSummary
+      revokeAgentSummaryView: views.html.propertyrepresentation.revokeAgentSummary,
+      revokeAgentPropertiesView: views.html.propertyrepresentation.revokeAgentProperties
 )(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -345,15 +346,14 @@ class AppointAgentController @Inject()(
           _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
         } yield {
           Ok(
-            views.html.propertyrepresentation
-              .revokeAgentProperties(
-                None,
-                AppointAgentPropertiesVM(group, response),
-                pagination,
-                searchParams,
-                agentCode,
-                agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
-              ))
+            revokeAgentPropertiesView(
+              None,
+              AppointAgentPropertiesVM(group, response),
+              pagination,
+              searchParams,
+              agentCode,
+              agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url
+            ))
         }
       case None => Future.successful(NotFound(s"Unknown Agent: $agentCode"))
     }
@@ -405,7 +405,7 @@ class AppointAgentController @Inject()(
                                  filterTotal = filteredProperties.size)
                              }
               } yield {
-                BadRequest(views.html.propertyrepresentation.revokeAgentProperties(
+                BadRequest(revokeAgentPropertiesView(
                   Some(errors),
                   model = AppointAgentPropertiesVM(group, response),
                   pagination = PaginationParameters(),
@@ -438,7 +438,7 @@ class AppointAgentController @Inject()(
                                        filterTotal = filteredProperties.size)
                                    }
                     } yield
-                      BadRequest(views.html.propertyrepresentation.revokeAgentProperties(
+                      BadRequest(revokeAgentPropertiesView(
                         Some(revokeAgentBulkActionForm.withError("appoint.error", "error.transaction")),
                         model = AppointAgentPropertiesVM(group, response),
                         pagination = PaginationParameters(),
