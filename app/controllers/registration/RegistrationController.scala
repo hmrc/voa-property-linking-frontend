@@ -46,11 +46,11 @@ class RegistrationController @Inject()(
       registrationService: RegistrationService,
       invalidAccountTypeView: views.html.errors.invalidAccountType,
       invalidAccountCreationView: views.html.errors.invalidAccountCreation,
-      registerIndividualView: views.html.createAccount.register_individual,
-      registerOrganisationView: views.html.createAccount.register_organisation,
-      registerAssistantAdminView: views.html.createAccount.register_assistant_admin,
-      registerAssistantView: views.html.createAccount.register_assistant,
-      registerConfirmationView: views.html.createAccount.registration_confirmation,
+      registerIndividualView: views.html.createAccount.registerIndividual,
+      registerOrganisationView: views.html.createAccount.registerOrganisation,
+      registerAssistantAdminView: views.html.createAccount.registerAssistantAdmin,
+      registerAssistantView: views.html.createAccount.registerAssistant,
+      registerConfirmationView: views.html.createAccount.registrationConfirmation,
       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
 )(
       implicit executionContext: ExecutionContext,
