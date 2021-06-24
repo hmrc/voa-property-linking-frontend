@@ -26,7 +26,7 @@
 @import models._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(mainLayout: views.html.mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukTable: GovukTable, govukButton: GovukButton)
+@this(mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukTable: GovukTable, govukButton: GovukButton)
 
 @(
     f: Option[Form[_]],
@@ -138,7 +138,7 @@
             <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
         </div>
 
-        @FormWithCSRF(agentAppointment.routes.AppointAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
+        @formWithCSRF(agentAppointment.routes.AppointAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
             <input type="hidden" name="pageSize" value="@pagination.pageSize">
 
             <input type="hidden" name="backLink" value="@backLink">
@@ -174,7 +174,7 @@
         @if(model.response.authorisations.isEmpty){
             <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
         } else {
-            @FormWithCSRF(agentAppointment.routes.AppointAgentController.revokeAgentSummary()){
+            @formWithCSRF(agentAppointment.routes.AppointAgentController.revokeAgentSummary()){
                 <input type="hidden" name="agentCode" value="@agentCode">
                 <input type="hidden" name="backLinkUrl" value="@backLink">
 
