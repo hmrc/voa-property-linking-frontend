@@ -48,7 +48,7 @@
 
     <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.p.3", config.dashboardUrl("home")))</p>
 
-    @formWithCSRF)(
+    @formWithCSRF(
         if (owner)
                 controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuation(submissionId, model.assessmentRef)
         else
