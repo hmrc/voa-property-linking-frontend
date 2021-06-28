@@ -89,6 +89,3 @@ details.govuk-details {
 .sort_desc {
     background: url("../images/sort_desc.png") no-repeat scroll left 80px center;
 }
-
-.sorting a, .sorting_asc a, .sorting_desc a {display:block;}
-.sorting a:focus, .sorting_asc a:focus, .sorting_desc a:focus {background-color: transparent;}
