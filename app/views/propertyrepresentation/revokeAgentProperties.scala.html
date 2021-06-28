@@ -91,9 +91,9 @@
 @sortAddress = {
     @{
         params.sortorder match {
-            case ExternalPropertyLinkManagementSortOrder.ASC => "sorting_asc"
-            case ExternalPropertyLinkManagementSortOrder.DESC => "sorting_desc"
-            case _ => "sorting"
+            case ExternalPropertyLinkManagementSortOrder.ASC => "sort_asc"
+            case ExternalPropertyLinkManagementSortOrder.DESC => "sort_desc"
+            case _ => "sort"
         }
     }
 }
@@ -131,12 +131,6 @@
                 )
             )
         }
-
-        <div class="hide-if-no-js margin-top-20 govuk-body">
-            <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
-            <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
-            <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
-        </div>
 
         @formWithCSRF(agentAppointment.routes.AppointAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
             <input type="hidden" name="pageSize" value="@pagination.pageSize">
@@ -178,6 +172,13 @@
                 <input type="hidden" name="agentCode" value="@agentCode">
                 <input type="hidden" name="backLinkUrl" value="@backLink">
 
+
+
+                <div class="hide-if-no-js margin-top-20 govuk-body">
+                    <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
+                    <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
+                    <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
+                </div>
                 <div class="govuk-grid-row">
                     @govukTable(Table(
                         attributes = Map("id" -> "agentPropertiesTableBody"),
@@ -202,7 +203,22 @@
                 </div>
                 <div class="govuk-grid-row">
                     <div class="govuk-grid-row">
-                        <div class="govuk-grid-column-one-half">
+                        <div class="govuk-grid-column-one-third">
+                            <div id="page-size-list" class="govuk-body">
+                                <span class="page-size-option-label">@messages("search.sort.page.size.view")</span>
+                                @for(len <- List(15, 25, 50, 100)) {
+                                @if(pagination.pageSize == len) {
+                                <span class="page-size-option-current">@len</span>
+                                } else {
+
+                                <a class="page-size-option govuk-link" href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.copy(pageSize = len, page = 1), agentCode).url">
+                                    @len</a>
+                                }
+                                }
+                                @messages("search.sort.page.size.properties.per.page")
+                            </div>
+                        </div>
+                        <div class="govuk-grid-column-one-third centre">
                             <div role="status" class="pull-left">
                                 <p class="govuk-body">
                                     @messages(
@@ -218,7 +234,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="govuk-grid-column-one-half">
+                        <div class="govuk-grid-column-one-third">
 
                             <div role="navigation" aria-label="Pagination" class="pull-right">
                                 <ul class="pagination govuk-list" style="margin: 0px">
@@ -246,21 +262,6 @@
                     </div>
                     <div class="govuk-grid-row">
                         <div class="govuk-grid-column-full">
-
-                            <div id="page-size-list" class="govuk-body">
-                                <span class="page-size-option-label">@messages("search.sort.page.size.view")</span>
-                                @for(len <- List(15, 25, 50, 100)) {
-                                    @if(pagination.pageSize == len) {
-                                    <span class="page-size-option-current">@len</span>
-                                    } else {
-
-                                    <a class="page-size-option govuk-link" href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.copy(pageSize = len, page = 1), agentCode).url">
-                                        @len</a>
-                                    }
-                                }
-                                @messages("search.sort.page.size.properties.per.page")
-                            </div>
-
                             <br/>
 
                             <div class="hide-if-no-js margin-top-20 govuk-body">
