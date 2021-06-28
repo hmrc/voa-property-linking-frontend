@@ -306,7 +306,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     status(res) mustBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContain("th.sorting_desc", 1)
+    page.mustContain("th.sort_desc", 1)
   }
 
   "filterPropertiesForRevoke" should "show a filtered revoke properties page" in {

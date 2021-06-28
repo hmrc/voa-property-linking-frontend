@@ -73,3 +73,19 @@ details.govuk-details {
     text-decoration:none;
     color:#0b0c0c
 }
+
+.centre{
+    text-align: center
+}
+
+.sort {
+    background: url("../images/sort_both.png") no-repeat scroll left 80px center;
+}
+
+.sort_asc {
+    background: url("../images/sort_asc.png") no-repeat scroll left 80px center;
+}
+
+.sort_desc {
+    background: url("../images/sort_desc.png") no-repeat scroll left 80px center;
+}
