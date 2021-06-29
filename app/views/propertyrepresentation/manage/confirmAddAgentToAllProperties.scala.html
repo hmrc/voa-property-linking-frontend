@@ -14,24 +14,22 @@
  * limitations under the License.
  *@
 
-@import actions.requests.BasicAuthenticatedRequest
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @import config.ApplicationConfig
 
 @this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
 
-@(agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title"),
+    pageTitle = messages(s"propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}"),
     backUri = None
 ) {
 
     @govukPanel(
         Panel(
-            title = Text(messages("propertyRepresentation.manageAgent.assignToAllProperties.confirmation", agentName)),
+            title = Text(messages(s"propertyRepresentation.manageAgent.assignToAllProperties.confirmation.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)),
             content = HtmlContent("")
         )
     )

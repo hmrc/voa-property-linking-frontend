@@ -50,7 +50,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   private val mockMyAgentsView = mock[views.html.propertyrepresentation.manage.myAgents]
   private val mockManageAgentPropertiesView = mock[views.html.propertyrepresentation.manage.manageAgentProperties]
 
-  val testController = new ManageAgentController(
+  lazy val testController = new ManageAgentController(
     errorHandler = mockCustomErrorHandler,
     authenticated = preAuthenticatedActionBuilders(userIsAgent = false),
     agentRelationshipService = mockAgentRelationshipService,
@@ -235,6 +235,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "submitManageAgent" should "return 200 Ok when IP chooses to appoint agent to all properties" in {
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
       Future.successful(organisationsAgentsList.copy(
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
@@ -242,7 +243,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
     when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
-    when(mockAddAgentToAllPropertyView.apply(any(), any(), any())(any(), any(), any()))
+    when(mockAddAgentToAllPropertyView.apply(any(), any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("addAgentToAllProperty"))
 
     val res = testController.submitManageAgent(agentCode)(
@@ -333,9 +334,10 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
     when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
-    when(mockAddAgentToAllPropertyView.apply(any(), any(), any())(any(), any(), any()))
+    when(mockAddAgentToAllPropertyView.apply(any(), any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("addAgentToAllProperty"))
 
     val res = testController.submitManageAgent(agentCode)(
@@ -346,8 +348,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "assignAgentToAll" should "return 400 Bad Request when invalid form submitted" in {
-    when(mockAddAgentToAllPropertyView.apply(any(), any(), any())(any(), any(), any()))
+    when(mockAddAgentToAllPropertyView.apply(any(), any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("addAgentToAllProperty"))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
     val res = testController.assignAgentToAll(agentCode, "Some agent org")(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
@@ -358,8 +361,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "assignAgentToAll" should "return 200 Ok a valid form is submitted" in {
     when(mockAgentRelationshipService.assignAgent(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-    when(mockConfirmAddAgentToAllPropertyView.apply(any())(any(), any(), any()))
+    when(mockConfirmAddAgentToAllPropertyView.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("confirmAddAgentToAllProperty"))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
     val res = testController.assignAgentToAll(agentCode, "Some agent org")(
       FakeRequest()
@@ -381,7 +385,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "unassignAgentFromAll" should "return 200 Ok a valid form is submitted" in {
     when(mockAgentRelationshipService.unassignAgent(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-    when(mockConfirmUnassignAgentFromAllPropertiesView.apply(any(), any())(any(), any(), any()))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
+    when(mockConfirmUnassignAgentFromAllPropertiesView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("confirmUnassignAgentFromAllProperties"))
 
     val res = testController.unassignAgentFromAll(agentCode, "Some agent org")(

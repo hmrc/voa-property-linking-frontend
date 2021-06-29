@@ -178,8 +178,16 @@ class ManageAgentController @Inject()(
         success.manageAgentOption match {
           case AssignToSomeProperties => Future.successful(joinOldAgentAppointJourney(agentCode))
           case AssignToAllProperties | AssignToYourProperty =>
-            Future.successful(
-              Ok(addAgentToAllPropertiesView(submitAgentAppointmentRequest, success.agentName, agentCode)))
+            agentRelationshipService
+              .getMyOrganisationPropertyLinksCount()
+              .map(
+                linkCount =>
+                  Ok(
+                    addAgentToAllPropertiesView(
+                      submitAgentAppointmentRequest,
+                      success.agentName,
+                      agentCode,
+                      multiplePropertyLinks = linkCount > 1)))
           case UnassignFromAllProperties =>
             Future.successful(
               Ok(unassignAgentFromAllPropertiesView(submitAgentAppointmentRequest, success.agentName, agentCode)))
@@ -201,14 +209,16 @@ class ManageAgentController @Inject()(
     implicit request =>
       submitAgentAppointmentRequest.bindFromRequest.fold(
         errors => {
-          Future.successful(BadRequest(addAgentToAllPropertiesView(errors, agentName, agentCode)))
-        }, { success =>
           agentRelationshipService
-            .assignAgent(success)
-            .map { _ =>
-              val page = confirmAddAgentToAllPropertiesView(agentName)
-              Ok(page)
-            }
+            .getMyOrganisationPropertyLinksCount()
+            .map(linkCount =>
+              BadRequest(
+                addAgentToAllPropertiesView(errors, agentName, agentCode, multiplePropertyLinks = linkCount > 1)))
+        }, { success =>
+          for {
+            _         <- agentRelationshipService.assignAgent(success)
+            linkCount <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
+          } yield Ok(confirmAddAgentToAllPropertiesView(agentName, multiplePropertyLinks = linkCount > 1))
         }
       )
   }
@@ -219,9 +229,11 @@ class ManageAgentController @Inject()(
         errors => {
           Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
         }, { success =>
-          agentRelationshipService
-            .unassignAgent(success)
-            .map(_ => Ok(confirmUnassignAgentFromAllPropertiesView(agentName, agentCode)))
+          for {
+            _         <- agentRelationshipService.unassignAgent(success)
+            linkCount <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
+          } yield
+            Ok(confirmUnassignAgentFromAllPropertiesView(agentName, agentCode, multiplePropertyLinks = linkCount > 1))
         }
       )
   }

@@ -526,20 +526,27 @@ propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Unassign f
 propertyRepresentation.manageAgent.options.assignToYourProperty=Assign to your property
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from your account
 
-propertyRepresentation.manageAgent.assignToAllProperties.title=Confirm you want to assign agent to all properties
-propertyRepresentation.manageAgent.assignToAllProperties.question=Are you sure you want to assign {0} to all your properties?
-propertyRepresentation.manageAgent.assignToAllProperties.insetText={0} will be added to all of your properties
+propertyRepresentation.manageAgent.assignToAllProperties.title.multipleProperties=Confirm you want to assign agent to all properties
+propertyRepresentation.manageAgent.assignToAllProperties.title.singleProperty=Confirm you want to assign agent to your property
+propertyRepresentation.manageAgent.assignToAllProperties.question.multipleProperties=Are you sure you want to assign {0} to all your properties?
+propertyRepresentation.manageAgent.assignToAllProperties.question.singleProperty=Are you sure you want to assign {0} to your property?
+propertyRepresentation.manageAgent.assignToAllProperties.insetText.multipleProperties={0} will be added to all of your properties
+propertyRepresentation.manageAgent.assignToAllProperties.insetText.singleProperty={0} will be added to your property
 
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title=Agent assigned to all properties
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation={0} has been assigned to all your properties
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multipleProperties=Agent assigned to all properties
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.singleProperty=Agent assigned to your property
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.multipleProperties={0} has been assigned to all your properties
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.singleProperty={0} has been assigned to your property
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext=What happens next
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.title=Confirm you want to unassign agent from all properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.question=Are you sure you want to unassign {0} from all properties?
 
-propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title=Agent has been unassigned from all your properties
-propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation={0} has been unassigned from all your properties
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.multipleProperties=Agent has been unassigned from all your properties
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.singleProperty=Agent has been unassigned from your property
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.multipleProperties={0} has been unassigned from all your properties
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.singleProperty={0} has been unassigned from your property
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText=This agent has not been removed from your account.
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow=You can now:
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount=Remove this agent from your account
