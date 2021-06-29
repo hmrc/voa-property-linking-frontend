@@ -14,39 +14,37 @@
  * limitations under the License.
  *@
 
-@import actions.requests.BasicAuthenticatedRequest
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @import config.ApplicationConfig
 
-@this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
+@this(govukPanel: GovukPanel, mainLayout: views.html.mainLayout)
 
-@(agentName: String, agentCode: Long)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, agentCode: Long, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
-    pageTitle = messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title"),
-    backUri = None
-) {
+    @mainLayout(
+        pageTitle = messages(s"propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}"),
+        backUri = None
+    ) {
 
-    @govukPanel(
-        Panel(
-            title = Text(messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation", agentName)),
-            content = HtmlContent("")
+        @govukPanel(
+            Panel(
+                title = Text(messages(s"propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)),
+                content = HtmlContent("")
+            )
         )
-    )
 
-    <div class="govuk-inset-text">
+        <div class="govuk-inset-text">
         @messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText")
-    </div>
+        </div>
 
-    <h2 class="govuk-heading-m">
+        <h2 class="govuk-heading-m">
         @messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow")
-    </h2>
-    <ul class="govuk-list">
+        </h2>
+        <ul class="govuk-list">
 
-        <li class="govuk-link"><a href="@controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation(agentCode, agentName).url">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount")</a></li>
-        <li class="govuk-link"><a href="@config.dashboardUrl("home")">@messages("link.return.home")</a></li>
-    </ul>
+            <li class="govuk-link"><a href="@controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation(agentCode, agentName).url">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount")</a></li>
+            <li class="govuk-link"><a href="@config.dashboardUrl("home")">@messages("link.return.home")</a></li>
+        </ul>
 
-}
+    }
