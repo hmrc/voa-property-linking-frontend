@@ -38,7 +38,7 @@
     content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
 }
 
-@mainLayout(pageTitle = messages("enrolment.title")) {
+@mainLayout(pageTitle = messages("enrolment.title"), showTopNavigation = false) {
 
 
         @if(model.errors.nonEmpty) {
