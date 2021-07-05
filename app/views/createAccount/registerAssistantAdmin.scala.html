@@ -44,7 +44,7 @@
         case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
     }
 }
-@mainLayout(pageTitle = messages("enrolment.title")) {
+@mainLayout(pageTitle = messages("enrolment.title"), showTopNavigation = false) {
 
         @if(model.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title =
