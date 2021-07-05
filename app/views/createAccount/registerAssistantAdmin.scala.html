@@ -115,7 +115,7 @@
             InputItem(
                 id = s"dob.$item",
                 classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors ||
-                model.errors.exists(_.key.isEmpty)) " govuk-error-message" else ""}",
+                model.errors.exists(_.key.isEmpty)) " govuk-input--error" else ""}",
                 name = s"dob.$item",
                 label = Some(messages(s"dob.$item.label")),
                 value = model(s"dob.$item").value
