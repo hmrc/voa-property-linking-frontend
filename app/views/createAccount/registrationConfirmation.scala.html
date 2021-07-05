@@ -32,7 +32,9 @@
 @mainLayout(pageTitle = messages("account.confirmation.title"), showTopNavigation = false) {
 
         <div class="govuk-panel govuk-panel--confirmation">
-            <h1>@messages("account.confirmation.heading")</h1>
+            <h1 class="govuk-panel__title">
+                @messages("account.confirmation.heading")
+            </h1>
             <h2 class="govuk-panel__title">
                 @messages("create.success.personId") @id
             </h2>
