@@ -35,7 +35,11 @@
 
         <div class="govuk-body">
             <h1 class="govuk-heading-xl">@messages("account.confirmation.heading")</h1>
-            <h2 class="govuk-heading-l">@messages("create.success.personId") @id</h2>
+        </div>
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h2 class="govuk-panel__title">
+                @messages("create.success.personId") @id
+            </h2>
         </div>
         <p class="govuk-body">@messages("create.success.keepNote")</p>
         <p class="govuk-body">@messages("create.success.keepUsingGg")</p>
