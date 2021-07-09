@@ -360,7 +360,7 @@ case class RequestDetailedValuationWithoutForm(
 )
 object RequestDetailedValuationWithoutForm {
 
-  private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
+  private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
   def apply(assessments: ApiAssessments, assessment: ApiAssessment): RequestDetailedValuationWithoutForm =
     RequestDetailedValuationWithoutForm(
