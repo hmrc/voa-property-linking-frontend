@@ -16,20 +16,14 @@
 
 package controllers.propertyLinking
 
-import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
-import models._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
-import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import repositories.SessionRepo
-import utils._
 import services.BusinessRatesAttachmentsService
-import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.HtmlPage
 
@@ -38,14 +32,15 @@ import scala.concurrent.Future
 
 class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
 
-  lazy val mockSessionRepo = {
-    val f = mock[SessionRepo]
-    when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
-    f
+  lazy val mockBusinessRatesAttachmentService = {
+    val m = mock[BusinessRatesAttachmentsService]
+    when(m.persistSessionData(any())(any())).thenReturn(Future.successful((): Unit))
+    m
   }
-  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
+
   private val mockChooseEvidencePage = mock[views.html.propertyLinking.chooseEvidence]
-  private class TestChooseEvidence(withLinkingSession: WithLinkingSession)
+
+  private object TestChooseEvidence
       extends ChooseEvidenceController(
         mockCustomErrorHandler,
         preAuthenticatedActionBuilders(),
@@ -53,13 +48,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
         mockBusinessRatesAttachmentService,
         mockPropertyLinkingService,
         mockChooseEvidencePage
-      ) {
-    val property = testProperty
-  }
-
-  private lazy val testChooseEvidence = new TestChooseEvidence(mockWithLinkingSession)
-
-  lazy val testProperty: Property = arbitrary[Property]
+      )
 
   lazy val request = FakeRequest().withSession(token)
 
@@ -71,7 +60,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
-    val res = testChooseEvidence.show()(request)
+    val res = TestChooseEvidence.show()(request)
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -86,7 +75,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
-    val res = testChooseEvidence.show()(request)
+    val res = TestChooseEvidence.show()(request)
     status(res) mustBe OK
 
     val html = HtmlPage(res)
@@ -99,7 +88,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
-    val res = testChooseEvidence.submit()(request)
+    val res = TestChooseEvidence.submit()(request)
     status(res) mustBe BAD_REQUEST
 
     val html = HtmlPage(res)
@@ -107,14 +96,14 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it must "redirect to the rates bill upload page if the user has a rates bill" in {
-    val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
+    val res = TestChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
   }
 
   it must "redirect to the other evidence page if the user does not have a rates bill" in {
 
-    val res = testChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
+    val res = TestChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
     status(res) mustBe SEE_OTHER
     header("location", res) mustBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
   }

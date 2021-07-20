@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import java.time.{Instant, LocalDate, LocalDateTime, ZoneId}
 import models._
 import models.domain._
 import models.messages.{Message, MessageSearchResults}
 import models.registration.{AdminOrganisationAccountDetails, IndividualUserAccountDetails}
 import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.Gen.{alphaChar, listOf, listOfN}
+import org.scalacheck.Gen.{alphaChar, listOfN}
 import org.scalacheck.{Arbitrary, _}
 
+import java.time.{Instant, LocalDate, LocalDateTime, ZoneId}
 import scala.language.implicitConversions
 
 package object utils {
@@ -390,7 +390,16 @@ package object utils {
     relationship       <- propertyRelationshipGen
     ownership          <- propertyOwnershipGen
     uploadEvidenceData <- Gen.const(UploadEvidenceData.empty)
-  } yield LinkingSession(address, uarn, submissionId, personId, Some(relationship), Some(ownership), uploadEvidenceData)
+  } yield
+    LinkingSession(
+      address,
+      uarn,
+      submissionId,
+      personId,
+      Some(relationship),
+      Some(ownership),
+      hasRatesBill = Some(true),
+      uploadEvidenceData)
 
   implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)
 

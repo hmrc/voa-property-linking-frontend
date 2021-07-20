@@ -22,20 +22,18 @@ import binders.propertylinks.EvidenceChoices
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
-
-import javax.inject.Inject
-import models.{LinkingSession, PropertyOwnership, UploadEvidenceData}
-import play.api.Logger
+import models.{LinkingSession, UploadEvidenceData}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.BusinessRatesAttachmentsService
 import services.propertylinking.PropertyLinkingService
-import uk.gov.hmrc.http.{HeaderCarrier, UpstreamErrorResponse}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import java.time.LocalDate
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class ChooseEvidenceController @Inject()(
@@ -52,43 +50,47 @@ class ChooseEvidenceController @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  private val logger = Logger(this.getClass.getName)
-
   def show: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    logger.debug("show choose evidence page")
+    val form = request.ses.hasRatesBill.fold(ChooseEvidence.form)(ChooseEvidence.form.fillAndValidate)
+
     for {
-      _        <- businessRatesAttachmentService.persistSessionData(request.ses, UploadEvidenceData.empty)
+      _        <- businessRatesAttachmentService.persistSessionData(request.ses)
       backLink <- backlink(request.ses)
     } yield {
-      Ok(chooseEvidenceView(ChooseEvidence.form, request.ses.clientDetails, Some(backLink)))
+      Ok(chooseEvidenceView(form, request.ses.clientDetails, Some(backLink)))
     }
   }
 
   private def backlink(ses: LinkingSession)(implicit hc: HeaderCarrier) =
-    propertyLinkingService.findEarliestStartDate(ses.uarn).map { startDate =>
-      startDate match {
-        case Some(date) if date.isAfter(LocalDate.now()) =>
-          controllers.propertyLinking.routes.ClaimPropertyRelationshipController
-            .showRelationship(
-              ses.uarn,
-              ses.clientDetails
-            )
-            .url
-        case _ =>
-          controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url
-      }
+    propertyLinkingService.findEarliestStartDate(ses.uarn).map {
+      case Some(date) if date.isAfter(LocalDate.now()) =>
+        controllers.propertyLinking.routes.ClaimPropertyRelationshipController
+          .showRelationship(ses.uarn, ses.clientDetails)
+          .url
+      case _ =>
+        controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url
     }
 
   def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+    def updateSession(newAnswer: Boolean): Future[Unit] =
+      //if the same answer was already in the linking session, then do nothing
+      if (request.ses.hasRatesBill.contains(newAnswer)) Future.successful((): Unit)
+      else {
+        businessRatesAttachmentService.persistSessionData(
+          request.ses.copy(hasRatesBill = Some(newAnswer), uploadEvidenceData = UploadEvidenceData.empty))
+      }
+
     ChooseEvidence.form
       .bindFromRequest()
       .fold(
         errors =>
           backlink(request.ses).map { back =>
             BadRequest(chooseEvidenceView(errors, request.ses.clientDetails, Some(back)))
-        }, {
-          case true  => Future.successful(Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL)))
-          case false => Future.successful(Redirect(routes.UploadController.show(EvidenceChoices.OTHER)))
+        },
+        hasRatesBill =>
+          updateSession(hasRatesBill).map { _ =>
+            if (hasRatesBill) Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
+            else Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
         }
       )
   }
