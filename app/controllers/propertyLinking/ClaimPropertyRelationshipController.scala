@@ -152,7 +152,8 @@ class ClaimPropertyRelationshipController @Inject()(
               submissionId = submissionId,
               personId = request.personId,
               propertyRelationship = Some(propertyRelationship),
-              None,
+              propertyOwnership = None,
+              hasRatesBill = None,
               clientDetails = clientDetails
             ))
     } yield ()

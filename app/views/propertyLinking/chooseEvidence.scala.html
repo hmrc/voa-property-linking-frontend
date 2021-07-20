@@ -17,6 +17,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
+
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[_], clientDetails: Option[ClientDetails] = None, backlink: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -50,20 +51,15 @@
                         items = Seq(
                             RadioItem(
                                 content = Text(messages("hasRatesBill.true")),
-                                value = Some("true"),
-                                checked = form.data.get("hasRatesBill").fold(false)(_ == "true")
+                                value = Some("true")
                             ),
                             RadioItem(
                                 content = Text(messages("hasRatesBill.false")),
-                                value = Some("false"),
-                                checked = form.data.get("hasRatesBill").fold(false)(_ == "false")
+                                value = Some("false")
                             )
                         ),
-                        errorMessage =  { form.error("hasRatesBill").map{ error =>
-                            ErrorMessage(content = Text(messages(error.message)))
-                        }},
                         classes = "govuk-radios--inline"
-                    ))
+                    ).withFormField(form("hasRatesBill")))
 
                     @govukButton(Button(content = Text(messages("label.continue"))))
                 }

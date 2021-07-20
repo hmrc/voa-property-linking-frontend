@@ -26,9 +26,9 @@ import akka.stream.Materializer
 import config.ApplicationConfig
 import models.registration.{User, UserDetails}
 import models.{UploadEvidenceData, _}
+import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.time.{Millis, Seconds, Span}
-import org.scalatest._
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
 import play.api.mvc.{MessagesControllerComponents, Request, Result}
@@ -137,6 +137,7 @@ trait VoaPropertyLinkingSpec
                     fromDate = None,
                     stillInterested = false,
                     toDate = None)),
+                hasRatesBill = Some(true),
                 uploadEvidenceData = evidenceData,
                 evidenceType = Some(RatesBillType),
                 clientDetails = Some(ClientDetails(100, "ABC"))
