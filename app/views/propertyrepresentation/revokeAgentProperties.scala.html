@@ -108,10 +108,26 @@
     }
 }
 
-@errorLinks(form: Form[_]) = @{
-    form.errors.map{ error =>
-        ErrorLink(href = Some("#checkbox-1"),
-        content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}"))
+@errorLinks = @{
+    f match {
+        case None => Seq.empty
+        case Some(form) => {
+            form.errors.map{ error =>
+                ErrorLink(href = Some("#checkbox-1"),
+                content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}"))
+            }
+        }
+    }
+}
+
+@formErrorClass = @{
+    f match {
+        case None => ""
+        case Some(form) => {
+            if(form.hasErrors){
+                "govuk-form-group--error"
+            } else ""
+        }
     }
 }
 
@@ -119,18 +135,18 @@
 
     <div class="govuk-grid-row">
 
-        <h1 class="govuk-heading-l">@messages("propertyRepresentation.removeAgentProperties.heading")</h1>
-
-        <p class="govuk-body">@messages("propertyRepresentation.removeAgentProperties.message.p1", model.agentGroup.companyName, agentCode.toString)</p>
-
         @if(f.isDefined){
             @govukErrorSummary(
                 ErrorSummary(
-                    errorList = errorLinks(f.get),
+                    errorList = errorLinks,
                     title = Text(messages("error.title"))
                 )
             )
         }
+
+        <h1 class="govuk-heading-l">@messages("propertyRepresentation.removeAgentProperties.heading")</h1>
+
+        <p class="govuk-body">@messages("propertyRepresentation.removeAgentProperties.message.p1", model.agentGroup.companyName, agentCode.toString)</p>
 
         @formWithCSRF(agentAppointment.routes.AppointAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
             <input type="hidden" name="pageSize" value="@pagination.pageSize">
@@ -179,7 +195,7 @@
                     <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
                     <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
                 </div>
-                <div class="govuk-grid-row">
+                <div class="govuk-grid-row @formErrorClass">
                     @govukTable(Table(
                         attributes = Map("id" -> "agentPropertiesTableBody"),
                         rows = resultRows,

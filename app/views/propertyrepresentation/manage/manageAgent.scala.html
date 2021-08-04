@@ -45,12 +45,12 @@
     backUri = Some(backLink)
 ) {
 
-    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.question", agent.name)</h1>
-
-
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
+
+    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.question", agent.name)</h1>
+
     @formWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent(agent.representativeCode)) {
 
         <input type="hidden" name="agentName" value="@agent.name">
