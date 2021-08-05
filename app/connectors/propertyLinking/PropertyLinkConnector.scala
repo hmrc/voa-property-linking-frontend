@@ -112,7 +112,10 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
     } else {
       http.GET[OwnerAuthResult](
         s"$baseUrl/my-organisation/agents/$agentCode/available-property-links",
-        searchParams.address.map("address" -> _).toList ++ List(
+        List(
+          searchParams.address.map("address" -> _),
+          searchParams.agent.map("agent"     -> _)
+        ).flatten ++ List(
           "sortField"            -> searchParams.sortfield.toString,
           "sortOrder"            -> searchParams.sortorder.toString,
           "startPoint"           -> pagination.startPoint.toString,

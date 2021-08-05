@@ -26,7 +26,9 @@ import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
 import models.propertyrepresentation.AgentList
 import models.searchApi.OwnerAuthResult
+import org.mockito.ArgumentMatchers.{eq => eqs}
 import org.mockito.ArgumentMatchers._
+import org.mockito.Mockito
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
 import play.api.http.Status._
@@ -40,10 +42,26 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
+  override protected def beforeEach(): Unit =
+    Mockito.reset(mockHttpClient)
+
   class Setup {
     val connector = new PropertyLinkConnector(config = servicesConfig, http = mockHttpClient) {
       override lazy val baseUrl: String = "tst-url"
     }
+    val expectedOwnerParams = Seq(
+      "status"               -> "APPROVED",
+      "sortField"            -> "ADDRESS",
+      "sortOrder"            -> "ASC",
+      "startPoint"           -> "1",
+      "pageSize"             -> "10",
+      "requestTotalRowCount" -> "false")
+    val expectedAgentParams = Seq(
+      "sortField"            -> "ADDRESS",
+      "sortOrder"            -> "ASC",
+      "startPoint"           -> "1",
+      "pageSize"             -> "10",
+      "requestTotalRowCount" -> "false")
   }
 
   "get" must "return a property link" in new Setup {
@@ -136,18 +154,77 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
       agentCode = 1L
     )
     whenReady(res)(_ mustBe ownerAuthResultResponse)
+
+    verify(mockHttpClient, times(1))
+      .GET(eqs("tst-url/owner/property-links"), eqs(expectedOwnerParams))(any(), any(), any())
+  }
+
+  "Owner request for getMyOrganisationPropertyLinksWithAgentFiltering - agent included in params" must "return OwnerAuthResult" in new Setup {
+    mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
+    val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
+      searchParams = GetPropertyLinksParameters(status = Some("APPROVED"), agent = Some("Some Org name")),
+      pagination = PaginationParams(1, 10, requestTotalRowCount = false),
+      organisationId = 1L,
+      agentOrganisationId = 1L,
+      agentAppointed = Some("NO"),
+      agentCode = 1L
+    )
+    whenReady(res)(_ mustBe ownerAuthResultResponse)
+
+    verify(mockHttpClient, times(1)).GET(
+      eqs("tst-url/owner/property-links"),
+      eqs(("agent" -> "Some Org name") +: expectedOwnerParams))(any(), any(), any())
+  }
+
+  "Owner request for getMyOrganisationPropertyLinksWithAgentFiltering - address included in params" must "return OwnerAuthResult" in new Setup {
+    mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
+    val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
+      searchParams = GetPropertyLinksParameters(status = Some("APPROVED"), address = Some("Some address")),
+      pagination = PaginationParams(1, 10, requestTotalRowCount = false),
+      organisationId = 1L,
+      agentOrganisationId = 1L,
+      agentAppointed = Some("NO"),
+      agentCode = 1L
+    )
+    whenReady(res)(_ mustBe ownerAuthResultResponse)
+
+    verify(mockHttpClient, times(1)).GET(
+      eqs("tst-url/owner/property-links"),
+      eqs(("address" -> "Some address") +: expectedOwnerParams))(any(), any(), any())
   }
 
   "Agent request for getMyOrganisationPropertyLinksWithAgentFiltering" must "return OwnerAuthResult" in new Setup {
     mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
+    private val agentCode = 1L
     val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
       searchParams = GetPropertyLinksParameters(status = Some("APPROVED")),
       pagination = PaginationParams(1, 10, requestTotalRowCount = false),
       organisationId = 1L,
       agentOrganisationId = 1L,
       agentAppointed = Some("BOTH"),
-      agentCode = 1L
+      agentCode = agentCode
     )
+
+    verify(mockHttpClient, times(1)).GET(
+      eqs(s"tst-url/my-organisation/agents/$agentCode/available-property-links"),
+      eqs(expectedAgentParams))(any(), any(), any())
+  }
+
+  "Agent request for getMyOrganisationPropertyLinksWithAgentFiltering - agent included in params" must "return OwnerAuthResult" in new Setup {
+    mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
+    private val agentCode = 1L
+    val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
+      searchParams = GetPropertyLinksParameters(status = Some("APPROVED"), agent = Some("Some Org name")),
+      pagination = PaginationParams(1, 10, requestTotalRowCount = false),
+      organisationId = 1L,
+      agentOrganisationId = 1L,
+      agentAppointed = Some("BOTH"),
+      agentCode = agentCode
+    )
+
+    verify(mockHttpClient, times(1)).GET(
+      eqs(s"tst-url/my-organisation/agents/$agentCode/available-property-links"),
+      eqs(("agent" -> "Some Org name") +: expectedAgentParams))(any(), any(), any())
   }
 
   "canChallenge" must "return CanChallengeResponse" in new Setup {
