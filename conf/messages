@@ -1020,7 +1020,7 @@ error.label.year=Year
 error.boolean=Select an option
 
 
-error.agentCode.required=Please enter a valid agent code
+error.agentCode.required=Enter a valid agent code
 error.isThisYourAgent.required=Select yes if this is your agent
 
 error.oneProperty.required=Select if you want your agent to manage your property

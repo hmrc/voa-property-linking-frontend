@@ -30,15 +30,15 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.oneProperty.title"),
-    backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent().url)
+    backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent().url), hasErrors = form.hasErrors
 ) {
-
-    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.oneProperty.question", agentName)</h1>
-
 
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
+
+    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.oneProperty.question", agentName)</h1>
+
     @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitOneProperty()) {
         @govukRadios(Radios(
             idPrefix = Some("oneProperty"),

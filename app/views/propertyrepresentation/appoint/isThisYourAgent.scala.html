@@ -27,8 +27,12 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.isThisYourAgent.title"),
-    backUri = Some(controllers.agentAppointment.routes.AddAgentController.showStartPage().url)
+    backUri = Some(controllers.agentAppointment.routes.AddAgentController.showStartPage().url), hasErrors = form.hasErrors
 ) {
+
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+    }
 
     <h1 class="govuk-heading-xl">@messages("propertyRepresentation.isThisYourAgent.question")</h1>
 
@@ -36,9 +40,6 @@
        @agentDetails.name <br/> @agentDetails.address
     </div>
 
-    @if(form.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
-    }
     @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected()) {
         @govukRadios(Radios(
             idPrefix = Some("isThisYourAgent"),
