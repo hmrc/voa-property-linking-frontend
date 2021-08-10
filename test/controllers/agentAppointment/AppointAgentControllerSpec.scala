@@ -142,7 +142,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) mustBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContain("#sort-by-ADDRESS.sorting_desc", 1)
+    page.mustContain("#sort-by-address.sort_desc", 1)
   }
 
   "filterPropertiesForAppoint" should "show a filtered appoint agent properties page" in {
@@ -434,7 +434,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     appointAgentPropertiesSession = mockAppointAgentPropertiesSessionRepo,
     revokeAgentSummaryView = revokeAgentSummaryView,
     appointAgentSummaryView = appointAgentSummaryView,
-    revokeAgentPropertiesView = appointAgentPropertiesView
+    revokeAgentPropertiesView = revokeAgentPropertiesView,
+    appointAgentPropertiesView = appointAgentPropertiesView
   )
 
   private lazy val mockSessionRepo = mock[SessionRepo]
