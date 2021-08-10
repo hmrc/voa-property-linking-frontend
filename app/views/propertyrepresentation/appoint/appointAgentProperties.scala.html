@@ -42,14 +42,14 @@
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{
-    Messages("propertyRepresentation.appointAgentProperties.title")
+    messages("propertyRepresentation.appointAgentProperties.title")
 }
 
 @agentPropertiesFilter(showAllProperties: Boolean, backLink: String) = @{
     if(showAllProperties){
-        Html(Messages("propertyRepresentation.appointAgents.showPropertiesNoAgent.link", agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, agentCode, agentAppointed = Some(AgentPropertiesFilter.No.name), backLink).url))
+        Html(messages("propertyRepresentation.appointAgents.showPropertiesNoAgent.link", agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, agentCode, agentAppointed = Some(AgentPropertiesFilter.No.name), backLink).url))
     } else {
-        Html(Messages("propertyRepresentation.appointAgents.showAllProperties.link", agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, agentCode, None, backLink).url))
+        Html(messages("propertyRepresentation.appointAgents.showAllProperties.link", agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination, agentCode, None, backLink).url))
     }
 }
 
