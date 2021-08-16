@@ -23,8 +23,7 @@ import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation.{Start, StartJourney}
 import org.scalatest.LoneElement
 import play.api.libs.json.{Reads, Writes}
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with LoneElement {
 

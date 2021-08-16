@@ -84,7 +84,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
       ))
 
     when(
-      mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any())(
+      mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any(), Matchers.any())(
         Matchers.any(),
         Matchers.any[HeaderCarrier](),
         Matchers.any()))
@@ -101,7 +101,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val propertyLinkId = "PL-123456789"
 
     when(
-      mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any())(
+      mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any(), Matchers.any())(
         Matchers.any(),
         Matchers.any[HeaderCarrier](),
         Matchers.any()))

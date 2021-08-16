@@ -32,13 +32,16 @@ trait HTTPClientMock { this: MockitoSugar =>
   def mockHttpGET[T](url: String, thenReturn: T): OngoingStubbing[Future[T]] =
     when(
       mockHttpClient
-        .GET[T](Matchers.anyString())(Matchers.any[HttpReads[T]](), Matchers.any[HeaderCarrier](), Matchers.any()))
+        .GET[T](url = Matchers.anyString(), queryParams = Matchers.any(), headers = Matchers.any())(
+          Matchers.any[HttpReads[T]](),
+          Matchers.any[HeaderCarrier](),
+          Matchers.any()))
       .thenReturn(Future.successful(thenReturn))
 
   def mockHttpGETWithQueryParam[T](url: String, thenReturn: T): OngoingStubbing[Future[T]] =
     when(
       mockHttpClient
-        .GET[T](url = Matchers.anyString(), queryParams = Matchers.any())(
+        .GET[T](url = Matchers.anyString(), queryParams = Matchers.any(), headers = Matchers.any())(
           Matchers.any[HttpReads[T]](),
           Matchers.any[HeaderCarrier](),
           Matchers.any()))
@@ -59,12 +62,15 @@ trait HTTPClientMock { this: MockitoSugar =>
   def mockHttpGET[T](url: String, thenReturn: Future[T]): OngoingStubbing[Future[T]] =
     when(
       mockHttpClient
-        .GET[T](Matchers.anyString())(Matchers.any[HttpReads[T]](), Matchers.any[HeaderCarrier](), Matchers.any()))
+        .GET[T](url = Matchers.anyString(), queryParams = Matchers.any(), headers = Matchers.any())(
+          Matchers.any[HttpReads[T]](),
+          Matchers.any[HeaderCarrier](),
+          Matchers.any()))
       .thenReturn(thenReturn)
 
   def mockHttpGETOption[T](url: String, thenReturn: T): OngoingStubbing[Future[Option[T]]] =
     when(
-      mockHttpClient.GET[Option[T]](Matchers.anyString())(
+      mockHttpClient.GET[Option[T]](url = Matchers.anyString(), queryParams = Matchers.any(), headers = Matchers.any())(
         Matchers.any[HttpReads[Option[T]]](),
         Matchers.any[HeaderCarrier](),
         Matchers.any()))
@@ -128,7 +134,10 @@ trait HTTPClientMock { this: MockitoSugar =>
   def mockHttpFailedGET[T](url: String, exception: Exception): OngoingStubbing[Future[T]] =
     when(
       mockHttpClient
-        .GET[T](Matchers.anyString())(Matchers.any[HttpReads[T]](), Matchers.any[HeaderCarrier](), Matchers.any()))
+        .GET[T](Matchers.anyString(), Matchers.any(), Matchers.any())(
+          Matchers.any[HttpReads[T]](),
+          Matchers.any[HeaderCarrier](),
+          Matchers.any()))
       .thenReturn(Future.failed(exception))
 
   def mockHttpFailedPOST[I, O](

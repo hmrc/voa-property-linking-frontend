@@ -39,7 +39,7 @@ class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, ht
   }
   def getAgentDetails(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentDetails]] =
     http.GET[Option[AgentDetails]](s"$baseUrl/my-organisation/agent/$agentCode") recover {
-      case UpstreamErrorResponse.WithStatusCode(403, _) =>
+      case err @ UpstreamErrorResponse.WithStatusCode(403) =>
         logger.info(s"Agent code: $agentCode does not belong to an agent organisation")
         None
     }

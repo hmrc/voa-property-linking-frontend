@@ -26,11 +26,10 @@ import org.mockito.Mockito.{when, _}
 import play.api.test.FakeRequest
 import services.ServiceSpec
 import tests.AllMocks
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import uk.gov.hmrc.propertylinking.exceptions.attachments.AttachmentException
-
 import java.time.LocalDate
+
 import scala.concurrent.Future
 import scala.language.implicitConversions
 

@@ -56,7 +56,7 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
     intercept[UpstreamErrorResponse] {
       exceptionThrowingReads.authorisationReads[HttpResponse].read("GET", "URL", mockHttpResponse)
     } match {
-      case UpstreamErrorResponse.WithStatusCode(BAD_REQUEST, err) =>
+      case err @ UpstreamErrorResponse.WithStatusCode(BAD_REQUEST) =>
         err.getMessage() should startWith("GET of 'URL' returned 400")
     }
   }
@@ -67,7 +67,7 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
     intercept[UpstreamErrorResponse] {
       exceptionThrowingReads.authorisationReads[HttpResponse].read("GET", "URL", mockHttpResponse)
     } match {
-      case UpstreamErrorResponse.WithStatusCode(INTERNAL_SERVER_ERROR, err) =>
+      case err @ UpstreamErrorResponse.WithStatusCode(INTERNAL_SERVER_ERROR) =>
         err.getMessage() should startWith("GET of 'URL' returned 500")
     }
   }

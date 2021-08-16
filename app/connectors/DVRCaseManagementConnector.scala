@@ -56,7 +56,7 @@ class DVRCaseManagementConnector @Inject()(config: ServicesConfig, val wsClient:
     wsClient
       .url(s"$url/properties/$uarn/valuation/$valuationId/files/$fileRef?propertyLinkId=$propertyLinkId")
       .withMethod("GET")
-      .withHttpHeaders(hc.headers: _*)
+      .withHttpHeaders(hc.headers(HeaderNames.explicitlyIncludedHeaders): _*)
       .stream()
 
 }
