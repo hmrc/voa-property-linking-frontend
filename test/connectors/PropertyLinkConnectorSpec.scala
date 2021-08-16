@@ -97,7 +97,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "getMyAgentPropertyLinks" must "return agent property links" in new Setup {
-    when(mockHttpClient.GET[OwnerAuthResult](any(), any())(any(), any(), any()))
+    when(mockHttpClient.GET[OwnerAuthResult](any(), any(), any())(any(), any(), any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
 
     connector
@@ -156,7 +156,10 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(res)(_ mustBe ownerAuthResultResponse)
 
     verify(mockHttpClient, times(1))
-      .GET(eqs("tst-url/owner/property-links"), eqs(expectedOwnerParams))(any(), any(), any())
+      .GET(url = eqs("tst-url/owner/property-links"), queryParams = eqs(expectedOwnerParams), headers = any())(
+        any(),
+        any(),
+        any())
   }
 
   "Owner request for getMyOrganisationPropertyLinksWithAgentFiltering - agent included in params" must "return OwnerAuthResult" in new Setup {
@@ -172,8 +175,9 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(res)(_ mustBe ownerAuthResultResponse)
 
     verify(mockHttpClient, times(1)).GET(
-      eqs("tst-url/owner/property-links"),
-      eqs(("agent" -> "Some Org name") +: expectedOwnerParams))(any(), any(), any())
+      url = eqs("tst-url/owner/property-links"),
+      queryParams = eqs(("agent" -> "Some Org name") +: expectedOwnerParams),
+      headers = any())(any(), any(), any())
   }
 
   "Owner request for getMyOrganisationPropertyLinksWithAgentFiltering - address included in params" must "return OwnerAuthResult" in new Setup {
@@ -189,8 +193,9 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(res)(_ mustBe ownerAuthResultResponse)
 
     verify(mockHttpClient, times(1)).GET(
-      eqs("tst-url/owner/property-links"),
-      eqs(("address" -> "Some address") +: expectedOwnerParams))(any(), any(), any())
+      url = eqs("tst-url/owner/property-links"),
+      queryParams = eqs(("address" -> "Some address") +: expectedOwnerParams),
+      headers = any())(any(), any(), any())
   }
 
   "Agent request for getMyOrganisationPropertyLinksWithAgentFiltering" must "return OwnerAuthResult" in new Setup {
@@ -206,8 +211,9 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     )
 
     verify(mockHttpClient, times(1)).GET(
-      eqs(s"tst-url/my-organisation/agents/$agentCode/available-property-links"),
-      eqs(expectedAgentParams))(any(), any(), any())
+      url = eqs(s"tst-url/my-organisation/agents/$agentCode/available-property-links"),
+      queryParams = eqs(expectedAgentParams),
+      headers = any())(any(), any(), any())
   }
 
   "Agent request for getMyOrganisationPropertyLinksWithAgentFiltering - agent included in params" must "return OwnerAuthResult" in new Setup {
@@ -223,8 +229,10 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     )
 
     verify(mockHttpClient, times(1)).GET(
-      eqs(s"tst-url/my-organisation/agents/$agentCode/available-property-links"),
-      eqs(("agent" -> "Some Org name") +: expectedAgentParams))(any(), any(), any())
+      url = eqs(s"tst-url/my-organisation/agents/$agentCode/available-property-links"),
+      queryParams = eqs(("agent" -> "Some Org name") +: expectedAgentParams),
+      headers = any()
+    )(any(), any(), any())
   }
 
   "canChallenge" must "return CanChallengeResponse" in new Setup {

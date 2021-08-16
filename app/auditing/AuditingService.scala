@@ -18,7 +18,7 @@ package auditing
 
 import javax.inject.Inject
 import play.api.libs.json.{Json, Writes}
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, HeaderNames}
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.audit.model.ExtendedDataEvent
 
@@ -34,7 +34,7 @@ class AuditingService @Inject()(val auditConnector: AuditConnector) {
     ExtendedDataEvent(
       auditSource = "voa-property-linking-frontend",
       auditType = auditType,
-      tags = hc.headers.toMap,
+      tags = hc.headers(HeaderNames.explicitlyIncludedHeaders).toMap,
       detail = Json.toJson(obj)
     )
 }

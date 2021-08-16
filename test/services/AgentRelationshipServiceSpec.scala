@@ -24,8 +24,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{when, _}
 import repositories.SessionRepo
 import tests.AllMocks
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import scala.concurrent.Future
 

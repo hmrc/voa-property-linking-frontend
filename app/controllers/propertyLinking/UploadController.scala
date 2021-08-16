@@ -94,7 +94,7 @@ class UploadController @Inject()(
           ))
           .map(response => Ok(Json.toJson(response)))
           .recover {
-            case UpstreamErrorResponse.WithStatusCode(BAD_REQUEST, ex) =>
+            case ex @ UpstreamErrorResponse.WithStatusCode(BAD_REQUEST) =>
               Logger.warn(s"Initiate Upload was Bad Request: ${ex.message}")
               BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
             case ex: Exception =>
