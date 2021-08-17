@@ -571,10 +571,11 @@ propertyRepresentation.pageSize.showing=Showing
 label.linkIds=Select one or more properties
 propertyRepresentation.pageSize.perPage=messages per page
 propertyRepresentation.paginationInfo=Page {0} of {1}
-propertyRepresentation.appointAgents.showPropertiesNoAgent.link=<a href="{0}">Only show properties with no agent</a>
-propertyRepresentation.appointAgents.showAllProperties.link=<a href="{0}">Show all properties</a>
+propertyRepresentation.appointAgents.showPropertiesNoAgent.link=<a class="govuk-link" href="{0}">Only show properties with no agent</a>
+propertyRepresentation.appointAgents.showAllProperties.link=<a class="govuk-link" href="{0}">Show all properties</a>
 label.propertyRepresentation.address=Search for address
 label.propertyRepresentation.appointedAgents=Search for appointed agents
+error.propertyRepresentation.appoint.filter=You must enter something to search for
 
 
 ##Appoint agent summary

@@ -165,16 +165,50 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     StubGroupAccountConnector.stubAccount(agent)
 
+    val backLink = "/my-organisation/appoint"
     val res =
-      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, "/my-organisation/appoint")(
+      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink)(
         FakeRequest().withFormUrlEncodedBody(
-          "address" -> "address 1"
+          "address"     -> "address 1",
+          "agentCode"   -> "12345",
+          "backLinkUrl" -> backLink
         ))
 
     status(res) mustBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainText("address 1")
+  }
+
+  "filterPropertiesForAppoint" should "show error when nothing is entered" in {
+
+    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address 1", "localAuthorityRef", testAgents)
+
+    val testOwnerAuthResult =
+      OwnerAuthResult(start = 1, size = 15, filterTotal = 2, total = 2, authorisations = Seq(testOwnerAuth))
+
+    when(
+      mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
+        any[HeaderCarrier]))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+
+    when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
+    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
+      .thenReturn(Future.successful(Some(FilterAppointProperties(None, None))))
+    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
+      .thenReturn(Future.successful(()))
+
+    StubGroupAccountConnector.stubAccount(agent)
+
+    val backLink = "/my-organisation/appoint"
+    val res =
+      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink)(
+        FakeRequest().withFormUrlEncodedBody("agentCode" -> "12345", "backLinkUrl" -> backLink))
+
+    status(res) mustBe BAD_REQUEST
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.mustContainText("You must enter something to search for")
   }
 
   "appointAgentSummary" should "show the summary page" in {
