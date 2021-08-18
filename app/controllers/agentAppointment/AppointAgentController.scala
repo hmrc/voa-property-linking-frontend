@@ -17,7 +17,7 @@
 package controllers.agentAppointment
 
 import actions.AuthenticatedAction
-import actions.requests.AuthenticatedRequest
+import actions.requests.{AuthenticatedRequest, BasicAuthenticatedRequest}
 import binders.pagination.PaginationParameters
 import binders.propertylinks.ExternalPropertyLinkManagementSortField.ExternalPropertyLinkManagementSortField
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
@@ -39,8 +39,8 @@ import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-
 import javax.inject.{Inject, Named}
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class AppointAgentController @Inject()(
@@ -71,7 +71,9 @@ class AppointAgentController @Inject()(
       mapping(
         "address" -> optional(text),
         "agent"   -> optional(text)
-      )(FilterAppointPropertiesForm.apply)(FilterAppointPropertiesForm.unapply))
+      )(FilterAppointPropertiesForm.apply)(FilterAppointPropertiesForm.unapply)
+        .verifying("error.propertyRepresentation.appoint.filter", f => f.address.nonEmpty || f.agent.nonEmpty)
+    )
 
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         pagination: PaginationParameters,
@@ -91,7 +93,7 @@ class AppointAgentController @Inject()(
     filterAppointPropertiesForm
       .bindFromRequest()
       .fold(
-        hasErrors = errors => searchForAppointableProperties(pagination, agentCode, agentAppointed, backLink),
+        hasErrors = errors => appointAgentPropertiesBadRequest(errors),
         success = (filter: FilterAppointPropertiesForm) =>
           searchForAppointableProperties(
             pagination,
@@ -211,31 +213,7 @@ class AppointAgentController @Inject()(
     appointAgentBulkActionForm
       .bindFromRequest()
       .fold(
-        errors => {
-          val data: Map[String, String] = errors.data
-          accounts.withAgentCode(data("agentCode")).flatMap {
-            case Some(group) =>
-              for {
-                response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
-                             GetPropertyLinksParameters(),
-                             AgentPropertiesParameters(agentCode = data("agentCode").toLong),
-                             request.organisationAccount.id,
-                             group.id
-                           )
-              } yield
-                BadRequest(appointAgentPropertiesView(
-                  Some(errors),
-                  AppointAgentPropertiesVM(group, response),
-                  PaginationParameters(),
-                  GetPropertyLinksParameters(),
-                  data("agentCode").toLong,
-                  data.get("agentAppointed"),
-                  backLink = Some(data("backLinkUrl"))
-                ))
-            case None =>
-              Future.successful(notFound)
-          }
-        },
+        errors => appointAgentPropertiesBadRequest(errors),
         success = (action: AgentAppointBulkAction) => {
           accounts.withAgentCode(action.agentCode.toString).flatMap {
             case Some(group) =>
@@ -277,6 +255,33 @@ class AppointAgentController @Inject()(
           }
         }
       )
+  }
+
+  private def appointAgentPropertiesBadRequest(errors: Form[_])(implicit request: BasicAuthenticatedRequest[_]) = {
+    val data: Map[String, String] = errors.data
+    accounts.withAgentCode(data("agentCode")).flatMap {
+      case Some(group) =>
+        for {
+          response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
+                       GetPropertyLinksParameters(),
+                       AgentPropertiesParameters(agentCode = data("agentCode").toLong),
+                       request.organisationAccount.id,
+                       group.id
+                     )
+        } yield
+          BadRequest(
+            appointAgentPropertiesView(
+              Some(errors),
+              AppointAgentPropertiesVM(group, response),
+              PaginationParameters(),
+              GetPropertyLinksParameters(),
+              data("agentCode").toLong,
+              data.get("agentAppointed"),
+              backLink = Some(data("backLinkUrl"))
+            ))
+      case None =>
+        Future.successful(notFound)
+    }
   }
 
   def selectAgentPropertiesSearchSort(pagination: PaginationParameters, agentCode: Long): Action[AnyContent] =

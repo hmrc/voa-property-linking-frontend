@@ -78,14 +78,20 @@ details.govuk-details {
     text-align: center
 }
 
-.sort {
-    background: url("../images/sort_both.png") no-repeat scroll left 80px center;
+.sort::after {
+    content: url("../images/sort_both.png");
+    padding: 5px;
+    position: relative;
 }
 
-.sort_asc {
-    background: url("../images/sort_asc.png") no-repeat scroll left 80px center;
+.sort_asc::after {
+    content: url("../images/sort_asc.png");
+    padding: 5px;
+    position: relative;
 }
 
-.sort_desc {
-    background: url("../images/sort_desc.png") no-repeat scroll left 80px center;
+.sort_desc::after {
+    content: url("../images/sort_desc.png");
+    padding: 5px;
+    position: relative;
 }
