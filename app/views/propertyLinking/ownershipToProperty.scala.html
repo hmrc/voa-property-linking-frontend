@@ -22,9 +22,13 @@
 @import helpers._
 
 @this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+
 @(model: ClaimPropertyOwnershipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
 @clientId = @{clientDetails.map(_.organisationId)}
+
 @form = @{model.form}
+
 @clientSuffix = @{
     clientId match {
         case Some(id) => { ".client"}
@@ -42,7 +46,7 @@
 @getEnrichedErrorLinks = @{
     form.errors.map{ error =>
         ErrorLink(href = Some(s"#${error.key}"),
-            content = HtmlContent(s"${messages(s"label.${error.key}$clientSuffix")} - ${messages(error.message)}") )}
+            content = HtmlContent(s"${messages(s"label.${error.key}$clientSuffix")} - ${messages(error.message, error.args.map(_.toString) :_*)}") )}
 }
 
 @getFiledErrorMessage(field: String) = @{
