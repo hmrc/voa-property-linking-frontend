@@ -579,7 +579,9 @@ label.propertyRepresentation.appointedAgents=Search for appointed agents
 
 ##Appoint agent summary
 propertyRepresentation.agentSummary.heading=Agent appointed
-propertyRepresentation.agentSummary.title=Agent ''{0}'' appointed
+propertyRepresentation.agentSummary.title={0} has been assigned to your selected properties
+propertyRepresentation.agentSummary.h2=What happens next
+propertyRepresentation.agentSummary.p={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
 propertyRepresentation.agentSummary.appointed=You have appointed agent ''{0}'' ({1}) with the ability to submit checks and challenges to the selected properties.
 propertyRepresentation.agentSummary.warning=Your agent has 180 days to accept your request. Otherwise your request will be rejected and you will need to send a new request.
 propertyRepresentation.agentSummary.back=Back to dashboard
@@ -592,6 +594,7 @@ propertyRepresentation.appointAgent.button=Continue
 
 #Remove agent summary
 propertyRepresentation.agentRemoveSummary.heading=Agent removed
+propertyRepresentation.agentRemoveSummary.h1={0} has been removed from your selected properties
 propertyRepresentation.agentRemoveSummary.removed=You have removed Agent ''{0}’s'' ability to submit checks and challenges from {1} properties
 
 label.canCheck=Do you want this agent to submit checks?
