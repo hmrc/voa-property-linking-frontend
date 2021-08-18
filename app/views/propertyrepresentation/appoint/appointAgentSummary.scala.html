@@ -18,7 +18,7 @@
 @import config.ApplicationConfig
 @import binders.pagination.PaginationParameters
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukPanel : GovukPanel)
 
 @(action: AgentAppointBulkAction, agentOrganisation: String, backLinkUrl: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
@@ -26,10 +26,12 @@
     Messages("propertyRepresentation.agentSummary.heading")
 }
 
-@mainLayout(pageTitle = heading, mainClass = Some("govuk-grid-column-full")) {
-    <h1 class="govuk-heading-l" id="pageHeading">@messages("propertyRepresentation.agentSummary.title", agentOrganisation, action.agentCode.toString)</h1>
-
-    <p class="govuk-body" id="mainBodyText">@messages("propertyRepresentation.agentSummary.appointed", agentOrganisation, action.agentCode.toString)</p>
+@mainLayout(pageTitle = heading) {
+    @govukPanel(Panel(
+        title = Text(messages("propertyRepresentation.agentSummary.title", agentOrganisation))
+    ))
+    <h2 class="govuk-heading-m">@messages("propertyRepresentation.agentSummary.h2")</h2>
+    <p class="govuk-body" id="mainBodyText">@messages("propertyRepresentation.agentSummary.p", agentOrganisation)</p>
 
     @govukButton(Button(
         href = Some(agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), action.agentCode, None, backLinkUrl).url),

@@ -19,21 +19,21 @@
 @import binders.propertylinks._
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukPanel: GovukPanel)
 
 @(
  action: AgentRevokeBulkAction,
  agentOrganisation: String
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@heading = @{ Messages("propertyRepresentation.agentRemoveSummary.heading") }
+@heading = @{ Messages("propertyRepresentation.agentRemoveSummary.heading", agentOrganisation) }
 
 @mainLayout(
- pageTitle = heading,
- mainClass = Some("govuk-grid-column-full")
+ pageTitle = heading
 ) {
-
- <h1 class="govuk-heading-l">@messages("propertyRepresentation.agentRemoveSummary.heading")</h1>
+ @govukPanel(Panel(
+  title = Text(messages("propertyRepresentation.agentRemoveSummary.h1", agentOrganisation))
+ ))
 
  <p class="govuk-body" id="mainBodyText">@messages("propertyRepresentation.agentRemoveSummary.removed", action.agentCode.toString, action.propertyLinkIds.size)</p>
 
