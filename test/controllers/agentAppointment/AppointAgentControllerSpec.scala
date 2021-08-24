@@ -207,8 +207,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     status(res) mustBe BAD_REQUEST
 
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainText("You must enter something to search for")
+    page.titleMustMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
   }
 
   "appointAgentSummary" should "show the summary page" in {
@@ -243,6 +244,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainTable("#agentPropertiesTableBody")
+    page.titleMustMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -260,6 +262,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainTable("#agentPropertiesTableBody")
+    page.titleMustMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -436,6 +439,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainText("Select one or more properties")
+    page.titleMustMatch("Error: Which properties should the agent be removed from - Valuation Office Agency - GOV.UK")
   }
 
   "errors during handling of revoke agent form" should "re-render the page with form errors reported to user" in {
@@ -456,6 +460,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) mustBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainText("Failed to appoint agent to all properties")
+    page.titleMustMatch("Error: Which properties should the agent be removed from - Valuation Office Agency - GOV.UK")
   }
 
   private lazy val testController = new AppointAgentController(

@@ -56,6 +56,10 @@ case class HtmlPage(html: Document) extends MustMatchers with AppendedClues {
     html.body.text.contains(text) mustBe false withClue s"HTML did contain: $text\nHTML:\n${html.body.text}"
   }
 
+  def titleMustMatch(text: String) {
+    html.title().equals(text) mustBe true withClue s"Title did not match. Expected:$text\nActual:\n${html.title()}"
+  }
+
   def inputMustContain(fieldId: String, text: String): Unit =
     Option(html.getElementById(fieldId)).map(_.`val`()) mustBe Some(text)
 

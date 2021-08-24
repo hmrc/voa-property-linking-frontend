@@ -131,7 +131,7 @@
     }
 }
 
-@mainLayout(pageTitle = title, backUri = Some(backLink), mainClass = Some("govuk-grid-column-full")) {
+@mainLayout(pageTitle = title, backUri = Some(backLink), mainClass = Some("govuk-grid-column-full"), hasErrors = errorLinks.nonEmpty) {
 
     <div class="govuk-grid-row">
 
