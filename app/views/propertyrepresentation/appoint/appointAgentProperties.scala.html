@@ -323,7 +323,7 @@
                                             } else {
                                                 pagination.startPoint
                                             },
-                                            model.response.authorisations.size.min(pagination.startPoint + pagination.pageSize - 1),
+                                            model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1),
                                             model.response.filterTotal
                                         )
                                     </p>

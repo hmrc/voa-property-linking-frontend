@@ -274,7 +274,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     StubGroupAccountConnector.stubAccount(agent)
 
-    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
+    when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
     when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
       .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
@@ -301,7 +301,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = Seq(testOwnerAuth))
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
+    when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
     when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
       .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
@@ -330,7 +330,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         authorisations = Seq(testOwnerAuth, testOwnerAuth2))
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
+    when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
     when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
       .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
@@ -353,7 +353,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testOwnerAuthResult =
       OwnerAuthResult(start = 1, size = 15, filterTotal = 2, total = 2, authorisations = Seq(testOwnerAuth))
 
-    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
+    when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
@@ -378,10 +378,10 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "viewing select agent properties search sort page" should "show no properties when the agent has no properties appointed" in {
     val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
 
-    val testOwnerAuthResult = OwnerAuthResult(start = 1, size = 15, filterTotal = 0, total = 0, authorisations = Seq())
+    val testOwnerAuthResult = OwnerAuthResult(start = 1, size = 0, filterTotal = 0, total = 0, authorisations = Seq())
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
-    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any[HeaderCarrier]))
+    when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
     when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
       .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
