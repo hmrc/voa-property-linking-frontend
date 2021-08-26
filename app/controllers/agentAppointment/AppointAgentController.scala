@@ -337,14 +337,13 @@ class AppointAgentController @Inject()(
                 sortorder = sessionDataOpt.fold(ExternalPropertyLinkManagementSortOrder.ASC)(_.sortOrder))
           }
           response: OwnerAuthResult <- agentRelationshipService
-                                        .getMyOrganisationsPropertyLinks(
-                                          searchParams,
-                                          PaginationParams(
+                                        .getMyAgentPropertyLinks(
+                                          agentCode = agentCode,
+                                          searchParams = searchParams,
+                                          pagination = PaginationParams(
                                             pagination.startPoint,
                                             pagination.pageSize,
                                             requestTotalRowCount = false))
-                                        .map(oar =>
-                                          oar.copy(authorisations = filterProperties(oar.authorisations, group.id)))
                                         .map(oar =>
                                           oar.copy(authorisations = oar.authorisations.take(pagination.pageSize)))
           _ <- revokeAgentPropertiesSessionRepo.saveOrUpdate[FilterRevokePropertiesSessionData](
@@ -390,8 +389,9 @@ class AppointAgentController @Inject()(
             case Some(AgentGroupAccount(group, agentCode)) =>
               for {
                 response <- agentRelationshipService
-                             .getMyOrganisationsPropertyLinks(
-                               GetPropertyLinksParameters(
+                             .getMyAgentPropertyLinks(
+                               agentCode = pagination.agentCode,
+                               searchParams = GetPropertyLinksParameters(
                                  address = pagination.address,
                                  agent = Some(group.companyName),
                                  sortfield = ExternalPropertyLinkManagementSortField.withName(
@@ -399,16 +399,15 @@ class AppointAgentController @Inject()(
                                  sortorder = ExternalPropertyLinkManagementSortOrder.withName(
                                    pagination.sortOrder.name.toUpperCase)
                                ),
-                               PaginationParams(
+                               pagination = PaginationParams(
                                  startPoint = pagination.startPoint,
                                  pageSize = pagination.pageSize,
                                  requestTotalRowCount = false)
                              )
                              .map { oar =>
-                               val filteredProperties = filterProperties(oar.authorisations, group.id)
                                oar.copy(
-                                 authorisations = filteredProperties.take(pagination.pageSize),
-                                 filterTotal = filteredProperties.size)
+                                 authorisations = oar.authorisations.take(pagination.pageSize),
+                                 filterTotal = oar.authorisations.size)
                              }
               } yield {
                 BadRequest(revokeAgentPropertiesView(
