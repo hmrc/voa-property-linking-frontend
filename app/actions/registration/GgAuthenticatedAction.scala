@@ -20,7 +20,7 @@ import actions.registration.requests.RequestWithUserDetails
 import auth.GovernmentGatewayProvider
 import config.ApplicationConfig
 import models.registration.UserDetails
-import play.api.Logger
+import play.api.Logging
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Results.Ok
 import play.api.mvc._
@@ -30,7 +30,7 @@ import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals._
 import uk.gov.hmrc.auth.core.retrieve.~
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession
+import uk.gov.hmrc.play.http.HeaderCarrierConverter.fromRequestAndSession
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
@@ -44,17 +44,17 @@ class GgAuthenticatedAction @Inject()(
       implicit override val executionContext: ExecutionContext,
       controllerComponents: ControllerComponents,
       config: ApplicationConfig
-) extends ActionBuilder[RequestWithUserDetails, AnyContent] with AuthorisedFunctions with I18nSupport {
-
-  val logger = Logger(this.getClass.getName)
+) extends ActionBuilder[RequestWithUserDetails, AnyContent] with AuthorisedFunctions with I18nSupport with Logging {
 
   override val parser: BodyParser[AnyContent] = controllerComponents.parsers.anyContent
 
   override def invokeBlock[A](
         request: Request[A],
         block: RequestWithUserDetails[A] => Future[Result]): Future[Result] = {
+
     implicit val req: Request[A] = request
-    implicit val hc: HeaderCarrier = fromHeadersAndSession(request.headers, Some(request.session))
+    implicit val hc: HeaderCarrier = fromRequestAndSession(request, request.session)
+
     logger.debug("the request called invoke block")
 
     def handleError: PartialFunction[Throwable, Future[Result]] = {
@@ -64,20 +64,30 @@ class GgAuthenticatedAction @Inject()(
         logger.warn("invalid account type:", unsupportedAffinityGroup)
         Future.successful(Ok(invalidAccountTypeView()))
       case otherException: Throwable =>
-        Logger.debug(s"Exception thrown on authorisation with message:", otherException)
+        logger.debug(s"Exception thrown on authorisation with message:", otherException)
         throw otherException
     }
 
-    val retrieval = name and email and postCode and groupIdentifier and externalId and affinityGroup and credentialRole
+    val retrieval = name and email and postCode and groupIdentifier and externalId and affinityGroup and credentialRole and confidenceLevel
     authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual))
       .retrieve(retrieval) {
         case optName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(
-              role) =>
+              role) ~ confidenceLevel =>
           block(
             new RequestWithUserDetails(
               UserDetails
-                .fromRetrieval(optName, optEmail, optPostCode, groupIdentifier, externalId, affinityGroup, role),
-              request))
+                .fromRetrieval(
+                  name = optName,
+                  optEmail = optEmail,
+                  optPostCode = optPostCode,
+                  groupIdentifier = groupIdentifier,
+                  externalId = externalId,
+                  affinityGroup = affinityGroup,
+                  role = role,
+                  confidenceLevel = confidenceLevel
+                ),
+              request
+            ))
       }
       .recoverWith(handleError)
   }

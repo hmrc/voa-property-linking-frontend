@@ -41,8 +41,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
   "Successfully verifying identity when an organisation does not have a CCA account" must
     "register and enrol the user then redirect to the registration success page" in new TestCase {
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(RegistrationSuccess(1L)))
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
 
     val res = testIdentityVerification(userDetails(Organisation))
       .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
@@ -54,8 +54,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     "register and enrol the user then redirect to the registration success page" in new TestCase {
     override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(RegistrationSuccess(1L)))
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
 
     val res = testIdentityVerification(userDetails(Individual))
       .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
@@ -68,8 +68,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
       .thenReturn(Html("INTERNAL SERVER ERROR"))
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(EnrolmentFailure))
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(EnrolmentFailure)))
 
     val res = testIdentityVerification(userDetails(Organisation))
       .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
@@ -82,8 +82,8 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
       .thenReturn(Html("INTERNAL SERVER ERROR"))
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(DetailsMissing))
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(DetailsMissing)))
 
     val res = testIdentityVerification(userDetails(Organisation))
       .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))

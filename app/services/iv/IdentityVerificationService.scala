@@ -46,6 +46,7 @@ class IdentityVerificationService @Inject()(
   lazy val successUrl: String = controllers.routes.IdentityVerification.success(None).url
   lazy val failureUrl: String = controllers.routes.IdentityVerification.fail(None).url
 
+  // TODO switch to IV Frontend "uplift" endpoint
   def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] =
     proxyConnector
       .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
@@ -60,26 +61,10 @@ class IdentityVerificationService @Inject()(
   def noneCase(implicit request: Request[_]): Result =
     InternalServerError(errorHandler.internalServerErrorTemplate)
 
+  // TODO
   def continue(journeyId: String, userDetails: UserDetails)(
         implicit hc: HeaderCarrier,
         ec: ExecutionContext): Future[Option[RegistrationResult]] =
-    (userDetails.affinityGroup, userDetails.credentialRole) match {
-      case (Organisation, role) if role != Assistant =>
-        for {
-          organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
-          organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
-          registrationResult <- registrationService
-                                 .create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(
-                                   organisationDetails.toIndividualAccountSubmission(journeyId))
-        } yield Some(registrationResult)
-      case (Individual, _) =>
-        for {
-          individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
-          individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
-          registrationResult <- registrationService
-                                 .create(individualDetails.toGroupDetails, userDetails, Some(Individual))(
-                                   individualDetails.toIndividualAccountSubmission(journeyId))
-        } yield Some(registrationResult)
-    }
+    registrationService.continue(journeyId, userDetails)
 
 }

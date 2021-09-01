@@ -195,12 +195,6 @@ case class AdminOrganisationAccountDetails(
       isAgent: Boolean,
       selectedAddress: Option[String] = None)
     extends AdminUser {
-  override def toIvDetails = IVDetails(
-    firstName = firstName,
-    lastName = lastName,
-    dateOfBirth = Some(dob),
-    nino = Some(nino)
-  )
 
   def toGroupDetails = GroupAccountDetails(
     companyName = companyName,
@@ -237,13 +231,6 @@ case class IndividualUserAccountDetails(
       tradingName: Option[String],
       selectedAddress: Option[String] = None)
     extends AdminUser {
-
-  override def toIvDetails = IVDetails(
-    firstName = firstName,
-    lastName = lastName,
-    dateOfBirth = Some(dob),
-    nino = Some(nino)
-  )
 
   def toGroupDetails = GroupAccountDetails(
     companyName = tradingName.getOrElse(truncateCompanyName(s"$firstName $lastName")),

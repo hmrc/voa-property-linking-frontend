@@ -35,7 +35,7 @@ import models.referencedata.ReferenceData
 import models.registration._
 import models.searchApi._
 import models.upscan._
-import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole, User}
+import uk.gov.hmrc.auth.core.{AffinityGroup, ConfidenceLevel, CredentialRole, User}
 
 import java.time.{Instant, LocalDate, LocalDateTime, Month}
 import java.util.UUID
@@ -138,7 +138,8 @@ trait FakeObjects {
 
   def userDetails(
         affinityGroup: AffinityGroup = AffinityGroup.Individual,
-        credentialRole: CredentialRole = User): UserDetails =
+        credentialRole: CredentialRole = User,
+        confidenceLevel: ConfidenceLevel = ConfidenceLevel.L200): UserDetails =
     UserDetails(
       firstName = Some(firstName),
       lastName = Some(lastName),
@@ -147,7 +148,8 @@ trait FakeObjects {
       groupIdentifier = ggGroupId,
       affinityGroup = affinityGroup,
       externalId = ggExternalId,
-      credentialRole = credentialRole
+      credentialRole = credentialRole,
+      confidenceLevel = confidenceLevel
     )
 
   val agentOrganisation = AgentOrganisation(

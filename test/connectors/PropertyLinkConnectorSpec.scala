@@ -201,7 +201,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   "Agent request for getMyOrganisationPropertyLinksWithAgentFiltering" must "return OwnerAuthResult" in new Setup {
     mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
     private val agentCode = 1L
-    val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
+    connector.getMyOrganisationPropertyLinksWithAgentFiltering(
       searchParams = GetPropertyLinksParameters(status = Some("APPROVED")),
       pagination = PaginationParams(1, 10, requestTotalRowCount = false),
       organisationId = 1L,
@@ -219,7 +219,7 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   "Agent request for getMyOrganisationPropertyLinksWithAgentFiltering - agent included in params" must "return OwnerAuthResult" in new Setup {
     mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
     private val agentCode = 1L
-    val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
+    connector.getMyOrganisationPropertyLinksWithAgentFiltering(
       searchParams = GetPropertyLinksParameters(status = Some("APPROVED"), agent = Some("Some Org name")),
       pagination = PaginationParams(1, 10, requestTotalRowCount = false),
       organisationId = 1L,

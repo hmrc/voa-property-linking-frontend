@@ -21,6 +21,7 @@ import config.ApplicationConfig
 import javax.inject.{Inject, Named}
 import models.identityVerificationProxy.IvResult
 import models.registration.AdminUser
+import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
@@ -42,15 +43,15 @@ class IdentityVerification @Inject()(
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
-) extends PropertyLinkingController {
+) extends PropertyLinkingController with Logging {
 
   val startIv: Action[AnyContent] = ggAction.async { implicit request =>
     if (config.ivEnabled) {
       for {
         userDetails <- personalDetailsSessionRepo.get[AdminUser]
-        links <- identityVerificationService.start(
-                  userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
-      } yield Redirect(links.getLink(config.ivBaseUrl))
+        link <- identityVerificationService.start(
+                 userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
+      } yield Redirect(link.getLink(config.ivBaseUrl))
     } else {
       Future.successful(Redirect(routes.IdentityVerification.success(Some(java.util.UUID.randomUUID().toString))))
     }
@@ -68,16 +69,18 @@ class IdentityVerification @Inject()(
 
   }
 
-  //Not sure what this is used for.
-  val restoreSession: Action[AnyContent] = Action { implicit request =>
-    Redirect(routes.IdentityVerification.success(Some(java.util.UUID.randomUUID().toString))).addingToSession(
-      SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""),
-      SessionKeys.sessionId -> request.session.get("oldSessionId").getOrElse("")
-    )
-  }
+//  // Not sure what this is used for.
+//  // TODO DPP remove
+//  val restoreSession: Action[AnyContent] = Action { implicit request =>
+//    logger.debug(s"****** restoreSession ******")
+//    Redirect(routes.IdentityVerification.success(Some(java.util.UUID.randomUUID().toString))).addingToSession(
+//      SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""),
+//      SessionKeys.sessionId -> request.session.get("oldSessionId").getOrElse("")
+//    )
+//  }
 
   def success(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
-    if (config.ivEnabled) {
+    if (config.ivEnabled) { // TODO check with Pete, but I think flag test not required here
       journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
         identityVerificationConnector.verifySuccess(id).flatMap {
           case true =>
@@ -89,6 +92,8 @@ class IdentityVerification @Inject()(
         }
       }
     } else {
+      // TODO check with Pete, but I think flag test not required here
+      logger.debug(s"****** IV success should never get here!: ${request.userDetails}")
       identityVerificationService.continue("1", request.userDetails).map {
         case Some(obj) => identityVerificationService.someCase(obj)
         case None      => identityVerificationService.noneCase

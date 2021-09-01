@@ -30,7 +30,7 @@ import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.AuthProvider.GovernmentGateway
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
@@ -54,7 +54,7 @@ class AuthenticatedAction @Inject()(
 
   protected implicit def hc(implicit request: Request[_]): HeaderCarrier =
     HeaderCarrierConverter
-      .fromHeadersAndSessionAndRequest(request.headers, Some(request.session), Some(request))
+      .fromRequestAndSession(request, request.session)
 
   override def invokeBlock[A](
         request: Request[A],

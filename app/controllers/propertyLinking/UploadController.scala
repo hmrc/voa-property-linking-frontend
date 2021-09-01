@@ -23,13 +23,11 @@ import binders.propertylinks.EvidenceChoices
 import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
-import javax.inject.Inject
-
 import models.EvidenceType.form
 import models._
 import models.attachment.InitiateAttachmentPayload
 import models.attachment.request.InitiateAttachmentRequest
-import play.api.Logger
+import play.api.Logging
 import play.api.data.FormError
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json.{JsValue, Json}
@@ -38,6 +36,7 @@ import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class UploadController @Inject()(
@@ -52,7 +51,7 @@ class UploadController @Inject()(
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       applicationConfig: ApplicationConfig
-) extends PropertyLinkingController {
+) extends PropertyLinkingController with Logging {
 
   def show(evidence: EvidenceChoices, errorMessage: Option[String]): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession) { implicit request =>
@@ -95,10 +94,10 @@ class UploadController @Inject()(
           .map(response => Ok(Json.toJson(response)))
           .recover {
             case ex @ UpstreamErrorResponse.WithStatusCode(BAD_REQUEST) =>
-              Logger.warn(s"Initiate Upload was Bad Request: ${ex.message}")
+              logger.warn(s"Initiate Upload was Bad Request: ${ex.message}")
               BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
             case ex: Exception =>
-              Logger.warn("FileAttachmentFailed Exception:", ex)
+              logger.warn("FileAttachmentFailed Exception:", ex)
               InternalServerError("500 INTERNAL_SERVER_ERROR")
           }
       }

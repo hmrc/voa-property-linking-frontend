@@ -18,17 +18,16 @@ package actions.propertylinking
 
 import actions.propertylinking.requests.LinkingSessionRequest
 import actions.requests.BasicAuthenticatedRequest
-import javax.inject.{Inject, Named}
-
-import models.{GroupAccount, LinkingSession}
+import models.LinkingSession
 import play.api.libs.json.Reads
 import play.api.mvc.Results._
 import play.api.mvc._
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class WithLinkingSession @Inject()(
@@ -38,7 +37,7 @@ class WithLinkingSession @Inject()(
     extends ActionRefiner[BasicAuthenticatedRequest, LinkingSessionRequest] {
 
   implicit def hc(implicit request: BasicAuthenticatedRequest[_]): HeaderCarrier =
-    HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+    HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
   override protected def refine[A](
         request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =

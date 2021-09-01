@@ -16,7 +16,7 @@
 
 package connectors.errorhandler.exceptions
 
-import play.api.Logger
+import play.api.Logging
 import play.api.http.Status._
 import uk.gov.hmrc.http._
 import utils.Cats._
@@ -35,13 +35,13 @@ import utils.Cats._
   *
   * TODO: this may be a temporary measure (tbd)
   */
-trait ExceptionThrowingReads extends HttpErrorFunctions {
+trait ExceptionThrowingReads extends HttpErrorFunctions with Logging {
 
   def exceptionThrowingReads[A](implicit hrds: HttpReads[A]): HttpReads[A] = {
 
     def mapToException(method: String, url: String, response: HttpResponse)(e: UpstreamErrorResponse): A = {
 
-      Logger.debug(s"ExceptionThrowingReads: $method $url ${response.body}")
+      logger.debug(s"ExceptionThrowingReads: $method $url ${response.body}")
 
       e.statusCode match {
         case BAD_REQUEST =>

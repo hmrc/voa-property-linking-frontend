@@ -35,18 +35,20 @@ class IvServiceSpec extends ServiceSpec {
 
   "continue" should "return a successful registration result if registration was successful for a new organisation" in new TestCase {
     StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(RegistrationSuccess(1L)))
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
+
     val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails(Organisation))
     res.futureValue must be(Some(RegistrationSuccess(1L)))
   }
 
   "continue" should "return a failed registration result if registration failed for a new organisation" in new TestCase {
     StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(EnrolmentFailure))
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(EnrolmentFailure)))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
+
     val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails(Organisation))
     res.futureValue must be(Some(EnrolmentFailure))
   }
@@ -55,9 +57,10 @@ class IvServiceSpec extends ServiceSpec {
     override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
     StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
     StubIndividualAccountConnector.stubAccount(detailedIndividualAccount)
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(RegistrationSuccess(1L)))
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
+
     val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails())
     res.futureValue must be(Some(RegistrationSuccess(1L)))
   }
@@ -66,9 +69,10 @@ class IvServiceSpec extends ServiceSpec {
     override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
     StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
     StubIndividualAccountConnector.stubAccount(detailedIndividualAccount)
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(EnrolmentFailure))
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(EnrolmentFailure)))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
+
     val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails())
     res.futureValue must be(Some(EnrolmentFailure))
   }
@@ -99,11 +103,12 @@ class IvServiceSpec extends ServiceSpec {
     protected val ivProxy = mock[IdentityVerificationProxyConnector]
 
     protected val identityVerification = new IdentityVerificationService(
-      mockCustomErrorHandler,
-      mockRegistrationService,
-      mockSessionRepoOrgDetails,
-      ivProxy,
-      app.injector.instanceOf[ApplicationConfig])
+      errorHandler = mockCustomErrorHandler,
+      registrationService = mockRegistrationService,
+      personalDetailsSessionRepo = mockSessionRepoOrgDetails,
+      proxyConnector = ivProxy,
+      config = app.injector.instanceOf[ApplicationConfig]
+    )
   }
 
   override protected def beforeEach(): Unit = {

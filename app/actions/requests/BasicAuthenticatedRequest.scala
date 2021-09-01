@@ -17,7 +17,7 @@
 package actions.requests
 
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
-import play.api.mvc.{Request, WrappedRequest}
+import play.api.mvc.Request
 import uk.gov.hmrc.auth.core.AffinityGroup
 
 //need to decouple to authentication away from the group account and individual account.

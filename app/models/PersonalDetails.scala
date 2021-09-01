@@ -32,8 +32,6 @@ case class PersonalDetails(
       phone2: Option[String],
       address: Address) {
 
-  def ivDetails: IVDetails = IVDetails(firstName, lastName, Some(dateOfBirth), Some(nino))
-
   def individualDetails: IndividualDetails =
     IndividualDetails(
       firstName,

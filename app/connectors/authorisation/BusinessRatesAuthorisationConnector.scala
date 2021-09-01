@@ -17,11 +17,11 @@
 package connectors.authorisation
 
 import connectors.authorisation.errorhandler.exceptions.{AuthorisationExceptionThrowingReads, AuthorisationFailure}
-import javax.inject.Inject
-import models.{Accounts, PropertyLinkIds}
-import uk.gov.hmrc.http.{ForbiddenException, HeaderCarrier, HttpClient, UpstreamErrorResponse}
+import models.Accounts
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class BusinessRatesAuthorisationConnector @Inject()(

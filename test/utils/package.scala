@@ -384,7 +384,6 @@ package object utils {
   private val linkingSessionGen: Gen[LinkingSession] = for {
     address            <- shortString
     uarn               <- positiveLong
-    envelopeId         <- shortString
     submissionId       <- shortString
     personId           <- positiveLong
     relationship       <- propertyRelationshipGen
@@ -489,7 +488,6 @@ package object utils {
     agentOrgName   <- arbitrary[String]
     caseReference  <- shortString
     submissionId   <- shortString
-    address        <- shortString
     subject        <- shortString
     messageType    <- shortString
     address        <- shortString

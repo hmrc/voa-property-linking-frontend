@@ -16,7 +16,7 @@
 
 package connectors.authorisation.errorhandler.exceptions
 
-import play.api.Logger
+import play.api.Logging
 import play.api.http.Status.UNAUTHORIZED
 import play.api.libs.json.{Json, OFormat, Reads}
 import uk.gov.hmrc.http.{HttpReads, HttpReadsInstances, HttpResponse, UpstreamErrorResponse}
@@ -24,13 +24,13 @@ import utils.Cats._
 
 import scala.util.Try
 
-trait AuthorisationExceptionThrowingReads {
+trait AuthorisationExceptionThrowingReads extends Logging {
 
   implicit def authorisationReads[A](implicit hrds: HttpReads[A]): HttpReads[A] = {
 
     def mapToException(method: String, url: String, response: HttpResponse)(e: UpstreamErrorResponse): A = {
 
-      Logger.debug(s"AuthorisationExceptionThrowingReads: $method $url ${response.body}")
+      logger.debug(s"AuthorisationExceptionThrowingReads: $method $url ${response.body}")
 
       def authErrorMessage(response: HttpResponse)(r: Reads[UnauthorisedErrorResponse]): Option[String] =
         for {
