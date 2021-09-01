@@ -108,11 +108,12 @@ class RegistrationController @Inject()(
 
   private def identityVerificationIfRequired(userDetails: UserDetails) =
     if (userDetails.confidenceLevel.level < ConfidenceLevel.L200.level)
+      // push user through IV as their Confidence Level is insufficient
       Redirect(controllers.routes.IdentityVerification.startIv())
     else {
       // skip IV as user's Confidence Level is sufficient
       // TODO temporary solution - intention is to call registrationService.continue()
-      Redirect(controllers.routes.IdentityVerification.success(Some("1"))) // TODO
+      Redirect(controllers.routes.IdentityVerification.bypass) // TODO
     }
 
   def submitAdminToExistingOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>

@@ -100,4 +100,13 @@ class IdentityVerification @Inject()(
       }
     }
   }
+
+  def bypass: Action[AnyContent] = ggAction.async { implicit request =>
+    logger.info(s"****** IV bypassed!: ${request.userDetails}")
+    identityVerificationService.continue("1", request.userDetails).map {
+      case Some(obj) => identityVerificationService.someCase(obj)
+      case None      => identityVerificationService.noneCase
+    }
+  }
+
 }
