@@ -145,7 +145,7 @@ class RegistrationController @Inject()(
       Future.successful(Redirect(controllers.routes.IdentityVerification.startIv()))
     } else {
       // skip IV as user's Confidence Level is sufficient
-      registrationService.continue(Some("NO_IV"), request.userDetails).map {
+      registrationService.continue(None, request.userDetails).map {
         case Some(RegistrationSuccess(personId)) =>
           Redirect(controllers.registration.routes.RegistrationController.success(personId))
         case _ => InternalServerError(errorHandler.internalServerErrorTemplate(request))
