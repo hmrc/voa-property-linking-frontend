@@ -37,7 +37,7 @@ class CcaWrappedRequestHelperSpec extends BaseUnitSpec {
     val testDetailedIndividualAccount: DetailedIndividualAccount =
       DetailedIndividualAccount(
         externalId = ggExternalId,
-        trustId = "trustId",
+        trustId = Some("trustId"),
         organisationId = testGroupAccount.id,
         individualId = 2L,
         details = IndividualDetails(

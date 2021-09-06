@@ -63,7 +63,7 @@ class RegistrationService @Inject()(
       res          <- enrol(personId, id, groupAccount, affinityGroupOpt)(userDetails)
     } yield res
 
-  def continue(journeyId: String, userDetails: UserDetails)(
+  def continue(journeyId: Option[String], userDetails: UserDetails)(
         implicit hc: HeaderCarrier,
         ec: ExecutionContext): Future[Option[RegistrationResult]] =
     (userDetails.affinityGroup, userDetails.credentialRole) match {

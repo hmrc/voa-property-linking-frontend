@@ -28,7 +28,7 @@ sealed trait AssistantUser extends User {
   def toIndividualAccountSubmission(fieldData: FieldData)(user: UserDetails)(id: Long)(organisationId: Option[Long]) =
     IndividualAccountSubmission(
       externalId = user.externalId,
-      trustId = "ASSISTANT_NO_IV",
+      trustId = Some("ASSISTANT_NO_IV"),
       organisationId = organisationId,
       details = IndividualDetails(firstName, lastName, fieldData.email, fieldData.businessPhoneNumber, None, id)
     )

@@ -80,11 +80,12 @@ trait FakeObjects {
     UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
   val detailedIndividualAccount =
     DetailedIndividualAccount(
-      ggExternalId,
-      "",
-      1L,
-      2L,
-      IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12))
+      externalId = ggExternalId,
+      trustId = None,
+      organisationId = 1L,
+      individualId = 2L,
+      details = IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
+    )
   val individualUserDetails: UserDetails = userDetails(AffinityGroup.Individual)
   val orgUserDetails: UserDetails = userDetails(AffinityGroup.Organisation)
 

@@ -16,6 +16,7 @@
 
 package controllers.registration
 
+import actions.registration.requests.RequestWithUserDetails
 import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import cats.data.OptionT
 import cats.implicits._
@@ -26,13 +27,14 @@ import models.registration.UserDetails._
 import models.registration._
 import play.api.Logging
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.api.mvc._
 import repositories.SessionRepo
 import services._
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{Assistant, ConfidenceLevel, User}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+import views.html._
 
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
@@ -45,13 +47,13 @@ class RegistrationController @Inject()(
       individualAccounts: IndividualAccounts,
       addresses: Addresses,
       registrationService: RegistrationService,
-      invalidAccountTypeView: views.html.errors.invalidAccountType,
-      invalidAccountCreationView: views.html.errors.invalidAccountCreation,
-      registerIndividualView: views.html.createAccount.registerIndividual,
-      registerOrganisationView: views.html.createAccount.registerOrganisation,
-      registerAssistantAdminView: views.html.createAccount.registerAssistantAdmin,
-      registerAssistantView: views.html.createAccount.registerAssistant,
-      registerConfirmationView: views.html.createAccount.registrationConfirmation,
+      invalidAccountTypeView: errors.invalidAccountType,
+      invalidAccountCreationView: errors.invalidAccountCreation,
+      registerIndividualView: createAccount.registerIndividual,
+      registerOrganisationView: createAccount.registerOrganisation,
+      registerAssistantAdminView: createAccount.registerAssistantAdmin,
+      registerAssistantView: createAccount.registerAssistant,
+      registerConfirmationView: createAccount.registrationConfirmation,
       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
 )(
       implicit executionContext: ExecutionContext,
@@ -82,14 +84,13 @@ class RegistrationController @Inject()(
   }
 
   def submitIndividual(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
-    val userDetails = request.userDetails
     AdminUser.individual
       .bindFromRequest()
       .fold(
         errors => Future.successful(BadRequest(registerIndividualView(errors, FieldData()))),
         (success: IndividualUserAccountDetails) =>
-          personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
-            identityVerificationIfRequired(request.userDetails)
+          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
+            identityVerificationIfRequired(request)
         }
       )
   }
@@ -100,24 +101,13 @@ class RegistrationController @Inject()(
       .fold(
         errors => Future.successful(BadRequest(registerOrganisationView(errors, FieldData()))),
         (success: AdminOrganisationAccountDetails) =>
-          personalDetailsSessionRepo.saveOrUpdate(success) map { _ =>
-            identityVerificationIfRequired(request.userDetails)
+          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
+            identityVerificationIfRequired(request)
         }
       )
   }
 
-  private def identityVerificationIfRequired(userDetails: UserDetails) =
-    if (userDetails.confidenceLevel.level < ConfidenceLevel.L200.level)
-      // push user through IV as their Confidence Level is insufficient
-      Redirect(controllers.routes.IdentityVerification.startIv())
-    else {
-      // skip IV as user's Confidence Level is sufficient
-      // TODO temporary solution - intention is to call registrationService.continue()
-      Redirect(controllers.routes.IdentityVerification.bypass) // TODO
-    }
-
   def submitAdminToExistingOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
-    val userDetails = request.userDetails
     AdminInExistingOrganisationUser.organisation
       .bindFromRequest()
       .fold(
@@ -136,8 +126,9 @@ class RegistrationController @Inject()(
         (success: AdminInExistingOrganisationAccountDetails) => {
           getCompanyDetails(request.groupIdentifier).flatMap {
             case Some(fieldData) =>
-              personalDetailsSessionRepo.saveOrUpdate(success.toAdminOrganisationAccountDetails(fieldData)) map { _ =>
-                identityVerificationIfRequired(request.userDetails)
+              personalDetailsSessionRepo.saveOrUpdate(success.toAdminOrganisationAccountDetails(fieldData)) flatMap {
+                _ =>
+                  identityVerificationIfRequired(request)
               }
             case _ =>
               unableToRetrieveCompanyDetails
@@ -146,8 +137,21 @@ class RegistrationController @Inject()(
       )
   }
 
+  private def identityVerificationIfRequired(request: RequestWithUserDetails[_])(
+        implicit hc: HeaderCarrier): Future[Result] =
+    if (request.userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
+      // push user through IV as their Confidence Level is insufficient
+      Future.successful(Redirect(controllers.routes.IdentityVerification.startIv()))
+    } else {
+      // skip IV as user's Confidence Level is sufficient
+      registrationService.continue(None, request.userDetails).map {
+        case Some(RegistrationSuccess(personId)) =>
+          Redirect(controllers.registration.routes.RegistrationController.success(personId))
+        case _ => InternalServerError(errorHandler.internalServerErrorTemplate(request))
+      }
+    }
+
   def submitAssistant(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
-    val userDetails = request.userDetails
     AssistantUser.assistant
       .bindFromRequest()
       .fold(
@@ -159,9 +163,7 @@ class RegistrationController @Inject()(
                   errors,
                   fieldData
                 ))
-            case _ =>
-              unableToRetrieveCompanyDetails
-
+            case _ => unableToRetrieveCompanyDetails
           }
         },
         success => {
@@ -189,7 +191,7 @@ class RegistrationController @Inject()(
   }
 
   private def orgShow(userDetails: UserDetails, sessionPersonDetails: Option[User])(
-        implicit request: Request[AnyContent]) =
+        implicit request: Request[AnyContent]): Future[Result] =
     getCompanyDetails(userDetails.groupIdentifier).map {
       case Some(fieldData) =>
         userDetails.credentialRole match {

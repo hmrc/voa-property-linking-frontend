@@ -46,7 +46,15 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar with HttpResponseUtils
       val emailService = new EmailService(emailConnector)
 
       val groupAccount =
-        GroupAccount(123L, "groupId", "companyName", 221L, "email@email.com", "01234567889", true, Some(12345678L))
+        GroupAccount(
+          id = 123L,
+          groupId = "groupId",
+          companyName = "companyName",
+          addressId = 221L,
+          email = "email@email.com",
+          phone = "01234567889",
+          isAgent = true,
+          agentCode = Some(12345678L))
 
       when(config.baseUrl("email")).thenReturn("http://blah:2909/")
 
@@ -59,14 +67,26 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar with HttpResponseUtils
         .thenReturn(Future.successful(emptyJsonHttpResponse(OK)))
 
       val individualDetails =
-        IndividualDetails("firstName", "lastName", "email@email.com", "012345567788", None, 12345L)
+        IndividualDetails(
+          firstName = "firstName",
+          lastName = "lastName",
+          email = "email@email.com",
+          phone1 = "012345567788",
+          phone2 = None,
+          addressId = 12345L)
 
       await(
         emailService.sendNewRegistrationSuccess(
           "toAddress@email.com",
-          DetailedIndividualAccount("externalId", "trustId", 123L, 234L, individualDetails),
+          DetailedIndividualAccount(
+            externalId = "externalId",
+            trustId = Some("trustId"),
+            organisationId = 123L,
+            individualId = 234L,
+            details = individualDetails),
           Some(groupAccount),
-          Some(Organisation)))
+          Some(Organisation)
+        ))
 
       verify(mockWSHttp)
         .POST(any, any, any)(any[Writes[PayLoad]](), any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any())

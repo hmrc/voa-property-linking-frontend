@@ -168,7 +168,6 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
       new IdentityVerificationService(
         errorHandler = mockCustomErrorHandler,
         registrationService = mockRegistrationService,
-        personalDetailsSessionRepo = mockSessionRepoOrgDetails,
         proxyConnector = mock[IdentityVerificationProxyConnector],
         config = applicationConfig
       )

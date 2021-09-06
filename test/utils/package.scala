@@ -21,7 +21,7 @@ import models.registration.{AdminOrganisationAccountDetails, IndividualUserAccou
 import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen.{alphaChar, listOfN}
-import org.scalacheck.{Arbitrary, _}
+import org.scalacheck._
 
 import java.time.{Instant, LocalDate, LocalDateTime, ZoneId}
 import scala.language.implicitConversions
@@ -38,7 +38,7 @@ package object utils {
       .choose(0L, Instant.now().toEpochMilli)
       .map(l => Instant.ofEpochMilli(l).atZone(ZoneId.systemDefault).toLocalDate)
 
-  def shortString = listOfN(20, alphaChar).map(_.mkString)
+  def shortString: Gen[String] = listOfN(20, alphaChar).map(_.mkString)
 
   val postcodeGen: Gen[String] =
     for {
@@ -49,16 +49,16 @@ package object utils {
       lastTwoLetters <- listOfN(2, alphaChar)
     } yield (firstTwoLetters ++ firstNumber ++ space ++ secondNumber ++ lastTwoLetters).mkString.toUpperCase
 
-  def randomEmail = {
+  def randomEmail: String = {
     val mailbox: String = shortString
     val domain: String = shortString
     val tld: String = shortString
     s"$mailbox@$domain.$tld"
   }
 
-  def positiveLong = Gen.choose(0L, Long.MaxValue)
+  def positiveLong: Gen[Long] = Gen.choose(0L, Long.MaxValue)
 
-  def positiveInt = Gen.choose(0, Int.MaxValue)
+  def positiveInt: Gen[Int] = Gen.choose(0, Int.MaxValue)
 
   def dateAfterApril2017: Gen[LocalDate] =
     for {
@@ -71,7 +71,6 @@ package object utils {
     lines    <- Gen.nonEmptyListOf(shortString)
     postcode <- shortString
   } yield PropertyAddress(lines, postcode)
-
   implicit val arbitraryPropertyAddress = Arbitrary(for { p <- propertyAddressGen } yield p)
 
   val propertyGen: Gen[Property] = for {
@@ -79,13 +78,11 @@ package object utils {
     billingAuthorityReference <- shortString
     address                   <- propertyAddressGen
     specialCategoryCode       <- shortString
-    description               <- shortString
-    bulkClassIndicator        <- arbitrary[Char].map(_.toString)
   } yield Property(uarn, billingAuthorityReference, address.toString, specialCategoryCode)
   implicit val arbitraryProperty = Arbitrary(for { p <- propertyGen } yield p)
 
   val capacityTypeGen: Gen[CapacityType] = Gen.oneOf(Owner, OwnerOccupier, Occupier)
-  implicit val arbitratyCapacityType = Arbitrary(capacityTypeGen)
+  implicit val arbitraryCapacityType = Arbitrary(capacityTypeGen)
 
   val propertyOwnershipGen: Gen[PropertyOwnership] = for {
     interestedBefore2017 <- arbitrary[Boolean]
@@ -95,10 +92,11 @@ package object utils {
     toDate = fromDate.plusDays(days)
   } yield
     PropertyOwnership(
-      interestedBefore2017,
-      if (interestedBefore2017) None else Some(fromDate),
-      stillInterested,
-      if (stillInterested) None else Some(toDate))
+      interestedBefore2017 = interestedBefore2017,
+      fromDate = if (interestedBefore2017) None else Some(fromDate),
+      stillInterested = stillInterested,
+      toDate = if (stillInterested) None else Some(toDate)
+    )
   implicit val arbitrarypropertyOwnership = Arbitrary(propertyOwnershipGen)
 
   val propertyRelationshipGen: Gen[PropertyRelationship] = for {
@@ -114,8 +112,8 @@ package object utils {
     line4    <- shortString
     postcode <- postcodeGen
   } yield Address(Some(id), line1, line2, line3, line4, postcode)
-
   implicit val arbitraryAddress = Arbitrary(addressGen)
+
   val detailedAddressGen: Gen[DetailedAddress] = for {
     addressUnitId             <- arbitrary[Int]
     nonAbpAddressId           <- arbitrary[Int]
@@ -159,7 +157,7 @@ package object utils {
 
   val individualGen: Gen[DetailedIndividualAccount] = for {
     externalId        <- shortString
-    trustId           <- shortString
+    trustId           <- Gen.option(shortString)
     organisationId    <- arbitrary[Int]
     individualId      <- arbitrary[Int]
     individualDetails <- arbitrary[IndividualDetails]
@@ -176,14 +174,15 @@ package object utils {
     agentCode   <- positiveLong
   } yield
     GroupAccount(
-      id,
-      groupId,
-      companyName,
-      addressId,
-      randomEmail,
-      phone.mkString,
-      isAgent,
-      Some(agentCode).filter(_ => isAgent))
+      id = id,
+      groupId = groupId,
+      companyName = companyName,
+      addressId = addressId,
+      email = randomEmail,
+      phone = phone.mkString,
+      isAgent = isAgent,
+      agentCode = Some(agentCode).filter(_ => isAgent)
+    )
   implicit val arbitraryGroupAccount = Arbitrary(groupAccountGen)
 
   val capacityGen: Gen[Capacity] = for {
@@ -203,20 +202,20 @@ package object utils {
     address                   <- arbitrary[PropertyAddress]
     billingAuthorityReference <- shortString
     capacity                  <- arbitrary[Capacity]
-    description               <- shortString
   } yield
     models.Assessment(
-      linkId,
-      asstRef,
-      listYear,
-      uarn,
-      effectiveDate,
-      Some(rateableValue),
-      address,
-      billingAuthorityReference,
-      None,
-      None,
-      capacity)
+      authorisationId = linkId,
+      assessmentRef = asstRef,
+      listYear = listYear,
+      uarn = uarn,
+      effectiveDate = effectiveDate,
+      rateableValue = Some(rateableValue),
+      address = address,
+      billingAuthorityReference = billingAuthorityReference,
+      currentFromDate = None,
+      currentToDate = None,
+      capacity = capacity
+    )
   implicit val arbitraryAssessment = Arbitrary(assessmentGen)
 
   val party: Gen[Party] = for {
@@ -225,6 +224,7 @@ package object utils {
     organisationName  <- shortString
     organisationId    <- arbitrary[Long]
   } yield models.Party(authorisedPartyId, agentCode, organisationName, organisationId)
+
   implicit val arbitraryParty = Arbitrary(party)
 
   val propertyLinkingStatusGen: Gen[PropertyLinkingStatus] = Gen.oneOf(PropertyLinkingApproved, PropertyLinkingPending)
@@ -269,17 +269,11 @@ package object utils {
   implicit val arbitaryClientPropertyLinkGen = Arbitrary(clientPropertyLinkGen)
 
   val propertyLinkGen: Gen[PropertyLink] = for {
-    linkId            <- arbitrary[Int]
-    submissionId      <- shortString
-    uarn              <- positiveLong
-    organisationId    <- arbitrary[Int]
-    address           <- arbitrary[PropertyAddress]
-    capacity          <- arbitrary[Capacity]
-    linkedDate        <- arbitrary[LocalDate]
-    pending           <- arbitrary[Boolean]
-    assessment        <- Gen.nonEmptyListOf(arbitrary[Assessment])
-    userActingAsAgent <- arbitrary[Boolean]
-    agents            <- Gen.listOf(arbitrary[Party])
+    linkId       <- arbitrary[Int]
+    submissionId <- shortString
+    uarn         <- positiveLong
+    address      <- arbitrary[PropertyAddress]
+    agents       <- Gen.listOf(arbitrary[Party])
   } yield {
     PropertyLink(
       authorisationId = linkId,
@@ -341,42 +335,43 @@ package object utils {
     isAgent <- arbitrary[Boolean]
   } yield
     AdminOrganisationAccountDetails(
-      firstName,
-      lastName,
-      companyName,
-      address,
-      dob,
-      nino,
-      phone.mkString,
-      email,
-      email,
-      isAgent)
+      firstName = firstName,
+      lastName = lastName,
+      companyName = companyName,
+      address = address,
+      dob = dob,
+      nino = nino,
+      phone = phone.mkString,
+      email = email,
+      confirmedEmail = email,
+      isAgent = isAgent
+    )
 
   implicit val arbitraryEnrolmentOrganisationAccountDetails: Arbitrary[AdminOrganisationAccountDetails] = Arbitrary(
     enrolmentOrgAccountDetailsGen)
 
   private val enrolmentIndAccountDetailsGen: Gen[IndividualUserAccountDetails] = for {
-    firstName   <- shortString
-    lastName    <- shortString
-    dob         <- dateInPast
-    companyName <- shortString
-    nino        <- arbitrary[Nino]
+    firstName <- shortString
+    lastName  <- shortString
+    dob       <- dateInPast
+    nino      <- arbitrary[Nino]
     email = randomEmail
     phone   <- listOfN(8, Gen.numChar)
     address <- arbitrary[Address]
     isAgent <- arbitrary[Boolean]
   } yield
     IndividualUserAccountDetails(
-      firstName,
-      lastName,
-      address,
-      dob,
-      nino,
-      phone.mkString,
-      phone.mkString,
-      email,
-      email,
-      None)
+      firstName = firstName,
+      lastName = lastName,
+      address = address,
+      dob = dob,
+      nino = nino,
+      phone = phone.mkString,
+      mobilePhone = phone.mkString,
+      email = email,
+      confirmedEmail = email,
+      tradingName = None
+    )
 
   implicit val arbitraryEnrolmentIndividualAccountDetails: Arbitrary[IndividualUserAccountDetails] = Arbitrary(
     enrolmentIndAccountDetailsGen)
@@ -391,14 +386,15 @@ package object utils {
     uploadEvidenceData <- Gen.const(UploadEvidenceData.empty)
   } yield
     LinkingSession(
-      address,
-      uarn,
-      submissionId,
-      personId,
-      Some(relationship),
-      Some(ownership),
+      address = address,
+      uarn = uarn,
+      submissionId = submissionId,
+      personId = personId,
+      propertyRelationship = Some(relationship),
+      propertyOwnership = Some(ownership),
       hasRatesBill = Some(true),
-      uploadEvidenceData)
+      uploadEvidenceData = uploadEvidenceData
+    )
 
   implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)
 

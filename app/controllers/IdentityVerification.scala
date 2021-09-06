@@ -18,17 +18,16 @@ package controllers
 
 import actions.registration.GgAuthenticatedAction
 import config.ApplicationConfig
-import javax.inject.{Inject, Named}
 import models.identityVerificationProxy.IvResult
-import models.registration.AdminUser
+import models.registration._
 import play.api.Logging
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc._
 import repositories.SessionRepo
 import services.iv.IdentityVerificationService
-import uk.gov.hmrc.http.SessionKeys
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerification @Inject()(
@@ -66,46 +65,19 @@ class IdentityVerification @Inject()(
           Ok(ivFailedView(ivFailureReason))
       }
     }
-
   }
-
-//  // Not sure what this is used for.
-//  // TODO DPP remove
-//  val restoreSession: Action[AnyContent] = Action { implicit request =>
-//    logger.debug(s"****** restoreSession ******")
-//    Redirect(routes.IdentityVerification.success(Some(java.util.UUID.randomUUID().toString))).addingToSession(
-//      SessionKeys.authToken -> request.session.get("bearerToken").getOrElse(""),
-//      SessionKeys.sessionId -> request.session.get("oldSessionId").getOrElse("")
-//    )
-//  }
 
   def success(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
-    if (config.ivEnabled) { // TODO check with Pete, but I think flag test not required here
-      journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
-        identityVerificationConnector.verifySuccess(id).flatMap {
-          case true =>
-            identityVerificationService.continue(id, request.userDetails).map {
-              case Some(obj) => identityVerificationService.someCase(obj)
-              case None      => identityVerificationService.noneCase
-            }
-          case false => Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
-        }
+    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+      identityVerificationConnector.verifySuccess(id).flatMap {
+        case true =>
+          identityVerificationService.continue(journeyId, request.userDetails).map {
+            case Some(RegistrationSuccess(personId)) =>
+              Redirect(controllers.registration.routes.RegistrationController.success(personId))
+            case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+          }
+        case false => Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
       }
-    } else {
-      // TODO check with Pete, but I think flag test not required here
-      logger.debug(s"****** IV success should never get here!: ${request.userDetails}")
-      identityVerificationService.continue("1", request.userDetails).map {
-        case Some(obj) => identityVerificationService.someCase(obj)
-        case None      => identityVerificationService.noneCase
-      }
-    }
-  }
-
-  def bypass: Action[AnyContent] = ggAction.async { implicit request =>
-    logger.info(s"****** IV bypassed!: ${request.userDetails}")
-    identityVerificationService.continue("1", request.userDetails).map {
-      case Some(obj) => identityVerificationService.someCase(obj)
-      case None      => identityVerificationService.noneCase
     }
   }
 

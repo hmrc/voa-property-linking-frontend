@@ -40,7 +40,8 @@ sealed trait AdminUser extends User {
   val email: String
   val confirmedEmail: String
 
-  def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(organisationId: Option[Long]) =
+  def toIndividualAccountSubmission(trustId: Option[String])(user: UserDetails)(id: Long)(
+        organisationId: Option[Long]) =
     IndividualAccountSubmission(
       externalId = user.externalId,
       trustId = trustId,
@@ -241,7 +242,7 @@ case class IndividualUserAccountDetails(
     isAgent = false
   )
 
-  override def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(
+  override def toIndividualAccountSubmission(trustId: Option[String])(user: UserDetails)(id: Long)(
         organisationId: Option[Long]) = IndividualAccountSubmission(
     externalId = user.externalId,
     trustId = trustId,

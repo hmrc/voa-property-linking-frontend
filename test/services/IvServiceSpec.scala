@@ -39,7 +39,7 @@ class IvServiceSpec extends ServiceSpec {
       .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
-    val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails(Organisation))
+    val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails(Organisation))
     res.futureValue must be(Some(RegistrationSuccess(1L)))
   }
 
@@ -49,7 +49,7 @@ class IvServiceSpec extends ServiceSpec {
       .thenReturn(Future.successful(Some(EnrolmentFailure)))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
-    val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails(Organisation))
+    val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails(Organisation))
     res.futureValue must be(Some(EnrolmentFailure))
   }
 
@@ -61,7 +61,7 @@ class IvServiceSpec extends ServiceSpec {
       .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
-    val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails())
+    val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails())
     res.futureValue must be(Some(RegistrationSuccess(1L)))
   }
 
@@ -73,7 +73,7 @@ class IvServiceSpec extends ServiceSpec {
       .thenReturn(Future.successful(Some(EnrolmentFailure)))
     when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
-    val res: Future[Option[RegistrationResult]] = identityVerification.continue("", userDetails())
+    val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails())
     res.futureValue must be(Some(EnrolmentFailure))
   }
 
@@ -105,7 +105,6 @@ class IvServiceSpec extends ServiceSpec {
     protected val identityVerification = new IdentityVerificationService(
       errorHandler = mockCustomErrorHandler,
       registrationService = mockRegistrationService,
-      personalDetailsSessionRepo = mockSessionRepoOrgDetails,
       proxyConnector = ivProxy,
       config = app.injector.instanceOf[ApplicationConfig]
     )
