@@ -19,6 +19,7 @@ package connectors
 import javax.inject.Inject
 import models._
 import models.registration.GroupAccountDetails
+import play.api.Logging
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
@@ -26,7 +27,7 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class GroupAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
+class GroupAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) extends Logging {
 
   val url: String = config.baseUrl("property-linking") + "/property-linking/groups"
 
@@ -39,13 +40,17 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit
   def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] =
     http.GET[Option[GroupAccount]](s"$url/agentCode/$agentCode")
 
-  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] =
+  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] = {
+    logger.warn(s"**** GroupAccounts: create: $account")
     http.POST[GroupAccountSubmission, JsValue](url, account) map { js =>
       js \ "id" match {
-        case JsDefined(JsNumber(id)) => id.toLong
-        case _                       => throw new Exception(s"Invalid id $js")
+        case JsDefined(JsNumber(id)) =>
+          logger.warn(s"**** GroupAccounts: register: success: $id")
+          id.toLong
+        case _ => throw new Exception(s"Invalid id $js")
       }
     }
+  }
 
   def create(
         groupId: String,

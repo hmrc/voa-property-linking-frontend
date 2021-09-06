@@ -48,6 +48,7 @@ class IdentityVerification @Inject()(
     if (config.ivEnabled) {
       for {
         userDetails <- personalDetailsSessionRepo.get[AdminUser]
+        _ = logger.warn(s"**** start IV: userDetails: $userDetails")
         link <- identityVerificationService.start(
                  userDetails.getOrElse(throw new Exception("details not found")).toIvDetails)
       } yield Redirect(link.getLink(config.ivBaseUrl))
@@ -68,9 +69,11 @@ class IdentityVerification @Inject()(
   }
 
   def success(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
+    logger.warn(s"**** IV success journeyId: $journeyId")
     journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
       identityVerificationConnector.verifySuccess(id).flatMap {
         case true =>
+          logger.warn(s"**** IV success verified")
           identityVerificationService.continue(journeyId, request.userDetails).map {
             case Some(RegistrationSuccess(personId)) =>
               Redirect(controllers.registration.routes.RegistrationController.success(personId))
