@@ -35,7 +35,7 @@ import models.referencedata.ReferenceData
 import models.registration._
 import models.searchApi._
 import models.upscan._
-import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole, User}
+import uk.gov.hmrc.auth.core.{AffinityGroup, ConfidenceLevel, CredentialRole, User}
 
 import java.time.{Instant, LocalDate, LocalDateTime, Month}
 import java.util.UUID
@@ -80,11 +80,12 @@ trait FakeObjects {
     UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
   val detailedIndividualAccount =
     DetailedIndividualAccount(
-      ggExternalId,
-      "",
-      1L,
-      2L,
-      IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12))
+      externalId = ggExternalId,
+      trustId = None,
+      organisationId = 1L,
+      individualId = 2L,
+      details = IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
+    )
   val individualUserDetails: UserDetails = userDetails(AffinityGroup.Individual)
   val orgUserDetails: UserDetails = userDetails(AffinityGroup.Organisation)
 
@@ -138,7 +139,8 @@ trait FakeObjects {
 
   def userDetails(
         affinityGroup: AffinityGroup = AffinityGroup.Individual,
-        credentialRole: CredentialRole = User): UserDetails =
+        credentialRole: CredentialRole = User,
+        confidenceLevel: ConfidenceLevel = ConfidenceLevel.L200): UserDetails =
     UserDetails(
       firstName = Some(firstName),
       lastName = Some(lastName),
@@ -147,7 +149,8 @@ trait FakeObjects {
       groupIdentifier = ggGroupId,
       affinityGroup = affinityGroup,
       externalId = ggExternalId,
-      credentialRole = credentialRole
+      credentialRole = credentialRole,
+      confidenceLevel = confidenceLevel
     )
 
   val agentOrganisation = AgentOrganisation(

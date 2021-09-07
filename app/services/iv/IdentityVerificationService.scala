@@ -21,23 +21,18 @@ import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models._
 import models.identityVerificationProxy.{Journey, Link}
 import models.registration._
-import play.api.mvc.Results._
-import play.api.mvc.{Request, Result}
-import repositories.SessionRepo
 import services.RegistrationService
-import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
-import uk.gov.hmrc.auth.core.{Assistant, ConfidenceLevel}
+import uk.gov.hmrc.auth.core.ConfidenceLevel
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-import javax.inject.{Inject, Named, Singleton}
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class IdentityVerificationService @Inject()(
       val errorHandler: CustomErrorHandler,
       registrationService: RegistrationService,
-      @Named("personSession") personalDetailsSessionRepo: SessionRepo,
       val proxyConnector: IdentityVerificationProxyConnector,
       implicit val config: ApplicationConfig) {
 
@@ -46,40 +41,14 @@ class IdentityVerificationService @Inject()(
   lazy val successUrl: String = controllers.routes.IdentityVerification.success(None).url
   lazy val failureUrl: String = controllers.routes.IdentityVerification.fail(None).url
 
+  // TODO switch to IV Frontend "uplift" endpoint
   def start(userData: IVDetails)(implicit hc: HeaderCarrier): Future[Link] =
     proxyConnector
       .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
 
-  def someCase(obj: RegistrationResult)(implicit request: Request[_]): Result = obj match {
-    case RegistrationSuccess(personId) =>
-      Redirect(controllers.registration.routes.RegistrationController.success(personId))
-    case EnrolmentFailure => InternalServerError(errorHandler.internalServerErrorTemplate)
-    case DetailsMissing   => InternalServerError(errorHandler.internalServerErrorTemplate)
-  }
-
-  def noneCase(implicit request: Request[_]): Result =
-    InternalServerError(errorHandler.internalServerErrorTemplate)
-
-  def continue(journeyId: String, userDetails: UserDetails)(
+  def continue(journeyId: Option[String], userDetails: UserDetails)(
         implicit hc: HeaderCarrier,
         ec: ExecutionContext): Future[Option[RegistrationResult]] =
-    (userDetails.affinityGroup, userDetails.credentialRole) match {
-      case (Organisation, role) if role != Assistant =>
-        for {
-          organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
-          organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
-          registrationResult <- registrationService
-                                 .create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(
-                                   organisationDetails.toIndividualAccountSubmission(journeyId))
-        } yield Some(registrationResult)
-      case (Individual, _) =>
-        for {
-          individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
-          individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
-          registrationResult <- registrationService
-                                 .create(individualDetails.toGroupDetails, userDetails, Some(Individual))(
-                                   individualDetails.toIndividualAccountSubmission(journeyId))
-        } yield Some(registrationResult)
-    }
+    registrationService.continue(journeyId, userDetails)
 
 }

@@ -19,8 +19,6 @@ package connectors.propertyLinking
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances
 import controllers.PaginationParams
-
-import javax.inject.{Inject, Singleton}
 import models._
 import models.dvr.cases.check.myclients.CheckCasesWithClient
 import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
@@ -28,17 +26,19 @@ import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList, AppointAgentToSomePropertiesRequest}
-import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
-import play.api.Logger
+import models.searchApi.OwnerAuthResult
+import play.api.Logging
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http._
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
+class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext)
+    extends Logging {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
   lazy val vmBaseUrl: String = config.baseUrl("vmv") + s"/vmv"
 
@@ -156,7 +156,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
         }
       } recover {
       case x @ _ =>
-        Logger.debug(s"unable to start a challenge: $x")
+        logger.debug(s"unable to start a challenge: $x")
         None
     }
   }

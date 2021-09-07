@@ -19,7 +19,7 @@ package models.registration
 import play.api.libs.json.{Json, OFormat}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
 import uk.gov.hmrc.auth.core.retrieve.Name
-import uk.gov.hmrc.auth.core.{AffinityGroup, CredentialRole}
+import uk.gov.hmrc.auth.core.{AffinityGroup, ConfidenceLevel, CredentialRole}
 
 case class UserDetails(
       firstName: Option[String],
@@ -29,7 +29,8 @@ case class UserDetails(
       groupIdentifier: String,
       externalId: String,
       affinityGroup: AffinityGroup,
-      credentialRole: CredentialRole
+      credentialRole: CredentialRole,
+      confidenceLevel: ConfidenceLevel
 )
 
 object UserDetails {
@@ -41,7 +42,8 @@ object UserDetails {
         groupIdentifier: String,
         externalId: String,
         affinityGroup: AffinityGroup,
-        role: CredentialRole
+        role: CredentialRole,
+        confidenceLevel: ConfidenceLevel
   ): UserDetails =
     UserDetails(
       firstName = name.flatMap(_.name),
@@ -51,7 +53,8 @@ object UserDetails {
       groupIdentifier = groupIdentifier,
       externalId = externalId,
       affinityGroup = affinityGroup,
-      credentialRole = role
+      credentialRole = role,
+      confidenceLevel = confidenceLevel
     )
 
   implicit val format: OFormat[UserDetails] = Json.format

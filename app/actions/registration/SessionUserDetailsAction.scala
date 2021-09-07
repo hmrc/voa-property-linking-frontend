@@ -17,12 +17,13 @@
 package actions.registration
 
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
+
 import javax.inject.Inject
 import models.registration._
 import play.api.mvc._
 import repositories.PersonalDetailsSessionRepository
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter.fromHeadersAndSession
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -33,7 +34,7 @@ class SessionUserDetailsAction @Inject()(
 
   override protected def transform[A](
         request: RequestWithUserDetails[A]): Future[RequestWithSessionPersonDetails[A]] = {
-    implicit val hc: HeaderCarrier = fromHeadersAndSession(request.headers, Some(request.session))
+    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
     personalDetailsSessionRepo.get[AdminUser].map {
       case None => new RequestWithSessionPersonDetails[A](None, request)

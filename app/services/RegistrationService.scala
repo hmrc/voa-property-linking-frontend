@@ -21,11 +21,13 @@ import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import models.registration._
 import models.{DetailedIndividualAccount, GroupAccount, IndividualAccountSubmission}
 import play.api.Logging
+import repositories.SessionRepo
 import services.email.EmailService
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.{AffinityGroup, Assistant}
 import uk.gov.hmrc.http.HeaderCarrier
 
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationService @Inject()(
@@ -34,7 +36,8 @@ class RegistrationService @Inject()(
       enrolmentService: EnrolmentService,
       addresses: Addresses,
       emailService: EmailService,
-      config: ApplicationConfig)
+      config: ApplicationConfig,
+      @Named("personSession") personalDetailsSessionRepo: SessionRepo)
     extends Logging {
 
   def create(
@@ -59,6 +62,26 @@ class RegistrationService @Inject()(
       groupAccount <- groupAccounts.withGroupId(userDetails.groupIdentifier)
       res          <- enrol(personId, id, groupAccount, affinityGroupOpt)(userDetails)
     } yield res
+
+  def continue(journeyId: Option[String], userDetails: UserDetails)(
+        implicit hc: HeaderCarrier,
+        ec: ExecutionContext): Future[Option[RegistrationResult]] =
+    (userDetails.affinityGroup, userDetails.credentialRole) match {
+      case (Organisation, role) if role != Assistant =>
+        for {
+          organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
+          organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
+          registrationResult <- create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(
+                                 organisationDetails.toIndividualAccountSubmission(journeyId))
+        } yield Some(registrationResult)
+      case (Individual, _) =>
+        for {
+          individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
+          individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
+          registrationResult <- create(individualDetails.toGroupDetails, userDetails, Some(Individual))(
+                                 individualDetails.toIndividualAccountSubmission(journeyId))
+        } yield Some(registrationResult)
+    }
 
   private def register(groupId: String, groupExists: GroupAccount => Future[Int], noGroup: => Future[Long])(
         implicit hc: HeaderCarrier,

@@ -16,22 +16,23 @@
 
 package connectors.attachments
 
-import javax.inject.{Inject, Singleton}
 import models.attachment._
 import models.attachment.request.MetaDataRequest
 import models.upscan.PreparedUpload
-import play.api.Logger
+import play.api.Logging
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class BusinessRatesAttachmentsConnector @Inject()(
       val http: HttpClient,
       val servicesConfig: ServicesConfig
-)(implicit executionContext: ExecutionContext) {
+)(implicit executionContext: ExecutionContext)
+    extends Logging {
 
   val baseURL: String = servicesConfig.baseUrl("business-rates-attachments")
 
@@ -52,7 +53,7 @@ class BusinessRatesAttachmentsConnector @Inject()(
         MetaDataRequest(submissionId))
       .recover {
         case ex: Exception =>
-          Logger.warn(s"File Submission failed for File Reference: $fileReference Response body", ex)
+          logger.warn(s"File Submission failed for File Reference: $fileReference Response body", ex)
           throw ex
       }
 }

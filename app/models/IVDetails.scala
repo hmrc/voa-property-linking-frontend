@@ -15,6 +15,7 @@
  */
 
 package models
+
 import java.time.LocalDate
 
 import models.domain._

@@ -29,11 +29,10 @@ import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
+import services.RegistrationService
 import services.iv.IdentityVerificationService
-import services.{RegistrationService, Success}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Organisation}
-import uk.gov.hmrc.auth.core.{AffinityGroup, Assistant, User}
-import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
+import uk.gov.hmrc.auth.core.{AffinityGroup, Assistant, ConfidenceLevel, User}
 import utils.{StubGroupAccountConnector, _}
 
 import scala.concurrent.Future
@@ -185,19 +184,21 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       "Registration failed You can’t register until the Administrator from your organisation registers first.")
   }
 
-  "Submitting an invalid individual form" should "return a bad request response" in {
-    val res = testRegistrationController(userDetails()).submitIndividual()(FakeRequest())
-    status(res) mustBe BAD_REQUEST
-  }
+  trait SubmitIndividual {
+    val personId = 123L
 
-  "Submitting a valid individual form" should "return a redirect" in {
-    when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(RegistrationSuccess(1L)))
-    when(mockIdentityVerificationService.start(any())(any())).thenReturn(Future.successful(Link("")))
-    val (groupId, externalId): (String, String) = (shortString, shortString)
+      .thenReturn(Future.successful(RegistrationSuccess(personId)))
+
     StubIndividualAccountConnector.stubAccount(
-      DetailedIndividualAccount(externalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
+      account = DetailedIndividualAccount(
+        externalId = "externalId",
+        trustId = None,
+        organisationId = 1L,
+        individualId = personId,
+        details =
+          IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
+      ))
 
     val data = Map(
       "firstName"        -> Seq("first"),
@@ -218,23 +219,48 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     )
 
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-    val res = testRegistrationController(userDetails()).submitIndividual()(fakeRequest)
-    status(res) mustBe SEE_OTHER
+
   }
 
-  "Submitting an invalid organisation form" should "return a bad request response" in {
-    val res = testRegistrationController(userDetails()).submitOrganisation()(FakeRequest())
+  "Submitting a valid individual with low confidence level" should "return an IV redirect" in new SubmitIndividual {
+    when(mockIdentityVerificationService.start(any())(any())).thenReturn(Future.successful(Link("")))
+
+    val res =
+      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L50)).submitIndividual()(fakeRequest)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some("/business-rates-property-linking/identity-verification/start")
+  }
+
+  "Submitting a valid individual with high confidence level" should "return a create-success redirect" in new SubmitIndividual {
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(RegistrationSuccess(personId))))
+
+    val res =
+      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).submitIndividual()(fakeRequest)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(s"/business-rates-property-linking/create-success?personId=$personId")
+  }
+
+  "Submitting an invalid individual form" should "return a bad request response" in {
+    val res = testRegistrationController(userDetails()).submitIndividual()(FakeRequest())
     status(res) mustBe BAD_REQUEST
   }
 
-  "Submitting a valid organisation form" should "return a redirect" in {
-    when(mockIdentityVerificationService.start(any())(any())).thenReturn(Future.successful(Link("")))
-    when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
+  trait SubmitOrganisation {
+    val personId = 123L
+
     when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(RegistrationSuccess(1L)))
-    val externalId: String = shortString
+      .thenReturn(Future.successful(RegistrationSuccess(personId)))
+
     StubIndividualAccountConnector.stubAccount(
-      DetailedIndividualAccount(externalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
+      account = DetailedIndividualAccount(
+        externalId = "externalId",
+        trustId = None,
+        organisationId = 1L,
+        individualId = personId,
+        details =
+          IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
+      ))
 
     val data = Map(
       "companyName"            -> Seq("company"),
@@ -255,8 +281,30 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       "dob.year"               -> Seq("1980")
     )
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-    val res = testRegistrationController(userDetails()).submitOrganisation()(fakeRequest)
+  }
+
+  "Submitting a valid organisation with low confidence level" should "return an IV redirect" in new SubmitOrganisation {
+    when(mockIdentityVerificationService.start(any())(any())).thenReturn(Future.successful(Link("")))
+
+    val res =
+      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L50)).submitOrganisation()(fakeRequest)
     status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some("/business-rates-property-linking/identity-verification/start")
+  }
+
+  "Submitting a valid organisation with high confidence level" should "return an create-success redirect" in new SubmitOrganisation {
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(RegistrationSuccess(personId))))
+
+    val res =
+      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).submitOrganisation()(fakeRequest)
+    status(res) mustBe SEE_OTHER
+    redirectLocation(res) mustBe Some(s"/business-rates-property-linking/create-success?personId=$personId")
+  }
+
+  "Submitting an invalid organisation form" should "return a bad request response" in {
+    val res = testRegistrationController(userDetails()).submitOrganisation()(FakeRequest())
+    status(res) mustBe BAD_REQUEST
   }
 
   override protected def beforeEach(): Unit = {

@@ -18,8 +18,8 @@ package actions.propertylinking.requests
 
 import actions.requests.{AuthenticatedRequest, CcaWrappedRequest}
 import models.{Accounts, DetailedIndividualAccount, GroupAccount, LinkingSession}
-import play.api.mvc.{Request, WrappedRequest}
-import uk.gov.hmrc.play.HeaderCarrierConverter
+import play.api.mvc.Request
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 case class LinkingSessionRequest[A](
       ses: LinkingSession,
@@ -32,7 +32,7 @@ case class LinkingSessionRequest[A](
     Some(Accounts(organisationAccount, individualAccount))
   def sessionId: String =
     HeaderCarrierConverter
-      .fromHeadersAndSession(request.headers, Some(request.session))
+      .fromRequestAndSession(request, request.session)
       .sessionId
       .map(_.value)
       .getOrElse(throw NoSessionId)

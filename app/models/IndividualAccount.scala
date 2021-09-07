@@ -16,22 +16,26 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class IndividualAccountSubmission(
       externalId: String,
-      trustId: String,
+      trustId: Option[String],
       organisationId: Option[Long],
       details: IndividualDetails)
 object IndividualAccountSubmission {
-  implicit def formats = Json.format[IndividualAccountSubmission]
+  implicit val format: OFormat[IndividualAccountSubmission] = Json.format
 }
 
-case class IndividualAccount(externalId: String, trustId: String, organisationId: Long, details: IndividualDetails)
+case class IndividualAccount(
+      externalId: String,
+      trustId: Option[String],
+      organisationId: Long,
+      details: IndividualDetails)
 
 case class DetailedIndividualAccount(
       externalId: String,
-      trustId: String,
+      trustId: Option[String],
       organisationId: Long,
       individualId: Long,
       details: IndividualDetails) {
@@ -39,8 +43,8 @@ case class DetailedIndividualAccount(
 }
 
 object IndividualAccount {
-  implicit def formats = Json.format[IndividualAccount]
+  implicit val format: OFormat[IndividualAccount] = Json.format
 }
 object DetailedIndividualAccount {
-  implicit def formats = Json.format[DetailedIndividualAccount]
+  implicit val format: OFormat[DetailedIndividualAccount] = Json.format
 }

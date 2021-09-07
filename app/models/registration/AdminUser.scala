@@ -40,7 +40,8 @@ sealed trait AdminUser extends User {
   val email: String
   val confirmedEmail: String
 
-  def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(organisationId: Option[Long]) =
+  def toIndividualAccountSubmission(trustId: Option[String])(user: UserDetails)(id: Long)(
+        organisationId: Option[Long]) =
     IndividualAccountSubmission(
       externalId = user.externalId,
       trustId = trustId,
@@ -195,12 +196,6 @@ case class AdminOrganisationAccountDetails(
       isAgent: Boolean,
       selectedAddress: Option[String] = None)
     extends AdminUser {
-  override def toIvDetails = IVDetails(
-    firstName = firstName,
-    lastName = lastName,
-    dateOfBirth = Some(dob),
-    nino = Some(nino)
-  )
 
   def toGroupDetails = GroupAccountDetails(
     companyName = companyName,
@@ -238,13 +233,6 @@ case class IndividualUserAccountDetails(
       selectedAddress: Option[String] = None)
     extends AdminUser {
 
-  override def toIvDetails = IVDetails(
-    firstName = firstName,
-    lastName = lastName,
-    dateOfBirth = Some(dob),
-    nino = Some(nino)
-  )
-
   def toGroupDetails = GroupAccountDetails(
     companyName = tradingName.getOrElse(truncateCompanyName(s"$firstName $lastName")),
     address = address,
@@ -254,7 +242,7 @@ case class IndividualUserAccountDetails(
     isAgent = false
   )
 
-  override def toIndividualAccountSubmission(trustId: String)(user: UserDetails)(id: Long)(
+  override def toIndividualAccountSubmission(trustId: Option[String])(user: UserDetails)(id: Long)(
         organisationId: Option[Long]) = IndividualAccountSubmission(
     externalId = user.externalId,
     trustId = trustId,

@@ -19,6 +19,7 @@ package connectors
 import javax.inject.Inject
 import models._
 import models.registration.GroupAccountDetails
+import play.api.Logging
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
@@ -26,7 +27,7 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class GroupAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) {
+class GroupAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext) extends Logging {
 
   val url: String = config.baseUrl("property-linking") + "/property-linking/groups"
 

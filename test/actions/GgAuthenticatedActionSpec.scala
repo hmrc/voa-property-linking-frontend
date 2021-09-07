@@ -100,17 +100,20 @@ class GgAuthenticatedActionSpec
     def user: UserDetails = userDetails()
 
     def success: Option[Name] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[
-      AffinityGroup] ~ Option[CredentialRole] =
+      AffinityGroup] ~ Option[CredentialRole] ~ ConfidenceLevel =
       new ~(
         new ~(
           new ~(
             new ~(
-              new ~(new ~(Option(Name(user.firstName, user.lastName)), Option(user.email)), user.postcode),
-              Option(user.groupIdentifier)),
-            Option(user.externalId)),
-          Option(user.affinityGroup)
+              new ~(
+                new ~(new ~(Option(Name(user.firstName, user.lastName)), Option(user.email)), user.postcode),
+                Option(user.groupIdentifier)),
+              Option(user.externalId)),
+            Option(user.affinityGroup)
+          ),
+          Option(user.credentialRole)
         ),
-        Option(user.credentialRole)
+        user.confidenceLevel
       )
 
     def exception: Option[Throwable] = None
@@ -124,10 +127,10 @@ class GgAuthenticatedActionSpec
 
     implicit val appConfig: ApplicationConfig = Configs.applicationConfig
     lazy val testAction = new GgAuthenticatedAction(
-      messageApi,
-      mockGovernmentGatewayProvider,
-      authConnector,
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton))
+      messagesApi = messageApi,
+      provider = mockGovernmentGatewayProvider,
+      authConnector = authConnector,
+      invalidAccountTypeView = invalidAccountTypeView)
   }
 
 }

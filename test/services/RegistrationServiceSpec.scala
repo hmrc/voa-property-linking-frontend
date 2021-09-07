@@ -44,20 +44,36 @@ class RegistrationServiceSpec extends ServiceSpec {
       enrolmentService = mockEnrolmentService,
       addresses = StubAddresses,
       emailService = mockEmailService,
-      config = app.injector.instanceOf[ApplicationConfig]
+      config = app.injector.instanceOf[ApplicationConfig],
+      personalDetailsSessionRepo = mockSessionRepository
     )
   }
 
   "create" should "return EnrolmentSuccess when ivEnrolmentEnabled flag is true" in new TestCase {
     when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
     StubIndividualAccountConnector.stubAccount(
-      DetailedIndividualAccount(ggExternalId, "", 1L, 2l, IndividualDetails("", "", "", "", None, 12)))
+      account = DetailedIndividualAccount(
+        externalId = ggExternalId,
+        trustId = None,
+        organisationId = 1L,
+        individualId = 2L,
+        details =
+          IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
+      ))
     implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
 
     val res: Future[RegistrationResult] = registrationService.create(
       groupAccountDetails,
       userDetails()
-    )(_ => _ => opt => IndividualAccountSubmission("", "", opt, IndividualDetails("", "", "", "", None, 12)))
+    )(_ =>
+      _ =>
+        opt =>
+          IndividualAccountSubmission(
+            externalId = "",
+            trustId = None,
+            organisationId = opt,
+            details =
+              IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)))
 
     res.futureValue mustBe RegistrationSuccess(2L)
     verify(mockEmailService).sendNewRegistrationSuccess(any(), any(), any(), any())(any(), any())

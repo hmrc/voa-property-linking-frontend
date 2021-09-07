@@ -25,7 +25,7 @@ import play.api.mvc.Results._
 import play.api.mvc._
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -37,7 +37,7 @@ class WithAppointAgentSessionRefiner @Inject()(
     extends ActionRefiner[BasicAuthenticatedRequest, AppointAgentSessionRequest] {
 
   implicit def hc(implicit request: BasicAuthenticatedRequest[_]): HeaderCarrier =
-    HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+    HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
   override protected def refine[A](
         request: BasicAuthenticatedRequest[A]): Future[Either[Result, AppointAgentSessionRequest[A]]] =

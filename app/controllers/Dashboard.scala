@@ -16,13 +16,10 @@
 
 package controllers
 
-import java.time._
-
 import actions.AuthenticatedAction
 import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
 import connectors._
-import javax.inject.Inject
 import models._
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import play.api.i18n.MessagesApi
@@ -30,6 +27,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.AgentRelationshipService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
+import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 
 class Dashboard @Inject()(

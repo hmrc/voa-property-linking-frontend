@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class GroupAccountSubmission(
       id: String,
@@ -28,5 +28,5 @@ case class GroupAccountSubmission(
       individualAccountSubmission: IndividualAccountSubmission)
 
 object GroupAccountSubmission {
-  implicit def formats = Json.format[GroupAccountSubmission]
+  implicit val format: OFormat[GroupAccountSubmission] = Json.format
 }
