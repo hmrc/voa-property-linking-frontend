@@ -49,7 +49,6 @@ class RegistrationService @Inject()(
         ec: ExecutionContext): Future[RegistrationResult] =
     for {
       id <- addresses.registerAddress(groupDetails)
-      _ = logger.warn(s"**** RegService: create. address id: $id")
       _ <- register(
             groupId = userDetails.groupIdentifier,
             groupExists = acc => individualAccounts.create(individual(userDetails)(id)(Some(acc.id))),
@@ -59,12 +58,9 @@ class RegistrationService @Inject()(
               details = groupDetails,
               individualAccountSubmission = individual(userDetails)(id)(None))
           )
-      personId <- individualAccounts.withExternalId(userDetails.externalId)
-      _ = logger.warn(s"**** RegService: personId: $personId")
+      personId     <- individualAccounts.withExternalId(userDetails.externalId)
       groupAccount <- groupAccounts.withGroupId(userDetails.groupIdentifier)
-      _ = logger.warn(s"**** RegService: groupAccount: $groupAccount")
-      res <- enrol(personId, id, groupAccount, affinityGroupOpt)(userDetails)
-      _ = logger.warn(s"**** RegService: enrol res: $res")
+      res          <- enrol(personId, id, groupAccount, affinityGroupOpt)(userDetails)
     } yield res
 
   def continue(journeyId: Option[String], userDetails: UserDetails)(
@@ -72,16 +68,13 @@ class RegistrationService @Inject()(
         ec: ExecutionContext): Future[Option[RegistrationResult]] =
     (userDetails.affinityGroup, userDetails.credentialRole) match {
       case (Organisation, role) if role != Assistant =>
-        logger.warn(s"*** ORG reg continue: journeyId: $journeyId")
         for {
           organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
           organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
-          _ = logger.warn(s"*** ORG reg continue: organisationDetails: $organisationDetails")
           registrationResult <- create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(
                                  organisationDetails.toIndividualAccountSubmission(journeyId))
         } yield Some(registrationResult)
       case (Individual, _) =>
-        logger.warn(s"*** IND reg continue: journeyId: $journeyId")
         for {
           individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
           individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
@@ -94,12 +87,8 @@ class RegistrationService @Inject()(
         implicit hc: HeaderCarrier,
         ec: ExecutionContext): Future[Long] =
     groupAccounts.withGroupId(groupId).flatMap {
-      case Some(acc) =>
-        logger.warn(s"**** RegService: register: group acc: $acc")
-        groupExists(acc).map(_.toLong)
-      case _ =>
-        logger.warn(s"**** RegService: register: group NOGROUP")
-        noGroup
+      case Some(acc) => groupExists(acc).map(_.toLong)
+      case _         => noGroup
     }
 
   private def enrol(

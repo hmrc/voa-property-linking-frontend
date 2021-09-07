@@ -40,17 +40,13 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: HttpClient)(implicit
   def withAgentCode(agentCode: String)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] =
     http.GET[Option[GroupAccount]](s"$url/agentCode/$agentCode")
 
-  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] = {
-    logger.warn(s"**** GroupAccounts: create: $account")
+  def create(account: GroupAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] =
     http.POST[GroupAccountSubmission, JsValue](url, account) map { js =>
       js \ "id" match {
-        case JsDefined(JsNumber(id)) =>
-          logger.warn(s"**** GroupAccounts: register: success: $id")
-          id.toLong
-        case _ => throw new Exception(s"Invalid id $js")
+        case JsDefined(JsNumber(id)) => id.toLong
+        case _                       => throw new Exception(s"Invalid id $js")
       }
     }
-  }
 
   def create(
         groupId: String,
