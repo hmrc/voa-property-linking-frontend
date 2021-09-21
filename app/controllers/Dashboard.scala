@@ -35,9 +35,7 @@ class Dashboard @Inject()(
       propertyLinks: AgentRelationshipService,
       groupAccounts: GroupAccounts,
       authenticated: AuthenticatedAction,
-      override val controllerComponents: MessagesControllerComponents,
-      managedByAgentsPropertiesView: views.html.dashboard.managedByAgentsProperties
-)(
+      override val controllerComponents: MessagesControllerComponents)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       val config: ApplicationConfig
@@ -57,22 +55,6 @@ class Dashboard @Inject()(
   }
 
   def manageAgents() = authenticated(Redirect(config.dashboardUrl("your-agents")))
-
-  def viewManagedProperties(agentCode: Long, owner: Boolean): Action[AnyContent] = authenticated.async {
-    implicit request =>
-      for {
-        group <- groupAccounts.withAgentCode(agentCode.toString)
-        companyName = group.fold("No Name")(_.companyName) // impossible
-        agentOrganisationId = group.map(_.id)
-        authResult <- propertyLinks.getMyOrganisationsPropertyLinks(
-                       GetPropertyLinksParameters(agent = group.map(_.companyName)),
-                       PaginationParams(1, 1000, false))
-      } yield
-        Ok(
-          managedByAgentsPropertiesView(
-            ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authResult.authorisations),
-            owner))
-  }
 
   def viewMessages() = authenticated(Redirect(config.dashboardUrl("inbox")))
 

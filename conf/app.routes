@@ -24,7 +24,6 @@ GET         /identity-verification/success                                      
 GET         /home                                                                             controllers.Dashboard.home()
 GET         /your-details                                                                     controllers.Dashboard.yourDetails()
 GET         /properties                                                                       controllers.Dashboard.manageProperties(clientDetails: Option[ClientDetails] ?= None)
-GET         /managed-properties/:agentCode                                                    controllers.Dashboard.viewManagedProperties(agentCode: Long, owner: Boolean ?= true)
 
 GET         /client-properties/revoke/:plSubmissionId                                         controllers.agent.RepresentationController.revokeClient(plSubmissionId: String)
 POST        /client-properties/revoke-client-property/:uarn/confirmed                         controllers.agent.RepresentationController.revokeClientPropertyConfirmed(uarn: Long, plSubmissionId: String)

@@ -59,7 +59,6 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
         mock[AgentRelationshipService],
         mock[GroupAccounts],
         preAuthenticatedActionBuilders(),
-        stubMessagesControllerComponents(),
-        managedByAgentsPropertiesView
+        stubMessagesControllerComponents()
       )
 }
