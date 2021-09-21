@@ -39,7 +39,7 @@
 
 @mainLayout(
     pageTitle = Messages("uploadEvidence.show.title"),
-    backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show().url),
+    backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url),
     hasErrors = formEvidence.hasErrors || errors.nonEmpty
 ) {
     @if(formEvidence.errors.nonEmpty) {

@@ -94,7 +94,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation().url)
+    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation.url)
 
     verify(mockPropertyLinkingService, times(1)).submit(any(), any())(any(), any[HeaderCarrier])
   }
@@ -114,7 +114,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     )
     val res = testDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation().url)
+    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation.url)
 
     verify(mockPropertyLinkingService, times(1)).submit(any(), any())(any(), any[HeaderCarrier])
   }
@@ -128,7 +128,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation().url)
+    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation.url)
 
     val confirmation = TestDeclaration.confirmation()(FakeRequest())
     status(confirmation) mustBe OK
@@ -144,7 +144,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation().url)
+    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation.url)
 
     val confirmation = TestDeclaration.confirmation()(FakeRequest())
     status(confirmation) mustBe OK

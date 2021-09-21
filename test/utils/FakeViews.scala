@@ -16,9 +16,13 @@
 
 package utils
 
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.{mock, when}
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.Layouts
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.html.deprecated.helpers._
+import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 import views.html.propertyrepresentation.appoint._
 import views.html.{addUserToGG, start}
 
@@ -36,8 +40,16 @@ trait FakeViews extends Layouts {
     govukBackLink = GovukBackLink,
     govukDetails = GovukDetails,
     govukPhaseBanner = GovukPhaseBanner,
-    hmrcStandardFooter = HmrcStandardFooter,
-    hmrcTrackingConsentSnippet = HmrcTrackingConsentSnippet,
+    hmrcStandardFooter = {
+      val m = mock(classOf[HmrcStandardFooter])
+      when(m.apply(any(), any())(any(), any())).thenReturn(Html(""))
+      m
+    },
+    hmrcTrackingConsentSnippet = {
+      val m = mock(classOf[HmrcTrackingConsentSnippet])
+      when(m.apply(any())(any())).thenReturn(Html(""))
+      m
+    },
     head = new views.html.head()
   )
 
@@ -124,4 +136,6 @@ trait FakeViews extends Layouts {
   lazy val updateMobileView = new views.html.details.updateMobile(mainLayout, GovukButton, GovukInput, FormWithCSRF)
   lazy val updateEmailView = new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF)
   lazy val updateNameView = new views.html.details.updateName(mainLayout, GovukButton, GovukInput, FormWithCSRF)
+  lazy val managedByAgentsPropertiesView = new views.html.dashboard.managedByAgentsProperties(mainLayout)
+
 }

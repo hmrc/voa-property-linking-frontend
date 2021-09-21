@@ -253,7 +253,7 @@ class AddAgentController @Inject()(
         pagination = PaginationParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
-        backLink = controllers.agentAppointment.routes.AddAgentController.multipleProperties().url
+        backLink = controllers.agentAppointment.routes.AddAgentController.multipleProperties.url
       ))
 
 }

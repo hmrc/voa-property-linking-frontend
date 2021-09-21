@@ -101,7 +101,7 @@ class DeclarationController @Inject()(
                       Redirect(routes.ChooseEvidenceController.show())
                   }
               },
-              _ => Redirect(routes.DeclarationController.confirmation())
+              _ => Redirect(routes.DeclarationController.confirmation)
           )
       )
   }

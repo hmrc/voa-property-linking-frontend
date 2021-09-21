@@ -16,13 +16,13 @@
 
 package utils
 
+import akka.stream.testkit.NoMaterializer
 import play.api.Environment
 import play.api.http.{DefaultFileMimeTypes, FileMimeTypes, FileMimeTypesConfiguration}
 import play.api.i18n.Messages.UrlMessageSource
 import play.api.i18n._
 import play.api.mvc.{MessagesControllerComponents, _}
 import play.api.test.Helpers._
-import play.api.test.NoMaterializer
 
 import scala.concurrent.ExecutionContext
 

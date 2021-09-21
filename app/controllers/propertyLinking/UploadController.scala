@@ -110,7 +110,7 @@ class UploadController @Inject()(
           case Some(fileData) if fileData.nonEmpty =>
             businessRatesAttachmentsService
               .persistSessionData(request.ses, uploadedData)
-              .map(x => Redirect(routes.DeclarationController.show().url))
+              .map(x => Redirect(routes.DeclarationController.show.url))
         }
 
       val session = request.ses

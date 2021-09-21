@@ -35,7 +35,8 @@ class Dashboard @Inject()(
       propertyLinks: AgentRelationshipService,
       groupAccounts: GroupAccounts,
       authenticated: AuthenticatedAction,
-      override val controllerComponents: MessagesControllerComponents
+      override val controllerComponents: MessagesControllerComponents,
+      managedByAgentsPropertiesView: views.html.dashboard.managedByAgentsProperties
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -68,7 +69,7 @@ class Dashboard @Inject()(
                        PaginationParams(1, 1000, false))
       } yield
         Ok(
-          views.html.dashboard.managedByAgentsProperties(
+          managedByAgentsPropertiesView(
             ManagedPropertiesVM(agentOrganisationId, companyName, agentCode, authResult.authorisations),
             owner))
   }

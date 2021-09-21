@@ -27,7 +27,7 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.isThisYourAgent.title"),
-    backUri = Some(controllers.agentAppointment.routes.AddAgentController.showStartPage().url), hasErrors = form.hasErrors
+    backUri = Some(controllers.agentAppointment.routes.AddAgentController.showStartPage.url), hasErrors = form.hasErrors
 ) {
 
     @if(form.errors.nonEmpty) {

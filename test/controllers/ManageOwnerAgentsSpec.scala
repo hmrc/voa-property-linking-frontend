@@ -20,8 +20,9 @@ import connectors._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.AgentRelationshipService
+import utils.FakeViews
 
-class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
+class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec with FakeViews {
 
   implicit val request = FakeRequest()
 
@@ -31,7 +32,8 @@ class ManageOwnerAgentsSpec extends VoaPropertyLinkingSpec {
         mock[AgentRelationshipService],
         mock[GroupAccounts],
         preAuthenticatedActionBuilders(),
-        stubMessagesControllerComponents()
+        stubMessagesControllerComponents(),
+        managedByAgentsPropertiesView
       )
 
   "Manage Owner Agents page" must "return redirect" in {

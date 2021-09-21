@@ -284,7 +284,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     html.title mustBe "Update mobile number - Valuation Office Agency - GOV.UK"
   }
 
-  private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
+  private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show.url
 
   private object TestUpdatePersonalDetails
       extends UpdatePersonalDetails(

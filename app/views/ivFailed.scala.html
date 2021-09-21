@@ -28,7 +28,7 @@
     <h1 class="govuk-heading-xl">@messages("failedIdentityVerification.title")</h1>
 
     <p class="govuk-body">@messages("failedIdentityVerification.p.1", messages(s"failedIdentityVerification.failureReason.${failureReason.messageKey}"))</p>
-    <p class="govuk-body">@Html(Messages("failedIdentityVerification.p.2", controllers.registration.routes.RegistrationController.show().url))</p>
+    <p class="govuk-body">@Html(Messages("failedIdentityVerification.p.2", controllers.registration.routes.RegistrationController.show.url))</p>
 
     <p class="govuk-body">@messages("failedIv.email")</p>
     <p class="govuk-body"><strong>@Html(Messages("failedIv.emailaddress", "ccaservice@voa.gov.uk"))</strong></p>

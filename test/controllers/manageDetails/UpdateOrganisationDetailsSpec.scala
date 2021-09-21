@@ -240,7 +240,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     val clock = Clock.fixed(Instant.now, ZoneId.systemDefault)
     val mockGroups = mock[GroupAccounts]
     val mockManageDetails = mock[ManageDetails]
-    val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show().url
+    val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show.url
     val testController = new UpdateOrganisationDetails(
       mockCustomErrorHandler,
       preAuthenticatedActionBuilders(),

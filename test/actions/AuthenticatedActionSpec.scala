@@ -77,7 +77,7 @@ class AuthenticatedActionSpec
       val res = testAction(_ => Ok("something"))(FakeRequest())
 
       status(res) shouldBe SEE_OTHER
-      redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.show().url)
+      redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.show.url)
     }
 
     "redirect to invalid account page when the user has an invalid account type" in new Setup {
@@ -87,7 +87,7 @@ class AuthenticatedActionSpec
       val res = testAction(_ => Ok("something"))(FakeRequest())
 
       status(res) shouldBe SEE_OTHER
-      redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
+      redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType.url)
     }
 
     "throw unauthorized when the trustId is incorrect" in new Setup {
@@ -116,7 +116,7 @@ class AuthenticatedActionSpec
       val res = testAction(_ => Ok("something"))(FakeRequest())
 
       status(res) shouldBe SEE_OTHER
-      redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType().url)
+      redirectLocation(res) shouldBe Some(controllers.routes.Application.invalidAccountType.url)
     }
 
   }

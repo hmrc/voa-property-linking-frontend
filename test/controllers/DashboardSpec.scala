@@ -48,7 +48,8 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
         mockRepService,
         StubGroupAccountConnector,
         preAuthenticatedActionBuilders(),
-        stubMessagesControllerComponents()
+        stubMessagesControllerComponents(),
+        managedByAgentsPropertiesView
       )
 
   "home page" must "redirect to new dashboard" in {
