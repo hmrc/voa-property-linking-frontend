@@ -23,10 +23,11 @@ import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
+
 import javax.inject.Named
 import models.propertylinking.requests.PropertyLinkRequest
 import models.{ClientDetails, RatesBillFlag, RatesBillType}
-import play.api.Logger
+import play.api.Logging
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -52,9 +53,7 @@ class DeclarationController @Inject()(
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
-) extends PropertyLinkingController with Cats {
-
-  val logger = Logger(this.getClass.getName)
+) extends PropertyLinkingController with Cats with Logging {
 
   def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis == RatesBillFlag
