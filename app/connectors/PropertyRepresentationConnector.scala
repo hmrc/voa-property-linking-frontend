@@ -20,7 +20,7 @@ import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances
 
 import javax.inject.Inject
 import models.propertyrepresentation.AgentDetails
-import play.api.{Logger, Logging}
+import play.api.Logging
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, UpstreamErrorResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig

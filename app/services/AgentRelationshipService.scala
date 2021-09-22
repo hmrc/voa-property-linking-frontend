@@ -24,7 +24,7 @@ import controllers.PaginationParams
 import javax.inject.{Inject, Named}
 import models.propertyrepresentation._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
-import play.api.{Logger, Logging}
+import play.api.Logging
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 
