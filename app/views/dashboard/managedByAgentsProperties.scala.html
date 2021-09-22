@@ -18,32 +18,28 @@
 @import utils.Formatters
 @import config.ApplicationConfig
 
+@this(mainLayout: views.html.mainLayout)
+
 @(model: controllers.ManagedPropertiesVM, owner: Boolean)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@main_template(
-    title = Messages("dashboard.managedByAgentsProperties.title", model.agentName),
-    topBackLink = true,
-    bottomBackLink = true,
-    individualId = Some(request.personId),
-    backLinkUrl = Some(config.dashboardUrl("your-agents"))
+@mainLayout(
+    pageTitle = messages("dashboard.managedByAgentsProperties.title", model.agentName),
+    backUri = Some(config.dashboardUrl("your-agents"))
 ) {
 
-    <h1 class="heading-xlarge clear-right">
-        <span class="heading-secondary">
-            @messages("dashboard.managedByAgentsProperties.title", "")
-        </span>
-        <span class="section-title" id="agentNameSpan">@model.agentName</span>
+    <h1 class="govuk-heading-xl"> @messages("dashboard.managedByAgentsProperties.title", "")</h1>
+        <span id="agentNameSpan" class="govuk-caption-xl">@model.agentName</span>
     </h1>
 
     @if(model.properties.isEmpty) {
-        <h2 id="noProperties" class="heading-secondary">
+        <h2 id="noProperties" class="govuk-heading-m">
         @messages("managedByAgentsProperties.no.properties")
         </h2>
         <br>
     }
 
     @if(model.agentOrganisationId.isEmpty) {
-        <h2 id="noAgentId" class="heading-secondary">
+        <h2 id="noAgentId" class="govuk-heading-m">
         @messages("managedByAgentsProperties.no.agentId")
         </h2>
         <br>

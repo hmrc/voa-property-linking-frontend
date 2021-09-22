@@ -130,9 +130,9 @@ class AuthenticatedAction @Inject()(
       case InvalidGGSession        => provider.redirectToLogin
       case NoVOARecord             => Future.successful(Redirect(controllers.registration.routes.RegistrationController.show()))
       case IncorrectTrustId        => Future.successful(Unauthorized("Trust ID does not match"))
-      case InvalidAccountType      => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
+      case InvalidAccountType      => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
       case ForbiddenResponse       => Future.successful(Forbidden(forbiddenView()))
-      case NonGroupIDAccount       => Future.successful(Redirect(controllers.routes.Application.invalidAccountType()))
+      case NonGroupIDAccount       => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
     }
   }
 }

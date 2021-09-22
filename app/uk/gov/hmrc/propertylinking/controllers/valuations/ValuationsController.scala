@@ -18,17 +18,17 @@ package uk.gov.hmrc.propertylinking.controllers.valuations
 
 import java.net.URLEncoder
 import java.time.LocalDate
-
 import actions.AuthenticatedAction
 import actions.assessments.WithAssessmentsPageSessionRefiner
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{AssessmentsVM, PropertyLinkingController}
+
 import javax.inject.{Inject, Named, Singleton}
 import models.ApiAssessments.EmptyAssessments
 import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.{ApiAssessment, ApiAssessments}
-import play.api.Logger
+import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepo
@@ -52,9 +52,7 @@ class ValuationsController @Inject()(
       implicit override val messagesApi: MessagesApi,
       val config: ApplicationConfig,
       executionContext: ExecutionContext
-) extends PropertyLinkingController {
-
-  val logger = Logger(this.getClass.getName)
+) extends PropertyLinkingController with Logging {
 
   def savePreviousPage(previousPage: String, submissionId: String, owner: Boolean): Action[AnyContent] =
     authenticated.async { implicit request =>

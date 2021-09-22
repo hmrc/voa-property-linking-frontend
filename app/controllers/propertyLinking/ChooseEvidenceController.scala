@@ -68,7 +68,7 @@ class ChooseEvidenceController @Inject()(
           .showRelationship(ses.uarn, ses.clientDetails)
           .url
       case _ =>
-        controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url
+        controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership.url
     }
 
   def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>

@@ -22,7 +22,7 @@ import models.{Address, DetailedAddress}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.HttpClient
 import utils.Configs._
 
 import scala.concurrent.{ExecutionContext, Future}

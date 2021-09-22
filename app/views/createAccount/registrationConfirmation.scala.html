@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.play.views.html.helpers.form
+
 @import helpers._
 @import config.ApplicationConfig
 
@@ -43,7 +43,7 @@
         <p class="govuk-body">@messages("create.success.keepUsingGg")</p>
 
         @if(affinityGroup != Individual && credentialRole != Assistant) {
-        <p class="govuk-body">@Html(Messages("account.confirmation.addToGG", routes.Application.addUserToGG()))</p>
+        <p class="govuk-body">@Html(Messages("account.confirmation.addToGG", routes.Application.addUserToGG))</p>
         }
 
         <p class="govuk-body">@Html(Messages("account.confirmation.disclaimer"))</p>

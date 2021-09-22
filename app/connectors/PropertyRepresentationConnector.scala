@@ -17,9 +17,10 @@
 package connectors
 
 import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances
+
 import javax.inject.Inject
 import models.propertyrepresentation.AgentDetails
-import play.api.Logger
+import play.api.Logging
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, UpstreamErrorResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
@@ -27,10 +28,9 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(
-      implicit ec: ExecutionContext) {
+      implicit ec: ExecutionContext)
+    extends Logging {
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
-  val logger = Logger(this.getClass.getName)
-
   def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
     import ExceptionThrowingReadsInstances._
     http.DELETE[HttpResponse](s"$baseUrl/property-representations/revoke-client-property/$submissionId") map { _ =>

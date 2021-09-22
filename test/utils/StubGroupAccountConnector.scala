@@ -21,7 +21,7 @@ import models.{GroupAccount, GroupAccountSubmission}
 import org.mockito.Mockito.mock
 import org.scalacheck.Arbitrary.arbitrary
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random

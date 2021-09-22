@@ -142,7 +142,7 @@ class RegistrationController @Inject()(
         implicit hc: HeaderCarrier): Future[Result] =
     if (request.userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
       // push user through IV as their Confidence Level is insufficient
-      Future.successful(Redirect(controllers.routes.IdentityVerification.startIv()))
+      Future.successful(Redirect(controllers.routes.IdentityVerification.startIv))
     } else {
       // skip IV as user's Confidence Level is sufficient
       registrationService.continue(None, request.userDetails).map {

@@ -20,10 +20,11 @@ import binders.propertylinks.GetPropertyLinksParameters
 import connectors.PropertyRepresentationConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PaginationParams
+
 import javax.inject.{Inject, Named}
 import models.propertyrepresentation._
 import models.searchApi.{AgentPropertiesParameters, OwnerAuthResult}
-import play.api.Logger
+import play.api.Logging
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -36,9 +37,8 @@ class AgentRelationshipService @Inject()(
       representations: PropertyRepresentationConnector,
       propertyLinks: PropertyLinkConnector,
       @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo)(
-      implicit val executionContext: ExecutionContext) {
-
-  val logger: Logger = Logger(this.getClass)
+      implicit val executionContext: ExecutionContext)
+    extends Logging {
 
   def createAndSubmitAgentRepRequest(pLinkIds: List[String], agentCode: Long)(
         implicit hc: HeaderCarrier): Future[Unit] =

@@ -14,7 +14,6 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.play.views.html.helpers.form
 @import binders.propertylinks._
 @import helpers._
 @import controllers.propertyLinking.routes._
@@ -36,7 +35,7 @@
 
 @mainLayout(
     pageTitle = title,
-    backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show().url),
+    backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url),
     hasErrors = !errors.isEmpty
 ) {
 

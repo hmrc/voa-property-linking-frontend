@@ -21,7 +21,7 @@ import config.ApplicationConfig
 import connectors.authorisation.errorhandler.exceptions.AuthorisationFailure
 
 import javax.inject.Inject
-import play.api.Logger
+import play.api.Logging
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.mvc.Results.{Forbidden, Redirect}
 import play.api.mvc.{Request, RequestHeader, Result}
@@ -38,9 +38,7 @@ class CustomErrorHandler @Inject()(
       technicalDifficultiesView: views.html.errors.technicalDifficulties)(
       implicit override val messagesApi: MessagesApi,
       appConfig: ApplicationConfig)
-    extends FrontendErrorHandler with I18nSupport {
-
-  val logger: Logger = Logger(this.getClass)
+    extends FrontendErrorHandler with Logging with I18nSupport {
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(
         implicit request: Request[_]): Html =

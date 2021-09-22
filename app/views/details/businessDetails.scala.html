@@ -43,7 +43,7 @@
 
     @if(!isAssistant) {
         <p>
-            <a href="@routes.Application.addUserToGG()">@messages("dashboard.home.addAnotherUser.link")</a>
+            <a href="@routes.Application.addUserToGG">@messages("dashboard.home.addAnotherUser.link")</a>
         </p>
     }
 
@@ -63,10 +63,10 @@
                         <td></td>
                     </tr>
                 }
-                @tableRow("businessName", organisationAccount.companyName, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessName())
-                @tableRow("businessAddress", Formatters.capitalizedAddress(businessAddress), controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessAddress())
-                @tableRow("businessPhone", organisationAccount.phone, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessPhone())
-                @tableRow("businessEmail", organisationAccount.email, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessEmail())
+                @tableRow("businessName", organisationAccount.companyName, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessName)
+                @tableRow("businessAddress", Formatters.capitalizedAddress(businessAddress), controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessAddress)
+                @tableRow("businessPhone", organisationAccount.phone, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessPhone)
+                @tableRow("businessEmail", organisationAccount.email, controllers.manageDetails.routes.UpdateOrganisationDetails.viewBusinessEmail)
             </tbody>
         </table>
     </div>

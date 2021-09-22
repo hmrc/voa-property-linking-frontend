@@ -32,7 +32,7 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.multipleProperties.title"),
-    backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent().url), hasErrors = form.hasErrors
+    backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url), hasErrors = form.hasErrors
 ) {
 
     @if(form.errors.nonEmpty) {

@@ -91,7 +91,7 @@ class ClaimPropertyOwnershipController @Inject()(
           Future.successful(Ok(ownershipToPropertyView(
             ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
             request.ses.clientDetails,
-            controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url
+            controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
           )))
       }
     }
@@ -107,7 +107,7 @@ class ClaimPropertyOwnershipController @Inject()(
             Future.successful(BadRequest(ownershipToPropertyView(
               ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.uarn),
               request.ses.clientDetails,
-              controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url
+              controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
             ))),
           formData =>
             businessRatesAttachmentService

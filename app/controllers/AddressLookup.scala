@@ -17,6 +17,8 @@
 package controllers
 
 import connectors.Addresses
+import play.api.Logging
+
 import javax.inject.Inject
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -30,9 +32,7 @@ class AddressLookup @Inject()(
       override val controllerComponents: MessagesControllerComponents
 )(
       implicit executionContext: ExecutionContext
-) extends PropertyLinkingController {
-
-  private val logger = play.api.Logger(this.getClass)
+) extends PropertyLinkingController with Logging {
 
   def findByPostcode(postcode: String): Action[AnyContent] = Action.async { implicit request =>
     addresses

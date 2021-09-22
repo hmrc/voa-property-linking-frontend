@@ -43,21 +43,20 @@ lazy val microservice = Project(appName, file("."))
     libraryDependencies ++= Seq(
       compilerPlugin("com.github.ghik" % "silencer-plugin" % "1.7.0" cross CrossVersion.full),
       "com.github.ghik" % "silencer-lib" % "1.7.0" % Provided cross CrossVersion.full
-    ),
-    parallelExecution in Test := false,
-    fork in Test := true,
-    testGrouping := oneForkedJvmPerTest((definedTests in Test).value)
+    )
   )
-  .settings(scalaVersion := "2.12.12")
   .settings(inConfig(TemplateTest)(Defaults.testSettings): _*)
   .configs(IntegrationTest)
-  .settings(inConfig(TemplateItTest)(Defaults.itSettings): _*)
   .settings(
-    Keys.fork in IntegrationTest := false,
-    unmanagedSourceDirectories in IntegrationTest := { (baseDirectory in IntegrationTest)(base => Seq(base / "it")) }.value,
+    inConfig(IntegrationTest)(Defaults.itSettings),
+    IntegrationTest / Keys.fork := false,
+    IntegrationTest / unmanagedSourceDirectories := (IntegrationTest / baseDirectory)(base =>
+    Seq(base / "it")).value,
     addTestReportOption(IntegrationTest, "int-test-reports"),
-    parallelExecution in IntegrationTest := false
+    IntegrationTest / testGrouping := oneForkedJvmPerTest((IntegrationTest / definedTests).value),
+    IntegrationTest / parallelExecution := false
   )
+  .settings(scalaVersion := "2.12.12")
   .settings(resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/")
   .settings(
     TwirlKeys.templateImports ++= Seq(
@@ -102,7 +101,9 @@ lazy val scoverageSettings = {
     ScoverageKeys.coverageExcludedPackages := "<empty>;.*Reverse.*;controllers.test.*;connectors.test.*;views.*;config.*;poc.view.*;poc.config.*;.*(AuthService|BuildInfo|Routes).*;.*models.*;.*modules.*;.*utils.Conditionals.*;.*auth.GovernmentGatewayProvider*;.*services.test;",
     ScoverageKeys.coverageMinimum := 70,
     ScoverageKeys.coverageFailOnMinimum := true,
-    ScoverageKeys.coverageHighlighting := true
+    ScoverageKeys.coverageHighlighting := true,
+    Test / unmanagedSourceDirectories := (Test / baseDirectory)(base => Seq(base / "test")).value,
+    Test / parallelExecution := false
   )
 }
 
@@ -121,16 +122,16 @@ lazy val compileDependencies = Seq(
   "com.codahale.metrics" %  "metrics-graphite"              % "3.0.1",
   "com.google.guava"     %  "guava"                         % "18.0",
   "org.typelevel"        %% "cats-core"                     % "1.6.1",
-  "uk.gov.hmrc"          %% "bootstrap-frontend-play-27"    % "5.11.0",
-  "uk.gov.hmrc"          %% "govuk-template"                % "5.61.0-play-27",
-  "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "0.76.0-play-27",
-  "uk.gov.hmrc"          %% "play-ui"                       % "8.20.0-play-27",
-  "uk.gov.hmrc"          %% "http-caching-client"           % "9.2.0-play-27",
-  "uk.gov.hmrc"          %% "mongo-lock"                    % "6.24.0-play-27",
-  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.5.0-play-27",
-  "uk.gov.hmrc"          %% "play-whitelist-filter"         % "3.4.0-play-27",
+  "uk.gov.hmrc"          %% "bootstrap-frontend-play-28"    % "5.4.0",
+  "uk.gov.hmrc"          %% "govuk-template"                % "5.70.0-play-28",
+  "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "0.77.0-play-28",
+  "uk.gov.hmrc"          %% "play-ui"                       % "9.7.0-play-28",
+  "uk.gov.hmrc"          %% "http-caching-client"           % "9.5.0-play-28",
+  "uk.gov.hmrc"          %% "mongo-lock"                    % "7.0.0-play-28",
+  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.9.0-play-28",
+  "uk.gov.hmrc"          %% "play-allowlist-filter"         % "1.0.0-play-28",
   "uk.gov.hmrc"          %% "reactive-circuit-breaker"      % "3.5.0",
-  "uk.gov.hmrc"          %% "simple-reactivemongo"          % "7.31.0-play-27",
+  "uk.gov.hmrc"          %% "simple-reactivemongo"          % "8.0.0-play-28",
   "uk.gov.hmrc"          %% "uri-template"                  % "1.7.0"
 )
 

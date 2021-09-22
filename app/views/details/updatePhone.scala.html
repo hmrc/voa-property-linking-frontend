@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.play.views.html.helpers.form
+
 @import helpers._
 @import _root_.template.FormSupport._
 
@@ -27,7 +27,7 @@
 
 @mainLayout(
     pageTitle = Messages("updatePhone.title"),
-    backUri = Some(controllers.manageDetails.routes.ViewDetails.show().url)
+    backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url)
 ){
     <h1 class="govuk-heading-l">@messages("updatePhone.title")</h1>
 
@@ -55,7 +55,7 @@
                 attributes = Map("id" -> "update")
             ))
             @govukButton(Button(
-                href = Some(controllers.manageDetails.routes.ViewDetails.show().url),
+                href = Some(controllers.manageDetails.routes.ViewDetails.show.url),
                 content = Text(messages("link.cancel")),
                 classes = "govuk-button--secondary"
             ))

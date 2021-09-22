@@ -48,33 +48,12 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
         mockRepService,
         StubGroupAccountConnector,
         preAuthenticatedActionBuilders(),
-        stubMessagesControllerComponents()
-      )
+        stubMessagesControllerComponents())
 
   "home page" must "redirect to new dashboard" in {
     val res = TestDashboard.home()(request)
     status(res) mustBe SEE_OTHER
     redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/home")
-  }
-
-  "viewManagedProperties" must "display the properties managed by an agent" in {
-    val clientGroup = arbitrary[GroupAccount].sample.get.copy(isAgent = false)
-    val clientPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = clientGroup.id)
-
-    val agentGroup = arbitrary[GroupAccount].sample.get
-      .copy(isAgent = true, companyName = "Test Agent Company", agentCode = Some(100000))
-    val agentPerson = arbitrary[DetailedIndividualAccount].sample.get.copy(organisationId = agentGroup.id)
-
-    StubIndividualAccountConnector.stubAccount(clientPerson)
-    StubIndividualAccountConnector.stubAccount(agentPerson)
-
-    StubGroupAccountConnector.stubAccount(clientGroup)
-    StubGroupAccountConnector.stubAccount(agentGroup)
-
-    val res = TestDashboard.viewManagedProperties(agentGroup.agentCode.get, owner = false)(request)
-
-    status(res) mustBe OK
-    contentAsString(res) must include("Properties managed by Test Agent Company")
   }
 
   "viewMessages" must "redirect to new dashoard inbox" in {
