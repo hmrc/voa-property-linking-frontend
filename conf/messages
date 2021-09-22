@@ -805,7 +805,7 @@ uploadEvidence.evidenceTypes.7=other utility bills
 uploadEvidence.noEvidence=I’m unable to provide any of these documents.
 uploadEvidence.noEvidence.p1=<p>If you can’t provide one of the documents listed to prove your link to the property, you won’t be able to claim it or view the detailed valuation.</p>
 uploadEvidence.noEvidence.p2=<p>You’ll need to contact us to discuss other documents that prove your link to this property.</p>
-uploadEvidence.noEvidence.p3=<p>Email: ccaservice@voa.gov.uk</p>
+uploadEvidence.noEvidence.p3=<p>Email: <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a></p>
 fileupload.chooseFile=Choose a file to upload
 evidenceType.assignment=Assignment
 evidenceType.label=Type of evidence
