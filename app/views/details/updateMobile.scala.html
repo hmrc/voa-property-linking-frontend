@@ -28,7 +28,7 @@
     pageTitle = Messages("updateMobile.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url)
 ) {
-    <h1 class="govuk-heading-xl">@messages("updateMobile.title")</h1>
+    <h1 class="govuk-heading-l">@messages("updateMobile.title")</h1>
 
     @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateMobile()) {
 

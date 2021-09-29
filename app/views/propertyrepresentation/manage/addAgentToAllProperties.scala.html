@@ -36,7 +36,7 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    <h1 class="govuk-heading-xl">@messages(s"propertyRepresentation.manageAgent.assignToAllProperties.question.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)</h1>
+    <h1 class="govuk-heading-l">@messages(s"propertyRepresentation.manageAgent.assignToAllProperties.question.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)</h1>
 
     @formWithCSRF(action = controllers.agent.routes.ManageAgentController.assignAgentToAll(agentCode, agentName)) {
         <input type="hidden" name="agentCode" value="@agentCode">

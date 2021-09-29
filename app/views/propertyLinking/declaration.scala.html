@@ -40,7 +40,7 @@
         @govukErrorSummary(ErrorSummary(errorList = model.form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    <h1 class="govuk-heading-xl">@messages("declaration.title")</h1>
+    <h1 class="govuk-heading-l">@messages("declaration.title")</h1>
 
     @formWithCSRF(action = controllers.propertyLinking.routes.DeclarationController.submit()) {
 

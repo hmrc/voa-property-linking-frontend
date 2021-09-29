@@ -39,7 +39,7 @@
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.multipleProperties.question", agentName)</h1>
+    <h1 class="govuk-heading-l">@messages("propertyRepresentation.multipleProperties.question", agentName)</h1>
 
     @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitMultipleProperties()) {
         @govukRadios(Radios(

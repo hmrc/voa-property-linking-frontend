@@ -50,7 +50,7 @@
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title =
         Text(messages("error.propertyRepresentation.title"))))
         }
-        <h1 class="govuk-heading-xl">@messages("enrolment.title")</h1>
+        <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
         <p class="govuk-hint">@messages("enrolment.assistant.hint")</p>
         <h2 class="govuk-heading-m">@messages("enrolment.assistant.organisation.details.title")</h2>
         @formWithCSRF(controllers.registration.routes.RegistrationController.submitAdminToExistingOrganisation()) {

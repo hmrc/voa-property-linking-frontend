@@ -41,7 +41,7 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    <h1 class="govuk-heading-xl">@messages("propertyRepresentation.manageAgent.removeFromAccount.question", agentName)</h1>
+    <h1 class="govuk-heading-l">@messages("propertyRepresentation.manageAgent.removeFromAccount.question", agentName)</h1>
 
     @formWithCSRF(action = controllers.agent.routes.ManageAgentController.removeAgentFromIpOrganisation(agentCode, agentName, backLink)) {
         <input type="hidden" name="agentCode" value="@agentCode">
