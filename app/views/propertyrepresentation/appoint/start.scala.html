@@ -26,7 +26,8 @@
 
  @mainLayout(
     pageTitle = messages("propertyRepresentation.addAnAgent.title"),
-    backUri = Some(config.dashboardUrl("home")), hasErrors = form.hasErrors
+    backUri = Some(config.dashboardUrl("home")),
+    hasErrors = form.hasErrors
 ){
 
  @if(form.errors.nonEmpty) {
@@ -47,7 +48,7 @@
     content = Text(messages("propertyRepresentation.addAnAgent.agentCode"))
    ),
    value = form.data.get("agentCode")
-  ))
+  ).withFormField(form("agentCode")))
 
   <details class="govuk-details" data-module="govuk-details">
    <summary class="govuk-details__summary">

@@ -17,10 +17,8 @@
 @import actions.requests.BasicAuthenticatedRequest
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-
 @import config.ApplicationConfig
 @import models.propertyrepresentation.AddAgentOptions
-
 @import models.propertyrepresentation.Yes
 @import models.propertyrepresentation.No
 
@@ -30,7 +28,8 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.oneProperty.title"),
-    backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url), hasErrors = form.hasErrors
+    backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url),
+    hasErrors = form.hasErrors
 ) {
 
     @if(form.errors.nonEmpty) {
@@ -46,8 +45,7 @@
             items = Seq(
                 RadioItem(id = Some("oneProperty"), value = Some(Yes.name), checked = form.value.fold(false)(_ == Yes.name), content = Text(messages("propertyRepresentation.oneProperty.options.yes"))),
                 RadioItem(id = None, value = Some(No.name), checked = form.value.fold(false)(_ == No.name), content = Text(messages("propertyRepresentation.oneProperty.options.no")))
-            ))
-        )
+            )).withFormField(form("oneProperty")))
 
         @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button"))))
     }

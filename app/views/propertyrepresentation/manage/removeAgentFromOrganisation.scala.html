@@ -23,19 +23,16 @@
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
 @import models.propertyrepresentation.AgentSummary
 @import models.propertyrepresentation.AppointmentScope.RELATIONSHIP
-
 @import config.ApplicationConfig
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
-
 @(form: Form[AgentAppointmentChangesRequest], agentCode: Long, agentName: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
-
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.removeFromAccount.title"),
-    backUri = Some(backLink)
+    backUri = Some(backLink),
+    hasErrors = form.hasErrors
 ) {
 
     @if(form.errors.nonEmpty) {
