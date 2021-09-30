@@ -18,19 +18,16 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
-
 @import config.ApplicationConfig
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
-
 @(form: Form[AgentAppointmentChangesRequest], agentName: String, agentCode: Long, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
-
 
 @mainLayout(
     pageTitle = messages(s"propertyRepresentation.manageAgent.assignToAllProperties.title.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}"),
-    backUri = Some(controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url)
+    backUri = Some(controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url),
+    hasErrors = form.hasErrors
 ) {
 
     @if(form.errors.nonEmpty) {

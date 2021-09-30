@@ -18,7 +18,6 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import models.propertyrepresentation._
-
 @import config.ApplicationConfig
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
@@ -47,8 +46,7 @@
             items = Seq(
                 RadioItem(id = Some("isThisYourAgent"), value = Some("true"), checked = form.value.fold(false)(_ == true), content = Text(messages("propertyRepresentation.isThisYourAgent.yes"))),
                 RadioItem(id = None, value = Some("false"), checked = form.value.fold(false)(_ == false), content = Text(messages("propertyRepresentation.isThisYourAgent.no")))
-            ))
-        )
+            )).withFormField(form("isThisYourAgent")))
 
         @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button"))))
     }

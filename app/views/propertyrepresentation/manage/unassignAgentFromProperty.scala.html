@@ -33,7 +33,8 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.unassignFromProperty.title"),
-    backUri = Some(backLink)
+    backUri = Some(backLink),
+    hasErrors = form.hasErrors
 ) {
 
     @if(form.errors.nonEmpty) {

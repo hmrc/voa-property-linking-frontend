@@ -17,11 +17,8 @@
 @import actions.requests.BasicAuthenticatedRequest
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-
 @import config.ApplicationConfig
-
 @import models.propertyrepresentation.AddAgentOptions
-
 @import models.propertyrepresentation.All
 @import models.propertyrepresentation.NoProperties
 @import models.propertyrepresentation.ChooseFromList
@@ -32,7 +29,8 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.multipleProperties.title"),
-    backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url), hasErrors = form.hasErrors
+    backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url),
+    hasErrors = form.hasErrors
 ) {
 
     @if(form.errors.nonEmpty) {
@@ -49,8 +47,7 @@
                 RadioItem(id = Some("multipleProperties"), value = Some(All.name), checked = form.value.fold(false)(_ == All), content = Text(messages("propertyRepresentation.multipleProperties.options.all"))),
                 RadioItem(id = None, value = Some(NoProperties.name), checked = form.value.fold(false)(_ == NoProperties), content = Text(messages("propertyRepresentation.multipleProperties.options.noProperties"))),
                 RadioItem(id = None, value = Some(ChooseFromList.name), checked = form.value.fold(false)(_ == ChooseFromList), content = Text(messages("propertyRepresentation.multipleProperties.options.chooseFromList")))
-            ))
-        )
+            )).withFormField(form("multipleProperties")))
 
         @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button"))))
     }

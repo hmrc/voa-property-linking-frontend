@@ -24,15 +24,11 @@
 @import models.propertyrepresentation.AgentSummary
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
-
 @import config.ApplicationConfig
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
-
 @(form: Form[AgentAppointmentChangesRequest], agentName: String, agentCode: Long)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
-
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.unassignFromAllProperties.title"),

@@ -27,7 +27,6 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
-
 @(form: Form[ManageAgentRequest], radioOptions: List[ManageAgentOptionItem], agent: AgentSummary, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @radioItems = @{
@@ -42,7 +41,8 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.title"),
-    backUri = Some(backLink)
+    backUri = Some(backLink),
+    hasErrors = form.hasErrors
 ) {
 
     @if(form.errors.nonEmpty) {
@@ -57,8 +57,8 @@
         @govukRadios(Radios(
             idPrefix = Some("manageAgentOption"),
             name = "manageAgentOption",
-            items = radioItems)
-        )
+            items = radioItems
+        ).withFormField(form("manageAgentOption")))
 
         @govukButton(Button(content = Text(messages("label.continue"))))
     }
