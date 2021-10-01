@@ -52,7 +52,7 @@
 
     <h4 class="govuk-label govuk-label--m">@Html(Messages("create-account.type.question"))</h4>
 
-    <p class="govuk-body">@Html(Messages("start.registration.individual.hyperlink", config.ggRegistrationUrl, config.dashboardUrl("home"), "voa"))</p>
+    <p class="govuk-body">@Html(Messages("start.registration.individual.hyperlink", config.ggRegistrationUrl, "individual", config.dashboardUrl("home"), "voa"))</p>
     <p class="govuk-body">@Html(Messages("start.registration.organisation.hyperlink", config.ggRegistrationUrl, "organisation", config.dashboardUrl("home"), "voa"))</p>
     <p class="govuk-body">@Html(Messages("start.registration.enrolment.hyperlink", routes.Login.show))</p>
 }
