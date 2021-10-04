@@ -25,7 +25,7 @@
 
 @mainLayout(pageTitle = messages("failedIdentityVerification.title"), showTopNavigation = false) {
 
-    <h1 class="govuk-heading-xl">@messages("failedIdentityVerification.title")</h1>
+    <h1 class="govuk-heading-l">@messages("failedIdentityVerification.title")</h1>
 
     <p class="govuk-body">@messages("failedIdentityVerification.p.1", messages(s"failedIdentityVerification.failureReason.${failureReason.messageKey}"))</p>
     <p class="govuk-body">@Html(Messages("failedIdentityVerification.p.2", controllers.registration.routes.RegistrationController.show.url))</p>

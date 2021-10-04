@@ -26,7 +26,7 @@
     pageTitle = Messages("updateBusinessAddress.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url)
 ) {
-    <h1 class="govuk-heading-xl">@messages("updateBusinessAddress.title")</h1>
+    <h1 class="govuk-heading-l">@messages("updateBusinessAddress.title")</h1>
 
     @formWithCSRF(action = controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessAddress) {
 
