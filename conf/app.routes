@@ -69,6 +69,8 @@ GET         /assets/*file                                                       
 
 GET         /keep-alive                                                                       controllers.KeepAliveController.keepAlive()
 
+GET        /terms-and-conditions                                                              controllers.StaticPagesController.termsAndConditions()
+
 #AGENT REPRESENTATION
 #OWNER ONLY
 #APPOINT
