@@ -125,7 +125,7 @@ class UploadController @Inject()(
                 BadRequest(
                   uploadRatesBillView(
                     request.ses.submissionId,
-                    List("error.businessRatesAttachment.file.not.selected"),
+                    List("error.businessRatesAttachment.ratesBill.not.selected"),
                     Map(),
                     session))))
         case EvidenceChoices.OTHER =>
