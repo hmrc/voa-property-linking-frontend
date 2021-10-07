@@ -25,12 +25,12 @@ import views.html.createAccount.termsAndConditions
 
 class StaticPagesControllerSpec extends VoaPropertyLinkingSpec {
 
-  private object TestRegistrationController
+  private object TestStaticPagesController
       extends StaticPagesController(stubMessagesControllerComponents(), termsAndConditionsView)
 
-  "Static page" should
-    "find terms and conditions page and returns 200" in {
-    val res = TestRegistrationController.termsAndConditions()(FakeRequest())
+  "Static page controller" should
+    "return terms and conditions page and returns 200" in {
+    val res = TestStaticPagesController.termsAndConditions()(FakeRequest())
     status(res) mustBe OK
   }
 
