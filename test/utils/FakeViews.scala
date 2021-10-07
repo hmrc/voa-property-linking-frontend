@@ -137,5 +137,6 @@ trait FakeViews extends Layouts {
   lazy val updateEmailView = new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF)
   lazy val updateNameView = new views.html.details.updateName(mainLayout, GovukButton, GovukInput, FormWithCSRF)
   lazy val managedByAgentsPropertiesView = new views.html.dashboard.managedByAgentsProperties(mainLayout)
+  lazy val termsAndConditionsView = new views.html.createAccount.termsAndConditions(mainLayout)
 
 }

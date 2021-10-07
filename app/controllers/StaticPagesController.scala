@@ -16,7 +16,6 @@
 
 package controllers
 
-
 import config.ApplicationConfig
 import play.api.i18n.Messages.implicitMessagesProviderToMessages
 import play.api.i18n.MessagesApi
@@ -29,21 +28,14 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-
-
-
 class StaticPagesController @Inject()(
-                                       override val controllerComponents: MessagesControllerComponents,
-                                          termsAndConditionsView: termsAndConditions)
-                                     (
-                                       implicit override val messagesApi: MessagesApi,
-                                       val config: ApplicationConfig
-                                     ) extends FrontendBaseController {
+      override val controllerComponents: MessagesControllerComponents,
+      termsAndConditionsView: termsAndConditions)(
+      implicit override val messagesApi: MessagesApi,
+      val config: ApplicationConfig
+) extends FrontendBaseController {
 
-
-  def termsAndConditions(): Action[AnyContent] = Action { implicit request => Ok(termsAndConditionsView())
+  def termsAndConditions(): Action[AnyContent] = Action { implicit request =>
+    Ok(termsAndConditionsView())
   }
 }
-
-
-
