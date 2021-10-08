@@ -50,7 +50,7 @@ field.replaceAll("""\[[0-9]\]""", "")
 
 
 @if(form.hasErrors) {
-<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-heading" role="alert" tabindex="-1" data-module="govuk-error-summary">
     <h2 id="error-summary-heading" class="govuk-error-summary__title">@messages("label.checkTheForm")</h2>
     <p class="govuk-body">@messages("label.fixTheFollowing")</p>
     <div class="govuk-error-summary__body">
