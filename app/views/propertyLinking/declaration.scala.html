@@ -34,7 +34,6 @@
                 }
 }
 
-@link = @{controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}
 @clientId = @{clientDetails.map(_.organisationId)}
 
 @strippedFileName = @{uploadEvidenceData.fileInfo.get.name.replaceAll("^([^-]+)-", "")}
