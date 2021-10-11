@@ -30,9 +30,7 @@
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url)
 ) {
 
-    @if(model.form.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = model.form.errors.asTextErrorLinks, title = Text(messages("errors.heading.title"))))
-    }
+    @formErrorSummary(model.form)(govukErrorSummary)
 
     <h1 class="govuk-heading-l">@messages("updateAddress.title")</h1>
 

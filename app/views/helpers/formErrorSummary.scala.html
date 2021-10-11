@@ -1,0 +1,13 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+
+@(form: Form[_])(govukErrorSummary : GovukErrorSummary)(implicit messages: Messages)
+
+@if(form.errors.nonEmpty) {
+    @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("errors.heading.title"))))
+}
