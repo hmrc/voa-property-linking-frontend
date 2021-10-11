@@ -61,7 +61,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
   "The declaration page" should "return valid page" in new Setup {
 
-    when(mockDeclarationView.apply(any(), any(), any())(any(), any(), any()))
+    when(mockDeclarationView.apply(any(), any(), any(), any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("The declaration page"))
     val res = TestDeclaration.show()(FakeRequest())
     status(res) mustBe OK
@@ -79,7 +79,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.apply[Future, AttachmentException, Unit](Future.successful(Left(NotAllFilesReadyToUpload))))
-    when(mockDeclarationView.apply(any(), any(), any())(any(), any(), any()))
+    when(mockDeclarationView.apply(any(), any(), any(), any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("please try again in a moment"))
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) mustBe BAD_REQUEST
