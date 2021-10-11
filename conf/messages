@@ -11,7 +11,7 @@ footer.termsandconditions=Terms and conditions
 link.privacyPolicy=Privacy
 common.titleErrorPrefix=Error:
 common.titleSuffix=- Valuation Office Agency - GOV.UK
-
+errors.heading.title=There is a problem
 navigation.your.details=Your details
 
 # Page sizes

@@ -19,8 +19,10 @@
 @import _root_.template.FormSupport._
 @import config.ApplicationConfig
 @import controllers.manageDetails.UpdateDetailsVM
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
 
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -28,6 +30,9 @@
     pageTitle = Messages("updateMobile.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url)
 ) {
+
+    @formErrorSummary(model.form)(govukErrorSummary)
+
     <h1 class="govuk-heading-l">@messages("updateMobile.title")</h1>
 
     @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateMobile()) {

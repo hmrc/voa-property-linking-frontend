@@ -17,8 +17,10 @@
 @import helpers._
 @import controllers.manageDetails.UpdateOrganisationDetailsVM
 @import config.ApplicationConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
 
 @(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -26,6 +28,9 @@
     pageTitle = Messages("updateBusinessAddress.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url)
 ) {
+
+    @formErrorSummary(model.form)(govukErrorSummary)
+
     <h1 class="govuk-heading-l">@messages("updateBusinessAddress.title")</h1>
 
     @formWithCSRF(action = controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessAddress) {
