@@ -24,7 +24,7 @@
 
             var errorTitlePrefix = 'Error: ';
             var title = $(document).prop('title');
-            var errorMessages = '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">'+
+            var errorMessages = '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-heading" role="alert" tabindex="-1" data-module="govuk-error-summary">'+
                         '<h2 class="govuk-error-summary__title" id="error-summary-heading">There is a problem</h2>'+
                         '<ul class="govuk-list govuk-error-summary__list"><li><a href="#postcodeSearch">'+ messages.errors.postcodeLookupError +'</a></li></ul></div>';
              if(title.startsWith(errorTitlePrefix)){
