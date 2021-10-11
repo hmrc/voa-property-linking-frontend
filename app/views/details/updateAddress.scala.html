@@ -27,7 +27,8 @@
 
 @mainLayout(
     pageTitle = Messages("updateAddress.title"),
-    backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url)
+    backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url),
+    hasErrors = model.form.hasErrors
 ) {
 
     @formErrorSummary(model.form)(govukErrorSummary)
