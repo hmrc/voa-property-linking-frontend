@@ -18,10 +18,11 @@
 @import helpers._
 @import _root_.template.FormSupport._
 @import config.ApplicationConfig
-
 @import controllers.manageDetails.UpdateDetailsVM
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
 
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -29,6 +30,10 @@
     pageTitle = Messages("updateEmail.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url)
 ) {
+
+    @if(model.form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = model.form.errors.asTextErrorLinks, title = Text(messages("errors.heading.title"))))
+    }
     <h1 class="govuk-heading-l">@messages("details.edit.personalEmail")</h1>
 
     @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateEmail()) {
@@ -63,7 +68,7 @@
                 content = Text(Messages("details.edit.email.help"))
             )),
             errorMessage = model.form("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
-        ))
+        ).withFormField(model.form("confirmedEmail")))
 
         <div class="govuk-button-group">
             @govukButton(Button(

@@ -123,19 +123,24 @@ trait FakeViews extends Layouts {
     GovukButton)
 
   lazy val updateBusinessAddressView =
-    new views.html.details.updateBusinessAddress(mainLayout, GovukButton, GovukInput, FormWithCSRF)
+    new views.html.details.updateBusinessAddress(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
   lazy val updateBusinessNameView =
-    new views.html.details.updateBusinessName(mainLayout, GovukButton, GovukInput, FormWithCSRF)
+    new views.html.details.updateBusinessName(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
   lazy val updateBusinessPhoneView =
-    new views.html.details.updateBusinessPhone(mainLayout, GovukButton, GovukInput, FormWithCSRF)
+    new views.html.details.updateBusinessPhone(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
   lazy val updateBusinessEmailView =
-    new views.html.details.updateBusinessEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF)
+    new views.html.details.updateBusinessEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
 
-  lazy val updateAddressView = new views.html.details.updateAddress(mainLayout, GovukButton, GovukInput, FormWithCSRF)
-  lazy val updatePhoneView = new views.html.details.updatePhone(mainLayout, GovukButton, GovukInput, FormWithCSRF)
-  lazy val updateMobileView = new views.html.details.updateMobile(mainLayout, GovukButton, GovukInput, FormWithCSRF)
-  lazy val updateEmailView = new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF)
-  lazy val updateNameView = new views.html.details.updateName(mainLayout, GovukButton, GovukInput, FormWithCSRF)
+  lazy val updateAddressView =
+    new views.html.details.updateAddress(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+  lazy val updatePhoneView =
+    new views.html.details.updatePhone(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+  lazy val updateMobileView =
+    new views.html.details.updateMobile(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+  lazy val updateEmailView =
+    new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+  lazy val updateNameView =
+    new views.html.details.updateName(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
   lazy val managedByAgentsPropertiesView = new views.html.dashboard.managedByAgentsProperties(mainLayout)
 
 }
