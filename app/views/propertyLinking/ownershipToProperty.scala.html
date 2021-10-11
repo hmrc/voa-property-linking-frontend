@@ -56,17 +56,17 @@
 }
 
 @getFromDateFiledErrorMessage = @{
-    (form.error("fromDate.day"), form.error("fromDate.month"), form.error("fromDate.year")) match
+    (form.error("fromDate"), form.error("fromDate.day"), form.error("fromDate.month"), form.error("fromDate.year")) match
     {
-        case (None, None, None ) => None
+        case (None, None, None, None ) => None
         case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
     }
 }
 
 @getToDateFiledErrorMessage = @{
-    (form.error("toDate.day"), form.error("toDate.month"), form.error("toDate.year")) match
+    (form.error("toDate"), form.error("toDate.day"), form.error("toDate.month"), form.error("toDate.year")) match
     {
-        case (None, None, None ) => None
+        case (None, None, None, None ) => None
         case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
     }
 }
