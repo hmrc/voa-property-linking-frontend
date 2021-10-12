@@ -16,16 +16,15 @@
 
 @import binders.propertylinks._
 @import controllers.propertyLinking.DeclarationVM
-@import controllers.propertyLinking.ClaimPropertyOwnershipController
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import java.time.format.DateTimeFormatter
+@import actions.propertylinking.requests.LinkingSessionRequest
 
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
-
-@(model: DeclarationVM, isRatesBillEvidence: Boolean, clientDetails: Option[ClientDetails] = None, propertyRelationship: Option[PropertyRelationship], propertyOwnership: Option[PropertyOwnership], uploadEvidenceData: UploadEvidenceData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: DeclarationVM, isRatesBillEvidence: Boolean, clientDetails: Option[ClientDetails] = None)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @backLink = @{if (isRatesBillEvidence) {
                     controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.RATES_BILL).url
@@ -36,9 +35,23 @@
 
 @clientId = @{clientDetails.map(_.organisationId)}
 
-@strippedFileName = @{uploadEvidenceData.fileInfo.get.name.replaceAll("^([^-]+)-", "")}
+@isAgent = @{ clientId match {
+        case Some(id) => true
+        case _ => false
+    }
+}
 
-@evidenceType = @{uploadEvidenceData.fileInfo.get.evidenceType.get.name}
+@propertyOwnershipFromDate = @{request.ses.propertyOwnership.flatMap(_.fromDate)}
+
+@propertyOwnershipToDate = @{request.ses.propertyOwnership.flatMap(_.toDate)}
+
+@propertyRelationshipCapacityName = @{request.ses.propertyRelationship.map(_.capacity).map(_.name).getOrElse("")}
+
+@propertyOwnerShipStillInterested = @{request.ses.propertyOwnership.exists(_.stillInterested)})
+
+@strippedFileName = @{request.ses.uploadEvidenceData.fileInfo.map(_.name.replaceAll("^([^-]+)-", ""))}
+
+@evidenceType = @{request.ses.uploadEvidenceData.fileInfo.flatMap(_.evidenceType).map(_.name).getOrElse("")}
 
 @mainLayout(
     pageTitle = messages("declaration.title"),
@@ -61,7 +74,7 @@
                         content = Text(messages("declaration.checkAnswers.relationshipHeading"))
                     ),
                     value = Value(
-                        content = Text(messages(s"declaration.checkAnswers.${propertyRelationship.get.capacity.name}"))
+                        content = Text(messages(s"declaration.checkAnswers.$propertyRelationshipCapacityName"))
                     ),
                     actions = Some(Actions(
                         items = Seq(
@@ -78,9 +91,9 @@
                         content = Text(messages("declaration.checkAnswers.startDateHeading"))
                     ),
                     value = Value(
-                        content =
-                            if (propertyOwnership.get.fromDate.isDefined) Text(propertyOwnership.get.fromDate.get.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
-                            else Text(messages("declaration.checkAnswers.startDate.before2017"))
+                        content = Text(
+                            propertyOwnershipFromDate.fold(messages("declaration.checkAnswers.startDate.before2017"))(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
+                        )
                     ),
                     actions = Some(Actions(
                         items = Seq(
@@ -95,12 +108,12 @@
                 SummaryListRow(
                     key = Key(
                         content =
-                            if (clientId.isEmpty) Text(messages("declaration.checkAnswers.propertyOwnership.heading"))
+                            if (!isAgent) Text(messages("declaration.checkAnswers.propertyOwnership.heading"))
                             else Text(messages("declaration.checkAnswers.propertyOwnership.heading.agent"))
                     ),
                     value = Value(
                         content =
-                            if (propertyOwnership.get.stillInterested) Text(messages("declaration.checkAnswers.propertyOwnership.yes"))
+                            if (propertyOwnerShipStillInterested) Text(messages("declaration.checkAnswers.propertyOwnership.yes"))
                             else Text(messages("declaration.checkAnswers.propertyOwnership.no"))
                     ),
                     actions = Some(Actions(
@@ -109,19 +122,21 @@
                                 href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
                                 visuallyHiddenText =
-                                    if (clientId.isEmpty) Some(messages("declaration.checkAnswers.propertyOwnership.heading"))
+                                    if (!isAgent) Some(messages("declaration.checkAnswers.propertyOwnership.heading"))
                                     else Some(messages("declaration.checkAnswers.propertyOwnership.heading.agent"))
                             )
                         )
                     ))
                 ),
-                if (!propertyOwnership.get.stillInterested){
+                if (!propertyOwnerShipStillInterested){
                 SummaryListRow(
                     key = Key(
                         content = Text(messages("declaration.checkAnswers.propertyOwnership.endDate"))
                     ),
                     value = Value(
-                        content = Text(propertyOwnership.get.toDate.get.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
+                        content = Text(
+                            propertyOwnershipToDate.fold("")(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
+                        )
                     ),
                     actions = Some(Actions(
                         items = Seq(
@@ -138,7 +153,7 @@
                         content = Text(messages("declaration.checkAnswers.evidenceType.heading"))
                     ),
                     value = Value(
-                        content = HtmlContent(messages(s"declaration.checkAnswers.evidenceType.${evidenceType}") + s"<br>$strippedFileName")
+                        content = HtmlContent(messages(s"declaration.checkAnswers.evidenceType.$evidenceType") + s"<br>${strippedFileName.getOrElse("")}")
                     ),
                     actions = Some(Actions(
                         items = Seq(
@@ -159,15 +174,12 @@
             iconFallbackText = "Warning",
             content = Text(messages("declaration.p.3"))
         ))
-
-        @clientId match {
-            case Some(id)   => {
                 @govukCheckboxes(Checkboxes(
                     idPrefix = Some("declaration"),
                     name = "declaration",
                     items = Seq(
                         CheckboxItem(
-                            content = Text(messages("declaration.p.agent")),
+                            content = if (isAgent) Text(messages("declaration.p.agent")) else Text(messages("declaration.p.ip")),
                             value = "true"
                         )
                     ),
@@ -175,25 +187,8 @@
                         ErrorMessage(content = Text(messages(error.message)))
                     }}
                 ))
-            }
-            case _          => {
-                @govukCheckboxes(Checkboxes(
-                    idPrefix = Some("declaration"),
-                    name = "declaration",
-                    items = Seq(
-                        CheckboxItem(
-                            content = Text(messages("declaration.p.ip")),
-                            value = "true"
-                        )
-                    ),
-                    errorMessage =  { model.form.error("declaration").map{ error =>
-                        ErrorMessage(content = Text(messages(error.message)))
-                    }}
-                ))
-            }
-        }
 
-        @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
+        @govukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
 
         }
 }

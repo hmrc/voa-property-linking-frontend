@@ -60,11 +60,7 @@ class DeclarationController @Inject()(
     Ok(
       declarationView(
         DeclarationVM(form),
-        isRatesBillEvidence,
-        request.ses.clientDetails,
-        request.ses.propertyRelationship,
-        request.ses.propertyOwnership,
-        request.ses.uploadEvidenceData
+        isRatesBillEvidence
       ))
   }
 
@@ -77,14 +73,12 @@ class DeclarationController @Inject()(
       .fold(
         _ => {
           val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
-          Future.successful(BadRequest(declarationView(
-            DeclarationVM(formWithNoDeclaration),
-            isRatesBillEvidence,
-            request.ses.clientDetails,
-            request.ses.propertyRelationship,
-            request.ses.propertyOwnership,
-            request.ses.uploadEvidenceData
-          )))
+          Future.successful(
+            BadRequest(
+              declarationView(
+                DeclarationVM(formWithNoDeclaration),
+                isRatesBillEvidence
+              )))
         },
         _ =>
           propertyLinkService
@@ -97,14 +91,11 @@ class DeclarationController @Inject()(
                   logger.warn(
                     s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page")
                   val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
-                  BadRequest(declarationView(
-                    DeclarationVM(form.fill(true).withError("declaration", "declaration.file.receipt")),
-                    isRatesBillEvidence,
-                    request.ses.clientDetails,
-                    request.ses.propertyRelationship,
-                    request.ses.propertyOwnership,
-                    request.ses.uploadEvidenceData
-                  ))
+                  BadRequest(
+                    declarationView(
+                      DeclarationVM(form.fill(true).withError("declaration", "declaration.file.receipt")),
+                      isRatesBillEvidence
+                    ))
                 case MissingRequiredNumberOfFiles =>
                   logger.warn(
                     s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")
