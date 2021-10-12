@@ -24,6 +24,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
+
 @this(mainLayout: mainLayout, govukButton: GovukButton, govukDateInput: GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails,govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios, formWithCSRF: FormWithCSRF)
 
 @(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -134,24 +135,23 @@
                 fieldset = Some(Fieldset(
                                         legend = Some(Legend(
                                         content = Text(messages("enrolment.organisation.individualOrCompany")),
-                                        classes = "govuk-fieldset__legend--m",
-                                        isPageHeading = true
+                                        classes = "govuk-fieldset__legend--m"
                 ))
                 )),
                 errorMessage = model(keys.isAgent).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 idPrefix = Some("isAgent"),
                 name = "isAgent",
             items = Seq(
-                RadioItem(
-                        content = Text("Yes"),
-                        value = Some("true"),
-                        checked = model.data.get("isAgent").fold(false)(_ == "true")
-                ),
-                RadioItem(
-                        content = Text("No"),
-                        value = Some("false"),
-                        checked = model.data.get("isAgent").fold(true)(_ == "false")
-                )
+                    RadioItem(
+                            content = Text("Yes"),
+                            value = Some("true"),
+                            checked = model.data.get("isAgent").fold(false)(_ == "true")
+                    ),
+                    RadioItem(
+                            content = Text("No"),
+                            value = Some("false"),
+                            checked = model.data.get("isAgent").fold(true)(_ == "false")
+                    )
                 ),
             classes = "govuk-radios--inline"
             ))
@@ -165,7 +165,6 @@
                 fieldset = Some(Fieldset(
                                         legend = Some(Legend(
                                         content = Text(messages("label.dob")),
-                                        isPageHeading = true,
                                         classes = "govuk-fieldset__legend--m"
                 ))
                 )),
