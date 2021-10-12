@@ -57,7 +57,11 @@ class DeclarationController @Inject()(
 
   def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
     val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis == RatesBillFlag
-    Ok(declarationView(DeclarationVM(form), isRatesBillEvidence, request.ses.clientDetails))
+    Ok(
+      declarationView(
+        DeclarationVM(form),
+        isRatesBillEvidence
+      ))
   }
 
   /*
@@ -69,8 +73,12 @@ class DeclarationController @Inject()(
       .fold(
         _ => {
           val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
-          Future.successful(BadRequest(
-            declarationView(DeclarationVM(formWithNoDeclaration), isRatesBillEvidence, request.ses.clientDetails)))
+          Future.successful(
+            BadRequest(
+              declarationView(
+                DeclarationVM(formWithNoDeclaration),
+                isRatesBillEvidence
+              )))
         },
         _ =>
           propertyLinkService
@@ -86,8 +94,8 @@ class DeclarationController @Inject()(
                   BadRequest(
                     declarationView(
                       DeclarationVM(form.fill(true).withError("declaration", "declaration.file.receipt")),
-                      isRatesBillEvidence,
-                      request.ses.clientDetails))
+                      isRatesBillEvidence
+                    ))
                 case MissingRequiredNumberOfFiles =>
                   logger.warn(
                     s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")

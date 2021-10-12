@@ -19,8 +19,12 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
-@(model: DeclarationVM, isRatesBillEvidence: Boolean, clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@import java.time.format.DateTimeFormatter
+@import actions.propertylinking.requests.LinkingSessionRequest
+
+@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
+
+@(model: DeclarationVM, isRatesBillEvidence: Boolean, clientDetails: Option[ClientDetails] = None)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @backLink = @{if (isRatesBillEvidence) {
                     controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.RATES_BILL).url
@@ -28,7 +32,26 @@
                     controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url
                 }
 }
+
 @clientId = @{clientDetails.map(_.organisationId)}
+
+@isAgent = @{ clientId match {
+        case Some(id) => true
+        case _ => false
+    }
+}
+
+@propertyOwnershipFromDate = @{request.ses.propertyOwnership.flatMap(_.fromDate)}
+
+@propertyOwnershipToDate = @{request.ses.propertyOwnership.flatMap(_.toDate)}
+
+@propertyRelationshipCapacityName = @{request.ses.propertyRelationship.map(_.capacity).map(_.name).getOrElse("")}
+
+@propertyOwnerShipStillInterested = @{request.ses.propertyOwnership.exists(_.stillInterested)})
+
+@strippedFileName = @{request.ses.uploadEvidenceData.fileInfo.map(_.name.replaceAll("^([^-]+)-", ""))}
+
+@evidenceType = @{request.ses.uploadEvidenceData.fileInfo.flatMap(_.evidenceType).map(_.name).getOrElse("")}
 
 @mainLayout(
     pageTitle = messages("declaration.title"),
@@ -44,38 +67,128 @@
 
     @formWithCSRF(action = controllers.propertyLinking.routes.DeclarationController.submit()) {
 
-        <p class="govuk-body">@messages("declaration.p.1")</p>
+        @govukSummaryList(SummaryList(
+            rows = Seq(
+                SummaryListRow(
+                    key = Key(
+                        content = Text(messages("declaration.checkAnswers.relationshipHeading"))
+                    ),
+                    value = Value(
+                        content = Text(messages(s"declaration.checkAnswers.$propertyRelationshipCapacityName"))
+                    ),
+                    actions = Some(Actions(
+                        items = Seq(
+                            ActionItem(
+                                href = s"${controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url}",
+                                content = Text(messages("declaration.checkAnswers.change")),
+                                visuallyHiddenText = Some(messages("declaration.checkAnswers.relationshipHeading"))
+                            )
+                        )
+                    ))
+                ),
+                SummaryListRow(
+                    key = Key(
+                        content = Text(messages("declaration.checkAnswers.startDateHeading"))
+                    ),
+                    value = Value(
+                        content = Text(
+                            propertyOwnershipFromDate.fold(messages("declaration.checkAnswers.startDate.before2017"))(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
+                        )
+                    ),
+                    actions = Some(Actions(
+                        items = Seq(
+                            ActionItem(
+                                href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
+                                content = Text(messages("declaration.checkAnswers.change")),
+                                visuallyHiddenText = Some(messages("declaration.checkAnswers.startDateHeading"))
+                            )
+                        )
+                    ))
+                ),
+                SummaryListRow(
+                    key = Key(
+                        content =
+                            if (!isAgent) Text(messages("declaration.checkAnswers.propertyOwnership.heading"))
+                            else Text(messages("declaration.checkAnswers.propertyOwnership.heading.agent"))
+                    ),
+                    value = Value(
+                        content =
+                            if (propertyOwnerShipStillInterested) Text(messages("declaration.checkAnswers.propertyOwnership.yes"))
+                            else Text(messages("declaration.checkAnswers.propertyOwnership.no"))
+                    ),
+                    actions = Some(Actions(
+                        items = Seq(
+                            ActionItem(
+                                href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
+                                content = Text(messages("declaration.checkAnswers.change")),
+                                visuallyHiddenText =
+                                    if (!isAgent) Some(messages("declaration.checkAnswers.propertyOwnership.heading"))
+                                    else Some(messages("declaration.checkAnswers.propertyOwnership.heading.agent"))
+                            )
+                        )
+                    ))
+                ),
+                if (!propertyOwnerShipStillInterested){
+                SummaryListRow(
+                    key = Key(
+                        content = Text(messages("declaration.checkAnswers.propertyOwnership.endDate"))
+                    ),
+                    value = Value(
+                        content = Text(
+                            propertyOwnershipToDate.fold("")(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
+                        )
+                    ),
+                    actions = Some(Actions(
+                        items = Seq(
+                            ActionItem(
+                                href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
+                                content = Text(messages("declaration.checkAnswers.change")),
+                                visuallyHiddenText = Some(messages("declaration.checkAnswers.propertyOwnership.endDate"))
+                            )
+                        )
+                    ))
+                )} else SummaryListRow(),
+                SummaryListRow(
+                    key = Key(
+                        content = Text(messages("declaration.checkAnswers.evidenceType.heading"))
+                    ),
+                    value = Value(
+                        content = HtmlContent(messages(s"declaration.checkAnswers.evidenceType.$evidenceType") + s"<br>${strippedFileName.getOrElse("")}")
+                    ),
+                    actions = Some(Actions(
+                        items = Seq(
+                            ActionItem(
+                                href = s"${controllers.propertyLinking.routes.ChooseEvidenceController.show().url}",
+                                content = Text(messages("declaration.checkAnswers.change")),
+                                visuallyHiddenText = Some(messages("declaration.checkAnswers.evidenceType.heading"))
+                            )
+                        )
+                    ))
+                )
+            ).filterNot(_ == SummaryListRow())
+        ))
 
-        <ul class="govuk-list govuk-list--bullet">
-            <li>@messages("declaration.1")</li>
-            <li> @clientId match {
-                case Some(id)   => { @messages("declaration.client.2") }
-                case _          => { @messages("declaration.2") }
-            }</li>
-        </ul>
-
-        <p class="govuk-body">@messages("declaration.p.2")</p>
+        <h2 class="govuk-heading-m">@messages("label.declaration")</h2>
 
         @govukWarningText(WarningText(
             iconFallbackText = "Warning",
             content = Text(messages("declaration.p.3"))
         ))
+                @govukCheckboxes(Checkboxes(
+                    idPrefix = Some("declaration"),
+                    name = "declaration",
+                    items = Seq(
+                        CheckboxItem(
+                            content = if (isAgent) Text(messages("declaration.p.agent")) else Text(messages("declaration.p.ip")),
+                            value = "true"
+                        )
+                    ),
+                    errorMessage =  { model.form.error("declaration").map{ error =>
+                        ErrorMessage(content = Text(messages(error.message)))
+                    }}
+                ))
 
-        @govukCheckboxes(Checkboxes(
-            idPrefix = Some("declaration"),
-            name = "declaration",
-            items = Seq(
-                CheckboxItem(
-                    content = Text(messages("declaration.iAgree")),
-                    value = "true"
-                )
-            ),
-            errorMessage =  { model.form.error("declaration").map{ error =>
-                ErrorMessage(content = Text(messages(error.message)))
-            }}
-        ))
-
-        @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
+        @govukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
 
         }
 }

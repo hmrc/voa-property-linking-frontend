@@ -759,7 +759,7 @@ uploadFile.allowedTypes.mustbe=Your file must be:
 uploadFile.allowedTypes.l1=Only Word, Excel, PDF and JPEG files can be accepted and maximum file size is 10MB
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
-uploadRatesBill.show.button=Confirm
+uploadRatesBill.show.button=Confirm and send
 chooseEvidence.title=Do you have a copy of the business rates bill for this property?
 chooseEvidence.client.title=Provide a copy of your client''s business rates bill
 label.hasRatesBill=Do you have a copy of the business rates bill for this property?
@@ -838,13 +838,36 @@ noEvidenceUploaded.email=Email
 noEvidenceUploaded.emailaddress=<a href="mailto:{0}" class="govuk-link">{0}</a>
 
 #PROPERTY LINKING SUMMARY
-declaration.title=Declaration
+declaration.checkAnswers.relationshipHeading=Relationship to property
+declaration.checkAnswers.OWNER=Owner
+declaration.checkAnswers.OWNER_OCCUPIER=Owner and occupier
+declaration.checkAnswers.OCCUPIER=Occupier
+declaration.checkAnswers.startDateHeading=Start date
+declaration.checkAnswers.startDate.before2017=On or before 1 April 2017
+declaration.checkAnswers.propertyOwnership.heading=Do you still own or occupy the property?
+declaration.checkAnswers.propertyOwnership.heading.agent=Does your client still own or occupy the property?
+declaration.checkAnswers.propertyOwnership.yes=Yes
+declaration.checkAnswers.propertyOwnership.no=No
+declaration.checkAnswers.propertyOwnership.endDate=End date
+declaration.checkAnswers.evidenceType.heading=Evidence type
+declaration.checkAnswers.evidenceType.ratesBill=Business rates bill
+declaration.checkAnswers.evidenceType.lease=Lease \n
+declaration.checkAnswers.evidenceType.license=License to occupy property
+declaration.checkAnswers.evidenceType.serviceCharge=Service charge
+declaration.checkAnswers.evidenceType.stampDutyLandTaxForm=Stamp Duty Land Tax form
+declaration.checkAnswers.evidenceType.waterRateDemand=Water rate demand
+declaration.checkAnswers.evidenceType.otherUtilityBill=Other utility bill
+declaration.checkAnswers.evidenceType.landRegistryTitle=Land Registry title documents
+declaration.checkAnswers.change=Change
+declaration.title=Check and confirm your claim details
 declaration.p.1=I declare that:
 declaration.1=the information I have given in this form is correct and complete
 declaration.2=the file/details that I have uploaded contains proof of my relationship to the property for dates that overlap with the period claimed
 declaration.client.2=the file/details that I have uploaded contains proof of my client''s relationship to the property for dates that overlap with the period claimed
 declaration.p.2=I understand that I could be taken to court if I knowingly submit false information.
-declaration.p.3=Once you submit the form you will not be able to go back and make any changes.
+declaration.p.3=You could be taken to court if you knowingly submit false information.
+declaration.p.agent=I declare that the information I have given in this form is correct and complete. The evidence I have uploaded contains proof of my client's relationship to the property for dates that overlap with the period claimed.
+declaration.p.ip=I declare that the information I have given in this form is correct and complete. The evidence I have uploaded contains proof of my relationship to the property for dates that overlap with the period claimed.
 
 label.declaration=Declaration
 declaration.iAgree=I agree to the above declaration
