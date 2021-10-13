@@ -28,7 +28,6 @@ import connectors.vmv.VmvConnector
 import controllers._
 import form.EnumMapping
 import models._
-import models.properties.PropertyHistory
 import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
