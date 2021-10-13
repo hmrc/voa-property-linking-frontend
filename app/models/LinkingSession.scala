@@ -28,7 +28,8 @@ case class LinkingSession(
       hasRatesBill: Option[Boolean],
       uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty,
       evidenceType: Option[EvidenceType] = None,
-      clientDetails: Option[ClientDetails] = None)
+      clientDetails: Option[ClientDetails] = None,
+      localAuthorityReference: String)
 
 object LinkingSession {
   implicit val format = Json.format[LinkingSession]

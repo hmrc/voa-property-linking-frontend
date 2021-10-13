@@ -123,7 +123,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
-    when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
+    when(mockLinkingRequestSubmittedView.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
@@ -139,7 +139,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   it should "display the normal confirmation page when the user has uploaded other evidence" in new Setup {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
-    when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
+    when(mockLinkingRequestSubmittedView.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
@@ -156,7 +156,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
-    when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
+    when(mockLinkingRequestSubmittedView.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("PL-123456"))
 
     val res = TestDeclaration.confirmation()(FakeRequest())

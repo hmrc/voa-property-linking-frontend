@@ -115,8 +115,10 @@ class DeclarationController @Inject()(
 
   def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     sessionRepository.remove().map { _ =>
-      Ok(linkingRequestSubmittedView(
-        RequestSubmittedVM(request.ses.address, request.ses.submissionId, request.ses.clientDetails)))
+      Ok(
+        linkingRequestSubmittedView(
+          RequestSubmittedVM(request.ses.address, request.ses.submissionId, request.ses.clientDetails),
+          request.ses.localAuthorityReference))
     }
   }
 

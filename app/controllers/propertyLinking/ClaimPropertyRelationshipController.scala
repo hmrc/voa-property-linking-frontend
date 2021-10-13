@@ -28,6 +28,7 @@ import connectors.vmv.VmvConnector
 import controllers._
 import form.EnumMapping
 import models._
+import models.properties.PropertyHistory
 import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
@@ -114,7 +115,7 @@ class ClaimPropertyRelationshipController @Inject()(
           },
           formData =>
             vmvConnector.getPropertyHistory(uarn).flatMap { property =>
-              initialiseSession(formData, uarn, property.addressFull, clientDetails)
+              initialiseSession(formData, property.localAuthorityReference, uarn, property.addressFull, clientDetails)
                 .map { _ =>
                   Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
                 }
@@ -140,6 +141,7 @@ class ClaimPropertyRelationshipController @Inject()(
 
   private def initialiseSession(
         propertyRelationship: PropertyRelationship,
+        localAuthorityReference: String,
         uarn: Long,
         address: String,
         clientDetails: Option[ClientDetails])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
@@ -154,7 +156,8 @@ class ClaimPropertyRelationshipController @Inject()(
               propertyRelationship = Some(propertyRelationship),
               propertyOwnership = None,
               hasRatesBill = None,
-              clientDetails = clientDetails
+              clientDetails = clientDetails,
+              localAuthorityReference = localAuthorityReference
             ))
     } yield ()
 

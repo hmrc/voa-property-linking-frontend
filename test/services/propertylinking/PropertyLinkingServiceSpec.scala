@@ -54,7 +54,8 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
       hasRatesBill = Some(true),
       uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
       evidenceType = Some(RatesBillType),
-      clientDetails = clientDetails
+      clientDetails = clientDetails,
+      localAuthorityReference = "12341531531"
     ),
     organisationId = 1L,
     individualAccount = detailedIndividualAccount,
