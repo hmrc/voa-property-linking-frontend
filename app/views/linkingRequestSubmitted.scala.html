@@ -20,7 +20,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @this(govukPanel: GovukPanel, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
-@(model: RequestSubmittedVM, localAuthorityReference: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @clientParameter = @{
         model.clientDetails match {
@@ -50,7 +50,7 @@
 ) {
     <ul class="govuk-list">
         <li>
-            <b>Local authority reference:</b> @localAuthorityReference
+            <b>Local authority reference:</b> @model.localAuthorityReference
         </li>
         <li>
             <b>Property:</b> @model.address

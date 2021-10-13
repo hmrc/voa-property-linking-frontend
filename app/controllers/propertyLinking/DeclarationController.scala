@@ -117,8 +117,11 @@ class DeclarationController @Inject()(
     sessionRepository.remove().map { _ =>
       Ok(
         linkingRequestSubmittedView(
-          RequestSubmittedVM(request.ses.address, request.ses.submissionId, request.ses.clientDetails),
-          request.ses.localAuthorityReference))
+          RequestSubmittedVM(
+            request.ses.address,
+            request.ses.submissionId,
+            request.ses.clientDetails,
+            request.ses.localAuthorityReference)))
     }
   }
 
@@ -128,4 +131,8 @@ class DeclarationController @Inject()(
 
 case class DeclarationVM(form: Form[_])
 
-case class RequestSubmittedVM(address: String, refId: String, clientDetails: Option[ClientDetails] = None)
+case class RequestSubmittedVM(
+      address: String,
+      refId: String,
+      clientDetails: Option[ClientDetails] = None,
+      localAuthorityReference: String)
