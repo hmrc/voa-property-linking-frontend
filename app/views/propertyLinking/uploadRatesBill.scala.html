@@ -80,7 +80,7 @@
                 <a id="newFileButton" href="#" class="govuk-button govuk-button--secondary">@messages("fileupload.chooseFile")</a>
             </div>
         }else{
-            @GovukWarningText(WarningText(
+            @govukWarningText(WarningText(
                 iconFallbackText = "Warning",
                 content = Text(messages("businessRatesAttachment.file.size.reached.max.limit"))
             ))
@@ -104,7 +104,7 @@
         </table>
     }
     @formWithCSRF(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
-        @GovukButton(Button(
+        @govukButton(Button(
             content = Text(messages("uploadRatesBill.show.button")),
             attributes = Map("id" -> "continue")
         ))
