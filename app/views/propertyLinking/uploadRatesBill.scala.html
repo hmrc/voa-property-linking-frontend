@@ -104,7 +104,10 @@
         </table>
     }
     @formWithCSRF(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
-        @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
+        @GovukButton(Button(
+            content = Text(messages("uploadRatesBill.show.button")),
+            attributes = Map("id" -> "continue")
+        ))
     }
 
     <span id="businessRatesAttachmentsRemoveFileURL" class="govuk-visually-hidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/remove?fileReference="}</span>

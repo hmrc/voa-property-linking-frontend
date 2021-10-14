@@ -114,7 +114,7 @@ class ClaimPropertyRelationshipController @Inject()(
           },
           formData =>
             vmvConnector.getPropertyHistory(uarn).flatMap { property =>
-              initialiseSession(formData, uarn, property.addressFull, clientDetails)
+              initialiseSession(formData, property.localAuthorityReference, uarn, property.addressFull, clientDetails)
                 .map { _ =>
                   Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
                 }
@@ -140,6 +140,7 @@ class ClaimPropertyRelationshipController @Inject()(
 
   private def initialiseSession(
         propertyRelationship: PropertyRelationship,
+        localAuthorityReference: String,
         uarn: Long,
         address: String,
         clientDetails: Option[ClientDetails])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
@@ -154,7 +155,8 @@ class ClaimPropertyRelationshipController @Inject()(
               propertyRelationship = Some(propertyRelationship),
               propertyOwnership = None,
               hasRatesBill = None,
-              clientDetails = clientDetails
+              clientDetails = clientDetails,
+              localAuthorityReference = localAuthorityReference
             ))
     } yield ()
 
