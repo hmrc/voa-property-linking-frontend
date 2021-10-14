@@ -87,23 +87,19 @@
     }
 }
 
-@sortAddress = {
-    @{
+@sortAddress = @{
         params.sortorder match {
             case ExternalPropertyLinkManagementSortOrder.ASC => "sort_asc"
             case ExternalPropertyLinkManagementSortOrder.DESC => "sort_desc"
             case _ => "sort"
         }
     }
-}
 
-@ariaSortAddress = {
-    @{
-        params.sortorder match {
-            case ExternalPropertyLinkManagementSortOrder.ASC => "ascending"
-            case ExternalPropertyLinkManagementSortOrder.DESC => "descending"
-            case _ => "none"
-        }
+@ariaSortAddress = @{
+    params.sortorder match {
+        case ExternalPropertyLinkManagementSortOrder.ASC => "ascending"
+        case ExternalPropertyLinkManagementSortOrder.DESC => "descending"
+        case _ => "none"
     }
 }
 
