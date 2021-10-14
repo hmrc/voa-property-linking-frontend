@@ -140,7 +140,8 @@ trait VoaPropertyLinkingSpec
                 hasRatesBill = Some(true),
                 uploadEvidenceData = evidenceData,
                 evidenceType = Some(RatesBillType),
-                clientDetails = Some(ClientDetails(100, "ABC"))
+                clientDetails = Some(ClientDetails(100, "ABC")),
+                localAuthorityReference = "12341531531"
               ),
               organisationId = 1L,
               individualAccount = request.individualAccount,

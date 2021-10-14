@@ -377,13 +377,14 @@ package object utils {
     enrolmentIndAccountDetailsGen)
 
   private val linkingSessionGen: Gen[LinkingSession] = for {
-    address            <- shortString
-    uarn               <- positiveLong
-    submissionId       <- shortString
-    personId           <- positiveLong
-    relationship       <- propertyRelationshipGen
-    ownership          <- propertyOwnershipGen
-    uploadEvidenceData <- Gen.const(UploadEvidenceData.empty)
+    address                 <- shortString
+    uarn                    <- positiveLong
+    submissionId            <- shortString
+    personId                <- positiveLong
+    relationship            <- propertyRelationshipGen
+    ownership               <- propertyOwnershipGen
+    uploadEvidenceData      <- Gen.const(UploadEvidenceData.empty)
+    localAuthorityReference <- shortString
   } yield
     LinkingSession(
       address = address,
@@ -393,7 +394,8 @@ package object utils {
       propertyRelationship = Some(relationship),
       propertyOwnership = Some(ownership),
       hasRatesBill = Some(true),
-      uploadEvidenceData = uploadEvidenceData
+      uploadEvidenceData = uploadEvidenceData,
+      localAuthorityReference = localAuthorityReference
     )
 
   implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)

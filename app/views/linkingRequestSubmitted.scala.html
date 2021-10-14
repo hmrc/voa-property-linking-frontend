@@ -42,23 +42,30 @@
         case _        => ""
     }
 }
+@homeLink = @{
+    config.dashboardUrl("home")
+}
 @mainLayout(
     pageTitle = messages("linkingRequestSubmitted.title")
 ) {
+    <ul class="govuk-list">
+        <li>
+            <b>Local authority reference:</b> @model.localAuthorityReference
+        </li>
+        <li>
+            <b>Property:</b> @model.address
+        </li>
+    </ul>
     @govukPanel(Panel(
-        title = Text( s"${messages("linkingRequestSubmitted.title1")} ${model.address} ${messages(s"linkingRequestSubmitted$clientSuffix.title2")}"),
+        title = Text(messages("linkingRequestSubmitted.title1")),
         content = HtmlContent(s"${messages("linkingRequestSubmitted.title3")}<br><strong>${model.refId}</strong>")
     ))
+            <p class="govuk-body">@messages("linkingRequestSubmitted.p1")</p>
 
             <h2 class="govuk-heading-m">@messages("heading.whatNext")</h2>
 
             <p class="govuk-body">@messages("linkSubmitted.whatNext.1")</p>
-            <p class="govuk-body">@messages("linkSubmitted.whatNext.2")</p>
+            <p class="govuk-body">@Html(messages("linkSubmitted.whatNext.2", managePropertiesUrl))</p>
             <p class="govuk-body">@messages("linkSubmitted.whatNext.3")</p>
-            <p class="govuk-body">@messages("linkSubmitted.whatNext.4")</p>
-
-            <p class="govuk-body"><a class="govuk-link" href="@{controllers.propertyLinking.routes.ClaimPropertyRelationshipController.show().url + clientParameter}">@messages("link.addAnotherProperty")</a></p>
-
-            <p class="govuk-body"><a href="@managePropertiesUrl" id="backToDashBoard" class="govuk-button" role="button">@messages("link.manageProperties")</a></p>
-
+            <p class="govuk-body">@Html(messages("linkSubmitted.whatNext.4", homeLink))</p>
 }
