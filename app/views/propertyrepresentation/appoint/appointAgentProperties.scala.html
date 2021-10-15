@@ -120,28 +120,25 @@
     }
 }
 
-@sortOrder(order: ExternalPropertyLinkManagementSortOrder, isSortField: Boolean) = {
-    @{
-        if(isSortField){
-            order match {
-                case ExternalPropertyLinkManagementSortOrder.ASC => "sort_asc"
-                case ExternalPropertyLinkManagementSortOrder.DESC => "sort_desc"
-                case _ => ""
-            }
-        } else ""
-    }
+@sortOrder(order: ExternalPropertyLinkManagementSortOrder, isSortField: Boolean) = @{
+    if(isSortField){
+        order match {
+            case ExternalPropertyLinkManagementSortOrder.ASC => "sort_asc"
+            case ExternalPropertyLinkManagementSortOrder.DESC => "sort_desc"
+            case _ => ""
+        }
+    } else ""
 }
 
-@ariaSortOrder(order: ExternalPropertyLinkManagementSortOrder, isSortField: Boolean) = {
-    @{
-        if(isSortField){
-            order match {
-                case ExternalPropertyLinkManagementSortOrder.ASC => "ascending"
-                case ExternalPropertyLinkManagementSortOrder.DESC => "descending"
-                case _ => "none"
-            }
-        } else "none"
-    }
+
+@ariaSortOrder(order: ExternalPropertyLinkManagementSortOrder, isSortField: Boolean) = @{
+    if(isSortField){
+        order match {
+            case ExternalPropertyLinkManagementSortOrder.ASC => "ascending"
+            case ExternalPropertyLinkManagementSortOrder.DESC => "descending"
+            case _ => "none"
+        }
+    } else "none"
 }
 
 @errorLinks = @{
