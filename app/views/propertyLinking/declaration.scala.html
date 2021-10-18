@@ -63,6 +63,15 @@
         @govukErrorSummary(ErrorSummary(errorList = model.form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
+    <ul class="govuk-list">
+        <li>
+            <b>Local authority reference:</b> @model.localAuthorityReference
+        </li>
+        <li>
+            <b>Property:</b> @model.address
+        </li>
+    </ul>
+
     <h1 class="govuk-heading-l">@messages("declaration.title")</h1>
 
     @formWithCSRF(action = controllers.propertyLinking.routes.DeclarationController.submit()) {
@@ -81,7 +90,8 @@
                             ActionItem(
                                 href = s"${controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
-                                visuallyHiddenText = Some(messages("declaration.checkAnswers.relationshipHeading"))
+                                visuallyHiddenText = Some(messages("declaration.checkAnswers.relationshipHeading")),
+                                attributes = Map("id" -> "propertyRelationshipChange")
                             )
                         )
                     ))
@@ -100,7 +110,8 @@
                             ActionItem(
                                 href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
-                                visuallyHiddenText = Some(messages("declaration.checkAnswers.startDateHeading"))
+                                visuallyHiddenText = Some(messages("declaration.checkAnswers.startDateHeading")),
+                                attributes = Map("id" -> "startDateChange")
                             )
                         )
                     ))
@@ -121,6 +132,7 @@
                             ActionItem(
                                 href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
+                                attributes = Map("id" -> "propertyOwnershipChange"),
                                 visuallyHiddenText =
                                     if (!isAgent) Some(messages("declaration.checkAnswers.propertyOwnership.heading"))
                                     else Some(messages("declaration.checkAnswers.propertyOwnership.heading.agent"))
@@ -143,7 +155,8 @@
                             ActionItem(
                                 href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
-                                visuallyHiddenText = Some(messages("declaration.checkAnswers.propertyOwnership.endDate"))
+                                visuallyHiddenText = Some(messages("declaration.checkAnswers.propertyOwnership.endDate")),
+                                attributes = Map("id" -> "endDateChange")
                             )
                         )
                     ))
@@ -159,13 +172,15 @@
                         items = Seq(
                             ActionItem(
                                 href = s"${controllers.propertyLinking.routes.ChooseEvidenceController.show().url}",
+                                attributes = Map("id" -> "evidenceTypeChange"),
                                 content = Text(messages("declaration.checkAnswers.change")),
                                 visuallyHiddenText = Some(messages("declaration.checkAnswers.evidenceType.heading"))
                             )
                         )
                     ))
                 )
-            ).filterNot(_ == SummaryListRow())
+            ).filterNot(_ == SummaryListRow()),
+            attributes = Map("id" -> "checkYourAnswers")
         ))
 
         <h2 class="govuk-heading-m">@messages("label.declaration")</h2>
@@ -188,7 +203,10 @@
                     }}
                 ))
 
-        @govukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
+        @govukButton(Button(
+            content = Text(messages("declaration.button")),
+            attributes = Map("id" -> "confirmAndSend")
+        ))
 
         }
 }

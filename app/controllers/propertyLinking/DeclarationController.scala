@@ -59,7 +59,7 @@ class DeclarationController @Inject()(
     val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis == RatesBillFlag
     Ok(
       declarationView(
-        DeclarationVM(form),
+        DeclarationVM(form, request.ses.address, request.ses.localAuthorityReference),
         isRatesBillEvidence
       ))
   }
@@ -76,7 +76,7 @@ class DeclarationController @Inject()(
           Future.successful(
             BadRequest(
               declarationView(
-                DeclarationVM(formWithNoDeclaration),
+                DeclarationVM(formWithNoDeclaration, request.ses.address, request.ses.localAuthorityReference),
                 isRatesBillEvidence
               )))
         },
@@ -91,11 +91,13 @@ class DeclarationController @Inject()(
                   logger.warn(
                     s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page")
                   val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
-                  BadRequest(
-                    declarationView(
-                      DeclarationVM(form.fill(true).withError("declaration", "declaration.file.receipt")),
-                      isRatesBillEvidence
-                    ))
+                  BadRequest(declarationView(
+                    DeclarationVM(
+                      form.fill(true).withError("declaration", "declaration.file.receipt"),
+                      request.ses.address,
+                      request.ses.localAuthorityReference),
+                    isRatesBillEvidence
+                  ))
                 case MissingRequiredNumberOfFiles =>
                   logger.warn(
                     s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")
@@ -129,7 +131,7 @@ class DeclarationController @Inject()(
   lazy val formWithNoDeclaration = form.withError(FormError("declaration", "declaration.required"))
 }
 
-case class DeclarationVM(form: Form[_])
+case class DeclarationVM(form: Form[_], address: String, localAuthorityReference: String)
 
 case class RequestSubmittedVM(
       address: String,

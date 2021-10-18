@@ -19,7 +19,7 @@
 @import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
 @import models.upscan._
-@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(
         submissionId: String,
@@ -80,7 +80,7 @@
                 <a id="newFileButton" href="#" class="govuk-button govuk-button--secondary">@messages("fileupload.chooseFile")</a>
             </div>
         }else{
-            @GovukWarningText(WarningText(
+            @govukWarningText(WarningText(
                 iconFallbackText = "Warning",
                 content = Text(messages("businessRatesAttachment.file.size.reached.max.limit"))
             ))
@@ -104,7 +104,10 @@
         </table>
     }
     @formWithCSRF(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
-        @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
+        @govukButton(Button(
+            content = Text(messages("uploadRatesBill.show.button")),
+            attributes = Map("id" -> "continue")
+        ))
     }
 
     <span id="businessRatesAttachmentsRemoveFileURL" class="govuk-visually-hidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/remove?fileReference="}</span>
