@@ -48,7 +48,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout),
       requestDetailedValuationView = new requestDetailedValuation(mainLayout, GovukButton, FormWithCSRF),
       requestedDetailedValuationView = new requestedDetailedValuation(mainLayout),
-      dvrFilesView = new dvrFiles(mainLayout, GovukButton, GovukDetails),
+      dvrFilesView = new dvrFiles(mainLayout, GovukButton, GovukDetails, GovukWarningText),
       cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout),
       propertyMissingView = new propertyMissing(mainLayout)
     )

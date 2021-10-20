@@ -21,7 +21,7 @@
 @import views.html.dvr.challengeCasesDetails
 @import views.html.dvr.checkCasesDetails
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukDetails: GovukDetails)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukDetails: GovukDetails, govukWarningText : GovukWarningText)
 
 @(model: AvailableRequestDetailedValuation,
         submissionId: String,
@@ -65,6 +65,12 @@
 
         <p class="govuk-body">@Html(messages("available.requestvaluation.dvrCheck.p1", evaluateRoute(model.check)))</p>
         <p class="govuk-body">@messages("available.requestvaluation.dvrCheck.p2")</p>
+
+        @govukWarningText(WarningText(
+            iconFallbackText = "Warning",
+            content = Text(messages("available.requestvaluation.warning"))
+        ))
+
         @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl)))
 
         <br/>
