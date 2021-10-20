@@ -21,7 +21,7 @@
 @import models.upscan._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukWarningText: GovukWarningText)
 @(
         submissionId: String,
         errors: List[String] = Nil,
@@ -104,7 +104,7 @@
                                 <a id="newFileButton" href="#" class="govuk-button govuk-button--secondary">@messages("fileupload.chooseFile")</a>
                             </div>
                         }else{
-                            @GovukWarningText(WarningText(
+                            @govukWarningText(WarningText(
                                 iconFallbackText = "Warning",
                                 content = Text(messages("businessRatesAttachment.file.size.reached.max.limit"))
                             ))
@@ -144,7 +144,10 @@
                             ErrorMessage(content = Text(messages(error.message)))
                         }}
                     ))
-                    @GovukButton(Button(content = Text(messages("uploadRatesBill.show.button"))))
+                    @govukButton(Button(
+                        content = Text(messages("uploadRatesBill.show.button")),
+                        attributes = Map("id" -> "continue")
+                    ))
                 }
 
             </div>
