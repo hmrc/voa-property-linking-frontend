@@ -20,26 +20,22 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{mock, when}
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.Layouts
-import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 import views.html.propertyrepresentation.appoint._
 import views.html.{addUserToGG, start}
 
-trait FakeViews extends Layouts {
-
-  // all deprecated classes should be located in this file until DI is introduced
+trait FakeViews extends GdsComponents with Layouts {
 
   // all val's referencing mainLayout need to be lazy as some of the deprecated objects
   // are not available until the fake application is running
   // (e.g. HmrcStandardFooter & HmrcTrackingConsentSnippet)
   lazy val mainLayout = new views.html.mainLayout(
-    govukTemplate = GovukTemplate,
-    govukHeader = GovukHeader,
-    govukFooter = GovukFooter,
-    govukBackLink = GovukBackLink,
-    govukDetails = GovukDetails,
-    govukPhaseBanner = GovukPhaseBanner,
+    govukTemplate = govukTemplate,
+    govukHeader = govukHeader,
+    govukFooter = govukFooter,
+    govukBackLink = govukBackLink,
+    govukDetails = govukDetails,
+    govukPhaseBanner = govukPhaseBanner,
     hmrcStandardFooter = {
       val m = mock(classOf[HmrcStandardFooter])
       when(m.apply(any(), any())(any(), any())).thenReturn(Html(""))
@@ -53,94 +49,94 @@ trait FakeViews extends Layouts {
     head = new views.html.head()
   )
 
-  lazy val startView = new start(mainLayout, GovukInsetText, GovukDetails)
+  lazy val startView = new start(mainLayout, govukInsetText, govukDetails)
   lazy val addUsertoGGView = new addUserToGG(mainLayout)
-  lazy val assessmentsView = new views.html.dashboard.assessments(mainLayout, GovukDetails)
-  lazy val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
+  lazy val assessmentsView = new views.html.dashboard.assessments(mainLayout, govukDetails)
+  lazy val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
   lazy val invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout)
 
   lazy val registerIndividualView = new views.html.createAccount.registerIndividual(
     mainLayout,
-    GovukInsetText,
-    GovukDetails,
-    GovukErrorSummary,
-    GovukInput,
-    GovukDateInput,
-    GovukButton,
-    FormWithCSRF)
+    govukInsetText,
+    govukDetails,
+    govukErrorSummary,
+    govukInput,
+    govukDateInput,
+    govukButton,
+    formWithCSRF)
 
   lazy val registerOrganisationView =
     new views.html.createAccount.registerOrganisation(
       mainLayout,
-      GovukButton,
-      GovukDateInput,
-      GovukInsetText,
-      GovukDetails,
-      GovukErrorSummary,
-      GovukInput,
-      GovukRadios,
-      FormWithCSRF)
+      govukButton,
+      govukDateInput,
+      govukInsetText,
+      govukDetails,
+      govukErrorSummary,
+      govukInput,
+      govukRadios,
+      formWithCSRF)
 
   lazy val registerAssistantAdminView = new views.html.createAccount.registerAssistantAdmin(
     mainLayout,
-    GovukInsetText,
-    GovukDetails,
-    GovukErrorSummary,
-    GovukInput,
-    GovukButton,
-    GovukDateInput,
-    FormWithCSRF)
+    govukInsetText,
+    govukDetails,
+    govukErrorSummary,
+    govukInput,
+    govukButton,
+    govukDateInput,
+    formWithCSRF)
 
   lazy val registerAssistantView = new views.html.createAccount.registerAssistant(
     mainLayout,
-    GovukInsetText,
-    GovukDetails,
-    GovukErrorSummary,
-    GovukInput,
-    GovukButton,
-    FormWithCSRF)
+    govukInsetText,
+    govukDetails,
+    govukErrorSummary,
+    govukInput,
+    govukButton,
+    formWithCSRF)
 
   lazy val registerConfirmationView =
-    new views.html.createAccount.registrationConfirmation(mainLayout, GovukInsetText, GovukDetails, GovukButton)
+    new views.html.createAccount.registrationConfirmation(mainLayout, govukInsetText, govukDetails, govukButton)
 
   lazy val revokeAgentSummaryView =
-    new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, GovukButton, GovukPanel)
-  lazy val appointAgentSummaryView = new appointAgentSummary(mainLayout, GovukButton, GovukPanel)
+    new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, govukButton, govukPanel)
+  lazy val appointAgentSummaryView = new appointAgentSummary(mainLayout, govukButton, govukPanel)
   lazy val revokeAgentPropertiesView = new views.html.propertyrepresentation.revokeAgentProperties(
     mainLayout,
-    FormWithCSRF,
-    GovukErrorSummary,
-    GovukInput,
-    GovukTable,
-    GovukButton)
+    formWithCSRF,
+    govukErrorSummary,
+    govukInput,
+    govukTable,
+    govukButton)
 
   lazy val appointAgentPropertiesView = new views.html.propertyrepresentation.appoint.appointAgentProperties(
     mainLayout,
-    FormWithCSRF,
-    GovukErrorSummary,
-    GovukInput,
-    GovukTable,
-    GovukButton)
+    formWithCSRF,
+    govukErrorSummary,
+    govukInput,
+    govukTable,
+    govukButton)
 
   lazy val updateBusinessAddressView =
-    new views.html.details.updateBusinessAddress(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+    new views.html.details.updateBusinessAddress(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val updateBusinessNameView =
-    new views.html.details.updateBusinessName(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+    new views.html.details.updateBusinessName(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val updateBusinessPhoneView =
-    new views.html.details.updateBusinessPhone(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+    new views.html.details.updateBusinessPhone(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val updateBusinessEmailView =
-    new views.html.details.updateBusinessEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+    new views.html.details.updateBusinessEmail(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
 
   lazy val updateAddressView =
-    new views.html.details.updateAddress(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+    new views.html.details.updateAddress(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val updatePhoneView =
-    new views.html.details.updatePhone(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+    new views.html.details.updatePhone(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val updateMobileView =
-    new views.html.details.updateMobile(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+    new views.html.details.updateMobile(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val updateEmailView =
-    new views.html.details.updateEmail(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+    new views.html.details.updateEmail(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val updateNameView =
-    new views.html.details.updateName(mainLayout, GovukButton, GovukInput, FormWithCSRF, GovukErrorSummary)
+    new views.html.details.updateName(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val managedByAgentsPropertiesView = new views.html.dashboard.managedByAgentsProperties(mainLayout)
   lazy val termsAndConditionsView = new views.html.createAccount.termsAndConditions(mainLayout)
 
