@@ -64,7 +64,7 @@ lazy val microservice = Project(appName, file("."))
       "uk.gov.hmrc.govukfrontend.views.html.helpers._"
     )
   )
-  .settings(evictionWarningOptions in update := EvictionWarningOptions.default
+  .settings(update / evictionWarningOptions := EvictionWarningOptions.default
     .withWarnTransitiveEvictions(false)
     .withWarnDirectEvictions(false)
     .withWarnScalaVersionEviction(false))
@@ -87,9 +87,9 @@ val playSettings: Seq[Setting[_]] = Seq(
     "models.ClientDetails"
   ),
   // Add the views to the dist
-  unmanagedResourceDirectories in Assets += baseDirectory.value / "app" / "assets",
+  Assets / unmanagedResourceDirectories  += baseDirectory.value / "app" / "assets",
   // Dont include the source assets in the dist package (public folder)
-  excludeFilter in Assets := "fonts" || "tasks" || "karma.conf.js" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
+  Assets / excludeFilter := "fonts" || "tasks" || "karma.conf.js" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
 ) ++ JavaScriptBuild.javaScriptUiSettings
 
 lazy val compileScalastyle = taskKey[Unit]("compileScalastyle")
@@ -111,7 +111,7 @@ lazy val scoverageSettings = {
 scalacOptions += "-P:silencer:pathFilters=target/.*"
 // Make sure you only exclude warnings for the project directories, i.e. make builds reproducible
 scalacOptions += s"-P:silencer:sourceRoots=${baseDirectory.value.getCanonicalPath}"
-scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation", "-feature")
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
 
 lazy val compileDependencies = Seq(

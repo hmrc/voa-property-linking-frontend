@@ -93,16 +93,16 @@
                 },
                 crossDomain: false,
                 cache: false
-            }).error(function (jqXHR, textStatus, errorThrown) {
+            }).fail(function (jqXHR) {
                 if (jqXHR.status === 400) {
-                    addError(jqXHR.responseJSON);
+                    addError(jqXHR.json);
                 } else if (jqXHR.status === 413) {
                     $('#message-warning').addClass('govuk-visually-hidden');
                     addError($('#errorsFileSizeTooLarge').text());
                 } else if (jqXHR.status > 400) {
                     $('#message-warning').addClass('govuk-visually-hidden');
                     addError($('#errorsUpscan').text());
-                } else if (!jqXHR.satus) {
+                } else if (!jqXHR.status) {
                     var continueUrl = $("#startClaimUrl").text();
                     window.location.href =
                         $("#signInPageUrl").text()+"?continue=" + encodeURIComponent(continueUrl)+ "&origin=voa-property-linking-frontend";
