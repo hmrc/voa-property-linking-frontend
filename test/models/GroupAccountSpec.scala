@@ -16,7 +16,7 @@
 
 package models
 
-import models.GroupAccount.{AgentCompanyNameAndCode, AgentGroupAccount}
+import models.GroupAccount.AgentGroupAccount
 import org.scalatest.Matchers.convertToAnyShouldWrapper
 import org.scalatest.{FlatSpec, MustMatchers}
 
@@ -46,14 +46,6 @@ class GroupAccountSpec extends FlatSpec with MustMatchers {
     isAgent = false,
     agentCode = None
   )
-
-  "AgentCompanyNameAndCode" must "extract company name and agent code if there is an agent" in {
-    AgentCompanyNameAndCode.unapply(agentGroupAccount) shouldBe Some(testCompanyName, agentCode)
-  }
-
-  "AgentCompanyNameAndCode" must "return none if the account is a non-agent account" in {
-    AgentCompanyNameAndCode.unapply(ipGroupAccount) shouldBe None
-  }
 
   "AgentGroupAccount" must "extract agent code if there is an agent" in {
     AgentGroupAccount.unapply(agentGroupAccount) shouldBe Some(agentGroupAccount, agentCode)

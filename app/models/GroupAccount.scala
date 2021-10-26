@@ -40,11 +40,4 @@ object GroupAccount {
       }
   }
 
-  object AgentCompanyNameAndCode {
-    def unapply(account: GroupAccount): Option[(String, Long)] =
-      PartialFunction.condOpt(account) {
-        case acc @ GroupAccount(_, _, companyName, _, _, _, true, Some(code)) =>
-          (companyName, code)
-      }
-  }
 }

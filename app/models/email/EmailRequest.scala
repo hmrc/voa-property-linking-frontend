@@ -16,7 +16,7 @@
 
 package models.email
 
-import models.GroupAccount.AgentCompanyNameAndCode
+import models.GroupAccount.AgentGroupAccount
 import models.{DetailedIndividualAccount, GroupAccount}
 import play.api.libs.json.{Json, OFormat}
 import uk.gov.hmrc.auth.core.AffinityGroup
@@ -34,13 +34,13 @@ object EmailRequest {
         groupAccount: Option[GroupAccount],
         affinityGroupOpt: Option[AffinityGroup] = None): EmailRequest =
     groupAccount match {
-      case Some(AgentCompanyNameAndCode(companyName, agentCode)) =>
+      case Some(AgentGroupAccount(groupAccount, agentCode)) =>
         EmailRequest(
           List(to),
           "cca_enrolment_confirmation_agent",
           Map(
             "agentCode" -> agentCode.toString,
-            "orgName"   -> companyName,
+            "orgName"   -> groupAccount.companyName,
             "personId"  -> detailedIndividualAccount.individualId.toString,
             "name"      -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
           )
