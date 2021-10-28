@@ -16,9 +16,20 @@
 
 package utils
 
+import com.typesafe.config.{Config, ConfigFactory}
+import play.api.Configuration
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TrackingConsentConfig}
+import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
+import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcFooter
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{hmrcStandardFooter, hmrcTrackingConsentSnippet}
 
 trait GdsComponents {
+
+  private val minimalConfig: Config =
+    ConfigFactory.parseString("")
+
+  lazy val minimalConfiguration = Configuration(minimalConfig)
 
   lazy val formWithCSRF = new FormWithCSRF
   lazy val govukAccordion = new GovukAccordion
@@ -49,5 +60,9 @@ trait GdsComponents {
   lazy val govukTemplate = new GovukTemplate(govukHeader, govukFooter, govukSkipLink)
   lazy val govukTextarea = new GovukTextarea(govukErrorMessage, govukHint, govukLabel)
   lazy val govukWarningText = new GovukWarningText
+  lazy val hmrcFooter = new HmrcFooter()
+  lazy val hmrcFooterItems = new HmrcFooterItems(new AccessibilityStatementConfig(minimalConfiguration))
+  lazy val hmrcStandardFooter = new hmrcStandardFooter(hmrcFooter, hmrcFooterItems)
+  lazy val hmrcTrackingConsentSnippet = new hmrcTrackingConsentSnippet(new TrackingConsentConfig(minimalConfiguration))
 
 }

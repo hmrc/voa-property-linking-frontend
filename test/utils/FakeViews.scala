@@ -26,9 +26,6 @@ import views.html.{addUserToGG, start}
 
 trait FakeViews extends GdsComponents with Layouts {
 
-  // all val's referencing mainLayout need to be lazy as some of the deprecated objects
-  // are not available until the fake application is running
-  // (e.g. HmrcStandardFooter & HmrcTrackingConsentSnippet)
   lazy val mainLayout = new views.html.mainLayout(
     govukTemplate = govukTemplate,
     govukHeader = govukHeader,
@@ -36,16 +33,8 @@ trait FakeViews extends GdsComponents with Layouts {
     govukBackLink = govukBackLink,
     govukDetails = govukDetails,
     govukPhaseBanner = govukPhaseBanner,
-    hmrcStandardFooter = {
-      val m = mock(classOf[HmrcStandardFooter])
-      when(m.apply(any(), any())(any(), any())).thenReturn(Html(""))
-      m
-    },
-    hmrcTrackingConsentSnippet = {
-      val m = mock(classOf[HmrcTrackingConsentSnippet])
-      when(m.apply(any())(any())).thenReturn(Html(""))
-      m
-    },
+    hmrcStandardFooter = hmrcStandardFooter,
+    hmrcTrackingConsentSnippet = hmrcTrackingConsentSnippet,
     head = new views.html.head()
   )
 
