@@ -100,7 +100,7 @@ case class AssessmentsVM(
   // Copied from Dashboard frontend for consistency
   // https://github.com/hmrc/business-rates-dashboard-frontend/blob/a1b1807f1a5595915d0a9e3ea111469acbc1bd24/app/uk/gov/voa/businessrates/dashboard/models/propertyLinks/owner/OwnerAuthorisation.scala#L21
   val capitalisedAddress =
-  s"${address.toLowerCase.trim.split(" ").dropRight(2).map(_.capitalize).mkString(" ")} ${address.toLowerCase.trim.split(",").last.toUpperCase()}"
+    s"${address.toLowerCase.trim.split(" ").dropRight(2).map(_.capitalize).mkString(" ")} ${address.toLowerCase.trim.split(",").last.toUpperCase()}"
 
   val localAuthorityReference = assessmentsWithLinks.headOption.map(_._2.billingAuthorityReference)
   val currentAssessments =
