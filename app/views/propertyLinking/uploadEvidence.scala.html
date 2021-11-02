@@ -43,7 +43,7 @@
     hasErrors = formEvidence.hasErrors || errors.nonEmpty
 ) {
     @if(formEvidence.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = fileUploadErrorLinks ++ formEvidence.errors.asTextErrorLinks , title = Text(messages("uploadEvidence.show.title"))))
+        @govukErrorSummary(ErrorSummary(errorList = fileUploadErrorLinks ++ formEvidence.errors.asTextErrorLinks , title = Text(messages("errors.heading.title"))))
     }
     @if(errors.nonEmpty && formEvidence.errors.isEmpty) {
         <div class="govuk-error-summary" aria-labelledby="error-summary-heading" role="alert" tabindex="-1" data-module="govuk-error-summary">
