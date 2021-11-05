@@ -22,6 +22,7 @@
 
 @this(mainLayout: views.html.mainLayout, govukDetails: GovukDetails)
 
+
 @(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
@@ -33,7 +34,7 @@
         @model.localAuthorityReference.map{ localAuthorityRef =>
             <span class="govuk-!-font-weight-bold">@messages("assessments.localAuthorityRef")</span> &nbsp;@localAuthorityRef<br>
         }
-        <span class="govuk-!-font-weight-bold">@messages("assessments.property")</span> &nbsp;@model.capitalisedAddress
+        <span class="govuk-!-font-weight-bold">@messages("assessments.property")</span> &nbsp;@Formatters.capitalisedAddress(model.address)
     </p>
 
     <h1 class="govuk-heading-l">

@@ -27,6 +27,7 @@
 @import models.searchApi.AgentPropertiesFilter
 @import models.searchApi.OwnerAuthorisation
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import utils.Formatters
 
 @this(mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukTable: GovukTable, govukButton: GovukButton)
 
@@ -111,7 +112,7 @@
                 content = HtmlContent(checkBox(s"checkbox-${index + 1}", authorisation.submissionId))
             ),
             TableRow(
-                content = Text(authorisation.address)
+                content = Text(Formatters.capitalisedAddress(authorisation.address))
             ),
             TableRow(
                 content = HtmlContent(appointedAgents(authorisation))

@@ -16,6 +16,8 @@
 
 @import config.ApplicationConfig
 @import controllers.detailedvaluationrequest.RequestDetailedValuationWithoutForm
+@import utils.Formatters
+
 @this(mainLayout: views.html.mainLayout, govukButton : GovukButton, formWithCSRF: FormWithCSRF)
 
 @(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -29,7 +31,7 @@
 
     <h1 class="govuk-heading-l margin-top-20" id="assessment-address">
         <span class="govuk-caption-l">@messages("auto.requestDetailedValuation.smallTitle")</span>
-        @model.address
+        @Formatters.capitalisedAddress(model.address)
     </h1>
 
     <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.effectiveDate", model.effectiveDate))</p>
