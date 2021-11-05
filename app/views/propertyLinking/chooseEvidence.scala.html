@@ -23,8 +23,12 @@
 @(form: Form[_], clientDetails: Option[ClientDetails] = None, backlink: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{clientDetails.map(_.organisationId) match {
-    case Some(id)   => {messages("chooseEvidence.client.title")}
-    case _          => {messages("chooseEvidence.title")}
+    case Some(id) => {messages("chooseEvidence.client.title")}
+    case _ => {messages("chooseEvidence.title")}
+}}
+@label = @{clientDetails.map(_.organisationId) match {
+    case Some(id) => {messages("chooseEvidence.client.title")}
+    case _ => {messages("chooseEvidence.title")}
 }}
 
 @mainLayout(
@@ -41,7 +45,7 @@
                     @govukRadios(Radios(
                         fieldset = Some(Fieldset(
                             legend = Some(Legend(
-                                content = Text(messages(s"label.hasRatesBill")),
+                                content = Text(messages(label)),
                                 classes = "govuk-fieldset__legend--l",
                                 isPageHeading = true
                             ))
