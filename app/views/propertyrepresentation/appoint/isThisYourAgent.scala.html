@@ -19,8 +19,10 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import models.propertyrepresentation._
 @import config.ApplicationConfig
+@import utils.Formatters
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+
 
 @(form: Form[Boolean], agentDetails: AgentDetails)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -36,7 +38,7 @@
     <h1 class="govuk-heading-l">@messages("propertyRepresentation.isThisYourAgent.question")</h1>
 
     <div class="govuk-inset-text">
-       @agentDetails.name <br/> @agentDetails.address
+       @agentDetails.name <br/> @Formatters.capitalisedAddress(agentDetails.address)
     </div>
 
     @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected()) {

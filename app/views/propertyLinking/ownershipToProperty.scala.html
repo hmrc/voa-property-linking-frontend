@@ -20,8 +20,10 @@
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyOwnershipVM
 @import helpers._
+@import utils.Formatters
 
 @this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+
 
 @(model: ClaimPropertyOwnershipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -138,7 +140,7 @@
     }
 
     <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages("declarePropertyOwnership.title"):</h1>
-    <h2 id="assessment-address" class="govuk-heading-m govuk-!-margin-top-1">@model.address.toString</h2>
+    <h2 id="assessment-address" class="govuk-heading-m govuk-!-margin-top-1">@Formatters.capitalisedAddress(model.address)</h2>
 
     <p class="govuk-body">@messages(s"declareCapacity.message$clientSuffix")</p>
 
