@@ -22,7 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TrackingConsentConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
 import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcFooter
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{hmrcStandardFooter, hmrcTrackingConsentSnippet}
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardFooter, HmrcTrackingConsentSnippet}
 
 trait GdsComponents {
 
@@ -62,7 +62,7 @@ trait GdsComponents {
   lazy val govukWarningText = new GovukWarningText
   lazy val hmrcFooter = new HmrcFooter()
   lazy val hmrcFooterItems = new HmrcFooterItems(new AccessibilityStatementConfig(minimalConfiguration))
-  lazy val hmrcStandardFooter = new hmrcStandardFooter(hmrcFooter, hmrcFooterItems)
-  lazy val hmrcTrackingConsentSnippet = new hmrcTrackingConsentSnippet(new TrackingConsentConfig(minimalConfiguration))
+  lazy val hmrcStandardFooter = new HmrcStandardFooter(hmrcFooter, hmrcFooterItems)
+  lazy val hmrcTrackingConsentSnippet = new HmrcTrackingConsentSnippet(new TrackingConsentConfig(minimalConfiguration))
 
 }

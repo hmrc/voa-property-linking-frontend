@@ -27,7 +27,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import repositories.SessionRepo
-import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
 
@@ -47,7 +46,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     vmvConnector,
     configuration,
     mockRelationshipToPropertyView,
-    beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, GovukButton),
+    beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton),
     serviceUnavailableView = new views.html.errors.serviceUnavailable(mainLayout)
   )
 

@@ -32,7 +32,6 @@ import tests.AllMocks
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.Retrieval
-import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.test.UnitSpec
 import utils.{Configs, FakeObjects, FakeViews, NoMetricsOneAppPerSuite}
@@ -145,7 +144,7 @@ class AuthenticatedActionSpec
       authConnector,
       errorView = new views.html.errors.error(mainLayout),
       forbiddenView = new views.html.errors.forbidden(mainLayout),
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton),
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton),
     )
   }
 

@@ -46,9 +46,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       submissionIds = mockSubmissionIds,
       dvrCaseManagement = mockDvrCaseManagement,
       alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout),
-      requestDetailedValuationView = new requestDetailedValuation(mainLayout, GovukButton, FormWithCSRF),
+      requestDetailedValuationView = new requestDetailedValuation(mainLayout, govukButton, formWithCSRF),
       requestedDetailedValuationView = new requestedDetailedValuation(mainLayout),
-      dvrFilesView = new dvrFiles(mainLayout, GovukButton, GovukDetails, GovukWarningText),
+      dvrFilesView = new dvrFiles(mainLayout, govukButton, govukDetails, govukWarningText),
       cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout),
       propertyMissingView = new propertyMissing(mainLayout)
     )
