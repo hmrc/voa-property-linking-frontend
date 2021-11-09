@@ -18,6 +18,8 @@
 @import config.ApplicationConfig
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import utils.Formatters
+
 @this(govukPanel: GovukPanel, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
 @(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -53,7 +55,7 @@
             <b>Local authority reference:</b> @model.localAuthorityReference
         </li>
         <li>
-            <b>Property:</b> @model.address
+            <b>Property:</b> @Formatters.capitalisedAddress(model.address)
         </li>
     </ul>
     @govukPanel(Panel(

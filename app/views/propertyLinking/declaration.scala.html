@@ -21,8 +21,10 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import java.time.format.DateTimeFormatter
 @import actions.propertylinking.requests.LinkingSessionRequest
+@import utils.Formatters
 
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
+
 
 @(model: DeclarationVM, isRatesBillEvidence: Boolean, clientDetails: Option[ClientDetails] = None)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
@@ -68,7 +70,7 @@
             <b>Local authority reference:</b> @model.localAuthorityReference
         </li>
         <li>
-            <b>Property:</b> @model.address
+            <b>Property:</b> @Formatters.capitalisedAddress(model.address)
         </li>
     </ul>
 

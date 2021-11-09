@@ -17,8 +17,10 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyRelationshipVM
+@import utils.Formatters
 
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+
 @(model: ClaimPropertyRelationshipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 @clientId = @{clientDetails.map(_.organisationId)}
 @form = @{model.form}
@@ -68,7 +70,7 @@
     }
 
     <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages("declarePropertyRelationship.title"):</h1>
-    <h2 id="assessment-address" class="govuk-heading-m govuk-!-margin-top-1">@model.address</h2>
+    <h2 id="assessment-address" class="govuk-heading-m govuk-!-margin-top-1">@Formatters.capitalisedAddress(model.address)</h2>
 
     <p class="govuk-body">@messages(s"declareCapacity.message$clientSuffix")</p>
     <p class="govuk-inset-text">Note: @messages("declareCapacity.incorrectProperty.prefix")
