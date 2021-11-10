@@ -18,8 +18,10 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
+@import utils.Formatters
 
 @this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
+
 
 @(address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -30,7 +32,7 @@
 
     @govukPanel(
         Panel(
-            title = Text(messages("propertyRepresentation.revokeClientProperty.confirmation", address)),
+            title = Text(messages("propertyRepresentation.revokeClientProperty.confirmation", Formatters.capitalisedAddress(address))),
             content = HtmlContent("")
         )
     )
