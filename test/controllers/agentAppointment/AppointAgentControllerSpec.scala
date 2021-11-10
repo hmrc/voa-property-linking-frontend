@@ -177,7 +177,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) mustBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText("address 1")
+    page.mustContainText("ADDRESS 1")
   }
 
   "filterPropertiesForAppoint" should "show error when nothing is entered" in {
@@ -372,7 +372,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) mustBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText("address 1")
+    page.mustContainText("ADDRESS 1")
   }
 
   "viewing select agent properties search sort page" should "show no properties when the agent has no properties appointed" in {

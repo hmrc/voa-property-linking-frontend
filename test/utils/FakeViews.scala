@@ -19,12 +19,11 @@ package utils
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{mock, when}
 import play.twirl.api.Html
-import uk.gov.hmrc.govukfrontend.views.Layouts
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 import views.html.propertyrepresentation.appoint._
 import views.html.{addUserToGG, start}
 
-trait FakeViews extends GdsComponents with Layouts {
+trait FakeViews extends GdsComponents {
 
   lazy val mainLayout = new views.html.mainLayout(
     govukTemplate = govukTemplate,

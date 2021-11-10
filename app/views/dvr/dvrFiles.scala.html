@@ -20,8 +20,10 @@
 
 @import views.html.dvr.challengeCasesDetails
 @import views.html.dvr.checkCasesDetails
+@import utils.Formatters
 
 @this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukDetails: GovukDetails, govukWarningText : GovukWarningText)
+
 
 @(model: AvailableRequestDetailedValuation,
         submissionId: String,
@@ -52,7 +54,7 @@
 @mainLayout(pageTitle = messages("available.requestvaluation.title"), backUri = Some(backUrl), mainClass = Some("govuk-grid-column-full")) {
     <h1 class="govuk-heading-l">@messages("available.requestvaluation.title")</h1>
 
-    <p class="govuk-body">@Html(messages("available.requestvaluation.p1", evaluateRoute(model.valuation), model.address))</p>
+    <p class="govuk-body">@Html(messages("available.requestvaluation.p1", evaluateRoute(model.valuation), Formatters.capitalisedAddress(model.address)))</p>
 
     @if(model.isWelshProperty) {
         <p class="govuk-body">@Html(messages("available.requestvaluation.p2.welshProperty"))</p>

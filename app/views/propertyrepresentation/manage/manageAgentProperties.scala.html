@@ -20,8 +20,10 @@
 @import config.ApplicationConfig
 @import models.searchApi.OwnerAuthResult
 @import models.propertyrepresentation.AgentDetails
+@import utils.Formatters
 
 @this(govukTable : GovukTable, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+
 
 @(      ownerAuthResult: OwnerAuthResult,
         agentCode: Long,
@@ -43,7 +45,7 @@
         rows = ownerAuthResult.authorisations.map{ authorisation =>
             Seq(
                 TableRow(
-                    content = Text(authorisation.address)
+                    content = Text(Formatters.capitalisedAddress(authorisation.address))
                 )
             )
         },

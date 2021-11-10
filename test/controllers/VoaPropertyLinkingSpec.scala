@@ -34,7 +34,6 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{MessagesControllerComponents, Request, Result}
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import tests.AllMocks
-import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
@@ -73,7 +72,7 @@ trait VoaPropertyLinkingSpec
       mockAuthConnector,
       errorView = new views.html.errors.error(mainLayout),
       forbiddenView = new views.html.errors.forbidden(mainLayout),
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
     ) {
       override def invokeBlock[A](
             request: Request[A],
@@ -86,7 +85,7 @@ trait VoaPropertyLinkingSpec
       messageApi,
       mockGovernmentGatewayProvider,
       mockAuthConnector,
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)) {
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)) {
       override def invokeBlock[A](
             request: Request[A],
             block: RequestWithUserDetails[A] => Future[Result]): Future[Result] =
@@ -108,7 +107,7 @@ trait VoaPropertyLinkingSpec
       mockAuthConnector,
       errorView = new views.html.errors.error(mainLayout),
       forbiddenView = new views.html.errors.forbidden(mainLayout),
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, GovukButton)
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
     ) {
       override def invokeBlock[A](
             request: Request[A],

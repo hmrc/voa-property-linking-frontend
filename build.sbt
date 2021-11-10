@@ -60,8 +60,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/")
   .settings(
     TwirlKeys.templateImports ++= Seq(
-      "uk.gov.hmrc.govukfrontend.views.html.components._",
-      "uk.gov.hmrc.govukfrontend.views.html.helpers._"
+      "uk.gov.hmrc.govukfrontend.views.html.components._"
     )
   )
   .settings(update / evictionWarningOptions := EvictionWarningOptions.default
@@ -124,7 +123,7 @@ lazy val compileDependencies = Seq(
   "org.typelevel"        %% "cats-core"                     % "1.6.1",
   "uk.gov.hmrc"          %% "bootstrap-frontend-play-28"    % "5.4.0",
   "uk.gov.hmrc"          %% "govuk-template"                % "5.70.0-play-28",
-  "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "0.77.0-play-28",
+  "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "1.4.0-play-28",
   "uk.gov.hmrc"          %% "play-ui"                       % "9.7.0-play-28",
   "uk.gov.hmrc"          %% "http-caching-client"           % "9.5.0-play-28",
   "uk.gov.hmrc"          %% "mongo-lock"                    % "7.0.0-play-28",

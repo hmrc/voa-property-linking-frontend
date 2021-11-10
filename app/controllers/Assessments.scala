@@ -97,13 +97,17 @@ case class AssessmentsVM(
       address: String,
       capacity: Option[String]
 ) {
+//  // Copied from Dashboard frontend for consistency
+//  // https://github.com/hmrc/business-rates-dashboard-frontend/blob/a1b1807f1a5595915d0a9e3ea111469acbc1bd24/app/uk/gov/voa/businessrates/dashboard/models/propertyLinks/owner/OwnerAuthorisation.scala#L21
+//  val capitalisedAddress =
+//    s"${address.toLowerCase.trim.split(" ").dropRight(2).map(_.capitalize).mkString(" ")} ${address.toLowerCase.trim.split(",").last.toUpperCase()}"
 
   val localAuthorityReference = assessmentsWithLinks.headOption.map(_._2.billingAuthorityReference)
-  val currentAssessments =
+  val currentAssessments: Seq[(String, ApiAssessment)] =
     assessmentsWithLinks.filter(a =>
       a._2.listType == ListType.CURRENT && a._2.currentFromDate.nonEmpty && a._2.currentToDate.isEmpty)
-  val draftAssessments = assessmentsWithLinks.filter(a => a._2.listType == ListType.DRAFT)
-  val historicAssessments =
+  val draftAssessments: Seq[(String, ApiAssessment)] = assessmentsWithLinks.filter(a => a._2.listType == ListType.DRAFT)
+  val historicAssessments: Seq[(String, ApiAssessment)] =
     assessmentsWithLinks.filterNot(currentAssessments.contains).filterNot(draftAssessments.contains)
 
 }
