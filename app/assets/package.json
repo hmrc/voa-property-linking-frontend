@@ -6,7 +6,6 @@
   "devDependencies": {
     "govuk-elements-sass": "^2.2.1",
     "govuk_frontend_toolkit": "^5.0.2",
-    "govuk_template_mustache": "^0.19.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-copy": "0.0.2",
@@ -22,10 +21,6 @@
     "del": "^2.2.0",
     "gulp-watch": "^4.3.5",
     "jasmine-core": "^2.4.1",
-    "karma": "^0.13.22",
-    "karma-jasmine": "^0.3.8",
-    "karma-phantomjs-launcher": "^1.0.0",
-    "karma-spec-reporter": "0.0.26",
     "phantomjs-prebuilt": "^2.1.7"
   },
   "dependencies": {

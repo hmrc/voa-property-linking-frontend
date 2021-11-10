@@ -19,8 +19,7 @@
         "setFixtures",
         "sandbox",
         "console",
-        "JSON",
-        "moment"
+        "JSON"
     ],
     "bitwise": true,
     "curly": true,

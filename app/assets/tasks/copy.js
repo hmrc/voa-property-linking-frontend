@@ -2,13 +2,7 @@
 
 // Dependencies
 var gulp = require('gulp'),
-	copy = require('gulp-copy');
-
-// Copy govuk_template_mustache assets
-gulp.task('copy:govuk_template_mustache', function () {
-    return gulp.src(['./node_modules/govuk_template_mustache/assets/**/*'])
-        .pipe(gulp.dest('../../public'));
-});
+    copy = require('gulp-copy');
 
 // Copy jQuery
 gulp.task('copy:jquery', function () {
@@ -16,28 +10,10 @@ gulp.task('copy:jquery', function () {
         .pipe(gulp.dest('../../public/javascripts/vendor'));
 });
 
-gulp.task('copy:moment', function () {
-    return gulp.src(['./node_modules/moment/min/moment.min.js'])
-        .pipe(gulp.dest('../../public/javascripts/vendor'));
-});
-
-// Copy images
-gulp.task('copy:icons', function () {
-    return gulp.src(['./node_modules/govuk_frontend_toolkit/images/*.png'])
-        .pipe(gulp.dest('../../public/images'));
-});
-
 
 // Copy css
 gulp.task('copy:css', function () {
     return gulp.src(['../assets/css/*.css'])
-        .pipe(gulp.dest('../../public/stylesheets'));
-});
-
-
-// Copy fonts
-gulp.task('copy:fonts', function () {
-    return gulp.src(['./fonts/*.*'])
         .pipe(gulp.dest('../../public/stylesheets'));
 });
 
@@ -50,4 +26,4 @@ gulp.task('copy:publicHtml', function () {
 
 
 // Run copy task
-gulp.task('copy', [ 'copy:govuk_template_mustache','copy:jquery', 'copy:moment','copy:icons', 'copy:publicHtml', 'copy:fonts', 'copy:css']);
+gulp.task('copy', ['copy:jquery', 'copy:publicHtml', 'copy:css']);
