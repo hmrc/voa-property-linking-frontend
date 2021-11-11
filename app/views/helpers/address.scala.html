@@ -56,7 +56,7 @@
             @govukInput(Input(
             id = "address.line2",
             name = "address.line2",
-            label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--m" ),
+            label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--m govuk-visually-hidden" ),
             value =  form("address.line2").value.orElse(Some(addressData.fold("")(_.line2))),
             errorMessage = form("address.line2").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-input govuk-!-width-one-third"
@@ -65,7 +65,7 @@
             @govukInput(Input(
             id = "address.line3",
             name = "address.line3",
-            label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--m" ),
+            label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--m govuk-visually-hidden" ),
             value =  form("address.line3").value.orElse(Some(addressData.fold("")(_.line3))),
             errorMessage = form("address.line3").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-input govuk-!-width-one-third"
@@ -75,7 +75,7 @@
             @govukInput(Input(
             id = "address.line4",
             name = "address.line4",
-            label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--m" ),
+            label = Label(content = HtmlContent(messages(s"label.$fieldName")), classes = "govuk-label--m govuk-visually-hidden" ),
             value =  form("address.line4").value.orElse(Some(addressData.fold("")(_.line4))),
             errorMessage = form("address.line4").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-input govuk-!-width-one-third"
