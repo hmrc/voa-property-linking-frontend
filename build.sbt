@@ -88,7 +88,7 @@ val playSettings: Seq[Setting[_]] = Seq(
   // Add the views to the dist
   Assets / unmanagedResourceDirectories  += baseDirectory.value / "app" / "assets",
   // Dont include the source assets in the dist package (public folder)
-  Assets / excludeFilter := "fonts" || "tasks" || "karma.conf.js" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
+  Assets / excludeFilter := "fonts" || "tasks" || "tests" || "gulpfile.js*" || "js*" || "src*" || "node_modules*" || "sass*" || "typescript*" || "typings*" || ".jshintrc" || "package.json" || "tsconfig.json" || "tsd.json"
 ) ++ JavaScriptBuild.javaScriptUiSettings
 
 lazy val compileScalastyle = taskKey[Unit]("compileScalastyle")
@@ -122,9 +122,7 @@ lazy val compileDependencies = Seq(
   "com.google.guava"     %  "guava"                         % "18.0",
   "org.typelevel"        %% "cats-core"                     % "1.6.1",
   "uk.gov.hmrc"          %% "bootstrap-frontend-play-28"    % "5.4.0",
-  "uk.gov.hmrc"          %% "govuk-template"                % "5.70.0-play-28",
   "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "1.4.0-play-28",
-  "uk.gov.hmrc"          %% "play-ui"                       % "9.7.0-play-28",
   "uk.gov.hmrc"          %% "http-caching-client"           % "9.5.0-play-28",
   "uk.gov.hmrc"          %% "mongo-lock"                    % "7.0.0-play-28",
   "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.9.0-play-28",

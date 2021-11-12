@@ -12,7 +12,6 @@ object JavaScriptBuild {
 
   val gulpBuild = TaskKey[Int]("gulp-build")
   val gulpWatch = TaskKey[Int]("gulp-watch")
-  val gulpTest = TaskKey[Int]("gulp-test")
   val npmInstall = TaskKey[Int]("npm-install")
 
 
@@ -37,20 +36,11 @@ object JavaScriptBuild {
       result
     },
 
-    gulpTest := {
-     val result = Gulp.gulpProcess(uiDirectory.value, "test").run().exitValue()
-     if (result != 0)
-       throw new Exception("Gulp test failed.")
-     result
-    },
-
-    gulpTest := {gulpTest dependsOn npmInstall}.value,
+    (Test / test) := {(Test / test) dependsOn gulpBuild}.value,
     gulpBuild := {gulpBuild dependsOn npmInstall}.value,
 
     // runs gulp before staging the application
     dist := {dist dependsOn gulpBuild}.value,
-
-    (test in Test) := {(test in Test) dependsOn gulpTest}.value,
 
     // Turn off play's internal less compiler
     //lessEntryPoints := Nil,

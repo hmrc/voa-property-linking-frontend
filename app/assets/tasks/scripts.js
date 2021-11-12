@@ -18,8 +18,7 @@ gulp.task('jshint', function() {
 gulp.task('javascripts', function(callback) {
   return gulp.src([
    './javascripts/src/*.js',
-    './node_modules/govuk_frontend_toolkit/javascripts/vendor/polyfills/bind.js',
-    './node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js'
+    './node_modules/govuk_frontend_toolkit/javascripts/vendor/polyfills/bind.js'
     ])
     .pipe(concat('all.min.1.js'))
     .pipe(gulp.dest('../../public/javascripts'))
