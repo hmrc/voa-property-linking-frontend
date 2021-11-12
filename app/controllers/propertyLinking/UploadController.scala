@@ -65,7 +65,6 @@ class UploadController @Inject()(
               session.uploadEvidenceData.attachments.getOrElse(Map.empty),
               session
             ))
-            .withHeaders("Access-Control-Allow-Origin" -> "*")
         case EvidenceChoices.OTHER =>
           Ok(
             uploadEvidenceView(
