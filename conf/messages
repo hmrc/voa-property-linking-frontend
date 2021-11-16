@@ -363,7 +363,7 @@ property.details.cases.table.6=Agent
 property.details.cases.table.7=Client
 property.details.cases.table.8=Submitted By
 property.details.cases.table.challenge=Challenge
-
+property.dvr.challenge.error=If you still think you have the right to make a Challenge, you will need to <a class="govuk-link" href="{0}"> download and complete a Challenge form (T012)</a>
 
 assessments.table.caption=Valuations
 assessments.table.1=Effective date

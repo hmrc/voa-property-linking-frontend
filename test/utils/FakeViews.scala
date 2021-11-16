@@ -39,13 +39,12 @@ trait FakeViews extends GdsComponents {
     head = new views.html.head()
   )
 
-  lazy val alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout),
-  lazy val requestDetailedValuationView = new requestDetailedValuation(mainLayout, govukButton, formWithCSRF),
-  lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout),
-  lazy val dvrFilesView = new dvrFiles(mainLayout, govukButton, govukDetails, govukWarningText),
-  lazy val cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout),
+  lazy val alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout)
+  lazy val requestDetailedValuationView = new requestDetailedValuation(mainLayout, govukButton, formWithCSRF)
+  lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout)
+  lazy val dvrFilesView = new dvrFiles(mainLayout, govukButton, govukDetails, govukWarningText)
+  lazy val cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout, govukButton)
   lazy val propertyMissingView = new propertyMissing(mainLayout)
-
 
   lazy val startView = new start(mainLayout, govukInsetText, govukDetails)
   lazy val addUsertoGGView = new addUserToGG(mainLayout)

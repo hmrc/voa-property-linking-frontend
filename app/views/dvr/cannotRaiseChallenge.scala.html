@@ -16,8 +16,9 @@
 
 @import models.CanChallengeResponse
 @import config.ApplicationConfig
+@import  utils.Formatters
 
-@this(mainLayout: views.html.mainLayout)
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
 
 @(model: CanChallengeResponse, address: String, localAuth: String, homePageUrl: String, authorisationId: Long, backLinkUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -25,28 +26,28 @@
     pageTitle = messages("cannotRaiseChallenge.title"),
     backUri = Some(backLinkUrl)
 ) {
-@*    <ul class="govuk-list">*@
-@*        <li>*@
-@*            <b>Local authority reference:</b> @model.localAuthorityReference*@
-@*        </li>*@
-@*        <li>*@
-@*            <b>Property:</b> @Formatters.capitalisedAddress(model.address)*@
-@*        </li>*@
-@*    </ul>*@
+    <ul class="govuk-list">
+        <li>
+            <b>Local authority reference:</b> @localAuth
+        </li>
+        <li>
+            <b>Property:</b> @Formatters.capitalisedAddress(address)
+        </li>
+    </ul>
 
     <div id="cannot-raise-challenge">
         <h1 class="govuk-heading-l">@Messages("cannotRaiseChallenge.title")</h1>
 
         <p class="govuk-body">@model.reason.getOrElse("")</p>
+        <p class="govuk-body"> @Html(messages("property.dvr.challenge.error", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$backLinkUrl")))</p>
 
 
-            <p class="govuk-body">@address</p>
-        <p class="govuk-body">@localAuth</p>
+            @govukButton(Button(
+                href = Some(backLinkUrl),
+                content = Text(messages("link.go.back")),
+                classes = "govuk-button"
+            ))
 
-
-
-        <p class="govuk-body"><a class="govuk-link" id="confirm" href="@backLinkUrl" class="button">
-            @messages("link.go.home")
         </a></p>
 
         <br/>
