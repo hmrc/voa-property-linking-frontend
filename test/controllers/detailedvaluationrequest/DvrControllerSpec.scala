@@ -42,15 +42,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       errorHandler = mockCustomErrorHandler,
       propertyLinks = mockPropertyLinkConnector,
       challengeConnector = mockChallengeConnector,
+      vmvConnector = mockVmvConnector,
       authenticated = preAuthenticatedActionBuilders(),
       submissionIds = mockSubmissionIds,
       dvrCaseManagement = mockDvrCaseManagement,
-      alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout),
-      requestDetailedValuationView = new requestDetailedValuation(mainLayout, govukButton, formWithCSRF),
-      requestedDetailedValuationView = new requestedDetailedValuation(mainLayout),
-      dvrFilesView = new dvrFiles(mainLayout, govukButton, govukDetails, govukWarningText),
-      cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout),
-      propertyMissingView = new propertyMissing(mainLayout)
+      alreadyRequestedDetailedValuationView = alreadyRequestedDetailedValuationView,
+      requestDetailedValuationView = requestDetailedValuationView,
+      requestedDetailedValuationView = requestedDetailedValuationView,
+      dvrFilesView = dvrFilesView,
+      cannotRaiseChallengeView = cannotRaiseChallengeView,
+      propertyMissingView = propertyMissingView
     )
 
     lazy val mockSubmissionIds = {

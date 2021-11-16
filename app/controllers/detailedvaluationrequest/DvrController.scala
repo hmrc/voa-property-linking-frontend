@@ -20,11 +20,13 @@ import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
+import connectors.vmv.VmvConnector
 import connectors.{DVRCaseManagementConnector, _}
 import controllers.PropertyLinkingController
 import models.dvr.DetailedValuationRequest
 import models.dvr.cases.check.projection.CaseDetails
-import models.{ApiAssessment, ApiAssessments}
+import models.properties.PropertyHistory
+import models.{ApiAssessment, ApiAssessments, PropertyLink}
 import play.api.http.HttpEntity
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, _}
@@ -40,6 +42,7 @@ class DvrController @Inject()(
       val errorHandler: CustomErrorHandler,
       propertyLinks: PropertyLinkConnector,
       challengeConnector: ChallengeConnector,
+      vmvConnector: VmvConnector,
       authenticated: AuthenticatedAction,
       submissionIds: SubmissionIdConnector,
       dvrCaseManagement: DVRCaseManagementConnector,
@@ -311,43 +314,51 @@ class DvrController @Inject()(
         authorisationId: Long,
         uarn: Long,
         isOwner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
-    propertyLinks.canChallenge(plSubmissionId, assessmentRef, caseRef, isOwner) flatMap {
-      case None =>
-        Future.successful {
-          val returnUrl =
-            if (isOwner)
-              s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn).url}"
-            else
-              s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn).url}"
-          Redirect(
-            config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl"))
-        }
-      case Some(response) =>
-        if (response.result) {
-          val party = if (isOwner) "client" else "agent"
-          Future.successful(
-            Redirect(config.businessRatesChallengeUrl(
+    val eventualPropertyHistory: Future[PropertyHistory] = vmvConnector.getPropertyHistory(uarn)
+
+    eventualPropertyHistory.flatMap { propertyHistory =>
+      val propertyAddress: String = propertyHistory.addressFull
+      val localAuthorityRef: String = propertyHistory.localAuthorityReference
+
+      propertyLinks.canChallenge(plSubmissionId, assessmentRef, caseRef, isOwner) flatMap {
+        case None =>
+          Future.successful {
+            val returnUrl =
+              if (isOwner)
+                s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn).url}"
+              else
+                s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn).url}"
+            Redirect(
+              config.businessRatesValuationFrontendUrl(
+                s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl"))
+          }
+        case Some(response) =>
+          if (response.result) {
+            val party = if (isOwner) "client" else "agent"
+            Future.successful(Redirect(config.businessRatesChallengeUrl(
               s"property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/$party/start?isDvr=true")))
-        } else {
-          Future successful Ok(
-            cannotRaiseChallengeView(
-              model = response,
-              homePageUrl = config.dashboardUrl("home"),
-              authorisationId = authorisationId,
-              backLinkUrl =
-                if (isOwner)
-                  routes.DvrController
-                    .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn)
-                    .url
-                else
-                  routes.DvrController
-                    .myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn)
-                    .url
-            ))
-        }
+          } else {
+            Future successful Ok(
+              cannotRaiseChallengeView(
+                model = response,
+                address = propertyAddress,
+                localAuth = localAuthorityRef,
+                homePageUrl = config.dashboardUrl("home"),
+                authorisationId = authorisationId,
+                backLinkUrl =
+                  if (isOwner)
+                    routes.DvrController
+                      .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn)
+                      .url
+                  else
+                    routes.DvrController
+                      .myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn)
+                      .url
+              ))
+          }
+      }
     }
   }
-
 }
 
 case class RequestDetailedValuationWithoutForm(

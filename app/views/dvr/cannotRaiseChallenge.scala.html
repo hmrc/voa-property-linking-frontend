@@ -19,20 +19,34 @@
 
 @this(mainLayout: views.html.mainLayout)
 
-@(model: CanChallengeResponse, homePageUrl: String, authorisationId: Long, backLinkUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: CanChallengeResponse, address: String, localAuth: String, homePageUrl: String, authorisationId: Long, backLinkUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("cannotRaiseChallenge.title"),
     backUri = Some(backLinkUrl)
 ) {
+@*    <ul class="govuk-list">*@
+@*        <li>*@
+@*            <b>Local authority reference:</b> @model.localAuthorityReference*@
+@*        </li>*@
+@*        <li>*@
+@*            <b>Property:</b> @Formatters.capitalisedAddress(model.address)*@
+@*        </li>*@
+@*    </ul>*@
 
     <div id="cannot-raise-challenge">
         <h1 class="govuk-heading-l">@Messages("cannotRaiseChallenge.title")</h1>
 
         <p class="govuk-body">@model.reason.getOrElse("")</p>
 
-        <p class="govuk-body"><a class="govuk-link" id="confirm" href="@homePageUrl" class="button">
-            @backUri = Some(backLinkUrl)
+
+            <p class="govuk-body">@address</p>
+        <p class="govuk-body">@localAuth</p>
+
+
+
+        <p class="govuk-body"><a class="govuk-link" id="confirm" href="@backLinkUrl" class="button">
+            @messages("link.go.home")
         </a></p>
 
         <br/>

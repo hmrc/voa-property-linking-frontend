@@ -20,6 +20,8 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{mock, when}
 import play.twirl.api.Html
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
+import views.html.dvr.{alreadyRequestedDetailedValuation, cannotRaiseChallenge, dvrFiles, requestDetailedValuation, requestedDetailedValuation}
+import views.html.errors.propertyMissing
 import views.html.propertyrepresentation.appoint._
 import views.html.{addUserToGG, start}
 
@@ -36,6 +38,14 @@ trait FakeViews extends GdsComponents {
     hmrcTrackingConsentSnippet = hmrcTrackingConsentSnippet,
     head = new views.html.head()
   )
+
+  lazy val alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout),
+  lazy val requestDetailedValuationView = new requestDetailedValuation(mainLayout, govukButton, formWithCSRF),
+  lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout),
+  lazy val dvrFilesView = new dvrFiles(mainLayout, govukButton, govukDetails, govukWarningText),
+  lazy val cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout),
+  lazy val propertyMissingView = new propertyMissing(mainLayout)
+
 
   lazy val startView = new start(mainLayout, govukInsetText, govukDetails)
   lazy val addUsertoGGView = new addUserToGG(mainLayout)

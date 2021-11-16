@@ -233,6 +233,7 @@ account.confirmation.youCan=You can now manage your properties.
 link.dashboard=Go to your dashboard
 link.return.home=Return to your home page
 link.go.home=Go to home page
+link.go.back=Go back
 createAccount.group.details.header.agent=I’m registering as an agent
 createAccount.group.details.content.agent=You’ll need to provide information about your own business here, not your client’s business.
 createAccount.group.details.header.multipleAddress=There’s more than one address for my business
