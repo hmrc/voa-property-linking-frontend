@@ -28,15 +28,15 @@
 ) {
     <ul class="govuk-list">
         <li>
-            <b>Local authority reference:</b> @localAuth
+            <b>@messages("assessments.localAuthorityRef")</b> @localAuth
         </li>
         <li>
-            <b>Property:</b> @Formatters.capitalisedAddress(address)
+            <b>@messages("assessments.property")</b> @Formatters.capitalisedAddress(address)
         </li>
     </ul>
 
     <div id="cannot-raise-challenge">
-        <h1 class="govuk-heading-l">@Messages("cannotRaiseChallenge.title")</h1>
+        <h1 class="govuk-heading-l">@messages("cannotRaiseChallenge.title")</h1>
 
         <p class="govuk-body">@model.reason.getOrElse("")</p>
         <p class="govuk-body"> @Html(messages("property.dvr.challenge.error", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$backLinkUrl")))</p>
