@@ -26,8 +26,7 @@ import uk.gov.voa.play.form.Condition
 import views.helpers.Errors
 import org.apache.commons.lang3.StringUtils.{isNotBlank, isNumeric}
 import play.api.data.validation.Constraints._
-import uk.gov.voa.play.form.ConditionalMappings._
-import uk.gov.voa.play.form._
+
 import scala.util.Try
 import uk.gov.voa.play.form.ConditionalMappings._
 
@@ -73,39 +72,12 @@ object Mappings extends DateMappings {
 
 trait DateMappings {
 
-  def dmyDate: Mapping[LocalDate] =
-    tuple[Int, Int, Int](
-      "day"   -> text.verifying("error.invalidDate", x => isNumberInRange(x, 1, 31)).transform(_.toInt, _.toString),
-      "month" -> text.verifying("error.invalidDate", x => isNumberInRange(x, 1, 12)).transform(_.toInt, _.toString),
-      "year"  -> text.verifying("error.invalidDate", x => isNumberInRange(x, 1900, 2099)).transform(_.toInt, _.toString)
-    ).verifying(validDate)
-      .transform(
-        { case (d, m, y) => LocalDate.of(y, m, d) }, { (date: LocalDate) =>
-          (date.getDayOfMonth, date.getMonthValue, date.getYear)
-        }
-      )
-  private def validDate: Constraint[(Int, Int, Int)] = Constraint("validDate") { d =>
-    val day = d._1
-    val month = d._2
-    val year = d._3
-
-    if (Try(LocalDate.of(year, month, day)).isSuccess) {
-      Valid
-    } else {
-      Invalid("error.invalidDate")
-    }
-  }
-  def isNumberInRange(str: String, min: Int, max: Int) =
-    Try(str.trim.toInt).toOption match {
-      case Some(n) => n >= min && n <= max
-      case _       => false
-    }
-  /*val dmyDate: Mapping[LocalDate] = tuple(
+  val dmyDate: Mapping[LocalDate] = tuple(
     "day"   -> number(1, 31),
     "month" -> number(1, 12),
     "year"  -> number(1900, 3000)
   ).verifying(Errors.invalidDate, x => x match { case (d, m, y) => Try(LocalDate.of(y, m, d)).isSuccess })
-    .transform({ case (d, m, y) => LocalDate.of(y, m, d) }, d => (d.getDayOfMonth, d.getMonthValue, d.getYear))*/
+    .transform({ case (d, m, y) => LocalDate.of(y, m, d) }, d => (d.getDayOfMonth, d.getMonthValue, d.getYear))
 
   val dmyDateAfterThreshold: Mapping[LocalDate] =
     dmyDate.verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
