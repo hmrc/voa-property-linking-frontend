@@ -45,7 +45,7 @@
     }
 }
 
-@toCustomDateFromErrors = @{form.errors.map{ error => error.key match {
+@toCustomDateFormErrors = @{form.errors.map{ error => error.key match {
            case "fromDate" | "fromDate.day" | "fromDate.month" | "fromDate.year" => FormError("fromDate", Seq("error.common.invalid.date"))
            case "toDate" | "toDate.day" | "toDate.month" | "toDate.year" => FormError("toDate", Seq("error.common.invalid.date"))
            case _ => error
@@ -54,7 +54,7 @@
 }
 
 @getEnrichedErrorLinks = @{
-    toCustomDateFromErrors.toSet.map{ error: FormError =>
+    toCustomDateFormErrors.toSet.map{ error: FormError =>
         ErrorLink(href = Some(s"#${error.key}"),
             content = HtmlContent(s"${messages(s"label.${error.key}$clientSuffix")} - ${messages(error.message, error.args.map(_.toString) :_*)}") )}
 }
@@ -142,9 +142,6 @@
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
-    @toCustomDateFromErrors.toSet
-
-
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks.toSeq, title = Text(messages("error.propertyRepresentation.title"))))
     }
