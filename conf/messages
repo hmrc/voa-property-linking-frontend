@@ -419,8 +419,8 @@ propertyRepresentation.removeAgent.title=Remove agent permissions
 propertyRepresentation.removeAgent.message.p1=You can remove an agent''s ability to carry out checks and challenges on your behalf.
 propertyRepresentation.removeAgent.message.p2=Select an agent from the list below to remove them from one or more properties.
 propertyRepresentation.removeAgentProperties.title=Which properties should the agent be removed from
-propertyRepresentation.removeAgentProperties.heading=Remove an agent
-propertyRepresentation.removeAgentProperties.message.p1=You can remove {0}''s (Agent ID: {1}) ability to carry out checks and challenges for any of these properties:
+propertyRepresentation.removeAgentProperties.heading=Remove agent {0} from one or more properties
+propertyRepresentation.removeAgentProperties.message=(Agent ID: {0}) will no longer be able to submit checks and challenges for these properties.
 
 #Appoint agent
 propertyRepresentation.appointAgent.title=Appoint an agent
@@ -567,7 +567,7 @@ propertyRepresentation.appointAgents.table.actions=Actions
 propertyRepresentation.th.ADDRESS=Address
 propertyRepresentation.th.AGENT=Appointed agents
 propertyRepresentation.th.BAREF=Local authority reference
-propertyRepresentation.search.filter=Filter properties
+propertyRepresentation.search.filter=Search your properties
 propertyRepresentation.search=Search for {0}
 propertyRepresentation.pageSize.showing=Showing
 label.linkIds=Select one or more properties
