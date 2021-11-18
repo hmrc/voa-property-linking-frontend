@@ -439,7 +439,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainText("Select one or more properties")
-    page.titleMustMatch("Error: Remove agent gg-ext-id from one or more properties - Valuation Office Agency - GOV.UK")
+    page.titleMustMatch(
+      s"Error: Remove agent $ggExternalId from one or more properties - Valuation Office Agency - GOV.UK")
   }
 
   "errors during handling of revoke agent form" should "re-render the page with form errors reported to user" in {
@@ -460,7 +461,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) mustBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainText("Failed to appoint agent to all properties")
-    page.titleMustMatch("Error: Remove agent gg-ext-id from one or more properties - Valuation Office Agency - GOV.UK")
+    page.titleMustMatch(
+      s"Error: Remove agent $ggExternalId from one or more properties - Valuation Office Agency - GOV.UK")
   }
 
   private lazy val testController = new AppointAgentController(

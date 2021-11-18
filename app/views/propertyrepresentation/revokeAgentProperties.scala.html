@@ -168,7 +168,7 @@
             @govukButton(Button(
                 content = Text(messages("label.search"))
             ))
-            <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-body govuk-link">@messages("manageProperties.table.clear.search")</a>
+            <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-link">@messages("manageProperties.table.clear.search")</a>
         </div>
     }
 
