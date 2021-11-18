@@ -233,6 +233,7 @@ account.confirmation.youCan=You can now manage your properties.
 link.dashboard=Go to your dashboard
 link.return.home=Return to your home page
 link.go.home=Go to home page
+link.go.back=Go back
 createAccount.group.details.header.agent=I’m registering as an agent
 createAccount.group.details.content.agent=You’ll need to provide information about your own business here, not your client’s business.
 createAccount.group.details.header.multipleAddress=There’s more than one address for my business
@@ -362,7 +363,7 @@ property.details.cases.table.6=Agent
 property.details.cases.table.7=Client
 property.details.cases.table.8=Submitted By
 property.details.cases.table.challenge=Challenge
-
+property.dvr.challenge.error=If you still think you have the right to make a Challenge, you will need to <a class="govuk-link" href="{0}"> download and complete a Challenge form (T012)</a>
 
 assessments.table.caption=Valuations
 assessments.table.1=Effective date

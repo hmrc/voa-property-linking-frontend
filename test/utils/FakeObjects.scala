@@ -17,7 +17,7 @@
 package utils
 
 import auth.Principal
-import models._
+import models.{CanChallengeResponse, _}
 import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.attachment._
 import models.challenge.ChallengeCaseStatus
@@ -374,6 +374,8 @@ trait FakeObjects {
     submittedBy = "Some other person",
     originatingAssessmentReference = 1L
   )
+
+  lazy val canChallengeResponse = CanChallengeResponse(result = true, reasonCode = Some("41a"), reason = Some("Ok"))
 
   lazy val ownerCheckCasesResponse =
     CheckCasesWithAgent(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(ownerCheckCase))

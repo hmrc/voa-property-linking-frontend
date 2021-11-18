@@ -25,10 +25,7 @@ import org.mockito.Mockito.{never, verify, when}
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.govukfrontend.views.html.components._
-import utils.{StubPropertyLinkConnector, _}
-import views.html.dvr._
-import views.html.errors.propertyMissing
+import utils._
 
 import java.time.LocalDateTime
 import scala.concurrent.Future
@@ -42,15 +39,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       errorHandler = mockCustomErrorHandler,
       propertyLinks = mockPropertyLinkConnector,
       challengeConnector = mockChallengeConnector,
+      vmvConnector = mockVmvConnector,
       authenticated = preAuthenticatedActionBuilders(),
       submissionIds = mockSubmissionIds,
       dvrCaseManagement = mockDvrCaseManagement,
-      alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout),
-      requestDetailedValuationView = new requestDetailedValuation(mainLayout, govukButton, formWithCSRF),
-      requestedDetailedValuationView = new requestedDetailedValuation(mainLayout),
-      dvrFilesView = new dvrFiles(mainLayout, govukButton, govukDetails, govukWarningText),
-      cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout),
-      propertyMissingView = new propertyMissing(mainLayout)
+      alreadyRequestedDetailedValuationView = alreadyRequestedDetailedValuationView,
+      requestDetailedValuationView = requestDetailedValuationView,
+      requestedDetailedValuationView = requestedDetailedValuationView,
+      dvrFilesView = dvrFilesView,
+      cannotRaiseChallengeView = cannotRaiseChallengeView,
+      propertyMissingView = propertyMissingView
     )
 
     lazy val mockSubmissionIds = {
@@ -67,6 +65,132 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     StubPropertyLinkConnector.stubLink(link)
 
     def assessments: ApiAssessments = apiAssessments(ownerAuthorisation)
+  }
+
+  trait CanChallengeSetup extends Setup {
+
+    val plSubmissionId = "123456"
+    val assessmentRef = 55555
+    val caseRef = "234234"
+    val authorisationId = 4222211L
+    val uarn = 123123
+    val localAuthRef = "1234341234"
+
+    val testPropertyHistory =
+      propertyHistory.copy(uarn = uarn, localAuthorityReference = localAuthRef, addressFull = addressLine)
+
+    when(mockVmvConnector.getPropertyHistory(any())(any()))
+      .thenReturn(Future.successful(testPropertyHistory))
+
+    def resultCanChallenge(isOwner: Boolean) =
+      controller.canChallenge(
+        plSubmissionId = plSubmissionId,
+        assessmentRef = assessmentRef,
+        caseRef = caseRef,
+        authorisationId = authorisationId,
+        uarn = uarn,
+        isOwner = isOwner
+      )(request)
+  }
+
+  "can Challenge for IP" must "redirect to challenge advice page when canChallenge return None" in new CanChallengeSetup {
+
+    when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(None))
+
+    val result = resultCanChallenge(true)
+
+    val urlBack =
+      s"http://localhost:9523/business-rates-property-linking/my-organisation/property-link/$plSubmissionId/valuations/$assessmentRef?uarn=$uarn"
+    val expectedRedirect =
+      s"http://localhost:9537/business-rates-valuation/property-link/valuations/startChallenge?backLinkUrl=$urlBack"
+
+    status(result) mustBe SEE_OTHER
+    redirectLocation(result) mustBe Some(expectedRedirect)
+  }
+
+  "can Challenge for Agent" must "redirect to challenge advice page when canChallenge return None" in new CanChallengeSetup {
+
+    when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(None))
+
+    val result = resultCanChallenge(false)
+
+    val urlBack =
+      s"http://localhost:9523/business-rates-property-linking/my-organisation/property-link/clients/all/$plSubmissionId/valuations/$assessmentRef?uarn=$uarn"
+    val expectedRedirect =
+      s"http://localhost:9537/business-rates-valuation/property-link/valuations/startChallenge?backLinkUrl=$urlBack"
+
+    status(result) mustBe SEE_OTHER
+    redirectLocation(result) mustBe Some(expectedRedirect)
+  }
+
+  "can Challenge for IP" must "redirect to start challenge when canChallenge response is true" in new CanChallengeSetup {
+
+    val testCanChallengeResponse = canChallengeResponse.copy(result = true)
+
+    when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(Some(testCanChallengeResponse)))
+
+    val result = resultCanChallenge(true)
+
+    val expectedRedirect =
+      s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/client/start?isDvr=true"
+
+    status(result) mustBe SEE_OTHER
+    redirectLocation(result) mustBe Some(expectedRedirect)
+  }
+
+  "can Challenge for Agent" must "redirect to start challenge when canChallenge response is true" in new CanChallengeSetup {
+
+    val testCanChallengeResponse = canChallengeResponse.copy(result = true)
+
+    when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(Some(testCanChallengeResponse)))
+
+    val result = resultCanChallenge(false)
+
+    val expectedRedirect =
+      s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/agent/start?isDvr=true"
+
+    status(result) mustBe SEE_OTHER
+    redirectLocation(result) mustBe Some(expectedRedirect)
+  }
+
+  "can Challenge for IP" must "redirect to start challenge when canChallenge response is false" in new CanChallengeSetup {
+
+    val testCanChallengeResponse = canChallengeResponse.copy(result = false)
+
+    when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(Some(testCanChallengeResponse)))
+
+    val result = resultCanChallenge(true)
+
+    status(result) mustBe OK
+    // Title
+    contentAsString(result) must include(
+      "<title>You cannot raise a challenge - Valuation Office Agency - GOV.UK</title>")
+    // Backlink
+    contentAsString(result) must include(
+      """<a href="/business-rates-property-linking/my-organisation/property-link/123456/valuations/55555?uarn=123123""")
+  }
+
+  "can Challenge for Agent" must "redirect to start challenge when canChallenge response is false" in new CanChallengeSetup {
+
+    val testCanChallengeResponse = canChallengeResponse.copy(result = false)
+
+    when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(Some(testCanChallengeResponse)))
+
+    val result = resultCanChallenge(false)
+
+    status(result) mustBe OK
+    // Title
+    contentAsString(result) must include(
+      "<title>You cannot raise a challenge - Valuation Office Agency - GOV.UK</title>")
+    // Backlink
+    contentAsString(result) must include(
+      """<a href="/business-rates-property-linking/my-organisation/property-link/clients/all/123456/valuations/55555?uarn=123123""")
   }
 
   "detailed valuation check" must "return 200 OK when DVR case does not exist" in new Setup {
