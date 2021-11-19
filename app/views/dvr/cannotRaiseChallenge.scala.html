@@ -23,7 +23,7 @@
 @(model: CanChallengeResponse, address: String, localAuth: String, homePageUrl: String, authorisationId: Long, backLinkUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = messages("cannotRaiseChallenge.title"),
+    pageTitle = messages("cannotRaiseChallenge.title.fail"),
     backUri = Some(backLinkUrl)
 ) {
     <ul class="govuk-list">
