@@ -928,7 +928,7 @@ available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need t
 available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
 available.requestvaluation.dvrCheck.startCheck=Send my completed check form
 
-cannotRaiseChallenge.title=You cannot raise a challenge
+cannotRaiseChallenge.title=You cannot challenge this valuation
 
 property.details.cases.table.1=Submitted date
 property.details.cases.table.2=Submitted ID
