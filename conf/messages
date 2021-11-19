@@ -234,6 +234,7 @@ link.dashboard=Go to your dashboard
 link.return.home=Return to your home page
 link.go.home=Go to home page
 link.go.back=Go back
+link.go.back.property=Go back to this property
 createAccount.group.details.header.agent=I’m registering as an agent
 createAccount.group.details.content.agent=You’ll need to provide information about your own business here, not your client’s business.
 createAccount.group.details.header.multipleAddress=There’s more than one address for my business
@@ -927,7 +928,7 @@ available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need t
 available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
 available.requestvaluation.dvrCheck.startCheck=Send my completed check form
 
-cannotRaiseChallenge.title=You cannot raise a challenge
+cannotRaiseChallenge.title=You cannot challenge this valuation
 
 property.details.cases.table.1=Submitted date
 property.details.cases.table.2=Submitted ID
