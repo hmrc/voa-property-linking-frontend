@@ -169,7 +169,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     status(result) mustBe OK
     // Title
     contentAsString(result) must include(
-      "<title>You cannot raise a challenge - Valuation Office Agency - GOV.UK</title>")
+      "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>")
     // Backlink
     contentAsString(result) must include(
       """<a href="/business-rates-property-linking/my-organisation/property-link/123456/valuations/55555?uarn=123123""")
@@ -187,7 +187,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     status(result) mustBe OK
     // Title
     contentAsString(result) must include(
-      "<title>You cannot raise a challenge - Valuation Office Agency - GOV.UK</title>")
+      "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>")
     // Backlink
     contentAsString(result) must include(
       """<a href="/business-rates-property-linking/my-organisation/property-link/clients/all/123456/valuations/55555?uarn=123123""")

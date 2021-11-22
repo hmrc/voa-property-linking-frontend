@@ -1393,7 +1393,7 @@ registration.error.p1=You can’t register until the Administrator from your org
 registration.error.p2=You’ll need to speak to the person that gave you your Government Gateway sign-in details.
 
 #challenge
-cannotRaiseChallenge.title=You cannot raise a challenge
+
 challengeRules.summary=When can I challenge the valuation?
 challengeRules.rules=You can make a Challenge if you have:
 challengeRules.rules.1=had a Check case decision in the last 4 months
