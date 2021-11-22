@@ -55,7 +55,7 @@
         <input class="govuk-checkboxes__input" id="@id" name="linkIds[]" type="checkbox" value="@value">
         <label class="govuk-label govuk-checkboxes__label" for="@id">
             <span class="govuk-visually-hidden">Appoint</span>
-            @Formatters.capitalisedAddress(address)
+            <span name="address-text">@Formatters.capitalisedAddress(address)</span>
         </label>
     </div>
 }
@@ -141,7 +141,7 @@
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l">@title</h1>
 
-            <p class="govuk-body">
+            <p class="govuk-body" id="intro-paragraph">
                 <span class="govuk-!-font-weight-bold">@model.agentGroup.companyName</span>
                 @messages("propertyRepresentation.removeAgentProperties.message", agentCode.toString)
             </p>
@@ -166,9 +166,10 @@
 
         <div class="govuk-button-group">
             @govukButton(Button(
-                content = Text(messages("label.search"))
+                content = Text(messages("label.search")),
+                attributes = Map("id" -> "search-button")
             ))
-            <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-link">@messages("manageProperties.table.clear.search")</a>
+            <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-link" id="clear-search">@messages("manageProperties.table.clear.search")</a>
         </div>
     }
 
