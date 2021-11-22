@@ -37,11 +37,11 @@
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{
-    Messages("propertyRepresentation.removeAgentProperties.title")
+    messages("propertyRepresentation.removeAgentProperties.title", model.agentGroup.companyName)
 }
 
 @addressColumnHeaderLink = {
-    <a href="@agentAppointment.routes.AppointAgentController.sortRevokePropertiesByAddress(pagination, agentCode)" class="govuk-link" role="link">
+    <a href="@agentAppointment.routes.AppointAgentController.sortRevokePropertiesByAddress(pagination, agentCode)" class="govuk-link" role="link" style="color: black">
         @messages(s"propertyRepresentation.th.${ADDRESS.toString}")
     </a>
 }
@@ -50,22 +50,23 @@
     <span class="govuk-visually-hidden">@messages(s"propertyRepresentation.th.AGENT")</span>
 }
 
-@checkBox(id: String, value: String) = {
+@checkBox(id: String, value: String, address: String) = {
     <div class="govuk-checkboxes__item selection-button-checkbox">
         <input class="govuk-checkboxes__input" id="@id" name="linkIds[]" type="checkbox" value="@value">
         <label class="govuk-label govuk-checkboxes__label" for="@id">
             <span class="govuk-visually-hidden">Appoint</span>
+            @Formatters.capitalisedAddress(address)
         </label>
     </div>
 }
 
 @appointedAgents(authorisation: OwnerAuthorisation) = {
     @if(authorisation.agents.nonEmpty) {
-        <ul class="govuk-list">
+        <ul class="govuk-list govuk-!-margin-bottom-0">
             @authorisation.agents.map { agent =>
                 @* don't display agent if same as selected agent *@
                 @if(agent.organisationId != model.agentGroup.id) {
-                    <li class="margin-bottom-0">@agent.organisationName</li>
+                    <li>@agent.organisationName</li>
                 }
             }
         </ul>
@@ -76,13 +77,11 @@
     model.response.authorisations.zipWithIndex.map { case (authorisation, index) =>
         Seq(
             TableRow(
-                content = HtmlContent(checkBox(s"checkbox-${index + 1}", authorisation.submissionId))
+                content = HtmlContent(checkBox(s"checkbox-${index + 1}", authorisation.submissionId, authorisation.address))
             ),
             TableRow(
-                content = Text(Formatters.capitalisedAddress(authorisation.address))
-            ),
-            TableRow(
-                content = HtmlContent(appointedAgents(authorisation))
+                content = HtmlContent(appointedAgents(authorisation)),
+                classes = "govuk-!-padding-top-3"
             )
         )
     }
@@ -129,54 +128,51 @@
 
 @mainLayout(pageTitle = title, backUri = Some(backLink), mainClass = Some("govuk-grid-column-full"), hasErrors = errorLinks.nonEmpty) {
 
-    <div class="govuk-grid-row">
-
-        @if(f.isDefined){
-            @govukErrorSummary(
-                ErrorSummary(
-                    errorList = errorLinks,
-                    title = Text(messages("error.title"))
-                )
+    @if(f.isDefined){
+        @govukErrorSummary(
+            ErrorSummary(
+                errorList = errorLinks,
+                title = Text(messages("error.title"))
             )
-        }
+        )
+    }
 
-        <h1 class="govuk-heading-l">@messages("propertyRepresentation.removeAgentProperties.heading")</h1>
-
-        <p class="govuk-body">@messages("propertyRepresentation.removeAgentProperties.message.p1", model.agentGroup.companyName, agentCode.toString)</p>
-
-        @formWithCSRF(agentAppointment.routes.AppointAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
-            <input type="hidden" name="pageSize" value="@pagination.pageSize">
-
-            <input type="hidden" name="backLink" value="@backLink">
-
-
-            <div class="govuk-grid-row searchbar">
-                <h2 class="govuk-heading-s margin-top-0">@messages("propertyRepresentation.search.filter")</h2>
-                <div class="govuk-grid-row">
-                  <div class="govuk-grid-column-two-thirds">
-                      @govukInput(Input(
-                        id = "address",
-                        name = "address",
-                        value = params.address,
-                        label = Label(
-                          content = Text(messages("propertyRepresentation.th.ADDRESS"))
-                        ),
-                        classes = "govuk-!-width-full"
-                      ))
-                      <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-body govuk-link">@messages("manageProperties.table.clear.search")</a>
-                  </div>
-                  <div class="govuk-grid-column-one-third">
-                        <span class="govuk-body">&nbsp;</span>
-                        <br/>
-                        @govukButton(Button(
-                            content = Text(messages("propertyRepresentation.search", Messages("propertyRepresentation.th.ADDRESS")))
-                          ))
-                  </div>
-                </div>
-            </div>
-        }
-    </div>
     <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">@title</h1>
+
+            <p class="govuk-body">
+                <span class="govuk-!-font-weight-bold">@model.agentGroup.companyName</span>
+                @messages("propertyRepresentation.removeAgentProperties.message", agentCode.toString)
+            </p>
+            <br/>
+        </div>
+    </div>
+
+    @formWithCSRF(agentAppointment.routes.AppointAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
+        <input type="hidden" name="pageSize" value="@pagination.pageSize">
+        <input type="hidden" name="backLink" value="@backLink">
+
+        <h2 class="govuk-heading-m">@messages("propertyRepresentation.search.filter")</h2>
+        @govukInput(Input(
+            id = "address",
+            name = "address",
+            value = params.address,
+            label = Label(
+                content = Text(messages("propertyRepresentation.th.ADDRESS"))
+            ),
+            classes = "govuk-!-width-one-third"
+        ))
+
+        <div class="govuk-button-group">
+            @govukButton(Button(
+                content = Text(messages("label.search"))
+            ))
+            <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-link">@messages("manageProperties.table.clear.search")</a>
+        </div>
+    }
+
+    <div class="govuk-grid-row govuk-grid-column-full">
         @if(model.response.authorisations.isEmpty){
             <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
         } else {
@@ -184,110 +180,99 @@
                 <input type="hidden" name="agentCode" value="@agentCode">
                 <input type="hidden" name="backLinkUrl" value="@backLink">
 
-
-
                 <div class="hide-if-no-js margin-top-20 govuk-body">
                     <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
                     <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
                     <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
                 </div>
-                <div class="govuk-grid-row @formErrorClass">
+
+                <div class="govuk-grid-row @formErrorClass govuk-grid-column-full">
                     @govukTable(Table(
                         attributes = Map("id" -> "agentPropertiesTableBody"),
                         rows = resultRows,
                         head = Some(Seq(
                           HeadCell(
-                            content = Text(messages("propertyRepresentation.appointAgents.table.select")),
-                            attributes = Map("style" -> "width: 10%", "aria-sort" -> "none")
-                          ),
-                          HeadCell(
                             content = HtmlContent(addressColumnHeaderLink),
-                            attributes = Map("style" -> "width: 60%", "id" -> "sort-by-address", "aria-sort" -> s"$ariaSortAddress"),
+                            attributes = Map("id" -> "sort-by-address", "aria-sort" -> s"$ariaSortAddress"),
                             classes = s"$sortAddress"
                           ),
                           HeadCell(
                             content = HtmlContent(appointedAgentsColumnHeader),
-                            attributes = Map("style" -> "width: 30%", "aria-sort" -> "none")
+                            attributes = Map("style" -> "width: 20%")
                           )
                         )),
                         firstCellIsHeader = false
                     ))
                 </div>
+
                 <div class="govuk-grid-row">
-                    <div class="govuk-grid-row">
-                        <div class="govuk-grid-column-one-third">
-                            <div id="page-size-list" class="govuk-body">
-                                <span class="page-size-option-label">@messages("search.sort.page.size.view")</span>
-                                @for(len <- List(15, 25, 50, 100)) {
-                                @if(pagination.pageSize == len) {
-                                <span class="page-size-option-current">@len</span>
-                                } else {
+                    @if(model.response.filterTotal > model.response.authorisations.length) {
+                        <div class="govuk-grid-row govuk-grid-column-full">
+                            <div class="govuk-grid-column-one-third">
+                                <div id="page-size-list" class="govuk-body">
+                                    <span class="page-size-option-label">@messages("search.sort.page.size.view")</span>
+                                    @for(len <- List(15, 25, 50, 100)) {
+                                    @if(pagination.pageSize == len) {
+                                    <span class="page-size-option-current">@len</span>
+                                    } else {
 
-                                <a class="page-size-option govuk-link" href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.copy(pageSize = len, page = 1), agentCode).url">
-                                    @len</a>
-                                }
-                                }
-                                @messages("search.sort.page.size.properties.per.page")
+                                    <a class="page-size-option govuk-link" href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.copy(pageSize = len, page = 1), agentCode).url">
+                                        @len</a>
+                                    }
+                                    }
+                                    @messages("search.sort.page.size.properties.per.page")
+                                </div>
                             </div>
-                        </div>
-                        <div class="govuk-grid-column-one-third centre">
-                            <div role="status" class="pull-left">
-                                <p class="govuk-body">
-                                    @messages(
-                                        "search.sort.showing",
-                                        if(model.response.authorisations.isEmpty) {
-                                            0
+                            <div class="govuk-grid-column-one-third centre">
+                                <div role="status" class="pull-left">
+                                    <p class="govuk-body">
+                                        @messages(
+                                            "search.sort.showing",
+                                            if(model.response.authorisations.isEmpty) {
+                                                0
+                                            } else {
+                                                pagination.startPoint
+                                            },
+                                            model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1),
+                                            model.response.filterTotal
+                                        )
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="govuk-grid-column-one-third">
+
+                                <div role="navigation" aria-label="Pagination" class="pull-right">
+                                    <ul class="pagination govuk-list" style="margin: 0px">
+                                        @if(pagination.page > 1) {
+                                            <li class="previous ">
+                                                <a href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.previousPage, agentCode).url" role="link" class="govuk-link">
+                                                    <i class="previous-arrow"></i>@messages("pagination.previous")</a>
+                                            </li>
                                         } else {
-                                            pagination.startPoint
-                                        },
-                                        model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1),
-                                        model.response.filterTotal
-                                    )
-                                </p>
+                                            <li class="previous disabled govuk-body"><i class="previous-arrow govuk-body"></i>@messages("pagination.previous")</li>
+                                        }
+
+                                        <li class="active">@pagination.page</li>
+                                        @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
+                                            <li class="next">
+                                                <a href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.nextPage, agentCode).url" role="link" class="govuk-link">@messages("pagination.next")<i class="next-arrow"></i></a>
+                                            </li>
+                                        } else {
+                                            <li class="next disabled"><i class="next-arrow govuk-body"></i>@messages("pagination.next")</li>
+                                        }
+                                    </ul>
+                                </div>
+
                             </div>
                         </div>
-                        <div class="govuk-grid-column-one-third">
-
-                            <div role="navigation" aria-label="Pagination" class="pull-right">
-                                <ul class="pagination govuk-list" style="margin: 0px">
-                                    @if(pagination.page > 1) {
-                                        <li class="previous ">
-                                            <a href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.previousPage, agentCode).url" role="link" class="govuk-link">
-                                                <i class="previous-arrow"></i>@messages("pagination.previous")</a>
-                                        </li>
-                                    } else {
-                                        <li class="previous disabled govuk-body"><i class="previous-arrow govuk-body"></i>@messages("pagination.previous")</li>
-                                    }
-
-                                    <li class="active">@pagination.page</li>
-                                    @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
-                                        <li class="next">
-                                            <a href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.nextPage, agentCode).url" role="link" class="govuk-link">@messages("pagination.next")<i class="next-arrow"></i></a>
-                                        </li>
-                                    } else {
-                                        <li class="next disabled"><i class="next-arrow govuk-body"></i>@messages("pagination.next")</li>
-                                    }
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="govuk-grid-row">
-                        <div class="govuk-grid-column-full">
-                            <br/>
-
-                            <div class="hide-if-no-js margin-top-20 govuk-body">
-                                <a href="#" id="par-select-all-bottom" class="govuk-link">@messages("propertyRepresentation.appointAgentProperties.select")</a>
-                            </div>
-                            <br/>
-
-                            @govukButton(
-                                Button(
-                                    content = Text(messages("propertyRepresentation.appointAgent.button")),
-                                    attributes = Map("id" -> "submit-button")
-                                )
+                    }
+                    <div class="govuk-grid-column-full">
+                        @govukButton(
+                            Button(
+                                content = Text(messages("propertyRepresentation.appointAgent.button")),
+                                attributes = Map("id" -> "submit-button")
                             )
-                        </div>
+                        )
                     </div>
                 </div>
 
