@@ -37,7 +37,7 @@
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{
-    messages("propertyRepresentation.removeAgentProperties.heading", model.agentGroup.companyName)
+    messages("propertyRepresentation.removeAgentProperties.title", model.agentGroup.companyName)
 }
 
 @addressColumnHeaderLink = {

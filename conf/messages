@@ -418,8 +418,7 @@ draftCases.confirm.delete.return.button=Return to drafts list
 propertyRepresentation.removeAgent.title=Remove agent permissions
 propertyRepresentation.removeAgent.message.p1=You can remove an agent''s ability to carry out checks and challenges on your behalf.
 propertyRepresentation.removeAgent.message.p2=Select an agent from the list below to remove them from one or more properties.
-propertyRepresentation.removeAgentProperties.title=Which properties should the agent be removed from
-propertyRepresentation.removeAgentProperties.heading=Remove agent {0} from one or more properties
+propertyRepresentation.removeAgentProperties.title=Remove agent {0} from one or more properties
 propertyRepresentation.removeAgentProperties.message=(Agent ID: {0}) will no longer be able to submit checks and challenges for these properties.
 
 #Appoint agent
