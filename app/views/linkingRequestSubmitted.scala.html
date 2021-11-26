@@ -47,6 +47,13 @@
 @homeLink = @{
     config.dashboardUrl("home")
 }
+@linkSubmitted = @{
+    model.clientDetails match {
+        case Some(client)   => Html(messages("linkSubmitted.whatNext.5", managePropertiesUrl))
+        case _              => Html(messages("linkSubmitted.whatNext.2", managePropertiesUrl))
+    }
+}
+
 @mainLayout(
     pageTitle = messages("linkingRequestSubmitted.title")
 ) {
@@ -67,7 +74,7 @@
             <h2 class="govuk-heading-m">@messages("heading.whatNext")</h2>
 
             <p class="govuk-body">@messages("linkSubmitted.whatNext.1")</p>
-            <p class="govuk-body">@Html(messages("linkSubmitted.whatNext.2", managePropertiesUrl))</p>
+            <p class="govuk-body">@linkSubmitted</p>
             <p class="govuk-body">@messages("linkSubmitted.whatNext.3")</p>
             <p class="govuk-body">@Html(messages("linkSubmitted.whatNext.4", homeLink))</p>
 }
