@@ -113,7 +113,8 @@ trait FakeViews extends GdsComponents {
     govukErrorSummary,
     govukInput,
     govukTable,
-    govukButton)
+    govukButton,
+    govukSelect)
 
   lazy val updateBusinessAddressView =
     new views.html.details.updateBusinessAddress(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)

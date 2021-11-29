@@ -54,6 +54,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
         any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockAppointRevokeService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(organisationsAgentsList))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
     when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
@@ -209,7 +211,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainText("You must enter something to search for")
-    page.titleMustMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
+    page.titleMustMatch(
+      s"Error: Appoint agent $ggExternalId to one or more properties - Valuation Office Agency - GOV.UK")
   }
 
   "appointAgentSummary" should "show the summary page" in {
@@ -244,7 +247,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainTable("#agentPropertiesTableBody")
-    page.titleMustMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
+    page.titleMustMatch(
+      s"Error: Appoint agent $ggExternalId to one or more properties - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -262,7 +266,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.mustContainTable("#agentPropertiesTableBody")
-    page.titleMustMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
+    page.titleMustMatch(
+      s"Error: Appoint agent $ggExternalId to one or more properties - Valuation Office Agency - GOV.UK")
 
   }
 
