@@ -784,7 +784,7 @@ linkSubmitted.whatNext.1=We will process your claim to this property as quickly 
 linkSubmitted.whatNext.2=You can see the status of your claim in <a class="govuk-link" href="{0}">your properties</a>. Once the claim is approved, the status will update.
 linkSubmitted.whatNext.3=We will contact you if we need more information.
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Go back to your dashboard</a>
-
+linkSubmitted.whatNext.5=You can see the status of your claim in <a class="govuk-link" href="{0}">your client''s properties</a>. Once the claim is approved, the status will update.
 linkingRequestSubmitted.link=Manage your properties
 linkingRequestSubmitted.changedCircumstances.heading=Change in circumstances
 linkingRequestSubmitted.changedCircumstances.p.1=If you’re claiming a property to tell us about any external circumstances that are currently impacting on your business (such as long-term disruptive roadworks, flooding, or other external factors) you’ll be able to tell us even while your request is ‘Pending’.
