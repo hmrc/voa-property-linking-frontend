@@ -16,13 +16,14 @@
 
 package utils
 
-import controllers.VoaPropertyLinkingSpec
+import tests.BaseUnitSpec
 
-class FormattersSpec extends VoaPropertyLinkingSpec {
+class FormattersSpec extends BaseUnitSpec {
 
-  "capitalised Address" must
+  "capitalised Address" should {
     "format the address in camel case" in {
-    val address = "THE OLD WAREHOUSE, CHALFONT STATION ROAD, LITTLE CHALFONT, AMERSHAM, BUCKS, HP7 9PS"
-    Formatters.capitalisedAddress(address) mustBe "The Old Warehouse, Chalfont Station Road, Little Chalfont, Amersham, Bucks,  HP7 9PS"
+      val address = "THE OLD WAREHOUSE, CHALFONT STATION ROAD, LITTLE CHALFONT, AMERSHAM, BUCKS, HP7 9PS"
+      Formatters.capitalisedAddress(address) shouldBe "The Old Warehouse, Chalfont Station Road, Little Chalfont, Amersham, Bucks,  HP7 9PS"
+    }
   }
 }

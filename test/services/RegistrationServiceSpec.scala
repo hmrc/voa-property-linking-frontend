@@ -49,34 +49,42 @@ class RegistrationServiceSpec extends ServiceSpec {
     )
   }
 
-  "create" should "return EnrolmentSuccess when ivEnrolmentEnabled flag is true" in new TestCase {
-    when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
-    StubIndividualAccountConnector.stubAccount(
-      account = DetailedIndividualAccount(
-        externalId = ggExternalId,
-        trustId = None,
-        organisationId = 1L,
-        individualId = 2L,
-        details =
-          IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
-      ))
-    implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
+  "create" should {
+    "return EnrolmentSuccess when ivEnrolmentEnabled flag is true" in new TestCase {
+      when(mockEnrolmentService.enrol(any(), any())(any(), any())).thenReturn(Future.successful(Success))
+      StubIndividualAccountConnector.stubAccount(
+        account = DetailedIndividualAccount(
+          externalId = ggExternalId,
+          trustId = None,
+          organisationId = 1L,
+          individualId = 2L,
+          details =
+            IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
+        ))
+      implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
 
-    val res: Future[RegistrationResult] = registrationService.create(
-      groupAccountDetails,
-      userDetails()
-    )(_ =>
-      _ =>
-        opt =>
-          IndividualAccountSubmission(
-            externalId = "",
-            trustId = None,
-            organisationId = opt,
-            details =
-              IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)))
+      val res: Future[RegistrationResult] = registrationService.create(
+        groupAccountDetails,
+        userDetails()
+      )(
+        _ =>
+          _ =>
+            opt =>
+              IndividualAccountSubmission(
+                externalId = "",
+                trustId = None,
+                organisationId = opt,
+                details = IndividualDetails(
+                  firstName = "",
+                  lastName = "",
+                  email = "",
+                  phone1 = "",
+                  phone2 = None,
+                  addressId = 12)))
 
-    res.futureValue mustBe RegistrationSuccess(2L)
-    verify(mockEmailService).sendNewRegistrationSuccess(any(), any(), any(), any())(any(), any())
+      res.futureValue shouldBe RegistrationSuccess(2L)
+      verify(mockEmailService).sendNewRegistrationSuccess(any(), any(), any(), any())(any(), any())
+    }
   }
 
 }

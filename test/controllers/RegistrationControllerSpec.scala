@@ -80,8 +80,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val res = testRegistrationController(userDetails()).show()(FakeRequest())
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/home")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("http://localhost:9542/business-rates-dashboard/home")
   }
 
   "Going to the create account page, when logged in with an account that has not registered and has an Individual affinity group" should
@@ -90,7 +90,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val user = userDetails(affinityGroup = AffinityGroup.Individual)
 
     val res = testRegistrationController(user, individualUserAccountDetails).show()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("Mobile number")
@@ -104,7 +104,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "Going to the create account page, when logged in with an account that is an Agent" should
     "display the invalid account type page" in {
     val res = testRegistrationController(userDetails(affinityGroup = Agent)).show()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("You’ve tried to register using an existing Agent Government Gateway account")
@@ -114,7 +114,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     "display the create organisation account form" in {
     val user = userDetails(Organisation)
     val res = testRegistrationController(user).show()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.inputMustContain("address.postcode", user.postcode.get)
@@ -133,7 +133,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(groupAccount)
 
     val res = testRegistrationController(user, adminInExistingOrganisationAccountDetails).show()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainTextInput("#firstName")
@@ -149,7 +149,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     )
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
     val res = testRegistrationController(userDetails()).submitAssistant()(fakeRequest)
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
     html.mustContainText("Last name - This must be filled in")
@@ -163,7 +163,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(ga)
 
     val res = testRegistrationController(user).show()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("You have been added as a user to your organisation, please confirm your details below")
@@ -177,7 +177,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     "display the invalid account creation page" in {
     val res = testRegistrationController(userDetails(affinityGroup = Organisation, credentialRole = Assistant))
       .show()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText(
@@ -227,8 +227,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val res =
       testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L50)).submitIndividual()(fakeRequest)
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/identity-verification/start")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("/business-rates-property-linking/identity-verification/start")
   }
 
   "Submitting a valid individual with high confidence level" should "return a create-success redirect" in new SubmitIndividual {
@@ -237,13 +237,13 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val res =
       testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).submitIndividual()(fakeRequest)
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(s"/business-rates-property-linking/create-success?personId=$personId")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(s"/business-rates-property-linking/create-success?personId=$personId")
   }
 
   "Submitting an invalid individual form" should "return a bad request response" in {
     val res = testRegistrationController(userDetails()).submitIndividual()(FakeRequest())
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   trait SubmitOrganisation {
@@ -288,8 +288,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val res =
       testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L50)).submitOrganisation()(fakeRequest)
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/identity-verification/start")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("/business-rates-property-linking/identity-verification/start")
   }
 
   "Submitting a valid organisation with high confidence level" should "return an create-success redirect" in new SubmitOrganisation {
@@ -298,13 +298,13 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val res =
       testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).submitOrganisation()(fakeRequest)
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(s"/business-rates-property-linking/create-success?personId=$personId")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(s"/business-rates-property-linking/create-success?personId=$personId")
   }
 
   "Submitting an invalid organisation form" should "return a bad request response" in {
     val res = testRegistrationController(userDetails()).submitOrganisation()(FakeRequest())
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   override protected def beforeEach(): Unit = {

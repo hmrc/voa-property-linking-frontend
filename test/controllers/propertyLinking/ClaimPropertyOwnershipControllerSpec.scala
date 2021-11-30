@@ -74,7 +74,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
     val res = testClaimProperty.showOwnership()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("claim ownership page loaded")
@@ -91,7 +91,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
     val res = testClaimProperty.showOwnership()(FakeRequest())
-    status(res) mustBe SEE_OTHER
+    status(res) shouldBe SEE_OTHER
 
   }
 
@@ -104,7 +104,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
 
     val res = testClaimProperty
       .showOwnership()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("claim ownership page on client behalf")
@@ -114,7 +114,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
   it should "reject invalid form submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
     val res = testClaimProperty.submitOwnership()(FakeRequest())
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   it should "redirect to the choose evidence page on valid submissions" in {
@@ -126,8 +126,8 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
         "interestedBefore2017" -> "true",
         "stillInterested"      -> "true"
       ))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.ChooseEvidenceController.show.url)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(routes.ChooseEvidenceController.show.url)
   }
 
 }

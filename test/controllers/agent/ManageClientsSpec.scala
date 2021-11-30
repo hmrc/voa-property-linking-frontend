@@ -32,7 +32,7 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
     setup()
 
     val res = TestController.viewClientProperties()(FakeRequest())
-    status(res) mustBe SEE_OTHER
+    status(res) shouldBe SEE_OTHER
   }
 
   private def setup(numberOfLinks: Int = 15): Unit = {

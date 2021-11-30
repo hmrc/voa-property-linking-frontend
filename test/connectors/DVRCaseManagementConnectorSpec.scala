@@ -43,12 +43,12 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     val detailedValuationRequest = mock[DetailedValuationRequest]
 
     mockHttpPOST[DetailedValuationRequest, HttpResponse]("tst-url", emptyJsonHttpResponse(OK))
-    whenReady(connector.requestDetailedValuation(detailedValuationRequest))(_ mustBe ((): Unit))
+    whenReady(connector.requestDetailedValuation(detailedValuationRequest))(_ shouldBe ((): Unit))
   }
 
   "dvrExists" must "successfully return a boolean" in new Setup {
     mockHttpGET[Boolean]("tst-url", true)
-    whenReady(connector.dvrExists(1, 2))(_ mustBe true)
+    whenReady(connector.dvrExists(1, 2))(_ shouldBe true)
   }
 
   "request detailed valuation" must "update the valuation with the detailed valuation request" in new Setup {
@@ -68,7 +68,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     )
 
     val result: Unit = await(connector.requestDetailedValuation(dvr))
-    result mustBe ((): Unit)
+    result shouldBe ((): Unit)
   }
 
   "get dvr documents" must "return the documents and transfer them into an optional" in new Setup {
@@ -92,7 +92,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
 
-    result mustBe someDvrDocumentFiles
+    result shouldBe someDvrDocumentFiles
   }
 
   "get dvr documents" must "return None when the documents don't exist" in new Setup {
@@ -108,7 +108,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(None))
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
-    result mustBe None
+    result shouldBe None
   }
 
   "get dvr document" must "return streamed Documents" in new Setup {

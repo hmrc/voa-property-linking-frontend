@@ -93,7 +93,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       )(request)
   }
 
-  "can Challenge for IP" must "redirect to challenge advice page when canChallenge return None" in new CanChallengeSetup {
+  "can Challenge for IP" should "redirect to challenge advice page when canChallenge return None" in new CanChallengeSetup {
 
     when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(None))
@@ -105,11 +105,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val expectedRedirect =
       s"http://localhost:9537/business-rates-valuation/property-link/valuations/startChallenge?backLinkUrl=$urlBack"
 
-    status(result) mustBe SEE_OTHER
-    redirectLocation(result) mustBe Some(expectedRedirect)
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(expectedRedirect)
   }
 
-  "can Challenge for Agent" must "redirect to challenge advice page when canChallenge return None" in new CanChallengeSetup {
+  "can Challenge for Agent" should "redirect to challenge advice page when canChallenge return None" in new CanChallengeSetup {
 
     when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
       .thenReturn(Future.successful(None))
@@ -121,11 +121,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val expectedRedirect =
       s"http://localhost:9537/business-rates-valuation/property-link/valuations/startChallenge?backLinkUrl=$urlBack"
 
-    status(result) mustBe SEE_OTHER
-    redirectLocation(result) mustBe Some(expectedRedirect)
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(expectedRedirect)
   }
 
-  "can Challenge for IP" must "redirect to start challenge when canChallenge response is true" in new CanChallengeSetup {
+  "can Challenge for IP" should "redirect to start challenge when canChallenge response is true" in new CanChallengeSetup {
 
     val testCanChallengeResponse = canChallengeResponse.copy(result = true)
 
@@ -137,11 +137,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val expectedRedirect =
       s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/client/start?isDvr=true"
 
-    status(result) mustBe SEE_OTHER
-    redirectLocation(result) mustBe Some(expectedRedirect)
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(expectedRedirect)
   }
 
-  "can Challenge for Agent" must "redirect to start challenge when canChallenge response is true" in new CanChallengeSetup {
+  "can Challenge for Agent" should "redirect to start challenge when canChallenge response is true" in new CanChallengeSetup {
 
     val testCanChallengeResponse = canChallengeResponse.copy(result = true)
 
@@ -153,11 +153,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val expectedRedirect =
       s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/agent/start?isDvr=true"
 
-    status(result) mustBe SEE_OTHER
-    redirectLocation(result) mustBe Some(expectedRedirect)
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(expectedRedirect)
   }
 
-  "can Challenge for IP" must "redirect to start challenge when canChallenge response is false" in new CanChallengeSetup {
+  "can Challenge for IP" should "redirect to start challenge when canChallenge response is false" in new CanChallengeSetup {
 
     val testCanChallengeResponse = canChallengeResponse.copy(result = false)
 
@@ -166,16 +166,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     val result = resultCanChallenge(true)
 
-    status(result) mustBe OK
+    status(result) shouldBe OK
     // Title
-    contentAsString(result) must include(
+    contentAsString(result) should include(
       "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>")
     // Backlink
-    contentAsString(result) must include(
+    contentAsString(result) should include(
       """<a href="/business-rates-property-linking/my-organisation/property-link/123456/valuations/55555?uarn=123123""")
   }
 
-  "can Challenge for Agent" must "redirect to start challenge when canChallenge response is false" in new CanChallengeSetup {
+  "can Challenge for Agent" should "redirect to start challenge when canChallenge response is false" in new CanChallengeSetup {
 
     val testCanChallengeResponse = canChallengeResponse.copy(result = false)
 
@@ -184,16 +184,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     val result = resultCanChallenge(false)
 
-    status(result) mustBe OK
+    status(result) shouldBe OK
     // Title
-    contentAsString(result) must include(
+    contentAsString(result) should include(
       "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>")
     // Backlink
-    contentAsString(result) must include(
+    contentAsString(result) should include(
       """<a href="/business-rates-property-linking/my-organisation/property-link/clients/all/123456/valuations/55555?uarn=123123""")
   }
 
-  "detailed valuation check" must "return 200 OK when DVR case does not exist" in new Setup {
+  "detailed valuation check" should "return 200 OK when DVR case does not exist" in new Setup {
     val now = LocalDateTime.now()
 
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
@@ -218,14 +218,14 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         uarn = 1L
       )(request)
 
-    status(result) mustBe OK
-    contentAsString(result) must include("You can download the")
+    status(result) shouldBe OK
+    contentAsString(result) should include("You can download the")
 
     verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
   }
 
-  "draft detailed valuation" must "return 200 OK and not fetch checks/challenges " in new Setup {
+  "draft detailed valuation" should "return 200 OK and not fetch checks/challenges " in new Setup {
     val now = LocalDateTime.now()
     val firstAssessment: ApiAssessment =
       assessments.assessments.headOption.getOrElse(fail("expected to find at least 1 assessment"))
@@ -251,14 +251,14 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         uarn = 1L
       )(request)
 
-    status(result) mustBe OK
-    contentAsString(result) must include("You can download the")
+    status(result) shouldBe OK
+    contentAsString(result) should include("You can download the")
 
     verify(mockPropertyLinkConnector, never()).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector, never()).getMyOrganisationsChallengeCases(any())(any())
   }
 
-  "detailed valuation check" must "return 303 SEE_OTHER when DVR case does exist" in new Setup {
+  "detailed valuation check" should "return 303 SEE_OTHER when DVR case does exist" in new Setup {
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
     when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
@@ -273,54 +273,54 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       valuationId = link.authorisationId,
       uarn = assessment.assessmentRef)(request)
 
-    status(result) mustBe SEE_OTHER
-    redirectLocation(result) mustBe Some(
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(
       s"/business-rates-property-linking/my-organisation/property-link/1111/valuations/${link.authorisationId}/exists")
   }
 
-  "request detailed valuation" must "return 303 SEE_OTHER when request is valid" in new Setup {
+  "request detailed valuation" should "return 303 SEE_OTHER when request is valid" in new Setup {
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
     when(mockDvrCaseManagement.requestDetailedValuationV2(any())(any())).thenReturn(Future.successful(()))
 
     val result = controller.requestDetailedValuation(link.submissionId, 1L, true)(request)
 
-    status(result) mustBe SEE_OTHER
-    redirectLocation(result) mustBe Some(
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(
       s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/confirmation?submissionId=DVR123")
   }
 
-  "request detailed valuation confirmation" must "return 200 OK when request is valid" in new Setup {
+  "request detailed valuation confirmation" should "return 200 OK when request is valid" in new Setup {
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
 
     val result = controller.confirmation(link.submissionId, link.submissionId, true)(request)
 
-    status(result) mustBe OK
+    status(result) shouldBe OK
   }
 
-  "request detailed valuation as Agent" must "return 303 SEE_OTHER when request is valid" in new Setup {
+  "request detailed valuation as Agent" should "return 303 SEE_OTHER when request is valid" in new Setup {
     when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
     when(mockDvrCaseManagement.requestDetailedValuationV2(any())(any())).thenReturn(Future.successful(()))
 
     val result = controller.requestDetailedValuation(link.submissionId, 1L, false)(request)
 
-    status(result) mustBe SEE_OTHER
-    redirectLocation(result) mustBe Some(
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(
       s"/business-rates-property-linking/my-organisation/property-link/clients/all/${link.submissionId}/confirmation?submissionId=DVR123")
   }
 
-  "request detailed valuation confirmation as Agent" must "return 200 OK when request is valid" in new Setup {
+  "request detailed valuation confirmation as Agent" should "return 200 OK when request is valid" in new Setup {
     when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
 
     val result = controller.confirmation(link.submissionId, link.submissionId, false)(request)
 
-    status(result) mustBe OK
+    status(result) shouldBe OK
   }
 
-  "already submitted detailed valuation request" must "return 200 OK when DVR does not exist" in new Setup {
+  "already submitted detailed valuation request" should "return 200 OK when DVR does not exist" in new Setup {
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments.copy(assessments = assessments.assessments.map(a =>
         a.copy(assessmentRef = 1L))))))
@@ -330,11 +330,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.alreadySubmittedDetailedValuationRequest(submissionId = "11111", valuationId = 1L, owner = true)(
         request)
 
-    status(result) mustBe OK
-    contentAsString(result) must include("Already submitted a check?")
+    status(result) shouldBe OK
+    contentAsString(result) should include("Already submitted a check?")
   }
 
-  "already submitted detailed valuation request" must "return 200 OK without challenge section when viewing a draft assessment" in new Setup {
+  "already submitted detailed valuation request" should "return 200 OK without challenge section when viewing a draft assessment" in new Setup {
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments.copy(assessments = assessments.assessments.map(a =>
         a.copy(assessmentRef = 1L, listType = ListType.DRAFT))))))
@@ -344,11 +344,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.alreadySubmittedDetailedValuationRequest(submissionId = "11111", valuationId = 1L, owner = true)(
         request)
 
-    status(result) mustBe OK
-    contentAsString(result) must not include "Already submitted a check?"
+    status(result) shouldBe OK
+    contentAsString(result) should not include "Already submitted a check?"
   }
 
-  "already submitted detailed valuation request" must "return 200 OK with check text when viewing a non-draft assessment" in new Setup {
+  "already submitted detailed valuation request" should "return 200 OK with check text when viewing a non-draft assessment" in new Setup {
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments.copy(assessments = assessments.assessments.map(a =>
         a.copy(assessmentRef = 1L, listType = ListType.CURRENT))))))
@@ -358,11 +358,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.alreadySubmittedDetailedValuationRequest(submissionId = "11111", valuationId = 1L, owner = true)(
         request)
 
-    status(result) mustBe OK
-    contentAsString(result) must include("If you need to submit a check urgently because of a change")
+    status(result) shouldBe OK
+    contentAsString(result) should include("If you need to submit a check urgently because of a change")
   }
 
-  "already submitted detailed valuation request" must "return 200 OK without check text when viewing a draft assessment" in new Setup {
+  "already submitted detailed valuation request" should "return 200 OK without check text when viewing a draft assessment" in new Setup {
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments.copy(assessments = assessments.assessments.map(a =>
         a.copy(assessmentRef = 1L, listType = ListType.DRAFT))))))
@@ -372,8 +372,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.alreadySubmittedDetailedValuationRequest(submissionId = "11111", valuationId = 1L, owner = true)(
         request)
 
-    status(result) mustBe OK
-    contentAsString(result) must not include "If you need to submit a check urgently because of a change"
+    status(result) shouldBe OK
+    contentAsString(result) should not include "If you need to submit a check urgently because of a change"
   }
 
 }

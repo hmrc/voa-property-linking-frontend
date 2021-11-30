@@ -16,10 +16,9 @@
 
 package utils
 
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import org.scalatest.{Matchers, WordSpec}
+import tests.BaseUnitSpec
 
-class EmailAddressValidationSpec extends WordSpec with Matchers with ScalaCheckPropertyChecks {
+class EmailAddressValidationSpec extends BaseUnitSpec {
 
   "Testing EmailAddress" should {
 

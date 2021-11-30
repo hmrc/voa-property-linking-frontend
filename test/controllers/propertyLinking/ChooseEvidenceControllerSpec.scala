@@ -61,7 +61,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
     val res = TestChooseEvidence.show()(request)
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("The choose evidence page")
@@ -76,7 +76,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
     val res = TestChooseEvidence.show()(request)
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("The choose evidence page")
@@ -89,7 +89,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
     val res = TestChooseEvidence.submit()(request)
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
     html.mustContainText("require the user to select whether they have a rates bill")
@@ -97,15 +97,15 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
 
   it must "redirect to the rates bill upload page if the user has a rates bill" in {
     val res = TestChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
-    status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
+    status(res) shouldBe SEE_OTHER
+    header("location", res) shouldBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
   }
 
   it must "redirect to the other evidence page if the user does not have a rates bill" in {
 
     val res = TestChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
-    status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
+    status(res) shouldBe SEE_OTHER
+    header("location", res) shouldBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
   }
 
 }

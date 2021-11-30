@@ -35,10 +35,10 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     val emptyName = Seq("businessName" -> "")
 
     val res = testController.updateBusinessName()(FakeRequest().withFormUrlEncodedBody(emptyName: _*))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("span.govuk-error-message").text mustBe "Error: This must be filled in"
+    html.select("span.govuk-error-message").text shouldBe "Error: This must be filled in"
   }
 
   it must "update the business name on a valid submission" in new Setup {
@@ -50,8 +50,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     )
 
     val res = testController.updateBusinessName()(FakeRequest().withFormUrlEncodedBody(validData: _*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(viewDetailsPage)
   }
 
   "The update business address page" must "update the business address ID if the postcode lookup is used" in new Setup {
@@ -68,8 +68,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     )
 
     val res = testController.updateBusinessAddress()(FakeRequest().withFormUrlEncodedBody(validData: _*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     verify(mockGroups).update(
       matching(ga.id),
@@ -92,8 +92,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     )
 
     val res = testController.updateBusinessAddress()(FakeRequest().withFormUrlEncodedBody(validData: _*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     verify(mockAddresses).create(matching(Address(None, "1, The Place", "", "", "", "AA11 1AA")))(any[HeaderCarrier])
     verify(mockGroups)
@@ -107,10 +107,10 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     val emptyPhoneNumber = Seq("phone" -> "")
 
     val res = testController.updateBusinessPhone()(FakeRequest().withFormUrlEncodedBody(emptyPhoneNumber: _*))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("span.govuk-error-message").text mustBe "Error: This must be filled in"
+    html.select("span.govuk-error-message").text shouldBe "Error: This must be filled in"
   }
 
   it must "update the business phone number on a valid submission" in new Setup {
@@ -120,8 +120,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     val validData = Seq("phone" -> "999")
 
     val res = testController.updateBusinessPhone()(FakeRequest().withFormUrlEncodedBody(validData: _*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     verify(mockGroups)
       .update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, phone = Some("999"))))(any[HeaderCarrier])
@@ -137,10 +137,10 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     )
 
     val res = testController.updateBusinessEmail()(FakeRequest().withFormUrlEncodedBody(invalidEmail: _*))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("span.govuk-error-message").text mustBe "Error: Enter a valid email address"
+    html.select("span.govuk-error-message").text shouldBe "Error: Enter a valid email address"
   }
 
   it must "require the confirmed email to match" in new Setup {
@@ -153,12 +153,12 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     )
 
     val res = testController.updateBusinessEmail()(FakeRequest().withFormUrlEncodedBody(mismatchingEmails: _*))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
     html
       .select("span.govuk-error-message")
-      .text mustBe "Error: Email addresses must match. Check them and try again"
+      .text shouldBe "Error: Email addresses must match. Check them and try again"
   }
 
   it must "update the business email address on a valid submission" in new Setup {
@@ -171,8 +171,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     )
 
     val res = testController.updateBusinessEmail()(FakeRequest().withFormUrlEncodedBody(validData: _*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     verify(mockGroups).update(
       matching(ga.id),
@@ -182,37 +182,37 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
   "viewBusinessName" should "display the business name" in new Setup {
     val res = testController.viewBusinessName()(FakeRequest())
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update business name - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update business name - Valuation Office Agency - GOV.UK"
   }
 
   "viewBusinessAddress" should "display the business address" in new Setup {
     val res = testController.viewBusinessAddress()(FakeRequest())
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update business address - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update business address - Valuation Office Agency - GOV.UK"
   }
 
   "viewBusinessPhone" should "display the business phone number" in new Setup {
     val res = testController.viewBusinessPhone()(FakeRequest())
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update business telephone number - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update business telephone number - Valuation Office Agency - GOV.UK"
   }
 
   "viewBusinessEmail" should "display the users email" in new Setup {
     val res = testController.viewBusinessEmail()(FakeRequest())
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update business email - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update business email - Valuation Office Agency - GOV.UK"
   }
 
   trait Setup {

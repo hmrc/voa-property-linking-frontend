@@ -31,16 +31,20 @@ import scala.concurrent.{Await, Future}
 class ManageDetailsSpec extends ServiceSpec {
 
   implicit val request =
-    new BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
+    BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
 
-  "updatePostcode" should "upsert known facts if predicate matches" in {
-    updatePostcode(1, 1, 2, true)
-    verify(mockTaxEnrolments).updatePostcode(matches(1L), any(), matches(mockAddress.postcode))(any(), any())
+  "updatePostcode" should {
+    "upsert known facts if predicate matches" in {
+      updatePostcode(1, 1, 2, true)
+      verify(mockTaxEnrolments).updatePostcode(matches(1L), any(), matches(mockAddress.postcode))(any(), any())
+    }
   }
 
-  "updatePostcode" should "not upsert known facts if predicate does not match" in {
-    updatePostcode(3, 3, 4, false)
-    verify(mockTaxEnrolments, never()).updatePostcode(any(), any(), any())(any(), any())
+  "updatePostcode" should {
+    "not upsert known facts if predicate does not match" in {
+      updatePostcode(3, 3, 4, false)
+      verify(mockTaxEnrolments, never()).updatePostcode(any(), any(), any())(any(), any())
+    }
   }
 
   def updatePostcode(personId: Int, addressId: Long, currentAddressId: Long, predicate: Boolean): Unit =

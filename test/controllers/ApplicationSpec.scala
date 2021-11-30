@@ -32,10 +32,10 @@ class ApplicationSpec extends VoaPropertyLinkingSpec {
 
     val result = applicationTestController.addUserToGG()(FakeRequest())
 
-    status(result) mustBe OK
+    status(result) shouldBe OK
 
     val html = contentAsString(result)
-    html must include("You should be aware that if you add an agent to your Government Gateway account")
+    html should include("You should be aware that if you add an agent to your Government Gateway account")
 
   }
 
@@ -43,19 +43,19 @@ class ApplicationSpec extends VoaPropertyLinkingSpec {
 
     val result = applicationTestController.manageBusinessTaxAccount()(FakeRequest())
 
-    status(result) mustBe SEE_OTHER
+    status(result) shouldBe SEE_OTHER
 
-    redirectLocation(result) mustBe Some("http://localhost:9020/business-account/manage-account")
+    redirectLocation(result) shouldBe Some("http://localhost:9020/business-account/manage-account")
   }
 
   "start" should "display the start page" in {
 
     val result = applicationTestController.start()(FakeRequest().withFormUrlEncodedBody("choice" -> "test"))
 
-    status(result) mustBe OK
+    status(result) shouldBe OK
 
     val html = contentAsString(result)
-    html must include("If you don’t have the details that you need to register")
+    html should include("If you don’t have the details that you need to register")
 
   }
 
@@ -63,19 +63,19 @@ class ApplicationSpec extends VoaPropertyLinkingSpec {
 
     val result = applicationTestController.logOut()(FakeRequest())
 
-    status(result) mustBe SEE_OTHER
+    status(result) shouldBe SEE_OTHER
 
-    redirectLocation(result) mustBe Some("/business-rates-property-linking")
+    redirectLocation(result) shouldBe Some("/business-rates-property-linking")
   }
 
   "invalidAccountType" should "take the user to the invalid account page as they are unauthorized" in {
 
     val result = applicationTestController.invalidAccountType()(FakeRequest())
 
-    status(result) mustBe UNAUTHORIZED
+    status(result) shouldBe UNAUTHORIZED
 
     val html = contentAsString(result)
-    html must include("You’ve tried to register using an existing Agent Government Gateway account.")
+    html should include("You’ve tried to register using an existing Agent Government Gateway account.")
   }
 
 }

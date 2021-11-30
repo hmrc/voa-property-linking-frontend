@@ -38,23 +38,23 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
         stubMessagesControllerComponents()
       )
 
-  "viewOwnerSummary" must "redirect to business-rates-valuation view owner summary details" in {
+  "viewOwnerSummary" should "redirect to business-rates-valuation view owner summary details" in {
     val res = TestAssessmentController.viewOwnerSummary(123L, true)(FakeRequest())
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(
       "http://localhost:9537/business-rates-valuation/property-link/123/valuation/summary")
   }
 
-  "viewClientSummary" must "redirect to business-rates-valuation view client summary details" in {
+  "viewClientSummary" should "redirect to business-rates-valuation view client summary details" in {
     val res = TestAssessmentController.viewClientSummary(123L, true)(FakeRequest())
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(
       "http://localhost:9537/business-rates-valuation/property-link/clients/all/123/valuation/summary")
   }
 
-  "Viewing a detailed valuation" must "redirect to business rates valuation if it's viewable and user is owner" in {
+  "Viewing a detailed valuation" should "redirect to business rates valuation if it's viewable and user is owner" in {
     val link: PropertyLink = arbitrary[PropertyLink]
 
     //return TRUE - i.e. viewable
@@ -71,13 +71,13 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
       baRef = "BA Ref",
       owner = true,
     )(FakeRequest())
-    status(res) mustBe SEE_OTHER
+    status(res) shouldBe SEE_OTHER
 
-    redirectLocation(res).value must endWith(
+    redirectLocation(res).value should endWith(
       s"/business-rates-valuation/property-link/${link.authorisationId}/valuations/1234?submissionId=${link.submissionId}")
   }
 
-  "Viewing a detailed valuation" must "redirect to business rates valuation if it's viewable and user is agent" in {
+  "Viewing a detailed valuation" should "redirect to business rates valuation if it's viewable and user is agent" in {
     val link: PropertyLink = arbitrary[PropertyLink]
 
     //return TRUE - i.e. viewable
@@ -94,13 +94,13 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
       baRef = "BA Ref",
       owner = false,
     )(FakeRequest())
-    status(res) mustBe SEE_OTHER
+    status(res) shouldBe SEE_OTHER
 
-    redirectLocation(res).value must endWith(
+    redirectLocation(res).value should endWith(
       s"/business-rates-valuation/property-link/clients/${link.authorisationId}/valuations/1234?submissionId=${link.submissionId}")
   }
 
-  "Viewing a detailed valuation" must "redirect to property linking if it's NOT viewable and user is owner" in {
+  "Viewing a detailed valuation" should "redirect to property linking if it's NOT viewable and user is owner" in {
     val link: PropertyLink = arbitrary[PropertyLink]
 
     //return FALSE - i.e. NOT viewable
@@ -118,13 +118,13 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
       baRef = "BA Ref",
       owner = true,
     )(FakeRequest())
-    status(res) mustBe SEE_OTHER
+    status(res) shouldBe SEE_OTHER
 
-    redirectLocation(res).value must endWith(
+    redirectLocation(res).value should endWith(
       s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/valuations/1234?uarn=${link.uarn}")
   }
 
-  "Viewing a detailed valuation" must "redirect to business rates valuation if it's NOT viewable and user is Agent" in {
+  "Viewing a detailed valuation" should "redirect to business rates valuation if it's NOT viewable and user is Agent" in {
     val link: PropertyLink = arbitrary[PropertyLink]
 
     //return FALSE - i.e. NOT viewable
@@ -141,9 +141,9 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
       baRef = "BA Ref",
       owner = false,
     )(FakeRequest())
-    status(res) mustBe SEE_OTHER
+    status(res) shouldBe SEE_OTHER
 
-    redirectLocation(res).value must endWith(
+    redirectLocation(res).value should endWith(
       s"/business-rates-valuation/property-link/clients/${link.authorisationId}/valuations/1234?submissionId=${link.submissionId}")
   }
 

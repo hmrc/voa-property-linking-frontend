@@ -18,7 +18,6 @@ package connectors.authorisation.errorhandler.exceptions
 
 import controllers.VoaPropertyLinkingSpec
 import org.mockito.Mockito.when
-import org.scalatest.Matchers.convertToAnyShouldWrapper
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HttpResponse, UpstreamErrorResponse}
 import uk.gov.hmrc.http.HttpReads.Implicits._
@@ -38,7 +37,7 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
 
     val response: HttpResponse =
       exceptionThrowingReads.authorisationReads[HttpResponse].read("GET", "URL", mockHttpResponse)
-    response mustBe mockHttpResponse
+    response shouldBe mockHttpResponse
   }
 
   "when handling a 401 http response" must "throw an AuthorisationFailure exception" in new Setup {
@@ -47,7 +46,7 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
 
     intercept[AuthorisationFailure] {
       exceptionThrowingReads.authorisationReads[HttpResponse].read("GET", "URL", mockHttpResponse)
-    }.getMessage mustBe "INVALID_GATEWAY_SESSION"
+    }.getMessage shouldBe "INVALID_GATEWAY_SESSION"
   }
 
   "when handling other 4xx http response" must "throw an UpstreamErrorResponse (4xx)" in new Setup {

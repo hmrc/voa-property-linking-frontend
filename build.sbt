@@ -133,13 +133,15 @@ lazy val compileDependencies = Seq(
 )
 
 lazy val testDependencies = Seq(
-  "uk.gov.hmrc"            %% "hmrctest"           % "3.9.0-play-26" % Test,
-  "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3"         % Test,
+  "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0"         % Test,
   "org.scalatest"          %% "scalatest"          % "3.0.8"         % Test,
   "org.scalacheck"         %% "scalacheck"         % "1.13.4"        % Test,
-  "org.pegdown"            %  "pegdown"            % "1.6.0"         % "test,it",
+  "org.scalatestplus"      %% "scalacheck-1-15"    % "3.2.10.0"      % Test,
+  "org.pegdown"            %  "pegdown"            % "1.6.0"         % Test,
   "org.jsoup"              %  "jsoup"              % "1.12.1"        % Test,
-  "org.mockito"            %  "mockito-core"       % "2.27.0"        % Test
+  "org.mockito"            %  "mockito-core"       % "2.27.0"        % Test,
+  "org.scalatestplus"      %% "mockito-3-4"        % "3.2.9.0"       % Test,
+  "com.vladsch.flexmark"   %  "flexmark-all"       % "0.35.10"       % Test
 )
 
 addCommandAlias("precommit", ";scalafmt;test:scalafmt;coverage;test;coverageReport")

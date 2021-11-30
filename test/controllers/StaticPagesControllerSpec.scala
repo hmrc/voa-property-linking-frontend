@@ -31,7 +31,7 @@ class StaticPagesControllerSpec extends VoaPropertyLinkingSpec {
   "Static page controller" should
     "return terms and conditions page and returns 200" in {
     val res = TestStaticPagesController.termsAndConditions()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
 }

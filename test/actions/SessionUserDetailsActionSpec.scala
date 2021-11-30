@@ -21,21 +21,18 @@ import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWi
 import models.registration._
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
-import org.scalatest.{BeforeAndAfterEach, Inside}
+import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import repositories.PersonalDetailsSessionRepository
-import tests.AllMocks
+import tests.{AllMocks, BaseUnitSpec}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.test.UnitSpec
 import utils.{FakeObjects, GlobalExecutionContext, NoMetricsOneAppPerSuite}
 
 import scala.concurrent.Future
 
 class SessionUserDetailsActionSpec
-    extends UnitSpec with MockitoSugar with ScalaFutures with BeforeAndAfterEach with AllMocks
-    with NoMetricsOneAppPerSuite with GlobalExecutionContext with FakeObjects with Inside {
+    extends BaseUnitSpec with ScalaFutures with BeforeAndAfterEach with AllMocks with NoMetricsOneAppPerSuite {
 
   "SessionUserDetailsAction" should {
     "transform a RequestWithUserDetails into a RequestWithSessionPersonDetails - for Individual" in new Setup {

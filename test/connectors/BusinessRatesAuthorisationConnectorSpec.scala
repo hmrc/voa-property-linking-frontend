@@ -42,11 +42,11 @@ class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
     val authenticationSuccessResult = Authenticated(validAccounts)
 
     mockHttpGET[Accounts]("tst-url", validAccounts)
-    whenReady(connector.authenticate)(_ mustBe authenticationSuccessResult)
+    whenReady(connector.authenticate)(_ shouldBe authenticationSuccessResult)
   }
 
   "authenticate" must "return a failed authentication result and be handled if authentication was unsuccessful" in new Setup {
     mockHttpFailedGET[Accounts]("tst-url", AuthorisationFailure("NO_CUSTOMER_RECORD"))
-    whenReady(connector.authenticate)(_ mustBe NoVOARecord)
+    whenReady(connector.authenticate)(_ shouldBe NoVOARecord)
   }
 }

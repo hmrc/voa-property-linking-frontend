@@ -37,17 +37,17 @@ class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
     val mockAgentDetails = mock[Option[AgentDetails]]
 
     mockHttpGET[Option[AgentDetails]]("tst-url", mockAgentDetails)
-    whenReady(connector.getAgentDetails(1))(_ mustBe mockAgentDetails)
+    whenReady(connector.getAgentDetails(1))(_ shouldBe mockAgentDetails)
   }
 
   "getAgentDetails" must "return None for Forbidden response" in new Setup {
 
     mockHttpGET[Option[AgentDetails]]("tst-url", Future.failed(UpstreamErrorResponse("org is not an agent", 403, 403)))
-    whenReady(connector.getAgentDetails(1))(_ mustBe None)
+    whenReady(connector.getAgentDetails(1))(_ shouldBe None)
   }
 
   "revokeClientProperty" must "send a DELETE request" in new Setup {
     mockHttpDELETE[HttpResponse]("tst-url", emptyJsonHttpResponse(NO_CONTENT))
-    whenReady(connector.revokeClientProperty("some-submission-id"))(_ mustBe ((): Unit))
+    whenReady(connector.revokeClientProperty("some-submission-id"))(_ shouldBe ((): Unit))
   }
 }

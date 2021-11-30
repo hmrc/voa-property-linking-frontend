@@ -33,14 +33,14 @@ class IdentityVerificationConnectorSpec extends VoaPropertyLinkingSpec {
     val ivResult = Json.obj("result" -> "Success")
 
     mockHttpGET[JsValue]("tst-url", ivResult)
-    whenReady(connector.verifySuccess("JOURNEY_ID"))(_ mustBe true)
+    whenReady(connector.verifySuccess("JOURNEY_ID"))(_ shouldBe true)
   }
 
   "verifySuccess" must "return false for any other response" in new Setup {
     val ivResult = Json.obj("result" -> "Something else")
 
     mockHttpGET[JsValue]("tst-url", ivResult)
-    whenReady(connector.verifySuccess("JOURNEY_ID"))(_ mustBe false)
+    whenReady(connector.verifySuccess("JOURNEY_ID"))(_ shouldBe false)
   }
 
   "journeyStatus" must "return the appropriate IvResult" in new Setup {
@@ -54,7 +54,7 @@ class IdentityVerificationConnectorSpec extends VoaPropertyLinkingSpec {
     val ivResult = Json.obj("result" -> "Something else")
 
     mockHttpGET[JsValue]("tst-url", ivResult)
-    whenReady(connector.journeyStatus("JOURNEY_ID"))(_ mustBe IvFailure.TechnicalIssue)
+    whenReady(connector.journeyStatus("JOURNEY_ID"))(_ shouldBe IvFailure.TechnicalIssue)
   }
 
 }

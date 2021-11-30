@@ -36,14 +36,14 @@ class BusinessRatesValuationConnectorSpec extends VoaPropertyLinkingSpec {
     when(mockHttpClient.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
       .thenReturn(Future.successful(emptyJsonHttpResponse(OK)))
 
-    whenReady(connector.isViewable(1, 1, "PL123"))(_ mustBe true)
+    whenReady(connector.isViewable(1, 1, "PL123"))(_ shouldBe true)
   }
 
   "isViewable" must "return false if the detailed valuation is not found" in new Setup {
     when(mockHttpClient.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
       .thenReturn(Future.successful(emptyJsonHttpResponse(NOT_FOUND)))
 
-    whenReady(connector.isViewable(1, 1, "PL123"))(_ mustBe false)
+    whenReady(connector.isViewable(1, 1, "PL123"))(_ shouldBe false)
   }
 
 }

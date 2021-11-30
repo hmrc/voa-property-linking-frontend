@@ -16,15 +16,16 @@
 
 package forms
 
-import java.time.LocalDate
-
 import controllers.propertyLinking.ClaimPropertyOwnership
-import models.{CapacityType, PropertyOwnership}
-import org.scalatest.{FlatSpec, MustMatchers}
+import models.PropertyOwnership
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import utils.FormBindingVerification._
 import views.helpers.Errors
 
-class PropertyOwnershipFormSpec extends FlatSpec with MustMatchers {
+import java.time.LocalDate
+
+class PropertyOwnershipFormSpec extends AnyFlatSpec with Matchers {
 
   import TestData._
 

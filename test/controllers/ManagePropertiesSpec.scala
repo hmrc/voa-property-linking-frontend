@@ -32,7 +32,7 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
     setup()
 
     val res = TestDashboardController.manageProperties()(FakeRequest())
-    status(res) mustBe SEE_OTHER
+    status(res) shouldBe SEE_OTHER
   }
 
   private def setup(numberOfLinks: Int = 15) = {

@@ -75,7 +75,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Html("claim property relationship page"))
 
     val res = testClaimProperty.showRelationship(positiveLong)(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("claim property relationship page")
@@ -90,7 +90,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
     val res = testClaimProperty
       .showRelationship(positiveLong, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("claim property relationship page on client behalf")
@@ -102,7 +102,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
       testClaimProperty.showRelationship(positiveLong, Some(ClientDetails(positiveLong, shortString)))(
         FakeRequest().withHeaders(
           ("referer", "http://localhost:9542/business-rates-find/summary/10361354?uarn=156039182")))
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
 
@@ -113,7 +113,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.submitRelationship(positiveLong)(FakeRequest())
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   it should "redirect to the claim relationship page on valid submissions" in {
@@ -123,8 +123,8 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
       FakeRequest().withFormUrlEncodedBody(
         "capacity" -> "OWNER"
       ))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.ClaimPropertyOwnershipController.showOwnership.url)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(routes.ClaimPropertyOwnershipController.showOwnership.url)
   }
 
   it should "initialise the linking session on submission" in {
@@ -137,7 +137,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
         "capacity" -> Owner.toString
       ))
 
-    status(res) mustBe SEE_OTHER
+    status(res) shouldBe SEE_OTHER
 
     verify(mockSessionRepo, times(2)).start(any())(any(), any())
   }
@@ -147,9 +147,9 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
     val res = testClaimProperty.show()(FakeRequest())
 
-    status(res) mustBe SEE_OTHER
+    status(res) shouldBe SEE_OTHER
 
-    redirectLocation(res) mustBe Some("http://localhost:9300/business-rates-find/search")
+    redirectLocation(res) shouldBe Some("http://localhost:9300/business-rates-find/search")
   }
 
 }

@@ -16,13 +16,14 @@
 
 package utils
 
-import java.time.LocalDate
-
 import models.registration.keys
 import models.{NamedEnum, NamedEnumSupport}
-import org.scalatest.{AppendedClues, MustMatchers}
+import org.scalatest.AppendedClues
+import org.scalatest.matchers.should.Matchers
 import play.api.data.Form
 import views.helpers.Errors
+
+import java.time.LocalDate
 
 object FormBindingVerification extends BasicVerification with DateVerification with ContactDetailsVerification {
 
@@ -49,8 +50,8 @@ object FormBindingVerification extends BasicVerification with DateVerification w
 
   def mustBindTo[A](form: Form[A], data: Map[String, String], result: A): Unit = {
     val f = form.bind(data)
-    f.errors.isEmpty mustBe true withClue s"Form unexpectedly contained errors.${diagnostics(f)}"
-    f.value.foreach(_ mustEqual result withClue s"Form did not bind to $result.${diagnostics(f)}")
+    f.errors.isEmpty shouldBe true withClue s"Form unexpectedly contained errors.${diagnostics(f)}"
+    f.value.foreach(_ shouldEqual result withClue s"Form did not bind to $result.${diagnostics(f)}")
   }
 
 }
@@ -167,7 +168,7 @@ trait DateVerification { this: BasicVerification =>
   }
 }
 
-trait BasicVerification extends MustMatchers with AppendedClues with FormChecking {
+trait BasicVerification extends Matchers with AppendedClues with FormChecking {
 
   def verifyMandatory(form: Form[_], validData: Map[String, String], field: String, exclusive: Boolean = true): Unit = {
     val data = validData - field
@@ -247,11 +248,11 @@ trait BasicVerification extends MustMatchers with AppendedClues with FormCheckin
   }
 }
 
-trait FormChecking extends MustMatchers with AppendedClues {
+trait FormChecking extends Matchers with AppendedClues {
 
   def mustBind[A](form: Form[A], data: Map[String, String]): Form[A] = {
     val f = form.bind(data)
-    f.bind(data).errors.isEmpty mustBe true withClue s"Form did not bind.${diagnostics(f)}"
+    f.bind(data).errors.isEmpty shouldBe true withClue s"Form did not bind.${diagnostics(f)}"
     f.value.getOrElse(fail(s"Form has errors:${diagnostics(f)}"))
     f
   }
@@ -275,7 +276,7 @@ trait FormChecking extends MustMatchers with AppendedClues {
 
   protected def mustContainError(form: Form[_], field: String, error: String, args: Option[Seq[Any]] = None): Unit = {
     val exists = form.errors.exists(e => e.key == field && e.messages.head == error && args.fold(true)(_ == e.args))
-    exists mustEqual true withClue s"No matching error for $field - $error${diagnostics(form)}"
+    exists shouldEqual true withClue s"No matching error for $field - $error${diagnostics(form)}"
   }
 
   protected def diagnostics(f: Form[_]) = s"\nErrors: ${f.errors} \nData: ${f.data}"

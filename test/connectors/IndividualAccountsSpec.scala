@@ -36,21 +36,21 @@ class IndividualAccountsSpec extends VoaPropertyLinkingSpec {
     val validDetailedIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
 
     mockHttpGETOption[DetailedIndividualAccount]("tst-url", validDetailedIndividualAccount)
-    whenReady(connector.get(1))(_ mustBe Some(validDetailedIndividualAccount))
+    whenReady(connector.get(1))(_ shouldBe Some(validDetailedIndividualAccount))
   }
 
   "withExternalId" must "return a valid detailed individual account using the external ID" in new Setup {
     val validDetailedIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
 
     mockHttpGETOption[DetailedIndividualAccount]("tst-url", validDetailedIndividualAccount)
-    whenReady(connector.withExternalId("EXTERNAL_ID"))(_ mustBe Some(validDetailedIndividualAccount))
+    whenReady(connector.withExternalId("EXTERNAL_ID"))(_ shouldBe Some(validDetailedIndividualAccount))
   }
 
   "update" must "successfully update an individual account" in new Setup {
     val validDetailedIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
 
     mockHttpPUT[IndividualAccount, HttpResponse]("tst-url", emptyJsonHttpResponse(OK))
-    whenReady(connector.update(validDetailedIndividualAccount))(_ mustBe ((): Unit))
+    whenReady(connector.update(validDetailedIndividualAccount))(_ shouldBe ((): Unit))
   }
 
   "create" must "create an individual account and return the ID" in new Setup {
@@ -58,7 +58,7 @@ class IndividualAccountsSpec extends VoaPropertyLinkingSpec {
     val accountId = Json.obj("id" -> 1)
 
     mockHttpPOST[IndividualAccountSubmission, JsValue]("tst-url", accountId)
-    whenReady(connector.create(individualAccountSubmission))(_ mustBe 1)
+    whenReady(connector.create(individualAccountSubmission))(_ shouldBe 1)
   }
 
 }

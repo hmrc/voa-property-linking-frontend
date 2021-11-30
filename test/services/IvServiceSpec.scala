@@ -33,48 +33,50 @@ import scala.concurrent.Future
 
 class IvServiceSpec extends ServiceSpec {
 
-  "continue" should "return a successful registration result if registration was successful for a new organisation" in new TestCase {
-    StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
-    when(mockRegistrationService.continue(any(), any())(any(), any()))
-      .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
-    when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
+  "continue" should {
+    "return a successful registration result if registration was successful for a new organisation" in new TestCase {
+      StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
+      when(mockRegistrationService.continue(any(), any())(any(), any()))
+        .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
+      when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
-    val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails(Organisation))
-    res.futureValue must be(Some(RegistrationSuccess(1L)))
-  }
+      val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails(Organisation))
+      res.futureValue should be(Some(RegistrationSuccess(1L)))
+    }
 
-  "continue" should "return a failed registration result if registration failed for a new organisation" in new TestCase {
-    StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
-    when(mockRegistrationService.continue(any(), any())(any(), any()))
-      .thenReturn(Future.successful(Some(EnrolmentFailure)))
-    when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
+    "return a failed registration result if registration failed for a new organisation" in new TestCase {
+      StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
+      when(mockRegistrationService.continue(any(), any())(any(), any()))
+        .thenReturn(Future.successful(Some(EnrolmentFailure)))
+      when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
-    val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails(Organisation))
-    res.futureValue must be(Some(EnrolmentFailure))
-  }
+      val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails(Organisation))
+      res.futureValue should be(Some(EnrolmentFailure))
+    }
 
-  "continue" should "return a successful registration result if registration was successful for a new individual" in new TestCase {
-    override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
-    StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
-    StubIndividualAccountConnector.stubAccount(detailedIndividualAccount)
-    when(mockRegistrationService.continue(any(), any())(any(), any()))
-      .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
-    when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
+    "return a successful registration result if registration was successful for a new individual" in new TestCase {
+      override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
+      StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
+      StubIndividualAccountConnector.stubAccount(detailedIndividualAccount)
+      when(mockRegistrationService.continue(any(), any())(any(), any()))
+        .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
+      when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
-    val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails())
-    res.futureValue must be(Some(RegistrationSuccess(1L)))
-  }
+      val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails())
+      res.futureValue should be(Some(RegistrationSuccess(1L)))
+    }
 
-  "continue" should "return a failed registration result if registration failed for a new individual" in new TestCase {
-    override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
-    StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
-    StubIndividualAccountConnector.stubAccount(detailedIndividualAccount)
-    when(mockRegistrationService.continue(any(), any())(any(), any()))
-      .thenReturn(Future.successful(Some(EnrolmentFailure)))
-    when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
+    "return a failed registration result if registration failed for a new individual" in new TestCase {
+      override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
+      StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
+      StubIndividualAccountConnector.stubAccount(detailedIndividualAccount)
+      when(mockRegistrationService.continue(any(), any())(any(), any()))
+        .thenReturn(Future.successful(Some(EnrolmentFailure)))
+      when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
-    val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails())
-    res.futureValue must be(Some(EnrolmentFailure))
+      val res: Future[Option[RegistrationResult]] = identityVerification.continue(None, userDetails())
+      res.futureValue should be(Some(EnrolmentFailure))
+    }
   }
 
   trait TestCase {

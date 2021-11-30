@@ -31,17 +31,17 @@ class AddressLookupSpec extends VoaPropertyLinkingSpec with AllMocks {
 
   it must "eventually return Ok for correctly formatted postcode" in {
     val res = TestAddressLookupController.findByPostcode("AB1 1BA")(request)
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   it must "return OK even if postcode has no space" in {
     val res = TestAddressLookupController.findByPostcode("AB11BA")(request)
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   it must "return 404 for postcode with no result" in {
     val res = TestAddressLookupController.findByPostcode(StubAddresses.noResultPostcode)(request)
-    status(res) mustBe NOT_FOUND
+    status(res) shouldBe NOT_FOUND
   }
 
 }

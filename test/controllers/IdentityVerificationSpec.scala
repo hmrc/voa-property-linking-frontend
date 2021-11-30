@@ -38,7 +38,7 @@ import scala.concurrent.Future
 
 class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
 
-  "Successfully verifying identity when an organisation does not have a CCA account" must
+  "Successfully verifying identity when an organisation does not have a CCA account" should
     "register and enrol the user then redirect to the registration success page" in new TestCase {
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
     when(mockRegistrationService.continue(any(), any())(any(), any()))
@@ -46,11 +46,11 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
 
     val res = testIdentityVerification(userDetails(Organisation))
       .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
   }
 
-  "Successfully verifying identity when an individual does not have a CCA account" must
+  "Successfully verifying identity when an individual does not have a CCA account" should
     "register and enrol the user then redirect to the registration success page" in new TestCase {
     override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
@@ -59,11 +59,11 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
 
     val res = testIdentityVerification(userDetails(Individual))
       .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
   }
 
-  "Successfully verifying identity" must
+  "Successfully verifying identity" should
     "return internal server error when the registration or enrolment fails" in new TestCase {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
       .thenReturn(Html("INTERNAL SERVER ERROR"))
@@ -74,10 +74,10 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     val res = testIdentityVerification(userDetails(Organisation))
       .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
 
-    status(res) mustBe INTERNAL_SERVER_ERROR
+    status(res) shouldBe INTERNAL_SERVER_ERROR
   }
 
-  "Successfully verifying identity" must
+  "Successfully verifying identity" should
     "return internal server error when there are details missing" in new TestCase {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
       .thenReturn(Html("INTERNAL SERVER ERROR"))
@@ -88,34 +88,34 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
     val res = testIdentityVerification(userDetails(Organisation))
       .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
 
-    status(res) mustBe INTERNAL_SERVER_ERROR
+    status(res) shouldBe INTERNAL_SERVER_ERROR
   }
 
-  "Manually navigating to the iv success page after failing identity verification" must "return a 401 Unauthorised response" in new TestCase {
+  "Manually navigating to the iv success page after failing identity verification" should "return a 401 Unauthorised response" in new TestCase {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
       .thenReturn(Html(""))
 
     StubIdentityVerification.stubFailedJourney("somejourneyid")
     val res = testIdentityVerification(userDetails(Organisation))
       .success(Some("successfuljourney"))(requestWithJourneyId("somejourneyid"))
-    status(res) mustBe UNAUTHORIZED
+    status(res) shouldBe UNAUTHORIZED
   }
 
-  "Navigating to the iv failed page" must "return the failed page" in new TestCase {
+  "Navigating to the iv failed page" should "return the failed page" in new TestCase {
     StubIdentityVerification.stubFailedJourney("somejourneyid")
     val res = testIdentityVerification(userDetails(Organisation))
       .fail(Some("failed journey"))(requestWithJourneyId("failed journey"))
-    status(res) mustBe OK
-    contentAsString(res) must include("Identity verification failed")
+    status(res) shouldBe OK
+    contentAsString(res) should include("Identity verification failed")
   }
-//  "Navigating to restoreSession" must "redirect to the iv success page" in new TestCase {
+//  "Navigating to restoreSession" should "redirect to the iv success page" in new TestCase {
 //    val res =
 //      testIdentityVerification(userDetails(Organisation)).restoreSession()(requestWithJourneyId("somejourneyid"))
-//    status(res) mustBe SEE_OTHER
-//    redirectLocation(res) mustBe Some(routes.IdentityVerification.success(Some("failed journey")).url)
+//    status(res) shouldBe SEE_OTHER
+//    redirectLocation(res) shouldBe Some(routes.IdentityVerification.success(Some("failed journey")).url)
 //  }
 
-  "fail" must "redirect the user to the identity verification failure page with appropriate error message detailing the cause of the IV failure" in new TestCase {
+  "fail" should "redirect the user to the identity verification failure page with appropriate error message detailing the cause of the IV failure" in new TestCase {
     val scenarios: TableFor2[IvFailure, String] = Table(
       ("IV Failure", "expected text"),
       IvFailure.Incomplete           -> "you have not answered all the questions",
@@ -136,9 +136,9 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
         StubIdentityVerification.stubFailedJourney("somejourneyid", failure)
         val res = testIdentityVerification(userDetails(Organisation))
           .fail(Some("failed journey"))(requestWithJourneyId("failed journey"))
-        status(res) mustBe OK
+        status(res) shouldBe OK
         val html = contentAsString(res)
-        html must include(s"We’re unable to verify your identity because $expectedText.")
+        html should include(s"We’re unable to verify your identity because $expectedText.")
     }
 
   }

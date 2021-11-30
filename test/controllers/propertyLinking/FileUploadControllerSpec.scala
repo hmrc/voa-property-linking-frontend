@@ -60,7 +60,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Html("RATES_BILL file upload page"))
 
     val res = controller.show(EvidenceChoices.RATES_BILL, None)(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("RATES_BILL file upload page")
@@ -75,7 +75,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(preparedUpload))
     val result =
       controller.initiate(EvidenceChoices.RATES_BILL)(request)
-    status(result) mustBe OK
+    status(result) shouldBe OK
   }
 
   "RATES_BILL remove file" must "return remove file success" in {
@@ -85,7 +85,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
 
     val result = controller.remove("01222333", EvidenceChoices.RATES_BILL)(request)
 
-    status(result) mustBe SEE_OTHER
+    status(result) shouldBe SEE_OTHER
   }
 
   "RATES_BILL submit with no files uploaded" must "show error if no files selected" in {
@@ -94,7 +94,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
 
     val postRequest = fakeRequest.withFormUrlEncodedBody()
     val result = controller.continue(EvidenceChoices.RATES_BILL)(request)
-    status(result) mustBe BAD_REQUEST
+    status(result) shouldBe BAD_REQUEST
   }
 
   "RATES_BILL file upload with valid files" must "redirect to declaration page" in {
@@ -106,7 +106,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful())
 
     val result = uploadController.continue(EvidenceChoices.RATES_BILL)(request)
-    status(result) mustBe SEE_OTHER
+    status(result) shouldBe SEE_OTHER
   }
 
   "OTHER Evidence file upload page" should "return valid page" in {
@@ -114,7 +114,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Html("RATES_BILL file upload page"))
 
     val res = controller.show(EvidenceChoices.OTHER, None)(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.mustContainText("RATES_BILL file upload page")
@@ -129,7 +129,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(preparedUpload))
     val result =
       controller.initiate(EvidenceChoices.OTHER)(request)
-    status(result) mustBe OK
+    status(result) shouldBe OK
   }
 
   "OTHER Evidence remove file" must "return remove file success" in {
@@ -139,7 +139,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
 
     val result = controller.remove("01222333", EvidenceChoices.OTHER)(request)
 
-    status(result) mustBe SEE_OTHER
+    status(result) shouldBe SEE_OTHER
   }
 
   "OTHER Evidence submit with no files uploaded" must "show error if no files selected" in {
@@ -148,7 +148,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
 
     val postRequest = fakeRequest.withFormUrlEncodedBody()
     val result = controller.continue(EvidenceChoices.OTHER)(request)
-    status(result) mustBe BAD_REQUEST
+    status(result) shouldBe BAD_REQUEST
   }
 
   "OTHER Evidence file upload with valid files" must "redirect to declaration page" in {
@@ -159,6 +159,6 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
 
     val result = uploadController.continue(EvidenceChoices.OTHER)(
       FakeRequest().withFormUrlEncodedBody("evidenceType" -> "License"))
-    status(result) mustBe SEE_OTHER
+    status(result) shouldBe SEE_OTHER
   }
 }

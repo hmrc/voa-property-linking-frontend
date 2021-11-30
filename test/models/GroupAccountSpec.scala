@@ -17,13 +17,12 @@
 package models
 
 import models.GroupAccount.AgentGroupAccount
-import org.scalatest.Matchers.convertToAnyShouldWrapper
-import org.scalatest.{FlatSpec, MustMatchers}
+import tests.BaseUnitSpec
 
-class GroupAccountSpec extends FlatSpec with MustMatchers {
+class GroupAccountSpec extends BaseUnitSpec {
 
   val testCompanyName = "testCompanyName"
-  val agentCode = 1234567L
+  override val agentCode = 1234567L
 
   val agentGroupAccount = GroupAccount(
     id = 12345L,
@@ -47,12 +46,16 @@ class GroupAccountSpec extends FlatSpec with MustMatchers {
     agentCode = None
   )
 
-  "AgentGroupAccount" must "extract agent code if there is an agent" in {
-    AgentGroupAccount.unapply(agentGroupAccount) shouldBe Some(agentGroupAccount, agentCode)
+  "AgentGroupAccount" should {
+    "extract agent code if there is an agent" in {
+      AgentGroupAccount.unapply(agentGroupAccount) shouldBe Some(agentGroupAccount, agentCode)
+    }
   }
 
-  "AgentGroupAccount" must "return none if the account is a non-agent account" in {
-    AgentGroupAccount.unapply(ipGroupAccount) shouldBe None
+  "AgentGroupAccount" should {
+    "return none if the account is a non-agent account" in {
+      AgentGroupAccount.unapply(ipGroupAccount) shouldBe None
+    }
   }
 
 }

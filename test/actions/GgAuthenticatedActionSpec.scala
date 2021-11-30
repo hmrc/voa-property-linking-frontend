@@ -30,18 +30,17 @@ import play.api.mvc.Results.{Ok, Redirect}
 import play.api.mvc._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import tests.AllMocks
+import tests.{AllMocks, BaseUnitSpec}
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.{Name, Retrieval, ~}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.test.UnitSpec
 import utils._
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class GgAuthenticatedActionSpec
-    extends UnitSpec with MockitoSugar with ScalaFutures with BeforeAndAfterEach with AllMocks
+    extends BaseUnitSpec with MockitoSugar with ScalaFutures with BeforeAndAfterEach with AllMocks
     with NoMetricsOneAppPerSuite with GlobalExecutionContext with FakeViews {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]

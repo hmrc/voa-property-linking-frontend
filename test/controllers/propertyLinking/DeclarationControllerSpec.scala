@@ -64,7 +64,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockDeclarationView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("The declaration page"))
     val res = TestDeclaration.show()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
     val html = HtmlPage(res)
     html.mustContainText("The declaration page")
   }
@@ -72,7 +72,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   it should "require the user to accept the declaration to continue" in new Setup {
 
     val res = TestDeclaration.submit()(FakeRequest())
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   it should "require the user to wait until evidence receipt received" in new Setup {
@@ -82,7 +82,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockDeclarationView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("please try again in a moment"))
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
     html.mustContainText("please try again in a moment")
@@ -93,8 +93,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation.url)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
     verify(mockPropertyLinkingService, times(1)).submit(any(), any())(any(), any[HeaderCarrier])
   }
@@ -113,8 +113,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       mockLinkingRequestSubmittedView
     )
     val res = testDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation.url)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
     verify(mockPropertyLinkingService, times(1)).submit(any(), any())(any(), any[HeaderCarrier])
   }
@@ -127,11 +127,11 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation.url)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
     val confirmation = TestDeclaration.confirmation()(FakeRequest())
-    status(confirmation) mustBe OK
+    status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
     html.mustContainText("We’ve received your request to add the property to your business’s customer record")
   }
@@ -143,11 +143,11 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
     val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(routes.DeclarationController.confirmation.url)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
     val confirmation = TestDeclaration.confirmation()(FakeRequest())
-    status(confirmation) mustBe OK
+    status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
     html.mustContainText("We’ve received your request to add the property to your business’s customer record")
   }
@@ -160,9 +160,9 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Html("PL-123456"))
 
     val res = TestDeclaration.confirmation()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
-    contentAsString(res) must include("PL-123456")
+    contentAsString(res) should include("PL-123456")
   }
 
 }

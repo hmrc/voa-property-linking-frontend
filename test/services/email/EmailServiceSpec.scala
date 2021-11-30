@@ -24,16 +24,16 @@ import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.Status.OK
 import play.api.libs.json.Writes
+import play.api.test.{DefaultAwaitTimeout, Helpers}
+import tests.BaseUnitSpec
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReads, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.play.test.UnitSpec
 import utils.HttpResponseUtils
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class EmailServiceSpec extends UnitSpec with MockitoSugar with HttpResponseUtils {
+class EmailServiceSpec extends BaseUnitSpec with MockitoSugar with HttpResponseUtils with DefaultAwaitTimeout {
 
   private implicit val headerCarrier = HeaderCarrier()
   val config = mock[ServicesConfig]
@@ -75,7 +75,7 @@ class EmailServiceSpec extends UnitSpec with MockitoSugar with HttpResponseUtils
           phone2 = None,
           addressId = 12345L)
 
-      await(
+      Helpers.await(
         emailService.sendNewRegistrationSuccess(
           "toAddress@email.com",
           DetailedIndividualAccount(

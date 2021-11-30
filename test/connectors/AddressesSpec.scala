@@ -34,29 +34,29 @@ class AddressesSpec extends VoaPropertyLinkingSpec {
     }
   }
 
-  "findByPostcode" must "return a sequence of addresses based on the postcode" in new Setup {
+  "findByPostcode" should "return a sequence of addresses based on the postcode" in new Setup {
     val validAddresses = Seq(arbitrary[DetailedAddress].sample.get)
 
     mockHttpGET[Seq[DetailedAddress]]("tst-url", validAddresses)
-    whenReady(connector.findByPostcode("AB12 C34"))(_ mustBe validAddresses)
+    whenReady(connector.findByPostcode("AB12 C34"))(_ shouldBe validAddresses)
   }
 
-  "findById" must "return an address based on the ID" in new Setup {
+  "findById" should "return an address based on the ID" in new Setup {
     val validAddress = arbitrary[Address].sample.get
 
     mockHttpGETOption[Address]("tst-url", validAddress)
-    whenReady(connector.findById(1))(_ mustBe Some(validAddress))
+    whenReady(connector.findById(1))(_ shouldBe Some(validAddress))
   }
 
-  "create" must "create an address and return the ID" in new Setup {
+  "create" should "create an address and return the ID" in new Setup {
     val validAddress = arbitrary[Address].sample.get
     val addressId = Json.obj("id" -> 1)
 
     mockHttpPOST[Address, JsValue]("tst-url", addressId)
-    whenReady(connector.create(validAddress))(_ mustBe 1L)
+    whenReady(connector.create(validAddress))(_ shouldBe 1L)
   }
 
-  "registerAddress" must "register a new address if it doesn't already exist in the group account details" in new Setup {
+  "registerAddress" should "register a new address if it doesn't already exist in the group account details" in new Setup {
     val validAddress = arbitrary[Address].sample.get
     val validGroupAccountDetails = GroupAccountDetails(
       companyName = "Test Company",
@@ -70,10 +70,10 @@ class AddressesSpec extends VoaPropertyLinkingSpec {
     val addressId = Json.obj("id" -> 1)
     mockHttpPOST[Address, JsValue]("tst-url", addressId)
 
-    whenReady(connector.registerAddress(validGroupAccountDetails))(_ mustBe 1L)
+    whenReady(connector.registerAddress(validGroupAccountDetails))(_ shouldBe 1L)
   }
 
-  "registerAddress" must "return the existing address ID if it already exists group account details" in new Setup {
+  "registerAddress" should "return the existing address ID if it already exists group account details" in new Setup {
     val validAddress = arbitrary[Address].sample.get
     val validGroupAccountDetails = GroupAccountDetails(
       companyName = "Test Company",
@@ -84,7 +84,7 @@ class AddressesSpec extends VoaPropertyLinkingSpec {
       isAgent = false
     )
 
-    whenReady(connector.registerAddress(validGroupAccountDetails))(_ mustBe 1L)
+    whenReady(connector.registerAddress(validGroupAccountDetails))(_ shouldBe 1L)
   }
 
 }
