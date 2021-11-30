@@ -29,7 +29,7 @@ class PropertyRelationshipFormSpec extends AnyFlatSpec with Matchers {
   behavior of "Property relationship form"
 
   it should "bind when the inputs are all valid" in {
-    mustBindTo(form, validData, PropertyRelationship(Occupier))
+    shouldBindTo(form, validData, PropertyRelationship(Occupier))
   }
 
   it should "mandate a capacity" in {

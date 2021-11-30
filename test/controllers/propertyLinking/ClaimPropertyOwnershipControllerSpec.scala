@@ -77,7 +77,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("claim ownership page loaded")
+    html.shouldContainText("claim ownership page loaded")
 
   }
 
@@ -107,7 +107,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("claim ownership page on client behalf")
+    html.shouldContainText("claim ownership page on client behalf")
 
   }
 

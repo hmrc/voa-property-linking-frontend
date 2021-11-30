@@ -71,7 +71,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainTable("#agentPropertiesTableBody")
+    page.shouldContainTable("#agentPropertiesTableBody")
   }
 
   "paginatePropertiesForAppoint" should "show the requested appoint agent properties page" in {
@@ -102,7 +102,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainTable("#agentPropertiesTableBody")
+    page.shouldContainTable("#agentPropertiesTableBody")
   }
 
   "sortPropertiesForAppoint" should "show a sorted appoint agent properties page" in {
@@ -142,7 +142,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContain("#sort-by-address.sort_desc", 1)
+    page.shouldContain("#sort-by-address.sort_desc", 1)
   }
 
   "filterPropertiesForAppoint" should "show a filtered appoint agent properties page" in {
@@ -177,7 +177,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText("ADDRESS 1")
+    page.shouldContainText("ADDRESS 1")
   }
 
   "filterPropertiesForAppoint" should "show error when nothing is entered" in {
@@ -208,8 +208,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe BAD_REQUEST
 
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText("You must enter something to search for")
-    page.titleMustMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
+    page.shouldContainText("You must enter something to search for")
+    page.titleShouldMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
   }
 
   "appointAgentSummary" should "show the summary page" in {
@@ -243,8 +243,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe BAD_REQUEST
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainTable("#agentPropertiesTableBody")
-    page.titleMustMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
+    page.shouldContainTable("#agentPropertiesTableBody")
+    page.titleShouldMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -261,8 +261,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe BAD_REQUEST
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainTable("#agentPropertiesTableBody")
-    page.titleMustMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
+    page.shouldContainTable("#agentPropertiesTableBody")
+    page.titleShouldMatch("Error: Appoint an agent to one or more properties - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -290,7 +290,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     status(res) shouldBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText(testOwnerAuth.address)
+    page.shouldContainText(testOwnerAuth.address)
   }
 
   "paginateRevokeProperties" should "show the requested revoke properties page" in {
@@ -312,7 +312,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     status(res) shouldBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText(testOwnerAuth.address)
+    page.shouldContainText(testOwnerAuth.address)
   }
 
   "sortRevokePropertiesByAddress" should "show a sorted revoke properties page" in {
@@ -343,7 +343,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     status(res) shouldBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContain("th.sort_desc", 1)
+    page.shouldContain("th.sort_desc", 1)
   }
 
   "filterPropertiesForRevoke" should "show a filtered revoke properties page" in {
@@ -372,7 +372,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText("ADDRESS 1")
+    page.shouldContainText("ADDRESS 1")
   }
 
   "viewing select agent properties search sort page" should "show no properties when the agent has no properties appointed" in {
@@ -396,7 +396,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     status(res) shouldBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText("There are no properties to display")
+    page.shouldContainText("There are no properties to display")
   }
 
   "revoke agent summary page" should "render a success screen when all is well" in {
@@ -416,7 +416,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText("You have removed Agent")
+    page.shouldContainText("You have removed Agent")
   }
 
   "submitting an incomplete revoke agent form" should "re-render the page with form errors reported to user" in {
@@ -438,8 +438,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe BAD_REQUEST
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText("Select one or more properties")
-    page.titleMustMatch(
+    page.shouldContainText("Select one or more properties")
+    page.titleShouldMatch(
       s"Error: Remove agent $ggExternalId from one or more properties - Valuation Office Agency - GOV.UK")
   }
 
@@ -460,8 +460,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       ))
     status(res) shouldBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.mustContainText("Failed to appoint agent to all properties")
-    page.titleMustMatch(
+    page.shouldContainText("Failed to appoint agent to all properties")
+    page.titleShouldMatch(
       s"Error: Remove agent $ggExternalId from one or more properties - Valuation Office Agency - GOV.UK")
   }
 

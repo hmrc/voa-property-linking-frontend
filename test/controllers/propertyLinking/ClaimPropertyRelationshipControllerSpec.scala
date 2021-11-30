@@ -78,7 +78,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("claim property relationship page")
+    html.shouldContainText("claim property relationship page")
 
   }
 
@@ -93,7 +93,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("claim property relationship page on client behalf")
+    html.shouldContainText("claim property relationship page on client behalf")
   }
 
   it should "contain link back to business-rates-find if thats where the request came from" in {
@@ -142,7 +142,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     verify(mockSessionRepo, times(2)).start(any())(any(), any())
   }
 
-  "show" must "redirect the user to vmv search for property page" in {
+  "show" should "redirect the user to vmv search for property page" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
     val res = testClaimProperty.show()(FakeRequest())

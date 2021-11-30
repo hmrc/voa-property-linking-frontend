@@ -32,7 +32,7 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
     val authorisationErrorResponseBody: String = """{ "errorCode": "INVALID_GATEWAY_SESSION"}"""
   }
 
-  "when handling a 2xx http response" must "return the response" in new Setup {
+  "when handling a 2xx http response" should "return the response" in new Setup {
     when(mockHttpResponse.status).thenReturn(OK)
 
     val response: HttpResponse =
@@ -40,7 +40,7 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
     response shouldBe mockHttpResponse
   }
 
-  "when handling a 401 http response" must "throw an AuthorisationFailure exception" in new Setup {
+  "when handling a 401 http response" should "throw an AuthorisationFailure exception" in new Setup {
     when(mockHttpResponse.status).thenReturn(UNAUTHORIZED)
     when(mockHttpResponse.body).thenReturn(authorisationErrorResponseBody)
 
@@ -49,7 +49,7 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
     }.getMessage shouldBe "INVALID_GATEWAY_SESSION"
   }
 
-  "when handling other 4xx http response" must "throw an UpstreamErrorResponse (4xx)" in new Setup {
+  "when handling other 4xx http response" should "throw an UpstreamErrorResponse (4xx)" in new Setup {
     when(mockHttpResponse.status).thenReturn(BAD_REQUEST)
 
     intercept[UpstreamErrorResponse] {
@@ -60,7 +60,7 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
     }
   }
 
-  "when handling a 5xx http response" must "throw an UpstreamErrorResponse (5xx)" in new Setup {
+  "when handling a 5xx http response" should "throw an UpstreamErrorResponse (5xx)" in new Setup {
     when(mockHttpResponse.status).thenReturn(INTERNAL_SERVER_ERROR)
 
     intercept[UpstreamErrorResponse] {

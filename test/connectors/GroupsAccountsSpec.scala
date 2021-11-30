@@ -32,34 +32,34 @@ class GroupsAccountsSpec extends VoaPropertyLinkingSpec {
     }
   }
 
-  "get" must "return a valid group account using the organisation ID" in new Setup {
+  "get" should "return a valid group account using the organisation ID" in new Setup {
     val validGroupAccount = arbitrary[GroupAccount].sample.get
 
     mockHttpGETOption[GroupAccount]("tst-url", validGroupAccount)
     whenReady(connector.get(1))(_ shouldBe Some(validGroupAccount))
   }
 
-  "withGroupId" must "return a valid group account using the group ID" in new Setup {
+  "withGroupId" should "return a valid group account using the group ID" in new Setup {
     val validGroupAccount = arbitrary[GroupAccount].sample.get
 
     mockHttpGETOption[GroupAccount]("tst-url", validGroupAccount)
     whenReady(connector.withGroupId("GROUP_ID"))(_ shouldBe Some(validGroupAccount))
   }
 
-  "withAgentCode" must "return a valid group account using the agent code" in new Setup {
+  "withAgentCode" should "return a valid group account using the agent code" in new Setup {
     val validGroupAccount = arbitrary[GroupAccount].sample.get
 
     mockHttpGETOption[GroupAccount]("tst-url", validGroupAccount)
     whenReady(connector.withAgentCode("AGENT_CODE"))(_ shouldBe Some(validGroupAccount))
   }
 
-  "update" must "successfully update a group account" in new Setup {
+  "update" should "successfully update a group account" in new Setup {
     val updatedOrganisationAccount = arbitrary[UpdatedOrganisationAccount].sample.get
     mockHttpPUT[UpdatedOrganisationAccount, HttpResponse]("tst-url", emptyJsonHttpResponse(OK))
     whenReady(connector.update(1, updatedOrganisationAccount))(_ shouldBe ((): Unit))
   }
 
-  "create" must "create a group account and return the ID" in new Setup {
+  "create" should "create a group account and return the ID" in new Setup {
     val groupAccountSubmission = mock[GroupAccountSubmission]
     val accountId = Json.obj("id" -> 1)
 

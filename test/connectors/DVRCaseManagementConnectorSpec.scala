@@ -39,19 +39,19 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     }
   }
 
-  "requestDetailedValuation" must "successfully post a detailed valuation request" in new Setup {
+  "requestDetailedValuation" should "successfully post a detailed valuation request" in new Setup {
     val detailedValuationRequest = mock[DetailedValuationRequest]
 
     mockHttpPOST[DetailedValuationRequest, HttpResponse]("tst-url", emptyJsonHttpResponse(OK))
     whenReady(connector.requestDetailedValuation(detailedValuationRequest))(_ shouldBe ((): Unit))
   }
 
-  "dvrExists" must "successfully return a boolean" in new Setup {
+  "dvrExists" should "successfully return a boolean" in new Setup {
     mockHttpGET[Boolean]("tst-url", true)
     whenReady(connector.dvrExists(1, 2))(_ shouldBe true)
   }
 
-  "request detailed valuation" must "update the valuation with the detailed valuation request" in new Setup {
+  "request detailed valuation" should "update the valuation with the detailed valuation request" in new Setup {
 
     val dvrUrl = s"/dvr-case-management-api/dvr_case/create_dvr_case"
 
@@ -71,7 +71,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     result shouldBe ((): Unit)
   }
 
-  "get dvr documents" must "return the documents and transfer them into an optional" in new Setup {
+  "get dvr documents" should "return the documents and transfer them into an optional" in new Setup {
     val valuationId = 1L
     val uarn = 2L
     val propertyLinkId = "PL-123456789"
@@ -95,7 +95,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     result shouldBe someDvrDocumentFiles
   }
 
-  "get dvr documents" must "return None when the documents don't exist" in new Setup {
+  "get dvr documents" should "return None when the documents don't exist" in new Setup {
     val valuationId = 1L
     val uarn = 2L
     val propertyLinkId = "PL-123456789"
@@ -111,7 +111,7 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     result shouldBe None
   }
 
-  "get dvr document" must "return streamed Documents" in new Setup {
+  "get dvr document" should "return streamed Documents" in new Setup {
     val mockWsRequest = mock[WSRequest]
     when(mockWsClient.url(any())).thenReturn(mockWsRequest)
     when(mockWsRequest.withMethod(any())).thenReturn(mockWsRequest)

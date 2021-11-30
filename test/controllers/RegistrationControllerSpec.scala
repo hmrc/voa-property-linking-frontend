@@ -93,12 +93,12 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("Mobile number")
-    html.inputMustContain("email", user.email)
-    html.inputMustContain("confirmedEmail", user.email)
-    html.inputMustContain("firstName", user.firstName.get)
-    html.inputMustContain("lastName", user.lastName.get)
-    html.inputMustContain("address.postcode", user.postcode.get)
+    html.shouldContainText("Mobile number")
+    html.inputShouldContain("email", user.email)
+    html.inputShouldContain("confirmedEmail", user.email)
+    html.inputShouldContain("firstName", user.firstName.get)
+    html.inputShouldContain("lastName", user.lastName.get)
+    html.inputShouldContain("address.postcode", user.postcode.get)
   }
 
   "Going to the create account page, when logged in with an account that is an Agent" should
@@ -107,7 +107,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("You’ve tried to register using an existing Agent Government Gateway account")
+    html.shouldContainText("You’ve tried to register using an existing Agent Government Gateway account")
   }
 
   "Going to the create account page, when logged in with an account that has not registered and has an Organisation affinity group" should
@@ -117,13 +117,13 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.inputMustContain("address.postcode", user.postcode.get)
+    html.inputShouldContain("address.postcode", user.postcode.get)
 
-    html.mustContainText("Business name")
-    html.inputMustContain("email", user.email)
-    html.inputMustContain("confirmedBusinessEmail", user.email)
-    html.inputMustContain("firstName", user.firstName.get)
-    html.inputMustContain("lastName", user.lastName.get)
+    html.shouldContainText("Business name")
+    html.inputShouldContain("email", user.email)
+    html.inputShouldContain("confirmedBusinessEmail", user.email)
+    html.inputShouldContain("firstName", user.firstName.get)
+    html.inputShouldContain("lastName", user.lastName.get)
   }
 
   "Going to the create account page when logged in as a new assistant user registering with an existing group account" should
@@ -136,9 +136,9 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainTextInput("#firstName")
-    html.mustContainTextInput("#lastName")
-    html.mustContainText("You have been added as a user to your organisation, please confirm your details below")
+    html.shouldContainTextInput("#firstName")
+    html.shouldContainTextInput("#lastName")
+    html.shouldContainText("You have been added as a user to your organisation, please confirm your details below")
   }
 
   "Submitting an invalid assistant form" should "return a bad request response" in {
@@ -152,8 +152,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.mustContainText("Last name - This must be filled in")
-    html.mustNotContainText("First Name - This must be filled in")
+    html.shouldContainText("Last name - This must be filled in")
+    html.shouldNotContainText("First Name - This must be filled in")
   }
 
   "Going to the create account page when logged in as a new admin user registering with an existing group account" should
@@ -166,11 +166,11 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("You have been added as a user to your organisation, please confirm your details below")
-    html.mustContainTextInput("#firstName")
-    html.mustContainTextInput("#lastName")
-    html.mustContainDateSelect("dob")
-    html.mustContainTextInput("#nino")
+    html.shouldContainText("You have been added as a user to your organisation, please confirm your details below")
+    html.shouldContainTextInput("#firstName")
+    html.shouldContainTextInput("#lastName")
+    html.shouldContainDateSelect("dob")
+    html.shouldContainTextInput("#nino")
   }
 
   "Going to the create account page when logged in as a new assistant user registering without an existing group account" should
@@ -180,7 +180,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText(
+    html.shouldContainText(
       "Registration failed You can’t register until the Administrator from your organisation registers first.")
   }
 

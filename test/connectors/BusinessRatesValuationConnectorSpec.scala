@@ -32,14 +32,14 @@ class BusinessRatesValuationConnectorSpec extends VoaPropertyLinkingSpec {
     val connector = new BusinessRatesValuationConnector(servicesConfig, mockHttpClient)
   }
 
-  "isViewable" must "return true if detailed valuation is found" in new Setup {
+  "isViewable" should "return true if detailed valuation is found" in new Setup {
     when(mockHttpClient.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
       .thenReturn(Future.successful(emptyJsonHttpResponse(OK)))
 
     whenReady(connector.isViewable(1, 1, "PL123"))(_ shouldBe true)
   }
 
-  "isViewable" must "return false if the detailed valuation is not found" in new Setup {
+  "isViewable" should "return false if the detailed valuation is not found" in new Setup {
     when(mockHttpClient.GET[HttpResponse](any(), any(), any())(any(), any(), any()))
       .thenReturn(Future.successful(emptyJsonHttpResponse(NOT_FOUND)))
 

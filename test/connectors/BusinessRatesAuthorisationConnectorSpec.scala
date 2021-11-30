@@ -35,7 +35,7 @@ class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
     }
   }
 
-  "authenticate" must "return a successful authentication result if authentication was successful" in new Setup {
+  "authenticate" should "return a successful authentication result if authentication was successful" in new Setup {
     val validGroupAccount = arbitrary[GroupAccount].sample.get
     val validIndividualAccount = arbitrary[DetailedIndividualAccount].sample.get
     val validAccounts = Accounts(validGroupAccount, validIndividualAccount)
@@ -45,7 +45,7 @@ class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.authenticate)(_ shouldBe authenticationSuccessResult)
   }
 
-  "authenticate" must "return a failed authentication result and be handled if authentication was unsuccessful" in new Setup {
+  "authenticate" should "return a failed authentication result and be handled if authentication was unsuccessful" in new Setup {
     mockHttpFailedGET[Accounts]("tst-url", AuthorisationFailure("NO_CUSTOMER_RECORD"))
     whenReady(connector.authenticate)(_ shouldBe NoVOARecord)
   }

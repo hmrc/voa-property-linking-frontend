@@ -29,28 +29,28 @@ class IdentityVerificationConnectorSpec extends VoaPropertyLinkingSpec {
     val connector = new IdentityVerificationConnector(servicesConfig, applicationConfig, mockHttpClient)
   }
 
-  "verifySuccess" must "return true if IV was successful" in new Setup {
+  "verifySuccess" should "return true if IV was successful" in new Setup {
     val ivResult = Json.obj("result" -> "Success")
 
     mockHttpGET[JsValue]("tst-url", ivResult)
     whenReady(connector.verifySuccess("JOURNEY_ID"))(_ shouldBe true)
   }
 
-  "verifySuccess" must "return false for any other response" in new Setup {
+  "verifySuccess" should "return false for any other response" in new Setup {
     val ivResult = Json.obj("result" -> "Something else")
 
     mockHttpGET[JsValue]("tst-url", ivResult)
     whenReady(connector.verifySuccess("JOURNEY_ID"))(_ shouldBe false)
   }
 
-  "journeyStatus" must "return the appropriate IvResult" in new Setup {
+  "journeyStatus" should "return the appropriate IvResult" in new Setup {
     val ivResult = Json.obj("result" -> "Success")
 
     mockHttpGET[JsValue]("tst-url", ivResult)
     whenReady(connector.journeyStatus("JOURNEY_ID"))(_ == IvSuccess)
   }
 
-  "journeyStatus" must "return TechnicalIssue IvFailure for anything else" in new Setup {
+  "journeyStatus" should "return TechnicalIssue IvFailure for anything else" in new Setup {
     val ivResult = Json.obj("result" -> "Something else")
 
     mockHttpGET[JsValue]("tst-url", ivResult)

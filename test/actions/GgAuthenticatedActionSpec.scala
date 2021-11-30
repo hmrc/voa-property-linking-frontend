@@ -86,7 +86,7 @@ class GgAuthenticatedActionSpec
       status(res) shouldBe OK
 
       val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-      page.mustContainText("You can’t use that Government Gateway account to register for this service.")
+      page.shouldContainText("You can’t use that Government Gateway account to register for this service.")
     }
 
   }

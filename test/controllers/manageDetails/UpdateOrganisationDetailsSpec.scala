@@ -31,7 +31,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.Future
 
 class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
-  "The update business name page" must "require a non-empty business name" in new Setup {
+  "The update business name page" should "require a non-empty business name" in new Setup {
     val emptyName = Seq("businessName" -> "")
 
     val res = testController.updateBusinessName()(FakeRequest().withFormUrlEncodedBody(emptyName: _*))
@@ -41,7 +41,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     html.select("span.govuk-error-message").text shouldBe "Error: This must be filled in"
   }
 
-  it must "update the business name on a valid submission" in new Setup {
+  it should "update the business name on a valid submission" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
@@ -54,7 +54,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) shouldBe Some(viewDetailsPage)
   }
 
-  "The update business address page" must "update the business address ID if the postcode lookup is used" in new Setup {
+  "The update business address page" should "update the business address ID if the postcode lookup is used" in new Setup {
     when(mockGroups.update(any(), any())(any())).thenReturn(Future.successful(()))
     when(mockManageDetails.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))
 
@@ -77,7 +77,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     verify(mockManageDetails).updatePostcode(any(), any(), matching(1234567890L))(any(), any())
   }
 
-  it must "create an address record, and update the business address ID to the created ID, if the address is entered manually" in new Setup {
+  it should "create an address record, and update the business address ID to the created ID, if the address is entered manually" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
     when(mockAddresses.create(any[Address])(any[HeaderCarrier])).thenReturn(Future.successful(1L))
@@ -101,7 +101,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     verify(mockManageDetails).updatePostcode(any(), any(), matching(1L))(any(), any())
   }
 
-  "The update business phone page" must "require a non-empty phone number" in new Setup {
+  "The update business phone page" should "require a non-empty phone number" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
     val emptyPhoneNumber = Seq("phone" -> "")
@@ -113,7 +113,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     html.select("span.govuk-error-message").text shouldBe "Error: This must be filled in"
   }
 
-  it must "update the business phone number on a valid submission" in new Setup {
+  it should "update the business phone number on a valid submission" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
@@ -127,7 +127,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
       .update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, phone = Some("999"))))(any[HeaderCarrier])
   }
 
-  "The update business email page" must "require a valid email address" in new Setup {
+  "The update business email page" should "require a valid email address" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
@@ -143,7 +143,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     html.select("span.govuk-error-message").text shouldBe "Error: Enter a valid email address"
   }
 
-  it must "require the confirmed email to match" in new Setup {
+  it should "require the confirmed email to match" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
@@ -161,7 +161,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
       .text shouldBe "Error: Email addresses must match. Check them and try again"
   }
 
-  it must "update the business email address on a valid submission" in new Setup {
+  it should "update the business email address on a valid submission" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 

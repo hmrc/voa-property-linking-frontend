@@ -27,7 +27,7 @@ import utils._
 
 class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
 
-  "The manage properties page" must "return redirect" in {
+  "The manage properties page" should "return redirect" in {
 
     setup()
 

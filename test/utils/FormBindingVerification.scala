@@ -33,7 +33,7 @@ object FormBindingVerification extends BasicVerification with DateVerification w
         field: String,
         a: A): Unit =
     a.all.asInstanceOf[Seq[NamedEnum]].map(_.name).foreach { c =>
-      mustBind(form, validData.updated(field, c))
+      shouldBind(form, validData.updated(field, c))
     }
 
   def verifyBoolean(
@@ -45,10 +45,10 @@ object FormBindingVerification extends BasicVerification with DateVerification w
 
   def verifyMandatoryMultiChoice(form: Form[_], validData: Map[String, String], field: String): Unit = {
     val d = validData - field
-    mustOnlyContainError(form.bind(d), field, Errors.noValueSelected)
+    shouldOnlyContainError(form.bind(d), field, Errors.noValueSelected)
   }
 
-  def mustBindTo[A](form: Form[A], data: Map[String, String], result: A): Unit = {
+  def shouldBindTo[A](form: Form[A], data: Map[String, String], result: A): Unit = {
     val f = form.bind(data)
     f.errors.isEmpty shouldBe true withClue s"Form unexpectedly contained errors.${diagnostics(f)}"
     f.value.foreach(_ shouldEqual result withClue s"Form did not bind to $result.${diagnostics(f)}")
@@ -102,7 +102,7 @@ trait DateVerification { this: BasicVerification =>
 
   def verifyOptionalDate(form: Form[_], validData: Map[String, String], dateField: String): Unit = {
     val d = validData - s"$dateField.day" - s"$dateField.month" - s"$dateField.year"
-    mustBind(form, d)
+    shouldBind(form, d)
   }
 
   def verifyddmmyy(form: Form[_], validData: Map[String, String], dateField: String, maxYear: Int = 3000): Unit = {
@@ -143,7 +143,7 @@ trait DateVerification { this: BasicVerification =>
 
     val valid = Seq(("28", "2", "2012"), ("31", "8", "2015"), ("30", "9", "2015"))
     valid foreach { v =>
-      mustBind(form, withDate(v))
+      shouldBind(form, withDate(v))
     }
   }
 
@@ -172,7 +172,7 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
 
   def verifyMandatory(form: Form[_], validData: Map[String, String], field: String, exclusive: Boolean = true): Unit = {
     val data = validData - field
-    mustContainRequiredError(form.bind(data), field, exclusive)
+    shouldContainRequiredError(form.bind(data), field, exclusive)
   }
 
   def verifyNonEmptyText(
@@ -182,24 +182,24 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
         exclusive: Boolean = true): Unit = {
     verifyMandatory(form, validData, field, exclusive)
     val data = validData.updated(field, " ")
-    mustContainRequiredError(form.bind(data), field, exclusive)
+    shouldContainRequiredError(form.bind(data), field, exclusive)
   }
 
   def verifyOptional(form: Form[_], validData: Map[String, String], field: String): Unit =
-    mustBind(form, validData - field)
+    shouldBind(form, validData - field)
 
   def verifyCharacterLimit(form: Form[_], validData: Map[String, String], field: String, limit: Int): Unit = {
-    mustBind(form, validData.updated(field, (1 to limit).map(_ => "a").mkString))
+    shouldBind(form, validData.updated(field, (1 to limit).map(_ => "a").mkString))
 
     val f = form.bind(validData.updated(field, (1 to limit + 1).map(_ => "b").mkString))
-    mustContainError(f, field, "error.maxLength", Some(Seq(limit)))
+    shouldContainError(f, field, "error.maxLength", Some(Seq(limit)))
   }
 
   def verifyPhoneCharacterLimit(form: Form[_], validData: Map[String, String], field: String, limit: Int): Unit = {
-    mustBind(form, validData.updated(field, (1 to limit).map(_ => "0").mkString))
+    shouldBind(form, validData.updated(field, (1 to limit).map(_ => "0").mkString))
 
     val f = form.bind(validData.updated(field, (1 to limit + 1).map(_ => "1").mkString))
-    mustContainError(f, field, "error.maxLength", Some(Seq(limit)))
+    shouldContainError(f, field, "error.maxLength", Some(Seq(limit)))
   }
 
   protected def verifyNonEmptyString[T](
@@ -208,11 +208,11 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
         field: String,
         error: String): Unit = {
     val data = validData.updated(field, "")
-    mustOnlyContainError(form.bind(data), field, error)
+    shouldOnlyContainError(form.bind(data), field, error)
   }
 
   def verifyOnlyError(form: Form[_], invalidData: Map[String, String], field: String, error: String): Unit =
-    mustOnlyContainError(form.bind(invalidData), field, error)
+    shouldOnlyContainError(form.bind(invalidData), field, error)
 
   def verifyError(
         form: Form[_],
@@ -220,7 +220,7 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
         field: String,
         error: String,
         args: Option[Seq[Any]] = None): Unit =
-    mustContainError(form.bind(invalidData), field, error, args)
+    shouldContainError(form.bind(invalidData), field, error, args)
 
   def verifyNoErrors(form: Form[_], validData: Map[String, String]): Unit = {
     val f = form.bind(validData)
@@ -234,7 +234,7 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
         form: Form[T],
         validData: Map[String, String],
         field: String): Unit =
-    mustBind(form, validData.updated(field, s" ${validData(field)} "))
+    shouldBind(form, validData.updated(field, s" ${validData(field)} "))
 
   protected def verifyRange(
         form: Form[_],
@@ -243,38 +243,35 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
         valid: Seq[String],
         invalid: Seq[String],
         error: String): Unit = {
-    valid.foreach(x => mustBind(form, validData.updated(field, x)))
-    invalid.foreach(x => mustContainError(form.bind(validData.updated(field, x)), field, error))
+    valid.foreach(x => shouldBind(form, validData.updated(field, x)))
+    invalid.foreach(x => shouldContainError(form.bind(validData.updated(field, x)), field, error))
   }
 }
 
 trait FormChecking extends Matchers with AppendedClues {
 
-  def mustBind[A](form: Form[A], data: Map[String, String]): Form[A] = {
+  def shouldBind[A](form: Form[A], data: Map[String, String]): Form[A] = {
     val f = form.bind(data)
     f.bind(data).errors.isEmpty shouldBe true withClue s"Form did not bind.${diagnostics(f)}"
     f.value.getOrElse(fail(s"Form has errors:${diagnostics(f)}"))
     f
   }
 
-  protected def mustOnlyContainRequiredError(form: Form[_], field: String): Unit =
-    mustContainRequiredError(form, field, true)
-
-  protected def mustContainRequiredError(form: Form[_], field: String, exclusive: Boolean = true): Unit =
+  protected def shouldContainRequiredError(form: Form[_], field: String, exclusive: Boolean = true): Unit =
     if (exclusive) {
-      mustOnlyContainError(form, field, Errors.required)
+      shouldOnlyContainError(form, field, Errors.required)
     } else {
-      mustContainError(form, field, Errors.required)
+      shouldContainError(form, field, Errors.required)
     }
 
-  protected def mustOnlyContainError[T](form: Form[T], field: String, error: String): Unit = {
-    mustContainError(form, field, error)
+  protected def shouldOnlyContainError[T](form: Form[T], field: String, error: String): Unit = {
+    shouldContainError(form, field, error)
     if (form.errors.length > 1) {
       fail(s"Form contained too many errors. Expected only: $field - $error.${diagnostics(form)}")
     }
   }
 
-  protected def mustContainError(form: Form[_], field: String, error: String, args: Option[Seq[Any]] = None): Unit = {
+  protected def shouldContainError(form: Form[_], field: String, error: String, args: Option[Seq[Any]] = None): Unit = {
     val exists = form.errors.exists(e => e.key == field && e.messages.head == error && args.fold(true)(_ == e.args))
     exists shouldEqual true withClue s"No matching error for $field - $error${diagnostics(form)}"
   }

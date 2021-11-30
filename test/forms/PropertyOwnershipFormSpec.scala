@@ -32,7 +32,7 @@ class PropertyOwnershipFormSpec extends AnyFlatSpec with Matchers {
   behavior of "Property ownership form"
 
   it should "bind when the inputs are all valid" in {
-    mustBindTo(
+    shouldBindTo(
       form,
       validData,
       PropertyOwnership(false, Some(LocalDate.of(2017, 4, 20)), false, Some(LocalDate.of(2017, 4, 23))))
@@ -59,7 +59,7 @@ class PropertyOwnershipFormSpec extends AnyFlatSpec with Matchers {
       .updated("toDate.day", "19")
       .updated("toDate.month", "4")
       .updated("toDate.year", "2017")
-    mustBindTo(form, data, PropertyOwnership(true, None, false, Some(LocalDate.of(2017, 4, 19))))
+    shouldBindTo(form, data, PropertyOwnership(true, None, false, Some(LocalDate.of(2017, 4, 19))))
   }
 
   it should "require end date after 1st April 2017 if the occupation/ownership started before 1st April 2017" in {

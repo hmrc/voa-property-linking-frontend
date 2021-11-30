@@ -66,7 +66,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     val res = TestDeclaration.show()(FakeRequest())
     status(res) shouldBe OK
     val html = HtmlPage(res)
-    html.mustContainText("The declaration page")
+    html.shouldContainText("The declaration page")
   }
 
   it should "require the user to accept the declaration to continue" in new Setup {
@@ -85,7 +85,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.mustContainText("please try again in a moment")
+    html.shouldContainText("please try again in a moment")
   }
 
   it should "submit the property link if the user accepts the declaration" in new Setup {
@@ -133,7 +133,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     val confirmation = TestDeclaration.confirmation()(FakeRequest())
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
-    html.mustContainText("We’ve received your request to add the property to your business’s customer record")
+    html.shouldContainText("We’ve received your request to add the property to your business’s customer record")
   }
 
   it should "display the normal confirmation page when the user has uploaded other evidence" in new Setup {
@@ -149,7 +149,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     val confirmation = TestDeclaration.confirmation()(FakeRequest())
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
-    html.mustContainText("We’ve received your request to add the property to your business’s customer record")
+    html.shouldContainText("We’ve received your request to add the property to your business’s customer record")
   }
 
   "The confirmation page" should "display the submission ID" in new Setup {
