@@ -22,7 +22,7 @@ import models.propertyrepresentation.AppointNewAgentSession
 import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.scalatest.{BeforeAndAfterEach, Inside}
+import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.libs.json.{JsSuccess, Json, OFormat}
 import play.api.mvc.{AnyContent, Result, Results}
@@ -30,13 +30,10 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import tests.{AllMocks, BaseUnitSpec}
-import utils.FakeObjects
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class WithAppointAgentSessionRefinerSpec
-    extends BaseUnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks with FakeObjects with Inside {
+class WithAppointAgentSessionRefinerSpec extends BaseUnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks {
 
   trait Setup {
     val fakeRequest = FakeRequest()

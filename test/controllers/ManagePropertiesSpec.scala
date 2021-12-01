@@ -27,12 +27,12 @@ import utils._
 
 class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
 
-  "The manage properties page" must "return redirect" in {
+  "The manage properties page" should "return redirect" in {
 
     setup()
 
     val res = TestDashboardController.manageProperties()(FakeRequest())
-    status(res) mustBe SEE_OTHER
+    status(res) shouldBe SEE_OTHER
   }
 
   private def setup(numberOfLinks: Int = 15) = {

@@ -32,7 +32,6 @@ import play.twirl.api.Html
 import tests.{AllMocks, BaseUnitSpec}
 import utils.FakeObjects
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class WithAssessmentsPageSessionRefinerSpec

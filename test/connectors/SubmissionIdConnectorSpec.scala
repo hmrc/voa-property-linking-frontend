@@ -29,9 +29,9 @@ class SubmissionIdConnectorSpec extends VoaPropertyLinkingSpec {
     }
   }
 
-  "get" must "return a submission ID" in new Setup {
+  "get" should "return a submission ID" in new Setup {
     mockHttpGET[String]("tst-url", "PL12345")
-    whenReady(connector.get())(_ mustBe "PL12345")
+    whenReady(connector.get())(_ shouldBe "PL12345")
   }
 
 }

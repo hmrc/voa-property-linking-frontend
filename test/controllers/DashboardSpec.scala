@@ -50,26 +50,26 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
         preAuthenticatedActionBuilders(),
         stubMessagesControllerComponents())
 
-  "home page" must "redirect to new dashboard" in {
+  "home page" should "redirect to new dashboard" in {
     val res = TestDashboard.home()(request)
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/home")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("http://localhost:9542/business-rates-dashboard/home")
   }
 
-  "viewMessages" must "redirect to new dashoard inbox" in {
+  "viewMessages" should "redirect to new dashoard inbox" in {
     val res = TestDashboard.viewMessages()(request)
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/inbox")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("http://localhost:9542/business-rates-dashboard/inbox")
   }
 
-  "viewMessage" must "redirect to new dashoard inbox" in {
+  "viewMessage" should "redirect to new dashoard inbox" in {
     val message = arbitrary[Message].sample.get
 
     val res = TestDashboard.viewMessage(message.id)(request)
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/inbox")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("http://localhost:9542/business-rates-dashboard/inbox")
   }
 
 }

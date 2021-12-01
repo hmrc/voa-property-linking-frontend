@@ -63,37 +63,43 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
     request = FakeRequest()
   )
 
-  "submit with None clientId" should "return Unit when successful" in {
-    implicit val linkingSession = linkingSessionRequest()
-    when(mockPropertyLinkConnector.createPropertyLink(any())(any()))
-      .thenReturn(Future.successful(httpResponse))
-    when(mockBusinessRatesAttachmentsService.submit(any(), any(), any())(any(), any()))
-      .thenReturn(EitherT.rightT[Future, AttachmentException](List(attachment)))
-    val res: EitherT[Future, AttachmentException, Unit] = testService.submit(mockPropertyLinkRequest, None)
-    res.value.futureValue must be(Right(()))
-    verify(mockPropertyLinkConnector, times(1)).createPropertyLink(any())(any())
+  "submit with None clientId" should {
+    "return Unit when successful" in {
+      implicit val linkingSession = linkingSessionRequest()
+      when(mockPropertyLinkConnector.createPropertyLink(any())(any()))
+        .thenReturn(Future.successful(httpResponse))
+      when(mockBusinessRatesAttachmentsService.submit(any(), any(), any())(any(), any()))
+        .thenReturn(EitherT.rightT[Future, AttachmentException](List(attachment)))
+      val res: EitherT[Future, AttachmentException, Unit] = testService.submit(mockPropertyLinkRequest, None)
+      res.value.futureValue should be(Right(()))
+      verify(mockPropertyLinkConnector, times(1)).createPropertyLink(any())(any())
+    }
   }
 
-  "submit with clientId" should "return Unit when successful" in {
-    implicit val updatedLinkingSession = linkingSessionRequest(Some(ClientDetails(100, "ABC")))
-    when(mockPropertyLinkConnector.createPropertyLinkOnClientBehalf(any(), any())(any()))
-      .thenReturn(Future.successful(httpResponse))
-    when(mockBusinessRatesAttachmentsService.submit(any(), any(), any())(any(), any()))
-      .thenReturn(EitherT.rightT[Future, AttachmentException](List(attachment)))
-    val res: EitherT[Future, AttachmentException, Unit] =
-      testService.submitOnClientBehalf(mockPropertyLinkRequest, clientId)
-    res.value.futureValue must be(Right(()))
-    verify(mockPropertyLinkConnector, times(1)).createPropertyLinkOnClientBehalf(any(), any())(any())
+  "submit with clientId" should {
+    "return Unit when successful" in {
+      implicit val updatedLinkingSession = linkingSessionRequest(Some(ClientDetails(100, "ABC")))
+      when(mockPropertyLinkConnector.createPropertyLinkOnClientBehalf(any(), any())(any()))
+        .thenReturn(Future.successful(httpResponse))
+      when(mockBusinessRatesAttachmentsService.submit(any(), any(), any())(any(), any()))
+        .thenReturn(EitherT.rightT[Future, AttachmentException](List(attachment)))
+      val res: EitherT[Future, AttachmentException, Unit] =
+        testService.submitOnClientBehalf(mockPropertyLinkRequest, clientId)
+      res.value.futureValue should be(Right(()))
+      verify(mockPropertyLinkConnector, times(1)).createPropertyLinkOnClientBehalf(any(), any())(any())
+    }
   }
 
-  "find earliest start date" should "return valid start date" in {
-    implicit val linkingSession = linkingSessionRequest()
-    when(mockPropertyLinkConnector.getPropertyHistory(any())(any()))
-      .thenReturn(Future.successful(propertyHistory))
-    val res: Future[Option[LocalDate]] =
-      testService.findEarliestStartDate(propertyHistory.uarn)
-    res.futureValue must be(Some(LocalDate.now().plusYears(1)))
-    verify(mockPropertyLinkConnector, times(1)).getPropertyHistory(any())(any())
+  "find earliest start date" should {
+    "return valid start date" in {
+      implicit val linkingSession = linkingSessionRequest()
+      when(mockPropertyLinkConnector.getPropertyHistory(any())(any()))
+        .thenReturn(Future.successful(propertyHistory))
+      val res: Future[Option[LocalDate]] =
+        testService.findEarliestStartDate(propertyHistory.uarn)
+      res.futureValue should be(Some(LocalDate.now().plusYears(1)))
+      verify(mockPropertyLinkConnector, times(1)).getPropertyHistory(any())(any())
+    }
   }
 
 }

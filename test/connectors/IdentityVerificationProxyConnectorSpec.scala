@@ -22,23 +22,25 @@ import models.identityVerificationProxy.{Journey, Link}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures._
-import org.scalatest.{FlatSpec, MustMatchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import uk.gov.hmrc.auth.core.ConfidenceLevel
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
-import utils.Configs
-import utils._
+import utils.{Configs, GlobalExecutionContext}
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class IdentityVerificationProxyConnectorSpec
-    extends FlatSpec with MustMatchers with MockitoSugar with ScalaCheckDrivenPropertyChecks with Configs {
+    extends AnyFlatSpec with Matchers with MockitoSugar with ScalaCheckDrivenPropertyChecks with Configs
+    with GlobalExecutionContext {
+
+  import utils._
 
   implicit val headerCarrier = HeaderCarrier()
 
-  "IdentityVerificationProxy" must "make a successful POST to Identity Verification Proxy Service" in {
+  "IdentityVerificationProxy" should "make a successful POST to Identity Verification Proxy Service" in {
 
     val mockLink = mock[Link]
     val mockHttp = mock[HttpClient]
@@ -49,12 +51,12 @@ class IdentityVerificationProxyConnectorSpec
     val connector = new IdentityVerificationProxyConnector(servicesConfig, mockHttp)
     forAll { (ivDetails: IVDetails) =>
       whenReady(connector.start(Journey("", "completionUrl", "failureUrl", ConfidenceLevel.L200, ivDetails))) { link =>
-        link must be(mockLink)
+        link should be(mockLink)
       }
     }
   }
 
-  it must "handle an unsuccessful POST to Identity Verification Proxy Service" in {
+  it should "handle an unsuccessful POST to Identity Verification Proxy Service" in {
     val mockEx = new RuntimeException("something went wrong")
     val mockHttp = mock[HttpClient]
 
@@ -65,7 +67,7 @@ class IdentityVerificationProxyConnectorSpec
     forAll { (ivDetails: IVDetails) =>
       whenReady(connector.start(Journey("", "completionUrl", "failureUrl", ConfidenceLevel.L200, ivDetails)).failed) {
         ex =>
-          ex must be(mockEx)
+          ex should be(mockEx)
       }
     }
   }

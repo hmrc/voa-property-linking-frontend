@@ -17,8 +17,10 @@
 package services
 
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Seconds, Span}
-import org.scalatest.{AppendedClues, BeforeAndAfterEach, FlatSpec, MustMatchers}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.{AppendedClues, BeforeAndAfterEach}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
@@ -26,7 +28,7 @@ import tests.AllMocks
 import utils._
 
 trait ServiceSpec
-    extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
+    extends AnyWordSpec with Matchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
     with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with ScalaFutures with FakeObjects
     with GlobalExecutionContext with AllMocks with HttpResponseUtils {
 

@@ -75,7 +75,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockMyAgentsView.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html(""))
     val res = testController.showAgents()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "manageAgent" should "show the manage agent page" in {
@@ -86,7 +86,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockRemoveAgentFromOrganisationView.apply(any(), any(), any(), any())(any(), any(), any()))
       .thenReturn(Html(""))
     val res = testController.manageAgent(None)(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "manageAgentProperties" should "return the correct manage agent page with property links" in {
@@ -99,7 +99,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Html(""))
     val res = testController.manageAgentProperties(agentCode, GetPropertyLinksParameters(), PaginationParameters())(
       FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
   }
 
@@ -112,8 +112,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Html("IP has Zero PropertyLinks"))
 
     val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined mustBe true
-    res.futureValue.get.toString() mustBe "IP has Zero PropertyLinks"
+    res.futureValue.isDefined shouldBe true
+    res.futureValue.get.toString() shouldBe "IP has Zero PropertyLinks"
 
   }
 
@@ -126,8 +126,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Html("IP has One PropertyLink - agent not assigned"))
 
     val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined mustBe true
-    res.futureValue.get.toString() mustBe "IP has One PropertyLink - agent not assigned"
+    res.futureValue.isDefined shouldBe true
+    res.futureValue.get.toString() shouldBe "IP has One PropertyLink - agent not assigned"
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and one property link (agent assigned)" in {
@@ -139,8 +139,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Html("IP has One PropertyLink - agent assigned"))
 
     val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined mustBe true
-    res.futureValue.get.toString() mustBe "IP has One PropertyLink - agent assigned"
+    res.futureValue.isDefined shouldBe true
+    res.futureValue.get.toString() shouldBe "IP has One PropertyLink - agent assigned"
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and one property link (agent assigned) - agentCodeProvided" in {
@@ -153,8 +153,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Html("IP has One PropertyLink - agent assigned"))
 
     val res = testController.getManageAgentView(Some(agentCode))(FakeRequest())
-    res.futureValue.isDefined mustBe true
-    res.futureValue.get.toString() mustBe "IP has One PropertyLink - agent assigned"
+    res.futureValue.isDefined shouldBe true
+    res.futureValue.get.toString() shouldBe "IP has One PropertyLink - agent assigned"
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and more than one property links (agent not assigned)" in {
@@ -166,8 +166,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Html("IP has more than one PropertyLinks - agent not assigned"))
 
     val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined mustBe true
-    res.futureValue.get.toString() mustBe "IP has more than one PropertyLinks - agent not assigned"
+    res.futureValue.isDefined shouldBe true
+    res.futureValue.get.toString() shouldBe "IP has more than one PropertyLinks - agent not assigned"
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and more than one property links (agent assigned to some)" in {
@@ -179,8 +179,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Html("IP has more than one PropertyLinks - agent assigned to some"))
 
     val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined mustBe true
-    res.futureValue.get.toString() mustBe "IP has more than one PropertyLinks - agent assigned to some"
+    res.futureValue.isDefined shouldBe true
+    res.futureValue.get.toString() shouldBe "IP has more than one PropertyLinks - agent assigned to some"
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and more than one property links (agent assigned to all)" in {
@@ -192,8 +192,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Html("IP has more than one PropertyLinks - agent assigned to all"))
 
     val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined mustBe true
-    res.futureValue.get.toString() mustBe "IP has more than one PropertyLinks - agent assigned to all"
+    res.futureValue.isDefined shouldBe true
+    res.futureValue.get.toString() shouldBe "IP has more than one PropertyLinks - agent assigned to all"
   }
 
   "getManageAgentView" should "return None for an invalid propertyLinks and agent details combination" in {
@@ -203,7 +203,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
 
     val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue mustBe None
+    res.futureValue shouldBe None
   }
 
   "submitManageAgent" should "return 400 Bad Request when an invalid manage property option is submitted " in {
@@ -217,7 +217,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "BLAH", "agentCode" -> s"$agentCode"))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "submitManageAgent" should "return 400 Bad Request when agentCode is not submitted " in {
@@ -231,7 +231,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "unassignFromAllProperties"))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "submitManageAgent" should "return 200 Ok when IP chooses to appoint agent to all properties" in {
@@ -250,7 +250,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       FakeRequest()
         .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToAllProperties.name}", "agentName" -> "Agent Org"))
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "submitManageAgent" should "return 303 Redirect when IP chooses to appoint agent to some properties" in {
@@ -266,8 +266,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       FakeRequest()
         .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToSomeProperties.name}", "agentName" -> "Agent Org"))
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe
       Some(
         "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&" +
           "agentCode=12345&agentAppointed=BOTH&backLink=%2F" +
@@ -288,7 +288,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = testController.submitManageAgent(agentCode)(FakeRequest()
       .withFormUrlEncodedBody("manageAgentOption" -> s"${UnassignFromAllProperties.name}", "agentName" -> "Agent Org"))
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "submitManageAgent" should "return 303 Redirect when IP chooses to unassign agent from some properties" in {
@@ -303,8 +303,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = testController.submitManageAgent(agentCode)(FakeRequest()
       .withFormUrlEncodedBody("manageAgentOption" -> s"${UnassignFromSomeProperties.name}", "agentName" -> "Agent Org"))
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe
       Some(
         "/business-rates-property-linking/my-organisation/revoke/properties?page=1&pageSize=15" +
           "&agentCode=12345")
@@ -325,7 +325,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       FakeRequest()
         .withFormUrlEncodedBody("manageAgentOption" -> s"${RemoveFromYourAccount.name}", "agentName" -> "Agent Org"))
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "submitManageAgent" should "return 200 Ok when IP chooses to appoint agent to only property" in {
@@ -344,7 +344,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       FakeRequest()
         .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToYourProperty.name}", "agentName" -> "Agent Org"))
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "assignAgentToAll" should "return 400 Bad Request when invalid form submitted" in {
@@ -355,7 +355,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = testController.assignAgentToAll(agentCode, "Some agent org")(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "assignAgentToAll" should "return 200 Ok a valid form is submitted" in {
@@ -369,7 +369,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"))
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "unassignAgentFromAll" should "return 400 Bad Request when invalid form submitted" in {
@@ -379,7 +379,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = testController.unassignAgentFromAll(agentCode, "Some agent org")(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "unassignAgentFromAll" should "return 200 Ok a valid form is submitted" in {
@@ -393,7 +393,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"))
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "showRemoveAgentFromIpOrganisation" should "return 200 Ok" in {
@@ -402,7 +402,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val res = testController.showRemoveAgentFromIpOrganisation(agentCode, "Some agent org")(FakeRequest())
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted" in {
@@ -412,7 +412,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org", "some-back-link")(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "removeAgentFromIpOrganisation" should "return 200 Ok a valid form is submitted" in {
@@ -425,7 +425,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.RELATIONSHIP}"))
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
 }

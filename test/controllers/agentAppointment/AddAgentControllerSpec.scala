@@ -35,20 +35,20 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
   "start" should "initialise session and redirect to start page" in {
     val res = testController.start()(FakeRequest())
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/start")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/start")
   }
   "showStartPage" should "show the appoint new agent start page" in {
     when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res = testController.showStartPage()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
   "getAgentDetails" should "return 400 Bad Request when agentCode is not provided" in {
     when(startPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> ""))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "getAgentDetails" should "return 400 Bad Request when agentCode does not exist" in {
@@ -58,7 +58,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future successful organisationsAgentsList)
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "213414"))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "getAgentDetails" should "return 400 Bad Request when agentCode is too long" in {
@@ -69,7 +69,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future successful organisationsAgentsList)
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "123456789012345"))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "getAgentDetails" should "return 400 Bad Request when agentCode belongs to an agent that has already been added by this organisation" in {
@@ -81,7 +81,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
         agents = List(agentSummary.copy(representativeCode = agentOrganisation.representativeCode.get))))
     val res = testController.getAgentDetails()(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"${agentOrganisation.representativeCode.get}"))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "getAgentDetails" should "return 303 See Other when valid agentCode is provided and agent has not already been added to organisation" in {
@@ -91,8 +91,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future successful organisationsAgentsList)
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "11223"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")
   }
 
@@ -102,7 +102,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
       .thenReturn(Future.successful(Some(managingProperty)))
     val res = testController.isCorrectAgent()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "agentSelected" should "return 400 Bad Request when no option is selected" in {
@@ -111,7 +111,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
       .thenReturn(Future.successful(Some(managingProperty)))
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> ""))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "agentSelected" should "return 303 See Other and go to start page when user confirms that the presented agent is not their agent" in {
@@ -122,8 +122,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(()))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "false"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/start")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/start")
   }
 
   "agentSelected" should "return 200 Ok and go to the confirmation page if organisation have no authorisations" in {
@@ -138,7 +138,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(()))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "agentSelected" should "return 303 See Other and go to the agentToManageOnePropertyNoExistingAgent page if organisation has only one authorisation and no existing agent" in {
@@ -151,8 +151,9 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(Some(searchedAgent)))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
   }
 
   "agentSelected" should "return 303 See Other and go to the agentToManageOneProperty page if organisation has only one authorisation and an existing agent" in {
@@ -167,8 +168,9 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(()))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
   }
 
   "agentSelected" should "return 303 See Other and go to the agentToManageMultipleProperties page if organisation has only multiple authorisations" in {
@@ -183,8 +185,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(()))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
   }
 
@@ -195,7 +197,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(Some(selectedAgent)))
 
     val res = testController.oneProperty()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "submitOneProperty" should "return 400 Bad Request if no selection is made" in {
@@ -208,7 +210,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
     val res = testController.submitOneProperty()(FakeRequest().withFormUrlEncodedBody("oneProperty" -> ""))
 
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "submitOneProperty" should "return 303 See Other when valid selection is made" in {
@@ -222,8 +224,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     val res =
       testController.submitOneProperty()(FakeRequest().withFormUrlEncodedBody("oneProperty" -> "no"))
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/appoint-new-agent/checkYourAnswers")
   }
 
@@ -234,7 +236,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(Some(managingProperty)))
 
     val res = testController.multipleProperties()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "submitMultipleProperties" should "return 400 Bad Request if no selection is made" in {
@@ -246,7 +248,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     val res =
       testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody("multipleProperties" -> ""))
 
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "submitMultipleProperties" should "return 303 See Other when valid selection is made" in {
@@ -258,8 +260,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     val res =
       testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody("multipleProperties" -> "all"))
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/appoint-new-agent/checkYourAnswers")
   }
 
@@ -272,8 +274,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     val res = testController.submitMultipleProperties()(
       FakeRequest().withFormUrlEncodedBody("multipleProperties" -> "choose_from_list"))
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/appoint/properties?page=1" +
         "&pageSize=15&agentCode=12345" +
         "&agentAppointed=BOTH" +
@@ -290,7 +292,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(Some(managingProperty)))
 
     val res = testController.checkAnswers()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "appointAgent" should "return Ok for valid appointmentChange" in {
@@ -301,7 +303,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> "123456", "scope" -> "ALL_PROPERTIES"))
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   "appointAgent" should "return 400 Bad Request when invalid form is submitted - scope is missing" in {
@@ -310,7 +312,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
     val res = testController.appointAgent()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "123456"))
 
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "appointAgent" should "return 400 Bad Request when invalid form is submitted - agentCode is missing" in {
@@ -319,7 +321,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
     val res = testController.appointAgent()(FakeRequest().withFormUrlEncodedBody("scope" -> "ALL_PROPERTIES"))
 
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   private val stubWithAppointAgentSession = new StubWithAppointAgentSessionRefiner(mockSessionRepo)

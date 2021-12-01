@@ -41,62 +41,74 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
 
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
 
-  "getMyAgentPropertyLinks" should "return OwnerAuthResult when successful" in {
-    when(mockPropertyLinkConnector.getMyAgentPropertyLinks(any(), any(), any())(any()))
-      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
-    val res = testService.getMyAgentPropertyLinks(1, GetPropertyLinksParameters(), DefaultPaginationParams)
+  "getMyAgentPropertyLinks" should {
+    "return OwnerAuthResult when successful" in {
+      when(mockPropertyLinkConnector.getMyAgentPropertyLinks(any(), any(), any())(any()))
+        .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
+      val res = testService.getMyAgentPropertyLinks(1, GetPropertyLinksParameters(), DefaultPaginationParams)
 
-    res.futureValue must be(ownerAuthResultWithTwoAuthorisation)
+      res.futureValue should be(ownerAuthResultWithTwoAuthorisation)
 
-    verify(mockPropertyLinkConnector, times(1)).getMyAgentPropertyLinks(any(), any(), any())(any())
+      verify(mockPropertyLinkConnector, times(1)).getMyAgentPropertyLinks(any(), any(), any())(any())
+    }
   }
 
-  "getMyOrganisationAgents" should "return AgentList when successful" in {
-    when(mockPropertyLinkConnector.getMyOrganisationAgents()(any()))
-      .thenReturn(Future.successful(organisationsAgentsList))
-    val res = testService.getMyOrganisationAgents()
+  "getMyOrganisationAgents" should {
+    "return AgentList when successful" in {
+      when(mockPropertyLinkConnector.getMyOrganisationAgents()(any()))
+        .thenReturn(Future.successful(organisationsAgentsList))
+      val res = testService.getMyOrganisationAgents()
 
-    res.futureValue must be(organisationsAgentsList)
+      res.futureValue should be(organisationsAgentsList)
 
-    verify(mockPropertyLinkConnector, times(1)).getMyOrganisationAgents()(any())
+      verify(mockPropertyLinkConnector, times(1)).getMyOrganisationAgents()(any())
+    }
   }
 
-  "createAndSubmitAgentRepRequest" should "return option unit when successful when new agent relationship is enabled" in {
+  "createAndSubmitAgentRepRequest" should {
+    "return option unit when successful when new agent relationship is enabled" in {
 
-    when(mockPropertyLinkConnector.assignAgentToSomeProperties(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))
+      when(mockPropertyLinkConnector.assignAgentToSomeProperties(any())(any()))
+        .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))
 
-    val res = testService.createAndSubmitAgentRepRequest(pLinkIds = List("1"), agentCode = 12312L)
+      val res = testService.createAndSubmitAgentRepRequest(pLinkIds = List("1"), agentCode = 12312L)
 
-    res.futureValue must be(())
+      res.futureValue should be(())
 
-    verify(mockPropertyLinkConnector, times(1)).assignAgentToSomeProperties(any())(any())
+      verify(mockPropertyLinkConnector, times(1)).assignAgentToSomeProperties(any())(any())
+    }
   }
 
-  "createAndSubitAgentRevokeRequest" should "return option unit when successful when new agent relationship enabled" in {
+  "createAndSubitAgentRevokeRequest" should {
+    "return option unit when successful when new agent relationship enabled" in {
 
-    when(mockPropertyLinkConnector.unassignAgentFromSomeProperties(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))
+      when(mockPropertyLinkConnector.unassignAgentFromSomeProperties(any())(any()))
+        .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))
 
-    val res = testService.createAndSubmitAgentRevokeRequest(List("1"), 1L)
+      val res = testService.createAndSubmitAgentRevokeRequest(List("1"), 1L)
 
-    res.futureValue must be(())
+      res.futureValue should be(())
 
-    verify(mockPropertyLinkConnector).unassignAgentFromSomeProperties(any())(any())
+      verify(mockPropertyLinkConnector).unassignAgentFromSomeProperties(any())(any())
+    }
   }
 
-  "getAgentNameAndAddress" should "return agent details" in {
-    when(mockRepresentationConnector.getAgentDetails(any())(any())).thenReturn(Future.successful(Some(agentDetails)))
+  "getAgentNameAndAddress" should {
+    "return agent details" in {
+      when(mockRepresentationConnector.getAgentDetails(any())(any())).thenReturn(Future.successful(Some(agentDetails)))
 
-    testService.getAgentNameAndAddress(125L).futureValue mustBe Some(agentDetails)
+      testService.getAgentNameAndAddress(125L).futureValue shouldBe Some(agentDetails)
+    }
   }
 
-  "getMyOrganisationPropertyLinksCount" should "return organisation property links count" in {
-    val propertyLinksCount = 1
+  "getMyOrganisationPropertyLinksCount" should {
+    "return organisation property links count" in {
+      val propertyLinksCount = 1
 
-    when(mockPropertyLinkConnector.getMyOrganisationPropertyLinksCount())
-      .thenReturn(Future.successful(propertyLinksCount))
+      when(mockPropertyLinkConnector.getMyOrganisationPropertyLinksCount())
+        .thenReturn(Future.successful(propertyLinksCount))
 
-    testService.getMyOrganisationPropertyLinksCount().futureValue mustBe propertyLinksCount
+      testService.getMyOrganisationPropertyLinksCount().futureValue shouldBe propertyLinksCount
+    }
   }
 }

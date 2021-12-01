@@ -37,13 +37,13 @@ class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with L
 
     sessionRepository.start(start)(writes, hc).futureValue
 
-    val returnedSessionData: SessionData = sessionRepository.findAll().futureValue.loneElement // mustBe start
+    val returnedSessionData: SessionData = sessionRepository.findAll().futureValue.loneElement // shouldBe start
 
     inside(returnedSessionData) {
       case SessionData(_, data, createdAt) =>
-        (data \ "propertyLinking" \ "status").as[String] mustBe start.status.name
+        (data \ "propertyLinking" \ "status").as[String] shouldBe start.status.name
         val aSecondAgo: Long = Instant.now().minus(1, SECONDS).toEpochMilli
-        createdAt.value must be > aSecondAgo
+        createdAt.value should be > aSecondAgo
     }
 
   }
@@ -55,7 +55,7 @@ class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with L
     val returnedSessionData: Option[Start] = sessionRepository.get[Start](reads, hc).futureValue
 
     inside(returnedSessionData) {
-      case Some(Start(status)) => status.name mustBe StartJourney.name
+      case Some(Start(status)) => status.name shouldBe StartJourney.name
     }
 
   }
@@ -67,7 +67,7 @@ class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with L
 
     val returnedSessionData: Option[Start] = sessionRepository.get[Start](reads, hc).futureValue
 
-    returnedSessionData mustBe None
+    returnedSessionData shouldBe None
 
   }
 

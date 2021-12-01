@@ -52,7 +52,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val request = FakeRequest().withSession(token)
 
-  "The choose evidence page with earliest start date in the past" must "ask the user whether they have a rates bill" in {
+  "The choose evidence page with earliest start date in the past" should "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
     when(mockChooseEvidencePage.apply(any(), any(), any())(any(), any(), any()))
@@ -61,13 +61,13 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
     val res = TestChooseEvidence.show()(request)
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("The choose evidence page")
+    html.shouldContainText("The choose evidence page")
   }
 
-  "The choose evidence page with earliest start date in the future" must "ask the user whether they have a rates bill" in {
+  "The choose evidence page with earliest start date in the future" should "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
     when(mockChooseEvidencePage.apply(any(), any(), any())(any(), any(), any()))
@@ -76,36 +76,36 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
     val res = TestChooseEvidence.show()(request)
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.mustContainText("The choose evidence page")
+    html.shouldContainText("The choose evidence page")
   }
 
-  it must "require the user to select whether they have a rates bill" in {
+  it should "require the user to select whether they have a rates bill" in {
     when(mockChooseEvidencePage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("require the user to select whether they have a rates bill"))
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
     val res = TestChooseEvidence.submit()(request)
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.mustContainText("require the user to select whether they have a rates bill")
+    html.shouldContainText("require the user to select whether they have a rates bill")
   }
 
-  it must "redirect to the rates bill upload page if the user has a rates bill" in {
+  it should "redirect to the rates bill upload page if the user has a rates bill" in {
     val res = TestChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
-    status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
+    status(res) shouldBe SEE_OTHER
+    header("location", res) shouldBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
   }
 
-  it must "redirect to the other evidence page if the user does not have a rates bill" in {
+  it should "redirect to the other evidence page if the user does not have a rates bill" in {
 
     val res = TestChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
-    status(res) mustBe SEE_OTHER
-    header("location", res) mustBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
+    status(res) shouldBe SEE_OTHER
+    header("location", res) shouldBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
   }
 
 }

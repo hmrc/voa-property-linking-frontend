@@ -16,22 +16,23 @@
 
 package forms
 
-import java.time.LocalDate
-
 import controllers.propertyLinking.ClaimPropertyOwnership
-import models.{CapacityType, PropertyOwnership}
-import org.scalatest.{FlatSpec, MustMatchers}
+import models.PropertyOwnership
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import utils.FormBindingVerification._
 import views.helpers.Errors
 
-class PropertyOwnershipFormSpec extends FlatSpec with MustMatchers {
+import java.time.LocalDate
+
+class PropertyOwnershipFormSpec extends AnyFlatSpec with Matchers {
 
   import TestData._
 
   behavior of "Property ownership form"
 
   it should "bind when the inputs are all valid" in {
-    mustBindTo(
+    shouldBindTo(
       form,
       validData,
       PropertyOwnership(false, Some(LocalDate.of(2017, 4, 20)), false, Some(LocalDate.of(2017, 4, 23))))
@@ -58,7 +59,7 @@ class PropertyOwnershipFormSpec extends FlatSpec with MustMatchers {
       .updated("toDate.day", "19")
       .updated("toDate.month", "4")
       .updated("toDate.year", "2017")
-    mustBindTo(form, data, PropertyOwnership(true, None, false, Some(LocalDate.of(2017, 4, 19))))
+    shouldBindTo(form, data, PropertyOwnership(true, None, false, Some(LocalDate.of(2017, 4, 19))))
   }
 
   it should "require end date after 1st April 2017 if the occupation/ownership started before 1st April 2017" in {
