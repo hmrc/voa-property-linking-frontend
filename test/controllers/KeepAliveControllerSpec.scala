@@ -34,7 +34,7 @@ class KeepAliveControllerSpec extends VoaPropertyLinkingSpec {
     StubIndividualAccountConnector.stubAccount(
       arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = externalId))
     val res = TestRegistrationController$.keepAlive()(FakeRequest())
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
 }

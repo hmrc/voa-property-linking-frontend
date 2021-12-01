@@ -17,14 +17,13 @@
 package views.errors
 
 import java.time.LocalDateTime
-
 import play.api.test.FakeRequest
+import tests.BaseUnitSpec
 import utils._
-import uk.gov.hmrc.play.test.UnitSpec
 import utils.StubMessageControllerComponents._
 import utils.{Configs, NoMetricsOneAppPerSuite}
 
-class TechnicalDifficultiesPageSpec extends UnitSpec with NoMetricsOneAppPerSuite with FakeViews {
+class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPerSuite with FakeViews {
 
   "The technical difficulties page" should {
     val ref: String = shortString

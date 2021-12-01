@@ -32,14 +32,14 @@ class ChallengeConnectorSpec extends VoaPropertyLinkingSpec {
     }
   }
 
-  "getMyOrganisationsChallengeCases" must "return organisation's submitted challenge cases for the given property link" in new Setup {
+  "getMyOrganisationsChallengeCases" should "return organisation's submitted challenge cases for the given property link" in new Setup {
     mockHttpGETWithQueryParam[ChallengeCasesWithAgent]("tst-url", ownerChallengeCasesResponse)
-    whenReady(connector.getMyOrganisationsChallengeCases("PL1343"))(_ mustBe List(ownerChallengeCaseDetails))
+    whenReady(connector.getMyOrganisationsChallengeCases("PL1343"))(_ shouldBe List(ownerChallengeCaseDetails))
   }
 
-  "getMyClientsChallengeCases" must "return organisation's submitted challenge cases for the given property link" in new Setup {
+  "getMyClientsChallengeCases" should "return organisation's submitted challenge cases for the given property link" in new Setup {
     mockHttpGETWithQueryParam[ChallengeCasesWithClient]("tst-url", agentChallengeCasesResponse)
-    whenReady(connector.getMyClientsChallengeCases("PL1343"))(_ mustBe List(agentChallengeCaseDetails))
+    whenReady(connector.getMyClientsChallengeCases("PL1343"))(_ shouldBe List(agentChallengeCaseDetails))
   }
 
 }

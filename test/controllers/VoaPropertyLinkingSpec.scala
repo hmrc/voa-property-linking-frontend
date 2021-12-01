@@ -24,10 +24,12 @@ import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import actions.requests.BasicAuthenticatedRequest
 import akka.stream.Materializer
 import config.ApplicationConfig
+import models._
 import models.registration.{User, UserDetails}
-import models.{UploadEvidenceData, _}
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Seconds, Span}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
@@ -41,7 +43,7 @@ import java.time.{Clock, Instant, ZoneId}
 import scala.concurrent.{ExecutionContext, Future}
 
 trait VoaPropertyLinkingSpec
-    extends FlatSpec with MustMatchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
+    extends AnyFlatSpec with Matchers with FutureAwaits with DefaultAwaitTimeout with BeforeAndAfterEach
     with AppendedClues with MockitoSugar with NoMetricsOneAppPerSuite with StubMessageControllerComponents
     with HTTPClientMock with ScalaFutures with Configs with FakeObjects with GlobalExecutionContext with AllMocks
     with HttpResponseUtils with Inside with FakeViews {

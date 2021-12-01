@@ -18,7 +18,7 @@ package models.registration
 
 import play.api.data.Form
 import tests.BaseUnitSpec
-import utils.FormBindingVerification.{mustBindTo, verifyNonEmptyText}
+import utils.FormBindingVerification.{shouldBindTo, verifyNonEmptyText}
 
 class AssistantUserSpec extends BaseUnitSpec {
 
@@ -26,7 +26,7 @@ class AssistantUserSpec extends BaseUnitSpec {
     import AssistantUserAccountDetailsTestData._
 
     "bind when the inputs are all valid" in {
-      mustBindTo(form, validData, expected)
+      shouldBindTo(form, validData, expected)
     }
     "ensure first name is mandatory" in {
       verifyNonEmptyText(form, validData, keys.firstName)

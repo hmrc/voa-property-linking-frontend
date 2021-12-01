@@ -32,35 +32,35 @@ import scala.util.Random
 
 class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
 
-  "The edit email page" must "require the updated email to be valid" in {
+  "The edit email page" should "require the updated email to be valid" in {
     val invalidEmail = Seq(
       "email"          -> "not an email",
       "confirmedEmail" -> "not an email"
     )
 
     val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(invalidEmail: _*))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("span.govuk-error-message").text mustBe "Error: Enter a valid email address"
+    html.select("span.govuk-error-message").text shouldBe "Error: Enter a valid email address"
   }
 
-  it must "require the confirmed email to match" in {
+  it should "require the confirmed email to match" in {
     val mismatchedEmails = Seq(
       "email"          -> "email@example.com",
       "confirmedEmail" -> "anotherEmail@example.com"
     )
 
     val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(mismatchedEmails: _*))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
     html
       .select("span.govuk-error-message")
-      .text mustBe "Error: Email addresses must match. Check them and try again"
+      .text shouldBe "Error: Email addresses must match. Check them and try again"
   }
 
-  it must "update the user's email when they make a valid submission" in {
+  it should "update the user's email when they make a valid submission" in {
 
     val updatedEmail = "email@example.com"
 
@@ -70,90 +70,90 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     )
 
     val res = TestUpdatePersonalDetails.updateEmail()(request.withFormUrlEncodedBody(validData: _*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(email = updatedEmail)
     verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
       any[HeaderCarrier])
   }
 
-  "The edit name page" must "require a non-empty first name" in {
+  "The edit name page" should "require a non-empty first name" in {
     val missingFirstName = Seq(
       "lastName" -> "Person"
     )
 
     val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(missingFirstName: _*))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("span.govuk-error-message").text mustBe "Error: This must be filled in"
+    html.select("span.govuk-error-message").text shouldBe "Error: This must be filled in"
   }
 
-  it must "require a non-empty last name" in {
+  it should "require a non-empty last name" in {
     val missingLastName = Seq(
       "firstName" -> "Mr"
     )
 
     val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(missingLastName: _*))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("span.govuk-error-message").text mustBe "Error: This must be filled in"
+    html.select("span.govuk-error-message").text shouldBe "Error: This must be filled in"
   }
 
-  it must "update the user's name when they make a valid submission" in {
+  it should "update the user's name when they make a valid submission" in {
     val validData = Seq(
       "firstName" -> "Mr",
       "lastName"  -> "Person"
     )
 
     val res = TestUpdatePersonalDetails.updateName()(request.withFormUrlEncodedBody(validData: _*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(firstName = "Mr", lastName = "Person")
     verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
       any[HeaderCarrier])
   }
 
-  "The update phone number page" must "require the phone number to be non-empty" in {
+  "The update phone number page" should "require the phone number to be non-empty" in {
     val emptyPhoneNumber = Seq(
       "phone" -> ""
     )
 
     val res = TestUpdatePersonalDetails.updatePhone()(request.withFormUrlEncodedBody(emptyPhoneNumber: _*))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("span.govuk-error-message").text mustBe "Error: This must be filled in"
+    html.select("span.govuk-error-message").text shouldBe "Error: This must be filled in"
   }
 
-  it must "update the user's phone number when they make a valid submission" in {
+  it should "update the user's phone number when they make a valid submission" in {
     val res = TestUpdatePersonalDetails.updatePhone()(request.withFormUrlEncodedBody("phone" -> "01234567890"))
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(phone1 = "01234567890")
     verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
       any[HeaderCarrier])
   }
 
-  "The update address page" must "require a postcode" in {
+  "The update address page" should "require a postcode" in {
     val missingPostcode = Seq(
       "address.line1"    -> "Some place",
       "address.postcode" -> ""
     )
 
     val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(missingPostcode: _*))
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
     html.select("span.govuk-error-message").text contains "Error: This must be filled in"
   }
 
-  it must "update the user's address ID if they use the lookup" in {
+  it should "update the user's address ID if they use the lookup" in {
     when(mockManageDetails.updatePostcode(any(), any(), any())(any(), any())).thenReturn(Future.successful(Success))
 
     val validData = Seq(
@@ -166,8 +166,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     )
 
     val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(validData: _*))
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(addressId = 1234567890)
     verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
@@ -176,7 +176,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
       .updatePostcode(matching(detailedIndividualAccount.individualId), any(), matching(1234567890L))(any(), any())
   }
 
-  it must "create an address record, and update the user's record with the generated address ID, if they enter the address manually" in {
+  it should "create an address record, and update the user's record with the generated address ID, if they enter the address manually" in {
     val addressId = Random.nextLong()
     val address: Address = utils.addressGen.sample.get.copy(addressUnitId = None)
 
@@ -191,8 +191,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
       "address.postcode" -> address.postcode
     )
     val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(validFormData: _*))
-    status(res) must be(SEE_OTHER)
-    redirectLocation(res) must be(Some(viewDetailsPage))
+    status(res) should be(SEE_OTHER)
+    redirectLocation(res) should be(Some(viewDetailsPage))
 
     val updatedDetails = detailedIndividualAccount.details.copy(addressId = addressId)
 
@@ -203,7 +203,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
       .updatePostcode(matching(detailedIndividualAccount.individualId), any(), matching(addressId))(any(), any())
   }
 
-  it must "reject an address record, if the manually entered postcode is blank" in {
+  it should "reject an address record, if the manually entered postcode is blank" in {
     val addressId = Random.nextLong()
     val address: Address = utils.addressGen.sample.get.copy(addressUnitId = None)
 
@@ -219,68 +219,68 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     )
 
     val res = TestUpdatePersonalDetails.updateAddress()(request.withFormUrlEncodedBody(validFormData: _*))
-    status(res) must be(BAD_REQUEST)
+    status(res) should be(BAD_REQUEST)
   }
 
-  "The update mobile number page" must "update the user's mobile number if they submit a valid form" in {
+  "The update mobile number page" should "update the user's mobile number if they submit a valid form" in {
     val res = TestUpdatePersonalDetails.updateMobile()(request.withFormUrlEncodedBody("phone" -> "01234567890"))
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some(viewDetailsPage)
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(phone2 = Some("01234567890"))
     verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
       any[HeaderCarrier])
   }
 
-  "The update mobile number page" must "throw BAD_REQUEST if they submit an invalid form" in {
+  "The update mobile number page" should "throw BAD_REQUEST if they submit an invalid form" in {
     val res = TestUpdatePersonalDetails.updateMobile()(FakeRequest())
-    status(res) mustBe BAD_REQUEST
+    status(res) shouldBe BAD_REQUEST
   }
 
   "viewEmail" should "display the users email" in {
     val res = TestUpdatePersonalDetails.viewEmail()(FakeRequest())
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update email - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update email - Valuation Office Agency - GOV.UK"
   }
 
   "viewAddress" should "display the users address" in {
     val res = TestUpdatePersonalDetails.viewAddress()(FakeRequest())
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update address - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update address - Valuation Office Agency - GOV.UK"
   }
 
   "viewPhone" should "display the users phone number" in {
     val res = TestUpdatePersonalDetails.viewPhone()(FakeRequest())
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update telephone number - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update telephone number - Valuation Office Agency - GOV.UK"
   }
 
   "viewName" should "display the users name" in {
     val res = TestUpdatePersonalDetails.viewName()(FakeRequest())
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update your name - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update your name - Valuation Office Agency - GOV.UK"
   }
 
   "viewMobile" should "display the users name" in {
     val res = TestUpdatePersonalDetails.viewMobile()(FakeRequest())
 
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title mustBe "Update mobile number - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update mobile number - Valuation Office Agency - GOV.UK"
   }
 
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show.url

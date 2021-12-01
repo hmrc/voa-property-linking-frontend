@@ -32,32 +32,32 @@ class TaxEnrolmentConnectorSpec @Inject()(servicesConfig: ServicesConfig) extend
     val connector = new TaxEnrolmentConnector(mockHttpClient, mockAuditingService, servicesConfig)
   }
 
-  "enrol" must "enrol a user successfully" in new Setup {
+  "enrol" should "enrol a user successfully" in new Setup {
     val validHttpResponse = emptyJsonHttpResponse(OK)
 
     mockHttpPUT[EnrolmentPayload, HttpResponse]("tst-url", validHttpResponse)
-    whenReady(connector.enrol(1, "AB12 C34"))(_ mustBe validHttpResponse)
+    whenReady(connector.enrol(1, "AB12 C34"))(_ shouldBe validHttpResponse)
   }
 
-  "enrol" must "throw an exception if enrolment fails" in new Setup {
+  "enrol" should "throw an exception if enrolment fails" in new Setup {
     val exception = new Exception("Failed enrolment")
 
     mockHttpFailedPUT[EnrolmentPayload, HttpResponse]("tst-url", exception)
-    whenReady(connector.enrol(1, "AB12 C34").failed)(_ mustBe exception)
+    whenReady(connector.enrol(1, "AB12 C34").failed)(_ shouldBe exception)
   }
 
-  "updatePostcode" must "update a postcode and return the result if successful" in new Setup {
+  "updatePostcode" should "update a postcode and return the result if successful" in new Setup {
     val successEnrolmentResult = Success
 
     mockHttpPUT[PayLoad, HttpResponse]("tst-url", emptyJsonHttpResponse(OK))
-    whenReady(connector.updatePostcode(1, "NE12 W34", "OL00 D1"))(_ mustBe successEnrolmentResult)
+    whenReady(connector.updatePostcode(1, "NE12 W34", "OL00 D1"))(_ shouldBe successEnrolmentResult)
   }
 
-  "updatePostcode" must "throw an exception if postcode update fails" in new Setup {
+  "updatePostcode" should "throw an exception if postcode update fails" in new Setup {
     val exception = new Exception("Failed to update postcode")
 
     mockHttpFailedPUT[PayLoad, HttpResponse]("tst-url", exception)
-    whenReady(connector.updatePostcode(1, "NE12 W34", "OL00 D1").failed)(_ mustBe exception)
+    whenReady(connector.updatePostcode(1, "NE12 W34", "OL00 D1").failed)(_ shouldBe exception)
   }
 
 }

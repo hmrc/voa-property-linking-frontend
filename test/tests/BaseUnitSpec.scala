@@ -16,7 +16,12 @@
 
 package tests
 
-import org.scalatest.{Matchers, OptionValues, WordSpec}
-import utils.FakeObjects
+import org.scalatest.{Inside, OptionValues}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatestplus.mockito.MockitoSugar
+import utils.{FakeObjects, GlobalExecutionContext}
 
-trait BaseUnitSpec extends WordSpec with Matchers with OptionValues with FakeObjects
+trait BaseUnitSpec
+    extends AnyWordSpec with Matchers with OptionValues with FakeObjects with GlobalExecutionContext with Inside
+    with MockitoSugar

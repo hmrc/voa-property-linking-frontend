@@ -71,8 +71,8 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val res = valuationsController
       .savePreviousPage(previousPage = previousPage.toString, submissionId = plSubId, owner = true)(request)
 
-    status(res) mustBe SEE_OTHER
-    header(LOCATION, res) mustBe Some(s"/business-rates-property-linking/property-link/$plSubId/assessments")
+    status(res) shouldBe SEE_OTHER
+    header(LOCATION, res) shouldBe Some(s"/business-rates-property-linking/property-link/$plSubId/assessments")
 
     verify(mockSessionRepository).start(mEq(AssessmentsPageSession(previousPage)))(any(), any())
   }
@@ -81,8 +81,8 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val res = valuationsController
       .savePreviousPage(previousPage = previousPage.toString, submissionId = plSubId, owner = false)(request)
 
-    status(res) mustBe SEE_OTHER
-    header(LOCATION, res) mustBe Some(
+    status(res) shouldBe SEE_OTHER
+    header(LOCATION, res) shouldBe Some(
       s"/business-rates-property-linking/property-link/$plSubId/assessments?owner=false")
 
     verify(mockSessionRepository).start(mEq(AssessmentsPageSession(previousPage)))(any(), any())
@@ -97,7 +97,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
 
     val res = valuationsController.valuations(plSubId, owner = true)(request)
 
-    status(res) mustBe NOT_FOUND
+    status(res) shouldBe NOT_FOUND
   }
 
   it should "return 200 with assessments for OWNER" in new ValuationsSetup {
@@ -105,7 +105,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     override def pLink: Future[Option[ApiAssessments]] = Future.successful(Some(assessments))
 
     val res = valuationsController.valuations(plSubId, owner = true)(request)
-    status(res) mustBe OK
+    status(res) shouldBe OK
   }
 
   it should "return 200 with assessments sorted by currentFromDate DESC for OWNER" in new ValuationsSetup {
@@ -113,15 +113,15 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     override def pLink: Future[Option[ApiAssessments]] = Future.successful(Some(assessments))
 
     val res = valuationsController.valuations(plSubId, owner = true)(request)
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val sortedAssessments: List[ApiAssessment] =
       valuationsController.assessmentsWithLinks(assessments, plSubId, owner = true).map(_._2).toList
 
     inside(sortedAssessments) {
       case AssessmentWithFromDate(fromDate1) :: AssessmentWithFromDate(fromDate2) :: Nil =>
-        //first assessment in the list must have a "later" start date than the next one
-        fromDate1.toEpochDay must be > fromDate2.toEpochDay
+        //first assessment in the list should have a "later" start date than the next one
+        fromDate1.toEpochDay should be > fromDate2.toEpochDay
     }
   }
 
@@ -135,15 +135,15 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(Some(clientProperty)))
 
     val res = valuationsController.valuations(plSubId, owner = false)(request)
-    status(res) mustBe OK
+    status(res) shouldBe OK
 
     val sortedAssessments: List[ApiAssessment] =
       valuationsController.assessmentsWithLinks(assessments, plSubId, owner = false).map(_._2).toList
 
     inside(sortedAssessments) {
       case AssessmentWithFromDate(fromDate1) :: AssessmentWithFromDate(fromDate2) :: Nil =>
-        //first assessment in the list must have a "later" start date than the next one
-        fromDate1.toEpochDay must be > fromDate2.toEpochDay
+        //first assessment in the list should have a "later" start date than the next one
+        fromDate1.toEpochDay should be > fromDate2.toEpochDay
     }
   }
 

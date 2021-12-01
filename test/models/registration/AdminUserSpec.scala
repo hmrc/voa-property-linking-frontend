@@ -29,7 +29,7 @@ class AdminUserSpec extends BaseUnitSpec {
     import AdminOrganisationAccountDetailsTestData._
 
     "bind when the inputs are all valid" in {
-      mustBindTo(form, validData, expected)
+      shouldBindTo(form, validData, expected)
     }
     "ensure first name is mandatory" in {
       verifyNonEmptyText(form, validData, keys.firstName)
@@ -98,7 +98,7 @@ class AdminUserSpec extends BaseUnitSpec {
         val valid = Seq("someone@example.com", "123.456@123.com", "abc.def@ghi.jkl.mno")
         valid.foreach { email =>
           val data = validData.updated(keys.email, email).updated(keys.confirmedBusinessEmail, email)
-          mustBind(form, data)
+          shouldBind(form, data)
         }
       }
       "disallows invalid email addresses" in {
@@ -128,7 +128,7 @@ class AdminUserSpec extends BaseUnitSpec {
     import IndividualUserAccountDetailsTestData._
 
     "bind when the inputs are all valid" in {
-      mustBindTo(form, validData, expected)
+      shouldBindTo(form, validData, expected)
     }
     "ensure first name is mandatory" in {
       verifyNonEmptyText(form, validData, keys.firstName)
@@ -193,7 +193,7 @@ class AdminUserSpec extends BaseUnitSpec {
         val valid = Seq("someone@example.com", "123.456@123.com", "abc.def@ghi.jkl.mno")
         valid.foreach { email =>
           val data = validData.updated(keys.email, email).updated(keys.confirmedEmail, email)
-          mustBind(form, data)
+          shouldBind(form, data)
         }
       }
       "disallows invalid email addresses" in {
@@ -222,7 +222,7 @@ class AdminUserSpec extends BaseUnitSpec {
     import AdminInExistingOrganisationUserTestData._
 
     "bind when the inputs are all valid" in {
-      mustBindTo(form, validData, expected)
+      shouldBindTo(form, validData, expected)
     }
     "ensure first name is mandatory" in {
       verifyNonEmptyText(form, validData, keys.firstName)

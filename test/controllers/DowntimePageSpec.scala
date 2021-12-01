@@ -32,10 +32,10 @@ class DowntimePageSpec extends VoaPropertyLinkingSpec {
 
     val result = applicationTestController.plannedImprovements()(FakeRequest())
 
-    status(result) mustBe OK
+    status(result) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(result))
-    html.title mustBe "Service unavailable - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Service unavailable - Valuation Office Agency - GOV.UK"
 
   }
 

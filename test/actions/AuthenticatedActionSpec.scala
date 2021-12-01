@@ -28,19 +28,17 @@ import play.api.mvc.Results._
 import play.api.mvc.{MessagesControllerComponents, Request}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
-import tests.AllMocks
+import tests.{AllMocks, BaseUnitSpec}
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.Retrieval
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.test.UnitSpec
 import utils.{Configs, FakeObjects, FakeViews, NoMetricsOneAppPerSuite}
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class AuthenticatedActionSpec
-    extends UnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks with NoMetricsOneAppPerSuite
+    extends BaseUnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks with NoMetricsOneAppPerSuite
     with FakeViews {
 
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]

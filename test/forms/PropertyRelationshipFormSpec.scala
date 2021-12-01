@@ -16,22 +16,20 @@
 
 package forms
 
-import java.time.LocalDate
-
 import controllers.propertyLinking.ClaimPropertyRelationship
 import models._
-import org.scalatest.{FlatSpec, MustMatchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import utils.FormBindingVerification._
-import views.helpers.Errors
 
-class PropertyRelationshipFormSpec extends FlatSpec with MustMatchers {
+class PropertyRelationshipFormSpec extends AnyFlatSpec with Matchers {
 
   import TestData._
 
   behavior of "Property relationship form"
 
   it should "bind when the inputs are all valid" in {
-    mustBindTo(form, validData, PropertyRelationship(Occupier))
+    shouldBindTo(form, validData, PropertyRelationship(Occupier))
   }
 
   it should "mandate a capacity" in {

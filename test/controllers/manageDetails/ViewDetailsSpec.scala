@@ -54,18 +54,18 @@ class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     when(mockConfig.bannerContent).thenReturn(None)
   }
 
-  "show" must "display individual page when affinityGroup is Individual" in new TestCase {
+  "show" should "display individual page when affinityGroup is Individual" in new TestCase {
     val res = TestViewDetails.show()(request)
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/your-details")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("http://localhost:9542/business-rates-dashboard/your-details")
   }
 
-  "show" must "display organisation page when affinityGroup is Organisation" in new TestCase {
+  "show" should "display organisation page when affinityGroup is Organisation" in new TestCase {
     val res = TestViewDetails.show()(request)
 
-    status(res) mustBe SEE_OTHER
-    redirectLocation(res) mustBe Some("http://localhost:9542/business-rates-dashboard/your-details")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("http://localhost:9542/business-rates-dashboard/your-details")
 
   }
 

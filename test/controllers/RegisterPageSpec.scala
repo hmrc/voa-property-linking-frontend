@@ -32,9 +32,9 @@ class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaProper
 
     val result = applicationTestController.show()(FakeRequest())
 
-    status(result) mustBe SEE_OTHER
+    status(result) shouldBe SEE_OTHER
 
-    redirectLocation(result) mustBe Some(
+    redirectLocation(result) shouldBe Some(
       "http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
 
   }
@@ -45,16 +45,16 @@ class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaProper
         "choice" -> "test123"
       ))
 
-    status(result) mustBe SEE_OTHER
+    status(result) shouldBe SEE_OTHER
 
-    redirectLocation(result) mustBe Some(
+    redirectLocation(result) shouldBe Some(
       "http://localhost:8571/government-gateway-registration-frontend?accountType=test123&continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
 
   }
 
   "continue" should "return the correct map including accountType" in {
     val testAccountType = "testAccountType"
-    applicationTestController.continue(testAccountType) mustBe Map(
+    applicationTestController.continue(testAccountType) shouldBe Map(
       "accountType" -> Seq(testAccountType),
       "continue"    -> Seq("dashboard-url"), //fixme fix url if needed
       "origin"      -> Seq("voa"))
@@ -65,7 +65,7 @@ class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaProper
       FakeRequest().withFormUrlEncodedBody(
         "choice" -> ""
       ))
-    status(result) mustBe BAD_REQUEST
+    status(result) shouldBe BAD_REQUEST
   }
 
 }
