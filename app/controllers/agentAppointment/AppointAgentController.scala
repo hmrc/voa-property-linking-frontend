@@ -166,6 +166,7 @@ class AppointAgentController @Inject()(
             sortorder = sessionDataOpt.fold(ExternalPropertyLinkManagementSortOrder.ASC)(_.sortOrder)
           )
       }
+      agentList <- agentRelationshipService.getMyOrganisationAgents()
       response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
                    params = searchParams,
                    pagination = AgentPropertiesParameters(
@@ -202,6 +203,7 @@ class AppointAgentController @Inject()(
               params = searchParams,
               agentCode = agentCode,
               agentAppointed = agentAppointed,
+              organisationAgents = agentList,
               backLink = Some(backLink)
             ))
         case None =>
@@ -232,6 +234,7 @@ class AppointAgentController @Inject()(
                 .recoverWith {
                   case e: services.AppointRevokeException =>
                     for {
+                      agentList <- agentRelationshipService.getMyOrganisationAgents()
                       response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
                                    GetPropertyLinksParameters(),
                                    AgentPropertiesParameters(agentCode = action.agentCode),
@@ -246,6 +249,7 @@ class AppointAgentController @Inject()(
                         params = GetPropertyLinksParameters(),
                         agentCode = action.agentCode,
                         agentAppointed = None,
+                        organisationAgents = agentList,
                         backLink = Some(action.backLinkUrl)
                       ))
                   case e: Exception => throw e
@@ -262,6 +266,7 @@ class AppointAgentController @Inject()(
     accounts.withAgentCode(data("agentCode")).flatMap {
       case Some(group) =>
         for {
+          agentList <- agentRelationshipService.getMyOrganisationAgents()
           response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
                        GetPropertyLinksParameters(),
                        AgentPropertiesParameters(agentCode = data("agentCode").toLong),
@@ -277,6 +282,7 @@ class AppointAgentController @Inject()(
               GetPropertyLinksParameters(),
               data("agentCode").toLong,
               data.get("agentAppointed"),
+              agentList,
               backLink = Some(data("backLinkUrl"))
             ))
       case None =>

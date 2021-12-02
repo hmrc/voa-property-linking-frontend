@@ -559,12 +559,12 @@ propertyRepresentation.revokeClientProperty.confirmation=You have successfully r
 propertyRepresentation.revokeClientProperty.returnToClientProperties=Return to client properties
 
 #Appoint agents properties
-propertyRepresentation.appointAgentProperties.title=Appoint an agent to one or more properties
-propertyRepresentation.appointAgentProperties.appointAgent=You can appoint agent ''{0}'' (Agent ID: {1}) to submit checks and challenges for any of these properties:
+propertyRepresentation.appointAgentProperties.title=Appoint agent {0} to one or more properties
+propertyRepresentation.appointAgentProperties.appointAgent=(Agent ID: {0}) will be able to submit checks and challenges for these properties.
+propertyRepresentation.appointAgentProperties.dropdown.single=Choose from 1 agent
+propertyRepresentation.appointAgentProperties.dropdown.multiple=Choose from {0} agents
 propertyRepresentation.appointAgentProperties.select=Select all
 propertyRepresentation.appointAgentProperties.deselect=Deselect all
-propertyRepresentation.appointAgents.table.select=Select
-propertyRepresentation.appointAgents.table.actions=Actions
 propertyRepresentation.th.ADDRESS=Address
 propertyRepresentation.th.AGENT=Appointed agents
 propertyRepresentation.th.BAREF=Local authority reference
@@ -576,8 +576,8 @@ propertyRepresentation.pageSize.perPage=messages per page
 propertyRepresentation.paginationInfo=Page {0} of {1}
 propertyRepresentation.appointAgents.showPropertiesNoAgent.link=<a class="govuk-link" href="{0}">Only show properties with no agent</a>
 propertyRepresentation.appointAgents.showAllProperties.link=<a class="govuk-link" href="{0}">Show all properties</a>
-label.propertyRepresentation.address=Search for address
-label.propertyRepresentation.appointedAgents=Search for appointed agents
+label.propertyRepresentation.address=Address
+label.propertyRepresentation.appointedAgents=Agent
 error.propertyRepresentation.appoint.filter=You must enter something to search for
 
 
@@ -1007,7 +1007,7 @@ label.address=Address
 label.localAuthorityReference=Local authority reference
 label.status=Status
 label.search=Search
-label.clear.search=Clear Search
+label.clear.search=Clear search
 
 label.address.line1=Address line 1
 label.address.line2=Address line 2
