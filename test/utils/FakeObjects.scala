@@ -278,7 +278,16 @@ trait FakeObjects {
     propertyCount = 2
   )
 
+  val agentSummary2 = AgentSummary(
+    organisationId = 2L,
+    representativeCode = 988L,
+    name = "Another Agent Org",
+    appointedDate = LocalDate.now().minusDays(2),
+    propertyCount = 1
+  )
+
   val organisationsAgentsList = AgentList(resultCount = 1, agents = List(agentSummary))
+  val organisationsAgentsListWithTwoAgents = AgentList(resultCount = 2, agents = List(agentSummary, agentSummary2))
   val emptyOrganisationsAgentsList = AgentList(resultCount = 0, agents = List.empty)
 
   val agentDetails = AgentDetails(name = "Awesome Agent", address = "1 Awesome Street, AB1 1BA")

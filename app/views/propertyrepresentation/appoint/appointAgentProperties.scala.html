@@ -230,17 +230,20 @@
                                 content = Text(messages("label.propertyRepresentation.appointedAgents"))
                             ),
                             items = SelectItem(
-                                        value = None,
-                                        text = if(organisationAgents.resultCount > 1 && agentAlreadyAppointed) {
-                                            messages("propertyRepresentation.appointAgentProperties.dropdown.multiple", organisationAgents.resultCount - 1)
-                                        } else if (organisationAgents.resultCount > 1 && !agentAlreadyAppointed) {
-                                            messages("propertyRepresentation.appointAgentProperties.dropdown.multiple", organisationAgents.resultCount)
-                                        } else messages("propertyRepresentation.appointAgentProperties.dropdown.single")
-                            ) +: organisationAgents.agents.collect{case agent if agent.organisationId != model.agentGroup.id =>
-                              SelectItem(
-                                  value = Some(agent.name),
-                                  text = agent.name
-                              )
+                                        value = params.agent,
+                                        text = params.agent.getOrElse(
+                                            if (organisationAgents.resultCount > 1 && agentAlreadyAppointed) {
+                                                messages("propertyRepresentation.appointAgentProperties.dropdown.multiple", organisationAgents.resultCount - 1)
+                                            } else if (organisationAgents.resultCount > 1 && !agentAlreadyAppointed) {
+                                                messages("propertyRepresentation.appointAgentProperties.dropdown.multiple", organisationAgents.resultCount)
+                                            } else messages("propertyRepresentation.appointAgentProperties.dropdown.single")
+                                        )
+                            ) +: organisationAgents.agents.collect {
+                                case agent if (agent.organisationId != model.agentGroup.id) && !params.agent.contains(agent.name) =>
+                                    SelectItem(
+                                        value = Some(agent.name),
+                                        text = agent.name
+                                    )
                             },
                             classes = s"govuk-!-width-full ${if(formErrorClass().nonEmpty){"govuk-select--error"}}"
                         ))
