@@ -215,6 +215,44 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       s"Error: Appoint agent $ggExternalId to one or more properties - Valuation Office Agency - GOV.UK")
   }
 
+  "filterPropertiesForAppoint" should "remember the last searched-for agent in the dropdown" in {
+
+    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address 1", "localAuthorityRef", testAgents)
+
+    val testOwnerAuthResult =
+      OwnerAuthResult(start = 1, size = 15, filterTotal = 2, total = 2, authorisations = Seq(testOwnerAuth))
+
+    when(mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockAppointRevokeService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(organisationsAgentsListWithTwoAgents))
+
+    when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
+    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
+      .thenReturn(Future.successful(Some(FilterAppointProperties(None, None))))
+    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
+      .thenReturn(Future.successful(()))
+
+    StubGroupAccountConnector.stubAccount(agent)
+
+    val backLink = "/my-organisation/appoint"
+    val res =
+      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink)(
+        FakeRequest().withFormUrlEncodedBody(
+          "address"     -> "address 1",
+          "agent"       -> "Some Agent Org",
+          "backLinkUrl" -> backLink
+        ))
+
+    status(res) shouldBe OK
+
+    val page = Jsoup.parse(contentAsString(res))
+    val dropdown = page.getElementById("agent")
+    val firstOption = dropdown.child(0).text()
+
+    firstOption shouldBe "Some Agent Org"
+  }
+
   "appointAgentSummary" should "show the summary page" in {
     StubGroupAccountConnector.stubAccount(agent)
 

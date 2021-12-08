@@ -231,15 +231,15 @@
                             ),
                             items = SelectItem(
                                         value = params.agent,
-                                        text = if (params.agent.isDefined) {
-                                            params.agent.get
-                                        } else if (organisationAgents.resultCount > 1 && agentAlreadyAppointed) {
-                                            messages("propertyRepresentation.appointAgentProperties.dropdown.multiple", organisationAgents.resultCount - 1)
-                                        } else if (organisationAgents.resultCount > 1 && !agentAlreadyAppointed) {
-                                            messages("propertyRepresentation.appointAgentProperties.dropdown.multiple", organisationAgents.resultCount)
-                                        } else messages("propertyRepresentation.appointAgentProperties.dropdown.single")
+                                        text = params.agent.getOrElse(
+                                            if (organisationAgents.resultCount > 1 && agentAlreadyAppointed) {
+                                                messages("propertyRepresentation.appointAgentProperties.dropdown.multiple", organisationAgents.resultCount - 1)
+                                            } else if (organisationAgents.resultCount > 1 && !agentAlreadyAppointed) {
+                                                messages("propertyRepresentation.appointAgentProperties.dropdown.multiple", organisationAgents.resultCount)
+                                            } else messages("propertyRepresentation.appointAgentProperties.dropdown.single")
+                                        )
                             ) +: organisationAgents.agents.collect {
-                                case agent if (agent.organisationId != model.agentGroup.id) && (agent.name != params.agent.getOrElse("")) =>
+                                case agent if (agent.organisationId != model.agentGroup.id) && !params.agent.contains(agent.name) =>
                                     SelectItem(
                                         value = Some(agent.name),
                                         text = agent.name
