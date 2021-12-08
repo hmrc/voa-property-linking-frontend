@@ -74,6 +74,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   lazy val pingdomToken: Option[String] = configuration.getOptional[String]("pingdom.performance.monitor.token")
 
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
+  lazy val newRegistrationJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newRegEnabled")
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
   lazy val signOutTimeout = loadInt("sign-out.timeout")
