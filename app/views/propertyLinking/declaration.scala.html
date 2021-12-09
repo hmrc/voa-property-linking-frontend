@@ -22,6 +22,7 @@
 @import java.time.format.DateTimeFormatter
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import utils.Formatters
+@import views.html.includes.assessmentHeading
 
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
@@ -65,14 +66,7 @@
         @govukErrorSummary(ErrorSummary(errorList = model.form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    <ul class="govuk-list">
-        <li>
-            <b>Local authority reference:</b> @model.localAuthorityReference
-        </li>
-        <li>
-            <b>Property:</b> @Formatters.capitalisedAddress(model.address)
-        </li>
-    </ul>
+    @assessmentHeading(model.localAuthorityReference, model.address)
 
     <h1 class="govuk-heading-l">@messages("declaration.title")</h1>
 

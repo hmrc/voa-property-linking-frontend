@@ -19,6 +19,7 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import utils.Formatters
+@import views.html.includes.assessmentHeading
 
 @this(govukPanel: GovukPanel, govukButton : GovukButton, mainLayout: views.html.mainLayout)
 
@@ -57,14 +58,8 @@
 @mainLayout(
     pageTitle = messages("linkingRequestSubmitted.title")
 ) {
-    <ul class="govuk-list">
-        <li>
-            <b>Local authority reference:</b> @model.localAuthorityReference
-        </li>
-        <li>
-            <b>Property:</b> @Formatters.capitalisedAddress(model.address)
-        </li>
-    </ul>
+    @assessmentHeading(model.localAuthorityReference, model.address)
+
     @govukPanel(Panel(
         title = Text(messages("linkingRequestSubmitted.title1")),
         content = HtmlContent(s"${messages("linkingRequestSubmitted.title3")}<br><strong>${model.refId}</strong>")
