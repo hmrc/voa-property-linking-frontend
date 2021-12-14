@@ -16,7 +16,7 @@
 
 @import models.CanChallengeResponse
 @import config.ApplicationConfig
-@import  utils.Formatters
+@import views.html.includes.assessmentHeading
 
 @this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
 
@@ -26,14 +26,7 @@
     pageTitle = messages("cannotRaiseChallenge.title"),
     backUri = Some(backLinkUrl)
 ) {
-    <ul class="govuk-list">
-        <li>
-            <b>@messages("assessments.localAuthorityRef")</b> @localAuth
-        </li>
-        <li>
-            <b>@messages("assessments.property")</b> @Formatters.capitalisedAddress(address)
-        </li>
-    </ul>
+    @assessmentHeading(localAuth, address)
 
     <div id="cannot-raise-challenge">
         <h1 class="govuk-heading-l">@messages("cannotRaiseChallenge.title")</h1>
