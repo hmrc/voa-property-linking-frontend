@@ -65,9 +65,7 @@
 @addressColumnHeaderLink = {
     <a id="sort-by-address"
        href="@agentAppointment.routes.AppointAgentController.sortPropertiesForAppoint(ADDRESS, pagination, agentCode, agentAppointed = appointedAgentToggle, backLinkAsString).url"
-       class="govuk-link"
-       role="link"
-       style="color: black">
+       role="link">
         @messages("propertyRepresentation.th.ADDRESS")
     </a>
     <span class="govuk-visually-hidden">@messages(s"propertyRepresentation.th.ADDRESS")</span>
@@ -75,9 +73,7 @@
 @appointedAgentsColumnHeader = {
     <a id="sort-by-agent"
        href="@agentAppointment.routes.AppointAgentController.sortPropertiesForAppoint(AGENT, pagination, agentCode, agentAppointed = appointedAgentToggle, backLinkAsString).url"
-       class="govuk-link"
-       role="link"
-       style="color: black">
+       role="link">
         @messages("propertyRepresentation.th.AGENT")
     </a>
     <span class="govuk-visually-hidden">@messages(s"propertyRepresentation.th.AGENT")</span>
