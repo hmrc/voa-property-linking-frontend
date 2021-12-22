@@ -55,7 +55,7 @@
 
 @getEnrichedErrorLinks = @{
     toCustomDateFormErrors.toSet.map{ error: FormError =>
-        ErrorLink(href = Some(s"#${error.key}.day"),
+        ErrorLink(href = Some(s"#${error.key}.day" + s"#${error.key}" ),
             content = HtmlContent(s"${messages(s"label.${error.key}$clientSuffix")} - ${messages(error.message, error.args.map(_.toString) :_*)}") )}
 }
 
@@ -143,7 +143,9 @@
     hasErrors = form.hasErrors
 ) {
     @if(form.errors.nonEmpty) {
+
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks.toSeq, title = Text(messages("error.propertyRepresentation.title"))))
+
     }
 
     <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages("declarePropertyOwnership.title"):</h1>
