@@ -46,8 +46,8 @@
 }
 
 @toCustomDateFormErrors = @{form.errors.map{ error => error.key match {
-           case "fromDate" | "fromDate.day" | "fromDate.month" | "fromDate.year" => FormError("fromDate", Seq("error.common.invalid.date"))
-           case "toDate" | "toDate.day" | "toDate.month" | "toDate.year" => FormError("toDate", Seq("error.common.invalid.date"))
+           case "fromDate" | "fromDate.day" | "fromDate.month" | "fromDate.year" => FormError("fromDate.day", Seq("error.common.invalid.date"))
+           case "toDate" | "toDate.day" | "toDate.month" | "toDate.year" => FormError("toDate.day", Seq("error.common.invalid.date"))
            case _ => error
         }
     }
@@ -55,7 +55,7 @@
 
 @getEnrichedErrorLinks = @{
     toCustomDateFormErrors.toSet.map{ error: FormError =>
-        ErrorLink(href = Some(s"#${error.key}.day" + s"#${error.key}" ),
+        ErrorLink(href = Some(s"#${error.key}"),
             content = HtmlContent(s"${messages(s"label.${error.key}$clientSuffix")} - ${messages(error.message, error.args.map(_.toString) :_*)}") )}
 }
 
@@ -143,9 +143,7 @@
     hasErrors = form.hasErrors
 ) {
     @if(form.errors.nonEmpty) {
-
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks.toSeq, title = Text(messages("error.propertyRepresentation.title"))))
-
     }
 
     <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages("declarePropertyOwnership.title"):</h1>
