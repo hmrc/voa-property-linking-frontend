@@ -1,0 +1,89 @@
+
+.currency, .percent, .integer, .number {
+  text-align: right;
+}
+
+table thead .sort-column,
+table tbody .sort-column {
+  font-weight: bold;
+}
+
+table.fixed { table-layout:fixed; }
+table.fixed td { overflow: hidden; }
+th a{
+    color: black;
+    display: inline-block;
+}
+[aria-sort] a,
+[aria-sort] a:hover {
+  background-color: transparent;
+  border-width: 0;
+  -webkit-box-shadow: 0 0 0 0;
+  -moz-box-shadow: 0 0 0 0;
+  box-shadow: 0 0 0 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  padding: 0 10px 0 0;
+  position: relative;
+  text-align: inherit;
+	text-decoration: underline;
+  text-underline-offset: 0.1em;
+  font-size: 1em;
+  margin: 0;
+}
+
+[aria-sort] a:hover {
+  color: $govuk-link-colour;
+  text-decoration-thickness: 3px;
+}
+
+[aria-sort] a:focus {
+  background-color: $govuk-focus-colour;
+  color: $govuk-focus-text-colour;
+  box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+  outline: none;
+  text-decoration: none;
+}
+
+[aria-sort]:first-child a {
+  right: auto;
+}
+
+[aria-sort] a:before {
+  content: " \25bc";
+  position: absolute;
+  right: -1px;
+  top: 9px;
+  font-size: 0.5em;
+}
+
+[aria-sort] a:after {
+  content: " \25b2";
+  position: absolute;
+  right: -1px;
+  top: 1px;
+  font-size: 0.5em;
+}
+
+[aria-sort="ascending"] a:before,
+[aria-sort="descending"] a:before {
+  content: none;
+}
+
+[aria-sort="ascending"] a:after {
+  content: " \25b2";
+  font-size: .8em;
+  position: absolute;
+  right: -5px;
+  top: 2px;
+}
+
+[aria-sort="descending"] a:after {
+  content: " \25bc";
+  font-size: .8em;
+  position: absolute;
+  right: -5px;
+  top: 2px;
+}
