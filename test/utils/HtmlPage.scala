@@ -66,6 +66,12 @@ case class HtmlPage(html: Document) extends Matchers with AppendedClues {
       .select(selector)
       .size shouldBe count withClue s"Expected $count of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"
 
+  def verifyElementText(fieldId: String, text: String): Unit =
+    Option(html.getElementById(fieldId)).map(_.text()) shouldBe Some(text)
+
+  def verifyElementTextByAttribute(attribute: String, value: String, text: String): Unit =
+    Option(html.getElementsByAttributeValue(attribute, value)).map(_.text()) shouldBe Some(text)
+
   def shouldContainSummaryErrors(errors: (FieldId, FieldName, Message)*) =
     errors.foreach {
       case (id, name, msg) =>

@@ -95,3 +95,10 @@ details.govuk-details {
     padding: 5px;
     position: relative;
 }
+
+.break-word {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-width: 7em;
+}

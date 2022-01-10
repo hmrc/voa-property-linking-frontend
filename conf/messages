@@ -912,11 +912,20 @@ auto.requestDetailedValuation.challenge.p2=You can''t start a challenge until yo
 auto.requestDetailedValuation.challenge.start=Challenge this valuation
 
 #VIEW REQUEST DETAILED VALUATION
-available.requestvaluation.title=View property valuation
-available.requestvaluation.p1=You can download the <a class="govuk-link" href={0}> Detailed Valuation for {1} </a>
-available.requestvaluation.p2.englishProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a check against the current valuation. Any changes will carry over to the draft valuation.
-available.requestvaluation.p2.welshProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a proposal against the current valuation. Any changes will carry over to the draft valuation.
-
+available.requestvaluation.titleCaption=Property
+available.requestvaluation.valuationTab.title=Valuation
+available.requestvaluation.checksTab.noCases.title=Checks
+available.requestvaluation.checksTab.title=Checks ({0})
+available.requestvaluation.challengesTab.title=Challenges ({0})
+available.requestvaluation.downloadValuationLink=Download the detailed valuation for this property
+available.requestvaluation.changeValuation=If you want to change something in this valuation
+available.requestvaluation.p1.englishProperty=If the property's details are incorrect, or you believe the rateable value is wrong, have a look at the current valuation as well. If the details are wrong in both, you can submit a Check against the current valuation. Any changes will carry over to the draft valuation.
+available.requestvaluation.p1.welshProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a proposal against the current valuation. Any changes will carry over to the draft valuation.
+available.requestvaluation.p2=Before you can submit a Check, you need to <a class="govuk-link" href="{0}">download and complete a Check form</a>.
+available.requestvaluation.p3=After completing the form, you need to send it as part of a Check.
+available.requestvaluation.warning=Some older Check forms may tell you to email your form. Please ignore this and use the ''Send my completed Check form'' button instead.
+available.requestvaluation.dvrCheck.startCheck=Send my completed Check form
+available.requestvaluation.print=Print this page
 available.requestvaluation.check.title=Submit a check
 available.requestvaluation.check.p1=To submit a check for this property you will need to <a class="govuk-link" href={0}> download the Check Form </a>
 available.requestvaluation.check.p2=You can email the form to <a class="govuk-link" href="mailto:CCAService@voa.gov.uk">CCAService@voa.gov.uk</a> or post it to:
@@ -925,7 +934,6 @@ available.requestvaluation.warning=Some older check forms may tell you to email 
 
 available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need to <a class="govuk-link" href="{0}">download and complete a check form</a>.
 available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
-available.requestvaluation.dvrCheck.startCheck=Send my completed check form
 
 cannotRaiseChallenge.title=You cannot challenge this valuation
 
@@ -937,7 +945,7 @@ property.details.cases.table.5=Closed date
 property.details.cases.table.6=Agent
 property.details.cases.table.7=Client
 property.details.cases.table.8=Submitted By
-property.details.cases.table.challenge=Challenge this valuation
+property.details.cases.table.challenge=Challenge valuation
 property.details.div.submitted=Submitted check cases
 property.details.div.noSubmittedCheck=There are no check cases available for your property.
 

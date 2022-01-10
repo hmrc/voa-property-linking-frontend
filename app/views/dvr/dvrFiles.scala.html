@@ -22,8 +22,7 @@
 @import views.html.dvr.checkCasesDetails
 @import utils.Formatters
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukDetails: GovukDetails, govukWarningText : GovukWarningText)
-
+@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukDetails: GovukDetails, govukWarningText: GovukWarningText, govukTable: GovukTable, govukTabs: GovukTabs)
 
 @(model: AvailableRequestDetailedValuation,
         submissionId: String,
@@ -33,77 +32,103 @@
         startCheckUrl: String,
         checksAndChallenges: Option[(List[CaseDetails], List[CaseDetails])])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@returnUrl = @{
-    if(owner)
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, model.valuationId, model.uarn).url}"
-    else
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, model.valuationId, model.uarn).url}"
-}
 
-@detailContent = {
-    <p>@messages("challengeRules.rules")</p>
-    <ul class="list bullets">
-        <li>@messages("challengeRules.rules.1")</li>
-        <li>@messages("challengeRules.rules.2")</li>
-        <li>@messages("challengeRules.rules.3")</li>
-    </ul>
+@address = @{Formatters.capitalisedAddress(model.address)}
+@checkCases = @{checksAndChallenges.fold(List[CaseDetails]())(_._1)}
+@challengeCases = @{checksAndChallenges.fold(List[CaseDetails]())(_._2)}
 
-    <p>@Html(messages("challengeRules.rules.paper", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")))</p>
-}
-
-@mainLayout(pageTitle = messages("available.requestvaluation.title"), backUri = Some(backUrl), mainClass = Some("govuk-grid-column-full")) {
-    <h1 class="govuk-heading-l">@messages("available.requestvaluation.title")</h1>
-
-    <p class="govuk-body">@Html(messages("available.requestvaluation.p1", evaluateRoute(model.valuation), Formatters.capitalisedAddress(model.address)))</p>
-
-    @if(model.isWelshProperty) {
-        <p class="govuk-body">@Html(messages("available.requestvaluation.p2.welshProperty"))</p>
-    } else {
-        <p class="govuk-body">@Html(messages("available.requestvaluation.p2.englishProperty"))</p>
-    }
-
-    @if(!model.isDraftList) {
-        <h1 class="govuk-heading-m">@messages("available.requestvaluation.check.title")</h1>
-
-        <p class="govuk-body">@Html(messages("available.requestvaluation.dvrCheck.p1", evaluateRoute(model.check)))</p>
-        <p class="govuk-body">@messages("available.requestvaluation.dvrCheck.p2")</p>
-
-        @govukWarningText(WarningText(
-            iconFallbackText = "Warning",
-            content = Text(messages("available.requestvaluation.warning"))
-        ))
-
-        @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl)))
-
-        <br/>
-
-        @for((checkCases, challengeCases) <- checksAndChallenges) {
-            @checkCasesDetails(submissionId, owner, model.uarn, authorisationId, model.valuationId, checkCases)
-
-
-            @govukDetails(Details(
-                id = Some("whenYouMayChallengeDetails"),
-                summary = Text(messages("challengeRules.summary")),
-                content = HtmlContent(detailContent),
-                attributes = Map("style" -> "margin-top: 1em"))
-            )
-
-
-            @challengeCasesDetails(authorisationId, challengeCases, owner, submissionId)
-        }
-        <br/>
-    }
-
-    <p class="govuk-body"><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.return.home")</a></p>
-
-}
-
-@evaluateRoute(t: String) = {
-@{
+@evaluateRoute(t: String) = @{
     if(owner) {
         controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId, model.valuationId, t).url
     } else {
         controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId, model.valuationId, t).url
     }
 }
+
+@valuationTabContent = {
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
+            <p class="govuk-body"><a class="govuk-link" href="@evaluateRoute(model.check)">@messages("available.requestvaluation.downloadValuationLink")</a></p>
+
+            <h2 class="govuk-heading-l">@messages("available.requestvaluation.changeValuation")</h2>
+            @if(model.isWelshProperty) {
+                <p class="govuk-body">@Html(messages("available.requestvaluation.p1.welshProperty"))</p>
+            } else {
+                <p class="govuk-body">@Html(messages("available.requestvaluation.p1.englishProperty"))</p>
+                <p class="govuk-body">@Html(messages("available.requestvaluation.p2", evaluateRoute(model.check)))</p>
+            }
+            <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
+
+            @govukWarningText(WarningText(
+                iconFallbackText = "Warning",
+                content = Text(messages("available.requestvaluation.warning"))
+            ))
+            @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl)))
+        </div>
+    </div>
+}
+
+
+
+@checkCasesTabTitle = @{
+    if(checkCases.isEmpty){
+        messages("available.requestvaluation.checksTab.noCases.title")
+    } else {
+        messages("available.requestvaluation.checksTab.title", checkCases.size)
+    }
+}
+
+@checkCasesTabContent = @{
+    checkCasesDetails(submissionId, owner, model.uarn, authorisationId, model.valuationId, checkCases, evaluateRoute(model.check), startCheckUrl)(govukButton, govukTable, govukDetails, govukWarningText)
+}
+
+@challengeCasesTabContent = {
+    @challengeCasesDetails(authorisationId, challengeCases, owner, submissionId)(govukTable)
+}
+
+@tabs = @{
+   val valuation: TabItem = TabItem(
+        id = Some("valuation-tab"),
+        label = messages("available.requestvaluation.valuationTab.title"),
+        panel = TabPanel(
+            content = HtmlContent(valuationTabContent)
+        )
+    )
+    val check: TabItem = TabItem(
+        id = Some("check-cases-tab"),
+        label = checkCasesTabTitle,
+        panel = TabPanel(
+            content = HtmlContent(checkCasesTabContent)
+        )
+    )
+    val challenge: TabItem = TabItem(
+            id = Some("challenge-cases-tab"),
+            label = messages("available.requestvaluation.challengesTab.title", challengeCases.size),
+            panel = TabPanel(
+              content = HtmlContent(challengeCasesTabContent)
+            )
+          )
+
+    Seq(
+        Some(valuation),
+        Some(check).filterNot(_ => model.isDraftList),
+        Some(challenge).filterNot(_ => model.isDraftList || challengeCases.isEmpty)
+    ).flatten
+}
+
+@mainLayout(pageTitle = address, backUri = Some(backUrl), mainClass = Some("govuk-grid-column-full")) {
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <span class="govuk-caption-l">@messages("available.requestvaluation.titleCaption")</span>
+            <h1 class="govuk-heading-l">@address</h1>
+        </div>
+    </div>
+
+    @govukTabs(Tabs(items = tabs))
+
+    <p class="govuk-body"><a rel="nofollow" href="javascript:window.print()" class="govuk-link print-link">@messages("available.requestvaluation.print")</a></p>
+    <br/>
+
 }

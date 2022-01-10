@@ -55,6 +55,7 @@ trait GdsComponents {
   lazy val govukSelect = new GovukSelect(govukErrorMessage, govukHint, govukLabel)
   lazy val govukSkipLink = new GovukSkipLink
   lazy val govukSummaryList = new GovukSummaryList
+  lazy val govukTabs = new GovukTabs
   lazy val govukTable = new GovukTable
   lazy val govukTag = new GovukTag
   lazy val govukTemplate = new GovukTemplate(govukHeader, govukFooter, govukSkipLink)
