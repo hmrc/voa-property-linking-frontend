@@ -22,7 +22,7 @@
 @import java.time.LocalDateTime
 @import java.time.LocalDate
 
-@(propertyLinkSubmissionId: String, isOwner: Boolean, uarn: Long, authorisationId: Long, assessmentRef: Long, checkCases: List[CaseDetails])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(propertyLinkSubmissionId: String, isOwner: Boolean, uarn: Long, authorisationId: Long, assessmentRef: Long, checkCases: List[CaseDetails], downloadUrl: String, startCheckUrl: String)(govukButton: GovukButton, govukTable: GovukTable, govukDetails: GovukDetails, govukWarningText: GovukWarningText)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @viewCaseUrl(checkRef: String, submissionId: String) = @{
     config.businessRatesCheckUrl(s"check-case/$checkRef/summary?propertyLinkSubmissionId=$submissionId&isOwner=$isOwner")
@@ -32,48 +32,113 @@
     routes.DvrController.canChallenge(propertyLinkSubmissionId, assessmentRef, caseRef, authorisationId, uarn, isOwner).url
 }
 
-@row(submittedDate: LocalDateTime, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = {
-    <tr class="govuk-table__row">
-        <td class="govuk-table__cell">@(formatDateTimeToDate(submittedDate))</td>
-        <td class="govuk-table__cell">@status.toLowerCase.capitalize.replaceAll("_", " ")</td>
-        <td class="govuk-table__cell">@checkReference</td>
-        <td class="govuk-table__cell">@for(d <- closedDate){@formatDate(d)}</td>
-        <td class="govuk-table__cell">@clientOrAgent</td>
-        <td class="govuk-table__cell">@submittedBy</td>
-        <td class="govuk-table__cell"><a class="govuk-link" href="@canChallengeLink(assessmentRef, checkReference)">@messages("property.details.cases.table.challenge")</a></td>
-    </tr>
+@challengeLink(assessmentRef: Long, checkReference: String) = {
+    <a id="challenge-link" class="govuk-link" href="@canChallengeLink(assessmentRef, checkReference)">@messages("property.details.cases.table.challenge")</a>
 }
-<h2 class="govuk-heading-l">@Messages("property.details.div.submitted")</h2>
 
-@if(checkCases.nonEmpty) {
-    <div id="details-content-checkcases">
-        <table id="checkcases-table" class="govuk-table margin-top-10">
-            <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("property.details.cases.table.1")</th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("property.details.cases.table.3")</th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("property.details.cases.table.4")</th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("property.details.cases.table.5")</th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@if(isOwner) {
-                        @Messages("property.details.cases.table.6")
-                    } else {
-                        @Messages("property.details.cases.table.7")
-                    }
-                    </th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("property.details.cases.table.8")</th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@Messages("label.action")</th>
+@returnUrl = @{
+    if(isOwner)
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId, assessmentRef, uarn).url}"
+    else
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(propertyLinkSubmissionId, assessmentRef, uarn).url}"
+}
 
-                </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-                 @for(caseDetails <- checkCases) {
-                     @row(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
-                 }
-            </tbody>
-        </table>
+@detailContent = {
+    <p>@messages("challengeRules.rules")</p>
+    <ul class="list bullets">
+        <li>@messages("challengeRules.rules.1")</li>
+        <li>@messages("challengeRules.rules.2")</li>
+        <li>@messages("challengeRules.rules.3")</li>
+    </ul>
+
+    <p>@Html(messages("challengeRules.rules.paper", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")))</p>
+}
+
+@row(submittedDate: LocalDateTime, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = @{
+    Seq(
+        TableRow(
+            content = Text(formatDateTimeToDate(submittedDate))
+        ),
+        TableRow(
+            content = Text(status.toLowerCase.capitalize.replaceAll("_", " "))
+        ),
+        TableRow(
+            content = Text(checkReference)
+        ),
+        TableRow(
+            content = Text(closedDate.fold("")(formatDate(_)))
+        ),
+        TableRow(
+            content = Text(clientOrAgent),
+            classes = "break-word"
+        ),
+        TableRow(
+            content = Text(submittedBy),
+            classes = "break-word"
+        ),
+        TableRow(
+            content = HtmlContent(challengeLink(assessmentRef, checkReference))
+        )
+    )
+}
+
+@rows = @{
+    checkCases.map{ caseDetails =>
+        row(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
+    }
+}
+
+
+<h2 class="govuk-heading-l">@messages("property.details.div.submitted")</h2>
+
+@if(checkCases.isEmpty){
+    <div class="govuk-grid-column-two-thirds">
+        <p class="govuk-body" id="no-submitted-checks">@messages("property.details.div.noSubmittedCheck")</p>
+        <p class="govuk-body">@Html(messages("available.requestvaluation.p2", downloadUrl))</p>
+        <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
+
+        @govukWarningText(WarningText(
+            iconFallbackText = "Warning",
+            content = Text(messages("available.requestvaluation.warning"))
+        ))
+        @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl), attributes = Map("id" -> "checkcasestab-start-check")))
     </div>
+
 } else {
-    <p class="govuk-body" id="no-submitted-checks">@Messages("property.details.div.noSubmittedCheck")</p>
+    @govukTable(Table(
+        rows = rows,
+        head = Some(Seq(
+          HeadCell(
+            content = Text(messages("property.details.cases.table.1"))
+          ),
+          HeadCell(
+            content = Text(messages("property.details.cases.table.2"))
+          ),
+          HeadCell(
+            content = Text(messages("property.details.cases.table.3"))
+          ),
+          HeadCell(
+            content = Text(messages("property.details.cases.table.4"))
+          ),
+          HeadCell(
+            content = Text(messages("property.details.cases.table.5"))
+          ),
+          HeadCell(
+            content = Text(messages(s"property.details.cases.table.${if(isOwner) "6" else "7"}"))
+          ),
+          HeadCell(
+            content = Text(messages("property.details.cases.table.8"))
+          )
+        )),
+        attributes = Map("id" -> "checkcases-table")
+    ))
 }
 
 <br/>
+
+@govukDetails(Details(
+    id = Some("whenYouMayChallengeDetails"),
+    summary = Text(messages("challengeRules.summary")),
+    content = HtmlContent(detailContent),
+    attributes = Map("style" -> "margin-top: 1em"))
+)

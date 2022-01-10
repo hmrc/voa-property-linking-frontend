@@ -81,3 +81,10 @@ details.govuk-details {
 .cca-nowrap {
     white-space: nowrap;
 }
+
+.break-word {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-width: 7em;
+}

@@ -26,8 +26,10 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
-
 import java.time.LocalDateTime
+
+import org.jsoup.Jsoup
+
 import scala.concurrent.Future
 
 class DvrControllerSpec extends VoaPropertyLinkingSpec {
@@ -219,7 +221,54 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       )(request)
 
     status(result) shouldBe OK
-    contentAsString(result) should include("You can download the")
+    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+
+    contentAsString(result) should include("If you want to change something in this valuation")
+    page.shouldContain("#valuation-tab", 1)
+    page.shouldContain("#check-cases-tab", 1)
+    page.shouldContain("#challenge-cases-tab", 0)
+
+    page.verifyElementTextByAttribute("href", "#check-cases-tab", "Checks")
+
+    verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
+    verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
+  }
+
+  "detailed valuation check" should "show all 3 tabs when checks and challenges are available" in new Setup {
+    val now = LocalDateTime.now()
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments)))
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerCheckCaseDetails)))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerChallengeCaseDetails)))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(
+      Future.successful(
+        Some(
+          DvrDocumentFiles(
+            checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+            detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
+          ))))
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+
+    page.shouldContainText("If you want to change something in this valuation")
+    page.shouldContain("#valuation-tab", 1)
+    page.shouldContain("#check-cases-tab", 1)
+    page.shouldContain("#challenge-cases-tab", 1)
+
+    page.verifyElementTextByAttribute("href", "#check-cases-tab", "Checks (1)")
+    page.verifyElementTextByAttribute("href", "#challenge-cases-tab", "Challenges (1)")
 
     verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
@@ -252,7 +301,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       )(request)
 
     status(result) shouldBe OK
-    contentAsString(result) should include("You can download the")
+    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+    page.shouldContain("#valuation-tab", 1)
+    page.shouldContain("#check-cases-tab", 0)
+    page.shouldContain("#challenge-cases-tab", 0)
+    page.shouldContainText("If you want to change something in this valuation")
 
     verify(mockPropertyLinkConnector, never()).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector, never()).getMyOrganisationsChallengeCases(any())(any())

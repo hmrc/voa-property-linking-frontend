@@ -21,50 +21,67 @@
 @import java.time.LocalDateTime
 @import java.time.LocalDate
 
-@(authorisationId: Long, challengeCases: List[CaseDetails], isOwner: Boolean, submissionId: String)(implicit messages: Messages, config: ApplicationConfig)
+@(authorisationId: Long, challengeCases: List[CaseDetails], isOwner: Boolean, submissionId: String)(govukTable: GovukTable)(implicit messages: Messages, config: ApplicationConfig)
 
 @challengeCaseDetailsUrl(challengeCaseRef: String) = @{
     config.businessRatesChallengeUrl(s"summary/property-link/$authorisationId/submission-id/$submissionId/challenge-cases/$challengeCaseRef?isAgent=${!isOwner}&isDvr=true")
 }
 
-@challengeRow(submittedDate: LocalDateTime, status: String, challengeReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = {
-    <tr class="govuk-table__row">
-        <td class="govuk-table__cell">@formatDateTimeToDate(submittedDate)</td>
-        <td class="govuk-table__cell">@status.toLowerCase.capitalize.replaceAll("_", " ")</td>
-        <td class="govuk-table__cell"><a class="govuk-link" href="@challengeCaseDetailsUrl(challengeReference)">@challengeReference</a></td>
-        <td class="govuk-table__cell">@for(d <- closedDate){@formatDate(d)}</td>
-        <td class="govuk-table__cell">@clientOrAgent</td>
-        <td class="govuk-table__cell">@submittedBy</td>
-    </tr>
+@row(submittedDate: LocalDateTime, status: String, challengeReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = @{
+    Seq(
+        TableRow(
+            content = Text(formatDateTimeToDate(submittedDate))
+        ),
+        TableRow(
+            content = Text(status.toLowerCase.capitalize.replaceAll("_", " "))
+        ),
+        TableRow(
+            content = HtmlContent(s"<a class='govuk-link' href='${challengeCaseDetailsUrl(challengeReference)}'>$challengeReference</a>")
+        ),
+        TableRow(
+            content = Text(closedDate.fold("")(formatDate(_)))
+        ),
+        TableRow(
+            content = Text(clientOrAgent),
+            classes = "break-word"
+        ),
+        TableRow(
+            content = Text(submittedBy),
+            classes = "break-word"
+        )
+    )
+}
+
+@rows = @{
+    challengeCases.map{ caseDetails =>
+        row(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
+    }
 }
 
 
-@if(challengeCases.nonEmpty) {
-    <h2 class="govuk-heading-l">@messages("property.details.div.submitted.challenge.cases")</h2>
+<h2 class="govuk-heading-l">@messages("property.details.div.submitted.challenge.cases")</h2>
 
-    <div id="details-content-challengecases">
-        <table id="challengecases-table" class="govuk-table margin-top-10">
-            <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@messages("property.details.cases.table.1")</th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@messages("property.details.cases.table.3")</th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@messages("property.details.challenge.cases.table.4")</th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@messages("property.details.cases.table.5")</th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">
-                    @if(isOwner) {
-                        @messages("property.details.cases.table.6")
-                    }else{
-                        @messages("property.details.cases.table.7")
-                    }
-                    </th>
-                    <th class="govuk-table__header app-options__limit-table-cell" scope="col">@messages("property.details.cases.table.8")</th>
-                </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-                @for(caseDetails <- challengeCases) {
-                    @challengeRow(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
-                }
-            </tbody>
-        </table>
-    </div>
-}
+@govukTable(Table(
+    rows = rows,
+    head = Some(Seq(
+      HeadCell(
+        content = Text(messages("property.details.cases.table.1"))
+      ),
+      HeadCell(
+        content = Text(messages("property.details.cases.table.3"))
+      ),
+      HeadCell(
+        content = Text(messages("property.details.cases.table.4"))
+      ),
+      HeadCell(
+        content = Text(messages("property.details.cases.table.5"))
+      ),
+      HeadCell(
+        content = Text(messages(s"property.details.cases.table.${if(isOwner) "6" else "7"}"))
+      ),
+      HeadCell(
+        content = Text(messages("property.details.cases.table.8"))
+      )
+    )),
+    attributes = Map("id" -> "checkcases-table")
+))
