@@ -9,7 +9,6 @@ Recommended versions:
 * node: v8.5.0
   
 * npm: v5.3.0 
-
   
 Use 'nvm' to manage multiple versions of node/npm.
 

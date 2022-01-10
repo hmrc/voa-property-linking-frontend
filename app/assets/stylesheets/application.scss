@@ -3,6 +3,7 @@ $hmrc-assets-path: "/business-rates-property-linking/assets/lib/hmrc-frontend/hm
 
 @import "lib/govuk-frontend/govuk/all";
 @import "lib/hmrc-frontend/hmrc/all";
+@import 'sortable';
 
 .app-reference-number {
   display: block;
@@ -77,21 +78,6 @@ details.govuk-details {
 .centre{
     text-align: center
 }
-
-.sort::after {
-    content: url("../images/sort_both.png");
-    padding: 5px;
-    position: relative;
-}
-
-.sort_asc::after {
-    content: url("../images/sort_asc.png");
-    padding: 5px;
-    position: relative;
-}
-
-.sort_desc::after {
-    content: url("../images/sort_desc.png");
-    padding: 5px;
-    position: relative;
+.cca-nowrap {
+    white-space: nowrap;
 }
