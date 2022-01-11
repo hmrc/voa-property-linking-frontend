@@ -64,7 +64,7 @@
                 iconFallbackText = "Warning",
                 content = Text(messages("available.requestvaluation.warning"))
             ))
-            @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl)))
+            @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl), attributes = Map("id" -> "valuationtab-start-check")))
         </div>
     </div>
 }
@@ -122,7 +122,7 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <span class="govuk-caption-l">@messages("available.requestvaluation.titleCaption")</span>
-            <h1 class="govuk-heading-l">@address</h1>
+            <h1 id="assessment-address" class="govuk-heading-l">@address</h1>
         </div>
     </div>
 
