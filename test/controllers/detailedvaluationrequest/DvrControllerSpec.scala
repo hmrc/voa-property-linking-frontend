@@ -260,6 +260,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       )(request)
 
     status(result) shouldBe OK
+
     val page = HtmlPage(Jsoup.parse(contentAsString(result)))
 
     page.shouldContainText("If you want to change something in this valuation")
@@ -269,6 +270,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     page.verifyElementTextByAttribute("href", "#check-cases-tab", "Checks (1)")
     page.verifyElementTextByAttribute("href", "#challenge-cases-tab", "Challenges (1)")
+
+    page.verifyElementTextByAttribute(
+      "href",
+      "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/2L",
+      "Download the detailed valuation for this property"
+    )
+    page.verifyElementTextByAttribute(
+      "href",
+      "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/1L",
+      "download and complete a Check form")
 
     verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
