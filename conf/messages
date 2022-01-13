@@ -1209,7 +1209,7 @@ contactUs.telephone.number=
 contactUs.telephone.openhours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
 
 ##GET HELP
-getHelpLink=Get help with this page.
+getHelpLink=Report a problem with this page
 getHelpContent=<p>If you are having trouble using this service, you can contact us for help.</p><p>Email address: <a href="mailto:{0}" class="govuk-link">{0}</a></p>
 
 
