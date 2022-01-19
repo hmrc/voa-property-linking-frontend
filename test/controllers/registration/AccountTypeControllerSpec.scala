@@ -24,9 +24,7 @@ import play.api.test.Helpers._
 class AccountTypeControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
   implicit val request = FakeRequest()
 
-
-  object testAccountTypeController
-    extends AccountTypeController(mockCustomErrorHandler, accountTypeView)
+  object testAccountTypeController extends AccountTypeController(mockCustomErrorHandler, accountTypeView)
 
   "The 'Account type' page" should "display page when url is hit" in {
     val res = testAccountTypeController.show()(request)
@@ -51,7 +49,8 @@ class AccountTypeControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = testAccountTypeController.submit()(request.withFormUrlEncodedBody("accountTypeIndividual" -> "true"))
     status(res) shouldBe SEE_OTHER
 
-    redirectLocation(res) shouldBe Some("http://localhost:8571/government-gateway-registration-frontend?accountType=individual&continue=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome&origin=voa")
+    redirectLocation(res) shouldBe Some(
+      "http://localhost:8571/government-gateway-registration-frontend?accountType=individual&continue=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome&origin=voa")
 
   }
 
@@ -59,6 +58,7 @@ class AccountTypeControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = testAccountTypeController.submit()(request.withFormUrlEncodedBody("accountTypeIndividual" -> "false"))
     status(res) shouldBe SEE_OTHER
 
-    redirectLocation(res) shouldBe Some("http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome&origin=voa")
+    redirectLocation(res) shouldBe Some(
+      "http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome&origin=voa")
   }
 }

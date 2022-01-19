@@ -27,7 +27,8 @@ class ApplicationSpec extends VoaPropertyLinkingSpec {
     addUserToGGView = addUsertoGGView,
     invalidAccountTypeView = invalidAccountTypeView,
     startView = startView,
-    startViewOldJourney = startViewOld)
+    startViewOldJourney = startViewOld
+  )
 
   "addUserToGG" should "display the add users to GG page" in {
 

@@ -27,9 +27,7 @@ class DoYouHaveAccountControllerSpec extends VoaPropertyLinkingSpec with Mockito
   private lazy val loginPage = controllers.routes.Login.show.url
   private lazy val accountTypePage = controllers.registration.routes.AccountTypeController.show().url
 
-
-  object testDoYouHaveAccountController
-    extends DoYouHaveAccountController(mockCustomErrorHandler, doYouHaveAccountView)
+  object testDoYouHaveAccountController extends DoYouHaveAccountController(mockCustomErrorHandler, doYouHaveAccountView)
 
   "The 'Do you have an account' page" should "display page when url is hit" in {
     val res = testDoYouHaveAccountController.show()(request)
@@ -64,7 +62,6 @@ class DoYouHaveAccountControllerSpec extends VoaPropertyLinkingSpec with Mockito
 
     redirectLocation(res) shouldBe Some(accountTypePage)
     redirectLocation(res) shouldBe Some(accountTypePage)
-
 
   }
 

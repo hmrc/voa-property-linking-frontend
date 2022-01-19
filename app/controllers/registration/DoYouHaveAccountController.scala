@@ -30,16 +30,14 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import java.lang.ProcessBuilder.Redirect
 import scala.concurrent.ExecutionContext
 
-
-
 class DoYouHaveAccountController @Inject()(
-                                            val errorHandler: CustomErrorHandler,
-                                            doYouHaveAccountView: registration.doYouHaveAccount
-                                          )(
-                                            implicit executionContext: ExecutionContext,
-                                            val config: ApplicationConfig,
-                                            implicit override val controllerComponents: MessagesControllerComponents
-                                          ) extends PropertyLinkingController with Logging {
+      val errorHandler: CustomErrorHandler,
+      doYouHaveAccountView: registration.doYouHaveAccount
+)(
+      implicit executionContext: ExecutionContext,
+      val config: ApplicationConfig,
+      implicit override val controllerComponents: MessagesControllerComponents
+) extends PropertyLinkingController with Logging {
 
   def show(): Action[AnyContent] = Action { implicit request =>
     Ok(doYouHaveAccountView(AlreadyHasAccount.form))
@@ -48,11 +46,10 @@ class DoYouHaveAccountController @Inject()(
     AlreadyHasAccount.form
       .bindFromRequest()
       .fold(
-        errors =>  BadRequest(doYouHaveAccountView(errors)),
+        errors => BadRequest(doYouHaveAccountView(errors)),
         hasAccount =>
           if (hasAccount) Redirect(controllers.routes.Login.show)
           else Redirect(controllers.registration.routes.AccountTypeController.show())
-
       )
   }
 

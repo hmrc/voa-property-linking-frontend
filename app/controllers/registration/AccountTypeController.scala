@@ -31,13 +31,13 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import scala.concurrent.ExecutionContext
 
 class AccountTypeController @Inject()(
-                                       val errorHandler: CustomErrorHandler,
-                                       accountTypeView: registration.accountType
-                                     )(
-                                       implicit executionContext: ExecutionContext,
-                                       val config: ApplicationConfig,
-                                       implicit override val controllerComponents: MessagesControllerComponents
-                                     ) extends PropertyLinkingController with Logging  {
+      val errorHandler: CustomErrorHandler,
+      accountTypeView: registration.accountType
+)(
+      implicit executionContext: ExecutionContext,
+      val config: ApplicationConfig,
+      implicit override val controllerComponents: MessagesControllerComponents
+) extends PropertyLinkingController with Logging {
 
   def continue(accountType: String): Map[String, Seq[String]] =
     Map("accountType" -> Seq(accountType), "continue" -> Seq(config.dashboardUrl("home")), "origin" -> Seq("voa"))
@@ -50,11 +50,10 @@ class AccountTypeController @Inject()(
     AccountTypeIndividual.form
       .bindFromRequest()
       .fold(
-        errors =>  BadRequest(accountTypeView(errors)),
+        errors => BadRequest(accountTypeView(errors)),
         accountTypeIndividual =>
-          if (accountTypeIndividual)  Redirect(config.ggRegistrationUrl, continue("individual"))
+          if (accountTypeIndividual) Redirect(config.ggRegistrationUrl, continue("individual"))
           else Redirect(config.ggRegistrationUrl, continue("organisation"))
-
       )
   }
 

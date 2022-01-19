@@ -40,7 +40,7 @@ class Application @Inject()(
   def manageBusinessTaxAccount: Action[AnyContent] = Action(Redirect(config.businessTaxAccountUrl("manage-account")))
 
   def start(): Action[AnyContent] = Action { implicit request =>
-    if(config.newRegistrationJourneyEnabled){
+    if (config.newRegistrationJourneyEnabled) {
       Ok(startView(RegisterHelper.choiceForm))
     } else {
       Ok(startViewOldJourney(RegisterHelper.choiceForm))

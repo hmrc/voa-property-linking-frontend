@@ -25,10 +25,10 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class Register @Inject()(
-                          override val errorHandler: CustomErrorHandler,
-                          startView: views.html.registration.start,
-                          startViewOldJourney: views.html.startOldJourney
-                        )(
+      override val errorHandler: CustomErrorHandler,
+      startView: views.html.registration.start,
+      startViewOldJourney: views.html.startOldJourney
+)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
@@ -40,7 +40,7 @@ class Register @Inject()(
   def show(): Action[AnyContent] = Action(redirect("organisation"))
 
   def choice: Action[AnyContent] = Action { implicit request =>
-    if(config.newRegistrationJourneyEnabled) {
+    if (config.newRegistrationJourneyEnabled) {
       RegisterHelper.choiceForm
         .bindFromRequest()
         .fold(
