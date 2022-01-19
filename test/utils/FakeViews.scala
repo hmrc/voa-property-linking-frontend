@@ -22,8 +22,9 @@ import play.twirl.api.Html
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 import views.html.dvr.{alreadyRequestedDetailedValuation, cannotRaiseChallenge, dvrFiles, requestDetailedValuation, requestedDetailedValuation}
 import views.html.errors.propertyMissing
-import views.html.propertyrepresentation.appoint._
-import views.html.{addUserToGG, start}
+import views.html.propertyrepresentation.appoint.appointAgentSummary
+import views.html.registration._
+import views.html.{addUserToGG, startOldJourney}
 
 trait FakeViews extends GdsComponents {
 
@@ -46,7 +47,10 @@ trait FakeViews extends GdsComponents {
   lazy val cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout, govukButton)
   lazy val propertyMissingView = new propertyMissing(mainLayout)
 
-  lazy val startView = new start(mainLayout, govukInsetText, govukDetails)
+  lazy val startView = new start(mainLayout, govukInsetText, govukDetails, govukButton)
+  lazy val startViewOld = new startOldJourney(mainLayout, govukInsetText, govukDetails)
+  lazy val doYouHaveAccountView = new doYouHaveAccount(mainLayout, govukInsetText, govukDetails, govukButton, govukRadios, formWithCSRF, govukErrorSummary)
+  lazy val accountTypeView = new accountType(mainLayout, govukInsetText, govukDetails, govukButton, govukRadios, formWithCSRF, govukErrorSummary)
   lazy val addUsertoGGView = new addUserToGG(mainLayout)
   lazy val assessmentsView = new views.html.dashboard.assessments(mainLayout, govukDetails)
   lazy val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)

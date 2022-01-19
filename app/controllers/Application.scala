@@ -26,7 +26,8 @@ class Application @Inject()(
       val errorHandler: CustomErrorHandler,
       addUserToGGView: views.html.addUserToGG,
       invalidAccountTypeView: views.html.errors.invalidAccountType,
-      startView: views.html.start
+      startView: views.html.registration.start,
+      startViewOldJourney: views.html.startOldJourney
 )(
       implicit override val controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig
@@ -39,7 +40,11 @@ class Application @Inject()(
   def manageBusinessTaxAccount: Action[AnyContent] = Action(Redirect(config.businessTaxAccountUrl("manage-account")))
 
   def start(): Action[AnyContent] = Action { implicit request =>
-    Ok(startView(RegisterHelper.choiceForm))
+    if(config.newRegistrationJourneyEnabled){
+      Ok(startView(RegisterHelper.choiceForm))
+    } else {
+      Ok(startViewOldJourney(RegisterHelper.choiceForm))
+    }
   }
 
   def logOut(): Action[AnyContent] = Action(Redirect(routes.Application.start()).withNewSession)

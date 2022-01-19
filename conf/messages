@@ -19,27 +19,66 @@ pageSize.showing = Showing
 pageSize.properties = properties per page
 pageSize.messages = messages per page
 
-#START PAGE
-start.heading.register=Register to use this service
-start.heading.registration=Registration
-start.registration.p.1=If you’re a returning user, you can <a href="{0}" class="govuk-link">sign in</a> to use this service.
-start.registration.p.2=If you’ve already registered for this service and other people from your business want to register, you need to <a href="{0}" rel="external" class="govuk-link">add them to your business Government Gateway account</a>.
-start.registration.p.3=To register for this service you’ll need to verify your identity by providing your National Insurance number, date of birth and details from at least one of the following:
-start.registration.enrolment.p.3=To register for this service you’ll need to verify your identity by providing your National Insurance number or UK passport number and your postcode.
-start.registration.youNeed.1=payslips
-start.registration.youNeed.2=UK passport
-start.registration.youNeed.3=P60
-start.registration.p.5=You should allow approximately 15 minutes without interruption to complete the registration process.
-start.registration.IdontHave=I don’t have these details
-start.registration.IdontHave.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to <a class="govuk-link" href="https://www.gov.uk/contact-voa">contact the Valuation Office Agency (VOA).</a></p>
-start.registration.IdontHave.enrolment.answer=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
-start.registration.enrolment.hyperlink=<a class="govuk-link" href="{0}">I want to register using my existing Government Gateway account</a>
-start.registration.individual.hyperlink=<a class="govuk-link" href="{0}?accountType={1}&continue={2}&origin={3}">Individual (you represent yourself)</a> – you won’t be able to add others to this account
-start.registration.organisation.hyperlink=<a class="govuk-link" href="{0}?accountType={1}&continue={2}&origin={3}">Organisation (you represent a business, charity or other organisation)</a> – you’ll be able to add others to this account
+#START PAGE OLD JOURNEY
+start.heading.register.old=Register to use this service
+start.heading.registration.old=Registration
+start.registration.p.1.old=If you’re a returning user, you can <a href="{0}" class="govuk-link">sign in</a> to use this service.
+start.registration.p.2.old=If you’ve already registered for this service and other people from your business want to register, you need to <a href="{0}" rel="external" class="govuk-link">add them to your business Government Gateway account</a>.
+start.registration.p.3.old=To register for this service you’ll need to verify your identity by providing your National Insurance number, date of birth and details from at least one of the following:
+start.registration.enrolment.p.3.old=To register for this service you’ll need to verify your identity by providing your National Insurance number or UK passport number and your postcode.
+start.registration.youNeed.1.old=payslips
+start.registration.youNeed.2.old=UK passport
+start.registration.youNeed.3.old=P60
+start.registration.p.5.old=You should allow approximately 15 minutes without interruption to complete the registration process.
+start.registration.IdontHave.old=I don’t have these details
+start.registration.IdontHave.answer.old=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to <a class="govuk-link" href="https://www.gov.uk/contact-voa">contact the Valuation Office Agency (VOA).</a></p>
+start.registration.IdontHave.enrolment.answer.old=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
+start.registration.enrolment.hyperlink.old=<a class="govuk-link" href="{0}">I want to register using my existing Government Gateway account</a>
+start.registration.individual.hyperlink.old=<a class="govuk-link" href="{0}?accountType={1}&continue={2}&origin={3}">Individual (you represent yourself)</a> – you won’t be able to add others to this account
+start.registration.organisation.hyperlink.old=<a class="govuk-link" href="{0}?accountType={1}&continue={2}&origin={3}">Organisation (you represent a business, charity or other organisation)</a> – you’ll be able to add others to this account
 
 start.heading.agents=Agents
 start.agents.p.1=If you plan to act as an agent on behalf of another business, you’ll be able to indicate this during the registration process.
 start.register=Register now
+
+#START PAGE NEW CONTENT
+start.heading.register=Register to check and challenge your business rates valuation
+start.registration.p.1=Register for this service to:
+start.registration.bp.1=check your property details
+start.registration.bp.2=challenge your valuation
+start.registration.bp.3=appoint an agent to act on your behalf
+start.registration.p.2=<a href="{0}" class="govuk-link">Sign in</a> if you have already created an account for this service.
+start.registration.p.3=If other people from your organisation need an account and you’ve already created one, you will need to <a href="{0}" rel="external" class="govuk-link">add them to your business Government Gateway account</a>.
+start.registration.button=Start now
+start.registration.h4=Before you start
+start.registration.p.4=Creating an account takes around 15 minutes.
+start.registration.p.5=You’ll need your National Insurance number and two of:
+start.registration.bp.4=a payslip or P60 from your employer
+start.registration.bp.5=a UK passport
+start.registration.bp.6=Self Assessment details
+start.registration.bp.7=Tax Credit details
+start.registration.bp.8=Credit reference details
+start.registration.bp.9=a Northern Ireland driving licence
+start.registration.p6=If you don’t have these details you’ll need to <a class="govuk-link" href="https://www.gov.uk/contact-voa">contact the Valuation Office Agency (VOA).</a>
+
+#DO YOU HAVE GOVERNMENT GATEWAY ACCOUNT
+govGateway.heading=Do you already have a Government Gateway account?
+govGateway.y=Yes
+govGateway.y.helpText=You''ll need your Government Gateway user ID and password
+govGateway.n=No
+govGateway.n.helpText=You''ll create a new Government Gateway account
+govGateway.button=Continue
+error.govGateway.title=There is a problem
+
+#SELECT ACCOUNT TYPE
+accountType.heading=What type of account would you like to create?
+accountType.individual=Individual
+accountType.individual.helpText=You represent yourself. You won’t be able to add others to this account.
+accountType.orgOrAgent=Organisation or agent
+accountType.orgOrAgent.helpText=You represent a business, charity or other organisation. You can add other people from your organisation to this account.
+accountType.button=Continue
+error.accountType.title=There is a problem
+
 
 label.login=Sign in
 label.register=Register

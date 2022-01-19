@@ -26,7 +26,8 @@ class ApplicationSpec extends VoaPropertyLinkingSpec {
     errorHandler = mockCustomErrorHandler,
     addUserToGGView = addUsertoGGView,
     invalidAccountTypeView = invalidAccountTypeView,
-    startView = startView)
+    startView = startView,
+    startViewOldJourney = startViewOld)
 
   "addUserToGG" should "display the add users to GG page" in {
 
@@ -55,7 +56,7 @@ class ApplicationSpec extends VoaPropertyLinkingSpec {
     status(result) shouldBe OK
 
     val html = contentAsString(result)
-    html should include("If you don’t have the details that you need to register")
+    html should include("Before you start")
 
   }
 
