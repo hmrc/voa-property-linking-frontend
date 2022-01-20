@@ -61,7 +61,6 @@ class DoYouHaveAccountControllerSpec extends VoaPropertyLinkingSpec with Mockito
     status(res) shouldBe SEE_OTHER
 
     redirectLocation(res) shouldBe Some(accountTypePage)
-    redirectLocation(res) shouldBe Some(accountTypePage)
 
   }
 
