@@ -1,0 +1,52 @@
+@import config.ApplicationConfig
+@import views.html.mainLayout
+@import controllers.routes._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukButton: GovukButton, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
+@(form: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@mainLayout(
+    pageTitle = messages("govGateway.heading"),
+    backUri = Some(controllers.routes.Application.start().url),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    hasErrors = form.hasErrors
+){
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.govGateway.title"))))
+    }
+    @formWithCSRF(action = controllers.registration.routes.DoYouHaveAccountController.submit()){
+        @govukRadios(Radios(
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(messages("govGateway.heading")),
+                    classes = "govuk-fieldset__legend--l",
+                    isPageHeading = true
+                ))
+            )),
+            name = "hasAccount",
+            items = Seq(
+                RadioItem(
+                    content = Text(messages("govGateway.y")),
+                    value = Some("true"),
+                    hint = Some(Hint(
+                        content = Text(messages("govGateway.y.helpText"))
+                    ))
+                ),
+                RadioItem(
+                    content = Text(messages("govGateway.n")),
+                    value = Some("false"),
+                    hint = Some(Hint(
+                        content = Text(messages("govGateway.n.helpText"))
+                    ))
+                )
+            )
+        ))
+
+        @govukButton(Button(
+            content = Text(messages("govGateway.button")),
+            attributes = Map("id" -> "continue")
+        ))
+    }
+}

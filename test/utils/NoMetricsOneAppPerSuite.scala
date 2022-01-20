@@ -23,7 +23,8 @@ import play.api.inject.guice.GuiceApplicationBuilder
 
 trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite { this: TestSuite =>
 
-  def additionalAppConfig: Seq[(String, String)] = Seq("featureFlags.ivEnabled" -> "true")
+  def additionalAppConfig: Seq[(String, String)] =
+    Seq("featureFlags.ivEnabled" -> "true", "featureFlags.newRegistrationJourneyEnabled" -> "true")
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()

@@ -8,6 +8,12 @@ GET         /                                                                   
 
 GET         /start                                                                            controllers.Application.start()
 
+#Updated start page
+GET         /gov-gateway                                                                      controllers.registration.DoYouHaveAccountController.show()
+POST        /gov-gateway                                                                      controllers.registration.DoYouHaveAccountController.submit()
+GET         /account-type                                                                     controllers.registration.AccountTypeController.show()
+POST        /account-type                                                                     controllers.registration.AccountTypeController.submit()
+
 #Registration
 GET         /login                                                                            controllers.Login.show
 GET         /register                                                                         controllers.Register.show

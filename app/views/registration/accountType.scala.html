@@ -1,0 +1,54 @@
+@import config.ApplicationConfig
+@import views.html.mainLayout
+@import controllers.routes._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukButton: GovukButton, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
+
+@(form: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@mainLayout(
+    pageTitle = messages("govgateway.heading"),
+    backUri = Some(controllers.registration.routes.DoYouHaveAccountController.show().url),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    hasErrors = form.hasErrors
+
+){
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.govGateway.title"))))
+    }
+    @formWithCSRF(action = controllers.registration.routes.AccountTypeController.submit()){
+        @govukRadios(Radios(
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(messages("accountType.heading")),
+                    classes = "govuk-fieldset__legend--l",
+                    isPageHeading = true
+                ))
+            )),
+            name = "accountTypeIndividual",
+            items = Seq(
+                RadioItem(
+                    content = Text(messages("accountType.individual")),
+                    value = Some("true"),
+                    hint = Some(Hint(
+                        content = Text(messages("accountType.individual.helpText"))
+                    ))
+                ),
+                RadioItem(
+                    content = Text(messages("accountType.orgOrAgent")),
+                    value = Some("false"),
+                    hint = Some(Hint(
+                        content = Text(messages("accountType.orgOrAgent.helpText"))
+                    ))
+                )
+            )
+        ))
+
+        @govukButton(Button(
+            content = Text(messages("govGateway.button")),
+            attributes = Map("id" -> "continue")
+        ))
+    }
+}
