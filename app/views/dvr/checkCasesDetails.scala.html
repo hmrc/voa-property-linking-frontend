@@ -54,23 +54,37 @@
     <p>@Html(messages("challengeRules.rules.paper", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")))</p>
 }
 
-@row(submittedDate: LocalDateTime, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = @{
+    @tagColour(status: String) = {
+      @status match {
+        case "DECISION SENT" | "CLOSED" | "CANCELLED" => { govuk-tag--grey }
+        case _ => {}
+      }
+    }
+
+@statusTagWithHelpLink(status: String) = {
+  <strong class="govuk-tag @tagColour(status)">@status</strong>
+    <a class="govuk-link print-hide" href="@config.businessRatesValuationFrontendUrl(s"check-status-help#dialog-${status.toLowerCase().replaceAll(" ", "-")}")">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-question-circle-fill" viewBox="0 0 16 16" style="margin-bottom: -5px;">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"></path>
+        </svg>
+        <span class="govuk-visually-hidden">@messages("property.details.checks.status.help", status)</span>
+    </a>
+}
+
+@row(checkReference: String, submittedDate: LocalDateTime, status: String, closedDate: Option[LocalDate], submittedBy: String) = @{
     Seq(
-        TableRow(
-            content = Text(formatDateTimeToDate(submittedDate))
-        ),
-        TableRow(
-            content = Text(status.toLowerCase.capitalize.replaceAll("_", " "))
-        ),
         TableRow(
             content = Text(checkReference)
         ),
         TableRow(
-            content = Text(closedDate.fold("")(formatDate(_)))
+            content = Text(formatDateTimeToDate(submittedDate))
         ),
         TableRow(
-            content = Text(clientOrAgent),
-            classes = "break-word"
+            content = HtmlContent(statusTagWithHelpLink(status)),
+            classes = "cca-nowrap"
+        ),
+        TableRow(
+            content = Text(closedDate.fold("")(formatDate(_)))
         ),
         TableRow(
             content = Text(submittedBy),
@@ -84,7 +98,13 @@
 
 @rows = @{
     checkCases.map{ caseDetails =>
-        row(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
+        row(
+            checkReference = caseDetails.caseReference,
+            submittedDate = caseDetails.submittedDate,
+            status = caseDetails.status.toUpperCase().replaceAll("_", " "),
+            closedDate = caseDetails.closedDate,
+            submittedBy = caseDetails.submittedBy
+        )
     }
 }
 
@@ -105,6 +125,14 @@
     </div>
 
 } else {
+
+    @govukDetails(Details(
+        id = Some("whenYouMayChallengeDetails"),
+        summary = Text(messages("challengeRules.summary")),
+        content = HtmlContent(detailContent),
+        attributes = Map("style" -> "margin-top: 1em"))
+    )
+
     @govukTable(Table(
         rows = rows,
         head = Some(Seq(
@@ -124,10 +152,7 @@
             content = Text(messages("property.details.cases.table.5"))
           ),
           HeadCell(
-            content = Text(messages(s"property.details.cases.table.${if(isOwner) "6" else "7"}"))
-          ),
-          HeadCell(
-            content = Text(messages("property.details.cases.table.8"))
+            content = Text(messages("property.details.cases.table.6"))
           )
         )),
         attributes = Map("id" -> "checkcases-table")
@@ -135,10 +160,3 @@
 }
 
 <br/>
-
-@govukDetails(Details(
-    id = Some("whenYouMayChallengeDetails"),
-    summary = Text(messages("challengeRules.summary")),
-    content = HtmlContent(detailContent),
-    attributes = Map("style" -> "margin-top: 1em"))
-)

@@ -19,6 +19,7 @@ package controllers.detailedvaluationrequest
 import connectors.SubmissionIdConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
+import models.dvr.cases.check.CheckCaseStatus
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
 import org.mockito.ArgumentMatchers.{any, eq => matching}
 import org.mockito.Mockito.{never, verify, when}
@@ -26,10 +27,15 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
+
+import scala.collection.JavaConverters._
 import java.time.LocalDateTime
-
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
+import org.scalatest.Inspectors
+import org.scalatest.Inspectors.forAll
 
+import scala.collection.mutable
 import scala.concurrent.Future
 
 class DvrControllerSpec extends VoaPropertyLinkingSpec {
@@ -63,6 +69,14 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val person = arbitrary[DetailedIndividualAccount].sample.get
     val assessment = arbitrary[Assessment].sample.get
     val link: PropertyLink = arbitrary[PropertyLink]
+
+    lazy val successfulDvfDocuments: Future[Some[DvrDocumentFiles]] = Future.successful(Some({
+      val now = LocalDateTime.now()
+      DvrDocumentFiles(
+        checkForm = Document(DocumentSummary("1L", "Check Document", now)),
+        detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
+      )
+    }))
 
     StubPropertyLinkConnector.stubLink(link)
 
@@ -169,7 +183,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = resultCanChallenge(true)
 
     status(result) shouldBe OK
-    // Title
     contentAsString(result) should include(
       "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>")
     // Backlink
@@ -187,7 +200,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = resultCanChallenge(false)
 
     status(result) shouldBe OK
-    // Title
     contentAsString(result) should include(
       "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>")
     // Backlink
@@ -196,7 +208,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "detailed valuation check" should "return 200 OK when DVR case does not exist" in new Setup {
-    val now = LocalDateTime.now()
 
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
@@ -204,13 +215,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(List.empty))
     when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
       .thenReturn(Future.successful(List.empty))
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(
-      Future.successful(
-        Some(
-          DvrDocumentFiles(
-            checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-            detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-          ))))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvfDocuments)
 
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
@@ -235,7 +240,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "detailed valuation check" should "show all 3 tabs when checks and challenges are available" in new Setup {
-    val now = LocalDateTime.now()
 
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
@@ -243,13 +247,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(List(ownerCheckCaseDetails)))
     when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
       .thenReturn(Future.successful(List(ownerChallengeCaseDetails)))
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(
-      Future.successful(
-        Some(
-          DvrDocumentFiles(
-            checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-            detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-          ))))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvfDocuments)
 
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
@@ -264,6 +262,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val page = HtmlPage(Jsoup.parse(contentAsString(result)))
 
     page.shouldContainText("If you want to change something in this valuation")
+
+    page.shouldContainText("Local authority reference: BAREF")
+    page.titleShouldMatch("123, SOME ADDRESS - Valuation Office Agency - GOV.UK")
     page.shouldContain("#valuation-tab", 1)
     page.shouldContain("#check-cases-tab", 1)
     page.shouldContain("#challenge-cases-tab", 1)
@@ -285,8 +286,86 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
   }
 
+  "detailed valuation of a client's DVR property" should "display the client's name above the address" in new Setup {
+    when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments.copy(clientOrgName = Some("Client Org Name")))))
+    when(mockPropertyLinkConnector.getMyClientsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List(agentCheckCaseDetails)))
+    when(mockChallengeConnector.getMyClientsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List.empty))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvfDocuments)
+
+    val result =
+      controller.myClientsRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+
+    val resString = contentAsString(result)
+    val page = HtmlPage(Jsoup.parse(resString))
+    page.html.getElementById("client-name").text() shouldBe "Client property: Client Org Name"
+  }
+
+  "detailed valuation of a DVR property" should "display correct CHECKS tab and table of check cases" in new Setup {
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments)))
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(CheckCaseStatus.values.toList.map(status =>
+        ownerCheckCaseDetails.copy(status = status.toString))))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List.empty))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvfDocuments)
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+    val checksTable: Element = page.html.getElementById("checkcases-table")
+    val headings: List[String] = checksTable.select("th").eachText().asScala.toList
+
+    headings should contain theSameElementsInOrderAs List(
+      "Check reference",
+      "Submitted date",
+      "Status",
+      "Closed date",
+      "Submitted by",
+      "Action")
+
+    val statuses = page.html.select("#checkcases-table .govuk-tag").asScala.toList
+    val statusIcons: List[Element] = page.html.select("#checkcases-table .govuk-tag + a").asScala.toList
+    val invisibleSpansText = statusIcons.flatMap(icon => icon.select("span").eachText().asScala).sorted
+    invisibleSpansText should contain theSameElementsInOrderAs List(
+      "Help with status: ASSIGNED",
+      "Help with status: CANCELLED",
+      "Help with status: CLOSED",
+      "Help with status: DECISION SENT",
+      "Help with status: OPEN",
+      "Help with status: PENDING",
+      "Help with status: RECEIVED",
+      "Help with status: UNDER REVIEW"
+    )
+
+    val statusColours: Seq[(String, String)] = statuses.map(e => (e.text(), e.attr("class")))
+    Inspectors.forAll(statusColours) {
+      case (status, cssClasses) if Set("CANCELLED", "CLOSED", "DECISION SENT").contains(status) =>
+        cssClasses should include("govuk-tag--grey")
+      case (_, cssClasses) =>
+        cssClasses should not include "govuk-tag--grey"
+    }
+  }
+
   "draft detailed valuation" should "return 200 OK and not fetch checks/challenges " in new Setup {
-    val now = LocalDateTime.now()
     val firstAssessment: ApiAssessment =
       assessments.assessments.headOption.getOrElse(fail("expected to find at least 1 assessment"))
     val draftAssessment: ApiAssessment = firstAssessment.copy(listType = ListType.DRAFT)
@@ -296,13 +375,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(ownerAssessments)))
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(
-      Future.successful(
-        Some(
-          DvrDocumentFiles(
-            checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-            detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-          ))))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvfDocuments)
 
     val result =
       controller.myOrganisationRequestDetailValuationCheck(

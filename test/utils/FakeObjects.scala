@@ -422,6 +422,7 @@ trait FakeObjects {
       uarn = a.uarn,
       address = a.address,
       pending = a.status == "PENDING",
+      clientOrgName = None,
       capacity = Some("OWNER"),
       assessments = List(
         ApiAssessment(

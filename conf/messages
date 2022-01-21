@@ -912,7 +912,8 @@ auto.requestDetailedValuation.challenge.p2=You can''t start a challenge until yo
 auto.requestDetailedValuation.challenge.start=Challenge this valuation
 
 #VIEW REQUEST DETAILED VALUATION
-available.requestvaluation.titleCaption=Property
+available.requestvaluation.ip.titleCaption=Your property
+available.requestvaluation.agent.titleCaption=Client property: {0}
 available.requestvaluation.valuationTab.title=Valuation
 available.requestvaluation.checksTab.noCases.title=Checks
 available.requestvaluation.checksTab.title=Checks ({0})
@@ -937,17 +938,16 @@ available.requestvaluation.dvrCheck.p2=After completing the form, you need to se
 
 cannotRaiseChallenge.title=You cannot challenge this valuation
 
-property.details.cases.table.1=Submitted date
-property.details.cases.table.2=Submitted ID
+property.details.cases.table.1=Check reference
+property.details.cases.table.2=Submitted date
 property.details.cases.table.3=Status
-property.details.cases.table.4=Check reference
-property.details.cases.table.5=Closed date
-property.details.cases.table.6=Agent
-property.details.cases.table.7=Client
-property.details.cases.table.8=Submitted By
-property.details.cases.table.challenge=Challenge valuation
-property.details.div.submitted=Submitted check cases
+property.details.cases.table.4=Closed date
+property.details.cases.table.5=Submitted by
+property.details.cases.table.6=Action
+property.details.cases.table.challenge=Start a challenge
+property.details.div.submitted=Checks
 property.details.div.noSubmittedCheck=There are no check cases available for your property.
+property.details.checks.status.help=Help with status: {0}
 
 property.details.div.submitted.challenge.cases=Submitted challenge cases
 property.details.challenge.cases.table.4=Challenge reference
@@ -1392,6 +1392,7 @@ app.common.saveAndContinue = Save and continue
 app.common.yes = Yes
 app.common.no = No
 common.titleSuffix=- Valuation Office Agency - GOV.UK
+common.localAuthorityReference=Local authority reference:
 
 #Registration Failure
 registration.error.title=You are unable to register
