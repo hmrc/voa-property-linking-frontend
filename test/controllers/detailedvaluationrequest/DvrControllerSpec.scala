@@ -70,7 +70,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val assessment = arbitrary[Assessment].sample.get
     val link: PropertyLink = arbitrary[PropertyLink]
 
-    lazy val successfulDvfDocuments: Future[Some[DvrDocumentFiles]] = Future.successful(Some({
+    lazy val successfulDvrDocuments: Future[Some[DvrDocumentFiles]] = Future.successful(Some({
       val now = LocalDateTime.now()
       DvrDocumentFiles(
         checkForm = Document(DocumentSummary("1L", "Check Document", now)),
@@ -215,7 +215,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(List.empty))
     when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
       .thenReturn(Future.successful(List.empty))
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvfDocuments)
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
 
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
@@ -247,7 +247,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(List(ownerCheckCaseDetails)))
     when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
       .thenReturn(Future.successful(List(ownerChallengeCaseDetails)))
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvfDocuments)
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
 
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
@@ -293,7 +293,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(List(agentCheckCaseDetails)))
     when(mockChallengeConnector.getMyClientsChallengeCases(any())(any()))
       .thenReturn(Future.successful(List.empty))
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvfDocuments)
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
 
     val result =
       controller.myClientsRequestDetailValuationCheck(
@@ -318,7 +318,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         ownerCheckCaseDetails.copy(status = status.toString))))
     when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
       .thenReturn(Future.successful(List.empty))
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvfDocuments)
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
 
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
@@ -375,7 +375,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(ownerAssessments)))
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvfDocuments)
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
 
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
