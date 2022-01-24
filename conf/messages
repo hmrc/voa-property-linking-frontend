@@ -977,18 +977,25 @@ available.requestvaluation.dvrCheck.p2=After completing the form, you need to se
 
 cannotRaiseChallenge.title=You cannot challenge this valuation
 
-property.details.cases.table.1=Check reference
-property.details.cases.table.2=Submitted date
-property.details.cases.table.3=Status
-property.details.cases.table.4=Closed date
-property.details.cases.table.5=Submitted by
-property.details.cases.table.6=Action
-property.details.cases.table.challenge=Start a challenge
+property.details.checkcases.table.1=Check reference
+property.details.checkcases.table.2=Submitted date
+property.details.checkcases.table.3=Status
+property.details.checkcases.table.4=Closed date
+property.details.checkcases.table.5=Submitted by
+property.details.checkcases.table.6=Action
+property.details.checkcases.table.challenge=Start a challenge
 property.details.div.submitted=Checks
 property.details.div.noSubmittedCheck=There are no check cases available for your property.
 property.details.checks.status.help=Help with status: {0}
 
-property.details.div.submitted.challenge.cases=Submitted challenge cases
+property.details.challengecases.table.1=Challenge reference
+property.details.challengecases.table.2=Submitted date
+property.details.challengecases.table.3=Status
+property.details.challengecases.table.4=Closed date
+property.details.challengecases.table.5=Submitted by
+property.details.challenge.status.help=Help with status: {0}
+
+property.details.div.submitted.challenge.cases=Challenges
 property.details.challenge.cases.table.4=Challenge reference
 label.requestType=How would you like to receive the detailed valuation?
 requestType.email=By email

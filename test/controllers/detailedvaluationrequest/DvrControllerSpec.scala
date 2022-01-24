@@ -19,6 +19,7 @@ package controllers.detailedvaluationrequest
 import connectors.SubmissionIdConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
+import models.challenge.ChallengeCaseStatus
 import models.dvr.cases.check.CheckCaseStatus
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
 import org.mockito.ArgumentMatchers.{any, eq => matching}
@@ -350,6 +351,64 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       "Help with status: CANCELLED",
       "Help with status: CLOSED",
       "Help with status: DECISION SENT",
+      "Help with status: OPEN",
+      "Help with status: PENDING",
+      "Help with status: RECEIVED",
+      "Help with status: UNDER REVIEW"
+    )
+
+    val statusColours: Seq[(String, String)] = statuses.map(e => (e.text(), e.attr("class")))
+    Inspectors.forAll(statusColours) {
+      case (status, cssClasses) if Set("CANCELLED", "CLOSED", "DECISION SENT").contains(status) =>
+        cssClasses should include("govuk-tag--grey")
+      case (_, cssClasses) =>
+        cssClasses should not include "govuk-tag--grey"
+    }
+  }
+
+  "detailed valuation of a DVR property" should "display correct CHALLENGES tab and table of challenge cases" in new Setup {
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments)))
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List.empty))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(ChallengeCaseStatus.values.toList.map(status =>
+        ownerChallengeCaseDetails.copy(status = status.toString))))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+    val checksTable: Element = page.html.getElementById("challengecases-table")
+    val headings: List[String] = checksTable.select("th").eachText().asScala.toList
+
+    headings should contain theSameElementsInOrderAs List(
+      "Challenge reference",
+      "Submitted date",
+      "Status",
+      "Closed date",
+      "Submitted by"
+    )
+
+    val statuses = page.html.select("#checkcases-table .govuk-tag").asScala.toList
+    val statusIcons: List[Element] = page.html.select("#challengecases-table .govuk-tag + a").asScala.toList
+    val invisibleSpansText = statusIcons.flatMap(icon => icon.select("span").eachText().asScala).sorted
+
+    invisibleSpansText should contain theSameElementsInOrderAs List(
+      "Help with status: ASSIGNED",
+      "Help with status: CANCELLED",
+      "Help with status: CLOSED",
+      "Help with status: DECISION SENT",
+      "Help with status: INITIAL RESPONSE",
+      "Help with status: MORE INFO NEEDED",
       "Help with status: OPEN",
       "Help with status: PENDING",
       "Help with status: RECEIVED",
