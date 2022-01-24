@@ -22,12 +22,21 @@
 @import views.html.dvr.checkCasesDetails
 @import utils.Formatters
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukDetails: GovukDetails, govukWarningText: GovukWarningText, govukTable: GovukTable, govukTabs: GovukTabs)
+@this(
+  mainLayout: views.html.mainLayout,
+  govukButton: GovukButton,
+  govukDetails: GovukDetails,
+  govukWarningText: GovukWarningText,
+  govukTable: GovukTable,
+  govukTabs: GovukTabs,
+  govukSummaryList: GovukSummaryList
+)
 
 @(model: AvailableRequestDetailedValuation,
         submissionId: String,
         owner: Boolean,
         authorisationId: Long,
+        clientOrgName: Option[String],
         backUrl: String,
         startCheckUrl: String,
         checksAndChallenges: Option[(List[CaseDetails], List[CaseDetails])])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -44,6 +53,14 @@
         controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId, model.valuationId, t).url
     }
 }
+
+  @titleCaption = @{
+    if (owner) {
+        messages("available.requestvaluation.ip.titleCaption")
+    } else {
+        messages("available.requestvaluation.agent.titleCaption", clientOrgName.getOrElse(""))
+    }
+  }
 
 @valuationTabContent = {
     <div class="govuk-grid-row">
@@ -121,8 +138,24 @@
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <span class="govuk-caption-l">@messages("available.requestvaluation.titleCaption")</span>
+            <span class="govuk-caption-l" id="client-name">@titleCaption</span>
             <h1 id="assessment-address" class="govuk-heading-l">@address</h1>
+
+            @govukSummaryList(SummaryList(
+                rows = Seq(
+                    SummaryListRow(
+                        key = Key(
+                            content = Text(messages("common.localAuthorityReference")),
+                            classes = "govuk-summary-list__key govuk-!-padding-right-1 govuk-!-display-inline"
+                        ),
+                        value = Value(
+                            content = Text(model.baRef),
+                            classes = "govuk-summary-list__value govuk-!-display-inline"
+                        )
+                    )
+                ),
+                classes = "govuk-summary-list--no-border"
+            ))
         </div>
     </div>
 

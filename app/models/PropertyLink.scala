@@ -33,6 +33,7 @@ case class ApiAssessments(
       uarn: Long,
       address: String,
       pending: Boolean,
+      clientOrgName: Option[String],
       capacity: Option[String],
       assessments: Seq[ApiAssessment],
       agents: Seq[Party]

@@ -126,6 +126,7 @@ class DvrController @Inject()(
                 submissionId = propertyLinkSubmissionId,
                 owner = owner,
                 authorisationId = link.authorisationId,
+                clientOrgName = link.clientOrgName,
                 backUrl = backUrl,
                 startCheckUrl = startCheckUrl,
                 checksAndChallenges = optCases

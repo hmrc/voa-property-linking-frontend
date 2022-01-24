@@ -21,6 +21,7 @@
 
 @import java.time.LocalDateTime
 @import java.time.LocalDate
+@import views.html.includes.helpIcon
 
 @(propertyLinkSubmissionId: String, isOwner: Boolean, uarn: Long, authorisationId: Long, assessmentRef: Long, checkCases: List[CaseDetails], downloadUrl: String, startCheckUrl: String)(govukButton: GovukButton, govukTable: GovukTable, govukDetails: GovukDetails, govukWarningText: GovukWarningText)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -54,23 +55,37 @@
     <p>@Html(messages("challengeRules.rules.paper", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")))</p>
 }
 
-@row(submittedDate: LocalDateTime, status: String, checkReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = @{
+    @tagColour(status: String) = {
+      @status match {
+        case "DECISION SENT" | "CLOSED" | "CANCELLED" => { govuk-tag--grey }
+        case _ => {}
+      }
+    }
+
+@statusTagWithHelpLink(status: String) = {
+  <strong class="govuk-tag @tagColour(status)">@status</strong>
+        @helpIcon(
+            visuallyHiddenText = messages("property.details.checks.status.help", status),
+            helpPageBaseUrl = config.businessRatesValuationFrontendUrl("check-status-help"),
+            guidanceElementId = s"dialog-${status.toLowerCase().replaceAll(" ", "-")}"
+        )
+    </a>
+}
+
+@row(checkReference: String, submittedDate: LocalDateTime, status: String, closedDate: Option[LocalDate], submittedBy: String) = @{
     Seq(
-        TableRow(
-            content = Text(formatDateTimeToDate(submittedDate))
-        ),
-        TableRow(
-            content = Text(status.toLowerCase.capitalize.replaceAll("_", " "))
-        ),
         TableRow(
             content = Text(checkReference)
         ),
         TableRow(
-            content = Text(closedDate.fold("")(formatDate(_)))
+            content = Text(formatDateTimeToDate(submittedDate))
         ),
         TableRow(
-            content = Text(clientOrAgent),
-            classes = "break-word"
+            content = HtmlContent(statusTagWithHelpLink(status)),
+            classes = "cca-nowrap"
+        ),
+        TableRow(
+            content = Text(closedDate.fold("")(formatDate(_)))
         ),
         TableRow(
             content = Text(submittedBy),
@@ -84,7 +99,13 @@
 
 @rows = @{
     checkCases.map{ caseDetails =>
-        row(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
+        row(
+            checkReference = caseDetails.caseReference,
+            submittedDate = caseDetails.submittedDate,
+            status = caseDetails.status.toUpperCase().replaceAll("_", " "),
+            closedDate = caseDetails.closedDate,
+            submittedBy = caseDetails.submittedBy
+        )
     }
 }
 
@@ -105,6 +126,14 @@
     </div>
 
 } else {
+
+    @govukDetails(Details(
+        id = Some("whenYouMayChallengeDetails"),
+        summary = Text(messages("challengeRules.summary")),
+        content = HtmlContent(detailContent),
+        attributes = Map("style" -> "margin-top: 1em"))
+    )
+
     @govukTable(Table(
         rows = rows,
         head = Some(Seq(
@@ -124,10 +153,7 @@
             content = Text(messages("property.details.cases.table.5"))
           ),
           HeadCell(
-            content = Text(messages(s"property.details.cases.table.${if(isOwner) "6" else "7"}"))
-          ),
-          HeadCell(
-            content = Text(messages("property.details.cases.table.8"))
+            content = Text(messages("property.details.cases.table.6"))
           )
         )),
         attributes = Map("id" -> "checkcases-table")
@@ -135,10 +161,3 @@
 }
 
 <br/>
-
-@govukDetails(Details(
-    id = Some("whenYouMayChallengeDetails"),
-    summary = Text(messages("challengeRules.summary")),
-    content = HtmlContent(detailContent),
-    attributes = Map("style" -> "margin-top: 1em"))
-)
