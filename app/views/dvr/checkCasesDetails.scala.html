@@ -34,7 +34,7 @@
 }
 
 @challengeLink(assessmentRef: Long, checkReference: String) = {
-    <a id="challenge-link" class="govuk-link" href="@canChallengeLink(assessmentRef, checkReference)">@messages("property.details.cases.table.challenge")</a>
+    <a id="challenge-link" class="govuk-link" href="@canChallengeLink(assessmentRef, checkReference)">@messages("property.details.checkcases.table.challenge")</a>
 }
 
 @returnUrl = @{
@@ -55,12 +55,12 @@
     <p>@Html(messages("challengeRules.rules.paper", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")))</p>
 }
 
-    @tagColour(status: String) = {
-      @status match {
-        case "DECISION SENT" | "CLOSED" | "CANCELLED" => { govuk-tag--grey }
-        case _ => {}
-      }
-    }
+@tagColour(status: String) = {
+  @status match {
+    case "DECISION SENT" | "CLOSED" | "CANCELLED" => { govuk-tag--grey }
+    case _ => {}
+  }
+}
 
 @statusTagWithHelpLink(status: String) = {
   <strong class="govuk-tag @tagColour(status)">@status</strong>
@@ -69,7 +69,6 @@
             helpPageBaseUrl = config.businessRatesValuationFrontendUrl("check-status-help"),
             guidanceElementId = s"dialog-${status.toLowerCase().replaceAll(" ", "-")}"
         )
-    </a>
 }
 
 @row(checkReference: String, submittedDate: LocalDateTime, status: String, closedDate: Option[LocalDate], submittedBy: String) = @{
@@ -138,22 +137,22 @@
         rows = rows,
         head = Some(Seq(
           HeadCell(
-            content = Text(messages("property.details.cases.table.1"))
+            content = Text(messages("property.details.checkcases.table.1"))
           ),
           HeadCell(
-            content = Text(messages("property.details.cases.table.2"))
+            content = Text(messages("property.details.checkcases.table.2"))
           ),
           HeadCell(
-            content = Text(messages("property.details.cases.table.3"))
+            content = Text(messages("property.details.checkcases.table.3"))
           ),
           HeadCell(
-            content = Text(messages("property.details.cases.table.4"))
+            content = Text(messages("property.details.checkcases.table.4"))
           ),
           HeadCell(
-            content = Text(messages("property.details.cases.table.5"))
+            content = Text(messages("property.details.checkcases.table.5"))
           ),
           HeadCell(
-            content = Text(messages("property.details.cases.table.6"))
+            content = Text(messages("property.details.checkcases.table.6"))
           )
         )),
         attributes = Map("id" -> "checkcases-table")

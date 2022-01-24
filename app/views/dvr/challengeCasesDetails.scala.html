@@ -20,6 +20,7 @@
 
 @import java.time.LocalDateTime
 @import java.time.LocalDate
+@import views.html.includes.helpIcon
 
 @(authorisationId: Long, challengeCases: List[CaseDetails], isOwner: Boolean, submissionId: String)(govukTable: GovukTable)(implicit messages: Messages, config: ApplicationConfig)
 
@@ -27,23 +28,35 @@
     config.businessRatesChallengeUrl(s"summary/property-link/$authorisationId/submission-id/$submissionId/challenge-cases/$challengeCaseRef?isAgent=${!isOwner}&isDvr=true")
 }
 
+@tagColour(status: String) = {
+@status match {
+    case "DECISION SENT" | "CLOSED" | "CANCELLED" => { govuk-tag--grey }
+    case _ => {}
+}
+}
+
+@statusTagWithHelpLink(status: String) = {
+    <strong class="govuk-tag @tagColour(status)">@status</strong>
+@helpIcon(
+    visuallyHiddenText = messages("property.details.challenge.status.help", status),
+    helpPageBaseUrl = config.businessRatesValuationFrontendUrl("challenge-status-help"),
+    guidanceElementId = s"dialog-${status.toLowerCase().replaceAll(" ", "-")}"
+    )
+}
+
 @row(submittedDate: LocalDateTime, status: String, challengeReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = @{
     Seq(
-        TableRow(
-            content = Text(formatDateTimeToDate(submittedDate))
-        ),
-        TableRow(
-            content = Text(status.toLowerCase.capitalize.replaceAll("_", " "))
-        ),
         TableRow(
             content = HtmlContent(s"<a class='govuk-link' href='${challengeCaseDetailsUrl(challengeReference)}'>$challengeReference</a>")
         ),
         TableRow(
-            content = Text(closedDate.fold("")(formatDate(_)))
+            content = Text(formatDateTimeToDate(submittedDate))
         ),
         TableRow(
-            content = Text(clientOrAgent),
-            classes = "break-word"
+            content = HtmlContent(statusTagWithHelpLink(status))
+        ),
+        TableRow(
+            content = Text(closedDate.fold("")(formatDate(_)))
         ),
         TableRow(
             content = Text(submittedBy),
@@ -54,7 +67,14 @@
 
 @rows = @{
     challengeCases.map{ caseDetails =>
-        row(caseDetails.submittedDate, caseDetails.status, caseDetails.caseReference, caseDetails.closedDate, caseDetails.clientOrAgent, caseDetails.submittedBy)
+        row(
+            submittedDate = caseDetails.submittedDate,
+            status = caseDetails.status.toUpperCase().replaceAll("_", " "),
+            challengeReference = caseDetails.caseReference,
+            closedDate = caseDetails.closedDate,
+            clientOrAgent = caseDetails.clientOrAgent,
+            submittedBy = caseDetails.submittedBy
+        )
     }
 }
 
@@ -65,22 +85,19 @@
     rows = rows,
     head = Some(Seq(
       HeadCell(
-        content = Text(messages("property.details.cases.table.1"))
+        content = Text(messages("property.details.challengecases.table.1"))
       ),
       HeadCell(
-        content = Text(messages("property.details.cases.table.3"))
+        content = Text(messages("property.details.challengecases.table.2"))
       ),
       HeadCell(
-        content = Text(messages("property.details.cases.table.4"))
+        content = Text(messages("property.details.challengecases.table.3"))
       ),
       HeadCell(
-        content = Text(messages("property.details.cases.table.5"))
+        content = Text(messages("property.details.challengecases.table.4"))
       ),
       HeadCell(
-        content = Text(messages(s"property.details.cases.table.${if(isOwner) "6" else "7"}"))
-      ),
-      HeadCell(
-        content = Text(messages("property.details.cases.table.8"))
+        content = Text(messages("property.details.challengecases.table.5"))
       )
     )),
     attributes = Map("id" -> "challengecases-table")
