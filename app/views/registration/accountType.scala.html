@@ -2,18 +2,12 @@
 @import views.html.mainLayout
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import helpers._
+@import uk.gov.hmrc.govukfrontend.views.Implicits.RichRadios
 
 @this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukButton: GovukButton, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@fieldErrorMessage = @{
-    form.error("accountTypeIndividual").map{ error =>
-        ErrorMessage(
-            content = Text(messages(error.message))
-        )
-    }
-}
 
 @mainLayout(
     pageTitle = messages("accountType.heading"),
@@ -49,9 +43,8 @@
                         content = Text(messages("accountType.orgOrAgent.helpText"))
                     ))
                 )
-            ),
-            errorMessage = fieldErrorMessage
-        ))
+            )
+        ).withFormField(form("accountTypeIndividual")))
 
         @govukButton(Button(
             content = Text(messages("govGateway.button")),
