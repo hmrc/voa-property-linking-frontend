@@ -1,23 +1,29 @@
 @import config.ApplicationConfig
 @import views.html.mainLayout
-@import controllers.routes._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import helpers._
 
 @this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukButton: GovukButton, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@fieldErrorMessage = @{
+    form.error("accountTypeIndividual").map{ error =>
+        ErrorMessage(
+            content = Text(messages(error.message))
+        )
+    }
+}
+
 @mainLayout(
-    pageTitle = messages("govgateway.heading"),
+    pageTitle = messages("accountType.heading"),
     backUri = Some(controllers.registration.routes.DoYouHaveAccountController.show().url),
     mainClass = Some("govuk-grid-column-two-thirds"),
     hasErrors = form.hasErrors
 
 ){
-    @if(form.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.govGateway.title"))))
-    }
+    @formErrorSummary(form)(govukErrorSummary)
+
     @formWithCSRF(action = controllers.registration.routes.AccountTypeController.submit()){
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
@@ -43,7 +49,8 @@
                         content = Text(messages("accountType.orgOrAgent.helpText"))
                     ))
                 )
-            )
+            ),
+            errorMessage = fieldErrorMessage
         ))
 
         @govukButton(Button(
