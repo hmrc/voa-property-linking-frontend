@@ -811,6 +811,7 @@ uploadFile.info.title=How do I convert a file into a PDF?
 uploadFile.info.content=<p>Converting a file into a PDF is similar for most software. First open the document that you want to convert, then:</p><ul class="list list-number"><li>click “File”</li><li>choose either “Export”, “Export as PDF” or “Save as” (depending on your software)</li><li>select “Create PDF” or “PDF”</li><li>click on either “Publish” or “Save”</li></ul><p>For Mac users and older software:</p><ul class="list list-number"><li>click “File”</li><li>select “Print”</li><li>either click “PDF”, or choose a printer labelled “PDF”</li><li>click either “Save” or “OK”</li></ul><p>You could also search for websites that will convert your document for free.</p><p>Due to the outbreak of Covid-19 we are currently unable to offer a telephony service and it will take longer than usual to respond to your query. If you need to contact us please use our <a href="https://www.gov.uk/contact-voa" class="govuk-link">Contact Form</a> and we will respond as soon as possible. We’re sorry for any inconvenience this has caused.</p>
 
 #LINK REQUEST CONFIRMATION
+linkingRequestSubmitted.title4=Property claim submitted
 linkingRequestSubmitted.title=We’ve received your request to add the property to your business’s customer record
 linkingRequestSubmitted.title1=Property claim submitted
 linkingRequestSubmitted.client.title2=to your client’s business’s customer record
