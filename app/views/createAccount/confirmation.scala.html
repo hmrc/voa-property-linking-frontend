@@ -36,22 +36,22 @@
             )
         )
 
-        <p class="govuk-body">@Html(messages("email.sent.to", email))</p>
+        <p id="email-sent" class="govuk-body">@Html(messages("email.sent.to", email))</p>
 
-        <h2 class="govuk-heading-m">@messages("heading.whatNext")</h2>
-        <p class="govuk-body">@messages("next.time.sign.in")</p>
-        <p class="govuk-body">@messages("reset.password")</p>
+        <h2 id="what-next" class="govuk-heading-m">@messages("heading.whatNext")</h2>
+        <p class="govuk-body">@messages("registration.confirmation.whatNext.p1")</p>
+        <p class="govuk-body">@messages("registration.confirmation.whatNext.p2")</p>
         @for(code <-  agentCode){
-            <p class="govuk-body">@messages("give.agent.code.to.clients")</p>
-            <p class="govuk-body">@Html(messages("register.on.behalf.organisation", routes.Application.addUserToGG))</p>
+            <p class="govuk-body">@messages("registration.confirmation.whatNext.p3")</p>
+            <p class="govuk-body">@Html(messages("registration.confirmation.whatNext.p4", routes.Application.addUserToGG))</p>
         }
 
-        <h2 class="govuk-heading-m">@messages("heading.terms.of.use")</h2>
-        <p class="govuk-body">@Html(messages("account.confirmation.disclaimer"))</p>
+        <h2 id="terms-of-use" class="govuk-heading-m">@messages("heading.terms.of.use")</h2>
+        <p class="govuk-body">@Html(messages("registration.confirmation.termsOfUse.p"))</p>
 
         @govukButton(Button(
             href = Some(config.dashboardUrl("home")),
-            content = Text(messages("account.enrolment.link")),
+            content = Text(messages("account.enrolment.link.text")),
             attributes = Map("id" -> "continue")
         ))
 
