@@ -18,6 +18,7 @@ package controllers
 
 import actions.registration.GgAuthenticatedAction
 import config.ApplicationConfig
+import controllers.registration.routes
 import models.identityVerificationProxy.IvResult
 import models.registration._
 import play.api.Logging
@@ -26,8 +27,8 @@ import play.api.mvc._
 import repositories.SessionRepo
 import services.iv.IdentityVerificationService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-
 import javax.inject.{Inject, Named}
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerification @Inject()(
@@ -73,7 +74,9 @@ class IdentityVerification @Inject()(
         case true =>
           identityVerificationService.continue(journeyId, request.userDetails).map {
             case Some(RegistrationSuccess(personId)) =>
-              Redirect(controllers.registration.routes.RegistrationController.success(personId))
+              if (config.newRegistrationJourneyEnabled)
+                Redirect(controllers.registration.routes.RegistrationController.confirmation(personId))
+              else Redirect(controllers.registration.routes.RegistrationController.success(personId))
             case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
           }
         case false => Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))

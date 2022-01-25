@@ -20,6 +20,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{mock, when}
 import play.twirl.api.Html
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
+import views.html.createAccount.confirmation
 import views.html.dvr.{alreadyRequestedDetailedValuation, cannotRaiseChallenge, dvrFiles, requestDetailedValuation, requestedDetailedValuation}
 import views.html.errors.propertyMissing
 import views.html.propertyrepresentation.appoint.appointAgentSummary
@@ -107,6 +108,8 @@ trait FakeViews extends GdsComponents {
 
   lazy val registerConfirmationView =
     new views.html.createAccount.registrationConfirmation(mainLayout, govukInsetText, govukDetails, govukButton)
+  lazy val confirmationView =
+    new views.html.createAccount.confirmation(mainLayout, govukInsetText, govukDetails, govukButton, govukPanel)
 
   lazy val revokeAgentSummaryView =
     new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, govukButton, govukPanel)

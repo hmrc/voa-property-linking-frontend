@@ -66,6 +66,7 @@ POST        /complete-your-contact-details                                      
 GET         /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.show()
 POST        /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.submitAssistant()
 GET         /create-success                                                                   controllers.registration.RegistrationController.success(personId: Long)
+GET         /create-confirmation                                                              controllers.registration.RegistrationController.confirmation(personId: Long)
 
 #Business tax account
 GET         /manage-business-tax-account                                                      controllers.Application.manageBusinessTaxAccount()

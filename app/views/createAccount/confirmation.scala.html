@@ -1,0 +1,58 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import helpers._
+@import config.ApplicationConfig
+@import uk.gov.hmrc.auth.core.AffinityGroup
+@import uk.gov.hmrc.auth.core.AffinityGroup._
+@import uk.gov.hmrc.auth.core._
+@import views.html.mainLayout
+@import views.html._
+
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukButton: GovukButton, govukPanel: GovukPanel)
+
+@(id: String, agentCode: Option[Long], email: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@mainLayout(pageTitle = messages("registration.successful"), showTopNavigation = false) {
+
+        @govukPanel(Panel(
+            title = Text(messages("registration.successful")),
+            content = HtmlContent(s"${messages("voa.personal.id.number")} <br> <strong id='personal-id'>$id</strong> ${agentCode.fold(""){code => s"<br><span class='govuk-!-display-block govuk-!-margin-top-3'>${messages("agent.code")} <br> <strong id='agent-code'>$code</strong></span>"}
+            }"),
+            attributes = Map("id" -> "registration-confirmation-panel")
+            )
+        )
+
+        <p class="govuk-body">@Html(messages("email.sent.to", email))</p>
+
+        <h2 class="govuk-heading-m">@messages("heading.whatNext")</h2>
+        <p class="govuk-body">@messages("next.time.sign.in")</p>
+        <p class="govuk-body">@messages("reset.password")</p>
+        @for(code <-  agentCode){
+            <p class="govuk-body">@messages("give.agent.code.to.clients")</p>
+            <p class="govuk-body">@Html(messages("register.on.behalf.organisation", routes.Application.addUserToGG))</p>
+        }
+
+        <h2 class="govuk-heading-m">@messages("heading.terms.of.use")</h2>
+        <p class="govuk-body">@Html(messages("account.confirmation.disclaimer"))</p>
+
+        @govukButton(Button(
+            href = Some(config.dashboardUrl("home")),
+            content = Text(messages("account.enrolment.link")),
+            attributes = Map("id" -> "continue")
+        ))
+
+}
