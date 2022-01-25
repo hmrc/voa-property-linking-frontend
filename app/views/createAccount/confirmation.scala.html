@@ -30,13 +30,13 @@
 
         @govukPanel(Panel(
             title = Text(messages("registration.successful")),
-            content = HtmlContent(s"${messages("voa.personal.id.number")} <br> <strong id='personal-id'>$id</strong> ${agentCode.fold(""){code => s"<br><span class='govuk-!-display-block govuk-!-margin-top-3'>${messages("agent.code")} <br> <strong id='agent-code'>$code</strong></span>"}
+            content = HtmlContent(s"${messages("registration.confirmation.voa.personal.id.number")} <br> <strong id='personal-id'>$id</strong> ${agentCode.fold(""){code => s"<br><span class='govuk-!-display-block govuk-!-margin-top-3'>${messages("registration.confirmation.agent.code")} <br> <strong id='agent-code'>$code</strong></span>"}
             }"),
             attributes = Map("id" -> "registration-confirmation-panel")
             )
         )
 
-        <p id="email-sent" class="govuk-body">@Html(messages("email.sent.to", email))</p>
+        <p id="email-sent" class="govuk-body">@Html(messages("registration.confirmation.email.sent.to", email))</p>
 
         <h2 id="what-next" class="govuk-heading-m">@messages("heading.whatNext")</h2>
         <p class="govuk-body">@messages("registration.confirmation.whatNext.p1")</p>
