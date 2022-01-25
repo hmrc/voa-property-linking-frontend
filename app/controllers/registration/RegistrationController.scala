@@ -37,7 +37,6 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import views.html._
 import javax.inject.{Inject, Named}
-
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController @Inject()(
