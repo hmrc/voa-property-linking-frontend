@@ -13,6 +13,7 @@ common.titleErrorPrefix=Error:
 common.titleSuffix=- Valuation Office Agency - GOV.UK
 errors.heading.title=There is a problem
 navigation.your.details=Your details
+heading.terms.of.use=Terms of use
 
 # Page sizes
 pageSize.showing = Showing
@@ -279,6 +280,16 @@ createAccount.group.details.content.agent=You’ll need to provide information a
 createAccount.group.details.header.multipleAddress=There’s more than one address for my business
 createAccount.group.details.content.multipleAddress=You should enter the address that you want any business correspondence to be sent to.
 createAccount.business.email.help=This should be your email address and not your agent’s. The email address should be monitored.
+
+registration.successful=Registration successful
+registration.confirmation.voa.personal.id.number=Your VOA personal ID number
+registration.confirmation.agent.code=Your Agent code
+registration.confirmation.email.sent.to=We have sent these details to <strong>{0}</strong>
+registration.confirmation.whatNext.p1=Next time you sign in to the service, use your Government Gateway details.
+registration.confirmation.whatNext.p2=If you need to reset your password, you'll need to provide your VOA personal ID number.
+registration.confirmation.whatNext.p3=Give your Agent code to your client so they can appoint you to act for them.
+registration.confirmation.whatNext.p4=If anyone else wants to register on your behalf of the organisation, you’ll need to <a class="govuk-link" href="{0}" rel="external noopener noreferrer">add them to your Government Gateway account</a>.
+registration.confirmation.termsOfUse.p=Information provided using this service is only for the purpose of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosected under the relevant legisation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
 
 #MIGRATED ENROLMENT USER
 account.migrated.welcome=Welcome back

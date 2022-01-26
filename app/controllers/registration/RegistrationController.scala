@@ -16,6 +16,7 @@
 
 package controllers.registration
 
+import actions.AuthenticatedAction
 import actions.registration.requests.RequestWithUserDetails
 import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import cats.data.OptionT
@@ -35,13 +36,13 @@ import uk.gov.hmrc.auth.core.{Assistant, ConfidenceLevel, User}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import views.html._
-
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController @Inject()(
       val errorHandler: CustomErrorHandler,
       ggAuthenticated: GgAuthenticatedAction,
+      authenticated: AuthenticatedAction,
       sessionUserDetailsAction: SessionUserDetailsAction,
       groupAccounts: GroupAccounts,
       individualAccounts: IndividualAccounts,
@@ -54,6 +55,7 @@ class RegistrationController @Inject()(
       registerAssistantAdminView: createAccount.registerAssistantAdmin,
       registerAssistantView: createAccount.registerAssistant,
       registerConfirmationView: createAccount.registrationConfirmation,
+      confirmationView: createAccount.confirmation,
       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
 )(
       implicit executionContext: ExecutionContext,
@@ -147,7 +149,9 @@ class RegistrationController @Inject()(
       // skip IV as user's Confidence Level is sufficient
       registrationService.continue(None, request.userDetails).map {
         case Some(RegistrationSuccess(personId)) =>
-          Redirect(controllers.registration.routes.RegistrationController.success(personId))
+          if (config.newRegistrationJourneyEnabled)
+            Redirect(routes.RegistrationController.confirmation(personId))
+          else Redirect(routes.RegistrationController.success(personId))
         case _ => InternalServerError(errorHandler.internalServerErrorTemplate(request))
       }
     }
@@ -174,9 +178,12 @@ class RegistrationController @Inject()(
                 .create(success.toGroupDetails(fieldData), request.userDetails, Some(Organisation))(
                   success.toIndividualAccountSubmission(fieldData))
                 .map {
-                  case RegistrationSuccess(personId) => Redirect(routes.RegistrationController.success(personId))
-                  case EnrolmentFailure              => InternalServerError(errorHandler.internalServerErrorTemplate)
-                  case DetailsMissing                => InternalServerError(errorHandler.internalServerErrorTemplate)
+                  case RegistrationSuccess(personId) =>
+                    if (config.newRegistrationJourneyEnabled)
+                      Redirect(routes.RegistrationController.confirmation(personId))
+                    else Redirect(routes.RegistrationController.success(personId))
+                  case EnrolmentFailure => InternalServerError(errorHandler.internalServerErrorTemplate)
+                  case DetailsMissing   => InternalServerError(errorHandler.internalServerErrorTemplate)
                 }
             case _ => unableToRetrieveCompanyDetails
           }
@@ -189,6 +196,14 @@ class RegistrationController @Inject()(
   def success(personId: Long): Action[AnyContent] = ggAuthenticated { implicit request =>
     val user = request.userDetails
     Ok(registerConfirmationView(personId.toString, user.affinityGroup, user.credentialRole))
+  }
+
+  def confirmation(personId: Long): Action[AnyContent] = authenticated { implicit request =>
+    Ok(
+      confirmationView(
+        personId.toString,
+        request.organisationAccount.agentCode,
+        request.individualAccount.details.email))
   }
 
   private def orgShow(userDetails: UserDetails, sessionPersonDetails: Option[User])(

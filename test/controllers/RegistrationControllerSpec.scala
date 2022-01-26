@@ -58,6 +58,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     new RegistrationController(
       errorHandler = mockCustomErrorHandler,
       ggAuthenticated = ggPreauthenticated(userDetails),
+      authenticated = preAuthenticatedActionBuilders(true),
       sessionUserDetailsAction = sessionUserDetailsAction(sessionUserDetails),
       groupAccounts = StubGroupAccountConnector,
       individualAccounts = StubIndividualAccountConnector,
@@ -70,6 +71,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       registerAssistantAdminView = registerAssistantAdminView,
       registerAssistantView = registerAssistantView,
       registerConfirmationView = registerConfirmationView,
+      confirmationView = confirmationView,
       personalDetailsSessionRepo = mockSessionRepo
     )
 
@@ -238,7 +240,28 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val res =
       testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).submitIndividual()(fakeRequest)
     status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(s"/business-rates-property-linking/create-success?personId=$personId")
+    redirectLocation(res) shouldBe Some(s"/business-rates-property-linking/create-confirmation?personId=$personId")
+  }
+
+  "Call confirmation" should "return an valid page" in new SubmitOrganisation {
+    when(mockRegistrationService.continue(any(), any())(any(), any()))
+      .thenReturn(Future.successful(Some(RegistrationSuccess(personId))))
+
+    val res =
+      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).confirmation(100)(fakeRequest)
+    status(res) shouldBe OK
+    val html = HtmlPage(res)
+    //Page title
+    html.titleShouldMatch("Registration successful - Valuation Office Agency - GOV.UK")
+    //Page should contains VOA Person ID value 100
+    html.verifyElementText("personal-id", "100")
+    //Page should contains VOA Agent code value 300
+    html.verifyElementText("agent-code", "300")
+
+    html.verifyElementText("email-sent", "We have sent these details to")
+    html.verifyElementText("what-next", "What happens next")
+    html.verifyElementText("terms-of-use", "Terms of use")
+
   }
 
   "Submitting an invalid individual form" should "return a bad request response" in {
@@ -299,7 +322,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val res =
       testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).submitOrganisation()(fakeRequest)
     status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(s"/business-rates-property-linking/create-success?personId=$personId")
+    redirectLocation(res) shouldBe Some(s"/business-rates-property-linking/create-confirmation?personId=$personId")
+
   }
 
   "Submitting an invalid organisation form" should "return a bad request response" in {
