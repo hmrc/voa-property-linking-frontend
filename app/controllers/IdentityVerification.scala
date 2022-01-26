@@ -74,8 +74,8 @@ class IdentityVerification @Inject()(
           identityVerificationService.continue(journeyId, request.userDetails).map {
             case Some(RegistrationSuccess(personId)) =>
               if (config.newRegistrationJourneyEnabled)
-                            Redirect(registration.routes.RegistrationController.confirmation(personId))
-                          else Redirect(registration.routes.RegistrationController.success(personId))
+                Redirect(registration.routes.RegistrationController.confirmation(personId))
+              else Redirect(registration.routes.RegistrationController.success(personId))
             case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
           }
         case false => Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
