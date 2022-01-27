@@ -33,7 +33,6 @@ start.registration.youNeed.3.old=P60
 start.registration.p.5.old=You should allow approximately 15 minutes without interruption to complete the registration process.
 start.registration.IdontHave.old=I don’t have these details
 start.registration.IdontHave.answer.old=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to <a class="govuk-link" href="https://www.gov.uk/contact-voa">contact the Valuation Office Agency (VOA).</a></p>
-start.registration.IdontHave.enrolment.answer.old=<p>If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, you’ll need to call the Valuation Office Agency (VOA).</p><p>Telephone: 03000 501 501</p>
 start.registration.enrolment.hyperlink.old=<a class="govuk-link" href="{0}">I want to register using my existing Government Gateway account</a>
 start.registration.individual.hyperlink.old=<a class="govuk-link" href="{0}?accountType={1}&continue={2}&origin={3}">Individual (you represent yourself)</a> – you won’t be able to add others to this account
 start.registration.organisation.hyperlink.old=<a class="govuk-link" href="{0}?accountType={1}&continue={2}&origin={3}">Organisation (you represent a business, charity or other organisation)</a> – you’ll be able to add others to this account
@@ -61,6 +60,8 @@ start.registration.bp.7=Tax Credit details
 start.registration.bp.8=Credit reference details
 start.registration.bp.9=a Northern Ireland driving licence
 start.registration.p6=If you don’t have these details you’ll need to <a class="govuk-link" href="https://www.gov.uk/contact-voa">contact the Valuation Office Agency (VOA).</a>
+start.registration.IdontHave=I don’t have a National Insurance number
+start.registration.IdontHave.answer=If you don’t have these details you’ll need to <a class="govuk-link" href="https://www.gov.uk/contact-voa">contact the Valuation Office Agency (VOA).</a>
 
 #DO YOU HAVE GOVERNMENT GATEWAY ACCOUNT
 govGateway.heading=Do you already have a Government Gateway account?
