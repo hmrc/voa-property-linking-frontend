@@ -18,7 +18,6 @@ package controllers.detailedvaluationrequest
 
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
-import com.google.inject.Singleton
 import config.ApplicationConfig
 import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
@@ -40,7 +39,6 @@ import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-@Singleton
 class DvrController @Inject()(
       val errorHandler: CustomErrorHandler,
       propertyLinks: PropertyLinkConnector,
