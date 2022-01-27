@@ -49,6 +49,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       propertyLinks = mockPropertyLinkConnector,
       challengeConnector = mockChallengeConnector,
       vmvConnector = mockVmvConnector,
+      withLinkingSession = mockWithLinkingSession,
       authenticated = preAuthenticatedActionBuilders(),
       submissionIds = mockSubmissionIds,
       dvrCaseManagement = mockDvrCaseManagement,
@@ -57,7 +58,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       requestedDetailedValuationView = requestedDetailedValuationView,
       dvrFilesView = dvrFilesView,
       cannotRaiseChallengeView = cannotRaiseChallengeView,
-      propertyMissingView = propertyMissingView
+      propertyMissingView = propertyMissingView,
     )
 
     lazy val mockSubmissionIds = {

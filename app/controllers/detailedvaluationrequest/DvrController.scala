@@ -17,6 +17,8 @@
 package controllers.detailedvaluationrequest
 
 import actions.AuthenticatedAction
+import actions.propertylinking.WithLinkingSession
+import com.google.inject.Singleton
 import config.ApplicationConfig
 import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
@@ -38,11 +40,13 @@ import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
+@Singleton
 class DvrController @Inject()(
       val errorHandler: CustomErrorHandler,
       propertyLinks: PropertyLinkConnector,
       challengeConnector: ChallengeConnector,
       vmvConnector: VmvConnector,
+      withLinkingSession: WithLinkingSession,
       authenticated: AuthenticatedAction,
       submissionIds: SubmissionIdConnector,
       dvrCaseManagement: DVRCaseManagementConnector,
@@ -213,13 +217,19 @@ class DvrController @Inject()(
         propertyLinkSubmissionId: String,
         submissionId: String,
         owner: Boolean
-  ): Action[AnyContent] = authenticated.async { implicit request =>
+  ): Action[AnyContent] = authenticated.andThen(withLinkingSession).async { implicit request =>
     val pLink =
       if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
       else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
     pLink.map {
       case Some(link) =>
-        Ok(requestedDetailedValuationView(submissionId, link.address))
+        Ok(
+          requestedDetailedValuationView(
+            submissionId,
+            link.address,
+            link.assessments.head.billingAuthorityReference,
+            request.ses.clientDetails
+          ))
       case None =>
         BadRequest(propertyMissingView())
     }
