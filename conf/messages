@@ -1022,7 +1022,7 @@ detailedValuationRequested.page.title=We''ve received your request to view the d
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 20 working days.
 
-auto.detailedValuationRequested.title=Request for the detailed valuation submitted
+auto.detailedValuationRequested.title=Request for detailed valuation submitted
 auto.detailedValuationRequested.title.reference=Your reference number is
 
 duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.

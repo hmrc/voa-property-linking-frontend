@@ -204,6 +204,20 @@ trait FakeObjects {
     agentCode = 6754L
   )
 
+  lazy val clientPropertyLink = ClientPropertyLink(
+    authorisationId = 4222211L,
+    authorisedPartyId = 1222L,
+    status = PropertyLinkingApproved,
+    startDate = LocalDate.parse("2019-07-22"),
+    endDate = Some(LocalDate.parse("2020-07-12")),
+    submissionId = "PLSubId",
+    capacity = "OWNER",
+    uarn = 999000111L,
+    address = "123, Some address",
+    localAuthorityRef = "BAREF",
+    client = ClientDetails(10000L, "Some organisation 2")
+  )
+
   lazy val ownerAuthorisation = OwnerAuthorisation(
     authorisationId = 4222211L,
     status = "APPROVED",
@@ -414,6 +428,21 @@ trait FakeObjects {
     isCorrectAgent = true)
 
   lazy val april2017 = LocalDate.of(2017, 4, 1)
+
+  def clientProperties(a: ClientPropertyLink) =
+    ClientPropertyLink(
+      authorisationId = a.authorisationId,
+      authorisedPartyId = a.authorisedPartyId,
+      status = a.status,
+      startDate = a.startDate,
+      endDate = a.endDate,
+      submissionId = a.submissionId,
+      capacity = a.capacity,
+      uarn = a.uarn,
+      address = a.address,
+      localAuthorityRef = a.localAuthorityRef,
+      client = a.client
+    )
 
   def apiAssessments(a: OwnerAuthorisation) =
     ApiAssessments(
