@@ -23,10 +23,10 @@ import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import connectors.{DVRCaseManagementConnector, _}
 import controllers.PropertyLinkingController
-import models.dvr.DetailedValuationRequest
+import models.dvr.{DetailedValuationRequest, PropertyLinkForDvr}
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
-import models.{ApiAssessment, ApiAssessments, PropertyLink}
+import models.{ApiAssessment, ApiAssessments}
 import play.api.http.HttpEntity
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, _}
@@ -214,12 +214,18 @@ class DvrController @Inject()(
         submissionId: String,
         owner: Boolean
   ): Action[AnyContent] = authenticated.async { implicit request =>
-    val pLink =
-      if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
-      else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
+    val pLink: Future[Option[PropertyLinkForDvr]] =
+      if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId).map(_.map(PropertyLinkForDvr(_)))
+      else propertyLinks.clientPropertyLink(propertyLinkSubmissionId).map(_.map(PropertyLinkForDvr(_)))
     pLink.map {
       case Some(link) =>
-        Ok(requestedDetailedValuationView(submissionId, link.address))
+        Ok(
+          requestedDetailedValuationView(
+            submissionId = submissionId,
+            address = link.address,
+            localAuthorityRef = link.localAuthorityRef,
+            clientDetails = link.client
+          ))
       case None =>
         BadRequest(propertyMissingView())
     }

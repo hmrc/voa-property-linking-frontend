@@ -82,6 +82,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     StubPropertyLinkConnector.stubLink(link)
 
     def assessments: ApiAssessments = apiAssessments(ownerAuthorisation)
+
+    def clientPropertyLinks: ClientPropertyLink = clientProperties(clientPropertyLink)
   }
 
   trait CanChallengeSetup extends Setup {
@@ -508,8 +510,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "request detailed valuation confirmation as Agent" should "return 200 OK when request is valid" in new Setup {
-    when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
-      .thenReturn(Future.successful(Some(assessments)))
+    when(mockPropertyLinkConnector.clientPropertyLink(any())(any()))
+      .thenReturn(Future.successful(Some(clientPropertyLinks)))
 
     val result = controller.confirmation(link.submissionId, link.submissionId, false)(request)
 

@@ -16,25 +16,55 @@
 
 @import config.ApplicationConfig
 @import utils.Formatters
+@import views.html.includes.assessmentHeading
 
 @this(mainLayout: views.html.mainLayout)
 
-@(submissionId: String, address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(submissionId: String, address: String,  localAuthorityRef: String, clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(pageTitle=Messages("detailedValuationRequested.page.title")) {
+
+@managePropertiesUrl = @{
+    clientDetails match {
+        case Some(client) =>
+            config.dashboardUrl(
+                s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}")
+        case _        => config.dashboardUrl("your-properties")
+    }
+}
+
+@linkSubmitted = @{
+    clientDetails  match {
+        case Some(client)          => Html(messages("linkSubmitted.whatNext.8", managePropertiesUrl))
+        case _                     => Html(messages("linkSubmitted.whatNext.7", managePropertiesUrl))
+    }
+}
+
+
+
+    @mainLayout(pageTitle=Messages("auto.detailedValuationRequested.title")) {
+
+    @assessmentHeading(localAuthorityRef,address)
 
     <div class="govuk-panel govuk-panel--confirmation">
         <h1 class="govuk-panel__title">
             @messages("auto.detailedValuationRequested.title")
         </h1>
         <div class="govuk-panel__body">
-            <p>@{Formatters.capitalisedAddress(address)}</p>
             @Html(Messages("auto.detailedValuationRequested.title.reference"))<br><strong>@submissionId</strong>
         </div>
     </div>
 
-    <p class="govuk-body">@messages("auto.detailedValuationRequested.p.1")</p>
 
-    <p class="govuk-body"><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.return.home")</a></p>
+    <p class="govuk-body">@messages("linkingRequestSubmitted.p1")</p>
+
+    <h2 class="govuk-heading-m">@messages("heading.whatNext")</h2>
+
+    <p class="govuk-body">@messages("linkSubmitted.whatNext.6")</p>
+
+    <p class="govuk-body">@linkSubmitted</p>
+
+    <p class="govuk-body">@messages("linkSubmitted.whatNext.3")</p>
+
+    <p class="govuk-body"><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.backToDashboard")</a></p>
 
 }
