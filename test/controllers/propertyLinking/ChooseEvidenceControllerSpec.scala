@@ -70,7 +70,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
   "The choose evidence page with earliest start date in the future" should "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
-    when(mockChooseEvidencePage.apply(any(), any())(any(), any(),any()))
+    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("The choose evidence page"))
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
