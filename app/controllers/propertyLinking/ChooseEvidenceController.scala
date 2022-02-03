@@ -57,7 +57,13 @@ class ChooseEvidenceController @Inject()(
       _        <- businessRatesAttachmentService.persistSessionData(request.ses)
       backLink <- backlink(request.ses)
     } yield {
-      Ok(chooseEvidenceView(form, request.ses.clientDetails, Some(backLink)))
+      Ok(
+        chooseEvidenceView(
+          form,
+          request.ses.clientDetails,
+          Some(backLink),
+          request.ses.address,
+          request.ses.localAuthorityReference))
     }
   }
 
@@ -85,7 +91,13 @@ class ChooseEvidenceController @Inject()(
       .fold(
         errors =>
           backlink(request.ses).map { back =>
-            BadRequest(chooseEvidenceView(errors, request.ses.clientDetails, Some(back)))
+            BadRequest(
+              chooseEvidenceView(
+                errors,
+                request.ses.clientDetails,
+                Some(back),
+                request.ses.address,
+                request.ses.localAuthorityReference))
         },
         hasRatesBill =>
           updateSession(hasRatesBill).map { _ =>
