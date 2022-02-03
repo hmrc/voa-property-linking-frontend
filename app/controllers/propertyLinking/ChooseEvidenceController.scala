@@ -60,10 +60,7 @@ class ChooseEvidenceController @Inject()(
       Ok(
         chooseEvidenceView(
           form,
-          request.ses.clientDetails,
-          Some(backLink),
-          request.ses.address,
-          request.ses.localAuthorityReference))
+          Some(backLink)))
     }
   }
 
@@ -94,10 +91,7 @@ class ChooseEvidenceController @Inject()(
             BadRequest(
               chooseEvidenceView(
                 errors,
-                request.ses.clientDetails,
-                Some(back),
-                request.ses.address,
-                request.ses.localAuthorityReference))
+                Some(back)))
         },
         hasRatesBill =>
           updateSession(hasRatesBill).map { _ =>

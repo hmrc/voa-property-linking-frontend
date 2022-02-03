@@ -55,7 +55,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
   "The choose evidence page with earliest start date in the past" should "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
-    when(mockChooseEvidencePage.apply(any(), any(), any(), any(), any())(any(), any(), any()))
+    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("The choose evidence page"))
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
@@ -70,7 +70,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
   "The choose evidence page with earliest start date in the future" should "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
-    when(mockChooseEvidencePage.apply(any(), any(), any(), any(), any())(any(), any(), any()))
+    when(mockChooseEvidencePage.apply(any(), any())(any(), any(),any()))
       .thenReturn(Html("The choose evidence page"))
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
@@ -83,7 +83,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "require the user to select whether they have a rates bill" in {
-    when(mockChooseEvidencePage.apply(any(), any(), any(), any(), any())(any(), any(), any()))
+    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("require the user to select whether they have a rates bill"))
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))

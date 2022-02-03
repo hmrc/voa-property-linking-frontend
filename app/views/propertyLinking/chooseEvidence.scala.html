@@ -18,13 +18,14 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
 @import views.html.includes.assessmentHeading
+@import actions.propertylinking.requests.LinkingSessionRequest
 
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 
-@(form: Form[_], clientDetails: Option[ClientDetails] = None, backlink: Option[String], localAuthorityRef: String, address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[_], backlink: Option[String])(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@title = @{clientDetails.map(_.organisationId) match {
+@title = @{request.ses.clientDetails.map(_.organisationId) match {
     case Some(id)   => {messages("chooseEvidence.client.title")}
     case _          => {messages("chooseEvidence.title")}
 }}
@@ -35,11 +36,11 @@
     hasErrors = form.hasErrors
 ) {
 
-    @if(form.errors.nonEmpty) {
+    @if(form.hasErrors) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    @assessmentHeading(address, localAuthorityRef)
+    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
     <h2 id="caption-add-property" class="govuk-caption-l" >@messages("caption.add.property")</h2>
 
@@ -58,11 +59,13 @@
                         items = Seq(
                             RadioItem(
                                 content = Text(messages("hasRatesBill.true")),
-                                value = Some("true")
+                                value = Some("true"),
+                                id = Some ("radio-true")
                             ),
                             RadioItem(
                                 content = Text(messages("hasRatesBill.false")),
-                                value = Some("false")
+                                value = Some("false"),
+                                id = Some ("radio-true")
                             )
                         ),
                     ).withFormField(form("hasRatesBill")))
