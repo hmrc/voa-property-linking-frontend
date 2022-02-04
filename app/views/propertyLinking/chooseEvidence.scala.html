@@ -56,6 +56,7 @@
                         )),
                         hint = Some(Hint(Some(messages("label.ratesBill.help")))),
                         name = "hasRatesBill",
+                        attributes =Map("id" -> "hasRatesBill"),
                         items = Seq(
                             RadioItem(
                                 content = Text(messages("hasRatesBill.true")),
@@ -70,6 +71,9 @@
                         ),
                     ).withFormField(form("hasRatesBill")))
 
-                    @govukButton(Button(content = Text(messages("label.continue"))))
+                    @govukButton(Button(
+                        content = Text(messages("label.continue")),
+                        attributes = Map("id" -> "continue")
+                    ))
                 }
     }
