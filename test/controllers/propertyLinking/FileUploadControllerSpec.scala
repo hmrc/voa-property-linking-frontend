@@ -56,7 +56,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   def controller = new TestFileUploadController(linkingSession)
 
   "RATES_BILL file upload page" should "return valid page" in {
-    when(mockUploadRatesBillView.apply(any(), any(), any(), any())(any(), any(), any()))
+    when(mockUploadRatesBillView.apply(any(), any(),any())(any(), any(), any()))
       .thenReturn(Html("RATES_BILL file upload page"))
 
     val res = controller.show(EvidenceChoices.RATES_BILL, None)(FakeRequest())
@@ -89,7 +89,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "RATES_BILL submit with no files uploaded" should "show error if no files selected" in {
-    when(mockUploadRatesBillView.apply(any(), any(), any(), any())(any(), any(), any()))
+    when(mockUploadRatesBillView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html(""))
 
     val postRequest = fakeRequest.withFormUrlEncodedBody()
