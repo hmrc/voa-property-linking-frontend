@@ -19,9 +19,8 @@ project/.idea
 /.settings
 *.iws
 .sass-cache
-public
 *.DS_Store
 frontend/sass/elements
-.grunt
 .ensime_cache/
 .ensime
+./public/
