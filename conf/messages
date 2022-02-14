@@ -806,13 +806,15 @@ label.toDate.month.client=When was your client''s last day as the owner or occup
 label.toDate.year=When was your last day as the owner or occupier of the property? - Year
 label.toDate.year.client=When was your client''s last day as the owner or occupier of the property? - Year
 #UPLOAD RATES BILL
-uploadRatesBill.show.title=Provide a copy of your business rates bill
-uploadRatesBill.show.client.title=Provide a copy of your client''s business rates bill
+uploadRatesBill.show.title=Upload your business rates bill
+uploadRatesBill.show.client.title=Upload your client''s business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
-uploadFile.allowedTypes.l1=Only Word, Excel, PDF and JPEG files can be accepted and maximum file size is 10MB
+uploadFile.allowedTypes.l1=The file must be a Word doc, Excel sheet, PDF, PNG or JPEG, and be smaller than 10MB.
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Continue
+uploadRatesBill.reminder=The date of the bill must overlap with the period you owned or occupied the property.
+uploadRatesBill.label=Upload a file
 chooseEvidence.title=Do you have a copy of the business rates bill for this property?
 chooseEvidence.client.title=Do you have a copy of your client''s business rate bill for this property?
 hasRatesBill.true=Yes
@@ -864,7 +866,7 @@ uploadEvidence.noEvidence=I’m unable to provide any of these documents.
 uploadEvidence.noEvidence.p1=<p>If you can’t provide one of the documents listed to prove your link to the property, you won’t be able to claim it or view the detailed valuation.</p>
 uploadEvidence.noEvidence.p2=<p>You’ll need to contact us to discuss other documents that prove your link to this property.</p>
 uploadEvidence.noEvidence.p3=<p>Email: <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a></p>
-fileupload.chooseFile=Choose a file to upload
+fileupload.chooseFile=Choose file
 evidenceType.assignment=Assignment
 evidenceType.label=Type of evidence
 evidenceType.lease=Lease
@@ -1476,7 +1478,7 @@ timeout.dialog.title = You are about to be timed out
 
 ##Business rate attachments
 remove.file=Remove file
-error.summary.title=There’s been a problem
+error.summary.title=There is a problem
 error.summary.text=Check the following
 error.businessRatesAttachment.unavailable=The selected file could not be uploaded – try again
 error.upscan.unavailable=The selected file could not be uploaded – try again

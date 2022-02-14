@@ -62,8 +62,7 @@ class UploadController @Inject()(
             uploadRatesBillView(
               session.submissionId,
               errorMessage.toList,
-              session.uploadEvidenceData.attachments.getOrElse(Map.empty),
-              session
+              session.uploadEvidenceData.attachments.getOrElse(Map.empty)
             ))
         case EvidenceChoices.OTHER =>
           Ok(
@@ -125,8 +124,7 @@ class UploadController @Inject()(
                   uploadRatesBillView(
                     request.ses.submissionId,
                     List("error.businessRatesAttachment.ratesBill.not.selected"),
-                    Map(),
-                    session))))
+                    Map()))))
         case EvidenceChoices.OTHER =>
           form
             .bindFromRequest()
