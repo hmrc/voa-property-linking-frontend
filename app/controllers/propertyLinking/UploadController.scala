@@ -93,7 +93,7 @@ class UploadController @Inject()(
           .recover {
             case ex @ UpstreamErrorResponse.WithStatusCode(BAD_REQUEST) =>
               logger.warn(s"Initiate Upload was Bad Request: ${ex.message}")
-              BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
+              BadRequest(Messages("error.businessRatesAttachment.does.not.support.file.types"))
             case ex: Exception =>
               logger.warn("FileAttachmentFailed Exception:", ex)
               InternalServerError("500 INTERNAL_SERVER_ERROR")

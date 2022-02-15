@@ -95,7 +95,7 @@
                 cache: false
             }).fail(function (jqXHR) {
                 if (jqXHR.status === 400) {
-                    addError((jqXHR.responseText).replace(/\"/g, ""));
+                    addError(jqXHR.responseText);
                 } else if (jqXHR.status === 413) {
                     $('#message-warning').addClass('govuk-visually-hidden');
                     addError($('#errorsFileSizeTooLarge').text());
