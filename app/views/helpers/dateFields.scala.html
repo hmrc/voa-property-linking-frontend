@@ -1,0 +1,47 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.Radios
+
+@this(govukDateInput: GovukDateInput)
+
+@(form: Form[_], fieldName: String, isOptional: Boolean = false, hintMessageKey: String = "help.date", label: Option[String] = None)(implicit request: Request[_], messages: Messages)
+
+@dateErrors = @{
+    form.error(s"$fieldName").map(errors => ErrorMessage(content = Text(messages(errors.messages.head))))
+}
+
+<div id=@fieldName>
+
+        @govukDateInput(DateInput(
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                content = Text(messages(s"label.${label.getOrElse(fieldName)}")),
+                isPageHeading = true,
+                classes = "govuk-fieldset__legend--m"
+            ))
+            )),
+            hint = Some(Hint(
+                content = HtmlContent(if(isOptional) { Html(messages("help.date.optionalHelpText")) } else {Html(messages(hintMessageKey)) } )
+            )),
+            id = "dates",
+            items = Seq("day", "month", "year").map {
+                    item =>
+                        InputItem(
+                        id = s"$fieldName.$item",
+                        classes = s"govuk-input--width-${if(item == "year") "4" else "2"} ${if(form.hasErrors) "govuk-input--error"}",
+                        name =  s"$fieldName.$item",
+                        label = Some(messages(s"label.date.$item")),
+                        value = form(s"$fieldName.$item").value
+                        )
+            },
+            errorMessage = dateErrors
+        ))
+
+    </div>

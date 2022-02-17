@@ -149,6 +149,8 @@ GET         /my-organisation/claim/property-links/before-you-start              
 GET         /my-organisation/claim/property-links/property-search                             controllers.propertyLinking.ClaimPropertyRelationshipController.show(clientDetails: Option[ClientDetails] ?= None)
 GET         /my-organisation/claim/property-links/ownership                                   controllers.propertyLinking.ClaimPropertyOwnershipController.showOwnership()
 POST        /my-organisation/claim/property-links/ownership                                   controllers.propertyLinking.ClaimPropertyOwnershipController.submitOwnership()
+GET         /my-organisation/claim/property-links/occupancy                                   controllers.propertyLinking.ClaimPropertyOccupancyController.showOccupancy()
+POST        /my-organisation/claim/property-links/occupancy                                   controllers.propertyLinking.ClaimPropertyOccupancyController.submitOccupancy()
 GET         /my-organisation/claim/property-links/evidence                                    controllers.propertyLinking.ChooseEvidenceController.show()
 POST        /my-organisation/claim/property-links/evidence                                    controllers.propertyLinking.ChooseEvidenceController.submit()
 GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorMessage: Option[String] ?= None)

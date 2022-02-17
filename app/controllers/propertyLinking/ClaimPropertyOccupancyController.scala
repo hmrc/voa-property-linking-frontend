@@ -23,7 +23,6 @@ import config.ApplicationConfig
 import connectors.SubmissionIdConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
-import form.ConditionalDateAfter
 import form.Mappings._
 import models._
 import play.api.Configuration
@@ -44,7 +43,7 @@ import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ClaimPropertyOwnershipController @Inject()(
+class ClaimPropertyOccupancyController @Inject()(
       val errorHandler: CustomErrorHandler,
       val submissionIdConnector: SubmissionIdConnector,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
@@ -53,7 +52,7 @@ class ClaimPropertyOwnershipController @Inject()(
       val propertyLinksConnector: PropertyLinkConnector,
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
       val runModeConfiguration: Configuration,
-      ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty,
+      occupancyOfPropertyView: views.html.propertyLinking.occupancyOfProperty,
       serviceUnavailableView: views.html.errors.serviceUnavailable,
       propertyLinkingService: PropertyLinkingService)(
       implicit executionContext: ExecutionContext,
@@ -62,20 +61,18 @@ class ClaimPropertyOwnershipController @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  import ClaimPropertyOwnership._
+  import ClaimPropertyOccupancyController._
 
-  def showOwnership(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+  def showOccupancy(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     {
-      val form = request.ses.propertyOwnership.fold(ownershipForm) { ownership =>
-        ownershipForm.fillAndValidate(ownership)
+      val form = request.ses.propertyOccupancy.fold(occupancyForm) { ownership =>
+        occupancyForm.fillAndValidate(ownership)
       }
       propertyLinkingService.findEarliestStartDate(request.ses.uarn).flatMap {
         case Some(date) if date.isAfter(LocalDate.now()) =>
           businessRatesAttachmentService
             .persistSessionData(request.ses.copy(
-              propertyOwnership = Some(PropertyOwnership(interestedBefore2017 = false, fromDate = Some(date))),
-              propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))
-            ))
+              propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))))
             .map { _ =>
               Redirect(routes.ChooseEvidenceController.show())
             }
@@ -84,32 +81,32 @@ class ClaimPropertyOwnershipController @Inject()(
                 ServiceUnavailable(serviceUnavailableView())
             }
         case _ =>
-          Future.successful(Ok(ownershipToPropertyView(
-            ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
+          Future.successful(Ok(occupancyOfPropertyView(
+            ClaimPropertyOccupancyVM(form, request.ses.address, request.ses.uarn),
             request.ses.clientDetails,
-            controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
+            controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url
           )))
       }
     }
 
   }
 
-  def submitOwnership(): Action[AnyContent] =
+  def submitOccupancy(): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-      ownershipForm
+      occupancyForm
         .bindFromRequest()
         .fold(
           errors =>
-            Future.successful(BadRequest(ownershipToPropertyView(
-              ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.uarn),
+            Future.successful(BadRequest(occupancyOfPropertyView(
+              ClaimPropertyOccupancyVM(errors, request.ses.address, request.ses.uarn),
               request.ses.clientDetails,
-              controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
+              controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url
             ))),
           formData =>
             businessRatesAttachmentService
-              .persistSessionData(request.ses.copy(propertyOwnership = Some(formData)))
+              .persistSessionData(request.ses.copy(propertyOccupancy = Some(formData)))
               .map { _ =>
-                Redirect(routes.ClaimPropertyOccupancyController.showOccupancy())
+                Redirect(routes.ChooseEvidenceController.show())
               }
               .recover {
                 case UpstreamErrorResponse.Upstream5xxResponse(_) =>
@@ -119,15 +116,18 @@ class ClaimPropertyOwnershipController @Inject()(
     }
 }
 
-object ClaimPropertyOwnership {
+object ClaimPropertyOccupancyController {
 
-  lazy val ownershipForm = Form(
+  lazy val occupancyForm = Form(
     mapping(
-      "interestedBefore2017" -> mandatoryBoolean,
-      "fromDate" -> mandatoryIfFalse(
-        "interestedBefore2017",
-        dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now)))
-    )(PropertyOwnership.apply)(PropertyOwnership.unapply))
+      "stillOccupied" -> mandatoryBoolean,
+      "lastOccupiedDate" -> mandatoryIfFalse(
+        "stillOccupied",
+        dmyDate
+          .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
+          .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
+      )
+    )(PropertyOccupancy.apply)(PropertyOccupancy.unapply))
 }
 
-case class ClaimPropertyOwnershipVM(form: Form[_], address: String, uarn: Long)
+case class ClaimPropertyOccupancyVM(form: Form[_], address: String, uarn: Long)

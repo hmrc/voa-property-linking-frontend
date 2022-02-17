@@ -25,6 +25,7 @@ case class LinkingSession(
       personId: Long,
       propertyRelationship: Option[PropertyRelationship],
       propertyOwnership: Option[PropertyOwnership],
+      propertyOccupancy: Option[PropertyOccupancy],
       hasRatesBill: Option[Boolean],
       uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty,
       evidenceType: Option[EvidenceType] = None,
