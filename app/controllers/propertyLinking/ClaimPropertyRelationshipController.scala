@@ -88,9 +88,10 @@ class ClaimPropertyRelationshipController @Inject()(
       vmvConnector.getPropertyHistory(uarn).map { property =>
         Ok(
           relationshipToPropertyView(
-            ClaimPropertyRelationshipVM(relationshipForm, property.addressFull, uarn),
+            ClaimPropertyRelationshipVM(relationshipForm, property.addressFull, uarn, property.localAuthorityReference),
             clientDetails = clientDetails,
-            backLink(request)))
+            backLink(request)
+          ))
       }
     }
 
@@ -108,7 +109,7 @@ class ClaimPropertyRelationshipController @Inject()(
             vmvConnector.getPropertyHistory(uarn).map { property =>
               BadRequest(
                 relationshipToPropertyView(
-                  ClaimPropertyRelationshipVM(errors, property.addressFull, uarn),
+                  ClaimPropertyRelationshipVM(errors, property.addressFull, uarn, property.localAuthorityReference),
                   clientDetails,
                   backLink(request)))
           },
@@ -132,7 +133,7 @@ class ClaimPropertyRelationshipController @Inject()(
     }
     Ok(
       relationshipToPropertyView(
-        ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn),
+        ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn, request.ses.localAuthorityReference),
         request.ses.clientDetails,
         backLink(request)
       ))
@@ -169,4 +170,4 @@ object ClaimPropertyRelationship {
     )(PropertyRelationship.apply)(PropertyRelationship.unapply))
 }
 
-case class ClaimPropertyRelationshipVM(form: Form[_], address: String, uarn: Long)
+case class ClaimPropertyRelationshipVM(form: Form[_], address: String, uarn: Long, localAuthorityReference: String)
