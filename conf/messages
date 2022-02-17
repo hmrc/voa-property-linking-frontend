@@ -1420,8 +1420,6 @@ enrolment.mobphone = Mobile number
 enrolment.phone = Telephone number
 enrolment.confirmedEmail = Confirm email address
 enrolment.email = Email address
-enrolment.firstName = First name
-enrolment.lastName = Last name
 enrolment.address1 = Address line 1
 enrolment.address2 = Address line 2
 enrolment.address3 = Address line 3
@@ -1438,6 +1436,19 @@ enrolment.organisation.individualOrCompany = Do you want to register as an agent
 enrolment.yes = Yes
 enrolment.no = No
 enrolment.businessName = Business name
+
+enrolment.name.title = Confirm your name
+enrolment.firstName = First name
+enrolment.lastName = Last name
+enrolment.continue = Continue
+
+enrolment.personalDetails.title = What are your personal details?
+enrolment.personalDetails.contactDetails.h2 = Contact details
+enrolment.personalDetails.email = Email address
+enrolment.personalDetails.phone = Telephone number
+enrolment.personalDetails.mobilePhone = Mobile telephone number
+enrolment.personalDetails.tradingName = Trading name (optional)
+
 
 
 before.you.start.title=Claim a property

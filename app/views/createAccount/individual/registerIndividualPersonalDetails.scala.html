@@ -1,0 +1,69 @@
+@import config.ApplicationConfig
+@import views.html.mainLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import helpers._
+@import models.registration.IndividualPersonalDetails
+
+
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
+
+@(form: Form[IndividualPersonalDetails])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+
+@mainLayout(
+    pageTitle = messages("enrolment.personalDetails.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    hasErrors = form.hasErrors
+
+){
+    @formErrorSummary(form)(govukErrorSummary)
+
+    <h2 class="govuk-heading-l">@messages("enrolment.personalDetails.title")</h2>
+
+    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitIndividualPersonalDetails()){
+
+        @address(
+            form = form,
+            fieldName = "address"
+        )(govukInput, govukButton)
+
+        <h2 class="govuk-heading-m">@messages("enrolment.personalDetails.contactDetails.h2")</h2>
+
+        @govukInput(Input(
+            id = "email",
+            name = "email",
+            label = Label(content=Text(messages("enrolment.personalDetails.email"))),
+            errorMessage = form("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
+
+        @govukInput(Input(
+            id = "phone",
+            name = "phone",
+            label = Label(content=Text(messages("enrolment.personalDetails.phone"))),
+            errorMessage = form("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
+
+        @govukInput(Input(
+            id = "mobilePhone",
+            name = "mobilePhone",
+            label = Label(content=Text(messages("enrolment.personalDetails.mobilePhone"))),
+            errorMessage = form("mobilePhone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
+
+        @govukInput(Input(
+            id = "tradingName",
+            name = "tradingName",
+            label = Label(content=Text(messages("enrolment.personalDetails.tradingName"))),
+            errorMessage = form("tradingName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
+
+        @govukButton(Button(
+            content = Text(messages("govGateway.button")),
+            attributes = Map("id" -> "submit")
+        ))
+    }
+}

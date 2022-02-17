@@ -26,6 +26,7 @@ import connectors.{Addresses, GroupAccounts, IndividualAccounts}
 import controllers.PropertyLinkingController
 import models.registration.UserDetails._
 import models.registration._
+import models.registration.IndividualName
 import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -55,9 +56,14 @@ class RegistrationController @Inject()(
       registerAssistantAdminView: createAccount.registerAssistantAdmin,
       registerAssistantView: createAccount.registerAssistant,
       registerConfirmationView: createAccount.registrationConfirmation,
+      registerIndividualNameView: createAccount.individual.registerIndividualName,
+      registerIndividualPersonalDetailsView: createAccount.individual.registerIndividualPersonalDetails,
+      registerIndividualDOBView: createAccount.individual.registerIndividualDOB,
+      registerOrganisationNameView: createAccount.organisation.registerOrganisationName,
       confirmationView: createAccount.confirmation,
-      @Named("personSession") val personalDetailsSessionRepo: SessionRepo
-)(
+      @Named("personSession") val personalDetailsSessionRepo: SessionRepo,
+      @Named("registrationDetails") val registrationDetailsSessionRepo: SessionRepo
+                                      )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -75,7 +81,9 @@ class RegistrationController @Inject()(
               case None                                                     => FieldData(user)
               case Some(sessionPersonDetails: IndividualUserAccountDetails) => FieldData(sessionPersonDetails)
             }
-            Future.successful(Ok(registerIndividualView(AdminUser.individual, fieldData)))
+            if (config.newRegistrationJourneyEnabled) {
+              Future.successful(Ok(registerIndividualNameView(IndividualName.individualNameForm)))
+            } else Future.successful(Ok(registerIndividualView(AdminUser.individual, fieldData)))
           case user @ OrganisationUserDetails() =>
             orgShow(user, request.sessionPersonDetails)
           case _ @AgentUserDetails() =>
@@ -86,15 +94,28 @@ class RegistrationController @Inject()(
   }
 
   def submitIndividual(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
-    AdminUser.individual
-      .bindFromRequest()
-      .fold(
-        errors => Future.successful(BadRequest(registerIndividualView(errors, FieldData()))),
-        (success: IndividualUserAccountDetails) =>
-          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
-            identityVerificationIfRequired(request)
-        }
-      )
+    if(config.newRegistrationJourneyEnabled) {
+      IndividualName.individualNameForm
+        .bindFromRequest
+        .fold(
+          errors => Future.successful(BadRequest(registerIndividualNameView(errors))),
+          (successfulFormIndividualName: IndividualName) =>
+           {
+             registrationDetailsSessionRepo.start(successfulFormIndividualName)
+             Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualPersonalDetails()))
+           }
+        )
+    } else {
+      AdminUser.individual
+        .bindFromRequest()
+        .fold(
+          errors => Future.successful(BadRequest(registerIndividualView(errors, FieldData()))),
+          (success: IndividualUserAccountDetails) =>
+            personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
+              identityVerificationIfRequired(request)
+            }
+        )
+    }
   }
 
   def submitOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
@@ -107,6 +128,29 @@ class RegistrationController @Inject()(
             identityVerificationIfRequired(request)
         }
       )
+  }
+
+  def showIndividualPersonalDetails(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    Future.successful(Ok(registerIndividualPersonalDetailsView(IndividualPersonalDetails.individualPersonalDetailsForm)))
+  }
+
+  def submitIndividualPersonalDetails(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    IndividualPersonalDetails.individualPersonalDetailsForm
+      .bindFromRequest()
+      .fold(
+        errors => Future.successful(BadRequest(registerIndividualPersonalDetailsView(errors))),
+        (successfulFormIndividualPersonalDetails: IndividualPersonalDetails) =>
+          {
+            registrationDetailsSessionRepo.saveOrUpdate(successfulFormIndividualPersonalDetails)
+            Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualDOB()))
+          }
+      )
+
+  }
+
+  def showIndividualDOB(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    Future.successful(Ok(registerIndividualDOBView()))
+
   }
 
   def submitAdminToExistingOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
@@ -234,8 +278,9 @@ class RegistrationController @Inject()(
               case None                                       => FieldData(userDetails)
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
-
-            Ok(registerOrganisationView(AdminUser.organisation, data))
+            if(config.newRegistrationJourneyEnabled){
+              Ok(registerOrganisationNameView(IndividualName.individualNameForm))
+            } else Ok(registerOrganisationView(AdminUser.organisation, data))
         }
     }
 

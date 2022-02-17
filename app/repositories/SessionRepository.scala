@@ -37,6 +37,11 @@ class PersonalDetailsSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
     extends SessionRepository("personDetails", mongo)
 
 @Singleton
+class RegistrationDetailsSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
+  implicit executionContext: ExecutionContext)
+  extends SessionRepository("registrationDetails", mongo)
+
+@Singleton
 class PropertyLinkingSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
       implicit executionContext: ExecutionContext)
     extends SessionRepository("propertyLinking", mongo)

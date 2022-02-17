@@ -1,0 +1,48 @@
+@import config.ApplicationConfig
+@import views.html.mainLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import helpers._
+@import models.registration.IndividualName
+
+
+@this(mainLayout: mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
+
+@(form: Form[IndividualName])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+
+@mainLayout(
+    pageTitle = messages("enrolment.name.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    hasErrors = form.hasErrors
+){
+    @formErrorSummary(form)(govukErrorSummary)
+
+    <h2 class="govuk-heading-l">@messages("enrolment.name.title")</h2>
+    <h2 class="govuk-heading-l">ORG/AGENT JOURNEY</h2>
+
+    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisation()){
+
+        @govukInput(Input(
+            id = "firstName",
+            name = "firstName",
+            label = Label(
+                classes = "govuk-label--m",
+                content = Text(messages("enrolment.firstName"))
+            )
+        ))
+
+        @govukInput(Input(
+            id = "lastName",
+            name = "lastName",
+            label = Label(
+                classes = "govuk-label--m",
+                content = Text(messages("enrolment.lastName"))
+            )
+        ))
+
+        @govukButton(Button(
+            content = Text(messages("enrolment.continue")),
+            attributes = Map("id" -> "continue")
+        ))
+    }
+}
