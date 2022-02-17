@@ -19,16 +19,17 @@
 @import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
 @import models.upscan._
+@import views.html.includes.assessmentHeading
+@import actions.propertylinking.requests.LinkingSessionRequest
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(
         submissionId: String,
         errors: List[String] = Nil,
-        uploadedFiles: Map[String, UploadedFileDetails] = Map(),
-        linkingSession: LinkingSession
-)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+        uploadedFiles: Map[String, UploadedFileDetails] = Map()
+)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@title = @{linkingSession.clientDetails.map(_.organisationId) match {
+@title = @{request.ses.clientDetails.map(_.organisationId) match {
     case Some(id)   => {messages("uploadRatesBill.show.client.title")}
     case _          => {messages("uploadRatesBill.show.title")}
 }}
@@ -53,13 +54,17 @@
         </div>
     }
     <div id="errorsList"></div>
+
+    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
+
+    <h2 id="caption-add-property" class="govuk-caption-l" >@messages("caption.add.property")</h2>
+
     <h1 class="govuk-heading-l">@title</h1>
-    <h3 class="govuk-heading-s">@messages("uploadFile.allowedTypes.mustbe")</h3>
 
-    <ul class="govuk-list govuk-list--bullet">
-        <li id="fileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
-    </ul>
-
+    @govukWarningText(WarningText(
+        iconFallbackText = "Warning",
+        content = Text(messages("uploadRatesBill.reminder"))
+    ))
 
     @formWithCSRF(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
                     <div class="govuk-visually-hidden" id="initiateFields"></div>
@@ -77,7 +82,12 @@
                     }
                     </span>
                 }
-                <a id="newFileButton" href="#" class="govuk-button govuk-button--secondary">@messages("fileupload.chooseFile")</a>
+                <div class="govuk-form-group">
+                    <label class="govuk-label--m" for="newFileButton">@messages("uploadRatesBill.label")
+                    <span id="fileTypesText" class="govuk-hint">@messages("uploadFile.allowedTypes.l1")</span>
+                    </label>
+                    <input id="newFileButton" class="govuk-file-upload" name="file-upload-1" type="file">
+                </div>
             </div>
         }else{
             @govukWarningText(WarningText(
@@ -118,7 +128,7 @@
     <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
     <span id="errorsBusinessRatesAttachmentUnavailable" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.unavailable")</span>
     <span id="signInPageUrl" class="govuk-visually-hidden">@{config.basGatewaySignInUrl}</span>
-    <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimPropertyRelationshipController.submitRelationship(linkingSession.uarn)}</span>
+    <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimPropertyRelationshipController.submitRelationship(request.ses.uarn)}</span>
     <span id="submissionId" class="govuk-visually-hidden">@submissionId</span>
 
     }

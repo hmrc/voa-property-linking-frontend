@@ -62,8 +62,7 @@ class UploadController @Inject()(
             uploadRatesBillView(
               session.submissionId,
               errorMessage.toList,
-              session.uploadEvidenceData.attachments.getOrElse(Map.empty),
-              session
+              session.uploadEvidenceData.attachments.getOrElse(Map.empty)
             ))
         case EvidenceChoices.OTHER =>
           Ok(
@@ -94,7 +93,7 @@ class UploadController @Inject()(
           .recover {
             case ex @ UpstreamErrorResponse.WithStatusCode(BAD_REQUEST) =>
               logger.warn(s"Initiate Upload was Bad Request: ${ex.message}")
-              BadRequest(Json.toJson(Messages("error.businessRatesAttachment.does.not.support.file.types")))
+              BadRequest(Messages("error.businessRatesAttachment.does.not.support.file.types"))
             case ex: Exception =>
               logger.warn("FileAttachmentFailed Exception:", ex)
               InternalServerError("500 INTERNAL_SERVER_ERROR")
@@ -125,8 +124,7 @@ class UploadController @Inject()(
                   uploadRatesBillView(
                     request.ses.submissionId,
                     List("error.businessRatesAttachment.ratesBill.not.selected"),
-                    Map(),
-                    session))))
+                    Map()))))
         case EvidenceChoices.OTHER =>
           form
             .bindFromRequest()
