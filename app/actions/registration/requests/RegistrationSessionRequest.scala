@@ -18,18 +18,15 @@ package actions.registration.requests
 
 import actions.requests.CcaWrappedRequest
 import models.propertyrepresentation._
-import models.registration.RegistrationSession
+import models.registration.{RegistrationSession, UserDetails}
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.mvc.{Request, WrappedRequest}
 
 case class RegistrationSessionRequest[A](
-                                         sessionData: RegistrationSession,
-                                         individualAccount: DetailedIndividualAccount,
-                                         groupAccount: GroupAccount,
-                                         request: Request[A]
+                                          sessionData: RegistrationSession,
+                                          userDetaails: UserDetails,
+                                          request: Request[A]
                                        ) extends WrappedRequest[A](request) with CcaWrappedRequest {
 
-  override def optAccounts = Some(Accounts(organisation = groupAccount, person = individualAccount))
-
-  def organisationId = groupAccount.id
+  override def optAccounts = None
 }

@@ -51,6 +51,13 @@ object RegistrationSession {
       lastName = individualName.lastName
     )
 
+  def apply(firstName: String,lastName: String, individualPersonalDetails: IndividualPersonalDetails): RegistrationSession =
+    RegistrationSession(
+      firstName = firstName,
+      lastName = lastName,
+      address = Some(individualPersonalDetails.address) ...
+    )
+
 }
 
 

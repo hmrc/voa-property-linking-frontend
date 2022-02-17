@@ -132,18 +132,22 @@ class RegistrationController @Inject()(
       )
   }
 
-  def showIndividualPersonalDetails(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+  def showIndividualPersonalDetails(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
     Future.successful(Ok(registerIndividualPersonalDetailsView(IndividualPersonalDetails.individualPersonalDetailsForm)))
   }
 
-  def submitIndividualPersonalDetails(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+  def submitIndividualPersonalDetails(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
     IndividualPersonalDetails.individualPersonalDetailsForm
       .bindFromRequest()
       .fold(
         errors => Future.successful(BadRequest(registerIndividualPersonalDetailsView(errors))),
         (successfulFormIndividualPersonalDetails: IndividualPersonalDetails) =>
           {
-            registrationDetailsSessionRepo.saveOrUpdate(successfulFormIndividualPersonalDetails)
+//            val session: RegistrationSession = request.sessionData.copy(address = Some(successfulFormIndividualPersonalDetails.address), tradingName = ndfvhs)
+//
+//            registrationDetailsSessionRepo.saveOrUpdate(session)
+
+            registrationDetailsSessionRepo.saveOrUpdate(RegistrationSession(request.sessionData.firstName,request.sessionData.lastName, successfulFormIndividualPersonalDetails))
             Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualDOB()))
           }
       )

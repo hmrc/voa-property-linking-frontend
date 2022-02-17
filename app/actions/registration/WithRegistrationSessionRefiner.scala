@@ -16,7 +16,7 @@
 
 package actions.registration
 
-import actions.registration.requests.RegistrationSessionRequest
+import actions.registration.requests.{RegistrationSessionRequest, RequestWithUserDetails}
 import actions.requests.BasicAuthenticatedRequest
 import javax.inject.{Inject, Named}
 import models.registration.RegistrationSession
@@ -34,16 +34,16 @@ class WithRegistrationSessionRefiner @Inject()(
                                                 errorHandler: CustomErrorHandler,
                                                 @Named("registrationDetails") val sessionRepository: SessionRepo
                                               )(implicit override val executionContext: ExecutionContext)
-  extends ActionRefiner[BasicAuthenticatedRequest, RegistrationSessionRequest] {
+  extends ActionRefiner[RequestWithUserDetails, RegistrationSessionRequest] {
 
-  implicit def hc(implicit request: BasicAuthenticatedRequest[_]): HeaderCarrier =
+  implicit def hc(implicit request: RequestWithUserDetails[_]): HeaderCarrier =
     HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
   override protected def refine[A](
-                                    request: BasicAuthenticatedRequest[A]): Future[Either[Result, RegistrationSessionRequest[A]]] =
+                                    request: RequestWithUserDetails[A]): Future[Either[Result, RegistrationSessionRequest[A]]] =
     sessionRepository.get[RegistrationSession](implicitly[Reads[RegistrationSession]], hc(request)).map {
       case Some(s) =>
-        Right(RegistrationSessionRequest(s, request.individualAccount, request.organisationAccount, request))
+        Right(RegistrationSessionRequest(sessionData = s, userDetaails = request.userDetails, request = request))
       case None => Left(NotFound(errorHandler.notFoundTemplate(request)))
     }
 }
