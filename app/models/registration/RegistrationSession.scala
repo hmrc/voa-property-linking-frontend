@@ -28,17 +28,28 @@ import utils.EmailAddressValidation
 import java.time.LocalDate
 
 
-sealed trait RegistrationSession {
-  val firstName:      String
-  val lastName:       String
-  val address:        Option[Address]
-  val dob:            Option[LocalDate]
-  val nino:           Option[Nino]
-  val phone:          Option[String]
-  val mobilePhone:    Option[String]
-  val tradingName:    Option[String]
-  val email:          Option[String]
-  val confirmedEmail: Option[String]
+case class RegistrationSession (
+                                 firstName:      String,
+                                 lastName:       String,
+                                 address:        Option[Address] = None,
+                                 dob:            Option[LocalDate] = None,
+                                 nino:           Option[Nino] = None,
+                                 phone:          Option[String] = None,
+                                 mobilePhone:    Option[String] = None,
+                                 tradingName:    Option[String] = None,
+                                 email:          Option[String] = None,
+                                 confirmedEmail: Option[String] = None
+                               )
+
+object RegistrationSession {
+
+  implicit val format = Json.format[RegistrationSession]
+
+  def apply(individualName: IndividualName): RegistrationSession =
+    RegistrationSession(
+      firstName = individualName.firstName,
+      lastName = individualName.lastName
+    )
 
 }
 
