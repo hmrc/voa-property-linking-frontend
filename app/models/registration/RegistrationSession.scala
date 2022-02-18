@@ -18,7 +18,7 @@ package models.registration
 
 import form.Mappings._
 import models.domain.Nino
-import models.registration.AdminUser.phoneNumberRegex
+import models.registration.AdminUser.{individual, phoneNumberRegex}
 import models.{Address, IVDetails, IndividualAccountSubmission, IndividualDetails, email => _}
 import play.api.libs.json._
 import play.api.data.Form
@@ -37,8 +37,7 @@ case class RegistrationSession (
                                  phone:          Option[String] = None,
                                  mobilePhone:    Option[String] = None,
                                  tradingName:    Option[String] = None,
-                                 email:          Option[String] = None,
-                                 confirmedEmail: Option[String] = None
+                                 email:          Option[String] = None
                                )
 
 object RegistrationSession {
@@ -55,7 +54,11 @@ object RegistrationSession {
     RegistrationSession(
       firstName = firstName,
       lastName = lastName,
-      address = Some(individualPersonalDetails.address) ...
+      address = Some(individualPersonalDetails.address),
+      email = Some(individualPersonalDetails.email),
+      phone = Some(individualPersonalDetails.phone),
+      mobilePhone = Some(individualPersonalDetails.mobilePhone),
+      tradingName = Some(individualPersonalDetails.tradingName.getOrElse(""))
     )
 
 }

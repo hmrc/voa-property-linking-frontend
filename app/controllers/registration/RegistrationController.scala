@@ -95,30 +95,31 @@ class RegistrationController @Inject()(
     }
   }
 
-  def submitIndividualOld(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
-    AdminUser.individual
-      .bindFromRequest()
-      .fold(
-        errors => Future.successful(BadRequest(registerIndividualView(errors, FieldData()))),
-        (success: IndividualUserAccountDetails) =>
-          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
-            identityVerificationIfRequired(request)
-          }
-      )
-  }
 
-  def submitIndividual(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
-      IndividualName.individualNameForm
-        .bindFromRequest
+  def submitIndividual(): Action[AnyContent] =
+    if (config.newRegistrationJourneyEnabled) {
+      (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
+        IndividualName.individualNameForm
+          .bindFromRequest
+          .fold(
+            errors => Future.successful(BadRequest(registerIndividualNameView(errors))),
+            (successfulFormIndividualName: IndividualName) => {
+              registrationDetailsSessionRepo.start(RegistrationSession(successfulFormIndividualName))
+              Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualPersonalDetails()))
+            }
+          )
+      }
+    } else ggAuthenticated.async { implicit request =>
+      AdminUser.individual
+        .bindFromRequest()
         .fold(
-          errors => Future.successful(BadRequest(registerIndividualNameView(errors))),
-          (successfulFormIndividualName: IndividualName) =>
-           {
-             registrationDetailsSessionRepo.start(RegistrationSession(successfulFormIndividualName))
-             Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualPersonalDetails()))
-           }
+          errors => Future.successful(BadRequest(registerIndividualView(errors, FieldData()))),
+          (success: IndividualUserAccountDetails) =>
+            personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
+              identityVerificationIfRequired(request)
+            }
         )
-  }
+    }
 
   def submitOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
     AdminUser.organisation
@@ -143,10 +144,6 @@ class RegistrationController @Inject()(
         errors => Future.successful(BadRequest(registerIndividualPersonalDetailsView(errors))),
         (successfulFormIndividualPersonalDetails: IndividualPersonalDetails) =>
           {
-//            val session: RegistrationSession = request.sessionData.copy(address = Some(successfulFormIndividualPersonalDetails.address), tradingName = ndfvhs)
-//
-//            registrationDetailsSessionRepo.saveOrUpdate(session)
-
             registrationDetailsSessionRepo.saveOrUpdate(RegistrationSession(request.sessionData.firstName,request.sessionData.lastName, successfulFormIndividualPersonalDetails))
             Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualDOB()))
           }
