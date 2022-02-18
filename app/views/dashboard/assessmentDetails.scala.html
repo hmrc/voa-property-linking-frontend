@@ -1,18 +1,18 @@
 @*
- * Copyright 2021 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *@
+* Copyright 2021 HM Revenue & Customs
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*@
 
 @import actions.requests.AuthenticatedRequest
 @import actions.assessments.request.AssessmentsPageSessionRequest
@@ -57,32 +57,46 @@
                     </tr>
 
                     @list.map {  case (url, assessment) =>
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell">
-                                @assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")
-                            </td>
-                            @assessment.rateableValue match {
-                                case Some(rv) => {
-                                    <td class="govuk-table__cell">£@rv</td>
-                                }
-                                case None => {
-                                    <td class="govuk-table__cell">@messages("assessments.na")</td>
-                                }
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">
+                            @assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")
+                        </td>
+                        @assessment.rateableValue match {
+                            case Some(rv) => {
+                                <td class="govuk-table__cell">£@rv</td>
                             }
-                            @model.capacity match {
-                                case Some(cap) => {
-                                    <td class="govuk-table__cell">@messages(s"capacity.${cap}")</td>
-                                }
-                                case None => {
-                                    <td class="govuk-table__cell"></td>
-                                }
+                            case None => {
+                                <td class="govuk-table__cell">@messages("assessments.na")</td>
                             }
+                        }
+                        @model.capacity match {
+                            case Some(cap) => {
+                                <td class="govuk-table__cell">@messages(s"capacity.${cap}")</td>
+                            }
+                            case None => {
+                                <td class="govuk-table__cell"></td>
+                            }
+                        }
 
-                            <td class="govuk-table__cell">
-                                @assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
-                            </td>
-                            <td class="govuk-table__cell">
-                                @{
+                        <td class="govuk-table__cell">
+                        @assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
+                        </td>
+                        <td class="govuk-table__cell">
+                        @{
+                            if(!isDraft){
+                                (assessment.currentFromDate, assessment.currentToDate) match {
+                                    case (None, None)        => ""
+                                    case (Some(_), None)     => Messages("assessments.enddate.present")
+                                    case (Some(_), Some(to)) => Formatters.formatDate(to)
+                                    case (None, Some(to))    => ""
+                                }
+                            }
+                        }
+                        </td>
+                        <td class="govuk-table__cell">
+                        @assessment.rateableValue match {
+                            case Some(rv) => {
+                                <a class="govuk-link" aria-label="Select this valuation - @if(assessment.currentToDate.nonEmpty){Historic} else { @assessment.listType.toString.capitalize} from @assessment.currentFromDate.map(Formatters.formatDate).getOrElse("") to @{
                                     if(!isDraft){
                                         (assessment.currentFromDate, assessment.currentToDate) match {
                                             case (None, None)        => ""
@@ -91,19 +105,15 @@
                                             case (None, Some(to))    => ""
                                         }
                                     }
-                                }
-                            </td>
-                            <td class="govuk-table__cell">
-                                @assessment.rateableValue match {
-                                    case Some(rv) => {
-                                        <a class="govuk-link" id="viewAssessmentRadio-@assessment.assessmentRef" href="@url">@messages("assessments.historic.select")</a>
-                                    }
-                                    case None => {
-                                        @messages("assessments.na")
-                                    }
-                                }
-                            </td>
-                        </tr>
+                                }"
+                                id="viewAssessmentRadio-@assessment.assessmentRef" href="@url">@messages("assessments.historic.select")</a>
+                            }
+                            case None => {
+                                @messages("assessments.na")
+                            }
+                        }
+                    </td>
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -120,13 +130,13 @@
 <div id="details-content-valuations" class="govuk-body">
 
     @if(model.currentAssessments.nonEmpty){
-    <h2 class="govuk-heading-m">@messages("assessments.current.title")</h2>
+        <h2 class="govuk-heading-m">@messages("assessments.current.title")</h2>
         @table(model.currentAssessments, "currentAssessments")
         @if(model.currentAssessments.filter(a => a._2.rateableValue.isEmpty).nonEmpty){
             @govukDetails(
                 Details(
-                summary = Text(messages("rv.na")),
-                content = HtmlContent(noRateableValueContent) ))
+                    summary = Text(messages("rv.na")),
+                    content = HtmlContent(noRateableValueContent) ))
         }
     }
 
