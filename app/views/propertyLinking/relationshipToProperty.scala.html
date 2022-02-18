@@ -94,7 +94,6 @@
             name = "capacity",
             items = CapacityType.options.map { item =>
                 RadioItem(
-                    id = Some (s"relationship-${item.toLowerCase()}"),
                     value = Some(item),
                     content = Text(messages(s"capacity.$item")),
                     checked = form.data.get("capacity").fold(false)(_ == item)
