@@ -18,8 +18,7 @@ package controllers.registration
 
 import actions.AuthenticatedAction
 import actions.registration.requests.RequestWithUserDetails
-import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
-import actions.registration.WithRegistrationSessionRefiner
+import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction, WithRegistrationSessionRefiner}
 import cats.data.OptionT
 import cats.implicits._
 import config.ApplicationConfig
@@ -39,6 +38,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import views.html._
 import javax.inject.{Inject, Named}
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController @Inject()(
@@ -95,21 +95,7 @@ class RegistrationController @Inject()(
     }
   }
 
-
-  def submitIndividual(): Action[AnyContent] =
-    if (config.newRegistrationJourneyEnabled) {
-      (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
-        IndividualName.individualNameForm
-          .bindFromRequest
-          .fold(
-            errors => Future.successful(BadRequest(registerIndividualNameView(errors))),
-            (successfulFormIndividualName: IndividualName) => {
-              registrationDetailsSessionRepo.start(RegistrationSession(successfulFormIndividualName))
-              Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualPersonalDetails()))
-            }
-          )
-      }
-    } else ggAuthenticated.async { implicit request =>
+  def submitIndividualOld(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
       AdminUser.individual
         .bindFromRequest()
         .fold(
@@ -119,7 +105,20 @@ class RegistrationController @Inject()(
               identityVerificationIfRequired(request)
             }
         )
-    }
+  }
+
+  def submitIndividual(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+      IndividualName.individualNameForm
+        .bindFromRequest
+        .fold(
+          errors => Future.successful(BadRequest(registerIndividualNameView(errors))),
+          (successfulFormIndividualName: IndividualName) =>
+           {
+             registrationDetailsSessionRepo.start(RegistrationSession(successfulFormIndividualName))
+             Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualPersonalDetails()))
+           }
+        )
+  }
 
   def submitOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
     AdminUser.organisation
@@ -134,6 +133,7 @@ class RegistrationController @Inject()(
   }
 
   def showIndividualPersonalDetails(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
+  println("name >>>>>>>>>>>> "+request.sessionData.firstName)
     Future.successful(Ok(registerIndividualPersonalDetailsView(IndividualPersonalDetails.individualPersonalDetailsForm)))
   }
 

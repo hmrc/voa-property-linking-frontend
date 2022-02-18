@@ -52,7 +52,7 @@
 
             <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
 
-            @formWithCSRF(controllers.registration.routes.RegistrationController.submitIndividual()) {
+            @formWithCSRF(controllers.registration.routes.RegistrationController.submitIndividualOld()) {
 
             @govukInput(Input(
                 id = "firstName",
