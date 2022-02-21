@@ -15,6 +15,7 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyRelationshipVM
 @import views.html.includes.assessmentHeading
@@ -22,21 +23,17 @@
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(model: ClaimPropertyRelationshipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-@clientId = @{clientDetails.map(_.organisationId)}
+
 @form = @{model.form}
+
+@clientId = @{clientDetails.map(_.organisationId)}
+
 @clientSuffix = @{
     clientId match {
         case Some(id) =>  ".client"
         case _        => ""
     }
 }
-@clientParameter = @{
-    clientDetails  match {
-        case Some(client) => s"?organisationId=${client.organisationId}&organisationName=${client.organisationName}"
-        case _        => ""
-    }
-}
-
 
 @getEnrichedErrorLinks = @{
     form.errors.map{ error =>
@@ -44,30 +41,15 @@
             content = HtmlContent(s"${messages(s"label.${error.key}$clientSuffix")} - ${messages(error.message)}") )}
 }
 
-@getFiledErrorMessage(field: String) = @{
-    form.error(field).map{ error =>
-        ErrorMessage(content = Text(messages(error.message)))
-    }
-}
-
-@getDateFiledErrorMessage = @{
-    (form.error("fromDate.day"), form.error("fromDate.month"), form.error("fromDate.year")) match
-    {
-        case (None, None, None ) => None
-        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
-    }
-}
-
-
 @mainLayout(
     pageTitle = messages("declarePropertyRelationship.title"),
     backUri = Some(backLink),
-    hasErrors = form.hasErrors
-) {
+    hasErrors = form.hasErrors) {
 
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
+
     @assessmentHeading(model.localAuthorityReference, model.address)
 
     <h2 id="caption-add-property" class="govuk-caption-l" >@messages("caption.add.property")</h2>
@@ -90,21 +72,15 @@
                     classes = "govuk-fieldset__legend--m"
                 ))
             )),
-            idPrefix = Some("capacity"),
             name = "capacity",
             items = CapacityType.options.map { item =>
                 RadioItem(
                     value = Some(item),
-                    content = Text(messages(s"capacity.$item")),
-                    checked = form.data.get("capacity").fold(false)(_ == item)
+                    content = Text(messages(s"capacity.$item"))
                 )
-            },
-            errorMessage =  getFiledErrorMessage("capacity"))
+            }).withFormField(form("capacity"))
         )
 
         @govukButton(Button(content = Text(messages("label.continue"))))
-
-
     }
-
 }
