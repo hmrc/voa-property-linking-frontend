@@ -24,9 +24,9 @@
 
 @(model: ClaimPropertyRelationshipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@clientId = @{clientDetails.map(_.organisationId)}
-
 @form = @{model.form}
+
+@clientId = @{clientDetails.map(_.organisationId)}
 
 @clientSuffix = @{
     clientId match {
@@ -35,32 +35,10 @@
     }
 }
 
-@clientParameter = @{
-    clientDetails  match {
-        case Some(client) => s"?organisationId=${client.organisationId}&organisationName=${client.organisationName}"
-        case _        => ""
-    }
-}
-
-
 @getEnrichedErrorLinks = @{
     form.errors.map{ error =>
         ErrorLink(href = Some(s"#${error.key}"),
             content = HtmlContent(s"${messages(s"label.${error.key}$clientSuffix")} - ${messages(error.message)}") )}
-}
-
-@getFiledErrorMessage(field: String) = @{
-    form.error(field).map{ error =>
-        ErrorMessage(content = Text(messages(error.message)))
-    }
-}
-
-@getDateFiledErrorMessage = @{
-    (form.error("fromDate.day"), form.error("fromDate.month"), form.error("fromDate.year")) match
-    {
-        case (None, None, None ) => None
-        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
-    }
 }
 
 @mainLayout(
@@ -100,8 +78,7 @@
                     value = Some(item),
                     content = Text(messages(s"capacity.$item"))
                 )
-            },
-            errorMessage =  getFiledErrorMessage("capacity")).withFormField(form("capacity"))
+            }).withFormField(form("capacity"))
         )
 
         @govukButton(Button(content = Text(messages("label.continue"))))
