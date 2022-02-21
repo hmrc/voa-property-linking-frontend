@@ -438,10 +438,17 @@ assessments.pageTitle=Select a valuation to check
 assessments.paragraph=The rateable value of a property is reassessed by the VOA each time they publish a new business rates valuation list. You may check the facts and the rateable value for each of the published valuations.
 assessments.propertyRemoved=This property is no longer on the rating list
 
+
 assessments.current.title=Current valuation
 assessments.draft.title=Draft new valuation
 assessments.historic.title=Historic valuations
-assessments.historic.select=Select this valuation
+assessments.select.valuation=Select this valuation
+
+assessments.current.text=Current
+assessments.draft.text=Draft
+assessments.historic.text=Historic
+assessments.aria.label.full=Select this valuation - {0} from {1} to {2}
+assessments.aria.label.partial=Select this valuation - {0} from {1}
 
 assessments.na=N/A
 
