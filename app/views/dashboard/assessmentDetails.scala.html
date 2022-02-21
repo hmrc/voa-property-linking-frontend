@@ -53,14 +53,10 @@
 @ariaLabel(assessment: ApiAssessment, tableType: String, isDraft: Boolean) = @{
     val typeText = messages(s"assessments.$tableType.text")
     val fromText = fromDate(assessment)
-    //val endText = endDate(assessment, isDraft).map(ed => s"to $ed").getOrElse("").trim
     endDate(assessment, isDraft)
       .fold(messages("assessments.aria.label.partial", typeText, fromText)) { to =>
         messages("assessments.aria.label.full", typeText, fromText, to)
     }
-
-
-//    s"${messages("assessments.select.valuation")} - $typeText $fromText $endText"
 }
 
 @table(list: Seq[(String, ApiAssessment)], tableType: String, isDraft: Boolean) = {
