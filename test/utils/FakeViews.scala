@@ -19,6 +19,7 @@ package utils
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{mock, when}
 import play.twirl.api.Html
+import uk.gov.hmrc.govukfrontend.views.html.components.{FormWithCSRF, GovukButton, GovukDateInput, GovukDetails, GovukErrorSummary, GovukRadios}
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 import views.html.createAccount.confirmation
 import views.html.dvr.{alreadyRequestedDetailedValuation, cannotRaiseChallenge, dvrFiles, requestDetailedValuation, requestedDetailedValuation}
@@ -26,6 +27,7 @@ import views.html.errors.propertyMissing
 import views.html.propertyrepresentation.appoint.appointAgentSummary
 import views.html.registration._
 import views.html.{addUserToGG, startOldJourney}
+import views.html.helpers._
 
 trait FakeViews extends GdsComponents {
 
@@ -40,7 +42,7 @@ trait FakeViews extends GdsComponents {
     hmrcTrackingConsentSnippet = hmrcTrackingConsentSnippet,
     head = new views.html.head()
   )
-
+  lazy val dateFields = new dateFields(govukDateInput: GovukDateInput)
   lazy val alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout)
   lazy val requestDetailedValuationView = new requestDetailedValuation(mainLayout, govukButton, formWithCSRF)
   lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout)
@@ -153,5 +155,14 @@ trait FakeViews extends GdsComponents {
     new views.html.details.updateName(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val managedByAgentsPropertiesView = new views.html.dashboard.managedByAgentsProperties(mainLayout)
   lazy val termsAndConditionsView = new views.html.createAccount.termsAndConditions(mainLayout)
+  lazy val occupanyOfPropertyPage = new views.html.propertyLinking.occupancyOfProperty(
+    govukErrorSummary: GovukErrorSummary,
+    govukDetails: GovukDetails,
+    govukRadios: GovukRadios,
+    govukButton: GovukButton,
+    dateFields: dateFields,
+    mainLayout: views.html.mainLayout,
+    formWithCSRF: FormWithCSRF
+  )
 
 }

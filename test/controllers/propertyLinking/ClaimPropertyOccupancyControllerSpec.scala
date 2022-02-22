@@ -16,6 +16,8 @@
 
 package controllers.propertyLinking
 
+import java.time.LocalDate
+
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
@@ -28,19 +30,17 @@ import play.twirl.api.Html
 import repositories.SessionRepo
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
+import utils._
 
-import java.time.LocalDate
 import scala.concurrent.Future
 
-class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
+class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
-  private val mockOwnershipToPropertyPage = mock[views.html.propertyLinking.ownershipToProperty]
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  private lazy val testClaimProperty = new ClaimPropertyOwnershipController(
+  private lazy val testClaimProperty = new ClaimPropertyOccupancyController(
     mockCustomErrorHandler,
     StubSubmissionIdConnector,
     mockSessionRepo,
@@ -49,7 +49,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
     propertyLinkingConnector,
     mockBusinessRatesAttachmentService,
     configuration,
-    mockOwnershipToPropertyPage,
+    occupanyOfPropertyPage,
     serviceUnavailableView = new views.html.errors.serviceUnavailable(mainLayout),
     mockPropertyLinkingService
   )
@@ -66,68 +66,73 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val propertyLinkingConnector = mock[PropertyLinkConnector]
 
-  "The claim ownership page with earliest start date in the past" should "return valid page" in {
+  "The claim occupancy page with earliest start date in the past" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("claim ownership page loaded"))
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
-    val res = testClaimProperty.showOwnership()(FakeRequest())
+    val res = testClaimProperty.showOccupancy()(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("claim ownership page loaded")
+    html.verifyElementText("page-header", "Do you still own or occupy the property")
+    html.verifyElementText("caption", "Add a property")
+    html.mustContainRadioSelect("stillOccupied", Seq("true", "false"))
+    html.shouldContainDateSelect("lastOccupiedDate")
 
   }
 
-  "The claim ownership page with earliest start date in the future" should "return redirect to choose evidence page" in {
+  "The claim occupancy page with earliest start date in the future" should "return redirect to choose evidence page" in {
     StubSubmissionIdConnector.stubId(submissionId)
     when(mockBusinessRatesAttachmentService.persistSessionData(any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
-    when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("claim ownership page loaded"))
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
-    val res = testClaimProperty.showOwnership()(FakeRequest())
+    val res = testClaimProperty.showOccupancy()(FakeRequest())
     status(res) shouldBe SEE_OTHER
 
   }
 
-  "The claim ownership page on client behalf" should "return valid page" in {
+  "The claim occupancy page on client behalf" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("claim ownership page on client behalf"))
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
-    val res = testClaimProperty
-      .showOwnership()(FakeRequest())
+    val res = testClaimProperty.showOccupancy()(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("claim ownership page on client behalf")
+    html.verifyElementText("page-header", "Do you still own or occupy the property")
+    html.verifyElementText("caption", "Add a property")
+    html.mustContainRadioSelect("stillOccupied", Seq("true", "false"))
+    html.shouldContainDateSelect("lastOccupiedDate")
 
   }
 
   it should "reject invalid form submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    val res = testClaimProperty.submitOwnership()(FakeRequest())
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
+    val res = testClaimProperty.submitOccupancy()(FakeRequest())
     status(res) shouldBe BAD_REQUEST
   }
 
   it should "redirect to the choose evidence page on valid submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
     when(mockBusinessRatesAttachmentService.persistSessionData(any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
-    val res = testClaimProperty.submitOwnership()(
+    val res = testClaimProperty.submitOccupancy()(
       FakeRequest().withFormUrlEncodedBody(
-        "interestedBefore2017" -> "true",
-        "stillInterested"      -> "true"
+        "stillOccupied"          -> "false",
+        "lastOccupiedDate.day"   -> "23",
+        "lastOccupiedDate.month" -> "4",
+        "lastOccupiedDate.year"  -> "2017"
       ))
     status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(routes.ClaimPropertyOccupancyController.showOccupancy().url)
+    redirectLocation(res) shouldBe Some(routes.ChooseEvidenceController.show().url)
   }
 
 }

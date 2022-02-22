@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,115 +18,41 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
-@import controllers.propertyLinking.ClaimPropertyOccupancyVM
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import views.html.includes.assessmentHeading
+@import utils.FrontendComponentHelper._
 @import helpers._
 @import utils.Formatters
 @import play.api.data._
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukDateInput: GovukDateInput, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
-
-@(model: ClaimPropertyOccupancyVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
-
-@clientId = @{clientDetails.map(_.organisationId)}
-
-@form = @{model.form}
+@(form: Form[_], clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @clientSuffix = @{
-    clientId match {
+    clientDetails.map(_.organisationId) match {
         case Some(id) => { ".client"}
         case _        => {""}
     }
 }
-@clientParameter = @{
-    clientDetails  match {
-        case Some(client) => { s"?organisationId=${client.organisationId}&organisationName=${client.organisationName}"  }
-        case _        => ""
-    }
-}
-
-@toCustomDateFormErrors = @{form.errors.map{ error => error.key match {
-           case "lastOccupiedDate" | "lastOccupiedDate.day" | "lastOccupiedDate.month" | "lastOccupiedDate.year" => FormError("lastOccupiedDate.day", Seq("error.common.invalid.date"))
-           case _ => error
-        }
-    }
-}
-
-@getEnrichedErrorLinks = @{
-    toCustomDateFormErrors.toSet.map{ error: FormError =>
-        ErrorLink(href = Some(s"#${error.key}"),
-            content = HtmlContent(s"${messages(s"label.${error.key}$clientSuffix")} - ${messages(error.message, error.args.map(_.toString) :_*)}") )}
-}
-
-@getFiledErrorMessage(field: String) = @{
-    form.error(field).map{ error =>
-        ErrorMessage(content = Text(messages(error.message)))
-    }
-}
-
-@getLastOccupiedDateFiledErrorMessage = @{
-    (form.error("lastOccupiedDate"), form.error("lastOccupiedDate.day"), form.error("lastOccupiedDate.month"), form.error("lastOccupiedDate.year")) match
-    {
-        case (None, None, None, None ) => None
-        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
-    }
-}
-
-@lastOccupiedDateHtml = {
-    <div id="endDate">
-        @govukDateInput(DateInput(
-            fieldset = Some(Fieldset(
-                legend = Some(Legend(
-                    content = Text(messages(s"label.lastOccupiedDate$clientSuffix")),
-                    isPageHeading = true,
-                    classes = "govuk-fieldset__legend--s"
-                ))
-            )),
-            id = "lastOccupiedDate",
-            items = Seq("day", "month", "year").map {
-                item =>
-                    InputItem(
-                        id = s"lastOccupiedDate.$item",
-                        classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(form(s"lastOccupiedDate.$item").hasErrors || form.errors.exists(_.key.isEmpty)) " govuk-input--error" else ""}",
-                        name =  s"lastOccupiedDate.$item",
-                        label = Some(messages(s"lastOccupiedDate.$item.label")),
-                        value = form(s"lastOccupiedDate.$item").value
-                    )
-            },
-            errorMessage = getLastOccupiedDateFiledErrorMessage
-        ))
-    </div>
-}
 
 @mainLayout(
-    pageTitle = messages("declarePropertyOwnership.title"),
+    pageTitle = messages("propertyOccupancy.title"),
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
     @if(form.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks.toSeq, title = Text(messages("error.propertyRepresentation.title"))))
+        @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "lastOccupiedDate", clientSuffix), title = Text(messages("error.propertyRepresentation.title"))))
     }
 
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
-    <span class="govuk-caption-l">@messages("caption.add.property")</span>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages("declarePropertyOwnership.title"):</h1>
-    <h2 id="assessment-address" class="govuk-heading-m govuk-!-margin-top-1">@Formatters.capitalisedAddress(model.address)</h2>
-
-    <p class="govuk-body">@messages(s"declareCapacity.message$clientSuffix")</p>
+    <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
+    <h1 id="page-header" class="govuk-heading-l govuk-!-margin-bottom-1">@messages("propertyOccupancy.title")</h1>
 
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOccupancyController.submitOccupancy()) {
 
         @govukRadios(Radios(
-            fieldset = Some(Fieldset(
-                legend = Some(Legend(
-                    content = Text(messages(s"label.stillOccupied$clientSuffix")),
-                    classes = "govuk-fieldset__legend--l",
-                    isPageHeading = true
-                ))
-            )),
             name = "stillOccupied",
             items = Seq(
                 RadioItem(
@@ -135,15 +61,14 @@
                     checked = form.data.get("stillOccupied").fold(false)(_ == "true")
                 ),
                 RadioItem(
-                    conditionalHtml = Some(lastOccupiedDateHtml),
+                    conditionalHtml = Some(dateFields(form = form, fieldName = "lastOccupiedDate", id=Some("last-occupied-date"), label = Some(s"label.lastOccupiedDate$clientSuffix"))),
                     content = Text("No"),
                     value = Some("false"),
                     checked = form.data.get("stillOccupied").fold(false)(_ == "false")
                 )
             ),
-            errorMessage =  getFiledErrorMessage("stillOccupied"),
             classes = "govuk-radios--inline"
-        ))
+        ).withFormField(form("stillOccupied")))
 
         @govukButton(Button(content = Text(messages("label.continue"))))
 

@@ -31,6 +31,7 @@ case class HtmlPage(html: Document) extends Matchers with AppendedClues {
   type FieldId = String
   type FieldName = String
   type Message = String
+  private def allRadios = html.select("input[type=radio]").asScala
 
   def shouldContainTable(selector: String): Unit =
     html.select(selector).size() shouldBe 1
@@ -49,6 +50,14 @@ case class HtmlPage(html: Document) extends Matchers with AppendedClues {
 
   def inputShouldContain(fieldId: String, text: String): Unit =
     Option(html.getElementById(fieldId)).map(_.`val`()) shouldBe Some(text)
+
+  def mustContainRadioSelect(name: String, options: Seq[String]) =
+    options.foreach { o =>
+      html
+        .select(s"input[type=radio][name=$name][value=$o]")
+        .asScala
+        .length shouldEqual 1 withClue s"No radio option: $name $o. All radios:\n$allRadios}"
+    }
 
   def shouldContainDateSelect(name: String) =
     List("day", "month", "year").foreach(x => shouldContainTextInput(s"[name=$name.$x]"))

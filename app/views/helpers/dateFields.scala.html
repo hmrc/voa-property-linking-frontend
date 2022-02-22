@@ -11,18 +11,17 @@
 
 @this(govukDateInput: GovukDateInput)
 
-@(form: Form[_], fieldName: String, isOptional: Boolean = false, hintMessageKey: String = "help.date", label: Option[String] = None)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], fieldName: String, id: Option[String] = None, isOptional: Boolean = false, hintMessageKey: String = "help.date", label: Option[String] = None)(implicit request: Request[_], messages: Messages)
 
 @dateErrors = @{
     form.error(s"$fieldName").map(errors => ErrorMessage(content = Text(messages(errors.messages.head))))
 }
 
-<div id=@fieldName>
-
+<div id="@{id.getOrElse(fieldName)}">
         @govukDateInput(DateInput(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(
-                content = Text(messages(s"label.${label.getOrElse(fieldName)}")),
+                content = Text(messages(s"${label.getOrElse(fieldName)}")),
                 isPageHeading = true,
                 classes = "govuk-fieldset__legend--m"
             ))
@@ -30,11 +29,11 @@
             hint = Some(Hint(
                 content = HtmlContent(if(isOptional) { Html(messages("help.date.optionalHelpText")) } else {Html(messages(hintMessageKey)) } )
             )),
-            id = "dates",
+            id = s"${id.getOrElse(fieldName)}_dates",
             items = Seq("day", "month", "year").map {
                     item =>
                         InputItem(
-                        id = s"$fieldName.$item",
+                        id = s"${id.getOrElse(fieldName).replace(".", "-")}-$item",
                         classes = s"govuk-input--width-${if(item == "year") "4" else "2"} ${if(form.hasErrors) "govuk-input--error"}",
                         name =  s"$fieldName.$item",
                         label = Some(messages(s"label.date.$item")),
