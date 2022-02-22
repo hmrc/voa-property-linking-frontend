@@ -32,7 +32,7 @@
 @clientSuffix = @{clientDetails.fold("")(_ => ".client")}
 
 @mainLayout(
-    pageTitle = messages("propertyOccupancy.title"),
+    pageTitle = messages(s"propertyOccupancy.title$clientSuffix"),
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
@@ -43,7 +43,7 @@
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
     <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
-    <h1 id="page-header" class="govuk-heading-l govuk-!-margin-bottom-1">@messages("propertyOccupancy.title")</h1>
+    <h1 id="page-header" class="govuk-heading-l govuk-!-margin-bottom-1">@messages(s"propertyOccupancy.title$clientSuffix")</h1>
 
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOccupancyController.submitOccupancy()) {
 

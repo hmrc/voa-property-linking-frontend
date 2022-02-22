@@ -141,7 +141,7 @@ object ClaimPropertyOccupancy {
               messages(
                 s"error.date.mustBeAfterStartDate$errorMessageKeySuffix",
                 Formatters.formatDate(startDate.getOrElse(LocalDate.of(2017, 4, 1)))),
-              d => startDate.fold(false)(otherDate => d.isAfter(otherDate))
+              d => startDate.fold(true)(otherDate => d.isAfter(otherDate))
             )
             .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
         )

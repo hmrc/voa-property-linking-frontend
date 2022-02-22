@@ -75,7 +75,7 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.verifyElementText("page-header", "Do you still own or occupy the property")
+    html.verifyElementText("page-header", "Does your client still own or occupy the property")
     html.verifyElementText("caption", "Add a property")
     html.mustContainRadioSelect("stillOccupied", Seq("true", "false"))
     html.shouldContainDateSelect("lastOccupiedDate")
@@ -103,7 +103,7 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.verifyElementText("page-header", "Do you still own or occupy the property")
+    html.verifyElementText("page-header", "Does your client still own or occupy the property")
     html.verifyElementText("caption", "Add a property")
     html.mustContainRadioSelect("stillOccupied", Seq("true", "false"))
     html.shouldContainDateSelect("lastOccupiedDate")

@@ -85,7 +85,7 @@ class ClaimPropertyOwnershipController @Inject()(
             }
         case _ =>
           Future.successful(Ok(ownershipToPropertyView(
-            ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
+            ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.localAuthorityReference),
             request.ses.clientDetails,
             controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
           )))
@@ -101,7 +101,7 @@ class ClaimPropertyOwnershipController @Inject()(
         .fold(
           errors =>
             Future.successful(BadRequest(ownershipToPropertyView(
-              ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.uarn),
+              ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.localAuthorityReference),
               request.ses.clientDetails,
               controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
             ))),
@@ -130,4 +130,4 @@ object ClaimPropertyOwnership {
     )(PropertyOwnership.apply)(PropertyOwnership.unapply))
 }
 
-case class ClaimPropertyOwnershipVM(form: Form[_], address: String, uarn: Long)
+case class ClaimPropertyOwnershipVM(form: Form[_], address: String, localAuthorityReference: String)

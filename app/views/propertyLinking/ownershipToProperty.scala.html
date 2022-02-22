@@ -42,11 +42,15 @@
         @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "fromDate", clientSuffix), title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
+    @assessmentHeading(model.localAuthorityReference, model.address)
 
+    <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages(s"declareCapacity.title$clientSuffix")</h1>
 
-    <p class="govuk-body">@messages(s"declareCapacity.title$clientSuffix")</p>
+    @govukDetails(Details(
+        summary = Text(messages(s"declareCapacity.panel.title$clientSuffix")),
+        content = HtmlContent(messages(s"declareCapacity.panel.text$clientSuffix"))
+    ))
 
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOwnershipController.submitOwnership()) {
 
