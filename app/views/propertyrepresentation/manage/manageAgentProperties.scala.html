@@ -40,7 +40,7 @@
 
     <a class="govuk-button" href="@{controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url}">@messages("propertyRepresentation.manage.agent")</a>
 
-    <h3 class="govuk-heading-m">@messages("propertyRepresentation.agentProperties.assigned")</h3>
+    <h2 class="govuk-heading-m">@messages("propertyRepresentation.agentProperties.assigned")</h2>
     @govukTable(Table(
         rows = ownerAuthResult.authorisations.map{ authorisation =>
             Seq(
