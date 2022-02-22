@@ -821,6 +821,7 @@ uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Continue
 uploadRatesBill.reminder=The date of the bill must overlap with the period you owned or occupied the property.
+uploadRatesBill.client.reminder=The date of the bill must overlap with the period your client owned or occupied the property
 uploadRatesBill.label=Upload a file
 chooseEvidence.title=Do you have a copy of the business rates bill for this property?
 chooseEvidence.client.title=Do you have a copy of your client''s business rate bill for this property?
