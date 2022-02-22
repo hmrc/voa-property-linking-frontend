@@ -439,10 +439,17 @@ assessments.pageTitle=Select a valuation to check
 assessments.paragraph=The rateable value of a property is reassessed by the VOA each time they publish a new business rates valuation list. You may check the facts and the rateable value for each of the published valuations.
 assessments.propertyRemoved=This property is no longer on the rating list
 
+
 assessments.current.title=Current valuation
 assessments.draft.title=Draft new valuation
 assessments.historic.title=Historic valuations
-assessments.historic.select=Select this valuation
+assessments.select.valuation=Select this valuation
+
+assessments.current.text=Current
+assessments.draft.text=Draft
+assessments.historic.text=Historic
+assessments.aria.label.full=Select this valuation - {0} from {1} to {2}
+assessments.aria.label.partial=Select this valuation - {0} from {1}
 
 assessments.na=N/A
 
@@ -743,7 +750,7 @@ search.select.link=Select
 
 #DECLARE CAPACITY
 declareCapacity.title=Claim this property
-declarePropertyRelationship.title=Claim this property relationship
+declarePropertyRelationship.title=Connection to the property
 declarePropertyOwnership.title=Claim this property ownership
 propertyOccupancy.title=Do you still own or occupy the property
 label.lastOccupiedDate=Date of last day as the owner or occupier
@@ -763,8 +770,8 @@ stillOccupied.false=No
 declareCapacity.fromDate.help=
 declareCapacity.toDate.help=Leave blank if still in occupation or ownership
 declareCapacity.submit.button=Add property
-label.capacity=What is your relationship to the property?
-label.capacity.client=What is your client’s relationship to the property?
+label.capacity=What is your connection to the property?
+label.capacity.client=What is your client’s connection to the property?
 capacity.OWNER=Owner
 capacity.OCCUPIER=Occupier
 capacity.OWNER_OCCUPIER=Owner and occupier
@@ -782,14 +789,14 @@ toDate.year.label=Year
 error.date.mustBeAfter2017=Must be after 1st April 2017
 error.date.mustBeInPast=Must be in the past
 error.date.mustBeAfterOther=The end date must be after the start date
-declareCapacity.details.ownerOrOccupier=I’m the owner or occupier for only part of this property
-declareCapacity.details.ownerOrOccupier.text=If you’re the owner or occupier for only part of the property, you can claim this property. Once your claim is approved, you may wish to request separate valuations for each part of the property.
-declareCapacity.details.notOwner=I’m not the owner but I let the property to someone else, as a sublet
-declareCapacity.details.notOwner.text=<p>If you’re not the owner of the property but you let all or part of the property to another person or business as a sublet, you should select ‘owner’ and enter the dates of the sublet period.</p><p>If you let only a part of the property to another person or business, you can claim this property. Once your claim is approved, you may wish to request separate valuations for each part of the property.</p>
-declareCapacity.details.ownerOrOccupier.client=My client is the owner or occupier for only part of this property
-declareCapacity.details.ownerOrOccupier.text.client=If your client is the owner or occupier for only part of the property, they can claim this property. Once the claim is approved, you may wish to request separate valuations for each part of the property.
-declareCapacity.details.notOwner.client=My client is not the owner but they let the property to someone else, as a sublet
-declareCapacity.details.notOwner.text.client=<p>If your client is not the owner of the property but lets all or part of the property to another person or business as a sublet, you should select ‘owner’ and enter the dates of the sublet period.</p><p>If your client lets only a part of the property to another person or business, they can claim this property. Once the claim is approved, you may wish to request separate valuations for each part of the property.</p>
+declareCapacity.details.ownerOrOccupier=I own or occupy a part of this property
+declareCapacity.details.ownerOrOccupier.text=After the Valuation Office Agency have approved your connection, you may want to ask them to split this property to get separate valuations for each part.
+declareCapacity.details.notOwner=I do not own the property but I sublet it to someone else
+declareCapacity.details.notOwner.text=<p>If you sublet the property to another person or business, select ‘Owner’ and enter the dates of the sublet period.</p><p>If you only sublet part of the property, you may want to ask the Valuation Office Agency to split this property to get separate valuations for each part. You can do this after they have approved your connection to the property.</p>
+declareCapacity.details.ownerOrOccupier.client=My client owns or occupies part of this property
+declareCapacity.details.ownerOrOccupier.text.client=<p>You can still add this property on behalf of your client, as if they owned or occupied the whole property.</p><p>After we’ve approved your client’s connection to the property, you can ask us to split the property to get separate valuations for each part.</p>
+declareCapacity.details.notOwner.client=My client does not own the property, but they sublet it to someone else
+declareCapacity.details.notOwner.text.client=<p>Your client is considered to be the owner if they sublet the property to another person or business. Enter the date the sublet started. </p><p>If only part of the property is sublet, you can ask us to split the property to get separate valuations for each part. You can do this after we’ve approved your client’s connection to the property.</p>
 
 declareCapacity.details.agent=I’m an agent acting on behalf of the owner or occupier for this property
 declareCapacity.details.agent.text=If you’ve been added as an assistant to your client’s organisation, you’ll need to sign in to that account to claim properties. You can’t claim a property from your agent account.
