@@ -18,14 +18,16 @@ package forms
 
 import java.time.LocalDate
 
+import controllers.VoaPropertyLinkingSpec
 import controllers.propertyLinking.ClaimPropertyOccupancy
 import models.{PropertyOccupancy, PropertyOwnership}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import play.api.i18n.Lang.defaultLang
 import utils.FormBindingVerification._
 import views.helpers.Errors
 
-class PropertyOccupancyFormSpec extends AnyFlatSpec with Matchers {
+class PropertyOccupancyFormSpec extends VoaPropertyLinkingSpec {
 
   import TestData._
 
@@ -64,7 +66,8 @@ class PropertyOccupancyFormSpec extends AnyFlatSpec with Matchers {
   }
 
   object TestData {
-    val form = ClaimPropertyOccupancy.occupancyForm(Some(LocalDate.of(2017, 1, 1)))
+    val form =
+      ClaimPropertyOccupancy.occupancyForm(Some(LocalDate.of(2017, 1, 1)))(messagesApi.preferred(Seq(defaultLang)))
     val validData = Map(
       "stillOccupied"          -> "false",
       "lastOccupiedDate.day"   -> "23",

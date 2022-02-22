@@ -36,9 +36,8 @@
                 }
 }
 
-@clientId = @{clientDetails.map(_.organisationId)}
-
-@isAgent = @{ clientId match {
+@clientSuffix = @{clientDetails.fold("")(_ => ".client")}
+@isAgent = @{ clientDetails.map(_.organisationId) match {
         case Some(id) => true
         case _ => false
     }
@@ -139,7 +138,7 @@
                 if (!propertyStillOccupied){
                 SummaryListRow(
                     key = Key(
-                        content = Text(messages("declaration.checkAnswers.propertyOccupancy.lastOccupiedDate"))
+                        content = Text(messages(s"declaration.checkAnswers.propertyOccupancy.lastOccupiedDate$clientSuffix"))
                     ),
                     value = Value(
                         content = Text(

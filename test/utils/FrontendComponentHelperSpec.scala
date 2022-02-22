@@ -21,7 +21,7 @@ import play.api.i18n.Lang.defaultLang
 import uk.gov.hmrc.govukfrontend.views.Aliases.ErrorLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 
-class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec{
+class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
 
   "The form with multiple date validation errors" should "return only one common error 'error.common.invalid.date' " in {
     val form = ClaimPropertyOwnership.ownershipForm
@@ -36,9 +36,12 @@ class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec{
     form.bind(inValidData).errors.size shouldBe 3
 
     //Test after merge and format date errors into only one common date error
-    val formattedErrors = FrontendComponentHelper.formatErrorMessages(form.bind(inValidData), "fromDate")(messagesApi.preferred(Seq(defaultLang)))
+    val formattedErrors = FrontendComponentHelper.formatErrorMessages(form.bind(inValidData), "fromDate")(
+      messagesApi.preferred(Seq(defaultLang)))
     formattedErrors.size shouldBe 1
-    formattedErrors.contains(ErrorLink(href = Some("#fromDate"), content = HtmlContent(s"On what date did you become the owner or occupier? - Enter a valid date"))) shouldBe true
+    formattedErrors.contains(ErrorLink(
+      href = Some("#fromDate"),
+      content = HtmlContent(s"On what date did you become the owner or occupier? - Enter a valid date"))) shouldBe true
 
   }
 }

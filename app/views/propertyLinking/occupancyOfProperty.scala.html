@@ -29,12 +29,7 @@
 
 @(form: Form[_], clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@clientSuffix = @{
-    clientDetails.map(_.organisationId) match {
-        case Some(id) => { ".client"}
-        case _        => {""}
-    }
-}
+@clientSuffix = @{clientDetails.fold("")(_ => ".client")}
 
 @mainLayout(
     pageTitle = messages("propertyOccupancy.title"),

@@ -19,6 +19,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyOwnershipVM
+@import views.html.includes.assessmentHeading
 @import utils.FrontendComponentHelper._
 @import helpers._
 @import utils.Formatters
@@ -30,21 +31,10 @@
 
 @form = @{model.form}
 
-@clientSuffix = @{
-    clientDetails.map(_.organisationId) match {
-        case Some(id) => { ".client"}
-        case _        => {""}
-    }
-}
-
-@getFiledErrorMessage(field: String) = @{
-    form.error(field).map{ error =>
-        ErrorMessage(content = Text(messages(error.message)))
-    }
-}
+@clientSuffix = @{clientDetails.fold("")(_ => ".client")}
 
 @mainLayout(
-    pageTitle = messages("declarePropertyOwnership.title"),
+    pageTitle = messages(s"declareCapacity.title$clientSuffix"),
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
@@ -52,10 +42,11 @@
         @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "fromDate", clientSuffix), title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages("declarePropertyOwnership.title"):</h1>
-    <h2 id="assessment-address" class="govuk-heading-m govuk-!-margin-top-1">@Formatters.capitalisedAddress(model.address)</h2>
+    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
-    <p class="govuk-body">@messages(s"declareCapacity.message$clientSuffix")</p>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages(s"declareCapacity.title$clientSuffix")</h1>
+
+    <p class="govuk-body">@messages(s"declareCapacity.title$clientSuffix")</p>
 
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOwnershipController.submitOwnership()) {
 
@@ -82,9 +73,8 @@
                     checked = form.data.get("interestedBefore2017").fold(false)(_ == "false")
                 )
             ),
-            errorMessage =  getFiledErrorMessage("interestedBefore2017"),
             classes = "govuk-radios--inline"
-        ))
+        ).withFormField(form("interestedBefore2017")))
 
         @govukButton(Button(content = Text(messages("label.continue"))))
 
