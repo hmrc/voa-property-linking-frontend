@@ -33,7 +33,10 @@
     case Some(id)   => {messages("uploadRatesBill.show.client.title")}
     case _          => {messages("uploadRatesBill.show.title")}
 }}
-
+@warningText = @{request.ses.clientDetails.map(_.organisationId) match {
+    case Some(id)   => Text(messages("uploadRatesBill.client.reminder"))
+    case _          => Text(messages("uploadRatesBill.reminder"))
+}}
 @mainLayout(
     pageTitle = title,
     backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url),
@@ -63,7 +66,7 @@
 
     @govukWarningText(WarningText(
         iconFallbackText = "Warning",
-        content = Text(messages("uploadRatesBill.reminder"))
+        content = warningText
     ))
 
     @formWithCSRF(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
