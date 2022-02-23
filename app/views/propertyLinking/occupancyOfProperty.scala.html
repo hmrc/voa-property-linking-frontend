@@ -56,7 +56,7 @@
                     checked = form.data.get("stillOccupied").fold(false)(_ == "true")
                 ),
                 RadioItem(
-                    conditionalHtml = Some(dateFields(form = form, fieldName = "lastOccupiedDate", id=Some("last-occupied-date"), label = Some(s"label.lastOccupiedDate$clientSuffix"))),
+                    conditionalHtml = Some(dateFields(form = form, fieldName = "lastOccupiedDate", label = Some(s"label.lastOccupiedDate$clientSuffix"))),
                     content = Text("No"),
                     value = Some("false"),
                     checked = form.data.get("stillOccupied").fold(false)(_ == "false")

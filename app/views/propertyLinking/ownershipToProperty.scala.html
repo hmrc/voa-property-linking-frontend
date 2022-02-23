@@ -71,7 +71,7 @@
                     checked = form.data.get("interestedBefore2017").fold(false)(_ == "true")
                 ),
                 RadioItem(
-                    conditionalHtml = Some(dateFields(form = form, fieldName = "fromDate", id=Some("from-date"), label = Some(s"label.fromDate$clientSuffix"))),
+                    conditionalHtml = Some(dateFields(form = form, fieldName = "fromDate", label = Some(s"label.fromDate$clientSuffix"))),
                     content = Text(messages("interestedBefore2017.false")),
                     value = Some("false"),
                     checked = form.data.get("interestedBefore2017").fold(false)(_ == "false")
