@@ -42,7 +42,7 @@
                     content = Text(messages("propertyRepresentation.showAgents.properties", agent.propertyCount, propertyLinkingCount))
                 ),
                 TableRow(
-                    content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentDProperties", s"${controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters(1, 15)).url}", s"View agent ${agent.name}, ${(messages("propertyRepresentation.showAgents.properties", agent.propertyCount, propertyLinkingCount))}")))
+                    content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentDProperties", s"${controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters(1, 15)).url}", s"View agent ${agent.name} (${agent.representativeCode})")))
                 )
 
             )
