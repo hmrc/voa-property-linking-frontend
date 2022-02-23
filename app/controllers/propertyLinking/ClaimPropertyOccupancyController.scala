@@ -46,7 +46,6 @@ class ClaimPropertyOccupancyController @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       occupancyOfPropertyView: views.html.propertyLinking.occupancyOfProperty,
-      serviceUnavailableView: views.html.errors.serviceUnavailable,
       propertyLinkingService: PropertyLinkingService)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,

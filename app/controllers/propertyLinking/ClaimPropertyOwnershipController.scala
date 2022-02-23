@@ -44,7 +44,6 @@ class ClaimPropertyOwnershipController @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty,
-      serviceUnavailableView: views.html.errors.serviceUnavailable,
       propertyLinkingService: PropertyLinkingService)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,

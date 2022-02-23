@@ -45,7 +45,6 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
     preAuthenticatedActionBuilders(),
     preEnrichedActionRefiner(),
     occupanyOfPropertyPage,
-    serviceUnavailableView = new views.html.errors.serviceUnavailable(mainLayout),
     mockPropertyLinkingService
   )
 
