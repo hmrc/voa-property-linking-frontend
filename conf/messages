@@ -560,7 +560,7 @@ propertyRepresentation.agentProperties.assigned.title=Your agent
 propertyRepresentation.agentProperties.assigned=Assigned properties
 propertyRepresentation.manage.agent=Manage this agent
 propertyRepresentation.showAgents.properties={0} of {1} properties
-propertyRepresentation.showAgents.viewAgentDProperties=<a class="govuk-link" href="{0}" aria-label="{1}">View</a>
+propertyRepresentation.showAgents.viewAgentProperties=<a class="govuk-link" href="{0}" aria-label="View agent {1}">View</a>
 error.propertyRepresentation.agentProperties.filter=Search Properties - you must enter something to search for
 error.agentProperties.filter=You must enter something to search for
 
