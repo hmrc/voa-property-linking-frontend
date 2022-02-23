@@ -20,18 +20,14 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import com.google.inject.Singleton
 import config.ApplicationConfig
-import connectors.SubmissionIdConnector
-import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
 import form.Mappings._
 import models._
-import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
-import services.BusinessRatesAttachmentsService
 import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
@@ -40,7 +36,6 @@ import views.helpers.Errors
 import java.time.LocalDate
 
 import javax.inject.{Inject, Named}
-import org.checkerframework.checker.compilermsgs.qual.CompilerMessageKey
 import utils.Formatters
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -48,13 +43,9 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class ClaimPropertyOccupancyController @Inject()(
       val errorHandler: CustomErrorHandler,
-      val submissionIdConnector: SubmissionIdConnector,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
-      val propertyLinksConnector: PropertyLinkConnector,
-      businessRatesAttachmentService: BusinessRatesAttachmentsService,
-      val runModeConfiguration: Configuration,
       occupancyOfPropertyView: views.html.propertyLinking.occupancyOfProperty,
       serviceUnavailableView: views.html.errors.serviceUnavailable,
       propertyLinkingService: PropertyLinkingService)(
@@ -71,8 +62,8 @@ class ClaimPropertyOccupancyController @Inject()(
 
       propertyLinkingService.findEarliestStartDate(request.ses.uarn).flatMap {
         case Some(date) if date.isAfter(LocalDate.now()) =>
-          businessRatesAttachmentService
-            .persistSessionData(request.ses.copy(
+          sessionRepository
+            .saveOrUpdate[LinkingSession](request.ses.copy(
               propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))))
             .map { _ =>
               Redirect(routes.ChooseEvidenceController.show())
@@ -113,14 +104,10 @@ class ClaimPropertyOccupancyController @Inject()(
                   request.ses.clientDetails,
                   controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url))),
           formData =>
-            businessRatesAttachmentService
-              .persistSessionData(request.ses.copy(propertyOccupancy = Some(formData)))
+            sessionRepository
+              .saveOrUpdate[LinkingSession](request.ses.copy(propertyOccupancy = Some(formData)))
               .map { _ =>
                 Redirect(routes.ChooseEvidenceController.show())
-              }
-              .recover {
-                case UpstreamErrorResponse.Upstream5xxResponse(_) =>
-                  ServiceUnavailable(serviceUnavailableView())
             }
         )
     }

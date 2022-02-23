@@ -36,19 +36,14 @@ import scala.concurrent.Future
 class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
-  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
   private val mockOwnershipToPropertyPage = mock[views.html.propertyLinking.ownershipToProperty]
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
   private lazy val testClaimProperty = new ClaimPropertyOwnershipController(
     mockCustomErrorHandler,
-    StubSubmissionIdConnector,
     mockSessionRepo,
     preAuthenticatedActionBuilders(),
     preEnrichedActionRefiner(),
-    propertyLinkingConnector,
-    mockBusinessRatesAttachmentService,
-    configuration,
     mockOwnershipToPropertyPage,
     serviceUnavailableView = new views.html.errors.serviceUnavailable(mainLayout),
     mockPropertyLinkingService
@@ -83,7 +78,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
 
   "The claim ownership page with earliest start date in the future" should "return redirect to choose evidence page" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    when(mockBusinessRatesAttachmentService.persistSessionData(any())(any[HeaderCarrier]))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
       .thenReturn(Future.successful(()))
     when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim ownership page loaded"))
@@ -119,7 +114,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
 
   it should "redirect to the choose evidence page on valid submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    when(mockBusinessRatesAttachmentService.persistSessionData(any())(any[HeaderCarrier]))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
       .thenReturn(Future.successful(()))
     val res = testClaimProperty.submitOwnership()(
       FakeRequest().withFormUrlEncodedBody(

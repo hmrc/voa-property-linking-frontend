@@ -37,18 +37,13 @@ import scala.concurrent.Future
 class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
-  lazy val mockBusinessRatesAttachmentService = mock[BusinessRatesAttachmentsService]
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
   private lazy val testClaimProperty = new ClaimPropertyOccupancyController(
     mockCustomErrorHandler,
-    StubSubmissionIdConnector,
     mockSessionRepo,
     preAuthenticatedActionBuilders(),
     preEnrichedActionRefiner(),
-    propertyLinkingConnector,
-    mockBusinessRatesAttachmentService,
-    configuration,
     occupanyOfPropertyPage,
     serviceUnavailableView = new views.html.errors.serviceUnavailable(mainLayout),
     mockPropertyLinkingService
@@ -84,7 +79,7 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
 
   "The claim occupancy page with earliest start date in the future" should "return redirect to choose evidence page" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    when(mockBusinessRatesAttachmentService.persistSessionData(any())(any[HeaderCarrier]))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
       .thenReturn(Future.successful(()))
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
@@ -122,7 +117,7 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
     StubSubmissionIdConnector.stubId(submissionId)
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
       .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-    when(mockBusinessRatesAttachmentService.persistSessionData(any())(any[HeaderCarrier]))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
       .thenReturn(Future.successful(()))
     val res = testClaimProperty.submitOccupancy()(
       FakeRequest().withFormUrlEncodedBody(
