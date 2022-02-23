@@ -23,14 +23,12 @@ import config.ApplicationConfig
 import controllers._
 import form.Mappings._
 import models._
-import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.propertylinking.PropertyLinkingService
-import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
@@ -98,10 +96,6 @@ class ClaimPropertyOwnershipController @Inject()(
               .saveOrUpdate[LinkingSession](request.ses.copy(propertyOwnership = Some(formData)))
               .map { _ =>
                 Redirect(routes.ClaimPropertyOccupancyController.showOccupancy())
-              }
-              .recover {
-                case UpstreamErrorResponse.Upstream5xxResponse(_) =>
-                  ServiceUnavailable(serviceUnavailableView())
             }
         )
     }
