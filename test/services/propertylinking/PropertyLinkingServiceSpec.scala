@@ -49,8 +49,8 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
       submissionId = "PL-123456",
       personId = 1L,
       propertyRelationship = Some(PropertyRelationship(Owner)),
-      propertyOwnership =
-        Some(PropertyOwnership(interestedBefore2017 = true, fromDate = None, stillInterested = false, toDate = None)),
+      propertyOwnership = Some(PropertyOwnership(interestedBefore2017 = true, fromDate = None)),
+      propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
       hasRatesBill = Some(true),
       uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
       evidenceType = Some(RatesBillType),

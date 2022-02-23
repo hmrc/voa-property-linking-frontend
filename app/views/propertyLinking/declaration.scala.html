@@ -36,9 +36,8 @@
                 }
 }
 
-@clientId = @{clientDetails.map(_.organisationId)}
-
-@isAgent = @{ clientId match {
+@clientSuffix = @{clientDetails.fold("")(_ => ".client")}
+@isAgent = @{ clientDetails.map(_.organisationId) match {
         case Some(id) => true
         case _ => false
     }
@@ -46,11 +45,11 @@
 
 @propertyOwnershipFromDate = @{request.ses.propertyOwnership.flatMap(_.fromDate)}
 
-@propertyOwnershipToDate = @{request.ses.propertyOwnership.flatMap(_.toDate)}
+@propertyLastOccupiedDate = @{request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate)}
 
 @propertyRelationshipCapacityName = @{request.ses.propertyRelationship.map(_.capacity).map(_.name).getOrElse("")}
 
-@propertyOwnerShipStillInterested = @{request.ses.propertyOwnership.exists(_.stillInterested)}
+@propertyStillOccupied = @{request.ses.propertyOccupancy.exists(_.stillOccupied)}
 
 @strippedFileName = @{request.ses.uploadEvidenceData.fileInfo.map(_.name.replaceAll("^([^-]+)-", ""))}
 
@@ -120,7 +119,7 @@
                     ),
                     value = Value(
                         content =
-                            if (propertyOwnerShipStillInterested) Text(messages("declaration.checkAnswers.propertyOwnership.yes"))
+                            if (propertyStillOccupied) Text(messages("declaration.checkAnswers.propertyOwnership.yes"))
                             else Text(messages("declaration.checkAnswers.propertyOwnership.no"))
                     ),
                     actions = Some(Actions(
@@ -136,22 +135,22 @@
                         )
                     ))
                 ),
-                if (!propertyOwnerShipStillInterested){
+                if (!propertyStillOccupied){
                 SummaryListRow(
                     key = Key(
-                        content = Text(messages("declaration.checkAnswers.propertyOwnership.endDate"))
+                        content = Text(messages(s"declaration.checkAnswers.propertyOccupancy.lastOccupiedDate$clientSuffix"))
                     ),
                     value = Value(
                         content = Text(
-                            propertyOwnershipToDate.fold("")(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
+                            propertyLastOccupiedDate.fold("")(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
                         )
                     ),
                     actions = Some(Actions(
                         items = Seq(
                             ActionItem(
-                                href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
+                                href = s"${controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
-                                visuallyHiddenText = Some(messages("declaration.checkAnswers.propertyOwnership.endDate")),
+                                visuallyHiddenText = Some(messages("declaration.checkAnswers.propertyOccupancy.lastOccupiedDate")),
                                 attributes = Map("id" -> "endDateChange")
                             )
                         )

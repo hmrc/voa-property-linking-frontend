@@ -155,6 +155,7 @@ class ClaimPropertyRelationshipController @Inject()(
               personId = request.personId,
               propertyRelationship = Some(propertyRelationship),
               propertyOwnership = None,
+              propertyOccupancy = None,
               hasRatesBill = None,
               clientDetails = clientDetails,
               localAuthorityReference = localAuthorityReference

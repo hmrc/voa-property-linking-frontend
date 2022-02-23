@@ -39,8 +39,8 @@ object Capacity {
           ownership.fromDate
         }
         .getOrElse(defaultFromDate),
-      linkingSession.propertyOwnership.flatMap { ownership =>
-        ownership.toDate
+      linkingSession.propertyOccupancy.flatMap { occupancy =>
+        occupancy.lastOccupiedDate
       }
     )
 

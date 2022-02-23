@@ -20,21 +20,15 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import com.google.inject.Singleton
 import config.ApplicationConfig
-import connectors.SubmissionIdConnector
-import connectors.propertyLinking.PropertyLinkConnector
 import controllers._
-import form.ConditionalDateAfter
 import form.Mappings._
 import models._
-import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
-import services.BusinessRatesAttachmentsService
 import services.propertylinking.PropertyLinkingService
-import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
@@ -46,15 +40,10 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class ClaimPropertyOwnershipController @Inject()(
       val errorHandler: CustomErrorHandler,
-      val submissionIdConnector: SubmissionIdConnector,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
-      val propertyLinksConnector: PropertyLinkConnector,
-      businessRatesAttachmentService: BusinessRatesAttachmentsService,
-      val runModeConfiguration: Configuration,
       ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty,
-      serviceUnavailableView: views.html.errors.serviceUnavailable,
       propertyLinkingService: PropertyLinkingService)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -71,25 +60,17 @@ class ClaimPropertyOwnershipController @Inject()(
       }
       propertyLinkingService.findEarliestStartDate(request.ses.uarn).flatMap {
         case Some(date) if date.isAfter(LocalDate.now()) =>
-          businessRatesAttachmentService
-            .persistSessionData(
-              request.ses.copy(
-                propertyOwnership = Some(
-                  PropertyOwnership(
-                    interestedBefore2017 = false,
-                    fromDate = Some(date),
-                    stillInterested = true,
-                    toDate = None))))
+          sessionRepository
+            .saveOrUpdate[LinkingSession](request.ses.copy(
+              propertyOwnership = Some(PropertyOwnership(interestedBefore2017 = false, fromDate = Some(date))),
+              propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))
+            ))
             .map { _ =>
               Redirect(routes.ChooseEvidenceController.show())
             }
-            .recover {
-              case UpstreamErrorResponse.Upstream5xxResponse(_) =>
-                ServiceUnavailable(serviceUnavailableView())
-            }
         case _ =>
           Future.successful(Ok(ownershipToPropertyView(
-            ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.uarn),
+            ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.localAuthorityReference),
             request.ses.clientDetails,
             controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
           )))
@@ -105,19 +86,15 @@ class ClaimPropertyOwnershipController @Inject()(
         .fold(
           errors =>
             Future.successful(BadRequest(ownershipToPropertyView(
-              ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.uarn),
+              ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.localAuthorityReference),
               request.ses.clientDetails,
               controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
             ))),
           formData =>
-            businessRatesAttachmentService
-              .persistSessionData(request.ses.copy(propertyOwnership = Some(formData)))
+            sessionRepository
+              .saveOrUpdate[LinkingSession](request.ses.copy(propertyOwnership = Some(formData)))
               .map { _ =>
-                Redirect(routes.ChooseEvidenceController.show())
-              }
-              .recover {
-                case UpstreamErrorResponse.Upstream5xxResponse(_) =>
-                  ServiceUnavailable(serviceUnavailableView())
+                Redirect(routes.ClaimPropertyOccupancyController.showOccupancy())
             }
         )
     }
@@ -130,15 +107,8 @@ object ClaimPropertyOwnership {
       "interestedBefore2017" -> mandatoryBoolean,
       "fromDate" -> mandatoryIfFalse(
         "interestedBefore2017",
-        dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))),
-      "stillInterested" -> mandatoryBoolean,
-      "toDate" -> mandatoryIfFalse(
-        "stillInterested",
-        ConditionalDateAfter("interestedBefore2017", "fromDate")
-          .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
-          .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
-      )
+        dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now)))
     )(PropertyOwnership.apply)(PropertyOwnership.unapply))
 }
 
-case class ClaimPropertyOwnershipVM(form: Form[_], address: String, uarn: Long)
+case class ClaimPropertyOwnershipVM(form: Form[_], address: String, localAuthorityReference: String)

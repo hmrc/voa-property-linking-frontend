@@ -38,8 +38,8 @@ import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
+import java.time.{Clock, Instant, LocalDate, ZoneId}
 
-import java.time.{Clock, Instant, ZoneId}
 import scala.concurrent.{ExecutionContext, Future}
 
 trait VoaPropertyLinkingSpec
@@ -132,12 +132,9 @@ trait VoaPropertyLinkingSpec
                 submissionId = "PL-123456",
                 personId = 1L,
                 propertyRelationship = Some(PropertyRelationship(Owner)),
-                propertyOwnership = Some(
-                  PropertyOwnership(
-                    interestedBefore2017 = true,
-                    fromDate = None,
-                    stillInterested = false,
-                    toDate = None)),
+                propertyOwnership =
+                  Some(PropertyOwnership(interestedBefore2017 = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
+                propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
                 hasRatesBill = Some(true),
                 uploadEvidenceData = evidenceData,
                 evidenceType = Some(RatesBillType),

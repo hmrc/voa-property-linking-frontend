@@ -1,0 +1,73 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import actions.requests.BasicAuthenticatedRequest
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import config.ApplicationConfig
+@import actions.propertylinking.requests.LinkingSessionRequest
+@import views.html.includes.assessmentHeading
+@import utils.FrontendComponentHelper._
+@import helpers._
+@import utils.Formatters
+@import play.api.data._
+
+@this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+
+@(form: Form[_], clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+
+@clientSuffix = @{clientDetails.fold("")(_ => ".client")}
+
+@mainLayout(
+    pageTitle = messages(s"propertyOccupancy.title$clientSuffix"),
+    backUri = Some(backLink),
+    hasErrors = form.hasErrors
+) {
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "lastOccupiedDate", clientSuffix), title = Text(messages("error.propertyRepresentation.title"))))
+    }
+
+    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
+
+    <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
+    <h1 id="page-header" class="govuk-heading-l govuk-!-margin-bottom-1">@messages(s"propertyOccupancy.title$clientSuffix")</h1>
+
+    @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOccupancyController.submitOccupancy()) {
+
+        @govukRadios(Radios(
+            name = "stillOccupied",
+            items = Seq(
+                RadioItem(
+                    content = Text("Yes"),
+                    value = Some("true"),
+                    checked = form.data.get("stillOccupied").fold(false)(_ == "true")
+                ),
+                RadioItem(
+                    conditionalHtml = Some(dateFields(form = form, fieldName = "lastOccupiedDate", label = Some(s"label.lastOccupiedDate$clientSuffix"))),
+                    content = Text("No"),
+                    value = Some("false"),
+                    checked = form.data.get("stillOccupied").fold(false)(_ == "false")
+                )
+            ),
+            classes = "govuk-radios--inline"
+        ).withFormField(form("stillOccupied")))
+
+        @govukButton(Button(content = Text(messages("label.continue"))))
+
+
+    }
+
+}
