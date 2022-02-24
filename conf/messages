@@ -643,6 +643,7 @@ error.propertyRepresentation.appoint.filter=You must enter something to search f
 
 ##Appoint agent summary
 propertyRepresentation.agentSummary.heading=Agent appointed
+propertyRepresentation.agentSummary.subtitle=Properties
 propertyRepresentation.agentSummary.title={0} has been assigned to your selected properties
 propertyRepresentation.agentSummary.h2=What happens next
 propertyRepresentation.agentSummary.p={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
