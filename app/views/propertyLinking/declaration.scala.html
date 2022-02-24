@@ -67,7 +67,8 @@
 
     @assessmentHeading(model.localAuthorityReference, model.address)
 
-    <h1 class="govuk-heading-l">@messages("declaration.title")</h1>
+    <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
+    <h1 id="page-header" class="govuk-heading-l">@messages("declaration.title")</h1>
 
     @formWithCSRF(action = controllers.propertyLinking.routes.DeclarationController.submit()) {
 
@@ -91,9 +92,11 @@
                         )
                     ))
                 ),
+                if(!isEarliestStartDateInFuture){
                 SummaryListRow(
                     key = Key(
-                        content = Text(messages("declaration.checkAnswers.startDateHeading"))
+                        content = Text(messages("declaration.checkAnswers.startDateHeading")),
+                        classes = "start-date-heading"
                     ),
                     value = Value(
                         content = Text(
@@ -110,7 +113,7 @@
                             )
                         )
                     ))
-                ),
+                )} else SummaryListRow(),
                 SummaryListRow(
                     key = Key(
                         content =

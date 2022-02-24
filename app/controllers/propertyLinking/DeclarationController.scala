@@ -27,7 +27,7 @@ import controllers.PropertyLinkingController
 import form.Mappings._
 import javax.inject.Named
 import models.propertylinking.requests.PropertyLinkRequest
-import models.{ClientDetails, LinkingSession, PropertyOccupancy, PropertyOwnership, RatesBillFlag, RatesBillType}
+import models._
 import play.api.Logging
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
@@ -38,7 +38,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
 import utils.Cats
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 @Singleton
 class DeclarationController @Inject()(
@@ -58,16 +58,16 @@ class DeclarationController @Inject()(
 
   def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis == RatesBillFlag
-    for{
-      earliestStartDate  <- propertyLinkService.findEarliestStartDate(request.ses.uarn)
+    for {
+      earliestStartDate <- propertyLinkService.findEarliestStartDate(request.ses.uarn)
       isEarliestStartDateInFuture = earliestStartDate.fold(false)(_.isAfter(LocalDate.now()))
-    }yield
-    Ok(
-      declarationView(
-        DeclarationVM(form, request.ses.address, request.ses.localAuthorityReference),
-        isRatesBillEvidence,
-        isEarliestStartDateInFuture
-      ))
+    } yield
+      Ok(
+        declarationView(
+          DeclarationVM(form, request.ses.address, request.ses.localAuthorityReference),
+          isRatesBillEvidence,
+          isEarliestStartDateInFuture
+        ))
   }
 
   /*
@@ -91,11 +91,16 @@ class DeclarationController @Inject()(
               ))
         },
         _ =>
-          propertyLinkService
-            .submit(
-              PropertyLinkRequest(request.ses, request.organisationId),
-              request.ses.clientDetails.map(_.organisationId))
-            .fold(
+          for {
+            earliestStartDate <- propertyLinkService.findEarliestStartDate(request.ses.uarn)
+            submitResult <- propertyLinkService
+                             .submit(
+                               PropertyLinkRequest(request.ses, request.organisationId),
+                               request.ses.clientDetails.map(_.organisationId))
+                             .value
+            isEarliestStartDateInFuture = earliestStartDate.fold(false)(_.isAfter(LocalDate.now()))
+          } yield {
+            submitResult.fold(
               {
                 case NotAllFilesReadyToUpload =>
                   logger.warn(
@@ -106,7 +111,8 @@ class DeclarationController @Inject()(
                       form.fill(true).withError("declaration", "declaration.file.receipt"),
                       request.ses.address,
                       request.ses.localAuthorityReference),
-                    isRatesBillEvidence
+                    isRatesBillEvidence,
+                    isEarliestStartDateInFuture
                   ))
                 case MissingRequiredNumberOfFiles =>
                   logger.warn(
@@ -121,7 +127,9 @@ class DeclarationController @Inject()(
                   }
               },
               _ => Redirect(routes.DeclarationController.confirmation)
-          )
+            )
+
+        }
       )
   }
 

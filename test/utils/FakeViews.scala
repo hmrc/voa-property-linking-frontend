@@ -164,5 +164,13 @@ trait FakeViews extends GdsComponents {
     mainLayout: views.html.mainLayout,
     formWithCSRF: FormWithCSRF
   )
-
+  lazy val declarationView = new views.html.propertyLinking.declaration(
+    govukErrorSummary,
+    govukWarningText,
+    govukCheckboxes,
+    govukButton,
+    mainLayout,
+    formWithCSRF,
+    govukSummaryList
+  )
 }
