@@ -375,6 +375,7 @@ search.sort.showing=Showing {0} to {1} of {2}
 #MANAGED BY AGENT PROPERTIES
 label.agent=Agent
 label.assigned.to=Assigned to
+label.action=Action
 dashboard.managedByAgentsProperties.title=Properties managed by {0}
 managedByAgentsProperties.table.caption=Your properties
 managedByAgentsProperties.table.1=Address
