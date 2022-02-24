@@ -373,8 +373,6 @@ search.sort.showing=Showing {0} to {1} of {2}
 
 
 #MANAGED BY AGENT PROPERTIES
-label.agent=Agent
-label.assigned.to=Assigned to
 dashboard.managedByAgentsProperties.title=Properties managed by {0}
 managedByAgentsProperties.table.caption=Your properties
 managedByAgentsProperties.table.1=Address
@@ -556,9 +554,13 @@ error.propertyRepresentation.unknownAgent=There is no agent for the provided age
 error.propertyRepresentation.agentAlreadyAppointed=This agent has already been added to your account
 
 #Show your agents
+propertyRepresentation.showAgents.label.agent=Agent
+propertyRepresentation.showAgents.label.assigned.to=Assigned to
+propertyRepresentation.showAgents.label.action=Action
 propertyRepresentation.showAgents.title=Your agents
 propertyRepresentation.agentProperties.assigned.title=Your agent
 propertyRepresentation.agentProperties.assigned=Assigned properties
+propertyRepresentation.agentProperties.label.properties=Properties
 propertyRepresentation.manage.agent=Manage this agent
 propertyRepresentation.showAgents.properties={0} of {1} properties
 propertyRepresentation.showAgents.viewAgentProperties=<a class="govuk-link" href="{0}" aria-label="View agent {1}">View</a>
@@ -1194,8 +1196,6 @@ dashboard.manageAgents.table.2=Agent code
 dashboard.manageAgents.table.3=Actions
 dashboard.manageAgents.viewManagedProperties=View managed properties
 dashboard.manageAgents.howToAppoint=You can go to <a class="govuk-link" href={0}>‘My properties’</a> to appoint an agent for a property.
-
-
 
 #details page
 viewDetails.title=My details
