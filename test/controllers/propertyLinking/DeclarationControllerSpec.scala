@@ -28,7 +28,7 @@ import play.api.test.Helpers._
 import play.twirl.api.Html
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.propertylinking.exceptions.attachments.{AttachmentException, NotAllFilesReadyToUpload}
+import uk.gov.hmrc.propertylinking.exceptions.attachments._
 import utils.{HtmlPage, _}
 
 import scala.concurrent.Future
