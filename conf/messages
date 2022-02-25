@@ -373,8 +373,6 @@ search.sort.showing=Showing {0} to {1} of {2}
 
 
 #MANAGED BY AGENT PROPERTIES
-label.agent=Agent
-label.assigned.to=Assigned to
 dashboard.managedByAgentsProperties.title=Properties managed by {0}
 managedByAgentsProperties.table.caption=Your properties
 managedByAgentsProperties.table.1=Address
@@ -556,9 +554,13 @@ error.propertyRepresentation.unknownAgent=There is no agent for the provided age
 error.propertyRepresentation.agentAlreadyAppointed=This agent has already been added to your account
 
 #Show your agents
+propertyRepresentation.showAgents.label.agent=Agent
+propertyRepresentation.showAgents.label.assigned.to=Assigned to
+propertyRepresentation.showAgents.label.action=Action
 propertyRepresentation.showAgents.title=Your agents
 propertyRepresentation.agentProperties.assigned.title=Your agent
 propertyRepresentation.agentProperties.assigned=Assigned properties
+propertyRepresentation.agentProperties.label.properties=Properties
 propertyRepresentation.manage.agent=Manage this agent
 propertyRepresentation.showAgents.properties={0} of {1} properties
 propertyRepresentation.showAgents.viewAgentProperties=<a class="govuk-link" href="{0}" aria-label="View agent {1}">View</a>
@@ -751,14 +753,14 @@ search.select.link=Select
 #DECLARE CAPACITY
 declarePropertyRelationship.title=Connection to the property
 declarePropertyOwnership.title=Claim this property ownership
-propertyOccupancy.title=Do you still own or occupy the property
-propertyOccupancy.title.client=Does your client still own or occupy the property
+propertyOccupancy.title=Do you still own or occupy the property?
+propertyOccupancy.title.client=Does your client still own or occupy the property?
 label.lastOccupiedDate=Date of last day as the owner or occupier
 label.lastOccupiedDate.client=Date of last day your client as the owner or occupier
 declareCapacity.incorrectProperty.prefix=If this isn’t the right property you can
 declareCapacity.incorrectProperty.link=search for a different property
-declareCapacity.title=When did you become the owner or occupier of the property
-declareCapacity.title.client=When did your client become the owner or occupier of the property
+declareCapacity.title=When you became the owner or occupier of the property
+declareCapacity.title.client=When your client became the owner or occupier of the property
 declareCapacity.panel.title=I have owned or occupied the property on more than one occasion
 declareCapacity.panel.text=You can add the property for each period you were connected to it, but you need to do it one period at a time. However, if you want to talk to the Valuation Office Agency about the valuation, you will need to select the right valuation period.
 declareCapacity.panel.title.client=My client has owned or occupied the property on more than one occasion
@@ -924,8 +926,7 @@ declaration.checkAnswers.propertyOwnership.heading=Do you still own or occupy th
 declaration.checkAnswers.propertyOwnership.heading.agent=Does your client still own or occupy the property?
 declaration.checkAnswers.propertyOwnership.yes=Yes
 declaration.checkAnswers.propertyOwnership.no=No
-declaration.checkAnswers.propertyOccupancy.lastOccupiedDate=Date of last day as the owner or occupier
-declaration.checkAnswers.propertyOccupancy.lastOccupiedDate.client=Date of last day your client as the owner or occupier
+declaration.checkAnswers.propertyOccupancy.lastOccupiedDate=End date
 declaration.checkAnswers.evidenceType.heading=Evidence type
 declaration.checkAnswers.evidenceType.ratesBill=Business rates bill
 declaration.checkAnswers.evidenceType.lease=Lease \n
@@ -1195,8 +1196,6 @@ dashboard.manageAgents.table.2=Agent code
 dashboard.manageAgents.table.3=Actions
 dashboard.manageAgents.viewManagedProperties=View managed properties
 dashboard.manageAgents.howToAppoint=You can go to <a class="govuk-link" href={0}>‘My properties’</a> to appoint an agent for a property.
-
-
 
 #details page
 viewDetails.title=My details

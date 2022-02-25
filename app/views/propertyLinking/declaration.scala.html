@@ -128,7 +128,7 @@
                     actions = Some(Actions(
                         items = Seq(
                             ActionItem(
-                                href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
+                                href = s"${controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
                                 attributes = Map("id" -> "propertyOwnershipChange"),
                                 visuallyHiddenText =
@@ -141,7 +141,7 @@
                 if (!propertyStillOccupied){
                 SummaryListRow(
                     key = Key(
-                        content = Text(messages(s"declaration.checkAnswers.propertyOccupancy.lastOccupiedDate$clientSuffix"))
+                        content = Text(messages(s"declaration.checkAnswers.propertyOccupancy.lastOccupiedDate"))
                     ),
                     value = Value(
                         content = Text(
