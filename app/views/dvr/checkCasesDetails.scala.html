@@ -112,7 +112,6 @@
 <h2 class="govuk-heading-l">@messages("property.details.div.submitted")</h2>
 
 @if(checkCases.isEmpty){
-    <div class="govuk-grid-column-two-thirds">
         <p class="govuk-body" id="no-submitted-checks">@messages("property.details.div.noSubmittedCheck")</p>
         <p class="govuk-body">@Html(messages("available.requestvaluation.p2", downloadUrl))</p>
         <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
@@ -122,7 +121,6 @@
             content = Text(messages("available.requestvaluation.warning"))
         ))
         @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl), attributes = Map("id" -> "checkcasestab-start-check")))
-    </div>
 
 } else {
 
