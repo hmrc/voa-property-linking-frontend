@@ -51,7 +51,7 @@
 
 @propertyStillOccupied = @{request.ses.propertyOccupancy.exists(_.stillOccupied)}
 
-@strippedFileName = @{request.ses.uploadEvidenceData.fileInfo.map(_.name.replaceAll("^([^-]+)-", ""))}
+@strippedFileName = @{request.ses.uploadEvidenceData.fileInfo.map(_.name.fold("")(_.replaceAll("^([^-]+)-", "")))}
 
 @evidenceType = @{request.ses.uploadEvidenceData.fileInfo.flatMap(_.evidenceType).map(_.name).getOrElse("")}
 

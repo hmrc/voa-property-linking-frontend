@@ -158,6 +158,7 @@ POST        /my-organisation/claim/property-links/evidence/:choice/upload       
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/initiate            controllers.propertyLinking.UploadController.initiate(choice: EvidenceChoices)
 GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorMessage: Option[String])
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/remove              controllers.propertyLinking.UploadController.remove(fileReference: String, choice: EvidenceChoices)
+POST        /my-organisation/claim/property-links/evidence/evidence-type                      controllers.propertyLinking.UploadController.updateEvidenceType()
 GET         /my-organisation/claim/property-links/summary                                     controllers.propertyLinking.DeclarationController.show()
 POST        /my-organisation/claim/property-links/summary                                     controllers.propertyLinking.DeclarationController.submit()
 GET         /my-organisation/claim/property-links/confirmation                                controllers.propertyLinking.DeclarationController.confirmation

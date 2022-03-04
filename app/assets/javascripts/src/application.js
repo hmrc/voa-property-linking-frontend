@@ -12,6 +12,7 @@
         new VOA.ErrorSummary();
         new VOA.viewMessage();
         new VOA.FileUpload();
+        new VOA.UpdateEvidenceType();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));

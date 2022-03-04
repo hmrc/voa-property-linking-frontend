@@ -832,7 +832,7 @@ uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Continue
 uploadRatesBill.reminder=The date of the bill must overlap with the period you owned or occupied the property.
 uploadRatesBill.client.reminder=The date of the bill must overlap with the period your client owned or occupied the property
-uploadRatesBill.label=Upload a file
+common.uploadFile.label=Upload a file
 chooseEvidence.title=Do you have a copy of the business rates bill for this property?
 chooseEvidence.client.title=Do you have a copy of your client''s business rate bill for this property?
 hasRatesBill.true=Yes
@@ -868,7 +868,26 @@ link.addAnotherProperty=Add another property
 link.addAgent=Add an agent
 link.manageProperties=Manage properties
 
+#CANNOT PROVIDE EVIDENCE
+cannotProvideEvidence.title=If you cannot provide evidence
+cannotProvideEvidence.p1=If you can''t provide evidence to prove your link to the property, you won''t be able to claim it or view the detailed valuation.
+cannotProvideEvidence.p2=You''ll need to contact us to discuss other documents that prove your link to this property.
+cannotProvideEvidence.email=Email: <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>
+
 #UPLOAD EVIDENCE
+uploadOtherEvidence.title=What other type of evidence for this property can you provide?
+uploadOtherEvidence.evidenceType=Evidence type
+uploadOtherEvidence.evidenceTypes.1=Lease
+uploadOtherEvidence.evidenceTypes.2=Licence to occupy property
+uploadOtherEvidence.evidenceTypes.3=Service charge statement
+uploadOtherEvidence.evidenceTypes.4=Stamp Duty Land Tax form
+uploadOtherEvidence.evidenceTypes.5=Land Registry title
+uploadOtherEvidence.evidenceTypes.6=Water rate demand
+uploadOtherEvidence.evidenceTypes.7=Utility bill
+uploadOtherEvidence.unableToProvideEvidence=I am unable to provide any of these documents
+uploadOtherEvidence.uploadFile=Upload a file
+uploadOtherEvidence.uploadFile.caption=The file must be a Word doc, Excel sheet, PDF, PNG or JPG, and be smaller than 10MB.
+
 uploadEvidence.show.title=Provide other evidence
 uploadEvidence.p.1=You’ve indicated that you don’t have a business rates bill for this property. Please provide other evidence.
 uploadEvidence.evidenceTypes=Evidence that we may accept includes:
@@ -1093,6 +1112,8 @@ error.common.invalid.date=Enter a valid date
 error.booleanMissing=You must select one
 error.subscription.title=There is a problem
 error.noRecords=No matching records found, please search again.
+
+common.or=or
 
 label.address=Address
 label.localAuthorityReference=Local authority reference

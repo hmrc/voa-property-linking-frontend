@@ -45,9 +45,11 @@ class BusinessRatesAttachmentsService @Inject()(
     for {
       initiateAttachmentResult <- businessRatesAttachmentsConnector.initiateAttachmentUpload(initiateAttachmentRequest)
       updatedSessionData = updateSessionData(
-        request.ses.uploadEvidenceData,
-        initiateAttachmentRequest,
-        initiateAttachmentResult)
+        sessionUploadEvidenceData = request.ses.uploadEvidenceData,
+        initiateAttachmentRequest = initiateAttachmentRequest,
+        initiateAttachmentResult = initiateAttachmentResult,
+        evidenceTypeFromRequest = request.ses.evidenceType
+      )
       _ <- persistSessionData(request.ses, updatedSessionData)
     } yield {
       auditingService.sendEvent(
@@ -66,12 +68,13 @@ class BusinessRatesAttachmentsService @Inject()(
         sessionUploadEvidenceData: UploadEvidenceData,
         initiateAttachmentRequest: InitiateAttachmentPayload,
         initiateAttachmentResult: PreparedUpload,
-        linkBasis: LinkBasis = NoEvidenceFlag): UploadEvidenceData = {
+        linkBasis: LinkBasis = NoEvidenceFlag,
+        evidenceTypeFromRequest: Option[EvidenceType] = None): UploadEvidenceData = {
 
-    val evidenceType = if (linkBasis == RatesBillFlag) Some(RatesBillType) else None
+    val evidenceType = if (linkBasis == RatesBillFlag) Some(RatesBillType) else evidenceTypeFromRequest
     sessionUploadEvidenceData.copy(
       linkBasis = linkBasis,
-      fileInfo = Some(FileInfo(initiateAttachmentRequest.fileName, evidenceType)),
+      fileInfo = Some(FileInfo(Some(initiateAttachmentRequest.fileName), evidenceType)),
       attachments = Some(
         Map(
           initiateAttachmentResult.reference.value -> UploadedFileDetails(
