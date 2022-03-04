@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
 
-@(model: DeclarationVM, isRatesBillEvidence: Boolean, clientDetails: Option[ClientDetails] = None)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: DeclarationVM, isRatesBillEvidence: Boolean, isEarliestStartDateInFuture:Boolean, clientDetails: Option[ClientDetails] = None)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @backLink = @{if (isRatesBillEvidence) {
                     controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.RATES_BILL).url
@@ -67,7 +67,8 @@
 
     @assessmentHeading(model.localAuthorityReference, model.address)
 
-    <h1 class="govuk-heading-l">@messages("declaration.title")</h1>
+    <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
+    <h1 id="page-header" class="govuk-heading-l">@messages("declaration.title")</h1>
 
     @formWithCSRF(action = controllers.propertyLinking.routes.DeclarationController.submit()) {
 
@@ -91,9 +92,11 @@
                         )
                     ))
                 ),
+                if(!isEarliestStartDateInFuture){
                 SummaryListRow(
                     key = Key(
-                        content = Text(messages("declaration.checkAnswers.startDateHeading"))
+                        content = Text(messages("declaration.checkAnswers.startDateHeading")),
+                        classes = "start-date-heading"
                     ),
                     value = Value(
                         content = Text(
@@ -110,7 +113,7 @@
                             )
                         )
                     ))
-                ),
+                )} else SummaryListRow(),
                 SummaryListRow(
                     key = Key(
                         content =
@@ -125,7 +128,7 @@
                     actions = Some(Actions(
                         items = Seq(
                             ActionItem(
-                                href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
+                                href = s"${controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
                                 attributes = Map("id" -> "propertyOwnershipChange"),
                                 visuallyHiddenText =
@@ -138,7 +141,7 @@
                 if (!propertyStillOccupied){
                 SummaryListRow(
                     key = Key(
-                        content = Text(messages(s"declaration.checkAnswers.propertyOccupancy.lastOccupiedDate$clientSuffix"))
+                        content = Text(messages(s"declaration.checkAnswers.propertyOccupancy.lastOccupiedDate"))
                     ),
                     value = Value(
                         content = Text(

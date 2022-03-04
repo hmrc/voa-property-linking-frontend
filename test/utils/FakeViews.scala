@@ -182,4 +182,14 @@ trait FakeViews extends GdsComponents {
     govukWarningText)
   lazy val cannotProvideEvidenceView = new views.html.propertyLinking.cannotProvideEvidence(mainLayout)
 
+  lazy val declarationView = new views.html.propertyLinking.declaration(
+    govukErrorSummary,
+    govukWarningText,
+    govukCheckboxes,
+    govukButton,
+    mainLayout,
+    formWithCSRF,
+    govukSummaryList
+  )
+
 }

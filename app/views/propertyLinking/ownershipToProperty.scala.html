@@ -80,8 +80,12 @@
             classes = "govuk-radios--inline"
         ).withFormField(form("interestedBefore2017")))
 
-        @govukButton(Button(content = Text(messages("label.continue"))))
-
+        @govukButton(
+            Button(
+                content = Text(messages("label.continue")),
+                attributes = Map("id" -> "continue")
+            )
+        )
 
     }
 
