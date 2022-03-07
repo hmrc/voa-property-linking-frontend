@@ -20,6 +20,7 @@ import actions.propertylinking.WithLinkingSession
 import akka.stream.Materializer
 import binders.propertylinks.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
+import models.{RatesBillType, StampDutyLandTaxForm}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.http.Status.{OK => _}
@@ -67,10 +68,11 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "RATES_BILL file initiate" should "return file upload initiate success" in {
-    val request = FakeRequest(POST, "").withBody(Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg"))
+    val request = FakeRequest(POST, "").withBody(
+      Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg", "evidenceType" -> RatesBillType.name))
     when(
       mockBusinessRatesChallengeService
-        .initiateAttachmentUpload(any())(any(), any[HeaderCarrier]))
+        .initiateAttachmentUpload(any(), any())(any(), any[HeaderCarrier]))
       .thenReturn(Future.successful(preparedUpload))
     val result =
       controller.initiate(EvidenceChoices.RATES_BILL)(request)
@@ -116,10 +118,11 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "OTHER Evidence file initiate" should "return file upload initiate success" in {
-    val request = FakeRequest(POST, "").withBody(Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg"))
+    val request = FakeRequest(POST, "").withBody(
+      Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg", "evidenceType" -> StampDutyLandTaxForm.name))
     when(
       mockBusinessRatesChallengeService
-        .initiateAttachmentUpload(any())(any(), any[HeaderCarrier]))
+        .initiateAttachmentUpload(any(), any())(any(), any[HeaderCarrier]))
       .thenReturn(Future.successful(preparedUpload))
     val result =
       controller.initiate(EvidenceChoices.OTHER)(request)

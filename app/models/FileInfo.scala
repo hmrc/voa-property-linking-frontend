@@ -18,7 +18,21 @@ package models
 
 import play.api.libs.json._
 
-case class FileInfo(name: Option[String], evidenceType: Option[EvidenceType])
+sealed trait FileInfo {
+  val evidenceType: EvidenceType
+}
+
+case class PartialFileInfo(evidenceType: EvidenceType) extends FileInfo
+
+object PartialFileInfo {
+  implicit val format = Json.format[PartialFileInfo]
+}
+
+case class CompleteFileInfo(name: String, evidenceType: EvidenceType) extends FileInfo
+
+object CompleteFileInfo {
+  implicit val format = Json.format[CompleteFileInfo]
+}
 
 object FileInfo {
   implicit val format = Json.format[FileInfo]

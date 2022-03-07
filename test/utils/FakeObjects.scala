@@ -75,7 +75,7 @@ trait FakeObjects {
     None,
     principal)
   val noEvidencelinkBasis: NoEvidenceFlag.type = NoEvidenceFlag
-  val fileInfo = FileInfo(Some("test.pdf"), Some(RatesBillType))
+  val fileInfo = CompleteFileInfo("test.pdf", RatesBillType)
   val uploadEvidenceData =
     UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
   val detailedIndividualAccount =

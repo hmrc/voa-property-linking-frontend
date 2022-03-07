@@ -15,7 +15,7 @@
                 '<ul class="govuk-list govuk-error-summary__list"><li></li></ul></div>';
 
 
-        var options = "input[value='lease'],input[value='license'],input[value='serviceCharge'],input[value='stampDutyLandTaxForm'],input[value='waterRateDemand'],input[value='otherUtilityBill'],input[value='landRegistryTitle'],input[value='unableToProvide']";
+        var options = 'input[type="radio"]';
 
         $(options).click(function() {
           submitEvidenceType(this.value);

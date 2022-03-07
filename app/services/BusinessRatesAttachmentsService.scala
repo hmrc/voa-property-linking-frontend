@@ -39,7 +39,7 @@ class BusinessRatesAttachmentsService @Inject()(
 )(implicit executionContext: ExecutionContext)
     extends Cats {
 
-  def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload)(
+  def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload, evidenceType: EvidenceType)(
         implicit request: LinkingSessionRequest[_],
         hc: HeaderCarrier): Future[PreparedUpload] =
     for {
@@ -48,7 +48,7 @@ class BusinessRatesAttachmentsService @Inject()(
         sessionUploadEvidenceData = request.ses.uploadEvidenceData,
         initiateAttachmentRequest = initiateAttachmentRequest,
         initiateAttachmentResult = initiateAttachmentResult,
-        evidenceTypeFromRequest = request.ses.evidenceType
+        evidenceType = evidenceType
       )
       _ <- persistSessionData(request.ses, updatedSessionData)
     } yield {
@@ -69,19 +69,16 @@ class BusinessRatesAttachmentsService @Inject()(
         initiateAttachmentRequest: InitiateAttachmentPayload,
         initiateAttachmentResult: PreparedUpload,
         linkBasis: LinkBasis = NoEvidenceFlag,
-        evidenceTypeFromRequest: Option[EvidenceType] = None): UploadEvidenceData = {
-
-    val evidenceType = if (linkBasis == RatesBillFlag) Some(RatesBillType) else evidenceTypeFromRequest
+        evidenceType: EvidenceType): UploadEvidenceData =
     sessionUploadEvidenceData.copy(
       linkBasis = linkBasis,
-      fileInfo = Some(FileInfo(Some(initiateAttachmentRequest.fileName), evidenceType)),
+      fileInfo = Some(CompleteFileInfo(initiateAttachmentRequest.fileName, evidenceType)),
       attachments = Some(
         Map(
           initiateAttachmentResult.reference.value -> UploadedFileDetails(
             FileMetadata(initiateAttachmentRequest.fileName, initiateAttachmentRequest.mimeType),
             initiateAttachmentResult)))
     )
-  }
 
   def persistSessionData(linkingSession: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] =
     sessionRepository.saveOrUpdate[LinkingSession](linkingSession)

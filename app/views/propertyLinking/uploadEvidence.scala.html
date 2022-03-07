@@ -113,7 +113,8 @@
               ),
               RadioItem(
                 content = Text(messages("uploadOtherEvidence.unableToProvideEvidence")),
-                value = Some(UnableToProvide.name)
+                value = Some(UnableToProvide.name),
+                attributes = Map("data-behaviour" -> "hide-file-upload-section")
               )
             )
           ).withFormField(formEvidence("evidenceType"))
@@ -163,7 +164,6 @@
                     @uploadedFiles.map { case (fileReference, upload) =>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">@{upload.fileMetadata.toDisplayFileName}</td>
-                        <td class="govuk-table__cell">@*(@upload.size.formatted)*@</td>
                         <td class="govuk-table__cell">
                             <button type="submit" class="govuk-button govuk-button--secondary" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)">
                                 @messages("remove.file")

@@ -22,6 +22,7 @@
 @import java.time.format.DateTimeFormatter
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import utils.Formatters
+@import models._
 @import views.html.includes.assessmentHeading
 
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
@@ -51,9 +52,14 @@
 
 @propertyStillOccupied = @{request.ses.propertyOccupancy.exists(_.stillOccupied)}
 
-@strippedFileName = @{request.ses.uploadEvidenceData.fileInfo.map(_.name.fold("")(_.replaceAll("^([^-]+)-", "")))}
+@strippedFileName = @{
+    request.ses.uploadEvidenceData.fileInfo match {
+        case Some(complete: CompleteFileInfo) => complete.name.replaceAll("^([^-]+)-", "")
+        case _ => ""
+    }
+}
 
-@evidenceType = @{request.ses.uploadEvidenceData.fileInfo.flatMap(_.evidenceType).map(_.name).getOrElse("")}
+@evidenceType = @{request.ses.uploadEvidenceData.fileInfo.map(_.evidenceType).map(_.name).getOrElse("")}
 
 @mainLayout(
     pageTitle = messages("declaration.title"),
@@ -164,7 +170,7 @@
                         content = Text(messages("declaration.checkAnswers.evidenceType.heading"))
                     ),
                     value = Value(
-                        content = HtmlContent(messages(s"declaration.checkAnswers.evidenceType.$evidenceType") + s"<br>${strippedFileName.getOrElse("")}")
+                        content = HtmlContent(messages(s"declaration.checkAnswers.evidenceType.$evidenceType") + s"<br>${strippedFileName}")
                     ),
                     actions = Some(Actions(
                         items = Seq(

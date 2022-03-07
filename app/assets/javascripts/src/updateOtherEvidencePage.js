@@ -14,7 +14,7 @@
           $('#continue').click();
         });
 
-        var options = "input[value='lease'],input[value='license'],input[value='serviceCharge'],input[value='stampDutyLandTaxForm'],input[value='waterRateDemand'],input[value='otherUtilityBill'],input[value='landRegistryTitle']";
+        var options = 'input[type="radio"][data-behaviour!="hide-file-upload-section"]';
 
         $(options).click(function() {
           $('#file-upload-form').removeClass("govuk-visually-hidden");
@@ -24,7 +24,7 @@
             $('#file-upload-form').removeClass("govuk-visually-hidden");
         }
 
-        $("#evidenceType-9").click(function() {
+        $('input[type="radio"][data-behaviour="hide-file-upload-section"]').click(function() {
           $('#file-upload-form').addClass("govuk-visually-hidden");
         });
 
