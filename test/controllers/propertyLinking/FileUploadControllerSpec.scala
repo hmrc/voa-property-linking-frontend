@@ -20,6 +20,7 @@ import actions.propertylinking.WithLinkingSession
 import akka.stream.Materializer
 import binders.propertylinks.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
+import models.{RatesBillType, StampDutyLandTaxForm}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.http.Status.{OK => _}
@@ -35,43 +36,43 @@ import utils.{HtmlPage, _}
 import scala.concurrent.Future
 
 class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
+
   def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
   override implicit val messagesControllerComponents: MessagesControllerComponents =
     app.injector.instanceOf[MessagesControllerComponents]
   lazy val mockBusinessRatesChallengeService = mock[BusinessRatesAttachmentsService]
   implicit lazy val request = FakeRequest().withSession(token).withHeaders(HOST -> "localhost:9523")
   implicit lazy val hc = HeaderCarrier()
-  private val mockUploadRatesBillView = mock[views.html.propertyLinking.uploadRatesBill]
-  private val mockUploadEvidenceView = mock[views.html.propertyLinking.uploadEvidence]
+
   class TestFileUploadController(linkingSession: WithLinkingSession)
       extends UploadController(
         mockCustomErrorHandler,
         preAuthenticatedActionBuilders(),
         linkingSession,
         mockBusinessRatesChallengeService,
-        mockUploadRatesBillView,
-        mockUploadEvidenceView
+        uploadRatesBillView,
+        uploadEvidenceView,
+        cannotProvideEvidenceView
       )
   lazy val linkingSession: WithLinkingSession = preEnrichedActionRefiner()
   def controller = new TestFileUploadController(linkingSession)
 
   "RATES_BILL file upload page" should "return valid page" in {
-    when(mockUploadRatesBillView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("RATES_BILL file upload page"))
-
     val res = controller.show(EvidenceChoices.RATES_BILL, None)(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("RATES_BILL file upload page")
+    html.shouldContainText(messages("uploadRatesBill.client.reminder"))
+    html.shouldContain("#newFileGroup", 1)
 
   }
 
   "RATES_BILL file initiate" should "return file upload initiate success" in {
-    val request = FakeRequest(POST, "").withBody(Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg"))
+    val request = FakeRequest(POST, "").withBody(
+      Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg", "evidenceType" -> RatesBillType.name))
     when(
       mockBusinessRatesChallengeService
-        .initiateAttachmentUpload(any())(any(), any[HeaderCarrier]))
+        .initiateAttachmentUpload(any(), any())(any(), any[HeaderCarrier]))
       .thenReturn(Future.successful(preparedUpload))
     val result =
       controller.initiate(EvidenceChoices.RATES_BILL)(request)
@@ -89,11 +90,8 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "RATES_BILL submit with no files uploaded" should "show error if no files selected" in {
-    when(mockUploadRatesBillView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html(""))
-
     val postRequest = fakeRequest.withFormUrlEncodedBody()
-    val result = controller.continue(EvidenceChoices.RATES_BILL)(request)
+    val result = controller.continue(EvidenceChoices.RATES_BILL)(postRequest)
     status(result) shouldBe BAD_REQUEST
   }
 
@@ -110,22 +108,21 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "OTHER Evidence file upload page" should "return valid page" in {
-    when(mockUploadEvidenceView.apply(any(), any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("RATES_BILL file upload page"))
-
     val res = controller.show(EvidenceChoices.OTHER, None)(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("RATES_BILL file upload page")
+    html.shouldContainText(messages("uploadOtherEvidence.title"))
+    html.shouldContain("form input[type=radio]#evidenceType", 1)
 
   }
 
   "OTHER Evidence file initiate" should "return file upload initiate success" in {
-    val request = FakeRequest(POST, "").withBody(Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg"))
+    val request = FakeRequest(POST, "").withBody(
+      Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg", "evidenceType" -> StampDutyLandTaxForm.name))
     when(
       mockBusinessRatesChallengeService
-        .initiateAttachmentUpload(any())(any(), any[HeaderCarrier]))
+        .initiateAttachmentUpload(any(), any())(any(), any[HeaderCarrier]))
       .thenReturn(Future.successful(preparedUpload))
     val result =
       controller.initiate(EvidenceChoices.OTHER)(request)
@@ -143,15 +140,12 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "OTHER Evidence submit with no files uploaded" should "show error if no files selected" in {
-    when(mockUploadEvidenceView.apply(any(), any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html(""))
-
     val postRequest = fakeRequest.withFormUrlEncodedBody()
-    val result = controller.continue(EvidenceChoices.OTHER)(request)
+    val result = controller.continue(EvidenceChoices.OTHER)(postRequest)
     status(result) shouldBe BAD_REQUEST
   }
 
-  "OTHER Evidence file upload with valid files" should "redirect to declaration page" in {
+  "OTHER Evidence file upload with valid files" should "return cannot provide evidence page" in {
     lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceData)
     lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
@@ -160,5 +154,31 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     val result = uploadController.continue(EvidenceChoices.OTHER)(
       FakeRequest().withFormUrlEncodedBody("evidenceType" -> "License"))
     status(result) shouldBe SEE_OTHER
+  }
+
+  "OTHER Evidence page" should "return cannot provide evidence page" in {
+    lazy val linkingSession: WithLinkingSession = preEnrichedActionRefiner()
+    lazy val uploadController = new TestFileUploadController(linkingSession)
+
+    val result = uploadController.continue(EvidenceChoices.OTHER)(
+      FakeRequest().withFormUrlEncodedBody("evidenceType" -> "unableToProvide"))
+    status(result) shouldBe OK
+    val html = HtmlPage(result)
+    html.shouldContainText(messages("cannotProvideEvidence.title"))
+  }
+
+  "updateEvidenceType" should "show error if no evidence type submitted" in {
+    val postRequest = FakeRequest(POST, "").withBody(Json.obj("evidenceType" -> ""))
+    val result = controller.updateEvidenceType()(postRequest)
+    status(result) shouldBe BAD_REQUEST
+  }
+
+  "updateEvidenceType" should "return OK if valid evidence type submitted" in {
+    when(mockBusinessRatesChallengeService.persistSessionData(any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful())
+    val postRequest = FakeRequest(POST, "").withBody(Json.obj("evidenceType" -> "lease"))
+    val result = controller.updateEvidenceType()(postRequest)
+
+    status(result) shouldBe OK
   }
 }

@@ -164,6 +164,24 @@ trait FakeViews extends GdsComponents {
     mainLayout: views.html.mainLayout,
     formWithCSRF: FormWithCSRF
   )
+
+  lazy val uploadRatesBillView = new views.html.propertyLinking.uploadRatesBill(
+    govukErrorSummary,
+    govukWarningText,
+    govukSelect,
+    govukDetails,
+    govukButton,
+    mainLayout,
+    formWithCSRF)
+  lazy val uploadEvidenceView = new views.html.propertyLinking.uploadEvidence(
+    govukErrorSummary,
+    govukRadios,
+    govukButton,
+    mainLayout,
+    formWithCSRF,
+    govukWarningText)
+  lazy val cannotProvideEvidenceView = new views.html.propertyLinking.cannotProvideEvidence(mainLayout)
+
   lazy val declarationView = new views.html.propertyLinking.declaration(
     govukErrorSummary,
     govukWarningText,
@@ -173,4 +191,5 @@ trait FakeViews extends GdsComponents {
     formWithCSRF,
     govukSummaryList
   )
+
 }

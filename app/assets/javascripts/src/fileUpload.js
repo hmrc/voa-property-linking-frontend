@@ -9,6 +9,7 @@
     }
 
     var FileUpload = function (){
+
         var $element = $('#newFile');
 
         var errorMessages = '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-heading" role="alert" tabindex="-1" data-module="govuk-error-summary">'+
@@ -79,6 +80,7 @@
             var csrfToken = $("#uploadForm input[name='csrfToken']").val();
             var fileName = file.name.replace(/[^0-9A-Za-z. -]/g,' ');
             var submissionId = $("#submissionId").text();
+            var evidenceType = ($('input[type="radio"][name="evidenceType"]').length) ? $('input[name="evidenceType"]:checked').val() : $("#evidenceType").text();
             $.ajax({
                 url: $("#businessRatesAttachmentsInitiateUploadURL").text(),
                 method: "POST",
@@ -86,6 +88,7 @@
                 data: JSON.stringify({
                     "fileName": submissionId + "-" + fileName,
                     "mimeType": resolvedMimeType,
+                    "evidenceType": evidenceType,
                     "csrfToken": csrfToken
                 }),
                 headers: {

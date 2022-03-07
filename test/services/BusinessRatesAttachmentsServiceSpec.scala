@@ -19,7 +19,7 @@ package services
 import actions.propertylinking.requests.LinkingSessionRequest
 import actions.requests.BasicAuthenticatedRequest
 import connectors.attachments.BusinessRatesAttachmentsConnector
-import models.LinkingSession
+import models.{LinkingSession, RatesBillType}
 import models.attachment._
 import models.attachment.request.InitiateAttachmentRequest
 import org.mockito.ArgumentMatchers._
@@ -37,7 +37,7 @@ class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
   val businessRatesAttachmentConnector = mock[BusinessRatesAttachmentsConnector]
   val mockSessionRepo = mock[SessionRepo]
   val initiateAttachmentRequest = InitiateAttachmentPayload(
-    InitiateAttachmentRequest("FILE_NAME", "img/jpeg"),
+    InitiateAttachmentRequest("FILE_NAME", "img/jpeg", RatesBillType),
     "http://example.com",
     "http://example.com/failure")
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
@@ -60,7 +60,7 @@ class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
       when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
 
       businessRatesChallengeService
-        .initiateAttachmentUpload(initiateAttachmentRequest)(linkingSessionRequest, hc)
+        .initiateAttachmentUpload(initiateAttachmentRequest, RatesBillType)(linkingSessionRequest, hc)
         .futureValue
 
       verify(businessRatesAttachmentConnector, times(1)).initiateAttachmentUpload(any())(any[HeaderCarrier])

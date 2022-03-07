@@ -18,6 +18,7 @@ package connectors
 
 import connectors.attachments.BusinessRatesAttachmentsConnector
 import controllers.VoaPropertyLinkingSpec
+import models.RatesBillType
 import models.attachment._
 import models.attachment.request.InitiateAttachmentRequest
 import models.upscan._
@@ -25,7 +26,7 @@ import play.api.libs.json.JsObject
 
 class BusinessRatesAttachmentsConnectorSpec extends VoaPropertyLinkingSpec {
 
-  val initiateAttachmentRequest = InitiateAttachmentRequest("FILE_NAME", "img/jpeg")
+  val initiateAttachmentRequest = InitiateAttachmentRequest("FILE_NAME", "img/jpeg", RatesBillType)
   val attachments = mock[Attachment]
 
   "initiateAttachment" should "call to initiateAttachment return a successful" in {

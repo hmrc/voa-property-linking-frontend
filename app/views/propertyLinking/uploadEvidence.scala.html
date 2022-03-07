@@ -19,16 +19,20 @@
 @import controllers.propertyLinking.routes._
 @import helpers._
 @import models.upscan._
+@import models._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@this(govukErrorSummary : GovukErrorSummary, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukWarningText: GovukWarningText)
+@import views.html.includes.assessmentHeading
+@import actions.propertylinking.requests.LinkingSessionRequest
+
+@this(govukErrorSummary : GovukErrorSummary, govukRadios: GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukWarningText: GovukWarningText)
 @(
         submissionId: String,
         errors: List[String] = Nil,
         uploadedFiles: Map[String, UploadedFileDetails] = Map(),
         formEvidence: Form[_],
         linkingSession: LinkingSession
-)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 
 @fileUploadErrorLinks = @{
@@ -38,7 +42,7 @@
 }
 
 @mainLayout(
-    pageTitle = Messages("uploadEvidence.show.title"),
+    pageTitle = Messages("uploadOtherEvidence.title"),
     backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url),
     hasErrors = formEvidence.hasErrors || errors.nonEmpty
 ) {
@@ -59,108 +63,135 @@
         </div>
     }
     <div id="errorsList"></div>
-    <h1 class="govuk-heading-l">@messages("uploadEvidence.show.title")</h1>
-    <h2 class="govuk-heading-m">
-        @messages("uploadEvidence.p.1")
-    </h2>
-    <h3 class="govuk-heading-s">@messages("uploadEvidence.evidenceTypes")</h3>
-    <ul class="govuk-list govuk-list--bullet">
-                    <li>@messages("uploadEvidence.evidenceTypes.1")</li>
-                    <li>@messages("uploadEvidence.evidenceTypes.2")</li>
-                    <li>@messages("uploadEvidence.evidenceTypes.3")</li>
-                    <li>@messages("uploadEvidence.evidenceTypes.4")</li>
-                    <li>@messages("uploadEvidence.evidenceTypes.5")</li>
-                    <li>@messages("uploadEvidence.evidenceTypes.6")</li>
-                    <li>@messages("uploadEvidence.evidenceTypes.7")</li>
-    </ul>
 
-    @govukDetails(Details(
-        id = Some("noEvidenceDetails"),
-        summary = Text(messages("uploadEvidence.noEvidence")),
-        content = HtmlContent(Html(
-            s"${messages("uploadEvidence.noEvidence.p1")}${messages("uploadEvidence.noEvidence.p2")}${messages("uploadEvidence.noEvidence.p3")}"
-        ))))
+    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
-    <h2 class="govuk-heading-s">@messages("uploadFile.allowedTypes.mustbe")</h2>
+    <span class="govuk-caption-l">@messages("caption.add.property")</span>
+    <h1 class="govuk-heading-l">@messages("uploadOtherEvidence.title")</h1>
 
-    <ul class="govuk-list govuk-list--bullet">
-        <li id="allowedFileTypesText">@messages("uploadFile.allowedTypes.l1")</li>
-    </ul>
-    @formWithCSRF(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
-                    <div class="govuk-visually-hidden" id="initiateFields"></div>
-                        @if(uploadedFiles.size < 1){
-                            <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty){govuk-form-group--error}">
-                                <label class="govuk-label" for="newFile">
-                                    <span class="govuk-visually-hidden">@messages("fileupload.chooseFile")</span>
-                                    <input type="file" id="newFile" name="file" class="govuk-file-upload  @if(errors.nonEmpty){govuk-file-upload--error}" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
-                                </label>
-                                @if(errors.nonEmpty){
-                                    <span id="file-upload-1-error" class="govuk-error-message">
-                                    @errors.map { error =>
-                                        <span class="govuk-visually-hidden">Error:</span> @messages(error)
-                                    }
-                                    </span>
-                                }
-                                <a id="newFileButton" href="#" class="govuk-button govuk-button--secondary">@messages("fileupload.chooseFile")</a>
-                            </div>
-                        }else{
-                            @govukWarningText(WarningText(
-                                iconFallbackText = "Warning",
-                                content = Text(messages("businessRatesAttachment.file.size.reached.max.limit"))
-                            ))
-                        }
+    @formWithCSRF(action = UploadController.continue(EvidenceChoices.OTHER)) {
+        @govukRadios(Radios(
+            fieldset = Some(Fieldset(
+              legend = Some(Legend(
+                content = Text(messages("uploadOtherEvidence.evidenceType")),
+                classes = "govuk-fieldset__legend--m"
+              ))
+            )),
+            idPrefix = Some("evidenceType"),
+            name = "evidenceType",
+            items = Seq(
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.evidenceTypes.1")),
+                value = Some(Lease.name)
+              ),
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.evidenceTypes.2")),
+                value = Some(License.name)
+              ),
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.evidenceTypes.3")),
+                value = Some(ServiceCharge.name)
+              ),
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.evidenceTypes.4")),
+                value = Some(StampDutyLandTaxForm.name)
+              ),
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.evidenceTypes.5")),
+                value = Some(LandRegistryTitle.name)
+              ),
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.evidenceTypes.6")),
+                value = Some(WaterRateDemand.name)
+              ),
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.evidenceTypes.7")),
+                value = Some(OtherUtilityBill.name),
+              ),
+              RadioItem(
+                divider = Some(messages("common.or"))
+              ),
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.unableToProvideEvidence")),
+                value = Some(UnableToProvide.name),
+                attributes = Map("data-behaviour" -> "hide-file-upload-section")
+              )
+            )
+          ).withFormField(formEvidence("evidenceType"))
+        )
 
-                        <div class="message-warning govuk-visually-hidden" id="message-warning"><p class="govuk-body">@messages("fileupload.pleaseWait")</p></div>
-                        <table class="govuk-table">
-                            <tbody class="govuk-table__body">
-                            @uploadedFiles.map { case (fileReference, upload) =>
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell">@{upload.fileMetadata.toDisplayFileName}</td>
-                                <td class="govuk-table__cell">@*(@upload.size.formatted)*@</td>
-                                <td class="govuk-table__cell">
-                                    <button type="submit" class="govuk-button govuk-button--secondary" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)">
-                                    @Messages("remove.file")
-                            </button>
-                            </td>
-                            </tr>
+        @govukButton(Button(
+            content = Text(messages("uploadRatesBill.show.button")),
+            attributes = Map("id" -> "continue"),
+            classes = "govuk-visually-hidden"
+        ))
+    }
+
+    <div id="file-upload-form" class="govuk-visually-hidden">
+        @formWithCSRF(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+            <div class="govuk-visually-hidden" id="initiateFields"></div>
+
+                 @if(uploadedFiles.size < 1){
+                    <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty){govuk-form-group--error}">
+                        <label class="govuk-label" for="newFile">
+                            <span class="govuk-visually-hidden">@messages("fileupload.chooseFile")</span>
+                            <input type="file" id="newFile" name="file" class="govuk-file-upload  @if(errors.nonEmpty){govuk-file-upload--error}" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
+                        </label>
+                        @if(errors.nonEmpty){
+                            <span id="file-upload-1-error" class="govuk-error-message">
+                            @errors.map { error =>
+                                <span class="govuk-visually-hidden">Error:</span> @messages(error)
                             }
-                            </tbody>
-                        </table>
-                }
-                @formWithCSRF(action = UploadController.continue(EvidenceChoices.OTHER)) {
-                    @govukSelect(Select(
-                        id    = "evidenceType",
-                        name  = "evidenceType",
-                        items = SelectItem() +: EvidenceType.options.map(item =>
-                            SelectItem(
-                            value = Some(item),
-                            text  = messages(s"evidenceType.${item}"),
-                            selected = formEvidence.data.get("evidenceType").fold(false)(_ == item)
-                        )),
-                        label = Label(
-                            content = Text(messages("evidenceType.label"))
-                        ),
-                        errorMessage =  { formEvidence.error("evidenceType").map{ error =>
-                            ErrorMessage(content = Text(messages(error.message)))
-                        }}
-                    ))
-                    @govukButton(Button(
-                        content = Text(messages("uploadRatesBill.show.button")),
-                        attributes = Map("id" -> "continue")
+                            </span>
+                        }
+                        <div class="govuk-form-group">
+                            <label class="govuk-label--m" for="newFileButton">@messages("common.uploadFile.label")
+                            <span id="fileTypesText" class="govuk-hint">@messages("uploadFile.allowedTypes.l1")</span>
+                            </label>
+                            <input id="newFileButton" class="govuk-file-upload" name="file-upload-1" type="file">
+                        </div>
+                    </div>
+                }else{
+                    @govukWarningText(WarningText(
+                        iconFallbackText = "Warning",
+                        content = Text(messages("businessRatesAttachment.file.size.reached.max.limit"))
                     ))
                 }
+
+                <div class="message-warning govuk-visually-hidden" id="message-warning"><p class="govuk-body">@messages("fileupload.pleaseWait")</p></div>
+                <table class="govuk-table">
+                    <tbody class="govuk-table__body">
+                    @uploadedFiles.map { case (fileReference, upload) =>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">@{upload.fileMetadata.toDisplayFileName}</td>
+                        <td class="govuk-table__cell">
+                            <button type="submit" class="govuk-button govuk-button--secondary" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)">
+                                @messages("remove.file")
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                    </tbody>
+                </table>
+        }
+    </div>
+    @govukButton(Button(
+        content = Text(messages("label.continue")),
+        attributes = Map("id" -> "continue-button")
+    ))
 
             </div>
         </div>
-        <span id="businessRatesAttachmentsRemoveFileURL" class="govuk-visually-hidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/OTHER/upload/remove?fileReference="}</span>
-        <span id="businessRatesAttachmentsInitiateUploadURL" class="govuk-visually-hidden">@{s"${UploadController.initiate(EvidenceChoices.OTHER)}"}</span>
-        <span id="businessRatesAttachmentsFileUploadURL" class="govuk-visually-hidden">@{s"${UploadController.show(EvidenceChoices.OTHER)}"}</span>
-        <span id="errorsUpscan" class="govuk-visually-hidden">@Html(messages("error.upscan.unavailable"))</span>
-        <span id="errorsFileSizeTooLarge" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
-        <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
-        <span id="errorsBusinessRatesAttachmentUnavailable" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.unavailable")</span>
-        <span id="signInPageUrl" class="govuk-visually-hidden">@{config.basGatewaySignInUrl}</span>
-        <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimPropertyRelationshipController.submitRelationship(linkingSession.uarn)}</span>
-        <span id="submissionId" class="govuk-visually-hidden">@submissionId</span>
+    <span id="businessRatesAttachmentsRemoveFileURL" class="govuk-visually-hidden">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/OTHER/upload/remove?fileReference="}</span>
+    <span id="businessRatesAttachmentsInitiateUploadURL" class="govuk-visually-hidden">@{s"${UploadController.initiate(EvidenceChoices.OTHER)}"}</span>
+    <span id="businessRatesAttachmentsFileUploadURL" class="govuk-visually-hidden">@{s"${UploadController.show(EvidenceChoices.OTHER)}"}</span>
+    <span id="errorsUpscan" class="govuk-visually-hidden">@Html(messages("error.upscan.unavailable"))</span>
+    <span id="errorsFileSizeTooLarge" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
+    <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
+    <span id="errorsBusinessRatesAttachmentUnavailable" class="govuk-visually-hidden">@messages("error.businessRatesAttachment.unavailable")</span>
+    <span id="signInPageUrl" class="govuk-visually-hidden">@{config.basGatewaySignInUrl}</span>
+    <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimPropertyRelationshipController.submitRelationship(linkingSession.uarn)}</span>
+    <span id="submissionId" class="govuk-visually-hidden">@submissionId</span>
+    <span id="updateEvidenceTypeURL" class="govuk-visually-hidden">@{s"${UploadController.updateEvidenceType()}"}</span>
 
-    }
+}

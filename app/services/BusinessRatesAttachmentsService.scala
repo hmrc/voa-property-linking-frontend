@@ -39,15 +39,17 @@ class BusinessRatesAttachmentsService @Inject()(
 )(implicit executionContext: ExecutionContext)
     extends Cats {
 
-  def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload)(
+  def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload, evidenceType: EvidenceType)(
         implicit request: LinkingSessionRequest[_],
         hc: HeaderCarrier): Future[PreparedUpload] =
     for {
       initiateAttachmentResult <- businessRatesAttachmentsConnector.initiateAttachmentUpload(initiateAttachmentRequest)
       updatedSessionData = updateSessionData(
-        request.ses.uploadEvidenceData,
-        initiateAttachmentRequest,
-        initiateAttachmentResult)
+        sessionUploadEvidenceData = request.ses.uploadEvidenceData,
+        initiateAttachmentRequest = initiateAttachmentRequest,
+        initiateAttachmentResult = initiateAttachmentResult,
+        evidenceType = evidenceType
+      )
       _ <- persistSessionData(request.ses, updatedSessionData)
     } yield {
       auditingService.sendEvent(
@@ -66,19 +68,17 @@ class BusinessRatesAttachmentsService @Inject()(
         sessionUploadEvidenceData: UploadEvidenceData,
         initiateAttachmentRequest: InitiateAttachmentPayload,
         initiateAttachmentResult: PreparedUpload,
-        linkBasis: LinkBasis = NoEvidenceFlag): UploadEvidenceData = {
-
-    val evidenceType = if (linkBasis == RatesBillFlag) Some(RatesBillType) else None
+        linkBasis: LinkBasis = NoEvidenceFlag,
+        evidenceType: EvidenceType): UploadEvidenceData =
     sessionUploadEvidenceData.copy(
       linkBasis = linkBasis,
-      fileInfo = Some(FileInfo(initiateAttachmentRequest.fileName, evidenceType)),
+      fileInfo = Some(CompleteFileInfo(initiateAttachmentRequest.fileName, evidenceType)),
       attachments = Some(
         Map(
           initiateAttachmentResult.reference.value -> UploadedFileDetails(
             FileMetadata(initiateAttachmentRequest.fileName, initiateAttachmentRequest.mimeType),
             initiateAttachmentResult)))
     )
-  }
 
   def persistSessionData(linkingSession: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] =
     sessionRepository.saveOrUpdate[LinkingSession](linkingSession)

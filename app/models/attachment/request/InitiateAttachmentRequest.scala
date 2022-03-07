@@ -16,11 +16,13 @@
 
 package models.attachment.request
 
+import models.EvidenceType
 import play.api.libs.json.{Json, OFormat}
 
 case class InitiateAttachmentRequest(
       fileName: String,
-      mimeType: String
+      mimeType: String,
+      evidenceType: EvidenceType
 )
 
 object InitiateAttachmentRequest {

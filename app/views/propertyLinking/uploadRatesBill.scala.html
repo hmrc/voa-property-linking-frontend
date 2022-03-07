@@ -19,6 +19,7 @@
 @import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
 @import models.upscan._
+@import models.RatesBillType
 @import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
@@ -86,7 +87,7 @@
                     </span>
                 }
                 <div class="govuk-form-group">
-                    <label class="govuk-label--m" for="newFileButton">@messages("uploadRatesBill.label")
+                    <label class="govuk-label--m" for="newFileButton">@messages("common.uploadFile.label")
                     <span id="fileTypesText" class="govuk-hint">@messages("uploadFile.allowedTypes.l1")</span>
                     </label>
                     <input id="newFileButton" class="govuk-file-upload" name="file-upload-1" type="file">
@@ -105,7 +106,6 @@
             @uploadedFiles.map { case (fileReference, upload) =>
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell">@{upload.fileMetadata.toDisplayFileName}</td>
-                <td class="govuk-table__cell">@*(@upload.size.formatted)*@</td>
                 <td class="govuk-table__cell">
                     <button type="submit" class="govuk-button govuk-button--secondary" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)">
                     @Messages("remove.file")
@@ -133,5 +133,6 @@
     <span id="signInPageUrl" class="govuk-visually-hidden">@{config.basGatewaySignInUrl}</span>
     <span id="startClaimUrl" class="govuk-visually-hidden">@{ClaimPropertyRelationshipController.submitRelationship(request.ses.uarn)}</span>
     <span id="submissionId" class="govuk-visually-hidden">@submissionId</span>
+    <span id="evidenceType" class="govuk-visually-hidden">@RatesBillType.name</span>
 
     }
