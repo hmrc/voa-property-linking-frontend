@@ -872,8 +872,10 @@ link.manageProperties=Manage properties
 
 #CANNOT PROVIDE EVIDENCE
 cannotProvideEvidence.title=If you cannot provide evidence
-cannotProvideEvidence.p1=If you can''t provide evidence to prove your link to the property, you won''t be able to claim it or view the detailed valuation.
-cannotProvideEvidence.p2=You''ll need to contact us to discuss other documents that prove your link to this property.
+cannotProvideEvidence.p1=If you can’t provide evidence to prove your link to the property, you won’t be able to claim it or view the detailed valuation.
+cannotProvideEvidence.p2=You’ll need to contact us to discuss other documents that prove your link to this property.
+cannotProvideEvidence.agent.p1=If you can’t provide evidence to prove your client’s link to the property, you won’t be able to claim it or view the detailed valuation.
+cannotProvideEvidence.agent.p2=You’ll need to contact us to discuss other documents that prove your client’s link to this property.
 cannotProvideEvidence.email=Email: <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>
 
 #UPLOAD EVIDENCE

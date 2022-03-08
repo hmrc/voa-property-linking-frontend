@@ -34,7 +34,12 @@
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@messages("cannotProvideEvidence.title")</h1>
 
-    <p class="govuk-body">@messages("cannotProvideEvidence.p1")</p>
-    <p class="govuk-body">@messages("cannotProvideEvidence.p2")</p>
+    @if(request.organisationAccount.isAgent){
+        <p class="govuk-body">@messages("cannotProvideEvidence.agent.p1")</p>
+        <p class="govuk-body">@messages("cannotProvideEvidence.agent.p2")</p>
+    } else {
+        <p class="govuk-body">@messages("cannotProvideEvidence.p1")</p>
+        <p class="govuk-body">@messages("cannotProvideEvidence.p2")</p>
+    }
     <p class="govuk-body">@Html(messages("cannotProvideEvidence.email"))</p>
 }

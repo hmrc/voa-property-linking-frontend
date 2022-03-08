@@ -120,12 +120,18 @@ class UploadController @Inject()(
             ))),
           evidenceType => {
             val updatedSession = request.ses.copy(evidenceType = Some(evidenceType))
-            val sessionUploadData: UploadEvidenceData = UploadEvidenceData(
+            val fileInfo = request.ses.uploadEvidenceData.fileInfo match {
+              case Some(CompleteFileInfo(name, _)) => CompleteFileInfo(name, evidenceType)
+              case _                               => PartialFileInfo(evidenceType)
+            }
+
+            val updatedUploadData: UploadEvidenceData = UploadEvidenceData(
               linkBasis = OtherEvidenceFlag,
-              fileInfo = Some(PartialFileInfo(evidenceType = evidenceType)))
+              fileInfo = Some(fileInfo),
+              attachments = request.ses.uploadEvidenceData.attachments)
 
             businessRatesAttachmentsService
-              .persistSessionData(updatedSession, sessionUploadData)
+              .persistSessionData(updatedSession, updatedUploadData)
               .map(
                 _ =>
                   Ok(

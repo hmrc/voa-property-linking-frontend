@@ -16,6 +16,7 @@
 
 package controllers.propertyLinking
 
+import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import akka.stream.Materializer
 import binders.propertylinks.EvidenceChoices
@@ -44,10 +45,12 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   implicit lazy val request = FakeRequest().withSession(token).withHeaders(HOST -> "localhost:9523")
   implicit lazy val hc = HeaderCarrier()
 
-  class TestFileUploadController(linkingSession: WithLinkingSession)
+  class TestFileUploadController(
+        linkingSession: WithLinkingSession,
+        authenticatedAction: AuthenticatedAction = preAuthenticatedActionBuilders())
       extends UploadController(
         mockCustomErrorHandler,
-        preAuthenticatedActionBuilders(),
+        authenticatedAction,
         linkingSession,
         mockBusinessRatesChallengeService,
         uploadRatesBillView,
@@ -156,7 +159,20 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     status(result) shouldBe SEE_OTHER
   }
 
-  "OTHER Evidence page" should "return cannot provide evidence page" in {
+  "OTHER Evidence page" should "return cannot provide evidence page for IP" in {
+    lazy val linkingSession: WithLinkingSession = preEnrichedActionRefiner()
+    lazy val uploadController =
+      new TestFileUploadController(linkingSession, preAuthenticatedActionBuilders(userIsAgent = false))
+
+    val result = uploadController.continue(EvidenceChoices.OTHER)(
+      FakeRequest().withFormUrlEncodedBody("evidenceType" -> "unableToProvide"))
+    status(result) shouldBe OK
+    val html = HtmlPage(result)
+    html.shouldContainText(messages("cannotProvideEvidence.title"))
+    html.shouldContainText(messages("cannotProvideEvidence.p1"))
+  }
+
+  "OTHER Evidence page" should "return cannot provide evidence page for agent" in {
     lazy val linkingSession: WithLinkingSession = preEnrichedActionRefiner()
     lazy val uploadController = new TestFileUploadController(linkingSession)
 
@@ -165,6 +181,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     status(result) shouldBe OK
     val html = HtmlPage(result)
     html.shouldContainText(messages("cannotProvideEvidence.title"))
+    html.shouldContainText(messages("cannotProvideEvidence.agent.p1"))
   }
 
   "updateEvidenceType" should "show error if no evidence type submitted" in {
