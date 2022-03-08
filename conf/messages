@@ -881,13 +881,15 @@ cannotProvideEvidence.email=Email: <a class="govuk-link" href="mailto:ccaservice
 #UPLOAD EVIDENCE
 uploadOtherEvidence.title=What other type of evidence for this property can you provide?
 uploadOtherEvidence.evidenceType=Evidence type
-uploadOtherEvidence.evidenceTypes.1=Lease
-uploadOtherEvidence.evidenceTypes.2=Licence to occupy property
-uploadOtherEvidence.evidenceTypes.3=Service charge statement
-uploadOtherEvidence.evidenceTypes.4=Stamp Duty Land Tax form
-uploadOtherEvidence.evidenceTypes.5=Land Registry title
-uploadOtherEvidence.evidenceTypes.6=Water rate demand
-uploadOtherEvidence.evidenceTypes.7=Utility bill
+uploadOtherEvidence.evidenceTypes.lease=Lease
+uploadOtherEvidence.evidenceTypes.license=Licence to occupy property
+uploadOtherEvidence.evidenceTypes.serviceCharge=Service charge statement
+uploadOtherEvidence.evidenceTypes.stampDutyLandTaxForm=Stamp Duty Land Tax form
+uploadOtherEvidence.evidenceTypes.landRegistryTitle=Land Registry title
+uploadOtherEvidence.evidenceTypes.waterRateDemand=Water rate demand
+uploadOtherEvidence.evidenceTypes.otherUtilityBill=Utility bill
+uploadOtherEvidence.evidenceTypes.ratesBill=Business rates bill
+
 uploadOtherEvidence.unableToProvideEvidence=I am unable to provide any of these documents
 uploadOtherEvidence.uploadFile=Upload a file
 uploadOtherEvidence.uploadFile.caption=The file must be a Word doc, Excel sheet, PDF, PNG or JPG, and be smaller than 10MB.
@@ -949,14 +951,7 @@ declaration.checkAnswers.propertyOwnership.yes=Yes
 declaration.checkAnswers.propertyOwnership.no=No
 declaration.checkAnswers.propertyOccupancy.lastOccupiedDate=End date
 declaration.checkAnswers.evidenceType.heading=Evidence type
-declaration.checkAnswers.evidenceType.ratesBill=Business rates bill
-declaration.checkAnswers.evidenceType.lease=Lease \n
-declaration.checkAnswers.evidenceType.license=Licence to occupy property
-declaration.checkAnswers.evidenceType.serviceCharge=Service charge
-declaration.checkAnswers.evidenceType.stampDutyLandTaxForm=Stamp duty land tax form
-declaration.checkAnswers.evidenceType.waterRateDemand=Water rate demand
-declaration.checkAnswers.evidenceType.otherUtilityBill=Other utility bill
-declaration.checkAnswers.evidenceType.landRegistryTitle=Land Registry title
+
 declaration.checkAnswers.change=Change
 declaration.button=Confirm and send
 declaration.title=Check and confirm your claim details
