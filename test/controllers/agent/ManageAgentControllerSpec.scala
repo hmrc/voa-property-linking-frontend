@@ -20,6 +20,7 @@ import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation._
+import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -47,7 +48,6 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     mock[views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties]
   private val mockConfirmRemoveAgentFromOrganisationView =
     mock[views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation]
-  private val mockMyAgentsView = mock[views.html.propertyrepresentation.manage.myAgents]
   private val mockManageAgentPropertiesView = mock[views.html.propertyrepresentation.manage.manageAgentProperties]
 
   lazy val testController = new ManageAgentController(
@@ -55,7 +55,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     authenticated = preAuthenticatedActionBuilders(userIsAgent = false),
     agentRelationshipService = mockAgentRelationshipService,
     manageAgentView = mockManageAgentView,
-    myAgentsView = mockMyAgentsView,
+    myAgentsView = myAgentsView,
     removeAgentFromOrganisationView = mockRemoveAgentFromOrganisationView,
     unassignAgentFromPropertyView = mockUnassignAgentFromPropertyView,
     addAgentToAllPropertiesView = mockAddAgentToAllPropertyView,
@@ -72,10 +72,11 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 0)))))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
       .thenReturn(Future.successful(propertyLinksCount))
-    when(mockMyAgentsView.apply(any(), any())(any(), any(), any()))
-      .thenReturn(Html(""))
     val res = testController.showAgents()(FakeRequest())
     status(res) shouldBe OK
+
+    val returnedDocument = Jsoup.parse(contentAsString(res))
+    Option(returnedDocument.getElementById("add-agent-link")).map(_.text()) shouldBe Some("Appoint an agent")
   }
 
   "manageAgent" should "show the manage agent page" in {
