@@ -192,4 +192,6 @@ trait FakeViews extends GdsComponents {
     govukSummaryList
   )
 
+  lazy val myAgentsView = new views.html.propertyrepresentation.manage.myAgents(govukTable, mainLayout)
+
 }

@@ -558,6 +558,8 @@ propertyRepresentation.showAgents.label.agent=Agent
 propertyRepresentation.showAgents.label.assigned.to=Assigned to
 propertyRepresentation.showAgents.label.action=Action
 propertyRepresentation.showAgents.title=Your agents
+propertyRepresentation.showAgents.appointNewAgent.link=Appoint an agent
+
 propertyRepresentation.agentProperties.assigned.title=Your agent
 propertyRepresentation.agentProperties.assigned=Assigned properties
 propertyRepresentation.agentProperties.label.properties=Properties
