@@ -14,13 +14,11 @@
  * limitations under the License.
  *@
 
-@import actions.requests.BasicAuthenticatedRequest
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-@import models.propertyrepresentation.AgentSummary
-@import config.ApplicationConfig
-@import binders.propertylinks.GetPropertyLinksParameters
 @import binders.pagination.PaginationParameters
+@import binders.propertylinks.GetPropertyLinksParameters
+@import config.ApplicationConfig
+@import models.propertyrepresentation.AgentSummary
+@import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(govukTable : GovukTable, mainLayout: views.html.mainLayout)
 
@@ -62,5 +60,9 @@
         firstCellIsHeader = false
     )
     )
+
+  <p class="govuk-body margin-top-5">
+      <a class="govuk-link" id=add-agent-link href="@controllers.agentAppointment.routes.AddAgentController.start()">@messages("propertyRepresentation.showAgents.appointNewAgent.link")</a>
+  </p>
 
 }
