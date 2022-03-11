@@ -1,0 +1,44 @@
+@import config.ApplicationConfig
+@import views.html.mainLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import models.registration.IndividualNino
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+
+
+
+@this(mainLayout: mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary, govukDetails: GovukDetails)
+
+@(form: Form[IndividualNino])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+
+@mainLayout(
+    pageTitle = messages("enrolment.nino.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    hasErrors = form.hasErrors
+){
+
+
+
+    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitIndividualNINO()){
+
+        @govukInput(Input(
+            id = "nino",
+            name = "nino",
+            label = Label(content = Text(messages("enrolment.nino.title")), classes="govuk-label--l"),
+            classes = "govuk-input govuk-!-width-one-third",
+            hint = Some(Hint(
+                content = Text(messages("enrolment.nino.helpText"))
+            ))
+        ).withFormField(form("nino")))
+
+        @govukDetails(Details(
+            summary = Text(messages("enrolment.nino.noNino")),
+            content = HtmlContent(messages("enrolment.nino.noNino.p"))
+        ))
+
+        @govukButton(Button(
+            content = Text(messages("enrolment.continue")),
+            attributes = Map("id" -> "continue")
+        ))
+    }
+}

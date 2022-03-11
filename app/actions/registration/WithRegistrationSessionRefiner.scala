@@ -42,10 +42,9 @@ class WithRegistrationSessionRefiner @Inject()(
   override protected def refine[A](
                                     request: RequestWithUserDetails[A]): Future[Either[Result, RegistrationSessionRequest[A]]] =
     {
-      println(">>>>>>>>>>>>>>>>>>>>>")
       sessionRepository.get[RegistrationSession](implicitly[Reads[RegistrationSession]], hc(request)).map {
         case Some(s) =>
-          Right(RegistrationSessionRequest(sessionData = s, userDetaails = request.userDetails, request = request))
+          Right(RegistrationSessionRequest(sessionData = s, userDetails = request.userDetails, request = request))
         case None => Left(NotFound(errorHandler.notFoundTemplate(request)))
       }
     }

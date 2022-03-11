@@ -37,7 +37,8 @@ class RegistrationService @Inject()(
       addresses: Addresses,
       emailService: EmailService,
       config: ApplicationConfig,
-      @Named("personSession") personalDetailsSessionRepo: SessionRepo)
+      @Named("personSession") personalDetailsSessionRepo: SessionRepo,
+      @Named("registrationDetails") val registrationDetailsSessionRepo: SessionRepo)
     extends Logging {
 
   def create(
@@ -69,17 +70,37 @@ class RegistrationService @Inject()(
     (userDetails.affinityGroup, userDetails.credentialRole) match {
       case (Organisation, role) if role != Assistant =>
         for {
+          organisationDetailsOpt <- registrationDetailsSessionRepo.get[RegistrationSession]
+          organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
+          registrationResult <- create(organisationDetails.toGroupDetailsOrganisation, userDetails, Some(Organisation))(
+                                 organisationDetails.toAccountSubmission(journeyId))
+        } yield Some(registrationResult)
+      case (Individual, _) =>
+        for {
+          individualDetailsOpt <- registrationDetailsSessionRepo.get[RegistrationSession]
+          individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
+          registrationResult <- create(individualDetails.toGroupDetailsIndividual, userDetails, Some(Individual))(
+                                 individualDetails.toAccountSubmission(journeyId))
+        } yield Some(registrationResult)
+    }
+
+  def continueOld(journeyId: Option[String], userDetails: UserDetails)(
+    implicit hc: HeaderCarrier,
+    ec: ExecutionContext): Future[Option[RegistrationResult]] =
+    (userDetails.affinityGroup, userDetails.credentialRole) match {
+      case (Organisation, role) if role != Assistant =>
+        for {
           organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
           organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
           registrationResult <- create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(
-                                 organisationDetails.toIndividualAccountSubmission(journeyId))
+            organisationDetails.toIndividualAccountSubmission(journeyId))
         } yield Some(registrationResult)
       case (Individual, _) =>
         for {
           individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
           individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
           registrationResult <- create(individualDetails.toGroupDetails, userDetails, Some(Individual))(
-                                 individualDetails.toIndividualAccountSubmission(journeyId))
+            individualDetails.toIndividualAccountSubmission(journeyId))
         } yield Some(registrationResult)
     }
 

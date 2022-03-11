@@ -1452,6 +1452,26 @@ enrolment.personalDetails.phone = Telephone number
 enrolment.personalDetails.mobilePhone = Mobile telephone number
 enrolment.personalDetails.tradingName = Trading name (optional)
 
+enrolment.dob.title=What is your date of birth?
+enrolment.dob.hint=For example, 31 3 1980
+
+enrolment.nino.title=What is your National Insurance number?
+enrolment.nino.helpText=It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
+enrolment.nino.noNino=I don’t have a National Insurance number
+enrolment.nino.noNino.p=If you don’t have a National Insurance number, payslip or P60, you’ll need to <a class="govuk-link" href="https://www.gov.uk/contact-voa">contact the Valuation Office Agency (VOA)</a>.
+
+enrolment.isAgent.title=Do you want to register as an agent?
+enrolment.isAgent.p1=If you represent another organisation (for example, as a professional surveyor or an accountant), we will give you a unique agent code. You need to give this code to your client so they can appoint you to act for them.
+
+enrolment.orgDetails.title=What are your organisation details?
+enrolment.orgDetails.p1=If you are registering as an agent, enter your own business details, not your client’s.
+enrolment.orgDetails.orgName=Organisation name
+enrolment.orgDetails.orgAddress=Organisation address
+enrolment.orgDetails.orgAddress.helpText=Enter the address that you want organisation correspondence sent to.
+enrolment.orgDetails.orgContactDetails=Organisation contact details
+enrolment.orgDetails.orgPhone=Organisation telephone number
+enrolment.orgDetails.orgEmail=Organisation email address
+
 
 
 before.you.start.title=Claim a property

@@ -17,7 +17,7 @@
 package controllers.registration
 
 import actions.AuthenticatedAction
-import actions.registration.requests.RequestWithUserDetails
+import actions.registration.requests.{RegistrationSessionRequest, RequestWithUserDetails}
 import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction, WithRegistrationSessionRefiner}
 import cats.data.OptionT
 import cats.implicits._
@@ -38,7 +38,6 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import views.html._
 import javax.inject.{Inject, Named}
-
 import scala.concurrent.{ExecutionContext, Future}
 
 class RegistrationController @Inject()(
@@ -61,7 +60,12 @@ class RegistrationController @Inject()(
       registerIndividualNameView: createAccount.individual.registerIndividualName,
       registerIndividualPersonalDetailsView: createAccount.individual.registerIndividualPersonalDetails,
       registerIndividualDOBView: createAccount.individual.registerIndividualDOB,
+      registerIndividualNINOView: createAccount.individual.registerIndividualNINO,
+      registerOrganisationIsAgentView: createAccount.organisation.registerOrganisationIsAgent,
       registerOrganisationNameView: createAccount.organisation.registerOrganisationName,
+      registerOrganisationDetailsView: createAccount.organisation.registerOrganisationDetails,
+      registerOrganisationDOBView: createAccount.organisation.registerOrganisationDOB,
+      registerOrganisationNINOView: createAccount.organisation.registerOrganisationNINO,
       confirmationView: createAccount.confirmation,
       @Named("personSession") val personalDetailsSessionRepo: SessionRepo,
       @Named("registrationDetails") val registrationDetailsSessionRepo: SessionRepo
@@ -102,12 +106,12 @@ class RegistrationController @Inject()(
           errors => Future.successful(BadRequest(registerIndividualView(errors, FieldData()))),
           (success: IndividualUserAccountDetails) =>
             personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
-              identityVerificationIfRequired(request)
+              identityVerificationIfRequiredOld(request)
             }
         )
   }
 
-  def submitIndividual(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+  def submitIndividualName(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
       IndividualName.individualNameForm
         .bindFromRequest
         .fold(
@@ -120,20 +124,8 @@ class RegistrationController @Inject()(
         )
   }
 
-  def submitOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
-    AdminUser.organisation
-      .bindFromRequest()
-      .fold(
-        errors => Future.successful(BadRequest(registerOrganisationView(errors, FieldData()))),
-        (success: AdminOrganisationAccountDetails) =>
-          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
-            identityVerificationIfRequired(request)
-        }
-      )
-  }
 
-  def showIndividualPersonalDetails(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
-  println("name >>>>>>>>>>>> "+request.sessionData.firstName)
+  def showIndividualPersonalDetails(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
     Future.successful(Ok(registerIndividualPersonalDetailsView(IndividualPersonalDetails.individualPersonalDetailsForm)))
   }
 
@@ -144,7 +136,7 @@ class RegistrationController @Inject()(
         errors => Future.successful(BadRequest(registerIndividualPersonalDetailsView(errors))),
         (successfulFormIndividualPersonalDetails: IndividualPersonalDetails) =>
           {
-            registrationDetailsSessionRepo.saveOrUpdate(RegistrationSession(request.sessionData.firstName,request.sessionData.lastName, successfulFormIndividualPersonalDetails))
+            registrationDetailsSessionRepo.saveOrUpdate(RegistrationSession(request.sessionData, successfulFormIndividualPersonalDetails))
             Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualDOB()))
           }
       )
@@ -152,8 +144,135 @@ class RegistrationController @Inject()(
   }
 
   def showIndividualDOB(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
-    Future.successful(Ok(registerIndividualDOBView()))
+    Future.successful(Ok(registerIndividualDOBView(IndividualDateOfBirth.individualDateOfBirthForm)))
+  }
 
+  def submitIndividualDOB(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
+    IndividualDateOfBirth.individualDateOfBirthForm
+      .bindFromRequest()
+      .fold(
+        errors => Future.successful(BadRequest(registerIndividualDOBView(errors))),
+        (successfulFormIndividualDOB: IndividualDateOfBirth) =>
+          {
+            registrationDetailsSessionRepo.saveOrUpdate(RegistrationSession(request.sessionData, successfulFormIndividualDOB))
+            Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualNINO()))
+          }
+      )
+  }
+
+  def showIndividualNINO(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    Future.successful(Ok(registerIndividualNINOView(IndividualNino.individualNinoForm)))
+  }
+
+  def submitIndividualNINO(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
+    IndividualNino.individualNinoForm
+      .bindFromRequest()
+      .fold(
+        errors => Future.successful(BadRequest(registerIndividualNINOView(errors))),
+        (successfulFormIndividualNINO: IndividualNino) =>
+          {
+            registrationDetailsSessionRepo.saveOrUpdate(RegistrationSession(request.sessionData, successfulFormIndividualNINO)
+            ) flatMap { _ =>
+              identityVerificationIfRequired(request)
+            }
+          }
+      )
+  }
+
+  def submitOrganisationOld(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    AdminUser.organisation
+      .bindFromRequest()
+      .fold(
+        errors => Future.successful(BadRequest(registerOrganisationView(errors, FieldData()))),
+        (success: AdminOrganisationAccountDetails) =>
+          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
+            identityVerificationIfRequiredOld(request)
+          }
+      )
+  }
+
+  def submitOrganisationName(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    OrganisationName.organisationNameForm
+      .bindFromRequest
+      .fold(
+        errors => Future.successful(BadRequest(registerOrganisationNameView(errors))),
+        (successfulFormOrgName: OrganisationName) =>
+        {
+          registrationDetailsSessionRepo.start(RegistrationSession(successfulFormOrgName))
+          Future.successful(Redirect(controllers.registration.routes.RegistrationController.showOrganisationIsAgent()))
+        }
+      )
+  }
+
+  def showOrganisationIsAgent(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    Future.successful(Ok(registerOrganisationIsAgentView(OrganisationIsAgent.organisationIsAgentForm)))
+  }
+
+  def submitOrganisationIsAgent(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
+    OrganisationIsAgent.organisationIsAgentForm
+      .bindFromRequest()
+      .fold(
+        errors => Future.successful(BadRequest(registerOrganisationIsAgentView(errors))),
+        (successfulFormOrgIsAgent: OrganisationIsAgent) =>
+          {
+            registrationDetailsSessionRepo.saveOrUpdate(RegistrationSession(request.sessionData, successfulFormOrgIsAgent))
+            Future.successful(Redirect(controllers.registration.routes.RegistrationController.showOrganisationDetails()))
+          }
+      )
+  }
+
+  def showOrganisationDetails(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    Future.successful(Ok(registerOrganisationDetailsView(OrganisationDetails.organisationDetailsForm)))
+  }
+
+  def submitOrganisationDetails(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
+    OrganisationDetails.organisationDetailsForm
+      .bindFromRequest()
+      .fold(
+        errors => Future.successful(BadRequest(registerOrganisationDetailsView(errors))),
+        (successfulFormOrgDetails: OrganisationDetails) =>
+          {
+            registrationDetailsSessionRepo.saveOrUpdate(RegistrationSession(request.sessionData, successfulFormOrgDetails))
+            Future.successful(Redirect(controllers.registration.routes.RegistrationController.showIndividualNINO()))
+          }
+      )
+  }
+
+  def showOrganisationDOB(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    Future.successful(Ok(registerOrganisationDOBView(OrganisationDateOfBirth.organisationDateOfBirthForm)))
+  }
+
+  def submitOrganisationDOB(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
+    OrganisationDateOfBirth.organisationDateOfBirthForm
+      .bindFromRequest()
+      .fold(
+        errors => Future.successful(BadRequest(registerOrganisationDOBView(errors))),
+        (successfulFormOrgDOB: OrganisationDateOfBirth) =>
+          {
+            registrationDetailsSessionRepo.saveOrUpdate(RegistrationSession(request.sessionData, successfulFormOrgDOB
+            ))
+            Future.successful(Redirect(controllers.registration.routes.RegistrationController.showOrganisationNINO()))
+          }
+      )
+  }
+
+  def showOrganisationNINO(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    Future.successful(Ok(registerOrganisationNINOView(OrganisationNino.organisationNinoForm)))
+  }
+
+  def submitOrganisationNINO(): Action[AnyContent] = (ggAuthenticated andThen withRegistrationSessionRefiner).async { implicit request =>
+    OrganisationNino.organisationNinoForm
+      .bindFromRequest()
+      .fold(
+        errors => Future.successful(BadRequest(registerOrganisationNINOView(errors))),
+        (successfulFormOrganisationNINO: OrganisationNino) =>
+        {
+          registrationDetailsSessionRepo.saveOrUpdate(RegistrationSession(request.sessionData, successfulFormOrganisationNINO)
+          ) flatMap { _ =>
+            identityVerificationIfRequired(request)
+          }
+        }
+      )
   }
 
   def submitAdminToExistingOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
@@ -177,7 +296,7 @@ class RegistrationController @Inject()(
             case Some(fieldData) =>
               personalDetailsSessionRepo.saveOrUpdate(success.toAdminOrganisationAccountDetails(fieldData)) flatMap {
                 _ =>
-                  identityVerificationIfRequired(request)
+                  identityVerificationIfRequiredOld(request)
               }
             case _ =>
               unableToRetrieveCompanyDetails
@@ -187,7 +306,23 @@ class RegistrationController @Inject()(
   }
 
   // TODO check IV enabled flag here
-  private def identityVerificationIfRequired(request: RequestWithUserDetails[_])(
+  private def identityVerificationIfRequiredOld(request: RequestWithUserDetails[_])(
+    implicit hc: HeaderCarrier): Future[Result] =
+    if (request.userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
+      // push user through IV as their Confidence Level is insufficient
+      Future.successful(Redirect(controllers.routes.IdentityVerification.startIv))
+    } else {
+      // skip IV as user's Confidence Level is sufficient
+      registrationService.continueOld(None, request.userDetails).map {
+        case Some(RegistrationSuccess(personId)) =>
+          if (config.newRegistrationJourneyEnabled)
+            Redirect(routes.RegistrationController.confirmation(personId))
+          else Redirect(routes.RegistrationController.success(personId))
+        case _ => InternalServerError(errorHandler.internalServerErrorTemplate(request))
+      }
+    }
+
+  private def identityVerificationIfRequired(request: RegistrationSessionRequest[_])(
         implicit hc: HeaderCarrier): Future[Result] =
     if (request.userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
       // push user through IV as their Confidence Level is insufficient
@@ -282,7 +417,7 @@ class RegistrationController @Inject()(
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
             if(config.newRegistrationJourneyEnabled){
-              Ok(registerOrganisationNameView(IndividualName.individualNameForm))
+              Ok(registerOrganisationNameView(OrganisationName.organisationNameForm))
             } else Ok(registerOrganisationView(AdminUser.organisation, data))
         }
     }

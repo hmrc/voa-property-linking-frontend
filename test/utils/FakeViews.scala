@@ -107,6 +107,33 @@ trait FakeViews extends GdsComponents {
     govukButton,
     formWithCSRF)
 
+  lazy val registerIndividualNameView =
+    new views.html.createAccount.individual.registerIndividualName(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
+
+  lazy val registerIndividualPersonalDetailsView =
+    new views.html.createAccount.individual.registerIndividualPersonalDetails(mainLayout, govukInsetText, govukDetails, govukButton, govukInput, formWithCSRF, govukErrorSummary)
+
+  lazy val registerIndividualDOBView =
+    new views.html.createAccount.individual.registerIndividualDOB(mainLayout, govukButton, govukDateInput, formWithCSRF, govukErrorSummary)
+
+  lazy val registerIndividualNINOView =
+    new views.html.createAccount.individual.registerIndividualNINO(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary, govukDetails)
+
+  lazy val registerOrganisationNameView =
+    new views.html.createAccount.organisation.registerOrganisationName(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
+
+  lazy val registerOrganisationIsAgentView =
+    new views.html.createAccount.organisation.registerOrganisationIsAgent(mainLayout, govukButton, govukRadios, formWithCSRF, govukErrorSummary)
+
+  lazy val registerOrganisationDetailsView =
+    new views.html.createAccount.organisation.registerOrganisationDetails(mainLayout, govukButton, govukRadios, formWithCSRF, govukErrorSummary, govukInsetText, govukInput)
+
+  lazy val registerOrganisationDOBView =
+    new views.html.createAccount.organisation.registerOrganisationDOB(mainLayout, govukButton, govukDateInput, formWithCSRF, govukErrorSummary)
+
+  lazy val registerOrganisationNINOView =
+    new views.html.createAccount.organisation.registerOrganisationNINO(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary, govukDetails)
+
   lazy val registerConfirmationView =
     new views.html.createAccount.registrationConfirmation(mainLayout, govukInsetText, govukDetails, govukButton)
   lazy val confirmationView =

@@ -17,14 +17,12 @@
 package actions.registration.requests
 
 import actions.requests.CcaWrappedRequest
-import models.propertyrepresentation._
 import models.registration.{RegistrationSession, UserDetails}
-import models.{Accounts, DetailedIndividualAccount, GroupAccount}
 import play.api.mvc.{Request, WrappedRequest}
 
 case class RegistrationSessionRequest[A](
                                           sessionData: RegistrationSession,
-                                          userDetaails: UserDetails,
+                                          userDetails: UserDetails,
                                           request: Request[A]
                                        ) extends WrappedRequest[A](request) with CcaWrappedRequest {
 

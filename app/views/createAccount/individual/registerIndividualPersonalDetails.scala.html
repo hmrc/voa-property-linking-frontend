@@ -3,6 +3,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import helpers._
 @import models.registration.IndividualPersonalDetails
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
 
 @this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
@@ -33,33 +34,29 @@
             id = "email",
             name = "email",
             label = Label(content=Text(messages("enrolment.personalDetails.email"))),
-            errorMessage = form("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-input govuk-!-width-one-third"
-        ))
+        ).withFormField(form("email")))
 
         @govukInput(Input(
             id = "phone",
             name = "phone",
             label = Label(content=Text(messages("enrolment.personalDetails.phone"))),
-            errorMessage = form("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-input govuk-!-width-one-third"
-        ))
+        ).withFormField(form("phone")))
 
         @govukInput(Input(
             id = "mobilePhone",
             name = "mobilePhone",
             label = Label(content=Text(messages("enrolment.personalDetails.mobilePhone"))),
-            errorMessage = form("mobilePhone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-input govuk-!-width-one-third"
-        ))
+        ).withFormField(form("mobilePhone")))
 
         @govukInput(Input(
             id = "tradingName",
             name = "tradingName",
             label = Label(content=Text(messages("enrolment.personalDetails.tradingName"))),
-            errorMessage = form("tradingName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
             classes = "govuk-input govuk-!-width-one-third"
-        ))
+        ).withFormField(form("tradingName")))
 
         @govukButton(Button(
             content = Text(messages("govGateway.button")),

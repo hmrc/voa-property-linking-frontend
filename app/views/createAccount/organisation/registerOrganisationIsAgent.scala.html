@@ -1,0 +1,54 @@
+@import config.ApplicationConfig
+@import views.html.mainLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import helpers._
+@import models.registration.OrganisationIsAgent
+@import uk.gov.hmrc.govukfrontend.views.Implicits.RichRadios
+
+
+
+@this(mainLayout: mainLayout, govukButton: GovukButton, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
+
+@(form: Form[OrganisationIsAgent])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+
+@mainLayout(
+    pageTitle = messages("enrolment.isAgent.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    hasErrors = form.hasErrors
+){
+    @formErrorSummary(form)(govukErrorSummary)
+
+    <h2 class="govuk-heading-l">@messages("enrolment.isAgent.title")</h2>
+    <p class="govuk-body">@messages("enrolment.isAgent.p1")</p>
+
+
+    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisationIsAgent()){
+
+        @govukRadios(Radios(
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(messages("enrolment.isAgent.title")),
+                    classes = "govuk-fieldset__legend--s",
+                    isPageHeading = false
+                ))
+            )),
+            name = "isAgent",
+            items = Seq(
+                RadioItem(
+                    content = Text(messages("enrolment.yes")),
+                    value = Some("true")
+                ),
+                RadioItem(
+                    content = Text(messages("enrolment.no")),
+                    value = Some("false")
+                )
+            )
+        ).withFormField(form("isAgent")))
+
+        @govukButton(Button(
+            content = Text(messages("enrolment.continue")),
+            attributes = Map("id" -> "continue")
+        ))
+    }
+}

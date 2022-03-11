@@ -1,20 +1,20 @@
 @import config.ApplicationConfig
 @import views.html.mainLayout
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import models.registration.IndividualDateOfBirth
+@import models.registration.OrganisationDateOfBirth
 
 
 @this(mainLayout: mainLayout, govukButton: GovukButton, govukDateInput: GovukDateInput, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
 
-@(form: Form[IndividualDateOfBirth])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[OrganisationDateOfBirth])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-    @getFromDateFiledErrorMessage = @{
-        (form.error("dob.day"), form.error("dob.month"), form.error("dob.year")) match
-        {
-            case (None, None, None ) => None
-            case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
-        }
+@getFromDateFiledErrorMessage = @{
+    (form.error("dob.day"), form.error("dob.month"), form.error("dob.year")) match
+    {
+        case (None, None, None ) => None
+        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
     }
+}
 
 @mainLayout(
     pageTitle = messages("enrolment.dob.title"),
@@ -23,7 +23,7 @@
 ){
 
 
-    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitIndividualDOB()){
+    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisationDOB()){
 
         @govukDateInput(DateInput(
             fieldset = Some(Fieldset(

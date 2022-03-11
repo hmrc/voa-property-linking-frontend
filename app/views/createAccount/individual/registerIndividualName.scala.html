@@ -3,7 +3,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import helpers._
 @import models.registration.IndividualName
-
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
 @this(mainLayout: mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
 
@@ -20,7 +20,7 @@
     <h2 class="govuk-heading-l">@messages("enrolment.name.title")</h2>
 
 
-    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitIndividual()){
+    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitIndividualName()){
 
         @govukInput(Input(
             id = "firstName",
@@ -29,8 +29,7 @@
                 classes = "govuk-label--m",
                 content = Text(messages("enrolment.firstName"))
             ),
-            errorMessage = form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-        ))
+        ).withFormField(form("firstName")))
 
         @govukInput(Input(
             id = "lastName",
@@ -39,9 +38,7 @@
                 classes = "govuk-label--m",
                 content = Text(messages("enrolment.lastName"))
             ),
-            errorMessage = form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-
-        ))
+        ).withFormField(form("lastName")))
 
         @govukButton(Button(
             content = Text(messages("enrolment.continue")),

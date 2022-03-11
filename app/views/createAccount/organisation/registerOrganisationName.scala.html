@@ -2,12 +2,13 @@
 @import views.html.mainLayout
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import helpers._
-@import models.registration.IndividualName
+@import models.registration.OrganisationName
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
 
 @this(mainLayout: mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
 
-@(form: Form[IndividualName])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[OrganisationName])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @mainLayout(
@@ -18,9 +19,9 @@
     @formErrorSummary(form)(govukErrorSummary)
 
     <h2 class="govuk-heading-l">@messages("enrolment.name.title")</h2>
-    <h2 class="govuk-heading-l">ORG/AGENT JOURNEY</h2>
 
-    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisation()){
+
+    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisationName()){
 
         @govukInput(Input(
             id = "firstName",
@@ -28,8 +29,8 @@
             label = Label(
                 classes = "govuk-label--m",
                 content = Text(messages("enrolment.firstName"))
-            )
-        ))
+            ),
+        ).withFormField(form("firstName")))
 
         @govukInput(Input(
             id = "lastName",
@@ -38,7 +39,7 @@
                 classes = "govuk-label--m",
                 content = Text(messages("enrolment.lastName"))
             )
-        ))
+        ).withFormField(form("lastName")))
 
         @govukButton(Button(
             content = Text(messages("enrolment.continue")),

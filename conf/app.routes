@@ -58,21 +58,35 @@ GET         /planned-improvements                                               
 
 #Enrolment page
 GET         /complete-contact-details                                                         controllers.registration.RegistrationController.show()
-POST        /complete-contact-details                                                         controllers.registration.RegistrationController.submitOrganisation()
+POST        /complete-contact-details                                                         controllers.registration.RegistrationController.submitOrganisationOld()
+POST        /complete-organisation-contact-details                                            controllers.registration.RegistrationController.submitOrganisationName()
 GET         /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.show()
 POST        /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.submitAdminToExistingOrganisation()
 GET         /complete-your-contact-details                                                    controllers.registration.RegistrationController.show()
 POST        /complete-your-contact-details                                                    controllers.registration.RegistrationController.submitIndividualOld()
-POST        /complete-your-individual-details                                                 controllers.registration.RegistrationController.submitIndividual()
+POST        /complete-your-individual-details                                                 controllers.registration.RegistrationController.submitIndividualName()
 GET         /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.show()
 POST        /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.submitAssistant()
 GET         /create-success                                                                   controllers.registration.RegistrationController.success(personId: Long)
 GET         /create-confirmation                                                              controllers.registration.RegistrationController.confirmation(personId: Long)
 
 #Individual enrolment journey
-GET         /complete-individual-personal-details                                             controllers.registration.RegistrationController.showIndividualPersonalDetails()
-POST        /complete-individual-personal-details                                             controllers.registration.RegistrationController.submitIndividualPersonalDetails()
-GET         /complete-individual-dob                                                          controllers.registration.RegistrationController.showIndividualDOB()
+GET         /complete-your-individual-personal-details                                        controllers.registration.RegistrationController.showIndividualPersonalDetails()
+POST        /complete-your-individual-personal-details                                        controllers.registration.RegistrationController.submitIndividualPersonalDetails()
+GET         /complete-your-individual-dob                                                     controllers.registration.RegistrationController.showIndividualDOB()
+POST        /complete-your-individual-dob                                                     controllers.registration.RegistrationController.submitIndividualDOB()
+GET         /complete-your-individual-nino                                                    controllers.registration.RegistrationController.showIndividualNINO()
+POST        /complete-your-individual-nino                                                    controllers.registration.RegistrationController.submitIndividualNINO()
+
+#Organisation enrolment journey
+GET         /complete-organisation-is-agent                                                   controllers.registration.RegistrationController.showOrganisationIsAgent()
+POST        /complete-organisation-is-agent                                                   controllers.registration.RegistrationController.submitOrganisationIsAgent()
+GET         /complete-organisation-details                                                    controllers.registration.RegistrationController.showOrganisationDetails()
+POST        /complete-organisation-details                                                    controllers.registration.RegistrationController.submitOrganisationDetails()
+GET         /complete-organisation-dob                                                        controllers.registration.RegistrationController.showOrganisationDOB()
+POST        /complete-organisation-dob                                                        controllers.registration.RegistrationController.submitOrganisationDOB()
+GET         /complete-organisation-nino                                                       controllers.registration.RegistrationController.showOrganisationNINO()
+POST        /complete-organisation-nino                                                       controllers.registration.RegistrationController.submitOrganisationNINO()
 
 #Business tax account
 GET         /manage-business-tax-account                                                      controllers.Application.manageBusinessTaxAccount()

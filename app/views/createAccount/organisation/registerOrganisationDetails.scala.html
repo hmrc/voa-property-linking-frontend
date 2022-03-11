@@ -1,0 +1,64 @@
+@import config.ApplicationConfig
+@import views.html.mainLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import helpers._
+@import models.registration.OrganisationDetails
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+
+@this(mainLayout: mainLayout, govukButton: GovukButton, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary, govukInsetText: GovukInsetText, govukInput: GovukInput)
+
+@(form: Form[OrganisationDetails])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+
+@mainLayout(
+    pageTitle = messages("enrolment.orgDetails.title"),
+    mainClass = Some("govuk-grid-column-two-thirds"),
+    hasErrors = form.hasErrors
+){
+    @formErrorSummary(form)(govukErrorSummary)
+
+    <h2 class="govuk-heading-l">@messages("enrolment.orgDetails.title")</h2>
+
+    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisationDetails()){
+
+        @govukInsetText(InsetText(
+            content = Text(messages("enrolment.orgDetails.p1"))
+        ))
+
+        @govukInput(Input(
+            id = "companyName",
+            name = "companyName",
+            label = Label(content = Text(messages("enrolment.orgDetails.orgName")), classes="govuk-label--m"),
+            classes = "govuk-input--width-30"
+        ).withFormField(form("companyName")))
+
+        <h2 class="govuk-heading-m">@messages("enrolment.orgDetails.orgAddress")</h2>
+        <p class="govuk-body">@messages("enrolment.orgDetails.orgAddress.helpText")</p>
+
+        @address(
+            form = form,
+            fieldName = "address"
+        )(govukInput, govukButton)
+
+        <h2 class="govuk-heading-m">@messages("enrolment.orgDetails.orgContactDetails")</h2>
+
+        @govukInput(Input(
+            id = "phone",
+            name = "phone",
+            label = Label(content = Text(messages("enrolment.orgDetails.orgPhone"))),
+            classes = "govuk-input--width-10"
+        ).withFormField(form("phone")))
+
+        @govukInput(Input(
+            id = "email",
+            name = "email",
+            label = Label(content=Text(messages("enrolment.orgDetails.orgEmail"))),
+            classes = "govuk-input--width-20"
+        ).withFormField(form("email")))
+
+        @govukButton(Button(
+            content = Text(messages("enrolment.continue")),
+            attributes = Map("id" -> "continue")
+        ))
+    }
+}
