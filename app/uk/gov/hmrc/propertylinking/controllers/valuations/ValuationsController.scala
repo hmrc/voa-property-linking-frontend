@@ -27,6 +27,7 @@ import controllers.{AssessmentsVM, PropertyLinkingController}
 import javax.inject.{Inject, Named, Singleton}
 import models.ApiAssessments.EmptyAssessments
 import models.assessments.{AssessmentsPageSession, PreviousPage}
+import models.properties.AllowedAction
 import models.{ApiAssessment, ApiAssessments}
 import play.api.Logging
 import play.api.i18n.MessagesApi
@@ -63,21 +64,29 @@ class ValuationsController @Inject()(
             .valuations(submissionId, owner)))
     }
 
-  private[controllers] def assessmentsWithLinks(apiAssessments: ApiAssessments, submissionId: String, owner: Boolean) =
+  private[controllers] def assessmentsWithLinks(
+        apiAssessments: ApiAssessments,
+        submissionId: String,
+        owner: Boolean): Seq[(String, ApiAssessment)] = {
+    val defaultEpochDay = LocalDate.of(2017, 4, 7).toEpochDay
     apiAssessments.assessments
-      .sortBy(-_.currentFromDate.fold(LocalDate.of(2017, 4, 7).toEpochDay)(_.toEpochDay))
-      .map(decideNextUrl(submissionId, apiAssessments.authorisationId, _, apiAssessments.pending, owner))
+      .sortBy(-_.currentFromDate.fold(defaultEpochDay)(_.toEpochDay))
+      .collect {
+        case a: ApiAssessment if a.allowedActions.contains(AllowedAction.VIEW_DETAILED_VALUATION) =>
+          decideNextUrl(submissionId, apiAssessments.authorisationId, a, apiAssessments.pending, owner)
+      }
+  }
 
   def valuations(submissionId: String, owner: Boolean): Action[AnyContent] =
     authenticated.andThen(withAssessmentsPageSession).async { implicit request =>
-      val pLink: Future[Option[ApiAssessments]] = {
+      val assessments: Future[Option[ApiAssessments]] = {
         if (owner)
           propertyLinks.getOwnerAssessments(submissionId)
         else
           propertyLinks.getClientAssessments(submissionId)
       }
 
-      def okResponse(assessments: ApiAssessments, backlink: String) =
+      def okResponse(assessments: ApiAssessments, backlink: String): Result =
         Ok(
           assessmentsView(
             AssessmentsVM(
@@ -88,7 +97,7 @@ class ValuationsController @Inject()(
             owner
           ))
 
-      pLink
+      assessments
         .flatMap {
           case Some(EmptyAssessments()) | None => Future.successful(notFound)
           case Some(assessments) =>

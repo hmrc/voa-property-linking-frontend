@@ -14,14 +14,13 @@
  * limitations under the License.
  *@
 
-@import actions.requests.AuthenticatedRequest
 @import actions.assessments.request.AssessmentsPageSessionRequest
-@import utils.Formatters
+@import _root_.utils.Formatters
 @import config.ApplicationConfig
+@import views.html.dashboard.assessmentDetails
 
 
 @this(mainLayout: views.html.mainLayout, govukDetails: GovukDetails)
-
 
 @(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 

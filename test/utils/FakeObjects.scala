@@ -465,6 +465,7 @@ trait FakeObjects {
           billingAuthorityReference = a.localAuthorityRef,
           billingAuthorityCode = Some("2715"),
           listType = ListType.CURRENT,
+          allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
           currentFromDate = Some(april2017),
           currentToDate = Some(april2017.plusMonths(2L))
         ),
@@ -479,6 +480,22 @@ trait FakeObjects {
           billingAuthorityReference = a.localAuthorityRef,
           billingAuthorityCode = Some("2715"),
           listType = ListType.CURRENT,
+          allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
+          currentFromDate = Some(april2017.plusMonths(2L)),
+          currentToDate = None
+        ),
+        ApiAssessment(
+          authorisationId = a.authorisationId,
+          assessmentRef = 1236L,
+          listYear = "2017",
+          uarn = a.uarn,
+          effectiveDate = Some(april2017),
+          rateableValue = Some(1234L),
+          address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
+          billingAuthorityReference = a.localAuthorityRef,
+          billingAuthorityCode = Some("2715"),
+          listType = ListType.CURRENT,
+          allowedActions = List(AllowedAction.ENQUIRY),
           currentFromDate = Some(april2017.plusMonths(2L)),
           currentToDate = None
         )
