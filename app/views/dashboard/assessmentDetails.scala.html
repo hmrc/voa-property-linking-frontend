@@ -15,7 +15,7 @@
  *@
 
 @import actions.assessments.request.AssessmentsPageSessionRequest
-@import utils.Formatters
+@import _root_.utils.Formatters
 @import config.ApplicationConfig
 
 
@@ -60,7 +60,7 @@
 }
 
 @table(list: Seq[(String, ApiAssessment)], tableType: String, isDraft: Boolean) = {
-    <div id="viewAssessmentRadioGroup_@tableType" class="form-group">
+    <div class="form-group">
         <div class="table-wrapper-no-pad">
             <table id="@{tableType}Assessments" class="margin-bottom-10 margin-top-10">
                 <caption class="govuk-visually-hidden">@messages("assessments.table.caption")</caption>
@@ -103,7 +103,7 @@
                         @assessment.rateableValue match {
                             case Some(rv) => {
                                 <a class="govuk-link"
-                                id="viewAssessmentRadio-@assessment.assessmentRef"
+                                id="viewAssessmentLink-@assessment.assessmentRef"
                                 href="@url"
                                 aria-label="@ariaLabel(assessment, tableType, isDraft)">
                                 @messages("assessments.select.valuation")
@@ -133,7 +133,7 @@
     @if(model.currentAssessments.nonEmpty){
         <h2 class="govuk-heading-m">@messages("assessments.current.title")</h2>
         @table(model.currentAssessments, tableType = "current", isDraft = false)
-        @if(model.currentAssessments.filter(a => a._2.rateableValue.isEmpty).nonEmpty){
+        @if(model.currentAssessments.exists(a => a._2.rateableValue.isEmpty)){
             @govukDetails(
                 Details(
                     summary = Text(messages("rv.na")),

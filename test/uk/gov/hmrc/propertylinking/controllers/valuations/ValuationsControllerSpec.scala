@@ -21,7 +21,10 @@ import controllers.VoaPropertyLinkingSpec
 import models.ApiAssessment.AssessmentWithFromDate
 import models.assessments.AssessmentsPageSession
 import models.assessments.PreviousPage.SelectedClient
+import models.properties.AllowedAction
 import models.{ApiAssessment, ApiAssessments, ClientPropertyLink}
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers.{any, eq => mEq}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
@@ -59,10 +62,10 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
 
   trait ValuationsSetup extends Setup {
 
-    def pLink: Future[Option[ApiAssessments]]
+    def assessments: Future[Option[ApiAssessments]]
 
-    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any())).thenReturn(pLink)
-    when(mockPropertyLinkConnector.getClientAssessments(any())(any())).thenReturn(pLink)
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any())).thenReturn(assessments)
+    when(mockPropertyLinkConnector.getClientAssessments(any())(any())).thenReturn(assessments)
   }
 
   behavior of "saving the previous page"
@@ -92,7 +95,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
 
   it should "return 404 when no assessments for given property link are found" in new ValuationsSetup {
 
-    override def pLink: Future[Option[ApiAssessments]] =
+    override def assessments: Future[Option[ApiAssessments]] =
       Future.successful(Some(apiAssessments(ownerAuthorisation).copy(assessments = List.empty)))
 
     val res = valuationsController.valuations(plSubId, owner = true)(request)
@@ -101,22 +104,44 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "return 200 with assessments for OWNER" in new ValuationsSetup {
-    lazy val assessments = apiAssessments(ownerAuthorisation)
-    override def pLink: Future[Option[ApiAssessments]] = Future.successful(Some(assessments))
+    lazy val as = apiAssessments(ownerAuthorisation)
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
 
     val res = valuationsController.valuations(plSubId, owner = true)(request)
     status(res) shouldBe OK
   }
 
+  it should "exclude any assessments, for which viewing the detailed valuation is not an allowed action" in new ValuationsSetup {
+    //this produces 3 assessments with IDs 1234, 1235 and 1236
+    //only 1234 and 1235 have VIEW_DETAILED_VALUATION in the list of allowedActions
+    //1236 should not be rendered in the page, as the user can't view the detailed valuation
+    lazy val as = apiAssessments(ownerAuthorisation)
+
+    val nonViewableAssesement =
+      as.assessments.find(_.assessmentRef == 1236L).getOrElse(fail("expecting to find valuation ref 1236"))
+
+    nonViewableAssesement.allowedActions should not contain AllowedAction.VIEW_DETAILED_VALUATION
+    nonViewableAssesement.allowedActions should contain(AllowedAction.ENQUIRY)
+
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val res = valuationsController.valuations(plSubId, owner = true)(request)
+    val returnedHtml = contentAsString(res)
+    val doc: Document = Jsoup.parse(returnedHtml)
+    Option(doc.getElementById("viewAssessmentLink-1234")).map(_.text()) shouldBe Some("Select this valuation")
+    Option(doc.getElementById("viewAssessmentLink-1235")).map(_.text()) shouldBe Some("Select this valuation")
+    Option(doc.getElementById("viewAssessmentLink-1236")) shouldBe None
+  }
+
   it should "return 200 with assessments sorted by currentFromDate DESC for OWNER" in new ValuationsSetup {
-    lazy val assessments = apiAssessments(ownerAuthorisation.copy(status = "PENDING"))
-    override def pLink: Future[Option[ApiAssessments]] = Future.successful(Some(assessments))
+    lazy val as = apiAssessments(ownerAuthorisation.copy(status = "PENDING"))
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
 
     val res = valuationsController.valuations(plSubId, owner = true)(request)
     status(res) shouldBe OK
 
     val sortedAssessments: List[ApiAssessment] =
-      valuationsController.assessmentsWithLinks(assessments, plSubId, owner = true).map(_._2).toList
+      valuationsController.assessmentsWithLinks(as, plSubId, owner = true).map(_._2).toList
 
     inside(sortedAssessments) {
       case AssessmentWithFromDate(fromDate1) :: AssessmentWithFromDate(fromDate2) :: Nil =>
@@ -126,8 +151,8 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "return 200 with assessments sorted by currentFromDate DESC for AGENT" in new ValuationsSetup {
-    lazy val assessments = apiAssessments(ownerAuthorisation.copy(status = "PENDING"))
-    override def pLink: Future[Option[ApiAssessments]] = Future.successful(Some(assessments))
+    lazy val as = apiAssessments(ownerAuthorisation.copy(status = "PENDING"))
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
 
     val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
 
@@ -138,7 +163,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val sortedAssessments: List[ApiAssessment] =
-      valuationsController.assessmentsWithLinks(assessments, plSubId, owner = false).map(_._2).toList
+      valuationsController.assessmentsWithLinks(as, plSubId, owner = false).map(_._2).toList
 
     inside(sortedAssessments) {
       case AssessmentWithFromDate(fromDate1) :: AssessmentWithFromDate(fromDate2) :: Nil =>
