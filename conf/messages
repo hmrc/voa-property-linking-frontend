@@ -1016,8 +1016,9 @@ available.requestvaluation.checksTab.title=Checks ({0})
 available.requestvaluation.challengesTab.title=Challenges ({0})
 available.requestvaluation.downloadValuationLink=Download the detailed valuation for this property
 available.requestvaluation.changeValuation=If you want to change something in this valuation
-available.requestvaluation.p1.englishProperty=If the property's details are incorrect, or you believe the rateable value is wrong, have a look at the current valuation as well. If the details are wrong in both, you can submit a Check against the current valuation. Any changes will carry over to the draft valuation.
-available.requestvaluation.p1.welshProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a proposal against the current valuation. Any changes will carry over to the draft valuation.
+available.requestvaluation.p1.draft.englishProperty=If the property''s details are incorrect, or you believe the rateable value is wrong, have a look at the current valuation as well. If the details are wrong in both, you can submit a Check against the current valuation. Any changes will carry over to the draft valuation.
+available.requestvaluation.p1.draft.welshProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a proposal against the current valuation. Any changes will carry over to the draft valuation.
+available.requestvaluation.p1=If the property''s details are incorrect, or you believe the rateable value is wrong, you must complete a Check form and confirm the property details with the VOA before you can make a challenge.
 available.requestvaluation.p2=Before you can submit a Check, you need to <a class="govuk-link" href="{0}">download and complete a Check form</a>.
 available.requestvaluation.p3=After completing the form, you need to send it as part of a Check.
 available.requestvaluation.warning=Some older Check forms may tell you to email your form. Please ignore this and use the ''Send my completed Check form'' button instead.
@@ -1112,6 +1113,7 @@ error.common.invalid.date=Enter a valid date
 error.booleanMissing=You must select one
 error.subscription.title=There is a problem
 error.noRecords=No matching records found, please search again.
+warning.text=Warning
 
 common.or=or
 

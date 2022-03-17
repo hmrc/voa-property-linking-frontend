@@ -69,19 +69,23 @@
             <p class="govuk-body"><a class="govuk-link" href="@evaluateRoute(model.valuation)">@messages("available.requestvaluation.downloadValuationLink")</a></p>
 
             <h2 class="govuk-heading-l">@messages("available.requestvaluation.changeValuation")</h2>
-            @if(model.isWelshProperty) {
-                <p class="govuk-body">@Html(messages("available.requestvaluation.p1.welshProperty"))</p>
-            } else {
-                <p class="govuk-body">@Html(messages("available.requestvaluation.p1.englishProperty"))</p>
-                <p class="govuk-body">@Html(messages("available.requestvaluation.p2", evaluateRoute(model.check)))</p>
-            }
-            <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
 
-            @govukWarningText(WarningText(
-                iconFallbackText = "Warning",
-                content = Text(messages("available.requestvaluation.warning"))
-            ))
-            @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl), attributes = Map("id" -> "valuationtab-start-check")))
+            @if(model.isDraftList && model.isWelshProperty) {
+                <p class="govuk-body">@messages("available.requestvaluation.p1.draft.welshProperty")</p>
+            } else if (model.isDraftList && !model.isWelshProperty) {
+                <p class="govuk-body">@messages("available.requestvaluation.p1.draft.englishProperty")</p>
+            } else {
+                <p class="govuk-body">@messages("available.requestvaluation.p1")</p>
+                <p class="govuk-body">@Html(messages("available.requestvaluation.p2", evaluateRoute(model.check)))</p>
+                <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
+
+                @govukWarningText(WarningText(
+                    iconFallbackText = messages("warning.text"),
+                    content = Text(messages("available.requestvaluation.warning"))
+                ))
+
+                @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl), attributes = Map("id" -> "valuationtab-start-check")))
+            }
         </div>
     </div>
 }
