@@ -30,10 +30,13 @@
             $('#message-warning').removeClass('govuk-visually-hidden');
 
             function resolveMimeType(upload) {
+                var extension = upload.name.substr( (upload.name.lastIndexOf('.') +1) );
+                if(extension === "csv"){
+                    return "Unknown/Extension missing";
+                }
                 if(file.type){
                     return file.type;
                 }
-                var extension = upload.name.substr( (upload.name.lastIndexOf('.') +1) );
                 var mime;
                 switch(extension){
                             case "xls":
@@ -66,10 +69,6 @@
 
                             case "png":
                             mime = "image/png";
-                            break;
-
-                            case "csv":
-                            mime = "Unknown/Extension missing";
                             break;
 
                             default:
