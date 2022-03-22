@@ -30,7 +30,7 @@
             $('#message-warning').removeClass('govuk-visually-hidden');
 
             function resolveMimeType(upload) {
-                var extension = upload.name.substr( (upload.name.lastIndexOf('.') +1) );
+                var extension = upload.name.substr( (upload.name.lastIndexOf('.') +1) )).toLowerCase();
                 if(extension === "csv"){
                     return "Unknown/Extension missing";
                 }
