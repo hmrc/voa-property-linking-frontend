@@ -71,10 +71,6 @@
                             mime = "image/png";
                             break;
 
-                            case "csv":
-                            mime = "Unknown/Extension missing";
-                            break;
-
                             default:
                             mime = file.type ? file.type : 'Unknown/Extension missing';
                             break;
