@@ -65,19 +65,21 @@ case class ManagingProperty(
       agentAddress: String,
       isCorrectAgent: Boolean,
       managingPropertyChoice: String,
+      singleProperty: Boolean = false,
       status: AppointAgentJourneyStatus = ManagingPropertySelected)
     extends AppointNewAgentSession
 
 object ManagingProperty {
   implicit val format: OFormat[ManagingProperty] = Json.format[ManagingProperty]
 
-  def apply(selectedAgent: SelectedAgent, selection: String): ManagingProperty =
+  def apply(selectedAgent: SelectedAgent, selection: String, singleProperty: Boolean): ManagingProperty =
     ManagingProperty(
       agentCode = selectedAgent.agentCode,
       agentOrganisationName = selectedAgent.agentOrganisationName,
       agentAddress = selectedAgent.agentAddress,
       isCorrectAgent = selectedAgent.isCorrectAgent,
-      managingPropertyChoice = selection
+      managingPropertyChoice = selection,
+      singleProperty = singleProperty
     )
 }
 

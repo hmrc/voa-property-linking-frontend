@@ -186,7 +186,7 @@ trait FakeObjects {
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
     isCorrectAgent = true,
-    managingPropertyChoice = "All properties",
+    managingPropertyChoice = All.name,
     agentAddress = "An Address"
   )
 

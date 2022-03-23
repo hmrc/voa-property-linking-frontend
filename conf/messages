@@ -535,6 +535,7 @@ propertyRepresentation.multipleProperties.options.chooseFromList=Choose from a l
 propertyRepresentation.checkYourAnswers.title=Check your answers
 propertyRepresentation.checkYourAnswers.newAgent=New agent
 propertyRepresentation.checkYourAnswers.managingProperty=Managing property
+propertyRepresentation.checkYourAnswers.yourProperty=Your property
 propertyRepresentation.checkYourAnswers.options.all=All properties
 propertyRepresentation.checkYourAnswers.options.none=No properties
 propertyRepresentation.checkYourAnswers.options.no=No

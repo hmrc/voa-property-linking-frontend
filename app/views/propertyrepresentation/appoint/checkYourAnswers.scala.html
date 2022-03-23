@@ -30,7 +30,8 @@
 @(form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @answerMessageKey = @{
-    s"propertyRepresentation.checkYourAnswers.options.${data.managingPropertyChoice}"
+    if(data.singleProperty) "propertyRepresentation.checkYourAnswers.yourProperty"
+    else s"propertyRepresentation.checkYourAnswers.options.${data.managingPropertyChoice}"
 }
 @appointmentScope = @{
     data.managingPropertyChoice match {
@@ -65,7 +66,8 @@
                     content = Text(messages("propertyRepresentation.checkYourAnswers.managingProperty"))
                 ),
                 TableRow(
-                    content = Text(messages(answerMessageKey))
+                    content = Text(messages(answerMessageKey)),
+                    attributes = Map("id" -> "manage-property-choice")
                 )
             )
         ),

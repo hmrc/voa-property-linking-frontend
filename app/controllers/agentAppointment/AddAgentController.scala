@@ -178,7 +178,8 @@ class AddAgentController @Inject()(
           for {
             selectedAgentOpt <- sessionRepo.get[SelectedAgent]
             selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
-            _ <- sessionRepo.saveOrUpdate(ManagingProperty(selectedAgent, success.name))
+            _ <- sessionRepo.saveOrUpdate(
+                  ManagingProperty(selectedAgent = selectedAgent, selection = success.name, singleProperty = true))
           } yield {
             Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers())
           }
@@ -201,7 +202,8 @@ class AddAgentController @Inject()(
           for {
             selectedAgentOpt <- sessionRepo.get[SelectedAgent]
             selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
-            _ <- sessionRepo.saveOrUpdate(ManagingProperty(selectedAgent, success.name))
+            _ <- sessionRepo.saveOrUpdate(
+                  ManagingProperty(selectedAgent = selectedAgent, selection = success.name, singleProperty = false))
           } yield {
             success match {
               case ChooseFromList => joinOldJourney(selectedAgent.agentCode)
