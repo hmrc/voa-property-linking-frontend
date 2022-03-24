@@ -134,6 +134,39 @@ trait FakeViews extends GdsComponents {
     govukButton,
     govukSelect)
 
+  lazy val startPageView = new views.html.propertyrepresentation.appoint.start(
+    govukErrorSummary,
+    govukInput,
+    govukButton,
+    mainLayout,
+    formWithCSRF)
+  lazy val isTheCorrectAgentView = new views.html.propertyrepresentation.appoint.isThisYourAgent(
+    govukErrorSummary,
+    govukRadios,
+    govukButton,
+    mainLayout,
+    formWithCSRF)
+  lazy val agentToManageOnePropertyView = new views.html.propertyrepresentation.appoint.agentToManageOneProperty(
+    govukErrorSummary,
+    govukRadios,
+    govukButton,
+    mainLayout,
+    formWithCSRF)
+  lazy val agentToManageMultiplePropertiesView =
+    new views.html.propertyrepresentation.appoint.agentToManageMultipleProperties(
+      govukErrorSummary,
+      govukRadios,
+      govukButton,
+      mainLayout,
+      formWithCSRF)
+  lazy val addAgentconfirmationView = new views.html.propertyrepresentation.appoint.confirmation(govukPanel, mainLayout)
+  lazy val checkYourAnswersView = new views.html.propertyrepresentation.appoint.checkYourAnswers(
+    govukErrorSummary,
+    govukButton,
+    govukTable,
+    mainLayout,
+    formWithCSRF)
+
   lazy val updateBusinessAddressView =
     new views.html.details.updateBusinessAddress(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val updateBusinessNameView =
