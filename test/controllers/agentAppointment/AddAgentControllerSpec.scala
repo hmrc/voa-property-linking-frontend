@@ -17,7 +17,7 @@
 package controllers.agentAppointment
 
 import controllers.VoaPropertyLinkingSpec
-import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, SearchedAgent, SelectedAgent}
+import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, No, NoProperties, SearchedAgent, SelectedAgent}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
 import org.scalatestplus.mockito.MockitoSugar
@@ -28,7 +28,6 @@ import tests.AllMocks
 import utils.StubWithAppointAgentSessionRefiner
 import org.mockito.Mockito._
 import play.api.mvc.Result
-import play.twirl.api.Html
 import uk.gov.hmrc.http.BadRequestException
 
 import scala.concurrent.Future
@@ -292,6 +291,18 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     page.getElementById("manage-property-choice").text() shouldBe "Your property"
   }
 
+  "checkAnswers - single property when user selects no" should "return 200 Ok" in {
+    val data = managingProperty.copy(singleProperty = true, managingPropertyChoice = No.name)
+    stubWithAppointAgentSession.stubSession(data, detailedIndividualAccount, groupAccount(false))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(data)))
+
+    val res = testController.checkAnswers()(FakeRequest())
+    status(res) shouldBe OK
+    val page = Jsoup.parse(contentAsString(res))
+    page.getElementById("manage-property-choice").text() shouldBe "No"
+  }
+
   "checkAnswers - multiple properties" should "return 200 Ok" in {
     stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
@@ -301,6 +312,18 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     status(res) shouldBe OK
     val page = Jsoup.parse(contentAsString(res))
     page.getElementById("manage-property-choice").text() shouldBe "All properties"
+  }
+
+  "checkAnswers - multiple properties when user selects no properties" should "return 200 Ok" in {
+    val data = managingProperty.copy(singleProperty = false, managingPropertyChoice = NoProperties.name)
+    stubWithAppointAgentSession.stubSession(data, detailedIndividualAccount, groupAccount(false))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(data)))
+
+    val res = testController.checkAnswers()(FakeRequest())
+    status(res) shouldBe OK
+    val page = Jsoup.parse(contentAsString(res))
+    page.getElementById("manage-property-choice").text() shouldBe "No properties"
   }
 
   "appointAgent" should "return Ok for valid appointmentChange" in {
