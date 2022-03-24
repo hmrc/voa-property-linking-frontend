@@ -131,7 +131,7 @@
 <div id="details-content-valuations" class="govuk-body">
 
     @if(model.currentAssessments.nonEmpty){
-        <h2 class="govuk-heading-m">@messages("assessments.current.title")</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.current.title")</h2>
         @table(model.currentAssessments, tableType = "current", isDraft = false)
         @if(model.currentAssessments.exists(a => a._2.rateableValue.isEmpty)){
             @govukDetails(
@@ -142,7 +142,7 @@
     }
 
     @if(model.currentAssessments.isEmpty && model.draftAssessments.isEmpty && model.historicAssessments.nonEmpty){
-        <h2 class="govuk-heading-m">@messages("assessments.propertyRemoved")</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.propertyRemoved")</h2>
     }
 
     @if(model.draftAssessments.nonEmpty){
