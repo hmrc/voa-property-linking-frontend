@@ -30,8 +30,10 @@
 @(form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @answerMessageKey = @{
-    if(data.singleProperty) "propertyRepresentation.checkYourAnswers.yourProperty"
-    else s"propertyRepresentation.checkYourAnswers.options.${data.managingPropertyChoice}"
+    (data.managingPropertyChoice, data.singleProperty) match {
+        case (All.name, true) => "propertyRepresentation.checkYourAnswers.yourProperty"
+        case _ => s"propertyRepresentation.checkYourAnswers.options.${data.managingPropertyChoice}"
+    }
 }
 @appointmentScope = @{
     data.managingPropertyChoice match {
