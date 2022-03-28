@@ -88,7 +88,7 @@
                         <td class="govuk-table__cell">@effectiveDate(assessment)</td>
 
                         <td class="govuk-table__cell">
-                        @assessment.rateableValue.fold(messages("assessments.na"))( rv => s"£$rv" )
+                        @assessment.rateableValue.fold(messages("assessments.na"))(rv => Formatters.formatCurrencyRoundedToPounds(rv))
                         </td>
 
                         <td class="govuk-table__cell">

@@ -16,10 +16,11 @@
 
 package utils
 
+import models.{Address, PropertyAddress}
+
+import java.text.NumberFormat.getCurrencyInstance
 import java.time.{LocalDate, LocalDateTime, LocalTime}
 import java.time.format.DateTimeFormatter
-
-import models.{Address, PropertyAddress}
 
 object Formatters {
 
@@ -58,4 +59,14 @@ object Formatters {
   def buildUppercaseQueryParams(name: String, value: Option[String]): String =
     value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.toUpperCase.trim}"; case _ => "" }
 
+  def formatCurrency[A: Numeric](total: A, maximumFractionDigits: Option[Int] = None): String = {
+    val currencyFormatter = getCurrencyInstance(java.util.Locale.UK)
+    currencyFormatter.setRoundingMode(java.math.RoundingMode.DOWN)
+    maximumFractionDigits.foreach(digits => currencyFormatter.setMaximumFractionDigits(digits))
+
+    currencyFormatter.format(total)
+  }
+
+  def formatCurrencyRoundedToPounds[A: Numeric](total: A): String =
+    formatCurrency(total, Some(0))
 }
