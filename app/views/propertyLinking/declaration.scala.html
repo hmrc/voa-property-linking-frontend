@@ -47,7 +47,7 @@
 
 @propertyLastOccupiedDate = @{request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate)}
 
-@propertyRelationshipCapacityName = @{request.ses.propertyRelationship.map(_.capacity).map(_.name).getOrElse("")}
+@propertyRelationshipCapacityName = @{request.ses.propertyRelationship.map(_.capacity.name)}
 
 @propertyStillOccupied = @{request.ses.propertyOccupancy.exists(_.stillOccupied)}
 
@@ -67,7 +67,9 @@
     )
 }
 
-@lastOccupiedKey = @{messages(s"declaration.checkAnswers.lastOccupiedDate", messages(s"declaration.checkAnswers.$propertyRelationshipCapacityName").toLowerCase)}
+@lastOccupiedKey = @{propertyRelationshipCapacityName.fold("")(
+    capName => messages(s"declaration.checkAnswers.lastOccupiedDate", messages(s"declaration.checkAnswers.$capName").toLowerCase)
+)}
 
 @strippedFileName = @{
     request.ses.uploadEvidenceData.fileInfo match {
@@ -76,7 +78,7 @@
     }
 }
 
-@evidenceType = @{request.ses.uploadEvidenceData.fileInfo.map(_.evidenceType).map(_.name).getOrElse("")}
+@evidenceType = @{request.ses.uploadEvidenceData.fileInfo.map(_.evidenceType.name)}
 
 @mainLayout(
     pageTitle = messages("declaration.title"),
@@ -108,7 +110,7 @@
                         content = Text(messages("declaration.checkAnswers.connectionHeading"))
                     ),
                     value = Value(
-                        content = Text(messages(s"declaration.checkAnswers.$propertyRelationshipCapacityName"))
+                        content = Text(propertyRelationshipCapacityName.fold("")(name => messages(s"declaration.checkAnswers.$name")))
                     ),
                     actions = Some(Actions(
                         items = Seq(
@@ -193,7 +195,7 @@
                         content = Text(messages("declaration.checkAnswers.evidenceType.heading"))
                     ),
                     value = Value(
-                        content = HtmlContent(s"""<p class="govuk-body">${messages(s"uploadOtherEvidence.evidenceTypes.$evidenceType")}</p><p class="govuk-body">$strippedFileName</p>""")
+                        content = HtmlContent(s"""<p class="govuk-body">${evidenceType.fold("")(evType => messages(s"uploadOtherEvidence.evidenceTypes.$evType"))}</p><p class="govuk-body">$strippedFileName</p>""")
                     ),
                     actions = Some(Actions(
                         items = Seq(
