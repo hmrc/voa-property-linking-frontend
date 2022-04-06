@@ -942,30 +942,34 @@ noEvidenceUploaded.email=Email
 noEvidenceUploaded.emailaddress=<a href="mailto:{0}" class="govuk-link">{0}</a>
 
 #PROPERTY LINKING SUMMARY
-declaration.checkAnswers.relationshipHeading=Relationship to property
+declaration.checkAnswers.connectionHeading=Connection to property
 declaration.checkAnswers.OWNER=Owner
 declaration.checkAnswers.OWNER_OCCUPIER=Owner and occupier
 declaration.checkAnswers.OCCUPIER=Occupier
-declaration.checkAnswers.startDateHeading=Start date
+declaration.checkAnswers.startDateHeading=Started
 declaration.checkAnswers.startDate.before2017=On or before 1 April 2017
-declaration.checkAnswers.propertyOwnership.heading=Do you still own or occupy the property?
-declaration.checkAnswers.propertyOwnership.heading.agent=Does your client still own or occupy the property?
+declaration.checkAnswers.ownershipHeading.builder={0} still {1} the property?
+declaration.checkAnswers.ownershipHeading.ip=Do you
+declaration.checkAnswers.ownershipHeading.agent=Does your client
+declaration.checkAnswers.ownershipHeading.own=own
+declaration.checkAnswers.ownershipHeading.occupy=occupy
+declaration.checkAnswers.ownershipHeading.ownAndOccupy=own and occupy
 declaration.checkAnswers.propertyOwnership.yes=Yes
 declaration.checkAnswers.propertyOwnership.no=No
-declaration.checkAnswers.propertyOccupancy.lastOccupiedDate=End date
-declaration.checkAnswers.evidenceType.heading=Evidence type
+declaration.checkAnswers.lastOccupiedDate=Last day as {0}
+declaration.checkAnswers.evidenceType.heading=Evidence
 
 declaration.checkAnswers.change=Change
 declaration.button=Confirm and send
-declaration.title=Check and confirm your claim details
+declaration.title=Check and confirm your details
 declaration.p.1=I declare that:
 declaration.1=the information I have given in this form is correct and complete
 declaration.2=the file/details that I have uploaded contains proof of my relationship to the property for dates that overlap with the period claimed
 declaration.client.2=the file/details that I have uploaded contains proof of my client''s relationship to the property for dates that overlap with the period claimed
 declaration.p.2=I understand that I could be taken to court if I knowingly submit false information.
 declaration.p.3=You could be taken to court if you knowingly submit false information.
-declaration.p.agent=I declare that the information I have given in this form is correct and complete. The evidence I have uploaded contains proof of my client's relationship to the property for dates that overlap with the period claimed.
-declaration.p.ip=I declare that the information I have given in this form is correct and complete. The evidence I have uploaded contains proof of my relationship to the property for dates that overlap with the period claimed.
+declaration.p.agent=I declare that the information I have given is correct and complete. The evidence I have uploaded contains proof of my client's connection to the property for dates that overlap with the period I have stated.
+declaration.p.ip=I declare that the information I have given is correct and complete. The evidence I have uploaded contains proof of my connection to the property for dates that overlap with the period I have stated.
 
 label.declaration=Declaration
 declaration.iAgree=I agree to the above declaration
