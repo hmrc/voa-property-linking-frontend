@@ -58,7 +58,7 @@
         else messages("declaration.checkAnswers.ownershipHeading.ip"),
 
         request.ses.propertyRelationship.fold(
-            messages("declaration.checkAnswers.ownershipHeading.ownAndOccupy")
+            messages("declaration.checkAnswers.ownershipHeading.fallback")
         )(_.capacity match {
             case Occupier      => messages("declaration.checkAnswers.ownershipHeading.occupy")
             case Owner         => messages("declaration.checkAnswers.ownershipHeading.own")
