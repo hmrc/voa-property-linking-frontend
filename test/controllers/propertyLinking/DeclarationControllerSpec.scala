@@ -17,12 +17,13 @@
 package controllers.propertyLinking
 
 import java.time.LocalDate
-
 import cats.data.EitherT
 import cats.instances.future._
 import controllers.VoaPropertyLinkingSpec
+import models.{CapacityType, Occupier, Owner, OwnerOccupier}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
+import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
@@ -43,8 +44,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
           mockCustomErrorHandler,
           mockPropertyLinkingService,
           mockSessionRepo,
-          preAuthenticatedActionBuilders(),
-          preEnrichedActionRefiner(),
+          preAuthenticatedActionBuilders(isAgent),
+          preEnrichedActionRefiner(uploadEvidenceData, propertyRelationship, isAgent),
           declarationView,
           mockLinkingRequestSubmittedView
         )
@@ -58,6 +59,9 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     }
 
     lazy val envelopeId: String = shortString
+
+    val isAgent: Boolean = true
+    val propertyRelationship: CapacityType = Owner
   }
 
   "The declaration page with earliest start date is not in future" should "return valid page" in new Setup {
@@ -68,10 +72,10 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
     val html = HtmlPage(res)
 
-    html.titleShouldMatch("Check and confirm your claim details - Valuation Office Agency - GOV.UK")
-    html.verifyElementText("page-header", "Check and confirm your claim details")
+    html.titleShouldMatch("Check and confirm your details - Valuation Office Agency - GOV.UK")
+    html.verifyElementText("page-header", "Check and confirm your details")
     html.verifyElementText("caption", "Add a property")
-    html.verifyElementTextByClass("start-date-heading", "Start date")
+    html.verifyElementTextByClass("start-date-heading", "Started")
 
   }
 
@@ -83,11 +87,104 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
     val html = HtmlPage(res)
 
-    html.titleShouldMatch("Check and confirm your claim details - Valuation Office Agency - GOV.UK")
-    html.verifyElementText("page-header", "Check and confirm your claim details")
+    html.titleShouldMatch("Check and confirm your details - Valuation Office Agency - GOV.UK")
+    html.verifyElementText("page-header", "Check and confirm your details")
     html.verifyElementText("caption", "Add a property")
-    html.shouldNotContainText("Start date")
+    html.shouldNotContainText("Started")
+    html.shouldNotContainText("Do you still")
+    html.shouldNotContainText("Does your client still")
+    html.shouldNotContainText("Last day as")
 
+  }
+
+  "The declaration page" should "display the correct summary list keys for an owner IP" in new Setup {
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
+
+    override val isAgent: Boolean = false
+
+    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+
+    status(res) shouldBe OK
+    val html: HtmlPage = HtmlPage(res)
+
+    html.verifyElementTextByClass("occupied-heading", "Do you still own the property?")
+    html.verifyElementTextByClass("last-occupied-heading", "Last day as owner")
+  }
+
+  it should "display the correct summary list keys for an occupier IP" in new Setup {
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
+
+    override val isAgent: Boolean = false
+    override val propertyRelationship: CapacityType = Occupier
+
+    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+
+    status(res) shouldBe OK
+    val html: HtmlPage = HtmlPage(res)
+
+    html.verifyElementTextByClass("occupied-heading", "Do you still occupy the property?")
+    html.verifyElementTextByClass("last-occupied-heading", "Last day as occupier")
+  }
+
+  it should "display the correct summary list keys for an owner and occupier IP" in new Setup {
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
+
+    override val isAgent: Boolean = false
+    override val propertyRelationship: CapacityType = OwnerOccupier
+
+    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+
+    status(res) shouldBe OK
+    val html: HtmlPage = HtmlPage(res)
+
+    html.verifyElementTextByClass("occupied-heading", "Do you still own and occupy the property?")
+    html.verifyElementTextByClass("last-occupied-heading", "Last day as owner and occupier")
+  }
+
+  it should "display the correct summary list keys for an owner agent" in new Setup {
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
+
+    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+
+    status(res) shouldBe OK
+    val html: HtmlPage = HtmlPage(res)
+
+    html.verifyElementTextByClass("occupied-heading", "Does your client still own the property?")
+    html.verifyElementTextByClass("last-occupied-heading", "Last day as owner")
+  }
+
+  it should "display the correct summary list keys for an occupier agent" in new Setup {
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
+
+    override val propertyRelationship: CapacityType = Occupier
+
+    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+
+    status(res) shouldBe OK
+    val html: HtmlPage = HtmlPage(res)
+
+    html.verifyElementTextByClass("occupied-heading", "Does your client still occupy the property?")
+    html.verifyElementTextByClass("last-occupied-heading", "Last day as occupier")
+  }
+
+  it should "display the correct summary list keys for an owner and occupier agent" in new Setup {
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
+
+    override val propertyRelationship: CapacityType = OwnerOccupier
+
+    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+
+    status(res) shouldBe OK
+    val html: HtmlPage = HtmlPage(res)
+
+    html.verifyElementTextByClass("occupied-heading", "Does your client still own and occupy the property?")
+    html.verifyElementTextByClass("last-occupied-heading", "Last day as owner and occupier")
   }
 
   it should "require the user to accept the declaration to continue" in new Setup {

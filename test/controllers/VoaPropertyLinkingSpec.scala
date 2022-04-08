@@ -119,7 +119,10 @@ trait VoaPropertyLinkingSpec
   def preEnrichedActionRefiner(): WithLinkingSession =
     preEnrichedActionRefiner(UploadEvidenceData(fileInfo = None, attachments = None))
 
-  def preEnrichedActionRefiner(evidenceData: UploadEvidenceData): WithLinkingSession =
+  def preEnrichedActionRefiner(
+        evidenceData: UploadEvidenceData,
+        relationshipCapacity: CapacityType = Owner,
+        userIsAgent: Boolean = true): WithLinkingSession =
     new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
 
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
@@ -131,14 +134,14 @@ trait VoaPropertyLinkingSpec
                 uarn = 1L,
                 submissionId = "PL-123456",
                 personId = 1L,
-                propertyRelationship = Some(PropertyRelationship(Owner)),
+                propertyRelationship = Some(PropertyRelationship(relationshipCapacity)),
                 propertyOwnership =
                   Some(PropertyOwnership(interestedBefore2017 = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
                 propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
                 hasRatesBill = Some(true),
                 uploadEvidenceData = evidenceData,
                 evidenceType = Some(RatesBillType),
-                clientDetails = Some(ClientDetails(100, "ABC")),
+                clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
                 localAuthorityReference = "12341531531"
               ),
               organisationId = 1L,
