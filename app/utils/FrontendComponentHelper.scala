@@ -45,4 +45,6 @@ object FrontendComponentHelper {
       }
   }.toSeq
 
+  def valueWithId(value: String, id: String): HtmlContent =
+    HtmlContent(s"""<span id="$id">$value</span>""")
 }

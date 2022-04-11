@@ -22,6 +22,7 @@
 @import java.time.format.DateTimeFormatter
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import _root_.utils.Formatters
+@import _root_.utils.FrontendComponentHelper.valueWithId
 @import models._
 
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
@@ -99,18 +100,18 @@
             rows = Seq(
                 SummaryListRow(
                   key = Key(
-                    content = Text(messages("label.address"))
+                    content = valueWithId(messages("label.address"), "address-heading")
                   ),
                     value = Value(
-                        Text(Formatters.capitalisedAddress(model.address))
+                        valueWithId(Formatters.capitalisedAddress(model.address), "address-value")
                     )
                 ),
                 SummaryListRow(
                     key = Key(
-                        content = Text(messages("declaration.checkAnswers.connectionHeading"))
+                        content = valueWithId(messages("declaration.checkAnswers.connectionHeading"), "relationship-heading")
                     ),
                     value = Value(
-                        content = Text(propertyRelationshipCapacityName.fold("")(name => messages(s"declaration.checkAnswers.$name")))
+                        content = valueWithId(propertyRelationshipCapacityName.fold("")(name => messages(s"declaration.checkAnswers.$name")), "relationship-value")
                     ),
                     actions = Some(Actions(
                         items = Seq(
@@ -118,7 +119,7 @@
                                 href = s"${controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
                                 visuallyHiddenText = Some(messages("declaration.checkAnswers.connectionHeading")),
-                                attributes = Map("id" -> "propertyRelationshipChange")
+                                attributes = Map("id" -> "relationship-change")
                             )
                         )
                     ))
@@ -126,13 +127,10 @@
                 if(!isEarliestStartDateInFuture){
                 SummaryListRow(
                     key = Key(
-                        content = Text(messages("declaration.checkAnswers.startDateHeading")),
-                        classes = "start-date-heading"
+                        content = valueWithId(messages("declaration.checkAnswers.startDateHeading"), "start-date-heading"),
                     ),
                     value = Value(
-                        content = Text(
-                            propertyOwnershipFromDate.fold(messages("declaration.checkAnswers.startDate.before2017"))(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
-                        )
+                        content = valueWithId(propertyOwnershipFromDate.fold(messages("declaration.checkAnswers.startDate.before2017"))(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))), "start-date-value")
                     ),
                     actions = Some(Actions(
                         items = Seq(
@@ -140,7 +138,7 @@
                                 href = s"${controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
                                 visuallyHiddenText = Some(messages("declaration.checkAnswers.startDateHeading")),
-                                attributes = Map("id" -> "startDateChange")
+                                attributes = Map("id" -> "start-date-change")
                             )
                         )
                     ))
@@ -148,20 +146,20 @@
                 if(!isEarliestStartDateInFuture){
                     SummaryListRow(
                         key = Key(
-                            content = Text(propertyOwnedOccupiedKey),
-                            classes = "occupied-heading"
+                            content = valueWithId(propertyOwnedOccupiedKey, "still-owned-heading")
                         ),
                         value = Value(
-                            content =
-                                if (propertyStillOccupied) Text(messages("declaration.checkAnswers.propertyOwnership.yes"))
-                                else Text(messages("declaration.checkAnswers.propertyOwnership.no"))
+                            content = valueWithId(
+                                if (propertyStillOccupied) messages("declaration.checkAnswers.propertyOwnership.yes")
+                                else messages("declaration.checkAnswers.propertyOwnership.no"),
+                                "still-owned-value")
                         ),
                         actions = Some(Actions(
                             items = Seq(
                                 ActionItem(
                                     href = s"${controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url}",
                                     content = Text(messages("declaration.checkAnswers.change")),
-                                    attributes = Map("id" -> "propertyOwnershipChange"),
+                                    attributes = Map("id" -> "still-owned-change"),
                                     visuallyHiddenText = Some(propertyOwnedOccupiedKey)
                                 )
                             )
@@ -171,13 +169,11 @@
                 if (!propertyStillOccupied && !isEarliestStartDateInFuture){
                 SummaryListRow(
                     key = Key(
-                        content = Text(lastOccupiedKey),
-                        classes = "last-occupied-heading"
+                        content = valueWithId(lastOccupiedKey, "end-date-heading")
                     ),
                     value = Value(
-                        content = Text(
-                            propertyLastOccupiedDate.fold("")(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy")))
-                        )
+                        content =
+                            valueWithId(propertyLastOccupiedDate.fold("")(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))), "end-date-value")
                     ),
                     actions = Some(Actions(
                         items = Seq(
@@ -185,23 +181,25 @@
                                 href = s"${controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url}",
                                 content = Text(messages("declaration.checkAnswers.change")),
                                 visuallyHiddenText = Some(lastOccupiedKey),
-                                attributes = Map("id" -> "endDateChange")
+                                attributes = Map("id" -> "end-date-change")
                             )
                         )
                     ))
                 )} else SummaryListRow(),
                 SummaryListRow(
                     key = Key(
-                        content = Text(messages("declaration.checkAnswers.evidenceType.heading"))
+                        content = valueWithId(messages("declaration.checkAnswers.evidenceType.heading"), "evidence-heading")
                     ),
                     value = Value(
-                        content = HtmlContent(s"""<p class="govuk-body">${evidenceType.fold("")(evType => messages(s"uploadOtherEvidence.evidenceTypes.$evType"))}</p><p class="govuk-body">$strippedFileName</p>""")
+                        content =
+                            valueWithId(
+                                s"""<p class="govuk-body">${evidenceType.fold("")(evType => messages(s"uploadOtherEvidence.evidenceTypes.$evType"))}</p><p class="govuk-body">$strippedFileName</p>""", "evidence-value")
                     ),
                     actions = Some(Actions(
                         items = Seq(
                             ActionItem(
                                 href = s"${controllers.propertyLinking.routes.ChooseEvidenceController.show().url}",
-                                attributes = Map("id" -> "evidenceTypeChange"),
+                                attributes = Map("id" -> "evidence-change"),
                                 content = Text(messages("declaration.checkAnswers.change")),
                                 visuallyHiddenText = Some(messages("declaration.checkAnswers.evidenceType.heading"))
                             )
