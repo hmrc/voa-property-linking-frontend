@@ -75,7 +75,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     html.titleShouldMatch("Check and confirm your details - Valuation Office Agency - GOV.UK")
     html.verifyElementText("page-header", "Check and confirm your details")
     html.verifyElementText("caption", "Add a property")
-    html.verifyElementTextByAttribute("id", "start-date-heading", "Started 1 January 2017")
+    html.verifyElementTextByAttribute("id", "start-date-heading", "Started")
 
   }
 
