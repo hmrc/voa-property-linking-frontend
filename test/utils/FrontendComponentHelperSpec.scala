@@ -44,4 +44,10 @@ class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
       content = HtmlContent(s"On what date did you become the owner or occupier? - Enter a valid date"))) shouldBe true
 
   }
+
+  "valueWithId" should "return value wrapped in a span" in {
+    FrontendComponentHelper.valueWithId("this is a value", "value-id") shouldBe HtmlContent(
+      """<span id="value-id">this is a value</span>"""
+    )
+  }
 }

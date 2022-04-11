@@ -75,7 +75,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     html.titleShouldMatch("Check and confirm your details - Valuation Office Agency - GOV.UK")
     html.verifyElementText("page-header", "Check and confirm your details")
     html.verifyElementText("caption", "Add a property")
-    html.verifyElementTextByClass("start-date-heading", "Started")
+    html.verifyElementTextByAttribute("id", "start-date-heading", "Started 1 January 2017")
 
   }
 
@@ -108,8 +108,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
 
-    html.verifyElementTextByClass("occupied-heading", "Do you still own the property?")
-    html.verifyElementTextByClass("last-occupied-heading", "Last day as owner")
+    html.verifyElementTextByAttribute("id", "still-owned-heading", "Do you still own the property?")
+    html.verifyElementTextByAttribute("id", "end-date-heading", "Last day as owner")
   }
 
   it should "display the correct summary list keys for an occupier IP" in new Setup {
@@ -124,8 +124,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
 
-    html.verifyElementTextByClass("occupied-heading", "Do you still occupy the property?")
-    html.verifyElementTextByClass("last-occupied-heading", "Last day as occupier")
+    html.verifyElementTextByAttribute("id", "still-owned-heading", "Do you still occupy the property?")
+    html.verifyElementTextByAttribute("id", "end-date-heading", "Last day as occupier")
   }
 
   it should "display the correct summary list keys for an owner and occupier IP" in new Setup {
@@ -140,8 +140,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
 
-    html.verifyElementTextByClass("occupied-heading", "Do you still own and occupy the property?")
-    html.verifyElementTextByClass("last-occupied-heading", "Last day as owner and occupier")
+    html.verifyElementTextByAttribute("id", "still-owned-heading", "Do you still own and occupy the property?")
+    html.verifyElementTextByAttribute("id", "end-date-heading", "Last day as owner and occupier")
   }
 
   it should "display the correct summary list keys for an owner agent" in new Setup {
@@ -153,8 +153,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
 
-    html.verifyElementTextByClass("occupied-heading", "Does your client still own the property?")
-    html.verifyElementTextByClass("last-occupied-heading", "Last day as owner")
+    html.verifyElementTextByAttribute("id", "still-owned-heading", "Does your client still own the property?")
+    html.verifyElementTextByAttribute("id", "end-date-heading", "Last day as owner")
   }
 
   it should "display the correct summary list keys for an occupier agent" in new Setup {
@@ -168,8 +168,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
 
-    html.verifyElementTextByClass("occupied-heading", "Does your client still occupy the property?")
-    html.verifyElementTextByClass("last-occupied-heading", "Last day as occupier")
+    html.verifyElementTextByAttribute("id", "still-owned-heading", "Does your client still occupy the property?")
+    html.verifyElementTextByAttribute("id", "end-date-heading", "Last day as occupier")
   }
 
   it should "display the correct summary list keys for an owner and occupier agent" in new Setup {
@@ -183,8 +183,9 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
 
-    html.verifyElementTextByClass("occupied-heading", "Does your client still own and occupy the property?")
-    html.verifyElementTextByClass("last-occupied-heading", "Last day as owner and occupier")
+    html
+      .verifyElementTextByAttribute("id", "still-owned-heading", "Does your client still own and occupy the property?")
+    html.verifyElementTextByAttribute("id", "end-date-heading", "Last day as owner and occupier")
   }
 
   it should "require the user to accept the declaration to continue" in new Setup {
