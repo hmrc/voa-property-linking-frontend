@@ -50,7 +50,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
         mockChooseEvidencePage
       )
 
-  lazy val request = FakeRequest().withSession(token)
+  lazy val request = FakeRequest()
 
   "The choose evidence page with earliest start date in the past" should "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))

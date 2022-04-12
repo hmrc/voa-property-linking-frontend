@@ -48,9 +48,6 @@ trait VoaPropertyLinkingSpec
     with HTTPClientMock with ScalaFutures with Configs with FakeObjects with GlobalExecutionContext with AllMocks
     with HttpResponseUtils with Inside with FakeViews {
 
-  // FIXME we should be removing all "Csrf-Token" -> "nocheck"
-  val token: (String, String) = "Csrf-Token" -> "nocheck"
-
   override implicit val patienceConfig: PatienceConfig =
     PatienceConfig(timeout = Span(10, Seconds), interval = Span(20, Millis))
 

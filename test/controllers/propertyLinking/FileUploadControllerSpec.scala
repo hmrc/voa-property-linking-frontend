@@ -42,7 +42,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   override implicit val messagesControllerComponents: MessagesControllerComponents =
     app.injector.instanceOf[MessagesControllerComponents]
   lazy val mockBusinessRatesChallengeService = mock[BusinessRatesAttachmentsService]
-  implicit lazy val request = FakeRequest().withSession(token).withHeaders(HOST -> "localhost:9523")
+  implicit lazy val request = FakeRequest().withHeaders(HOST -> "localhost:9523")
   implicit lazy val hc = HeaderCarrier()
 
   class TestFileUploadController(
@@ -102,7 +102,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceData)
     lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
     val request =
-      fakeRequest.withSession(token).withHeaders(HOST -> "localhost:9523").withBody(Json.obj("evidenceType" -> "Lease"))
+      fakeRequest.withHeaders(HOST -> "localhost:9523").withBody(Json.obj("evidenceType" -> "Lease"))
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful())
 

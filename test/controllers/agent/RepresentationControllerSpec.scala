@@ -33,7 +33,7 @@ import scala.concurrent.Future
 
 class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
-  lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest().withSession(token)
+  lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
   val revokeClientPropertyPage = mock[views.html.propertyrepresentation.revokeClient]
