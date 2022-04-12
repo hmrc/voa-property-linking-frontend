@@ -310,6 +310,6 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
   lazy val mockManageDetails = mock[ManageDetails]
   lazy val mockGroupAccounts = mock[GroupAccounts]
 
-  lazy val request = FakeRequest().withSession(token)
+  lazy val request = FakeRequest()
 
 }

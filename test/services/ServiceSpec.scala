@@ -35,9 +35,6 @@ trait ServiceSpec
   override implicit def patienceConfig: PatienceConfig =
     PatienceConfig(timeout = Span(10, Seconds), interval = Span(20, Millis))
 
-  // FIXME we should be removing all "Csrf-Token" -> "nocheck"
-  val token = "Csrf-Token" -> "nocheck"
-
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
 
   override protected def beforeEach(): Unit = {
