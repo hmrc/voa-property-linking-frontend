@@ -58,7 +58,7 @@ trait GdsComponents {
   lazy val govukTabs = new GovukTabs
   lazy val govukTable = new GovukTable
   lazy val govukTag = new GovukTag
-  lazy val govukTemplate = new GovukTemplate(govukHeader, govukFooter, govukSkipLink)
+  lazy val govukTemplate = new GovukTemplate(govukHeader, govukFooter, govukSkipLink, new FixedWidthPageLayout())
   lazy val govukTextarea = new GovukTextarea(govukErrorMessage, govukHint, govukLabel)
   lazy val govukWarningText = new GovukWarningText
   lazy val hmrcFooter = new HmrcFooter()

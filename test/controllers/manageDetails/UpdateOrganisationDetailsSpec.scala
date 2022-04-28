@@ -38,7 +38,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("span.govuk-error-message").text shouldBe "Error: This must be filled in"
+    html.select("p.govuk-error-message").text shouldBe "Error: This must be filled in"
   }
 
   it should "update the business name on a valid submission" in new Setup {
@@ -110,7 +110,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("span.govuk-error-message").text shouldBe "Error: This must be filled in"
+    html.select("p.govuk-error-message").text shouldBe "Error: This must be filled in"
   }
 
   it should "update the business phone number on a valid submission" in new Setup {
@@ -140,7 +140,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("span.govuk-error-message").text shouldBe "Error: Enter a valid email address"
+    html.select("p.govuk-error-message").text shouldBe "Error: Enter a valid email address"
   }
 
   it should "require the confirmed email to match" in new Setup {
@@ -157,7 +157,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
 
     val html = Jsoup.parse(contentAsString(res))
     html
-      .select("span.govuk-error-message")
+      .select("p.govuk-error-message")
       .text shouldBe "Error: Email addresses must match. Check them and try again"
   }
 
