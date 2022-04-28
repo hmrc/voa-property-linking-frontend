@@ -1,6 +1,5 @@
 ->          /                                                                                 manageDetails.Routes
 
-->          /govuk-frontend                                                                   govuk.Routes
 ->          /hmrc-frontend                                                                    hmrcfrontend.Routes
 
 #Start
