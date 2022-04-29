@@ -25,13 +25,14 @@
 @import utils.Formatters
 @import play.api.data._
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukInput: GovukInput, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(model: ClaimPropertyOwnershipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @form = @{model.form}
 
 @clientSuffix = @{clientDetails.fold("")(_ => ".client")}
+
 
 @mainLayout(
     pageTitle = messages(s"declareCapacity.title$clientSuffix"),
@@ -71,13 +72,12 @@
                     checked = form.data.get("interestedBefore2017").fold(false)(_ == "true")
                 ),
                 RadioItem(
-                    conditionalHtml = Some(dateFields(form = form, fieldName = "fromDate", label = Some(s"label.fromDate$clientSuffix"))),
                     content = Text(messages("interestedBefore2017.false")),
                     value = Some("false"),
-                    checked = form.data.get("interestedBefore2017").fold(false)(_ == "false")
+                    checked = form.data.get("interestedBefore2017").fold(false)(_ == "false"),
+                    conditionalHtml = Some(dateFields(form = form, fieldName = "fromDate", label = Some(s"label.fromDate$clientSuffix")))
                 )
-            ),
-            classes = "govuk-radios--inline"
+            )
         ).withFormField(form("interestedBefore2017")))
 
         @govukButton(

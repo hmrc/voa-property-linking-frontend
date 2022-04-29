@@ -61,9 +61,7 @@
                     value = Some("false"),
                     checked = form.data.get("stillOccupied").fold(false)(_ == "false")
                 )
-            ),
-            classes = "govuk-radios--inline"
-        ).withFormField(form("stillOccupied")))
+            )).withFormField(form("stillOccupied")))
 
         @govukButton(
             Button(
