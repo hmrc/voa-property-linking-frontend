@@ -18,21 +18,19 @@ package controllers.propertyLinking
 
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
-import akka.stream.Materializer
 import binders.propertylinks.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
 import models.{RatesBillType, StampDutyLandTaxForm}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.http.Status.{OK => _}
-import play.api.libs.json.{JsString, Json}
-import play.api.mvc.{AnyContentAsEmpty, ControllerComponents, MessagesControllerComponents, Result}
+import play.api.libs.json.Json
+import play.api.mvc.{AnyContentAsEmpty, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HtmlPage, _}
+import utils._
 
 import scala.concurrent.Future
 
@@ -85,7 +83,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   "RATES_BILL remove file" should "return remove file success" in {
     val request = FakeRequest(POST, "")
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful())
+      .thenReturn(Future.successful(()))
 
     val result = controller.remove("01222333", EvidenceChoices.RATES_BILL)(request)
 
@@ -104,7 +102,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     val request =
       fakeRequest.withHeaders(HOST -> "localhost:9523").withBody(Json.obj("evidenceType" -> "Lease"))
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful())
+      .thenReturn(Future.successful(()))
 
     val result = uploadController.continue(EvidenceChoices.RATES_BILL)(request)
     status(result) shouldBe SEE_OTHER
@@ -135,7 +133,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
   "OTHER Evidence remove file" should "return remove file success" in {
     val request = FakeRequest(POST, "")
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful())
+      .thenReturn(Future.successful(()))
 
     val result = controller.remove("01222333", EvidenceChoices.OTHER)(request)
 
@@ -152,7 +150,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceData)
     lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful())
+      .thenReturn(Future.successful(()))
 
     val result = uploadController.continue(EvidenceChoices.OTHER)(
       FakeRequest().withFormUrlEncodedBody("evidenceType" -> "License"))
@@ -192,7 +190,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
 
   "updateEvidenceType" should "return OK if valid evidence type submitted" in {
     when(mockBusinessRatesChallengeService.persistSessionData(any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful())
+      .thenReturn(Future.successful(()))
     val postRequest = FakeRequest(POST, "").withBody(Json.obj("evidenceType" -> "lease"))
     val result = controller.updateEvidenceType()(postRequest)
 

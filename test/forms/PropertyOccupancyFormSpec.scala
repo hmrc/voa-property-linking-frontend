@@ -17,19 +17,19 @@
 package forms
 
 import java.time.LocalDate
-
 import controllers.VoaPropertyLinkingSpec
 import controllers.propertyLinking.ClaimPropertyOccupancy
-import models.{PropertyOccupancy, PropertyOwnership}
-import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
+import models.PropertyOccupancy
+import play.api.data.Form
 import play.api.i18n.Lang.defaultLang
 import utils.FormBindingVerification._
-import views.helpers.Errors
 
 class PropertyOccupancyFormSpec extends VoaPropertyLinkingSpec {
 
   import TestData._
+
+  val errorLastDateAfterStartDate =
+    "Your last day as the owner or occupier must be after you became the owner or occupier (1 April 2017)"
 
   behavior of "Property occupancy form"
 
@@ -39,11 +39,11 @@ class PropertyOccupancyFormSpec extends VoaPropertyLinkingSpec {
 
   it should "require last occupied date if the occupation/ownership" in {
     val data = validData
-      .updated("interestedBefore2017", "true")
+      .updated("interestedOnOrBefore", "true")
       .updated("lastOccupiedDate.day", "28")
       .updated("lastOccupiedDate.month", "2")
       .updated("lastOccupiedDate.year", "2017")
-    verifyError(form, data, "lastOccupiedDate", Errors.dateMustBeAfter1stApril2017)
+    verifyError(form, data, "lastOccupiedDate", errorLastDateAfterStartDate)
   }
 
   it should "require last occupied if the occupation/ownership has ended" in {
@@ -56,18 +56,18 @@ class PropertyOccupancyFormSpec extends VoaPropertyLinkingSpec {
     verifyOptionalDate(form, data, "lastOccupiedDate")
   }
 
-  it should "require the last occupied date to be after 1st April 2017" in {
+  it should "require the last occupied date to be after the start date" in {
     val data = validData
       .updated("stillOccupied", "false")
       .updated("lastOccupiedDate.day", "1")
       .updated("lastOccupiedDate.month", "3")
       .updated("lastOccupiedDate.year", "2017")
-    verifyOnlyError(form, data, "lastOccupiedDate", Errors.dateMustBeAfter1stApril2017)
+    verifyOnlyError(form, data, "lastOccupiedDate", errorLastDateAfterStartDate)
   }
 
   object TestData {
     val form =
-      ClaimPropertyOccupancy.occupancyForm(Some(LocalDate.of(2017, 1, 1)))(messagesApi.preferred(Seq(defaultLang)))
+      ClaimPropertyOccupancy.occupancyForm(earliestStartDate)(messagesApi.preferred(Seq(defaultLang)))
     val validData = Map(
       "stillOccupied"          -> "false",
       "lastOccupiedDate.day"   -> "23",

@@ -30,10 +30,8 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import services.{AgentRelationshipService, AppointRevokeException}
 import tests.AllMocks
-import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubGroupAccountConnector}
-import views.html.propertyrepresentation.appoint.appointAgentSummary
 
 import scala.concurrent.Future
 

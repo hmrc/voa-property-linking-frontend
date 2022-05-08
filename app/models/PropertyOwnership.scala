@@ -16,12 +16,12 @@
 
 package models
 
-import java.time.LocalDate
-
 import play.api.libs.json.Json
 
+import java.time.LocalDate
+
 case class PropertyOwnership(
-      interestedBefore2017: Boolean,
+      interestedOnOrBefore: Boolean,
       fromDate: Option[LocalDate]
 )
 

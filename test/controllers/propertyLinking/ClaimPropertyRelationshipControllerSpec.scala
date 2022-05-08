@@ -36,16 +36,18 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   private val mockRelationshipToPropertyView = mock[views.html.propertyLinking.relationshipToProperty]
+
   private lazy val testClaimProperty = new ClaimPropertyRelationshipController(
-    mockCustomErrorHandler,
-    StubSubmissionIdConnector,
-    mockSessionRepo,
-    preAuthenticatedActionBuilders(),
-    new StubWithLinkingSession(mock[SessionRepo]),
-    propertyLinkingConnector,
-    vmvConnector,
-    configuration,
-    mockRelationshipToPropertyView,
+    errorHandler = mockCustomErrorHandler,
+    submissionIdConnector = StubSubmissionIdConnector,
+    sessionRepository = mockSessionRepo,
+    authenticatedAction = preAuthenticatedActionBuilders(),
+    withLinkingSession = new StubWithLinkingSession(mock[SessionRepo]),
+    propertyLinkingService = mockPropertyLinkingService,
+    propertyLinksConnector = propertyLinkingConnector,
+    vmvConnector = vmvConnector,
+    runModeConfiguration = configuration,
+    relationshipToPropertyView = mockRelationshipToPropertyView,
     beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton),
     serviceUnavailableView = new views.html.errors.serviceUnavailable(mainLayout)
   )
@@ -85,6 +87,8 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   "The claim property relationship page on client behalf" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(earliestStartDate))
     when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim property relationship page on client behalf"))
 
@@ -119,6 +123,9 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   it should "redirect to the claim relationship page on valid submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(earliestStartDate))
+
     val res = testClaimProperty.submitRelationship(positiveLong)(
       FakeRequest().withFormUrlEncodedBody(
         "capacity" -> "OWNER"
@@ -129,6 +136,9 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   it should "initialise the linking session on submission" in {
     StubSubmissionIdConnector.stubId(submissionId)
+
+    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+      .thenReturn(Future.successful(earliestStartDate))
 
     val uarn: Long = positiveLong
 

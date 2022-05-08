@@ -55,38 +55,47 @@ class ClaimPropertyOwnershipController @Inject()(
 
   def showOwnership(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     {
-      val form = request.ses.propertyOwnership.fold(ownershipForm) { ownership =>
-        ownershipForm.fillAndValidate(ownership)
+      val form = request.ses.propertyOwnership.fold(ownershipForm(request.ses.earliestStartDate)) { ownership =>
+        ownershipForm(request.ses.earliestStartDate).fillAndValidate(ownership)
       }
-      propertyLinkingService.findEarliestStartDate(request.ses.uarn).flatMap {
-        case Some(date) if date.isAfter(LocalDate.now()) =>
-          sessionRepository
-            .saveOrUpdate[LinkingSession](request.ses.copy(
-              propertyOwnership = Some(PropertyOwnership(interestedBefore2017 = false, fromDate = Some(date))),
-              propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))
-            ))
-            .map { _ =>
-              Redirect(routes.ChooseEvidenceController.show())
-            }
-        case _ =>
-          Future.successful(Ok(ownershipToPropertyView(
-            ClaimPropertyOwnershipVM(form, request.ses.address, request.ses.localAuthorityReference),
+
+      if (request.ses.earliestStartDate.isAfter(LocalDate.now()))
+        sessionRepository
+          .saveOrUpdate[LinkingSession](request.ses.copy(
+            propertyOwnership =
+              Some(PropertyOwnership(interestedOnOrBefore = false, fromDate = Some(request.ses.earliestStartDate))),
+            propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))
+          ))
+          .map { _ =>
+            Redirect(routes.ChooseEvidenceController.show())
+          } else
+        Future.successful(
+          Ok(ownershipToPropertyView(
+            ClaimPropertyOwnershipVM(
+              form,
+              request.ses.address,
+              request.ses.earliestStartDate,
+              request.ses.localAuthorityReference),
             request.ses.clientDetails,
             controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
           )))
-      }
+
     }
 
   }
 
   def submitOwnership(): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-      ownershipForm
+      ownershipForm(request.ses.earliestStartDate)
         .bindFromRequest()
         .fold(
           errors =>
             Future.successful(BadRequest(ownershipToPropertyView(
-              ClaimPropertyOwnershipVM(errors, request.ses.address, request.ses.localAuthorityReference),
+              ClaimPropertyOwnershipVM(
+                errors,
+                request.ses.address,
+                request.ses.earliestStartDate,
+                request.ses.localAuthorityReference),
               request.ses.clientDetails,
               controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
             ))),
@@ -102,13 +111,18 @@ class ClaimPropertyOwnershipController @Inject()(
 
 object ClaimPropertyOwnership {
 
-  lazy val ownershipForm = Form(
-    mapping(
-      "interestedBefore2017" -> mandatoryBoolean,
-      "fromDate" -> mandatoryIfFalse(
-        "interestedBefore2017",
-        dmyDateAfterThreshold.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now)))
-    )(PropertyOwnership.apply)(PropertyOwnership.unapply))
+  def ownershipForm(earliestStartDate: LocalDate): Form[PropertyOwnership] =
+    Form(
+      mapping(
+        "interestedOnOrBefore" -> mandatoryBoolean,
+        "fromDate" -> mandatoryIfFalse(
+          "interestedOnOrBefore",
+          dmyDateAfterThreshold(earliestStartDate).verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now)))
+      )(PropertyOwnership.apply)(PropertyOwnership.unapply))
 }
 
-case class ClaimPropertyOwnershipVM(form: Form[_], address: String, localAuthorityReference: String)
+case class ClaimPropertyOwnershipVM(
+      form: Form[_],
+      address: String,
+      onOrBeforeDate: LocalDate,
+      localAuthorityReference: String)

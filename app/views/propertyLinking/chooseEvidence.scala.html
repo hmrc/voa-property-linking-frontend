@@ -14,8 +14,6 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
 @import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
@@ -47,7 +45,7 @@
 
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
-    <h2 id="caption-add-property" class="govuk-caption-l" >@messages("caption.add.property")</h2>
+    <h2 class="govuk-caption-l">@messages("caption.add.property")</h2>
 
                 @formWithCSRF(action = controllers.propertyLinking.routes.ChooseEvidenceController.submit) {
 

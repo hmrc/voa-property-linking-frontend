@@ -27,7 +27,6 @@ import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.HtmlPage
 
-import java.time.LocalDate
 import scala.concurrent.Future
 
 class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
@@ -46,7 +45,6 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
         preAuthenticatedActionBuilders(),
         preEnrichedActionRefiner(),
         mockBusinessRatesAttachmentService,
-        mockPropertyLinkingService,
         mockChooseEvidencePage
       )
 
@@ -57,8 +55,6 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(()))
     when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("The choose evidence page"))
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
     val res = TestChooseEvidence.show()(request)
     status(res) shouldBe OK
@@ -72,8 +68,6 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(()))
     when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("The choose evidence page"))
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
     val res = TestChooseEvidence.show()(request)
     status(res) shouldBe OK
@@ -85,8 +79,6 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
   it should "require the user to select whether they have a rates bill" in {
     when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
       .thenReturn(Html("require the user to select whether they have a rates bill"))
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
     val res = TestChooseEvidence.submit()(request)
     status(res) shouldBe BAD_REQUEST

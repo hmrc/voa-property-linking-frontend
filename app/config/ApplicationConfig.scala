@@ -17,9 +17,11 @@
 package config
 
 import java.util.Base64
-
 import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
+
+import java.time.LocalDate
+import scala.util.Try
 
 @Singleton()
 class ApplicationConfig @Inject()(configuration: Configuration) {
@@ -32,6 +34,13 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   protected def loadInt(key: String): Int =
     configuration.getOptional[Int](key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
+
+  // ISO_LOCAL_DATE format (e.g. 2007-12-03)
+  protected def loadLocalDate(key: String): LocalDate =
+    Try[LocalDate] {
+      LocalDate.parse(loadConfig(key))
+    }.getOrElse(
+      throw new Exception(s"LocalDate value badly formatted for key: $key. Should be yyyy-MM-dd (e.g. 2007-04-01)"))
 
   def businessRatesValuationFrontendUrl(page: String): String = loadConfig("business-rates-valuation.url") + s"/$page"
 
@@ -72,6 +81,8 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
     s"CCA_Agent (${configuration.get[String]("google-analytics.dimension.ccaAgent")})"
 
   lazy val pingdomToken: Option[String] = configuration.getOptional[String]("pingdom.performance.monitor.token")
+
+  lazy val earliestStartDate: LocalDate = loadLocalDate("property-linking.earliestStartDate")
 
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
   lazy val newRegistrationJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newRegistrationJourneyEnabled")

@@ -16,16 +16,17 @@
 
 package forms
 
+import controllers.VoaPropertyLinkingSpec
 import controllers.propertyLinking.ClaimPropertyOwnership
 import models.PropertyOwnership
-import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
+import play.api.data.Form
 import utils.FormBindingVerification._
 import views.helpers.Errors
+import play.api.i18n.Lang.defaultLang
 
 import java.time.LocalDate
 
-class PropertyOwnershipFormSpec extends AnyFlatSpec with Matchers {
+class PropertyOwnershipFormSpec extends VoaPropertyLinkingSpec {
 
   import TestData._
 
@@ -36,29 +37,28 @@ class PropertyOwnershipFormSpec extends AnyFlatSpec with Matchers {
   }
 
   it should "require a start date if the occupation/ownership started after 1st April 2017" in {
-    val data = validData.updated("interestedBefore2017", "false") - "fromDate.day" - "fromDate.month" - "fromDate.year"
+    val data = validData.updated("interestedOnOrBefore", "false") - "fromDate.day" - "fromDate.month" - "fromDate.year"
     verifyMandatoryDate(form, data, "fromDate", false)
   }
 
   it should "not require the start date if the occupation/ownership started before 1st April 2017" in {
-    val data = validData.updated("interestedBefore2017", "true")
+    val data = validData.updated("interestedOnOrBefore", "true")
     verifyOptionalDate(form, data, "fromDate")
-
   }
 
   it should s"require the start date to be after 1 April 2017" in {
     val data = validData
-      .updated("interestedBefore2017", "false")
+      .updated("interestedOnOrBefore", "false")
       .updated("fromDate.day", "1")
       .updated("fromDate.month", "3")
       .updated("fromDate.year", "2017")
-    verifyOnlyError(form, data, "fromDate", Errors.dateMustBeAfter1stApril2017)
+    verifyOnlyError(form, data, "fromDate", Errors.dateMustBeAfter)
   }
 
   object TestData {
-    val form = ClaimPropertyOwnership.ownershipForm
+    val form = ClaimPropertyOwnership.ownershipForm(earliestStartDate)
     val validData = Map(
-      "interestedBefore2017" -> "false",
+      "interestedOnOrBefore" -> "false",
       "fromDate.day"         -> "20",
       "fromDate.month"       -> "4",
       "fromDate.year"        -> "2017"

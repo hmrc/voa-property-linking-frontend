@@ -56,6 +56,8 @@ trait FakeObjects {
   val dateOfBirth: LocalDate = LocalDate.of(1979, Month.OCTOBER, 12)
   val agentCode = 12345L
 
+  val earliestStartDate = LocalDate.of(2017, 4, 1)
+
   val principal = Principal(ggExternalId, ggGroupId)
   val FILE_REFERENCE: String = "1862956069192540"
   val preparedUpload = PreparedUpload(Reference(FILE_REFERENCE), UploadFormTemplate("http://localhost/upscan", Map()))
@@ -63,17 +65,19 @@ trait FakeObjects {
   val uploadedFileDetails = UploadedFileDetails(fileMetadata, preparedUpload)
   val fileUpscanMetaData: Map[String, UploadedFileDetails] = Map(FILE_REFERENCE -> uploadedFileDetails)
   val attachment = Attachment(
-    UUID.randomUUID(),
-    Instant.now(),
-    "fileName",
-    "image/jpeg",
-    "DESTINATION",
-    Map(),
-    Initiated,
-    List(),
-    None,
-    None,
-    principal)
+    _id = UUID.randomUUID(),
+    initiatedAt = Instant.now(),
+    fileName = "fileName",
+    mimeType = "image/jpeg",
+    destination = "DESTINATION",
+    data = Map(),
+    state = Initiated,
+    history = List(),
+    scanResult = None,
+    initiateResult = None,
+    principal = principal
+  )
+
   val noEvidencelinkBasis: NoEvidenceFlag.type = NoEvidenceFlag
   val fileInfo = CompleteFileInfo("test.pdf", RatesBillType)
   val uploadEvidenceData =
@@ -510,36 +514,40 @@ trait FakeObjects {
         ))
     )
 
-  val testPropertyValuations = Seq(
-    PropertyValuation(
-      valuationId = 123,
-      valuationStatus = ValuationStatus.CURRENT,
-      rateableValue = Some(BigDecimal(1000)),
-      scatCode = Some("scatCode"),
-      effectiveDate = LocalDate.of(2019, 2, 21),
-      currentFromDate = LocalDate.of(2019, 2, 21),
-      currentToDate = None,
-      listYear = "current",
-      primaryDescription = ReferenceData("code", "description"),
-      allowedActions = AllowedAction.values.toList,
-      listType = ListType.CURRENT,
-      propertyLinkEarliestStartDate = None
-    ),
-    PropertyValuation(
-      valuationId = 123,
-      valuationStatus = ValuationStatus.CURRENT,
-      rateableValue = Some(BigDecimal(1000)),
-      scatCode = Some("scatCode"),
-      effectiveDate = LocalDate.of(2019, 2, 21),
-      currentFromDate = LocalDate.of(2019, 2, 21),
-      currentToDate = None,
-      listYear = "current",
-      primaryDescription = ReferenceData("code", "description"),
-      allowedActions = AllowedAction.values.toList,
-      listType = ListType.CURRENT,
-      propertyLinkEarliestStartDate = Some(LocalDate.now().plusYears(1))
-    )
+  val propertyValuation1: PropertyValuation = PropertyValuation(
+    valuationId = 123,
+    valuationStatus = ValuationStatus.CURRENT,
+    rateableValue = Some(BigDecimal(1000)),
+    scatCode = Some("scatCode"),
+    effectiveDate = LocalDate.of(2019, 2, 21),
+    currentFromDate = LocalDate.of(2019, 2, 21),
+    currentToDate = None,
+    listYear = "current",
+    primaryDescription = ReferenceData("code", "description"),
+    allowedActions = AllowedAction.values.toList,
+    listType = ListType.CURRENT,
+    propertyLinkEarliestStartDate = None
   )
+
+  val propertyValuation2: PropertyValuation = PropertyValuation(
+    valuationId = 123,
+    valuationStatus = ValuationStatus.CURRENT,
+    rateableValue = Some(BigDecimal(1000)),
+    scatCode = Some("scatCode"),
+    effectiveDate = LocalDate.of(2019, 2, 21),
+    currentFromDate = LocalDate.of(2019, 2, 21),
+    currentToDate = None,
+    listYear = "current",
+    primaryDescription = ReferenceData("code", "description"),
+    allowedActions = AllowedAction.values.toList,
+    listType = ListType.CURRENT,
+    propertyLinkEarliestStartDate = Some(LocalDate.now().plusYears(1))
+  )
+  val testPropertyValuations = Seq(
+    propertyValuation1,
+    propertyValuation2
+  )
+
   val propertyHistory = new PropertyHistory(
     uarn = 4500,
     addressFull = address.toString,

@@ -45,11 +45,12 @@ class WithLinkingSession @Inject()(
       case Some(s) =>
         Right(
           LinkingSessionRequest(
-            s,
-            request.organisationAccount.id,
-            request.individualAccount,
-            request.organisationAccount,
-            request))
+            ses = s,
+            organisationId = request.organisationAccount.id,
+            individualAccount = request.individualAccount,
+            organisationAccount = request.organisationAccount,
+            request = request
+          ))
       case None => Left(NotFound(errorHandler.notFoundTemplate(request)))
     }
 }

@@ -116,10 +116,16 @@ trait VoaPropertyLinkingSpec
   def preEnrichedActionRefiner(): WithLinkingSession =
     preEnrichedActionRefiner(UploadEvidenceData(fileInfo = None, attachments = None))
 
+  def preEnrichedActionRefinerWithStartDate(earliestStartDate: LocalDate): WithLinkingSession =
+    preEnrichedActionRefiner(
+      UploadEvidenceData(fileInfo = None, attachments = None),
+      earliestStartDate = earliestStartDate)
+
   def preEnrichedActionRefiner(
         evidenceData: UploadEvidenceData,
         relationshipCapacity: CapacityType = Owner,
-        userIsAgent: Boolean = true): WithLinkingSession =
+        userIsAgent: Boolean = true,
+        earliestStartDate: LocalDate = earliestStartDate): WithLinkingSession =
     new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
 
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
@@ -131,9 +137,10 @@ trait VoaPropertyLinkingSpec
                 uarn = 1L,
                 submissionId = "PL-123456",
                 personId = 1L,
+                earliestStartDate = earliestStartDate,
                 propertyRelationship = Some(PropertyRelationship(relationshipCapacity)),
                 propertyOwnership =
-                  Some(PropertyOwnership(interestedBefore2017 = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
+                  Some(PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
                 propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
                 hasRatesBill = Some(true),
                 uploadEvidenceData = evidenceData,

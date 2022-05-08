@@ -14,21 +14,19 @@
  * limitations under the License.
  *@
 
+@import _root_.utils.Formatters
+@import _root_.utils.FrontendComponentHelper.valueWithId
 @import binders.propertylinks._
 @import controllers.propertyLinking.DeclarationVM
 @import config.ApplicationConfig
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import java.time.format.DateTimeFormatter
 @import actions.propertylinking.requests.LinkingSessionRequest
-@import _root_.utils.Formatters
-@import _root_.utils.FrontendComponentHelper.valueWithId
 @import models._
+@import java.time.LocalDate
 
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
-
-@(model: DeclarationVM, isRatesBillEvidence: Boolean, isEarliestStartDateInFuture:Boolean)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: DeclarationVM, isRatesBillEvidence: Boolean)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @backLink = @{if (isRatesBillEvidence) {
                     controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.RATES_BILL).url
@@ -43,6 +41,8 @@
         case _ => false
     }
 }
+
+@earliestStartDateInPast = @{ LocalDate.now.isAfter(request.ses.earliestStartDate) }
 
 @propertyOwnershipFromDate = @{request.ses.propertyOwnership.flatMap(_.fromDate)}
 
@@ -124,7 +124,7 @@
                         )
                     ))
                 ),
-                if(!isEarliestStartDateInFuture){
+                if(earliestStartDateInPast){
                 SummaryListRow(
                     key = Key(
                         content = valueWithId(messages("declaration.checkAnswers.startDateHeading"), "start-date-heading"),
@@ -143,7 +143,7 @@
                         )
                     ))
                 )} else SummaryListRow(),
-                if(!isEarliestStartDateInFuture){
+                if(earliestStartDateInPast){
                     SummaryListRow(
                         key = Key(
                             content = valueWithId(propertyOwnedOccupiedKey, "still-owned-heading")
@@ -166,7 +166,7 @@
                         ))
                     )
                 } else SummaryListRow(),
-                if (!propertyStillOccupied && !isEarliestStartDateInFuture){
+                if (earliestStartDateInPast && !propertyStillOccupied){
                 SummaryListRow(
                     key = Key(
                         content = valueWithId(lastOccupiedKey, "end-date-heading")

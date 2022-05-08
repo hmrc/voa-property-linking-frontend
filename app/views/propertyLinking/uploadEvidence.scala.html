@@ -17,15 +17,13 @@
 @import config.ApplicationConfig
 @import binders.propertylinks._
 @import controllers.propertyLinking.routes._
-@import helpers._
 @import models.upscan._
 @import models._
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios: GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukWarningText: GovukWarningText)
+
 @(
         submissionId: String,
         errors: List[String] = Nil,

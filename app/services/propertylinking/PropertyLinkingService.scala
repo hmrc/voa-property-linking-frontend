@@ -18,7 +18,9 @@ package services.propertylinking
 
 import actions.propertylinking.requests.LinkingSessionRequest
 import cats.data.EitherT
+import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
+import models.ListType
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
 import services.BusinessRatesAttachmentsService
@@ -29,10 +31,12 @@ import utils.Cats
 import java.time.LocalDate
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Try
 
 class PropertyLinkingService @Inject()(
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
-      propertyLinkConnector: PropertyLinkConnector
+      propertyLinkConnector: PropertyLinkConnector,
+      config: ApplicationConfig
 )(implicit executionContext: ExecutionContext)
     extends Cats {
 
@@ -63,12 +67,17 @@ class PropertyLinkingService @Inject()(
             propertyLinkConnector.createPropertyLinkOnClientBehalf(PropertyLinkPayload(propertyLinkRequest), clientId))
     } yield ()
 
-  def findEarliestStartDate(uarn: Long)(implicit hc: HeaderCarrier): Future[Option[LocalDate]] =
-    for {
-      propertyHistory <- propertyLinkConnector.getPropertyHistory(uarn)
-      earliestStartDate: Option[LocalDate] = propertyHistory.history
-        .find(_.propertyLinkEarliestStartDate.isDefined)
-        .map(_.propertyLinkEarliestStartDate)
-        .getOrElse(None)
-    } yield earliestStartDate
+  def findEarliestStartDate(uarn: Long)(implicit hc: HeaderCarrier): Future[LocalDate] = {
+    implicit val localDateOrdering: Ordering[LocalDate] = _ compareTo _
+
+    val defaultEarliestStartDate = config.earliestStartDate
+    propertyLinkConnector
+      .getPropertyHistory(uarn)
+      .map { propertyHistory =>
+        val dates = propertyHistory.history
+          .filter(_.listType == ListType.CURRENT)
+          .flatMap(_.propertyLinkEarliestStartDate)
+        Try[LocalDate](dates.min).getOrElse(defaultEarliestStartDate)
+      }
+  }
 }

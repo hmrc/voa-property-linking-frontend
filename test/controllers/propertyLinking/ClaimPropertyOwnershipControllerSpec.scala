@@ -26,7 +26,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import repositories.SessionRepo
-import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
 
@@ -39,14 +38,15 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
   private val mockOwnershipToPropertyPage = mock[views.html.propertyLinking.ownershipToProperty]
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  private lazy val testClaimProperty = new ClaimPropertyOwnershipController(
-    mockCustomErrorHandler,
-    mockSessionRepo,
-    preAuthenticatedActionBuilders(),
-    preEnrichedActionRefiner(),
-    mockOwnershipToPropertyPage,
-    mockPropertyLinkingService
-  )
+  private def testClaimProperty(earliestStartDate: LocalDate = earliestStartDate) =
+    new ClaimPropertyOwnershipController(
+      errorHandler = mockCustomErrorHandler,
+      sessionRepository = mockSessionRepo,
+      authenticatedAction = preAuthenticatedActionBuilders(),
+      withLinkingSession = preEnrichedActionRefinerWithStartDate(earliestStartDate),
+      ownershipToPropertyView = mockOwnershipToPropertyPage,
+      propertyLinkingService = mockPropertyLinkingService
+    )
 
   lazy val submissionId: String = shortString
   override val testAccounts: Accounts = arbitrary[Accounts]
@@ -64,15 +64,12 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
     StubSubmissionIdConnector.stubId(submissionId)
     when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim ownership page loaded"))
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
-    val res = testClaimProperty.showOwnership()(FakeRequest())
+    val res = testClaimProperty().showOwnership()(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.shouldContainText("claim ownership page loaded")
-
   }
 
   "The claim ownership page with earliest start date in the future" should "return redirect to choose evidence page" in {
@@ -81,45 +78,41 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Future.successful(()))
     when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim ownership page loaded"))
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
-    val res = testClaimProperty.showOwnership()(FakeRequest())
+    val res = testClaimProperty(earliestStartDate = LocalDate.now().plusYears(1)).showOwnership()(FakeRequest())
     status(res) shouldBe SEE_OTHER
-
   }
 
   "The claim ownership page on client behalf" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
     when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim ownership page on client behalf"))
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
+//    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
+//      .thenReturn(Future.successful(earliestStartDate))
 
-    val res = testClaimProperty
-      .showOwnership()(FakeRequest())
+    val res = testClaimProperty().showOwnership()(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.shouldContainText("claim ownership page on client behalf")
-
   }
 
   it should "reject invalid form submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    val res = testClaimProperty.submitOwnership()(FakeRequest())
+    val res = testClaimProperty().submitOwnership()(FakeRequest())
     status(res) shouldBe BAD_REQUEST
   }
 
   it should "redirect to the choose evidence page on valid submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
-      .thenReturn(Future.successful(()))
-    val res = testClaimProperty.submitOwnership()(
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
+
+    val res = testClaimProperty().submitOwnership()(
       FakeRequest().withFormUrlEncodedBody(
-        "interestedBefore2017" -> "true",
+        "interestedOnOrBefore" -> "true",
         "stillInterested"      -> "true"
       ))
+
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.ClaimPropertyOccupancyController.showOccupancy().url)
   }

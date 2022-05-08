@@ -16,8 +16,6 @@
 
 package controllers.propertyLinking
 
-import java.time.LocalDate
-
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
@@ -26,12 +24,11 @@ import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import repositories.SessionRepo
-import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
@@ -39,14 +36,14 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  private lazy val testClaimProperty = new ClaimPropertyOccupancyController(
-    mockCustomErrorHandler,
-    mockSessionRepo,
-    preAuthenticatedActionBuilders(),
-    preEnrichedActionRefiner(),
-    occupanyOfPropertyPage,
-    mockPropertyLinkingService
-  )
+  private def testClaimPropertyOccupancyController(earliestStartDate: LocalDate = earliestStartDate) =
+    new ClaimPropertyOccupancyController(
+      errorHandler = mockCustomErrorHandler,
+      sessionRepository = mockSessionRepo,
+      authenticatedAction = preAuthenticatedActionBuilders(),
+      withLinkingSession = preEnrichedActionRefinerWithStartDate(earliestStartDate),
+      occupancyOfPropertyView = occupanyOfPropertyPage
+    )
 
   lazy val submissionId: String = shortString
   override val testAccounts: Accounts = arbitrary[Accounts]
@@ -62,10 +59,8 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
 
   "The claim occupancy page with earliest start date in the past" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
-    val res = testClaimProperty.showOccupancy()(FakeRequest())
+    val res = testClaimPropertyOccupancyController().showOccupancy()(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -73,27 +68,21 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
     html.verifyElementText("caption", "Add a property")
     html.mustContainRadioSelect("stillOccupied", Seq("true", "false"))
     html.shouldContainDateSelect("lastOccupiedDate")
-
   }
 
   "The claim occupancy page with earliest start date in the future" should "return redirect to choose evidence page" in {
     StubSubmissionIdConnector.stubId(submissionId)
     when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
       .thenReturn(Future.successful(()))
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.now().plusYears(1))))
 
-    val res = testClaimProperty.showOccupancy()(FakeRequest())
+    val res = testClaimPropertyOccupancyController(LocalDate.now.plusYears(1)).showOccupancy()(FakeRequest())
     status(res) shouldBe SEE_OTHER
-
   }
 
   "The claim occupancy page on client behalf" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
 
-    val res = testClaimProperty.showOccupancy()(FakeRequest())
+    val res = testClaimPropertyOccupancyController().showOccupancy()(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -101,32 +90,29 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
     html.verifyElementText("caption", "Add a property")
     html.mustContainRadioSelect("stillOccupied", Seq("true", "false"))
     html.shouldContainDateSelect("lastOccupiedDate")
-
   }
 
   it should "reject invalid form submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-    val res = testClaimProperty.submitOccupancy()(FakeRequest())
+
+    val res = testClaimPropertyOccupancyController().submitOccupancy()(FakeRequest())
     status(res) shouldBe BAD_REQUEST
   }
 
   it should "redirect to the choose evidence page on valid submissions" in {
     StubSubmissionIdConnector.stubId(submissionId)
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
     when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
       .thenReturn(Future.successful(()))
-    val res = testClaimProperty.submitOccupancy()(
+
+    val res = testClaimPropertyOccupancyController().submitOccupancy()(
       FakeRequest().withFormUrlEncodedBody(
         "stillOccupied"          -> "false",
         "lastOccupiedDate.day"   -> "23",
         "lastOccupiedDate.month" -> "4",
         "lastOccupiedDate.year"  -> "2017"
       ))
+
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.ChooseEvidenceController.show().url)
   }
-
 }

@@ -16,7 +16,6 @@
 
 package controllers
 
-import models._
 import models.messages.Message
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import org.mockito.ArgumentMatchers.any

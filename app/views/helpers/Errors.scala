@@ -31,6 +31,7 @@ object Errors {
   val invalidDate = "error.invalidDate"
   val dateMustBeInPast = "error.common.date.mustBeInPast"
   val dateMustBeAfter1stApril2017 = "error.date.mustBeAfter2017"
+  val dateMustBeAfter = "error.date.mustBeAfter"
   val dateMustBeAfterOtherDate = "error.date.mustBeAfterOther"
   val invalidPostcode = "error.postcode"
 

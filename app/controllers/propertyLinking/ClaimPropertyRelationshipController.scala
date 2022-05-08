@@ -34,6 +34,7 @@ import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
+import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
@@ -47,6 +48,7 @@ class ClaimPropertyRelationshipController @Inject()(
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
+      propertyLinkingService: PropertyLinkingService,
       val propertyLinksConnector: PropertyLinkConnector,
       val vmvConnector: VmvConnector,
       val runModeConfiguration: Configuration,
@@ -146,13 +148,15 @@ class ClaimPropertyRelationshipController @Inject()(
         address: String,
         clientDetails: Option[ClientDetails])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
-      submissionId <- submissionIdConnector.get()
+      submissionId      <- submissionIdConnector.get()
+      earliestStartDate <- propertyLinkingService.findEarliestStartDate(uarn)
       _ <- sessionRepository.start[LinkingSession](
             LinkingSession(
               address = address,
               uarn = uarn,
               submissionId = submissionId,
               personId = request.personId,
+              earliestStartDate = earliestStartDate,
               propertyRelationship = Some(propertyRelationship),
               propertyOwnership = None,
               propertyOccupancy = None,

@@ -213,7 +213,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
       .GET[CheckCasesWithClient](s"$baseUrl/check-cases/$propertyLinkSubmissionId/agent")
       .map(_.checkCases.map(CaseDetails.apply))
 
-  // Check history about this Endpoint https://jira.tools.tax.service.gov.uk/browse/VTCCA-3210
   def getPropertyHistory(uarn: Long)(implicit hc: HeaderCarrier): Future[PropertyHistory] =
     http.GET[PropertyHistory](s"$vmBaseUrl/rating-listing/api/properties/$uarn")
 

@@ -153,7 +153,7 @@ class UploadController @Inject()(
           case Some(fileData) if fileData.nonEmpty =>
             businessRatesAttachmentsService
               .persistSessionData(request.ses, uploadedData)
-              .map(x => Redirect(routes.DeclarationController.show.url))
+              .map(_ => Redirect(routes.DeclarationController.show.url))
         }
 
       val session: LinkingSession = request.ses
