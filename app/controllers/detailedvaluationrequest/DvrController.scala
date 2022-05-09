@@ -23,15 +23,19 @@ import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import connectors.{DVRCaseManagementConnector, _}
 import controllers.PropertyLinkingController
+import models.dvr.cases.check.{CheckType, StartCheckForm}
 import models.dvr.{DetailedValuationRequest, PropertyLinkForDvr}
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
 import models.{ApiAssessment, ApiAssessments}
+import play.api.data.Form
+import play.api.data.Forms._
 import play.api.http.HttpEntity
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, _}
 import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
 import utils.Cats
 
 import java.time.format.DateTimeFormatter
@@ -57,7 +61,22 @@ class DvrController @Inject()(
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig)
-    extends PropertyLinkingController with Cats {
+    extends PropertyLinkingController with Cats with UriTemplateSyntax {
+
+  val startCheckForm: Form[StartCheckForm] = Form(
+    mapping(
+      "checkType" -> optional(text)
+        .verifying(
+          "available.requestvaluation.startCheckTab.checkType.error.missing",
+          _.exists(value => CheckType.all.map(_.value).contains(value)))
+        .transform[CheckType](_.map(CheckType.of).get, ct => Some(ct.value)),
+      "propertyLinkSubmissionId" -> optional(text),
+      "authorisationId"          -> optional(text),
+      "uarn"                     -> optional(longNumber),
+      "dvrCheck"                 -> optional(boolean),
+      "isOwner"                  -> boolean
+    )(StartCheckForm.apply)(StartCheckForm.unapply)
+  )
 
   def myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId: String,
@@ -75,81 +94,83 @@ class DvrController @Inject()(
         propertyLinkSubmissionId: String,
         valuationId: Long,
         uarn: Long,
-        owner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
-    val pLink =
-      if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
-      else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
+        owner: Boolean,
+        formWithErrors: Option[Form[StartCheckForm]] = None): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      val pLink =
+        if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
+        else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
 
-    pLink.flatMap {
-      case Some(link) =>
-        dvrCaseManagement.getDvrDocuments(link.uarn, valuationId, link.submissionId).flatMap {
-          case Some(documents) =>
-            val backUrl = uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
-              .valuations(propertyLinkSubmissionId, owner)
-              .url
-            val startCheckUrl = config.businessRatesCheckUrl(
-              s"property-link/${link.authorisationId}/assessment/$valuationId?propertyLinkSubmissionId=$propertyLinkSubmissionId&uarn=$uarn&dvrCheck=true")
+      pLink.flatMap {
+        case Some(link) =>
+          dvrCaseManagement.getDvrDocuments(link.uarn, valuationId, link.submissionId).flatMap {
+            case Some(documents) =>
+              val backUrl = uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
+                .valuations(propertyLinkSubmissionId, owner)
+                .url
+              val assessment: ApiAssessment = link.assessments
+                .find(a => a.assessmentRef == valuationId)
+                .getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
 
-            val assessment: ApiAssessment = link.assessments
-              .find(a => a.assessmentRef == valuationId)
-              .getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
+              val caseDetails: Future[Option[(List[CaseDetails], List[CaseDetails])]] =
+                if (assessment.isDraft) {
+                  Future.successful(None)
+                } else {
+                  def checkCases =
+                    if (owner)
+                      propertyLinks.getMyOrganisationsCheckCases(link.submissionId)
+                    else propertyLinks.getMyClientsCheckCases(link.submissionId)
 
-            val caseDetails: Future[Option[(List[CaseDetails], List[CaseDetails])]] =
-              if (assessment.isDraft) {
-                Future.successful(None)
-              } else {
-                def checkCases =
-                  if (owner)
-                    propertyLinks.getMyOrganisationsCheckCases(link.submissionId)
-                  else propertyLinks.getMyClientsCheckCases(link.submissionId)
+                  def challengeCases =
+                    if (owner)
+                      challengeConnector.getMyOrganisationsChallengeCases(link.submissionId)
+                    else challengeConnector.getMyClientsChallengeCases(link.submissionId)
 
-                def challengeCases =
-                  if (owner)
-                    challengeConnector.getMyOrganisationsChallengeCases(link.submissionId)
-                  else challengeConnector.getMyClientsChallengeCases(link.submissionId)
+                  (checkCases, challengeCases).tupled.map(Option.apply)
+                }
 
-                (checkCases, challengeCases).tupled.map(Option.apply)
+              caseDetails.map { optCases =>
+                val form = formWithErrors.getOrElse(startCheckForm)
+                val view = dvrFilesView(
+                  model = AvailableRequestDetailedValuation(
+                    activeTabId = formWithErrors.map(_ => "start-check-tab"),
+                    check = documents.checkForm.documentSummary.documentId,
+                    valuation = documents.detailedValuation.documentSummary.documentId,
+                    valuationId = valuationId,
+                    baRef = link.assessments.head.billingAuthorityReference,
+                    address = link.address,
+                    uarn = uarn,
+                    isDraftList = assessment.isDraft,
+                    isWelshProperty = assessment.isWelsh,
+                    submissionId = propertyLinkSubmissionId,
+                    owner = owner,
+                    authorisationId = link.authorisationId,
+                    clientOrgName = link.clientOrgName.getOrElse(""),
+                    backUrl = backUrl,
+                    checksAndChallenges = optCases
+                  ),
+                  startCheckForm = form
+                )
+                if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
               }
 
-            caseDetails.map { optCases =>
-              Ok(dvrFilesView(
-                model = AvailableRequestDetailedValuation(
-                  check = documents.checkForm.documentSummary.documentId,
-                  valuation = documents.detailedValuation.documentSummary.documentId,
-                  valuationId = valuationId,
-                  baRef = link.assessments.head.billingAuthorityReference,
-                  address = link.address,
-                  uarn = uarn,
-                  isDraftList = assessment.isDraft,
-                  isWelshProperty = assessment.isWelsh
-                ),
-                submissionId = propertyLinkSubmissionId,
-                owner = owner,
-                authorisationId = link.authorisationId,
-                clientOrgName = link.clientOrgName,
-                backUrl = backUrl,
-                startCheckUrl = startCheckUrl,
-                checksAndChallenges = optCases
-              ))
-            }
-
-          case None =>
-            Future.successful(
-              Redirect(
-                if (owner)
-                  controllers.detailedvaluationrequest.routes.DvrController
-                    .myOrganisationAlreadyRequestedDetailValuation(
+            case None =>
+              Future.successful(
+                Redirect(
+                  if (owner)
+                    controllers.detailedvaluationrequest.routes.DvrController
+                      .myOrganisationAlreadyRequestedDetailValuation(
+                        propertyLinkSubmissionId = propertyLinkSubmissionId,
+                        valuationId = valuationId)
+                  else
+                    controllers.detailedvaluationrequest.routes.DvrController.myClientsAlreadyRequestedDetailValuation(
                       propertyLinkSubmissionId = propertyLinkSubmissionId,
                       valuationId = valuationId)
-                else
-                  controllers.detailedvaluationrequest.routes.DvrController.myClientsAlreadyRequestedDetailValuation(
-                    propertyLinkSubmissionId = propertyLinkSubmissionId,
-                    valuationId = valuationId)
-              ))
-        }
-      case None =>
-        Future.successful(BadRequest(propertyMissingView()))
-    }
+                ))
+          }
+        case None =>
+          Future.successful(BadRequest(propertyMissingView()))
+      }
   }
 
   def myOrganisationRequestDetailValuation(propertyLinkSubmissionId: String, valuationId: Long): Action[AnyContent] =
@@ -366,6 +387,46 @@ class DvrController @Inject()(
       }
     }
   }
+
+  def myOrganisationStartCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long): Action[AnyContent] =
+    startCheck(propertyLinkSubmissionId, valuationId, isOwner = true, uarn)
+  def myClientsStartCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long): Action[AnyContent] =
+    startCheck(propertyLinkSubmissionId, valuationId, isOwner = false, uarn)
+
+  private def startCheck(
+        propertyLinkSubmissionId: String,
+        valuationId: Long,
+        isOwner: Boolean,
+        uarn: Long): Action[AnyContent] =
+    authenticated.async { implicit request =>
+      def startCheckUrl(form: StartCheckForm): String = {
+        val pathToFirstScreen =
+          "property-link/{propertyLinkId}/assessment/{valuationId}/{checkType}{?propertyLinkSubmissionId,uarn,dvrCheck}"
+            .templated(
+              "propertyLinkId"           -> form.authorisationId,
+              "valuationId"              -> valuationId,
+              "checkType"                -> form.checkType.value,
+              "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
+              "uarn"                     -> form.uarn,
+              "dvrCheck"                 -> true
+            )
+        config.businessRatesCheckUrl(pathToFirstScreen)
+      }
+
+      startCheckForm
+        .bindFromRequest()
+        .fold[Future[Result]](
+          formWithErrors =>
+            detailedValuationRequestCheck(
+              propertyLinkSubmissionId = propertyLinkSubmissionId,
+              valuationId = valuationId,
+              uarn = uarn,
+              owner = isOwner,
+              formWithErrors = Some(formWithErrors))(request),
+          form => Future.successful(Redirect(startCheckUrl(form)))
+        )
+
+    }
 }
 
 case class RequestDetailedValuationWithoutForm(
@@ -395,12 +456,19 @@ object RequestDetailedValuationWithoutForm {
 }
 
 case class AvailableRequestDetailedValuation(
-      check: String,
-      valuation: String,
-      valuationId: Long,
-      baRef: String,
+      activeTabId: Option[String],
       address: String,
-      uarn: Long,
+      authorisationId: Long,
+      baRef: String,
+      backUrl: String,
+      check: String,
+      checksAndChallenges: Option[(List[CaseDetails], List[CaseDetails])],
+      clientOrgName: String,
       isDraftList: Boolean,
-      isWelshProperty: Boolean
+      isWelshProperty: Boolean,
+      owner: Boolean,
+      submissionId: String,
+      uarn: Long,
+      valuation: String,
+      valuationId: Long
 )

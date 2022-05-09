@@ -10,8 +10,8 @@
 
     root.VOA.ErrorSummary = function (){
 
-        if ($('.error-summary')) {
-            $('.error-summary').focus();
+        if ($('.govuk-error-summary')) {
+            $('.govuk-error-summary').focus();
         }
 
     };

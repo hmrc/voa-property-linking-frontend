@@ -1017,6 +1017,7 @@ auto.requestDetailedValuation.challenge.start=Challenge this valuation
 available.requestvaluation.ip.titleCaption=Your property
 available.requestvaluation.agent.titleCaption=Client property: {0}
 available.requestvaluation.valuationTab.title=Valuation
+available.requestvaluation.startCheckTab.title=Start a Check
 available.requestvaluation.checksTab.noCases.title=Checks
 available.requestvaluation.checksTab.title=Checks ({0})
 available.requestvaluation.challengesTab.title=Challenges ({0})
@@ -1038,6 +1039,25 @@ available.requestvaluation.warning=Some older check forms may tell you to email 
 
 available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need to <a class="govuk-link" href="{0}">download and complete a check form</a>.
 available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
+
+available.requestvaluation.startCheckTab.heading=Start a Check case
+available.requestvaluation.startCheckTab.guidance.summary=Help with starting a Check case
+available.requestvaluation.startCheckTab.guidance.content.p1=A Check case enables you and us to agree on property details.
+available.requestvaluation.startCheckTab.guidance.content.p2=Start a Check case to tell us property details are correct or make a change to them.
+available.requestvaluation.startCheckTab.guidance.content.p3=We may accept your changes and adjust the rateable value.
+available.requestvaluation.startCheckTab.guidance.content.p4=If you think the rateable value is too high, you can then send us a Challenge case.
+available.requestvaluation.startCheckTab.guidance.content.p5=You must complete a Check case before sending a Challenge case.
+available.requestvaluation.startCheckTab.question=What do you want to tell us?
+available.requestvaluation.startCheckTab.option1.content=Change or confirm the property details
+available.requestvaluation.startCheckTab.option1.hint=For example, floor area sizes and parking
+available.requestvaluation.startCheckTab.option2.content=The property has been demolished, redeveloped, or is no longer used for business
+available.requestvaluation.startCheckTab.option3.content=The property has been split
+available.requestvaluation.startCheckTab.option4.content=The property has been merged
+available.requestvaluation.startCheckTab.option5.content=A change in the local area affects the property’s rateable value
+available.requestvaluation.startCheckTab.option5.hint=For example, long-term roadworks, scaffolding or flooding
+available.requestvaluation.startCheckTab.option6.content=A court decision affects the property’s rateable value
+available.requestvaluation.startCheckTab.button.title=Continue
+available.requestvaluation.startCheckTab.checkType.error.missing=Select what you want to tell us
 
 cannotRaiseChallenge.title=You cannot challenge this valuation
 

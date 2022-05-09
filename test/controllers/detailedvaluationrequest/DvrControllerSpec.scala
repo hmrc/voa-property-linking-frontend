@@ -33,10 +33,10 @@ import scala.collection.JavaConverters._
 import java.time.LocalDateTime
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
+import org.jsoup.select.Elements
 import org.scalatest.Inspectors
-import org.scalatest.Inspectors.forAll
+import play.api.mvc.Result
 
-import scala.collection.mutable
 import scala.concurrent.Future
 
 class DvrControllerSpec extends VoaPropertyLinkingSpec {
@@ -234,6 +234,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     contentAsString(result) should include("If you want to change something in this valuation")
     page.shouldContain("#valuation-tab", 1)
     page.shouldContain("#check-cases-tab", 1)
+    page.shouldContain("#start-check-tab", 1)
     page.shouldContain("#challenge-cases-tab", 0)
 
     page.verifyElementTextByAttribute("href", "#check-cases-tab", "Checks")
@@ -242,7 +243,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
   }
 
-  "detailed valuation check" should "show all 3 tabs when checks and challenges are available" in new Setup {
+  "detailed valuation check" should "show all 4 tabs when checks and challenges are available" in new Setup {
 
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
@@ -262,7 +263,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe OK
 
-    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+    val doc = Jsoup.parse(contentAsString(result))
+
+    val page = HtmlPage(doc)
 
     page.shouldContainText("If you want to change something in this valuation")
 
@@ -270,6 +273,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.titleShouldMatch("123, SOME ADDRESS - Valuation Office Agency - GOV.UK")
     page.shouldContain("#valuation-tab", 1)
     page.shouldContain("#check-cases-tab", 1)
+    page.shouldContain("#start-check-tab", 1)
     page.shouldContain("#challenge-cases-tab", 1)
 
     page.verifyElementTextByAttribute("href", "#check-cases-tab", "Checks (1)")
@@ -284,6 +288,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/1L",
       "download and complete a Check form")
+
+    val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
+    radiosOnStartCheckScreen should have size 6
 
     verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
@@ -572,6 +579,72 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe OK
     contentAsString(result) should not include "If you need to submit a check urgently because of a change"
+  }
+
+  "an IP starting a check case" should "get redirected to a page in check-frontend" in new Setup {
+    val checkType: String = "internal"
+    val result: Future[Result] =
+      controller.myOrganisationStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L, uarn = 123L)(
+        FakeRequest().withFormUrlEncodedBody("checkType" -> checkType, "authorisationId" -> "12345"))
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(
+      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true")
+  }
+
+  "an IP starting a check case without selecting one of the reasons for check" should "stay on the same page with error summary at the top" in new Setup {
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments)))
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List.empty))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List.empty))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val result: Future[Result] =
+      controller.myOrganisationStartCheck(
+        propertyLinkSubmissionId = "PL123",
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 123L
+      )(FakeRequest().withFormUrlEncodedBody())
+    status(result) shouldBe BAD_REQUEST
+
+    val doc = Jsoup.parse(contentAsString(result))
+    Option(doc.getElementById("error-summary")) should not be empty
+  }
+
+  "an agent starting a check case" should "get redirected to a page in check-frontend" in new Setup {
+    val checkType: String = "internal"
+    val result: Future[Result] =
+      controller.myClientsStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L, uarn = 123L)(
+        FakeRequest().withFormUrlEncodedBody("checkType" -> checkType, "authorisationId" -> "12345"))
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(
+      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true")
+  }
+
+  "an agent starting a check case without selecting one of the reasons for check" should "stay on the same page with error summary at the top" in new Setup {
+
+    when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments)))
+    when(mockPropertyLinkConnector.getMyClientsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List.empty))
+    when(mockChallengeConnector.getMyClientsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List.empty))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val result: Future[Result] =
+      controller.myClientsStartCheck(
+        propertyLinkSubmissionId = "PL123",
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 123L
+      )(FakeRequest().withFormUrlEncodedBody())
+    status(result) shouldBe BAD_REQUEST
+
+    val doc = Jsoup.parse(contentAsString(result))
+    Option(doc.getElementById("error-summary")) should not be empty
   }
 
 }

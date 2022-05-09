@@ -11,7 +11,6 @@
             $('.postcode-lookup-fields, .manualAddress').css('display', 'none');
             $('.address--fields input').attr('placeholder', '');
         }
-        $("#error-summary").remove();
         function clearFields(_this) {
             $(_this).closest('.postcode-lookup-group').find('.address--fields input').val('');
         }
