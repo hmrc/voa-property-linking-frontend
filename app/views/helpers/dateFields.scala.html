@@ -6,7 +6,6 @@
 @import _root_.utils.Formatters._
 @import java.time.LocalDate
 
-
 @this(govukDateInput: GovukDateInput)
 
 @(
@@ -18,14 +17,18 @@
         label: Option[String] = None)(implicit request: Request[_], messages: Messages)
 
 @dateErrors = @{
-    form.error(s"$fieldName").map(errors => ErrorMessage(content = Text(messages(errors.messages.head))))
+    (form.error(s"$fieldName"), form.error(s"${fieldName}.day"), form.error(s"${fieldName}.month"), form.error(s"${fieldName}.year")) match
+    {
+        case (None, None, None, None ) => None
+        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
+    }
 }
 
 @hintMessage = @{
     hintDateOverride.fold(messages(hintMessageKey))(dt => messages("help.date.override", formatDateHint(dt)))
 }
 
-<div id="@{id.getOrElse(fieldName)}">
+<div id="@{id.getOrElse(s"${fieldName}-group")}">
 @govukDateInput(DateInput(
     fieldset = Some(Fieldset(
         legend = Some(Legend(
