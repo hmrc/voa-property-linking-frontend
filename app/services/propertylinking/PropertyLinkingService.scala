@@ -20,7 +20,6 @@ import actions.propertylinking.requests.LinkingSessionRequest
 import cats.data.EitherT
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
-import models.ListType
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
 import services.BusinessRatesAttachmentsService
@@ -75,7 +74,6 @@ class PropertyLinkingService @Inject()(
       .getPropertyHistory(uarn)
       .map { propertyHistory =>
         val dates = propertyHistory.history
-          .filter(_.listType == ListType.CURRENT)
           .flatMap(_.propertyLinkEarliestStartDate)
         Try[LocalDate](dates.min).getOrElse(defaultEarliestStartDate)
       }

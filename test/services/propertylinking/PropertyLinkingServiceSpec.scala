@@ -100,13 +100,19 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
       val currentPropertyValuations = Seq(
         propertyValuation1.copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = None),
         propertyValuation1
-          .copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList)),
+          .copy(
+            listType = ListType.CURRENT,
+            propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(1))),
         propertyValuation1
-          .copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = Some(LocalDate.of(2017, 5, 1))),
+          .copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList)),
         propertyValuation1
-          .copy(listType = ListType.PREVIOUS, propertyLinkEarliestStartDate = Some(LocalDate.of(2017, 4, 1))),
+          .copy(
+            listType = ListType.DRAFT,
+            propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(2))),
         propertyValuation1
-          .copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = Some(LocalDate.of(2021, 3, 1))),
+          .copy(
+            listType = ListType.CURRENT,
+            propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(3)))
       )
       val history = propertyHistory.copy(history = currentPropertyValuations)
 
