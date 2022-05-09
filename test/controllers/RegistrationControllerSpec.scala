@@ -267,6 +267,29 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "Submitting an invalid individual form" should "return a bad request response" in {
     val res = testRegistrationController(userDetails()).submitIndividual()(FakeRequest())
     status(res) shouldBe BAD_REQUEST
+    val html = HtmlPage(res)
+    html.shouldContainText("Last name - This must be filled in")
+    html.shouldContainText("Date of birth - Enter a valid date")
+    html.shouldContainText("Address line 1 - This must be filled in")
+    html.shouldContainText("Postcode - This must be filled in")
+    html.shouldContainText("NINO - This must be filled in")
+    html.shouldContainText("Email - This must be filled in")
+
+  }
+
+  "Submitting an invalid organisation admin form" should "return a bad request response" in {
+    val user: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = User)
+    val ga: GroupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = user.groupIdentifier)
+    StubGroupAccountConnector.stubAccount(ga)
+
+    val res = testRegistrationController(user).submitAdminToExistingOrganisation()(FakeRequest())
+    status(res) shouldBe BAD_REQUEST
+    val html = HtmlPage(res)
+    html.shouldContainText("First name - This must be filled in")
+    html.shouldContainText("Last name - This must be filled in")
+    html.shouldContainText("Date of birth - Enter a valid date")
+    html.shouldContainText("NINO - This must be filled in")
+
   }
 
   trait SubmitOrganisation {
@@ -329,6 +352,13 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "Submitting an invalid organisation form" should "return a bad request response" in {
     val res = testRegistrationController(userDetails()).submitOrganisation()(FakeRequest())
     status(res) shouldBe BAD_REQUEST
+    val html = HtmlPage(res)
+    html.shouldContainText("Last name - This must be filled in")
+    html.shouldContainText("Date of birth - Enter a valid date")
+    html.shouldContainText("Address line 1 - This must be filled in")
+    html.shouldContainText("Postcode - This must be filled in")
+    html.shouldContainText("NINO - This must be filled in")
+    html.shouldContainText("Email - This must be filled in")
   }
 
   override protected def beforeEach(): Unit = {

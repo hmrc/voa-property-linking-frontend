@@ -21,33 +21,16 @@
 @import config.ApplicationConfig
 @import views.html.mainLayout
 @import views.html._
+@import utils.FrontendComponentHelper._
 
-@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukDateInput: GovukDateInput, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, dateFields: dateFields, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
 
-
-@(model: Form[IndividualUserAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
-
-@getEnrichedErrorLinks = @{
-    model.errors.map{ error =>
-    ErrorLink(href = Some(s"#${error.key}"),
-    content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
-}
-
-@getFromDateFiledErrorMessage = @{
-    (model.error("dob.day"), model.error("dob.month"), model.error("dob.year")) match
-    {
-        case (None, None, None ) => None
-        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
-    }
-}
-
+@(form: Form[IndividualUserAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(pageTitle = messages("enrolment.title"), showTopNavigation = false) {
 
-
-            @if(model.errors.nonEmpty) {
-                @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+            @if(form.errors.nonEmpty) {
+                @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "dob"), title = Text(messages("error.propertyRepresentation.title"))))
             }
 
             <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
@@ -58,8 +41,8 @@
                 id = "firstName",
                 name = "firstName",
                 label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
-                value =  model("firstName").value.orElse(Some(individualFieldData.firstName)),
-                errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form("firstName").value.orElse(Some(individualFieldData.firstName)),
+                errorMessage = form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
@@ -67,14 +50,14 @@
                 id = "lastName",
                 name = "lastName",
                 label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
-                value =  model("lastName").value.orElse(Some(individualFieldData.lastName)),
-                errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form("lastName").value.orElse(Some(individualFieldData.lastName)),
+                errorMessage = form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
 
             @address(
-                form = model,
+                form = form,
                 fieldName = keys.address,
                 postcode = individualFieldData.postcode,
                 addressData = if(individualFieldData.businessAddress == Address.empty){None} else {Some(individualFieldData.businessAddress)},
@@ -85,8 +68,8 @@
                 id = "email",
                 name = "email",
                 label = Label(content = HtmlContent(messages("enrolment.email")), classes="govuk-label--m"),
-                value =  model("email").value.orElse(Some(individualFieldData.email)),
-                errorMessage = model("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form("email").value.orElse(Some(individualFieldData.email)),
+                errorMessage = form("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
@@ -94,8 +77,8 @@
                 id = "confirmedEmail",
                 name = "confirmedEmail",
                 label = Label(content = HtmlContent(messages("enrolment.confirmedEmail")), classes="govuk-label--m"),
-                value =  model("confirmedEmail").value.orElse(Some(individualFieldData.email)),
-                errorMessage = model("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form("confirmedEmail").value.orElse(Some(individualFieldData.email)),
+                errorMessage = form("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
@@ -103,8 +86,8 @@
                 id = "phone",
                 name = "phone",
                 label = Label(content = HtmlContent(messages("enrolment.phone")), classes="govuk-label--m"),
-                value =  model("phone").value.orElse(Some(individualFieldData.businessPhoneNumber)),
-                errorMessage = model("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form("phone").value.orElse(Some(individualFieldData.businessPhoneNumber)),
+                errorMessage = form("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
@@ -112,8 +95,8 @@
                 id = "mobilePhone",
                 name = "mobilePhone",
                 label = Label(content = HtmlContent(messages("enrolment.mobphone")), classes="govuk-label--m"),
-                value =  model("mobilePhone").value.orElse(Some(individualFieldData.mobilePhone)),
-                errorMessage = model("mobilePhone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form("mobilePhone").value.orElse(Some(individualFieldData.mobilePhone)),
+                errorMessage = form("mobilePhone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
@@ -121,42 +104,19 @@
                 id = "tradingName",
                 name = "tradingName",
                 label = Label(content = HtmlContent(messages("enrolment.tradeName")), classes="govuk-label--m"),
-                value =  model("tradingName").value.orElse(Some(individualFieldData.businessName)),
+                value =  form("tradingName").value.orElse(Some(individualFieldData.businessName)),
                 hint = Some(Hint( content = Text(messages("optional.label")) )),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
-
-            @govukDateInput(DateInput(
-                fieldset = Some(Fieldset(
-                legend = Some(Legend(
-                content = Text(messages("label.dob")),
-                classes = "govuk-fieldset__legend--m"
-            ))
-            )),
-                id = "dob",
-                hint = Some(Hint(
-                content = Text(messages("hint.dateOfBirth"))
-            )),
-                items = Seq("day", "month", "year").map {
-                item =>
-                InputItem(
-                    id = s"dob.$item",
-                    classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors || model.errors.exists(_.key.isEmpty)) " govuk-input--error" else ""}",
-                    name =  s"dob.$item",
-                    label = Some(messages(s"dob.$item.label")),
-                    value = model(s"dob.$item").value
-            )
-            },
-            errorMessage = getFromDateFiledErrorMessage,
-            ))
+            @dateFields(form = form, fieldName = "dob", label = Some("label.dob"))
 
             @govukInput(Input(
                 id = "nino",
                 name = "nino",
                 label = Label(content = HtmlContent(messages("label.ninoText")), classes="govuk-label--m"),
-                value =  model(keys.nino).value.orElse(Some(individualFieldData.nino)),
-                errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form(keys.nino).value.orElse(Some(individualFieldData.nino)),
+                errorMessage = form(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third",
                 hint = Some(Hint(
                 content = Text(messages("hint.nino"))

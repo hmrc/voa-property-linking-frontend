@@ -23,32 +23,17 @@
 @import views.html._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import utils.FrontendComponentHelper._
 
+@this(mainLayout: mainLayout, govukButton: GovukButton, dateFields: dateFields, govukInsetText: GovukInsetText, govukDetails: GovukDetails,govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios, formWithCSRF: FormWithCSRF)
 
-@this(mainLayout: mainLayout, govukButton: GovukButton, govukDateInput: GovukDateInput, govukInsetText: GovukInsetText, govukDetails: GovukDetails,govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios, formWithCSRF: FormWithCSRF)
-
-@(model: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
-@getEnrichedErrorLinks = @{
-    model.errors.map{ error =>
-        ErrorLink(href = Some(s"#${error.key}"),
-                  content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
-}
-
-@getFromDateFiledErrorMessage = @{
-    (model.error("dob.day"), model.error("dob.month"), model.error("dob.year")) match
-    {
-        case (None, None, None ) => None
-        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
-    }
-}
-
+@(form: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(pageTitle = messages("enrolment.title"), showTopNavigation = false) {
 
 
-            @if(model.errors.nonEmpty) {
-            @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+            @if(form.errors.nonEmpty) {
+                @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "dob"), title = Text(messages("error.propertyRepresentation.title"))))
             }
 
             <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
@@ -65,8 +50,8 @@
                 id = "firstName",
                 name = "firstName",
                 label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
-                value =  model("firstName").value.orElse(Some(organisationFieldData.firstName)),
-                errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form("firstName").value.orElse(Some(organisationFieldData.firstName)),
+                errorMessage = form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
@@ -74,8 +59,8 @@
                 id = "lastName",
                 name = "lastName",
                 label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
-                value =  model("lastName").value.orElse(Some(organisationFieldData.lastName)),
-                errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form("lastName").value.orElse(Some(organisationFieldData.lastName)),
+                errorMessage = form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
@@ -84,13 +69,13 @@
                 id = "companyName",
                 name = "companyName",
                 label = Label(content = HtmlContent(messages("enrolment.organisation.name")), classes="govuk-label--m"),
-                value =  model("companyName").value.orElse(Some(organisationFieldData.businessName)),
-                errorMessage = model("companyName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form("companyName").value.orElse(Some(organisationFieldData.businessName)),
+                errorMessage = form("companyName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
             @address(
-                form = model,
+                form = form,
                 fieldName = keys.address,
                 postcode = organisationFieldData.postcode,
                 addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)},
@@ -107,8 +92,8 @@
                 id = "phone",
                 name = "phone",
                 label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber")), classes="govuk-label--m"),
-                value =  model(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
-                errorMessage = model(keys.phone).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
+                errorMessage = form(keys.phone).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
@@ -116,8 +101,8 @@
                 id = "email",
                 name = "email",
                 label = Label(content = HtmlContent(messages("enrolment.emailAddress")), classes="govuk-label--m"),
-                value =  model(keys.email).value.orElse(Some(organisationFieldData.email)),
-                errorMessage = model(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form(keys.email).value.orElse(Some(organisationFieldData.email)),
+                errorMessage = form(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
@@ -126,8 +111,8 @@
                 id = "confirmedBusinessEmail",
                 name = "confirmedBusinessEmail",
                 label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress")), classes="govuk-label--m"),
-                value =  model(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
-                errorMessage = model(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                value =  form(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
+                errorMessage = form(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 classes = "govuk-input govuk-!-width-one-third"
             ))
 
@@ -138,19 +123,19 @@
                                         classes = "govuk-fieldset__legend--m"
                 ))
                 )),
-                errorMessage = model(keys.isAgent).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                errorMessage = form(keys.isAgent).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                 idPrefix = Some("isAgent"),
                 name = "isAgent",
             items = Seq(
                     RadioItem(
                             content = Text("Yes"),
                             value = Some("true"),
-                            checked = model.data.get("isAgent").fold(false)(_ == "true")
+                            checked = form.data.get("isAgent").fold(false)(_ == "true")
                     ),
                     RadioItem(
                             content = Text("No"),
                             value = Some("false"),
-                            checked = model.data.get("isAgent").fold(true)(_ == "false")
+                            checked = form.data.get("isAgent").fold(true)(_ == "false")
                     )
                 ),
             classes = "govuk-radios--inline"
@@ -161,37 +146,15 @@
                 content = Text(messages("isAgent.details"))
             ))
 
-            @govukDateInput(DateInput(
-                fieldset = Some(Fieldset(
-                                        legend = Some(Legend(
-                                        content = Text(messages("label.dob")),
-                                        classes = "govuk-fieldset__legend--m"
-                ))
-                )),
-                id = "dob",
-                hint = Some(Hint(
-                                content = Text(messages("hint.dateOfBirth"))
-                )),
-                items = Seq("day", "month", "year").map {
-                item =>
-                InputItem(
-                        id = s"dob.$item",
-                        classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors || model.errors.exists(_.key.isEmpty)) " govuk-input--error" else ""}",
-                        name =  s"dob.$item",
-                        label = Some(messages(s"dob.$item.label")),
-                        value = model(s"dob.$item").value
-                )
-                },
-                errorMessage = getFromDateFiledErrorMessage,
-            ))
+            @dateFields(form = form, fieldName = "dob", label = Some("label.dob"))
 
             @govukInput(Input(
                             id = "nino",
                             name = "nino",
                             label = Label(content = HtmlContent(messages("label.ninoText")),
                             classes="govuk-label--m"),
-                            value =  model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
-                            errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+                            value =  form(keys.nino).value.orElse(Some(organisationFieldData.nino)),
+                            errorMessage = form(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
                             classes = "govuk-input govuk-!-width-one-third",
                             hint = Some(Hint(
                             content = Text(messages("hint.nino"))

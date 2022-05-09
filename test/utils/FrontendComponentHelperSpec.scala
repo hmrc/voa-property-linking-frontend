@@ -40,7 +40,7 @@ class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
       messagesApi.preferred(Seq(defaultLang)))
     formattedErrors.size shouldBe 1
     formattedErrors.contains(ErrorLink(
-      href = Some("#fromDate"),
+      href = Some("#fromDate-day"),
       content = HtmlContent(s"On what date did you become the owner or occupier? - Enter a valid date"))) shouldBe true
 
   }

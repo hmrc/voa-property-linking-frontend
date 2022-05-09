@@ -74,7 +74,7 @@ trait FakeViews extends GdsComponents {
     govukDetails,
     govukErrorSummary,
     govukInput,
-    govukDateInput,
+    dateFields,
     govukButton,
     formWithCSRF)
 
@@ -82,7 +82,7 @@ trait FakeViews extends GdsComponents {
     new views.html.createAccount.registerOrganisation(
       mainLayout,
       govukButton,
-      govukDateInput,
+      dateFields,
       govukInsetText,
       govukDetails,
       govukErrorSummary,
@@ -97,7 +97,7 @@ trait FakeViews extends GdsComponents {
     govukErrorSummary,
     govukInput,
     govukButton,
-    govukDateInput,
+    dateFields,
     formWithCSRF)
 
   lazy val registerAssistantView = new views.html.createAccount.registerAssistant(
