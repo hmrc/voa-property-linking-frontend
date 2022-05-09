@@ -21,7 +21,7 @@
             }
 }
 
-<div id="@{id.getOrElse(fieldName)}">
+<div id="@{id.getOrElse(s"${fieldName}-group")}">
         @govukDateInput(DateInput(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(
