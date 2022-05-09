@@ -69,13 +69,13 @@ class PropertyLinkingService @Inject()(
   def findEarliestStartDate(uarn: Long)(implicit hc: HeaderCarrier): Future[LocalDate] = {
     implicit val localDateOrdering: Ordering[LocalDate] = _ compareTo _
 
-    val defaultEarliestStartDate = config.earliestStartDate
     propertyLinkConnector
       .getPropertyHistory(uarn)
       .map { propertyHistory =>
         val dates = propertyHistory.history
           .flatMap(_.propertyLinkEarliestStartDate)
-        Try[LocalDate](dates.min).getOrElse(defaultEarliestStartDate)
+        Try[LocalDate](dates.min)
+          .getOrElse(if (propertyHistory.isWelsh) config.earliestWelshStartDate else config.earliestEnglishStartDate)
       }
   }
 }

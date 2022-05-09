@@ -22,18 +22,18 @@ import cats.implicits._
 import models._
 import models.propertylinking.requests.PropertyLinkRequest
 import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito
 import org.mockito.Mockito.{when, _}
 import play.api.test.FakeRequest
 import services.ServiceSpec
-import tests.AllMocks
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import uk.gov.hmrc.propertylinking.exceptions.attachments.AttachmentException
-import java.time.LocalDate
 
+import java.time.LocalDate
 import scala.concurrent.Future
 import scala.language.implicitConversions
 
-class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
+class PropertyLinkingServiceSpec extends ServiceSpec {
 
   private lazy val testService =
     new PropertyLinkingService(mockBusinessRatesAttachmentsService, mockPropertyLinkConnector, mockApplicationConfig)
@@ -49,7 +49,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
       uarn = 1L,
       submissionId = "PL-123456",
       personId = 1L,
-      earliestStartDate = earliestStartDate,
+      earliestStartDate = earliestEnglishStartDate,
       propertyRelationship = Some(PropertyRelationship(Owner)),
       propertyOwnership = Some(PropertyOwnership(interestedOnOrBefore = true, fromDate = None)),
       propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
@@ -92,37 +92,110 @@ class PropertyLinkingServiceSpec extends ServiceSpec with AllMocks {
     }
   }
 
-  "find earliest start date" should {
-    "return valid start date" in {
-      implicit val linkingSession = linkingSessionRequest()
+  trait Setup {
+    implicit val linkingSession = linkingSessionRequest()
 
-      val earliestStartDateOfCurrentList = LocalDate.of(2019, 5, 1)
-      val currentPropertyValuations = Seq(
-        propertyValuation1.copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = None),
-        propertyValuation1
-          .copy(
-            listType = ListType.CURRENT,
-            propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(1))),
-        propertyValuation1
-          .copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList)),
-        propertyValuation1
-          .copy(
-            listType = ListType.DRAFT,
-            propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(2))),
-        propertyValuation1
-          .copy(
-            listType = ListType.CURRENT,
-            propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(3)))
-      )
-      val history = propertyHistory.copy(history = currentPropertyValuations)
+    when(mockApplicationConfig.earliestEnglishStartDate).thenReturn(earliestEnglishStartDate)
+    when(mockApplicationConfig.earliestWelshStartDate).thenReturn(earliestWelshStartDate)
+  }
 
-      when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
-      when(mockApplicationConfig.earliestStartDate).thenReturn(earliestStartDate)
+  "find earliest start date" when {
+    "property is english" should {
+      "return earliest start date from property history" in new Setup {
 
-      val res: Future[LocalDate] = testService.findEarliestStartDate(propertyHistory.uarn)
+        val earliestStartDateOfCurrentList = LocalDate.of(2019, 5, 1)
+        val currentPropertyValuations = Seq(
+          propertyValuation1.copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = None),
+          propertyValuation1
+            .copy(
+              listType = ListType.CURRENT,
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(1))),
+          propertyValuation1
+            .copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList)),
+          propertyValuation1
+            .copy(
+              listType = ListType.DRAFT,
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(2))),
+          propertyValuation1
+            .copy(
+              listType = ListType.CURRENT,
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(3)))
+        )
+        val history = propertyHistory.copy(history = currentPropertyValuations, localAuthorityCode = "1English")
 
-      res.futureValue should be(earliestStartDateOfCurrentList)
-      verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
+        when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
+
+        val res: Future[LocalDate] = testService.findEarliestStartDate(propertyHistory.uarn)
+
+        res.futureValue shouldBe earliestStartDateOfCurrentList
+        verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
+      }
+
+      "return default earliest english start date from config" in new Setup {
+
+        val currentPropertyValuations = Seq(
+          propertyValuation1.copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = None),
+          propertyValuation1.copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = None),
+          propertyValuation1.copy(listType = ListType.PREVIOUS, propertyLinkEarliestStartDate = None)
+        )
+        val history = propertyHistory.copy(history = currentPropertyValuations, localAuthorityCode = "1English")
+
+        when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
+
+        val res: Future[LocalDate] = testService.findEarliestStartDate(propertyHistory.uarn)
+
+        res.futureValue shouldBe earliestEnglishStartDate
+        verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
+      }
+    }
+
+    "property is welsh" should {
+      "return earliest start date from property history" in new Setup {
+
+        val earliestStartDateOfCurrentList = LocalDate.of(2019, 5, 1)
+        val currentPropertyValuations = Seq(
+          propertyValuation1.copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = None),
+          propertyValuation1
+            .copy(
+              listType = ListType.CURRENT,
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(1))),
+          propertyValuation1
+            .copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList)),
+          propertyValuation1
+            .copy(
+              listType = ListType.DRAFT,
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(2))),
+          propertyValuation1
+            .copy(
+              listType = ListType.CURRENT,
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(3)))
+        )
+        val history = propertyHistory.copy(history = currentPropertyValuations, localAuthorityCode = "6Welsh")
+
+        when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
+
+        val res: Future[LocalDate] = testService.findEarliestStartDate(propertyHistory.uarn)
+
+        res.futureValue shouldBe earliestStartDateOfCurrentList
+        verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
+      }
+
+      "return default earliest welsh start date from config" in new Setup {
+
+        val currentPropertyValuations = Seq(
+          propertyValuation1.copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = None),
+          propertyValuation1.copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = None),
+          propertyValuation1.copy(listType = ListType.PREVIOUS, propertyLinkEarliestStartDate = None)
+        )
+        val history = propertyHistory.copy(history = currentPropertyValuations, localAuthorityCode = "6Welsh")
+
+        when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
+
+        val res: Future[LocalDate] = testService.findEarliestStartDate(propertyHistory.uarn)
+
+        res.futureValue shouldBe earliestWelshStartDate
+        verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
+      }
     }
   }
 }

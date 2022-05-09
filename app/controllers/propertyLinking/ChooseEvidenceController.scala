@@ -61,7 +61,7 @@ class ChooseEvidenceController @Inject()(
   }
 
   private def backlink(session: LinkingSession)(implicit hc: HeaderCarrier): String =
-    if (session.propertyOwnership == None) // TODO or is it better to test against request.ses.earliestStartDate?
+    if (session.earliestStartDate.isAfter(LocalDate.now))
       controllers.propertyLinking.routes.ClaimPropertyRelationshipController
         .showRelationship(session.uarn, session.clientDetails)
         .url

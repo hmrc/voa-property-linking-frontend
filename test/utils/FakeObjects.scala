@@ -56,7 +56,8 @@ trait FakeObjects {
   val dateOfBirth: LocalDate = LocalDate.of(1979, Month.OCTOBER, 12)
   val agentCode = 12345L
 
-  val earliestStartDate = LocalDate.of(2017, 4, 1)
+  val earliestEnglishStartDate = LocalDate.of(2017, 4, 1)
+  val earliestWelshStartDate = LocalDate.of(2023, 4, 1)
 
   val principal = Principal(ggExternalId, ggGroupId)
   val FILE_REFERENCE: String = "1862956069192540"

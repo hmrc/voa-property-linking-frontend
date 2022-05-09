@@ -20,7 +20,6 @@ import java.time.LocalDate
 import controllers.VoaPropertyLinkingSpec
 import controllers.propertyLinking.ClaimPropertyOccupancy
 import models.PropertyOccupancy
-import play.api.data.Form
 import play.api.i18n.Lang.defaultLang
 import utils.FormBindingVerification._
 
@@ -67,7 +66,7 @@ class PropertyOccupancyFormSpec extends VoaPropertyLinkingSpec {
 
   object TestData {
     val form =
-      ClaimPropertyOccupancy.occupancyForm(earliestStartDate)(messagesApi.preferred(Seq(defaultLang)))
+      ClaimPropertyOccupancy.occupancyForm(earliestEnglishStartDate)(messagesApi.preferred(Seq(defaultLang)))
     val validData = Map(
       "stillOccupied"          -> "false",
       "lastOccupiedDate.day"   -> "23",

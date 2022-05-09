@@ -38,7 +38,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
   private val mockOwnershipToPropertyPage = mock[views.html.propertyLinking.ownershipToProperty]
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  private def testClaimProperty(earliestStartDate: LocalDate = earliestStartDate) =
+  private def testClaimProperty(earliestStartDate: LocalDate = earliestEnglishStartDate) =
     new ClaimPropertyOwnershipController(
       errorHandler = mockCustomErrorHandler,
       sessionRepository = mockSessionRepo,
@@ -87,8 +87,6 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
     StubSubmissionIdConnector.stubId(submissionId)
     when(mockOwnershipToPropertyPage.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim ownership page on client behalf"))
-//    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-//      .thenReturn(Future.successful(earliestStartDate))
 
     val res = testClaimProperty().showOwnership()(FakeRequest())
     status(res) shouldBe OK

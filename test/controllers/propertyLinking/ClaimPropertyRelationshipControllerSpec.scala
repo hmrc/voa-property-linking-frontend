@@ -88,7 +88,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     StubSubmissionIdConnector.stubId(submissionId)
 
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(earliestStartDate))
+      .thenReturn(Future.successful(earliestEnglishStartDate))
     when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim property relationship page on client behalf"))
 
@@ -100,7 +100,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     html.shouldContainText("claim property relationship page on client behalf")
   }
 
-  it should "contain link back to business-rates-find if thats where the request came from" in {
+  it should "contain link back to business-rates-find if that's where the request came from" in {
 
     val res =
       testClaimProperty.showRelationship(positiveLong, Some(ClientDetails(positiveLong, shortString)))(
@@ -124,7 +124,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     StubSubmissionIdConnector.stubId(submissionId)
 
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(earliestStartDate))
+      .thenReturn(Future.successful(earliestEnglishStartDate))
 
     val res = testClaimProperty.submitRelationship(positiveLong)(
       FakeRequest().withFormUrlEncodedBody(
@@ -138,7 +138,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     StubSubmissionIdConnector.stubId(submissionId)
 
     when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(earliestStartDate))
+      .thenReturn(Future.successful(earliestEnglishStartDate))
 
     val uarn: Long = positiveLong
 

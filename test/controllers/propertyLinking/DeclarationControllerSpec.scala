@@ -69,7 +69,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "The declaration page with earliest start date is not in future" should "return valid page" in new Setup {
-    val res = testDeclarationController(earliestStartDate).show()(FakeRequest())
+    val res = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html = HtmlPage(res)
@@ -98,7 +98,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   "The declaration page" should "display the correct summary list keys for an owner IP" in new Setup {
     override val isAgent: Boolean = false
 
-    val res: Future[Result] = testDeclarationController(earliestStartDate).show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -111,7 +111,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     override val isAgent: Boolean = false
     override val propertyRelationship: CapacityType = Occupier
 
-    val res: Future[Result] = testDeclarationController(earliestStartDate).show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -124,7 +124,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     override val isAgent: Boolean = false
     override val propertyRelationship: CapacityType = OwnerOccupier
 
-    val res: Future[Result] = testDeclarationController(earliestStartDate).show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -134,7 +134,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the correct summary list keys for an owner agent" in new Setup {
-    val res: Future[Result] = testDeclarationController(earliestStartDate).show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -146,7 +146,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   it should "display the correct summary list keys for an occupier agent" in new Setup {
     override val propertyRelationship: CapacityType = Occupier
 
-    val res: Future[Result] = testDeclarationController(earliestStartDate).show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -158,7 +158,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   it should "display the correct summary list keys for an owner and occupier agent" in new Setup {
     override val propertyRelationship: CapacityType = OwnerOccupier
 
-    val res: Future[Result] = testDeclarationController(earliestStartDate).show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -169,7 +169,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "require the user to accept the declaration to continue" in new Setup {
-    val res = testDeclarationController(earliestStartDate).submit()(FakeRequest())
+    val res = testDeclarationController(earliestEnglishStartDate).submit()(FakeRequest())
     status(res) shouldBe BAD_REQUEST
   }
 
@@ -178,7 +178,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.apply[Future, AttachmentException, Unit](Future.successful(Left(NotAllFilesReadyToUpload))))
 
-    val res = testDeclarationController(earliestStartDate).submit()(
+    val res = testDeclarationController(earliestEnglishStartDate).submit()(
       FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) shouldBe BAD_REQUEST
   }
@@ -188,7 +188,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
-    val res = testDeclarationController(earliestStartDate).submit()(
+    val res = testDeclarationController(earliestEnglishStartDate).submit()(
       FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
@@ -223,13 +223,13 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
       .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
-    val res = testDeclarationController(earliestStartDate).submit()(
+    val res = testDeclarationController(earliestEnglishStartDate).submit()(
       FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
-    val confirmation = testDeclarationController(earliestStartDate).confirmation()(FakeRequest())
+    val confirmation = testDeclarationController(earliestEnglishStartDate).confirmation()(FakeRequest())
 
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
@@ -242,13 +242,13 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
       .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
-    val res = testDeclarationController(earliestStartDate).submit()(
+    val res = testDeclarationController(earliestEnglishStartDate).submit()(
       FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
-    val confirmation = testDeclarationController(earliestStartDate).confirmation()(FakeRequest())
+    val confirmation = testDeclarationController(earliestEnglishStartDate).confirmation()(FakeRequest())
 
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
@@ -261,7 +261,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
       .thenReturn(Html("PL-123456"))
 
-    val res = testDeclarationController(earliestStartDate).confirmation()(FakeRequest())
+    val res = testDeclarationController(earliestEnglishStartDate).confirmation()(FakeRequest())
 
     status(res) shouldBe OK
     contentAsString(res) should include("PL-123456")

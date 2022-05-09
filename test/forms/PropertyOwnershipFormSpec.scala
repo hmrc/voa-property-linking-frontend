@@ -19,10 +19,8 @@ package forms
 import controllers.VoaPropertyLinkingSpec
 import controllers.propertyLinking.ClaimPropertyOwnership
 import models.PropertyOwnership
-import play.api.data.Form
 import utils.FormBindingVerification._
 import views.helpers.Errors
-import play.api.i18n.Lang.defaultLang
 
 import java.time.LocalDate
 
@@ -56,7 +54,7 @@ class PropertyOwnershipFormSpec extends VoaPropertyLinkingSpec {
   }
 
   object TestData {
-    val form = ClaimPropertyOwnership.ownershipForm(earliestStartDate)
+    val form = ClaimPropertyOwnership.ownershipForm(earliestEnglishStartDate)
     val validData = Map(
       "interestedOnOrBefore" -> "false",
       "fromDate.day"         -> "20",

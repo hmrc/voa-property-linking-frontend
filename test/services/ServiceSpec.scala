@@ -38,6 +38,7 @@ trait ServiceSpec
   implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
 
   override protected def beforeEach(): Unit = {
+    super.beforeEach()
     StubIndividualAccountConnector.reset()
     StubGroupAccountConnector.reset()
     StubIdentityVerification.reset()

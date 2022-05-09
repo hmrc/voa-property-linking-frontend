@@ -48,7 +48,7 @@ class GroupAccountSpec extends BaseUnitSpec {
 
   "AgentGroupAccount" should {
     "extract agent code if there is an agent" in {
-      AgentGroupAccount.unapply(agentGroupAccount) shouldBe Some(agentGroupAccount, agentCode)
+      AgentGroupAccount.unapply(agentGroupAccount) shouldBe Some((agentGroupAccount, agentCode))
     }
   }
 

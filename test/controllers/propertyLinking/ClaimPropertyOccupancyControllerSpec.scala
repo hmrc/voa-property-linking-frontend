@@ -36,7 +36,7 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  private def testClaimPropertyOccupancyController(earliestStartDate: LocalDate = earliestStartDate) =
+  private def testClaimPropertyOccupancyController(earliestStartDate: LocalDate = earliestEnglishStartDate) =
     new ClaimPropertyOccupancyController(
       errorHandler = mockCustomErrorHandler,
       sessionRepository = mockSessionRepo,

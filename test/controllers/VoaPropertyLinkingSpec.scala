@@ -125,7 +125,7 @@ trait VoaPropertyLinkingSpec
         evidenceData: UploadEvidenceData,
         relationshipCapacity: CapacityType = Owner,
         userIsAgent: Boolean = true,
-        earliestStartDate: LocalDate = earliestStartDate): WithLinkingSession =
+        earliestStartDate: LocalDate = earliestEnglishStartDate): WithLinkingSession =
     new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
 
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =

@@ -16,7 +16,7 @@
 
 package utils
 
-import models.{Address, PropertyAddress}
+import models.PropertyAddress
 import tests.BaseUnitSpec
 
 import java.time.{LocalDateTime, LocalTime}

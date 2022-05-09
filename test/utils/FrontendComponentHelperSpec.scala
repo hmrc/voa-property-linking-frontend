@@ -25,7 +25,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
 
   "The form with multiple date validation errors" should "return only one common error 'error.common.invalid.date' " in {
-    val form = ClaimPropertyOwnership.ownershipForm(earliestStartDate)
+    val form = ClaimPropertyOwnership.ownershipForm(earliestEnglishStartDate)
     val inValidData = Map(
       "interestedOnOrBefore" -> "false",
       "fromDate.day"         -> "40",

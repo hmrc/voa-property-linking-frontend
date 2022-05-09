@@ -82,7 +82,8 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   lazy val pingdomToken: Option[String] = configuration.getOptional[String]("pingdom.performance.monitor.token")
 
-  lazy val earliestStartDate: LocalDate = loadLocalDate("property-linking.earliestStartDate")
+  lazy val earliestEnglishStartDate: LocalDate = loadLocalDate("property-linking.default.earliestEnglishStartDate")
+  lazy val earliestWelshStartDate: LocalDate = loadLocalDate("property-linking.default.earliestWelshStartDate")
 
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
   lazy val newRegistrationJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newRegistrationJourneyEnabled")
