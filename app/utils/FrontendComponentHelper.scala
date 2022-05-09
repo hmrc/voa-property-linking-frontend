@@ -38,7 +38,7 @@ object FrontendComponentHelper {
       .toSet
       .map { error: FormError =>
         ErrorLink(
-          href = Some(s"#${error.key}"),
+          href = Some(s"#${error.key}-day"),
           content = HtmlContent(
             s"${messages(s"label.${error.key}$messagesKeySuffix")} - ${messages(error.message, error.args.map(_.toString): _*)}")
         )

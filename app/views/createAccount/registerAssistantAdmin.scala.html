@@ -22,34 +22,22 @@
 @import utils.Formatters._
 @import views.html.mainLayout
 @import views.html._
+@import utils.FrontendComponentHelper._
 
-@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, govukDateInput:GovukDateInput, formWithCSRF: FormWithCSRF)
+@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, dateFields: dateFields, formWithCSRF: FormWithCSRF)
 
-@(model: Form[AdminInExistingOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AdminInExistingOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @isAgent(selected: Boolean) = @{
     if(selected) """checked="checked""" else """ disabled="disabled" """
 }
 
-@getEnrichedErrorLinks = @{
-    model.errors.map{ error =>
-    ErrorLink(href = Some(s"#${error.key}"),
-    content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
-}
-
-@getFromDateFiledErrorMessage = @{
-    (model.error("dob.day"), model.error("dob.month"), model.error("dob.year")) match
-    {
-        case (None, None, None ) => None
-        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
-    }
-}
 @mainLayout(pageTitle = messages("enrolment.title"), showTopNavigation = false) {
 
-        @if(model.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title =
-        Text(messages("error.propertyRepresentation.title"))))
+        @if(form.errors.nonEmpty) {
+            @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "dob"), title = Text(messages("error.propertyRepresentation.title"))))
         }
+
         <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
         <p class="govuk-hint">@messages("enrolment.assistant.hint")</p>
         <h2 class="govuk-heading-m">@messages("enrolment.assistant.organisation.details.title")</h2>
@@ -82,8 +70,8 @@
             id = "firstName",
             name = "firstName",
             label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
-            value = model("firstName").value.orElse(Some(organisationFieldData.firstName)),
-            errorMessage = model("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
+            value = form("firstName").value.orElse(Some(organisationFieldData.firstName)),
+            errorMessage = form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
             err.args:_*)))),
             classes = "govuk-input govuk-!-width-one-third"
         ))
@@ -92,44 +80,20 @@
             id = "lastName",
             name = "lastName",
             label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
-            value = model("lastName").value.orElse(Some(organisationFieldData.lastName)),
-            errorMessage = model("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
+            value = form("lastName").value.orElse(Some(organisationFieldData.lastName)),
+            errorMessage = form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
             err.args:_*)))),
             classes = "govuk-input govuk-!-width-one-third"
         ))
 
-        @govukDateInput(DateInput(
-            fieldset = Some(Fieldset(
-            legend = Some(Legend(
-            content = Text(messages("label.dob")),
-                isPageHeading = true,
-                classes = "govuk-fieldset__legend--m"
-            ))
-            )),
-            id = "dob",
-            hint = Some(Hint(
-                 content = Text(messages("hint.dateOfBirth"))
-            )),
-                items = Seq("day", "month", "year").map {
-            item =>
-            InputItem(
-                id = s"dob.$item",
-                classes = s"govuk-input--width-${if(item == "year") "4" else "2"}${if(model(s"dob.$item").hasErrors ||
-                model.errors.exists(_.key.isEmpty)) " govuk-input--error" else ""}",
-                name = s"dob.$item",
-                label = Some(messages(s"dob.$item.label")),
-                value = model(s"dob.$item").value
-            )
-            },
-            errorMessage = getFromDateFiledErrorMessage,
-        ))
+        @dateFields(form = form, fieldName = "dob", label = Some("label.dob"))
 
         @govukInput(Input(
             id = "nino",
             name = "nino",
             label = Label(content = HtmlContent(messages("label.ninoText")), classes="govuk-label--m"),
-            value = model(keys.nino).value.orElse(Some(organisationFieldData.nino)),
-            errorMessage = model(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message,
+            value = form(keys.nino).value.orElse(Some(organisationFieldData.nino)),
+            errorMessage = form(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message,
             err.args:_*)))),
             classes = "govuk-input govuk-!-width-one-third",
             hint = Some(Hint(
