@@ -14,8 +14,6 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyRelationshipVM
 @import views.html.includes.assessmentHeading
@@ -50,8 +48,7 @@
 
     @assessmentHeading(model.localAuthorityReference, model.address)
 
-    <h2 id="caption-add-property" class="govuk-caption-l" >@messages("caption.add.property")</h2>
-
+    <span class="govuk-caption-l" >@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@messages("declarePropertyRelationship.title"):</h1>
 
     @govukDetails(Details(

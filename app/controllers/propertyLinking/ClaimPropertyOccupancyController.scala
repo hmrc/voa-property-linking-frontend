@@ -31,12 +31,11 @@ import repositories.SessionRepo
 import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
-import views.helpers.Errors
-import java.time.LocalDate
-
-import javax.inject.{Inject, Named}
 import utils.Formatters
+import views.helpers.Errors
 
+import java.time.LocalDate
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
@@ -45,8 +44,7 @@ class ClaimPropertyOccupancyController @Inject()(
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
-      occupancyOfPropertyView: views.html.propertyLinking.occupancyOfProperty,
-      propertyLinkingService: PropertyLinkingService)(
+      occupancyOfPropertyView: views.html.propertyLinking.occupancyOfProperty)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -57,38 +55,35 @@ class ClaimPropertyOccupancyController @Inject()(
 
   def showOccupancy(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     {
-
-      propertyLinkingService.findEarliestStartDate(request.ses.uarn).flatMap {
-        case Some(date) if date.isAfter(LocalDate.now()) =>
-          sessionRepository
-            .saveOrUpdate[LinkingSession](request.ses.copy(
-              propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))))
-            .map { _ =>
-              Redirect(routes.ChooseEvidenceController.show())
-            }
-        case _ =>
-          val form = request.ses.propertyOccupancy.fold(occupancyForm()) { occupancy =>
-            occupancyForm(
-              startDate = request.ses.propertyOwnership.flatMap(_.fromDate),
-              errorMessageKeySuffix = request.ses.clientDetails.fold("")(_ => ".client")).fillAndValidate(occupancy)
-          }
-          Future.successful(
-            Ok(
-              occupancyOfPropertyView(
-                form,
-                request.ses.clientDetails,
-                controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url)))
+      if (request.ses.earliestStartDate.isAfter(LocalDate.now()))
+        sessionRepository
+          .saveOrUpdate[LinkingSession](request.ses.copy(
+            propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))))
+          .map { _ =>
+            Redirect(routes.ChooseEvidenceController.show())
+          } else {
+        val form = request.ses.propertyOccupancy.fold(occupancyForm(request.ses.earliestStartDate)) { occupancy =>
+          occupancyForm(
+            startDate = request.ses.propertyOwnership.flatMap(_.fromDate).getOrElse(request.ses.earliestStartDate),
+            errorMessageKeySuffix = request.ses.clientDetails.fold("")(_ => ".client")
+          ).fillAndValidate(occupancy)
+        }
+        Future.successful(
+          Ok(
+            occupancyOfPropertyView(
+              form,
+              request.ses.clientDetails,
+              controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url)))
       }
     }
-
   }
 
   def submitOccupancy(): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       occupancyForm(
-        startDate = request.ses.propertyOwnership.flatMap(_.fromDate),
-        errorMessageKeySuffix = request.ses.clientDetails.fold("")(_ => ".client"))
-        .bindFromRequest()
+        startDate = request.ses.propertyOwnership.flatMap(_.fromDate).getOrElse(request.ses.earliestStartDate),
+        errorMessageKeySuffix = request.ses.clientDetails.fold("")(_ => ".client")
+      ).bindFromRequest()
         .fold(
           errors =>
             Future.successful(
@@ -109,8 +104,8 @@ class ClaimPropertyOccupancyController @Inject()(
 
 object ClaimPropertyOccupancy {
 
-  def occupancyForm(startDate: Option[LocalDate] = None, errorMessageKeySuffix: String = "")(
-        implicit messages: Messages) =
+  def occupancyForm(startDate: LocalDate, errorMessageKeySuffix: String = "")(
+        implicit messages: Messages): Form[PropertyOccupancy] =
     Form(
       mapping(
         "stillOccupied" -> mandatoryBoolean,
@@ -119,12 +114,8 @@ object ClaimPropertyOccupancy {
           dmyDate
             .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
             .verifying(
-              messages(
-                s"error.date.mustBeAfterStartDate$errorMessageKeySuffix",
-                Formatters.formatDate(startDate.getOrElse(LocalDate.of(2017, 4, 1)))),
-              d => startDate.fold(true)(otherDate => d.isAfter(otherDate))
-            )
-            .verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
+              messages(s"error.date.mustBeAfterStartDate$errorMessageKeySuffix", Formatters.formatDate(startDate)),
+              d => d.isAfter(startDate))
         )
       )(PropertyOccupancy.apply)(PropertyOccupancy.unapply))
 }

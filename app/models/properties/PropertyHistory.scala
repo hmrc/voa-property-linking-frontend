@@ -29,6 +29,8 @@ case class PropertyHistory(
 ) {
   def propertyValuation(valuationId: Long): Option[PropertyValuation] =
     history.find(_.valuationId == valuationId)
+
+  def isWelsh: Boolean = localAuthorityCode.startsWith("6")
 }
 
 object PropertyHistory {

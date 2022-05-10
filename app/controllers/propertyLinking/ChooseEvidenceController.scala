@@ -41,7 +41,6 @@ class ChooseEvidenceController @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
-      propertyLinkingService: PropertyLinkingService,
       chooseEvidenceView: views.html.propertyLinking.chooseEvidence
 )(
       implicit executionContext: ExecutionContext,
@@ -54,22 +53,20 @@ class ChooseEvidenceController @Inject()(
     val form = request.ses.hasRatesBill.fold(ChooseEvidence.form)(ChooseEvidence.form.fillAndValidate)
 
     for {
-      _        <- businessRatesAttachmentService.persistSessionData(request.ses)
-      backLink <- backlink(request.ses)
+      _ <- businessRatesAttachmentService.persistSessionData(request.ses)
+      backLink = backlink(request.ses)
     } yield {
       Ok(chooseEvidenceView(form, Some(backLink)))
     }
   }
 
-  private def backlink(ses: LinkingSession)(implicit hc: HeaderCarrier) =
-    propertyLinkingService.findEarliestStartDate(ses.uarn).map {
-      case Some(date) if date.isAfter(LocalDate.now()) =>
-        controllers.propertyLinking.routes.ClaimPropertyRelationshipController
-          .showRelationship(ses.uarn, ses.clientDetails)
-          .url
-      case _ =>
-        controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url
-    }
+  private def backlink(session: LinkingSession)(implicit hc: HeaderCarrier): String =
+    if (session.earliestStartDate.isAfter(LocalDate.now))
+      controllers.propertyLinking.routes.ClaimPropertyRelationshipController
+        .showRelationship(session.uarn, session.clientDetails)
+        .url
+    else
+      controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url
 
   def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     def updateSession(newAnswer: Boolean): Future[Unit] =
@@ -83,10 +80,7 @@ class ChooseEvidenceController @Inject()(
     ChooseEvidence.form
       .bindFromRequest()
       .fold(
-        errors =>
-          backlink(request.ses).map { back =>
-            BadRequest(chooseEvidenceView(errors, Some(back)))
-        },
+        errors => Future.successful(BadRequest(chooseEvidenceView(errors, Some(backlink(request.ses))))),
         hasRatesBill =>
           updateSession(hasRatesBill).map { _ =>
             if (hasRatesBill) Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))

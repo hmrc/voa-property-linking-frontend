@@ -51,8 +51,12 @@ object Formatters {
   def formatDateTimeToDate(date: LocalDateTime): String =
     date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
 
+  def formatDateHint(date: LocalDate): String =
+    date.format(DateTimeFormatter.ofPattern("d M yyyy"))
+
   def formatTime(time: LocalTime): String =
     time.format(DateTimeFormatter.ofPattern("hh:mm a"))
+
   def buildQueryParams(name: String, value: Option[String]): String =
     value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.trim}"; case _ => "" }
 

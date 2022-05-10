@@ -16,8 +16,6 @@
 
 package controllers.propertyLinking
 
-import java.time.LocalDate
-
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
@@ -25,6 +23,7 @@ import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
+
 import javax.inject.Named
 import models.propertylinking.requests.PropertyLinkRequest
 import models._
@@ -38,7 +37,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
 import utils.Cats
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class DeclarationController @Inject()(
@@ -58,16 +57,14 @@ class DeclarationController @Inject()(
 
   def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis == RatesBillFlag
-    for {
-      earliestStartDate <- propertyLinkService.findEarliestStartDate(request.ses.uarn)
-      isEarliestStartDateInFuture = earliestStartDate.fold(false)(_.isAfter(LocalDate.now()))
-    } yield
+
+    Future.successful(
       Ok(
         declarationView(
           DeclarationVM(form, request.ses.address, request.ses.localAuthorityReference),
-          isRatesBillEvidence,
-          isEarliestStartDateInFuture
+          isRatesBillEvidence
         ))
+    )
   }
 
   /*
@@ -79,26 +76,20 @@ class DeclarationController @Inject()(
       .fold(
         _ => {
           val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
-          for {
-            earliestStartDate <- propertyLinkService.findEarliestStartDate(request.ses.uarn)
-            isEarliestStartDateInFuture = earliestStartDate.fold(false)(_.isAfter(LocalDate.now()))
-          } yield
+          Future.successful(
             BadRequest(
               declarationView(
                 DeclarationVM(formWithNoDeclaration, request.ses.address, request.ses.localAuthorityReference),
-                isRatesBillEvidence,
-                isEarliestStartDateInFuture
-              ))
+                isRatesBillEvidence
+              )))
         },
         _ =>
           for {
-            earliestStartDate <- propertyLinkService.findEarliestStartDate(request.ses.uarn)
             submitResult <- propertyLinkService
                              .submit(
                                PropertyLinkRequest(request.ses, request.organisationId),
                                request.ses.clientDetails.map(_.organisationId))
                              .value
-            isEarliestStartDateInFuture = earliestStartDate.fold(false)(_.isAfter(LocalDate.now()))
           } yield {
             submitResult.fold(
               {
@@ -111,8 +102,7 @@ class DeclarationController @Inject()(
                       form.fill(true).withError("declaration", "declaration.file.receipt"),
                       request.ses.address,
                       request.ses.localAuthorityReference),
-                    isRatesBillEvidence,
-                    isEarliestStartDateInFuture
+                    isRatesBillEvidence
                   ))
                 case MissingRequiredNumberOfFiles =>
                   logger.warn(

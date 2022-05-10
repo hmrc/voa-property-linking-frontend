@@ -60,7 +60,8 @@ lazy val microservice = Project(appName, file("."))
   .settings(resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/")
   .settings(
     TwirlKeys.templateImports ++= Seq(
-      "uk.gov.hmrc.govukfrontend.views.html.components._"
+      "uk.gov.hmrc.govukfrontend.views.html.components._",
+      "uk.gov.hmrc.govukfrontend.views.html.components.implicits._"
     )
   )
   .settings(update / evictionWarningOptions := EvictionWarningOptions.default

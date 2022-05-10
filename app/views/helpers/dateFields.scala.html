@@ -1,50 +1,57 @@
 @*
- * Copyright 2021 HM Revenue & Customs
- *
- *@
+* Copyright 2021 HM Revenue & Customs
+*
+*@
 
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.Radios
+@import _root_.utils.Formatters._
+@import java.time.LocalDate
 
 @this(govukDateInput: GovukDateInput)
 
-@(form: Form[_], fieldName: String, id: Option[String] = None, isOptional: Boolean = false, hintMessageKey: String = "help.date", label: Option[String] = None)(implicit request: Request[_], messages: Messages)
+@(
+        form: Form[_],
+        fieldName: String,
+        id: Option[String] = None,
+        hintMessageKey: String = "help.date",
+        hintDateOverride: Option[LocalDate] = None,
+        label: Option[String] = None)(implicit request: Request[_], messages: Messages)
 
 @dateErrors = @{
-(form.error(s"$fieldName"), form.error(s"${fieldName}.day"), form.error(s"${fieldName}.month"), form.error(s"${fieldName}.year")) match
-            {
-                case (None, None, None, None ) => None
-                case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
-            }
+    (form.error(s"$fieldName"), form.error(s"${fieldName}.day"), form.error(s"${fieldName}.month"), form.error(s"${fieldName}.year")) match
+    {
+        case (None, None, None, None ) => None
+        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
+    }
+}
+
+@hintMessage = @{
+    hintDateOverride.fold(messages(hintMessageKey))(dt => messages("help.date.override", formatDateHint(dt)))
 }
 
 <div id="@{id.getOrElse(s"${fieldName}-group")}">
-        @govukDateInput(DateInput(
-            fieldset = Some(Fieldset(
-                legend = Some(Legend(
-                content = Text(messages(s"${label.getOrElse(fieldName)}")),
-                isPageHeading = true,
-                classes = "govuk-fieldset__legend--m"
-            ))
-            )),
-            hint = Some(Hint(
-                content = HtmlContent(if(isOptional) { Html(messages("help.date.optionalHelpText")) } else {Html(messages(hintMessageKey)) } )
-            )),
-            id = s"${id.getOrElse(fieldName)}_dates",
-            items = Seq("day", "month", "year").map {
-                    item =>
-                        InputItem(
-                        id = s"${id.getOrElse(fieldName).replace(".", "-")}-$item",
-                        classes = s"govuk-input--width-${if(item == "year") "4" else "2"} ${if(form.hasErrors) "govuk-input--error"}",
-                        name =  s"$fieldName.$item",
-                        label = Some(messages(s"label.date.$item")),
-                        value = form(s"$fieldName.$item").value
-                        )
-            },
-            errorMessage = dateErrors
+@govukDateInput(DateInput(
+    fieldset = Some(Fieldset(
+        legend = Some(Legend(
+            content = Text(messages(s"${label.getOrElse(fieldName)}")),
+            isPageHeading = true,
+            classes = "govuk-fieldset__legend--m"
         ))
+    )),
+    hint = Some(Hint(
+        content = HtmlContent(Html(hintMessage))
+    )),
+    id = s"${id.getOrElse(fieldName)}_dates",
+    items = Seq("day", "month", "year").map {
+        item =>
+            InputItem(
+                id = s"${id.getOrElse(fieldName).replace(".", "-")}-$item",
+                classes = s"govuk-input--width-${if(item == "year") "4" else "2"} ${if(form.hasErrors) "govuk-input--error"}",
+                name =  s"$fieldName.$item",
+                label = Some(messages(s"label.date.$item")),
+                value = form(s"$fieldName.$item").value
+            )
+    },
+    errorMessage = dateErrors
+))
 
-    </div>
+</div>

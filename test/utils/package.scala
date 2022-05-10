@@ -85,15 +85,12 @@ package object utils {
   implicit val arbitraryCapacityType = Arbitrary(capacityTypeGen)
 
   val propertyOwnershipGen: Gen[PropertyOwnership] = for {
-    interestedBefore2017 <- arbitrary[Boolean]
+    interestedOnOrBefore <- arbitrary[Boolean]
     fromDate             <- dateAfterApril2017
-    stillInterested      <- arbitrary[Boolean]
-    days                 <- Gen.choose(1, 5000)
-    toDate = fromDate.plusDays(days)
   } yield
     PropertyOwnership(
-      interestedBefore2017 = interestedBefore2017,
-      fromDate = if (interestedBefore2017) None else Some(fromDate),
+      interestedOnOrBefore = interestedOnOrBefore,
+      fromDate = if (interestedOnOrBefore) None else Some(fromDate),
     )
   implicit val arbitrarypropertyOwnership = Arbitrary(propertyOwnershipGen)
 
@@ -107,7 +104,7 @@ package object utils {
       stillOccupied = stillOccupied,
       lastOccupiedDate = Some(las)
     )
-  implicit val arbitrarypropertyOccupancy = Arbitrary(propertyOccupancyGen)
+  implicit val arbitraryPropertyOccupancy = Arbitrary(propertyOccupancyGen)
 
   val propertyRelationshipGen: Gen[PropertyRelationship] = for {
     capacity <- arbitrary[CapacityType]
@@ -391,6 +388,7 @@ package object utils {
     uarn                    <- positiveLong
     submissionId            <- shortString
     personId                <- positiveLong
+    earliestStartDate       <- arbitrary[LocalDate]
     relationship            <- propertyRelationshipGen
     ownership               <- propertyOwnershipGen
     occupancy               <- propertyOccupancyGen
@@ -402,6 +400,7 @@ package object utils {
       uarn = uarn,
       submissionId = submissionId,
       personId = personId,
+      earliestStartDate = earliestStartDate,
       propertyRelationship = Some(relationship),
       propertyOwnership = Some(ownership),
       propertyOccupancy = Some(occupancy),

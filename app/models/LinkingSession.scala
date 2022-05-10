@@ -18,11 +18,14 @@ package models
 
 import play.api.libs.json.Json
 
+import java.time.LocalDate
+
 case class LinkingSession(
       address: String,
       uarn: Long,
       submissionId: String,
       personId: Long,
+      earliestStartDate: LocalDate,
       propertyRelationship: Option[PropertyRelationship],
       propertyOwnership: Option[PropertyOwnership],
       propertyOccupancy: Option[PropertyOccupancy],

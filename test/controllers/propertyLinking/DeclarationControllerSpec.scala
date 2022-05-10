@@ -16,7 +16,6 @@
 
 package controllers.propertyLinking
 
-import java.time.LocalDate
 import cats.data.EitherT
 import cats.instances.future._
 import controllers.VoaPropertyLinkingSpec
@@ -32,6 +31,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.exceptions.attachments._
 import utils.{HtmlPage, _}
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
@@ -39,16 +39,20 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   private val mockLinkingRequestSubmittedView = mock[views.html.linkingRequestSubmitted]
 
   trait Setup {
-    object TestDeclaration
-        extends DeclarationController(
-          mockCustomErrorHandler,
-          mockPropertyLinkingService,
-          mockSessionRepo,
-          preAuthenticatedActionBuilders(isAgent),
-          preEnrichedActionRefiner(uploadEvidenceData, propertyRelationship, isAgent),
-          declarationView,
-          mockLinkingRequestSubmittedView
-        )
+    def testDeclarationController(earliestStartDate: LocalDate) =
+      new DeclarationController(
+        errorHandler = mockCustomErrorHandler,
+        propertyLinkService = mockPropertyLinkingService,
+        sessionRepository = mockSessionRepo,
+        authenticatedAction = preAuthenticatedActionBuilders(isAgent),
+        withLinkingSession = preEnrichedActionRefiner(
+          evidenceData = uploadEvidenceData,
+          relationshipCapacity = propertyRelationship,
+          userIsAgent = isAgent,
+          earliestStartDate = earliestStartDate),
+        declarationView = declarationView,
+        linkingRequestSubmittedView = mockLinkingRequestSubmittedView
+      )
 
     lazy val mockSessionRepo = {
       val f = mock[SessionRepo]
@@ -65,10 +69,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "The declaration page with earliest start date is not in future" should "return valid page" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
+    val res = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
-    val res = TestDeclaration.show()(FakeRequest())
     status(res) shouldBe OK
     val html = HtmlPage(res)
 
@@ -76,14 +78,11 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     html.verifyElementText("page-header", "Check and confirm your details")
     html.verifyElementText("caption", "Add a property")
     html.verifyElementTextByAttribute("id", "start-date-heading", "Started")
-
   }
 
   "The declaration page with earliest start date in future" should "return valid page" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.now().plusDays(1))))
+    val res = testDeclarationController(LocalDate.now.plusYears(1)).show()(FakeRequest())
 
-    val res = TestDeclaration.show()(FakeRequest())
     status(res) shouldBe OK
     val html = HtmlPage(res)
 
@@ -94,16 +93,12 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     html.shouldNotContainText("Do you still")
     html.shouldNotContainText("Does your client still")
     html.shouldNotContainText("Last day as")
-
   }
 
   "The declaration page" should "display the correct summary list keys for an owner IP" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-
     override val isAgent: Boolean = false
 
-    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -113,13 +108,10 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the correct summary list keys for an occupier IP" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-
     override val isAgent: Boolean = false
     override val propertyRelationship: CapacityType = Occupier
 
-    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -129,13 +121,10 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the correct summary list keys for an owner and occupier IP" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-
     override val isAgent: Boolean = false
     override val propertyRelationship: CapacityType = OwnerOccupier
 
-    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -145,10 +134,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the correct summary list keys for an owner agent" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-
-    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -158,12 +144,9 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the correct summary list keys for an occupier agent" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-
     override val propertyRelationship: CapacityType = Occupier
 
-    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -173,12 +156,9 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the correct summary list keys for an owner and occupier agent" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-
     override val propertyRelationship: CapacityType = OwnerOccupier
 
-    val res: Future[Result] = TestDeclaration.show()(FakeRequest())
+    val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
     status(res) shouldBe OK
     val html: HtmlPage = HtmlPage(res)
@@ -189,56 +169,45 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "require the user to accept the declaration to continue" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-    val res = TestDeclaration.submit()(FakeRequest())
+    val res = testDeclarationController(earliestEnglishStartDate).submit()(FakeRequest())
     status(res) shouldBe BAD_REQUEST
   }
 
   it should "require the user to wait until evidence receipt received" in new Setup {
 
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.apply[Future, AttachmentException, Unit](Future.successful(Left(NotAllFilesReadyToUpload))))
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.now().plusDays(1))))
 
-    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    val res = testDeclarationController(earliestEnglishStartDate).submit()(
+      FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) shouldBe BAD_REQUEST
-
   }
 
   it should "submit the property link if the user accepts the declaration" in new Setup {
 
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.now().plusDays(1))))
 
-    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    val res = testDeclarationController(earliestEnglishStartDate).submit()(
+      FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
-    verify(mockPropertyLinkingService, times(1)).submit(any(), any())(any(), any[HeaderCarrier])
+    verify(mockPropertyLinkingService).submit(any(), any())(any(), any[HeaderCarrier])
   }
 
   it should "submit the property link on client behalf if the user accepts the declaration" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     val testDeclaration = new DeclarationController(
-      mockCustomErrorHandler,
-      mockPropertyLinkingService,
-      mockSessionRepo,
-      preAuthenticatedActionBuilders(),
-      preEnrichedActionRefiner(),
-      declarationView,
-      mockLinkingRequestSubmittedView
+      errorHandler = mockCustomErrorHandler,
+      propertyLinkService = mockPropertyLinkingService,
+      sessionRepository = mockSessionRepo,
+      authenticatedAction = preAuthenticatedActionBuilders(),
+      withLinkingSession = preEnrichedActionRefiner(),
+      declarationView = declarationView,
+      linkingRequestSubmittedView = mockLinkingRequestSubmittedView
     )
     val res = testDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) shouldBe SEE_OTHER
@@ -248,59 +217,53 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the normal confirmation page when the user has uploaded a rates bill" in new Setup {
-
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
     when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
       .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
-    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    val res = testDeclarationController(earliestEnglishStartDate).submit()(
+      FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
-    val confirmation = TestDeclaration.confirmation()(FakeRequest())
+    val confirmation = testDeclarationController(earliestEnglishStartDate).confirmation()(FakeRequest())
+
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
     html.shouldContainText("We’ve received your request to add the property to your business’s customer record")
   }
 
   it should "display the normal confirmation page when the user has uploaded other evidence" in new Setup {
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
     when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
       .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
-    val res = TestDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    val res = testDeclarationController(earliestEnglishStartDate).submit()(
+      FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
-    val confirmation = TestDeclaration.confirmation()(FakeRequest())
+    val confirmation = testDeclarationController(earliestEnglishStartDate).confirmation()(FakeRequest())
+
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
     html.shouldContainText("We’ve received your request to add the property to your business’s customer record")
   }
 
   "The confirmation page" should "display the submission ID" in new Setup {
-
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(Some(LocalDate.of(2017, 4, 1))))
-
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
     when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
       .thenReturn(Html("PL-123456"))
 
-    val res = TestDeclaration.confirmation()(FakeRequest())
-    status(res) shouldBe OK
+    val res = testDeclarationController(earliestEnglishStartDate).confirmation()(FakeRequest())
 
+    status(res) shouldBe OK
     contentAsString(res) should include("PL-123456")
   }
-
 }

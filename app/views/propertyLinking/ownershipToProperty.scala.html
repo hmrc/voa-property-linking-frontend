@@ -14,16 +14,12 @@
  * limitations under the License.
  *@
 
-@import actions.requests.BasicAuthenticatedRequest
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import _root_.utils.FrontendComponentHelper._
+@import _root_.utils.Formatters._
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyOwnershipVM
 @import views.html.includes.assessmentHeading
-@import utils.FrontendComponentHelper._
 @import helpers._
-@import utils.Formatters
-@import play.api.data._
 
 @this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukInput: GovukInput, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
@@ -33,20 +29,24 @@
 
 @clientSuffix = @{clientDetails.fold("")(_ => ".client")}
 
-
 @mainLayout(
     pageTitle = messages(s"declareCapacity.title$clientSuffix"),
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
     @if(form.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "fromDate", clientSuffix), title = Text(messages("error.propertyRepresentation.title"))))
+        @govukErrorSummary(
+            ErrorSummary(
+                errorList = formatErrorMessages(form, "fromDate", clientSuffix),
+                title = Text(messages("error.propertyRepresentation.title"))
+            )
+        )
     }
 
     @assessmentHeading(model.localAuthorityReference, model.address)
 
-    <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-1">@messages(s"declareCapacity.title$clientSuffix")</h1>
+    <span class="govuk-caption-l">@messages("caption.add.property")</span>
+    <h1 class="govuk-heading-l">@messages(s"declareCapacity.title$clientSuffix")</h1>
 
     @govukDetails(Details(
         summary = Text(messages(s"declareCapacity.panel.title$clientSuffix")),
@@ -58,27 +58,30 @@
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(
-                    content = Text(messages(s"label.interestedBefore2017$clientSuffix")),
+                    content = Text(messages(s"label.interestedOnOrBefore$clientSuffix")),
                     classes = "govuk-fieldset__legend--m",
                     isPageHeading = true
                 ))
             )),
-            idPrefix = Some("interestedBefore2017"),
-            name = "interestedBefore2017",
+            idPrefix = Some("interestedOnOrBefore"),
+            name = "interestedOnOrBefore",
             items = Seq(
                 RadioItem(
-                    content = Text(messages("interestedBefore2017.true")),
-                    value = Some("true"),
-                    checked = form.data.get("interestedBefore2017").fold(false)(_ == "true")
+                    content = Text(messages("interestedOnOrBefore.true", formatDate(model.onOrBeforeDate))),
+                    value = Some("true")
                 ),
                 RadioItem(
-                    content = Text(messages("interestedBefore2017.false")),
+                    content = Text(messages("interestedOnOrBefore.false", formatDate(model.onOrBeforeDate))),
                     value = Some("false"),
-                    checked = form.data.get("interestedBefore2017").fold(false)(_ == "false"),
-                    conditionalHtml = Some(dateFields(form = form, fieldName = "fromDate", label = Some(s"label.fromDate$clientSuffix")))
+                    conditionalHtml = Some(
+                        dateFields(
+                            form = form,
+                            fieldName = "fromDate",
+                            hintDateOverride = Some(model.onOrBeforeDate.plusDays(1)),
+                            label = Some(s"label.fromDate$clientSuffix")))
                 )
             )
-        ).withFormField(form("interestedBefore2017")))
+        ).withFormField(form("interestedOnOrBefore")))
 
         @govukButton(
             Button(
@@ -86,7 +89,5 @@
                 attributes = Map("id" -> "continue")
             )
         )
-
     }
-
 }

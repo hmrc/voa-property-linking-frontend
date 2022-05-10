@@ -15,13 +15,13 @@
  *@
 
 @import binders.propertylinks._
-@import helpers._
 @import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
 @import models.upscan._
 @import models.RatesBillType
 @import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
+
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(
@@ -61,8 +61,7 @@
 
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
-    <h2 id="caption-add-property" class="govuk-caption-l" >@messages("caption.add.property")</h2>
-
+    <span class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@title</h1>
 
     @govukWarningText(WarningText(

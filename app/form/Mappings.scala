@@ -29,6 +29,9 @@ import play.api.data.validation.Constraints._
 
 import scala.util.Try
 import uk.gov.voa.play.form.ConditionalMappings._
+import utils.Formatters
+import utils.Formatters.formatDate
+import views.helpers.Errors.{dateMustBeAfter, dateMustBeAfter1stApril2017, dateMustBeInPast}
 
 import scala.util.matching.Regex
 
@@ -80,9 +83,18 @@ trait DateMappings {
     .transform({ case (d, m, y) => LocalDate.of(y, m, d) }, d => (d.getDayOfMonth, d.getMonthValue, d.getYear))
 
   val dmyDateAfterThreshold: Mapping[LocalDate] =
-    dmyDate.verifying(Errors.dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
+    dmyDate.verifying(dateMustBeAfter1stApril2017, d => d.isAfter(LocalDate.of(2017, 4, 1)))
 
-  val dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
+  def dmyDateAfterThreshold(thresholdDate: LocalDate): Mapping[LocalDate] = {
+    val constraint =
+      Constraint[LocalDate](dateMustBeAfter, formatDate(thresholdDate)) { date =>
+        if (date.isAfter(thresholdDate)) Valid
+        else Invalid(dateMustBeAfter, formatDate(thresholdDate))
+      }
+    dmyDate.verifying(constraint)
+  }
+
+  val dmyPastDate: Mapping[LocalDate] = dmyDate.verifying(dateMustBeInPast, d => d.isBefore(LocalDate.now))
 
   private def number(min: Int, max: Int) =
     Forms.of[Int](trimmingNumberFormatter).verifying(Constraints.min(min)).verifying(Constraints.max(max))

@@ -14,36 +14,45 @@
  * limitations under the License.
  *@
 
-@import actions.requests.BasicAuthenticatedRequest
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import _root_.utils.FrontendComponentHelper._
 @import config.ApplicationConfig
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import views.html.includes.assessmentHeading
-@import utils.FrontendComponentHelper._
 @import helpers._
-@import utils.Formatters
 @import play.api.data._
 
 @this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[_], clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@clientSuffix = @{clientDetails.fold("")(_ => ".client")}
+@clientSuffix = @{ clientDetails.fold("")(_ => ".client") }
+
+@occupancyStartDateHint = @{
+    request.ses.
+        propertyOwnership.flatMap(_.fromDate)
+        .getOrElse(request.ses.earliestStartDate)
+        .plusDays(1)
+}
 
 @mainLayout(
     pageTitle = messages(s"propertyOccupancy.title$clientSuffix"),
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
+
     @if(form.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "lastOccupiedDate", clientSuffix), title = Text(messages("error.propertyRepresentation.title"))))
+        @govukErrorSummary(
+            ErrorSummary(
+                errorList = formatErrorMessages(form, "lastOccupiedDate", clientSuffix),
+                title = Text(messages("error.propertyRepresentation.title"))
+            )
+        )
     }
 
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
     <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
-    <h1 id="page-header" class="govuk-heading-l govuk-!-margin-bottom-1">@messages(s"propertyOccupancy.title$clientSuffix")</h1>
+    <h1 id="page-header" class="govuk-heading-l">@messages(s"propertyOccupancy.title$clientSuffix")</h1>
 
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOccupancyController.submitOccupancy()) {
 
@@ -52,14 +61,18 @@
             items = Seq(
                 RadioItem(
                     content = Text("Yes"),
-                    value = Some("true"),
-                    checked = form.data.get("stillOccupied").fold(false)(_ == "true")
+                    value = Some("true")
                 ),
                 RadioItem(
-                    conditionalHtml = Some(dateFields(form = form, fieldName = "lastOccupiedDate", label = Some(s"label.lastOccupiedDate$clientSuffix"))),
                     content = Text("No"),
                     value = Some("false"),
-                    checked = form.data.get("stillOccupied").fold(false)(_ == "false")
+                    conditionalHtml = Some(
+                        dateFields(
+                            form = form,
+                            fieldName = "lastOccupiedDate",
+                            hintDateOverride = Some(occupancyStartDateHint),
+                            label = Some(s"label.lastOccupiedDate$clientSuffix")))
+
                 )
             )).withFormField(form("stillOccupied")))
 
@@ -69,7 +82,5 @@
                 attributes = Map("id" -> "continue")
             )
         )
-
     }
-
 }
