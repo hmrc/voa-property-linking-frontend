@@ -22,8 +22,7 @@ import cats.implicits._
 import models._
 import models.propertylinking.requests.PropertyLinkRequest
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito
-import org.mockito.Mockito.{when, _}
+import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import services.ServiceSpec
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
@@ -92,7 +91,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
     }
   }
 
-  trait Setup {
+  trait EarliestStartDateSetup {
     implicit val linkingSession = linkingSessionRequest()
 
     when(mockApplicationConfig.earliestEnglishStartDate).thenReturn(earliestEnglishStartDate)
@@ -101,10 +100,10 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
 
   "find earliest start date" when {
     "property is english" should {
-      "return earliest start date from property history" in new Setup {
+      "return earliest start date from property history" in new EarliestStartDateSetup {
 
         val earliestStartDateOfCurrentList = LocalDate.of(2019, 5, 1)
-        val currentPropertyValuations = Seq(
+        val propertyValuations = Seq(
           propertyValuation1.copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = None),
           propertyValuation1
             .copy(
@@ -121,7 +120,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
               listType = ListType.CURRENT,
               propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(3)))
         )
-        val history = propertyHistory.copy(history = currentPropertyValuations, localAuthorityCode = "1English")
+        val history = propertyHistory.copy(history = propertyValuations, localAuthorityCode = "1English")
 
         when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
 
@@ -131,14 +130,14 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
         verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
       }
 
-      "return default earliest english start date from config" in new Setup {
+      "return default earliest english start date from config" in new EarliestStartDateSetup {
 
-        val currentPropertyValuations = Seq(
+        val propertyValuations = Seq(
           propertyValuation1.copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = None),
           propertyValuation1.copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = None),
           propertyValuation1.copy(listType = ListType.PREVIOUS, propertyLinkEarliestStartDate = None)
         )
-        val history = propertyHistory.copy(history = currentPropertyValuations, localAuthorityCode = "1English")
+        val history = propertyHistory.copy(history = propertyValuations, localAuthorityCode = "1English")
 
         when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
 
@@ -150,10 +149,10 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
     }
 
     "property is welsh" should {
-      "return earliest start date from property history" in new Setup {
+      "return earliest start date from property history" in new EarliestStartDateSetup {
 
         val earliestStartDateOfCurrentList = LocalDate.of(2019, 5, 1)
-        val currentPropertyValuations = Seq(
+        val propertyValuations = Seq(
           propertyValuation1.copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = None),
           propertyValuation1
             .copy(
@@ -170,7 +169,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
               listType = ListType.CURRENT,
               propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(3)))
         )
-        val history = propertyHistory.copy(history = currentPropertyValuations, localAuthorityCode = "6Welsh")
+        val history = propertyHistory.copy(history = propertyValuations, localAuthorityCode = "6Welsh")
 
         when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
 
@@ -180,14 +179,14 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
         verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
       }
 
-      "return default earliest welsh start date from config" in new Setup {
+      "return default earliest welsh start date from config" in new EarliestStartDateSetup {
 
-        val currentPropertyValuations = Seq(
+        val propertyValuations = Seq(
           propertyValuation1.copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = None),
           propertyValuation1.copy(listType = ListType.CURRENT, propertyLinkEarliestStartDate = None),
           propertyValuation1.copy(listType = ListType.PREVIOUS, propertyLinkEarliestStartDate = None)
         )
-        val history = propertyHistory.copy(history = currentPropertyValuations, localAuthorityCode = "6Welsh")
+        val history = propertyHistory.copy(history = propertyValuations, localAuthorityCode = "6Welsh")
 
         when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
 
