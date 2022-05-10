@@ -20,7 +20,9 @@
 
 @import views.html.dvr.challengeCasesDetails
 @import views.html.dvr.checkCasesDetails
-@import utils.Formatters
+@import models.dvr.cases.check.{CheckType, StartCheckForm}
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import _root_.utils.Formatters
 
 @this(
   mainLayout: views.html.mainLayout,
@@ -29,38 +31,42 @@
   govukWarningText: GovukWarningText,
   govukTable: GovukTable,
   govukTabs: GovukTabs,
-  govukSummaryList: GovukSummaryList
+  govukSummaryList: GovukSummaryList,
+  govukRadios: GovukRadios,
+  govukErrorSummary: GovukErrorSummary,
+  formWithCSRF: FormWithCSRF
 )
 
-@(model: AvailableRequestDetailedValuation,
-        submissionId: String,
-        owner: Boolean,
-        authorisationId: Long,
-        clientOrgName: Option[String],
-        backUrl: String,
-        startCheckUrl: String,
-        checksAndChallenges: Option[(List[CaseDetails], List[CaseDetails])])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @address = @{Formatters.capitalisedAddress(model.address)}
-@checkCases = @{checksAndChallenges.fold(List[CaseDetails]())(_._1)}
-@challengeCases = @{checksAndChallenges.fold(List[CaseDetails]())(_._2)}
+@checkCases = @{model.checksAndChallenges.fold(List[CaseDetails]())(_._1)}
+@challengeCases = @{model.checksAndChallenges.fold(List[CaseDetails]())(_._2)}
 
 @evaluateRoute(t: String) = @{
-    if(owner) {
-        controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailedValuationRequestFile(submissionId, model.valuationId, t).url
+    if(model.owner) {
+        controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailedValuationRequestFile(model.submissionId, model.valuationId, t).url
     } else {
-        controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailedValuationRequestFile(submissionId, model.valuationId, t).url
+        controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailedValuationRequestFile(model.submissionId, model.valuationId, t).url
     }
 }
 
   @titleCaption = @{
-    if (owner) {
+    if (model.owner) {
         messages("available.requestvaluation.ip.titleCaption")
     } else {
-        messages("available.requestvaluation.agent.titleCaption", clientOrgName.getOrElse(""))
+        messages("available.requestvaluation.agent.titleCaption", model.clientOrgName)
     }
   }
+
+@helpWithStartingCheckCaseContent = {
+    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p1")</p>
+    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p2")</p>
+    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p3")</p>
+    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p4")</p>
+    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p5")</p>
+}
 
 @valuationTabContent = {
     <div class="govuk-grid-row">
@@ -84,13 +90,90 @@
                     content = Text(messages("available.requestvaluation.warning"))
                 ))
 
-                @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl), attributes = Map("id" -> "valuationtab-start-check")))
+                @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some("#start-check-tab"), attributes = Map("id" -> "valuationtab-start-check")))
             }
         </div>
     </div>
 }
 
+@startCheckTabContent = {
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h2 class="govuk-heading-l">@messages("available.requestvaluation.startCheckTab.heading")</h2>
 
+            @govukDetails(Details(
+                id = Some("help-starting-check-case"),
+                summary = Text(messages("available.requestvaluation.startCheckTab.guidance.summary")),
+                content = HtmlContent(helpWithStartingCheckCaseContent),
+                classes = "govuk-!-margin-top-6"
+            ))
+
+            @formWithCSRF(action = if(model.owner) {
+                controllers.detailedvaluationrequest.routes.DvrController.myOrganisationStartCheck(model.submissionId,model.valuationId, model.uarn)
+            } else {
+                controllers.detailedvaluationrequest.routes.DvrController.myClientsStartCheck(model.submissionId,model.valuationId, model.uarn)
+            } , 'id -> "checkType-form") {
+
+                @govukRadios(Radios(
+                    fieldset = Some(Fieldset(
+                        legend = Some(Legend(
+                            content = Text(messages("available.requestvaluation.startCheckTab.question")),
+                            classes = "govuk-fieldset__legend--m",
+                            isPageHeading = false
+                        ))
+                    )),
+                    idPrefix = Some("checkType_"),
+                    name = "checkType",
+                    items = Seq(
+                        RadioItem(
+                            id = Some("checkType_internal"),
+                            content = Text(messages("available.requestvaluation.startCheckTab.option1.content")),
+                            value = Some(CheckType.Internal.value),
+                            hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option1.hint"))))
+                        ),
+                        RadioItem(
+                            id = Some("checkType_remove"),
+                            content = Text(messages("available.requestvaluation.startCheckTab.option2.content")),
+                            value = Some(CheckType.Remove.value )
+                        ),
+                        RadioItem(
+                            id = Some("checkType_split"),
+                            content = Text(messages("available.requestvaluation.startCheckTab.option3.content")),
+                            value = Some(CheckType.Split.value)
+                        ),
+                        RadioItem(
+                            id = Some("checkType_merge"),
+                            content = Text(messages("available.requestvaluation.startCheckTab.option4.content")),
+                            value = Some(CheckType.Merge.value)
+                        ),
+                        RadioItem(
+                            id = Some("checkType_external"),
+                            content = Text(messages("available.requestvaluation.startCheckTab.option5.content")),
+                            value = Some(CheckType.External.value),
+                            hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option5.hint"))))
+                        ),
+                        RadioItem(
+                            id = Some("checkType_legalDecision"),
+                            content = Text(messages("available.requestvaluation.startCheckTab.option6.content")),
+                            value = Some(CheckType.LegalDecision.value)
+                        )
+                    )
+                ).withFormField(startCheckForm("checkType")))
+
+                <input type="hidden" name="propertyLinkSubmissionId" value="@model.submissionId">
+                <input type="hidden" name="authorisationId" value="@model.authorisationId">
+                <input type="hidden" name="uarn" value="@model.uarn">
+                <input type="hidden" name="dvrCheck" value="false">
+                <input type="hidden" name="isOwner" value="@model.owner">
+
+                    @govukButton(Button(
+                        content = Text(messages("available.requestvaluation.startCheckTab.button.title")),
+                        attributes = Map("id" -> "start-check_start-check-tab")
+                    ))
+                }
+        </div>
+    </div>
+}
 
 @checkCasesTabTitle = @{
     if(checkCases.isEmpty){
@@ -101,11 +184,11 @@
 }
 
 @checkCasesTabContent = @{
-    checkCasesDetails(submissionId, owner, model.uarn, authorisationId, model.valuationId, checkCases, evaluateRoute(model.check), startCheckUrl)(govukButton, govukTable, govukDetails, govukWarningText)
+    checkCasesDetails(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, checkCases, evaluateRoute(model.check), "#start-check-tab")(govukButton, govukTable, govukDetails, govukWarningText)
 }
 
 @challengeCasesTabContent = {
-    @challengeCasesDetails(authorisationId, challengeCases, owner, submissionId)(govukTable)
+    @challengeCasesDetails(model.authorisationId, challengeCases, model.owner, model.submissionId)(govukTable)
 }
 
 @tabs = @{
@@ -114,6 +197,13 @@
         label = messages("available.requestvaluation.valuationTab.title"),
         panel = TabPanel(
             content = HtmlContent(valuationTabContent)
+        )
+    )
+    val startCheck: TabItem = TabItem(
+        id = Some("start-check-tab"),
+        label = messages("available.requestvaluation.startCheckTab.title"),
+        panel = TabPanel(
+            content = HtmlContent(startCheckTabContent)
         )
     )
     val check: TabItem = TabItem(
@@ -133,12 +223,24 @@
 
     Seq(
         Some(valuation),
+        Some(startCheck).filterNot(_ => model.isDraftList),
         Some(check).filterNot(_ => model.isDraftList),
         Some(challenge).filterNot(_ => model.isDraftList || challengeCases.isEmpty)
     ).flatten
 }
 
-@mainLayout(pageTitle = address, backUri = Some(backUrl), mainClass = Some("govuk-grid-column-full")) {
+@mainLayout(pageTitle = address, backUri = Some(model.backUrl), mainClass = Some("govuk-grid-column-full")) {
+
+    @if(startCheckForm.hasErrors){
+        @govukErrorSummary(ErrorSummary(
+            errorList = startCheckForm.errors.headOption.map(e => ErrorLink(
+                href = Some("#checkType_internal"),
+                content = Text(messages(e.message)),
+                attributes = Map("id" -> "error-link"))
+            ).toList,
+            title = Text(messages("error.summary.title")),
+            attributes = Map("id" -> "error-summary")))
+    }
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -168,4 +270,15 @@
     <p class="govuk-body"><a rel="nofollow" href="javascript:window.print()" class="govuk-link print-link">@messages("available.requestvaluation.print")</a></p>
     <br/>
 
+    @for(activeTabId <- model.activeTabId) {
+        <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            location.hash = "@activeTabId";
+            @if(startCheckForm.hasErrors){
+            @* https://stackoverflow.com/a/2099337/81520 setTimeout makes focus() work *@
+            setTimeout(function (){document.getElementById("error-summary").focus();}, 0);
+            }
+        });
+      </script>
+    }
 }
