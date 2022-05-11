@@ -130,7 +130,9 @@
                         content = valueWithId(messages("declaration.checkAnswers.startDateHeading"), "start-date-heading"),
                     ),
                     value = Value(
-                        content = valueWithId(propertyOwnershipFromDate.fold(messages("declaration.checkAnswers.startDate.before2017"))(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))), "start-date-value")
+                        content = valueWithId(propertyOwnershipFromDate
+                                .getOrElse(request.ses.earliestStartDate)
+                                .format(DateTimeFormatter.ofPattern("d MMMM yyyy")), "start-date-value")
                     ),
                     actions = Some(Actions(
                         items = Seq(
