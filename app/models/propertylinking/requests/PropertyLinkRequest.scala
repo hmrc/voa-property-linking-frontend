@@ -39,15 +39,15 @@ object PropertyLinkRequest {
 
   def apply(session: LinkingSession, organisationId: Long): PropertyLinkRequest =
     PropertyLinkRequest(
-      session.uarn,
-      organisationId,
-      session.personId,
-      Capacity(session),
-      Instant.now,
-      session.uploadEvidenceData.linkBasis,
-      session.uploadEvidenceData.fileInfo.toList,
-      session.uploadEvidenceData.attachments.toList.flatMap(_.keys),
-      session.submissionId,
-      session.clientDetails.map(_.organisationId)
+      uarn = session.uarn,
+      organisationId = organisationId,
+      individualId = session.personId,
+      capacityDeclaration = Capacity(session),
+      linkedDate = Instant.now,
+      linkBasis = session.uploadEvidenceData.linkBasis,
+      fileInfo = session.uploadEvidenceData.fileInfo.toList,
+      references = session.uploadEvidenceData.attachments.toList.flatMap(_.keys),
+      submissionId = session.submissionId,
+      clientId = session.clientDetails.map(_.organisationId)
     )
 }
