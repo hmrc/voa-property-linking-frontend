@@ -32,11 +32,11 @@
                  $(document).prop('title', errorTitlePrefix + title);
              }
              if(!$('.govuk-error-summary__list').length){
-                 $(errorMessages).insertBefore("h1");
+                 $("#page-error-summary").append(errorMessages);
                  $('#error-summary').focus();
              }else{
-                 if(!$('#error-summary').text().indexOf('Enter a valid postcode')){
-                    $('.govuk-error-summary__list').append('<li><a href="#postcodeSearch">'+ messages.errors.postcodeLookupError +'</a></li>');
+                 if(!$('#page-error-summary').text().indexOf('Enter a valid postcode')){
+                    $('#page-error-summary #error-summary .govuk-error-summary__list').append('<li><a href="#postcodeSearch">'+ messages.errors.postcodeLookupError +'</a></li>');
                  }
              }
 

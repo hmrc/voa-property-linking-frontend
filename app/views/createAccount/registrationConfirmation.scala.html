@@ -29,7 +29,8 @@
 
 @(id: String, affinityGroup: AffinityGroup, credentialRole: CredentialRole)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(pageTitle = messages("account.confirmation.title"), showTopNavigation = false) {
+@mainLayout(
+pageTitle = messages("account.confirmation.title"), showTopNavigation = false) {
 
         <div class="govuk-panel govuk-panel--confirmation">
             <h1 class="govuk-panel__title">

@@ -32,7 +32,9 @@
     if(selected) """checked="checked""" else """ disabled="disabled" """
 }
 
-@mainLayout(pageTitle = messages("enrolment.title"), showTopNavigation = false) {
+@mainLayout(pageTitle = messages("enrolment.title"),
+showTopNavigation = false,
+hasErrors = form.hasErrors) {
 
         @if(form.errors.nonEmpty) {
             @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "dob"), title = Text(messages("error.propertyRepresentation.title"))))

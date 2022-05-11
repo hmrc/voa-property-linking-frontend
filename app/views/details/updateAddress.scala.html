@@ -31,8 +31,9 @@
     hasErrors = model.form.hasErrors
 ) {
 
-    @formErrorSummary(model.form)(govukErrorSummary)
-
+    <div id="page-error-summary">
+        @formErrorSummary(model.form)(govukErrorSummary)
+    </div>
     <h1 class="govuk-heading-l">@messages("updateAddress.title")</h1>
 
     @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateAddress()) {
