@@ -25,11 +25,15 @@ object FrontendComponentHelper {
 
   def formatErrorMessages(form: Form[_], fieldName: String, messagesKeySuffix: String = "")(
         implicit messages: Messages): Seq[ErrorLink] = {
+
+    def isDateFieldErrorsExists(error: FormError, fieldName: String) =
+      Seq(fieldName, s"$fieldName.day", s"$fieldName.month", s"$fieldName.year").contains(error.key)
+
     //Merge date mapper individual filed errors(date, month and year) into one common date error to avoid duplicate messages
     form.errors
       .map { error =>
         {
-          if (Seq(s"$fieldName.day", s"$fieldName.month", s"$fieldName.year").contains(error.key))
+          if (isDateFieldErrorsExists(error, fieldName))
             FormError(s"$fieldName", Seq("error.common.invalid.date"))
           else
             error
@@ -38,7 +42,7 @@ object FrontendComponentHelper {
       .toSet
       .map { error: FormError =>
         ErrorLink(
-          href = Some(s"#${error.key}-day"),
+          href = if (isDateFieldErrorsExists(error, fieldName)) Some(s"#${error.key}-day") else Some(s"#${error.key}"),
           content = HtmlContent(
             s"${messages(s"label.${error.key}$messagesKeySuffix")} - ${messages(error.message, error.args.map(_.toString): _*)}")
         )

@@ -27,11 +27,17 @@
 
 @(form: Form[IndividualUserAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(pageTitle = messages("enrolment.title"), showTopNavigation = false) {
+@mainLayout(
+pageTitle = messages("enrolment.title"),
+showTopNavigation = false,
+hasErrors = form.hasErrors) {
 
-            @if(form.errors.nonEmpty) {
-                @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "dob"), title = Text(messages("error.propertyRepresentation.title"))))
-            }
+
+            <div id="page-error-summary">
+                @if(form.errors.nonEmpty) {
+                        @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "dob"), title = Text(messages("error.propertyRepresentation.title"))))
+                }
+            </div>
 
             <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
 

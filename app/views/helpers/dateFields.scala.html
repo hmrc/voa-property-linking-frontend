@@ -28,7 +28,7 @@
     hintDateOverride.fold(messages(hintMessageKey))(dt => messages("help.date.override", formatDateHint(dt)))
 }
 
-<div id="@{id.getOrElse(s"${fieldName}-group")}">
+<div id="@{id.getOrElse(s"${fieldName}")}">
 @govukDateInput(DateInput(
     fieldset = Some(Fieldset(
         legend = Some(Legend(
@@ -45,7 +45,7 @@
         item =>
             InputItem(
                 id = s"${id.getOrElse(fieldName).replace(".", "-")}-$item",
-                classes = s"govuk-input--width-${if(item == "year") "4" else "2"} ${if(form.hasErrors) "govuk-input--error"}",
+                classes = s"govuk-input--width-${if(item == "year") "4" else "2"} ${if(dateErrors.nonEmpty) "govuk-input--error"}",
                 name =  s"$fieldName.$item",
                 label = Some(messages(s"label.date.$item")),
                 value = form(s"$fieldName.$item").value
