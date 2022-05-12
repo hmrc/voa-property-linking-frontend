@@ -17,7 +17,6 @@
 package utils
 
 import connectors.PropertyRepresentationConnector
-import models._
 import models.searchApi.{AgentAuthResult, AgentAuthorisation}
 import org.mockito.Mockito.mock
 import uk.gov.hmrc.http.HeaderCarrier
