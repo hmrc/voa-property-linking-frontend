@@ -29,7 +29,6 @@ import play.api.data.validation.Constraints._
 
 import scala.util.Try
 import uk.gov.voa.play.form.ConditionalMappings._
-import utils.Formatters
 import utils.Formatters.formatDate
 import views.helpers.Errors.{dateMustBeAfter, dateMustBeAfter1stApril2017, dateMustBeInPast}
 

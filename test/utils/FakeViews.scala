@@ -16,13 +16,8 @@
 
 package utils
 
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{mock, when}
-import play.twirl.api.Html
-import uk.gov.hmrc.govukfrontend.views.html.components.{FormWithCSRF, GovukButton, GovukDateInput, GovukDetails, GovukErrorSummary, GovukRadios}
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
-import views.html.createAccount.confirmation
-import views.html.dvr.{alreadyRequestedDetailedValuation, cannotRaiseChallenge, dvrFiles, requestDetailedValuation, requestedDetailedValuation}
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import views.html.dvr._
 import views.html.errors.propertyMissing
 import views.html.propertyrepresentation.appoint.appointAgentSummary
 import views.html.registration._

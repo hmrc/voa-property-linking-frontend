@@ -36,11 +36,14 @@
 }
 
 @clientSuffix = @{request.ses.clientDetails.fold("")(_ => ".client")}
+
 @isAgent = @{ request.ses.clientDetails.map(_.organisationId) match {
         case Some(id) => true
         case _ => false
     }
 }
+
+@dateFormatter = @{ DateTimeFormatter.ofPattern("d MMMM yyyy") }
 
 @earliestStartDateInPast = @{ LocalDate.now.isAfter(request.ses.earliestStartDate) }
 
@@ -95,7 +98,6 @@
     <h1 id="page-header" class="govuk-heading-l">@messages("declaration.title")</h1>
 
     @formWithCSRF(action = controllers.propertyLinking.routes.DeclarationController.submit()) {
-
         @govukSummaryList(SummaryList(
             rows = Seq(
                 SummaryListRow(
@@ -130,9 +132,12 @@
                         content = valueWithId(messages("declaration.checkAnswers.startDateHeading"), "start-date-heading"),
                     ),
                     value = Value(
-                        content = valueWithId(propertyOwnershipFromDate
-                                .getOrElse(request.ses.earliestStartDate)
-                                .format(DateTimeFormatter.ofPattern("d MMMM yyyy")), "start-date-value")
+                        content = valueWithId(
+                            value = propertyOwnershipFromDate
+                                .fold(messages("declaration.checkAnswers.startDate.onOrBefore",
+                                        request.ses.earliestStartDate.format(dateFormatter)))
+                                    (_.format(dateFormatter)),
+                            id = "start-date-value")
                     ),
                     actions = Some(Actions(
                         items = Seq(
@@ -175,7 +180,7 @@
                     ),
                     value = Value(
                         content =
-                            valueWithId(propertyLastOccupiedDate.fold("")(_.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))), "end-date-value")
+                            valueWithId(propertyLastOccupiedDate.fold("")(_.format(dateFormatter)), "end-date-value")
                     ),
                     actions = Some(Actions(
                         items = Seq(
