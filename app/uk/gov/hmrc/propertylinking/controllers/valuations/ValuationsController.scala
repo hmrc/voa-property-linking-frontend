@@ -20,6 +20,7 @@ import java.net.URLEncoder
 import java.time.LocalDate
 import actions.AuthenticatedAction
 import actions.assessments.WithAssessmentsPageSessionRefiner
+import actions.assessments.request.AssessmentsPageSessionRequest
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{AssessmentsVM, PropertyLinkingController}
@@ -141,21 +142,19 @@ class ValuationsController @Inject()(
           .url -> assessment
     }
 
-  private def calculateBackLink(submissionId: String)(implicit hc: HeaderCarrier): Future[String] =
-    sessionRepo.get[AssessmentsPageSession].flatMap {
-      case None => Future.successful(config.dashboardUrl("home"))
-      case Some(sessionData) =>
-        sessionData.previousPage match {
-          case PreviousPage.AllClients => Future.successful(config.dashboardUrl("client-properties"))
-          case PreviousPage.SelectedClient =>
-            propertyLinks.clientPropertyLink(submissionId).map {
-              case None =>
-                throw new IllegalArgumentException(s"Client not fount for propertyLinkSubmissionId: $submissionId")
-              case Some(clientPropertyLink) =>
-                config.dashboardUrl(
-                  s"selected-client-properties?clientOrganisationId=${clientPropertyLink.client.organisationId}&clientName=${URLEncoder
-                    .encode(clientPropertyLink.client.organisationName, "UTF-8")}&pageNumber=1&pageSize=15&sortField=ADDRESS&sortOrder=ASC")
-            }
+  private def calculateBackLink(
+        submissionId: String)(implicit request: AssessmentsPageSessionRequest[_], hc: HeaderCarrier): Future[String] =
+    request.sessionData.previousPage match {
+      case PreviousPage.Dashboard  => Future.successful(config.dashboardUrl("home"))
+      case PreviousPage.AllClients => Future.successful(config.dashboardUrl("client-properties"))
+      case PreviousPage.SelectedClient =>
+        propertyLinks.clientPropertyLink(submissionId).map {
+          case None =>
+            throw new IllegalArgumentException(s"Client not fount for propertyLinkSubmissionId: $submissionId")
+          case Some(clientPropertyLink) =>
+            config.dashboardUrl(
+              s"selected-client-properties?clientOrganisationId=${clientPropertyLink.client.organisationId}&clientName=${URLEncoder
+                .encode(clientPropertyLink.client.organisationName, "UTF-8")}&pageNumber=1&pageSize=15&sortField=ADDRESS&sortOrder=ASC")
         }
     }
 }

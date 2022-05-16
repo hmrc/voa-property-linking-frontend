@@ -25,6 +25,7 @@ object PreviousPage extends Enumeration {
   val AllClients = Value("AllClients")
   val SelectedClient = Value("SelectedClient")
   val MyProperties = Value("MyProperties")
+  val Dashboard = Value("Dashboard")
 
   implicit val format = JsonUtils.enumFormat(PreviousPage)
 }
