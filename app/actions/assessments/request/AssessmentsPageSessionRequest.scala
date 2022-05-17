@@ -16,7 +16,7 @@
 
 package actions.assessments.request
 
-import actions.requests.CcaWrappedRequest
+import actions.requests.{BasicAuthenticatedRequest, CcaWrappedRequest}
 import models.assessments.AssessmentsPageSession
 import models.assessments.PreviousPage.PreviousPage
 import models.{Accounts, DetailedIndividualAccount, GroupAccount}
@@ -36,4 +36,15 @@ case class AssessmentsPageSessionRequest[A](
   def personId: Long = individualAccount.individualId
 
   def previousPage: PreviousPage = sessionData.previousPage
+}
+
+object AssessmentsPageSessionRequest {
+  def apply[A](
+        assessmentsPageSession: AssessmentsPageSession,
+        basicAuthenticatedRequest: BasicAuthenticatedRequest[A]): AssessmentsPageSessionRequest[A] =
+    AssessmentsPageSessionRequest(
+      assessmentsPageSession,
+      basicAuthenticatedRequest.individualAccount,
+      basicAuthenticatedRequest.organisationAccount,
+      basicAuthenticatedRequest)
 }

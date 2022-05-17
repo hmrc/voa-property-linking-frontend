@@ -24,7 +24,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.{BeforeAndAfterEach, Inside}
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.libs.json.{JsSuccess, Json, OFormat}
+import play.api.libs.json._
 import play.api.mvc.{AnyContent, Result, Results}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -81,13 +81,16 @@ class WithAssessmentsPageSessionRefinerSpec
       }
     }
 
-    "return 404" when {
+    "return OK with Dashboard set as previousPage in the sessionData" when {
       "there's no active session found for the user" in new Setup {
 
         when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
           .thenReturn(Future.successful(None))
 
-        status(refiner.invokeBlock(basicRequest, actionThatReturnsEnrichedFieldsAsJson)) shouldBe NOT_FOUND
+        val res: Future[Result] = refiner.invokeBlock(basicRequest, actionThatReturnsEnrichedFieldsAsJson)
+
+        status(res) shouldBe OK
+        (contentAsJson(res) \ "sessionData" \ "previousPage").get shouldBe JsString("Dashboard")
       }
     }
   }

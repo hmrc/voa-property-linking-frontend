@@ -20,9 +20,8 @@ import actions.assessments.request.AssessmentsPageSessionRequest
 import actions.requests.BasicAuthenticatedRequest
 
 import javax.inject.{Inject, Named}
-import models.assessments.AssessmentsPageSession
+import models.assessments.{AssessmentsPageSession, PreviousPage}
 import play.api.libs.json.Reads
-import play.api.mvc.Results._
 import play.api.mvc._
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
@@ -43,8 +42,7 @@ class WithAssessmentsPageSessionRefiner @Inject()(
   override protected def refine[A](
         request: BasicAuthenticatedRequest[A]): Future[Either[Result, AssessmentsPageSessionRequest[A]]] =
     sessionRepository.get[AssessmentsPageSession](implicitly[Reads[AssessmentsPageSession]], hc(request)).map {
-      case Some(s) =>
-        Right(AssessmentsPageSessionRequest(s, request.individualAccount, request.organisationAccount, request))
-      case None => Left(NotFound(errorHandler.notFoundTemplate(request)))
+      case Some(s) => Right(AssessmentsPageSessionRequest(s, request))
+      case None    => Right(AssessmentsPageSessionRequest(AssessmentsPageSession(PreviousPage.Dashboard), request))
     }
 }
