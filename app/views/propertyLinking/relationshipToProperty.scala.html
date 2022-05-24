@@ -53,12 +53,10 @@
 
     @govukDetails(Details(
         summary = Text(messages(s"declareCapacity.details.ownerOrOccupier$clientSuffix")),
-        content = HtmlContent(Html(Messages(s"declareCapacity.details.ownerOrOccupier.text$clientSuffix"))),
-        classes = "govuk-!-margin-top-6"))
+        content = HtmlContent(Html(Messages(s"declareCapacity.details.ownerOrOccupier.text$clientSuffix")))))
     @govukDetails(Details(
         summary = Text(messages(s"declareCapacity.details.notOwner$clientSuffix")),
-        content = HtmlContent(Html(Messages(s"declareCapacity.details.notOwner.text$clientSuffix"))),
-        classes = "govuk-!-margin-top-6"))
+        content = HtmlContent(Html(Messages(s"declareCapacity.details.notOwner.text$clientSuffix")))))
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyRelationshipController.submitRelationship(model.uarn, clientDetails)) {
         @govukRadios(Radios(
             fieldset = Some(Fieldset(

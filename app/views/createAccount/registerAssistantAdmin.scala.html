@@ -24,7 +24,7 @@
 @import views.html._
 @import utils.FrontendComponentHelper._
 
-@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, dateFields: dateFields, formWithCSRF: FormWithCSRF)
+@this(mainLayout: mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, dateFields: dateFields, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AdminInExistingOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 

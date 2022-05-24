@@ -56,18 +56,11 @@ trait FakeViews extends GdsComponents {
   lazy val cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout, govukButton)
   lazy val propertyMissingView = new propertyMissing(mainLayout)
 
-  lazy val startView = new start(mainLayout, govukInsetText, govukDetails, govukButton)
+  lazy val startView = new start(mainLayout, govukInsetText, govukButton)
   lazy val startViewOld = new startOldJourney(mainLayout, govukInsetText, govukDetails)
-  lazy val doYouHaveAccountView = new doYouHaveAccount(
-    mainLayout,
-    govukInsetText,
-    govukDetails,
-    govukButton,
-    govukRadios,
-    formWithCSRF,
-    govukErrorSummary)
-  lazy val accountTypeView =
-    new accountType(mainLayout, govukInsetText, govukDetails, govukButton, govukRadios, formWithCSRF, govukErrorSummary)
+  lazy val doYouHaveAccountView =
+    new doYouHaveAccount(mainLayout, govukButton, govukRadios, formWithCSRF, govukErrorSummary)
+  lazy val accountTypeView = new accountType(mainLayout, govukButton, govukRadios, formWithCSRF, govukErrorSummary)
   lazy val addUsertoGGView = new addUserToGG(mainLayout)
   lazy val assessmentsView = new views.html.dashboard.assessments(mainLayout, govukDetails)
   lazy val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
@@ -75,7 +68,6 @@ trait FakeViews extends GdsComponents {
 
   lazy val registerIndividualView = new views.html.createAccount.registerIndividual(
     mainLayout,
-    govukInsetText,
     govukDetails,
     govukErrorSummary,
     govukInput,
@@ -97,27 +89,19 @@ trait FakeViews extends GdsComponents {
 
   lazy val registerAssistantAdminView = new views.html.createAccount.registerAssistantAdmin(
     mainLayout,
-    govukInsetText,
-    govukDetails,
     govukErrorSummary,
     govukInput,
     govukButton,
     dateFields,
     formWithCSRF)
 
-  lazy val registerAssistantView = new views.html.createAccount.registerAssistant(
-    mainLayout,
-    govukInsetText,
-    govukDetails,
-    govukErrorSummary,
-    govukInput,
-    govukButton,
-    formWithCSRF)
+  lazy val registerAssistantView =
+    new views.html.createAccount.registerAssistant(mainLayout, govukErrorSummary, govukInput, govukButton, formWithCSRF)
 
   lazy val registerConfirmationView =
-    new views.html.createAccount.registrationConfirmation(mainLayout, govukInsetText, govukDetails, govukButton)
+    new views.html.createAccount.registrationConfirmation(mainLayout, govukButton)
   lazy val confirmationView =
-    new views.html.createAccount.confirmation(mainLayout, govukInsetText, govukDetails, govukButton, govukPanel)
+    new views.html.createAccount.confirmation(mainLayout, govukInsetText, govukButton, govukPanel)
 
   lazy val revokeAgentSummaryView =
     new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, govukButton, govukPanel)
@@ -194,20 +178,16 @@ trait FakeViews extends GdsComponents {
   lazy val managedByAgentsPropertiesView = new views.html.dashboard.managedByAgentsProperties(mainLayout)
   lazy val termsAndConditionsView = new views.html.createAccount.termsAndConditions(mainLayout)
   lazy val occupanyOfPropertyPage = new views.html.propertyLinking.occupancyOfProperty(
-    govukErrorSummary: GovukErrorSummary,
-    govukDetails: GovukDetails,
-    govukRadios: GovukRadios,
-    govukButton: GovukButton,
-    dateFields: dateFields,
-    mainLayout: views.html.mainLayout,
-    formWithCSRF: FormWithCSRF
-  )
+    govukErrorSummary,
+    govukRadios,
+    govukButton,
+    dateFields,
+    mainLayout,
+    formWithCSRF)
 
   lazy val uploadRatesBillView = new views.html.propertyLinking.uploadRatesBill(
     govukErrorSummary,
     govukWarningText,
-    govukSelect,
-    govukDetails,
     govukButton,
     mainLayout,
     formWithCSRF)

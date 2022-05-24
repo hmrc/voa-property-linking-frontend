@@ -21,7 +21,7 @@
 @import helpers._
 @import play.api.data._
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[_], clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
