@@ -87,7 +87,9 @@
                 }
                 <div class="govuk-form-group">
                     <label class="govuk-label--m" for="newFileButton">@messages("common.uploadFile.label")
-                    <span id="fileTypesText" class="govuk-hint">@messages("uploadFile.allowedTypes.l1")</span>
+                       <div id="fileTypesText" class="govuk-hint">
+                         @messages("uploadFile.allowedTypes.l1")
+                       </div>
                     </label>
                     <input id="newFileButton" class="govuk-file-upload" name="file-upload-1" type="file">
                 </div>
@@ -100,20 +102,25 @@
         }
 
         <div class="message-warning govuk-visually-hidden" id="message-warning"><p class="govuk-body">@messages("fileupload.pleaseWait")</p></div>
-        <table class="govuk-table">
-            <tbody class="govuk-table__body">
-            @uploadedFiles.map { case (fileReference, upload) =>
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell">@{upload.fileMetadata.toDisplayFileName}</td>
-                <td class="govuk-table__cell">
-                    <button id="remove-file" type="submit" class="govuk-button govuk-button--secondary" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)">
-                    @Messages("remove.file")
-            </button>
-            </td>
-            </tr>
-            }
-            </tbody>
-        </table>
+
+      @if(uploadedFiles.nonEmpty) {
+          <table class="govuk-table">
+              <tbody class="govuk-table__body">
+              @uploadedFiles.map { case (fileReference, upload) =>
+              <tr class="govuk-table__row">
+                  <td class="govuk-table__cell">@{
+                      upload.fileMetadata.toDisplayFileName
+                  }</td>
+                  <td class="govuk-table__cell">
+                      <button id="remove-file" type="submit" class="govuk-button govuk-button--secondary" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)">
+                      @Messages("remove.file")
+              </button>
+              </td>
+              </tr>
+              }
+              </tbody>
+          </table>
+      }
     }
     @formWithCSRF(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
         @govukButton(Button(
