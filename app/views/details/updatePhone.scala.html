@@ -16,12 +16,10 @@
 
 
 @import helpers._
-@import _root_.template.FormSupport._
 
 @import controllers.manageDetails.UpdateDetailsVM
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
 @this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
 
@@ -29,7 +27,7 @@
 
 @mainLayout(
     pageTitle = Messages("updatePhone.title"),
-    backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url),
+    backUri = Some(manageDetails.routes.ViewDetails.show.url),
     hasErrors = model.form.hasErrors
 ){
 
@@ -37,7 +35,7 @@
 
     <h1 class="govuk-heading-l">@messages("updatePhone.title")</h1>
 
-    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updatePhone()) {
+    @formWithCSRF(manageDetails.routes.UpdatePersonalDetails.updatePhone()) {
 
         @govukInput(Input(
             value = model.form("phone").value.orElse(Some(model.currentDetails.phone1)),

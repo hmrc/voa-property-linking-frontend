@@ -127,9 +127,8 @@
     @govukDetails(Details(
         id = Some("whenYouMayChallengeDetails"),
         summary = Text(messages("challengeRules.summary")),
-        content = HtmlContent(detailContent),
-        attributes = Map("style" -> "margin-top: 1em"))
-    )
+        content = HtmlContent(detailContent)
+    ))
 
     @govukTable(Table(
         rows = rows,

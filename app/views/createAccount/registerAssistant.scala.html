@@ -24,7 +24,7 @@
 @import views.html.mainLayout
 @import views.html._
 
-@this( mainLayout: mainLayout, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
+@this( mainLayout: mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AssistantUserAccountDetails], assistantFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 

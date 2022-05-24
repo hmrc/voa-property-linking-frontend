@@ -22,7 +22,7 @@
 @import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
 
-@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukSelect: GovukSelect, govukDetails : GovukDetails, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(
         submissionId: String,
@@ -41,7 +41,7 @@
 @mainLayout(
     pageTitle = title,
     backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url),
-    hasErrors = !errors.isEmpty
+    hasErrors = errors.nonEmpty
 ) {
 
     @if(errors.nonEmpty) {

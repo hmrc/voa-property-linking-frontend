@@ -104,8 +104,7 @@
             @govukDetails(Details(
                 id = Some("help-starting-check-case"),
                 summary = Text(messages("available.requestvaluation.startCheckTab.guidance.summary")),
-                content = HtmlContent(helpWithStartingCheckCaseContent),
-                classes = "govuk-!-margin-top-6"
+                content = HtmlContent(helpWithStartingCheckCaseContent)
             ))
 
             @formWithCSRF(action = if(model.owner) {
@@ -230,7 +229,6 @@
 }
 
 @mainLayout(pageTitle = address, backUri = Some(model.backUrl), mainClass = Some("govuk-grid-column-full")) {
-
     @if(startCheckForm.hasErrors){
         @govukErrorSummary(ErrorSummary(
             errorList = startCheckForm.errors.headOption.map(e => ErrorLink(

@@ -11,12 +11,9 @@ $hmrc-assets-path: "/business-rates-property-linking/assets/lib/hmrc-frontend/hm
 }
 
 .new-centered-content {
-    font-size: 19px;
-    line-height: 1.31579;
     display: block;
     max-width: 960px;
     margin: 0 auto;
-    line-height: 1.5;
     font-family: "nta",Arial,sans-serif;
     font-weight: 400;
     text-transform: none;
@@ -49,9 +46,10 @@ $hmrc-assets-path: "/business-rates-property-linking/assets/lib/hmrc-frontend/hm
   }
 }
 
-details.govuk-details {
+details#report-a-problem {
     margin-top: 3em;
 }
+
 .pagination{
     float: right;
 }
