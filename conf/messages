@@ -561,6 +561,7 @@ propertyRepresentation.showAgents.label.assigned.to=Assigned to
 propertyRepresentation.showAgents.label.action=Action
 propertyRepresentation.showAgents.title=Your agents
 propertyRepresentation.showAgents.appointNewAgent.link=Appoint an agent
+propertyRepresentation.noAgents=You have no agents.
 
 propertyRepresentation.agentProperties.assigned.title=Your agent
 propertyRepresentation.agentProperties.assigned=Assigned properties

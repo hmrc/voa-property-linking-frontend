@@ -31,7 +31,7 @@
 
     <h1 class="govuk-heading-l">@messages("propertyRepresentation.showAgents.title")</h1>
 
-  @if(agents.size > 1) {
+  @if(agents.nonEmpty) {
       @govukTable(Table(
           rows = agents.map { agent =>
               Seq(
@@ -63,7 +63,7 @@
       )
       )
   }else{
-      <p class="govuk-body">You have no agents.</p>
+      <p class="govuk-body">@messages("propertyRepresentation.noAgents")</p>
   }
 
   <p class="govuk-body margin-top-5">
