@@ -30,36 +30,41 @@
 ) {
 
     <h1 class="govuk-heading-l">@messages("propertyRepresentation.showAgents.title")</h1>
-    @govukTable(Table(
-        rows = agents.map{ agent =>
-            Seq(
-                TableRow(
-                    content = Text(agent.name)
-                        ),
-                TableRow(
-                    content = Text(messages("propertyRepresentation.showAgents.properties", agent.propertyCount, propertyLinkingCount))
-                ),
-                TableRow(
-                    content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentProperties", controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters(1, 15)).url, s"${agent.name} (${agent.representativeCode})")))
-                )
 
-            )
-        },
-        head = Some(List(
-            HeadCell(
-                content = Text(messages("propertyRepresentation.showAgents.label.agent"))
-            ),
-            HeadCell(
-                content = Text(messages("propertyRepresentation.showAgents.label.assigned.to"))
-            ),
-            HeadCell(
-                content = Text(messages("propertyRepresentation.showAgents.label.action"))
-            )
-        )),
-        caption = None,
-        firstCellIsHeader = false
-    )
-    )
+  @if(agents.size > 1) {
+      @govukTable(Table(
+          rows = agents.map { agent =>
+              Seq(
+                  TableRow(
+                      content = Text(agent.name)
+                  ),
+                  TableRow(
+                      content = Text(messages("propertyRepresentation.showAgents.properties", agent.propertyCount, propertyLinkingCount))
+                  ),
+                  TableRow(
+                      content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentProperties", controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters(), PaginationParameters(1, 15)).url, s"${agent.name} (${agent.representativeCode})")))
+                  )
+
+              )
+          },
+          head = Some(List(
+              HeadCell(
+                  content = Text(messages("propertyRepresentation.showAgents.label.agent"))
+              ),
+              HeadCell(
+                  content = Text(messages("propertyRepresentation.showAgents.label.assigned.to"))
+              ),
+              HeadCell(
+                  content = Text(messages("propertyRepresentation.showAgents.label.action"))
+              )
+          )),
+          caption = None,
+          firstCellIsHeader = false
+      )
+      )
+  }else{
+      <h2 class="govuk-body">You have no agents.</h2>
+  }
 
   <p class="govuk-body margin-top-5">
       <a class="govuk-link" id=add-agent-link href="@controllers.agentAppointment.routes.AddAgentController.start()">@messages("propertyRepresentation.showAgents.appointNewAgent.link")</a>
