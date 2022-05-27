@@ -86,3 +86,20 @@ details#report-a-problem {
     hyphens: auto;
     max-width: 7em;
 }
+
+.cca-menu-account {
+  float: right;
+  margin-top: 13px;
+  margin-bottom: 0;
+  li {
+    float: left;
+    padding-right: 7px;
+    padding-left: 7px;
+    + li {
+      border-left: 1px solid $govuk-border-colour;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}
