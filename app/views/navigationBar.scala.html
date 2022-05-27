@@ -30,27 +30,26 @@
     }
 
     @noAccountLinks = {
-        <li style="display:inline"><a class="govuk-link" id="login-link" href="@homeLink">@Messages("link.login")</a><span class="separator"> |</span></li>
-        <li style="display:inline"><a class="govuk-link" id="register-link" href="@{controllers.routes.Application.start.url}">@Messages("link.register")</a></li>
+        <li><a class="govuk-link" id="login-link" href="@homeLink">@messages("link.login")</a></li>
+        <li><a class="govuk-link" id="register-link" href="@{controllers.routes.Application.start.url}">@messages("link.register")</a></li>
     }
 
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-third">
+        <div class="govuk-grid-column-full">
         @if(backUri.isDefined) {
-            <a id="back-link" href="@backUri" class="govuk-back-link">Back</a>
-        }else{
-            <div class="govuk-body"></div>
+            <a id="back-link" href="@backUri" class="govuk-back-link">@messages("link.back")</a>
         }
-        </div>
-        <div class="govuk-grid-column-two-thirds">
-            <ul class="govuk-list" style="text-align:right; margin-top:10px;">
+            <ul class="govuk-list cca-menu-account">
+
             @if(request.isLoggedIn) {
-                <li style="display:inline"><a id="home-link" href="@homeLink" class="govuk-link">@Messages("link.home")</a> |
+                <li>
+                    <a id="home-link" href="@homeLink" class="govuk-link">@messages("link.home")</a>
                 </li>
-                <li style="display:inline">
-                    <a id="your-details-link" href="@yourDetailsLink" class="govuk-link">@request.yourDetailsName.getOrElse(Messages("navigation.your.details"))</a> |
+                <li>
+                    <a id="your-details-link" href="@yourDetailsLink" class="govuk-link">@request.yourDetailsName.getOrElse(messages("navigation.your.details"))</a>
                 </li>
-                <li style="display:inline"><a id="sign-out-link" href="@signOutLink" class="govuk-link">@Messages("link.logout")</a>
+                <li>
+                    <a id="sign-out-link" href="@signOutLink" class="govuk-link">@messages("link.logout")</a>
                 </li>
             } else { @noAccountLinks }
             </ul>
