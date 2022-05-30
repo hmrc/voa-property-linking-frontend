@@ -27,7 +27,7 @@ import play.api.test.Helpers._
 import play.twirl.api.Html
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
+import utils._
 
 import java.time.LocalDate
 import scala.concurrent.Future
@@ -44,8 +44,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec {
       sessionRepository = mockSessionRepo,
       authenticatedAction = preAuthenticatedActionBuilders(),
       withLinkingSession = preEnrichedActionRefinerWithStartDate(earliestStartDate),
-      ownershipToPropertyView = mockOwnershipToPropertyPage,
-      propertyLinkingService = mockPropertyLinkingService
+      ownershipToPropertyView = mockOwnershipToPropertyPage
     )
 
   lazy val submissionId: String = shortString

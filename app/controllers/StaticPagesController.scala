@@ -23,10 +23,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.createAccount.termsAndConditions
 import com.google.inject.Inject
-import config.ApplicationConfig
-import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class StaticPagesController @Inject()(
       override val controllerComponents: MessagesControllerComponents,

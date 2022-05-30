@@ -29,7 +29,7 @@ import play.twirl.api.Html
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.exceptions.attachments._
-import utils.{HtmlPage, _}
+import utils._
 
 import java.time.LocalDate
 import scala.concurrent.Future

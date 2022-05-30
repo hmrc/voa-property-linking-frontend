@@ -27,7 +27,6 @@ import form.Mappings._
 import javax.inject.Inject
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-import java.lang.ProcessBuilder.Redirect
 import scala.concurrent.ExecutionContext
 
 class DoYouHaveAccountController @Inject()(

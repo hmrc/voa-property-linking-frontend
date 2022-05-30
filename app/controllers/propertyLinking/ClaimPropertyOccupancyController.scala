@@ -28,7 +28,6 @@ import play.api.data.Forms._
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
-import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
 import utils.Formatters

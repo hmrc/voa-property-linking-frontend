@@ -23,6 +23,7 @@ import models._
 import models.propertylinking.requests.PropertyLinkRequest
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import services.ServiceSpec
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
@@ -42,27 +43,29 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
   val mockPropertyLinkRequest = mock[PropertyLinkRequest]
   implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
 
-  implicit def linkingSessionRequest(clientDetails: Option[ClientDetails] = None) = LinkingSessionRequest(
-    LinkingSession(
-      address = "some address",
-      uarn = 1L,
-      submissionId = "PL-123456",
-      personId = 1L,
-      earliestStartDate = earliestEnglishStartDate,
-      propertyRelationship = Some(PropertyRelationship(Owner)),
-      propertyOwnership = Some(PropertyOwnership(interestedOnOrBefore = true, fromDate = None)),
-      propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
-      hasRatesBill = Some(true),
-      uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
-      evidenceType = Some(RatesBillType),
-      clientDetails = clientDetails,
-      localAuthorityReference = "12341531531"
-    ),
-    organisationId = 1L,
-    individualAccount = detailedIndividualAccount,
-    organisationAccount = groupAccount(true),
-    request = FakeRequest()
-  )
+  implicit def linkingSessionRequest(
+        clientDetails: Option[ClientDetails] = None): LinkingSessionRequest[AnyContentAsEmpty.type] =
+    LinkingSessionRequest(
+      LinkingSession(
+        address = "some address",
+        uarn = 1L,
+        submissionId = "PL-123456",
+        personId = 1L,
+        earliestStartDate = earliestEnglishStartDate,
+        propertyRelationship = Some(PropertyRelationship(Owner)),
+        propertyOwnership = Some(PropertyOwnership(interestedOnOrBefore = true, fromDate = None)),
+        propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+        hasRatesBill = Some(true),
+        uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+        evidenceType = Some(RatesBillType),
+        clientDetails = clientDetails,
+        localAuthorityReference = "12341531531"
+      ),
+      organisationId = 1L,
+      individualAccount = detailedIndividualAccount,
+      organisationAccount = groupAccount(true),
+      request = FakeRequest()
+    )
 
   "submit with None clientId" should {
     "return Unit when successful" in {
@@ -122,12 +125,9 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
         )
         val history = propertyHistory.copy(history = propertyValuations, localAuthorityCode = "1English")
 
-        when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
+        val res: LocalDate = testService.findEarliestStartDate(history)
 
-        val res: Future[LocalDate] = testService.findEarliestStartDate(propertyHistory.uarn)
-
-        res.futureValue shouldBe earliestStartDateOfCurrentList
-        verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
+        res shouldBe earliestStartDateOfCurrentList
       }
 
       "return default earliest english start date from config" in new EarliestStartDateSetup {
@@ -139,12 +139,9 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
         )
         val history = propertyHistory.copy(history = propertyValuations, localAuthorityCode = "1English")
 
-        when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
+        val res: LocalDate = testService.findEarliestStartDate(history)
 
-        val res: Future[LocalDate] = testService.findEarliestStartDate(propertyHistory.uarn)
-
-        res.futureValue shouldBe earliestEnglishStartDate
-        verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
+        res shouldBe earliestEnglishStartDate
       }
     }
 
@@ -171,12 +168,9 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
         )
         val history = propertyHistory.copy(history = propertyValuations, localAuthorityCode = "6Welsh")
 
-        when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
+        val res: LocalDate = testService.findEarliestStartDate(history)
 
-        val res: Future[LocalDate] = testService.findEarliestStartDate(propertyHistory.uarn)
-
-        res.futureValue shouldBe earliestStartDateOfCurrentList
-        verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
+        res shouldBe earliestStartDateOfCurrentList
       }
 
       "return default earliest welsh start date from config" in new EarliestStartDateSetup {
@@ -188,12 +182,9 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
         )
         val history = propertyHistory.copy(history = propertyValuations, localAuthorityCode = "6Welsh")
 
-        when(mockPropertyLinkConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(history))
+        val res: LocalDate = testService.findEarliestStartDate(history)
 
-        val res: Future[LocalDate] = testService.findEarliestStartDate(propertyHistory.uarn)
-
-        res.futureValue shouldBe earliestWelshStartDate
-        verify(mockPropertyLinkConnector).getPropertyHistory(any())(any())
+        res shouldBe earliestWelshStartDate
       }
     }
   }
