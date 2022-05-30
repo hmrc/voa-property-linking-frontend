@@ -26,9 +26,8 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HtmlPage, StubSubmissionIdConnector, StubWithLinkingSession, _}
+import utils._
 
 import scala.concurrent.Future
 
@@ -36,31 +35,25 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
   private val mockRelationshipToPropertyView = mock[views.html.propertyLinking.relationshipToProperty]
+  lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepository)
 
   private lazy val testClaimProperty = new ClaimPropertyRelationshipController(
     errorHandler = mockCustomErrorHandler,
     submissionIdConnector = StubSubmissionIdConnector,
-    sessionRepository = mockSessionRepo,
+    sessionRepository = mockSessionRepository,
     authenticatedAction = preAuthenticatedActionBuilders(),
-    withLinkingSession = new StubWithLinkingSession(mock[SessionRepo]),
+    withLinkingSession = preEnrichedActionRefinerWithStartDate(earliestEnglishStartDate),
     propertyLinkingService = mockPropertyLinkingService,
     propertyLinksConnector = propertyLinkingConnector,
     vmvConnector = vmvConnector,
     runModeConfiguration = configuration,
     relationshipToPropertyView = mockRelationshipToPropertyView,
-    beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton),
-    serviceUnavailableView = new views.html.errors.serviceUnavailable(mainLayout)
+    beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton)
   )
 
   lazy val submissionId: String = shortString
   override val testAccounts: Accounts = arbitrary[Accounts]
   lazy val anEnvelopeId = java.util.UUID.randomUUID().toString
-
-  lazy val mockSessionRepo = {
-    val f = mock[SessionRepo]
-    when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
-    f
-  }
 
   lazy val propertyLinkingConnector = mock[PropertyLinkConnector]
 
@@ -70,9 +63,17 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     vmvConnector
   }
 
-  "The claim property relationship page" should "return valid page" in {
+  trait Setup {
     StubSubmissionIdConnector.stubId(submissionId)
 
+    when(mockPropertyLinkingService.findEarliestStartDate(any()))
+      .thenReturn(earliestEnglishStartDate)
+
+    when(mockSessionRepository.start(any())(any(), any())).thenReturn(Future.successful(()))
+    when(mockSessionRepository.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
+  }
+
+  "The claim property relationship page" should "return valid page" in new Setup {
     when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim property relationship page"))
 
@@ -81,14 +82,9 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
     val html = HtmlPage(res)
     html.shouldContainText("claim property relationship page")
-
   }
 
-  "The claim property relationship page on client behalf" should "return valid page" in {
-    StubSubmissionIdConnector.stubId(submissionId)
-
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(earliestEnglishStartDate))
+  "The claim property relationship page on client behalf" should "return valid page" in new Setup {
     when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim property relationship page on client behalf"))
 
@@ -100,31 +96,37 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     html.shouldContainText("claim property relationship page on client behalf")
   }
 
-  it should "contain link back to business-rates-find if that's where the request came from" in {
-
+  it should "contain link back to business-rates-find if that's where the request came from" in new Setup {
     val res =
       testClaimProperty.showRelationship(positiveLong, Some(ClientDetails(positiveLong, shortString)))(
         FakeRequest().withHeaders(
           ("referer", "http://localhost:9542/business-rates-find/summary/10361354?uarn=156039182")))
+
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-
     html.contain("http://localhost:9542/business-rates-find/summary/10361354?uarn=156039182")
   }
 
-  it should "reject invalid form submissions" in {
-    StubSubmissionIdConnector.stubId(submissionId)
+  it should "initialise the linking session on show" in new Setup {
+    when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
+      .thenReturn(Html("claim property relationship page on client behalf"))
 
+    val res = testClaimProperty
+      .showRelationship(positiveLong, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
+    status(res) shouldBe OK
+
+    verify(mockSessionRepository).start(any())(any(), any())
+  }
+
+  it should "reject invalid form submissions" in new Setup {
     val res = testClaimProperty.submitRelationship(positiveLong)(FakeRequest())
     status(res) shouldBe BAD_REQUEST
   }
 
-  it should "redirect to the claim relationship page on valid submissions" in {
-    StubSubmissionIdConnector.stubId(submissionId)
-
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(earliestEnglishStartDate))
+  it should "redirect to the claim relationship page on valid submissions" in new Setup {
+    when(mockSessionRepository.saveOrUpdate(any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
     val res = testClaimProperty.submitRelationship(positiveLong)(
       FakeRequest().withFormUrlEncodedBody(
@@ -134,32 +136,10 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) shouldBe Some(routes.ClaimPropertyOwnershipController.showOwnership.url)
   }
 
-  it should "initialise the linking session on submission" in {
-    StubSubmissionIdConnector.stubId(submissionId)
-
-    when(mockPropertyLinkingService.findEarliestStartDate(any())(any()))
-      .thenReturn(Future.successful(earliestEnglishStartDate))
-
-    val uarn: Long = positiveLong
-
-    val res = testClaimProperty.submitRelationship(uarn)(
-      FakeRequest().withFormUrlEncodedBody(
-        "capacity" -> Owner.toString
-      ))
-
-    status(res) shouldBe SEE_OTHER
-
-    verify(mockSessionRepo, times(2)).start(any())(any(), any())
-  }
-
-  "show" should "redirect the user to vmv search for property page" in {
-    StubSubmissionIdConnector.stubId(submissionId)
-
+  "show" should "redirect the user to vmv search for property page" in new Setup {
     val res = testClaimProperty.show()(FakeRequest())
 
     status(res) shouldBe SEE_OTHER
-
     redirectLocation(res) shouldBe Some("http://localhost:9300/business-rates-find/search")
   }
-
 }

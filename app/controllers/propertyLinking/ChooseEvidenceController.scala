@@ -28,8 +28,6 @@ import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.BusinessRatesAttachmentsService
-import services.propertylinking.PropertyLinkingService
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import java.time.LocalDate
@@ -60,7 +58,7 @@ class ChooseEvidenceController @Inject()(
     }
   }
 
-  private def backlink(session: LinkingSession)(implicit hc: HeaderCarrier): String =
+  private def backlink(session: LinkingSession): String =
     if (session.earliestStartDate.isAfter(LocalDate.now))
       controllers.propertyLinking.routes.ClaimPropertyRelationshipController
         .showRelationship(session.uarn, session.clientDetails)

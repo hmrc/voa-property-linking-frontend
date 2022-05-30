@@ -28,7 +28,6 @@ import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
-import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
 import views.helpers.Errors
@@ -43,8 +42,7 @@ class ClaimPropertyOwnershipController @Inject()(
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
-      ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty,
-      propertyLinkingService: PropertyLinkingService)(
+      ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,

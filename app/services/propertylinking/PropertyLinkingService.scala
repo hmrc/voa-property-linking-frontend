@@ -20,6 +20,7 @@ import actions.propertylinking.requests.LinkingSessionRequest
 import cats.data.EitherT
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
+import models.properties.PropertyHistory
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
 import services.BusinessRatesAttachmentsService
@@ -66,16 +67,12 @@ class PropertyLinkingService @Inject()(
             propertyLinkConnector.createPropertyLinkOnClientBehalf(PropertyLinkPayload(propertyLinkRequest), clientId))
     } yield ()
 
-  def findEarliestStartDate(uarn: Long)(implicit hc: HeaderCarrier): Future[LocalDate] = {
+  def findEarliestStartDate(propertyHistory: PropertyHistory): LocalDate = {
     implicit val localDateOrdering: Ordering[LocalDate] = _ compareTo _
 
-    propertyLinkConnector
-      .getPropertyHistory(uarn)
-      .map { propertyHistory =>
-        val dates = propertyHistory.history
-          .flatMap(_.propertyLinkEarliestStartDate)
-        Try[LocalDate](dates.min)
-          .getOrElse(if (propertyHistory.isWelsh) config.earliestWelshStartDate else config.earliestEnglishStartDate)
-      }
+    val dates = propertyHistory.history
+      .flatMap(_.propertyLinkEarliestStartDate)
+    Try[LocalDate](dates.min)
+      .getOrElse(if (propertyHistory.isWelsh) config.earliestWelshStartDate else config.earliestEnglishStartDate)
   }
 }

@@ -17,13 +17,12 @@
 package controllers
 
 import actions.AuthenticatedAction
-import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
 import connectors._
 import models._
 import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.MessagesControllerComponents
 import services.AgentRelationshipService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 

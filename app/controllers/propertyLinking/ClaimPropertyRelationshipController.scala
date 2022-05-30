@@ -35,7 +35,6 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepo
 import services.propertylinking.PropertyLinkingService
-import uk.gov.hmrc.http.UpstreamErrorResponse
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
@@ -53,8 +52,7 @@ class ClaimPropertyRelationshipController @Inject()(
       val vmvConnector: VmvConnector,
       val runModeConfiguration: Configuration,
       relationshipToPropertyView: views.html.propertyLinking.relationshipToProperty,
-      beforeYouStartView: views.html.propertyLinking.beforeYouStart,
-      serviceUnavailableView: views.html.errors.serviceUnavailable)(
+      beforeYouStartView: views.html.propertyLinking.beforeYouStart)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -87,46 +85,16 @@ class ClaimPropertyRelationshipController @Inject()(
 
   def showRelationship(uarn: Long, clientDetails: Option[ClientDetails] = None) =
     authenticatedAction.async { implicit request =>
-      vmvConnector.getPropertyHistory(uarn).map { property =>
+      for {
+        property <- vmvConnector.getPropertyHistory(uarn)
+        _        <- initialiseSession(uarn, clientDetails)
+      } yield
         Ok(
           relationshipToPropertyView(
             ClaimPropertyRelationshipVM(relationshipForm, property.addressFull, uarn, property.localAuthorityReference),
             clientDetails = clientDetails,
             backLink(request)
           ))
-      }
-    }
-
-  private def backLink(request: Request[AnyContent]): String = {
-    val link = request.headers.get("referer").getOrElse(config.dashboardUrl("home"))
-    if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
-  }
-
-  def submitRelationship(uarn: Long, clientDetails: Option[ClientDetails] = None): Action[AnyContent] =
-    authenticatedAction.async { implicit request =>
-      relationshipForm
-        .bindFromRequest()
-        .fold(
-          errors =>
-            vmvConnector.getPropertyHistory(uarn).map { property =>
-              BadRequest(
-                relationshipToPropertyView(
-                  ClaimPropertyRelationshipVM(errors, property.addressFull, uarn, property.localAuthorityReference),
-                  clientDetails,
-                  backLink(request)))
-          },
-          formData =>
-            vmvConnector.getPropertyHistory(uarn).flatMap { property =>
-              initialiseSession(formData, property.localAuthorityReference, uarn, property.addressFull, clientDetails)
-                .map { _ =>
-                  Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
-                }
-                .recover {
-                  case UpstreamErrorResponse.Upstream5xxResponse(_) =>
-                    ServiceUnavailable(serviceUnavailableView())
-                }
-          }
-        )
     }
 
   def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
@@ -141,28 +109,52 @@ class ClaimPropertyRelationshipController @Inject()(
       ))
   }
 
-  private def initialiseSession(
-        propertyRelationship: PropertyRelationship,
-        localAuthorityReference: String,
-        uarn: Long,
-        address: String,
-        clientDetails: Option[ClientDetails])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
+  def submitRelationship(uarn: Long, clientDetails: Option[ClientDetails] = None): Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+      relationshipForm
+        .bindFromRequest()
+        .fold(
+          errors =>
+            vmvConnector.getPropertyHistory(uarn).map { property =>
+              BadRequest(
+                relationshipToPropertyView(
+                  ClaimPropertyRelationshipVM(errors, property.addressFull, uarn, property.localAuthorityReference),
+                  clientDetails,
+                  backLink(request)))
+          },
+          formData =>
+            sessionRepository
+              .saveOrUpdate[LinkingSession](request.ses.copy(propertyRelationship = Some(formData)))
+              .map { _ =>
+                Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
+            }
+        )
+    }
+
+  private def backLink(request: Request[AnyContent]): String = {
+    val link = request.headers.get("referer").getOrElse(config.dashboardUrl("home"))
+    if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
+  }
+
+  private def initialiseSession(uarn: Long, clientDetails: Option[ClientDetails])(
+        implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
-      submissionId      <- submissionIdConnector.get()
-      earliestStartDate <- propertyLinkingService.findEarliestStartDate(uarn)
+      propertyHistory <- vmvConnector.getPropertyHistory(uarn)
+      submissionId    <- submissionIdConnector.get()
+      earliestStartDate = propertyLinkingService.findEarliestStartDate(propertyHistory)
       _ <- sessionRepository.start[LinkingSession](
             LinkingSession(
-              address = address,
+              address = propertyHistory.addressFull,
               uarn = uarn,
               submissionId = submissionId,
               personId = request.personId,
               earliestStartDate = earliestStartDate,
-              propertyRelationship = Some(propertyRelationship),
+              propertyRelationship = None,
               propertyOwnership = None,
               propertyOccupancy = None,
               hasRatesBill = None,
               clientDetails = clientDetails,
-              localAuthorityReference = localAuthorityReference
+              localAuthorityReference = propertyHistory.localAuthorityReference
             ))
     } yield ()
 
