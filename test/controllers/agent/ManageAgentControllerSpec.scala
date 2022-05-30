@@ -79,6 +79,19 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     Option(returnedDocument.getElementById("add-agent-link")).map(_.text()) shouldBe Some("Appoint an agent")
   }
 
+  "showAgents" should "show 'You have no Agents' text on agents page" in {
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(AgentList(0, List.empty)))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
+      .thenReturn(Future.successful(0))
+
+    val res = testController.showAgents()(FakeRequest())
+    status(res) shouldBe OK
+
+    val returnedDocument = Jsoup.parse(contentAsString(res))
+    returnedDocument.getElementById("no-agents").text() shouldBe "You have no agents."
+  }
+
   "manageAgent" should "show the manage agent page" in {
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 0)))))
