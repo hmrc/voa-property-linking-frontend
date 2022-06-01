@@ -129,16 +129,17 @@
         ))
     }
 
-    <span id="businessRatesAttachmentsRemoveFileURL" class="govuk-!-display-none">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/remove?fileReference="}</span>
-    <span id="businessRatesAttachmentsInitiateUploadURL" class="govuk-!-display-none">@{s"${UploadController.initiate(EvidenceChoices.RATES_BILL)}"}</span>
-    <span id="businessRatesAttachmentsFileUploadURL" class="govuk-!-display-none">@{s"${UploadController.show(EvidenceChoices.RATES_BILL)}"}</span>
-    <span id="errorsUpscan" class="govuk-!-display-none">@Html(messages("error.upscan.unavailable"))</span>
-    <span id="errorsFileSizeTooLarge" class="govuk-!-display-none">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
-    <span id="errorsBusinessRatesAttachmentUnsupportedFiles" class="govuk-!-display-none">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
-    <span id="errorsBusinessRatesAttachmentUnavailable" class="govuk-!-display-none">@messages("error.businessRatesAttachment.unavailable")</span>
-    <span id="signInPageUrl" class="govuk-!-display-none">@{config.basGatewaySignInUrl}</span>
-    <span id="startClaimUrl" class="govuk-!-display-none">@{ClaimPropertyRelationshipController.submitRelationship(request.ses.uarn)}</span>
-    <span id="submissionId" class="govuk-!-display-none">@submissionId</span>
-    <span id="evidenceType" class="govuk-!-display-none">@RatesBillType.name</span>
-
+    <div class="govuk-!-display-none">
+    <span id="businessRatesAttachmentsRemoveFileURL">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/remove?fileReference="}</span>
+    <span id="businessRatesAttachmentsInitiateUploadURL">@{s"${UploadController.initiate(EvidenceChoices.RATES_BILL)}"}</span>
+    <span id="businessRatesAttachmentsFileUploadURL">@{s"${UploadController.show(EvidenceChoices.RATES_BILL)}"}</span>
+    <span id="errorsUpscan">@Html(messages("error.upscan.unavailable"))</span>
+    <span id="errorsFileSizeTooLarge">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
+    <span id="errorsBusinessRatesAttachmentUnsupportedFiles">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
+    <span id="errorsBusinessRatesAttachmentUnavailable">@messages("error.businessRatesAttachment.unavailable")</span>
+    <span id="signInPageUrl">@{config.basGatewaySignInUrl}</span>
+    <span id="startClaimUrl">@{ClaimPropertyRelationshipController.submitRelationship(request.ses.uarn)}</span>
+    <span id="submissionId">@submissionId</span>
+    <span id="evidenceType">@RatesBillType.name</span>
+    </div>
 }
