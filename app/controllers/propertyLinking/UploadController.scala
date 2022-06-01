@@ -173,16 +173,12 @@ class UploadController @Inject()(
             .fold(
               _ =>
                 Future.successful(BadRequest(uploadEvidenceView(
-                  request.ses.submissionId,
-                  PartialFunction
-                    .condOpt(session.uploadEvidenceData.attachments) {
-                      case Some(fileData) if fileData.isEmpty =>
-                        List("error.businessRatesAttachment.file.not.selected")
-                    }
-                    .getOrElse(Nil),
-                  request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
-                  form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
-                  session
+                  submissionId = request.ses.submissionId,
+                  errors = Nil,
+                  uploadedFiles = request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
+                  formEvidence =
+                    form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
+                  linkingSession = session
                 ))), {
                 case UnableToProvide => Future.successful(Ok(cannotProvideEvidenceView()))
                 case formData => {

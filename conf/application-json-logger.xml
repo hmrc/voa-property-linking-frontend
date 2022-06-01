@@ -11,8 +11,6 @@
 
     <logger name="voa.submission" level="${logger.voa.submission:-DEBUG}"/>
 
-    <logger name="com.ning.http.client" level="${logger.com.ning.http.client:-INFO}"/>
-
     <root level="${logger.application:-WARN}">
         <appender-ref ref="STDOUT"/>
     </root>

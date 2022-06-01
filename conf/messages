@@ -834,7 +834,7 @@ label.toDate.year.client=When was your client''s last day as the owner or occupi
 uploadRatesBill.show.title=Upload your business rates bill
 uploadRatesBill.show.client.title=Upload your client''s business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
-uploadFile.allowedTypes.l1=The file must be a Word doc, Excel sheet, PDF, PNG or JPEG, and be smaller than 10MB.
+uploadFile.allowedTypes.l1=The file must be a Word document, Excel spreadsheet, PDF or image (PNG or JPG) and be less than 10MB.
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Continue
@@ -885,10 +885,11 @@ cannotProvideEvidence.agent.p2=You’ll need to contact us to discuss other docu
 cannotProvideEvidence.email=Email: <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>
 
 #UPLOAD EVIDENCE
-uploadOtherEvidence.title=What other type of evidence for this property can you provide?
+uploadOtherEvidence.title=What evidence can you provide?
 uploadOtherEvidence.evidenceType=Evidence type
+uploadOtherEvidence.hint=Your evidence should be for {0}
 uploadOtherEvidence.evidenceTypes.lease=Lease
-uploadOtherEvidence.evidenceTypes.license=Licence to occupy property
+uploadOtherEvidence.evidenceTypes.license=Licence to occupy
 uploadOtherEvidence.evidenceTypes.serviceCharge=Service charge statement
 uploadOtherEvidence.evidenceTypes.stampDutyLandTaxForm=Stamp Duty Land Tax form
 uploadOtherEvidence.evidenceTypes.landRegistryTitle=Land Registry title
@@ -896,9 +897,9 @@ uploadOtherEvidence.evidenceTypes.waterRateDemand=Water rate demand
 uploadOtherEvidence.evidenceTypes.otherUtilityBill=Utility bill
 uploadOtherEvidence.evidenceTypes.ratesBill=Business rates bill
 
-uploadOtherEvidence.unableToProvideEvidence=I am unable to provide any of these documents
+uploadOtherEvidence.unableToProvideEvidence=I cannot provide evidence
 uploadOtherEvidence.uploadFile=Upload a file
-uploadOtherEvidence.uploadFile.caption=The file must be a Word doc, Excel sheet, PDF, PNG or JPG, and be smaller than 10MB.
+uploadOtherEvidence.uploadFile.hint=The file must be a Word document, Excel spreadsheet, PDF or image (PNG or JPG) and be less than 10MB.
 
 uploadEvidence.show.title=Provide other evidence
 uploadEvidence.p.1=You’ve indicated that you don’t have a business rates bill for this property. Please provide other evidence.
@@ -915,7 +916,7 @@ uploadEvidence.noEvidence=I’m unable to provide any of these documents.
 uploadEvidence.noEvidence.p1=<p>If you can’t provide one of the documents listed to prove your link to the property, you won’t be able to claim it or view the detailed valuation.</p>
 uploadEvidence.noEvidence.p2=<p>You’ll need to contact us to discuss other documents that prove your link to this property.</p>
 uploadEvidence.noEvidence.p3=<p>Email: <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a></p>
-fileupload.chooseFile=Choose file
+
 evidenceType.assignment=Assignment
 evidenceType.label=Type of evidence
 evidenceType.lease=Lease
@@ -926,6 +927,8 @@ evidenceType.waterRateDemand=Water rate demand
 evidenceType.otherUtilityBill=Other utility bill
 evidenceType.ratesBill=Rates bill
 evidenceType.landRegistryTitle=Land Registry title
+
+fileupload.chooseFile=Choose file
 
 label.evidence=Please upload evidence so that we can verify your link to the property
 evidence.label=Provide other evidence
@@ -1554,7 +1557,7 @@ error.upscan.unavailable=The selected file could not be uploaded – try again
 error.businessRatesAttachment.file.size.exceed.max.limit=The selected file must be smaller than 10MB
 error.businessRatesAttachment.evidence.not.selected=Select evidence type
 error.businessRatesAttachment.ratesBill.not.selected=Select a rates bill
-error.businessRatesAttachment.file.not.selected=Select other evidence
+error.businessRatesAttachment.file.not.selected=Select a file
 error.businessRatesAttachment.does.not.support.file.types=The selected file must be a Word doc, Excel sheet, PDF, PNG or JPG
 businessRatesAttachment.file.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit
 fileupload.support.documents.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit

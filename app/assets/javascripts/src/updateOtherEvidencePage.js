@@ -14,19 +14,20 @@
           $('#continue').click();
         });
 
-        var options = 'input[type="radio"][data-behaviour!="hide-file-upload-section"]';
+        var evidenceTypeOptions = 'input[type = "radio"][data-behaviour != "hide-file-upload-section"]';
+        var cannotProvideEvidence = 'input[type = "radio"][data-behaviour = "hide-file-upload-section"]';
 
-        $(options).click(function() {
-          $('#file-upload-form').removeClass("govuk-visually-hidden");
+        $(evidenceTypeOptions).click(function() {
+          $('#file-upload-form').removeClass("govuk-!-display-none");
         });
 
-        if($(options).is(':checked')){
-            $('#file-upload-form').removeClass("govuk-visually-hidden");
+        $(cannotProvideEvidence).click(function() {
+            $('#file-upload-form').addClass("govuk-!-display-none");
+        });
+
+        if($(evidenceTypeOptions).is(':checked')){
+            $('#file-upload-form').removeClass("govuk-!-display-none");
         }
-
-        $('input[type="radio"][data-behaviour="hide-file-upload-section"]').click(function() {
-          $('#file-upload-form').addClass("govuk-visually-hidden");
-        });
 
     };
 
