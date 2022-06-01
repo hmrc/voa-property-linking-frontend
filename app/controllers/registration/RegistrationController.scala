@@ -34,10 +34,13 @@ import services._
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.{Assistant, ConfidenceLevel, User}
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import views.html._
+
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Try
 
 class RegistrationController @Inject()(
       val errorHandler: CustomErrorHandler,
@@ -63,6 +66,14 @@ class RegistrationController @Inject()(
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
 ) extends PropertyLinkingController with Logging {
+
+  private def useBst(request: RequestHeader): Boolean =
+    request.cookies.get("bst").flatMap(c => Try(c.value.toBoolean).toOption).getOrElse(false)
+
+  implicit override def hc(implicit request: RequestHeader): HeaderCarrier =
+    HeaderCarrierConverter
+      .fromRequestAndSession(request, request.session)
+      .withExtraHeaders("USE-BST" -> useBst(request).toString)
 
   def show(): Action[AnyContent] = (ggAuthenticated andThen sessionUserDetailsAction).async { implicit request =>
     individualAccounts.withExternalId(request.externalId).flatMap {

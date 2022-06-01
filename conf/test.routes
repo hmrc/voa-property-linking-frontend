@@ -3,3 +3,5 @@ GET        /de-enrol                                              controllers.te
 GET        /clear-draft-cases                                     controllers.test.TestController.clearDraftCases
 GET        /submitted-check/:submissionId                         controllers.test.TestController.getSubmittedCheck(submissionId: String)
 GET        /attachments                                           controllers.test.TestController.getAttachments
+
+GET        /bst                                                   controllers.test.TestController.setBstCookie(value: Option[Boolean])

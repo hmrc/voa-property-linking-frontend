@@ -18,29 +18,42 @@ package controllers.test
 
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
+import config.ApplicationConfig
 import connectors.attachments.BusinessRatesAttachmentsConnector
 import connectors.test.TestCheckConnector
 import controllers.PropertyLinkingController
+import models.registration.UserDetails
 import models.test.TestUserDetails
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc._
 import services.test.TestService
 import services.{Failure, Success}
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
+import uk.gov.hmrc.auth.core.AuthProvider.GovernmentGateway
+import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals._
+import uk.gov.hmrc.auth.core.retrieve.~
+import uk.gov.hmrc.auth.core.{AuthConnector, AuthProviders, AuthorisedFunctions}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.Cats
+import views.html.test.bstTest
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class TestController @Inject()(
       override val errorHandler: CustomErrorHandler,
+      override val authConnector: AuthConnector,
       authenticated: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       testService: TestService,
       businessRatesAttachmentsConnector: BusinessRatesAttachmentsConnector,
-      testCheckConnector: TestCheckConnector
-)(implicit executionContext: ExecutionContext, override val controllerComponents: MessagesControllerComponents)
-    extends PropertyLinkingController with Cats {
+      testCheckConnector: TestCheckConnector,
+      bstTestView: bstTest
+)(
+      implicit executionContext: ExecutionContext,
+      override val controllerComponents: MessagesControllerComponents,
+      applicationConfig: ApplicationConfig)
+    extends PropertyLinkingController with AuthorisedFunctions with Cats {
 
   val getUserDetails: Action[AnyContent] = authenticated { implicit request =>
     Ok(Json.toJson(if (request.organisationAccount.isAgent) {
@@ -95,6 +108,37 @@ class TestController @Inject()(
       .toList
       .traverse(businessRatesAttachmentsConnector.getAttachment)
       .map(attachments => Ok(Json.toJson(AttachmentsInLinkingSession(attachments))))
+  }
+
+  def setBstCookie(value: Option[Boolean]): Action[AnyContent] = Action.async { implicit request =>
+    val optCookie: Option[Cookie] = value.map(b => play.api.mvc.Cookie("bst", b.toString, maxAge = Some(4 * 60 * 60)))
+    val cookies: Seq[Cookie] = optCookie.toSeq
+
+    val retrieval = name and email and postCode and groupIdentifier and externalId and affinityGroup and credentialRole and confidenceLevel
+    val userDetails: Future[Option[UserDetails]] =
+      authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual))
+        .retrieve(retrieval) {
+          case optName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(
+                role) ~ confidenceLevel =>
+            Future.successful(
+              Some(
+                UserDetails
+                  .fromRetrieval(
+                    name = optName,
+                    optEmail = optEmail,
+                    optPostCode = optPostCode,
+                    groupIdentifier = groupIdentifier,
+                    externalId = externalId,
+                    affinityGroup = affinityGroup,
+                    role = role,
+                    confidenceLevel = confidenceLevel
+                  )))
+        }
+        .recover {
+          case _ => Option.empty[UserDetails]
+        }
+
+    userDetails.map(details => Ok(bstTestView(value, details)).withCookies(cookies: _*))
   }
 
 }

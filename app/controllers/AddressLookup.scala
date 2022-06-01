@@ -21,10 +21,13 @@ import play.api.Logging
 
 import javax.inject.Inject
 import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, RequestHeader}
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext
+import scala.util.Try
 
 class AddressLookup @Inject()(
       val errorHandler: CustomErrorHandler,
@@ -33,6 +36,14 @@ class AddressLookup @Inject()(
 )(
       implicit executionContext: ExecutionContext
 ) extends PropertyLinkingController with Logging {
+
+  private def useBst(request: RequestHeader): Boolean =
+    request.cookies.get("bst").flatMap(c => Try(c.value.toBoolean).toOption).getOrElse(false)
+
+  implicit override def hc(implicit request: RequestHeader): HeaderCarrier =
+    HeaderCarrierConverter
+      .fromRequestAndSession(request, request.session)
+      .withExtraHeaders("USE-BST" -> useBst(request).toString)
 
   def findByPostcode(postcode: String): Action[AnyContent] = Action.async { implicit request =>
     addresses
