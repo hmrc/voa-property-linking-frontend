@@ -7,11 +7,18 @@
     </encoder>
   </appender>
 
-  <logger name="uk.gov" level="${logger.uk.gov:-DEBUG}"/>
+  <logger name="application" level="DEBUG"/>
 
+  <logger name="uk.gov" level="${logger.uk.gov:-DEBUG}"/>
   <logger name="voa.submission" level="${logger.voa.submission:-DEBUG}"/>
 
-  <logger name="com.ning.http.client" level="${logger.com.ning.http.client:-INFO}"/>
+  <logger name="com.google.inject" level="WARN"/>
+  <logger name="reactivemongo" level="WARN"/>
+  <logger name="play" level="WARN"/>
+  <logger name="akka" level="WARN"/>
+  <logger name="uk.gov.hmrc.audit" level="WARN"/>
+  <logger name="auditCounter" level="WARN"/>
+  <logger name="uk.gov.hmrc.play.bootstrap" level="WARN"/>
 
   <root level="INFO">
     <appender-ref ref="STDOUT"/>
