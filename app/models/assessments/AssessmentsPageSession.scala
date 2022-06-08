@@ -19,7 +19,7 @@ package models.assessments
 import models.assessments.PreviousPage.PreviousPage
 import play.api.libs.json.{Json, OFormat}
 
-case class AssessmentsPageSession(previousPage: PreviousPage)
+case class AssessmentsPageSession(previousPage: PreviousPage, returnSearchCacheId: Option[String])
 
 object AssessmentsPageSession {
   implicit val format: OFormat[AssessmentsPageSession] = Json.format[AssessmentsPageSession]
