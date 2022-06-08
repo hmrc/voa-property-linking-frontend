@@ -155,7 +155,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val document: Document = Jsoup.parse(returnedHtml)
 
     document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl(
-      "return-to-your-properties?mayBeSessionId=cache-id")
+      "return-to-your-properties?cid=cache-id")
 
   }
 
@@ -239,7 +239,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val document: Document = Jsoup.parse(returnedHtml)
 
     document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl(
-      "return-to-client-properties?mayBeSessionId=cache-id")
+      "return-to-client-properties?cid=cache-id")
   }
 
   it should "return 200 with assessments for AGENT with the correct back link when cache id is provided for selected client" in new ValuationsSetup {
@@ -262,7 +262,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val document: Document = Jsoup.parse(returnedHtml)
 
     document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl(
-      s"return-to-selected-client-properties?organisationId=${clientProperty.client.organisationId}&organisationName=${clientProperty.client.organisationName}&mayBeSessionId=cache-id")
+      s"return-to-selected-client-properties?organisationId=${clientProperty.client.organisationId}&organisationName=${clientProperty.client.organisationName}&cid=cache-id")
   }
 
   it should "return 200 with assessments for AGENT with the correct back link when Dashboard is the previous page" in new ValuationsSetup {

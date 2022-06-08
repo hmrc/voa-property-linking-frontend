@@ -111,7 +111,7 @@ class ValuationsController @Inject()(
                 okResponse(
                   assessments,
                   s"${config.dashboardUrl("return-to-your-properties")}${request.sessionData.returnSearchCacheId.fold(
-                    "")(id => s"?mayBeSessionId=$id")}"))
+                    "")(id => s"?cid=$id")}"))
             else calculateBackLink(submissionId).map(backlink => okResponse(assessments, backlink))
         }
         .recoverWith {
@@ -157,7 +157,7 @@ class ValuationsController @Inject()(
       case AssessmentsPageSession(PreviousPage.Dashboard, _) => Future.successful(config.dashboardUrl("home"))
       case AssessmentsPageSession(PreviousPage.AllClients, mayBeCacheId @ _) =>
         Future.successful(
-          s"${config.dashboardUrl("return-to-client-properties")}${mayBeCacheId.fold("")(id => s"?mayBeSessionId=$id")}")
+          s"${config.dashboardUrl("return-to-client-properties")}${mayBeCacheId.fold("")(id => s"?cid=$id")}")
       case AssessmentsPageSession(PreviousPage.SelectedClient, mayBeCacheId @ _) =>
         propertyLinks.clientPropertyLink(submissionId).map {
           case None =>
@@ -165,8 +165,7 @@ class ValuationsController @Inject()(
           case Some(clientPropertyLink) =>
             config.dashboardUrl(
               s"return-to-selected-client-properties?organisationId=${clientPropertyLink.client.organisationId}&organisationName=${URLEncoder
-                .encode(clientPropertyLink.client.organisationName, "UTF-8")}${mayBeCacheId.fold("")(id =>
-                s"&mayBeSessionId=$id")}")
+                .encode(clientPropertyLink.client.organisationName, "UTF-8")}${mayBeCacheId.fold("")(id => s"&cid=$id")}")
         }
     }
 }
