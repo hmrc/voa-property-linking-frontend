@@ -43,6 +43,6 @@ class WithAssessmentsPageSessionRefiner @Inject()(
         request: BasicAuthenticatedRequest[A]): Future[Either[Result, AssessmentsPageSessionRequest[A]]] =
     sessionRepository.get[AssessmentsPageSession](implicitly[Reads[AssessmentsPageSession]], hc(request)).map {
       case Some(s) => Right(AssessmentsPageSessionRequest(s, request))
-      case None    => Right(AssessmentsPageSessionRequest(AssessmentsPageSession(PreviousPage.Dashboard), request))
+      case None    => Right(AssessmentsPageSessionRequest(AssessmentsPageSession(PreviousPage.Dashboard, None), request))
     }
 }

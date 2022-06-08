@@ -19,7 +19,7 @@ package uk.gov.hmrc.propertylinking.controllers.valuations
 import actions.assessments.WithAssessmentsPageSessionRefiner
 import controllers.VoaPropertyLinkingSpec
 import models.ApiAssessment.AssessmentWithFromDate
-import models.assessments.AssessmentsPageSession
+import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.assessments.PreviousPage.SelectedClient
 import models.properties.AllowedAction
 import models.{ApiAssessment, ApiAssessments, ClientPropertyLink}
@@ -43,6 +43,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
 
     val plSubId = "pl-submission-id"
     val previousPage = SelectedClient
+    val cacheId: Some[String] = Some("cache-id")
 
     when(mockSessionRepository.start(any())(any(), any())).thenReturn(Future.successful((): Unit))
     when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
@@ -70,17 +71,31 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
 
   behavior of "saving the previous page"
 
-  it should "save when called by the property link owner (IP)" in new Setup {
+  it should "save when called by the property link owner (IP) - no cache id" in new Setup {
     val res = valuationsController
       .savePreviousPage(previousPage = previousPage.toString, submissionId = plSubId, owner = true)(request)
 
     status(res) shouldBe SEE_OTHER
     header(LOCATION, res) shouldBe Some(s"/business-rates-property-linking/property-link/$plSubId/assessments")
 
-    verify(mockSessionRepository).start(mEq(AssessmentsPageSession(previousPage)))(any(), any())
+    verify(mockSessionRepository).start(mEq(AssessmentsPageSession(previousPage, None)))(any(), any())
   }
 
-  it should "save when called by an agent" in new Setup {
+  it should "save when called by the property link owner (IP) - with cache id" in new Setup {
+    val res = valuationsController
+      .savePreviousPage(
+        previousPage = previousPage.toString,
+        submissionId = plSubId,
+        owner = true,
+        returnSearchCacheId = cacheId)(request)
+
+    status(res) shouldBe SEE_OTHER
+    header(LOCATION, res) shouldBe Some(s"/business-rates-property-linking/property-link/$plSubId/assessments")
+
+    verify(mockSessionRepository).start(mEq(AssessmentsPageSession(previousPage, cacheId)))(any(), any())
+  }
+
+  it should "save when called by an agent - no cache id" in new Setup {
     val res = valuationsController
       .savePreviousPage(previousPage = previousPage.toString, submissionId = plSubId, owner = false)(request)
 
@@ -88,7 +103,22 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     header(LOCATION, res) shouldBe Some(
       s"/business-rates-property-linking/property-link/$plSubId/assessments?owner=false")
 
-    verify(mockSessionRepository).start(mEq(AssessmentsPageSession(previousPage)))(any(), any())
+    verify(mockSessionRepository).start(mEq(AssessmentsPageSession(previousPage, None)))(any(), any())
+  }
+
+  it should "save when called by an agent - with cache id" in new Setup {
+    val res = valuationsController
+      .savePreviousPage(
+        previousPage = previousPage.toString,
+        submissionId = plSubId,
+        owner = false,
+        returnSearchCacheId = cacheId)(request)
+
+    status(res) shouldBe SEE_OTHER
+    header(LOCATION, res) shouldBe Some(
+      s"/business-rates-property-linking/property-link/$plSubId/assessments?owner=false")
+
+    verify(mockSessionRepository).start(mEq(AssessmentsPageSession(previousPage, cacheId)))(any(), any())
   }
 
   behavior of "valuations page"
@@ -109,6 +139,24 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
 
     val res = valuationsController.valuations(plSubId, owner = true)(request)
     status(res) shouldBe OK
+  }
+
+  it should "return 200 with assessments for OWNER with the correct back link when cache id is provided" in new ValuationsSetup {
+    when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
+      .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.MyProperties, cacheId))))
+
+    lazy val as = apiAssessments(ownerAuthorisation)
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val res = valuationsController.valuations(plSubId, owner = true)(request)
+    status(res) shouldBe OK
+
+    val returnedHtml = contentAsString(res)
+    val document: Document = Jsoup.parse(returnedHtml)
+
+    document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl(
+      "return-to-your-properties?cid=cache-id")
+
   }
 
   it should "exclude any assessments, for which viewing the detailed valuation is not an allowed action" in new ValuationsSetup {
@@ -170,6 +218,73 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
         //first assessment in the list should have a "later" start date than the next one
         fromDate1.toEpochDay should be > fromDate2.toEpochDay
     }
+  }
+
+  it should "return 200 with assessments for AGENT with the correct back link when cache id is provided for all clients" in new ValuationsSetup {
+    when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
+      .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.AllClients, cacheId))))
+
+    lazy val as = apiAssessments(ownerAuthorisation)
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
+
+    when(mockPropertyLinkConnector.clientPropertyLink(mEq(plSubId))(any()))
+      .thenReturn(Future.successful(Some(clientProperty)))
+
+    val res = valuationsController.valuations(plSubId, owner = false)(request)
+    status(res) shouldBe OK
+
+    val returnedHtml = contentAsString(res)
+    val document: Document = Jsoup.parse(returnedHtml)
+
+    document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl(
+      "return-to-client-properties?cid=cache-id")
+  }
+
+  it should "return 200 with assessments for AGENT with the correct back link when cache id is provided for selected client" in new ValuationsSetup {
+
+    val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
+
+    when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
+      .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.SelectedClient, cacheId))))
+
+    when(mockPropertyLinkConnector.clientPropertyLink(mEq(plSubId))(any()))
+      .thenReturn(Future.successful(Some(clientProperty)))
+
+    lazy val as = apiAssessments(ownerAuthorisation)
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val res = valuationsController.valuations(plSubId, owner = false)(request)
+    status(res) shouldBe OK
+
+    val returnedHtml = contentAsString(res)
+    val document: Document = Jsoup.parse(returnedHtml)
+
+    document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl(
+      s"return-to-selected-client-properties?organisationId=${clientProperty.client.organisationId}&organisationName=${clientProperty.client.organisationName}&cid=cache-id")
+  }
+
+  it should "return 200 with assessments for AGENT with the correct back link when Dashboard is the previous page" in new ValuationsSetup {
+
+    val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
+
+    when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
+      .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard, None))))
+
+    when(mockPropertyLinkConnector.clientPropertyLink(mEq(plSubId))(any()))
+      .thenReturn(Future.successful(Some(clientProperty)))
+
+    lazy val as = apiAssessments(ownerAuthorisation)
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val res = valuationsController.valuations(plSubId, owner = false)(request)
+    status(res) shouldBe OK
+
+    val returnedHtml = contentAsString(res)
+    val document: Document = Jsoup.parse(returnedHtml)
+
+    document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl("home")
   }
 
 }

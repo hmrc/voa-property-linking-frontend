@@ -425,7 +425,7 @@ trait FakeObjects {
       total = 1,
       challengeCases = List(agentChallengeCase))
 
-  lazy val assessmentPageSession: AssessmentsPageSession = AssessmentsPageSession(PreviousPage.SelectedClient)
+  lazy val assessmentPageSession: AssessmentsPageSession = AssessmentsPageSession(PreviousPage.SelectedClient, None)
   lazy val appointNewAgentSession: AppointNewAgentSession = SelectedAgent(
     agentCode = agentCode,
     agentOrganisationName = agentDetails.name,

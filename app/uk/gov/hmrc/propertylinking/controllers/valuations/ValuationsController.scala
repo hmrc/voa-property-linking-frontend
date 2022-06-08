@@ -18,13 +18,13 @@ package uk.gov.hmrc.propertylinking.controllers.valuations
 
 import java.net.URLEncoder
 import java.time.LocalDate
+
 import actions.AuthenticatedAction
 import actions.assessments.WithAssessmentsPageSessionRefiner
 import actions.assessments.request.AssessmentsPageSessionRequest
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{AssessmentsVM, PropertyLinkingController}
-
 import javax.inject.{Inject, Named, Singleton}
 import models.ApiAssessments.EmptyAssessments
 import models.assessments.{AssessmentsPageSession, PreviousPage}
@@ -56,10 +56,14 @@ class ValuationsController @Inject()(
       executionContext: ExecutionContext
 ) extends PropertyLinkingController with Logging {
 
-  def savePreviousPage(previousPage: String, submissionId: String, owner: Boolean): Action[AnyContent] =
+  def savePreviousPage(
+        previousPage: String,
+        submissionId: String,
+        owner: Boolean,
+        returnSearchCacheId: Option[String] = None): Action[AnyContent] =
     authenticated.async { implicit request =>
       sessionRepo
-        .start[AssessmentsPageSession](AssessmentsPageSession(PreviousPage.withName(previousPage)))
+        .start[AssessmentsPageSession](AssessmentsPageSession(PreviousPage.withName(previousPage), returnSearchCacheId))
         .map(_ =>
           Redirect(uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
             .valuations(submissionId, owner)))
@@ -102,7 +106,12 @@ class ValuationsController @Inject()(
         .flatMap {
           case Some(EmptyAssessments()) | None => Future.successful(notFound)
           case Some(assessments) =>
-            if (owner) Future.successful(okResponse(assessments, config.dashboardUrl("your-properties")))
+            if (owner)
+              Future.successful(
+                okResponse(
+                  assessments,
+                  s"${config.dashboardUrl("return-to-your-properties")}${request.sessionData.returnSearchCacheId.fold(
+                    "")(id => s"?cid=$id")}"))
             else calculateBackLink(submissionId).map(backlink => okResponse(assessments, backlink))
         }
         .recoverWith {
@@ -144,17 +153,19 @@ class ValuationsController @Inject()(
 
   private def calculateBackLink(
         submissionId: String)(implicit request: AssessmentsPageSessionRequest[_], hc: HeaderCarrier): Future[String] =
-    request.sessionData.previousPage match {
-      case PreviousPage.Dashboard  => Future.successful(config.dashboardUrl("home"))
-      case PreviousPage.AllClients => Future.successful(config.dashboardUrl("client-properties"))
-      case PreviousPage.SelectedClient =>
+    request.sessionData match {
+      case AssessmentsPageSession(PreviousPage.Dashboard, _) => Future.successful(config.dashboardUrl("home"))
+      case AssessmentsPageSession(PreviousPage.AllClients, mayBeCacheId @ _) =>
+        Future.successful(
+          s"${config.dashboardUrl("return-to-client-properties")}${mayBeCacheId.fold("")(id => s"?cid=$id")}")
+      case AssessmentsPageSession(PreviousPage.SelectedClient, mayBeCacheId @ _) =>
         propertyLinks.clientPropertyLink(submissionId).map {
           case None =>
             throw new IllegalArgumentException(s"Client not fount for propertyLinkSubmissionId: $submissionId")
           case Some(clientPropertyLink) =>
             config.dashboardUrl(
-              s"selected-client-properties?clientOrganisationId=${clientPropertyLink.client.organisationId}&clientName=${URLEncoder
-                .encode(clientPropertyLink.client.organisationName, "UTF-8")}&pageNumber=1&pageSize=15&sortField=ADDRESS&sortOrder=ASC")
+              s"return-to-selected-client-properties?organisationId=${clientPropertyLink.client.organisationId}&organisationName=${URLEncoder
+                .encode(clientPropertyLink.client.organisationName, "UTF-8")}${mayBeCacheId.fold("")(id => s"&cid=$id")}")
         }
     }
 }
