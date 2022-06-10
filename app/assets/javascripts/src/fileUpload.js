@@ -27,7 +27,7 @@
 
             clearErrors();
             $('button.govuk-button').attr('disabled','disabled');
-            $('#message-warning').removeClass('govuk-visually-hidden');
+            $('#message-warning').removeClass('govuk-!-display-none');
 
             function resolveMimeType(upload) {
                 var extension = upload.name.substr( (upload.name.lastIndexOf('.') +1) ).toLowerCase();
@@ -103,10 +103,10 @@
                 if (jqXHR.status === 400) {
                     addError(jqXHR.responseText);
                 } else if (jqXHR.status === 413) {
-                    $('#message-warning').addClass('govuk-visually-hidden');
+                    $('#message-warning').addClass('govuk-!-display-none');
                     addError($('#errorsFileSizeTooLarge').text());
                 } else if (jqXHR.status > 400) {
-                    $('#message-warning').addClass('govuk-visually-hidden');
+                    $('#message-warning').addClass('govuk-!-display-none');
                     addError($('#errorsUpscan').text());
                 } else if (!jqXHR.status) {
                     var continueUrl = $("#startClaimUrl").text();
@@ -118,7 +118,7 @@
                 $('button.govuk-button').removeAttr('disabled');
             }).done(function(data, statusText, resObject) {
                 fileUpload(resObject.responseJSON, file, csrfToken);
-                $('#message-warning').addClass('govuk-visually-hidden');
+                $('#message-warning').addClass('govuk-!-display-none');
             });
 
             $(this).closest('.form-group').removeClass('error');
@@ -144,7 +144,7 @@
             $('#errorsList').html(errorMessages.replace('<li></li>', '<li><a href="#newFileGroup">'+ message +'</a></li>'));
             $('<span id="file-upload-1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>'+ message +'</span>').insertBefore('#newFileButton');
             $('#newFileGroup').addClass('govuk-form-group--error');
-            $('#message-warning').addClass('govuk-visually-hidden');
+            $('#message-warning').addClass('govuk-!-display-none');
             $('#error-summary').focus();
         }
 

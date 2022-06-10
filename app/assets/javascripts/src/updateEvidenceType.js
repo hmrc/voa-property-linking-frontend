@@ -41,7 +41,7 @@
                         }).fail(function (jqXHR) {
                             addError(jqXHR.responseText, "evidenceType");
                         }).done(function (data, statusText, resObject) {
-                            $('#message-warning').addClass('govuk-visually-hidden');
+                            $('#message-warning').addClass('govuk-!-display-none');
                         });
                     }
                }
@@ -57,7 +57,7 @@
             $('#errorsList').html(errorMessages.replace('<li></li>', '<li><a href="#'+evidenceTypeId+'">'+ message +'</a></li>'));
             $('<span id="file-upload-1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>'+ message +'</span>').insertBefore('#'.evidenceTypeId);
             $('#'.evidenceTypeId).addClass('govuk-form-group--error');
-            $('#message-warning').addClass('govuk-visually-hidden');
+            $('#message-warning').addClass('govuk-!-display-none');
             $('#error-summary').focus();
         }
         function clearErrors(evidenceTypeId){

@@ -1149,6 +1149,8 @@ warning.text=Warning
 
 common.or=or
 
+accessibility.error.label=Error:
+
 label.address=Address
 label.localAuthorityReference=Local authority reference
 label.status=Status
