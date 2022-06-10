@@ -49,7 +49,7 @@ Example usage:
                     }
 
                     @elements.args.get('_optional) match {
-                        case Some(true) => { <span class="visuallyhidden">(@messages("label.optional"))</span> }
+                        case Some(true) => { <span class="govuk-visually-hidden">(@messages("label.optional"))</span> }
                         case _ => {}
                     }
 
@@ -73,7 +73,7 @@ Example usage:
 
                             @elements.args.get('_optional) match {
                                 case Some(true) => {
-                                    <span class="visuallyhidden">(@messages("label.optional"))</span>
+                                    <span class="govuk-visually-hidden">(@messages("label.optional"))</span>
                                 }
                                 case _ => {}
                             }

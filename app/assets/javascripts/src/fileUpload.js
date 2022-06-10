@@ -126,7 +126,7 @@
         });
 
         $element.attr({'tabindex':'-1', 'style': 'position: absolute; left: -9999px; top: -9999px; z-index: -9999'});
-        $('[for="newFile"] .label-span').addClass('visuallyhidden');
+        $('[for="newFile"] .label-span').addClass('govuk-visually-hidden');
 
         $(document).on('click', '#newFileButton', function(e){
             e.preventDefault();
@@ -162,7 +162,7 @@
             $('input[name ="csrfToken"]').remove();
 
             Object.keys(form.uploadRequest.fields).map(function(k) {
-                $('#initiateFields').append('<input class="label-span visuallyhidden" name="' + k + '" value="' + form.uploadRequest.fields[k] + '">')
+                $('#initiateFields').append('<input class="label-span govuk-!-display-none" name="' + k + '" value="' + form.uploadRequest.fields[k] + '">')
             })
 
             $('#uploadForm').submit();

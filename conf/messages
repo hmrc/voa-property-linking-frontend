@@ -1207,7 +1207,7 @@ error.multipleProperties.required=Select if you want your agent to manage any of
 
 #MISC
 alt.newWindow=Opens in a new window
-label.phase=This is a new service – your <a class="govuk-link" href="{0}" target="_blank" id="betaFeedback">feedback <span class="visuallyhidden"> ({1})</span></a> will help us to improve it.
+label.phase=This is a new service – your <a class="govuk-link" href="{0}" target="_blank" id="betaFeedback">feedback <span class="govuk-visually-hidden"> ({1})</span></a> will help us to improve it.
 label.beta=BETA
 label.checkTheForm=Check the form
 label.fixTheFollowing=Fix the following:
