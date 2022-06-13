@@ -126,7 +126,6 @@
         });
 
         $element.attr({'tabindex':'-1', 'style': 'position: absolute; left: -9999px; top: -9999px; z-index: -9999'});
-        $('[for="newFile"] .label-span').addClass('govuk-visually-hidden');
 
         $(document).on('click', '#newFileButton', function(e){
             e.preventDefault();
