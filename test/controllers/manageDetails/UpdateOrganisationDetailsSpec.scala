@@ -124,7 +124,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     verify(mockGroups)
-      .update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, phone = Some("01234567890"))))(any[HeaderCarrier])
+      .update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, phone = Some("01234567890"))))(
+        any[HeaderCarrier])
   }
 
   "The update business email page" should "require a valid email address" in new Setup {
