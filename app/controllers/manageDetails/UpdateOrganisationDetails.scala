@@ -32,6 +32,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.{EnrolmentResult, ManageDetails, Success}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.EmailAddressValidation
+import utils.PhoneNumberValidation.validatePhoneNumber
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -148,7 +149,7 @@ class UpdateOrganisationDetails @Inject()(
 
   lazy val addressForm = Form(single("address" -> Mappings.addressMapping))
 
-  lazy val phoneForm = Form(single("phone" -> nonEmptyText(maxLength = 15)))
+  lazy val phoneForm = Form(single("phone" -> validatePhoneNumber))
 
   lazy val emailForm = Form(
     mapping(

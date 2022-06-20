@@ -110,21 +110,21 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("p.govuk-error-message").text shouldBe "Error: This must be filled in"
+    html.select("p.govuk-error-message").text shouldBe "Error: Enter a telephone number"
   }
 
   it should "update the business phone number on a valid submission" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val validData = Seq("phone" -> "999")
+    val validData = Seq("phone" -> "01234567890")
 
     val res = testController.updateBusinessPhone()(FakeRequest().withFormUrlEncodedBody(validData: _*))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     verify(mockGroups)
-      .update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, phone = Some("999"))))(any[HeaderCarrier])
+      .update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, phone = Some("01234567890"))))(any[HeaderCarrier])
   }
 
   "The update business email page" should "require a valid email address" in new Setup {

@@ -126,7 +126,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.select("p.govuk-error-message").text shouldBe "Error: This must be filled in"
+    html.select("p.govuk-error-message").text shouldBe "Error: Enter a telephone number"
   }
 
   it should "update the user's phone number when they make a valid submission" in {
