@@ -56,14 +56,10 @@ class ValuationsController @Inject()(
       executionContext: ExecutionContext
 ) extends PropertyLinkingController with Logging {
 
-  def savePreviousPage(
-        previousPage: String,
-        submissionId: String,
-        owner: Boolean,
-        returnSearchCacheId: Option[String] = None): Action[AnyContent] =
+  def savePreviousPage(previousPage: String, submissionId: String, owner: Boolean): Action[AnyContent] =
     authenticated.async { implicit request =>
       sessionRepo
-        .start[AssessmentsPageSession](AssessmentsPageSession(PreviousPage.withName(previousPage), returnSearchCacheId))
+        .start[AssessmentsPageSession](AssessmentsPageSession(PreviousPage.withName(previousPage)))
         .map(_ =>
           Redirect(uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
             .valuations(submissionId, owner)))
@@ -78,7 +74,7 @@ class ValuationsController @Inject()(
       .sortBy(-_.currentFromDate.fold(defaultEpochDay)(_.toEpochDay))
       .collect {
         case a: ApiAssessment if a.allowedActions.contains(AllowedAction.VIEW_DETAILED_VALUATION) =>
-          decideNextUrl(submissionId, apiAssessments.authorisationId, a, apiAssessments.pending, owner)
+          linkAndAssessment(submissionId, apiAssessments.authorisationId, a, owner)
       }
   }
 
@@ -108,64 +104,40 @@ class ValuationsController @Inject()(
           case Some(assessments) =>
             if (owner)
               Future.successful(
-                okResponse(
-                  assessments,
-                  s"${config.dashboardUrl("return-to-your-properties")}${request.sessionData.returnSearchCacheId.fold(
-                    "")(id => s"?cid=$id")}"))
+                okResponse(assessments, backlink = s"${config.dashboardUrl("return-to-your-properties")}"))
             else calculateBackLink(submissionId).map(backlink => okResponse(assessments, backlink))
-        }
-        .recoverWith {
-          case e =>
-            logger.warn("property link assessment call failed", e)
-            val linkF =
-              if (owner) propertyLinks.getMyOrganisationPropertyLink(submissionId)
-              else propertyLinks.getMyClientsPropertyLink(submissionId)
-            linkF.map {
-              case Some(link) => Redirect(getViewSummaryCall(link.uarn, pending = true, owner))
-              case None       => notFound
-            }
         }
     }
 
-  private def getViewSummaryCall(uarn: Long, pending: Boolean, owner: Boolean): Call =
-    if (owner) controllers.routes.Assessments.viewOwnerSummary(uarn, pending)
-    else controllers.routes.Assessments.viewClientSummary(uarn, pending)
-
-  private def decideNextUrl(
+  private def linkAndAssessment(
         submissionId: String,
         authorisationId: Long,
         assessment: ApiAssessment,
-        isPending: Boolean,
         owner: Boolean
   ): (String, ApiAssessment) =
-    assessment.rateableValue match {
-      case Some(_) if isPending => getViewSummaryCall(assessment.uarn, isPending, owner).url -> assessment
-      case _ =>
-        controllers.routes.Assessments
-          .viewDetailedAssessment(
-            submissionId,
-            authorisationId,
-            assessment.assessmentRef,
-            assessment.billingAuthorityReference,
-            owner)
-          .url -> assessment
-    }
+    controllers.routes.Assessments
+      .viewDetailedAssessment(
+        submissionId,
+        authorisationId,
+        assessment.assessmentRef,
+        assessment.billingAuthorityReference,
+        owner)
+      .url -> assessment
 
   private def calculateBackLink(
         submissionId: String)(implicit request: AssessmentsPageSessionRequest[_], hc: HeaderCarrier): Future[String] =
     request.sessionData match {
-      case AssessmentsPageSession(PreviousPage.Dashboard, _) => Future.successful(config.dashboardUrl("home"))
-      case AssessmentsPageSession(PreviousPage.AllClients, mayBeCacheId @ _) =>
-        Future.successful(
-          s"${config.dashboardUrl("return-to-client-properties")}${mayBeCacheId.fold("")(id => s"?cid=$id")}")
-      case AssessmentsPageSession(PreviousPage.SelectedClient, mayBeCacheId @ _) =>
+      case AssessmentsPageSession(PreviousPage.Dashboard) => Future.successful(config.dashboardUrl("home"))
+      case AssessmentsPageSession(PreviousPage.AllClients) =>
+        Future.successful(s"${config.dashboardUrl("return-to-client-properties")}")
+      case AssessmentsPageSession(PreviousPage.SelectedClient) =>
         propertyLinks.clientPropertyLink(submissionId).map {
           case None =>
             throw new IllegalArgumentException(s"Client not fount for propertyLinkSubmissionId: $submissionId")
           case Some(clientPropertyLink) =>
             config.dashboardUrl(
               s"return-to-selected-client-properties?organisationId=${clientPropertyLink.client.organisationId}&organisationName=${URLEncoder
-                .encode(clientPropertyLink.client.organisationName, "UTF-8")}${mayBeCacheId.fold("")(id => s"&cid=$id")}")
+                .encode(clientPropertyLink.client.organisationName, "UTF-8")}")
         }
     }
 }
