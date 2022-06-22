@@ -15,7 +15,7 @@
                 '<ul class="govuk-list govuk-error-summary__list"><li></li></ul></div>';
 
 
-        var options = 'input[type="radio"]';
+        var options = '#upload-evidence-options input[type="radio"]';
 
         $(options).click(function() {
           submitEvidenceType(this.value);
