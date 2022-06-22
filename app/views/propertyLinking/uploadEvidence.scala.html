@@ -79,6 +79,7 @@
             hint = Some(Hint(
               content = Text(messages("uploadOtherEvidence.hint", capitalisedAddress(request.ses.address)))
             )),
+            attributes = Map("id" -> "upload-evidence-options"),
             idPrefix = Some("evidenceType"),
             name = "evidenceType",
             items = Seq(
