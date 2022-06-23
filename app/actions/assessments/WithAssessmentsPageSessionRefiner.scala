@@ -26,12 +26,10 @@ import play.api.mvc._
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
-import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class WithAssessmentsPageSessionRefiner @Inject()(
-      errorHandler: CustomErrorHandler,
       @Named("assessmentPage") val sessionRepository: SessionRepo
 )(implicit override val executionContext: ExecutionContext)
     extends ActionRefiner[BasicAuthenticatedRequest, AssessmentsPageSessionRequest] {
@@ -43,6 +41,6 @@ class WithAssessmentsPageSessionRefiner @Inject()(
         request: BasicAuthenticatedRequest[A]): Future[Either[Result, AssessmentsPageSessionRequest[A]]] =
     sessionRepository.get[AssessmentsPageSession](implicitly[Reads[AssessmentsPageSession]], hc(request)).map {
       case Some(s) => Right(AssessmentsPageSessionRequest(s, request))
-      case None    => Right(AssessmentsPageSessionRequest(AssessmentsPageSession(PreviousPage.Dashboard, None), request))
+      case None    => Right(AssessmentsPageSessionRequest(AssessmentsPageSession(PreviousPage.Dashboard), request))
     }
 }

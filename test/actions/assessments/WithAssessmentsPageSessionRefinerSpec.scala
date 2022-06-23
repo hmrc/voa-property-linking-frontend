@@ -40,7 +40,7 @@ class WithAssessmentsPageSessionRefinerSpec
   trait Setup {
     val fakeRequest = FakeRequest()
 
-    val refiner = new WithAssessmentsPageSessionRefiner(mockCustomErrorHandler, mockSessionRepository)
+    val refiner = new WithAssessmentsPageSessionRefiner(mockSessionRepository)
 
     val grpAccount: GroupAccount = groupAccount(true)
     val individualAccount = detailedIndividualAccount

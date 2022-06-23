@@ -41,20 +41,6 @@ class Assessments @Inject()(
       executionContext: ExecutionContext
 ) extends PropertyLinkingController {
 
-  def viewOwnerSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] =
-    viewSummary(uarn, isOwner = true, isPending)
-
-  def viewClientSummary(uarn: Long, isPending: Boolean = false): Action[AnyContent] =
-    viewSummary(uarn, isOwner = false, isPending)
-
-  private def viewSummary(uarn: Long, isOwner: Boolean, isPending: Boolean): Action[AnyContent] = Action {
-    if (isOwner) {
-      Redirect(config.valuationFrontendUrl + s"/property-link/$uarn/valuation/summary")
-    } else {
-      Redirect(config.valuationFrontendUrl + s"/property-link/clients/all/$uarn/valuation/summary")
-    }
-  }
-
   def viewDetailedAssessment(
         submissionId: String,
         authorisationId: Long,

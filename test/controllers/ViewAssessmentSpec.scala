@@ -38,22 +38,6 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
         stubMessagesControllerComponents()
       )
 
-  "viewOwnerSummary" should "redirect to business-rates-valuation view owner summary details" in {
-    val res = TestAssessmentController.viewOwnerSummary(123L, true)(FakeRequest())
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(
-      "http://localhost:9537/business-rates-valuation/property-link/123/valuation/summary")
-  }
-
-  "viewClientSummary" should "redirect to business-rates-valuation view client summary details" in {
-    val res = TestAssessmentController.viewClientSummary(123L, true)(FakeRequest())
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(
-      "http://localhost:9537/business-rates-valuation/property-link/clients/all/123/valuation/summary")
-  }
-
   "Viewing a detailed valuation" should "redirect to business rates valuation if it's viewable and user is owner" in {
     val link: PropertyLink = arbitrary[PropertyLink]
 
