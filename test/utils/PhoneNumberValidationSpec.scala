@@ -87,7 +87,7 @@ class PhoneNumberValidationSpec extends BaseUnitSpec {
       }
 
     }
-    "catch phone validity" in new Setup {
+    "catch mandatory condition" in new Setup {
       val isNumber = Table(
         ("phone number", "validity"),
         ("01234567890", true),
