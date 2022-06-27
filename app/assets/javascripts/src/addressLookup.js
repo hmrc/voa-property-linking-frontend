@@ -5,7 +5,6 @@
         root.VOA = {};
     }
     root.VOA.postcodeLookup = function () {
-        var messages = VOA.messages.en;
         function showFields() {
             $('.address--fields').css('display', 'block');
             $('.postcode-lookup-fields, .manualAddress').css('display', 'none');
@@ -21,11 +20,15 @@
         }
         function showLookupError() {
 
-            var errorTitlePrefix = 'Error: ';
+            var errorTitlePrefix = $('#accessibility-error-label').text();
+            var errorHeading = $('#error-common-title').text();
+            var errorPostcodeMissing = $('#error-postcode-missing').text();
+            var errorPostcodeLookup = $('#error-postcode-lookup').text();
+
             var title = $(document).prop('title');
             var errorMessages = '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-heading" role="alert" tabindex="-1" data-module="govuk-error-summary">'+
-                        '<h2 class="govuk-error-summary__title" id="error-summary-heading">There is a problem</h2>'+
-                        '<ul class="govuk-list govuk-error-summary__list"><li><a href="#postcodeSearch">'+ messages.errors.postcodeLookupError +'</a></li></ul></div>';
+                        '<h2 class="govuk-error-summary__title" id="error-summary-heading">' + errorHeading + '</h2>'+
+                        '<ul class="govuk-list govuk-error-summary__list"><li><a href="#postcodeSearch">'+ errorPostcodeLookup +'</a></li></ul></div>';
              if(title.startsWith(errorTitlePrefix)){
                  $(document).prop('title', title);
              } else {
@@ -35,12 +38,12 @@
                  $("#page-error-summary").append(errorMessages);
                  $('#error-summary').focus();
              }else{
-                 if(!$('#page-error-summary').text().indexOf('Enter a valid postcode')){
-                    $('#page-error-summary #error-summary .govuk-error-summary__list').append('<li><a href="#postcodeSearch">'+ messages.errors.postcodeLookupError +'</a></li>');
+                 if(!$('#page-error-summary').text().indexOf(errorPostcodeMissing)){
+                    $('#page-error-summary #error-summary .govuk-error-summary__list').append('<li><a href="#postcodeSearch">'+ errorPostcodeLookup +'</a></li>');
                  }
              }
 
-            var isError = $('#postcodeSearchOnly').text().indexOf('Enter a valid postcode') > -1;
+            var isError = $('#postcodeSearchOnly').text().indexOf(errorPostcodeMissing) > -1;
             if(isError){
                  $('span[id^="invalidPostcode"]').remove();
             }
@@ -49,7 +52,7 @@
             $('#postcodeSearchGroup').before('<span class="govuk-form-group govuk-form-group--error">'
                 + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
             $('#postcodeSearch').before('<span id="invalidPostcode" class="govuk-error-message">'
-            + messages.errors.postcodeLookupError + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
+            + errorPostcodeLookup + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
             active = true;
         }
         function addressLine(s) {
@@ -73,16 +76,16 @@
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
                     statusCode: {
                         404: function(res) {
-                            $('#postcodeSearchGroup').find('.govuk-error-message').text(messages.errors.postcodeLookupError);
+                            $('#postcodeSearchGroup').find('.govuk-error-message').text(errorPostcodeLookup);
                         }
                     },
                     success: function(data) {
                         $("#error-summary").remove();
                         if (data.length > 0) {
                             $('.postcode-lookup-group').prepend('<label for="addressSelect" class="govuk-label--m">'+
-                            messages.labels.selectValue +'</label><span class="govuk-hint" id="addressHelp">' +
-                            messages.labels.addressHelp + '</span><select id="addressSelect" class="addressList govuk-select"></select>');
-                            $('#addressSelect').append('<option value="" selected disabled>' + messages.labels.selectValue + '</option>');
+                            $("#selectValue").text() +'</label><span class="govuk-hint" id="addressHelp">' +
+                            $("#addressHelp").text() + '</span><select id="addressSelect" class="addressList govuk-select"></select>');
+                            $('#addressSelect').append('<option value="" selected disabled>' + $("#selectValue").text() + '</option>');
                             $('.postcode-lookup-fields').css('display', 'none');
                             $('.lookupAddressCancel').css('display', 'inline-block');
                             $.each(data, function(i, item) {

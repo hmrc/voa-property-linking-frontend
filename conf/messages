@@ -6,6 +6,8 @@ link.login=Login
 link.register=Register
 label.phase.banner.text=This is a new service – your <a href="{0}" id="betaFeedback" class="govuk-link">feedback</a> will help us to improve it.
 link.feedback=Feedback
+label.search.for=Search for
+label.Appoint=Appoint
 main.cookies=Cookies
 footer.termsandconditions=Terms and conditions
 link.privacyPolicy=Privacy
@@ -208,6 +210,7 @@ hint.nino=It’s on your National Insurance card, benefit letter, payslip or P60
 error.emailsMustMatch=Email addresses must match. Check them and try again
 error.invalidEmail=Enter a valid email address
 error.invalidPostcode=Enter a real postcode
+error.postcode.missing=Enter a valid postcode
 error.title=There is a problem
 error.phoneNumber.required=Enter a telephone number
 error.phoneNumber.invalidLength=Telephone number must be between 11 and 20 characters
@@ -250,6 +253,56 @@ account.confirmation.disclaimer=Information provided using this service is only 
 
 #TermsAndConditions
 termsAndConditions.title=Terms and conditions
+termsAndConditions.p1=These terms and conditions govern your use of the Valuation Office Agency&#39;s (VOA) ‘Check and challenge your business rates valuation’ (CCBRV) online service, as governed by the laws of England. Please read these terms and conditions carefully as they affect your rights and liabilities in the law.
+termsAndConditions.p2=These terms and conditions are not a full and authoritative statement of the law that applies.
+termsAndConditions.p3=By using this service, you agree to these terms and conditions.
+termsAndConditions.publication-use.h2=Purposes of publication and use
+termsAndConditions.publication-use.p1=Publication of this information by the VOA and its use is restricted to permit a user to check, challenge and appeal a Non Domestic Rating (NDR) valuation they have an interest in.
+termsAndConditions.onward-disclosure.h2=Onward Disclosure
+termsAndConditions.onward-disclosure.p1=Disclosure to a third party is prohibited.
+termsAndConditions.user-definition.h2=Definition of a user
+termsAndConditions.user-definition.p1=For these terms the user is hereby defined to include:
+termsAndConditions.user-definition.li1=an interested person (as defined below);
+termsAndConditions.user-definition.li2=the Crown Estate Commissioners
+termsAndConditions.user-definition.li3=a representative authorised by an interested person for the stated purposes
+termsAndConditions.interested-person.h2=Definition of an interested person
+termsAndConditions.interested-person.p1=This means:
+termsAndConditions.interested-person.li1=the occupier;
+termsAndConditions.interested-person.li2=any other person (other than a mortgagee not in possession) having in any part of the hereditament either a legal estate or an equitable interest such as would entitle him (after the cessation of any prior interest) to possession of the hereditament or any part of it; and
+termsAndConditions.interested-person.li3=any person having a qualifying connection with the occupier or a person described
+termsAndConditions.qualifying-connection.h2=Definition of a qualifying connection
+termsAndConditions.qualifying-connection.p1=A person shall be treated as having a qualifying connection with another:
+termsAndConditions.qualifying-connection.li1=where both persons are companies, and one is a subsidiary of the other; or both are subsidiaries of the same company; or
+termsAndConditions.qualifying-connection.li2=where only one person is a company, the other person (the &quot;second person&quot;) has such an interest in that company as would, if the second person were a company, result in its being the holding company of the other.
+termsAndConditions.check.meaning.h2=Meaning of check
+termsAndConditions.check.meaning.p1=‘Check’ has the meaning given in regulation 4A to 4F of the Non-Domestic Rating (Alteration of Lists and Appeals) (England) Regulations 2009, as amended by the Non-Domestic Rating (Alteration of Lists and Appeals) (England) (Amendment) Regulations 2017.
+termsAndConditions.checking-and-challenging.h2=Checking and challenging valuations
+termsAndConditions.checking-and-challenging.p1=A user can
+termsAndConditions.checking-and-challenging.li1=view a valuation and request to see factual information held by the VOA of the user’s assessment
+termsAndConditions.checking-and-challenging.li2=check the valuation of assessments,
+termsAndConditions.checking-and-challenging.li3=confirm the accuracy of facts used in relation to the assessment, provide missing facts and suggest amendments to facts held
+termsAndConditions.checking-and-challenging.li4=challenge the valuation of assessments within 4 months of a check being completed
+termsAndConditions.use-information.h2=Use of information provided
+termsAndConditions.use-information.p1=These terms and conditions do not cover the use of:
+termsAndConditions.use-information.li1=the information other than for the purposes detailed
+termsAndConditions.use-information.li2=personal data in the information
+termsAndConditions.use-information.li3=information that has neither been published nor disclosed under information access legislation (including the Freedom of Information Acts) by or with the consent of the Information Provider
+termsAndConditions.use-information.li4=departmental or public sector organisation logos, crests and the Royal Arms except where they form an integral part of a document or dataset
+termsAndConditions.use-information.li5=third party rights the Information Provider is not authorised to license
+termsAndConditions.use-information.li6=information subject to other intellectual property rights
+termsAndConditions.use-information.p2=All users must ensure that
+termsAndConditions.use-information.li7=they do not use the information in a way that suggests any official status or that the VOA endorses them or their use of the information
+termsAndConditions.use-information.li8=they do not use the information in a way which is likely to mislead others or misrepresent the information or its source
+termsAndConditions.use-information.li9=their use of the information does not breach the Data Protection Act 1998 or the Privacy and Electronic Communications (EC Directive) Regulations 2003
+termsAndConditions.use-information.li10=The user will delete this information when they no longer have a need associated with the stated purposes to hold the information
+termsAndConditions.crown-copyright.h2=Crown Copyright
+termsAndConditions.crown-copyright.p1=The Database and Data used to provide this service are protected by Crown Copyright and Crown Database rights. A user’s permission to use those copyright works is limited to the rights expressly conferred by these terms and conditions.
+termsAndConditions.amendments.h2=Amendments to terms and conditions
+termsAndConditions.amendments.p1=We may update these terms and conditions from time to time and by continuing to use the service, you confirm your continued agreement to these terms and conditions of use.
+termsAndConditions.using-service.h2=Using this service
+termsAndConditions.using-service.p1=We make every effort to ensure that the information provided is accurate. However, the VOA cannot accept any liability for the accuracy of this information, and those who use it do so at their own risk. We cannot guarantee that the service will be fault free. If there is a problem with the service, you should use the &#39;Get help with this form&#39; link at the bottom of each page and we will come back to you as soon as we can.
+termsAndConditions.using-service.p2=The VOA accepts no responsibility for any loss, disruption or damage to your data or computer system while using this service.
+termsAndConditions.using-service.p3=The VOA reserves the right to remove access to the service to an individual or organisation if it believes the service has been misused or there has been a failure to comply with published guidance or these terms and conditions.
 
 #CREATE GROUP ACCOUNT
 createAccount.group.title=Your business details
@@ -1146,11 +1199,9 @@ error.booleanMissing=You must select one
 error.subscription.title=There is a problem
 error.noRecords=No matching records found, please search again.
 warning.text=Warning
-
 common.or=or
-
 accessibility.error.label=Error:
-
+error.common.title=There is a problem
 label.address=Address
 label.localAuthorityReference=Local authority reference
 label.status=Status
@@ -1516,7 +1567,6 @@ enrolment.yes = Yes
 enrolment.no = No
 enrolment.businessName = Business name
 
-
 before.you.start.title=Claim a property
 before.you.start.p1=Most of the valuation information about your property is confidential and not available to everyone. By claiming a property, you’re proving you have the right to see this information and discuss it with the Valuation Office Agency.
 before.you.start.p2=To claim a property, search for it on the next page then click on ''claim this property'' and follow the instructions.
@@ -1531,6 +1581,7 @@ app.common.yes = Yes
 app.common.no = No
 common.titleSuffix=- Valuation Office Agency - GOV.UK
 common.localAuthorityReference=Local authority reference:
+
 
 #Registration Failure
 registration.error.title=You are unable to register
@@ -1551,6 +1602,7 @@ challengeRules.rules.paper=If no Check cases are shown but you still think you h
 timeout.dialog.title = You are about to be timed out
 
 ##Business rate attachments
+supportingDocuments.defaultError=Unknown/Extension missing
 remove.file=Remove file
 error.summary.title=There is a problem
 error.summary.text=Check the following
@@ -1565,3 +1617,12 @@ businessRatesAttachment.file.size.reached.max.limit=You have uploaded 1 file, th
 fileupload.support.documents.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit
 fileupload.pleaseWait=Please wait whilst your file is uploading. This may take some time.
 
+#Javascript Error messages
+label.selectValue=Select an address,
+addressHelp=This should be your preferred postal contact address for your business.,
+label.loading=Loading...,
+label.showing=Showing,
+label.to=to,
+label.of=of,
+label.submissionId=Submission ID,
+error.postcodeLookupError=Enter a valid postcode

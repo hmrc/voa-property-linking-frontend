@@ -9,12 +9,11 @@
     }
 
     var FileUpload = function (){
-
         var $element = $('#newFile');
-
+        var errorHeading = $('#error-common-title').text();
         var errorMessages = '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-heading" role="alert" tabindex="-1" data-module="govuk-error-summary">'+
-            '<h2 class="govuk-error-summary__title" id="error-summary-heading">There is a problem</h2>'+
-            '<ul class="govuk-list govuk-error-summary__list"><li></li></ul></div>';
+                            '<h2 class="govuk-error-summary__title" id="error-summary-heading">' + errorHeading + '</h2>' +
+                            '<ul class="govuk-list govuk-error-summary__list"><li></li></ul></div>';
 
         $element.change(function(){
             var file = this.files[0];
@@ -26,17 +25,24 @@
             }
 
             clearErrors();
+            $('#error-summary').remove();
+            $('#newFile').attr('disabled','disabled');
+            $('#newFileButton').css('display', 'none');
             $('button.govuk-button').attr('disabled','disabled');
+
             $('#message-warning').removeClass('govuk-!-display-none');
 
             function resolveMimeType(upload) {
+                var defaultErrorText = $('#supportingDocuments-defaultError').text()
                 var extension = upload.name.substr( (upload.name.lastIndexOf('.') +1) ).toLowerCase();
                 if(extension === "csv"){
-                    return "Unknown/Extension missing";
+                    return defaultErrorText;
                 }
+
                 if(file.type){
-                    return file.type;
+                   return file.type;
                 }
+
                 var mime;
                 switch(extension){
                             case "xls":
@@ -71,12 +77,11 @@
                             mime = "image/png";
                             break;
 
-                            default:
-                            mime = file.type ? file.type : 'Unknown/Extension missing';
-                            break;
-
-                        }
-                 return mime;
+                    default:
+                        mime = file.type ? file.type : defaultErrorText;
+                        break;
+                }
+                return mime;
             }
 
             var resolvedMimeType = resolveMimeType(file);
@@ -132,16 +137,16 @@
             $element.trigger('click');
         });
 
-        var errorTitlePrefix = 'Error: ';
+        var errorTitlePrefix = $('#accessibility-error-label').text();
         var title = $(document).prop('title');
         function addError(message){
             if(title.startsWith(errorTitlePrefix)){
                 $(document).prop('title', title);
             } else {
-                $(document).prop('title', errorTitlePrefix + title);
+                $(document).prop('title', errorTitlePrefix + ' ' + title);
             }
             $('#errorsList').html(errorMessages.replace('<li></li>', '<li><a href="#newFileGroup">'+ message +'</a></li>'));
-            $('<span id="file-upload-1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>'+ message +'</span>').insertBefore('#newFileButton');
+            $('<span id="file-upload-1-error" class="govuk-error-message"><span class="govuk-!-display-none">'+ errorTitlePrefix +'</span>'+ message +'</span>').insertBefore('#newFileButton');
             $('#newFileGroup').addClass('govuk-form-group--error');
             $('#message-warning').addClass('govuk-!-display-none');
             $('#error-summary').focus();
@@ -154,7 +159,7 @@
             $('#file-upload-1-error').remove();
             $('#newFileGroup').removeClass('govuk-form-group--error');
         }
-        
+
         function fileUpload(form, file, csrfToken){
             $('#uploadForm').attr('action', form.uploadRequest.href);
 
@@ -164,6 +169,7 @@
                 $('#initiateFields').append('<input class="label-span govuk-!-display-none" name="' + k + '" value="' + form.uploadRequest.fields[k] + '">')
             })
 
+            $('#newFile').removeAttr('disabled');
             $('#uploadForm').submit();
         };
 
