@@ -117,7 +117,7 @@
         <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
 
         @govukWarningText(WarningText(
-            iconFallbackText = "Warning",
+            iconFallbackText = messages("warning.text"),
             content = Text(messages("available.requestvaluation.warning"))
         ))
         @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl), attributes = Map("id" -> "checkcasestab-start-check")))

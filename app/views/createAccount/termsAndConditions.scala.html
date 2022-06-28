@@ -18,107 +18,82 @@
     pageTitle = messages("termsAndConditions.title"),
 ) {
 
-            <h1 class="govuk-heading-xl">@Messages("termsAndConditions.title")</h1>
+            <h1 class="govuk-heading-xl">@messages("termsAndConditions.title")</h1>
+            <p class="govuk-body">@Html(messages("termsAndConditions.p1"))</p>
+            <p class="govuk-body">@messages("termsAndConditions.p2")</p>
+            <p class="govuk-body">@messages("termsAndConditions.p3")</p>
 
-            <p class="govuk-body">These terms and conditions govern your use of the Valuation Office Agency&#39;s (VOA) ‘Check and challenge your business rates valuation’ (CCBRV) online service, as governed by the laws of England. Please read these terms and conditions carefully as they affect your rights and liabilities in the law.</p>
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.publication-use.h2")</h2>
+            <p class="govuk-body">@messages("termsAndConditions.publication-use.p1")</p>
 
-            <p class="govuk-body">These terms and conditions are not a full and authoritative statement of the law that applies.</p>
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.onward-disclosure.h2")</h2>
+            <p class="govuk-body">@messages("termsAndConditions.onward-disclosure.p1")</p>
 
-            <p class="govuk-body">By using this service, you agree to these terms and conditions.</p>
-
-            <h2 class="govuk-heading-m">Purposes of publication and use</h2>
-
-            <p class="govuk-body">Publication of this information by the VOA and its use is restricted to permit a user to check, challenge and appeal a Non Domestic Rating (NDR) valuation they have an interest in.</p>
-
-            <h2 class="govuk-heading-m">Onward Disclosure</h2>
-
-            <p class="govuk-body">Disclosure to a third party is prohibited.</p>
-
-            <h2 class="govuk-heading-m">Definition of a user</h2>
-
-            <p class="govuk-body">For these terms the user is hereby defined to include:</p>
-
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.user-definition.h2")</h2>
+            <p class="govuk-body">@messages("termsAndConditions.user-definition.p1")</p>
              <ul class="govuk-body">
-                <li>an interested person (as defined below);</li>
-                <li>the Crown Estate Commissioners</li>
-                <li>a representative authorised by an interested person for the stated purposes</li>
+                 <li>@messages("termsAndConditions.user-definition.li1")</li>
+                 <li>@messages("termsAndConditions.user-definition.li2")</li>
+                 <li>@messages("termsAndConditions.user-definition.li3")</li>
             </ul>
 
 
-            <h2 class="govuk-heading-m">Definition of an interested person</h2>
-
-            <p class="govuk-body">This means:</p>
-
-                   <ul class="govuk-body">
-                <li>the occupier;</li>
-                <li>any other person (other than a mortgagee not in possession) having in any part of the hereditament either a legal estate or an equitable interest such as would
-                    entitle him (after the cessation of any prior interest) to possession of the hereditament or any part of it; and</li>
-                <li>any person having a qualifying connection with the occupier or a person described</li>
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.interested-person.h2")</h2>
+            <p class="govuk-body">@messages("termsAndConditions.interested-person.p1")</p>
+            <ul class="govuk-body">
+                <li>@Html(messages("termsAndConditions.interested-person.li1"))</li>
+                <li>@Html(messages("termsAndConditions.interested-person.li2"))</li>
+                <li>@Html(messages("termsAndConditions.interested-person.li3"))</li>
             </ul>
 
-            <h2 class="govuk-heading-m">Definition of a qualifying connection</h2>
-
-            <p class="govuk-body">A person shall be treated as having a qualifying connection with another:</p>
-
-                   <ul class="govuk-body">
-                <li>where both persons are companies, and one is a subsidiary of the other; or both are subsidiaries of the same company; or</li>
-                <li>where only one person is a company, the other person (the &quot;second person&quot;) has such an interest in that company as would, if the second person were a company, result in its being the holding company of the other.</li>
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.qualifying-connection.h2")</h2>
+            <p class="govuk-body">@messages("termsAndConditions.qualifying-connection.p1")</p>
+            <ul class="govuk-body">
+                <li>@messages("termsAndConditions.qualifying-connection.li1")</li>
+                <li>@messages("termsAndConditions.qualifying-connection.li2")</li>
             </ul>
 
-            <h2 class="govuk-heading-m">Meaning of check</h2>
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.check.meaning.h2")</h2>
+            <p class="govuk-body">@messages("termsAndConditions.check.meaning.p1")</p>
 
-            <p class="govuk-body">‘Check’ has the meaning given in regulation 4A to 4F of the Non-Domestic Rating (Alteration of Lists and Appeals) (England) Regulations 2009, as amended by the Non-Domestic Rating (Alteration of Lists and Appeals) (England) (Amendment) Regulations 2017.</p>
-
-            <h2 class="govuk-heading-m">Checking and challenging valuations</h2>
-
-            <p class="govuk-body">A user can:</p>
-
-                   <ul class="govuk-body">
-                <li>view a valuation and request to see factual information held by the VOA of the user’s assessment</li>
-                <li>check the valuation of assessments,</li>
-                <li>confirm the accuracy of facts used in relation to the assessment, provide missing facts and suggest amendments to facts held</li>
-                <li>challenge the valuation of assessments within 4 months of a check being completed</li>
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.checking-and-challenging.h2")</h2>
+            <p class="govuk-body">@messages("termsAndConditions.checking-and-challenging.p1")</p>
+            <ul class="govuk-body">
+                <li>@messages("termsAndConditions.checking-and-challenging.li1")</li>
+                <li>@messages("termsAndConditions.checking-and-challenging.li2")</li>
+                <li>@messages("termsAndConditions.checking-and-challenging.li3")</li>
+                <li>@messages("termsAndConditions.checking-and-challenging.li4")</li>
             </ul>
 
-            <h2 class="govuk-heading-m">Use of information provided</h2>
-
-            <p class="govuk-body">These terms and conditions do not cover the use of:</p>
-
-                   <ul class="govuk-body">
-                <li>the information other than for the purposes detailed</li>
-                <li>personal data in the information</li>
-                <li>information that has neither been published nor disclosed under information access legislation (including the Freedom of Information Acts) by or with the consent of the Information Provider</li>
-                <li>departmental or public sector organisation logos, crests and the Royal Arms except where they form an integral part of a document or dataset</li>
-                <li>third party rights the Information Provider is not authorised to license</li>
-                <li>information subject to other intellectual property rights</li>
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.use-information.h2")</h2>
+            <p class="govuk-body">@messages("termsAndConditions.use-information.p1")</p>
+            <ul class="govuk-body">
+                <li>@messages("termsAndConditions.use-information.li1")</li>
+                <li>@messages("termsAndConditions.use-information.li2")</li>
+                <li>@messages("termsAndConditions.use-information.li3")</li>
+                <li>@messages("termsAndConditions.use-information.li4")</li>
+                <li>@messages("termsAndConditions.use-information.li5")</li>
+                <li>@messages("termsAndConditions.use-information.li6")</li>
             </ul>
+            <p class="govuk-body">@messages("termsAndConditions.use-information.p2")</p>
+            <ul class="govuk-body">
+                <li>@messages("termsAndConditions.use-information.li7")</li>
+                <li>@messages("termsAndConditions.use-information.li8")</li>
+                <li>@messages("termsAndConditions.use-information.li9")</li>
+                <li>@messages("termsAndConditions.use-information.li10")</li>
+           </ul>
 
-            <p class="govuk-body">All users must ensure that</p>
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.crown-copyright.h2")</h2>
+            <p class="govuk-body">@messages("termsAndConditions.crown-copyright.p1")</p>
 
-                   <ul class="govuk-body">
-                <li>they do not use the information in a way that suggests any official status or that the VOA endorses them or their use of the information</li>
-                <li>they do not use the information in a way which is likely to mislead others or misrepresent the information or its source</li>
-                <li>their use of the information does not breach the Data Protection Act 1998 or the Privacy and Electronic Communications (EC Directive) Regulations 2003</li>
-                <li>The user will delete this information when they no longer have a need associated with the stated purposes to hold the information</li>
-            </ul>
 
-            <h2 class="govuk-heading-m">Crown Copyright</h2>
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.amendments.h2")</h2>
+            <p class="govuk-body">@messages("termsAndConditions.amendments.p1")</p>
 
-            <p class="govuk-body">The Database and Data used to provide this service are protected by Crown Copyright and Crown Database rights. A user’s permission to use those copyright works is limited to
-                the rights expressly conferred by these terms and conditions.</p>
+            <h2 class="govuk-heading-m">@messages("termsAndConditions.using-service.h2")</h2>
+            <p class="govuk-body">@Html(messages("termsAndConditions.using-service.p1"))</p>
+            <p class="govuk-body">@Html(messages("termsAndConditions.using-service.p2"))</p>
+            <p class="govuk-body">@Html(messages("termsAndConditions.using-service.p3"))</p>
 
-            <h2 class="govuk-heading-m">Amendments to terms and conditions</h2>
-
-            <p class="govuk-body">We may update these terms and conditions from time to time and by continuing to use the service, you confirm your continued agreement to these terms and conditions of use.</p>
-
-            <h2 class="govuk-heading-m">Using this service</h2>
-
-            <p class="govuk-body">We make every effort to ensure that the information provided is accurate. However, the VOA cannot accept any liability for the accuracy of this information, and those who use it do so at
-                their own risk. We cannot guarantee that the service will be fault free. If there is a problem with the service, you should use the &#39;Get help with this form&#39; link at the bottom of
-                each page and we will come back to you as soon as we can.</p>
-
-            <p class="govuk-body">The VOA accepts no responsibility for any loss, disruption or damage to your data or computer system while using this service.</p>
-
-            <p class="govuk-body"> The VOA reserves the right to remove access to the service to an individual or organisation if it believes the service has been misused or there has been a failure to comply with published guidance or these terms and conditions.</p>
 
 }

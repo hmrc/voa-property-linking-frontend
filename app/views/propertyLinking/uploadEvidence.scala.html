@@ -22,6 +22,7 @@
 @import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import _root_.utils.Formatters._
+@import helpers._
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios: GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukWarningText: GovukWarningText)
 
@@ -158,7 +159,7 @@
                     </div>
                 }else{
                     @govukWarningText(WarningText(
-                        iconFallbackText = "Warning",
+                        iconFallbackText = messages("warning.text"),
                         content = Text(messages("businessRatesAttachment.file.size.reached.max.limit"))
                     ))
                 }
@@ -203,5 +204,6 @@
     <span id="startClaimUrl">@{ClaimPropertyRelationshipController.submitRelationship(linkingSession.uarn)}</span>
     <span id="submissionId">@submissionId</span>
     <span id="updateEvidenceTypeURL">@{s"${UploadController.updateEvidenceType()}"}</span>
+    @javascriptMessages()
     </div>
 }

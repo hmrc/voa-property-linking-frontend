@@ -7,7 +7,6 @@
 
     VOA.VoaModules = function(){
         new VOA.RadioToggleFields();
-        new VOA.JqueryFiler();
         new VOA.postcodeLookup();
         new VOA.ErrorSummary();
         new VOA.viewMessage();
