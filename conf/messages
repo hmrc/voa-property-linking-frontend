@@ -1618,6 +1618,6 @@ fileupload.support.documents.size.reached.max.limit=You have uploaded 1 file, th
 fileupload.pleaseWait=Please wait whilst your file is uploading. This may take some time.
 
 #Javascript Error messages
-label.selectValue=Select an address,
-addressHelp=This should be your preferred postal contact address for your business.,
+label.selectValue=Select an address
+addressHelp=This should be your preferred postal contact address for your business.
 error.postcodeLookupError=Enter a valid postcode
