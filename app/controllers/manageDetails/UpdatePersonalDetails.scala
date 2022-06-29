@@ -35,6 +35,7 @@ import services.{EnrolmentResult, ManageDetails, Success}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.EmailAddressValidation
+import utils.PhoneNumberValidation.validatePhoneNumber
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -193,7 +194,7 @@ class UpdatePersonalDetails @Inject()(
 
   private lazy val telephoneForm = Form(
     single(
-      "phone" -> nonEmptyText(maxLength = 15)
+      "phone" -> validatePhoneNumber
     )
   )
 

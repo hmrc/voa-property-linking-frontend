@@ -27,6 +27,7 @@ import play.api.data.validation._
 import play.api.data.{Form, Mapping}
 import play.api.libs.json._
 import utils.EmailAddressValidation
+import utils.PhoneNumberValidation.validatePhoneNumber
 import views.helpers.Errors
 
 sealed trait AdminUser extends User {
@@ -59,9 +60,6 @@ sealed trait AdminUser extends User {
 
 object AdminUser {
 
-  val phoneNumberRegex =
-    "((\\+44\\s?\\(0\\)\\s?\\d{2,4})|(\\+44\\s?(01|02|03|07|08)\\d{2,3})|(\\+44\\s?(1|2|3|7|8)\\d{2,3})|(\\(\\+44\\)\\s?\\d{3,4})|(\\(\\d{5}\\))|((01|02|03|07|08)\\d{2,3})|(\\d{5}))(\\s|-|.)(((\\d{3,4})(\\s|-)(\\d{3,4}))|((\\d{6,7})))"
-
   lazy val individual: Form[IndividualUserAccountDetails] = Form(
     mapping(
       keys.firstName       -> nonEmptyText,
@@ -91,18 +89,6 @@ object AdminUser {
       keys.isAgent                -> mandatoryBoolean,
       keys.selectedAddress        -> optional(text)
     )(AdminOrganisationAccountDetails.apply)(AdminOrganisationAccountDetails.unapply))
-
-  private def validatePhoneNumber = {
-    def validPhoneNumberLength(num: String) =
-      num.length >= 11 && num.length <= 20
-
-    text
-      .verifying("error.phoneNumber.required", num => num.nonEmpty)
-      .verifying("error.phoneNumber.invalidLength", num => if (num.nonEmpty) validPhoneNumberLength(num) else true)
-      .verifying(
-        "error.phoneNumber.invalidFormat",
-        num => if (num.nonEmpty && validPhoneNumberLength(num)) num.matches(phoneNumberRegex) else true)
-  }
 
   private lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
 
