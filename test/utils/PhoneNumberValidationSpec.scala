@@ -78,15 +78,10 @@ class PhoneNumberValidationSpec extends BaseUnitSpec {
 
       TableDrivenPropertyChecks.forAll(formats) { (phone, isValid) =>
         val res: Form[String] = form.bind(Map("phone" -> phone))
-
-        if (isValid) {
-          res.hasErrors shouldBe false
-        } else {
-          res.errors(0).message shouldBe "error.phoneNumber.invalidFormat"
-        }
+        res.errors(0).message shouldBe "error.phoneNumber.invalidFormat"
       }
-
     }
+
     "catch mandatory condition" in new Setup {
       val isNumber = Table(
         ("phone number", "validity"),
