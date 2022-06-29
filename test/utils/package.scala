@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import binders.propertylinks.ClaimPropertyReturnToPage
+import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import models._
 import models.domain._
 import models.messages.{Message, MessageSearchResults}
@@ -406,7 +408,8 @@ package object utils {
       propertyOccupancy = Some(occupancy),
       hasRatesBill = Some(true),
       uploadEvidenceData = uploadEvidenceData,
-      localAuthorityReference = localAuthorityReference
+      localAuthorityReference = localAuthorityReference,
+      rtp = ClaimPropertyReturnToPage.FMBR
     )
 
   implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)

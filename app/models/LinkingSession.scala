@@ -16,6 +16,7 @@
 
 package models
 
+import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import play.api.libs.json.Json
 
 import java.time.LocalDate
@@ -33,7 +34,8 @@ case class LinkingSession(
       uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty,
       evidenceType: Option[EvidenceType] = None,
       clientDetails: Option[ClientDetails] = None,
-      localAuthorityReference: String)
+      localAuthorityReference: String,
+      rtp: ClaimPropertyReturnToPage)
 
 object LinkingSession {
   implicit val format = Json.format[LinkingSession]

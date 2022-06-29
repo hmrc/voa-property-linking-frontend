@@ -17,6 +17,8 @@
 package services.propertylinking
 
 import actions.propertylinking.requests.LinkingSessionRequest
+import binders.propertylinks.ClaimPropertyReturnToPage
+import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import cats.data.EitherT
 import cats.implicits._
 import models._
@@ -59,7 +61,8 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
         uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
         evidenceType = Some(RatesBillType),
         clientDetails = clientDetails,
-        localAuthorityReference = "12341531531"
+        localAuthorityReference = "12341531531",
+        rtp = ClaimPropertyReturnToPage.FMBR
       ),
       organisationId = 1L,
       individualAccount = detailedIndividualAccount,

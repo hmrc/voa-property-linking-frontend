@@ -20,6 +20,7 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import actions.requests.AuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
+import binders.propertylinks.ClaimPropertyReturnToPage.{ClaimPropertyReturnToPage, _}
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import connectors.SubmissionIdConnector
@@ -83,17 +84,20 @@ class ClaimPropertyRelationshipController @Inject()(
     }
   }
 
-  def showRelationship(uarn: Long, clientDetails: Option[ClientDetails] = None) =
+  def showRelationship(
+        uarn: Long,
+        clientDetails: Option[ClientDetails] = None,
+        rtp: ClaimPropertyReturnToPage): Action[AnyContent] =
     authenticatedAction.async { implicit request =>
       for {
         property <- vmvConnector.getPropertyHistory(uarn)
-        _        <- initialiseSession(uarn, clientDetails)
+        _        <- initialiseSession(uarn, clientDetails, rtp)
       } yield
         Ok(
           relationshipToPropertyView(
             ClaimPropertyRelationshipVM(relationshipForm, property.addressFull, uarn, property.localAuthorityReference),
             clientDetails = clientDetails,
-            backLink(request)
+            backLinkToVmv(rtp, uarn)
           ))
     }
 
@@ -105,7 +109,7 @@ class ClaimPropertyRelationshipController @Inject()(
       relationshipToPropertyView(
         ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn, request.ses.localAuthorityReference),
         request.ses.clientDetails,
-        backLink(request)
+        backLinkToVmv(request.ses.rtp, request.ses.uarn)
       ))
   }
 
@@ -131,12 +135,18 @@ class ClaimPropertyRelationshipController @Inject()(
         )
     }
 
+  private def backLinkToVmv(rtp: ClaimPropertyReturnToPage, uarn: Long): String =
+    rtp match {
+      case FMBR                 => s"${config.vmvUrl}/back-to-list-valuations"
+      case SummaryValuation     => s"${config.vmvUrl}/valuations/$uarn"
+      case SummaryValuationHelp => s"${config.vmvUrl}/valuations/$uarn#help-tab"
+    }
+
   private def backLink(request: Request[AnyContent]): String = {
     val link = request.headers.get("referer").getOrElse(config.dashboardUrl("home"))
     if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
   }
-
-  private def initialiseSession(uarn: Long, clientDetails: Option[ClientDetails])(
+  private def initialiseSession(uarn: Long, clientDetails: Option[ClientDetails], rtp: ClaimPropertyReturnToPage)(
         implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
       propertyHistory <- vmvConnector.getPropertyHistory(uarn)
@@ -154,7 +164,8 @@ class ClaimPropertyRelationshipController @Inject()(
               propertyOccupancy = None,
               hasRatesBill = None,
               clientDetails = clientDetails,
-              localAuthorityReference = propertyHistory.localAuthorityReference
+              localAuthorityReference = propertyHistory.localAuthorityReference,
+              rtp = rtp
             ))
     } yield ()
 
