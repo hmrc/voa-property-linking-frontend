@@ -20,7 +20,7 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import actions.requests.AuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
-import binders.propertylinks.ClaimPropertyReturnToPage.{ClaimPropertyReturnToPage, _}
+import binders.propertylinks.ClaimPropertyReturnToPage._
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import connectors.SubmissionIdConnector
@@ -142,10 +142,13 @@ class ClaimPropertyRelationshipController @Inject()(
       case SummaryValuationHelp => s"${config.vmvUrl}/valuations/$uarn#help-tab"
     }
 
+  // fixme probably would be better to set these backlinks explicitly
+  // (rather than using referer)
   private def backLink(request: Request[AnyContent]): String = {
     val link = request.headers.get("referer").getOrElse(config.dashboardUrl("home"))
     if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
   }
+
   private def initialiseSession(uarn: Long, clientDetails: Option[ClientDetails], rtp: ClaimPropertyReturnToPage)(
         implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
