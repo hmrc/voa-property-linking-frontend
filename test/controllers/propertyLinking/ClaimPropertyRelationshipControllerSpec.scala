@@ -16,6 +16,7 @@
 
 package controllers.propertyLinking
 
+import binders.propertylinks.ClaimPropertyReturnToPage
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import controllers.VoaPropertyLinkingSpec
@@ -77,7 +78,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
       .thenReturn(Html("claim property relationship page"))
 
-    val res = testClaimProperty.showRelationship(positiveLong)(FakeRequest())
+    val res = testClaimProperty.showRelationship(positiveLong, rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -89,7 +90,10 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Html("claim property relationship page on client behalf"))
 
     val res = testClaimProperty
-      .showRelationship(positiveLong, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
+      .showRelationship(
+        positiveLong,
+        Some(ClientDetails(positiveLong, shortString)),
+        rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -98,7 +102,10 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   it should "contain link back to business-rates-find if that's where the request came from" in new Setup {
     val res =
-      testClaimProperty.showRelationship(positiveLong, Some(ClientDetails(positiveLong, shortString)))(
+      testClaimProperty.showRelationship(
+        positiveLong,
+        Some(ClientDetails(positiveLong, shortString)),
+        rtp = ClaimPropertyReturnToPage.FMBR)(
         FakeRequest().withHeaders(
           ("referer", "http://localhost:9542/business-rates-find/summary/10361354?uarn=156039182")))
 
@@ -113,7 +120,10 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(Html("claim property relationship page on client behalf"))
 
     val res = testClaimProperty
-      .showRelationship(positiveLong, Some(ClientDetails(positiveLong, shortString)))(FakeRequest())
+      .showRelationship(
+        positiveLong,
+        Some(ClientDetails(positiveLong, shortString)),
+        rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
     status(res) shouldBe OK
 
     verify(mockSessionRepository).start(any())(any(), any())

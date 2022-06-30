@@ -92,6 +92,7 @@ val playSettings: Seq[Setting[_]] = Seq(
   routesImport ++= Seq(
     "binders.propertylinks._",
     "binders.propertylinks.EvidenceChoices._",
+    "binders.propertylinks.ClaimPropertyReturnToPage._",
     "binders.propertylinks.ExternalPropertyLinkManagementSortField._",
     "binders.pagination._",
     "models.SortOrder",

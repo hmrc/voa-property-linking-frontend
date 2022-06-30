@@ -23,6 +23,8 @@ import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWi
 import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import actions.requests.BasicAuthenticatedRequest
 import akka.stream.Materializer
+import binders.propertylinks.ClaimPropertyReturnToPage
+import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import config.ApplicationConfig
 import models._
 import models.registration.{User, UserDetails}
@@ -38,8 +40,8 @@ import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
-import java.time.{Clock, Instant, LocalDate, ZoneId}
 
+import java.time.{Clock, Instant, LocalDate, ZoneId}
 import scala.concurrent.{ExecutionContext, Future}
 
 trait VoaPropertyLinkingSpec
@@ -146,7 +148,8 @@ trait VoaPropertyLinkingSpec
                 uploadEvidenceData = evidenceData,
                 evidenceType = Some(RatesBillType),
                 clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
-                localAuthorityReference = "12341531531"
+                localAuthorityReference = "12341531531",
+                rtp = ClaimPropertyReturnToPage.FMBR
               ),
               organisationId = 1L,
               individualAccount = request.individualAccount,

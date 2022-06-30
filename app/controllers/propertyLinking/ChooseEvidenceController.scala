@@ -61,14 +61,14 @@ class ChooseEvidenceController @Inject()(
   private def backlink(session: LinkingSession): String =
     if (session.earliestStartDate.isAfter(LocalDate.now))
       controllers.propertyLinking.routes.ClaimPropertyRelationshipController
-        .showRelationship(session.uarn, session.clientDetails)
+        .showRelationship(session.uarn, session.clientDetails, session.rtp)
         .url
     else
       controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url
 
   def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     def updateSession(newAnswer: Boolean): Future[Unit] =
-      //if the same answer was already in the linking session, then do nothing
+      // if the same answer was already in the linking session, then do nothing
       if (request.ses.hasRatesBill.contains(newAnswer)) Future.successful((): Unit)
       else {
         businessRatesAttachmentService.persistSessionData(
