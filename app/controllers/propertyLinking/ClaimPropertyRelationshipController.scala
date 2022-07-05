@@ -87,7 +87,8 @@ class ClaimPropertyRelationshipController @Inject()(
   def showRelationship(
         uarn: Long,
         clientDetails: Option[ClientDetails] = None,
-        rtp: ClaimPropertyReturnToPage): Action[AnyContent] =
+        rtp: ClaimPropertyReturnToPage,
+        valuationId: Option[Long] = None): Action[AnyContent] =
     authenticatedAction.async { implicit request =>
       for {
         property <- vmvConnector.getPropertyHistory(uarn)
@@ -97,7 +98,7 @@ class ClaimPropertyRelationshipController @Inject()(
           relationshipToPropertyView(
             ClaimPropertyRelationshipVM(relationshipForm, property.addressFull, uarn, property.localAuthorityReference),
             clientDetails = clientDetails,
-            backLinkToVmv(rtp, uarn)
+            backLinkToVmv(rtp, uarn, valuationId)
           ))
     }
 
@@ -135,12 +136,14 @@ class ClaimPropertyRelationshipController @Inject()(
         )
     }
 
-  private def backLinkToVmv(rtp: ClaimPropertyReturnToPage, uarn: Long): String =
+  private def backLinkToVmv(rtp: ClaimPropertyReturnToPage, uarn: Long, valuationId: Option[Long]): String = {
+    val valuationIdPart = valuationId.fold("")(id => s"?valuationId=$id")
     rtp match {
       case FMBR                 => s"${config.vmvUrl}/back-to-list-valuations"
-      case SummaryValuation     => s"${config.vmvUrl}/valuations/$uarn"
-      case SummaryValuationHelp => s"${config.vmvUrl}/valuations/$uarn#help-tab"
+      case SummaryValuation     => s"${config.vmvUrl}/valuations/$uarn$valuationIdPart"
+      case SummaryValuationHelp => s"${config.vmvUrl}/valuations/$uarn$valuationIdPart#help-tab"
     }
+  }
 
   // fixme probably would be better to set these backlinks explicitly
   // (rather than using referer)
