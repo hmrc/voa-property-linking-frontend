@@ -42,7 +42,7 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
       sessionRepository = mockSessionRepo,
       authenticatedAction = preAuthenticatedActionBuilders(),
       withLinkingSession = preEnrichedActionRefinerWithStartDate(earliestStartDate),
-      occupancyOfPropertyView = occupanyOfPropertyPage
+      occupancyOfPropertyView = occupancyOfPropertyPage
     )
 
   lazy val submissionId: String = shortString

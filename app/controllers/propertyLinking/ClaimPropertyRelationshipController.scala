@@ -87,17 +87,18 @@ class ClaimPropertyRelationshipController @Inject()(
   def showRelationship(
         uarn: Long,
         clientDetails: Option[ClientDetails] = None,
-        rtp: ClaimPropertyReturnToPage): Action[AnyContent] =
+        rtp: ClaimPropertyReturnToPage,
+        valuationId: Option[Long] = None): Action[AnyContent] =
     authenticatedAction.async { implicit request =>
       for {
         property <- vmvConnector.getPropertyHistory(uarn)
-        _        <- initialiseSession(uarn, clientDetails, rtp)
+        _        <- initialiseSession(uarn, clientDetails, rtp, valuationId)
       } yield
         Ok(
           relationshipToPropertyView(
             ClaimPropertyRelationshipVM(relationshipForm, property.addressFull, uarn, property.localAuthorityReference),
             clientDetails = clientDetails,
-            backLinkToVmv(rtp, uarn)
+            backLinkToVmv(rtp, uarn, valuationId)
           ))
     }
 
@@ -109,7 +110,7 @@ class ClaimPropertyRelationshipController @Inject()(
       relationshipToPropertyView(
         ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn, request.ses.localAuthorityReference),
         request.ses.clientDetails,
-        backLinkToVmv(request.ses.rtp, request.ses.uarn)
+        backLinkToVmv(request.ses.rtp, request.ses.uarn, valuationId = request.ses.valuationId)
       ))
   }
 
@@ -135,12 +136,14 @@ class ClaimPropertyRelationshipController @Inject()(
         )
     }
 
-  private def backLinkToVmv(rtp: ClaimPropertyReturnToPage, uarn: Long): String =
+  private def backLinkToVmv(rtp: ClaimPropertyReturnToPage, uarn: Long, valuationId: Option[Long]): String = {
+    val valuationIdPart = valuationId.fold("")(id => s"?valuationId=$id")
     rtp match {
       case FMBR                 => s"${config.vmvUrl}/back-to-list-valuations"
-      case SummaryValuation     => s"${config.vmvUrl}/valuations/$uarn"
-      case SummaryValuationHelp => s"${config.vmvUrl}/valuations/$uarn#help-tab"
+      case SummaryValuation     => s"${config.vmvUrl}/valuations/$uarn$valuationIdPart"
+      case SummaryValuationHelp => s"${config.vmvUrl}/valuations/$uarn$valuationIdPart#help-tab"
     }
+  }
 
   // fixme probably would be better to set these backlinks explicitly
   // (rather than using referer)
@@ -149,8 +152,11 @@ class ClaimPropertyRelationshipController @Inject()(
     if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
   }
 
-  private def initialiseSession(uarn: Long, clientDetails: Option[ClientDetails], rtp: ClaimPropertyReturnToPage)(
-        implicit request: AuthenticatedRequest[_]): Future[Unit] =
+  private def initialiseSession(
+        uarn: Long,
+        clientDetails: Option[ClientDetails],
+        rtp: ClaimPropertyReturnToPage,
+        valuationId: Option[Long])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
       propertyHistory <- vmvConnector.getPropertyHistory(uarn)
       submissionId    <- submissionIdConnector.get()
@@ -168,7 +174,8 @@ class ClaimPropertyRelationshipController @Inject()(
               hasRatesBill = None,
               clientDetails = clientDetails,
               localAuthorityReference = propertyHistory.localAuthorityReference,
-              rtp = rtp
+              rtp = rtp,
+              valuationId = valuationId
             ))
     } yield ()
 

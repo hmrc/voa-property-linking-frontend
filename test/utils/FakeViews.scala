@@ -177,7 +177,7 @@ trait FakeViews extends GdsComponents {
     new views.html.details.updateName(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val managedByAgentsPropertiesView = new views.html.dashboard.managedByAgentsProperties(mainLayout)
   lazy val termsAndConditionsView = new views.html.createAccount.termsAndConditions(mainLayout)
-  lazy val occupanyOfPropertyPage = new views.html.propertyLinking.occupancyOfProperty(
+  lazy val occupancyOfPropertyPage = new views.html.propertyLinking.occupancyOfProperty(
     govukErrorSummary,
     govukRadios,
     govukButton,
