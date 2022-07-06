@@ -121,11 +121,11 @@ class ClaimPropertyRelationshipController @Inject()(
         .fold(
           errors =>
             vmvConnector.getPropertyHistory(uarn).map { property =>
-              BadRequest(
-                relationshipToPropertyView(
-                  ClaimPropertyRelationshipVM(errors, property.addressFull, uarn, property.localAuthorityReference),
-                  clientDetails,
-                  backLink(request)))
+              BadRequest(relationshipToPropertyView(
+                ClaimPropertyRelationshipVM(errors, property.addressFull, uarn, property.localAuthorityReference),
+                clientDetails,
+                backLinkToVmv(request.ses.rtp, request.ses.uarn, valuationId = request.ses.valuationId)
+              ))
           },
           formData =>
             sessionRepository
@@ -143,13 +143,6 @@ class ClaimPropertyRelationshipController @Inject()(
       case SummaryValuation     => s"${config.vmvUrl}/valuations/$uarn$valuationIdPart"
       case SummaryValuationHelp => s"${config.vmvUrl}/valuations/$uarn$valuationIdPart#help-tab"
     }
-  }
-
-  // fixme probably would be better to set these backlinks explicitly
-  // (rather than using referer)
-  private def backLink(request: Request[AnyContent]): String = {
-    val link = request.headers.get("referer").getOrElse(config.dashboardUrl("home"))
-    if (link.contains("/business-rates-find/valuations")) link else s"${config.vmvUrl}/back-to-list-valuations"
   }
 
   private def initialiseSession(
