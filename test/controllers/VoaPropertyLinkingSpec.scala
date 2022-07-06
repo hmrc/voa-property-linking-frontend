@@ -38,10 +38,12 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{MessagesControllerComponents, Request, Result}
 import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
 import tests.AllMocks
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import utils._
-
 import java.time.{Clock, Instant, LocalDate, ZoneId}
+
+import uk.gov.hmrc.mongo.MongoComponent
+
 import scala.concurrent.{ExecutionContext, Future}
 
 trait VoaPropertyLinkingSpec
@@ -54,7 +56,7 @@ trait VoaPropertyLinkingSpec
     PatienceConfig(timeout = Span(10, Seconds), interval = Span(20, Millis))
 
   implicit val ec: ExecutionContext = ExecutionContext.Implicits.global
-  implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
+  implicit val headerCarrier: HeaderCarrier = HeaderCarrier().copy(sessionId = Some(SessionId("my-session")))
   implicit val messagesControllerComponents: MessagesControllerComponents = stubMessagesControllerComponents()
   implicit lazy val messageApi: MessagesApi = messagesControllerComponents.messagesApi
   implicit val clock: Clock = Clock.fixed(Instant.now(), ZoneId.systemDefault())

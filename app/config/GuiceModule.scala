@@ -25,6 +25,7 @@ import com.typesafe.config.ConfigException
 import play.api._
 import repositories._
 import services._
+import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.util.Try

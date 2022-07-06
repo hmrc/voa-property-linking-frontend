@@ -18,61 +18,62 @@ package repositories
 
 import com.google.inject.Singleton
 import javax.inject.Inject
+import org.mongodb.scala.model.IndexModel
 import play.api.libs.json._
+import org.mongodb.scala.model.Filters._
+import org.mongodb.scala.model._
 import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.api.indexes.{Index, IndexType}
-import reactivemongo.bson.{BSONDateTime, BSONDocument, BSONString, _}
-import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.NoSessionException
-import uk.gov.hmrc.mongo.ReactiveRepository
+import uk.gov.hmrc.mongo.play.json.{Codecs, PlayMongoRepository}
+import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.play.http.logging.Mdc
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration._
+import java.time.Instant
+
+import uk.gov.hmrc.mongo.play.json.formats.MongoJavatimeFormats
 
 @Singleton
-class PersonalDetailsSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
-      implicit executionContext: ExecutionContext)
+class PersonalDetailsSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("personDetails", mongo)
 
 @Singleton
-class PropertyLinkingSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
-      implicit executionContext: ExecutionContext)
+class PropertyLinkingSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("propertyLinking", mongo)
 
 @Singleton
-class PropertyLinksSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
-      implicit executionContext: ExecutionContext)
+class PropertyLinksSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("propertyLinks", mongo)
 
 @Singleton
-class AppointAgentSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
-      implicit executionContext: ExecutionContext)
+class AppointAgentSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("appointNewAgent", mongo)
 
 @Singleton
-class RevokeAgentPropertiesSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
+class RevokeAgentPropertiesSessionRepository @Inject()(mongo: MongoComponent)(
       implicit executionContext: ExecutionContext)
     extends SessionRepository("revokeAgentProperties", mongo)
 
 @Singleton
-class AppointAgentPropertiesSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
+class AppointAgentPropertiesSessionRepository @Inject()(mongo: MongoComponent)(
       implicit executionContext: ExecutionContext)
     extends SessionRepository("appointAgentProperties", mongo)
 
 @Singleton
-class AssessmentsPageSessionRepository @Inject()(mongo: ReactiveMongoComponent)(
-      implicit executionContext: ExecutionContext)
+class AssessmentsPageSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("assessmentPage", mongo)
 
-abstract class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoComponent)(
+abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent)(
       implicit executionContext: ExecutionContext)
-    extends ReactiveRepository[SessionData, String](
-      "sessions",
-      mongo.mongoConnector.db,
-      SessionData.format,
-      implicitly[Format[String]]) with SessionRepo {
+    extends PlayMongoRepository[SessionData](
+      collectionName = "sessions",
+      mongoComponent = mongo,
+      domainFormat = SessionData.format,
+      indexes =
+        Seq(IndexModel(Indexes.ascending("createdAt"), IndexOptions().name("sessionTTL").expireAfter((2L), HOURS)))
+    ) with SessionRepo {
 
   override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] =
     saveOrUpdate[A](data)
@@ -82,15 +83,15 @@ abstract class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoC
       for {
         sessionId <- getSessionId
         _ <- collection
-              .update(false)
-              .one(
-                BSONDocument("_id" -> BSONString(sessionId)),
-                BSONDocument(
-                  "$set"         -> BSONDocument(s"data.$formId" -> Json.toJson(data)),
-                  "$setOnInsert" -> BSONDocument("createdAt"     -> BSONDateTime(System.currentTimeMillis))
+              .findOneAndUpdate(
+                filter = Filters.equal("_id", sessionId),
+                update = Updates.combine(
+                  Updates.set(s"data.$formId", Codecs.toBson(data)),
+                  Updates.setOnInsert("createdAt", Instant.now)
                 ),
-                upsert = true
+                options = FindOneAndUpdateOptions().upsert(true)
               )
+              .toFuture()
       } yield {
         ()
       }
@@ -100,7 +101,7 @@ abstract class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoC
     Mdc.preservingMdc {
       for {
         sessionId   <- getSessionId
-        maybeOption <- findById(sessionId)
+        maybeOption <- collection.find(Filters.equal("_id", sessionId)).headOption()
       } yield {
         maybeOption
           .map(_.data \ formId)
@@ -112,16 +113,29 @@ abstract class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoC
       }
     }
 
+  def findFirst(): Future[SessionData] =
+    Mdc.preservingMdc {
+      collection
+        .find()
+        .first()
+        .toFuture()
+    }
+
   override def remove()(implicit hc: HeaderCarrier): Future[Unit] =
     Mdc.preservingMdc {
       for {
         sessionId <- getSessionId
-        _ <- collection
-              .update(false)
-              .one(
-                BSONDocument("_id"    -> BSONString(sessionId)),
-                BSONDocument("$unset" -> BSONDocument(s"data.$formId" -> 1))
-              )
+        -         <- collection.deleteOne(equal("_id", sessionId)).toFuture
+      } yield {
+        ()
+      }
+    }
+
+  def removeAll()(implicit hc: HeaderCarrier): Future[Unit] =
+    Mdc.preservingMdc {
+      for {
+        sessionId <- getSessionId
+        -         <- collection.deleteMany(equal("_id", sessionId)).toFuture
       } yield {
         ()
       }
@@ -129,23 +143,16 @@ abstract class SessionRepository @Inject()(formId: String, mongo: ReactiveMongoC
 
   private val noSession = Future.failed[String](NoSessionException)
 
-  override def indexes: Seq[Index] = Seq(
-    Index(
-      key = Seq(("createdAt", IndexType.Ascending)),
-      name = Some("sessionTTL"),
-      options = BSONDocument("expireAfterSeconds" -> (2.hours).toSeconds)
-    )
-  )
-
   private def getSessionId(implicit hc: HeaderCarrier): Future[String] =
     hc.sessionId.fold(noSession)(c => Future.successful(c.value))
 
 }
 
-case class SessionData(_id: String, data: JsValue, createdAt: BSONDateTime = BSONDateTime(System.currentTimeMillis))
+case class SessionData(_id: String, data: JsValue, createdAt: Instant = Instant.now)
 
 object SessionData {
 
+  implicit val formatInstant: Format[Instant] = MongoJavatimeFormats.instantFormat
   val format = Json.format[SessionData]
 }
 
