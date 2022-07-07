@@ -18,12 +18,10 @@ package utils
 
 import org.scalatest.TestSuite
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.{Application, inject}
+import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
-import uk.gov.hmrc.mongo.MongoComponent
-import uk.gov.hmrc.mongo.test.MongoSupport
 
-trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite with MongoSupport { this: TestSuite =>
+trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite { this: TestSuite =>
 
   def additionalAppConfig: Seq[(String, String)] =
     Seq("featureFlags.ivEnabled" -> "true", "featureFlags.newRegistrationJourneyEnabled" -> "true")
@@ -32,6 +30,5 @@ trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite with MongoSupport { th
     new GuiceApplicationBuilder()
       .disable[com.kenshoo.play.metrics.PlayModule]
       .configure(additionalAppConfig: _*)
-      .overrides(inject.bind[MongoComponent].toInstance(mongoComponent))
       .build()
 }
