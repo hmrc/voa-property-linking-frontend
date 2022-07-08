@@ -24,10 +24,11 @@ import models.propertyrepresentation.{Start, StartJourney}
 import org.scalatest.LoneElement
 import play.api.libs.json.{Reads, Writes}
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
+import uk.gov.hmrc.mongo.test.DefaultPlayMongoRepositorySupport
 
 class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with LoneElement {
 
-  lazy val sessionRepository = app.injector.instanceOf[PropertyLinkingSessionRepository]
+  lazy val repository = app.injector.instanceOf[PropertyLinkingSessionRepository]
   val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId("my-session")))
   val writes = implicitly[Writes[Start]]
   val reads = implicitly[Reads[Start]]
@@ -35,24 +36,24 @@ class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with L
   "session repository" should "start by saving or updating data" in {
     val start = Start()
 
-    sessionRepository.start(start)(writes, hc).futureValue
+    repository.start(start)(writes, hc).futureValue
 
-    val returnedSessionData: SessionData = sessionRepository.findAll().futureValue.loneElement // shouldBe start
+    val returnedSessionData: SessionData = repository.findFirst.futureValue // shouldBe start
 
     inside(returnedSessionData) {
       case SessionData(_, data, createdAt) =>
         (data \ "propertyLinking" \ "status").as[String] shouldBe start.status.name
         val aSecondAgo: Long = Instant.now().minus(1, SECONDS).toEpochMilli
-        createdAt.value should be > aSecondAgo
+        createdAt.toEpochMilli should be > aSecondAgo
     }
 
   }
 
   "session repository" should "get data from current session" in {
     val start = Start()
-    sessionRepository.start(start)(writes, hc).futureValue
+    repository.start(start)(writes, hc).futureValue
 
-    val returnedSessionData: Option[Start] = sessionRepository.get[Start](reads, hc).futureValue
+    val returnedSessionData: Option[Start] = repository.get[Start](reads, hc).futureValue
 
     inside(returnedSessionData) {
       case Some(Start(status)) => status.name shouldBe StartJourney.name
@@ -62,10 +63,10 @@ class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with L
 
   "session repository" should "remove data from current session" in {
     val start = Start()
-    sessionRepository.start(start)(writes, hc).futureValue
-    sessionRepository.remove()(hc).futureValue
+    repository.start(start)(writes, hc).futureValue
+    repository.remove()(hc).futureValue
 
-    val returnedSessionData: Option[Start] = sessionRepository.get[Start](reads, hc).futureValue
+    val returnedSessionData: Option[Start] = repository.get[Start](reads, hc).futureValue
 
     returnedSessionData shouldBe None
 
@@ -73,6 +74,6 @@ class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with L
 
   override protected def beforeEach(): Unit = {
     super.beforeEach()
-    sessionRepository.removeAll().futureValue
+    repository.removeAll().futureValue
   }
 }
