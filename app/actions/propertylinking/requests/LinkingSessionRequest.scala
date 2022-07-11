@@ -28,14 +28,10 @@ case class LinkingSessionRequest[A](
       organisationAccount: GroupAccount,
       request: Request[A]
 ) extends AuthenticatedRequest[A](request) with CcaWrappedRequest {
+
   override def optAccounts: Option[Accounts] =
     Some(Accounts(organisationAccount, individualAccount))
-  def sessionId: String =
-    HeaderCarrierConverter
-      .fromRequestAndSession(request, request.session)
-      .sessionId
-      .map(_.value)
-      .getOrElse(throw NoSessionId)
+
 }
 
 case object NoSessionId extends Exception
