@@ -77,7 +77,7 @@
     @govukHeader(Header(
         homepageUrl = Some(config.dashboardUrl("home")),
         serviceName = Some(messages("service.name")),
-        serviceUrl = Some("#")
+        serviceUrl = Some(config.dashboardUrl("home"))
     ))
     }
     @* we need to set 'htmlClasses = Some("no-js")' to enable no-javascript behaviour on *@
