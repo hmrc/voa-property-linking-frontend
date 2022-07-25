@@ -24,7 +24,6 @@ import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import actions.requests.BasicAuthenticatedRequest
 import akka.stream.Materializer
 import binders.propertylinks.ClaimPropertyReturnToPage
-import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import config.ApplicationConfig
 import models._
 import models.registration.{User, UserDetails}
@@ -41,8 +40,6 @@ import tests.AllMocks
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import utils._
 import java.time.{Clock, Instant, LocalDate, ZoneId}
-
-import uk.gov.hmrc.mongo.MongoComponent
 
 import scala.concurrent.{ExecutionContext, Future}
 
