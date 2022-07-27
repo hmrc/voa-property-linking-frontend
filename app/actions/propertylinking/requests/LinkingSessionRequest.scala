@@ -19,7 +19,6 @@ package actions.propertylinking.requests
 import actions.requests.{AuthenticatedRequest, CcaWrappedRequest}
 import models.{Accounts, DetailedIndividualAccount, GroupAccount, LinkingSession}
 import play.api.mvc.Request
-import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 case class LinkingSessionRequest[A](
       ses: LinkingSession,

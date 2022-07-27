@@ -15,7 +15,6 @@
  */
 
 import binders.propertylinks.ClaimPropertyReturnToPage
-import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import models._
 import models.domain._
 import models.messages.{Message, MessageSearchResults}

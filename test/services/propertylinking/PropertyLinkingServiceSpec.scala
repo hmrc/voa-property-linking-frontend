@@ -18,7 +18,6 @@ package services.propertylinking
 
 import actions.propertylinking.requests.LinkingSessionRequest
 import binders.propertylinks.ClaimPropertyReturnToPage
-import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import cats.data.EitherT
 import cats.implicits._
 import models._

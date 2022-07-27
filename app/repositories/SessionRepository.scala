@@ -22,17 +22,14 @@ import org.mongodb.scala.model.IndexModel
 import play.api.libs.json._
 import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model._
-import play.modules.reactivemongo.ReactiveMongoComponent
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.NoSessionException
 import uk.gov.hmrc.mongo.play.json.{Codecs, PlayMongoRepository}
 import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.play.http.logging.Mdc
-
 import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration._
 import java.time.Instant
-
 import uk.gov.hmrc.mongo.play.json.formats.MongoJavatimeFormats
 
 @Singleton

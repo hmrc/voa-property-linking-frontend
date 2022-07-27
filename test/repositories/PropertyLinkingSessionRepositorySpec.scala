@@ -24,7 +24,6 @@ import models.propertyrepresentation.{Start, StartJourney}
 import org.scalatest.LoneElement
 import play.api.libs.json.{Reads, Writes}
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
-import uk.gov.hmrc.mongo.test.DefaultPlayMongoRepositorySupport
 
 class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with LoneElement {
 
