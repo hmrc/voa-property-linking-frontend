@@ -36,7 +36,6 @@ import scala.concurrent.Future
 
 class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
-  private val mockLinkingRequestSubmittedView = mock[views.html.linkingRequestSubmitted]
 
   trait Setup {
     def testDeclarationController(earliestStartDate: LocalDate) =
@@ -51,7 +50,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
           userIsAgent = isAgent,
           earliestStartDate = earliestStartDate),
         declarationView = declarationView,
-        linkingRequestSubmittedView = mockLinkingRequestSubmittedView
+        linkingRequestSubmittedView = linkingRequestSubmittedView
       )
 
     lazy val mockSessionRepo = {
@@ -207,7 +206,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       authenticatedAction = preAuthenticatedActionBuilders(),
       withLinkingSession = preEnrichedActionRefiner(),
       declarationView = declarationView,
-      linkingRequestSubmittedView = mockLinkingRequestSubmittedView
+      linkingRequestSubmittedView = linkingRequestSubmittedView
     )
     val res = testDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) shouldBe SEE_OTHER
@@ -220,9 +219,6 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
-    when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
-      .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
-
     val res = testDeclarationController(earliestEnglishStartDate).submit()(
       FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
 
@@ -233,14 +229,13 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
-    html.shouldContainText("We’ve received your request to add the property to your business’s customer record")
+    html.titleShouldMatch("Property claim submitted - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Your submission number PL-123456")
   }
 
   it should "display the normal confirmation page when the user has uploaded other evidence" in new Setup {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
-    when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
-      .thenReturn(Html("We’ve received your request to add the property to your business’s customer record"))
 
     val res = testDeclarationController(earliestEnglishStartDate).submit()(
       FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
@@ -252,18 +247,20 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
-    html.shouldContainText("We’ve received your request to add the property to your business’s customer record")
+    html.titleShouldMatch("Property claim submitted - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Make a note of your reference number as you'll need to provide it if you contact us")
   }
 
   "The confirmation page" should "display the submission ID" in new Setup {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
-    when(mockLinkingRequestSubmittedView.apply(any())(any(), any(), any()))
-      .thenReturn(Html("PL-123456"))
 
     val res = testDeclarationController(earliestEnglishStartDate).confirmation()(FakeRequest())
 
     status(res) shouldBe OK
-    contentAsString(res) should include("PL-123456")
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Property claim submitted - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Your submission number PL-123456")
+
   }
 }

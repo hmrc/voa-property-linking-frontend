@@ -23,7 +23,8 @@ import views.html.propertyrepresentation.appoint.appointAgentSummary
 import views.html.registration._
 import views.html.{addUserToGG, startOldJourney}
 import views.html.helpers._
-
+import views.html.propertyLinking._
+import views.html._
 trait FakeViews extends GdsComponents {
 
   lazy val mainLayout = new views.html.mainLayout(
@@ -209,7 +210,20 @@ trait FakeViews extends GdsComponents {
     formWithCSRF,
     govukSummaryList
   )
-
+  lazy val linkingRequestSubmittedView = new linkingRequestSubmitted(govukPanel, govukButton, mainLayout)
+  lazy val ownershipToPropertyView = new ownershipToProperty(
+    govukErrorSummary,
+    govukDetails,
+    govukRadios,
+    govukButton,
+    govukInput,
+    dateFields,
+    mainLayout,
+    formWithCSRF)
+  lazy val chooseEvidenceView =
+    new chooseEvidence(govukErrorSummary, govukRadios, govukButton, mainLayout, formWithCSRF)
+  lazy val relationshipToPropertyView =
+    new relationshipToProperty(govukErrorSummary, govukDetails, govukRadios, govukButton, mainLayout, formWithCSRF)
   lazy val myAgentsView = new views.html.propertyrepresentation.manage.myAgents(govukTable, mainLayout)
 
 }
