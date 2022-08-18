@@ -37,7 +37,6 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
-  private val mockRelationshipToPropertyView = mock[views.html.propertyLinking.relationshipToProperty]
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepository)
 
   private lazy val testClaimProperty = new ClaimPropertyRelationshipController(
@@ -50,7 +49,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     propertyLinksConnector = propertyLinkingConnector,
     vmvConnector = vmvConnector,
     runModeConfiguration = configuration,
-    relationshipToPropertyView = mockRelationshipToPropertyView,
+    relationshipToPropertyView = relationshipToPropertyView,
     beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton)
   )
 
@@ -77,19 +76,17 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "The claim property relationship page" should "return valid page" in new Setup {
-    when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("claim property relationship page"))
 
     val res = testClaimProperty.showRelationship(positiveLong, rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("claim property relationship page")
+    html.titleShouldMatch("Connection to the property - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Add a property Connection to the property:")
+
   }
 
   "The claim property relationship page on client behalf" should "return valid page" in new Setup {
-    when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("claim property relationship page on client behalf"))
 
     val res = testClaimProperty
       .showRelationship(
@@ -99,7 +96,8 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("claim property relationship page on client behalf")
+    html.titleShouldMatch("Connection to the property - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Add a property Connection to the property:")
   }
 
   it should "contain link back to business-rates-find if that's where the request came from" in new Setup {
@@ -112,12 +110,15 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.contain("this is not an assertion") // TODO fix as part of VTCCA-5019
+    html.titleShouldMatch("Connection to the property - Valuation Office Agency - GOV.UK")
+    html.verifyElementTextByAttribute(
+      "href",
+      "http://localhost:9300/business-rates-find/back-to-list-valuations",
+      "Back"
+    )
   }
 
   it should "initialise the linking session on show" in new Setup {
-    when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("claim property relationship page on client behalf"))
 
     val res = testClaimProperty
       .showRelationship(

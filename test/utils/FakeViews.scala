@@ -23,6 +23,10 @@ import views.html.propertyrepresentation.appoint.appointAgentSummary
 import views.html.registration._
 import views.html.{addUserToGG, startOldJourney}
 import views.html.helpers._
+import views.html.propertyLinking._
+import views.html._
+import views.html.propertyrepresentation.manage._
+import views.html.propertyrepresentation._
 
 trait FakeViews extends GdsComponents {
 
@@ -209,7 +213,48 @@ trait FakeViews extends GdsComponents {
     formWithCSRF,
     govukSummaryList
   )
-
-  lazy val myAgentsView = new views.html.propertyrepresentation.manage.myAgents(govukTable, mainLayout)
+  lazy val linkingRequestSubmittedView = new linkingRequestSubmitted(govukPanel, govukButton, mainLayout)
+  lazy val ownershipToPropertyView = new ownershipToProperty(
+    govukErrorSummary,
+    govukDetails,
+    govukRadios,
+    govukButton,
+    govukInput,
+    dateFields,
+    mainLayout,
+    formWithCSRF)
+  lazy val chooseEvidenceView =
+    new chooseEvidence(govukErrorSummary, govukRadios, govukButton, mainLayout, formWithCSRF)
+  lazy val relationshipToPropertyView =
+    new relationshipToProperty(govukErrorSummary, govukDetails, govukRadios, govukButton, mainLayout, formWithCSRF)
+  lazy val myAgentsView = new myAgents(govukTable, mainLayout)
+  lazy val manageAgentView = new manageAgent(govukErrorSummary, govukRadios, govukButton, mainLayout, formWithCSRF)
+  lazy val removeAgentFromOrganisationView =
+    new removeAgentFromOrganisation(govukErrorSummary, govukRadios, govukButton, mainLayout, formWithCSRF)
+  lazy val unassignAgentFromPropertyView =
+    new unassignAgentFromProperty(govukErrorSummary, govukRadios, govukButton, mainLayout, formWithCSRF)
+  lazy val addAgentToAllPropertyView =
+    new addAgentToAllProperties(
+      govukErrorSummary: GovukErrorSummary,
+      govukRadios: GovukRadios,
+      govukButton: GovukButton,
+      mainLayout: views.html.mainLayout,
+      formWithCSRF: FormWithCSRF)
+  lazy val confirmAddAgentToAllPropertyView =
+    new confirmAddAgentToAllProperties(govukPanel, mainLayout)
+  lazy val unassignAgentFromAllPropertiesView =
+    new unassignAgentFromAllProperties(
+      govukErrorSummary: GovukErrorSummary,
+      govukRadios: GovukRadios,
+      govukButton: GovukButton,
+      mainLayout: views.html.mainLayout,
+      formWithCSRF: FormWithCSRF)
+  lazy val confirmUnassignAgentFromAllPropertiesView =
+    new confirmUnassignAgentFromAllProperties(govukPanel, mainLayout)
+  lazy val confirmRemoveAgentFromOrganisationView =
+    new confirmRemoveAgentFromOrganisation(govukPanel, mainLayout)
+  lazy val manageAgentPropertiesView = new manageAgentProperties(govukTable, govukButton, mainLayout)
+  val revokeClientPropertyView = new revokeClient(formWithCSRF, govukButton, mainLayout)
+  val confirmRevokeClientPropertyView = new confirmRevokeClientProperty(govukPanel, mainLayout)
 
 }

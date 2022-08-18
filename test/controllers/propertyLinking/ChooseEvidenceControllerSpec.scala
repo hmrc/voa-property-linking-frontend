@@ -37,15 +37,13 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     m
   }
 
-  private val mockChooseEvidencePage = mock[views.html.propertyLinking.chooseEvidence]
-
   private object TestChooseEvidence
       extends ChooseEvidenceController(
         mockCustomErrorHandler,
         preAuthenticatedActionBuilders(),
         preEnrichedActionRefiner(),
         mockBusinessRatesAttachmentService,
-        mockChooseEvidencePage
+        chooseEvidenceView
       )
 
   lazy val request = FakeRequest()
@@ -53,38 +51,38 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
   "The choose evidence page with earliest start date in the past" should "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
-    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
-      .thenReturn(Html("The choose evidence page"))
 
     val res = TestChooseEvidence.show()(request)
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("The choose evidence page")
+    html.titleShouldMatch(
+      "Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Do you have a copy of your client's business rates bill for this property?")
   }
 
   "The choose evidence page with earliest start date in the future" should "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
-    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
-      .thenReturn(Html("The choose evidence page"))
 
     val res = TestChooseEvidence.show()(request)
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("The choose evidence page")
+    html.titleShouldMatch(
+      "Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Do you have a copy of your client's business rates bill for this property? ")
   }
 
   it should "require the user to select whether they have a rates bill" in {
-    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
-      .thenReturn(Html("require the user to select whether they have a rates bill"))
 
     val res = TestChooseEvidence.submit()(request)
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.shouldContainText("require the user to select whether they have a rates bill")
+    html.titleShouldMatch(
+      "Error: Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("There is a problem Select an option")
   }
 
   it should "redirect to the rates bill upload page if the user has a rates bill" in {
