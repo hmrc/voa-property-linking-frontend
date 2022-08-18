@@ -36,9 +36,6 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
-  val revokeClientPropertyPage = mock[views.html.propertyrepresentation.revokeClient]
-  val confirmRevokeClientPropertyPage = mock[views.html.propertyrepresentation.confirmRevokeClientProperty]
-
   object TestController
       extends RepresentationController(
         mockCustomErrorHandler,
@@ -46,8 +43,8 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
         mockVmvConnector,
         preAuthenticatedActionBuilders(),
         StubPropertyLinkConnector,
-        revokeClientPropertyPage,
-        confirmRevokeClientPropertyPage,
+        revokeClientPropertyView,
+        confirmRevokeClientPropertyView,
         stubMessagesControllerComponents()
       )
 
@@ -57,8 +54,6 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
 
     when(mockPropertyHistory.addressFull).thenReturn("1 Some address")
     when(mockVmvConnector.getPropertyHistory(any())(any())).thenReturn(Future.successful(mockPropertyHistory))
-    when(revokeClientPropertyPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
-    when(confirmRevokeClientPropertyPage.apply(any())(any(), any(), any())).thenReturn(Html(""))
     val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
 
     StubPropertyLinkConnector.stubClientPropertyLink(clientProperty)
@@ -66,18 +61,22 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
       TestController.revokeClientPropertyConfirmed(clientProperty.uarn, clientProperty.submissionId)(request)
 
     status(res) should be(OK)
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Client has been revoked - Valuation Office Agency - GOV.UK")
   }
 
   behavior of "revokeClient method"
   it should "revoke an agent and display the revoke client page" in {
-    when(revokeClientPropertyPage.apply(any())(any(), any(), any()))
-      .thenReturn(Html(""))
     val clientProperty: ClientPropertyLink = arbitrary[ClientPropertyLink]
 
     StubPropertyLinkConnector.stubClientPropertyLink(clientProperty)
     val res = TestController.revokeClient(clientProperty.submissionId)(request)
 
     status(res) should be(OK)
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Revoking client - Valuation Office Agency - GOV.UK")
   }
   it should "revoke an agent should return not found when clientPropertyLink cannot be found" in {
     when(mockCustomErrorHandler.notFoundTemplate(any()))
