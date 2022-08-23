@@ -419,6 +419,7 @@ dashboard.managedProperties.addAnotherProperty=Add property
 manageProperties.revokeAgent=Remove agent
 manageProperties.appointAgent=Appoint agent
 manageProperties.addAgent=Appoint agent
+manageProperties.appointAgent.confirmation.p1=You can assign properties to this agent by <a class="govuk-link" id="managing-your-agents-link" href="{0}">managing your agents</a>.
 manageProperties.viewAssessments=View valuations
 link.dashboard.home=Back to dashboard
 search.sort.page.size.view=View

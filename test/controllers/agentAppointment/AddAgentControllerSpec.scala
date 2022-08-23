@@ -25,7 +25,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import tests.AllMocks
-import utils.StubWithAppointAgentSessionRefiner
+import utils.{HtmlPage, StubWithAppointAgentSessionRefiner}
 import org.mockito.Mockito._
 import play.api.mvc.Result
 import uk.gov.hmrc.http.BadRequestException
@@ -336,6 +336,16 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
     status(res) shouldBe OK
     verifyPageHeading(res, "What happens next", "govuk-heading-m")
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"${messages("propertyRepresentation.confirmation.title")} - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("You can assign properties to this agent by")
+    html.verifyElementTextByAttribute(
+      "href",
+      "/business-rates-property-linking/my-organisation/agents",
+      "managing your agents"
+    )
   }
 
   "appointAgent" should "return 400 Bad Request when invalid form is submitted - scope is missing" in {
