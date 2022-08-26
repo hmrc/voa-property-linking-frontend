@@ -149,7 +149,8 @@ class DvrController @Inject()(
                     backUrl = backUrl,
                     checksAndChallenges = optCases
                   ),
-                  startCheckForm = form
+                  startCheckForm = form,
+                  assessment.rateableValue
                 )
                 if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
               }
