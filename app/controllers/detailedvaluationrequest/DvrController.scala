@@ -147,10 +147,10 @@ class DvrController @Inject()(
                     authorisationId = link.authorisationId,
                     clientOrgName = link.clientOrgName.getOrElse(""),
                     backUrl = backUrl,
-                    checksAndChallenges = optCases
+                    checksAndChallenges = optCases,
+                    rateableValueFormatted = assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv))
                   ),
-                  startCheckForm = form,
-                  assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv))
+                  startCheckForm = form
                 )
                 if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
               }
@@ -471,5 +471,6 @@ case class AvailableRequestDetailedValuation(
       submissionId: String,
       uarn: Long,
       valuation: String,
-      valuationId: Long
+      valuationId: Long,
+      rateableValueFormatted: Option[String]
 )
