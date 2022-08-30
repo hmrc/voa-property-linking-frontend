@@ -28,8 +28,7 @@
 
 // GOV.UK Frontend (styles, images and fonts)
 
-
-
+@import "../node_modules/govuk-frontend/govuk/base";
 @import "../node_modules/govuk-frontend/govuk/overrides/typography";
 
 // Generic (normalize/reset.css)
