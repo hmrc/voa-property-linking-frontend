@@ -36,7 +36,7 @@ import play.api.mvc.{Action, _}
 import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
-import utils.Cats
+import utils.{Cats, Formatters}
 
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -150,7 +150,7 @@ class DvrController @Inject()(
                     checksAndChallenges = optCases
                   ),
                   startCheckForm = form,
-                  assessment.rateableValue
+                  assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv))
                 )
                 if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
               }

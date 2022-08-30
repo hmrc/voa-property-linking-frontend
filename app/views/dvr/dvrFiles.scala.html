@@ -38,7 +38,7 @@
   govukInsetText: GovukInsetText
 )
 
-@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm], rateableValue: Option[Long])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm], rateableValue: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @address = @{Formatters.capitalisedAddress(model.address)}
@@ -74,7 +74,7 @@
         <div class="govuk-grid-column-two-thirds">
             <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
             <h2 class="govuk-caption-l">@messages("available.requestvaluation.h2")</h2>
-            <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="grand-total-top">@rateableValue.fold(messages("assessments.na"))(rv => Formatters.formatCurrencyRoundedToPounds(rv))</p>
+            <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="grand-total-top">@rateableValue.getOrElse(messages("assessments.na"))</p>
             @govukInsetText(InsetText(
                 content = Text(messages("available.requestvaluation.inset"))
             ))
