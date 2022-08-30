@@ -36,7 +36,7 @@ import play.api.mvc.{Action, _}
 import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
-import utils.Cats
+import utils.{Cats, Formatters}
 
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -147,7 +147,9 @@ class DvrController @Inject()(
                     authorisationId = link.authorisationId,
                     clientOrgName = link.clientOrgName.getOrElse(""),
                     backUrl = backUrl,
-                    checksAndChallenges = optCases
+                    checksAndChallenges = optCases,
+                    rateableValueFormatted =
+                      assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv))
                   ),
                   startCheckForm = form
                 )
@@ -470,5 +472,6 @@ case class AvailableRequestDetailedValuation(
       submissionId: String,
       uarn: Long,
       valuation: String,
-      valuationId: Long
+      valuationId: Long,
+      rateableValueFormatted: Option[String]
 )

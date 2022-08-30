@@ -56,7 +56,8 @@ trait FakeViews extends GdsComponents {
       govukSummaryList,
       govukRadios,
       govukErrorSummary,
-      formWithCSRF)
+      formWithCSRF,
+      govukInsetText)
   lazy val cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout, govukButton)
   lazy val propertyMissingView = new propertyMissing(mainLayout)
 
