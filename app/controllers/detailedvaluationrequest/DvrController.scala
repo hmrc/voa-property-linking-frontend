@@ -148,7 +148,8 @@ class DvrController @Inject()(
                     clientOrgName = link.clientOrgName.getOrElse(""),
                     backUrl = backUrl,
                     checksAndChallenges = optCases,
-                    rateableValueFormatted = assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv))
+                    rateableValueFormatted =
+                      assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv))
                   ),
                   startCheckForm = form
                 )
