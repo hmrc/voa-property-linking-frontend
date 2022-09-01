@@ -94,7 +94,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val authorisationId = 4222211L
     val uarn = 123123
     val localAuthRef = "1234341234"
-
+    val listYear = "2017"
     val testPropertyHistory =
       propertyHistory.copy(uarn = uarn, localAuthorityReference = localAuthRef, addressFull = addressLine)
 
@@ -108,7 +108,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         caseRef = caseRef,
         authorisationId = authorisationId,
         uarn = uarn,
-        isOwner = isOwner
+        isOwner = isOwner,
+        listYear = listYear
       )(request)
   }
 
@@ -154,7 +155,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = resultCanChallenge(true)
 
     val expectedRedirect =
-      s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/client/start?isDvr=true"
+      s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/client/start?isDvr=true&valuationListYear=2017"
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(expectedRedirect)
@@ -170,7 +171,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = resultCanChallenge(false)
 
     val expectedRedirect =
-      s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/agent/start?isDvr=true"
+      s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/agent/start?isDvr=true&valuationListYear=2017"
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(expectedRedirect)
