@@ -189,7 +189,7 @@
 }
 
 @checkCasesTabContent = @{
-    checkCasesDetails(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, checkCases, evaluateRoute(model.check), "#start-check-tab")(govukButton, govukTable, govukDetails, govukWarningText)
+    checkCasesDetails(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, model.listYear, checkCases, evaluateRoute(model.check), "#start-check-tab")(govukButton, govukTable, govukDetails, govukWarningText)
 }
 
 @challengeCasesTabContent = {

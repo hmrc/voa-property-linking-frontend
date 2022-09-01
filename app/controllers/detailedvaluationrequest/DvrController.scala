@@ -149,7 +149,8 @@ class DvrController @Inject()(
                     backUrl = backUrl,
                     checksAndChallenges = optCases,
                     rateableValueFormatted =
-                      assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv))
+                      assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv)),
+                    listYear = assessment.listYear
                   ),
                   startCheckForm = form
                 )
@@ -343,7 +344,8 @@ class DvrController @Inject()(
         caseRef: String,
         authorisationId: Long,
         uarn: Long,
-        isOwner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
+        isOwner: Boolean,
+        listYear: String): Action[AnyContent] = authenticated.async { implicit request =>
     val eventualPropertyHistory: Future[PropertyHistory] = vmvConnector.getPropertyHistory(uarn)
 
     eventualPropertyHistory.flatMap { propertyHistory =>
@@ -366,7 +368,7 @@ class DvrController @Inject()(
           if (response.result) {
             val party = if (isOwner) "client" else "agent"
             Future.successful(Redirect(config.businessRatesChallengeUrl(
-              s"property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/$party/start?isDvr=true")))
+              s"property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/$party/start?isDvr=true&valuationListYear=$listYear")))
           } else {
             Future successful Ok(
               cannotRaiseChallengeView(
@@ -473,5 +475,6 @@ case class AvailableRequestDetailedValuation(
       uarn: Long,
       valuation: String,
       valuationId: Long,
-      rateableValueFormatted: Option[String]
+      rateableValueFormatted: Option[String],
+      listYear: String
 )

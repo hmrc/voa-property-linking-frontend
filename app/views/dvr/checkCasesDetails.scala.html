@@ -23,14 +23,14 @@
 @import java.time.LocalDate
 @import views.html.includes.helpIcon
 
-@(propertyLinkSubmissionId: String, isOwner: Boolean, uarn: Long, authorisationId: Long, assessmentRef: Long, checkCases: List[CaseDetails], downloadUrl: String, startCheckUrl: String)(govukButton: GovukButton, govukTable: GovukTable, govukDetails: GovukDetails, govukWarningText: GovukWarningText)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(propertyLinkSubmissionId: String, isOwner: Boolean, uarn: Long, authorisationId: Long, assessmentRef: Long, listYear:String, checkCases: List[CaseDetails], downloadUrl: String, startCheckUrl: String)(govukButton: GovukButton, govukTable: GovukTable, govukDetails: GovukDetails, govukWarningText: GovukWarningText)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @viewCaseUrl(checkRef: String, submissionId: String) = @{
     config.businessRatesCheckUrl(s"check-case/$checkRef/summary?propertyLinkSubmissionId=$submissionId&isOwner=$isOwner")
 }
 
 @canChallengeLink(assessmentRef: Long, caseRef: String) = @{
-    routes.DvrController.canChallenge(propertyLinkSubmissionId, assessmentRef, caseRef, authorisationId, uarn, isOwner).url
+    routes.DvrController.canChallenge(propertyLinkSubmissionId, assessmentRef, caseRef, authorisationId, uarn, isOwner, listYear).url
 }
 
 @challengeLink(assessmentRef: Long, checkReference: String) = {
