@@ -17,7 +17,7 @@
 package controllers.agentAppointment
 
 import controllers.VoaPropertyLinkingSpec
-import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, No, NoProperties, SearchedAgent, SelectedAgent}
+import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, No, NoProperties, SearchedAgent, SelectedAgent, Start}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
 import org.scalatestplus.mockito.MockitoSugar
@@ -44,6 +44,16 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     val res = testController.showStartPage()(FakeRequest())
     status(res) shouldBe OK
     verifyPageHeading(res, "Agent code")
+    verifyBackLink(res, "http://localhost:9542/business-rates-dashboard/home")
+  }
+  "showStartPage" should "back link is the cached back link" in {
+    val backLink = "/some/back/link"
+    stubWithAppointAgentSession
+      .stubSession(Start(backLink = Some(backLink)), detailedIndividualAccount, groupAccount(false))
+    val res = testController.showStartPage()(FakeRequest())
+    status(res) shouldBe OK
+    verifyPageHeading(res, "Agent code")
+    verifyBackLink(res, backLink)
   }
 
   "getAgentDetails" should "return 400 Bad Request when agentCode is not provided" in {
@@ -400,6 +410,11 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     val page = Jsoup.parse(contentAsString(res))
     page.getElementsByTag("title").text().startsWith("Error:") shouldBe true
     page.getElementsByAttributeValue("href", errorHref).text() shouldBe expectedErrorMessage
+  }
+
+  private def verifyBackLink(res: Future[Result], expectedBackLink: String) = {
+    val page = Jsoup.parse(contentAsString(res))
+    page.getElementById("back-link").attr("href") shouldBe expectedBackLink
   }
 
 }

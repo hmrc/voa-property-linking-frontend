@@ -172,19 +172,21 @@ trait FakeObjects {
     persons = List()
   )
 
-  val startJourney = Start()
+  val startJourney = Start(backLink = None)
 
   val searchedAgent = SearchedAgent(
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
-    agentAddress = "An Address"
+    agentAddress = "An Address",
+    backLink = None
   )
 
   val selectedAgent = SelectedAgent(
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
     isCorrectAgent = true,
-    agentAddress = "An Address"
+    agentAddress = "An Address",
+    backLink = None
   )
 
   val managingProperty = ManagingProperty(
@@ -192,7 +194,8 @@ trait FakeObjects {
     agentOrganisationName = "Some Org",
     isCorrectAgent = true,
     managingPropertyChoice = All.name,
-    agentAddress = "An Address"
+    agentAddress = "An Address",
+    backLink = None
   )
 
   val ownerAuthAgent = OwnerAuthAgent(
@@ -430,7 +433,8 @@ trait FakeObjects {
     agentCode = agentCode,
     agentOrganisationName = agentDetails.name,
     agentAddress = agentDetails.address,
-    isCorrectAgent = true)
+    isCorrectAgent = true,
+    backLink = None)
 
   lazy val april2017 = LocalDate.of(2017, 4, 1)
 
