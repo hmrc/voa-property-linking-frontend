@@ -20,9 +20,11 @@ import play.api.libs.json._
 
 sealed trait AppointNewAgentSession {
   val status: AppointAgentJourneyStatus
+  val backLink: Option[String]
 }
 
-case class Start(status: AppointAgentJourneyStatus = StartJourney) extends AppointNewAgentSession
+case class Start(status: AppointAgentJourneyStatus = StartJourney, backLink: Option[String])
+    extends AppointNewAgentSession
 
 object Start {
   implicit val format: OFormat[Start] = Json.format[Start]
@@ -32,7 +34,8 @@ case class SearchedAgent(
       agentCode: Long,
       agentOrganisationName: String,
       agentAddress: String,
-      status: AppointAgentJourneyStatus = AgentSearched)
+      status: AppointAgentJourneyStatus = AgentSearched,
+      backLink: Option[String])
     extends AppointNewAgentSession
 
 object SearchedAgent {
@@ -44,7 +47,8 @@ case class SelectedAgent(
       agentOrganisationName: String,
       agentAddress: String,
       isCorrectAgent: Boolean,
-      status: AppointAgentJourneyStatus = AgentSelected)
+      status: AppointAgentJourneyStatus = AgentSelected,
+      backLink: Option[String])
     extends AppointNewAgentSession
 
 object SelectedAgent {
@@ -55,7 +59,8 @@ object SelectedAgent {
       agentCode = searchedAgent.agentCode,
       agentOrganisationName = searchedAgent.agentOrganisationName,
       agentAddress = searchedAgent.agentAddress,
-      isCorrectAgent = isTheCorrectAgent
+      isCorrectAgent = isTheCorrectAgent,
+      backLink = searchedAgent.backLink
     )
 }
 
@@ -66,7 +71,8 @@ case class ManagingProperty(
       isCorrectAgent: Boolean,
       managingPropertyChoice: String,
       singleProperty: Boolean = false,
-      status: AppointAgentJourneyStatus = ManagingPropertySelected)
+      status: AppointAgentJourneyStatus = ManagingPropertySelected,
+      backLink: Option[String])
     extends AppointNewAgentSession
 
 object ManagingProperty {
@@ -79,7 +85,8 @@ object ManagingProperty {
       agentAddress = selectedAgent.agentAddress,
       isCorrectAgent = selectedAgent.isCorrectAgent,
       managingPropertyChoice = selection,
-      singleProperty = singleProperty
+      singleProperty = singleProperty,
+      backLink = selectedAgent.backLink
     )
 }
 
