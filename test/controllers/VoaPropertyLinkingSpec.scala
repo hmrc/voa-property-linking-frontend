@@ -122,11 +122,21 @@ trait VoaPropertyLinkingSpec
       UploadEvidenceData(fileInfo = None, attachments = None),
       earliestStartDate = earliestStartDate)
 
+  def preEnrichedActionRefinerFromCya(earliestStartDate: LocalDate = earliestEnglishStartDate): WithLinkingSession =
+    preEnrichedActionRefiner(
+      UploadEvidenceData(fileInfo = None, attachments = None),
+      earliestStartDate = earliestStartDate,
+      fromCya = Some(true)
+    )
+
   def preEnrichedActionRefiner(
         evidenceData: UploadEvidenceData,
         relationshipCapacity: CapacityType = Owner,
         userIsAgent: Boolean = true,
-        earliestStartDate: LocalDate = earliestEnglishStartDate): WithLinkingSession =
+        earliestStartDate: LocalDate = earliestEnglishStartDate,
+        propertyOccupancy: Option[PropertyOccupancy] = Some(
+          PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+        fromCya: Option[Boolean] = Some(false)): WithLinkingSession =
     new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
 
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
@@ -142,13 +152,14 @@ trait VoaPropertyLinkingSpec
                 propertyRelationship = Some(PropertyRelationship(relationshipCapacity)),
                 propertyOwnership =
                   Some(PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
-                propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+                propertyOccupancy = propertyOccupancy,
                 hasRatesBill = Some(true),
                 uploadEvidenceData = evidenceData,
                 evidenceType = Some(RatesBillType),
                 clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
                 localAuthorityReference = "12341531531",
-                rtp = ClaimPropertyReturnToPage.FMBR
+                rtp = ClaimPropertyReturnToPage.FMBR,
+                fromCya = fromCya
               ),
               organisationId = 1L,
               individualAccount = request.individualAccount,

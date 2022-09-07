@@ -83,6 +83,8 @@ trait FakeObjects {
   val fileInfo = CompleteFileInfo("test.pdf", RatesBillType)
   val uploadEvidenceData =
     UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
+  val uploadEvidenceDataOther =
+    UploadEvidenceData(OtherEvidenceFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
   val detailedIndividualAccount =
     DetailedIndividualAccount(
       externalId = ggExternalId,

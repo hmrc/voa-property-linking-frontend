@@ -26,14 +26,7 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
-@(model: DeclarationVM, isRatesBillEvidence: Boolean)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
-
-@backLink = @{if (isRatesBillEvidence) {
-                    controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.RATES_BILL).url
-                } else {
-                    controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url
-                }
-}
+@(model: DeclarationVM)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @clientSuffix = @{request.ses.clientDetails.fold("")(_ => ".client")}
 
@@ -86,7 +79,7 @@
 
 @mainLayout(
     pageTitle = messages("declaration.title"),
-    backUri = Some(backLink),
+    backUri = Some(controllers.propertyLinking.routes.DeclarationController.back.url),
     hasErrors = model.form.hasErrors
 ) {
 

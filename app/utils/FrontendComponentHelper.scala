@@ -19,35 +19,41 @@ package utils
 import play.api.data.{Form, FormError}
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.Aliases.ErrorLink
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 
 object FrontendComponentHelper {
 
-  def formatErrorMessages(form: Form[_], fieldName: String, messagesKeySuffix: String = "")(
+  def formatErrorMessages(
+        form: Form[_],
+        fieldName: String,
+        messagesKeySuffix: String = "",
+        manualDateErrorHandler: PartialFunction[String, String] = PartialFunction.empty)(
         implicit messages: Messages): Seq[ErrorLink] = {
 
     def isDateFieldErrorsExists(error: FormError, fieldName: String) =
       Seq(fieldName, s"$fieldName.day", s"$fieldName.month", s"$fieldName.year").contains(error.key)
 
     //Merge date mapper individual filed errors(date, month and year) into one common date error to avoid duplicate messages
-    form.errors
+    form.errors.view
       .map { error =>
-        {
-          if (isDateFieldErrorsExists(error, fieldName))
-            FormError(s"$fieldName", Seq("error.common.invalid.date"))
-          else
-            error
+        (isDateFieldErrorsExists(error, fieldName), manualDateErrorHandler.isDefinedAt(error.message)) match {
+          case (true, false) => FormError(fieldName, "error.common.invalid.date")
+          case (true, true)  => FormError(fieldName, error.message)
+          case _             => error
         }
       }
-      .toSet
+      .distinct
       .map { error: FormError =>
         ErrorLink(
           href = if (isDateFieldErrorsExists(error, fieldName)) Some(s"#${error.key}-day") else Some(s"#${error.key}"),
-          content = HtmlContent(
-            s"${messages(s"label.${error.key}$messagesKeySuffix")} - ${messages(error.message, error.args.map(_.toString): _*)}")
+          content = Text(manualDateErrorHandler
+            .applyOrElse(
+              error.message,
+              (_: String) =>
+                s"${messages(s"label.${error.key}$messagesKeySuffix")} - ${messages(error.message, error.args.map(_.toString): _*)}"))
         )
       }
-  }.toSeq
+  }
 
   def valueWithId(value: String, id: String): HtmlContent =
     HtmlContent(s"""<span id="$id">$value</span>""")

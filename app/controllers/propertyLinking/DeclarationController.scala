@@ -56,15 +56,24 @@ class DeclarationController @Inject()(
 ) extends PropertyLinkingController with Cats with Logging {
 
   def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    val isRatesBillEvidence = request.ses.uploadEvidenceData.linkBasis == RatesBillFlag
+    sessionRepository
+      .saveOrUpdate(request.ses.copy(fromCya = Some(true)))
+      .map { _ =>
+        Ok(declarationView(DeclarationVM(form, request.ses.address, request.ses.localAuthorityReference)))
+      }
+  }
 
-    Future.successful(
-      Ok(
-        declarationView(
-          DeclarationVM(form, request.ses.address, request.ses.localAuthorityReference),
-          isRatesBillEvidence
-        ))
-    )
+  def back(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+    sessionRepository
+      .saveOrUpdate(request.ses.copy(fromCya = Some(false)))
+      .map { _ =>
+        Redirect(
+          routes.UploadController.show(
+            if (request.ses.uploadEvidenceData.linkBasis == RatesBillFlag)
+              EvidenceChoices.RATES_BILL
+            else
+              EvidenceChoices.OTHER))
+      }
   }
 
   /*
@@ -75,13 +84,14 @@ class DeclarationController @Inject()(
       .bindFromRequest()
       .fold(
         _ => {
-          val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
           Future.successful(
             BadRequest(
               declarationView(
-                DeclarationVM(formWithNoDeclaration, request.ses.address, request.ses.localAuthorityReference),
-                isRatesBillEvidence
-              )))
+                DeclarationVM(
+                  formWithNoDeclaration,
+                  request.ses.address,
+                  request.ses.localAuthorityReference
+                ))))
         },
         _ =>
           for {
@@ -96,14 +106,13 @@ class DeclarationController @Inject()(
                 case NotAllFilesReadyToUpload =>
                   logger.warn(
                     s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page")
-                  val isRatesBillEvidence = request.ses.evidenceType.contains(RatesBillType)
-                  BadRequest(declarationView(
-                    DeclarationVM(
-                      form.fill(true).withError("declaration", "declaration.file.receipt"),
-                      request.ses.address,
-                      request.ses.localAuthorityReference),
-                    isRatesBillEvidence
-                  ))
+                  BadRequest(
+                    declarationView(
+                      DeclarationVM(
+                        form.fill(true).withError("declaration", "declaration.file.receipt"),
+                        request.ses.address,
+                        request.ses.localAuthorityReference)
+                    ))
                 case MissingRequiredNumberOfFiles =>
                   logger.warn(
                     s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")

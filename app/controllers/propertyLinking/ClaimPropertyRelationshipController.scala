@@ -110,7 +110,8 @@ class ClaimPropertyRelationshipController @Inject()(
       relationshipToPropertyView(
         ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn, request.ses.localAuthorityReference),
         request.ses.clientDetails,
-        backLinkToVmv(request.ses.rtp, request.ses.uarn, valuationId = request.ses.valuationId)
+        if (request.ses.fromCya.contains(true)) routes.DeclarationController.show().url
+        else backLinkToVmv(request.ses.rtp, request.ses.uarn, valuationId = request.ses.valuationId)
       ))
   }
 
@@ -131,7 +132,8 @@ class ClaimPropertyRelationshipController @Inject()(
             sessionRepository
               .saveOrUpdate[LinkingSession](request.ses.copy(propertyRelationship = Some(formData)))
               .map { _ =>
-                Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
+                if (request.ses.fromCya.contains(true)) Redirect(routes.DeclarationController.show())
+                else Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
             }
         )
     }
@@ -168,7 +170,8 @@ class ClaimPropertyRelationshipController @Inject()(
               clientDetails = clientDetails,
               localAuthorityReference = propertyHistory.localAuthorityReference,
               rtp = rtp,
-              valuationId = valuationId
+              valuationId = valuationId,
+              fromCya = Some(false)
             ))
     } yield ()
 

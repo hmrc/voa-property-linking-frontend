@@ -159,5 +159,6 @@ GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear 
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/remove              controllers.propertyLinking.UploadController.remove(fileReference: String, choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/evidence-type                      controllers.propertyLinking.UploadController.updateEvidenceType()
 GET         /my-organisation/claim/property-links/summary                                     controllers.propertyLinking.DeclarationController.show()
+GET         /my-organisation/claim/property-links/summary/back                                controllers.propertyLinking.DeclarationController.back()
 POST        /my-organisation/claim/property-links/summary                                     controllers.propertyLinking.DeclarationController.submit()
 GET         /my-organisation/claim/property-links/confirmation                                controllers.propertyLinking.DeclarationController.confirmation
