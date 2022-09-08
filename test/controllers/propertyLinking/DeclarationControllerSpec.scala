@@ -16,16 +16,19 @@
 
 package controllers.propertyLinking
 
+import binders.propertylinks.EvidenceChoices
 import cats.data.EitherT
 import cats.instances.future._
 import controllers.VoaPropertyLinkingSpec
-import models.{CapacityType, Occupier, Owner, OwnerOccupier}
+import models.{CapacityType, LinkingSession, Occupier, Owner, OwnerOccupier}
+import org.jsoup.Jsoup
+import org.jsoup.nodes.{Document, Element}
+import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.exceptions.attachments._
@@ -38,17 +41,18 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   trait Setup {
-    def testDeclarationController(earliestStartDate: LocalDate) =
+    def testDeclarationController(earliestStartDate: LocalDate, hasRatesBill: Boolean = true) =
       new DeclarationController(
         errorHandler = mockCustomErrorHandler,
         propertyLinkService = mockPropertyLinkingService,
         sessionRepository = mockSessionRepo,
         authenticatedAction = preAuthenticatedActionBuilders(isAgent),
         withLinkingSession = preEnrichedActionRefiner(
-          evidenceData = uploadEvidenceData,
+          evidenceData = if (hasRatesBill) uploadEvidenceData else uploadEvidenceDataOther,
           relationshipCapacity = propertyRelationship,
           userIsAgent = isAgent,
-          earliestStartDate = earliestStartDate),
+          earliestStartDate = earliestStartDate
+        ),
         declarationView = declarationView,
         linkingRequestSubmittedView = linkingRequestSubmittedView
       )
@@ -56,7 +60,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     lazy val mockSessionRepo = {
       val f = mock[SessionRepo]
       when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
-
+      when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
       when(f.remove()(any())).thenReturn(Future.successful(()))
       f
     }
@@ -65,6 +69,13 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
     val isAgent: Boolean = true
     val propertyRelationship: CapacityType = Owner
+  }
+
+  "show" should "set 'fromCya' in the session" in new Setup {
+    val sessionCaptor: ArgumentCaptor[LinkingSession] = ArgumentCaptor.forClass(classOf[LinkingSession])
+    testDeclarationController(earliestEnglishStartDate).show()(FakeRequest()).futureValue
+    verify(mockSessionRepo).saveOrUpdate[LinkingSession](sessionCaptor.capture())(any(), any())
+    sessionCaptor.getValue.fromCya shouldBe Some(true)
   }
 
   "The declaration page with earliest start date is not in future" should "return valid page" in new Setup {
@@ -167,6 +178,48 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     html.verifyElementTextByAttribute("id", "end-date-heading", "Last day as owner and occupier")
   }
 
+  it should "have a link to change the property connection" in new Setup {
+    val doc: Document =
+      Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
+    val changeLink: Element = doc.getElementById("relationship-change")
+    changeLink.attr("href") shouldBe routes.ClaimPropertyRelationshipController.back().url
+  }
+
+  it should "have a link to change the property connection start date" in new Setup {
+    val doc: Document =
+      Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
+    val changeLink: Element = doc.getElementById("start-date-change")
+    changeLink.attr("href") shouldBe routes.ClaimPropertyOwnershipController.showOwnership().url
+  }
+
+  it should "have a link to change the property occupancy" in new Setup {
+    val doc: Document =
+      Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
+    val changeLink: Element = doc.getElementById("still-owned-change")
+    changeLink.attr("href") shouldBe routes.ClaimPropertyOccupancyController.showOccupancy().url
+  }
+
+  it should "have a link to change the property occupancy last day" in new Setup {
+    val doc: Document =
+      Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
+    val changeLink: Element = doc.getElementById("end-date-change")
+    changeLink.attr("href") shouldBe routes.ClaimPropertyOccupancyController.showOccupancy().url
+  }
+
+  it should "have a link to change uploaded evidence" in new Setup {
+    val doc: Document =
+      Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
+    val changeLink: Element = doc.getElementById("evidence-change")
+    changeLink.attr("href") shouldBe routes.ChooseEvidenceController.show().url
+  }
+
+  it should "have a back link to the back endpoint" in new Setup {
+    val doc: Document =
+      Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
+    val backLink: Element = doc.getElementById("back-link")
+    backLink.attr("href") shouldBe routes.DeclarationController.back().url
+  }
+
   it should "require the user to accept the declaration to continue" in new Setup {
     val res = testDeclarationController(earliestEnglishStartDate).submit()(FakeRequest())
     status(res) shouldBe BAD_REQUEST
@@ -261,6 +314,26 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     val html = HtmlPage(res)
     html.titleShouldMatch("Property claim submitted - Valuation Office Agency - GOV.UK")
     html.shouldContainText("Your submission number PL-123456")
+  }
 
+  "back" should "set 'fromCya' in the session" in new Setup {
+    val sessionCaptor: ArgumentCaptor[LinkingSession] = ArgumentCaptor.forClass(classOf[LinkingSession])
+    testDeclarationController(earliestEnglishStartDate).back()(FakeRequest()).futureValue
+    verify(mockSessionRepo).saveOrUpdate[LinkingSession](sessionCaptor.capture())(any(), any())
+    sessionCaptor.getValue.fromCya shouldBe Some(false)
+  }
+
+  it should "redirect to the upload rates bill page if a rates bill was uploaded" in new Setup {
+    val result: Future[Result] =
+      testDeclarationController(earliestEnglishStartDate, hasRatesBill = true).back()(FakeRequest())
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
+  }
+
+  it should "redirect to the upload evidence page if other evidence was uploaded" in new Setup {
+    val result: Future[Result] =
+      testDeclarationController(earliestEnglishStartDate, hasRatesBill = false).back()(FakeRequest())
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
   }
 }

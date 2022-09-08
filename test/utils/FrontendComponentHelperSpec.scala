@@ -19,13 +19,16 @@ package utils
 import controllers.VoaPropertyLinkingSpec
 import controllers.propertyLinking.ClaimPropertyOwnership
 import play.api.i18n.Lang.defaultLang
-import uk.gov.hmrc.govukfrontend.views.Aliases.ErrorLink
+import play.api.i18n.Messages
+import uk.gov.hmrc.govukfrontend.views.Aliases.{ErrorLink, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
+
+import java.time.LocalDate
 
 class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
 
   "The form with multiple date validation errors" should "return only one common error 'error.common.invalid.date' " in {
-    val form = ClaimPropertyOwnership.ownershipForm(earliestEnglishStartDate)
+    val form = ClaimPropertyOwnership.ownershipForm(earliestEnglishStartDate, endDate = None)
     val inValidData = Map(
       "interestedOnOrBefore" -> "false",
       "fromDate.day"         -> "40",
@@ -41,9 +44,34 @@ class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
       messagesApi.preferred(Seq(defaultLang)))
 
     formattedErrors.size shouldBe 1
-    formattedErrors.contains(ErrorLink(
-      href = Some("#fromDate-day"),
-      content = HtmlContent(s"On what date did you become the owner or occupier? - Enter a valid date"))) shouldBe true
+    formattedErrors should contain(
+      ErrorLink(
+        href = Some("#fromDate-day"),
+        content = Text(s"On what date did you become the owner or occupier? - Enter a valid date")))
+  }
+
+  it should "be able to handle non-generic date errors while removing duplicates" in {
+    implicit val messages: Messages = messagesApi.preferred(Seq(defaultLang))
+    val form = ClaimPropertyOwnership
+      .ownershipForm(earliestEnglishStartDate, endDate = Some(LocalDate.of(2017, 4, 2)))
+    val invalidData = Map(
+      "interestedOnOrBefore" -> "false",
+      "fromDate.day"         -> "2",
+      "fromDate.month"       -> "4",
+      "fromDate.year"        -> "2017"
+    )
+
+    val formattedErrors =
+      FrontendComponentHelper.formatErrorMessages(form.bind(invalidData), "fromDate", manualDateErrorHandler = {
+        case e @ "interestedOnOrBefore.error.startDateMustBeBeforeEnd" => e.replace(".", "?")
+      })
+
+    formattedErrors.size shouldBe 1
+    formattedErrors should contain(
+      ErrorLink(
+        href = Some("#fromDate-day"),
+        content = Text("interestedOnOrBefore?error?startDateMustBeBeforeEnd")
+      ))
   }
 
   "valueWithId" should "return value wrapped in a span" in {

@@ -59,7 +59,9 @@ class ChooseEvidenceController @Inject()(
   }
 
   private def backlink(session: LinkingSession): String =
-    if (session.earliestStartDate.isAfter(LocalDate.now))
+    if (session.fromCya.contains(true))
+      controllers.propertyLinking.routes.DeclarationController.show().url
+    else if (session.earliestStartDate.isAfter(LocalDate.now))
       controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
     else
       controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url

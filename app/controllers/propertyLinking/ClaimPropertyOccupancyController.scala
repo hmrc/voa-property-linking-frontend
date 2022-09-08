@@ -18,6 +18,7 @@ package controllers.propertyLinking
 
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
+import actions.propertylinking.requests.LinkingSessionRequest
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers._
@@ -72,7 +73,8 @@ class ClaimPropertyOccupancyController @Inject()(
             occupancyOfPropertyView(
               form,
               request.ses.clientDetails,
-              controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url)))
+              getBackLink
+            )))
       }
     }
   }
@@ -85,17 +87,14 @@ class ClaimPropertyOccupancyController @Inject()(
       ).bindFromRequest()
         .fold(
           errors =>
-            Future.successful(
-              BadRequest(
-                occupancyOfPropertyView(
-                  errors,
-                  request.ses.clientDetails,
-                  controllers.propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url))),
+            Future.successful(BadRequest(occupancyOfPropertyView(errors, request.ses.clientDetails, getBackLink))),
           formData =>
             sessionRepository
               .saveOrUpdate[LinkingSession](request.ses.copy(propertyOccupancy = Some(formData)))
               .map { _ =>
-                Redirect(routes.ChooseEvidenceController.show())
+                if (request.ses.fromCya.contains(true))
+                  Redirect(controllers.propertyLinking.routes.DeclarationController.show().url)
+                else Redirect(routes.ChooseEvidenceController.show())
             }
         )
     }
@@ -117,4 +116,8 @@ object ClaimPropertyOccupancy {
               d => d.isAfter(startDate))
         )
       )(PropertyOccupancy.apply)(PropertyOccupancy.unapply))
+
+  def getBackLink(implicit request: LinkingSessionRequest[_]): String =
+    if (request.ses.fromCya.contains(true)) routes.DeclarationController.show().url
+    else routes.ClaimPropertyOwnershipController.showOwnership().url
 }

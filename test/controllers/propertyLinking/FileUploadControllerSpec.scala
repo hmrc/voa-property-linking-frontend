@@ -21,6 +21,8 @@ import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
 import models.{RatesBillType, StampDutyLandTaxForm}
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.http.Status.{OK => _}
@@ -65,7 +67,13 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     val html = HtmlPage(res)
     html.shouldContainText(messages("uploadRatesBill.client.reminder"))
     html.shouldContain("#newFileGroup", 1)
+  }
 
+  "RATES_BILL file upload page" should "have a back link to the choose evidence page" in {
+    val result =
+      new TestFileUploadController(preEnrichedActionRefiner()).show(EvidenceChoices.RATES_BILL, None)(FakeRequest())
+    val backLink: Element = Jsoup.parse(contentAsString(result)).getElementById("back-link")
+    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show().url
   }
 
   "RATES_BILL file initiate" should "return file upload initiate success" in {
@@ -106,6 +114,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
 
     val result = uploadController.continue(EvidenceChoices.RATES_BILL)(request)
     status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
   }
 
   "OTHER Evidence file upload page" should "return valid page" in {
@@ -146,7 +155,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     status(result) shouldBe BAD_REQUEST
   }
 
-  "OTHER Evidence file upload with valid files" should "return cannot provide evidence page" in {
+  "OTHER Evidence file upload with valid files" should "redirect to the declaration page" in {
     lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceData)
     lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
@@ -155,6 +164,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     val result = uploadController.continue(EvidenceChoices.OTHER)(
       FakeRequest().withFormUrlEncodedBody("evidenceType" -> "License"))
     status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
   }
 
   "OTHER Evidence page" should "return cannot provide evidence page for IP" in {
@@ -180,6 +190,13 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     val html = HtmlPage(result)
     html.shouldContainText(messages("cannotProvideEvidence.title"))
     html.shouldContainText(messages("cannotProvideEvidence.agent.p1"))
+  }
+
+  "OTHER Evidence page" should "have a back link to the choose evidence page" in {
+    val result =
+      new TestFileUploadController(preEnrichedActionRefiner()).show(EvidenceChoices.OTHER, None)(FakeRequest())
+    val backLink: Element = Jsoup.parse(contentAsString(result)).getElementById("back-link")
+    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show().url
   }
 
   "updateEvidenceType" should "show error if no evidence type submitted" in {
