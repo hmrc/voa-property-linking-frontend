@@ -291,7 +291,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       "download and complete a Check form")
 
     val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
-    radiosOnStartCheckScreen should have size 6
+    radiosOnStartCheckScreen should have size 7
 
     verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
@@ -589,7 +589,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         FakeRequest().withFormUrlEncodedBody("checkType" -> checkType, "authorisationId" -> "12345"))
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
-      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true")
+      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true&rvth=false")
+  }
+
+  "an IP starting a check case" should "get redirected to a page in check-frontend - rateableValueTooHigh" in new Setup {
+    val result: Future[Result] =
+      controller.myOrganisationStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L, uarn = 123L)(
+        FakeRequest().withFormUrlEncodedBody("checkType" -> "rateableValueTooHigh", "authorisationId" -> "12345"))
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(
+      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/internal?propertyLinkSubmissionId=PL123&dvrCheck=true&rvth=true")
   }
 
   "an IP starting a check case without selecting one of the reasons for check" should "stay on the same page with error summary at the top" in new Setup {
@@ -622,7 +631,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         FakeRequest().withFormUrlEncodedBody("checkType" -> checkType, "authorisationId" -> "12345"))
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
-      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true")
+      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true&rvth=false")
   }
 
   "an agent starting a check case without selecting one of the reasons for check" should "stay on the same page with error summary at the top" in new Setup {

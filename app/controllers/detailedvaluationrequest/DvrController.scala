@@ -37,9 +37,11 @@ import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
 import utils.{Cats, Formatters}
-
 import java.time.format.DateTimeFormatter
+
 import javax.inject.Inject
+import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class DvrController @Inject()(
@@ -397,6 +399,11 @@ class DvrController @Inject()(
   def myClientsStartCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long): Action[AnyContent] =
     startCheck(propertyLinkSubmissionId, valuationId, isOwner = false, uarn)
 
+  private def getCheckType(checkType: CheckType): String = checkType match {
+    case RateableValueTooHigh => Internal.value
+    case c @ _                => c.value
+  }
+
   private def startCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
@@ -404,15 +411,17 @@ class DvrController @Inject()(
         uarn: Long): Action[AnyContent] =
     authenticated.async { implicit request =>
       def startCheckUrl(form: StartCheckForm): String = {
+        val rvth = form.checkType == RateableValueTooHigh
         val pathToFirstScreen =
-          "property-link/{propertyLinkId}/assessment/{valuationId}/{checkType}{?propertyLinkSubmissionId,uarn,dvrCheck}"
+          "property-link/{propertyLinkId}/assessment/{valuationId}/{checkType}{?propertyLinkSubmissionId,uarn,dvrCheck,rvth}"
             .templated(
               "propertyLinkId"           -> form.authorisationId,
               "valuationId"              -> valuationId,
-              "checkType"                -> form.checkType.value,
+              "checkType"                -> getCheckType(form.checkType),
               "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
               "uarn"                     -> form.uarn,
-              "dvrCheck"                 -> true
+              "dvrCheck"                 -> true,
+              "rvth"                     -> rvth
             )
         config.businessRatesCheckUrl(pathToFirstScreen)
       }

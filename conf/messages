@@ -1106,14 +1106,15 @@ available.requestvaluation.dvrCheck.p2=After completing the form, you need to se
 
 available.requestvaluation.startCheckTab.heading=Start a Check case
 available.requestvaluation.startCheckTab.guidance.summary=Help with starting a Check case
-available.requestvaluation.startCheckTab.guidance.content.p1=A Check case enables you and us to agree on property details.
-available.requestvaluation.startCheckTab.guidance.content.p2=Start a Check case to tell us property details are correct or make a change to them.
-available.requestvaluation.startCheckTab.guidance.content.p3=We may accept your changes and adjust the rateable value.
-available.requestvaluation.startCheckTab.guidance.content.p4=If you think the rateable value is too high, you can then send us a Challenge case.
-available.requestvaluation.startCheckTab.guidance.content.p5=You must complete a Check case before sending a Challenge case.
+available.requestvaluation.startCheckTab.guidance.content.p1=Send us a Check to tell us about changes to the property details. We may accept your changes and adjust the rateable value.
+available.requestvaluation.startCheckTab.guidance.content.p2=If you think the rateable value is too high and the property details do not need changing, you still need to send us a Check case. The Check case confirms that we have the correct property details. When the Check case is complete, send us a Challenge case to tell us you think the rateable value is too high.
+available.requestvaluation.startCheckTab.guidance.content.aboutCheck=More about Check cases
+available.requestvaluation.startCheckTab.guidance.content.aboutChallenge=More about Challenge cases
+
 available.requestvaluation.startCheckTab.question=What do you want to tell us?
-available.requestvaluation.startCheckTab.option1.content=Change or confirm the property details
+available.requestvaluation.startCheckTab.option1.content=The property details need changing
 available.requestvaluation.startCheckTab.option1.hint=For example, floor area sizes and parking
+available.requestvaluation.startCheckTab.rateableValueTooHigh.content=You think the rateable value is too high and property details do not need changing
 available.requestvaluation.startCheckTab.option2.content=The property has been demolished, redeveloped, or is no longer used for business
 available.requestvaluation.startCheckTab.option3.content=The property has been split
 available.requestvaluation.startCheckTab.option4.content=The property has been merged

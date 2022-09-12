@@ -51,5 +51,9 @@ object CheckType {
     override val value = "legal-decision"
   }
 
-  val all: Seq[CheckType] = Seq(Internal, External, Split, Merge, Remove, LegalDecision)
+  case object RateableValueTooHigh extends CheckType {
+    val value = "rateableValueTooHigh"
+  }
+
+  val all: Seq[CheckType] = Seq(Internal, External, Split, Merge, Remove, LegalDecision, RateableValueTooHigh)
 }
