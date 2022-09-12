@@ -64,9 +64,10 @@
 @helpWithStartingCheckCaseContent = {
     <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p1")</p>
     <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p2")</p>
-    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p3")</p>
-    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p4")</p>
-    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p5")</p>
+    <ul class="govuk-list">
+        <li><a class="govuk-link" target="_blank" href="https://www.gov.uk/guidance/confirm-your-property-details">@messages("available.requestvaluation.startCheckTab.guidance.content.aboutCheck")</a></li>
+        <li><a class="govuk-link" target="_blank" href="https://www.gov.uk/guidance/challenge-the-valuation">@messages("available.requestvaluation.startCheckTab.guidance.content.aboutChallenge")</a></li>
+    </ul>
 }
 
 @valuationTabContent = {
@@ -135,6 +136,11 @@
                             content = Text(messages("available.requestvaluation.startCheckTab.option1.content")),
                             value = Some(CheckType.Internal.value),
                             hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option1.hint"))))
+                        ),
+                        RadioItem(
+                            id = Some("checkType_rateableValueTooHigh"),
+                            content = Text(messages("available.requestvaluation.startCheckTab.rateableValueTooHigh.content")),
+                            value = Some(CheckType.RateableValueTooHigh.value)
                         ),
                         RadioItem(
                             id = Some("checkType_remove"),
