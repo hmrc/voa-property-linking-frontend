@@ -149,7 +149,8 @@ class DvrController @Inject()(
                     backUrl = backUrl,
                     checksAndChallenges = optCases,
                     rateableValueFormatted =
-                      assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv))
+                      assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv)),
+                    assessment = assessment
                   ),
                   startCheckForm = form
                 )
@@ -473,5 +474,6 @@ case class AvailableRequestDetailedValuation(
       uarn: Long,
       valuation: String,
       valuationId: Long,
-      rateableValueFormatted: Option[String]
+      rateableValueFormatted: Option[String],
+      assessment: ApiAssessment,
 )
