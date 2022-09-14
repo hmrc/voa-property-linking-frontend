@@ -78,15 +78,26 @@ class ManageAgentController @Inject()(
 
   def manageAgentProperties(
         agentCode: Long,
-        params: GetPropertyLinksParameters,
-        pagination: PaginationParameters): Action[AnyContent] = authenticated.async { implicit request =>
+        params: GetPropertyLinksParameters = GetPropertyLinksParameters(),
+        propertyLinkId: Option[Long] = None,
+        valuationId: Option[Long] = None,
+        propertyLinkSubmissionId: Option[String] = None,
+        uarn: Option[Long] = None): Action[AnyContent] = authenticated.async { implicit request =>
     {
       for {
         ownerAuthResult <- agentRelationshipService
                             .getMyAgentPropertyLinks(agentCode, params, PaginationParams(1, 100, true))
         agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
+        backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId, uarn) match {
+          case (Some(linkId), Some(valId), Some(submissionId), None) =>
+            config.businessRatesValuationFrontendUrl(
+              s"property-link/$linkId/valuations/$valId?submissionId=$submissionId#agents-tab")
+          case (None, Some(valId), Some(submissionId), Some(u)) =>
+            s"${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId = submissionId, valuationId = valId, uarn = u).url}#agents-tab"
+          case _ => controllers.agent.routes.ManageAgentController.showAgents.url
+        }
       } yield {
-        Ok(manageAgentPropertiesView(ownerAuthResult, agentCode, agentDetails))
+        Ok(manageAgentPropertiesView(ownerAuthResult, agentCode, agentDetails, backLink))
       }
     }
   }
@@ -265,7 +276,7 @@ class ManageAgentController @Inject()(
   private def calculateBackLink(organisationsAgents: AgentList, agentCode: Long) =
     if (organisationsAgents.resultCount > 1)
       controllers.agent.routes.ManageAgentController
-        .manageAgentProperties(agentCode, GetPropertyLinksParameters(), PaginationParameters())
+        .manageAgentProperties(agentCode, GetPropertyLinksParameters())
         .url
     else config.dashboardUrl("home")
 

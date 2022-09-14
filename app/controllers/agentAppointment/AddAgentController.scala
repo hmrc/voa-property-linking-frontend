@@ -62,11 +62,14 @@ class AddAgentController @Inject()(
   def start(
         propertyLinkId: Option[Long] = None,
         valuationId: Option[Long] = None,
-        propertyLinkSubmissionId: Option[String] = None): Action[AnyContent] = authenticated.async { implicit request =>
-    val backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId) match {
-      case (Some(linkId), Some(valId), Some(submissionId)) =>
+        propertyLinkSubmissionId: Option[String] = None,
+        uarn: Option[Long] = None): Action[AnyContent] = authenticated.async { implicit request =>
+    val backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId, uarn) match {
+      case (Some(linkId), Some(valId), Some(submissionId), None) =>
         config.businessRatesValuationFrontendUrl(
-          s"property-link/$linkId/valuations/$valId?submissionId=$submissionId#agent-tab")
+          s"property-link/$linkId/valuations/$valId?submissionId=$submissionId#agents-tab")
+      case (None, Some(valId), Some(submissionId), Some(u)) =>
+        s"${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId = submissionId, valuationId = valId, uarn = u).url}#agents-tab"
       case _ => config.dashboardUrl("home")
     }
     sessionRepo

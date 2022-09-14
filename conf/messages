@@ -1085,6 +1085,18 @@ available.requestvaluation.startCheckTab.title=Start a Check
 available.requestvaluation.checksTab.noCases.title=Checks
 available.requestvaluation.checksTab.title=Checks ({0})
 available.requestvaluation.challengesTab.title=Challenges ({0})
+
+available.requestvaluation.agentsTab.title=Agents ({0})
+available.requestvaluation.agentsTab.noAgents.title=Agents
+
+available.requestvaluation.agentsTab.heading=Agents assigned to this property
+available.requestvaluation.agentsTab.noAgents.p1=There are no agents assigned to this property.
+available.requestvaluation.agentsTab.assignAnAgent=Assign an agent to this property
+available.requestvaluation.agentsTab.helpWithAppoint=Help with appointing an agent
+available.requestvaluation.agentsTab.table.header.agent=Agent
+available.requestvaluation.agentsTab.table.header.totalCases=Total cases for this property
+available.requestvaluation.agentsTab.table.header.openCases=Open cases for this property
+
 available.requestvaluation.downloadValuationLink=Download the detailed valuation for this property
 available.requestvaluation.changeValuation=If you want to change something in this valuation
 available.requestvaluation.p1.draft.englishProperty=If the property''s details are incorrect, or you believe the rateable value is wrong, have a look at the current valuation as well. If the details are wrong in both, you can submit a Check against the current valuation. Any changes will carry over to the draft valuation.
