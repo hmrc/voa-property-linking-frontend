@@ -316,6 +316,8 @@ trait FakeObjects {
 
   val agentDetails = AgentDetails(name = "Awesome Agent", address = "1 Awesome Street, AB1 1BA")
 
+  private val agent1: Agent = Agent(10000L, 10000L, "Some organisation")
+
   val ownerCheckCaseDetails =
     CaseDetails(
       submittedDate = LocalDateTime.parse("2020-07-11T17:19:33"),
@@ -323,7 +325,8 @@ trait FakeObjects {
       caseReference = "CHK10000732",
       closedDate = Some(LocalDate.parse("2020-07-12")),
       clientOrAgent = "Some organisation",
-      submittedBy = "Some other person"
+      submittedBy = "Some other person",
+      agent = Some(agent1)
     )
 
   val agentCheckCaseDetails =
@@ -343,7 +346,8 @@ trait FakeObjects {
       caseReference = "CHG10000732",
       closedDate = Some(LocalDate.parse("2020-07-12")),
       clientOrAgent = "Some organisation",
-      submittedBy = "Some other person"
+      submittedBy = "Some other person",
+      agent = Some(agent1)
     )
 
   val agentChallengeCaseDetails =
@@ -364,7 +368,7 @@ trait FakeObjects {
     uarn = 1000L,
     createdDateTime = LocalDateTime.parse("2020-07-11T17:19:33"),
     settledDate = Some(LocalDate.parse("2020-07-12")),
-    agent = Some(Agent(10000L, 10000L, "Some organisation")),
+    agent = Some(agent1),
     submittedBy = "Some other person",
     originatingAssessmentReference = 1L
   )
@@ -403,7 +407,7 @@ trait FakeObjects {
     uarn = 1000L,
     createdDateTime = LocalDateTime.parse("2020-07-11T17:19:33"),
     settledDate = Some(LocalDate.parse("2020-07-12")),
-    agent = Some(Agent(10000L, 10000L, "Some organisation")),
+    agent = Some(agent1),
     submittedBy = "Some other person",
     originatingAssessmentReference = 1L
   )

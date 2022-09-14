@@ -194,12 +194,22 @@
     }
 }
 
+@agentsTabTitle = @{
+    model.agentTabData match {
+        case Some(data) if data.nonEmpty => messages("available.requestvaluation.agentsTab.title", data.size)
+        case _ => messages("available.requestvaluation.agentsTab.noAgents.title")
+    }
+}
+
 @checkCasesTabContent = @{
     checkCasesDetails(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, model.listYear, checkCases, evaluateRoute(model.check), "#start-check-tab")(govukButton, govukTable, govukDetails, govukWarningText)
 }
 
 @challengeCasesTabContent = {
     @challengeCasesDetails(model.authorisationId, challengeCases, model.owner, model.submissionId)(govukTable)
+}
+@agentsTabContent = {
+    @agentsTab(model)(govukTable)
 }
 
 @tabs = @{
@@ -231,12 +241,20 @@
               content = HtmlContent(challengeCasesTabContent)
             )
           )
+    val agents: TabItem = TabItem(
+            id = Some("agents-tab"),
+            label = agentsTabTitle,
+            panel = TabPanel(
+              content = HtmlContent(agentsTabContent)
+            )
+          )
 
     Seq(
         Some(valuation),
         Some(startCheck).filterNot(_ => model.isDraftList),
         Some(check).filterNot(_ => model.isDraftList),
-        Some(challenge).filterNot(_ => model.isDraftList || challengeCases.isEmpty)
+        Some(challenge).filterNot(_ => model.isDraftList || challengeCases.isEmpty),
+        Some(agents).filterNot(_ => !model.owner)
     ).flatten
 }
 

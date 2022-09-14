@@ -16,19 +16,4 @@
 
 package models.dvr.cases.check.common
 
-import models.Party
-import play.api.libs.json.Json
-
-case class Agent(organisationId: Long, code: Long, organisationName: String)
-
-object Agent {
-
-  def apply(legacyParty: Party): Agent =
-    Agent(
-      organisationId = legacyParty.organisationId,
-      code = legacyParty.agentCode,
-      organisationName = legacyParty.organisationName
-    )
-
-  implicit val format = Json.format[Agent]
-}
+case class AgentCount(agent: Agent, totalCases: Int, openCases: Int)

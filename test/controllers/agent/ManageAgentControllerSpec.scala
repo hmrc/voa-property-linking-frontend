@@ -16,7 +16,6 @@
 
 package controllers.agent
 
-import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation._
@@ -96,13 +95,57 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
       .thenReturn(Future.successful(Some(agentDetails)))
 
-    val res = testController.manageAgentProperties(agentCode, GetPropertyLinksParameters(), PaginationParameters())(
+    val res = testController.manageAgentProperties(agentCode, GetPropertyLinksParameters(), None, None, None, None)(
       FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
       s"${messages("propertyRepresentation.agentProperties.assigned.title")} - Valuation Office Agency - GOV.UK")
+
+    html.html
+      .getElementById("back-link")
+      .attr("href") shouldBe controllers.agent.routes.ManageAgentController.showAgents.url
+
+  }
+
+  "manageAgentProperties" should "return the correct back  link for provided parameters - propertyLinkId, valuationId, propertyLinkSubmissionId" in {
+    val agentCode = 1
+    when(mockAgentRelationshipService.getMyAgentPropertyLinks(any(), any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
+    when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
+      .thenReturn(Future.successful(Some(agentDetails)))
+
+    val res = testController
+      .manageAgentProperties(agentCode, GetPropertyLinksParameters(), Some(1L), Some(1L), Some("subId"), None)(
+        FakeRequest())
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.html
+      .getElementById("back-link")
+      .attr("href") shouldBe "http://localhost:9537/business-rates-valuation/property-link/1/valuations/1?submissionId=subId#agents-tab"
+
+  }
+
+  "manageAgentProperties" should "return the correct back  link for provided parameters - valuationId, propertyLinkSubmissionId, uarn" in {
+    val agentCode = 1
+    when(mockAgentRelationshipService.getMyAgentPropertyLinks(any(), any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
+    when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
+      .thenReturn(Future.successful(Some(agentDetails)))
+
+    val res = testController
+      .manageAgentProperties(agentCode, GetPropertyLinksParameters(), None, Some(1L), Some("subId"), Some(1L))(
+        FakeRequest())
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.html
+      .getElementById("back-link")
+      .attr("href") shouldBe s"${controllers.detailedvaluationrequest.routes.DvrController
+      .myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId = "subId", valuationId = 1L, uarn = 1L)
+      .url}#agents-tab"
 
   }
 

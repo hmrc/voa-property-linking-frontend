@@ -27,7 +27,7 @@ import models.dvr.cases.check.{CheckType, StartCheckForm}
 import models.dvr.{DetailedValuationRequest, PropertyLinkForDvr}
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
-import models.{ApiAssessment, ApiAssessments}
+import models.{ApiAssessment, ApiAssessments, Party}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.http.HttpEntity
@@ -41,6 +41,7 @@ import java.time.format.DateTimeFormatter
 
 import javax.inject.Inject
 import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
+import models.dvr.cases.check.common.{Agent, AgentCount}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -132,6 +133,11 @@ class DvrController @Inject()(
                 }
 
               caseDetails.map { optCases =>
+                val agentsData: Option[Seq[AgentCount]] = optCases match {
+                  case Some(cases)   => Some(collateAgentTabData(cases._1 ++ cases._2, link.agents))
+                  case None if owner => Some(Seq.empty)
+                  case _             => None
+                }
                 val form = formWithErrors.getOrElse(startCheckForm)
                 val view = dvrFilesView(
                   model = AvailableRequestDetailedValuation(
@@ -152,7 +158,8 @@ class DvrController @Inject()(
                     checksAndChallenges = optCases,
                     rateableValueFormatted =
                       assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv)),
-                    listYear = assessment.listYear
+                    listYear = assessment.listYear,
+                    agentTabData = agentsData
                   ),
                   startCheckForm = form
                 )
@@ -404,6 +411,16 @@ class DvrController @Inject()(
     case c @ _                => c.value
   }
 
+  private def collateAgentTabData(totalCases: Seq[CaseDetails], agents: Seq[Party]): Seq[AgentCount] =
+    agents
+      .map { agent =>
+        val totalCasesForAgent =
+          totalCases.filter(c => c.agent.fold(false)(a => a.organisationId == agent.organisationId))
+        val totalOpenCasesForAgent = totalCasesForAgent.count(_.isOpen)
+        AgentCount(Agent(agent), totalCasesForAgent.size, totalOpenCasesForAgent)
+      }
+      .sortWith(_.agent.organisationName < _.agent.organisationName)
+
   private def startCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
@@ -485,5 +502,6 @@ case class AvailableRequestDetailedValuation(
       valuation: String,
       valuationId: Long,
       rateableValueFormatted: Option[String],
-      listYear: String
+      listYear: String,
+      agentTabData: Option[Seq[AgentCount]] = None
 )

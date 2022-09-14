@@ -18,8 +18,11 @@ package models.dvr.cases.check.projection
 
 import java.time.{LocalDate, LocalDateTime}
 
+import models.challenge.ChallengeCaseStatus
 import models.challenge.myclients.ChallengeCaseWithClient
 import models.challenge.myorganisations.ChallengeCaseWithAgent
+import models.dvr.cases.check.CheckCaseStatus
+import models.dvr.cases.check.common.Agent
 import models.dvr.cases.check.myclients.CheckCaseWithClient
 import models.dvr.cases.check.myorganisation.CheckCaseWithAgent
 import play.api.libs.json.{Json, OFormat}
@@ -30,8 +33,25 @@ case class CaseDetails(
       caseReference: String,
       closedDate: Option[LocalDate],
       clientOrAgent: String,
-      submittedBy: String
-)
+      submittedBy: String,
+      agent: Option[Agent] = None
+) {
+  val openStatuses = Seq(
+    CheckCaseStatus.OPEN,
+    CheckCaseStatus.ASSIGNED,
+    CheckCaseStatus.UNDER_REVIEW,
+    CheckCaseStatus.RECEIVED,
+    ChallengeCaseStatus.OPEN,
+    ChallengeCaseStatus.UNDER_REVIEW,
+    ChallengeCaseStatus.ASSIGNED,
+    ChallengeCaseStatus.RECEIVED,
+    ChallengeCaseStatus.MORE_INFO_NEEDED,
+    ChallengeCaseStatus.PENDING,
+    ChallengeCaseStatus.INITIAL_RESPONSE
+  )
+
+  def isOpen: Boolean = openStatuses.filter(_.toString == status).nonEmpty
+}
 
 object CaseDetails {
 
@@ -44,7 +64,8 @@ object CaseDetails {
       caseReference = check.checkCaseReference,
       closedDate = check.settledDate,
       clientOrAgent = check.agent.fold("")(_.organisationName),
-      submittedBy = check.submittedBy
+      submittedBy = check.submittedBy,
+      agent = check.agent
     )
 
   def apply(check: CheckCaseWithClient): CaseDetails =
@@ -64,7 +85,8 @@ object CaseDetails {
       caseReference = challenge.challengeCaseReference,
       closedDate = challenge.settledDate,
       clientOrAgent = challenge.agent.fold("")(_.organisationName),
-      submittedBy = challenge.submittedBy
+      submittedBy = challenge.submittedBy,
+      agent = challenge.agent
     )
 
   def apply(challenge: ChallengeCaseWithClient): CaseDetails =

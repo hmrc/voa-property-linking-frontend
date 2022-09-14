@@ -1,0 +1,96 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import java.time.LocalDateTime
+@import java.time.LocalDate
+@import models.dvr.cases.check.projection.CaseDetails
+@import utils.Formatters._
+@import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
+@import models.dvr.cases.check.common.{Agent, AgentCount}
+@import config.ApplicationConfig
+
+@(model: AvailableRequestDetailedValuation)(govukTable: GovukTable)(implicit messages: Messages, config: ApplicationConfig)
+
+@agentCounts = @{
+    model.agentTabData.getOrElse(Seq.empty)
+}
+
+@orgNameLink(agent: Agent)  = {
+    <p class="govuk-body">
+        <a class="govuk-link" href="@controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode = agent.code, valuationId = Some(model.valuationId), propertyLinkSubmissionId = Some(model.submissionId), uarn = Some(model.uarn)).url">@agent.organisationName</a>
+    </p>
+}
+
+@row(agentCount: AgentCount, index: Int) = @{
+    Seq(
+        TableRow(
+          content = HtmlContent(orgNameLink(agentCount.agent)),
+          attributes = Map("id" -> s"agent-name-$index")
+        ),
+        TableRow(
+          content = Text(agentCount.openCases.toString),
+          attributes = Map("id" -> s"open-cases-$index")
+        ),
+        TableRow(
+          content = Text(agentCount.totalCases.toString),
+          attributes = Map("id" -> s"total-cases-$index")
+        )
+    )
+}
+
+@rows = @{
+    {
+        agentCounts.zipWithIndex.map { case (ac, index) =>
+            row(ac, index+1)
+        }
+    }
+}
+
+@headers = @{
+    {
+        Seq(
+          HeadCell(
+            content = Text(messages("available.requestvaluation.agentsTab.table.header.agent"))
+          ),
+          HeadCell(
+            content = Text(messages("available.requestvaluation.agentsTab.table.header.openCases"))
+          ),
+          HeadCell(
+            content = Text(messages("available.requestvaluation.agentsTab.table.header.totalCases"))
+          )
+        )
+    }
+}
+
+<h2 id="agents-tab-heading" class="govuk-heading-l">@messages("available.requestvaluation.agentsTab.heading")</h2>
+
+<div class="govuk-grid-row">
+    <div id="details-content-agentCounts" class="govuk-grid-column-two-thirds">
+        @if(agentCounts.nonEmpty){
+                @govukTable(Table(
+                    rows = rows,
+                    head = Some(headers),
+                    attributes = Map("id" -> "agentCounts-table")
+                ))
+        }else{
+            <p id="no-agents-text" class="govuk-body"> @messages("available.requestvaluation.agentsTab.noAgents.p1")</p>
+        }
+        <p class="govuk-body"><a id="assign-agent-link" class="govuk-link" href="@controllers.agentAppointment.routes.AddAgentController.start(valuationId = Some(model.valuationId), propertyLinkSubmissionId = Some(model.submissionId), uarn = Some(model.uarn)).url">@messages("available.requestvaluation.agentsTab.assignAnAgent")</a></p>
+        <p class="govuk-body"><a id="help-appointing-agent-link" class="govuk-link" href="https://www.gov.uk/guidance/appoint-an-agent">@messages("available.requestvaluation.agentsTab.helpWithAppoint")</a></p>
+    </div>
+</div>
+
+<br/>

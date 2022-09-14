@@ -86,7 +86,7 @@ POST        /my-organisation/appoint/properties/filter                          
 POST        /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 
 #NEW AGENT APPOINT JOURNEY
-GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start(propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None)
+GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start(propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None, uarn: Option[Long] ?= None)
 GET         /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.showStartPage()
 POST        /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.getAgentDetails()
 
@@ -104,7 +104,7 @@ POST        /my-organisation/appoint-agent                                      
 
 #MANAGE AGENT
 GET         /my-organisation/manage-agent                                                                                 controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
-GET         /my-organisation/manage-agent/property-links                                                                  controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)
+GET         /my-organisation/manage-agent/property-links                                                                  controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters ?= GetPropertyLinksParameters(), propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None, uarn: Option[Long] ?= None)
 GET         /my-organisation/agents                                                                                       controllers.agent.ManageAgentController.showAgents()
 
 POST        /my-organisation/manage-agent/:agentCode                                                                      controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)
