@@ -60,6 +60,19 @@
         messages("available.requestvaluation.agent.titleCaption", model.clientOrgName)
     }
   }
+@fromDate = @{
+    model.assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
+}
+
+@endDate = @{
+    if(!model.assessment.isDraft) {
+        (model.assessment.currentFromDate, model.assessment.currentToDate) match {
+            case (Some(_), None)     => Some(messages("assessments.enddate.present.lowercase"))
+            case (Some(_), Some(to)) => Some(Formatters.formatDate(to))
+            case _                   => None
+        }
+    } else None
+}
 
 @helpWithStartingCheckCaseContent = {
     <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p1")</p>
@@ -74,7 +87,7 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
-            <h2 class="govuk-caption-l">@messages("available.requestvaluation.h2")</h2>
+            <h2 class="govuk-caption-l">@messages("available.requestvaluation.h2", fromDate, endDate.getOrElse(messages("assessments.enddate.present.lowercase")))</h2>
             <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="grand-total-top">@model.rateableValueFormatted.getOrElse(messages("assessments.na"))</p>
             @govukInsetText(InsetText(
                 content = Text(messages("available.requestvaluation.inset"))

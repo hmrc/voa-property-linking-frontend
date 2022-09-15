@@ -159,7 +159,8 @@ class DvrController @Inject()(
                     rateableValueFormatted =
                       assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv)),
                     listYear = assessment.listYear,
-                    agentTabData = agentsData
+                    agentTabData = agentsData,
+                    assessment = assessment
                   ),
                   startCheckForm = form
                 )
@@ -503,5 +504,6 @@ case class AvailableRequestDetailedValuation(
       valuationId: Long,
       rateableValueFormatted: Option[String],
       listYear: String,
-      agentTabData: Option[Seq[AgentCount]] = None
+      agentTabData: Option[Seq[AgentCount]] = None,
+      assessment: ApiAssessment
 )
