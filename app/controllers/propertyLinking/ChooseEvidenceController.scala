@@ -51,7 +51,7 @@ class ChooseEvidenceController @Inject()(
     val form = request.ses.hasRatesBill.fold(ChooseEvidence.form)(ChooseEvidence.form.fillAndValidate)
 
     for {
-      _ <- businessRatesAttachmentService.persistSessionData(request.ses)
+      _ <- businessRatesAttachmentService.persistSessionData(request.ses.copy(fromCya = Some(false)))
       backLink = backlink(request.ses)
     } yield {
       Ok(chooseEvidenceView(form, Some(backLink)))
@@ -59,10 +59,11 @@ class ChooseEvidenceController @Inject()(
   }
 
   private def backlink(session: LinkingSession): String =
-    if (session.fromCya.contains(true))
-      controllers.propertyLinking.routes.DeclarationController.show().url
-    else if (session.earliestStartDate.isAfter(LocalDate.now))
+    if (session.earliestStartDate.isAfter(LocalDate.now))
       controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
+//    keeping this because it will need to be re-implemented after VTCCA-5189 is complete
+//    else if (session.fromCya.contains(true))
+//      controllers.propertyLinking.routes.DeclarationController.show().url
     else
       controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url
 

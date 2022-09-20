@@ -23,6 +23,8 @@ import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Gen
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
@@ -32,21 +34,30 @@ import utils._
 import java.time.LocalDate
 import scala.concurrent.Future
 
-class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
+class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec with ScalaCheckDrivenPropertyChecks {
 
   implicit val hc = HeaderCarrier()
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
   private def testClaimPropertyOccupancyController(
         earliestStartDate: LocalDate = earliestEnglishStartDate,
+        propertyOwnership: PropertyOwnership =
+          PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1))),
+        relationshipCapacity: CapacityType = Owner,
+        userIsAgent: Boolean = true,
         fromCya: Boolean = false) =
     new ClaimPropertyOccupancyController(
       errorHandler = mockCustomErrorHandler,
       sessionRepository = mockSessionRepo,
       authenticatedAction = preAuthenticatedActionBuilders(),
-      withLinkingSession =
-        if (fromCya) preEnrichedActionRefinerFromCya(earliestStartDate)
-        else preEnrichedActionRefinerWithStartDate(earliestStartDate),
+      withLinkingSession = preEnrichedActionRefiner(
+        evidenceData = UploadEvidenceData(NoEvidenceFlag, None),
+        earliestStartDate = earliestStartDate,
+        propertyOwnership = Some(propertyOwnership),
+        relationshipCapacity = relationshipCapacity,
+        fromCya = Some(fromCya),
+        userIsAgent = userIsAgent
+      ),
       occupancyOfPropertyView = occupancyOfPropertyPage
     )
 
@@ -82,6 +93,37 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
 
     val res = testClaimPropertyOccupancyController(LocalDate.now.plusYears(1)).showOccupancy()(FakeRequest())
     status(res) shouldBe SEE_OTHER
+  }
+
+  "The claim occupancy page" should "validate that the end date of ownership is not before the start date" in {
+    val dateGen: Gen[(LocalDate, LocalDate)] = for {
+      startDate <- Gen.choose(earliestEnglishStartDate, LocalDate.now.minusDays(1))
+      endDate   <- Gen.choose(earliestEnglishStartDate, LocalDate.now.minusDays(1))
+      if endDate.isBefore(startDate)
+    } yield (startDate, endDate)
+
+    forAll(dateGen, arbitrary[Boolean], arbitrary[CapacityType]) { (d, isAgent, cap) =>
+      {
+        val result = testClaimPropertyOccupancyController(
+          propertyOwnership = PropertyOwnership(interestedOnOrBefore = false, fromDate = Some(d._1)),
+          relationshipCapacity = cap,
+          userIsAgent = isAgent
+        ).submitOccupancy()(FakeRequest().withFormUrlEncodedBody(
+          "stillOccupied"          -> "false",
+          "lastOccupiedDate.day"   -> d._2.getDayOfMonth.toString,
+          "lastOccupiedDate.month" -> d._2.getMonthValue.toString,
+          "lastOccupiedDate.year"  -> d._2.getYear.toString
+        ))
+        status(result) shouldBe BAD_REQUEST
+        val doc = Jsoup.parse(contentAsString(result))
+        val error = doc.getElementsByAttributeValue("href", "#lastOccupiedDate-day")
+        error.text() shouldBe
+          s"Date of ${if (isAgent) "your client's " else ""}last day as " +
+            s"${if (cap == Owner) "owner" else if (cap == Occupier) "occupier" else "owner and occupier"} " +
+            "of the property must be after " +
+            s"${d._1.getDayOfMonth} ${d._1.getMonth.toString.toLowerCase.capitalize} ${d._1.getYear}"
+      }
+    }
   }
 
   "The claim occupancy page on client behalf" should "return valid page" in {
