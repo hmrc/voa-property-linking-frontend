@@ -16,7 +16,6 @@
 
 package controllers.agent
 
-import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation._
@@ -26,44 +25,27 @@ import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import tests.AllMocks
+import utils.HtmlPage
 
 import scala.concurrent.Future
 
 class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
-  private val mockManageAgentView = mock[views.html.propertyrepresentation.manage.manageAgent]
-  private val mockRemoveAgentFromOrganisationView =
-    mock[views.html.propertyrepresentation.manage.removeAgentFromOrganisation]
-  private val mockUnassignAgentFromPropertyView =
-    mock[views.html.propertyrepresentation.manage.unassignAgentFromProperty]
-  private val mockAddAgentToAllPropertyView =
-    mock[views.html.propertyrepresentation.manage.addAgentToAllProperties]
-  private val mockConfirmAddAgentToAllPropertyView =
-    mock[views.html.propertyrepresentation.manage.confirmAddAgentToAllProperties]
-  private val mockUnassignAgentFromAllPropertiesView =
-    mock[views.html.propertyrepresentation.manage.unassignAgentFromAllProperties]
-  private val mockConfirmUnassignAgentFromAllPropertiesView =
-    mock[views.html.propertyrepresentation.manage.confirmUnassignAgentFromAllProperties]
-  private val mockConfirmRemoveAgentFromOrganisationView =
-    mock[views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation]
-  private val mockManageAgentPropertiesView = mock[views.html.propertyrepresentation.manage.manageAgentProperties]
-
   lazy val testController = new ManageAgentController(
     errorHandler = mockCustomErrorHandler,
     authenticated = preAuthenticatedActionBuilders(userIsAgent = false),
     agentRelationshipService = mockAgentRelationshipService,
-    manageAgentView = mockManageAgentView,
+    manageAgentView = manageAgentView,
     myAgentsView = myAgentsView,
-    removeAgentFromOrganisationView = mockRemoveAgentFromOrganisationView,
-    unassignAgentFromPropertyView = mockUnassignAgentFromPropertyView,
-    addAgentToAllPropertiesView = mockAddAgentToAllPropertyView,
-    confirmAddAgentToAllPropertiesView = mockConfirmAddAgentToAllPropertyView,
-    unassignAgentFromAllPropertiesView = mockUnassignAgentFromAllPropertiesView,
-    confirmUnassignAgentFromAllPropertiesView = mockConfirmUnassignAgentFromAllPropertiesView,
-    confirmRemoveAgentFromOrganisationView = mockConfirmRemoveAgentFromOrganisationView,
-    mockManageAgentPropertiesView
+    removeAgentFromOrganisationView = removeAgentFromOrganisationView,
+    unassignAgentFromPropertyView = unassignAgentFromPropertyView,
+    addAgentToAllPropertiesView = addAgentToAllPropertyView,
+    confirmAddAgentToAllPropertiesView = confirmAddAgentToAllPropertyView,
+    unassignAgentFromAllPropertiesView = unassignAgentFromAllPropertiesView,
+    confirmUnassignAgentFromAllPropertiesView = confirmUnassignAgentFromAllPropertiesView,
+    confirmRemoveAgentFromOrganisationView = confirmRemoveAgentFromOrganisationView,
+    manageAgentPropertiesView = manageAgentPropertiesView
   )
 
   "showAgents" should "show the manage agent page" in {
@@ -97,10 +79,13 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 0)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
-    when(mockRemoveAgentFromOrganisationView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html(""))
+
     val res = testController.manageAgent(None)(FakeRequest())
     status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"${messages("propertyRepresentation.manageAgent.removeFromAccount.title")} - Valuation Office Agency - GOV.UK")
   }
 
   "manageAgentProperties" should "return the correct manage agent page with property links" in {
@@ -109,11 +94,58 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
     when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
       .thenReturn(Future.successful(Some(agentDetails)))
-    when(mockManageAgentPropertiesView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html(""))
-    val res = testController.manageAgentProperties(agentCode, GetPropertyLinksParameters(), PaginationParameters())(
+
+    val res = testController.manageAgentProperties(agentCode, GetPropertyLinksParameters(), None, None, None, None)(
       FakeRequest())
     status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"${messages("propertyRepresentation.agentProperties.assigned.title")} - Valuation Office Agency - GOV.UK")
+
+    html.html
+      .getElementById("back-link")
+      .attr("href") shouldBe controllers.agent.routes.ManageAgentController.showAgents.url
+
+  }
+
+  "manageAgentProperties" should "return the correct back  link for provided parameters - propertyLinkId, valuationId, propertyLinkSubmissionId" in {
+    val agentCode = 1
+    when(mockAgentRelationshipService.getMyAgentPropertyLinks(any(), any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
+    when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
+      .thenReturn(Future.successful(Some(agentDetails)))
+
+    val res = testController
+      .manageAgentProperties(agentCode, GetPropertyLinksParameters(), Some(1L), Some(1L), Some("subId"), None)(
+        FakeRequest())
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.html
+      .getElementById("back-link")
+      .attr("href") shouldBe "http://localhost:9537/business-rates-valuation/property-link/1/valuations/1?submissionId=subId#agents-tab"
+
+  }
+
+  "manageAgentProperties" should "return the correct back  link for provided parameters - valuationId, propertyLinkSubmissionId, uarn" in {
+    val agentCode = 1
+    when(mockAgentRelationshipService.getMyAgentPropertyLinks(any(), any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
+    when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
+      .thenReturn(Future.successful(Some(agentDetails)))
+
+    val res = testController
+      .manageAgentProperties(agentCode, GetPropertyLinksParameters(), None, Some(1L), Some("subId"), Some(1L))(
+        FakeRequest())
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.html
+      .getElementById("back-link")
+      .attr("href") shouldBe s"${controllers.detailedvaluationrequest.routes.DvrController
+      .myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId = "subId", valuationId = 1L, uarn = 1L)
+      .url}#agents-tab"
 
   }
 
@@ -122,12 +154,12 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 0)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
-    when(mockRemoveAgentFromOrganisationView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has Zero PropertyLinks"))
 
-    val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined shouldBe true
-    res.futureValue.get.toString() shouldBe "IP has Zero PropertyLinks"
+    val res = testController.getManageAgentView(None)(FakeRequest()).futureValue.get
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"${messages("propertyRepresentation.manageAgent.removeFromAccount.title")} - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -136,12 +168,11 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 0)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
-    when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has One PropertyLink - agent not assigned"))
 
-    val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined shouldBe true
-    res.futureValue.get.toString() shouldBe "IP has One PropertyLink - agent not assigned"
+    val res = testController.getManageAgentView(None)(FakeRequest()).futureValue.get
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(s"${messages("propertyRepresentation.manageAgent.title")} - Valuation Office Agency - GOV.UK")
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and one property link (agent assigned)" in {
@@ -149,12 +180,12 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 1)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
-    when(mockUnassignAgentFromPropertyView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has One PropertyLink - agent assigned"))
 
-    val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined shouldBe true
-    res.futureValue.get.toString() shouldBe "IP has One PropertyLink - agent assigned"
+    val res = testController.getManageAgentView(None)(FakeRequest()).futureValue.get
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"${messages("propertyRepresentation.manageAgent.unassignFromProperty.title")} - Valuation Office Agency - GOV.UK")
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and one property link (agent assigned) - agentCodeProvided" in {
@@ -163,12 +194,13 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
-    when(mockUnassignAgentFromPropertyView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has One PropertyLink - agent assigned"))
 
-    val res = testController.getManageAgentView(Some(agentCode))(FakeRequest())
-    res.futureValue.isDefined shouldBe true
-    res.futureValue.get.toString() shouldBe "IP has One PropertyLink - agent assigned"
+    val res = testController.getManageAgentView(Some(agentCode))(FakeRequest()).futureValue.get
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"${messages("propertyRepresentation.manageAgent.unassignFromProperty.title")} - Valuation Office Agency - GOV.UK")
+
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and more than one property links (agent not assigned)" in {
@@ -176,12 +208,11 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 0)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
-    when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has more than one PropertyLinks - agent not assigned"))
 
-    val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined shouldBe true
-    res.futureValue.get.toString() shouldBe "IP has more than one PropertyLinks - agent not assigned"
+    val res = testController.getManageAgentView(None)(FakeRequest()).futureValue.get
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(s"${messages("propertyRepresentation.manageAgent.title")} - Valuation Office Agency - GOV.UK")
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and more than one property links (agent assigned to some)" in {
@@ -189,12 +220,11 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 1)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
-    when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has more than one PropertyLinks - agent assigned to some"))
 
-    val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined shouldBe true
-    res.futureValue.get.toString() shouldBe "IP has more than one PropertyLinks - agent assigned to some"
+    val res = testController.getManageAgentView(None)(FakeRequest()).futureValue.get
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(s"${messages("propertyRepresentation.manageAgent.title")} - Valuation Office Agency - GOV.UK")
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and more than one property links (agent assigned to all)" in {
@@ -202,12 +232,10 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsList.copy(agents = List(agentSummary.copy(propertyCount = 2)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
-    when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has more than one PropertyLinks - agent assigned to all"))
 
-    val res = testController.getManageAgentView(None)(FakeRequest())
-    res.futureValue.isDefined shouldBe true
-    res.futureValue.get.toString() shouldBe "IP has more than one PropertyLinks - agent assigned to all"
+    val res = testController.getManageAgentView(None)(FakeRequest()).futureValue.get
+    val html = HtmlPage(res)
+    html.titleShouldMatch(s"${messages("propertyRepresentation.manageAgent.title")} - Valuation Office Agency - GOV.UK")
   }
 
   "getManageAgentView" should "return None for an invalid propertyLinks and agent details combination" in {
@@ -226,12 +254,14 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
-    when(mockUnassignAgentFromPropertyView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has One PropertyLink - agent assigned"))
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "BLAH", "agentCode" -> s"$agentCode"))
     status(res) shouldBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"${messages("propertyRepresentation.manageAgent.unassignFromProperty.title")} - Valuation Office Agency - GOV.UK")
   }
 
   "submitManageAgent" should "return 400 Bad Request when agentCode is not submitted " in {
@@ -240,12 +270,14 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
-    when(mockUnassignAgentFromPropertyView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has One PropertyLink - agent assigned"))
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "unassignFromAllProperties"))
     status(res) shouldBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"${messages("propertyRepresentation.manageAgent.unassignFromProperty.title")} - Valuation Office Agency - GOV.UK")
   }
 
   "submitManageAgent" should "return 200 Ok when IP chooses to appoint agent to all properties" in {
@@ -255,16 +287,15 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-    when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
-    when(mockAddAgentToAllPropertyView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("addAgentToAllProperty"))
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest()
         .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToAllProperties.name}", "agentName" -> "Agent Org"))
 
     status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Confirm you want to assign agent to all properties - Valuation Office Agency - GOV.UK")
   }
 
   "submitManageAgent" should "return 303 Redirect when IP chooses to appoint agent to some properties" in {
@@ -273,8 +304,6 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-    when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest()
@@ -294,15 +323,14 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-    when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
-    when(mockUnassignAgentFromAllPropertiesView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("unassignAgentFromAllProperties"))
 
     val res = testController.submitManageAgent(agentCode)(FakeRequest()
       .withFormUrlEncodedBody("manageAgentOption" -> s"${UnassignFromAllProperties.name}", "agentName" -> "Agent Org"))
 
     status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Confirm you want to unassign agent from all properties - Valuation Office Agency - GOV.UK")
   }
 
   "submitManageAgent" should "return 303 Redirect when IP chooses to unassign agent from some properties" in {
@@ -311,8 +339,6 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-    when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
 
     val res = testController.submitManageAgent(agentCode)(FakeRequest()
       .withFormUrlEncodedBody("manageAgentOption" -> s"${UnassignFromSomeProperties.name}", "agentName" -> "Agent Org"))
@@ -322,6 +348,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       Some(
         "/business-rates-property-linking/my-organisation/revoke/properties?page=1&pageSize=15" +
           "&agentCode=12345")
+
   }
 
   "submitManageAgent" should "return 200 Ok when IP chooses to remove agent from account" in {
@@ -330,16 +357,15 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-    when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
-    when(mockRemoveAgentFromOrganisationView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("removeAgentFromOrganisation"))
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest()
         .withFormUrlEncodedBody("manageAgentOption" -> s"${RemoveFromYourAccount.name}", "agentName" -> "Agent Org"))
 
     status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Remove agent from your account - Valuation Office Agency - GOV.UK")
   }
 
   "submitManageAgent" should "return 200 Ok when IP chooses to appoint agent to only property" in {
@@ -349,34 +375,33 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
-    when(mockManageAgentView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("IP has more than one PropertyLink - agent assigned to some"))
-    when(mockAddAgentToAllPropertyView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("addAgentToAllProperty"))
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest()
         .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToYourProperty.name}", "agentName" -> "Agent Org"))
 
     status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Confirm you want to assign agent to all properties - Valuation Office Agency - GOV.UK")
   }
 
   "assignAgentToAll" should "return 400 Bad Request when invalid form submitted" in {
-    when(mockAddAgentToAllPropertyView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("addAgentToAllProperty"))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
     val res = testController.assignAgentToAll(agentCode, "Some agent org")(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
     status(res) shouldBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      "Error: Confirm you want to assign agent to all properties - Valuation Office Agency - GOV.UK")
   }
 
   "assignAgentToAll" should "return 200 Ok a valid form is submitted" in {
     when(mockAgentRelationshipService.assignAgent(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-    when(mockConfirmAddAgentToAllPropertyView.apply(any(), any())(any(), any(), any()))
-      .thenReturn(Html("confirmAddAgentToAllProperty"))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
     val res = testController.assignAgentToAll(agentCode, "Some agent org")(
@@ -384,62 +409,74 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
         .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"))
 
     status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Agent assigned to all properties - Valuation Office Agency - GOV.UK")
   }
 
   "unassignAgentFromAll" should "return 400 Bad Request when invalid form submitted" in {
-    when(mockUnassignAgentFromAllPropertiesView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("unassignAgentFromAllProperties"))
 
     val res = testController.unassignAgentFromAll(agentCode, "Some agent org")(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
     status(res) shouldBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Confirm you want to unassign agent from all properties - Valuation Office Agency - GOV.UK")
+
   }
 
   "unassignAgentFromAll" should "return 200 Ok a valid form is submitted" in {
     when(mockAgentRelationshipService.unassignAgent(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
-    when(mockConfirmUnassignAgentFromAllPropertiesView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("confirmUnassignAgentFromAllProperties"))
 
     val res = testController.unassignAgentFromAll(agentCode, "Some agent org")(
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"))
 
     status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Agent has been unassigned from all your properties - Valuation Office Agency - GOV.UK")
+
   }
 
   "showRemoveAgentFromIpOrganisation" should "return 200 Ok" in {
-    when(mockRemoveAgentFromOrganisationView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("removeAgentFromOrganisationView"))
-
     val res = testController.showRemoveAgentFromIpOrganisation(agentCode, "Some agent org")(FakeRequest())
 
     status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"${messages("propertyRepresentation.manageAgent.removeFromAccount.title")} - Valuation Office Agency - GOV.UK")
+
   }
 
   "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted" in {
-    when(mockRemoveAgentFromOrganisationView.apply(any(), any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("removeAgentFromOrganisationView"))
 
     val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org", "some-back-link")(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
     status(res) shouldBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch("Error: Remove agent from your account - Valuation Office Agency - GOV.UK")
   }
 
   "removeAgentFromIpOrganisation" should "return 200 Ok a valid form is submitted" in {
     when(mockAgentRelationshipService.removeAgentFromOrganisation(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-    when(mockConfirmRemoveAgentFromOrganisationView.apply(any())(any(), any(), any()))
-      .thenReturn(Html("confirmRemoveAgentFromOrganisation"))
 
     val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org", "back-link")(
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.RELATIONSHIP}"))
 
     status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"${messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.title")} - Valuation Office Agency - GOV.UK")
   }
 
 }

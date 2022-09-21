@@ -21,23 +21,25 @@ import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Gen
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks.forAll
+import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
 import scala.concurrent.Future
 
-// TODO improve these tests (VTCCA-5019) including all specs under test/controllers/propertyLinking
 class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   implicit val hc = HeaderCarrier()
 
-  private val mockRelationshipToPropertyView = mock[views.html.propertyLinking.relationshipToProperty]
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepository)
 
   private lazy val testClaimProperty = new ClaimPropertyRelationshipController(
@@ -50,7 +52,21 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     propertyLinksConnector = propertyLinkingConnector,
     vmvConnector = vmvConnector,
     runModeConfiguration = configuration,
-    relationshipToPropertyView = mockRelationshipToPropertyView,
+    relationshipToPropertyView = relationshipToPropertyView,
+    beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton)
+  )
+
+  private lazy val testClaimPropertyFromCya = new ClaimPropertyRelationshipController(
+    errorHandler = mockCustomErrorHandler,
+    submissionIdConnector = StubSubmissionIdConnector,
+    sessionRepository = mockSessionRepository,
+    authenticatedAction = preAuthenticatedActionBuilders(),
+    withLinkingSession = preEnrichedActionRefinerFromCya(),
+    propertyLinkingService = mockPropertyLinkingService,
+    propertyLinksConnector = propertyLinkingConnector,
+    vmvConnector = vmvConnector,
+    runModeConfiguration = configuration,
+    relationshipToPropertyView = relationshipToPropertyView,
     beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton)
   )
 
@@ -77,19 +93,17 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "The claim property relationship page" should "return valid page" in new Setup {
-    when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("claim property relationship page"))
 
     val res = testClaimProperty.showRelationship(positiveLong, rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("claim property relationship page")
+    html.titleShouldMatch("Connection to the property - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Add a property Connection to the property:")
+
   }
 
   "The claim property relationship page on client behalf" should "return valid page" in new Setup {
-    when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("claim property relationship page on client behalf"))
 
     val res = testClaimProperty
       .showRelationship(
@@ -99,7 +113,8 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("claim property relationship page on client behalf")
+    html.titleShouldMatch("Connection to the property - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Add a property Connection to the property:")
   }
 
   it should "contain link back to business-rates-find if that's where the request came from" in new Setup {
@@ -112,12 +127,15 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.contain("this is not an assertion") // TODO fix as part of VTCCA-5019
+    html.titleShouldMatch("Connection to the property - Valuation Office Agency - GOV.UK")
+    html.verifyElementTextByAttribute(
+      "href",
+      "http://localhost:9300/business-rates-find/back-to-list-valuations",
+      "Back"
+    )
   }
 
   it should "initialise the linking session on show" in new Setup {
-    when(mockRelationshipToPropertyView.apply(any(), any(), any())(any(), any(), any()))
-      .thenReturn(Html("claim property relationship page on client behalf"))
 
     val res = testClaimProperty
       .showRelationship(
@@ -144,6 +162,23 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
       ))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.ClaimPropertyOwnershipController.showOwnership.url)
+  }
+
+  it should "redirect to the CYA page on valid submissions when coming from CYA" in new Setup {
+    forAll(Gen.oneOf(CapacityType.all.map(_.name))) { capacity =>
+      val result = testClaimPropertyFromCya.submitRelationship(positiveLong)(
+        FakeRequest().withFormUrlEncodedBody("capacity" -> capacity)
+      )
+      status(result) shouldBe SEE_OTHER
+      redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+    }
+  }
+
+  it should "have a back link to the CYA page when coming from CYA" in new Setup {
+    val result: Future[Result] = testClaimPropertyFromCya.back(FakeRequest())
+    status(result) shouldBe OK
+    val document: Document = Jsoup.parse(contentAsString(result))
+    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
   }
 
   "show" should "redirect the user to vmv search for property page" in new Setup {

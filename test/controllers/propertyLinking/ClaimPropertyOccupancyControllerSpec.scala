@@ -19,6 +19,7 @@ package controllers.propertyLinking
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
+import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
@@ -36,12 +37,16 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepo)
 
-  private def testClaimPropertyOccupancyController(earliestStartDate: LocalDate = earliestEnglishStartDate) =
+  private def testClaimPropertyOccupancyController(
+        earliestStartDate: LocalDate = earliestEnglishStartDate,
+        fromCya: Boolean = false) =
     new ClaimPropertyOccupancyController(
       errorHandler = mockCustomErrorHandler,
       sessionRepository = mockSessionRepo,
       authenticatedAction = preAuthenticatedActionBuilders(),
-      withLinkingSession = preEnrichedActionRefinerWithStartDate(earliestStartDate),
+      withLinkingSession =
+        if (fromCya) preEnrichedActionRefinerFromCya(earliestStartDate)
+        else preEnrichedActionRefinerWithStartDate(earliestStartDate),
       occupancyOfPropertyView = occupancyOfPropertyPage
     )
 
@@ -114,5 +119,45 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec {
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.ChooseEvidenceController.show().url)
+  }
+
+  it should "have a back link to the property ownership page" in {
+    val result = testClaimPropertyOccupancyController().showOccupancy()(FakeRequest())
+    val document = Jsoup.parse(contentAsString(result))
+    val backLink = document.getElementById("back-link")
+    backLink.attr("href") shouldBe routes.ClaimPropertyOwnershipController.showOwnership().url
+  }
+
+  it should "redirect to the CYA page on 'yes' submissions when coming from CYA" in {
+    val result = testClaimPropertyOccupancyController(fromCya = true)
+      .submitOccupancy()(FakeRequest().withFormUrlEncodedBody("stillOccupied" -> "true"))
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+  }
+
+  it should "redirect to the CYA page on 'no' submissions when coming from CYA" in {
+    val result = testClaimPropertyOccupancyController(fromCya = true)
+      .submitOccupancy()(
+        FakeRequest().withFormUrlEncodedBody(
+          "stillOccupied"          -> "false",
+          "lastOccupiedDate.day"   -> "23",
+          "lastOccupiedDate.month" -> "4",
+          "lastOccupiedDate.year"  -> "2017"
+        ))
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+  }
+
+  it should "have a back link to the CYA page when coming from CYA" in {
+    val result = testClaimPropertyOccupancyController(fromCya = true).showOccupancy()(FakeRequest())
+    val document = Jsoup.parse(contentAsString(result))
+    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+  }
+
+  it should "still have a back link to the CYA page when coming from CYA on failed form validation" in {
+    val result = testClaimPropertyOccupancyController(fromCya = true).submitOccupancy()(FakeRequest())
+    status(result) shouldBe BAD_REQUEST
+    val document = Jsoup.parse(contentAsString(result))
+    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
   }
 }

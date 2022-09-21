@@ -18,6 +18,7 @@ package controllers.propertyLinking
 
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
+import actions.propertylinking.requests.LinkingSessionRequest
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers._
@@ -53,9 +54,7 @@ class ClaimPropertyOwnershipController @Inject()(
 
   def showOwnership(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     {
-      val form = request.ses.propertyOwnership.fold(ownershipForm(request.ses.earliestStartDate)) { ownership =>
-        ownershipForm(request.ses.earliestStartDate).fillAndValidate(ownership)
-      }
+      val form = ownershipForm(request.ses.earliestStartDate, request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate))
 
       if (request.ses.earliestStartDate.isAfter(LocalDate.now()))
         sessionRepository
@@ -70,21 +69,20 @@ class ClaimPropertyOwnershipController @Inject()(
         Future.successful(
           Ok(ownershipToPropertyView(
             ClaimPropertyOwnershipVM(
-              form,
+              request.ses.propertyOwnership.fold(form)(ownership => form.fillAndValidate(ownership)),
               request.ses.address,
               request.ses.earliestStartDate,
-              request.ses.localAuthorityReference),
+              request.ses.localAuthorityReference
+            ),
             request.ses.clientDetails,
-            controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
+            getBackLink
           )))
-
     }
-
   }
 
   def submitOwnership(): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-      ownershipForm(request.ses.earliestStartDate)
+      ownershipForm(request.ses.earliestStartDate, request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate))
         .bindFromRequest()
         .fold(
           errors =>
@@ -95,13 +93,14 @@ class ClaimPropertyOwnershipController @Inject()(
                 request.ses.earliestStartDate,
                 request.ses.localAuthorityReference),
               request.ses.clientDetails,
-              controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
+              getBackLink
             ))),
           formData =>
             sessionRepository
               .saveOrUpdate[LinkingSession](request.ses.copy(propertyOwnership = Some(formData)))
               .map { _ =>
-                Redirect(routes.ClaimPropertyOccupancyController.showOccupancy())
+                if (request.ses.fromCya.contains(true)) Redirect(routes.DeclarationController.show())
+                else Redirect(routes.ClaimPropertyOccupancyController.showOccupancy())
             }
         )
     }
@@ -109,14 +108,24 @@ class ClaimPropertyOwnershipController @Inject()(
 
 object ClaimPropertyOwnership {
 
-  def ownershipForm(earliestStartDate: LocalDate): Form[PropertyOwnership] =
+  def ownershipForm(earliestStartDate: LocalDate, endDate: Option[LocalDate]): Form[PropertyOwnership] =
     Form(
       mapping(
         "interestedOnOrBefore" -> mandatoryBoolean,
         "fromDate" -> mandatoryIfFalse(
           "interestedOnOrBefore",
-          dmyDateAfterThreshold(earliestStartDate).verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now)))
+          dmyDateAfterThreshold(earliestStartDate)
+            .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
+            .verifying(
+              error = "interestedOnOrBefore.error.startDateMustBeBeforeEnd",
+              firstOccupied => endDate.forall(lastOccupied => firstOccupied.isBefore(lastOccupied))
+            )
+        )
       )(PropertyOwnership.apply)(PropertyOwnership.unapply))
+
+  def getBackLink(implicit request: LinkingSessionRequest[_]): String =
+    if (request.ses.fromCya.contains(true)) routes.DeclarationController.show().url
+    else routes.ClaimPropertyRelationshipController.back().url
 }
 
 case class ClaimPropertyOwnershipVM(

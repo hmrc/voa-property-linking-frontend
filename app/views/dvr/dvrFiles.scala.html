@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,8 @@
   govukSummaryList: GovukSummaryList,
   govukRadios: GovukRadios,
   govukErrorSummary: GovukErrorSummary,
-  formWithCSRF: FormWithCSRF
+  formWithCSRF: FormWithCSRF,
+  govukInsetText: GovukInsetText
 )
 
 @(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -59,19 +60,38 @@
         messages("available.requestvaluation.agent.titleCaption", model.clientOrgName)
     }
   }
+@fromDate = @{
+    model.assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
+}
+
+@endDate = @{
+    if(!model.assessment.isDraft) {
+        (model.assessment.currentFromDate, model.assessment.currentToDate) match {
+            case (Some(_), None)     => Some(messages("assessments.enddate.present.lowercase"))
+            case (Some(_), Some(to)) => Some(Formatters.formatDate(to))
+            case _                   => None
+        }
+    } else None
+}
 
 @helpWithStartingCheckCaseContent = {
     <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p1")</p>
     <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p2")</p>
-    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p3")</p>
-    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p4")</p>
-    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p5")</p>
+    <ul class="govuk-list">
+        <li><a class="govuk-link" target="_blank" href="https://www.gov.uk/guidance/confirm-your-property-details">@messages("available.requestvaluation.startCheckTab.guidance.content.aboutCheck")</a></li>
+        <li><a class="govuk-link" target="_blank" href="https://www.gov.uk/guidance/challenge-the-valuation">@messages("available.requestvaluation.startCheckTab.guidance.content.aboutChallenge")</a></li>
+    </ul>
 }
 
 @valuationTabContent = {
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
+            <h2 class="govuk-caption-l">@messages("available.requestvaluation.h2", fromDate, endDate.getOrElse(messages("assessments.enddate.present.lowercase")))</h2>
+            <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="grand-total-top">@model.rateableValueFormatted.getOrElse(messages("assessments.na"))</p>
+            @govukInsetText(InsetText(
+                content = Text(messages("available.requestvaluation.inset"))
+            ))
             <p class="govuk-body"><a class="govuk-link" href="@evaluateRoute(model.valuation)">@messages("available.requestvaluation.downloadValuationLink")</a></p>
 
             <h2 class="govuk-heading-l">@messages("available.requestvaluation.changeValuation")</h2>
@@ -131,6 +151,11 @@
                             hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option1.hint"))))
                         ),
                         RadioItem(
+                            id = Some("checkType_rateableValueTooHigh"),
+                            content = Text(messages("available.requestvaluation.startCheckTab.rateableValueTooHigh.content")),
+                            value = Some(CheckType.RateableValueTooHigh.value)
+                        ),
+                        RadioItem(
                             id = Some("checkType_remove"),
                             content = Text(messages("available.requestvaluation.startCheckTab.option2.content")),
                             value = Some(CheckType.Remove.value )
@@ -182,12 +207,22 @@
     }
 }
 
+@agentsTabTitle = @{
+    model.agentTabData match {
+        case Some(data) if data.nonEmpty => messages("available.requestvaluation.agentsTab.title", data.size)
+        case _ => messages("available.requestvaluation.agentsTab.noAgents.title")
+    }
+}
+
 @checkCasesTabContent = @{
-    checkCasesDetails(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, checkCases, evaluateRoute(model.check), "#start-check-tab")(govukButton, govukTable, govukDetails, govukWarningText)
+    checkCasesDetails(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, model.listYear, checkCases, evaluateRoute(model.check), "#start-check-tab")(govukButton, govukTable, govukDetails, govukWarningText)
 }
 
 @challengeCasesTabContent = {
     @challengeCasesDetails(model.authorisationId, challengeCases, model.owner, model.submissionId)(govukTable)
+}
+@agentsTabContent = {
+    @agentsTab(model)(govukTable)
 }
 
 @tabs = @{
@@ -219,12 +254,20 @@
               content = HtmlContent(challengeCasesTabContent)
             )
           )
+    val agents: TabItem = TabItem(
+            id = Some("agents-tab"),
+            label = agentsTabTitle,
+            panel = TabPanel(
+              content = HtmlContent(agentsTabContent)
+            )
+          )
 
     Seq(
         Some(valuation),
         Some(startCheck).filterNot(_ => model.isDraftList),
         Some(check).filterNot(_ => model.isDraftList),
-        Some(challenge).filterNot(_ => model.isDraftList || challengeCases.isEmpty)
+        Some(challenge).filterNot(_ => model.isDraftList || challengeCases.isEmpty),
+        Some(agents).filterNot(_ => !model.owner)
     ).flatten
 }
 

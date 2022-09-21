@@ -31,6 +31,8 @@ import utils._
 
 import scala.collection.JavaConverters._
 import java.time.LocalDateTime
+
+import models.dvr.cases.check.common.Agent
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
@@ -94,7 +96,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val authorisationId = 4222211L
     val uarn = 123123
     val localAuthRef = "1234341234"
-
+    val listYear = "2017"
     val testPropertyHistory =
       propertyHistory.copy(uarn = uarn, localAuthorityReference = localAuthRef, addressFull = addressLine)
 
@@ -108,7 +110,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         caseRef = caseRef,
         authorisationId = authorisationId,
         uarn = uarn,
-        isOwner = isOwner
+        isOwner = isOwner,
+        listYear = listYear
       )(request)
   }
 
@@ -154,7 +157,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = resultCanChallenge(true)
 
     val expectedRedirect =
-      s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/client/start?isDvr=true"
+      s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/client/start?isDvr=true&valuationListYear=2017"
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(expectedRedirect)
@@ -170,7 +173,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = resultCanChallenge(false)
 
     val expectedRedirect =
-      s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/agent/start?isDvr=true"
+      s"http://localhost:9531/business-rates-challenge/property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/agent/start?isDvr=true&valuationListYear=2017"
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(expectedRedirect)
@@ -290,7 +293,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       "download and complete a Check form")
 
     val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
-    radiosOnStartCheckScreen should have size 6
+    radiosOnStartCheckScreen should have size 7
 
     verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
@@ -433,6 +436,91 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     }
   }
 
+  "draft detailed valuation" should "return 200 OK and display agent tab when no agents assigned" in new Setup {
+    val firstAssessment: ApiAssessment =
+      assessments.assessments.headOption.getOrElse(fail("expected to find at least 1 assessment"))
+    val draftAssessment: ApiAssessment = firstAssessment.copy(listType = ListType.DRAFT)
+
+    val ownerAssessments: ApiAssessments =
+      assessments.copy(assessments = draftAssessment :: assessments.assessments.tail.toList)
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(ownerAssessments)))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId = firstAssessment.assessmentRef,
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+
+    page.shouldContain("#agents-tab", 1)
+
+    private val tabs: Element = page.html.getElementsByClass("govuk-tabs__list").first()
+
+    tabs.getElementsByTag("li").size() shouldBe 2
+    tabs.getElementsByAttributeValue("href", "#agents-tab").text shouldBe "Agents"
+
+    page.html.getElementById("agents-tab-heading").text() shouldBe "Agents assigned to this property"
+    page.html.getElementById("no-agents-text").text() shouldBe "There are no agents assigned to this property."
+    page.html.getElementById("assign-agent-link").text() shouldBe "Assign an agent to this property"
+    page.html.getElementById("help-appointing-agent-link").text() shouldBe "Help with appointing an agent"
+  }
+
+  "draft detailed valuation" should "return 200 OK and display agent tab when agents assigned" in new Setup {
+    val agent = assessments.agents.head
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments)))
+
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(CheckCaseStatus.values.toList.map(status =>
+        ownerCheckCaseDetails.copy(status = status.toString, agent = Some(Agent(agent))))))
+
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(ChallengeCaseStatus.values.toList.map(status =>
+        ownerChallengeCaseDetails.copy(status = status.toString, agent = Some(Agent(agent))))))
+
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+
+    //verify all tabs displayed
+    page.shouldContain("#valuation-tab", 1)
+    page.shouldContain("#start-check-tab", 1)
+    page.shouldContain("#check-cases-tab", 1)
+    page.shouldContain("#challenge-cases-tab", 1)
+    page.shouldContain("#agents-tab", 1)
+
+    private val tabs: Element = page.html.getElementsByClass("govuk-tabs__list").first()
+
+    tabs.getElementsByTag("li").size() shouldBe 5
+    tabs.getElementsByAttributeValue("href", "#agents-tab").text shouldBe "Agents (1)"
+
+    page.html.getElementById("agents-tab-heading").text() shouldBe "Agents assigned to this property"
+    page.html.getElementById("assign-agent-link").text() shouldBe "Assign an agent to this property"
+    page.html.getElementById("help-appointing-agent-link").text() shouldBe "Help with appointing an agent"
+
+    val agentsTable = page.html.getElementById("agentCounts-table")
+
+    agentsTable.getElementById("agent-name-1").text.contains(agent.organisationName) shouldBe true
+    agentsTable.getElementById("open-cases-1").text shouldBe "12"
+    agentsTable.getElementById("total-cases-1").text shouldBe "18"
+  }
+
   "draft detailed valuation" should "return 200 OK and not fetch checks/challenges " in new Setup {
     val firstAssessment: ApiAssessment =
       assessments.assessments.headOption.getOrElse(fail("expected to find at least 1 assessment"))
@@ -457,6 +545,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.shouldContain("#valuation-tab", 1)
     page.shouldContain("#check-cases-tab", 0)
     page.shouldContain("#challenge-cases-tab", 0)
+    page.shouldContain("#agents-tab", 1)
     page.shouldContainText("If you want to change something in this valuation")
 
     verify(mockPropertyLinkConnector, never()).getMyOrganisationsCheckCases(any())(any())
@@ -588,7 +677,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         FakeRequest().withFormUrlEncodedBody("checkType" -> checkType, "authorisationId" -> "12345"))
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
-      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true")
+      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true&rvth=false")
+  }
+
+  "an IP starting a check case" should "get redirected to a page in check-frontend - rateableValueTooHigh" in new Setup {
+    val result: Future[Result] =
+      controller.myOrganisationStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L, uarn = 123L)(
+        FakeRequest().withFormUrlEncodedBody("checkType" -> "rateableValueTooHigh", "authorisationId" -> "12345"))
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(
+      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/internal?propertyLinkSubmissionId=PL123&dvrCheck=true&rvth=true")
   }
 
   "an IP starting a check case without selecting one of the reasons for check" should "stay on the same page with error summary at the top" in new Setup {
@@ -621,7 +719,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         FakeRequest().withFormUrlEncodedBody("checkType" -> checkType, "authorisationId" -> "12345"))
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
-      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true")
+      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true&rvth=false")
   }
 
   "an agent starting a check case without selecting one of the reasons for check" should "stay on the same page with error summary at the top" in new Setup {

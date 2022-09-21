@@ -419,6 +419,7 @@ dashboard.managedProperties.addAnotherProperty=Add property
 manageProperties.revokeAgent=Remove agent
 manageProperties.appointAgent=Appoint agent
 manageProperties.addAgent=Appoint agent
+manageProperties.appointAgent.confirmation.p1=You can assign properties to this agent by <a class="govuk-link" id="managing-your-agents-link" href="{0}">managing your agents</a>.
 manageProperties.viewAssessments=View valuations
 link.dashboard.home=Back to dashboard
 search.sort.page.size.view=View
@@ -480,6 +481,7 @@ assessments.table.5=To
 assessments.table.6=Actions
 assessments.table.action=Action
 assessments.enddate.present=Present
+assessments.enddate.present.lowercase=present
 assessments.view.valuation=View valuation
 assessments.view.summary=View summary valuation
 label.viewAssessmentRadio=Valuation
@@ -827,6 +829,10 @@ label.interestedOnOrBefore=When did you become the owner or occupier of the prop
 label.interestedOnOrBefore.client=When did your client become the owner or occupier of the property?
 interestedOnOrBefore.true=On or before {0}
 interestedOnOrBefore.false=After {0}
+interestedOnOrBefore.error.startDateMustBeBeforeEnd=Date you became the {0} of the property must be before {1}
+interestedOnOrBefore.error.startDateMustBeBeforeEnd.client=Date your client became the {0} of the property must be before {1}
+interestedOnOrBefore.error.startDateMustBeBeforeEnd.relationship.fallback=owner or occupier
+interestedOnOrBefore.error.startDateMustBeBeforeEnd.endDate.fallback=the last occupied date
 label.stillOccupied=Do you still own or occupy the property?
 label.stillOccupied.client=Does your client still own or occupy the property?
 stillOccupied.true=Yes
@@ -1080,6 +1086,18 @@ available.requestvaluation.startCheckTab.title=Start a Check
 available.requestvaluation.checksTab.noCases.title=Checks
 available.requestvaluation.checksTab.title=Checks ({0})
 available.requestvaluation.challengesTab.title=Challenges ({0})
+
+available.requestvaluation.agentsTab.title=Agents ({0})
+available.requestvaluation.agentsTab.noAgents.title=Agents
+
+available.requestvaluation.agentsTab.heading=Agents assigned to this property
+available.requestvaluation.agentsTab.noAgents.p1=There are no agents assigned to this property.
+available.requestvaluation.agentsTab.assignAnAgent=Assign an agent to this property
+available.requestvaluation.agentsTab.helpWithAppoint=Help with appointing an agent
+available.requestvaluation.agentsTab.table.header.agent=Agent
+available.requestvaluation.agentsTab.table.header.totalCases=Total cases for this property
+available.requestvaluation.agentsTab.table.header.openCases=Open cases for this property
+
 available.requestvaluation.downloadValuationLink=Download the detailed valuation for this property
 available.requestvaluation.changeValuation=If you want to change something in this valuation
 available.requestvaluation.p1.draft.englishProperty=If the property''s details are incorrect, or you believe the rateable value is wrong, have a look at the current valuation as well. If the details are wrong in both, you can submit a Check against the current valuation. Any changes will carry over to the draft valuation.
@@ -1087,28 +1105,29 @@ available.requestvaluation.p1.draft.welshProperty=If you think something is wron
 available.requestvaluation.p1=If the property''s details are incorrect, or you believe the rateable value is wrong, you must complete a Check form and confirm the property details with the VOA before you can make a challenge.
 available.requestvaluation.p2=Before you can submit a Check, you need to <a class="govuk-link" href="{0}">download and complete a Check form</a>.
 available.requestvaluation.p3=After completing the form, you need to send it as part of a Check.
-available.requestvaluation.warning=Some older Check forms may tell you to email your form. Please ignore this and use the ''Send my completed Check form'' button instead.
+available.requestvaluation.warning=Some older Check forms may tell you to email or post your form. Please ignore this and use the ''Send my completed Check form'' button instead.
 available.requestvaluation.dvrCheck.startCheck=Send my completed Check form
 available.requestvaluation.print=Print this page
 available.requestvaluation.check.title=Submit a check
 available.requestvaluation.check.p1=To submit a check for this property you will need to <a class="govuk-link" href={0}> download the Check Form </a>
 available.requestvaluation.check.p2=You can email the form to <a class="govuk-link" href="mailto:CCAService@voa.gov.uk">CCAService@voa.gov.uk</a> or post it to:
 available.requestvaluation.address=Check and challenge service, PO Box 308, PLYMOUTH, PL5 9DT
-available.requestvaluation.warning=Some older check forms may tell you to email your form. Please ignore this and use the ''Send my completed check form'' button instead.
-
+available.requestvaluation.h2=Current rateable value ({0} to {1})
+available.requestvaluation.inset=This is not the amount you pay. It is used to calculate your business rates bill.
 available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need to <a class="govuk-link" href="{0}">download and complete a check form</a>.
 available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
 
 available.requestvaluation.startCheckTab.heading=Start a Check case
 available.requestvaluation.startCheckTab.guidance.summary=Help with starting a Check case
-available.requestvaluation.startCheckTab.guidance.content.p1=A Check case enables you and us to agree on property details.
-available.requestvaluation.startCheckTab.guidance.content.p2=Start a Check case to tell us property details are correct or make a change to them.
-available.requestvaluation.startCheckTab.guidance.content.p3=We may accept your changes and adjust the rateable value.
-available.requestvaluation.startCheckTab.guidance.content.p4=If you think the rateable value is too high, you can then send us a Challenge case.
-available.requestvaluation.startCheckTab.guidance.content.p5=You must complete a Check case before sending a Challenge case.
+available.requestvaluation.startCheckTab.guidance.content.p1=Send us a Check to tell us about changes to the property details. We may accept your changes and adjust the rateable value.
+available.requestvaluation.startCheckTab.guidance.content.p2=If you think the rateable value is too high and the property details do not need changing, you still need to send us a Check case. The Check case confirms that we have the correct property details. When the Check case is complete, send us a Challenge case to tell us you think the rateable value is too high.
+available.requestvaluation.startCheckTab.guidance.content.aboutCheck=More about Check cases
+available.requestvaluation.startCheckTab.guidance.content.aboutChallenge=More about Challenge cases
+
 available.requestvaluation.startCheckTab.question=What do you want to tell us?
-available.requestvaluation.startCheckTab.option1.content=Change or confirm the property details
+available.requestvaluation.startCheckTab.option1.content=The property details need changing
 available.requestvaluation.startCheckTab.option1.hint=For example, floor area sizes and parking
+available.requestvaluation.startCheckTab.rateableValueTooHigh.content=You think the rateable value is too high and property details do not need changing
 available.requestvaluation.startCheckTab.option2.content=The property has been demolished, redeveloped, or is no longer used for business
 available.requestvaluation.startCheckTab.option3.content=The property has been split
 available.requestvaluation.startCheckTab.option4.content=The property has been merged
@@ -1199,6 +1218,7 @@ error.booleanMissing=You must select one
 error.subscription.title=There is a problem
 error.noRecords=No matching records found, please search again.
 warning.text=Warning
+common.and=and
 common.or=or
 accessibility.error.label=Error:
 error.common.title=There is a problem

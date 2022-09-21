@@ -24,7 +24,6 @@ import models.propertyrepresentation.{Start, StartJourney}
 import org.scalatest.LoneElement
 import play.api.libs.json.{Reads, Writes}
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
-import uk.gov.hmrc.mongo.test.DefaultPlayMongoRepositorySupport
 
 class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with LoneElement {
 
@@ -34,7 +33,7 @@ class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with L
   val reads = implicitly[Reads[Start]]
 
   "session repository" should "start by saving or updating data" in {
-    val start = Start()
+    val start = Start(backLink = None)
 
     repository.start(start)(writes, hc).futureValue
 
@@ -50,19 +49,19 @@ class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with L
   }
 
   "session repository" should "get data from current session" in {
-    val start = Start()
+    val start = Start(backLink = None)
     repository.start(start)(writes, hc).futureValue
 
     val returnedSessionData: Option[Start] = repository.get[Start](reads, hc).futureValue
 
     inside(returnedSessionData) {
-      case Some(Start(status)) => status.name shouldBe StartJourney.name
+      case Some(Start(status, _)) => status.name shouldBe StartJourney.name
     }
 
   }
 
   "session repository" should "remove data from current session" in {
-    val start = Start()
+    val start = Start(backLink = None)
     repository.start(start)(writes, hc).futureValue
     repository.remove()(hc).futureValue
 

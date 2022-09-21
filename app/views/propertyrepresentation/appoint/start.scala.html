@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,11 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
-@(form: Form[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[String], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
  @mainLayout(
     pageTitle = messages("propertyRepresentation.addAnAgent.title"),
-    backUri = Some(config.dashboardUrl("home")),
+    backUri = Some(backLink),
     hasErrors = form.hasErrors
 ){
 

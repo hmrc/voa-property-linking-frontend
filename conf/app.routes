@@ -86,7 +86,7 @@ POST        /my-organisation/appoint/properties/filter                          
 POST        /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.appointAgentSummary()
 
 #NEW AGENT APPOINT JOURNEY
-GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start()
+GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start(propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None, uarn: Option[Long] ?= None)
 GET         /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.showStartPage()
 POST        /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.getAgentDetails()
 
@@ -104,7 +104,7 @@ POST        /my-organisation/appoint-agent                                      
 
 #MANAGE AGENT
 GET         /my-organisation/manage-agent                                                                                 controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
-GET         /my-organisation/manage-agent/property-links                                                                  controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters, params: PaginationParameters)
+GET         /my-organisation/manage-agent/property-links                                                                  controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters ?= GetPropertyLinksParameters(), propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None, uarn: Option[Long] ?= None)
 GET         /my-organisation/agents                                                                                       controllers.agent.ManageAgentController.showAgents()
 
 POST        /my-organisation/manage-agent/:agentCode                                                                      controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)
@@ -138,7 +138,7 @@ POST        /my-organisation/property-link/clients/all/:propertyLinkSubmissionId
 GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/exists                       controllers.detailedvaluationrequest.DvrController.myClientsAlreadyRequestedDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
 GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/file/:ref                    controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailedValuationRequestFile(propertyLinkSubmissionId: String, valuationId: Long, ref: String)
 
-GET         /can-challenge                                                                                                            controllers.detailedvaluationrequest.DvrController.canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, authorisationId: Long, uarn: Long, isOwner: Boolean)
+GET         /can-challenge                                                                                                            controllers.detailedvaluationrequest.DvrController.canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, authorisationId: Long, uarn: Long, isOwner: Boolean, listYear: String)
 
 #Claiming a property link
 GET         /my-organisation/claim/property-links/capacity/:uarn                              controllers.propertyLinking.ClaimPropertyRelationshipController.showRelationship(uarn: Long, clientDetails: Option[ClientDetails] ?= None, rtp: ClaimPropertyReturnToPage, valuationId: Option[Long] ?= None)
@@ -159,5 +159,6 @@ GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear 
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/remove              controllers.propertyLinking.UploadController.remove(fileReference: String, choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/evidence-type                      controllers.propertyLinking.UploadController.updateEvidenceType()
 GET         /my-organisation/claim/property-links/summary                                     controllers.propertyLinking.DeclarationController.show()
+GET         /my-organisation/claim/property-links/summary/back                                controllers.propertyLinking.DeclarationController.back()
 POST        /my-organisation/claim/property-links/summary                                     controllers.propertyLinking.DeclarationController.submit()
 GET         /my-organisation/claim/property-links/confirmation                                controllers.propertyLinking.DeclarationController.confirmation

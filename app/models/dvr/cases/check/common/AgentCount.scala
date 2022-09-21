@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.ApplicationConfig
+package models.dvr.cases.check.common
 
-@this(mainLayout: views.html.mainLayout)
-
-@()(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
-
-@mainLayout(pageTitle = messages("title.error.403"), showTopNavigation = false) {
-    <h1 class="govuk-heading-l">@messages("title.error.403")</h1>
-}
+case class AgentCount(agent: Agent, totalCases: Int, openCases: Int)

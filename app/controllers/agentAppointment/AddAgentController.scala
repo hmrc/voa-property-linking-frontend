@@ -18,6 +18,7 @@ package controllers.agentAppointment
 
 import actions.AuthenticatedAction
 import actions.agentrelationship.WithAppointAgentSessionRefiner
+import actions.agentrelationship.request.AppointAgentSessionRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
@@ -35,8 +36,8 @@ import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.BadRequestException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-
 import javax.inject.{Inject, Named}
+
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
@@ -58,19 +59,31 @@ class AddAgentController @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def start(): Action[AnyContent] = authenticated.async { implicit request =>
+  def start(
+        propertyLinkId: Option[Long] = None,
+        valuationId: Option[Long] = None,
+        propertyLinkSubmissionId: Option[String] = None,
+        uarn: Option[Long] = None): Action[AnyContent] = authenticated.async { implicit request =>
+    val backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId, uarn) match {
+      case (Some(linkId), Some(valId), Some(submissionId), None) =>
+        config.businessRatesValuationFrontendUrl(
+          s"property-link/$linkId/valuations/$valId?submissionId=$submissionId#agents-tab")
+      case (None, Some(valId), Some(submissionId), Some(u)) =>
+        s"${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId = submissionId, valuationId = valId, uarn = u).url}#agents-tab"
+      case _ => config.dashboardUrl("home")
+    }
     sessionRepo
-      .start[Start](Start())
+      .start[Start](Start(backLink = Some(backLink)))
       .map(_ => Redirect(controllers.agentAppointment.routes.AddAgentController.showStartPage()))
   }
 
   def showStartPage(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(startPageView(agentCode)))
+    Future.successful(Ok(startPageView(agentCode, getBackLink)))
   }
 
   def getAgentDetails(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     agentCode.bindFromRequest.fold(
-      errors => Future.successful(BadRequest(startPageView(errors))),
+      errors => Future.successful(BadRequest(startPageView(errors, getBackLink))),
       success => {
         Try(success.toLong).toOption match {
           case None =>
@@ -79,7 +92,8 @@ class AddAgentController @Inject()(
                 startPageView(
                   agentCode.copy(
                     data = Map("agentCode" -> success),
-                    errors = Seq[FormError](FormError(key = "agentCode", message = "error.agentCode.required")))
+                    errors = Seq[FormError](FormError(key = "agentCode", message = "error.agentCode.required"))),
+                  getBackLink
                 )))
           case Some(representativeCode) =>
             for {
@@ -95,7 +109,8 @@ class AddAgentController @Inject()(
                       agentCode.copy(
                         data = Map("agentCode" -> s"$representativeCode"),
                         errors = Seq[FormError](
-                          FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent")))
+                          FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent"))),
+                      getBackLink
                     ))
                 case Some(_) if organisationsAgents.agents.exists(a => a.representativeCode == representativeCode) =>
                   BadRequest(
@@ -104,14 +119,16 @@ class AddAgentController @Inject()(
                         data = Map("agentCode" -> s"$representativeCode"),
                         errors = Seq[FormError](
                           FormError(key = "agentCode", message = "error.propertyRepresentation.agentAlreadyAppointed"))
-                      )
+                      ),
+                      getBackLink
                     ))
                 case Some(agent) =>
                   sessionRepo.saveOrUpdate(
                     SearchedAgent(
                       agentCode = representativeCode,
                       agentOrganisationName = agent.name,
-                      agentAddress = agent.address
+                      agentAddress = agent.address,
+                      backLink = request.sessionData.backLink
                     ))
                   Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent())
               }
@@ -248,6 +265,9 @@ class AddAgentController @Inject()(
       }
     )
   }
+
+  private def getBackLink(implicit request: AppointAgentSessionRequest[AnyContent]) =
+    request.sessionData.backLink.getOrElse(config.dashboardUrl("home"))
 
   private def joinOldJourney(agentCode: Long) =
     Redirect(

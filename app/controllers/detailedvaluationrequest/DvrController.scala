@@ -27,7 +27,7 @@ import models.dvr.cases.check.{CheckType, StartCheckForm}
 import models.dvr.{DetailedValuationRequest, PropertyLinkForDvr}
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
-import models.{ApiAssessment, ApiAssessments}
+import models.{ApiAssessment, ApiAssessments, Party}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.http.HttpEntity
@@ -36,10 +36,13 @@ import play.api.mvc.{Action, _}
 import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
-import utils.Cats
-
+import utils.{Cats, Formatters}
 import java.time.format.DateTimeFormatter
+
 import javax.inject.Inject
+import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
+import models.dvr.cases.check.common.{Agent, AgentCount}
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class DvrController @Inject()(
@@ -130,6 +133,11 @@ class DvrController @Inject()(
                 }
 
               caseDetails.map { optCases =>
+                val agentsData: Option[Seq[AgentCount]] = optCases match {
+                  case Some(cases)   => Some(collateAgentTabData(cases._1 ++ cases._2, link.agents))
+                  case None if owner => Some(Seq.empty)
+                  case _             => None
+                }
                 val form = formWithErrors.getOrElse(startCheckForm)
                 val view = dvrFilesView(
                   model = AvailableRequestDetailedValuation(
@@ -147,7 +155,12 @@ class DvrController @Inject()(
                     authorisationId = link.authorisationId,
                     clientOrgName = link.clientOrgName.getOrElse(""),
                     backUrl = backUrl,
-                    checksAndChallenges = optCases
+                    checksAndChallenges = optCases,
+                    rateableValueFormatted =
+                      assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv)),
+                    listYear = assessment.listYear,
+                    agentTabData = agentsData,
+                    assessment = assessment
                   ),
                   startCheckForm = form
                 )
@@ -341,7 +354,8 @@ class DvrController @Inject()(
         caseRef: String,
         authorisationId: Long,
         uarn: Long,
-        isOwner: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
+        isOwner: Boolean,
+        listYear: String): Action[AnyContent] = authenticated.async { implicit request =>
     val eventualPropertyHistory: Future[PropertyHistory] = vmvConnector.getPropertyHistory(uarn)
 
     eventualPropertyHistory.flatMap { propertyHistory =>
@@ -364,7 +378,7 @@ class DvrController @Inject()(
           if (response.result) {
             val party = if (isOwner) "client" else "agent"
             Future.successful(Redirect(config.businessRatesChallengeUrl(
-              s"property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/$party/start?isDvr=true")))
+              s"property-link/$plSubmissionId/valuation/$assessmentRef/check/$caseRef/party/$party/start?isDvr=true&valuationListYear=$listYear")))
           } else {
             Future successful Ok(
               cannotRaiseChallengeView(
@@ -393,6 +407,21 @@ class DvrController @Inject()(
   def myClientsStartCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long): Action[AnyContent] =
     startCheck(propertyLinkSubmissionId, valuationId, isOwner = false, uarn)
 
+  private def getCheckType(checkType: CheckType): String = checkType match {
+    case RateableValueTooHigh => Internal.value
+    case c @ _                => c.value
+  }
+
+  private def collateAgentTabData(totalCases: Seq[CaseDetails], agents: Seq[Party]): Seq[AgentCount] =
+    agents
+      .map { agent =>
+        val totalCasesForAgent =
+          totalCases.filter(c => c.agent.fold(false)(a => a.organisationId == agent.organisationId))
+        val totalOpenCasesForAgent = totalCasesForAgent.count(_.isOpen)
+        AgentCount(Agent(agent), totalCasesForAgent.size, totalOpenCasesForAgent)
+      }
+      .sortWith(_.agent.organisationName < _.agent.organisationName)
+
   private def startCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
@@ -400,15 +429,17 @@ class DvrController @Inject()(
         uarn: Long): Action[AnyContent] =
     authenticated.async { implicit request =>
       def startCheckUrl(form: StartCheckForm): String = {
+        val rvth = form.checkType == RateableValueTooHigh
         val pathToFirstScreen =
-          "property-link/{propertyLinkId}/assessment/{valuationId}/{checkType}{?propertyLinkSubmissionId,uarn,dvrCheck}"
+          "property-link/{propertyLinkId}/assessment/{valuationId}/{checkType}{?propertyLinkSubmissionId,uarn,dvrCheck,rvth}"
             .templated(
               "propertyLinkId"           -> form.authorisationId,
               "valuationId"              -> valuationId,
-              "checkType"                -> form.checkType.value,
+              "checkType"                -> getCheckType(form.checkType),
               "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
               "uarn"                     -> form.uarn,
-              "dvrCheck"                 -> true
+              "dvrCheck"                 -> true,
+              "rvth"                     -> rvth
             )
         config.businessRatesCheckUrl(pathToFirstScreen)
       }
@@ -470,5 +501,9 @@ case class AvailableRequestDetailedValuation(
       submissionId: String,
       uarn: Long,
       valuation: String,
-      valuationId: Long
+      valuationId: Long,
+      rateableValueFormatted: Option[String],
+      listYear: String,
+      agentTabData: Option[Seq[AgentCount]] = None,
+      assessment: ApiAssessment
 )

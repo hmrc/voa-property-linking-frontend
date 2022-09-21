@@ -18,11 +18,12 @@ package controllers.propertyLinking
 
 import binders.propertylinks.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.HtmlPage
@@ -37,67 +38,89 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     m
   }
 
-  private val mockChooseEvidencePage = mock[views.html.propertyLinking.chooseEvidence]
-
-  private object TestChooseEvidence
-      extends ChooseEvidenceController(
-        mockCustomErrorHandler,
-        preAuthenticatedActionBuilders(),
-        preEnrichedActionRefiner(),
-        mockBusinessRatesAttachmentService,
-        mockChooseEvidencePage
-      )
+  private def testChooseEvidenceController(fromCya: Boolean = false) =
+    new ChooseEvidenceController(
+      mockCustomErrorHandler,
+      preAuthenticatedActionBuilders(),
+      if (fromCya) preEnrichedActionRefinerFromCya()
+      else preEnrichedActionRefiner(),
+      mockBusinessRatesAttachmentService,
+      chooseEvidenceView
+    )
 
   lazy val request = FakeRequest()
 
   "The choose evidence page with earliest start date in the past" should "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
-    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
-      .thenReturn(Html("The choose evidence page"))
 
-    val res = TestChooseEvidence.show()(request)
+    val res = testChooseEvidenceController().show()(request)
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("The choose evidence page")
+    html.titleShouldMatch(
+      "Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Do you have a copy of your client's business rates bill for this property?")
   }
 
   "The choose evidence page with earliest start date in the future" should "ask the user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
-    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
-      .thenReturn(Html("The choose evidence page"))
 
-    val res = TestChooseEvidence.show()(request)
+    val res = testChooseEvidenceController().show()(request)
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("The choose evidence page")
+    html.titleShouldMatch(
+      "Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Do you have a copy of your client's business rates bill for this property? ")
   }
 
   it should "require the user to select whether they have a rates bill" in {
-    when(mockChooseEvidencePage.apply(any(), any())(any(), any(), any()))
-      .thenReturn(Html("require the user to select whether they have a rates bill"))
 
-    val res = TestChooseEvidence.submit()(request)
+    val res = testChooseEvidenceController().submit()(request)
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.shouldContainText("require the user to select whether they have a rates bill")
+    html.titleShouldMatch(
+      "Error: Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("There is a problem Select an option")
   }
 
   it should "redirect to the rates bill upload page if the user has a rates bill" in {
-    val res = TestChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
+    val res = testChooseEvidenceController().submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
     status(res) shouldBe SEE_OTHER
-    header("location", res) shouldBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
+    redirectLocation(res) shouldBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
   }
 
   it should "redirect to the other evidence page if the user does not have a rates bill" in {
-
-    val res = TestChooseEvidence.submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
+    val res = testChooseEvidenceController().submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
     status(res) shouldBe SEE_OTHER
-    header("location", res) shouldBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
+    redirectLocation(res) shouldBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
   }
 
+  it should "redirect to the rates bill upload page if the user has a rates bill, even if coming from CYA" in {
+    val res = testChooseEvidenceController(fromCya = true)
+      .submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "true"))
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
+  }
+
+  it should "redirect to the other evidence page if the user does not have a rates bill, even if coming from CYA" in {
+    val res = testChooseEvidenceController(fromCya = true)
+      .submit()(request.withFormUrlEncodedBody("hasRatesBill" -> "false"))
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
+  }
+
+  it should "have a back link to the property occupancy page" in {
+    val doc: Document = Jsoup.parse(contentAsString(testChooseEvidenceController().show(request)))
+    val backLink = doc.getElementById("back-link")
+    backLink.attr("href") shouldBe routes.ClaimPropertyOccupancyController.showOccupancy().url
+  }
+
+  it should "have a back link to the CYA page when coming from CYA" in {
+    val doc: Document = Jsoup.parse(contentAsString(testChooseEvidenceController(fromCya = true).show(request)))
+    doc.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+  }
 }

@@ -16,6 +16,7 @@
 
 @import _root_.utils.FrontendComponentHelper._
 @import _root_.utils.Formatters._
+@import actions.propertylinking.requests.LinkingSessionRequest
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyOwnershipVM
 @import views.html.includes.assessmentHeading
@@ -23,7 +24,7 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukInput: GovukInput, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
-@(model: ClaimPropertyOwnershipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: ClaimPropertyOwnershipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @form = @{model.form}
 
@@ -37,7 +38,22 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(
             ErrorSummary(
-                errorList = formatErrorMessages(form, "fromDate", clientSuffix),
+                errorList = formatErrorMessages(
+                    form,
+                    "fromDate",
+                    clientSuffix,
+                    manualDateErrorHandler = {
+                        case e @ "interestedOnOrBefore.error.startDateMustBeBeforeEnd" =>
+                            messages(
+                                e + clientSuffix,
+                                request.ses.propertyRelationship.map(_.capacity).fold(
+                                    messages("interestedOnOrBefore.error.startDateMustBeBeforeEnd.relationship.fallback"))(
+                                    _.name.replace("_", s" ${messages("common.and")} ").toLowerCase),
+                                request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate).fold(
+                                    messages("interestedOnOrBefore.error.startDateMustBeBeforeEnd.endDate.fallback"))(
+                                    formatDate)
+                            )
+                    }),
                 title = Text(messages("error.propertyRepresentation.title"))
             )
         )

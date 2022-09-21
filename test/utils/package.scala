@@ -15,7 +15,6 @@
  */
 
 import binders.propertylinks.ClaimPropertyReturnToPage
-import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import models._
 import models.domain._
 import models.messages.{Message, MessageSearchResults}
@@ -396,6 +395,7 @@ package object utils {
     occupancy               <- propertyOccupancyGen
     uploadEvidenceData      <- Gen.const(UploadEvidenceData.empty)
     localAuthorityReference <- shortString
+    fromCya                 <- Gen.option(arbitrary[Boolean])
   } yield
     LinkingSession(
       address = address,
@@ -409,7 +409,8 @@ package object utils {
       hasRatesBill = Some(true),
       uploadEvidenceData = uploadEvidenceData,
       localAuthorityReference = localAuthorityReference,
-      rtp = ClaimPropertyReturnToPage.FMBR
+      rtp = ClaimPropertyReturnToPage.FMBR,
+      fromCya = fromCya
     )
 
   implicit val arbitraryLinkinSession: Arbitrary[LinkingSession] = Arbitrary(linkingSessionGen)
