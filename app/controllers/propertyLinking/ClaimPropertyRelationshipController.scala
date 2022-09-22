@@ -18,6 +18,7 @@ package controllers.propertyLinking
 
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
+import actions.propertylinking.requests.LinkingSessionRequest
 import actions.requests.AuthenticatedRequest
 import binders.propertylinks.GetPropertyLinksParameters
 import binders.propertylinks.ClaimPropertyReturnToPage._
@@ -110,8 +111,7 @@ class ClaimPropertyRelationshipController @Inject()(
       relationshipToPropertyView(
         ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn, request.ses.localAuthorityReference),
         request.ses.clientDetails,
-        if (request.ses.fromCya.contains(true)) routes.DeclarationController.show().url
-        else backLinkToVmv(request.ses.rtp, request.ses.uarn, valuationId = request.ses.valuationId)
+        getBackLink
       ))
   }
 
@@ -122,11 +122,12 @@ class ClaimPropertyRelationshipController @Inject()(
         .fold(
           errors =>
             vmvConnector.getPropertyHistory(uarn).map { property =>
-              BadRequest(relationshipToPropertyView(
-                ClaimPropertyRelationshipVM(errors, property.addressFull, uarn, property.localAuthorityReference),
-                clientDetails,
-                backLinkToVmv(request.ses.rtp, request.ses.uarn, valuationId = request.ses.valuationId)
-              ))
+              BadRequest(
+                relationshipToPropertyView(
+                  ClaimPropertyRelationshipVM(errors, property.addressFull, uarn, property.localAuthorityReference),
+                  clientDetails,
+                  getBackLink
+                ))
           },
           formData =>
             sessionRepository
@@ -146,6 +147,10 @@ class ClaimPropertyRelationshipController @Inject()(
       case SummaryValuationHelp => s"${config.vmvUrl}/valuations/$uarn$valuationIdPart#help-tab"
     }
   }
+
+  private def getBackLink(implicit request: LinkingSessionRequest[_]): String =
+    if (request.ses.fromCya.contains(true)) routes.DeclarationController.show().url
+    else backLinkToVmv(request.ses.rtp, request.ses.uarn, valuationId = request.ses.valuationId)
 
   private def initialiseSession(
         uarn: Long,

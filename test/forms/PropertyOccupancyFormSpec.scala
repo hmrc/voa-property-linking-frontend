@@ -27,8 +27,7 @@ class PropertyOccupancyFormSpec extends VoaPropertyLinkingSpec {
 
   import TestData._
 
-  val errorLastDateAfterStartDate =
-    "Your last day as the owner or occupier must be after you became the owner or occupier (1 April 2017)"
+  val errorLastDateAfterStartDate = "error.date.mustBeAfterStartDate"
 
   behavior of "Property occupancy form"
 
@@ -66,7 +65,7 @@ class PropertyOccupancyFormSpec extends VoaPropertyLinkingSpec {
 
   object TestData {
     val form =
-      ClaimPropertyOccupancy.occupancyForm(earliestEnglishStartDate)(messagesApi.preferred(Seq(defaultLang)))
+      ClaimPropertyOccupancy.occupancyForm(earliestEnglishStartDate)
     val validData = Map(
       "stillOccupied"          -> "false",
       "lastOccupiedDate.day"   -> "23",

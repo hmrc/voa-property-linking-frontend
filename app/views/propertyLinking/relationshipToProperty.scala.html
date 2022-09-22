@@ -74,6 +74,9 @@
             }).withFormField(form("capacity"))
         )
 
-        @govukButton(Button(content = Text(messages("label.continue"))))
+        @govukButton(Button(
+            attributes = Map("id" -> "continue"),
+            content = Text(messages("label.continue"))
+        ))
     }
 }
