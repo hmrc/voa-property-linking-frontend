@@ -22,7 +22,7 @@
 @import java.time.LocalDate
 @import views.html.includes.helpIcon
 
-@(authorisationId: Long, challengeCases: List[CaseDetails], isOwner: Boolean, submissionId: String)(govukTable: GovukTable)(implicit messages: Messages, config: ApplicationConfig)
+@(authorisationId: Long, challengeCases: List[CaseDetails], isOwner: Boolean, submissionId: String, assessmentRef: Long, uarn: Long)(govukTable: GovukTable, govukDetails: GovukDetails)(implicit messages: Messages, config: ApplicationConfig)
 
 @challengeCaseDetailsUrl(challengeCaseRef: String) = @{
     config.businessRatesChallengeUrl(s"summary/property-link/$authorisationId/submission-id/$submissionId/challenge-cases/$challengeCaseRef?isAgent=${!isOwner}&isDvr=true")
@@ -78,8 +78,35 @@
     }
 }
 
+@returnUrl = @{
+    if(isOwner)
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef, uarn).url}"
+    else
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, assessmentRef, uarn).url}"
+}
+
+@detailContent = {
+    <p>@messages("challengeRules.rules")</p>
+    <p>@messages("challengeRules.p1")</p>
+    <p>@messages("challengeRules.p2")</p>
+    <p>@messages("challengeRules.p3")</p>
+    <ul class="list bullets">
+        <li>@messages("challengeRules.rules.1")</li>
+        <li>@messages("challengeRules.rules.2")</li>
+        <li>@messages("challengeRules.rules.3")</li>
+    </ul>
+
+    <p>@Html(messages("challengeRules.rules.paper", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")))</p>
+}
+
 
 <h2 class="govuk-heading-l">@messages("property.details.div.submitted.challenge.cases")</h2>
+
+@govukDetails(Details(
+    id = Some("whenYouMayChallengeDetails"),
+    summary = Text(messages("challengeRules.summary")),
+    content = HtmlContent(detailContent)
+))
 
 @govukTable(Table(
     rows = rows,
