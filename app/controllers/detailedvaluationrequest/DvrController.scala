@@ -84,106 +84,125 @@ class DvrController @Inject()(
   def myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
-        uarn: Long): Action[AnyContent] =
-    detailedValuationRequestCheck(propertyLinkSubmissionId, valuationId, uarn, owner = true)
+        uarn: Long,
+        challengeCaseRef: Option[String] = None): Action[AnyContent] =
+    detailedValuationRequestCheck(
+      propertyLinkSubmissionId,
+      valuationId,
+      uarn,
+      owner = true,
+      challengeCaseRef = challengeCaseRef)
 
   def myClientsRequestDetailValuationCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
-        uarn: Long): Action[AnyContent] =
-    detailedValuationRequestCheck(propertyLinkSubmissionId, valuationId, uarn, owner = false)
+        uarn: Long,
+        challengeCaseRef: Option[String] = None): Action[AnyContent] =
+    detailedValuationRequestCheck(
+      propertyLinkSubmissionId,
+      valuationId,
+      uarn,
+      owner = false,
+      challengeCaseRef = challengeCaseRef)
 
   private def detailedValuationRequestCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
         uarn: Long,
         owner: Boolean,
-        formWithErrors: Option[Form[StartCheckForm]] = None): Action[AnyContent] = authenticated.async {
-    implicit request =>
-      val pLink =
-        if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
-        else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
+        formWithErrors: Option[Form[StartCheckForm]] = None,
+        challengeCaseRef: Option[String] = None): Action[AnyContent] = authenticated.async { implicit request =>
+    val pLink =
+      if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
+      else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
 
-      pLink.flatMap {
-        case Some(link) =>
-          dvrCaseManagement.getDvrDocuments(link.uarn, valuationId, link.submissionId).flatMap {
-            case Some(documents) =>
-              val backUrl = uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
-                .valuations(propertyLinkSubmissionId, owner)
-                .url
-              val assessment: ApiAssessment = link.assessments
-                .find(a => a.assessmentRef == valuationId)
-                .getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
+    pLink.flatMap {
+      case Some(link) =>
+        dvrCaseManagement.getDvrDocuments(link.uarn, valuationId, link.submissionId).flatMap {
+          case Some(documents) =>
+            val backUrl = challengeCaseRef match {
+              case None =>
+                uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
+                  .valuations(propertyLinkSubmissionId, owner)
+                  .url
+              case Some(ref) =>
+                config.businessRatesChallengeUrl(
+                  s"summary/property-link/${link.authorisationId}/submission-id/$propertyLinkSubmissionId/challenge-cases/$ref?isAgent=${!owner}&isDvr=true")
+            }
 
-              val caseDetails: Future[Option[(List[CaseDetails], List[CaseDetails])]] =
-                if (assessment.isDraft) {
-                  Future.successful(None)
-                } else {
-                  def checkCases =
-                    if (owner)
-                      propertyLinks.getMyOrganisationsCheckCases(link.submissionId)
-                    else propertyLinks.getMyClientsCheckCases(link.submissionId)
+            val assessment: ApiAssessment = link.assessments
+              .find(a => a.assessmentRef == valuationId)
+              .getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
 
-                  def challengeCases =
-                    if (owner)
-                      challengeConnector.getMyOrganisationsChallengeCases(link.submissionId)
-                    else challengeConnector.getMyClientsChallengeCases(link.submissionId)
+            val caseDetails: Future[Option[(List[CaseDetails], List[CaseDetails])]] =
+              if (assessment.isDraft) {
+                Future.successful(None)
+              } else {
+                def checkCases =
+                  if (owner)
+                    propertyLinks.getMyOrganisationsCheckCases(link.submissionId)
+                  else propertyLinks.getMyClientsCheckCases(link.submissionId)
 
-                  (checkCases, challengeCases).tupled.map(Option.apply)
-                }
+                def challengeCases =
+                  if (owner)
+                    challengeConnector.getMyOrganisationsChallengeCases(link.submissionId)
+                  else challengeConnector.getMyClientsChallengeCases(link.submissionId)
 
-              caseDetails.map { optCases =>
-                val agentsData: Option[Seq[AgentCount]] = optCases match {
-                  case Some(cases)   => Some(collateAgentTabData(cases._1 ++ cases._2, link.agents))
-                  case None if owner => Some(Seq.empty)
-                  case _             => None
-                }
-                val form = formWithErrors.getOrElse(startCheckForm)
-                val view = dvrFilesView(
-                  model = AvailableRequestDetailedValuation(
-                    activeTabId = formWithErrors.map(_ => "start-check-tab"),
-                    check = documents.checkForm.documentSummary.documentId,
-                    valuation = documents.detailedValuation.documentSummary.documentId,
-                    valuationId = valuationId,
-                    baRef = link.assessments.head.billingAuthorityReference,
-                    address = link.address,
-                    uarn = uarn,
-                    isDraftList = assessment.isDraft,
-                    isWelshProperty = assessment.isWelsh,
-                    submissionId = propertyLinkSubmissionId,
-                    owner = owner,
-                    authorisationId = link.authorisationId,
-                    clientOrgName = link.clientOrgName.getOrElse(""),
-                    backUrl = backUrl,
-                    checksAndChallenges = optCases,
-                    rateableValueFormatted =
-                      assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv)),
-                    listYear = assessment.listYear,
-                    agentTabData = agentsData,
-                    assessment = assessment
-                  ),
-                  startCheckForm = form
-                )
-                if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
+                (checkCases, challengeCases).tupled.map(Option.apply)
               }
 
-            case None =>
-              Future.successful(
-                Redirect(
-                  if (owner)
-                    controllers.detailedvaluationrequest.routes.DvrController
-                      .myOrganisationAlreadyRequestedDetailValuation(
-                        propertyLinkSubmissionId = propertyLinkSubmissionId,
-                        valuationId = valuationId)
-                  else
-                    controllers.detailedvaluationrequest.routes.DvrController.myClientsAlreadyRequestedDetailValuation(
+            caseDetails.map { optCases =>
+              val agentsData: Option[Seq[AgentCount]] = optCases match {
+                case Some(cases)   => Some(collateAgentTabData(cases._1 ++ cases._2, link.agents))
+                case None if owner => Some(Seq.empty)
+                case _             => None
+              }
+              val form = formWithErrors.getOrElse(startCheckForm)
+              val view = dvrFilesView(
+                model = AvailableRequestDetailedValuation(
+                  activeTabId = formWithErrors.map(_ => "start-check-tab"),
+                  check = documents.checkForm.documentSummary.documentId,
+                  valuation = documents.detailedValuation.documentSummary.documentId,
+                  valuationId = valuationId,
+                  baRef = link.assessments.head.billingAuthorityReference,
+                  address = link.address,
+                  uarn = uarn,
+                  isDraftList = assessment.isDraft,
+                  isWelshProperty = assessment.isWelsh,
+                  submissionId = propertyLinkSubmissionId,
+                  owner = owner,
+                  authorisationId = link.authorisationId,
+                  clientOrgName = link.clientOrgName.getOrElse(""),
+                  backUrl = backUrl,
+                  checksAndChallenges = optCases,
+                  rateableValueFormatted =
+                    assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv)),
+                  listYear = assessment.listYear,
+                  agentTabData = agentsData,
+                  assessment = assessment
+                ),
+                startCheckForm = form
+              )
+              if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
+            }
+
+          case None =>
+            Future.successful(
+              Redirect(
+                if (owner)
+                  controllers.detailedvaluationrequest.routes.DvrController
+                    .myOrganisationAlreadyRequestedDetailValuation(
                       propertyLinkSubmissionId = propertyLinkSubmissionId,
                       valuationId = valuationId)
-                ))
-          }
-        case None =>
-          Future.successful(BadRequest(propertyMissingView()))
-      }
+                else
+                  controllers.detailedvaluationrequest.routes.DvrController.myClientsAlreadyRequestedDetailValuation(
+                    propertyLinkSubmissionId = propertyLinkSubmissionId,
+                    valuationId = valuationId)
+              ))
+        }
+      case None =>
+        Future.successful(BadRequest(propertyMissingView()))
+    }
   }
 
   def myOrganisationRequestDetailValuation(propertyLinkSubmissionId: String, valuationId: Long): Action[AnyContent] =

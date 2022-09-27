@@ -321,6 +321,41 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val resString = contentAsString(result)
     val page = HtmlPage(Jsoup.parse(resString))
     page.html.getElementById("client-name").text() shouldBe "Client property: Client Org Name"
+
+    page.html
+      .getElementById("back-link")
+      .attr("href") shouldBe "/business-rates-property-linking/property-link/1111/assessments?owner=false"
+  }
+
+  "detailed valuation of a client's DVR property" should "have a back link to challenge case details when challenge case ref is provided" in new Setup {
+
+    when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments.copy(clientOrgName = Some("Client Org Name")))))
+    when(mockPropertyLinkConnector.getMyClientsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List(agentCheckCaseDetails)))
+    when(mockChallengeConnector.getMyClientsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List.empty))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    private val challengeRef = "CHG345678"
+    private val plSubmissionId = "1111"
+    val result =
+      controller.myClientsRequestDetailValuationCheck(
+        propertyLinkSubmissionId = plSubmissionId,
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L,
+        challengeCaseRef = Some(challengeRef)
+      )(request)
+
+    status(result) shouldBe OK
+
+    val resString = contentAsString(result)
+    val page = HtmlPage(Jsoup.parse(resString))
+    page.html.getElementById("client-name").text() shouldBe "Client property: Client Org Name"
+    page.html
+      .getElementById("back-link")
+      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=true&isDvr=true"
   }
 
   "detailed valuation of a DVR property" should "display correct CHECKS tab and table of check cases" in new Setup {
@@ -505,6 +540,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.shouldContain("#challenge-cases-tab", 1)
     page.shouldContain("#agents-tab", 1)
 
+    //verify back link
+    page.html
+      .getElementById("back-link")
+      .attr("href") shouldBe "/business-rates-property-linking/property-link/1111/assessments"
+
     private val tabs: Element = page.html.getElementsByClass("govuk-tabs__list").first()
 
     tabs.getElementsByTag("li").size() shouldBe 5
@@ -519,6 +559,49 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     agentsTable.getElementById("agent-name-1").text.contains(agent.organisationName) shouldBe true
     agentsTable.getElementById("open-cases-1").text shouldBe "12"
     agentsTable.getElementById("total-cases-1").text shouldBe "18"
+  }
+
+  "draft detailed valuation" should "return 200 OK and have correct  back link when challenge case is provided" in new Setup {
+    val agent = assessments.agents.head
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments)))
+
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(CheckCaseStatus.values.toList.map(status =>
+        ownerCheckCaseDetails.copy(status = status.toString, agent = Some(Agent(agent))))))
+
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(ChallengeCaseStatus.values.toList.map(status =>
+        ownerChallengeCaseDetails.copy(status = status.toString, agent = Some(Agent(agent))))))
+
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    private val challengeRef = "CHG53626"
+    private val plSubmissionId = "1111"
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = plSubmissionId,
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L,
+        challengeCaseRef = Some(challengeRef)
+      )(request)
+
+    status(result) shouldBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+
+    //verify all tabs displayed
+    page.shouldContain("#valuation-tab", 1)
+    page.shouldContain("#start-check-tab", 1)
+    page.shouldContain("#check-cases-tab", 1)
+    page.shouldContain("#challenge-cases-tab", 1)
+    page.shouldContain("#agents-tab", 1)
+
+    //verify back link
+    page.html
+      .getElementById("back-link")
+      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=false&isDvr=true"
   }
 
   "draft detailed valuation" should "return 200 OK and not fetch checks/challenges " in new Setup {
