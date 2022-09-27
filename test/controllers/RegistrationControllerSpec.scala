@@ -264,7 +264,36 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   }
 
-  "Submitting an invalid individual form" should "return a bad request response" in {
+  "Submitting an individual form with invalid email, mobilePhone, phone, nino" should "return a bad request response" in {
+    val data = Map(
+      "phone"       -> Seq("01"),
+      "mobilePhone" -> Seq("11111222111"),
+      "nino"        -> Seq("0AQ"),
+      "email"       -> Seq("invalidEmail!!.com"))
+
+    val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
+
+    val res = testRegistrationController(userDetails()).submitIndividual()(fakeRequest)
+    status(res) shouldBe BAD_REQUEST
+    val html = HtmlPage(res)
+    html.shouldContainText("Enter a valid email address")
+    html.shouldContainText("Enter a valid National Insurance number")
+    html.shouldContainText("Telephone number must be between 11 and 20 characters")
+    html.shouldContainText("Enter a telephone number, like 01623 960 001 or +44 0808 157 0192")
+  }
+
+  "Submitting an individual form with non-matching emails" should "return a bad request response" in {
+    val data = Map("email" -> Seq("x@x.com"), "confirmedEmail" -> Seq("1@1.com"))
+
+    val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
+
+    val res = testRegistrationController(userDetails()).submitIndividual()(fakeRequest)
+    status(res) shouldBe BAD_REQUEST
+    val html = HtmlPage(res)
+    html.shouldContainText("Email addresses must match. Check them and try again")
+  }
+
+  "Submitting an empty individual form" should "return a bad request response" in {
     val res = testRegistrationController(userDetails()).submitIndividual()(FakeRequest())
     status(res) shouldBe BAD_REQUEST
     val html = HtmlPage(res)
@@ -274,7 +303,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.shouldContainText("Postcode - This must be filled in")
     html.shouldContainText("NINO - This must be filled in")
     html.shouldContainText("Email - This must be filled in")
-
+    html.shouldContainText("Mobile number - This must be filled in")
+    html.shouldContainText("Phone - This must be filled in")
   }
 
   "Submitting an invalid organisation admin form" should "return a bad request response" in {
