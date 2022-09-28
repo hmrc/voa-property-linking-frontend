@@ -1612,13 +1612,15 @@ registration.error.p2=You’ll need to speak to the person that gave you your Go
 
 #challenge
 
-challengeRules.summary=When can I challenge the valuation?
-challengeRules.rules=You can make a Challenge if you have:
-challengeRules.rules.1=had a Check case decision in the last 4 months
-challengeRules.rules.2=submitted a Check case and have not had a decision in the last 12 months
-challengeRules.rules.3=submitted a Check case in the last 16 months and your Challenge is about a change in the local area of a property
-challengeRules.rules.paper=If no Check cases are shown but you still think you have the right to make a Challenge, you will need to <a class="govuk-link" href="{0}">download and complete a Challenge form (T012)</a>.
-
+challengeRules.summary=Help with Check cases and Challenge cases
+challengeRules.p1=A Check case let''s you tell us that property details are correct or need changing. We may accept your changes and adjust the rateable value.
+challengeRules.p2=A Challenge case lets you tell us you think the rateable value is too high. You can explain what you think it should be and provide evidence to support what you say. We may accept your challenge and change the rateable value.
+challengeRules.p3=You must complete a Check case before sending a Challenge case.
+challengeRules.rules=You can send us a Challenge case:
+challengeRules.rules.1=within 4 months of our Check case decision
+challengeRules.rules.2=within 16 months of you sending a Check case if the challenge is about a change in the local area, such as long-term roadworks
+challengeRules.rules.3=if we have not made a decision on your Check case after 12 months of you sending it to us
+challengeRules.rules.paper=If you have no Check cases but think you should be able to send us a Challenge case, <a class="govuk-link" href="{0}"> download and complete a Challenge form</a>.
 ## TIME OUT DIALOG
 timeout.dialog.title = You are about to be timed out
 

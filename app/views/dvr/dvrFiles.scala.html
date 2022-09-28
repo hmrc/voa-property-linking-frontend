@@ -219,7 +219,7 @@
 }
 
 @challengeCasesTabContent = {
-    @challengeCasesDetails(model.authorisationId, challengeCases, model.owner, model.submissionId)(govukTable)
+    @challengeCasesDetails(model.authorisationId, challengeCases, model.owner, model.submissionId, model.valuationId, model.uarn)(govukTable, govukDetails)
 }
 @agentsTabContent = {
     @agentsTab(model)(govukTable)
