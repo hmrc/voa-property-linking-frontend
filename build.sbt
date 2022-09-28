@@ -137,7 +137,7 @@ lazy val compileDependencies = Seq(
   "uk.gov.hmrc"          %% "http-caching-client"           % "9.6.0-play-28",
   "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.11.0-play-28",
   "uk.gov.hmrc"          %% "play-allowlist-filter"         % "1.0.0-play-28",
-  "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-28"            % "0.68.0",
+  "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-28"            % "0.73.0",
   "uk.gov.hmrc"          %% "uri-template"                  % "1.11.0"
 )
 
@@ -150,7 +150,7 @@ lazy val testDependencies = Seq(
   "org.jsoup"              %  "jsoup"              % "1.12.1"        % Test,
   "org.mockito"            %  "mockito-core"       % "2.27.0"        % Test,
   "org.scalatestplus"      %% "mockito-3-4"        % "3.2.9.0"       % Test,
-  "uk.gov.hmrc.mongo"      %% "hmrc-mongo-test-play-28" % "0.68.0"   % Test,
+  "uk.gov.hmrc.mongo"      %% "hmrc-mongo-test-play-28" % "0.73.0"   % Test,
   "com.vladsch.flexmark"   %  "flexmark-all"       % "0.35.10"       % Test
 )
 

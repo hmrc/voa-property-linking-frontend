@@ -18,8 +18,10 @@ package controllers.propertyLinking
 
 import binders.propertylinks.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
+import models.LinkingSession
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.test.FakeRequest
@@ -119,8 +121,25 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     backLink.attr("href") shouldBe routes.ClaimPropertyOccupancyController.showOccupancy().url
   }
 
-  it should "have a back link to the CYA page when coming from CYA" in {
-    val doc: Document = Jsoup.parse(contentAsString(testChooseEvidenceController(fromCya = true).show(request)))
-    doc.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+// //  keeping this because it will need to be re-implemented after VTCCA-5189 is complete
+//  it should "have a back link to the CYA page when coming from CYA" in {
+//    val doc: Document = Jsoup.parse(contentAsString(testChooseEvidenceController(fromCya = true).show(request)))
+//    doc.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+//  }
+
+  it should "set the fromCya session value to false on show" in {
+    val mockAttachmentService = mock[BusinessRatesAttachmentsService]
+    when(mockAttachmentService.persistSessionData(any())(any())).thenReturn(Future.successful(()))
+    val controllerFromCya = new ChooseEvidenceController(
+      mockCustomErrorHandler,
+      preAuthenticatedActionBuilders(),
+      preEnrichedActionRefinerFromCya(),
+      mockAttachmentService,
+      chooseEvidenceView
+    )
+    val sessionCaptor: ArgumentCaptor[LinkingSession] = ArgumentCaptor.forClass(classOf[LinkingSession])
+    controllerFromCya.show(FakeRequest()).futureValue
+    verify(mockAttachmentService).persistSessionData(sessionCaptor.capture())(any())
+    sessionCaptor.getValue.fromCya shouldBe Some(false)
   }
 }

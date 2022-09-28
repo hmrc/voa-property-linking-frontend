@@ -15,11 +15,12 @@
  *@
 
 @import _root_.utils.FrontendComponentHelper._
-@import config.ApplicationConfig
+@import _root_.utils.Formatters.formatDate
 @import actions.propertylinking.requests.LinkingSessionRequest
-@import views.html.includes.assessmentHeading
+@import config.ApplicationConfig
 @import helpers._
 @import play.api.data._
+@import views.html.includes.assessmentHeading
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
@@ -43,7 +44,22 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(
             ErrorSummary(
-                errorList = formatErrorMessages(form, "lastOccupiedDate", clientSuffix),
+                errorList = formatErrorMessages(
+                    form,
+                    "lastOccupiedDate",
+                    clientSuffix,
+                    manualDateErrorHandler = {
+                        case e @ "error.date.mustBeAfterStartDate" =>
+                            messages(
+                                e + clientSuffix,
+                                request.ses.propertyRelationship.map(_.capacity).fold(
+                                    messages("error.date.mustBeAfterStartDate.relationship.fallback"))(
+                                    _.name.replace("_", s" ${messages("common.and")} ").toLowerCase),
+                                formatDate(request.ses.propertyOwnership.flatMap(_.fromDate)
+                                    .getOrElse(request.ses.earliestStartDate))
+                            )
+                    }
+                ),
                 title = Text(messages("error.propertyRepresentation.title"))
             )
         )

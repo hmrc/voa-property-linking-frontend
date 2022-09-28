@@ -134,6 +134,8 @@ trait VoaPropertyLinkingSpec
         relationshipCapacity: CapacityType = Owner,
         userIsAgent: Boolean = true,
         earliestStartDate: LocalDate = earliestEnglishStartDate,
+        propertyOwnership: Option[PropertyOwnership] = Some(
+          PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
         propertyOccupancy: Option[PropertyOccupancy] = Some(
           PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
         fromCya: Option[Boolean] = Some(false)): WithLinkingSession =
@@ -150,8 +152,7 @@ trait VoaPropertyLinkingSpec
                 personId = 1L,
                 earliestStartDate = earliestStartDate,
                 propertyRelationship = Some(PropertyRelationship(relationshipCapacity)),
-                propertyOwnership =
-                  Some(PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
+                propertyOwnership = propertyOwnership,
                 propertyOccupancy = propertyOccupancy,
                 hasRatesBill = Some(true),
                 uploadEvidenceData = evidenceData,

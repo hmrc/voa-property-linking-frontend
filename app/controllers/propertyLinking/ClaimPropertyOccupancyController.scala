@@ -31,7 +31,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
-import utils.Formatters
 import views.helpers.Errors
 
 import java.time.LocalDate
@@ -64,9 +63,8 @@ class ClaimPropertyOccupancyController @Inject()(
           } else {
         val form = request.ses.propertyOccupancy.fold(occupancyForm(request.ses.earliestStartDate)) { occupancy =>
           occupancyForm(
-            startDate = request.ses.propertyOwnership.flatMap(_.fromDate).getOrElse(request.ses.earliestStartDate),
-            errorMessageKeySuffix = request.ses.clientDetails.fold("")(_ => ".client")
-          ).fillAndValidate(occupancy)
+            startDate = request.ses.propertyOwnership.flatMap(_.fromDate).getOrElse(request.ses.earliestStartDate))
+            .fillAndValidate(occupancy)
         }
         Future.successful(
           Ok(
@@ -82,9 +80,8 @@ class ClaimPropertyOccupancyController @Inject()(
   def submitOccupancy(): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       occupancyForm(
-        startDate = request.ses.propertyOwnership.flatMap(_.fromDate).getOrElse(request.ses.earliestStartDate),
-        errorMessageKeySuffix = request.ses.clientDetails.fold("")(_ => ".client")
-      ).bindFromRequest()
+        startDate = request.ses.propertyOwnership.flatMap(_.fromDate).getOrElse(request.ses.earliestStartDate))
+        .bindFromRequest()
         .fold(
           errors =>
             Future.successful(BadRequest(occupancyOfPropertyView(errors, request.ses.clientDetails, getBackLink))),
@@ -102,8 +99,7 @@ class ClaimPropertyOccupancyController @Inject()(
 
 object ClaimPropertyOccupancy {
 
-  def occupancyForm(startDate: LocalDate, errorMessageKeySuffix: String = "")(
-        implicit messages: Messages): Form[PropertyOccupancy] =
+  def occupancyForm(startDate: LocalDate): Form[PropertyOccupancy] =
     Form(
       mapping(
         "stillOccupied" -> mandatoryBoolean,
@@ -111,9 +107,7 @@ object ClaimPropertyOccupancy {
           "stillOccupied",
           dmyDate
             .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
-            .verifying(
-              messages(s"error.date.mustBeAfterStartDate$errorMessageKeySuffix", Formatters.formatDate(startDate)),
-              d => d.isAfter(startDate))
+            .verifying("error.date.mustBeAfterStartDate", d => d.isAfter(startDate))
         )
       )(PropertyOccupancy.apply)(PropertyOccupancy.unapply))
 
