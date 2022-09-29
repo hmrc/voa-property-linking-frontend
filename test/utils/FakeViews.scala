@@ -43,7 +43,8 @@ trait FakeViews extends GdsComponents {
   )
   lazy val dateFields = new dateFields(govukDateInput: GovukDateInput)
   lazy val alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout)
-  lazy val requestDetailedValuationView = new requestDetailedValuation(mainLayout, govukButton, formWithCSRF)
+  lazy val requestDetailedValuationView =
+    new requestDetailedValuation(mainLayout, govukButton, govukInsetText, govukTabs, formWithCSRF)
   lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout)
   lazy val dvrFilesView =
     new dvrFiles(
