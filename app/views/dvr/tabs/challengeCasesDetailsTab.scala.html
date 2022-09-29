@@ -29,10 +29,10 @@
 }
 
 @tagColour(status: String) = {
-@status match {
-    case "DECISION SENT" | "CLOSED" | "CANCELLED" => { govuk-tag--grey }
-    case _ => {}
-}
+    @status match {
+        case "DECISION SENT" | "CLOSED" | "CANCELLED" => { govuk-tag--grey }
+        case _ => {}
+    }
 }
 
 @statusTagWithHelpLink(status: String) = {

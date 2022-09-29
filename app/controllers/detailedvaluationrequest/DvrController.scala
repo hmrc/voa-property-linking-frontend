@@ -27,7 +27,7 @@ import models.dvr.cases.check.{CheckType, StartCheckForm}
 import models.dvr.{DetailedValuationRequest, PropertyLinkForDvr}
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
-import models.{ApiAssessment, ApiAssessments, Party}
+import models.{ApiAssessment, ApiAssessments, ListType, Party}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.http.HttpEntity
@@ -37,8 +37,8 @@ import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
 import utils.{Cats, Formatters}
-import java.time.format.DateTimeFormatter
 
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
 import models.dvr.cases.check.common.{Agent, AgentCount}
@@ -488,6 +488,9 @@ class DvrController @Inject()(
 case class RequestDetailedValuationWithoutForm(
       assessmentRef: Long,
       address: String,
+      authorisationId: Long,
+      currentAssessmentRef: Option[Long],
+      currentBaRef: Option[String],
       effectiveDate: String,
       rateableValue: Option[Long],
       uarn: Long,
@@ -497,17 +500,28 @@ object RequestDetailedValuationWithoutForm {
 
   private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
-  def apply(assessments: ApiAssessments, assessment: ApiAssessment): RequestDetailedValuationWithoutForm =
+  def apply(assessments: ApiAssessments, assessment: ApiAssessment): RequestDetailedValuationWithoutForm = {
+    val current = assessments.assessments
+      .find(
+        a =>
+          a.listType == ListType.CURRENT &&
+            a.currentFromDate.nonEmpty &&
+            a.currentToDate.isEmpty)
+
     RequestDetailedValuationWithoutForm(
       assessmentRef = assessment.assessmentRef,
       address = assessments.address,
+      authorisationId = assessment.authorisationId,
+      currentAssessmentRef = current.map(_.assessmentRef),
+      currentBaRef = current.map(_.billingAuthorityReference),
       effectiveDate = formatter.format(
         assessment.effectiveDate.getOrElse(throw new RuntimeException(
           s"Assessment with ref: ${assessment.assessmentRef} does not contain an Effective Date"))),
       rateableValue = assessment.rateableValue,
       uarn = assessments.uarn,
-      isDraftList = assessment.isDraft
+      isDraftList = assessment.isDraft,
     )
+  }
 
 }
 

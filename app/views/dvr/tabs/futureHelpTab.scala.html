@@ -1,0 +1,92 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@(effectiveDate: String)(implicit messages: Messages)
+
+@estimatorUrl = @{""}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds" id="future-help-content">
+
+        <h2 class="govuk-heading-l">@messages("requestValuation.future.help.heading")</h2>
+
+        <h3 class="govuk-heading-m" id="future-help-subhead-1">
+            @messages("requestValuation.future.help.1.subhead", effectiveDate)
+        </h3>
+        <p class="govuk-body" id="future-help-content-1">
+            @messages("requestValuation.future.help.1.p", effectiveDate)
+        </p>
+
+        <h3 class="govuk-heading-m" id="future-help-subhead-2">@messages("requestValuation.future.help.2.subhead")</h3>
+        <p class="govuk-body" id="future-help-content-2">
+            @messages("requestValuation.future.help.2.p", effectiveDate)
+        </p>
+        <a class="govuk-link" id="future-help-link-2" href="TODO - ADD LINK TO CURRENT VALUATION">
+            @messages("requestValuation.future.help.2.link")
+        </a>
+
+        <h3 class="govuk-heading-m" id="future-help-subhead-3">@messages("requestValuation.future.help.3.subhead")</h3>
+        <p class="govuk-body" id="future-help-content-3-1">
+            @messages("requestValuation.future.help.3.p.1", effectiveDate)
+        </p>
+        <p class="govuk-body" id="future-help-content-3-2">@messages("requestValuation.future.help.3.p.2")</p>
+        <a class="govuk-link" id="future-help-link-3" href="TODO - ADD LINK TO CURRENT VALUATION">
+            @messages("requestValuation.future.help.3.link")
+        </a>
+
+        <h3 class="govuk-heading-m" id="future-help-subhead-4">@messages("requestValuation.future.help.4.subhead")</h3>
+        <p class="govuk-body" id="future-help-content-4">
+            @Html(messages(
+                "requestValuation.future.help.4.p",
+                effectiveDate,
+                messages(
+                    "requestValuation.future.help.4.link",
+                    //TODO - USE FUTURE VALUATION ENQUIRY LINK FROM VALUATION FE
+                )
+            ))
+        </p>
+
+        <ul class="govuk-list" id="help-links">
+            <li><a
+                class="govuk-link"
+                id="how-to-use-account"
+                href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">
+                    @messages("requestValuation.future.help.links.1")
+            </a></li>
+            <li><a
+                class="govuk-link"
+                id="how-properties-are-valued"
+                href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">
+                    @messages("requestValuation.future.help.links.2")
+            </a></li>
+            <li><a
+                class="govuk-link"
+                id="estimator-link"
+                href=@estimatorUrl>
+                    @messages("requestValuation.future.help.links.3", effectiveDate)
+            </a></li>
+            <li><a
+                class="govuk-link"
+                id="rates-relief"
+                href="https://www.gov.uk/apply-for-business-rate-relief">
+                    @messages("requestValuation.future.help.links.4")
+            </a></li>
+        </ul>
+
+    </div>
+</div>
+
+

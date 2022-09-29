@@ -14,11 +14,12 @@
  * limitations under the License.
  *@
 
+@import _root_.utils.Formatters
 @import config.ApplicationConfig
 @import controllers.detailedvaluationrequest.RequestDetailedValuationWithoutForm
-@import utils.Formatters
+@import views.html.dvr.tabs.{futureHelpTab, requestFutureValuationTab}
 
-@this(mainLayout: views.html.mainLayout, govukButton : GovukButton, formWithCSRF: FormWithCSRF)
+@this(mainLayout: views.html.mainLayout, govukButton : GovukButton, govukInsetText: GovukInsetText, govukTabs: GovukTabs, formWithCSRF: FormWithCSRF)
 
 @(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 @returnUrl = @{
@@ -27,51 +28,84 @@
     else
         s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, model.assessmentRef, model.uarn).url}"
 }
-@mainLayout(pageTitle = messages("auto.requestDetailedValuation.title"), backUri = Some(backUrl)) {
 
-    <h1 class="govuk-heading-l margin-top-20" id="assessment-address">
-        <span class="govuk-caption-l">@messages("auto.requestDetailedValuation.smallTitle")</span>
-        @Formatters.capitalisedAddress(model.address)
-    </h1>
+@address = @{Formatters.capitalisedAddress(model.address)}
 
-    <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.effectiveDate", model.effectiveDate))</p>
+@if(config.reval2023Enabled && model.isDraftList) {
 
-    @if(model.rateableValue.nonEmpty){
-        <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.rateableValue", model.rateableValue.get))</p>
+    @mainLayout(pageTitle = address, backUri = Some(backUrl), mainClass = Some("govuk-grid-column-full govuk-!-padding-0")) {
+
+        <div class="govuk-grid-column-two-thirds">
+            <span class="govuk-caption-l">@messages("auto.requestDetailedValuation.caption")</span>
+            <h1 class="govuk-heading-l">@address</h1>
+        </div>
+
+        <div class="govuk-grid-column-full">
+            @govukTabs(Tabs(
+                id = Some("request-valuation-tabs"),
+                items = Seq(
+                    TabItem(
+                        id = Some("valuation-tab"),
+                        label = messages("auto.requestDetailedValuation.future.tabName"),
+                        panel = TabPanel(HtmlContent(requestFutureValuationTab(submissionId, model, owner)(govukInsetText)))
+                    ),
+                    TabItem(
+                        id = Some("help-tab"),
+                        label = messages("requestValuation.future.help.heading"),
+                        panel = TabPanel(HtmlContent(futureHelpTab(model.effectiveDate)))
+                    )
+                )
+            ))
+        </div>
     }
 
-    @if(model.isDraftList) {
-        <p class="govuk-body">@messages("auto.requestDetailedValuation.p.1.draft")</p>
-    } else {
-        <p class="govuk-body">@messages("auto.requestDetailedValuation.p.1")</p>
-    }
+} else {
+    @mainLayout(pageTitle = messages("auto.requestDetailedValuation.title"), backUri = Some(backUrl)) {
 
-    <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.p.2"))</p>
+        <h1 class="govuk-heading-l margin-top-20" id="assessment-address">
+            <span class="govuk-caption-l">@messages("auto.requestDetailedValuation.smallTitle")</span>
+            @address
+        </h1>
 
-    <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.p.3", config.dashboardUrl("home")))</p>
+        <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.effectiveDate", model.effectiveDate))</p>
 
-    @formWithCSRF(
-        if (owner)
+        @if(model.rateableValue.nonEmpty) {
+            <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.rateableValue", model.rateableValue.get))</p>
+        }
+
+        @if(model.isDraftList) {
+            <p class="govuk-body">@messages("auto.requestDetailedValuation.p.1.draft")</p>
+        } else {
+            <p class="govuk-body">@messages("auto.requestDetailedValuation.p.1")</p>
+        }
+
+        <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.p.2"))</p>
+
+        <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.p.3", config.dashboardUrl("home")))</p>
+
+        @formWithCSRF(
+            if(owner)
                 controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuation(submissionId, model.assessmentRef)
-        else
+            else
                 controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuation(submissionId, model.assessmentRef)
-    ) {
-        <p class="govuk-body">
-            @govukButton(Button(preventDoubleClick = true, content = Text(messages("auto.requestDetailedValuation.button"))))
-        </p>
-    }
+        ) {
+            <p class="govuk-body">
+                @govukButton(Button(preventDoubleClick = true, content = Text(messages("auto.requestDetailedValuation.button"))))
+            </p>
+        }
 
-    @if(!model.isDraftList) {
-        <h2 class="govuk-heading-m">@messages("auto.requestDetailedValuation.heading.challenge")</h2>
+        @if(!model.isDraftList) {
+            <h2 class="govuk-heading-m">@messages("auto.requestDetailedValuation.heading.challenge")</h2>
 
-        <p class="govuk-body">@messages("auto.requestDetailedValuation.challenge.p1")</p>
+            <p class="govuk-body">@messages("auto.requestDetailedValuation.challenge.p1")</p>
 
-        <p class="govuk-body">@messages("auto.requestDetailedValuation.challenge.p2")</p>
+            <p class="govuk-body">@messages("auto.requestDetailedValuation.challenge.p2")</p>
 
-        <p class="govuk-body">
-            <a  class="govuk-link"
-                href="@{config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")}"
-            >@messages("requestDetailedValuation.challenge.start")</a>
-        </p>
+            <p class="govuk-body">
+                <a class="govuk-link"
+                    href="@{config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")}"
+                >@messages("requestDetailedValuation.challenge.start")</a>
+            </p>
+        }
     }
 }

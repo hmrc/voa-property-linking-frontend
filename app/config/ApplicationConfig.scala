@@ -87,6 +87,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
   lazy val newRegistrationJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newRegistrationJourneyEnabled")
+  lazy val reval2023Enabled: Boolean = loadBooleanConfig("featureFlags.reval2023Enabled")
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
   lazy val signOutTimeout = loadInt("sign-out.timeout")
@@ -102,6 +103,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
     .getOptional[String]("plannedImprovementsContent")
     .map(e => new String(Base64.getUrlDecoder.decode(e)))
 
+  lazy val currentListYear: String = loadConfig("currentListYear")
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
