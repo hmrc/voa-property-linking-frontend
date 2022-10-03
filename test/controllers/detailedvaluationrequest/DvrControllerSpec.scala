@@ -339,11 +339,12 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     private val challengeRef = "CHG345678"
     private val plSubmissionId = "1111"
+    private val valuationId: Long =
+      assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
     val result =
       controller.myClientsRequestDetailValuationCheck(
         propertyLinkSubmissionId = plSubmissionId,
-        valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        valuationId = valuationId,
         uarn = 1L,
         challengeCaseRef = Some(challengeRef)
       )(request)
@@ -355,7 +356,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.html.getElementById("client-name").text() shouldBe "Client property: Client Org Name"
     page.html
       .getElementById("back-link")
-      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=true&isDvr=true"
+      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=true&isDvr=true&valuationId=$valuationId"
   }
 
   "detailed valuation of a DVR property" should "display correct CHECKS tab and table of check cases" in new Setup {
@@ -579,11 +580,12 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     private val challengeRef = "CHG53626"
     private val plSubmissionId = "1111"
+    private val valuationId: Long =
+      assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = plSubmissionId,
-        valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        valuationId = valuationId,
         uarn = 1L,
         challengeCaseRef = Some(challengeRef)
       )(request)
@@ -601,7 +603,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     //verify back link
     page.html
       .getElementById("back-link")
-      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=false&isDvr=true"
+      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=false&isDvr=true&valuationId=$valuationId"
   }
 
   "draft detailed valuation" should "return 200 OK and not fetch checks/challenges " in new Setup {
