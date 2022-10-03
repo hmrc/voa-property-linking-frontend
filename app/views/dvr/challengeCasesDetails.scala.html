@@ -86,10 +86,10 @@
 }
 
 @detailContent = {
-    <p>@messages("challengeRules.rules")</p>
     <p>@messages("challengeRules.p1")</p>
     <p>@messages("challengeRules.p2")</p>
     <p>@messages("challengeRules.p3")</p>
+    <p>@messages("challengeRules.rules")</p>
     <ul class="list bullets">
         <li>@messages("challengeRules.rules.1")</li>
         <li>@messages("challengeRules.rules.2")</li>
@@ -105,7 +105,8 @@
 @govukDetails(Details(
     id = Some("when-you-may-challenge-details"),
     summary = Text(messages("challengeRules.summary")),
-    content = HtmlContent(detailContent)
+    content = HtmlContent(detailContent),
+    classes = "govuk-grid-column-two-thirds"
 ))
 
 @govukTable(Table(
