@@ -85,25 +85,29 @@ class DvrController @Inject()(
         propertyLinkSubmissionId: String,
         valuationId: Long,
         uarn: Long,
-        challengeCaseRef: Option[String] = None): Action[AnyContent] =
+        challengeCaseRef: Option[String] = None,
+        otherValuationId: Option[Long] = None): Action[AnyContent] =
     detailedValuationRequestCheck(
       propertyLinkSubmissionId,
       valuationId,
       uarn,
       owner = true,
-      challengeCaseRef = challengeCaseRef)
+      challengeCaseRef = challengeCaseRef,
+      otherValuationId = otherValuationId)
 
   def myClientsRequestDetailValuationCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
         uarn: Long,
-        challengeCaseRef: Option[String] = None): Action[AnyContent] =
+        challengeCaseRef: Option[String] = None,
+        otherValuationId: Option[Long] = None): Action[AnyContent] =
     detailedValuationRequestCheck(
       propertyLinkSubmissionId,
       valuationId,
       uarn,
       owner = false,
-      challengeCaseRef = challengeCaseRef)
+      challengeCaseRef = challengeCaseRef,
+      otherValuationId = otherValuationId)
 
   private def detailedValuationRequestCheck(
         propertyLinkSubmissionId: String,
@@ -111,7 +115,8 @@ class DvrController @Inject()(
         uarn: Long,
         owner: Boolean,
         formWithErrors: Option[Form[StartCheckForm]] = None,
-        challengeCaseRef: Option[String] = None): Action[AnyContent] = authenticated.async { implicit request =>
+        challengeCaseRef: Option[String] = None,
+        otherValuationId: Option[Long] = None): Action[AnyContent] = authenticated.async { implicit request =>
     val pLink =
       if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
       else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
@@ -127,7 +132,8 @@ class DvrController @Inject()(
                   .url
               case Some(ref) =>
                 config.businessRatesChallengeUrl(
-                  s"summary/property-link/${link.authorisationId}/submission-id/$propertyLinkSubmissionId/challenge-cases/$ref?isAgent=${!owner}&isDvr=true")
+                  s"summary/property-link/${link.authorisationId}/submission-id/$propertyLinkSubmissionId/challenge-cases/$ref?isAgent=${!owner}&isDvr=true&valuationId=${otherValuationId
+                    .getOrElse(valuationId)}")
             }
 
             val assessment: ApiAssessment = link.assessments
