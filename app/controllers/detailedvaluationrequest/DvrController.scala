@@ -146,7 +146,8 @@ class DvrController @Inject()(
                   .url)
             } { ref =>
               config.businessRatesChallengeUrl(
-                s"summary/property-link/${link.authorisationId}/submission-id/$propertyLinkSubmissionId/challenge-cases/$ref?isAgent=${!owner}&isDvr=true&valuationId=${otherValuationId.getOrElse(valuationId)}")
+                s"summary/property-link/${link.authorisationId}/submission-id/$propertyLinkSubmissionId/challenge-cases/$ref?isAgent=${!owner}&isDvr=true&valuationId=${otherValuationId
+                  .getOrElse(valuationId)}")
             }
 
             val caseDetails: Future[Option[(List[CaseDetails], List[CaseDetails])]] =
