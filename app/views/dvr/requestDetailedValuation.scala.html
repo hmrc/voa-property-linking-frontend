@@ -22,6 +22,7 @@
 @this(mainLayout: views.html.mainLayout, govukButton : GovukButton, govukInsetText: GovukInsetText, govukTabs: GovukTabs, formWithCSRF: FormWithCSRF)
 
 @(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
 @returnUrl = @{
     if (owner)
         s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, model.assessmentRef, model.uarn).url}"
@@ -31,9 +32,12 @@
 
 @address = @{Formatters.capitalisedAddress(model.address)}
 
-@if(config.reval2023Enabled && model.isDraftList) {
+@if(config.reval2023Enabled && model.isDraftList && !model.isWelsh) {
 
-    @mainLayout(pageTitle = address, backUri = Some(backUrl), mainClass = Some("govuk-grid-column-full govuk-!-padding-0")) {
+    @mainLayout(
+        pageTitle = address,
+        backUri = Some(backUrl),
+        mainClass = Some("govuk-grid-column-full govuk-!-padding-left-0 govuk-!-padding-right-0")) {
 
         <div class="govuk-grid-column-two-thirds">
             <span class="govuk-caption-l">@messages("auto.requestDetailedValuation.caption")</span>
@@ -47,12 +51,24 @@
                     TabItem(
                         id = Some("valuation-tab"),
                         label = messages("auto.requestDetailedValuation.future.tabName"),
-                        panel = TabPanel(HtmlContent(requestFutureValuationTab(submissionId, model, owner)(govukInsetText)))
+                        panel = TabPanel(HtmlContent(requestFutureValuationTab(
+                            model.rateableValue,
+                            model.effectiveDate,
+                            model.estimatorUrl,
+                            model.currentValuationUrl,
+                            model.valuationsUrl
+                        )(govukInsetText)))
                     ),
                     TabItem(
                         id = Some("help-tab"),
                         label = messages("requestValuation.future.help.heading"),
-                        panel = TabPanel(HtmlContent(futureHelpTab(model.effectiveDate)))
+                        panel = TabPanel(HtmlContent(futureHelpTab(
+                            model.effectiveDate,
+                            currentValuationCheckTabUrl = model.currentValuationUrl.map(_ + "#start-check-tab"),
+                            model.valuationsUrl,
+                            model.enquiryUrl,
+                            model.estimatorUrl
+                        )))
                     )
                 )
             ))

@@ -116,12 +116,7 @@ class ValuationsController @Inject()(
         owner: Boolean
   ): (String, ApiAssessment) =
     controllers.routes.Assessments
-      .viewDetailedAssessment(
-        submissionId,
-        authorisationId,
-        assessment.assessmentRef,
-        assessment.billingAuthorityReference,
-        owner)
+      .viewDetailedAssessment(submissionId, authorisationId, assessment.assessmentRef, owner)
       .url -> assessment
 
   private def calculateBackLink(

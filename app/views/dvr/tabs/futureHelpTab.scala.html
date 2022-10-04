@@ -14,50 +14,62 @@
  * limitations under the License.
  *@
 
-@(effectiveDate: String)(implicit messages: Messages)
-
-@estimatorUrl = @{""}
+@(effectiveDate: String,
+  currentValuationCheckTabUrl: Option[String],
+  valuationsUrl: String,
+  enquiryUrl: String,
+  estimatorUrl: String)(implicit messages: Messages)
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds" id="future-help-content">
 
         <h2 class="govuk-heading-l">@messages("requestValuation.future.help.heading")</h2>
 
-        <h3 class="govuk-heading-m" id="future-help-subhead-1">
-            @messages("requestValuation.future.help.1.subhead", effectiveDate)
+        <h3 class="govuk-heading-m" id="may-change-subhead">
+            @messages("requestValuation.future.help.mayChange.subhead", effectiveDate)
         </h3>
-        <p class="govuk-body" id="future-help-content-1">
-            @messages("requestValuation.future.help.1.p", effectiveDate)
+        <p class="govuk-body" id="may-change-content">
+            @messages("requestValuation.future.help.mayChange.p", effectiveDate)
         </p>
 
-        <h3 class="govuk-heading-m" id="future-help-subhead-2">@messages("requestValuation.future.help.2.subhead")</h3>
-        <p class="govuk-body" id="future-help-content-2">
-            @messages("requestValuation.future.help.2.p", effectiveDate)
+        <h3 class="govuk-heading-m" id="change-details-subhead">@messages("requestValuation.future.help.changeDetails.subhead")</h3>
+        <p class="govuk-body" id="change-details-content">
+            @messages("requestValuation.future.help.changeDetails.p", effectiveDate)
         </p>
-        <a class="govuk-link" id="future-help-link-2" href="TODO - ADD LINK TO CURRENT VALUATION">
-            @messages("requestValuation.future.help.2.link")
-        </a>
-
-        <h3 class="govuk-heading-m" id="future-help-subhead-3">@messages("requestValuation.future.help.3.subhead")</h3>
-        <p class="govuk-body" id="future-help-content-3-1">
-            @messages("requestValuation.future.help.3.p.1", effectiveDate)
+        <p class="govuk-body">
+            <a class="govuk-link"
+               id="change-details-link"
+               href="@currentValuationCheckTabUrl.getOrElse(valuationsUrl)">
+                @messages("requestValuation.future.help.changeDetails.link")
+            </a>
         </p>
-        <p class="govuk-body" id="future-help-content-3-2">@messages("requestValuation.future.help.3.p.2")</p>
-        <a class="govuk-link" id="future-help-link-3" href="TODO - ADD LINK TO CURRENT VALUATION">
-            @messages("requestValuation.future.help.3.link")
-        </a>
 
-        <h3 class="govuk-heading-m" id="future-help-subhead-4">@messages("requestValuation.future.help.4.subhead")</h3>
-        <p class="govuk-body" id="future-help-content-4">
+        <h3 class="govuk-heading-m" id="too-high-subhead">@messages("requestValuation.future.help.tooHigh.subhead")</h3>
+        <p class="govuk-body" id="too-high-content-1">
+            @messages("requestValuation.future.help.tooHigh.p1", effectiveDate)
+        </p>
+        <p class="govuk-body" id="too-high-content-2">@messages("requestValuation.future.help.tooHigh.p2")</p>
+        <p class="govuk-body">
+            <a class="govuk-link" id="too-high-link" href="@currentValuationCheckTabUrl.getOrElse(valuationsUrl)">
+            @messages("requestValuation.future.help.tooHigh.link")
+            </a>
+        </p>
+
+        <h3 class="govuk-heading-m" id="other-subhead">@messages("requestValuation.future.help.other.subhead")</h3>
+        <p class="govuk-body" id="other-content">
             @Html(messages(
-                "requestValuation.future.help.4.p",
+                "requestValuation.future.help.other.p",
                 effectiveDate,
                 messages(
-                    "requestValuation.future.help.4.link",
-                    //TODO - USE FUTURE VALUATION ENQUIRY LINK FROM VALUATION FE
+                    "requestValuation.future.help.other.link",
+                    enquiryUrl
                 )
             ))
         </p>
+
+        <h3 class="govuk-heading-m" id="covid-subhead">@messages("requestValuation.future.help.covid.subhead")</h3>
+        <p class="govuk-body" id="covid-content-1">@messages("requestValuation.future.help.covid.p1")</p>
+        <p class="govuk-body" id="covid-content-2">@messages("requestValuation.future.help.covid.p2")</p>
 
         <ul class="govuk-list" id="help-links">
             <li><a
@@ -72,11 +84,8 @@
                 href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">
                     @messages("requestValuation.future.help.links.2")
             </a></li>
-            <li><a
-                class="govuk-link"
-                id="estimator-link"
-                href=@estimatorUrl>
-                    @messages("requestValuation.future.help.links.3", effectiveDate)
+            <li><a class="govuk-link" id="help-estimator-link" href=@estimatorUrl>
+                @messages("requestValuation.future.help.links.3", effectiveDate)
             </a></li>
             <li><a
                 class="govuk-link"

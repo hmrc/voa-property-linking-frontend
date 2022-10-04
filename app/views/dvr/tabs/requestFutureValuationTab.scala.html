@@ -18,28 +18,18 @@
 @import config.ApplicationConfig
 @import controllers.detailedvaluationrequest.RequestDetailedValuationWithoutForm
 
-@(submissionId: String, model: RequestDetailedValuationWithoutForm, isOwner: Boolean)(govukInsetText: GovukInsetText)(implicit config: ApplicationConfig, messages: Messages)
-
-@linkToCurrentValuation = @{ for {
-  assessmentRef <- model.currentAssessmentRef
-  baRef <- model.currentBaRef
-} yield {
-    controllers.routes.Assessments.viewDetailedAssessment(
-        submissionId,
-        model.authorisationId,
-        assessmentRef,
-        baRef,
-        isOwner
-    ).url
-}
-}
+@(rateableValue: Option[Long],
+  effectiveDate: String,
+  estimatorUrl: String,
+  currentValuationUrl: Option[String],
+  valuationsUrl: String)(govukInsetText: GovukInsetText)(implicit config: ApplicationConfig, messages: Messages)
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds" id="future-valuation-tab-content">
-        @model.rateableValue.map { rv =>
+        @rateableValue.map { rv =>
 
             <span class="govuk-caption-l" id="future-valuation-caption">
-                @messages("auto.requestDetailedValuation.future.rv.caption", model.effectiveDate)
+                @messages("auto.requestDetailedValuation.future.rv.caption", effectiveDate)
             </span>
             <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="future-valuation-rv">
                 @formatCurrencyRoundedToPounds(rv)
@@ -51,15 +41,15 @@
                     "auto.requestDetailedValuation.future.rv.inset",
                     messages(
                         "auto.requestDetailedValuation.future.rv.inset.link",
-                        model.effectiveDate,
-                        config.vmvUrl + s"/estimate-your-business-rates/start?uarn=${model.uarn}&valuationId=${model.assessmentRef}"
+                        effectiveDate,
+                        estimatorUrl
                     )
                 ))
             ))
         }
 
         <p class="govuk-body" id="future-valuation-not-available">
-            @messages("auto.requestDetailedValuation.future.p.1", model.effectiveDate)
+            @messages("auto.requestDetailedValuation.future.p.1", effectiveDate)
         </p>
 
         <p class="govuk-body" id="request-current-valuation">
@@ -68,10 +58,7 @@
                 config.currentListYear,
                 messages(
                     "auto.requestDetailedValuation.future.p.2.link",
-                    linkToCurrentValuation.getOrElse(
-                      uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
-                              .valuations(submissionId, isOwner).url
-                    )
+                    currentValuationUrl.getOrElse(valuationsUrl)
                 )
             ))
         </p>
