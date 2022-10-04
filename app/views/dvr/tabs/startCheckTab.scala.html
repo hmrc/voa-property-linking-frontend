@@ -70,7 +70,8 @@
                     RadioItem(
                         id = Some("checkType_remove"),
                         content = Text(messages("available.requestvaluation.startCheckTab.option2.content")),
-                        value = Some(CheckType.Remove.value )
+                        value = Some(CheckType.Remove.value),
+                        hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option2.hint"))))
                     ),
                     RadioItem(
                         id = Some("checkType_split"),
