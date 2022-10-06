@@ -63,7 +63,7 @@
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@title</h1>
 
     <div id="fileTypesText" class="govuk-hint">
-    @messages("uploadFile.allowedTypes.l1")
+    @messages("fileUpload.allowedTypes")
     </div>
 
     @formWithCSRF(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
@@ -92,13 +92,13 @@
             </div>
         }
 
-        <div class="message-warning govuk-!-display-none" id="message-warning"><p class="govuk-body">@messages("fileupload.pleaseWait")</p></div>
+        <div class="message-warning govuk-!-display-none" id="message-warning"><p class="govuk-body">@messages("fileUpload.pleaseWait")</p></div>
 
       @if(uploadedFiles.nonEmpty) {
           <dl class="govuk-summary-list">
               <div class="govuk-summary-list__row">
                   <dt class="govuk-summary-list__key">
-                      Evidence
+                      @Messages("fileUpload.descriptionList.key")
                   </dt>
                   <dd class="govuk-summary-list__value">
                   @uploadedFiles.map { case (fileReference, upload) =>
@@ -106,7 +106,7 @@
                   </dd>
                   <dd class="govuk-summary-list__actions">
                       <button id="remove-file" type="submit" class="govuk-body govuk-link" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)">
-                      @Messages("remove.file")
+                      @Messages("fileUpload.descriptionList.action")
                       </button>
                   </dd>
                   }
