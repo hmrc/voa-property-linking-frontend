@@ -65,7 +65,6 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText(messages("uploadRatesBill.client.reminder"))
     html.shouldContain("#newFileGroup", 1)
   }
 

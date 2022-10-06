@@ -175,7 +175,7 @@
                         @upload.fileMetadata.toDisplayFileName
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <button id="remove-file" type="submit" class="govuk-button govuk-button--secondary" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)">
+                        <button id="remove-file" type="submit" class="govuk-body govuk-link" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)">
                         @Messages("remove.file")
                         </button>
                     </dd>
@@ -183,8 +183,6 @@
                 </div>
             </dl>
         }
-
-
     }
     </div>
 
