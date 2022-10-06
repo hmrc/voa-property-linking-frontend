@@ -35,8 +35,6 @@ case class Nino(nino: String) {
 
 object Nino extends (String => Nino) {
 
-  import play.api.libs.functional.syntax._
-
   implicit val format: Format[Nino] = Format(Reads.of[String].map(Nino), Writes.of[String].contramap(_.nino))
 
   private val validNinoFormat = "[[A-Z]&&[^DFIQUV]][[A-Z]&&[^DFIQUVO]] ?\\d{2} ?\\d{2} ?\\d{2} ?[A-D]{1}"
