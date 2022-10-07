@@ -1,0 +1,101 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@(effectiveDate: String,
+  currentValuationCheckTabUrl: Option[String],
+  valuationsUrl: String,
+  enquiryUrl: String,
+  estimatorUrl: String)(implicit messages: Messages)
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds" id="future-help-content">
+
+        <h2 class="govuk-heading-l">@messages("requestValuation.future.help.heading")</h2>
+
+        <h3 class="govuk-heading-m" id="may-change-subhead">
+            @messages("requestValuation.future.help.mayChange.subhead", effectiveDate)
+        </h3>
+        <p class="govuk-body" id="may-change-content">
+            @messages("requestValuation.future.help.mayChange.p", effectiveDate)
+        </p>
+
+        <h3 class="govuk-heading-m" id="change-details-subhead">@messages("requestValuation.future.help.changeDetails.subhead")</h3>
+        <p class="govuk-body" id="change-details-content">
+            @messages("requestValuation.future.help.changeDetails.p", effectiveDate)
+        </p>
+        <p class="govuk-body">
+            <a class="govuk-link"
+               id="change-details-link"
+               href="@currentValuationCheckTabUrl.getOrElse(valuationsUrl)">
+                @messages("requestValuation.future.help.changeDetails.link")
+            </a>
+        </p>
+
+        <h3 class="govuk-heading-m" id="too-high-subhead">@messages("requestValuation.future.help.tooHigh.subhead")</h3>
+        <p class="govuk-body" id="too-high-content-1">
+            @messages("requestValuation.future.help.tooHigh.p1", effectiveDate)
+        </p>
+        <p class="govuk-body" id="too-high-content-2">@messages("requestValuation.future.help.tooHigh.p2")</p>
+        <p class="govuk-body">
+            <a class="govuk-link" id="too-high-link" href="@currentValuationCheckTabUrl.getOrElse(valuationsUrl)">
+            @messages("requestValuation.future.help.tooHigh.link")
+            </a>
+        </p>
+
+        <h3 class="govuk-heading-m" id="other-subhead">@messages("requestValuation.future.help.other.subhead")</h3>
+        <p class="govuk-body" id="other-content">
+            @Html(messages(
+                "requestValuation.future.help.other.p",
+                effectiveDate,
+                messages(
+                    "requestValuation.future.help.other.link",
+                    enquiryUrl
+                )
+            ))
+        </p>
+
+        <h3 class="govuk-heading-m" id="covid-subhead">@messages("requestValuation.future.help.covid.subhead")</h3>
+        <p class="govuk-body" id="covid-content-1">@messages("requestValuation.future.help.covid.p1")</p>
+        <p class="govuk-body" id="covid-content-2">@messages("requestValuation.future.help.covid.p2")</p>
+
+        <ul class="govuk-list" id="help-links">
+            <li><a
+                class="govuk-link"
+                id="how-to-use-account"
+                href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">
+                    @messages("requestValuation.future.help.links.1")
+            </a></li>
+            <li><a
+                class="govuk-link"
+                id="how-properties-are-valued"
+                href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">
+                    @messages("requestValuation.future.help.links.2")
+            </a></li>
+            <li><a class="govuk-link" id="help-estimator-link" href=@estimatorUrl>
+                @messages("requestValuation.future.help.links.3", effectiveDate)
+            </a></li>
+            <li><a
+                class="govuk-link"
+                id="rates-relief"
+                href="https://www.gov.uk/apply-for-business-rate-relief">
+                    @messages("requestValuation.future.help.links.4")
+            </a></li>
+        </ul>
+
+    </div>
+</div>
+
+

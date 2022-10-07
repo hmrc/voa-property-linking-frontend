@@ -443,6 +443,7 @@ trait FakeObjects {
     backLink = None)
 
   lazy val april2017 = LocalDate.of(2017, 4, 1)
+  lazy val april2023 = LocalDate.of(2023, 4, 1)
 
   def clientProperties(a: ClientPropertyLink) =
     ClientPropertyLink(

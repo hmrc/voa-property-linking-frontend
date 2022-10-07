@@ -52,7 +52,6 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
       submissionId = link.submissionId,
       authorisationId = link.authorisationId,
       assessmentRef = 1234L,
-      baRef = "BA Ref",
       owner = true,
     )(FakeRequest())
     status(res) shouldBe SEE_OTHER
@@ -75,7 +74,6 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
       submissionId = link.submissionId,
       authorisationId = link.authorisationId,
       assessmentRef = 1234L,
-      baRef = "BA Ref",
       owner = false,
     )(FakeRequest())
     status(res) shouldBe SEE_OTHER
@@ -99,7 +97,6 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
       submissionId = link.submissionId,
       authorisationId = link.authorisationId,
       assessmentRef = 1234L,
-      baRef = "BA Ref",
       owner = true,
     )(FakeRequest())
     status(res) shouldBe SEE_OTHER
@@ -122,7 +119,6 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
       submissionId = link.submissionId,
       authorisationId = link.authorisationId,
       assessmentRef = 1234L,
-      baRef = "BA Ref",
       owner = false,
     )(FakeRequest())
     status(res) shouldBe SEE_OTHER

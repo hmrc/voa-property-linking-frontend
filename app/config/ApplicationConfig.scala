@@ -102,6 +102,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
     .getOptional[String]("plannedImprovementsContent")
     .map(e => new String(Base64.getUrlDecoder.decode(e)))
 
+  lazy val currentListYear: String = loadConfig("currentListYear")
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")

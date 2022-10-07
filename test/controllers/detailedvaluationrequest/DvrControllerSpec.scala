@@ -16,6 +16,7 @@
 
 package controllers.detailedvaluationrequest
 
+import _root_.utils.Formatters
 import connectors.SubmissionIdConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
@@ -31,7 +32,6 @@ import utils._
 
 import scala.collection.JavaConverters._
 import java.time.LocalDateTime
-
 import models.dvr.cases.check.common.Agent
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
@@ -637,6 +637,167 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     verify(mockChallengeConnector, never()).getMyOrganisationsChallengeCases(any())(any())
   }
 
+  trait FutureRequestSetup extends Setup {
+    val currentAssessment: ApiAssessment = super.assessments.assessments.drop(1).head
+    val futureAssessment: ApiAssessment =
+      currentAssessment.copy(listType = ListType.DRAFT, effectiveDate = Some(april2023))
+    override val assessments: ApiAssessments =
+      super.assessments.copy(assessments = futureAssessment :: super.assessments.assessments.tail.toList)
+
+    val futureEffectiveDate: String = Formatters.formatDate(futureAssessment.effectiveDate.get)
+    val ipCurrentValuationUrl: String = routes.DvrController
+      .myOrganisationRequestDetailValuationCheck(
+        assessments.submissionId,
+        currentAssessment.assessmentRef,
+        currentAssessment.uarn,
+        challengeCaseRef = None,
+        fromFuture = Some(true))
+      .url
+    val clientCurrentValuationUrl: String = routes.DvrController
+      .myClientsRequestDetailValuationCheck(
+        assessments.submissionId,
+        currentAssessment.assessmentRef,
+        currentAssessment.uarn,
+        challengeCaseRef = None,
+        fromFuture = Some(true))
+      .url
+    val ipFutureValuationUrl: String = routes.DvrController
+      .myOrganisationRequestDetailValuationCheck(
+        assessments.submissionId,
+        futureAssessment.assessmentRef,
+        futureAssessment.uarn,
+        challengeCaseRef = None)
+      .url
+    val clientFutureValuationUrl: String = routes.DvrController
+      .myClientsRequestDetailValuationCheck(
+        assessments.submissionId,
+        futureAssessment.assessmentRef,
+        futureAssessment.uarn,
+        challengeCaseRef = None)
+      .url
+
+    def estimatorUrl(isOwner: Boolean): String =
+      raw"""http://localhost:9300/business-rates-find/estimate-your-business-rates/start-from-detailed-valuation?
+           |authorisationId=${futureAssessment.authorisationId}&
+           |isOwner=$isOwner&
+           |propertyLinkSubmissionId=${assessments.submissionId}&
+           |valuationId=${futureAssessment.assessmentRef}""".stripMargin.replaceAll("\n", "")
+
+    def enquiryUrl(isOwner: Boolean): String =
+      raw"""http://localhost:9300/business-rates-find/draft-list-enquiry/start-from-detailed-valuation?
+           |authorisationId=${futureAssessment.authorisationId}&
+           |isOwner=$isOwner&
+           |propertyLinkSubmissionId=${assessments.submissionId}&
+           |valuationId=${futureAssessment.assessmentRef}""".stripMargin.replaceAll("\n", "")
+
+    val currentListYear = "2017"
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments)))
+    when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments)))
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any())).thenReturn(Future.successful(false))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+  }
+
+  "draft request valuation page for an IP" should "display the valuation tab's dates and links correctly" in new FutureRequestSetup {
+    val result: Future[Result] = controller.myOrganisationAlreadyRequestedDetailValuation(
+      propertyLinkSubmissionId = assessments.submissionId,
+      valuationId = futureAssessment.assessmentRef
+    )(request)
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+
+    // request button should not exist
+    page.shouldNotContainText("Request a valuation")
+
+    page.html
+      .getElementById("future-valuation-caption")
+      .text shouldBe s"Future rateable value (from $futureEffectiveDate)"
+
+    val estimatorLink: Element = page.html.getElementById("future-estimate-link")
+    estimatorLink.text should include(futureEffectiveDate)
+    estimatorLink.attr("href") shouldBe estimatorUrl(isOwner = true)
+
+    page.html.getElementById("future-valuation-not-available").text should include(futureEffectiveDate)
+
+    page.html.getElementById("request-current-valuation").text should include(currentListYear)
+    page.html.getElementById("current-valuation-link").attr("href") shouldBe ipCurrentValuationUrl
+  }
+
+  "draft request valuation page for an IP" should "display the future help tab's dates and links correctly" in new FutureRequestSetup {
+    val result: Future[Result] = controller.myOrganisationAlreadyRequestedDetailValuation(
+      propertyLinkSubmissionId = assessments.submissionId,
+      valuationId = futureAssessment.assessmentRef
+    )(request)
+
+    val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
+
+    page.html.getElementById("may-change-subhead").text should include(futureEffectiveDate)
+    page.html.getElementById("may-change-content").text should include(futureEffectiveDate)
+
+    page.html.getElementById("change-details-link").attr("href") shouldBe ipCurrentValuationUrl + "#start-check-tab"
+
+    page.html.getElementById("too-high-content-1").text should include(futureEffectiveDate)
+    page.html.getElementById("too-high-link").attr("href") shouldBe ipCurrentValuationUrl + "#start-check-tab"
+
+    page.html.getElementById("other-content").text should include(futureEffectiveDate)
+    page.html.getElementById("other-link").attr("href") shouldBe enquiryUrl(isOwner = true)
+
+    val estimatorLink: Element = page.html.getElementById("help-estimator-link")
+    estimatorLink.text should include(futureEffectiveDate)
+    estimatorLink.attr("href") shouldBe estimatorUrl(isOwner = true)
+  }
+
+  "draft request valuation page for an agent" should "display the valuation tab's dates and links correctly" in new FutureRequestSetup {
+    val result: Future[Result] = controller.myClientsAlreadyRequestedDetailValuation(
+      propertyLinkSubmissionId = assessments.submissionId,
+      valuationId = futureAssessment.assessmentRef
+    )(request)
+
+    val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
+
+    // request button should not exist
+    page.shouldNotContainText("Request a valuation")
+
+    page.html
+      .getElementById("future-valuation-caption")
+      .text shouldBe s"Future rateable value (from $futureEffectiveDate)"
+
+    val estimatorLink = page.html.getElementById("future-estimate-link")
+    estimatorLink.text should include(futureEffectiveDate)
+    estimatorLink.attr("href") shouldBe estimatorUrl(isOwner = false)
+
+    page.html.getElementById("future-valuation-not-available").text should include(futureEffectiveDate)
+
+    page.html.getElementById("request-current-valuation").text should include(currentListYear)
+    page.html.getElementById("current-valuation-link").attr("href") shouldBe clientCurrentValuationUrl
+  }
+
+  "draft request valuation page for an agent" should "display the future help tab's dates and links correctly" in new FutureRequestSetup {
+    val result: Future[Result] = controller.myClientsAlreadyRequestedDetailValuation(
+      propertyLinkSubmissionId = assessments.submissionId,
+      valuationId = futureAssessment.assessmentRef
+    )(request)
+
+    val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
+
+    page.html.getElementById("may-change-subhead").text should include(futureEffectiveDate)
+    page.html.getElementById("may-change-content").text should include(futureEffectiveDate)
+
+    page.html.getElementById("change-details-link").attr("href") shouldBe clientCurrentValuationUrl + "#start-check-tab"
+
+    page.html.getElementById("too-high-content-1").text should include(futureEffectiveDate)
+    page.html.getElementById("too-high-link").attr("href") shouldBe clientCurrentValuationUrl + "#start-check-tab"
+
+    page.html.getElementById("other-content").text should include(futureEffectiveDate)
+    page.html.getElementById("other-link").attr("href") shouldBe enquiryUrl(isOwner = false)
+
+    val estimatorLink: Element = page.html.getElementById("help-estimator-link")
+    estimatorLink.text should include(futureEffectiveDate)
+    estimatorLink.attr("href") shouldBe estimatorUrl(isOwner = false)
+  }
+
   "detailed valuation check" should "return 303 SEE_OTHER when DVR case does exist" in new Setup {
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
@@ -667,6 +828,30 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
       s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/confirmation?submissionId=DVR123")
+  }
+
+  "request current detailed valuation by ip" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
+    val result: Future[Result] = controller.myOrganisationRequestDetailValuationCheck(
+      propertyLinkSubmissionId = assessments.submissionId,
+      valuationId = currentAssessment.assessmentRef,
+      uarn = currentAssessment.uarn,
+      challengeCaseRef = None,
+      fromFuture = Some(true)
+    )(request)
+    val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
+    page.html.getElementById("back-link").attr("href") shouldBe ipFutureValuationUrl
+  }
+
+  "request current detailed valuation by agent" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
+    val result: Future[Result] = controller.myClientsRequestDetailValuationCheck(
+      propertyLinkSubmissionId = assessments.submissionId,
+      valuationId = currentAssessment.assessmentRef,
+      uarn = currentAssessment.uarn,
+      challengeCaseRef = None,
+      fromFuture = Some(true)
+    )(request)
+    val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
+    page.html.getElementById("back-link").attr("href") shouldBe clientFutureValuationUrl
   }
 
   "request detailed valuation confirmation" should "return 200 OK when request is valid" in new Setup {
@@ -753,6 +938,32 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe OK
     contentAsString(result) should not include "If you need to submit a check urgently because of a change"
+  }
+
+  "already submitted detailed valuation request by ip" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any())).thenReturn(Future.successful(false))
+    val result: Future[Result] = controller.myOrganisationRequestDetailValuationCheck(
+      propertyLinkSubmissionId = assessments.submissionId,
+      valuationId = currentAssessment.assessmentRef,
+      uarn = currentAssessment.uarn,
+      challengeCaseRef = None,
+      fromFuture = Some(true)
+    )(request)
+    val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
+    page.html.getElementById("back-link").attr("href") shouldBe ipFutureValuationUrl
+  }
+
+  "already submitted detailed valuation request by agent" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any())).thenReturn(Future.successful(false))
+    val result: Future[Result] = controller.myClientsRequestDetailValuationCheck(
+      propertyLinkSubmissionId = assessments.submissionId,
+      valuationId = currentAssessment.assessmentRef,
+      uarn = currentAssessment.uarn,
+      challengeCaseRef = None,
+      fromFuture = Some(true)
+    )(request)
+    val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
+    page.html.getElementById("back-link").attr("href") shouldBe clientFutureValuationUrl
   }
 
   "an IP starting a check case" should "get redirected to a page in check-frontend" in new Setup {

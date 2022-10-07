@@ -14,15 +14,13 @@
  * limitations under the License.
  *@
 
+@import _root_.utils.Formatters
 @import config.ApplicationConfig
 @import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
+@import models.dvr.cases.check.CheckType
 @import models.dvr.cases.check.projection.CaseDetails
-
-@import views.html.dvr.challengeCasesDetails
-@import views.html.dvr.checkCasesDetails
-@import models.dvr.cases.check.{CheckType, StartCheckForm}
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import _root_.utils.Formatters
+@import models.dvr.cases.check.StartCheckForm
+@import views.html.dvr.tabs._
 
 @this(
   mainLayout: views.html.mainLayout,
@@ -45,7 +43,7 @@
 @checkCases = @{model.checksAndChallenges.fold(List[CaseDetails]())(_._1)}
 @challengeCases = @{model.checksAndChallenges.fold(List[CaseDetails]())(_._2)}
 
-@evaluateRoute(t: String) = @{
+@evaluateRoute = @{ t: String =>
     if(model.owner) {
         controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailedValuationRequestFile(model.submissionId, model.valuationId, t).url
     } else {
@@ -53,151 +51,12 @@
     }
 }
 
-  @titleCaption = @{
+@titleCaption = @{
     if (model.owner) {
         messages("available.requestvaluation.ip.titleCaption")
     } else {
         messages("available.requestvaluation.agent.titleCaption", model.clientOrgName)
     }
-  }
-@fromDate = @{
-    model.assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
-}
-
-@endDate = @{
-    if(!model.assessment.isDraft) {
-        (model.assessment.currentFromDate, model.assessment.currentToDate) match {
-            case (Some(_), None)     => Some(messages("assessments.enddate.present.lowercase"))
-            case (Some(_), Some(to)) => Some(Formatters.formatDate(to))
-            case _                   => None
-        }
-    } else None
-}
-
-@helpWithStartingCheckCaseContent = {
-    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p1")</p>
-    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p2")</p>
-    <ul class="govuk-list">
-        <li><a class="govuk-link" target="_blank" href="https://www.gov.uk/guidance/confirm-your-property-details">@messages("available.requestvaluation.startCheckTab.guidance.content.aboutCheck")</a></li>
-        <li><a class="govuk-link" target="_blank" href="https://www.gov.uk/guidance/challenge-the-valuation">@messages("available.requestvaluation.startCheckTab.guidance.content.aboutChallenge")</a></li>
-    </ul>
-}
-
-@valuationTabContent = {
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
-            <h2 class="govuk-caption-l">@messages("available.requestvaluation.h2", fromDate, endDate.getOrElse(messages("assessments.enddate.present.lowercase")))</h2>
-            <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="grand-total-top">@model.rateableValueFormatted.getOrElse(messages("assessments.na"))</p>
-            @govukInsetText(InsetText(
-                content = Text(messages("available.requestvaluation.inset"))
-            ))
-            <p class="govuk-body"><a class="govuk-link" href="@evaluateRoute(model.valuation)">@messages("available.requestvaluation.downloadValuationLink")</a></p>
-
-            <h2 class="govuk-heading-l">@messages("available.requestvaluation.changeValuation")</h2>
-
-            @if(model.isDraftList && model.isWelshProperty) {
-                <p class="govuk-body">@messages("available.requestvaluation.p1.draft.welshProperty")</p>
-            } else if (model.isDraftList && !model.isWelshProperty) {
-                <p class="govuk-body">@messages("available.requestvaluation.p1.draft.englishProperty")</p>
-            } else {
-                <p class="govuk-body">@messages("available.requestvaluation.p1")</p>
-                <p class="govuk-body">@Html(messages("available.requestvaluation.p2", evaluateRoute(model.check)))</p>
-                <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
-
-                @govukWarningText(WarningText(
-                    iconFallbackText = messages("warning.text"),
-                    content = Text(messages("available.requestvaluation.warning"))
-                ))
-
-                @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some("#start-check-tab"), attributes = Map("id" -> "valuationtab-start-check")))
-            }
-        </div>
-    </div>
-}
-
-@startCheckTabContent = {
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h2 class="govuk-heading-l">@messages("available.requestvaluation.startCheckTab.heading")</h2>
-
-            @govukDetails(Details(
-                id = Some("help-starting-check-case"),
-                summary = Text(messages("available.requestvaluation.startCheckTab.guidance.summary")),
-                content = HtmlContent(helpWithStartingCheckCaseContent)
-            ))
-
-            @formWithCSRF(action = if(model.owner) {
-                controllers.detailedvaluationrequest.routes.DvrController.myOrganisationStartCheck(model.submissionId,model.valuationId, model.uarn)
-            } else {
-                controllers.detailedvaluationrequest.routes.DvrController.myClientsStartCheck(model.submissionId,model.valuationId, model.uarn)
-            } , 'id -> "checkType-form") {
-
-                @govukRadios(Radios(
-                    fieldset = Some(Fieldset(
-                        legend = Some(Legend(
-                            content = Text(messages("available.requestvaluation.startCheckTab.question")),
-                            classes = "govuk-fieldset__legend--m",
-                            isPageHeading = false
-                        ))
-                    )),
-                    idPrefix = Some("checkType_"),
-                    name = "checkType",
-                    items = Seq(
-                        RadioItem(
-                            id = Some("checkType_internal"),
-                            content = Text(messages("available.requestvaluation.startCheckTab.option1.content")),
-                            value = Some(CheckType.Internal.value),
-                            hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option1.hint"))))
-                        ),
-                        RadioItem(
-                            id = Some("checkType_rateableValueTooHigh"),
-                            content = Text(messages("available.requestvaluation.startCheckTab.rateableValueTooHigh.content")),
-                            value = Some(CheckType.RateableValueTooHigh.value)
-                        ),
-                        RadioItem(
-                            id = Some("checkType_remove"),
-                            content = Text(messages("available.requestvaluation.startCheckTab.option2.content")),
-                            value = Some(CheckType.Remove.value),
-                            hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option2.hint"))))
-                        ),
-                        RadioItem(
-                            id = Some("checkType_split"),
-                            content = Text(messages("available.requestvaluation.startCheckTab.option3.content")),
-                            value = Some(CheckType.Split.value)
-                        ),
-                        RadioItem(
-                            id = Some("checkType_merge"),
-                            content = Text(messages("available.requestvaluation.startCheckTab.option4.content")),
-                            value = Some(CheckType.Merge.value)
-                        ),
-                        RadioItem(
-                            id = Some("checkType_external"),
-                            content = Text(messages("available.requestvaluation.startCheckTab.option5.content")),
-                            value = Some(CheckType.External.value),
-                            hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option5.hint"))))
-                        ),
-                        RadioItem(
-                            id = Some("checkType_legalDecision"),
-                            content = Text(messages("available.requestvaluation.startCheckTab.option6.content")),
-                            value = Some(CheckType.LegalDecision.value)
-                        )
-                    )
-                ).withFormField(startCheckForm("checkType")))
-
-                <input type="hidden" name="propertyLinkSubmissionId" value="@model.submissionId">
-                <input type="hidden" name="authorisationId" value="@model.authorisationId">
-                <input type="hidden" name="uarn" value="@model.uarn">
-                <input type="hidden" name="dvrCheck" value="false">
-                <input type="hidden" name="isOwner" value="@model.owner">
-
-                    @govukButton(Button(
-                        content = Text(messages("available.requestvaluation.startCheckTab.button.title")),
-                        attributes = Map("id" -> "start-check_start-check-tab")
-                    ))
-                }
-        </div>
-    </div>
 }
 
 @checkCasesTabTitle = @{
@@ -215,16 +74,21 @@
     }
 }
 
-@checkCasesTabContent = @{
-    checkCasesDetails(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, model.listYear, checkCases, evaluateRoute(model.check), "#start-check-tab")(govukButton, govukTable, govukDetails, govukWarningText)
+@valuationTabContent = @{valuationTab(model, evaluateRoute)(govukButton, govukInsetText, govukWarningText)}
+
+@startCheckTabContent = @{
+    startCheckTab(model, startCheckForm)(govukButton, govukDetails, govukRadios, formWithCSRF)
 }
 
-@challengeCasesTabContent = {
-    @challengeCasesDetails(model.authorisationId, challengeCases, model.owner, model.submissionId, model.valuationId, model.uarn)(govukTable, govukDetails)
+@checkCasesTabContent = @{
+    checkCasesDetailsTab(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, model.listYear, checkCases, evaluateRoute(model.check), "#start-check-tab")(govukButton, govukTable, govukDetails, govukWarningText)
 }
-@agentsTabContent = {
-    @agentsTab(model)(govukTable)
+
+@challengeCasesTabContent = @{
+    challengeCasesDetailsTab(model.authorisationId, challengeCases, model.owner, model.submissionId, model.valuationId, model.uarn)(govukTable, govukDetails)
 }
+
+@agentsTabContent = @{agentsTab(model)(govukTable)}
 
 @tabs = @{
    val valuation: TabItem = TabItem(
