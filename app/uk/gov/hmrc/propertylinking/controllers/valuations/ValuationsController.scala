@@ -103,9 +103,8 @@ class ValuationsController @Inject()(
           case Some(EmptyAssessments()) | None => Future.successful(notFound)
           case Some(assessments) =>
             if (owner)
-              Future.successful(
-                okResponse(assessments, backlink = s"${config.dashboardUrl("return-to-your-properties")}"))
-            else calculateBackLink(submissionId).map(backlink => okResponse(assessments, backlink))
+              Future.successful(okResponse(assessments, backlink = calculateOwnerBackLink))
+            else calculateAgentBackLink(submissionId).map(backlink => okResponse(assessments, backlink))
         }
     }
 
@@ -119,7 +118,11 @@ class ValuationsController @Inject()(
       .viewDetailedAssessment(submissionId, authorisationId, assessment.assessmentRef, owner)
       .url -> assessment
 
-  private def calculateBackLink(
+  private def calculateOwnerBackLink(implicit request: AssessmentsPageSessionRequest[AnyContent]) =
+    if (request.previousPage == PreviousPage.Dashboard) config.dashboardUrl("home")
+    else config.dashboardUrl("return-to-your-properties")
+
+  private def calculateAgentBackLink(
         submissionId: String)(implicit request: AssessmentsPageSessionRequest[_], hc: HeaderCarrier): Future[String] =
     request.sessionData match {
       case AssessmentsPageSession(PreviousPage.Dashboard) => Future.successful(config.dashboardUrl("home"))
