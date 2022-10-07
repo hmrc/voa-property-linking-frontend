@@ -278,4 +278,21 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl("home")
   }
 
+  it should "return 200 with assessments for OWNER with the correct back link when Dashboard is the previous page" in new ValuationsSetup {
+
+    when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
+      .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard))))
+
+    lazy val as = apiAssessments(ownerAuthorisation)
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val res = valuationsController.valuations(plSubId, owner = true)(request)
+    status(res) shouldBe OK
+
+    val returnedHtml = contentAsString(res)
+    val document: Document = Jsoup.parse(returnedHtml)
+
+    document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl("home")
+  }
+
 }
