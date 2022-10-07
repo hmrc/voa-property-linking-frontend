@@ -32,7 +32,7 @@
 
 @address = @{Formatters.capitalisedAddress(model.address)}
 
-@if(config.reval2023Enabled && model.isDraftList && !model.isWelsh) {
+@if(model.isDraftList && !model.isWelsh) {
 
     @mainLayout(
         pageTitle = address,
