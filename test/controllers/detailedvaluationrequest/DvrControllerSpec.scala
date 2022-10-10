@@ -23,7 +23,7 @@ import models.challenge.ChallengeCaseStatus
 import models.dvr.cases.check.CheckCaseStatus
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
 import org.mockito.ArgumentMatchers.{any, eq => matching}
-import org.mockito.Mockito.{never, verify, when}
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -38,13 +38,14 @@ import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import org.scalatest.Inspectors
 import play.api.mvc.Result
-
 import scala.concurrent.Future
 
 class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   trait Setup {
     implicit val request = FakeRequest()
+    val enquiryUrlTemplate = "/draft-list-enquiry/start-from-dvr-valuation"
+    val estimatorUrlTemplate = "/estimate-your-business-rates/start-from-dvr-valuation"
 
     val controller = new DvrController(
       errorHandler = mockCustomErrorHandler,
@@ -59,7 +60,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       requestedDetailedValuationView = requestedDetailedValuationView,
       dvrFilesView = dvrFilesView,
       cannotRaiseChallengeView = cannotRaiseChallengeView,
-      propertyMissingView = propertyMissingView
+      propertyMissingView = propertyMissingView,
+      enquiryUrlTemplate = enquiryUrlTemplate,
+      estimatorUrlTemplate = estimatorUrlTemplate
     )
 
     lazy val mockSubmissionIds = {
@@ -246,6 +249,125 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
   }
 
+  "dvr valuation" should "display english 'Help with current valuation' tab" in new Setup {
+    val draftAssessments = assessments.copy(
+      assessments = assessments.assessments.map(assessment => assessment.copy(listType = ListType.DRAFT)))
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(draftAssessments)))
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerCheckCaseDetails)))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerChallengeCaseDetails)))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val propertyLinkSubmissionId = "1111"
+    val uarn = 1L
+    val valuationId =
+      draftAssessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId,
+        valuationId,
+        uarn
+      )(request)
+
+    status(result) shouldBe OK
+
+    val doc = Jsoup.parse(contentAsString(result))
+
+    val page = HtmlPage(doc)
+
+    page.shouldContainText("If you want to change something in this valuation")
+
+    page.shouldContainText("Local authority reference: BAREF")
+    page.titleShouldMatch("123, SOME ADDRESS - Valuation Office Agency - GOV.UK")
+    page.shouldContain("#help-tab", 1)
+
+    page.verifyElementText("future-valuation-help-h2-title", "Help with future valuation")
+    page.verifyElementText("rateable-value-may-change-sub-heading", "Your rateable value may change on 1 April 2023")
+    page.verifyElementText("property-details-need-changing-sub-heading", "Your property details need changing")
+    page.verifyElementText("rateable-value-is-high-sub-heading", "You think the rateable value is too high")
+    page.verifyElementText(
+      "other-question-about-your-valuation-sub-heading",
+      "You have some other question about your valuation")
+    page.verifyElementText(
+      "coronavirus-affected-sub-heading",
+      "How Coronavirus (COVID-19) affected the future rateable value")
+    page.shouldContainText(
+      "We regularly update the rateable values of all business properties in England and Wales to reflect changes in the property market.")
+
+    page.verifyElementTextByAttribute(
+      "href",
+      routes.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId, valuationId, uarn).url,
+      "Start a Check case from the current valuation Start a Check case from the current valuation"
+    )
+
+    page.verifyElementTextByAttribute(
+      "href",
+      "https://www.gov.uk/government/collections/check-and-challenge-step-by-step",
+      "How to use a business rates valuation account")
+    page.verifyElementTextByAttribute(
+      "href",
+      "https://www.gov.uk/apply-for-business-rate-relief",
+      "Business rates relief")
+  }
+
+  "dvr valuation" should "display welsh 'Help with current valuation' tab" in new Setup {
+    val draftAssessments = assessments.copy(assessments = assessments.assessments.map(assessment =>
+      assessment.copy(listType = ListType.DRAFT, billingAuthorityCode = Some("6000"))))
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(draftAssessments)))
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerCheckCaseDetails)))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerChallengeCaseDetails)))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val propertyLinkSubmissionId = "1111"
+    val uarn = 1L
+    val valuationId =
+      draftAssessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId,
+        valuationId,
+        uarn
+      )(request)
+
+    status(result) shouldBe OK
+
+    val doc = Jsoup.parse(contentAsString(result))
+
+    val page = HtmlPage(doc)
+
+    page.shouldContainText("If you want to change something in this valuation")
+
+    page.shouldContainText("Local authority reference: BAREF")
+    page.titleShouldMatch("123, SOME ADDRESS - Valuation Office Agency - GOV.UK")
+    page.shouldContain("#help-tab", 1)
+
+    page.verifyElementText("future-valuation-help-h2-title", "Help with future valuation")
+    page.verifyElementText("rateable-value-may-change-sub-heading", "Your rateable value may change on 1 April 2023")
+    page.verifyElementText("property-details-need-changing-sub-heading", "Your property details need changing")
+    page.verifyElementText("rateable-value-is-high-sub-heading", "You think the rateable value is too high")
+    page.verifyElementText(
+      "other-question-about-your-valuation-sub-heading",
+      "You have some other question about your valuation")
+    page.verifyElementText(
+      "coronavirus-affected-sub-heading",
+      "How Coronavirus (COVID-19) affected the future rateable value")
+    page.shouldContainText("From 1 April 2023, use your business rates valuation account to send us a Check case.")
+
+    page.verifyElementTextByAttribute(
+      "href",
+      "https://www.gov.uk/apply-for-business-rate-relief",
+      "Business rates relief")
+
+    page.verifyElementTextByAttribute(
+      "href",
+      "https://www.gov.uk/apply-for-business-rate-relief",
+      "Business rates relief")
+  }
   "detailed valuation check" should "show all 4 tabs when checks and challenges are available" in new Setup {
 
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
@@ -498,7 +620,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     private val tabs: Element = page.html.getElementsByClass("govuk-tabs__list").first()
 
-    tabs.getElementsByTag("li").size() shouldBe 2
+    tabs.getElementsByTag("li").size() shouldBe 3
     tabs.getElementsByAttributeValue("href", "#agents-tab").text shouldBe "Agents"
 
     page.html.getElementById("agents-tab-heading").text() shouldBe "Agents assigned to this property"

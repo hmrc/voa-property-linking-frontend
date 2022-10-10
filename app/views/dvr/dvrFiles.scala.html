@@ -38,12 +38,19 @@
   govukInsetText: GovukInsetText
 )
 
-@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
+@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm], enquiryUrl: String, estimatorUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @address = @{Formatters.capitalisedAddress(model.address)}
 @checkCases = @{model.checksAndChallenges.fold(List[CaseDetails]())(_._1)}
 @challengeCases = @{model.checksAndChallenges.fold(List[CaseDetails]())(_._2)}
+
+@valuationRoute = @{
+    if(model.owner) {
+        controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(model.submissionId, model.valuationId, model.uarn).url
+    } else {
+        controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(model.submissionId, model.valuationId, model.uarn).url
+    }
+}
 
 @evaluateRoute(t: String) = @{
     if(model.owner) {
@@ -189,7 +196,7 @@
                 <input type="hidden" name="authorisationId" value="@model.authorisationId">
                 <input type="hidden" name="uarn" value="@model.uarn">
                 <input type="hidden" name="dvrCheck" value="false">
-                <input type="hidden" name="isOwner" value="@model.owner">
+                <input type="hidden" name="owner" value="@model.owner">
 
                     @govukButton(Button(
                         content = Text(messages("available.requestvaluation.startCheckTab.button.title")),
@@ -199,6 +206,49 @@
         </div>
     </div>
 }
+@futureValuationHelpTabContent = {
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h2 class="govuk-heading-l" id="future-valuation-help-h2-title">@messages("available.requestvaluation.tab.futureValuation.title")</h2>
+            <h3 class="govuk-heading-m" id="rateable-value-may-change-sub-heading">@messages("available.requestvaluation.tab.futureValuation.subheading.1")</h3>
+            <p class="govuk-body">@messages("available.requestvaluation.tab.futureValuation.p.1")</p>
+            <h3 class="govuk-heading-m" id="property-details-need-changing-sub-heading">@messages("available.requestvaluation.tab.futureValuation.subheading.2")</h3>
+            @if(model.isWelshProperty){
+                <p class="govuk-body">@Html(messages("available.requestvaluation.tab.futureValuation.welsh.p.2", enquiryUrl, "welsh-future-valuation-enquiry-link"))</p>
+                <p class="govuk-body">@messages("available.requestvaluation.tab.futureValuation.welsh.p.3")</p>
+                <p class="govuk-body">@Html(messages("available.requestvaluation.tab.futureValuation.welsh.p.4", "how-to-use-business-rates-account-link-1"))</p>
+
+            }else{
+                <p class="govuk-body">@messages("available.requestvaluation.tab.futureValuation.p.2")</p>
+                <p class="govuk-body"><a class="govuk-link" id="current-valuation-details-changed-link-1" href="@valuationRoute">@messages("available.requestvaluation.tab.futureValuation.p.3")</a></p>
+            }
+
+            <h3 class="govuk-heading-m" id="rateable-value-is-high-sub-heading">@messages("available.requestvaluation.tab.futureValuation.subheading.3")</h3>
+
+            @if(model.isWelshProperty){
+                <p class="govuk-body">@messages("available.requestvaluation.tab.futureValuation.welsh.p.5")</p>
+                <p class="govuk-body">@Html(messages("available.requestvaluation.tab.futureValuation.welsh.p.4", "how-to-use-business-rates-account-link-2"))</p>
+            }else{
+                <p class="govuk-body">@messages("available.requestvaluation.tab.futureValuation.p.4")</p>
+                <p class="govuk-body">@messages("available.requestvaluation.tab.futureValuation.p.5")</p>
+                <p class="govuk-body"><a class="govuk-link" id="current-valuation-too-high-link-2" href="@valuationRoute">@messages("available.requestvaluation.tab.futureValuation.p.3")</a></p>
+           }
+            <h3 class="govuk-heading-m" id="other-question-about-your-valuation-sub-heading">@messages("available.requestvaluation.tab.futureValuation.subheading.4")</h3>
+            <p class="govuk-body">@Html(messages("available.requestvaluation.tab.futureValuation.p.6", enquiryUrl))</p>
+
+            <h3 class="govuk-heading-m" id="coronavirus-affected-sub-heading">@messages("available.requestvaluation.tab.futureValuation.subheading.5")</h3>
+            <p class="govuk-body">@messages("available.requestvaluation.tab.futureValuation.p.7")</p>
+            <p class="govuk-body">@messages("available.requestvaluation.tab.futureValuation.p.8")</p>
+            <ul class="govuk-list">
+                @if(!model.isWelshProperty){<li>@Html(messages("available.requestvaluation.tab.futureValuation.p.9"))</li>}
+                <li>@Html(messages("available.requestvaluation.tab.futureValuation.p.10"))</li>
+                <li><a class="govuk-link" id="estimator-link" href="@estimatorUrl">@messages("available.requestvaluation.tab.futureValuation.p.11")</a></li>
+                <li>@Html(messages("available.requestvaluation.tab.futureValuation.p.12"))</li>
+            </ul>
+
+        </div>
+    </div>
+    }
 
 @checkCasesTabTitle = @{
     if(checkCases.isEmpty){
@@ -255,6 +305,13 @@
               content = HtmlContent(challengeCasesTabContent)
             )
           )
+    val futureValuationHelpTab: TabItem = TabItem(
+        id = Some("help-tab"),
+        label = messages("available.requestvaluation.tab.futureValuation.title"),
+        panel = TabPanel(
+            content = HtmlContent(futureValuationHelpTabContent)
+        )
+    )
     val agents: TabItem = TabItem(
             id = Some("agents-tab"),
             label = agentsTabTitle,
@@ -265,6 +322,7 @@
 
     Seq(
         Some(valuation),
+        Some(futureValuationHelpTab).filter(_ => model.isDraftList),
         Some(startCheck).filterNot(_ => model.isDraftList),
         Some(check).filterNot(_ => model.isDraftList),
         Some(challenge).filterNot(_ => model.isDraftList || challengeCases.isEmpty),

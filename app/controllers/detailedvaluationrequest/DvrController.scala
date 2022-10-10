@@ -39,7 +39,7 @@ import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
 import utils.{Cats, Formatters}
 import java.time.format.DateTimeFormatter
 
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
 import models.dvr.cases.check.common.{Agent, AgentCount}
 
@@ -58,7 +58,9 @@ class DvrController @Inject()(
       requestedDetailedValuationView: views.html.dvr.requestedDetailedValuation,
       dvrFilesView: views.html.dvr.dvrFiles,
       cannotRaiseChallengeView: views.html.dvr.cannotRaiseChallenge,
-      propertyMissingView: views.html.errors.propertyMissing
+      propertyMissingView: views.html.errors.propertyMissing,
+      @Named("vmv.send-enquiry.url") enquiryUrlTemplate: String,
+      @Named("vmv.estimator-dvr-valuation.url") estimatorUrlTemplate: String
 )(
       implicit val executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -187,7 +189,20 @@ class DvrController @Inject()(
                   agentTabData = agentsData,
                   assessment = assessment
                 ),
-                startCheckForm = form
+                startCheckForm = form,
+                enquiryUrl = enquiryUrlTemplate.templated(
+                  "valuationId"              -> valuationId,
+                  "authorisationId"          -> link.authorisationId,
+                  "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
+                  "isOwner"                  -> owner,
+                  "uarn"                     -> uarn
+                ),
+                estimatorUrl = estimatorUrlTemplate.templated(
+                  "authorisationId"          -> link.authorisationId,
+                  "valuationId"              -> valuationId,
+                  "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
+                  "isOwner"                  -> owner,
+                  "uarn"                     -> uarn)
               )
               if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
             }
