@@ -894,7 +894,6 @@ label.toDate.year.client=When was your client''s last day as the owner or occupi
 uploadRatesBill.show.title=Upload your business rates bill
 uploadRatesBill.show.client.title=Upload your client''s business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
-uploadFile.allowedTypes.l1=The file must be a Word document, Excel spreadsheet, PDF or image (PNG or JPG) and be less than 10MB.
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
 uploadRatesBill.show.button=Continue
@@ -959,8 +958,6 @@ uploadOtherEvidence.evidenceTypes.ratesBill=Business rates bill
 
 uploadOtherEvidence.unableToProvideEvidence=I cannot provide evidence
 uploadOtherEvidence.uploadFile=Upload a file
-uploadOtherEvidence.uploadFile.hint=The file must be a Word document, Excel spreadsheet, PDF or image (PNG or JPG) and be less than 10MB.
-
 uploadEvidence.show.title=Provide other evidence
 uploadEvidence.p.1=You’ve indicated that you don’t have a business rates bill for this property. Please provide other evidence.
 uploadEvidence.evidenceTypes=Evidence that we may accept includes:
@@ -987,8 +984,6 @@ evidenceType.waterRateDemand=Water rate demand
 evidenceType.otherUtilityBill=Other utility bill
 evidenceType.ratesBill=Rates bill
 evidenceType.landRegistryTitle=Land Registry title
-
-fileupload.chooseFile=Choose file
 
 label.evidence=Please upload evidence so that we can verify your link to the property
 evidence.label=Provide other evidence
@@ -1478,7 +1473,6 @@ internalServerError.time=Time: {0}
 help.declined=Property link declined by the VOA
 help.declined.p1=The property link has been declined by the VOA. If you believe this has been declined in error, please contact the VOA.
 help.declined.p2=<p>Due to the outbreak of Covid-19 we are currently unable to offer a telephony service and it will take longer than usual to respond to your query. If you need to contact us please use our <a class="govuk-link" href="https://www.gov.uk/contact-voa">Contact Form</a> and we will respond as soon as possible. We’re sorry for any inconvenience this has caused.</p>
-#help.declined.p2=Telephone: 03000 501 501
 declined.getHelp=Declined help
 label.close=Close
 
@@ -1630,7 +1624,6 @@ before.you.start.p1=Most of the valuation information about your property is con
 before.you.start.p2=To claim a property, search for it on the next page then click on ''claim this property'' and follow the instructions.
 before.you.start.p3=You''ll need to provide evidence of your link to the property. The best evidence for this is a business rates bill as it shows the property address, local authority reference and who''s responsible for the bill. If you can''t provide a business rates bill, you can provide other evidence that shows you either own or occupy the property, such as utility bills.
 before.you.start.p4=Once you''ve claimed your property, it can take up to 15 working days to be approved.
-
 before.you.start.startButton=Start
 
 #COMMON
@@ -1640,7 +1633,6 @@ app.common.no = No
 common.titleSuffix=- Valuation Office Agency - GOV.UK
 common.localAuthorityReference=Local authority reference:
 
-
 #Registration Failure
 registration.error.title=You are unable to register
 registration.error.heading=Registration failed
@@ -1648,7 +1640,6 @@ registration.error.p1=You can’t register until the Administrator from your org
 registration.error.p2=You’ll need to speak to the person that gave you your Government Gateway sign-in details.
 
 #challenge
-
 challengeRules.summary=Help with Check cases and Challenge cases
 challengeRules.p1=A Check case lets you tell us that property details are correct or need changing. We may accept your changes and adjust the rateable value.
 challengeRules.p2=A Challenge case lets you tell us you think the rateable value is too high. You can explain what you think it should be and provide evidence to support what you say. We may accept your challenge and change the rateable value.
@@ -1663,7 +1654,6 @@ timeout.dialog.title = You are about to be timed out
 
 ##Business rate attachments
 supportingDocuments.defaultError=Unknown/Extension missing
-remove.file=Remove file
 error.summary.title=There is a problem
 error.summary.text=Check the following
 error.businessRatesAttachment.unavailable=The selected file could not be uploaded – try again
@@ -1673,9 +1663,13 @@ error.businessRatesAttachment.evidence.not.selected=Select evidence type
 error.businessRatesAttachment.ratesBill.not.selected=Select a rates bill
 error.businessRatesAttachment.file.not.selected=Select a file
 error.businessRatesAttachment.does.not.support.file.types=The selected file must be a Word doc, Excel sheet, PDF, PNG or JPG
-businessRatesAttachment.file.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit
-fileupload.support.documents.size.reached.max.limit=You have uploaded 1 file, the maximum allowable limit
-fileupload.pleaseWait=Please wait whilst your file is uploading. This may take some time.
+
+##File upload generic messages
+fileUpload.descriptionList.key=Evidence
+fileUpload.descriptionList.action=Remove
+fileUpload.pleaseWait=Please wait whilst your file is uploading. This may take some time.
+fileUpload.allowedTypes=The file must be a Word document, Excel spreadsheet, PDF or image (PNG or JPG) and be less than 10MB.
+fileupload.chooseFile=Choose file
 
 #Javascript Error messages
 label.selectValue=Select an address

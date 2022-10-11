@@ -132,59 +132,56 @@
     }
 
     <div id="file-upload-form" class="govuk-!-display-none">
-        @formWithCSRF(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
-            <div id="initiateFields" class="govuk-!-display-none"></div>
+    @formWithCSRF(action = UploadController.initiate(EvidenceChoices.OTHER), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+        <div id="initiateFields" class="govuk-!-display-none"></div>
 
-                 @if(uploadedFiles.size < 1){
-                    <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty){govuk-form-group--error}">
-                        <label class="govuk-label" for="newFile">
-                            <span class="govuk-visually-hidden">@messages("fileupload.chooseFile")</span>
-                            <input type="file" id="newFile" name="file" class="govuk-file-upload  @if(errors.nonEmpty){govuk-file-upload--error}" tabindex="-1" style="position: absolute; left: -9999px; top: -9999px; z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
-                        </label>
-                        @if(errors.nonEmpty){
-                            <span id="file-upload-1-error" class="govuk-error-message">
-                            @errors.map { error =>
-                                <span class="govuk-visually-hidden">@messages("accessibility.error.label")</span> @messages(error)
-                            }
-                            </span>
-                        }
-                        <div class="govuk-form-group">
-                            <label class="govuk-label--s" for="newFileButton">@messages("common.uploadFile.label")
-                               <div id="fileTypesText" class="govuk-hint">
-                                   @messages("uploadOtherEvidence.uploadFile.hint")
-                               </div>
-                            </label>
-                            <input id="newFileButton" class="govuk-file-upload" name="file-upload-1" type="file">
+        @if(uploadedFiles.size < 1) {
+            <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty) {govuk-form-group--error}">
+                <label class="govuk-label" for="newFile">
+                    <span class="govuk-visually-hidden">@messages("fileupload.chooseFile")</span>
+                    <input type="file" id="newFile" name="file" class="govuk-file-upload  @if(errors.nonEmpty) {govuk-file-upload--error}" tabindex="-1" style="position: absolute;
+                        left: -9999px;
+                        top: -9999px;
+                        z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
+                </label>
+                <div class="govuk-form-group">
+                    <label class="govuk-label--s" for="newFileButton">@messages("common.uploadFile.label")
+                        <div id="fileTypesText" class="govuk-hint">
+                        @messages("fileUpload.allowedTypes")
                         </div>
-                    </div>
-                }else{
-                    @govukWarningText(WarningText(
-                        iconFallbackText = messages("warning.text"),
-                        content = Text(messages("businessRatesAttachment.file.size.reached.max.limit"))
-                    ))
-                }
-
-                <div class="message-warning govuk-!-display-none" id="message-warning"><p class="govuk-body">@messages("fileupload.pleaseWait")</p></div>
-
-               @if(uploadedFiles.nonEmpty) {
-                   <table class="govuk-table">
-                       <tbody class="govuk-table__body">
-                       @uploadedFiles.map { case (fileReference, upload) =>
-                       <tr class="govuk-table__row">
-                           <td class="govuk-table__cell">@{
-                               upload.fileMetadata.toDisplayFileName
-                           }</td>
-                           <td class="govuk-table__cell">
-                               <button id="remove-file" type="submit" class="govuk-button govuk-button--secondary" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)">
-                               @messages("remove.file")
-                       </button>
-                       </td>
-                       </tr>
-                       }
-                       </tbody>
-                   </table>
-               }
+                    </label>
+                    @errors.map { error =>
+                        <p id="file-upload-1-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">@messages("accessibility.error.label")</span> @messages(error)
+                        </p>
+                    }
+                    <input id="newFileButton" class="govuk-file-upload" name="file-upload-1" type="file">
+                </div>
+            </div>
         }
+
+        <div class="message-warning govuk-!-display-none" id="message-warning"><p class="govuk-body">@messages("fileUpload.pleaseWait")</p></div>
+
+        @if(uploadedFiles.nonEmpty) {
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        @messages("fileUpload.descriptionList.key")
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                    @uploadedFiles.map { case (fileReference, upload) =>
+                        @upload.fileMetadata.toDisplayFileName
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <button id="remove-file" type="submit" class="govuk-body govuk-link" formaction="@UploadController.remove(fileReference, EvidenceChoices.OTHER)">
+                        @messages("fileUpload.descriptionList.action")
+                        </button>
+                    </dd>
+                    }
+                </div>
+            </dl>
+        }
+    }
     </div>
 
     @govukButton(Button(
