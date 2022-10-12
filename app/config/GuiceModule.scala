@@ -75,8 +75,8 @@ class GuiceModule(
   private def bindVmvFrontendEndpoints(): Unit =
     bindEndpoints(
       Map(
-        "vmv.send-enquiry.url"            -> "resources.vmv.enquiry.path",
-        "vmv.estimator-dvr-valuation.url" -> "resources.vmv.estimator.dvr-valuation.path",
+        "vmv.send-enquiry.url"            -> "resources.vmv.frontend.enquiry.path",
+        "vmv.estimator-dvr-valuation.url" -> "resources.vmv.frontend.estimator.dvr-valuation.path",
       ),
       servicesConfig.getString("vmv-frontend.url")
     )
