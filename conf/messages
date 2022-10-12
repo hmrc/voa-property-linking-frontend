@@ -1060,6 +1060,7 @@ requestDetailedValuation.p.3=The majority of our customers prefer us to send inf
 requestDetailedValuation.p.4=If you’d prefer us to send this by post, we’ll send it to the address that you provided on the ‘your contact details’ page during registration.
 requestDetailedValuation.button=Request a valuation
 
+auto.requestDetailedValuation.caption=Property
 auto.requestDetailedValuation.title=Request a detailed valuation
 auto.requestDetailedValuation.smallTitle=Detailed valuation request for
 auto.requestDetailedValuation.p.1=You need to request this detailed valuation if you want to view it or submit a check.
@@ -1069,6 +1070,14 @@ auto.requestDetailedValuation.p.3=If you don’t want to request this, you can <
 auto.requestDetailedValuation.button=Request a valuation
 auto.requestDetailedValuation.effectiveDate=<b>Effective date:</b> {0}
 auto.requestDetailedValuation.rateableValue=<b>Rateable Value:</b> £{0}
+
+auto.requestDetailedValuation.future.tabName=Valuation
+auto.requestDetailedValuation.future.rv.caption=Future rateable value (from {0})
+auto.requestDetailedValuation.future.rv.inset=This is not the amount you will pay. It is used to calculate your business rates bill. {0}.
+auto.requestDetailedValuation.future.rv.inset.link=<a class="govuk-link" id="future-estimate-link" href="{1}">Estimate what the business rates bill may be from {0}</a>
+auto.requestDetailedValuation.future.p.1=This detailed valuation will not be available until {0}. You will be able to request it from that date.
+auto.requestDetailedValuation.future.p.2=The current {0} detailed valuation can be requested from the {1}.
+auto.requestDetailedValuation.future.p.2.link=<a class="govuk-link" id="current-valuation-link" href="{0}">current valuation</a>
 
 requestDetailedValuation.heading.challenge=Already completed a check?
 requestDetailedValuation.challenge.p=Once you’ve completed a check, the VOA will contact you with the outcome. If you disagree with the outcome of the check or you believe the rateable value of your property is incorrect, you can let us know. Doing this is known as a challenge. (You can’t start a challenge until you’ve received the outcome for your check)
@@ -1117,35 +1126,30 @@ available.requestvaluation.h2=Current rateable value ({0} to {1})
 available.requestvaluation.inset=This is not the amount you pay. It is used to calculate your business rates bill.
 available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need to <a class="govuk-link" href="{0}">download and complete a check form</a>.
 available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
-available.requestvaluation.tab.futureValuation.title=Help with future valuation
-available.requestvaluation.tab.futureValuation.subheading.1=Your rateable value may change on 1 April 2023
-available.requestvaluation.tab.futureValuation.subheading.2=Your property details need changing
-available.requestvaluation.tab.futureValuation.subheading.3=You think the rateable value is too high
-available.requestvaluation.tab.futureValuation.subheading.4=You have some other question about your valuation
-available.requestvaluation.tab.futureValuation.subheading.5=How Coronavirus (COVID-19) affected the future rateable value
-available.requestvaluation.tab.futureValuation.p.1=We regularly update the rateable values of all business properties in England and Wales to reflect changes in the property market. The next revaluation will come into effect on 1 April 2023.
-available.requestvaluation.tab.futureValuation.p.2=Send us a Check case to tell us that your property details (such as floor area sizes and parking) need changing. We may accept your changes and update the current and future valuations.
+requestValuation.future.help.title=Help with future valuation
+requestValuation.future.help.subheading.1=Your rateable value may change on {0}
+requestValuation.future.help.subheading.2=Your property details need changing
+requestValuation.future.help.subheading.3=You think the rateable value is too high
+requestValuation.future.help.subheading.4=You have some other question about your valuation
+requestValuation.future.help.subheading.5=How Coronavirus (COVID-19) affected the future rateable value
+requestValuation.future.help.p.1=We regularly update the rateable values of all business properties in England and Wales to reflect changes in the property market. The next revaluation will come into effect on {0}.
+requestValuation.future.help.p.2=Send us a Check case to tell us that your property details (such as floor area sizes and parking) need changing. We may accept your changes and update the current and future valuations.
 
-available.requestvaluation.tab.futureValuation.welsh.p.2=Before 1 April 2023, <a class="govuk-link" id="{1}" href="{0}">send an enquiry</a> to tell us about changes to your property details such as floor area sizes and parking. We may accept your changes and update the current and future valuations.
-available.requestvaluation.tab.futureValuation.welsh.p.3=From 1 April 2023, use your business rates valuation account to send us a Check case.
-available.requestvaluation.tab.futureValuation.welsh.p.4=<a class="govuk-link" id="{0}" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">How to use a business rates valuation account</a>
-available.requestvaluation.tab.futureValuation.welsh.p.5=Wait until 1 April 2023 and use your business rates valuation account to send us a Challenge case.
+requestValuation.future.help.welsh.p.2=Before {0}, <a class="govuk-link" id="{2}" href="{1}">send an enquiry</a> to tell us about changes to your property details such as floor area sizes and parking. We may accept your changes and update the current and future valuations.
+requestValuation.future.help.welsh.p.3=From {0}, use your business rates valuation account to send us a Check case.
+requestValuation.future.help.welsh.p.4=<a class="govuk-link" id="{0}" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">How to use a business rates valuation account</a>
+requestValuation.future.help.welsh.p.5=Wait until {0} and use your business rates valuation account to send us a Challenge case.
 
-
-available.requestvaluation.tab.futureValuation.p.3=Start a Check case from the current valuation
-available.requestvaluation.tab.futureValuation.p.4=From 1 April 2023, send us a Challenge case to tell us you think the rateable value is too high.
-available.requestvaluation.tab.futureValuation.p.5=You must complete a Check case before sending a Challenge case. When you get our decision on your Check case, you have 4 months in which to send us a Challenge case.
-available.requestvaluation.tab.futureValuation.p.6=Before 1 April 2023, <a class="govuk-link" id="future-valuation-enquiry-link" href="{0}">send an enquiry</a>.
-available.requestvaluation.tab.futureValuation.p.7=We base rateable values on an estimate of what it would cost to rent a property for a year, starting on a certain date.
-available.requestvaluation.tab.futureValuation.p.8=For the 2023 valuation, that date was 1 April 2021. This was during the pandemic and the rent information we used reflected this.
-available.requestvaluation.tab.futureValuation.p.9=<a class="govuk-link" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">How to use a business rates valuation account</a>
-available.requestvaluation.tab.futureValuation.p.10=<a class="govuk-link" href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">How business properties are valued</a>
-available.requestvaluation.tab.futureValuation.p.11=Estimate what this property’s business rates bill may be from 1 April 2023
-available.requestvaluation.tab.futureValuation.p.12=<a class="govuk-link" href="https://www.gov.uk/apply-for-business-rate-relief">Business rates relief</a>
-
-
-
-
+requestValuation.future.help.p.3=Start a Check case from the current valuation
+requestValuation.future.help.p.4=From {0}, send us a Challenge case to tell us you think the rateable value is too high.
+requestValuation.future.help.p.5=You must complete a Check case before sending a Challenge case. When you get our decision on your Check case, you have 4 months in which to send us a Challenge case.
+requestValuation.future.help.p.6=Before {0}, <a class="govuk-link" id="future-valuation-enquiry-link" href="{1}">send an enquiry</a>.
+requestValuation.future.help.p.7=We base rateable values on an estimate of what it would cost to rent a property for a year, starting on a certain date.
+requestValuation.future.help.p.8=For the 2023 valuation, that date was {0}. This was during the pandemic and the rent information we used reflected this.
+requestValuation.future.help.help.link.1=<a class="govuk-link" id="how-to-use-account" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">How to use a business rates valuation account</a>
+requestValuation.future.help.help.link.2=<a class="govuk-link" id="how-properties-are-valued" href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">How business properties are valued</a>
+requestValuation.future.help.help.link.3=Estimate what this property’s business rates bill may be from {0}
+requestValuation.future.help.help.link.4=<a class="govuk-link"  id="rates-relief" href="https://www.gov.uk/apply-for-business-rate-relief">Business rates relief</a>
 
 available.requestvaluation.startCheckTab.heading=Start a Check case
 available.requestvaluation.startCheckTab.guidance.summary=Help with starting a Check case

@@ -1,0 +1,112 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
+@import models.dvr.cases.check.CheckType
+@import models.dvr.cases.check.StartCheckForm
+
+@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm])(govukButton: GovukButton, govukDetails: GovukDetails, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF)(implicit messages: Messages, request: Request[_])
+
+@helpWithStartingCheckCaseContent = {
+    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p1")</p>
+    <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p2")</p>
+    <ul class="govuk-list">
+        <li><a class="govuk-link" target="_blank" href="https://www.gov.uk/guidance/confirm-your-property-details">@messages("available.requestvaluation.startCheckTab.guidance.content.aboutCheck")</a></li>
+        <li><a class="govuk-link" target="_blank" href="https://www.gov.uk/guidance/challenge-the-valuation">@messages("available.requestvaluation.startCheckTab.guidance.content.aboutChallenge")</a></li>
+    </ul>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-l">@messages("available.requestvaluation.startCheckTab.heading")</h2>
+
+        @govukDetails(Details(
+            id = Some("help-starting-check-case"),
+            summary = Text(messages("available.requestvaluation.startCheckTab.guidance.summary")),
+            content = HtmlContent(helpWithStartingCheckCaseContent)
+        ))
+
+        @formWithCSRF(action = if(model.owner) {
+            controllers.detailedvaluationrequest.routes.DvrController.myOrganisationStartCheck(model.submissionId,model.valuationId, model.uarn)
+        } else {
+            controllers.detailedvaluationrequest.routes.DvrController.myClientsStartCheck(model.submissionId,model.valuationId, model.uarn)
+        } , 'id -> "checkType-form") {
+
+            @govukRadios(Radios(
+                fieldset = Some(Fieldset(
+                    legend = Some(Legend(
+                        content = Text(messages("available.requestvaluation.startCheckTab.question")),
+                        classes = "govuk-fieldset__legend--m",
+                        isPageHeading = false
+                    ))
+                )),
+                idPrefix = Some("checkType_"),
+                name = "checkType",
+                items = Seq(
+                    RadioItem(
+                        id = Some("checkType_internal"),
+                        content = Text(messages("available.requestvaluation.startCheckTab.option1.content")),
+                        value = Some(CheckType.Internal.value),
+                        hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option1.hint"))))
+                    ),
+                    RadioItem(
+                        id = Some("checkType_rateableValueTooHigh"),
+                        content = Text(messages("available.requestvaluation.startCheckTab.rateableValueTooHigh.content")),
+                        value = Some(CheckType.RateableValueTooHigh.value)
+                    ),
+                    RadioItem(
+                        id = Some("checkType_remove"),
+                        content = Text(messages("available.requestvaluation.startCheckTab.option2.content")),
+                        value = Some(CheckType.Remove.value),
+                        hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option2.hint"))))
+                    ),
+                    RadioItem(
+                        id = Some("checkType_split"),
+                        content = Text(messages("available.requestvaluation.startCheckTab.option3.content")),
+                        value = Some(CheckType.Split.value)
+                    ),
+                    RadioItem(
+                        id = Some("checkType_merge"),
+                        content = Text(messages("available.requestvaluation.startCheckTab.option4.content")),
+                        value = Some(CheckType.Merge.value)
+                    ),
+                    RadioItem(
+                        id = Some("checkType_external"),
+                        content = Text(messages("available.requestvaluation.startCheckTab.option5.content")),
+                        value = Some(CheckType.External.value),
+                        hint = Some(Hint(content = Text(messages("available.requestvaluation.startCheckTab.option5.hint"))))
+                    ),
+                    RadioItem(
+                        id = Some("checkType_legalDecision"),
+                        content = Text(messages("available.requestvaluation.startCheckTab.option6.content")),
+                        value = Some(CheckType.LegalDecision.value)
+                    )
+                )
+            ).withFormField(startCheckForm("checkType")))
+
+            <input type="hidden" name="propertyLinkSubmissionId" value="@model.submissionId">
+            <input type="hidden" name="authorisationId" value="@model.authorisationId">
+            <input type="hidden" name="uarn" value="@model.uarn">
+            <input type="hidden" name="dvrCheck" value="false">
+            <input type="hidden" name="isOwner" value="@model.owner">
+
+                @govukButton(Button(
+                    content = Text(messages("available.requestvaluation.startCheckTab.button.title")),
+                    attributes = Map("id" -> "start-check_start-check-tab")
+                ))
+            }
+    </div>
+</div>

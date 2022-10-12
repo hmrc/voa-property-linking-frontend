@@ -45,7 +45,6 @@ class Assessments @Inject()(
         submissionId: String,
         authorisationId: Long,
         assessmentRef: Long,
-        baRef: String, // TODO remove - find which service links here (just Dashboard?)
         owner: Boolean
   ): Action[AnyContent] = authenticated.async { implicit request =>
     propertyLinkService.getSingularPropertyLink(submissionId, owner).flatMap {
