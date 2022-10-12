@@ -101,6 +101,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.inputShouldContain("firstName", user.firstName.get)
     html.inputShouldContain("lastName", user.lastName.get)
     html.inputShouldContain("address.postcode", user.postcode.get)
+    html.html.getElementsByClass("manualAddress").hasClass("govuk-!-display-block") shouldBe true
+    html.html.getElementsByClass("lookupAddressCancel").hasClass("govuk-!-display-none") shouldBe true
   }
 
   "Going to the create account page, when logged in with an account that is an Agent" should
@@ -126,6 +128,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.inputShouldContain("confirmedBusinessEmail", user.email)
     html.inputShouldContain("firstName", user.firstName.get)
     html.inputShouldContain("lastName", user.lastName.get)
+    html.html.getElementsByClass("manualAddress").hasClass("govuk-!-display-block") shouldBe true
+    html.html.getElementsByClass("lookupAddressCancel").hasClass("govuk-!-display-none") shouldBe true
   }
 
   "Going to the create account page when logged in as a new assistant user registering with an existing group account" should
@@ -305,6 +309,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     html.shouldContainText("Email - This must be filled in")
     html.shouldContainText("Mobile number - This must be filled in")
     html.shouldContainText("Phone - This must be filled in")
+
+    html.html.getElementsByClass("manualAddress").hasClass("govuk-!-display-none") shouldBe true
   }
 
   "Submitting an invalid organisation admin form" should "return a bad request response" in {

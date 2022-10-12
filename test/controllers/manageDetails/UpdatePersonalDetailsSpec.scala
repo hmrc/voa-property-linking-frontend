@@ -151,6 +151,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
 
     val html = Jsoup.parse(contentAsString(res))
     html.select("p.govuk-error-message").text contains "Error: This must be filled in"
+    html.getElementsByClass("manualAddress").hasClass("govuk-!-display-none") shouldBe true
   }
 
   it should "update the user's address ID if they use the lookup" in {
@@ -254,6 +255,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
 
     val html = Jsoup.parse(contentAsString(res))
     html.title shouldBe "Update address - Valuation Office Agency - GOV.UK"
+    html.getElementsByClass("manualAddress").hasClass("govuk-!-display-block") shouldBe true
+    html.getElementsByClass("lookupAddressCancel").hasClass("govuk-!-display-none") shouldBe true
   }
 
   "viewPhone" should "display the users phone number" in {
