@@ -1140,7 +1140,7 @@ requestValuation.future.help.p.4=From {0}, send us a Challenge case to tell us y
 requestValuation.future.help.p.5=You must complete a Check case before sending a Challenge case. When you get our decision on your Check case, you have 4 months in which to send us a Challenge case.
 requestValuation.future.help.p.6=Before {0}, <a class="govuk-link" id="future-valuation-enquiry-link" href="{1}">send an enquiry</a>.
 requestValuation.future.help.p.7=We base rateable values on an estimate of what it would cost to rent a property for a year, starting on a certain date.
-requestValuation.future.help.p.8=For the 2023 valuation, that date was {0}. This was during the pandemic and the rent information we used reflected this.
+requestValuation.future.help.p.8=For the 2023 valuation, that date was 1 April 2021. This was during the pandemic and the rent information we used reflected this.
 requestValuation.future.help.help.link.1=<a class="govuk-link" id="how-to-use-account" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">How to use a business rates valuation account</a>
 requestValuation.future.help.help.link.2=<a class="govuk-link" id="how-properties-are-valued" href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">How business properties are valued</a>
 requestValuation.future.help.help.link.3=Estimate what this property’s business rates bill may be from {0}

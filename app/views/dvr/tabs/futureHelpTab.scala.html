@@ -21,6 +21,7 @@
   estimatorUrl: String,
   isWelshProperty: Boolean)(implicit messages: Messages)
 
+@currentValuationUrl = @{s"${currentValuationCheckTabUrl.getOrElse(valuationsUrl)}&tabName=help-tab#start-check-tab"}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds" id="future-help-content">
 
@@ -35,7 +36,7 @@
 
         }else{
         <p class="govuk-body" id="property-details-changing-content">@messages("requestValuation.future.help.p.2")</p>
-        <p class="govuk-body"><a class="govuk-link" id="property-details-changing-link" href="@currentValuationCheckTabUrl.getOrElse(valuationsUrl)">@messages("requestValuation.future.help.p.3")</a></p>
+        <p class="govuk-body"><a class="govuk-link" id="property-details-changing-link" href="@currentValuationUrl">@messages("requestValuation.future.help.p.3")</a></p>
         }
 
         <h3 class="govuk-heading-m" id="rateable-value-too-high-subhead">@messages("requestValuation.future.help.subheading.3")</h3>
@@ -46,14 +47,14 @@
         }else{
         <p class="govuk-body" id="rateable-value-too-high-content-1">@messages("requestValuation.future.help.p.4", effectiveDate)</p>
         <p class="govuk-body" id="rateable-value-too-high-content-2">@messages("requestValuation.future.help.p.5")</p>
-        <p class="govuk-body"><a class="govuk-link" id="rateable-value-too-high-link" href="@currentValuationCheckTabUrl.getOrElse(valuationsUrl)">@messages("requestValuation.future.help.p.3")</a></p>
+        <p class="govuk-body"><a class="govuk-link" id="rateable-value-too-high-link" href="@currentValuationUrl">@messages("requestValuation.future.help.p.3")</a></p>
         }
         <h3 class="govuk-heading-m" id="other-question-subhead">@messages("requestValuation.future.help.subheading.4")</h3>
         <p class="govuk-body" id="other-question-content">@Html(messages("requestValuation.future.help.p.6", effectiveDate, s"${enquiryUrl}&tabName=help-tab"))</p>
 
         <h3 class="govuk-heading-m" id="covid-subhead">@messages("requestValuation.future.help.subheading.5")</h3>
         <p class="govuk-body" id="covid-content-1">@messages("requestValuation.future.help.p.7")</p>
-        <p class="govuk-body" id="covid-content-2">@messages("requestValuation.future.help.p.8", effectiveDate)</p>
+        <p class="govuk-body" id="covid-content-2">@messages("requestValuation.future.help.p.8")</p>
         <ul class="govuk-list" id="help-links">
             @if(!isWelshProperty){<li>@Html(messages("requestValuation.future.help.help.link.1"))</li>}
             <li>@Html(messages("requestValuation.future.help.help.link.2"))</li>

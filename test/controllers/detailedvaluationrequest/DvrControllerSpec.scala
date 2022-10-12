@@ -768,7 +768,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.html.getElementById("rateable-value-too-high-content-1").text should include(futureEffectiveDate)
     page.html
       .getElementById("rateable-value-too-high-link")
-      .attr("href") shouldBe ipCurrentValuationUrl + "&fromFuture=true#start-check-tab"
+      .attr("href") shouldBe ipCurrentValuationUrl + "&fromFuture=true&tabName=help-tab#start-check-tab"
 
     page.html.getElementById("property-details-changing-subhead").text shouldBe "Your property details need changing"
     page.html
@@ -776,7 +776,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .text shouldBe "Send us a Check case to tell us that your property details (such as floor area sizes and parking) need changing. We may accept your changes and update the current and future valuations."
     page.html
       .getElementById("property-details-changing-link")
-      .attr("href") shouldBe ipCurrentValuationUrl + "&fromFuture=true#start-check-tab"
+      .attr("href") shouldBe ipCurrentValuationUrl + "&fromFuture=true&tabName=help-tab#start-check-tab"
 
     page.html.getElementById("other-question-subhead").text shouldBe "You have some other question about your valuation"
     page.html.getElementById("other-question-content").text should include(futureEffectiveDate)
@@ -809,7 +809,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.html.getElementById("rateable-value-too-high-content-1").text should include(futureEffectiveDate)
     page.html
       .getElementById("rateable-value-too-high-link")
-      .attr("href") shouldBe clientCurrentValuationUrl + "&fromFuture=true#start-check-tab"
+      .attr("href") shouldBe clientCurrentValuationUrl + "&fromFuture=true&tabName=help-tab#start-check-tab"
 
     page.html.getElementById("property-details-changing-subhead").text shouldBe "Your property details need changing"
     page.html
@@ -817,7 +817,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .text shouldBe "Send us a Check case to tell us that your property details (such as floor area sizes and parking) need changing. We may accept your changes and update the current and future valuations."
     page.html
       .getElementById("property-details-changing-link")
-      .attr("href") shouldBe clientCurrentValuationUrl + "&fromFuture=true#start-check-tab"
+      .attr("href") shouldBe clientCurrentValuationUrl + "&fromFuture=true&tabName=help-tab#start-check-tab"
 
     page.html.getElementById("other-question-subhead").text shouldBe "You have some other question about your valuation"
     page.html.getElementById("other-question-content").text should include(futureEffectiveDate)
@@ -848,7 +848,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.html.getElementById("rateable-value-too-high-content-1").text should include(futureEffectiveDate)
     page.html
       .getElementById("rateable-value-too-high-link")
-      .attr("href") shouldBe clientCurrentValuationUrl + "&fromFuture=true#start-check-tab"
+      .attr("href") shouldBe clientCurrentValuationUrl + "&fromFuture=true&tabName=help-tab#start-check-tab"
 
     page.html.getElementById("property-details-changing-subhead").text shouldBe "Your property details need changing"
     page.html
@@ -856,7 +856,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .text shouldBe "Send us a Check case to tell us that your property details (such as floor area sizes and parking) need changing. We may accept your changes and update the current and future valuations."
     page.html
       .getElementById("property-details-changing-link")
-      .attr("href") shouldBe clientCurrentValuationUrl + "&fromFuture=true#start-check-tab"
+      .attr("href") shouldBe clientCurrentValuationUrl + "&fromFuture=true&tabName=help-tab#start-check-tab"
 
     page.html.getElementById("other-question-subhead").text shouldBe "You have some other question about your valuation"
     page.html.getElementById("other-question-content").text should include(futureEffectiveDate)
@@ -990,7 +990,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       fromFuture = Some(true)
     )(request)
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
-    page.html.getElementById("back-link").attr("href") shouldBe ipFutureValuationUrl
+    page.html.getElementById("back-link").attr("href") shouldBe ipFutureValuationUrl + "#valuation-tab"
   }
 
   "request current detailed valuation by agent" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
@@ -1002,7 +1002,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       fromFuture = Some(true)
     )(request)
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
-    page.html.getElementById("back-link").attr("href") shouldBe clientFutureValuationUrl
+    page.html.getElementById("back-link").attr("href") shouldBe clientFutureValuationUrl + "#valuation-tab"
   }
 
   "request detailed valuation confirmation" should "return 200 OK when request is valid" in new Setup {
@@ -1101,7 +1101,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       fromFuture = Some(true)
     )(request)
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
-    page.html.getElementById("back-link").attr("href") shouldBe ipFutureValuationUrl
+    page.html.getElementById("back-link").attr("href") shouldBe ipFutureValuationUrl + "#valuation-tab"
   }
 
   "already submitted detailed valuation request by agent" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
@@ -1114,7 +1114,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       fromFuture = Some(true)
     )(request)
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
-    page.html.getElementById("back-link").attr("href") shouldBe clientFutureValuationUrl
+    page.html.getElementById("back-link").attr("href") shouldBe clientFutureValuationUrl + "#valuation-tab"
   }
 
   "an IP starting a check case" should "get redirected to a page in check-frontend" in new Setup {

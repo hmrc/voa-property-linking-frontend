@@ -65,7 +65,7 @@
                         label = messages("requestValuation.future.help.title"),
                         panel = TabPanel(HtmlContent(futureHelpTab(
                             model.effectiveDate,
-                            currentValuationCheckTabUrl = model.currentValuationUrl.map(_ + "#start-check-tab"),
+                            currentValuationCheckTabUrl = model.currentValuationUrl,
                             model.valuationsUrl,
                             enquiryUrl,
                             estimatorUrl,
