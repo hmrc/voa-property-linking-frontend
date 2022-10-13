@@ -126,6 +126,17 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
 
   }
 
+  "OTHER Evidence file upload page" should "display expected error message when upscan returns file to large error" in {
+    val res = controller.show(EvidenceChoices.OTHER, Some("Your proposed upload exceeds the maximum allowed size"))(
+      FakeRequest())
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.shouldNotContainText("Your proposed upload exceeds the maximum allowed size")
+    html.shouldContainText("The file must be smaller than 10MB")
+
+  }
+
   "OTHER Evidence file initiate" should "return file upload initiate success" in {
     val request = FakeRequest(POST, "").withBody(
       Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg", "evidenceType" -> StampDutyLandTaxForm.name))
