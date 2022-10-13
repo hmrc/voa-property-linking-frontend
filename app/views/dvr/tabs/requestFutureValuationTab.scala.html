@@ -22,7 +22,8 @@
   effectiveDate: String,
   estimatorUrl: String,
   currentValuationUrl: Option[String],
-  valuationsUrl: String)(govukInsetText: GovukInsetText)(implicit config: ApplicationConfig, messages: Messages)
+  valuationsUrl: String,
+  isWelshProperty: Boolean)(govukInsetText: GovukInsetText)(implicit config: ApplicationConfig, messages: Messages)
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds" id="future-valuation-tab-content">
@@ -42,7 +43,7 @@
                     messages(
                         "auto.requestDetailedValuation.future.rv.inset.link",
                         effectiveDate,
-                        estimatorUrl
+                        s"${estimatorUrl}&tabName=valuation-tab"
                     )
                 ))
             ))
@@ -52,15 +53,17 @@
             @messages("auto.requestDetailedValuation.future.p.1", effectiveDate)
         </p>
 
-        <p class="govuk-body" id="request-current-valuation">
-            @Html(messages(
-                "auto.requestDetailedValuation.future.p.2",
-                config.currentListYear,
-                messages(
-                    "auto.requestDetailedValuation.future.p.2.link",
-                    currentValuationUrl.getOrElse(valuationsUrl)
-                )
-            ))
-        </p>
+        @if(!isWelshProperty) {
+            <p class="govuk-body" id="request-current-valuation">
+                @Html(messages(
+                    "auto.requestDetailedValuation.future.p.2",
+                    config.currentListYear,
+                    messages(
+                        "auto.requestDetailedValuation.future.p.2.link",
+                        currentValuationUrl.getOrElse(valuationsUrl)
+                    )
+                ))
+            </p>
+        }
     </div>
 </div>

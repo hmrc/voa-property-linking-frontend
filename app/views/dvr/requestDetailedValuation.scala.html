@@ -21,7 +21,7 @@
 
 @this(mainLayout: views.html.mainLayout, govukButton : GovukButton, govukInsetText: GovukInsetText, govukTabs: GovukTabs, formWithCSRF: FormWithCSRF)
 
-@(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String, enquiryUrl: String, estimatorUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @returnUrl = @{
     if (owner)
@@ -32,7 +32,7 @@
 
 @address = @{Formatters.capitalisedAddress(model.address)}
 
-@if(model.isDraftList && !model.isWelsh) {
+@if(model.isDraftList) {
 
     @mainLayout(
         pageTitle = address,
@@ -54,20 +54,22 @@
                         panel = TabPanel(HtmlContent(requestFutureValuationTab(
                             model.rateableValue,
                             model.effectiveDate,
-                            model.estimatorUrl,
+                            estimatorUrl,
                             model.currentValuationUrl,
-                            model.valuationsUrl
+                            model.valuationsUrl,
+                            model.isWelsh
                         )(govukInsetText)))
                     ),
                     TabItem(
                         id = Some("help-tab"),
-                        label = messages("requestValuation.future.help.heading"),
+                        label = messages("requestValuation.future.help.title"),
                         panel = TabPanel(HtmlContent(futureHelpTab(
                             model.effectiveDate,
-                            currentValuationCheckTabUrl = model.currentValuationUrl.map(_ + "#start-check-tab"),
+                            currentValuationCheckTabUrl = model.currentValuationUrl,
                             model.valuationsUrl,
-                            model.enquiryUrl,
-                            model.estimatorUrl
+                            enquiryUrl,
+                            estimatorUrl,
+                            model.isWelsh
                         )))
                     )
                 )
