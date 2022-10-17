@@ -53,7 +53,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
     when(mockAppointRevokeService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future.successful(organisationsAgentsList))
+      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
     when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
