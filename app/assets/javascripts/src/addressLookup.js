@@ -18,6 +18,33 @@
                 showFields();
             }
         }
+        function clearLookup() {
+            clearLookupError();
+            $('#postcodeSearch').val('');
+            $('#selectedAddress').attr('value', '');
+            hide($('.manualAddress, .postcode-lookup-fields'));
+        }
+        function clearLookupError() {
+            $("#error-summary, #invalidPostcode").remove();
+            $('#postcodeSearch').closest('.govuk-form-group').removeClass('govuk-form-group--error');
+        }
+        function clearSelectAnAddress() {
+            $('#addressSelect, #addressHint, [for="addressSelect"]').remove();
+            hide($('.lookupAddressCancel .manualAddress'));
+        }
+        function clearSelectedAddress() {
+            clearId();
+            $('#selectedAddress').attr('value', '');
+            $('#textAddressData').empty();
+            hide($('.lookupAddressCancel, .manualAddress, #textAddressDiv'));
+        }
+        function clearManualAddress() {
+            $('#postcodeSearch').val('');
+            hide($('.address--fields'));
+        }
+
+        function clearId() {$('#address_addressId_text').val('');}
+
         function showLookupError() {
 
             var errorTitlePrefix = $('#accessibility-error-label').text();
@@ -58,11 +85,6 @@
         function addressLine(s) {
             if (s) { return s + ', '; } else { return ''; }
         }
-        function clearId() {
-            $('.postcode-lookup-group input').change(function(){
-                $('#address_addressId_text').val('');
-            });
-        }
         errorCheck();
         var active = true;
         $('#postcodeLookupButton').click(function (e) {
@@ -83,7 +105,7 @@
                         $("#error-summary").remove();
                         if (data.length > 0) {
                             $('.postcode-lookup-group').prepend('<label for="addressSelect" class="govuk-label--m govuk-!-display-block">'+
-                            $("#selectValue").text() +'</label><span class="govuk-hint govuk-!-display-block" id="addressHelp">' +
+                            $("#selectValue").text() +'</label><span class="govuk-hint govuk-!-display-block" id="addressHint">' +
                             $("#addressHelp").text() + '</span><select id="addressSelect" class="addressList govuk-select"></select>');
                             $('#addressSelect').append('<option value="" selected disabled>' + $("#selectValue").text() + '</option>');
                             hide($('.postcode-lookup-fields'));
@@ -116,8 +138,7 @@
                             });
                             $('#addressSelect').focus();
                             $('#addressSelect').change(function (e) {
-                                $("#textAddressData").empty();
-                                hide($('[for="addressSelect"], #addressHelp, .address--fields'));
+                                clearSelectAnAddress();
                                 var index = $(this).find('option:selected').index() - 1;
                                 show($('#textAddressDiv'));
                                 $('#text-form-group input:eq(0)').val(data[index]['addressUnitId']).attr('placeholder', '');
@@ -157,10 +178,7 @@
                                     $('#textAddressData').append("<span>" + data[index]['postcode']+ "</span>");
                                 }
                                 $('#selectedAddress').attr('value', $('#textAddressData').html());
-                                $(this).closest('.form-group').find('[for="addressSelect"], #addressHelp').remove();
-                                $(this).remove();
                             });
-                            clearId();
                             active = true;
                         } else {
                             showLookupError();
@@ -176,35 +194,31 @@
         });
         $('.manualAddress').click(function (e) {
             e.preventDefault();
-            $("#error-summary").remove();
-            $('#textAddressData').html('');
-            $('#text-form-group input:eq(0)').val('');
-            $('#selectedAddress').attr('value', '');
-            hide($('.manualAddress, .lookupAddressCancel, [for="addressSelect"] #addressSelect, #addressHelp, #textAddressDiv'));
+            clearLookup();
+            clearSelectAnAddress();
+            clearSelectedAddress();
             showFields();
             clearFields(this);
         });
         $('.lookupAddress').click(function (e) {
             e.preventDefault();
-            hide($('.address--fields, #textAddressDiv'));
             show($('.postcode-lookup-fields, .manualAddress'));
-            $('#postcodeSearch').val('');
             active = true;
         });
         $('#backLookup').click(function (e) {
-            e.preventDefault()
-            $('#invalidPostcode').remove()
-            $('.govuk-form-group--error').removeClass('govuk-form-group--error')
+            e.preventDefault();
+            clearLookup();
+            clearManualAddress();
+            show($('.postcode-lookup-fields, .manualAddress'))
+            $('#postcodeSearch').focus();
         });
         $('.lookupAddressCancel').click(function (e) {
             e.preventDefault();
-            hide($('.address--fields'));
+            clearLookup();
+            clearSelectAnAddress();
+            clearSelectedAddress();
             show($('.postcode-lookup-fields, .manualAddress'));
-            $('#postcodeSearch').closest('.govuk-form-group').removeClass('govuk-form-group--error');
-            $('#postcodeSearch').find('.govuk-error-message').remove();
-            $('#postcodeSearch').val('').focus();
-            $('#addressSelect, [for="addressSelect"], #addressHelp, #invalidPostcode').remove();
-            hide($(this));
+            $('#postcodeSearch').focus();
             active = true;
         });
         if($('#text-form-group input:eq(0)').val() != ""){
@@ -219,12 +233,10 @@
 
         function show(selector) {
             clear(selector, 'govuk-!-display-none')
-            clear(selector, 'govuk-!-display-inline-block')
             add(selector, 'govuk-!-display-block')
         }
         function hide(selector) {
             clear(selector, 'govuk-!-display-block')
-            clear(selector, 'govuk-!-display-inline-block')
             add(selector, 'govuk-!-display-none')
         }
     };

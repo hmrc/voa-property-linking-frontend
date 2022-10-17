@@ -23,7 +23,7 @@
 @import views.html._
 @import utils.FrontendComponentHelper._
 
-@this(mainLayout: mainLayout, govukDetails: GovukDetails, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, dateFields: dateFields, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
+@this(address: address, mainLayout: mainLayout, govukDetails: GovukDetails, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, dateFields: dateFields, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
 
 @(form: Form[IndividualUserAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -68,7 +68,7 @@ hasErrors = form.hasErrors) {
                 postcode = individualFieldData.postcode,
                 addressData = if(individualFieldData.businessAddress == Address.empty){None} else {Some(individualFieldData.businessAddress)},
                 selectedAddress = individualFieldData.selectedAddress
-            )(govukInput, govukButton)
+            )
 
             @govukInput(Input(
                 id = "email",

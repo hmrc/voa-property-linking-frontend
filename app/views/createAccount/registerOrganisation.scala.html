@@ -24,7 +24,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import utils.FrontendComponentHelper._
 
-@this(mainLayout: mainLayout, govukButton: GovukButton, dateFields: dateFields, govukInsetText: GovukInsetText, govukDetails: GovukDetails,govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios, formWithCSRF: FormWithCSRF)
+@this(address: address, mainLayout: mainLayout, govukButton: GovukButton, dateFields: dateFields, govukInsetText: GovukInsetText, govukDetails: GovukDetails,govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukRadios : GovukRadios, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -82,7 +82,7 @@ hasErrors = form.hasErrors) {
                 postcode = organisationFieldData.postcode,
                 addressData = if(organisationFieldData.businessAddress == Address.empty){None} else {Some(organisationFieldData.businessAddress)},
                 selectedAddress = organisationFieldData.selectedAddress
-            )(govukInput, govukButton)
+            )
 
 
             @govukDetails(Details(

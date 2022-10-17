@@ -20,7 +20,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
+@this(address: address, mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
 
 @(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -42,7 +42,7 @@
         @address(
             form = model.form,
             fieldName = "address"
-        )(govukInput, govukButton)
+        )
 
         <div class="govuk-button-group">
             @govukButton(Button(

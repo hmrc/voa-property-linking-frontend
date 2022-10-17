@@ -101,6 +101,15 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     verify(mockManageDetails).updatePostcode(any(), any(), matching(1L))(any(), any())
   }
 
+  it should "hide the manual address entry link on empty postcode submission" in new Setup {
+    val res = testController.updateBusinessAddress()(FakeRequest())
+    status(res) shouldBe BAD_REQUEST
+
+    val html = Jsoup.parse(contentAsString(res))
+
+    html.getElementsByClass("manualAddress").hasClass("govuk-!-display-none") shouldBe true
+  }
+
   "The update business phone page" should "require a non-empty phone number" in new Setup {
     when(mockGroups.update(anyLong, any[UpdatedOrganisationAccount])(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
@@ -196,6 +205,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
 
     val html = Jsoup.parse(contentAsString(res))
     html.title shouldBe "Update business address - Valuation Office Agency - GOV.UK"
+    html.getElementsByClass("manualAddress").hasClass("govuk-!-display-block") shouldBe true
+    html.getElementsByClass("lookupAddressCancel").hasClass("govuk-!-display-none") shouldBe true
   }
 
   "viewBusinessPhone" should "display the business phone number" in new Setup {

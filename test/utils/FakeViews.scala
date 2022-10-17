@@ -72,7 +72,10 @@ trait FakeViews extends GdsComponents {
   lazy val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
   lazy val invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout)
 
+  lazy val addressView = new views.html.helpers.address(govukInput, govukButton)
+
   lazy val registerIndividualView = new views.html.createAccount.registerIndividual(
+    addressView,
     mainLayout,
     govukDetails,
     govukErrorSummary,
@@ -83,6 +86,7 @@ trait FakeViews extends GdsComponents {
 
   lazy val registerOrganisationView =
     new views.html.createAccount.registerOrganisation(
+      addressView,
       mainLayout,
       govukButton,
       dateFields,
@@ -94,6 +98,7 @@ trait FakeViews extends GdsComponents {
       formWithCSRF)
 
   lazy val registerAssistantAdminView = new views.html.createAccount.registerAssistantAdmin(
+    addressView,
     mainLayout,
     govukErrorSummary,
     govukInput,
@@ -102,7 +107,13 @@ trait FakeViews extends GdsComponents {
     formWithCSRF)
 
   lazy val registerAssistantView =
-    new views.html.createAccount.registerAssistant(mainLayout, govukErrorSummary, govukInput, govukButton, formWithCSRF)
+    new views.html.createAccount.registerAssistant(
+      addressView,
+      mainLayout,
+      govukErrorSummary,
+      govukInput,
+      govukButton,
+      formWithCSRF)
 
   lazy val registerConfirmationView =
     new views.html.createAccount.registrationConfirmation(mainLayout, govukButton)
@@ -163,7 +174,13 @@ trait FakeViews extends GdsComponents {
     formWithCSRF)
 
   lazy val updateBusinessAddressView =
-    new views.html.details.updateBusinessAddress(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
+    new views.html.details.updateBusinessAddress(
+      addressView,
+      mainLayout,
+      govukButton,
+      govukInput,
+      formWithCSRF,
+      govukErrorSummary)
   lazy val updateBusinessNameView =
     new views.html.details.updateBusinessName(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val updateBusinessPhoneView =
@@ -172,7 +189,13 @@ trait FakeViews extends GdsComponents {
     new views.html.details.updateBusinessEmail(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
 
   lazy val updateAddressView =
-    new views.html.details.updateAddress(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
+    new views.html.details.updateAddress(
+      addressView,
+      mainLayout,
+      govukButton,
+      govukInput,
+      formWithCSRF,
+      govukErrorSummary)
   lazy val updatePhoneView =
     new views.html.details.updatePhone(mainLayout, govukButton, govukInput, formWithCSRF, govukErrorSummary)
   lazy val updateMobileView =

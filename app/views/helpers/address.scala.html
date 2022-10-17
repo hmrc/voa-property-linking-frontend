@@ -16,7 +16,9 @@
 
 @import helpers._
 
-@(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "", addressData: Option[Address] = None, selectedAddress: Option[String] = None)(govukInput: GovukInput, govukButton: GovukButton)(implicit request: Request[_], messages: Messages)
+@this(govukInput: GovukInput, govukButton: GovukButton)
+
+@(form: Form[_], fieldName: String, helpText: String = "", postcode: String = "", addressData: Option[Address] = None, selectedAddress: Option[String] = None)(implicit request: Request[_], messages: Messages)
 
 
 @addressIdValue = @{
@@ -125,8 +127,22 @@
 
         @addressForm
 
-        <p><a href="#" class="govuk-link manualAddress hide-if-no-js govuk-!-display-none">@messages("addressLookup.manual")</a></p>
+        <p><a
+            href="#"
+            class="govuk-link manualAddress hide-if-no-js
+                @if((addressData.isEmpty | selectedAddress.nonEmpty) && form.hasErrors){
+                    govuk-!-display-none} else {govuk-!-display-block}"
+        >
+            @messages("addressLookup.manual")
+        </a></p>
 
-        <p><a href="#" class="govuk-link lookupAddressCancel govuk-!-display-none">@messages("label.findAddress.tryAgain")</a></p>
+        <p><a
+            href="#"
+            class="govuk-link lookupAddressCancel
+               @if(addressIdValue != "" && form.hasErrors){govuk-!-display-block} else {govuk-!-display-none}"
+        >
+            @messages("label.findAddress.tryAgain")
+        </a></p>
+
         @javascriptMessages()
     </div>
