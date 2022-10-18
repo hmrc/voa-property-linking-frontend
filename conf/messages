@@ -1657,7 +1657,7 @@ error.businessRatesAttachment.unavailable=The selected file could not be uploade
 error.upscan.unavailable=The selected file could not be uploaded – try again
 error.businessRatesAttachment.file.size.exceed.max.limit=The selected file must be smaller than 10MB
 error.businessRatesAttachment.evidence.not.selected=Select evidence type
-error.businessRatesAttachment.ratesBill.not.selected=Select a rates bill
+error.businessRatesAttachment.ratesBill.not.selected=Select a file
 error.businessRatesAttachment.file.not.selected=Select a file
 error.businessRatesAttachment.does.not.support.file.types=The selected file must be a Word doc, Excel sheet, PDF, PNG or JPG
 

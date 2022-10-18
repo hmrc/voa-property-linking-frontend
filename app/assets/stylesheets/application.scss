@@ -105,9 +105,12 @@ details#report-a-problem {
 }
 
 #remove-file {
-  background: none!important;
+  background: none;
   border: none;
-  padding: 0!important;
   cursor: pointer;
   color: #1d70b8;
+}
+
+#remove-file:focus {
+  @include govuk-focused-text;
 }
