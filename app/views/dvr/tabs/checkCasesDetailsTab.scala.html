@@ -77,7 +77,7 @@
 @row(checkReference: String, submittedDate: LocalDateTime, status: String, closedDate: Option[LocalDate], submittedBy: String) = @{
     Seq(
         TableRow(
-            content = Text(checkReference)
+            content = HtmlContent(s"<a href='${config.checkSummaryPageUrl(checkReference, propertyLinkSubmissionId, isOwner, assessmentRef)}' class='govuk-link'>$checkReference</a>")
         ),
         TableRow(
             content = Text(formatDateTimeToDate(submittedDate))

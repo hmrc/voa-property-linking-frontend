@@ -17,11 +17,14 @@
 package config
 
 import java.util.Base64
+import config.Path
 import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
 
+import java.text.MessageFormat.format
 import java.time.LocalDate
 import scala.util.Try
+
 
 @Singleton()
 class ApplicationConfig @Inject()(configuration: Configuration) {
@@ -52,8 +55,22 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   def yourDetailsUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
 
-  def businessRatesCheckCaseSummaryUrl(page: String): String =
-    loadConfig("business-rates-check-case-summary.url") + s"/$page"
+  val checkSummaryPageUrl: String = loadConfig("business-rates-check-case-summary.url")
+
+  final def checkSummaryPageUrl(
+                                 checkRef: String,
+                                 propertyLinkSubmissionId: String,
+                                 isOwner: Boolean,
+                                 valuationId: Long): Path =
+    Path(
+      format(
+        checkSummaryPageUrl,
+        checkRef,
+        propertyLinkSubmissionId,
+        isOwner.toString,
+        valuationId.toString
+      ))
+
 
   def businessRatesChallengeUrl(page: String): String =
     loadConfig("business-rates-challenge-frontend.url") + s"/$page"
