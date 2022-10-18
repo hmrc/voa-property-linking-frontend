@@ -62,14 +62,14 @@ class UploadController @Inject()(
           Ok(
             uploadRatesBillView(
               session.submissionId,
-              errorMessage.toList,
+              upscanErrors(errorMessage).toList,
               session.uploadEvidenceData.attachments.getOrElse(Map.empty)
             ))
         case EvidenceChoices.OTHER =>
           Ok(
             uploadEvidenceView(
               session.submissionId,
-              errorMessage.toList,
+              upscanErrors(errorMessage).toList,
               session.uploadEvidenceData.attachments.getOrElse(Map.empty),
               session.uploadEvidenceData.fileInfo
                 .map(x => form.fill(x.evidenceType))
@@ -233,4 +233,9 @@ class UploadController @Inject()(
         session.uploadEvidenceData.copy(attachments = Some(updatedSessionData)))
       .map(_ => Redirect(routes.UploadController.show(evidence)))
   }
+  //Catching error message received from Upscan & replacing
+  private def upscanErrors(errorMessage: Option[String]): Option[String] =
+    if (errorMessage.contains("Your proposed upload exceeds the maximum allowed size"))
+      Some("The file must be smaller than 10MB")
+    else errorMessage
 }
