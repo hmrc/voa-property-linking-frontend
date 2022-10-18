@@ -181,10 +181,12 @@
                             lookupActive = false;
                         } else {
                             showLookupError();
+                            lookupActive = true;
                         }
                     },
                     error: function(error) {
                         showLookupError();
+                        lookupActive = true;
                     }
                 });
             } else {
