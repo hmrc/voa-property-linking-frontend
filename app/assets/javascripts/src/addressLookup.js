@@ -80,19 +80,18 @@
                 + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
             $('#postcodeSearch').before('<span id="invalidPostcode" class="govuk-error-message">'
             + errorPostcodeLookup + '</span>').closest('.govuk-form-group').addClass('govuk-form-group--error');
-            active = true;
         }
         function addressLine(s) {
             if (s) { return s + ', '; } else { return ''; }
         }
         errorCheck();
-        var active = true;
+        var lookupActive = true;
         $('#postcodeLookupButton').click(function (e) {
             e.preventDefault();
             $(this).closest('.postcode-lookup-group').find('#addressSelect, [for="addressSelect"]').remove();
             var postcode = $('#postcodeSearch').val();
-            if(postcode !== '' && active) {
-                active = false;
+            if(postcode !== '' && lookupActive) {
+                lookupActive = false;
                 $.ajax({
                     type: 'GET',
                     url: '/business-rates-property-linking/lookup?postcode=' + postcode.toUpperCase(),
@@ -179,7 +178,7 @@
                                 }
                                 $('#selectedAddress').attr('value', $('#textAddressData').html());
                             });
-                            active = true;
+                            lookupActive = false;
                         } else {
                             showLookupError();
                         }
@@ -203,7 +202,6 @@
         $('.lookupAddress').click(function (e) {
             e.preventDefault();
             show($('.postcode-lookup-fields, .manualAddress'));
-            active = true;
         });
         $('#backLookup').click(function (e) {
             e.preventDefault();
@@ -211,6 +209,7 @@
             clearManualAddress();
             show($('.postcode-lookup-fields, .manualAddress'))
             $('#postcodeSearch').focus();
+            lookupActive = true;
         });
         $('.lookupAddressCancel').click(function (e) {
             e.preventDefault();
@@ -219,7 +218,7 @@
             clearSelectedAddress();
             show($('.postcode-lookup-fields, .manualAddress'));
             $('#postcodeSearch').focus();
-            active = true;
+            lookupActive = true;
         });
         if($('#text-form-group input:eq(0)').val() != ""){
             hide($('.address--fields, .postcode-lookup-fields'));
