@@ -38,7 +38,7 @@
 
 @fileUploadErrorLinks = @{
     errors.map{ error =>
-        ErrorLink(href = Some(s"#newFile"),
+        ErrorLink(href = Some(s"#newFileButton"),
             content = HtmlContent(messages(error)) )}
 }
 
@@ -57,7 +57,7 @@
             <div class="govuk-error-summary__body">
                 <ul class="govuk-list govuk-error-summary__list">
                 @errors.map { error =>
-                    <li><a href="#newFile">@messages(error)</a></li>
+                    <li><a href="#newFileButton">@messages(error)</a></li>
                 }
                 </ul>
             </div>

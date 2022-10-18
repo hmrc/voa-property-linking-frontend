@@ -23,7 +23,7 @@
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import helpers._
 
-@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary: GovukErrorSummary, govukWarningText: GovukWarningText, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(
         submissionId: String,
@@ -49,7 +49,7 @@
             <div class="govuk-error-summary__body">
                 <ul class="govuk-list govuk-error-summary__list">
                 @errors.map { error =>
-                    <li><a href="#newFile">@messages(error)</a></li>
+                    <li><a href="#newFileButton">@messages(error)</a></li>
                 }
                 </ul>
             </div>
@@ -60,20 +60,19 @@
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@title</h1>
+    <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty) {govuk-form-group--error}">
 
-    <div id="fileTypesText" class="govuk-hint">
-    @messages("fileUpload.allowedTypes")
-    </div>
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@title</h1>
 
-    @formWithCSRF(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
-        <div class="govuk-!-display-none" id="initiateFields"></div>
+        <div id="fileTypesText" class="govuk-hint">@messages("fileUpload.allowedTypes")</div>
 
-        @if(uploadedFiles.size < 1) {
-            <div id="newFileGroup" class="govuk-form-group @if(errors.nonEmpty) {govuk-form-group--error}">
+        @formWithCSRF(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+            <div class="govuk-!-display-none" id="initiateFields"></div>
+
+            @if(uploadedFiles.size < 1) {
                 <label class="govuk-label" for="newFile">
                     <span class="govuk-visually-hidden">@messages("fileupload.chooseFile")</span>
-                    <input type="file" id="newFile" name="file" class="govuk-file-upload  @if(errors.nonEmpty) {govuk-file-upload--error}" tabindex="-1" style="position: absolute;
+                    <input type="file" id="newFile" name="file" class="govuk-file-upload " tabindex="-1" style="position: absolute;
                         left: -9999px;
                         top: -9999px;
                         z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
@@ -86,31 +85,31 @@
                     }
                     <input id="newFileButton" class="govuk-file-upload" name="file-upload-1" type="file">
                 </div>
+            }
+        </div>
+
+    <div class="message-warning govuk-!-display-none" id="message-warning"><p class="govuk-body">@messages("fileUpload.pleaseWait")</p></div>
+
+    @if(uploadedFiles.nonEmpty) {
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                @messages("fileUpload.descriptionList.key")
+                </dt>
+                <dd class="govuk-summary-list__value">
+                @uploadedFiles.map { case (fileReference, upload) =>
+                    @upload.fileMetadata.toDisplayFileName
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <button id="remove-file" type="submit" class="govuk-body govuk-link" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)">
+                    @messages("fileUpload.descriptionList.action")
+                    </button>
+                </dd>
+                }
             </div>
-        }
-
-        <div class="message-warning govuk-!-display-none" id="message-warning"><p class="govuk-body">@messages("fileUpload.pleaseWait")</p></div>
-
-      @if(uploadedFiles.nonEmpty) {
-          <dl class="govuk-summary-list">
-              <div class="govuk-summary-list__row">
-                  <dt class="govuk-summary-list__key">
-                      @messages("fileUpload.descriptionList.key")
-                  </dt>
-                  <dd class="govuk-summary-list__value">
-                  @uploadedFiles.map { case (fileReference, upload) =>
-                      @upload.fileMetadata.toDisplayFileName
-                  </dd>
-                  <dd class="govuk-summary-list__actions">
-                      <button id="remove-file" type="submit" class="govuk-body govuk-link" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)">
-                          @messages("fileUpload.descriptionList.action")
-                      </button>
-                  </dd>
-                  }
-              </div>
-          </dl>
-      }
+        </dl>
     }
+}
     @formWithCSRF(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
         @govukButton(Button(
             content = Text(messages("uploadRatesBill.show.button")),
