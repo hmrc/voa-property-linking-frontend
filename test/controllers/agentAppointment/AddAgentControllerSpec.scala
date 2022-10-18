@@ -66,7 +66,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   "getAgentDetails" should "return 400 Bad Request when agentCode does not exist" in {
     when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any())).thenReturn(Future successful None)
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future successful organisationsAgentsList)
+      .thenReturn(Future successful organisationsAgentsListWithOneAgent)
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "213414"))
     status(res) shouldBe BAD_REQUEST
@@ -77,7 +77,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
       .thenReturn(Future.failed(new BadRequestException("invalid agentCode")))
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future successful organisationsAgentsList)
+      .thenReturn(Future successful organisationsAgentsListWithOneAgent)
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "123456789012345"))
     status(res) shouldBe BAD_REQUEST
@@ -88,7 +88,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
       .thenReturn(Future successful Some(agentDetails))
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
-      Future successful organisationsAgentsList.copy(
+      Future successful organisationsAgentsListWithOneAgent.copy(
         agents = List(agentSummary.copy(representativeCode = agentOrganisation.representativeCode.get))))
     val res = testController.getAgentDetails()(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"${agentOrganisation.representativeCode.get}"))
@@ -100,7 +100,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
       .thenReturn(Future successful Some(agentDetails))
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future successful organisationsAgentsList)
+      .thenReturn(Future successful organisationsAgentsListWithOneAgent)
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "11223"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(

@@ -56,10 +56,10 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   "getMyOrganisationAgents" should {
     "return AgentList when successful" in {
       when(mockPropertyLinkConnector.getMyOrganisationAgents()(any()))
-        .thenReturn(Future.successful(organisationsAgentsList))
+        .thenReturn(Future.successful(organisationsAgentsListWithOneAgent))
       val res = testService.getMyOrganisationAgents()
 
-      res.futureValue should be(organisationsAgentsList)
+      res.futureValue should be(organisationsAgentsListWithOneAgent)
 
       verify(mockPropertyLinkConnector, times(1)).getMyOrganisationAgents()(any())
     }

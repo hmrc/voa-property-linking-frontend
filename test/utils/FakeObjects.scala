@@ -310,7 +310,7 @@ trait FakeObjects {
     propertyCount = 1
   )
 
-  val organisationsAgentsList = AgentList(resultCount = 1, agents = List(agentSummary))
+  val organisationsAgentsListWithOneAgent = AgentList(resultCount = 1, agents = List(agentSummary))
   val organisationsAgentsListWithTwoAgents = AgentList(resultCount = 2, agents = List(agentSummary, agentSummary2))
   val emptyOrganisationsAgentsList = AgentList(resultCount = 0, agents = List.empty)
 

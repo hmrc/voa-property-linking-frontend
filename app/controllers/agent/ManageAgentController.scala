@@ -88,11 +88,13 @@ class ManageAgentController @Inject()(
         ownerAuthResult <- agentRelationshipService
                             .getMyAgentPropertyLinks(agentCode, params, PaginationParams(1, 100, true))
         agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
-        backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId, uarn) match {
-          case (Some(linkId), Some(valId), Some(submissionId), None) =>
+        myAgents     <- agentRelationshipService.getMyOrganisationAgents()
+        backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId, uarn, myAgents.resultCount) match {
+          case (None, None, None, None, 1) => config.dashboardUrl("home")
+          case (Some(linkId), Some(valId), Some(submissionId), None, _) =>
             config.businessRatesValuationFrontendUrl(
               s"property-link/$linkId/valuations/$valId?submissionId=$submissionId#agents-tab")
-          case (None, Some(valId), Some(submissionId), Some(u)) =>
+          case (None, Some(valId), Some(submissionId), Some(u), _) =>
             s"${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId = submissionId, valuationId = valId, uarn = u).url}#agents-tab"
           case _ => controllers.agent.routes.ManageAgentController.showAgents.url
         }
@@ -274,7 +276,7 @@ class ManageAgentController @Inject()(
     }
 
   private def calculateBackLink(organisationsAgents: AgentList, agentCode: Long) =
-    if (organisationsAgents.resultCount > 1)
+    if (organisationsAgents.resultCount >= 1)
       controllers.agent.routes.ManageAgentController
         .manageAgentProperties(agentCode, GetPropertyLinksParameters())
         .url

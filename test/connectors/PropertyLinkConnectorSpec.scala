@@ -92,8 +92,8 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   }
 
   "getMyOrganisationAgents" should "return organisation's agents" in new Setup {
-    mockHttpGET[AgentList]("tst-url", organisationsAgentsList)
-    whenReady(connector.getMyOrganisationAgents())(_ shouldBe organisationsAgentsList)
+    mockHttpGET[AgentList]("tst-url", organisationsAgentsListWithOneAgent)
+    whenReady(connector.getMyOrganisationAgents())(_ shouldBe organisationsAgentsListWithOneAgent)
   }
 
   "getMyAgentPropertyLinks" should "return agent property links" in new Setup {
