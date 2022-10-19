@@ -77,15 +77,13 @@
                         top: -9999px;
                         z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
                 </label>
-                <div class="govuk-form-group">
-                    @errors.map { error =>
-                        <p id="file-upload-1-error" class="govuk-error-message">
-                            <span class="govuk-visually-hidden">@messages("accessibility.error.label")</span> @messages(error)
-                        </p>
-                    }
-                    <input id="newFileButton" class="govuk-file-upload" name="file-upload-1" type="file">
-                </div>
-            }
+                @errors.map { error =>
+                    <p id="file-upload-1-error" class="govuk-error-message">
+                        <span class="govuk-visually-hidden">@messages("accessibility.error.label")</span> @messages(error)
+                    </p>
+                }
+                <input id="newFileButton" class="govuk-file-upload" name="file-upload-1" type="file">
+                }
         </div>
 
     <div class="message-warning govuk-!-display-none" id="message-warning"><p class="govuk-body">@messages("fileUpload.pleaseWait")</p></div>

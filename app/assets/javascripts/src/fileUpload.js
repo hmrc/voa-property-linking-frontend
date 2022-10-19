@@ -145,7 +145,7 @@
             } else {
                 $(document).prop('title', errorTitlePrefix + ' ' + title);
             }
-            $('#errorsList').html(errorMessages.replace('<li></li>', '<li><a href="#newFileGroup">'+ message +'</a></li>'));
+            $('#errorsList').html(errorMessages.replace('<li></li>', '<li><a href="#newFileButton">'+ message +'</a></li>'));
             $('<span id="file-upload-1-error" class="govuk-error-message"><span class="govuk-!-display-none">'+ errorTitlePrefix +'</span>'+ message +'</span>').insertBefore('#newFileButton');
             $('#newFileGroup').addClass('govuk-form-group--error');
             $('#message-warning').addClass('govuk-!-display-none');
