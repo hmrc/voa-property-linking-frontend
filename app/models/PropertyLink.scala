@@ -66,7 +66,6 @@ case class ApiAssessment(
   def isDraft: Boolean = listType == ListType.DRAFT
 
   def isCurrent: Boolean = listType == ListType.CURRENT && currentFromDate.nonEmpty && currentToDate.isEmpty
-  def isPrevious: Boolean = !isDraft && !isCurrent
 }
 
 object ApiAssessment {
