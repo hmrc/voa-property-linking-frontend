@@ -31,7 +31,8 @@ import play.api.test.Helpers._
 import utils._
 
 import scala.collection.JavaConverters._
-import java.time.LocalDateTime
+import java.time.{LocalDate, LocalDateTime}
+
 import models.dvr.cases.check.common.Agent
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
@@ -215,6 +216,66 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     // Backlink
     contentAsString(result) should include(
       """<a href="/business-rates-property-linking/my-organisation/property-link/clients/all/123456/valuations/55555?uarn=123123""")
+  }
+
+  "current valuation" should "return 200 OK and have the correct caption" in new Setup {
+
+    val ownerAssessments = assessments.copy(assessments = Seq(apiAssessment(ownerAuthorisation)))
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(ownerAssessments)))
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerCheckCaseDetails)))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerChallengeCaseDetails)))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId =
+          ownerAssessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+
+    val doc = Jsoup.parse(contentAsString(result))
+
+    val page = HtmlPage(doc)
+
+    page.html.getElementById("rateable-value-caption").text().startsWith("Current rateable value") shouldBe true
+  }
+
+  "previous valuation" should "return 200 OK and have the correct caption" in new Setup {
+
+    val ownerAssessments = assessments.copy(
+      assessments = Seq(apiAssessment(ownerAuthorisation)
+        .copy(listType = ListType.PREVIOUS, currentToDate = Some(LocalDate.now().minusDays(1)))))
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(ownerAssessments)))
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerCheckCaseDetails)))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerChallengeCaseDetails)))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId =
+          ownerAssessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+
+    val doc = Jsoup.parse(contentAsString(result))
+
+    val page = HtmlPage(doc)
+
+    page.html.getElementById("rateable-value-caption").text().startsWith("Previous rateable value") shouldBe true
   }
 
   "detailed valuation check" should "return 200 OK when DVR case does not exist" in new Setup {
@@ -498,6 +559,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     status(result) shouldBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(result)))
 
+    page.html.getElementById("rateable-value-caption").text().startsWith("Future rateable value") shouldBe true
     page.shouldContain("#agents-tab", 1)
 
     private val tabs: Element = page.html.getElementsByClass("govuk-tabs__list").first()

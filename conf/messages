@@ -1117,7 +1117,9 @@ available.requestvaluation.check.title=Submit a check
 available.requestvaluation.check.p1=To submit a check for this property you will need to <a class="govuk-link" href={0}> download the Check Form </a>
 available.requestvaluation.check.p2=You can email the form to <a class="govuk-link" href="mailto:CCAService@voa.gov.uk">CCAService@voa.gov.uk</a> or post it to:
 available.requestvaluation.address=Check and challenge service, PO Box 308, PLYMOUTH, PL5 9DT
-available.requestvaluation.h2=Current rateable value ({0} to {1})
+available.requestvaluation.h2.previous=Previous rateable value ({0} to {1})
+available.requestvaluation.h2.current=Current rateable value ({0} to present)
+available.requestvaluation.h2.future=Future rateable value (from {0})
 available.requestvaluation.inset=This is not the amount you pay. It is used to calculate your business rates bill.
 available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need to <a class="govuk-link" href="{0}">download and complete a check form</a>.
 available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
