@@ -569,4 +569,20 @@ trait FakeObjects {
     allowedActions = List(AllowedAction.PROPERTY_LINK)
   )
 
+  def apiAssessment(a: OwnerAuthorisation) = ApiAssessment(
+    authorisationId = a.authorisationId,
+    assessmentRef = 1L,
+    listYear = "2017",
+    uarn = a.uarn,
+    effectiveDate = Some(april2017),
+    rateableValue = Some(65433L),
+    address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
+    billingAuthorityReference = a.localAuthorityRef,
+    billingAuthorityCode = Some("2715"),
+    listType = ListType.CURRENT,
+    allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
+    currentFromDate = Some(april2017.plusMonths(2L)),
+    currentToDate = None
+  )
+
 }

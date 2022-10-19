@@ -64,6 +64,8 @@ case class ApiAssessment(
 ) {
   def isWelsh: Boolean = billingAuthorityCode.exists(_.startsWith("6"))
   def isDraft: Boolean = listType == ListType.DRAFT
+
+  def isCurrent: Boolean = listType == ListType.CURRENT && currentFromDate.nonEmpty && currentToDate.isEmpty
 }
 
 object ApiAssessment {
