@@ -25,13 +25,25 @@
         id: Option[String] = None,
         hintMessageKey: String = "help.date",
         hintDateOverride: Option[LocalDate] = None,
-        label: Option[String] = None)(implicit request: Request[_], messages: Messages)
+        label: Option[String] = None,
+        manualErrorHandler: PartialFunction[String , String] = PartialFunction.empty
+)(implicit request: Request[_], messages: Messages)
 
 @dateErrors = @{
-    (form.error(s"$fieldName"), form.error(s"${fieldName}.day"), form.error(s"${fieldName}.month"), form.error(s"${fieldName}.year")) match
-    {
-        case (None, None, None, None ) => None
-        case _                   => Some(ErrorMessage(content = Text(messages("error.common.invalid.date"))))
+    Seq(
+        form.error(fieldName),
+        form.error(s"$fieldName.day"),
+        form.error(s"$fieldName.month"),
+        form.error(s"$fieldName.year")
+    ).flatten.headOption.map { formError =>
+        ErrorMessage(
+            content = Text(
+                manualErrorHandler.applyOrElse(
+                    formError.message,
+                    (_: String) => messages("error.common.invalid.date")
+                )
+            )
+        )
     }
 }
 

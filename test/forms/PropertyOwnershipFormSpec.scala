@@ -62,6 +62,19 @@ class PropertyOwnershipFormSpec extends VoaPropertyLinkingSpec {
       error = "interestedOnOrBefore.error.startDateMustBeBeforeEnd")
   }
 
+  it should "require the start date to be in the past" in {
+    val tomorrow = LocalDate.now().plusDays(1)
+    verifyOnlyError(
+      form(),
+      validData
+        .updated("fromDate.day", tomorrow.getDayOfMonth.toString)
+        .updated("fromDate.month", tomorrow.getMonthValue.toString)
+        .updated("fromDate.year", tomorrow.getYear.toString),
+      field = "fromDate",
+      error = "interestedOnOrBefore.error.dateInFuture"
+    )
+  }
+
   object TestData {
     def form(endDate: Option[LocalDate] = None): Form[PropertyOwnership] =
       ClaimPropertyOwnership.ownershipForm(earliestEnglishStartDate, endDate)
