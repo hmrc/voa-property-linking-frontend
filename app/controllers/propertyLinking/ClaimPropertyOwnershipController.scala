@@ -115,7 +115,7 @@ object ClaimPropertyOwnership {
         "fromDate" -> mandatoryIfFalse(
           "interestedOnOrBefore",
           dmyDateAfterThreshold(earliestStartDate)
-            .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
+            .verifying("interestedOnOrBefore.error.dateInFuture", d => d.isBefore(LocalDate.now))
             .verifying(
               error = "interestedOnOrBefore.error.startDateMustBeBeforeEnd",
               firstOccupied => endDate.forall(lastOccupied => firstOccupied.isBefore(lastOccupied))

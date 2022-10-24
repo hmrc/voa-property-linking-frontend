@@ -18,7 +18,8 @@ package utils
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.scalatest.AppendedClues
+import org.scalactic.source.Position
+import org.scalatest.{AppendedClues, Assertion, OptionValues}
 import org.scalatest.matchers.should.Matchers
 import play.api.mvc.Result
 import play.api.test.Helpers._
@@ -27,31 +28,28 @@ import play.twirl.api.Html
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
 
-case class HtmlPage(html: Document) extends Matchers with AppendedClues {
+case class HtmlPage(html: Document) extends Matchers with AppendedClues with OptionValues {
   type FieldId = String
   type FieldName = String
   type Message = String
   private def allRadios = html.select("input[type=radio]").asScala
 
-  def shouldContainTable(selector: String): Unit =
+  def shouldContainTable(selector: String)(implicit pos: Position): Unit =
     html.select(selector).size() shouldBe 1
 
-  def shouldContainText(text: String) {
+  def shouldContainText(text: String)(implicit pos: Position): Unit =
     html.body.text.contains(text) shouldBe true withClue s"HTML did not contain: $text\nHTML:\n${html.body.text}"
-  }
 
-  def shouldNotContainText(text: String) {
+  def shouldNotContainText(text: String)(implicit pos: Position): Unit =
     html.body.text.contains(text) shouldBe false withClue s"HTML did contain: $text\nHTML:\n${html.body.text}"
-  }
 
-  def titleShouldMatch(text: String) {
+  def titleShouldMatch(text: String)(implicit pos: Position): Unit =
     html.title().equals(text) shouldBe true withClue s"Title did not match. Expected:$text\nActual:\n${html.title()}"
-  }
 
-  def inputShouldContain(fieldId: String, text: String): Unit =
+  def inputShouldContain(fieldId: String, text: String)(implicit pos: Position): Unit =
     Option(html.getElementById(fieldId)).map(_.`val`()) shouldBe Some(text)
 
-  def mustContainRadioSelect(name: String, options: Seq[String]) =
+  def mustContainRadioSelect(name: String, options: Seq[String])(implicit pos: Position): Unit =
     options.foreach { o =>
       html
         .select(s"input[type=radio][name=$name][value=$o]")
@@ -59,32 +57,33 @@ case class HtmlPage(html: Document) extends Matchers with AppendedClues {
         .length shouldEqual 1 withClue s"No radio option: $name $o. All radios:\n$allRadios}"
     }
 
-  def shouldContainDateSelect(name: String) =
+  def shouldContainDateSelect(name: String)(implicit pos: Position): Unit =
     List("day", "month", "year").foreach(x => shouldContainTextInput(s"[name=$name.$x]"))
 
-  def shouldContainTextInput(selector: String) = shouldContainInput(s"form input[type=text]$selector")
+  def shouldContainTextInput(selector: String)(implicit pos: Position): Unit =
+    shouldContainInput(s"form input[type=text]$selector")
 
-  private def shouldContainInput(selector: String) =
+  private def shouldContainInput(selector: String)(implicit pos: Position): Unit =
     if (html.select(selector).size != 1) {
       fail(
         s"Expected one element matching $selector, found inputs: \n${html.select("form input").asScala.mkString("\n\t")}")
     }
 
-  def shouldContain(selector: String, count: Int) =
+  def shouldContain(selector: String, count: Int)(implicit pos: Position): Assertion =
     html
       .select(selector)
       .size shouldBe count withClue s"Expected $count of: '$selector'\n ${html.select(selector)}\nFull HTML: \n$html"
 
-  def verifyElementTextByClass(cssSelector: String, text: String): Unit =
-    Option(html.getElementsByClass(cssSelector)).map(_.text()) shouldBe Some(text)
+  def verifyElementTextByClass(cssSelector: String, text: String)(implicit pos: Position): Unit =
+    Option(html.getElementsByClass(cssSelector)).map(_.text()).value shouldBe text
 
-  def verifyElementText(fieldId: String, text: String): Unit =
-    Option(html.getElementById(fieldId)).map(_.text()) shouldBe Some(text)
+  def verifyElementText(fieldId: String, text: String)(implicit pos: Position): Unit =
+    Option(html.getElementById(fieldId)).map(_.text()).value shouldBe text
 
-  def verifyElementTextByAttribute(attribute: String, value: String, text: String): Unit =
-    Option(html.getElementsByAttributeValue(attribute, value)).map(_.text()) shouldBe Some(text)
+  def verifyElementTextByAttribute(attribute: String, value: String, text: String)(implicit pos: Position): Unit =
+    Option(html.getElementsByAttributeValue(attribute, value)).map(_.text()).value shouldBe text
 
-  def shouldContainSummaryErrors(errors: (FieldId, FieldName, Message)*) =
+  def shouldContainSummaryErrors(errors: (FieldId, FieldName, Message)*)(implicit pos: Position): Unit =
     errors.foreach {
       case (id, name, msg) =>
         val summary = html.select(s"div#error-summary")
@@ -98,7 +97,7 @@ case class HtmlPage(html: Document) extends Matchers with AppendedClues {
 
   private def errorSummaryHtmlFor(name: FieldName, msg: Message): String = s"$name - $msg"
 
-  def shouldContainFieldErrors(errors: (FieldId, Message)*) =
+  def shouldContainFieldErrors(errors: (FieldId, Message)*)(implicit pos: Position): Unit =
     errors.foreach { e =>
       html
         .select(s"#${e._1.replace("_", "")}Group .error-message")

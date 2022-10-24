@@ -30,6 +30,32 @@
 
 @clientSuffix = @{clientDetails.fold("")(_ => ".client")}
 
+@relationshipCapacity = @{
+    request.ses.propertyRelationship
+        .map(_.capacity)
+        .fold(
+            messages("interestedOnOrBefore.error.startDateMustBeBeforeEnd.relationship.fallback")
+        )(
+            _.name.replace("_", s" ${messages("common.and")} ").toLowerCase
+        )
+}
+
+@errorHandler = @{
+    val handler: PartialFunction[String, String] = {
+        case e @ "interestedOnOrBefore.error.dateInFuture" => messages(e + clientSuffix, relationshipCapacity)
+
+        case e @ "interestedOnOrBefore.error.startDateMustBeBeforeEnd" =>
+            messages(
+                e + clientSuffix,
+                relationshipCapacity,
+                request.ses.propertyOccupancy
+                        .flatMap(_.lastOccupiedDate)
+                        .fold(messages("interestedOnOrBefore.error.startDateMustBeBeforeEnd.endDate.fallback"))(formatDate)
+            )
+    }
+    handler
+}
+
 @mainLayout(
     pageTitle = messages(s"declareCapacity.title$clientSuffix"),
     backUri = Some(backLink),
@@ -42,18 +68,8 @@
                     form,
                     "fromDate",
                     clientSuffix,
-                    manualDateErrorHandler = {
-                        case e @ "interestedOnOrBefore.error.startDateMustBeBeforeEnd" =>
-                            messages(
-                                e + clientSuffix,
-                                request.ses.propertyRelationship.map(_.capacity).fold(
-                                    messages("interestedOnOrBefore.error.startDateMustBeBeforeEnd.relationship.fallback"))(
-                                    _.name.replace("_", s" ${messages("common.and")} ").toLowerCase),
-                                request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate).fold(
-                                    messages("interestedOnOrBefore.error.startDateMustBeBeforeEnd.endDate.fallback"))(
-                                    formatDate)
-                            )
-                    }),
+                    manualDateErrorHandler = errorHandler
+                ),
                 title = Text(messages("error.propertyRepresentation.title"))
             )
         )
@@ -94,7 +110,9 @@
                             form = form,
                             fieldName = "fromDate",
                             hintDateOverride = Some(model.onOrBeforeDate.plusDays(1)),
-                            label = Some(s"label.fromDate$clientSuffix")))
+                            label = Some(s"label.fromDate$clientSuffix"),
+                            manualErrorHandler = errorHandler
+                        ))
                 )
             )
         ).withFormField(form("interestedOnOrBefore")))
