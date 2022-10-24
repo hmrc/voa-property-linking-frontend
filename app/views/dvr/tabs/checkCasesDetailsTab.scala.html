@@ -23,6 +23,8 @@
 @import java.time.LocalDate
 @import views.html.includes.helpIcon
 
+@this(govukButton: GovukButton, govukDetails: GovukDetails, govukTable: GovukTable, govukWarningText: GovukWarningText)
+
 @(
   propertyLinkSubmissionId: String,
   isOwner: Boolean,
@@ -34,7 +36,7 @@
   downloadUrl: String,
   startCheckUrl: String,
   checkSummaryUrl: String => String
-)(govukButton: GovukButton, govukTable: GovukTable, govukDetails: GovukDetails, govukWarningText: GovukWarningText)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @viewCaseUrl(checkRef: String, submissionId: String) = @{
     config.businessRatesCheckUrl(s"check-case/$checkRef/summary?propertyLinkSubmissionId=$submissionId&isOwner=$isOwner")

@@ -18,7 +18,9 @@
 @import models.dvr.cases.check.CheckType
 @import models.dvr.cases.check.StartCheckForm
 
-@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm])(govukButton: GovukButton, govukDetails: GovukDetails, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF)(implicit messages: Messages, request: Request[_])
+@this(formWithCSRF: FormWithCSRF, govukButton: GovukButton, govukDetails: GovukDetails, govukRadios: GovukRadios)
+
+@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm])(implicit messages: Messages, request: Request[_])
 
 @helpWithStartingCheckCaseContent = {
     <p class="govuk-body">@messages("available.requestvaluation.startCheckTab.guidance.content.p1")</p>

@@ -19,7 +19,13 @@
 @import controllers.detailedvaluationrequest.RequestDetailedValuationWithoutForm
 @import views.html.dvr.tabs.{futureHelpTab, requestFutureValuationTab}
 
-@this(mainLayout: views.html.mainLayout, govukButton : GovukButton, govukInsetText: GovukInsetText, govukTabs: GovukTabs, formWithCSRF: FormWithCSRF)
+@this(
+  mainLayout: views.html.mainLayout,
+  requestFutureValuationTab: views.html.dvr.tabs.requestFutureValuationTab,
+  govukButton: GovukButton,
+  govukTabs: GovukTabs,
+  formWithCSRF: FormWithCSRF
+)
 
 @(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String, enquiryUrl: String, estimatorUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -58,7 +64,7 @@
                             model.currentValuationUrl,
                             model.valuationsUrl,
                             model.isWelsh
-                        )(govukInsetText)))
+                        )))
                     ),
                     TabItem(
                         id = Some("help-tab"),

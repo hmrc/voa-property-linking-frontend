@@ -17,7 +17,9 @@
 @import _root_.utils.Formatters
 @import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
 
-@(model: AvailableRequestDetailedValuation, evaluateRoute: String => String)(govukButton: GovukButton, govukInsetText: GovukInsetText, govukWarningText: GovukWarningText)(implicit messages: Messages)
+@this(govukButton: GovukButton, govukInsetText: GovukInsetText, govukWarningText: GovukWarningText)
+
+@(model: AvailableRequestDetailedValuation, evaluateRoute: String => String)(implicit messages: Messages)
 
 @fromDate = @{
     model.assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")

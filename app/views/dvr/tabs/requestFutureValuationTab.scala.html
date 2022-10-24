@@ -16,14 +16,15 @@
 
 @import _root_.utils.Formatters.formatCurrencyRoundedToPounds
 @import config.ApplicationConfig
-@import controllers.detailedvaluationrequest.RequestDetailedValuationWithoutForm
+
+@this(govukInsetText: GovukInsetText)
 
 @(rateableValue: Option[Long],
   effectiveDate: String,
   estimatorUrl: String,
   currentValuationUrl: Option[String],
   valuationsUrl: String,
-  isWelshProperty: Boolean)(govukInsetText: GovukInsetText)(implicit config: ApplicationConfig, messages: Messages)
+  isWelshProperty: Boolean)(implicit config: ApplicationConfig, messages: Messages)
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds" id="future-valuation-tab-content">

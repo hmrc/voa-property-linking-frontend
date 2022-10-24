@@ -423,15 +423,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         cssClasses should not include "govuk-tag--grey"
     }
 
-//    val linksToCheckSummary: List[String] = checksTable
-//      .getElementsByTag("tr")
-//      .asScala
-//      .toList
-//      .map(
-//        _.child(0)
-//          .child(0)
-//          .attr("href"))
-
     Inspectors.forAll(checkCaseDetails) { details =>
       checksTable
         .getElementsContainingOwnText(details.caseReference)

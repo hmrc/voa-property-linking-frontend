@@ -25,6 +25,7 @@ import views.html.{addUserToGG, startOldJourney}
 import views.html.helpers._
 import views.html.propertyLinking._
 import views.html._
+import views.html.dvr.tabs.{agentsTab, challengeCasesDetailsTab, checkCasesDetailsTab, requestFutureValuationTab, startCheckTab, valuationTab}
 import views.html.propertyrepresentation.manage._
 import views.html.propertyrepresentation._
 
@@ -43,22 +44,27 @@ trait FakeViews extends GdsComponents {
   )
   lazy val dateFields = new dateFields(govukDateInput: GovukDateInput)
   lazy val alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout)
+  lazy val requestFutureValuationTab = new requestFutureValuationTab(govukInsetText)
   lazy val requestDetailedValuationView =
-    new requestDetailedValuation(mainLayout, govukButton, govukInsetText, govukTabs, formWithCSRF)
+    new requestDetailedValuation(mainLayout, requestFutureValuationTab, govukButton, govukTabs, formWithCSRF)
   lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout)
+  lazy val agentsTab = new agentsTab(govukTable)
+  lazy val challengeCasesDetailsTab = new challengeCasesDetailsTab(govukDetails, govukTable)
+  lazy val checkCasesDetailsTab = new checkCasesDetailsTab(govukButton, govukDetails, govukTable, govukWarningText)
+  lazy val startCheckTab = new startCheckTab(formWithCSRF, govukButton, govukDetails, govukRadios)
+  lazy val valuationTab = new valuationTab(govukButton, govukInsetText, govukWarningText)
   lazy val dvrFilesView =
     new dvrFiles(
       mainLayout,
-      govukButton,
-      govukDetails,
-      govukWarningText,
-      govukTable,
+      agentsTab,
+      challengeCasesDetailsTab,
+      checkCasesDetailsTab,
+      startCheckTab,
+      valuationTab,
       govukTabs,
       govukSummaryList,
-      govukRadios,
-      govukErrorSummary,
-      formWithCSRF,
-      govukInsetText)
+      govukErrorSummary
+    )
   lazy val cannotRaiseChallengeView = new cannotRaiseChallenge(mainLayout, govukButton)
   lazy val propertyMissingView = new propertyMissing(mainLayout)
 
