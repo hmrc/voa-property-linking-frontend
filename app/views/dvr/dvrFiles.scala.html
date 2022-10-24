@@ -17,7 +17,6 @@
 @import _root_.utils.Formatters
 @import config.ApplicationConfig
 @import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
-@import models.dvr.cases.check.CheckType
 @import models.dvr.cases.check.projection.CaseDetails
 @import models.dvr.cases.check.StartCheckForm
 @import views.html.dvr.tabs._
@@ -36,7 +35,7 @@
   govukInsetText: GovukInsetText
 )
 
-@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm], checkSummaryUrl: String => String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @address = @{Formatters.capitalisedAddress(model.address)}
@@ -81,7 +80,7 @@
 }
 
 @checkCasesTabContent = @{
-    checkCasesDetailsTab(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, model.listYear, checkCases, evaluateRoute(model.check), "#start-check-tab")(govukButton, govukTable, govukDetails, govukWarningText)
+    checkCasesDetailsTab(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, model.listYear, checkCases, evaluateRoute(model.check), "#start-check-tab", checkSummaryUrl)(govukButton, govukTable, govukDetails, govukWarningText)
 }
 
 @challengeCasesTabContent = @{

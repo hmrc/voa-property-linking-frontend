@@ -23,7 +23,18 @@
 @import java.time.LocalDate
 @import views.html.includes.helpIcon
 
-@(propertyLinkSubmissionId: String, isOwner: Boolean, uarn: Long, authorisationId: Long, assessmentRef: Long, listYear:String, checkCases: List[CaseDetails], downloadUrl: String, startCheckUrl: String)(govukButton: GovukButton, govukTable: GovukTable, govukDetails: GovukDetails, govukWarningText: GovukWarningText)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(
+  propertyLinkSubmissionId: String,
+  isOwner: Boolean,
+  uarn: Long,
+  authorisationId: Long,
+  assessmentRef: Long,
+  listYear:String,
+  checkCases: List[CaseDetails],
+  downloadUrl: String,
+  startCheckUrl: String,
+  checkSummaryUrl: String => String
+)(govukButton: GovukButton, govukTable: GovukTable, govukDetails: GovukDetails, govukWarningText: GovukWarningText)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @viewCaseUrl(checkRef: String, submissionId: String) = @{
     config.businessRatesCheckUrl(s"check-case/$checkRef/summary?propertyLinkSubmissionId=$submissionId&isOwner=$isOwner")
@@ -77,7 +88,7 @@
 @row(checkReference: String, submittedDate: LocalDateTime, status: String, closedDate: Option[LocalDate], submittedBy: String) = @{
     Seq(
         TableRow(
-            content = HtmlContent(s"<a href='${config.checkSummaryPageUrl(checkReference, propertyLinkSubmissionId, isOwner, assessmentRef)}&isDvr=true' class='govuk-link'>$checkReference</a>")
+            content = HtmlContent(s"""<a href="${checkSummaryUrl(checkReference)}" class='govuk-link'>$checkReference</a>""")
         ),
         TableRow(
             content = Text(formatDateTimeToDate(submittedDate))

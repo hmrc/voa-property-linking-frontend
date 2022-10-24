@@ -69,8 +69,18 @@ class GuiceModule(
       servicesConfig.baseUrl("vmv")
     )
 
+    bindCheckFrontendEndpoints()
     bindVmvFrontendEndpoints()
   }
+
+  private def bindCheckFrontendEndpoints(): Unit =
+    bindEndpoints(
+      Map(
+        "check.summary.url" -> "resources.check.frontend.summary.path"
+      ),
+      // actually check frontend
+      servicesConfig.getString("business-rates-check.url")
+    )
 
   private def bindVmvFrontendEndpoints(): Unit =
     bindEndpoints(

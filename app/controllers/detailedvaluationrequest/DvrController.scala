@@ -59,6 +59,7 @@ class DvrController @Inject()(
       dvrFilesView: views.html.dvr.dvrFiles,
       cannotRaiseChallengeView: views.html.dvr.cannotRaiseChallenge,
       propertyMissingView: views.html.errors.propertyMissing,
+      @Named("check.summary.url") checkSummaryUrlTemplate: String,
       @Named("vmv.send-enquiry.url") enquiryUrlTemplate: String,
       @Named("vmv.estimator-dvr-valuation.url") estimatorUrlTemplate: String
 )(
@@ -206,7 +207,16 @@ class DvrController @Inject()(
                   agentTabData = agentsData,
                   assessment = assessment
                 ),
-                startCheckForm = form
+                startCheckForm = form,
+                checkSummaryUrl = { checkReference: String =>
+                  checkSummaryUrlTemplate.templated(
+                    "checkRef"                 -> checkReference,
+                    "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
+                    "isOwner"                  -> owner,
+                    "valuationId"              -> valuationId,
+                    "isDvr"                    -> true
+                  )
+                }
               )
               if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
             }
