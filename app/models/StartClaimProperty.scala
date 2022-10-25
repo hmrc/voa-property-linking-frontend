@@ -16,12 +16,15 @@
 
 package models
 
+import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import play.api.libs.json.Json
 
-case class PropertyRelationship(capacity: CapacityType) {
-  def isOccupier = capacity == Occupier
-}
+case class StartClaimProperty(
+      uarn: Long,
+      rtp: ClaimPropertyReturnToPage,
+      clientDetails: Option[ClientDetails] = None,
+      valuationId: Option[Long] = None)
 
-object PropertyRelationship {
-  implicit val format = Json.format[PropertyRelationship]
+object StartClaimProperty {
+  implicit val format = Json.format[StartClaimProperty]
 }

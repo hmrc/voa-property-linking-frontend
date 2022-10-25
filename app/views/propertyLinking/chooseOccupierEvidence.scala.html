@@ -1,0 +1,78 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.ApplicationConfig
+@import views.html.includes.assessmentHeading
+@import actions.propertylinking.requests.LinkingSessionRequest
+
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+
+
+@(form: Form[_], backlink: Option[String])(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+
+@title = @{messages("chooseEvidence.occupier.title")}
+
+@mainLayout(
+    pageTitle = messages(title),
+    backUri = backlink,
+    hasErrors = form.hasErrors
+) {
+
+    @if(form.hasErrors) {
+        @govukErrorSummary(ErrorSummary(
+            errorList = form.errors.asTextErrorLinks,
+            title = Text(messages("errors.heading.title"))))
+    }
+
+    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
+
+    <h2 class="govuk-caption-l">@messages("caption.add.property")</h2>
+
+                @formWithCSRF(action = controllers.propertyLinking.routes.ChooseEvidenceController.submitOccupierForm) {
+
+                    @govukRadios(Radios(
+                        fieldset = Some(Fieldset(
+                            legend = Some(Legend(
+                                content = Text(title),
+                                classes = "govuk-fieldset__legend--l",
+                                isPageHeading = true
+                            ))
+                        )),
+                        hint = Some(Hint(Some(messages("chooseEvidence.occupier.title.caption", request.ses.address)))),
+                        name = "occupierEvidenceType",
+                        attributes =Map("id" -> "occupierEvidenceType"),
+                        items = Seq(
+                            RadioItem(
+                                content = Text(messages("uploadOtherEvidence.evidenceTypes.lease")),
+                                value = Some(Lease.name)
+                            ),
+                            RadioItem(
+                                content = Text(messages("uploadOtherEvidence.evidenceTypes.license")),
+                                value = Some(License.name)
+                            ),
+                            RadioItem(
+                                content = Text(messages("uploadOtherEvidence.evidenceTypes.noLeaseOrLicense")),
+                                value = Some(NoLeaseNorLicense.name)
+                            )
+                        ),
+                    ).withFormField(form("occupierEvidenceType")))
+
+                    @govukButton(Button(
+                        content = Text(messages("label.continue")),
+                        attributes = Map("id" -> "continue")
+                    ))
+                }
+    }

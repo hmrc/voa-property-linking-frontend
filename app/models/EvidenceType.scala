@@ -63,6 +63,10 @@ case object UnableToProvide extends EvidenceType {
   val name = "unableToProvide"
 }
 
+case object NoLeaseNorLicense extends EvidenceType {
+  val name = "noLeaseOrLicense"
+}
+
 object EvidenceType extends NamedEnumSupport[EvidenceType] {
   override def all: List[EvidenceType] =
     List(
@@ -74,8 +78,17 @@ object EvidenceType extends NamedEnumSupport[EvidenceType] {
       OtherUtilityBill,
       RatesBillType,
       LandRegistryTitle,
-      UnableToProvide)
+      UnableToProvide,
+      NoLeaseNorLicense)
 
   implicit val format: Format[EvidenceType] = EnumFormat(EvidenceType)
   lazy val form: Form[EvidenceType] = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
+}
+
+object OccupierEvidenceType extends NamedEnumSupport[EvidenceType] {
+  override def all: List[EvidenceType] =
+    List(Lease, License, NoLeaseNorLicense)
+
+  implicit val format: Format[EvidenceType] = EnumFormat(EvidenceType)
+  lazy val form: Form[EvidenceType] = Form(single("occupierEvidenceType" -> EnumMapping(OccupierEvidenceType)))
 }

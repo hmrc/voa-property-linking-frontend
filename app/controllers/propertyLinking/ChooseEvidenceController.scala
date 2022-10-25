@@ -22,16 +22,17 @@ import binders.propertylinks.EvidenceChoices
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
-import models.{LinkingSession, UploadEvidenceData}
+import models.{EvidenceType, Lease, LinkingSession, NoLeaseNorLicense, OccupierEvidenceType, UploadEvidenceData}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-
 import java.time.LocalDate
+
 import javax.inject.Inject
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class ChooseEvidenceController @Inject()(
@@ -39,7 +40,8 @@ class ChooseEvidenceController @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
-      chooseEvidenceView: views.html.propertyLinking.chooseEvidence
+      chooseEvidenceView: views.html.propertyLinking.chooseEvidence,
+      chooseOccupierEvidenceView: views.html.propertyLinking.chooseOccupierEvidence
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -48,13 +50,20 @@ class ChooseEvidenceController @Inject()(
 ) extends PropertyLinkingController {
 
   def show: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    val form = request.ses.hasRatesBill.fold(ChooseEvidence.form)(ChooseEvidence.form.fillAndValidate)
+    val form = request.ses.propertyRelationship match {
+      case Some(relationship) if relationship.isOccupier =>
+        request.ses.occupierEvidenceType.fold(OccupierEvidenceType.form)(OccupierEvidenceType.form.fillAndValidate)
+      case _ => request.ses.hasRatesBill.fold(ChooseEvidence.form)(ChooseEvidence.form.fillAndValidate)
+    }
 
     for {
       _ <- businessRatesAttachmentService.persistSessionData(request.ses.copy(fromCya = Some(false)))
       backLink = backlink(request.ses)
     } yield {
-      Ok(chooseEvidenceView(form, Some(backLink)))
+      request.ses.propertyRelationship match {
+        case Some(relationship) if relationship.isOccupier => Ok(chooseOccupierEvidenceView(form, Some(backLink)))
+        case _                                             => Ok(chooseEvidenceView(form, Some(backLink)))
+      }
     }
   }
 
@@ -87,6 +96,33 @@ class ChooseEvidenceController @Inject()(
         }
       )
   }
+
+  def submitOccupierForm: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async {
+    implicit request =>
+      def updateSession(newAnswer: EvidenceType): Future[Unit] =
+        // if the same answer was already in the linking session, then do nothing
+        if (request.ses.occupierEvidenceType.contains(newAnswer)) Future.successful((): Unit)
+        else {
+          businessRatesAttachmentService.persistSessionData(
+            request.ses.copy(occupierEvidenceType = Some(newAnswer), uploadEvidenceData = UploadEvidenceData.empty))
+        }
+
+      OccupierEvidenceType.form
+        .bindFromRequest()
+        .fold(
+          errors => Future.successful(BadRequest(chooseOccupierEvidenceView(errors, Some(backlink(request.ses))))),
+          formData =>
+            updateSession(formData).map { _ =>
+              val choice =
+                if (formData == NoLeaseNorLicense) EvidenceChoices.NO_LEASE_OR_LICENSE
+                else if (formData == Lease) EvidenceChoices.LEASE
+                else EvidenceChoices.LICENSE
+              Redirect(routes.UploadController.show(choice))
+          }
+        )
+
+  }
+
 }
 
 object ChooseEvidence {

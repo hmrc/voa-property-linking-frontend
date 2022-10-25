@@ -53,7 +53,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
         authenticatedAction,
         linkingSession,
         mockBusinessRatesChallengeService,
-        uploadRatesBillView,
+        uploadRatesBillLeaseOrLicenseView,
         uploadEvidenceView,
         cannotProvideEvidenceView
       )

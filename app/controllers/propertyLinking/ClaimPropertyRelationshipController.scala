@@ -54,6 +54,7 @@ class ClaimPropertyRelationshipController @Inject()(
       val vmvConnector: VmvConnector,
       val runModeConfiguration: Configuration,
       relationshipToPropertyView: views.html.propertyLinking.relationshipToProperty,
+      claimPropertyStartView: views.html.propertyLinking.claimPropertyStart,
       beforeYouStartView: views.html.propertyLinking.beforeYouStart)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -85,7 +86,21 @@ class ClaimPropertyRelationshipController @Inject()(
     }
   }
 
-  def showRelationship(
+  def backToClaimPropertyStart(): Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession) { implicit request =>
+      Ok(
+        claimPropertyStartView(
+          ClaimPropertyRelationshipVM(
+            relationshipForm,
+            request.ses.address,
+            request.ses.uarn,
+            request.ses.localAuthorityReference),
+          clientDetails = request.ses.clientDetails,
+          backLinkToVmv(request.ses.rtp, request.ses.uarn, request.ses.valuationId)
+        ))
+    }
+
+  def showStart(
         uarn: Long,
         clientDetails: Option[ClientDetails] = None,
         rtp: ClaimPropertyReturnToPage,
@@ -96,11 +111,25 @@ class ClaimPropertyRelationshipController @Inject()(
         _        <- initialiseSession(uarn, clientDetails, rtp, valuationId)
       } yield
         Ok(
-          relationshipToPropertyView(
+          claimPropertyStartView(
             ClaimPropertyRelationshipVM(relationshipForm, property.addressFull, uarn, property.localAuthorityReference),
             clientDetails = clientDetails,
             backLinkToVmv(rtp, uarn, valuationId)
           ))
+    }
+
+  def showRelationship(): Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession) { implicit request =>
+      Ok(
+        relationshipToPropertyView(
+          ClaimPropertyRelationshipVM(
+            relationshipForm,
+            request.ses.address,
+            request.ses.uarn,
+            request.ses.localAuthorityReference),
+          clientDetails = request.ses.clientDetails,
+          controllers.propertyLinking.routes.ClaimPropertyRelationshipController.backToClaimPropertyStart().url
+        ))
     }
 
   def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
@@ -150,7 +179,7 @@ class ClaimPropertyRelationshipController @Inject()(
 
   private def getBackLink(implicit request: LinkingSessionRequest[_]): String =
     if (request.ses.fromCya.contains(true)) routes.DeclarationController.show().url
-    else backLinkToVmv(request.ses.rtp, request.ses.uarn, valuationId = request.ses.valuationId)
+    else controllers.propertyLinking.routes.ClaimPropertyRelationshipController.backToClaimPropertyStart().url
 
   private def initialiseSession(
         uarn: Long,
@@ -180,6 +209,13 @@ class ClaimPropertyRelationshipController @Inject()(
             ))
     } yield ()
 
+}
+
+object StartClaimProperty {
+  lazy val startClaimPropertyForm = Form(
+    mapping(
+      "capacity" -> EnumMapping(CapacityType)
+    )(PropertyRelationship.apply)(PropertyRelationship.unapply))
 }
 
 object ClaimPropertyRelationship {

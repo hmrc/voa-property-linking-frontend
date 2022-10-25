@@ -42,6 +42,29 @@
             content = HtmlContent(messages(error)) )}
 }
 
+@dynamicOptions = @{
+    request.ses.propertyRelationship match {
+        case Some(rel) if rel.isOccupier =>
+            Seq(
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.evidenceTypes.ratesBill")),
+                value = Some(RatesBillType.name)
+              )
+            )
+        case _ =>
+            Seq(
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.evidenceTypes.lease")),
+                value = Some(Lease.name)
+              ),
+              RadioItem(
+                content = Text(messages("uploadOtherEvidence.evidenceTypes.license")),
+                value = Some(License.name)
+              )
+            )
+    }
+}
+
 @mainLayout(
     pageTitle = Messages("uploadOtherEvidence.title"),
     backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url),
@@ -83,15 +106,7 @@
             attributes = Map("id" -> "upload-evidence-options"),
             idPrefix = Some("evidenceType"),
             name = "evidenceType",
-            items = Seq(
-              RadioItem(
-                content = Text(messages("uploadOtherEvidence.evidenceTypes.lease")),
-                value = Some(Lease.name)
-              ),
-              RadioItem(
-                content = Text(messages("uploadOtherEvidence.evidenceTypes.license")),
-                value = Some(License.name)
-              ),
+            items = dynamicOptions ++ Seq(
               RadioItem(
                 content = Text(messages("uploadOtherEvidence.evidenceTypes.serviceCharge")),
                 value = Some(ServiceCharge.name)
@@ -125,7 +140,7 @@
         )
 
         @govukButton(Button(
-            content = Text(messages("uploadRatesBill.show.button")),
+            content = Text(messages("label.continue")),
             attributes = Map("id" -> "continue"),
             classes = "govuk-!-display-none"
         ))

@@ -18,20 +18,26 @@
 @import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
 @import models.upscan._
-@import models.RatesBillType
+@import models._
 @import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import helpers._
+@import models.EvidenceType
+@import binders.propertylinks.EvidenceChoices.EvidenceChoices
 
 @this(govukErrorSummary: GovukErrorSummary, govukWarningText: GovukWarningText, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(
+        evidenceType: EvidenceType,
+        evidenceChoice: EvidenceChoices,
         submissionId: String,
         errors: List[String] = Nil,
         uploadedFiles: Map[String, UploadedFileDetails] = Map()
 )(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{request.ses.clientDetails.map(_.organisationId) match {
+    case _ if evidenceType == Lease => {messages("uploadEvidence.lease.title")}
+    case _ if evidenceType == License => {messages("uploadEvidence.license.title")}
     case Some(id)   => {messages("uploadRatesBill.show.client.title")}
     case _          => {messages("uploadRatesBill.show.title")}
 }}
@@ -66,7 +72,7 @@
 
         <div id="fileTypesText" class="govuk-hint">@messages("fileUpload.allowedTypes")</div>
 
-        @formWithCSRF(action = UploadController.initiate(EvidenceChoices.RATES_BILL), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+        @formWithCSRF(action = UploadController.initiate(evidenceChoice), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
             <div class="govuk-!-display-none" id="initiateFields"></div>
 
             @if(uploadedFiles.size < 1) {
@@ -99,7 +105,7 @@
                     @upload.fileMetadata.toDisplayFileName
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <button id="remove-file" type="submit" class="govuk-body govuk-link" formaction="@UploadController.remove(fileReference, EvidenceChoices.RATES_BILL)">
+                    <button id="remove-file" type="submit" class="govuk-body govuk-link" formaction="@UploadController.remove(fileReference, evidenceChoice)">
                     @messages("fileUpload.descriptionList.action")
                     </button>
                 </dd>
@@ -108,17 +114,17 @@
         </dl>
     }
 }
-    @formWithCSRF(action = UploadController.continue(EvidenceChoices.RATES_BILL)) {
+    @formWithCSRF(action = UploadController.continue(evidenceChoice)) {
         @govukButton(Button(
-            content = Text(messages("uploadRatesBill.show.button")),
+            content = Text(messages("label.continue")),
             attributes = Map("id" -> "continue")
         ))
     }
 
     <div class="govuk-!-display-none">
     <span id="businessRatesAttachmentsRemoveFileURL">@{s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/remove?fileReference="}</span>
-    <span id="businessRatesAttachmentsInitiateUploadURL">@{s"${UploadController.initiate(EvidenceChoices.RATES_BILL)}"}</span>
-    <span id="businessRatesAttachmentsFileUploadURL">@{s"${UploadController.show(EvidenceChoices.RATES_BILL)}"}</span>
+    <span id="businessRatesAttachmentsInitiateUploadURL">@{s"${UploadController.initiate(evidenceChoice)}"}</span>
+    <span id="businessRatesAttachmentsFileUploadURL">@{s"${UploadController.show(evidenceChoice)}"}</span>
     <span id="errorsUpscan">@Html(messages("error.upscan.unavailable"))</span>
     <span id="errorsFileSizeTooLarge">@messages("error.businessRatesAttachment.file.size.exceed.max.limit")</span>
     <span id="errorsBusinessRatesAttachmentUnsupportedFiles">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
@@ -126,7 +132,7 @@
     <span id="signInPageUrl">@{config.basGatewaySignInUrl}</span>
     <span id="startClaimUrl">@{ClaimPropertyRelationshipController.submitRelationship(request.ses.uarn)}</span>
     <span id="submissionId">@submissionId</span>
-    <span id="evidenceType">@RatesBillType.name</span>
+    <span id="evidenceType">@evidenceType.name</span>
     @javascriptMessages()
     </div>
 }

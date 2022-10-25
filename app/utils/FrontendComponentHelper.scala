@@ -20,6 +20,7 @@ import play.api.data.{Form, FormError}
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.Aliases.ErrorLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.{Key, SummaryListRow, Value}
 
 object FrontendComponentHelper {
 
@@ -57,4 +58,14 @@ object FrontendComponentHelper {
 
   def valueWithId(value: String, id: String): HtmlContent =
     HtmlContent(s"""<span id="$id">$value</span>""")
+
+  def summaryListRow(keyId: String, key: String, valueId: String, value: String)(implicit messages: Messages) =
+    SummaryListRow(
+      key = Key(
+        content = valueWithId(messages(key), keyId)
+      ),
+      value = Value(
+        content = valueWithId(value, valueId)
+      )
+    )
 }

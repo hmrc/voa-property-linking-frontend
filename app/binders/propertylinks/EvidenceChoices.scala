@@ -27,6 +27,9 @@ object EvidenceChoices extends Enumeration {
 
   val RATES_BILL = Value("RATES_BILL")
   val OTHER = Value("OTHER")
+  val LEASE = Value("LEASE")
+  val LICENSE = Value("LICENSE")
+  val NO_LEASE_OR_LICENSE = Value("NO_LEASE_OR_LICENSE")
 
   implicit val format: Format[EvidenceChoices] = JsonUtils.enumFormat(EvidenceChoices)
 

@@ -44,7 +44,7 @@ class UploadController @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       businessRatesAttachmentsService: BusinessRatesAttachmentsService,
-      uploadRatesBillView: views.html.propertyLinking.uploadRatesBill,
+      uploadRatesBillLeaseOrLicenseView: views.html.propertyLinking.uploadRatesBillLeaseOrLicense,
       uploadEvidenceView: views.html.propertyLinking.uploadEvidence,
       cannotProvideEvidenceView: views.html.propertyLinking.cannotProvideEvidence
 )(
@@ -58,14 +58,17 @@ class UploadController @Inject()(
     authenticatedAction.andThen(withLinkingSession) { implicit request =>
       val session = request.ses
       evidence match {
-        case EvidenceChoices.RATES_BILL =>
+        case EvidenceChoices.RATES_BILL | EvidenceChoices.LEASE | EvidenceChoices.LICENSE => {
           Ok(
-            uploadRatesBillView(
+            uploadRatesBillLeaseOrLicenseView(
+              getEvidenceType(evidence),
+              evidence,
               session.submissionId,
               upscanErrors(errorMessage).toList,
               session.uploadEvidenceData.attachments.getOrElse(Map.empty)
             ))
-        case EvidenceChoices.OTHER =>
+        }
+        case EvidenceChoices.OTHER | EvidenceChoices.NO_LEASE_OR_LICENSE =>
           Ok(
             uploadEvidenceView(
               session.submissionId,
@@ -79,6 +82,13 @@ class UploadController @Inject()(
         case _ =>
           BadRequest(errorHandler.badRequestTemplate)
       }
+    }
+
+  private def getEvidenceType(evidence: EvidenceChoices): EvidenceType =
+    evidence match {
+      case EvidenceChoices.RATES_BILL => RatesBillType
+      case EvidenceChoices.LEASE      => Lease
+      case EvidenceChoices.LICENSE    => License
     }
 
   def initiate(evidence: EvidenceChoices): Action[JsValue] =
@@ -158,12 +168,14 @@ class UploadController @Inject()(
 
       val session: LinkingSession = request.ses
       evidence match {
-        case EvidenceChoices.RATES_BILL =>
+        case EvidenceChoices.RATES_BILL | EvidenceChoices.LEASE | EvidenceChoices.LICENSE =>
           upload(session.uploadEvidenceData.copy(linkBasis = RatesBillFlag))
             .getOrElse(
               Future.successful(
                 BadRequest(
-                  uploadRatesBillView(
+                  uploadRatesBillLeaseOrLicenseView(
+                    getEvidenceType(evidence),
+                    evidence,
                     request.ses.submissionId,
                     List("error.businessRatesAttachment.ratesBill.not.selected"),
                     Map()))))
