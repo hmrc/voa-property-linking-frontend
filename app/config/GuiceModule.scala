@@ -78,7 +78,6 @@ class GuiceModule(
       Map(
         "check.summary.url" -> "resources.check.frontend.summary.path"
       ),
-      // actually check frontend
       servicesConfig.getString("business-rates-check.url")
     )
 
