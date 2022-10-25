@@ -20,7 +20,6 @@ import java.util.Base64
 import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
 
-import java.text.MessageFormat.format
 import java.time.LocalDate
 import scala.util.Try
 @Singleton()
