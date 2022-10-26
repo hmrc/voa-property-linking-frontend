@@ -17,13 +17,16 @@
 @import config.ApplicationConfig
 @import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
+@import _root_.utils.Formatters
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
-
 @(form: Form[_], backlink: Option[String])(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@title = @{messages("chooseEvidence.occupier.title")}
+@title = @{request.ses.clientDetails match {
+    case Some(_)   => {messages("chooseEvidence.occupier.client.title")}
+    case _         => {messages("chooseEvidence.occupier.title")}
+}}
 
 @mainLayout(
     pageTitle = messages(title),
@@ -51,20 +54,22 @@
                                 isPageHeading = true
                             ))
                         )),
-                        hint = Some(Hint(Some(messages("chooseEvidence.occupier.title.caption", request.ses.address)))),
+                        hint = Some(Hint(
+                          content = Text(messages("chooseEvidence.occupier.title.caption", Formatters.capitalisedAddress(request.ses.address)))
+                        )),
                         name = "occupierEvidenceType",
                         attributes =Map("id" -> "occupierEvidenceType"),
                         items = Seq(
                             RadioItem(
-                                content = Text(messages("uploadOtherEvidence.evidenceTypes.lease")),
+                                content = Text(messages("chooseEvidence.occupier.option.lease")),
                                 value = Some(Lease.name)
                             ),
                             RadioItem(
-                                content = Text(messages("uploadOtherEvidence.evidenceTypes.license")),
+                                content = Text(messages("chooseEvidence.occupier.option.license")),
                                 value = Some(License.name)
                             ),
                             RadioItem(
-                                content = Text(messages("uploadOtherEvidence.evidenceTypes.noLeaseOrLicense")),
+                                content = Text(messages("chooseEvidence.occupier.option.noLeaseOrLicense")),
                                 value = Some(NoLeaseNorLicense.name)
                             )
                         ),

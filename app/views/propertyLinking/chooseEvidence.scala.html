@@ -17,6 +17,7 @@
 @import config.ApplicationConfig
 @import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
+@import _root_.utils.Formatters
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
@@ -57,7 +58,9 @@
                                 isPageHeading = true
                             ))
                         )),
-                        hint = Some(Hint(Some(messages("label.ratesBill.help")))),
+                        hint = Some(Hint(
+                          content = Text(messages("label.ratesBill.help", Formatters.capitalisedAddress(request.ses.address)))
+                        )),
                         name = "hasRatesBill",
                         attributes =Map("id" -> "hasRatesBill"),
                         items = Seq(

@@ -53,6 +53,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     vmvConnector = vmvConnector,
     runModeConfiguration = configuration,
     relationshipToPropertyView = relationshipToPropertyView,
+    claimPropertyStartView = claimPropertyStartView,
     beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton)
   )
 
@@ -67,6 +68,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     vmvConnector = vmvConnector,
     runModeConfiguration = configuration,
     relationshipToPropertyView = relationshipToPropertyView,
+    claimPropertyStartView = claimPropertyStartView,
     beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton)
   )
 
@@ -94,7 +96,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   "The claim property relationship page" should "return valid page" in new Setup {
 
-    val res = testClaimProperty.showRelationship(positiveLong, rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
+    val res = testClaimProperty.showRelationship()(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -106,10 +108,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   "The claim property relationship page on client behalf" should "return valid page" in new Setup {
 
     val res = testClaimProperty
-      .showRelationship(
-        positiveLong,
-        Some(ClientDetails(positiveLong, shortString)),
-        rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
+      .showRelationship()(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -119,7 +118,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   it should "contain link back to business-rates-find if that's where the request came from" in new Setup {
     val res =
-      testClaimProperty.showRelationship(
+      testClaimProperty.showStart(
         positiveLong,
         Some(ClientDetails(positiveLong, shortString)),
         rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
@@ -127,7 +126,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.titleShouldMatch("Connection to the property - Valuation Office Agency - GOV.UK")
+    html.titleShouldMatch("Add a property to your account - Valuation Office Agency - GOV.UK")
     html.verifyElementTextByAttribute(
       "href",
       "http://localhost:9300/business-rates-find/back-to-list-valuations",
@@ -138,10 +137,8 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   it should "initialise the linking session on show" in new Setup {
 
     val res = testClaimProperty
-      .showRelationship(
-        positiveLong,
-        Some(ClientDetails(positiveLong, shortString)),
-        rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
+      .showStart(positiveLong, Some(ClientDetails(positiveLong, shortString)), rtp = ClaimPropertyReturnToPage.FMBR)(
+        FakeRequest())
     status(res) shouldBe OK
 
     verify(mockSessionRepository).start(any())(any(), any())

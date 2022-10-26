@@ -35,12 +35,16 @@
         uploadedFiles: Map[String, UploadedFileDetails] = Map()
 )(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@title = @{request.ses.clientDetails.map(_.organisationId) match {
-    case _ if evidenceType == Lease => {messages("uploadEvidence.lease.title")}
-    case _ if evidenceType == License => {messages("uploadEvidence.license.title")}
-    case Some(id)   => {messages("uploadRatesBill.show.client.title")}
-    case _          => {messages("uploadRatesBill.show.title")}
-}}
+@title = @{
+    (request.ses.clientDetails, evidenceType) match {
+        case (Some(_), Lease) => {messages("uploadEvidence.lease.client.title")}
+        case (Some(_), License) => {messages("uploadEvidence.license.client.title")}
+        case (None, Lease) => {messages("uploadEvidence.lease.title")}
+        case (None, License) => {messages("uploadEvidence.license.title")}
+        case (Some(_), _)    => {messages("uploadRatesBill.show.client.title")}
+        case _          => {messages("uploadRatesBill.show.title")}
+    }
+}
 
 @mainLayout(
     pageTitle = title,

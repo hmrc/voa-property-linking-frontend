@@ -18,25 +18,35 @@
 @import controllers.propertyLinking.ClaimPropertyRelationshipVM
 @import utils.FrontendComponentHelper._
 @import binders.propertylinks.ClaimPropertyReturnToPage._
+@import _root_.utils.Formatters
 
-@this(govukSummaryList: GovukSummaryList, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukSummaryList: GovukSummaryList, govukButton: GovukButton, mainLayout: views.html.mainLayout)
 
 @(model: ClaimPropertyRelationshipVM, clientDetails: Option[ClientDetails], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@title = @{clientDetails match {
+    case Some(_)   => {messages("addPropertyStart.client.title")}
+    case _         => {messages("addPropertyStart.title")}
+}}
+
 @mainLayout(
-    pageTitle = messages("addPropertyStart.title"),
+    pageTitle = title,
     backUri = Some(backLink)) {
 
-    <h1 class="govuk-heading-xl">@messages("addPropertyStart.title")</h1>
+    <h1 class="govuk-heading-xl">@title</h1>
 
     @govukSummaryList(SummaryList(
         rows = Seq(
-            summaryListRow("address-key-id", "label.address", "address-value-id", model.address),
+            summaryListRow("address-key-id", "label.address", "address-value-id", Formatters.capitalisedAddress(model.address)),
             summaryListRow("localAuthorityReference-key-id", "label.localAuthorityReference", "localAuthorityReference-value-id", model.localAuthorityReference)
         )
     ))
 
-    <p class="govuk-body">@Html(messages("addPropertyStart.p1"))</p>
+    @if(clientDetails.nonEmpty){
+        <p class="govuk-body">@Html(messages("addPropertyStart.client.p1"))</p>
+    } else {
+        <p class="govuk-body">@Html(messages("addPropertyStart.p1"))</p>
+    }
     <p class="govuk-body">@messages("addPropertyStart.p2")</p>
     <p class="govuk-body">@messages("addPropertyStart.p3")</p>
 

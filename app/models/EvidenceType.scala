@@ -90,5 +90,10 @@ object OccupierEvidenceType extends NamedEnumSupport[EvidenceType] {
     List(Lease, License, NoLeaseNorLicense)
 
   implicit val format: Format[EvidenceType] = EnumFormat(EvidenceType)
-  lazy val form: Form[EvidenceType] = Form(single("occupierEvidenceType" -> EnumMapping(OccupierEvidenceType)))
+  lazy val form: Form[EvidenceType] =
+    Form(
+      single(
+        "occupierEvidenceType" -> EnumMapping(
+          OccupierEvidenceType,
+          defaultErrorMessageKey = "error.chooseEvidence.occupier.option.required")))
 }

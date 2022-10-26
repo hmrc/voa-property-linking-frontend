@@ -47,7 +47,8 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       if (fromCya) preEnrichedActionRefinerFromCya()
       else preEnrichedActionRefiner(),
       mockBusinessRatesAttachmentService,
-      chooseEvidenceView
+      chooseEvidenceView,
+      chooseOccupierEvidenceView
     )
 
   lazy val request = FakeRequest()
@@ -60,9 +61,10 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.titleShouldMatch(
-      "Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
-    html.shouldContainText("Do you have a copy of your client's business rates bill for this property?")
+    val expectedTitle = "Do you have your client's business rates bill for this property?"
+    html.html.title() shouldBe expectedTitle + " - Valuation Office Agency - GOV.UK"
+    html.shouldContainText(expectedTitle)
+
   }
 
   "The choose evidence page with earliest start date in the future" should "ask the user whether they have a rates bill" in {
@@ -74,8 +76,8 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      "Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
-    html.shouldContainText("Do you have a copy of your client's business rates bill for this property? ")
+      "Do you have your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
+    html.shouldContainText("Do you have your client's business rates bill for this property? ")
   }
 
   it should "require the user to select whether they have a rates bill" in {
@@ -85,7 +87,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      "Error: Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
+      "Error: Do you have your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
     html.shouldContainText("There is a problem Select an option")
   }
 
@@ -135,7 +137,8 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       preAuthenticatedActionBuilders(),
       preEnrichedActionRefinerFromCya(),
       mockAttachmentService,
-      chooseEvidenceView
+      chooseEvidenceView,
+      chooseOccupierEvidenceView
     )
     val sessionCaptor: ArgumentCaptor[LinkingSession] = ArgumentCaptor.forClass(classOf[LinkingSession])
     controllerFromCya.show(FakeRequest()).futureValue
