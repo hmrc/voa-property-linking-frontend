@@ -14,9 +14,9 @@
  * limitations under the License.
  *@
 
-@import models.dvr.cases.check.projection.CaseDetails
 @import utils.Formatters._
 @import config.ApplicationConfig
+@import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
 
 @import java.time.LocalDateTime
 @import java.time.LocalDate
@@ -24,10 +24,12 @@
 
 @this(govukDetails: GovukDetails, govukTable: GovukTable)
 
-@(authorisationId: Long, challengeCases: List[CaseDetails], isOwner: Boolean, submissionId: String, assessmentRef: Long, uarn: Long)(implicit messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation)(implicit messages: Messages, config: ApplicationConfig)
 
 @challengeCaseDetailsUrl(challengeCaseRef: String) = @{
-    config.businessRatesChallengeUrl(s"summary/property-link/$authorisationId/submission-id/$submissionId/challenge-cases/$challengeCaseRef?isAgent=${!isOwner}&isDvr=true&valuationId=$assessmentRef")
+    config.businessRatesChallengeUrl(
+        s"summary/property-link/${model.authorisationId}/submission-id/${model.submissionId}/challenge-cases/$challengeCaseRef?isAgent=${!model.owner}&isDvr=true&valuationId=${model.assessment.assessmentRef}"
+    )
 }
 
 @tagColour(status: String) = {
@@ -68,23 +70,25 @@
 }
 
 @rows = @{
-    challengeCases.map{ caseDetails =>
-        row(
-            submittedDate = caseDetails.submittedDate,
-            status = caseDetails.status.toUpperCase().replaceAll("_", " "),
-            challengeReference = caseDetails.caseReference,
-            closedDate = caseDetails.closedDate,
-            clientOrAgent = caseDetails.clientOrAgent,
-            submittedBy = caseDetails.submittedBy
-        )
+    model.checksAndChallenges.toSeq.flatMap { case (checks, challengeCases) =>
+        challengeCases.map { caseDetails =>
+            row(
+                submittedDate = caseDetails.submittedDate,
+                status = caseDetails.status.toUpperCase().replaceAll("_", " "),
+                challengeReference = caseDetails.caseReference,
+                closedDate = caseDetails.closedDate,
+                clientOrAgent = caseDetails.clientOrAgent,
+                submittedBy = caseDetails.submittedBy
+            )
+        }
     }
 }
 
 @returnUrl = @{
-    if(isOwner)
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef, uarn).url}"
+    if(model.owner)
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(model.submissionId, model.assessment.assessmentRef, model.uarn).url}"
     else
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, assessmentRef, uarn).url}"
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(model.submissionId, model.assessment.assessmentRef, model.uarn).url}"
 }
 
 @detailContent = {

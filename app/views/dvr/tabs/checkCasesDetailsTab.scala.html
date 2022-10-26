@@ -14,9 +14,9 @@
  * limitations under the License.
  *@
 
-@import models.dvr.cases.check.projection.CaseDetails
 @import utils.Formatters._
 @import config.ApplicationConfig
+@import controllers.detailedvaluationrequest.CheckCasesDetailsTab
 @import controllers.detailedvaluationrequest.routes
 
 @import java.time.LocalDateTime
@@ -25,25 +25,14 @@
 
 @this(govukButton: GovukButton, govukDetails: GovukDetails, govukTable: GovukTable, govukWarningText: GovukWarningText)
 
-@(
-  propertyLinkSubmissionId: String,
-  isOwner: Boolean,
-  uarn: Long,
-  authorisationId: Long,
-  assessmentRef: Long,
-  listYear:String,
-  checkCases: List[CaseDetails],
-  downloadUrl: String,
-  startCheckUrl: String,
-  checkSummaryUrl: String => String
-)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: CheckCasesDetailsTab)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @viewCaseUrl(checkRef: String, submissionId: String) = @{
-    config.businessRatesCheckUrl(s"check-case/$checkRef/summary?propertyLinkSubmissionId=$submissionId&isOwner=$isOwner")
+    config.businessRatesCheckUrl(s"check-case/$checkRef/summary?propertyLinkSubmissionId=$submissionId&isOwner=${model.isOwner}")
 }
 
 @canChallengeLink(assessmentRef: Long, caseRef: String) = @{
-    routes.DvrController.canChallenge(propertyLinkSubmissionId, assessmentRef, caseRef, authorisationId, uarn, isOwner, listYear).url
+    routes.DvrController.canChallenge(model.propertyLinkSubmissionId, assessmentRef, caseRef, model.authorisationId, model.uarn, model.isOwner, model.listYear).url
 }
 
 @challengeLink(assessmentRef: Long, checkReference: String) = {
@@ -51,10 +40,10 @@
 }
 
 @returnUrl = @{
-    if(isOwner)
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId, assessmentRef, uarn).url}"
+    if(model.isOwner)
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(model.propertyLinkSubmissionId, model.assessmentRef, model.uarn).url}"
     else
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(propertyLinkSubmissionId, assessmentRef, uarn).url}"
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(model.propertyLinkSubmissionId, model.assessmentRef, model.uarn).url}"
 }
 
 @detailContent = {
@@ -90,7 +79,7 @@
 @row(checkReference: String, submittedDate: LocalDateTime, status: String, closedDate: Option[LocalDate], submittedBy: String) = @{
     Seq(
         TableRow(
-            content = HtmlContent(s"""<a href="${checkSummaryUrl(checkReference)}" class='govuk-link'>$checkReference</a>""")
+            content = HtmlContent(s"""<a href="${model.checkSummaryUrl(checkReference)}" class='govuk-link'>$checkReference</a>""")
         ),
         TableRow(
             content = Text(formatDateTimeToDate(submittedDate))
@@ -107,13 +96,13 @@
             classes = "break-word"
         ),
         TableRow(
-            content = HtmlContent(challengeLink(assessmentRef, checkReference))
+            content = HtmlContent(challengeLink(model.assessmentRef, checkReference))
         )
     )
 }
 
 @rows = @{
-    checkCases.map{ caseDetails =>
+    model.checkCases.map { caseDetails =>
         row(
             checkReference = caseDetails.caseReference,
             submittedDate = caseDetails.submittedDate,
@@ -127,16 +116,16 @@
 
 <h2 class="govuk-heading-l">@messages("property.details.div.submitted")</h2>
 
-@if(checkCases.isEmpty){
+@if(model.checkCases.isEmpty){
         <p class="govuk-body" id="no-submitted-checks">@messages("property.details.div.noSubmittedCheck")</p>
-        <p class="govuk-body">@Html(messages("available.requestvaluation.p2", downloadUrl))</p>
+        <p class="govuk-body">@Html(messages("available.requestvaluation.p2", model.downloadUrl))</p>
         <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
 
         @govukWarningText(WarningText(
             iconFallbackText = messages("warning.text"),
             content = Text(messages("available.requestvaluation.warning"))
         ))
-        @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(startCheckUrl), attributes = Map("id" -> "checkcasestab-start-check")))
+        @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(model.startCheckUrl), attributes = Map("id" -> "checkcasestab-start-check")))
 
 } else {
 

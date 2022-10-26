@@ -184,6 +184,17 @@ class DvrController @Inject()(
                 case _             => None
               }
               val form = formWithErrors.getOrElse(startCheckForm)
+              val evaluateRoute = { t: String =>
+                if (owner) {
+                  controllers.detailedvaluationrequest.routes.DvrController
+                    .myOrganisationRequestDetailedValuationRequestFile(propertyLinkSubmissionId, valuationId, t)
+                    .url
+                } else {
+                  controllers.detailedvaluationrequest.routes.DvrController
+                    .myClientsRequestDetailedValuationRequestFile(propertyLinkSubmissionId, valuationId, t)
+                    .url
+                }
+              }
               val view = dvrFilesView(
                 model = AvailableRequestDetailedValuation(
                   activeTabId = formWithErrors.map(_ => "start-check-tab"),
@@ -205,18 +216,30 @@ class DvrController @Inject()(
                     assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv)),
                   listYear = assessment.listYear,
                   agentTabData = agentsData,
-                  assessment = assessment
-                ),
-                startCheckForm = form,
-                checkSummaryUrl = { checkReference: String =>
-                  checkSummaryUrlTemplate.templated(
-                    "checkRef"                 -> checkReference,
-                    "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
-                    "isOwner"                  -> owner,
-                    "valuationId"              -> valuationId,
-                    "isDvr"                    -> true
+                  assessment = assessment,
+                  evaluateRoute = evaluateRoute,
+                  checkCasesDetailsTab = CheckCasesDetailsTab(
+                    assessmentRef = assessment.assessmentRef,
+                    authorisationId = link.authorisationId,
+                    checkCases = optCases.fold(List.empty[CaseDetails])(_._1),
+                    checkSummaryUrl = { checkReference: String =>
+                      checkSummaryUrlTemplate.templated(
+                        "checkRef"                 -> checkReference,
+                        "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
+                        "isOwner"                  -> owner,
+                        "valuationId"              -> valuationId,
+                        "isDvr"                    -> true
+                      )
+                    },
+                    downloadUrl = evaluateRoute(documents.checkForm.documentSummary.documentId),
+                    isOwner = owner,
+                    listYear = assessment.listYear,
+                    propertyLinkSubmissionId = propertyLinkSubmissionId,
+                    startCheckUrl = "#start-check-tab",
+                    uarn = uarn
                   )
-                }
+                ),
+                startCheckForm = form
               )
               if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
             }
@@ -646,6 +669,7 @@ case class AvailableRequestDetailedValuation(
       check: String,
       checksAndChallenges: Option[(List[CaseDetails], List[CaseDetails])],
       clientOrgName: String,
+      evaluateRoute: String => String,
       isDraftList: Boolean,
       isWelshProperty: Boolean,
       owner: Boolean,
@@ -656,5 +680,19 @@ case class AvailableRequestDetailedValuation(
       rateableValueFormatted: Option[String],
       listYear: String,
       agentTabData: Option[Seq[AgentCount]] = None,
-      assessment: ApiAssessment
+      assessment: ApiAssessment,
+      checkCasesDetailsTab: CheckCasesDetailsTab
+)
+
+case class CheckCasesDetailsTab(
+      assessmentRef: Long,
+      authorisationId: Long,
+      checkCases: List[CaseDetails],
+      checkSummaryUrl: String => String,
+      downloadUrl: String,
+      isOwner: Boolean,
+      listYear: String,
+      propertyLinkSubmissionId: String,
+      startCheckUrl: String,
+      uarn: Long
 )
