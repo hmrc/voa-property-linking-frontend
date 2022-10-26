@@ -423,15 +423,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         cssClasses should not include "govuk-tag--grey"
     }
 
+    private val assessmentRef =
+      assessments.assessments.headOption.fold(fail("expected to find at least one assessment"))(_.assessmentRef)
+
     Inspectors.forAll(checkCaseDetails) { details =>
+      val expectedCheckSummaryLink =
+        s"/check-case/${details.caseReference}/summary?propertyLinkSubmissionId=${assessments.submissionId}&isOwner=true&valuationId=$assessmentRef&isDvr=true"
+
       checksTable
         .getElementsContainingOwnText(details.caseReference)
-        .attr("href") shouldBe s"""/check-case/${details.caseReference}/summary?
-                                  |propertyLinkSubmissionId=${assessments.submissionId}&
-                                  |isOwner=true&
-                                  |valuationId=${assessments.assessments.headOption.fold(
-                                    fail("expected to find at least one assessment"))(_.assessmentRef)}&
-                                  |isDvr=true""".stripMargin.replaceAll("\n", "")
+        .attr("href") shouldBe expectedCheckSummaryLink
     }
   }
 
