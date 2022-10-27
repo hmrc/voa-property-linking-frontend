@@ -117,16 +117,24 @@ trait VoaPropertyLinkingSpec
   def preEnrichedActionRefiner(): WithLinkingSession =
     preEnrichedActionRefiner(UploadEvidenceData(fileInfo = None, attachments = None))
 
-  def preEnrichedActionRefinerWithStartDate(earliestStartDate: LocalDate): WithLinkingSession =
-    preEnrichedActionRefiner(
-      UploadEvidenceData(fileInfo = None, attachments = None),
-      earliestStartDate = earliestStartDate)
-
-  def preEnrichedActionRefinerFromCya(earliestStartDate: LocalDate = earliestEnglishStartDate): WithLinkingSession =
+  def preEnrichedActionRefinerWithStartDate(
+        earliestStartDate: LocalDate,
+        userIsAgent: Boolean = true): WithLinkingSession =
     preEnrichedActionRefiner(
       UploadEvidenceData(fileInfo = None, attachments = None),
       earliestStartDate = earliestStartDate,
-      fromCya = Some(true)
+      userIsAgent = userIsAgent)
+
+  def preEnrichedActionRefinerFromCya(
+        earliestStartDate: LocalDate = earliestEnglishStartDate,
+        relationshipCapacity: CapacityType = Owner,
+        userIsAgent: Boolean = true): WithLinkingSession =
+    preEnrichedActionRefiner(
+      UploadEvidenceData(fileInfo = None, attachments = None),
+      earliestStartDate = earliestStartDate,
+      fromCya = Some(true),
+      relationshipCapacity = relationshipCapacity,
+      userIsAgent = userIsAgent
     )
 
   def preEnrichedActionRefiner(

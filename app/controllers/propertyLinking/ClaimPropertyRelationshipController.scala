@@ -211,13 +211,6 @@ class ClaimPropertyRelationshipController @Inject()(
 
 }
 
-object StartClaimProperty {
-  lazy val startClaimPropertyForm = Form(
-    mapping(
-      "capacity" -> EnumMapping(CapacityType)
-    )(PropertyRelationship.apply)(PropertyRelationship.unapply))
-}
-
 object ClaimPropertyRelationship {
   lazy val relationshipForm = Form(
     mapping(

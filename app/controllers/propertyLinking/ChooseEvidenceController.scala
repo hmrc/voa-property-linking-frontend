@@ -22,7 +22,7 @@ import binders.propertylinks.EvidenceChoices
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
-import models.{EvidenceType, Lease, LinkingSession, NoLeaseNorLicense, OccupierEvidenceType, UploadEvidenceData}
+import models.{EvidenceType, Lease, LinkingSession, NoLeaseOrLicense, OccupierEvidenceType, UploadEvidenceData}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
@@ -114,7 +114,7 @@ class ChooseEvidenceController @Inject()(
           formData =>
             updateSession(formData).map { _ =>
               val choice =
-                if (formData == NoLeaseNorLicense) EvidenceChoices.NO_LEASE_OR_LICENSE
+                if (formData == NoLeaseOrLicense) EvidenceChoices.NO_LEASE_OR_LICENSE
                 else if (formData == Lease) EvidenceChoices.LEASE
                 else EvidenceChoices.LICENSE
               Redirect(routes.UploadController.show(choice))

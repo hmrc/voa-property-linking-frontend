@@ -58,7 +58,7 @@
                           content = Text(messages("chooseEvidence.occupier.title.caption", Formatters.capitalisedAddress(request.ses.address)))
                         )),
                         name = "occupierEvidenceType",
-                        attributes =Map("id" -> "occupierEvidenceType"),
+                        attributes =Map("id" -> "occupier-evidence-type"),
                         items = Seq(
                             RadioItem(
                                 content = Text(messages("chooseEvidence.occupier.option.lease")),
@@ -70,7 +70,7 @@
                             ),
                             RadioItem(
                                 content = Text(messages("chooseEvidence.occupier.option.noLeaseOrLicense")),
-                                value = Some(NoLeaseNorLicense.name)
+                                value = Some(NoLeaseOrLicense.name)
                             )
                         ),
                     ).withFormField(form("occupierEvidenceType")))
