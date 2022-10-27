@@ -21,12 +21,11 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
-
 @(form: Form[_], backlink: Option[String])(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@title = @{request.ses.clientDetails.map(_.organisationId) match {
-    case Some(id)   => {messages("chooseEvidence.client.title")}
-    case _          => {messages("chooseEvidence.title")}
+@title = @{request.ses.clientDetails match {
+    case Some(_)   => {messages("chooseEvidence.occupier.client.title")}
+    case _         => {messages("chooseEvidence.occupier.title")}
 }}
 
 @mainLayout(
@@ -37,18 +36,15 @@
 
     @if(form.hasErrors) {
         @govukErrorSummary(ErrorSummary(
-            errorList = form.errors.map(error =>
-                if(error.key == "hasRatesBill") error.copy(key = "hasRatesBill-yes")
-                else error
-            ).asTextErrorLinks,
-            title = Text(messages("error.propertyRepresentation.title"))))
+            errorList = form.errors.asTextErrorLinks,
+            title = Text(messages("errors.heading.title"))))
     }
 
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
     <h2 class="govuk-caption-l">@messages("caption.add.property")</h2>
 
-                @formWithCSRF(action = controllers.propertyLinking.routes.ChooseEvidenceController.submit) {
+                @formWithCSRF(action = controllers.propertyLinking.routes.ChooseEvidenceController.submitOccupierForm) {
 
                     @govukRadios(Radios(
                         fieldset = Some(Fieldset(
@@ -59,23 +55,25 @@
                             ))
                         )),
                         hint = Some(Hint(
-                          content = Text(messages("label.ratesBill.help", Formatters.capitalisedAddress(request.ses.address)))
+                          content = Text(messages("chooseEvidence.occupier.title.caption", Formatters.capitalisedAddress(request.ses.address)))
                         )),
-                        name = "hasRatesBill",
-                        attributes =Map("id" -> "hasRatesBill"),
+                        name = "occupierEvidenceType",
+                        attributes =Map("id" -> "occupier-evidence-type"),
                         items = Seq(
                             RadioItem(
-                                content = Text(messages("hasRatesBill.true")),
-                                value = Some("true"),
-                                id = Some ("hasRatesBill-yes")
+                                content = Text(messages("chooseEvidence.occupier.option.lease")),
+                                value = Some(Lease.name)
                             ),
                             RadioItem(
-                                content = Text(messages("hasRatesBill.false")),
-                                value = Some("false"),
-                                id = Some ("hasRatesBill-no")
+                                content = Text(messages("chooseEvidence.occupier.option.license")),
+                                value = Some(License.name)
+                            ),
+                            RadioItem(
+                                content = Text(messages("chooseEvidence.occupier.option.noLeaseOrLicense")),
+                                value = Some(NoLeaseOrLicense.name)
                             )
                         ),
-                    ).withFormField(form("hasRatesBill")))
+                    ).withFormField(form("occupierEvidenceType")))
 
                     @govukButton(Button(
                         content = Text(messages("label.continue")),

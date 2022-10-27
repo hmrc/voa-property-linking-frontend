@@ -18,7 +18,9 @@ package models
 
 import play.api.libs.json.Json
 
-case class PropertyRelationship(capacity: CapacityType)
+case class PropertyRelationship(capacity: CapacityType) {
+  def isOccupier = capacity == Occupier
+}
 
 object PropertyRelationship {
   implicit val format = Json.format[PropertyRelationship]

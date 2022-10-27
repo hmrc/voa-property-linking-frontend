@@ -810,6 +810,17 @@ manageProperties.noRepresentations=You have no representations
 search.title=Search and select a property to add to your customer record
 search.select.link=Select
 
+#ADD PROPERTY START PAGE
+addPropertyStart.title=Add a property to your account
+addPropertyStart.client.title=Add a property to your client''s account
+addPropertyStart.p1=You''ll need to prove your connection to the property with evidence such as a business rates bill or lease. The date of the evidence must overlap with the period you owned or occupied the property. See <a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">how we will use the information you provide</a>.
+addPropertyStart.client.p1=You''ll need to prove your client''s connection to the property with evidence such as a business rates bill or lease. The date of the evidence must overlap with the period your client owned or occupied the property. See <a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">how we will use the information you provide</a>.
+addPropertyStart.p2=We aim to give you a decision on your request to add a property as quickly as possible, but it may take up to 15 working days.
+addPropertyStart.p3=When we approve your request you can:
+addPropertyStart.p3.li1=change property details
+addPropertyStart.p3.li2=challenge the rateable value if you think it is too high
+addPropertyStart.startNow=Start now
+
 #DECLARE CAPACITY
 declarePropertyRelationship.title=Connection to the property
 declarePropertyOwnership.title=Claim this property ownership
@@ -843,7 +854,7 @@ declareCapacity.fromDate.help=
 declareCapacity.toDate.help=Leave blank if still in occupation or ownership
 declareCapacity.submit.button=Add property
 label.capacity=What is your connection to the property?
-label.capacity.client=What is your client’s connection to the property?
+label.capacity.client=What is your client''s connection to the property?
 capacity.OWNER=Owner
 capacity.OCCUPIER=Occupier
 capacity.OWNER_OCCUPIER=Owner and occupier
@@ -902,15 +913,29 @@ uploadRatesBill.show.button=Continue
 uploadRatesBill.reminder=The date of the bill must overlap with the period you owned or occupied the property.
 uploadRatesBill.client.reminder=The date of the bill must overlap with the period your client owned or occupied the property
 common.uploadFile.label=Upload a file
-chooseEvidence.title=Do you have a copy of the business rates bill for this property?
-chooseEvidence.client.title=Do you have a copy of your client''s business rates bill for this property?
+chooseEvidence.title=Do you have a business rates bill for this property?
+chooseEvidence.client.title=Do you have your client''s business rates bill for this property?
 hasRatesBill.true=Yes
 hasRatesBill.false=No
 label.ratesBill=Please upload a copy of the rates bill
-label.ratesBill.help=This business rates bill should be the most recent bill that you have for the property, for the period that you were the owner or occupier.
+label.ratesBill.help=The bill should be for {0}.
 ratesBill.label.1=PDF, scanned images, and photographs are allowed. Your file must be less than 10MB in size.
 uploadFile.info.title=How do I convert a file into a PDF?
 uploadFile.info.content=<p>Converting a file into a PDF is similar for most software. First open the document that you want to convert, then:</p><ul class="list list-number"><li>click “File”</li><li>choose either “Export”, “Export as PDF” or “Save as” (depending on your software)</li><li>select “Create PDF” or “PDF”</li><li>click on either “Publish” or “Save”</li></ul><p>For Mac users and older software:</p><ul class="list list-number"><li>click “File”</li><li>select “Print”</li><li>either click “PDF”, or choose a printer labelled “PDF”</li><li>click either “Save” or “OK”</li></ul><p>You could also search for websites that will convert your document for free.</p><p>Due to the outbreak of Covid-19 we are currently unable to offer a telephony service and it will take longer than usual to respond to your query. If you need to contact us please use our <a href="https://www.gov.uk/contact-voa" class="govuk-link">Contact Form</a> and we will respond as soon as possible. We’re sorry for any inconvenience this has caused.</p>
+
+#OCCUPIER EVIDENCE PAGE
+chooseEvidence.occupier.title=Do you have a lease or licence to occupy for this property?
+chooseEvidence.occupier.client.title=Do you have your client''s lease or licence to occupy for this property?
+chooseEvidence.occupier.title.caption=The lease or license to occupy should be for {0}.
+chooseEvidence.occupier.option.lease=I have a lease
+chooseEvidence.occupier.option.license=I have a licence to occupy
+chooseEvidence.occupier.option.noLeaseOrLicense=I do not have a lease or licence to occupy
+error.chooseEvidence.occupier.option.required=Select if you have a lease or licence to occupy for this property
+
+uploadEvidence.lease.title=Upload your lease
+uploadEvidence.lease.client.title=Upload your client''s lease
+uploadEvidence.license.title=Upload your licence to occupy property
+uploadEvidence.license.client.title=Upload your client''s licence to occupy property
 
 #LINK REQUEST CONFIRMATION
 
@@ -957,6 +982,7 @@ uploadOtherEvidence.evidenceTypes.landRegistryTitle=Land Registry title
 uploadOtherEvidence.evidenceTypes.waterRateDemand=Water rate demand
 uploadOtherEvidence.evidenceTypes.otherUtilityBill=Utility bill
 uploadOtherEvidence.evidenceTypes.ratesBill=Business rates bill
+uploadOtherEvidence.evidenceTypes.noLeaseOrLicense=I do not have a lease or licence to occupy
 
 uploadOtherEvidence.unableToProvideEvidence=I cannot provide evidence
 uploadOtherEvidence.uploadFile=Upload a file

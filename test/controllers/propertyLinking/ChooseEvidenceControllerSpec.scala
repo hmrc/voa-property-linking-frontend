@@ -17,8 +17,9 @@
 package controllers.propertyLinking
 
 import binders.propertylinks.EvidenceChoices
+import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
-import models.LinkingSession
+import models.{CapacityType, LinkingSession, Occupier, Owner, UploadEvidenceData}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.mockito.ArgumentCaptor
@@ -40,19 +41,28 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     m
   }
 
-  private def testChooseEvidenceController(fromCya: Boolean = false) =
+  private def testChooseEvidenceController(
+        fromCya: Boolean = false,
+        relationshipCapacity: CapacityType = Owner,
+        userIsAgent: Boolean = true) =
     new ChooseEvidenceController(
       mockCustomErrorHandler,
       preAuthenticatedActionBuilders(),
-      if (fromCya) preEnrichedActionRefinerFromCya()
-      else preEnrichedActionRefiner(),
+      if (fromCya)
+        preEnrichedActionRefinerFromCya(relationshipCapacity = relationshipCapacity, userIsAgent = userIsAgent)
+      else
+        preEnrichedActionRefiner(
+          evidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+          relationshipCapacity = relationshipCapacity,
+          userIsAgent = userIsAgent),
       mockBusinessRatesAttachmentService,
-      chooseEvidenceView
+      chooseEvidenceView,
+      chooseOccupierEvidenceView
     )
 
   lazy val request = FakeRequest()
 
-  "The choose evidence page with earliest start date in the past" should "ask the user whether they have a rates bill" in {
+  "The choose evidence page with earliest start date in the past" should "ask agent user whether they have a rates bill" in {
     when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
@@ -60,9 +70,24 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.titleShouldMatch(
-      "Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
-    html.shouldContainText("Do you have a copy of your client's business rates bill for this property?")
+    val expectedTitle = "Do you have your client's business rates bill for this property?"
+    html.html.title() shouldBe expectedTitle + " - Valuation Office Agency - GOV.UK"
+    html.shouldContainText(expectedTitle)
+
+  }
+
+  "The choose evidence page with earliest start date in the past" should "ask IP user whether they have a rates bill" in {
+    when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+
+    val res = testChooseEvidenceController(userIsAgent = false).show()(request)
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    val expectedTitle = "Do you have a business rates bill for this property?"
+    html.html.title() shouldBe expectedTitle + " - Valuation Office Agency - GOV.UK"
+    html.shouldContainText(expectedTitle)
+
   }
 
   "The choose evidence page with earliest start date in the future" should "ask the user whether they have a rates bill" in {
@@ -73,9 +98,47 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.titleShouldMatch(
-      "Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
-    html.shouldContainText("Do you have a copy of your client's business rates bill for this property? ")
+    val expectedTitle = "Do you have your client's business rates bill for this property?"
+    html.html.title() shouldBe expectedTitle + " - Valuation Office Agency - GOV.UK"
+    html.shouldContainText(expectedTitle)
+  }
+
+  "The choose evidence page" should "ask agent user whether they have a lease or license when Occupier" in {
+    when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+
+    val res = testChooseEvidenceController(relationshipCapacity = Occupier).show()(request)
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    val expectedTitle = "Do you have your client's lease or licence to occupy for this property?"
+    html.html.title() shouldBe expectedTitle + " - Valuation Office Agency - GOV.UK"
+    html.shouldContainText(expectedTitle)
+  }
+
+  "The choose evidence page" should "ask IP user whether they have a lease or license when Occupier" in {
+    when(mockBusinessRatesAttachmentService.persistSessionData(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+
+    val res = testChooseEvidenceController(relationshipCapacity = Occupier, userIsAgent = false).show()(request)
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    val expectedTitle = "Do you have a lease or licence to occupy for this property?"
+    html.html.title() shouldBe expectedTitle + " - Valuation Office Agency - GOV.UK"
+    html.shouldContainText(expectedTitle)
+  }
+
+  "submit occupier evidence" should "redirect with LEASE as evidenceChoice" in {
+    testSubmitOccupierEvidence("lease", EvidenceChoices.LEASE)
+  }
+
+  "submit occupier evidence" should "redirect with LICENSE as evidenceChoice" in {
+    testSubmitOccupierEvidence("license", EvidenceChoices.LICENSE)
+  }
+
+  "submit occupier evidence" should "redirect with NO_LEASE_OR_LICENSE as evidenceChoice" in {
+    testSubmitOccupierEvidence("noLeaseOrLicense", EvidenceChoices.NO_LEASE_OR_LICENSE)
   }
 
   it should "require the user to select whether they have a rates bill" in {
@@ -84,8 +147,8 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.titleShouldMatch(
-      "Error: Do you have a copy of your client's business rates bill for this property? - Valuation Office Agency - GOV.UK")
+    html.html
+      .title() shouldBe "Error: Do you have your client's business rates bill for this property? - Valuation Office Agency - GOV.UK"
     html.shouldContainText("There is a problem Select an option")
   }
 
@@ -135,11 +198,20 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       preAuthenticatedActionBuilders(),
       preEnrichedActionRefinerFromCya(),
       mockAttachmentService,
-      chooseEvidenceView
+      chooseEvidenceView,
+      chooseOccupierEvidenceView
     )
     val sessionCaptor: ArgumentCaptor[LinkingSession] = ArgumentCaptor.forClass(classOf[LinkingSession])
     controllerFromCya.show(FakeRequest()).futureValue
     verify(mockAttachmentService).persistSessionData(sessionCaptor.capture())(any())
     sessionCaptor.getValue.fromCya shouldBe Some(false)
   }
+
+  private def testSubmitOccupierEvidence(selectedOption: String, expectedEvidenceChoices: EvidenceChoices) = {
+    val res = testChooseEvidenceController().submitOccupierForm()(
+      request.withFormUrlEncodedBody("occupierEvidenceType" -> selectedOption))
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(routes.UploadController.show(expectedEvidenceChoices).url)
+  }
+
 }

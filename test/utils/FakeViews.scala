@@ -214,7 +214,7 @@ trait FakeViews extends GdsComponents {
     mainLayout,
     formWithCSRF)
 
-  lazy val uploadRatesBillView = new views.html.propertyLinking.uploadRatesBill(
+  lazy val uploadRatesBillLeaseOrLicenseView = new views.html.propertyLinking.uploadRatesBillLeaseOrLicense(
     govukErrorSummary,
     govukWarningText,
     govukButton,
@@ -250,6 +250,10 @@ trait FakeViews extends GdsComponents {
     formWithCSRF)
   lazy val chooseEvidenceView =
     new chooseEvidence(govukErrorSummary, govukRadios, govukButton, mainLayout, formWithCSRF)
+  lazy val chooseOccupierEvidenceView =
+    new chooseOccupierEvidence(govukErrorSummary, govukRadios, govukButton, mainLayout, formWithCSRF)
+  lazy val claimPropertyStartView =
+    new claimPropertyStart(govukSummaryList, govukButton, mainLayout)
   lazy val relationshipToPropertyView =
     new relationshipToProperty(govukErrorSummary, govukDetails, govukRadios, govukButton, mainLayout, formWithCSRF)
   lazy val myAgentsView = new myAgents(govukTable, mainLayout)

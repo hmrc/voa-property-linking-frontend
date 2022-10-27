@@ -19,8 +19,9 @@ package controllers.propertyLinking
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
+import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
-import models.{RatesBillType, StampDutyLandTaxForm}
+import models.{CapacityType, Occupier, Owner, RatesBillType, StampDutyLandTaxForm, UploadEvidenceData}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.mockito.ArgumentMatchers._
@@ -36,7 +37,7 @@ import utils._
 
 import scala.concurrent.Future
 
-class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
+class UploadControllerSpec extends VoaPropertyLinkingSpec {
 
   def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
   override implicit val messagesControllerComponents: MessagesControllerComponents =
@@ -53,26 +54,51 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
         authenticatedAction,
         linkingSession,
         mockBusinessRatesChallengeService,
-        uploadRatesBillView,
+        uploadRatesBillLeaseOrLicenseView,
         uploadEvidenceView,
         cannotProvideEvidenceView
       )
   lazy val linkingSession: WithLinkingSession = preEnrichedActionRefiner()
-  def controller = new TestFileUploadController(linkingSession)
+  def agentController = new TestFileUploadController(linkingSession)
+  def ipController(relationshipCapacity: CapacityType = Owner) =
+    new TestFileUploadController(
+      preEnrichedActionRefiner(
+        evidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+        userIsAgent = false,
+        relationshipCapacity = relationshipCapacity))
 
-  "RATES_BILL file upload page" should "return valid page" in {
-    val res = controller.show(EvidenceChoices.RATES_BILL, None)(FakeRequest())
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.shouldContain("#newFileGroup", 1)
+  "RATES_BILL file upload page" should "return valid page with correct back link - agent" in {
+    testShowRatesBillLeaseOrLicense(
+      evidenceChoice = EvidenceChoices.RATES_BILL,
+      expectedPageHeader = "Upload your client's business rates bill")
   }
-
-  "RATES_BILL file upload page" should "have a back link to the choose evidence page" in {
-    val result =
-      new TestFileUploadController(preEnrichedActionRefiner()).show(EvidenceChoices.RATES_BILL, None)(FakeRequest())
-    val backLink: Element = Jsoup.parse(contentAsString(result)).getElementById("back-link")
-    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show().url
+  "LEASE file upload page" should "return valid page with correct back link - agent" in {
+    testShowRatesBillLeaseOrLicense(
+      evidenceChoice = EvidenceChoices.LEASE,
+      expectedPageHeader = "Upload your client's lease")
+  }
+  "LICENSE file upload page" should "return valid page with correct back link - agent" in {
+    testShowRatesBillLeaseOrLicense(
+      evidenceChoice = EvidenceChoices.LICENSE,
+      expectedPageHeader = "Upload your client's licence to occupy property")
+  }
+  "RATES_BILL file upload page" should "return valid page with correct back link - IP" in {
+    testShowRatesBillLeaseOrLicense(
+      uploadController = ipController(),
+      evidenceChoice = EvidenceChoices.RATES_BILL,
+      expectedPageHeader = "Upload your business rates bill")
+  }
+  "LEASE file upload page" should "return valid page with correct back link - IP" in {
+    testShowRatesBillLeaseOrLicense(
+      uploadController = ipController(),
+      evidenceChoice = EvidenceChoices.LEASE,
+      expectedPageHeader = "Upload your lease")
+  }
+  "LICENSE file upload page" should "return valid page with correct back link - IP" in {
+    testShowRatesBillLeaseOrLicense(
+      uploadController = ipController(),
+      evidenceChoice = EvidenceChoices.LICENSE,
+      expectedPageHeader = "Upload your licence to occupy property")
   }
 
   "RATES_BILL file initiate" should "return file upload initiate success" in {
@@ -83,7 +109,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
         .initiateAttachmentUpload(any(), any())(any(), any[HeaderCarrier]))
       .thenReturn(Future.successful(preparedUpload))
     val result =
-      controller.initiate(EvidenceChoices.RATES_BILL)(request)
+      agentController.initiate(EvidenceChoices.RATES_BILL)(request)
     status(result) shouldBe OK
   }
 
@@ -92,43 +118,85 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val result = controller.remove("01222333", EvidenceChoices.RATES_BILL)(request)
+    val result = agentController.remove("01222333", EvidenceChoices.RATES_BILL)(request)
 
     status(result) shouldBe SEE_OTHER
   }
 
   "RATES_BILL submit with no files uploaded" should "show error if no files selected" in {
     val postRequest = fakeRequest.withFormUrlEncodedBody()
-    val result = controller.continue(EvidenceChoices.RATES_BILL)(postRequest)
+    val result = agentController.continue(EvidenceChoices.RATES_BILL)(postRequest)
+    status(result) shouldBe BAD_REQUEST
+  }
+
+  "LEASE Evidence submit with no files uploaded" should "show error if no files selected" in {
+    val postRequest = fakeRequest.withFormUrlEncodedBody()
+    val result = agentController.continue(EvidenceChoices.LEASE)(postRequest)
+    status(result) shouldBe BAD_REQUEST
+  }
+
+  "LICENSE Evidence submit with no files uploaded" should "show error if no files selected" in {
+    val postRequest = fakeRequest.withFormUrlEncodedBody()
+    val result = agentController.continue(EvidenceChoices.LICENSE)(postRequest)
     status(result) shouldBe BAD_REQUEST
   }
 
   "RATES_BILL file upload with valid files" should "redirect to declaration page" in {
-    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceData)
-    lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
-    val request =
-      fakeRequest.withHeaders(HOST -> "localhost:9523").withBody(Json.obj("evidenceType" -> "Lease"))
-    when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful(()))
+    testContinueWithRatesBillLeaseOrLicense(EvidenceChoices.RATES_BILL, "ratesBill")
+  }
 
-    val result = uploadController.continue(EvidenceChoices.RATES_BILL)(request)
-    status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+  "LEASE file upload with valid files" should "redirect to declaration page" in {
+    testContinueWithRatesBillLeaseOrLicense(EvidenceChoices.LEASE, "lease")
+  }
+
+  "LICENSE file upload with valid files" should "redirect to declaration page" in {
+    testContinueWithRatesBillLeaseOrLicense(EvidenceChoices.LICENSE, "license")
   }
 
   "OTHER Evidence file upload page" should "return valid page" in {
-    val res = controller.show(EvidenceChoices.OTHER, None)(FakeRequest())
+    val res = agentController.show(EvidenceChoices.OTHER, None)(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.shouldContainText(messages("uploadOtherEvidence.title"))
     html.shouldContain("form input[type=radio]#evidenceType", 1)
 
+    val radioOptions = html.html.getElementsByClass("govuk-radios__item")
+    radioOptions.size() shouldBe 8
+    radioOptions.get(0).text() shouldBe "Lease"
+    radioOptions.get(1).text() shouldBe "Licence to occupy"
+    radioOptions.get(2).text() shouldBe "Service charge statement"
+    radioOptions.get(3).text() shouldBe "Stamp Duty Land Tax form"
+    radioOptions.get(4).text() shouldBe "Land Registry title"
+    radioOptions.get(5).text() shouldBe "Water rate demand"
+    radioOptions.get(6).text() shouldBe "Utility bill"
+    radioOptions.get(7).text() shouldBe "I cannot provide evidence"
+  }
+
+  "NO_LEASE_OR_LICENSE Evidence file upload page" should "return valid page" in {
+    val res =
+      ipController(relationshipCapacity = Occupier).show(EvidenceChoices.NO_LEASE_OR_LICENSE, None)(FakeRequest())
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.shouldContainText(messages("uploadOtherEvidence.title"))
+    html.shouldContain("form input[type=radio]#evidenceType", 1)
+
+    val radioOptions = html.html.getElementsByClass("govuk-radios__item")
+    radioOptions.size() shouldBe 7
+    radioOptions.get(0).text() shouldBe "Business rates bill"
+    radioOptions.get(1).text() shouldBe "Service charge statement"
+    radioOptions.get(2).text() shouldBe "Stamp Duty Land Tax form"
+    radioOptions.get(3).text() shouldBe "Land Registry title"
+    radioOptions.get(4).text() shouldBe "Water rate demand"
+    radioOptions.get(5).text() shouldBe "Utility bill"
+    radioOptions.get(6).text() shouldBe "I cannot provide evidence"
   }
 
   "OTHER Evidence file upload page" should "display expected error message when upscan returns file to large error" in {
-    val res = controller.show(EvidenceChoices.OTHER, Some("Your proposed upload exceeds the maximum allowed size"))(
-      FakeRequest())
+    val res =
+      agentController.show(EvidenceChoices.OTHER, Some("Your proposed upload exceeds the maximum allowed size"))(
+        FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -145,7 +213,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
         .initiateAttachmentUpload(any(), any())(any(), any[HeaderCarrier]))
       .thenReturn(Future.successful(preparedUpload))
     val result =
-      controller.initiate(EvidenceChoices.OTHER)(request)
+      agentController.initiate(EvidenceChoices.OTHER)(request)
     status(result) shouldBe OK
   }
 
@@ -154,14 +222,14 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val result = controller.remove("01222333", EvidenceChoices.OTHER)(request)
+    val result = agentController.remove("01222333", EvidenceChoices.OTHER)(request)
 
     status(result) shouldBe SEE_OTHER
   }
 
   "OTHER Evidence submit with no files uploaded" should "show error if no files selected" in {
     val postRequest = fakeRequest.withFormUrlEncodedBody()
-    val result = controller.continue(EvidenceChoices.OTHER)(postRequest)
+    val result = agentController.continue(EvidenceChoices.OTHER)(postRequest)
     status(result) shouldBe BAD_REQUEST
   }
 
@@ -211,7 +279,7 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
 
   "updateEvidenceType" should "show error if no evidence type submitted" in {
     val postRequest = FakeRequest(POST, "").withBody(Json.obj("evidenceType" -> ""))
-    val result = controller.updateEvidenceType()(postRequest)
+    val result = agentController.updateEvidenceType()(postRequest)
     status(result) shouldBe BAD_REQUEST
   }
 
@@ -219,8 +287,35 @@ class FileUploadControllerSpec extends VoaPropertyLinkingSpec {
     when(mockBusinessRatesChallengeService.persistSessionData(any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
     val postRequest = FakeRequest(POST, "").withBody(Json.obj("evidenceType" -> "lease"))
-    val result = controller.updateEvidenceType()(postRequest)
+    val result = agentController.updateEvidenceType()(postRequest)
 
     status(result) shouldBe OK
+  }
+
+  private def testShowRatesBillLeaseOrLicense(
+        uploadController: TestFileUploadController = agentController,
+        evidenceChoice: EvidenceChoices,
+        expectedPageHeader: String) = {
+    val res = uploadController.show(evidenceChoice, None)(FakeRequest())
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.html.getElementById("page-header").text() shouldBe expectedPageHeader
+    html.shouldContain("#newFileGroup", 1)
+    val backLink: Element = html.html.getElementById("back-link")
+    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show().url
+  }
+
+  private def testContinueWithRatesBillLeaseOrLicense(evidenceChoice: EvidenceChoices, evidenceType: String) = {
+    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceData)
+    lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
+    val request =
+      fakeRequest.withHeaders(HOST -> "localhost:9523").withBody(Json.obj("evidenceType" -> evidenceType))
+    when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+
+    val result = uploadController.continue(evidenceChoice)(request)
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
   }
 }

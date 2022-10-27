@@ -37,7 +37,8 @@ case class LinkingSession(
       localAuthorityReference: String,
       rtp: ClaimPropertyReturnToPage,
       valuationId: Option[Long] = None,
-      fromCya: Option[Boolean] = Some(false))
+      fromCya: Option[Boolean] = Some(false),
+      occupierEvidenceType: Option[EvidenceType] = None)
 
 object LinkingSession {
   implicit val format = Json.format[LinkingSession]
