@@ -25,6 +25,7 @@ import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
+import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
@@ -126,6 +127,67 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
     }
   }
 
+  "The claim ownership page when an ownership start date in the future is submitted" should
+    "show the correct error message for an owner" in new FutureStartDateSubmission {
+    override val controller: ClaimPropertyOwnershipController =
+      testClaimProperty(relationshipCapacity = Owner, userIsAgent = false)
+
+    status(res) shouldBe BAD_REQUEST
+    val html: HtmlPage = HtmlPage(res)
+
+    html.titleShouldMatch(
+      "Error: When you became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
+    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByAttribute(
+      "href",
+      "#fromDate-day",
+      "Date you became owner of the property must be in the past")
+
+    html.verifyElementText("fromDate_dates-error", "Error: Date you became owner of the property must be in the past")
+    html.html.getElementById("fromDate").child(0).classNames() should contain("govuk-form-group--error")
+  }
+
+  it should "show the correct error message for an occupier" in new FutureStartDateSubmission {
+    override val controller: ClaimPropertyOwnershipController =
+      testClaimProperty(relationshipCapacity = Occupier, userIsAgent = false)
+
+    status(res) shouldBe BAD_REQUEST
+    val html: HtmlPage = HtmlPage(res)
+
+    html.titleShouldMatch(
+      "Error: When you became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
+    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByAttribute(
+      "href",
+      "#fromDate-day",
+      "Date you became occupier of the property must be in the past")
+
+    html
+      .verifyElementText("fromDate_dates-error", "Error: Date you became occupier of the property must be in the past")
+    html.html.getElementById("fromDate").child(0).classNames() should contain("govuk-form-group--error")
+  }
+
+  it should "show the correct error message for an owner/occupier" in new FutureStartDateSubmission {
+    override val controller: ClaimPropertyOwnershipController =
+      testClaimProperty(relationshipCapacity = OwnerOccupier, userIsAgent = false)
+
+    status(res) shouldBe BAD_REQUEST
+    val html: HtmlPage = HtmlPage(res)
+
+    html.titleShouldMatch(
+      "Error: When you became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
+    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByAttribute(
+      "href",
+      "#fromDate-day",
+      "Date you became owner and occupier of the property must be in the past")
+
+    html.verifyElementText(
+      "fromDate_dates-error",
+      "Error: Date you became owner and occupier of the property must be in the past")
+    html.html.getElementById("fromDate").child(0).classNames() should contain("govuk-form-group--error")
+  }
+
   "The claim ownership page on client behalf" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
 
@@ -193,9 +255,20 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
         "fromDate.year"        -> "2017"
       ))
     status(result) shouldBe BAD_REQUEST
-    val doc = Jsoup.parse(contentAsString(result))
-    val error = doc.getElementsByAttributeValue("href", "#fromDate-day")
-    error.text() shouldBe "Date your client became the owner of the property must be before 22 April 2017"
+    val html: HtmlPage = HtmlPage(result)
+
+    html.titleShouldMatch(
+      "Error: When your client became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
+    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByAttribute(
+      "href",
+      "#fromDate-day",
+      "Date your client became the owner of the property must be before 22 April 2017")
+
+    html.verifyElementText(
+      "fromDate_dates-error",
+      "Error: Date your client became the owner of the property must be before 22 April 2017")
+    html.html.getElementById("fromDate").child(0).classNames() should contain("govuk-form-group--error")
   }
 
   it should "have a back link to the CYA page when coming from CYA" in {
@@ -209,5 +282,83 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
     status(result) shouldBe BAD_REQUEST
     val document = Jsoup.parse(contentAsString(result))
     document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+  }
+
+  "The claim ownership page on behalf of a client when an ownership start date in the future is submitted" should
+    "show the correct error message for an owner" in new FutureStartDateSubmission {
+    override val controller: ClaimPropertyOwnershipController =
+      testClaimProperty(relationshipCapacity = Owner, userIsAgent = true)
+
+    status(res) shouldBe BAD_REQUEST
+    val html: HtmlPage = HtmlPage(res)
+
+    html.titleShouldMatch(
+      "Error: When your client became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
+    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByAttribute(
+      "href",
+      "#fromDate-day",
+      "Date your client became owner of the property must be in the past")
+
+    html.verifyElementText(
+      "fromDate_dates-error",
+      "Error: Date your client became owner of the property must be in the past")
+    html.html.getElementById("fromDate").child(0).classNames() should contain("govuk-form-group--error")
+  }
+
+  it should "show the correct error message for an occupier" in new FutureStartDateSubmission {
+    override val controller: ClaimPropertyOwnershipController =
+      testClaimProperty(relationshipCapacity = Occupier, userIsAgent = true)
+
+    status(res) shouldBe BAD_REQUEST
+    val html: HtmlPage = HtmlPage(res)
+
+    html.titleShouldMatch(
+      "Error: When your client became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
+    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByAttribute(
+      "href",
+      "#fromDate-day",
+      "Date your client became occupier of the property must be in the past")
+
+    html
+      .verifyElementText(
+        "fromDate_dates-error",
+        "Error: Date your client became occupier of the property must be in the past")
+    html.html.getElementById("fromDate").child(0).classNames() should contain("govuk-form-group--error")
+  }
+
+  it should "show the correct error message for an owner/occupier" in new FutureStartDateSubmission {
+    override val controller: ClaimPropertyOwnershipController =
+      testClaimProperty(relationshipCapacity = OwnerOccupier, userIsAgent = true)
+
+    status(res) shouldBe BAD_REQUEST
+    val html: HtmlPage = HtmlPage(res)
+
+    html.titleShouldMatch(
+      "Error: When your client became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
+    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByAttribute(
+      "href",
+      "#fromDate-day",
+      "Date your client became owner and occupier of the property must be in the past")
+
+    html.verifyElementText(
+      "fromDate_dates-error",
+      "Error: Date your client became owner and occupier of the property must be in the past")
+    html.html.getElementById("fromDate").child(0).classNames() should contain("govuk-form-group--error")
+  }
+
+  abstract class FutureStartDateSubmission {
+    val controller: ClaimPropertyOwnershipController
+
+    private val tomorrow: LocalDate = LocalDate.now().plusDays(1)
+    lazy val res: Future[Result] = controller.submitOwnership()(
+      FakeRequest().withFormUrlEncodedBody(
+        "interestedOnOrBefore" -> "false",
+        "fromDate.day"         -> tomorrow.getDayOfMonth.toString,
+        "fromDate.month"       -> tomorrow.getMonthValue.toString,
+        "fromDate.year"        -> tomorrow.getYear.toString
+      ))
   }
 }
