@@ -21,7 +21,7 @@ import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
 import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
-import models.{CapacityType, Occupier, Owner, RatesBillType, StampDutyLandTaxForm, UploadEvidenceData}
+import models.{CapacityType, NoEvidenceFlag, Occupier, Owner, RatesBillType, StampDutyLandTaxForm, UploadEvidenceData}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.mockito.ArgumentMatchers._
@@ -234,13 +234,25 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "OTHER Evidence file upload with valid files" should "redirect to the declaration page" in {
-    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceData)
+    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceDataOther)
     lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
     val result = uploadController.continue(EvidenceChoices.OTHER)(
       FakeRequest().withFormUrlEncodedBody("evidenceType" -> "License"))
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+  }
+
+  "RATES_BILL Evidence file upload with valid files" should "redirect to the declaration page" in {
+    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceData)
+    lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
+    when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+
+    val result = uploadController.continue(EvidenceChoices.OTHER)(
+      FakeRequest().withFormUrlEncodedBody("evidenceType" -> RatesBillType.name))
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
   }

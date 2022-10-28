@@ -136,9 +136,10 @@ class UploadController @Inject()(
             }
 
             val updatedUploadData: UploadEvidenceData = UploadEvidenceData(
-              linkBasis = OtherEvidenceFlag,
+              linkBasis = if (evidenceType == RatesBillType) RatesBillFlag else OtherEvidenceFlag,
               fileInfo = Some(fileInfo),
-              attachments = request.ses.uploadEvidenceData.attachments)
+              attachments = request.ses.uploadEvidenceData.attachments
+            )
 
             businessRatesAttachmentsService
               .persistSessionData(updatedSession, updatedUploadData)
@@ -196,7 +197,7 @@ class UploadController @Inject()(
                 case formData => {
                   val updatedSession = session.copy(evidenceType = EvidenceType.fromName(formData.name))
                   val sessionUploadData: UploadEvidenceData = updatedSession.uploadEvidenceData
-                    .copy(linkBasis = OtherEvidenceFlag)
+                    .copy(linkBasis = if (formData == RatesBillType) RatesBillFlag else OtherEvidenceFlag)
                   upload(sessionUploadData)
                     .getOrElse(
                       Future.successful(
