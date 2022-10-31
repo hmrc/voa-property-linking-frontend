@@ -22,7 +22,6 @@ import play.api.Configuration
 
 import java.time.LocalDate
 import scala.util.Try
-
 @Singleton()
 class ApplicationConfig @Inject()(configuration: Configuration) {
 
@@ -51,9 +50,6 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   def dashboardUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
 
   def yourDetailsUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
-
-  def businessRatesCheckCaseSummaryUrl(page: String): String =
-    loadConfig("business-rates-check-case-summary.url") + s"/$page"
 
   def businessRatesChallengeUrl(page: String): String =
     loadConfig("business-rates-challenge-frontend.url") + s"/$page"

@@ -17,23 +17,19 @@
 @import _root_.utils.Formatters
 @import config.ApplicationConfig
 @import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
-@import models.dvr.cases.check.CheckType
 @import models.dvr.cases.check.projection.CaseDetails
 @import models.dvr.cases.check.StartCheckForm
-@import views.html.dvr.tabs._
 
 @this(
   mainLayout: views.html.mainLayout,
-  govukButton: GovukButton,
-  govukDetails: GovukDetails,
-  govukWarningText: GovukWarningText,
-  govukTable: GovukTable,
+  agentsTab: views.html.dvr.tabs.agentsTab,
+  challengeCasesDetailsTab: views.html.dvr.tabs.challengeCasesDetailsTab,
+  checkCasesDetailsTab: views.html.dvr.tabs.checkCasesDetailsTab,
+  startCheckTab: views.html.dvr.tabs.startCheckTab,
+  valuationTab: views.html.dvr.tabs.valuationTab,
   govukTabs: GovukTabs,
   govukSummaryList: GovukSummaryList,
-  govukRadios: GovukRadios,
-  govukErrorSummary: GovukErrorSummary,
-  formWithCSRF: FormWithCSRF,
-  govukInsetText: GovukInsetText
+  govukErrorSummary: GovukErrorSummary
 )
 
 @(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -42,14 +38,6 @@
 @address = @{Formatters.capitalisedAddress(model.address)}
 @checkCases = @{model.checksAndChallenges.fold(List[CaseDetails]())(_._1)}
 @challengeCases = @{model.checksAndChallenges.fold(List[CaseDetails]())(_._2)}
-
-@evaluateRoute = @{ t: String =>
-    if(model.owner) {
-        controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailedValuationRequestFile(model.submissionId, model.valuationId, t).url
-    } else {
-        controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailedValuationRequestFile(model.submissionId, model.valuationId, t).url
-    }
-}
 
 @titleCaption = @{
     if (model.owner) {
@@ -74,56 +62,44 @@
     }
 }
 
-@valuationTabContent = @{valuationTab(model, evaluateRoute)(govukButton, govukInsetText, govukWarningText)}
-
-@startCheckTabContent = @{
-    startCheckTab(model, startCheckForm)(govukButton, govukDetails, govukRadios, formWithCSRF)
-}
-
-@checkCasesTabContent = @{
-    checkCasesDetailsTab(model.submissionId, model.owner, model.uarn, model.authorisationId, model.valuationId, model.listYear, checkCases, evaluateRoute(model.check), "#start-check-tab")(govukButton, govukTable, govukDetails, govukWarningText)
-}
-
-@challengeCasesTabContent = @{
-    challengeCasesDetailsTab(model.authorisationId, challengeCases, model.owner, model.submissionId, model.valuationId, model.uarn)(govukTable, govukDetails)
-}
-
-@agentsTabContent = @{agentsTab(model)(govukTable)}
-
 @tabs = @{
    val valuation: TabItem = TabItem(
         id = Some("valuation-tab"),
         label = messages("available.requestvaluation.valuationTab.title"),
         panel = TabPanel(
-            content = HtmlContent(valuationTabContent)
+            content = HtmlContent(valuationTab(model))
         )
     )
     val startCheck: TabItem = TabItem(
         id = Some("start-check-tab"),
         label = messages("available.requestvaluation.startCheckTab.title"),
         panel = TabPanel(
-            content = HtmlContent(startCheckTabContent)
+            content = HtmlContent(startCheckTab(model, startCheckForm))
         )
     )
     val check: TabItem = TabItem(
         id = Some("check-cases-tab"),
         label = checkCasesTabTitle,
         panel = TabPanel(
-            content = HtmlContent(checkCasesTabContent)
+            content = HtmlContent(
+                checkCasesDetailsTab(model.checkCasesDetailsTab)
+            )
         )
     )
     val challenge: TabItem = TabItem(
             id = Some("challenge-cases-tab"),
             label = messages("available.requestvaluation.challengesTab.title", challengeCases.size),
             panel = TabPanel(
-              content = HtmlContent(challengeCasesTabContent)
+              content = HtmlContent(
+                  challengeCasesDetailsTab(model)
+              )
             )
           )
     val agents: TabItem = TabItem(
             id = Some("agents-tab"),
             label = agentsTabTitle,
             panel = TabPanel(
-              content = HtmlContent(agentsTabContent)
+              content = HtmlContent(agentsTab(model))
             )
           )
 

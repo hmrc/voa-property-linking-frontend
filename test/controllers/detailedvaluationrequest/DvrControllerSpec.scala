@@ -34,6 +34,7 @@ import scala.collection.JavaConverters._
 import java.time.{LocalDate, LocalDateTime}
 
 import models.dvr.cases.check.common.Agent
+import models.dvr.cases.check.projection.CaseDetails
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
@@ -46,6 +47,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   trait Setup {
     implicit val request = FakeRequest()
+    val checkSummaryUrlTemplate =
+      "/check-case/{checkRef}/summary?propertyLinkSubmissionId={propertyLinkSubmissionId}&isOwner={isOwner}&valuationId={valuationId}&isDvr={isDvr}"
     val enquiryUrlTemplate = "/draft-list-enquiry/start-from-dvr-valuation"
     val estimatorUrlTemplate = "/estimate-your-business-rates/start-from-dvr-valuation"
 
@@ -63,6 +66,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       dvrFilesView = dvrFilesView,
       cannotRaiseChallengeView = cannotRaiseChallengeView,
       propertyMissingView = propertyMissingView,
+      checkSummaryUrlTemplate = checkSummaryUrlTemplate,
       enquiryUrlTemplate = enquiryUrlTemplate,
       estimatorUrlTemplate = estimatorUrlTemplate
     )
@@ -425,18 +429,20 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "detailed valuation of a DVR property" should "display correct CHECKS tab and table of check cases" in new Setup {
+    val checkCaseDetails: List[CaseDetails] =
+      CheckCaseStatus.values.toList.map(status => ownerCheckCaseDetails.copy(status = status.toString))
+
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
     when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
-      .thenReturn(Future.successful(CheckCaseStatus.values.toList.map(status =>
-        ownerCheckCaseDetails.copy(status = status.toString))))
+      .thenReturn(Future.successful(checkCaseDetails))
     when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
       .thenReturn(Future.successful(List.empty))
     when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
 
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
-        propertyLinkSubmissionId = "1111",
+        propertyLinkSubmissionId = assessments.submissionId,
         valuationId =
           assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
         uarn = 1L
@@ -476,6 +482,18 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         cssClasses should include("govuk-tag--grey")
       case (_, cssClasses) =>
         cssClasses should not include "govuk-tag--grey"
+    }
+
+    private val assessmentRef =
+      assessments.assessments.headOption.fold(fail("expected to find at least one assessment"))(_.assessmentRef)
+
+    Inspectors.forAll(checkCaseDetails) { details =>
+      val expectedCheckSummaryLink =
+        s"/check-case/${details.caseReference}/summary?propertyLinkSubmissionId=${assessments.submissionId}&isOwner=true&valuationId=$assessmentRef&isDvr=true"
+
+      checksTable
+        .getElementsContainingOwnText(details.caseReference)
+        .attr("href") shouldBe expectedCheckSummaryLink
     }
   }
 
@@ -719,6 +737,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       dvrFilesView = dvrFilesView,
       cannotRaiseChallengeView = cannotRaiseChallengeView,
       propertyMissingView = propertyMissingView,
+      checkSummaryUrlTemplate = checkSummaryUrlTemplate,
       enquiryUrlTemplate = enquiryUrlTemplate,
       estimatorUrlTemplate = estimatorUrl
     )

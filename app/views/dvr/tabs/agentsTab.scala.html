@@ -14,15 +14,13 @@
  * limitations under the License.
  *@
 
-@import java.time.LocalDateTime
-@import java.time.LocalDate
-@import models.dvr.cases.check.projection.CaseDetails
-@import utils.Formatters._
 @import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
 @import models.dvr.cases.check.common.{Agent, AgentCount}
 @import config.ApplicationConfig
 
-@(model: AvailableRequestDetailedValuation)(govukTable: GovukTable)(implicit messages: Messages, config: ApplicationConfig)
+@this(govukTable: GovukTable)
+
+@(model: AvailableRequestDetailedValuation)(implicit messages: Messages, config: ApplicationConfig)
 
 @agentCounts = @{
     model.agentTabData.getOrElse(Seq.empty)
