@@ -50,7 +50,6 @@ class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
     val messageCount = MessageCount(5, 100)
 
     when(addressesConnector.findById(anyLong)(any[HeaderCarrier])).thenReturn(Future.successful(Some(personalAddress)))
-    when(mockConfig.pingdomToken).thenReturn(Some("token"))
     when(mockConfig.bannerContent).thenReturn(None)
   }
 

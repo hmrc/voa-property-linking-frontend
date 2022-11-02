@@ -76,8 +76,6 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   lazy val ccaAgentDimension: String =
     s"CCA_Agent (${configuration.get[String]("google-analytics.dimension.ccaAgent")})"
 
-  lazy val pingdomToken: Option[String] = configuration.getOptional[String]("pingdom.performance.monitor.token")
-
   lazy val earliestEnglishStartDate: LocalDate = loadLocalDate("property-linking.default.earliestEnglishStartDate")
   lazy val earliestWelshStartDate: LocalDate = loadLocalDate("property-linking.default.earliestWelshStartDate")
 
