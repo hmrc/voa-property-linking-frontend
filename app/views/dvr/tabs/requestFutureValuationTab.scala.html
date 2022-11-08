@@ -27,7 +27,8 @@
   isWelshProperty: Boolean)(implicit config: ApplicationConfig, messages: Messages)
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds" id="future-valuation-tab-content">
+    <div id="future-valuation-tab-content"  class="govuk-grid-column-three-quarters" >
+        <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
         @rateableValue.map { rv =>
 
             <span class="govuk-caption-l" id="future-valuation-caption">
