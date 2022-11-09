@@ -26,6 +26,14 @@
   valuationsUrl: String,
   isWelshProperty: Boolean)(implicit config: ApplicationConfig, messages: Messages)
 
+@insetMessages = {
+        <p>@messages("auto.requestDetailedValuation.future.rv.inset")</p>
+        <p>
+            <a class="govuk-link" id="future-estimate-link" href="@estimatorUrl&tabName=valuation-tab">@messages(
+                "auto.requestDetailedValuation.future.rv.inset.link", effectiveDate)</a>
+        </p>
+}
+
 <div class="govuk-grid-row">
     <div id="future-valuation-tab-content"  class="govuk-grid-column-three-quarters" >
         <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
@@ -35,22 +43,13 @@
                 @messages("auto.requestDetailedValuation.future.rv.caption", effectiveDate)
             </span>
             <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="future-valuation-rv">
-                @formatCurrencyRoundedToPounds(rv)
+            @formatCurrencyRoundedToPounds(rv)
             </p>
 
-            @govukInsetText(InsetText(
-                id = Some("future-valuation-inset-rv"),
-                content = HtmlContent(messages(
-                    "auto.requestDetailedValuation.future.rv.inset",
-                    messages(
-                        "auto.requestDetailedValuation.future.rv.inset.link",
-                        effectiveDate,
-                        s"${estimatorUrl}&tabName=valuation-tab"
-                    )
-                ))
-            ))
+        @govukInsetText(InsetText(
+            id = Some("future-valuation-inset-rv"),
+            content = HtmlContent(insetMessages)))
         }
-
         <p class="govuk-body" id="future-valuation-not-available">
             @messages("auto.requestDetailedValuation.future.p.1", effectiveDate)
         </p>

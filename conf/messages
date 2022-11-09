@@ -1096,8 +1096,8 @@ auto.requestDetailedValuation.rateableValue=<b>Rateable Value:</b> £{0}
 
 auto.requestDetailedValuation.future.tabName=Valuation
 auto.requestDetailedValuation.future.rv.caption=Future rateable value (from {0})
-auto.requestDetailedValuation.future.rv.inset=This will be the rateable value for the property. It is not what you will pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill. <br> <br> {0}.
-auto.requestDetailedValuation.future.rv.inset.link=<a class="govuk-link" id="future-estimate-link" href="{1}">Estimate what the business rates bill may be from {0}</a>
+auto.requestDetailedValuation.future.rv.inset=This will be the rateable value for the property. It is not what you will pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill.
+auto.requestDetailedValuation.future.rv.inset.link=Estimate what the business rates bill may be from {0}
 auto.requestDetailedValuation.future.p.1=This detailed valuation will not be available until {0}. You will be able to request it from that date.
 auto.requestDetailedValuation.future.p.2=The current {0} detailed valuation can be requested from the {1}.
 auto.requestDetailedValuation.future.p.2.link=<a class="govuk-link" id="current-valuation-link" href="{0}">current valuation</a>

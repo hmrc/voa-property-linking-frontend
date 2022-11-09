@@ -52,6 +52,7 @@
         <h2 id="rateable-value-caption" class="govuk-caption-l">@h2Caption</h2>
         <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="grand-total-top">@model.rateableValueFormatted.getOrElse(messages("assessments.na"))</p>
         @govukInsetText(InsetText(
+            id=Some("intro-text"),
             content = Text(insetMessages)
         ))
         <p class="govuk-body"><a class="govuk-link" href="@model.evaluateRoute(model.valuation)">@messages("available.requestvaluation.downloadValuationLink")</a></p>
