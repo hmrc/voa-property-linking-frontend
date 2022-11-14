@@ -20,13 +20,13 @@
 
 @()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(pageTitle = Messages("addUserToGG.heading"), showTopNavigation = false) {
+@mainLayout(pageTitle = messages("addUserToGG.heading"), showTopNavigation = false) {
 
     <h1 class="govuk-heading-l">@messages("addUserToGG.heading")</h1>
 
     <p class="govuk-body">@messages("addUserToGG.p1")</p>
     <p class="govuk-body">@messages("addUserToGG.p2")</p>
-    <p class="govuk-body">@Html(Messages("addUserToGG.p3"))</p>
+    <p class="govuk-body">@Html(messages("addUserToGG.p3"))</p>
 
     <a href="@routes.Application.manageBusinessTaxAccount" class="govuk-button" role="button">@messages("addUserToGG.l1")</a>
 

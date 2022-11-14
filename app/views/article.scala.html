@@ -49,7 +49,7 @@
                         @requestHeader match {
                             case req: CcaWrappedRequest => {
                                 <li><a href="@config.dashboardUrl("your-details")">
-                                @req.yourDetailsName.getOrElse(Messages("navigation.your.details"))
+                                @req.yourDetailsName.getOrElse(messages("navigation.your.details"))
                                 </a><span class="separator"> |</span> </li>
                             }
 
@@ -96,7 +96,7 @@
     <details class="get-help-toggle">
         <summary><span class="summary">@messages("getHelpLink")</span></summary>
         <div class="panel panel-border-wide">
-            @Html(Messages("getHelpContent", "ccaservice@voa.gov.uk"))
+            @Html(messages("getHelpContent", "ccaservice@voa.gov.uk"))
         </div>
     </details>
 

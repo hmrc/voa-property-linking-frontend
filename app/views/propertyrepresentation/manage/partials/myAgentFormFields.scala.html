@@ -14,31 +14,16 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.viewmodels._
-
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.input.Input
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
-@import uk.gov.hmrc.govukfrontend.views.html.components.GovukErrorSummary
-
-@import uk.gov.hmrc.govukfrontend.views.html.components
-@import uk.gov.hmrc.govukfrontend.views
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.button.Button
-
-@import controllers.agent.forms.AgentPropertiesForm
-
-@import uk.gov.hmrc.govukfrontend.views
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorSummary
-
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 @import controllers.agent.forms.FilterAgentProperties
 
-@(form: Form[FilterAgentProperties], govukInput : GovukInput, govukButton : GovukButton)(implicit request: Request[_], messages: Messages)
+@this(govukInput: GovukInput, govukButton: GovukButton)
+
+@(form: Form[FilterAgentProperties])(implicit request: Request[_], messages: Messages)
 
 <div id="filterProperties" class="searchbar column-full">
     <div class="row">

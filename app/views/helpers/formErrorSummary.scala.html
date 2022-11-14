@@ -14,10 +14,9 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@this(govukErrorSummary: GovukErrorSummary)
 
-@(form: Form[_])(govukErrorSummary : GovukErrorSummary)(implicit messages: Messages)
+@(form: Form[_])(implicit messages: Messages)
 
 @if(form.errors.nonEmpty) {
     @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("errors.heading.title"))))

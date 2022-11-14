@@ -21,17 +21,17 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
+@this(mainLayout: views.html.mainLayout, formErrorSummary: formErrorSummary, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
 
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = Messages("updateName.title"),
+    pageTitle = messages("updateName.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url),
     hasErrors = model.form.hasErrors
 ) {
 
-    @formErrorSummary(model.form)(govukErrorSummary)
+    @formErrorSummary(model.form)
 
     <h1 class="govuk-heading-l">@messages("updateName.title")</h1>
 
@@ -45,7 +45,7 @@
             label = Label(
                 isPageHeading = false,
                 classes = "govuk-label--m",
-                content = Text(Messages("details.edit.label.firstName"))
+                content = Text(messages("details.edit.label.firstName"))
             ),
             errorMessage = model.form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))
@@ -58,7 +58,7 @@
             label = Label(
                 isPageHeading = false,
                 classes = "govuk-label--m",
-                content = Text(Messages("details.edit.label.lastName"))
+                content = Text(messages("details.edit.label.lastName"))
             ),
             errorMessage = model.form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ).withFormField(model.form("lastName")))
