@@ -34,6 +34,10 @@
         }
     } else None
 }
+@insetMessages = @{
+    if(model.assessment.isCurrent) messages("available.requestvaluation.inset.current")
+    else messages("available.requestvaluation.inset.previous")
+}
 
 @h2Caption = @{
     if(model.assessment.isDraft) messages("available.requestvaluation.h2.future", fromDate)
@@ -42,12 +46,14 @@
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-three-quarters">
+
         <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
         <h2 id="rateable-value-caption" class="govuk-caption-l">@h2Caption</h2>
         <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="grand-total-top">@model.rateableValueFormatted.getOrElse(messages("assessments.na"))</p>
         @govukInsetText(InsetText(
-            content = Text(messages("available.requestvaluation.inset"))
+            id=Some("intro-text"),
+            content = Text(insetMessages)
         ))
         <p class="govuk-body"><a class="govuk-link" href="@model.evaluateRoute(model.valuation)">@messages("available.requestvaluation.downloadValuationLink")</a></p>
 
