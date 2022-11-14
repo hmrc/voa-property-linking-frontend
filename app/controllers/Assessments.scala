@@ -64,10 +64,18 @@ class Assessments @Inject()(
               Redirect(
                 if (owner)
                   controllers.detailedvaluationrequest.routes.DvrController
-                    .myOrganisationRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
+                    .myOrganisationRequestDetailValuationCheck(
+                      submissionId,
+                      assessmentRef,
+                      propertyLink.uarn,
+                      tabName = Some("valuation-tab"))
                 else
                   controllers.detailedvaluationrequest.routes.DvrController
-                    .myClientsRequestDetailValuationCheck(submissionId, assessmentRef, propertyLink.uarn)
+                    .myClientsRequestDetailValuationCheck(
+                      submissionId,
+                      assessmentRef,
+                      propertyLink.uarn,
+                      tabName = Some("valuation-tab"))
               )
           }
       case None => Future.successful(notFound)

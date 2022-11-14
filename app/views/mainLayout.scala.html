@@ -67,11 +67,20 @@
     </div>
 }
 
-@navigation = {
-    @if(showTopNavigation){
-        @navigationBar(backUri, backLinkClass)
+@languageSwitcherOnlyMenu = {
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+            @languageSwitcher()
+        </div>
+    </div>
+}
+
+@navigation = @{
+    if(showTopNavigation){
+        if(config.welshEnabled) navigationBarWithLanguageSwitcher(backUri) else navigationBar(backUri, backLinkClass)
     }else{
-        @HtmlFormat.empty
+        if(config.welshEnabled) languageSwitcherOnlyMenu else HtmlFormat.empty
     }
 }
 

@@ -151,9 +151,13 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val html = HtmlPage(res)
     html.html
       .getElementById("back-link")
-      .attr("href") shouldBe s"${controllers.detailedvaluationrequest.routes.DvrController
-      .myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId = "subId", valuationId = 1L, uarn = 1L)
-      .url}#agents-tab"
+      .attr("href") shouldBe controllers.detailedvaluationrequest.routes.DvrController
+      .myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "subId",
+        valuationId = 1L,
+        uarn = 1L,
+        tabName = Some("agents-tab"))
+      .url
 
   }
 

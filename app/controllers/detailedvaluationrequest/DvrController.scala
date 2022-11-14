@@ -475,9 +475,13 @@ class DvrController @Inject()(
           Future.successful {
             val returnUrl =
               if (isOwner)
-                s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn).url}"
+                s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController
+                  .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn, tabName = Some("valuation-tab"))
+                  .url}"
               else
-                s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn).url}"
+                s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController
+                  .myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn, tabName = Some("valuation-tab"))
+                  .url}"
             Redirect(
               config.businessRatesValuationFrontendUrl(
                 s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl"))
@@ -498,11 +502,19 @@ class DvrController @Inject()(
                 backLinkUrl =
                   if (isOwner)
                     routes.DvrController
-                      .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn)
+                      .myOrganisationRequestDetailValuationCheck(
+                        plSubmissionId,
+                        assessmentRef,
+                        uarn,
+                        tabName = Some("valuation-tab"))
                       .url
                   else
                     routes.DvrController
-                      .myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn)
+                      .myClientsRequestDetailValuationCheck(
+                        plSubmissionId,
+                        assessmentRef,
+                        uarn,
+                        tabName = Some("valuation-tab"))
                       .url
               ))
           }
@@ -581,7 +593,8 @@ object DvrController {
                 valuationId = future.assessmentRef,
                 uarn = future.uarn,
                 challengeCaseRef = None,
-                fromFuture = None
+                fromFuture = None,
+                tabName = Some("valuation-tab")
               )
               .url
           else
@@ -591,7 +604,8 @@ object DvrController {
                 valuationId = future.assessmentRef,
                 uarn = future.uarn,
                 challengeCaseRef = None,
-                fromFuture = None
+                fromFuture = None,
+                tabName = Some("valuation-tab")
               )
               .url)
 }
@@ -637,7 +651,8 @@ object RequestDetailedValuationWithoutForm {
                 valuationId = current.assessmentRef,
                 uarn = current.uarn,
                 challengeCaseRef = None,
-                fromFuture = Some(true)
+                fromFuture = Some(true),
+                tabName = Some("valuation-tab")
               )
               .url
           } else {
@@ -647,7 +662,8 @@ object RequestDetailedValuationWithoutForm {
                 valuationId = current.assessmentRef,
                 uarn = current.uarn,
                 challengeCaseRef = None,
-                fromFuture = Some(true)
+                fromFuture = Some(true),
+                tabName = Some("valuation-tab")
               )
               .url
         }),
