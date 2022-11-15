@@ -31,9 +31,9 @@
 
 @returnUrl = @{
     if (owner)
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, model.assessmentRef, model.uarn).url}"
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(submissionId, model.assessmentRef, model.uarn, tabName = Some("valuation-tab")).url}"
     else
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, model.assessmentRef, model.uarn).url}"
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(submissionId, model.assessmentRef, model.uarn, tabName = Some("valuation-tab")).url}"
 }
 
 @address = @{Formatters.capitalisedAddress(model.address)}

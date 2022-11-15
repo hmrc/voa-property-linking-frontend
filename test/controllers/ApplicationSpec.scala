@@ -16,8 +16,11 @@
 
 package controllers
 
+import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+
+import scala.concurrent.Future
 
 class ApplicationSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
@@ -78,6 +81,37 @@ class ApplicationSpec extends VoaPropertyLinkingSpec {
 
     val html = contentAsString(result)
     html should include("You’ve tried to register using an existing Agent Government Gateway account.")
+  }
+
+  "setDefaultLanguage" should "redirect the user to REFERER" in {
+    val refererUrl = "/test-url/"
+    val result = applicationTestController.setDefaultLanguage(FakeRequest().withHeaders("REFERER" -> refererUrl))
+    verifyLanguageSwitch(result, refererUrl)
+  }
+
+  "setDefaultLanguage" should "redirect the user HOME when REFERER not available" in {
+    val result: Future[Result] = applicationTestController.setDefaultLanguage(FakeRequest())
+    verifyLanguageSwitch(result)
+  }
+  "displayWelsh" should "redirect the user to REFERER" in {
+    val refererUrl = "/test-url/"
+    val result: Future[Result] =
+      applicationTestController.displayWelsh(FakeRequest().withHeaders("REFERER" -> refererUrl))
+    verifyLanguageSwitch(result, refererUrl, lang = "cy")
+  }
+  "displayWelsh" should "redirect the user HOME when REFERER not available" in {
+    val refererUrl = "/test-url/"
+    val result: Future[Result] = applicationTestController.displayWelsh(FakeRequest())
+    verifyLanguageSwitch(result, lang = "cy")
+  }
+  private def verifyLanguageSwitch(
+        result: Future[Result],
+        refererUrl: String = applicationConfig.dashboardUrl("home"),
+        lang: String = ""
+  ) = {
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(refererUrl)
+    cookies(result).get("PLAY_LANG").map(_.value) shouldBe Some(lang)
   }
 
 }

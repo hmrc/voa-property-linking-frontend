@@ -50,8 +50,14 @@
         @views.html.includes.analytics()
     }
 
+    @bannerContent = @{
+        if(messages.lang.code == "cy"){
+            config.bannerContentWelsh
+        } else config.bannerContent
+    }
+
     @banner = {
-        @config.bannerContent.map { content =>
+        @bannerContent.map { content =>
             <div class="new-centered-content">
                 <div class="notification-banner">
                     <p>@Html(content)</p>

@@ -17,8 +17,8 @@
 package controllers
 
 import config.ApplicationConfig
-
 import javax.inject.Inject
+import play.api.i18n.Lang
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
@@ -32,6 +32,8 @@ class Application @Inject()(
       implicit override val controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig
 ) extends PropertyLinkingController {
+
+  private val fallbackUrl = config.dashboardUrl("home")
 
   def addUserToGG(): Action[AnyContent] = Action { implicit request =>
     Ok(addUserToGGView())
@@ -51,5 +53,13 @@ class Application @Inject()(
 
   def invalidAccountType: Action[AnyContent] = Action { implicit request =>
     Unauthorized(invalidAccountTypeView())
+  }
+
+  def displayWelsh: Action[AnyContent] = Action { implicit request =>
+    Redirect(url = request.headers.get(REFERER).getOrElse(fallbackUrl)).withLang(Lang("cy"))
+  }
+
+  def setDefaultLanguage: Action[AnyContent] = Action { implicit request =>
+    Redirect(url = request.headers.get(REFERER).getOrElse(fallbackUrl)).withoutLang
   }
 }

@@ -87,21 +87,28 @@ details#report-a-problem {
     max-width: 7em;
 }
 
+// Header account menu
 .cca-menu-account {
-  float: right;
-  margin-top: 13px;
-  margin-bottom: 0;
-  li {
-    float: left;
-    padding-right: 7px;
-    padding-left: 7px;
-    + li {
-      border-left: 1px solid $govuk-border-colour;
-    }
-    &:last-child {
-      padding-right: 0;
-    }
-  }
+	float: right;
+	margin-top: 13px;
+	margin-bottom: 0;
+	li {
+		float: left;
+		padding-right: 7px;
+		padding-left: 7px;
+		+ li {
+			border-left: 1px solid $govuk-border-colour;
+		}
+		&:last-child {
+			padding-right: 0;
+		}
+		&:first-child {
+			padding-left: 0;
+		}
+	}
+}
+.cca-menu-account--left {
+	float: left;
 }
 
 #remove-file {

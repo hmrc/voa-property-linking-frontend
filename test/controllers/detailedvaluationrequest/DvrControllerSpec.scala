@@ -755,28 +755,32 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         assessments.submissionId,
         currentAssessment.assessmentRef,
         currentAssessment.uarn,
-        challengeCaseRef = None)
+        challengeCaseRef = None,
+        tabName = None)
       .url
     lazy val clientCurrentValuationUrl: String = routes.DvrController
       .myClientsRequestDetailValuationCheck(
         assessments.submissionId,
         currentAssessment.assessmentRef,
         currentAssessment.uarn,
-        challengeCaseRef = None)
+        challengeCaseRef = None,
+        tabName = None)
       .url
     lazy val ipFutureValuationUrl: String = routes.DvrController
       .myOrganisationRequestDetailValuationCheck(
         assessments.submissionId,
         futureAssessment.assessmentRef,
         futureAssessment.uarn,
-        challengeCaseRef = None)
+        challengeCaseRef = None,
+        tabName = None)
       .url
     lazy val clientFutureValuationUrl: String = routes.DvrController
       .myClientsRequestDetailValuationCheck(
         assessments.submissionId,
         futureAssessment.assessmentRef,
         futureAssessment.uarn,
-        challengeCaseRef = None)
+        challengeCaseRef = None,
+        tabName = None)
       .url
 
     def estimatorUrl(isOwner: Boolean): String =

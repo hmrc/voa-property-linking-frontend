@@ -95,7 +95,13 @@ class ManageAgentController @Inject()(
             config.businessRatesValuationFrontendUrl(
               s"property-link/$linkId/valuations/$valId?submissionId=$submissionId#agents-tab")
           case (None, Some(valId), Some(submissionId), Some(u), _) =>
-            s"${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId = submissionId, valuationId = valId, uarn = u).url}#agents-tab"
+            controllers.detailedvaluationrequest.routes.DvrController
+              .myOrganisationRequestDetailValuationCheck(
+                propertyLinkSubmissionId = submissionId,
+                valuationId = valId,
+                uarn = u,
+                tabName = Some("agents-tab"))
+              .url
           case _ => controllers.agent.routes.ManageAgentController.showAgents.url
         }
       } yield {

@@ -7,6 +7,10 @@ GET         /                                                                   
 
 GET         /start                                                                            controllers.Application.start()
 
+#Switch language
+GET         /language/welsh                                                                   controllers.Application.displayWelsh
+GET         /language/default                                                                 controllers.Application.setDefaultLanguage
+
 #Updated start page
 GET         /gov-gateway                                                                      controllers.registration.DoYouHaveAccountController.show()
 POST        /gov-gateway                                                                      controllers.registration.DoYouHaveAccountController.submit()
@@ -127,6 +131,7 @@ GET         /my-organisation/property-link/:propertyLinkSubmissionId/confirmatio
 GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId                                          controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long, challengeCaseRef: Option[String] ?= None, otherValuationId: Option[Long] ?= None, fromFuture: Option[Boolean] ?= None, tabName: Option[String] ?= Some("valuation-tab"))
 POST        /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId                                          controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
 POST        /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId/startCheck                               controllers.detailedvaluationrequest.DvrController.myOrganisationStartCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long)
+GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId/startCheck                               controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuationCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long, challengeCaseRef: Option[String] ?= None, otherValuationId: Option[Long] ?= None, fromFuture: Option[Boolean] ?= None, tabName: Option[String] ?= None)
 GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId/exists                                   controllers.detailedvaluationrequest.DvrController.myOrganisationAlreadyRequestedDetailValuation(propertyLinkSubmissionId: String, valuationId: Long, fromFuture: Option[Boolean] ?= None, tabName: Option[String] ?= None)
 GET         /my-organisation/property-link/:propertyLinkSubmissionId/valuations/:valuationId/file/:ref                                controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailedValuationRequestFile(propertyLinkSubmissionId: String, valuationId: Long, ref: String)
 
@@ -135,6 +140,7 @@ GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId
 GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId                              controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuationCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long, challengeCaseRef: Option[String] ?= None, otherValuationId: Option[Long] ?= None, fromFuture: Option[Boolean] ?= None, tabName: Option[String] ?= Some("valuation-tab"))
 POST        /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId                              controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuation(propertyLinkSubmissionId: String, valuationId: Long)
 POST        /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/startCheck                   controllers.detailedvaluationrequest.DvrController.myClientsStartCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long)
+GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/startCheck                   controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailValuationCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long, challengeCaseRef: Option[String] ?= None, otherValuationId: Option[Long] ?= None, fromFuture: Option[Boolean] ?= None, tabName: Option[String] ?= None)
 GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/exists                       controllers.detailedvaluationrequest.DvrController.myClientsAlreadyRequestedDetailValuation(propertyLinkSubmissionId: String, valuationId: Long, fromFuture: Option[Boolean] ?= None, tabName: Option[String] ?= Some("valuation-tab"))
 GET         /my-organisation/property-link/clients/all/:propertyLinkSubmissionId/valuations/:valuationId/file/:ref                    controllers.detailedvaluationrequest.DvrController.myClientsRequestDetailedValuationRequestFile(propertyLinkSubmissionId: String, valuationId: Long, ref: String)
 
