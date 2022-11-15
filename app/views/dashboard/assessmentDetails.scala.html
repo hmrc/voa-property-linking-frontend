@@ -18,8 +18,9 @@
 @import _root_.utils.Formatters
 @import config.ApplicationConfig
 
+@this(govukDetails: GovukDetails)
 
-@(model: controllers.AssessmentsVM, owner: Boolean, govukDetails: GovukDetails)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @tableHeaderRow = {
     <tr class="govuk-table__row">

@@ -20,7 +20,7 @@
 @import helpers._
 @import uk.gov.hmrc.govukfrontend.views.Implicits.RichRadios
 
-@this(mainLayout: mainLayout, govukButton: GovukButton, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
+@this(mainLayout: mainLayout, formErrorSummary: formErrorSummary, govukButton: GovukButton, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF)
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -32,7 +32,7 @@
     hasErrors = form.hasErrors
 
 ){
-    @formErrorSummary(form)(govukErrorSummary)
+    @formErrorSummary(form)
 
     @formWithCSRF(action = controllers.registration.routes.AccountTypeController.submit()){
         @govukRadios(Radios(

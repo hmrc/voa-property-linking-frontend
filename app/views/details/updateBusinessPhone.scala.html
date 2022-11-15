@@ -14,24 +14,22 @@
  * limitations under the License.
  *@
 
-@import helpers._
 @import controllers.manageDetails.UpdateOrganisationDetailsVM
-@import _root_.template.FormSupport._
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import views.html.helpers.formErrorSummary
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
+@this(mainLayout: views.html.mainLayout, formErrorSummary: formErrorSummary, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
 
 @(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = Messages("updateBusinessPhone.title"),
+    pageTitle = messages("updateBusinessPhone.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url),
     hasErrors = model.form.hasErrors
 ){
 
-    @formErrorSummary(model.form)(govukErrorSummary)
+    @formErrorSummary(model.form)
 
     <h1 class="govuk-heading-l">@messages("updateBusinessPhone.title")</h1>
 

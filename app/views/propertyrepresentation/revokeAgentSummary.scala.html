@@ -26,7 +26,7 @@
  agentOrganisation: String
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@heading = @{ Messages("propertyRepresentation.agentRemoveSummary.heading", agentOrganisation) }
+@heading = @{ messages("propertyRepresentation.agentRemoveSummary.heading", agentOrganisation) }
 
 @mainLayout(
  pageTitle = heading

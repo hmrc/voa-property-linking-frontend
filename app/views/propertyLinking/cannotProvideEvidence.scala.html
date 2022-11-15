@@ -23,7 +23,7 @@
 @()(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = Messages("cannotProvideEvidence.title"),
+    pageTitle = messages("cannotProvideEvidence.title"),
     backUri = Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
 ) {
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)

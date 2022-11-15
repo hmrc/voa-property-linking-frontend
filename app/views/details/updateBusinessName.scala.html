@@ -16,22 +16,21 @@
 
 @import helpers._
 @import controllers.manageDetails.UpdateOrganisationDetailsVM
-@import _root_.template.FormSupport._
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
+@this(mainLayout: views.html.mainLayout, formErrorSummary: formErrorSummary, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
 
 @(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = Messages("updateBusinessName.title"),
+    pageTitle = messages("updateBusinessName.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url),
     hasErrors = model.form.hasErrors
 ) {
 
-    @formErrorSummary(model.form)(govukErrorSummary)
+    @formErrorSummary(model.form)
 
     <h1 class="govuk-heading-l">@messages("updateBusinessName.title")</h1>
 
@@ -44,7 +43,7 @@
             label = Label(
                 isPageHeading = false,
                 classes = "govuk-label--m",
-                content = Text(Messages("label.companyName"))
+                content = Text(messages("label.companyName"))
             ),
             errorMessage = model.form("businessName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ).withFormField(model.form("businessName")))

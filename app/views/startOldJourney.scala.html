@@ -31,8 +31,8 @@
     @messages("start.heading.register.old")
     </h1>
 
-    <p class="govuk-body">@Html(Messages("start.registration.p.1.old", routes.Login.show))</p>
-    <p class="govuk-body">@Html(Messages("start.registration.p.2.old", routes.Application.addUserToGG))</p>
+    <p class="govuk-body">@Html(messages("start.registration.p.1.old", routes.Login.show))</p>
+    <p class="govuk-body">@Html(messages("start.registration.p.2.old", routes.Application.addUserToGG))</p>
     <p class="govuk-body">@messages("start.registration.p.3.old")</p>
 
     <ul class="govuk-list govuk-list--bullet">
@@ -50,10 +50,10 @@
         content = HtmlContent(messages("start.registration.IdontHave.answer.old"))
     ))
 
-    <h4 class="govuk-label govuk-label--m">@Html(Messages("create-account.type.question"))</h4>
+    <h4 class="govuk-label govuk-label--m">@Html(messages("create-account.type.question"))</h4>
 
-    <p class="govuk-body">@Html(Messages("start.registration.individual.hyperlink.old", config.ggRegistrationUrl, "individual", config.dashboardUrl("home"), "voa"))</p>
-    <p class="govuk-body">@Html(Messages("start.registration.organisation.hyperlink.old", config.ggRegistrationUrl, "organisation", config.dashboardUrl("home"), "voa"))</p>
-    <p class="govuk-body">@Html(Messages("start.registration.enrolment.hyperlink.old", routes.Login.show))</p>
+    <p class="govuk-body">@Html(messages("start.registration.individual.hyperlink.old", config.ggRegistrationUrl, "individual", config.dashboardUrl("home"), "voa"))</p>
+    <p class="govuk-body">@Html(messages("start.registration.organisation.hyperlink.old", config.ggRegistrationUrl, "organisation", config.dashboardUrl("home"), "voa"))</p>
+    <p class="govuk-body">@Html(messages("start.registration.enrolment.hyperlink.old", routes.Login.show))</p>
 }
 

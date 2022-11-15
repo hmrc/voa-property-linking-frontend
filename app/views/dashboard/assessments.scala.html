@@ -20,7 +20,7 @@
 @import views.html.dashboard.assessmentDetails
 
 
-@this(mainLayout: views.html.mainLayout, govukDetails: GovukDetails)
+@this(mainLayout: views.html.mainLayout, assessmentDetailsView: assessmentDetails)
 
 @(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
@@ -42,5 +42,5 @@
 
     <p class="govuk-body">@messages("assessments.paragraph")</p>
 
-    @assessmentDetails(model, owner, govukDetails)
+    @assessmentDetailsView(model, owner)
 }

@@ -21,17 +21,17 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
+@this(mainLayout: views.html.mainLayout, formErrorSummary: formErrorSummary, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
 
 @(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = Messages("updateBusinessEmail.title"),
+    pageTitle = messages("updateBusinessEmail.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url),
     hasErrors = model.form.hasErrors
 ) {
 
-    @formErrorSummary(model.form)(govukErrorSummary)
+    @formErrorSummary(model.form)
     <h1 class="govuk-heading-l">@messages("updateBusinessEmail.title")</h1>
 
     @formWithCSRF(controllers.manageDetails.routes.UpdateOrganisationDetails.updateBusinessEmail){
@@ -57,7 +57,7 @@
             label = Label(
                 isPageHeading = false,
                 classes = "govuk-label--m",
-                content = Text(Messages("label.createAccount.confirmedBusinessEmail"))
+                content = Text(messages("label.createAccount.confirmedBusinessEmail"))
             ),
             errorMessage = model.form("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))

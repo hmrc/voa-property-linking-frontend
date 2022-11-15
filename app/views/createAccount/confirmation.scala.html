@@ -17,7 +17,7 @@
 @import config.ApplicationConfig
 @import views.html.mainLayout
 
-@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukButton: GovukButton, govukPanel: GovukPanel)
+@this(mainLayout: mainLayout, govukButton: GovukButton, govukPanel: GovukPanel)
 
 @(id: String, agentCode: Option[Long], email: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 

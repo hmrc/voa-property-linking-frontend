@@ -14,20 +14,14 @@
  * limitations under the License.
  *@
 
-@import actions.requests.BasicAuthenticatedRequest
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import models.propertyrepresentation.ManageAgentOptionItem
-@import models.propertyrepresentation.ManageAgentOptions
-@import models.propertyrepresentation.UnassignFromAllProperties
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
 @import models.propertyrepresentation.AgentSummary
-@import binders.propertylinks.GetPropertyLinksParameters
-@import binders.pagination.PaginationParameters
 @import config.ApplicationConfig
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AgentAppointmentChangesRequest], agent: AgentSummary, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 

@@ -14,7 +14,6 @@
  * limitations under the License.
  *@
 
-@import helpers._
 @import config.ApplicationConfig
 
 @import uk.gov.hmrc.auth.core.AffinityGroup
@@ -22,7 +21,6 @@
 @import uk.gov.hmrc.auth.core.CredentialRole
 @import uk.gov.hmrc.auth.core.Assistant
 @import views.html.mainLayout
-@import views.html._
 
 @this(mainLayout: mainLayout, govukButton: GovukButton)
 
@@ -43,10 +41,10 @@ pageTitle = messages("account.confirmation.title"), showTopNavigation = false) {
         <p class="govuk-body">@messages("create.success.keepUsingGg")</p>
 
         @if(affinityGroup != Individual && credentialRole != Assistant) {
-        <p class="govuk-body">@Html(Messages("account.confirmation.addToGG", routes.Application.addUserToGG))</p>
+        <p class="govuk-body">@Html(messages("account.confirmation.addToGG", routes.Application.addUserToGG))</p>
         }
 
-        <p class="govuk-body">@Html(Messages("account.confirmation.disclaimer"))</p>
+        <p class="govuk-body">@Html(messages("account.confirmation.disclaimer"))</p>
 
         @govukButton(Button(
             href = Some(config.dashboardUrl("home")),
