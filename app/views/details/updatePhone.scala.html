@@ -14,23 +14,22 @@
  * limitations under the License.
  *@
 
-@import helpers._
-
 @import controllers.manageDetails.UpdateDetailsVM
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.helpers.formErrorSummary
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
+@this(mainLayout: views.html.mainLayout, formErrorSummary: formErrorSummary, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
 
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = Messages("updatePhone.title"),
+    pageTitle = messages("updatePhone.title"),
     backUri = Some(manageDetails.routes.ViewDetails.show.url),
     hasErrors = model.form.hasErrors
 ){
 
-    @formErrorSummary(model.form)(govukErrorSummary)
+    @formErrorSummary(model.form)
 
     <h1 class="govuk-heading-l">@messages("updatePhone.title")</h1>
 
@@ -44,10 +43,10 @@
             label = Label(
                 isPageHeading = false,
                 classes = "govuk-label--m",
-                content = Text(Messages("details.edit.label.telephone"))
+                content = Text(messages("details.edit.label.telephone"))
             ),
             hint = Some(Hint(
-                content = Text(Messages("details.edit.phone.help"))
+                content = Text(messages("details.edit.phone.help"))
             )),
             errorMessage = model.form("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))

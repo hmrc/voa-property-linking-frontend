@@ -18,20 +18,19 @@
 @import controllers.manageDetails.UpdateOrganisationDetailsVM
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
-@this(address: address, mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
+@this(address: address, mainLayout: views.html.mainLayout, formErrorSummary: formErrorSummary, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
 
 @(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = Messages("updateBusinessAddress.title"),
+    pageTitle = messages("updateBusinessAddress.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url),
     hasErrors = model.form.hasErrors
 ) {
 
     <div id="page-error-summary">
-        @formErrorSummary(model.form)(govukErrorSummary)
+        @formErrorSummary(model.form)
     </div>
 
     <h1 class="govuk-heading-l">@messages("updateBusinessAddress.title")</h1>

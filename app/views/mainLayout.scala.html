@@ -20,17 +20,7 @@
 @import play.twirl.api.HtmlFormat
 
 
-@this(
-        govukTemplate: GovukTemplate,
-        govukHeader: GovukHeader,
-        govukFooter: GovukFooter,
-        govukBackLink: GovukBackLink,
-        govukDetails: GovukDetails,
-        govukPhaseBanner: GovukPhaseBanner,
-        hmrcStandardFooter: HmrcStandardFooter,
-        hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet,
-        head: head
-)
+@this(govukWrapper: govukWrapper, govukDetails: GovukDetails, head: head)
 
 @(
         pageTitle: String,
@@ -86,11 +76,5 @@
     headScripts = headScripts,
     content = mainContent,
     navigation = navigation,
-    scriptElem = Some(scriptElem))(
-    govukTemplate = govukTemplate,
-    govukHeader = govukHeader,
-    govukPhaseBanner = govukPhaseBanner,
-    hmrcStandardFooter = hmrcStandardFooter,
-    hmrcTrackingConsentSnippet = hmrcTrackingConsentSnippet
+    scriptElem = Some(scriptElem)
 )
-

@@ -18,9 +18,8 @@
 @import controllers.manageDetails.UpdateDetailsVM
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
-@this(address: address, mainLayout: views.html.mainLayout, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF, govukErrorSummary : GovukErrorSummary)
+@this(address: address, mainLayout: views.html.mainLayout, formErrorSummary: formErrorSummary, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
 
 @(model: UpdateDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -31,7 +30,7 @@
 ) {
 
     <div id="page-error-summary">
-        @formErrorSummary(model.form)(govukErrorSummary)
+        @formErrorSummary(model.form)
     </div>
     <h1 class="govuk-heading-l">@messages("updateAddress.title")</h1>
 

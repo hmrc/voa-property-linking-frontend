@@ -20,7 +20,7 @@
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
 @import config.ApplicationConfig
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AgentAppointmentChangesRequest], agentName: String, agentCode: Long, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 

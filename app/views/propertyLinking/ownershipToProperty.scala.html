@@ -22,7 +22,15 @@
 @import views.html.includes.assessmentHeading
 @import helpers._
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails:GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, govukInput: GovukInput, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(
+  govukErrorSummary: GovukErrorSummary,
+  govukDetails: GovukDetails,
+  govukRadios: GovukRadios,
+  govukButton: GovukButton,
+  dateFields: dateFields,
+  mainLayout: views.html.mainLayout,
+  formWithCSRF: FormWithCSRF
+)
 
 @(model: ClaimPropertyOwnershipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 

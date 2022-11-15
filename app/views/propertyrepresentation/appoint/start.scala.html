@@ -14,13 +14,11 @@
  * limitations under the License.
  *@
 
-@import actions.requests.BasicAuthenticatedRequest
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
-@import views.html.mainLayout
 
-@this(govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[String], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
