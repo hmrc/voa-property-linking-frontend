@@ -124,7 +124,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    val expectedTitle = "Do you have a lease or licence to occupy for this property?"
+    val expectedTitle = "Do you have a lease or a licence to occupy for this property?"
     html.html.title() shouldBe expectedTitle + " - Valuation Office Agency - GOV.UK"
     html.shouldContainText(expectedTitle)
   }
