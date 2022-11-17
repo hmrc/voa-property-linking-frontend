@@ -927,9 +927,9 @@ uploadFile.info.title=How do I convert a file into a PDF?
 uploadFile.info.content=<p>Converting a file into a PDF is similar for most software. First open the document that you want to convert, then:</p><ul class="list list-number"><li>click “File”</li><li>choose either “Export”, “Export as PDF” or “Save as” (depending on your software)</li><li>select “Create PDF” or “PDF”</li><li>click on either “Publish” or “Save”</li></ul><p>For Mac users and older software:</p><ul class="list list-number"><li>click “File”</li><li>select “Print”</li><li>either click “PDF”, or choose a printer labelled “PDF”</li><li>click either “Save” or “OK”</li></ul><p>You could also search for websites that will convert your document for free.</p><p>Due to the outbreak of Covid-19 we are currently unable to offer a telephony service and it will take longer than usual to respond to your query. If you need to contact us please use our <a href="https://www.gov.uk/contact-voa" class="govuk-link">Contact Form</a> and we will respond as soon as possible. We’re sorry for any inconvenience this has caused.</p>
 
 #OCCUPIER EVIDENCE PAGE
-chooseEvidence.occupier.title=Do you have a lease or licence to occupy for this property?
+chooseEvidence.occupier.title=Do you have a lease or a licence to occupy for this property?
 chooseEvidence.occupier.client.title=Do you have your client''s lease or licence to occupy for this property?
-chooseEvidence.occupier.title.caption=The lease or license to occupy should be for {0}.
+chooseEvidence.occupier.title.caption=The lease or licence to occupy should be for {0}.
 chooseEvidence.occupier.option.lease=I have a lease
 chooseEvidence.occupier.option.license=I have a licence to occupy
 chooseEvidence.occupier.option.noLeaseOrLicense=I do not have a lease or licence to occupy
