@@ -65,7 +65,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
       preEnrichedActionRefiner(
         evidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
         userIsAgent = false,
-        relationshipCapacity = relationshipCapacity))
+        relationshipCapacity = Some(relationshipCapacity)))
 
   "RATES_BILL file upload page" should "return valid page with correct back link - agent" in {
     testShowRatesBillLeaseOrLicense(
@@ -234,7 +234,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "OTHER Evidence file upload with valid files" should "redirect to the declaration page" in {
-    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceDataOther)
+    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadServiceChargeData)
     lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
@@ -246,7 +246,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "RATES_BILL Evidence file upload with valid files" should "redirect to the declaration page" in {
-    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceData)
+    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadRatesBillData)
     lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
@@ -319,7 +319,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   private def testContinueWithRatesBillLeaseOrLicense(evidenceChoice: EvidenceChoices, evidenceType: String) = {
-    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadEvidenceData)
+    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadRatesBillData)
     lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
     val request =
       fakeRequest.withHeaders(HOST -> "localhost:9523").withBody(Json.obj("evidenceType" -> evidenceType))

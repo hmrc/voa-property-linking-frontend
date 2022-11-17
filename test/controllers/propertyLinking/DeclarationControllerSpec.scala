@@ -20,12 +20,14 @@ import binders.propertylinks.EvidenceChoices
 import cats.data.EitherT
 import cats.instances.future._
 import controllers.VoaPropertyLinkingSpec
-import models.{CapacityType, LinkingSession, Occupier, Owner, OwnerOccupier}
+import models._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.{Document, Element}
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
+import org.scalactic.source.Position
+import org.scalatest.{Inspectors, OptionValues}
 import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -41,14 +43,14 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   trait Setup {
-    def testDeclarationController(earliestStartDate: LocalDate, hasRatesBill: Boolean = true) =
+    def testDeclarationController(earliestStartDate: LocalDate) =
       new DeclarationController(
         errorHandler = mockCustomErrorHandler,
         propertyLinkService = mockPropertyLinkingService,
         sessionRepository = mockSessionRepo,
         authenticatedAction = preAuthenticatedActionBuilders(isAgent),
         withLinkingSession = preEnrichedActionRefiner(
-          evidenceData = if (hasRatesBill) uploadEvidenceData else uploadEvidenceDataOther,
+          evidenceData = evidence,
           relationshipCapacity = propertyRelationship,
           userIsAgent = isAgent,
           earliestStartDate = earliestStartDate
@@ -68,7 +70,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     lazy val envelopeId: String = shortString
 
     val isAgent: Boolean = true
-    val propertyRelationship: CapacityType = Owner
+    lazy val propertyRelationship: Option[CapacityType] = Some(Owner)
+    lazy val evidence: UploadEvidenceData = uploadRatesBillData
   }
 
   "show" should "set 'fromCya' in the session" in new Setup {
@@ -119,7 +122,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
   it should "display the correct summary list keys for an occupier IP" in new Setup {
     override val isAgent: Boolean = false
-    override val propertyRelationship: CapacityType = Occupier
+    override lazy val propertyRelationship: Option[CapacityType] = Some(Occupier)
 
     val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
@@ -132,7 +135,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
   it should "display the correct summary list keys for an owner and occupier IP" in new Setup {
     override val isAgent: Boolean = false
-    override val propertyRelationship: CapacityType = OwnerOccupier
+    override lazy val propertyRelationship: Option[CapacityType] = Some(OwnerOccupier)
 
     val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
@@ -154,7 +157,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the correct summary list keys for an occupier agent" in new Setup {
-    override val propertyRelationship: CapacityType = Occupier
+    override lazy val propertyRelationship: Option[CapacityType] = Some(Occupier)
 
     val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
@@ -166,7 +169,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "display the correct summary list keys for an owner and occupier agent" in new Setup {
-    override val propertyRelationship: CapacityType = OwnerOccupier
+    override lazy val propertyRelationship: Option[CapacityType] = Some(OwnerOccupier)
 
     val res: Future[Result] = testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())
 
@@ -323,17 +326,67 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     sessionCaptor.getValue.fromCya shouldBe Some(false)
   }
 
-  it should "redirect to the upload rates bill page if a rates bill was uploaded" in new Setup {
-    val result: Future[Result] =
-      testDeclarationController(earliestEnglishStartDate, hasRatesBill = true).back()(FakeRequest())
+  abstract class BackLinkTest(implicit pos: Position) extends Setup with OptionValues {
+    val expectedRedirect: String
+
+    lazy val controller: DeclarationController = testDeclarationController(earliestEnglishStartDate)
+    lazy val result: Future[Result] = controller.back()(FakeRequest())
+
     status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.UploadController.show(EvidenceChoices.RATES_BILL).url)
+    redirectLocation(result).value shouldBe expectedRedirect
   }
 
-  it should "redirect to the upload evidence page if other evidence was uploaded" in new Setup {
-    val result: Future[Result] =
-      testDeclarationController(earliestEnglishStartDate, hasRatesBill = false).back()(FakeRequest())
-    status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.UploadController.show(EvidenceChoices.OTHER).url)
+  Inspectors.forAll(Seq(Owner, OwnerOccupier)) { relationshipType =>
+    s"back, when the user is an ${relationshipType.name}" should "redirect to the upload rates bill page" in new BackLinkTest {
+      override lazy val propertyRelationship: Option[CapacityType] = Some(relationshipType)
+      override lazy val evidence: UploadEvidenceData = uploadRatesBillData
+      lazy val expectedRedirect: String = routes.UploadController.show(EvidenceChoices.RATES_BILL).url
+    }
+
+    Inspectors.forAll(Seq(uploadLeaseData, uploadLicenseData, uploadServiceChargeData)) { upload =>
+      val uploadType = upload.fileInfo.getOrElse(fail("could not get upload info")).evidenceType.name
+
+      it should s"redirect to the choose evidence page when a $uploadType is uploaded" in new BackLinkTest {
+        override lazy val propertyRelationship: Option[CapacityType] = Some(relationshipType)
+        override lazy val evidence: UploadEvidenceData = upload
+        lazy val expectedRedirect: String = routes.UploadController.show(EvidenceChoices.OTHER).url
+      }
+    }
+  }
+
+  "back, when the user is an OCCUPIER" should "redirect to the upload lease page" in new BackLinkTest {
+    override lazy val propertyRelationship: Option[CapacityType] = Some(Occupier)
+    override lazy val evidence: UploadEvidenceData = uploadLeaseData
+    lazy val expectedRedirect: String = routes.UploadController.show(EvidenceChoices.LEASE).url
+  }
+
+  it should "redirect to the upload licence to occupy page" in new BackLinkTest {
+    override lazy val propertyRelationship: Option[CapacityType] = Some(Occupier)
+    override lazy val evidence: UploadEvidenceData = uploadLicenseData
+    lazy val expectedRedirect: String = routes.UploadController.show(EvidenceChoices.LICENSE).url
+  }
+
+  Inspectors.forAll(Seq(uploadRatesBillData, uploadServiceChargeData)) { upload =>
+    val uploadType = upload.fileInfo.getOrElse(fail("could not get upload info")).evidenceType.name
+
+    it should s"redirect to the choose evidence page when a $uploadType is uploaded" in new BackLinkTest {
+      override lazy val propertyRelationship: Option[CapacityType] = Some(Occupier)
+      override lazy val evidence: UploadEvidenceData = upload
+      lazy val expectedRedirect: String = routes.UploadController.show(EvidenceChoices.NO_LEASE_OR_LICENSE).url
+    }
+  }
+
+  Inspectors.forAll(Seq(Owner, Occupier, OwnerOccupier)) { relationshipType =>
+    s"back, when the user is a ${relationshipType.name} and the session is missing uploaded evidence" should "redirect to the initial choose evidence page" in new BackLinkTest {
+      override lazy val propertyRelationship: Option[CapacityType] = Some(relationshipType)
+      override lazy val evidence: UploadEvidenceData = UploadEvidenceData.empty
+      lazy val expectedRedirect: String = routes.ChooseEvidenceController.show().url
+    }
+  }
+
+  s"back, when the session is missing a relationship capacity" should "redirect to the claim relationship page" in new BackLinkTest {
+    override lazy val propertyRelationship: Option[CapacityType] = None
+    override lazy val evidence: UploadEvidenceData = uploadRatesBillData
+    lazy val expectedRedirect: String = routes.ClaimPropertyRelationshipController.back().url
   }
 }

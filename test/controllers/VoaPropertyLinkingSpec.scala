@@ -133,13 +133,13 @@ trait VoaPropertyLinkingSpec
       UploadEvidenceData(fileInfo = None, attachments = None),
       earliestStartDate = earliestStartDate,
       fromCya = Some(true),
-      relationshipCapacity = relationshipCapacity,
+      relationshipCapacity = Some(relationshipCapacity),
       userIsAgent = userIsAgent
     )
 
   def preEnrichedActionRefiner(
         evidenceData: UploadEvidenceData,
-        relationshipCapacity: CapacityType = Owner,
+        relationshipCapacity: Option[CapacityType] = Some(Owner),
         userIsAgent: Boolean = true,
         earliestStartDate: LocalDate = earliestEnglishStartDate,
         propertyOwnership: Option[PropertyOwnership] = Some(
@@ -159,7 +159,7 @@ trait VoaPropertyLinkingSpec
                 submissionId = "PL-123456",
                 personId = 1L,
                 earliestStartDate = earliestStartDate,
-                propertyRelationship = Some(PropertyRelationship(relationshipCapacity)),
+                propertyRelationship = relationshipCapacity.map(capacity => PropertyRelationship(capacity)),
                 propertyOwnership = propertyOwnership,
                 propertyOccupancy = propertyOccupancy,
                 hasRatesBill = Some(true),

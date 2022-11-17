@@ -40,7 +40,7 @@ class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
     InitiateAttachmentRequest("FILE_NAME", "img/jpeg", RatesBillType),
     "http://example.com",
     "http://example.com/failure")
-  val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadEvidenceData)
+  val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadRatesBillData)
   implicit val request =
     BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
   implicit val linkingSessionRequest =
@@ -68,7 +68,7 @@ class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
 
     "call to persistSessionData is success" in {
       when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-      businessRatesChallengeService.persistSessionData(linkingSessionData, uploadEvidenceData)
+      businessRatesChallengeService.persistSessionData(linkingSessionData, uploadRatesBillData)
       verify(mockSessionRepo, atLeastOnce()).saveOrUpdate(any())(any(), any[HeaderCarrier])
     }
   }

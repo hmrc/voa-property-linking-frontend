@@ -53,7 +53,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
       else
         preEnrichedActionRefiner(
           evidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
-          relationshipCapacity = relationshipCapacity,
+          relationshipCapacity = Some(relationshipCapacity),
           userIsAgent = userIsAgent),
       mockBusinessRatesAttachmentService,
       chooseEvidenceView,
