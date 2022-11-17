@@ -18,14 +18,12 @@ package repositories
 
 import java.time.Instant
 import java.time.temporal.ChronoUnit.SECONDS
-
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation.{Start, StartJourney}
-import org.scalatest.LoneElement
 import play.api.libs.json.{Reads, Writes}
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
-class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec with LoneElement {
+class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec {
 
   lazy val repository = app.injector.instanceOf[PropertyLinkingSessionRepository]
   val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId("my-session")))
