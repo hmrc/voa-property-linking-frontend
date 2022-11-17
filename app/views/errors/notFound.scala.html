@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +12,15 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package models
+@import config.ApplicationConfig
 
-import play.api.libs.json.Json
+@this(mainLayout: views.html.mainLayout)
 
-case class PropertyRelationship(capacity: CapacityType, uarn: Long) {
-  def isOccupier = capacity == Occupier
-}
+@()(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
-object PropertyRelationship {
-  implicit val format = Json.format[PropertyRelationship]
+@mainLayout(pageTitle = messages("error.404.title"), showTopNavigation = false) {
+    <h1 class="govuk-heading-l">@messages("error.404.title")</h1>
+    <p class="govuk-body">@messages("error.404.message")</p>
 }

@@ -218,7 +218,7 @@
     <span id="errorsBusinessRatesAttachmentUnsupportedFiles">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
     <span id="errorsBusinessRatesAttachmentUnavailable">@messages("error.businessRatesAttachment.unavailable")</span>
     <span id="signInPageUrl">@{config.basGatewaySignInUrl}</span>
-    <span id="startClaimUrl">@{ClaimPropertyRelationshipController.submitRelationship(linkingSession.uarn)}</span>
+    <span id="startClaimUrl">@{ClaimPropertyRelationshipController.submitRelationship()}</span>
     <span id="submissionId">@submissionId</span>
     <span id="updateEvidenceTypeURL">@{s"${UploadController.updateEvidenceType()}"}</span>
     @javascriptMessages()

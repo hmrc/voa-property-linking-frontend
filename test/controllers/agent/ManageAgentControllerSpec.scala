@@ -468,7 +468,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   }
 
-  "unassignAgentFromAll" should "return 200 Ok a valid form is submitted" in {
+  "unassignAgentFromAll" should "return 303 Ok a valid form is submitted" in {
     when(mockAgentRelationshipService.unassignAgent(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
@@ -477,6 +477,16 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"))
 
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe
+      Some(
+        "/business-rates-property-linking/my-organisation/manage-agent/unassign/12345/Some%20agent%20org/from-all-properties/confirmation")
+
+  }
+
+  "confirmationUnassignAgentFromAll" should "return 200 Ok and display page" in {
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
+    val res = testController.confirmationUnassignAgentFromAll(agentCode, "Some agent org")(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)

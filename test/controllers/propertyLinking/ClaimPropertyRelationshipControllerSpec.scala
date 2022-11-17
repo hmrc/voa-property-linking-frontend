@@ -153,7 +153,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "reject invalid form submissions" in new Setup {
-    val res = testClaimProperty().submitRelationship(positiveLong)(FakeRequest())
+    val res = testClaimProperty().submitRelationship()(FakeRequest())
     status(res) shouldBe BAD_REQUEST
   }
 
@@ -161,9 +161,10 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     when(mockSessionRepository.saveOrUpdate(any())(any(), any()))
       .thenReturn(Future.successful(()))
 
-    val res = testClaimProperty().submitRelationship(positiveLong)(
+    val res = testClaimProperty().submitRelationship()(
       FakeRequest().withFormUrlEncodedBody(
-        "capacity" -> "OWNER"
+        "capacity" -> "OWNER",
+        "uarn"     -> "1"
       ))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.ClaimPropertyOwnershipController.showOwnership.url)
@@ -171,8 +172,8 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   it should "redirect to the CYA page on valid submissions when coming from CYA" in new Setup {
     forAll(Gen.oneOf(CapacityType.all.map(_.name))) { capacity =>
-      val result = testClaimPropertyFromCya.submitRelationship(positiveLong)(
-        FakeRequest().withFormUrlEncodedBody("capacity" -> capacity)
+      val result = testClaimPropertyFromCya.submitRelationship()(
+        FakeRequest().withFormUrlEncodedBody("capacity" -> capacity, "uarn" -> "1")
       )
       status(result) shouldBe SEE_OTHER
       redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
@@ -187,7 +188,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   it should "have a back link to the CYA page when coming from CYA after an invalid submission" in new Setup {
-    val result: Future[Result] = testClaimPropertyFromCya.submitRelationship(positiveLong)(FakeRequest())
+    val result: Future[Result] = testClaimPropertyFromCya.submitRelationship()(FakeRequest())
     status(result) shouldBe BAD_REQUEST
     val document: Document = Jsoup.parse(contentAsString(result))
     document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url

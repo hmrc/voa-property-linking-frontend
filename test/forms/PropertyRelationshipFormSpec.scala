@@ -29,7 +29,7 @@ class PropertyRelationshipFormSpec extends AnyFlatSpec with Matchers {
   behavior of "Property relationship form"
 
   it should "bind when the inputs are all valid" in {
-    shouldBindTo(form, validData, PropertyRelationship(Occupier))
+    shouldBindTo(form, validData, PropertyRelationship(Occupier, 1L))
   }
 
   it should "mandate a capacity" in {
@@ -43,7 +43,8 @@ class PropertyRelationshipFormSpec extends AnyFlatSpec with Matchers {
   object TestData {
     val form = ClaimPropertyRelationship.relationshipForm
     val validData = Map(
-      "capacity" -> Occupier.name
+      "capacity" -> Occupier.name,
+      "uarn"     -> "1"
     )
   }
 

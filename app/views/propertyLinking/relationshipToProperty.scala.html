@@ -58,7 +58,7 @@
         summary = Text(messages(s"declareCapacity.details.notOwner$clientSuffix")),
         content = HtmlContent(Html(Messages(s"declareCapacity.details.notOwner.text$clientSuffix")))))
 
-    @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyRelationshipController.submitRelationship(model.uarn, clientDetails)) {
+    @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyRelationshipController.submitRelationship()) {
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(
@@ -74,6 +74,7 @@
                 )
             }).withFormField(form("capacity"))
         )
+        <input type="hidden" name="uarn" value="@model.uarn">
 
         @govukButton(Button(
             attributes = Map("id" -> "continue"),
