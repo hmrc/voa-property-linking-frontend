@@ -133,15 +133,14 @@ class DeclarationController @Inject()(
   }
 
   def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    sessionRepository.remove().map { _ =>
+    Future.successful(
       Ok(
         linkingRequestSubmittedView(
           RequestSubmittedVM(
             request.ses.address,
             request.ses.submissionId,
             request.ses.clientDetails,
-            request.ses.localAuthorityReference)))
-    }
+            request.ses.localAuthorityReference))))
   }
 
   lazy val form = Form(Forms.single("declaration" -> mandatoryBoolean))
