@@ -118,7 +118,7 @@ class ClaimPropertyRelationshipController @Inject()(
           ))
     }
 
-  def showRelationship(uarn: Option[Long] = None): Action[AnyContent] =
+  def showRelationship(): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession) { implicit request =>
       Ok(
         relationshipToPropertyView(
