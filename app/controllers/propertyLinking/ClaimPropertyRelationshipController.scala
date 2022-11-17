@@ -118,7 +118,7 @@ class ClaimPropertyRelationshipController @Inject()(
           ))
     }
 
-  def showRelationship(): Action[AnyContent] =
+  def showRelationship(uarn: Option[Long] = None): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession) { implicit request =>
       Ok(
         relationshipToPropertyView(
@@ -144,17 +144,21 @@ class ClaimPropertyRelationshipController @Inject()(
       ))
   }
 
-  def submitRelationship(uarn: Long, clientDetails: Option[ClientDetails] = None): Action[AnyContent] =
+  def submitRelationship(): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       relationshipForm
         .bindFromRequest()
         .fold(
           errors =>
-            vmvConnector.getPropertyHistory(uarn).map { property =>
+            vmvConnector.getPropertyHistory(request.ses.uarn).map { property =>
               BadRequest(
                 relationshipToPropertyView(
-                  ClaimPropertyRelationshipVM(errors, property.addressFull, uarn, property.localAuthorityReference),
-                  clientDetails,
+                  ClaimPropertyRelationshipVM(
+                    errors,
+                    property.addressFull,
+                    request.ses.uarn,
+                    property.localAuthorityReference),
+                  request.ses.clientDetails,
                   getBackLink
                 ))
           },
@@ -214,7 +218,8 @@ class ClaimPropertyRelationshipController @Inject()(
 object ClaimPropertyRelationship {
   lazy val relationshipForm = Form(
     mapping(
-      "capacity" -> EnumMapping(CapacityType)
+      "capacity" -> EnumMapping(CapacityType),
+      "uarn"     -> longNumber
     )(PropertyRelationship.apply)(PropertyRelationship.unapply))
 }
 

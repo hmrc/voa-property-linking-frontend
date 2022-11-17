@@ -201,7 +201,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
 
     val html = HtmlPage(res)
     html.shouldNotContainText("Your proposed upload exceeds the maximum allowed size")
-    html.shouldContainText("The file must be smaller than 10MB")
+    html.shouldContainText("The selected file must be smaller than 10MB")
 
   }
 

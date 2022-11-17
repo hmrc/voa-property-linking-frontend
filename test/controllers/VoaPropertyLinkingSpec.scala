@@ -159,7 +159,7 @@ trait VoaPropertyLinkingSpec
                 submissionId = "PL-123456",
                 personId = 1L,
                 earliestStartDate = earliestStartDate,
-                propertyRelationship = Some(PropertyRelationship(relationshipCapacity)),
+                propertyRelationship = Some(PropertyRelationship(relationshipCapacity, 1L)),
                 propertyOwnership = propertyOwnership,
                 propertyOccupancy = propertyOccupancy,
                 hasRatesBill = Some(true),

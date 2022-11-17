@@ -71,7 +71,7 @@ class ManageAgentController @Inject()(
 
   def manageAgent(agentCode: Option[Long]): Action[AnyContent] = authenticated.async { implicit request =>
     getManageAgentView(agentCode).map {
-      case None       => NotFound(errorHandler.notFoundTemplate)
+      case None       => NotFound(errorHandler.notFoundErrorTemplate)
       case Some(page) => Ok(page)
     }
   }
@@ -107,6 +107,13 @@ class ManageAgentController @Inject()(
       } yield {
         Ok(manageAgentPropertiesView(ownerAuthResult, agentCode, agentDetails, backLink))
       }
+    }
+  }
+
+  def showManageAgent(agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
+    getManageAgentView(Some(agentCode)).map {
+      case None       => NotFound(errorHandler.notFoundTemplate)
+      case Some(page) => Ok(page)
     }
   }
 
@@ -248,13 +255,19 @@ class ManageAgentController @Inject()(
         errors => {
           Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
         }, { success =>
-          for {
-            _         <- agentRelationshipService.unassignAgent(success)
-            linkCount <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
-          } yield
-            Ok(confirmUnassignAgentFromAllPropertiesView(agentName, agentCode, multiplePropertyLinks = linkCount > 1))
+          agentRelationshipService.unassignAgent(success).map { _ =>
+            Redirect(
+              controllers.agent.routes.ManageAgentController.confirmationUnassignAgentFromAll(agentCode, agentName).url)
+          }
         }
       )
+  }
+
+  def confirmationUnassignAgentFromAll(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
+    implicit request =>
+      agentRelationshipService.getMyOrganisationPropertyLinksCount().map { linkCount =>
+        Ok(confirmUnassignAgentFromAllPropertiesView(agentName, agentCode, multiplePropertyLinks = linkCount > 1))
+      }
   }
 
   def showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {

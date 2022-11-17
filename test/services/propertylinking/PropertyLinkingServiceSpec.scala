@@ -53,7 +53,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
         submissionId = "PL-123456",
         personId = 1L,
         earliestStartDate = earliestEnglishStartDate,
-        propertyRelationship = Some(PropertyRelationship(Owner)),
+        propertyRelationship = Some(PropertyRelationship(Owner, 1L)),
         propertyOwnership = Some(PropertyOwnership(interestedOnOrBefore = true, fromDate = None)),
         propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
         hasRatesBill = Some(true),

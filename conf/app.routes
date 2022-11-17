@@ -112,8 +112,10 @@ GET         /my-organisation/manage-agent/property-links                        
 GET         /my-organisation/agents                                                                                       controllers.agent.ManageAgentController.showAgents()
 
 POST        /my-organisation/manage-agent/:agentCode                                                                      controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)
+GET         /my-organisation/manage-agent/:agentCode                                                                      controllers.agent.ManageAgentController.showManageAgent(agentCode: Long)
 POST        /my-organisation/manage-agent/assign/:agentCode/:agentName/to-all-properties                                  controllers.agent.ManageAgentController.assignAgentToAll(agentCode: Long, agentName: String)
 POST        /my-organisation/manage-agent/unassign/:agentCode/:agentName/from-all-properties                              controllers.agent.ManageAgentController.unassignAgentFromAll(agentCode: Long, agentName: String)
+GET        /my-organisation/manage-agent/unassign/:agentCode/:agentName/from-all-properties/confirmation                  controllers.agent.ManageAgentController.confirmationUnassignAgentFromAll(agentCode: Long, agentName: String)
 
 GET         /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  controllers.agent.ManageAgentController.showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String)
 POST        /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  controllers.agent.ManageAgentController.removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String)
@@ -148,9 +150,9 @@ GET         /can-challenge                                                      
 
 #Claiming a property link
 GET         /my-organisation/claim/property-links/capacity/relationship                       controllers.propertyLinking.ClaimPropertyRelationshipController.showRelationship()
+POST        /my-organisation/claim/property-links/capacity/relationship                       controllers.propertyLinking.ClaimPropertyRelationshipController.submitRelationship()
 GET         /my-organisation/claim/property-links/claim-property-start                        controllers.propertyLinking.ClaimPropertyRelationshipController.backToClaimPropertyStart()
 GET         /my-organisation/claim/property-links/capacity/:uarn                              controllers.propertyLinking.ClaimPropertyRelationshipController.showStart(uarn: Long, clientDetails: Option[ClientDetails] ?= None, rtp: ClaimPropertyReturnToPage, valuationId: Option[Long] ?= None)
-POST        /my-organisation/claim/property-links/capacity/:uarn                              controllers.propertyLinking.ClaimPropertyRelationshipController.submitRelationship(uarn: Long, clientDetails: Option[ClientDetails] ?= None)
 GET         /my-organisation/claim/property-links                                             controllers.propertyLinking.ClaimPropertyRelationshipController.back()
 GET         /my-organisation/claim/property-links/before-you-start                            controllers.propertyLinking.ClaimPropertyRelationshipController.checkPropertyLinks()
 GET         /my-organisation/claim/property-links/property-search                             controllers.propertyLinking.ClaimPropertyRelationshipController.show(clientDetails: Option[ClientDetails] ?= None)

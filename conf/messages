@@ -18,6 +18,9 @@ navigation.your.details=Your details
 heading.terms.of.use=Terms of use
 caption.add.property= Add a property
 
+error.404.title=This page can't be found
+error.404.message=Please check that you have entered the correct web address.
+
 # Page sizes
 pageSize.showing = Showing
 pageSize.properties = properties per page

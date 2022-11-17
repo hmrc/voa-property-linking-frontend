@@ -76,11 +76,11 @@
             name = "stillOccupied",
             items = Seq(
                 RadioItem(
-                    content = Text("Yes"),
+                    content = Text(messages("app.common.yes")),
                     value = Some("true")
                 ),
                 RadioItem(
-                    content = Text("No"),
+                    content = Text(messages("app.common.no")),
                     value = Some("false"),
                     conditionalHtml = Some(
                         dateFields(
