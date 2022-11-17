@@ -16,8 +16,8 @@ navigation.your.details=Eich manylion
 heading.terms.of.use=Telerau defnyddio
 caption.add.property=Ychwanegu eiddo
 
-error.404.title=Ni ellir dod o hyd i'r dudalen hon
-error.404.message=Gwiriwch eich bod wedi rhoi'r cyfeiriad gwe cywir.
+error.404.title=Ni ellir dod o hyd i’r dudalen hon
+error.404.message=Gwiriwch eich bod wedi nodi’r cyfeiriad gwe cywir.
 
 # Page sizes
 pageSize.showing=Yn dangos
@@ -854,7 +854,7 @@ linkingRequestSubmitted.p1=Gwnewch nodyn o’ch cyfeirnod gan y bydd angen i chi
 linkingRequestSubmitted.p.1=Os caiff y cais am eiddo ei gymeradwyo byddwch yn gallu gweld y prisiad manwl.   Gall hyn gymryd peth amser yn dibynnu ar natur eich cais.
 p.whatHappensNext=Beth sy’n digwydd nesaf
 linkSubmitted.whatNext.1=Byddwn yn prosesu’ch cais i’r eiddo hwn cyn gynted â phosibl ond gall hyn gymryd hyd at 15 diwrnod gwaith.
-linkSubmitted.whatNext.2=Gallwch weld statws eich hawliad yn<a class="govuk-link" href="{0}"> eich eiddo</a>. Unwaith y bydd yr hawliad wedi'i gymeradwyo, bydd y statws yn cael ei ddiweddaru.
+linkSubmitted.whatNext.2=Gallwch weld statws eich hawliad yn<a class="govuk-link" href="{0}"> eich eiddo</a>. Unwaith y bydd yr hawliad wedi’i gymeradwyo, bydd y statws yn cael ei ddiweddaru.
 linkSubmitted.whatNext.3=Byddwn yn cysylltu â chi os bydd angen mwy o wybodaeth arnom.
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Ewch yn ôl i’ch dangosfwrdd</a>
 linkSubmitted.whatNext.5=Gallwch weld statws eich cais ar <a class="govuk-link" href="{0}">eiddo eich cleient</a>.   Unwaith y bydd y cais wedi’i gymeradwyo, bydd y statws yn diweddaru.
@@ -1607,7 +1607,7 @@ termsAndConditions.using-service.h2=Defnyddio’r gwasanaeth hwn
 termsAndConditions.using-service.p1=Rydym yn gwneud pob ymdrech i sicrhau bod yr wybodaeth a roddwyd yn gywir. Fodd bynnag, ni all y VOA dderbyn unrhyw gyfrifoldeb am gywirdeb yr wybodaeth hon, ac mae’r rhai sy’n ei defnyddio yn gwneud hynny ar eu menter eu hunain. Ni allwn warantu na fydd gwallau yn y gwasanaeth. Os oes problem gyda’r gwasanaeth, dylech ddefnyddio’r cysylltiad &#39;Cymorth gyda’r ffurflen hon&#39; sydd ar waelod pob tudalen, a byddwn yn cysylltu â chi cyn gynted ag y gallwn.
 termsAndConditions.using-service.p2=Nid yw’r VOA yn derbyn unrhyw gyfrifoldeb am unrhyw golled, tarfu neu ddifrod i’ch data neu’ch system gyfrifiadurol wrth ddefnyddio’r gwasanaeth hwn.
 termsAndConditions.using-service.p3=Mae gan y VOA hawl i dynnu mynediad i’r gwasanaeth oddi wrth unigolyn neu sefydliad os yw’n credu bod y gwasanaeth wedi cael ei gamddefnyddio neu os bu methiant i gydymffurfio â’r arweiniad cyhoeddedig neu’r telerau ac amodau hyn.
-manageProperties.appointAgent.confirmation.p1=Gallwch aseinio eiddo i'r asiant hwn trwy <a class="govuk-link" id="managing-your-agents-link" href="{0}">rheoli eich asiantau</a>.
+manageProperties.appointAgent.confirmation.p1=Gallwch aseinio eiddo i’r asiant hwn trwy <a class="govuk-link" id="managing-your-agents-link" href="{0}">rheoli eich asiantau</a>.
 assessments.enddate.present.lowercase=presennol
 addPropertyStart.title= Ychwanegu eiddo i’ch cyfrif
 addPropertyStart.client.title=Ychwanegu eiddo i gyfrif eich cleient
@@ -1640,7 +1640,7 @@ uploadOtherEvidence.evidenceTypes.noLeaseOrLicense=Nid oes gennyf brydles na thr
 auto.requestDetailedValuation.caption=Eiddo 
 auto.requestDetailedValuation.future.tabName=Prisiad
 auto.requestDetailedValuation.future.rv.caption=Gwerth ardrethol y dyfodol (o {0})
-auto.requestDetailedValuation.future.rv.inset=Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma'r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo'r bil ardrethi busnes.
+auto.requestDetailedValuation.future.rv.inset=Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 auto.requestDetailedValuation.future.rv.inset.link=Amcangyfrif beth all y bil ardrethi busnes fod o {0}
 auto.requestDetailedValuation.future.p.1=Ni fydd y prisiad manwl hwn ar gael tan {0}. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw
 auto.requestDetailedValuation.future.p.2= Gellir gwneud cais am y prisiad manwl cyfredol {0} o’r {1}.
@@ -1658,8 +1658,8 @@ available.requestvaluation.h2.previous=Gwerth ardrethol blaenorol ({0} i {1})
 available.requestvaluation.h2.current=Gwerth ardrethol cyfredol ({0} to present)
 available.requestvaluation.h2.future=Gwerth ardrethol y dyfodol (o {0})
 available.requestvaluation.inset=Nid dyma’r swm rydych yn ei dalu. Defnyddir i gyfrifo eich bil ardrethi busnes.
-available.requestvaluation.inset.current=Dyma'r gwerth ardrethol ar gyfer yr eiddo. Nid dyma'r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo'r bil ardrethi busnes.
-available.requestvaluation.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma'r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo'r bil ardrethi busnes.
+available.requestvaluation.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
+available.requestvaluation.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 
 requestValuation.future.help.title=Cymorth gyda’ch prisiad yn y dyfodol 
 requestValuation.future.help.subheading.1=Gall eich gwerth ardrethol newid ar {0}
