@@ -23,9 +23,9 @@ import connectors.authorisation.errorhandler.exceptions.AuthorisationFailure
 import javax.inject.Inject
 import play.api.Logging
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
-import play.api.mvc.Results.{Forbidden, Redirect}
+import play.api.mvc.Results.{Forbidden, NotFound, Redirect}
 import play.api.mvc.{Request, RequestHeader, Result}
-import play.mvc.Http.Status.FORBIDDEN
+import play.mvc.Http.Status.{FORBIDDEN, NOT_FOUND}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.{HeaderNames, UpstreamErrorResponse}
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
@@ -35,7 +35,8 @@ import scala.concurrent.Future
 class CustomErrorHandler @Inject()(
       errorView: views.html.errors.error,
       forbiddenView: views.html.errors.forbidden,
-      technicalDifficultiesView: views.html.errors.technicalDifficulties)(
+      technicalDifficultiesView: views.html.errors.technicalDifficulties,
+      notFoundView: views.html.errors.notFound)(
       implicit override val messagesApi: MessagesApi,
       appConfig: ApplicationConfig)
     extends FrontendErrorHandler with Logging with I18nSupport {
@@ -51,6 +52,10 @@ class CustomErrorHandler @Inject()(
     val messages: Messages = messagesApi.preferred(request)
     forbiddenView()(request, messages, appConfig)
   }
+  def notFoundErrorTemplate(implicit request: RequestHeader): Html = {
+    val messages: Messages = messagesApi.preferred(request)
+    notFoundView()(request, messages, appConfig)
+  }
 
   private def getDateTime: LocalDateTime = {
     val instant = Instant.ofEpochMilli(System.currentTimeMillis)
@@ -65,6 +70,7 @@ class CustomErrorHandler @Inject()(
   override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] =
     statusCode match {
       case FORBIDDEN => Future.successful(Forbidden(forbiddenErrorTemplate(request)))
+      case NOT_FOUND => Future.successful(NotFound(notFoundErrorTemplate(request)))
       case _         => super.onClientError(request, statusCode, message)
     }
 

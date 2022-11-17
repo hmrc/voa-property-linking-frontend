@@ -109,7 +109,8 @@ package object utils {
 
   val propertyRelationshipGen: Gen[PropertyRelationship] = for {
     capacity <- arbitrary[CapacityType]
-  } yield PropertyRelationship(capacity)
+    uarn     <- positiveLong
+  } yield PropertyRelationship(capacity, uarn)
   implicit val arbitraryPropertyRelationshipGen = Arbitrary(propertyRelationshipGen)
 
   val addressGen: Gen[Address] = for {

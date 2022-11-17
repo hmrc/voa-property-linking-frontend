@@ -41,10 +41,15 @@
         case models.propertyrepresentation.NoProperties.name | models.propertyrepresentation.No.name => RELATIONSHIP.toString
     }
 }
+@backLink = @{
+    if(data.singleProperty)
+        controllers.agentAppointment.routes.AddAgentController.oneProperty().url
+    else controllers.agentAppointment.routes.AddAgentController.multipleProperties().url
+}
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.checkYourAnswers.title"),
-    backUri = request.headers.get("referer")
+    backUri = Some(backLink)
 ) {
 
     @if(form.errors.nonEmpty) {

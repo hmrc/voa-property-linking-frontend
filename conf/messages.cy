@@ -4,7 +4,7 @@ link.home=Hafan
 link.logout=Allgofnodi
 link.login=Mewngofnodi
 link.register=Cofrestru
-label.phase.banner.text=Mae hwn yn wasanaeth newydd – mae eich <a href="{0}" id="betaFeedback" class="govuk-link">adborth</a>   yn ein helpu i’w wella link.feedback=Feedback
+label.phase.banner.text=Mae hwn yn wasanaeth newydd – mae eich <a href="{0}" id="betaFeedback" class="govuk-link">adborth</a> yn ein helpu i’w wella
 link.feedback=Aborth
 main.cookies=Cwcis
 footer.termsandconditions=Telerau ac amodau
@@ -15,6 +15,9 @@ errors.heading.title=Mae yna broblem
 navigation.your.details=Eich manylion
 heading.terms.of.use=Telerau defnyddio
 caption.add.property=Ychwanegu eiddo
+
+error.404.title=Ni ellir dod o hyd i'r dudalen hon
+error.404.message=Gwiriwch eich bod wedi rhoi'r cyfeiriad gwe cywir.
 
 # Page sizes
 pageSize.showing=Yn dangos
@@ -606,8 +609,8 @@ propertyRepresentation.manageAgent.unassignFromAllProperties.question=Ydych chi�
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.multipleProperties=Mae’r asiant wedi’i ddad-neilltuo o’ch holl eiddo
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.singleProperty=Mae’r asiant wedi’i ddad-neilltuo o’ch eiddo
-propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.multipleProperties=Mae [0} wedi’i ddad-neilltuo o’ch holl eiddo
-propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.singleProperty=Mae [0} wedi’i ddad-neilltuo o’ch eiddo
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.multipleProperties=Mae {0} wedi’i ddad-neilltuo o’ch holl eiddo
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.singleProperty=Mae {0} wedi’i ddad-neilltuo o’ch eiddo
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText=Nid yw’r asiant hwn wedi cael ei ddileu o’ch cyfrif.
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow=Gallwch nawr:
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount=Dynnu’r asiant hwn o’ch cyfrif
@@ -851,7 +854,7 @@ linkingRequestSubmitted.p1=Gwnewch nodyn o’ch cyfeirnod gan y bydd angen i chi
 linkingRequestSubmitted.p.1=Os caiff y cais am eiddo ei gymeradwyo byddwch yn gallu gweld y prisiad manwl.   Gall hyn gymryd peth amser yn dibynnu ar natur eich cais.
 p.whatHappensNext=Beth sy’n digwydd nesaf
 linkSubmitted.whatNext.1=Byddwn yn prosesu’ch cais i’r eiddo hwn cyn gynted â phosibl ond gall hyn gymryd hyd at 15 diwrnod gwaith.
-linkSubmitted.whatNext.2=weld statws eich cais yn <a class
+linkSubmitted.whatNext.2=Gallwch weld statws eich hawliad yn<a class="govuk-link" href="{0}"> eich eiddo</a>. Unwaith y bydd yr hawliad wedi'i gymeradwyo, bydd y statws yn cael ei ddiweddaru.
 linkSubmitted.whatNext.3=Byddwn yn cysylltu â chi os bydd angen mwy o wybodaeth arnom.
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Ewch yn ôl i’ch dangosfwrdd</a>
 linkSubmitted.whatNext.5=Gallwch weld statws eich cais ar <a class="govuk-link" href="{0}">eiddo eich cleient</a>.   Unwaith y bydd y cais wedi’i gymeradwyo, bydd y statws yn diweddaru.
@@ -1604,7 +1607,7 @@ termsAndConditions.using-service.h2=Defnyddio’r gwasanaeth hwn
 termsAndConditions.using-service.p1=Rydym yn gwneud pob ymdrech i sicrhau bod yr wybodaeth a roddwyd yn gywir. Fodd bynnag, ni all y VOA dderbyn unrhyw gyfrifoldeb am gywirdeb yr wybodaeth hon, ac mae’r rhai sy’n ei defnyddio yn gwneud hynny ar eu menter eu hunain. Ni allwn warantu na fydd gwallau yn y gwasanaeth. Os oes problem gyda’r gwasanaeth, dylech ddefnyddio’r cysylltiad &#39;Cymorth gyda’r ffurflen hon&#39; sydd ar waelod pob tudalen, a byddwn yn cysylltu â chi cyn gynted ag y gallwn.
 termsAndConditions.using-service.p2=Nid yw’r VOA yn derbyn unrhyw gyfrifoldeb am unrhyw golled, tarfu neu ddifrod i’ch data neu’ch system gyfrifiadurol wrth ddefnyddio’r gwasanaeth hwn.
 termsAndConditions.using-service.p3=Mae gan y VOA hawl i dynnu mynediad i’r gwasanaeth oddi wrth unigolyn neu sefydliad os yw’n credu bod y gwasanaeth wedi cael ei gamddefnyddio neu os bu methiant i gydymffurfio â’r arweiniad cyhoeddedig neu’r telerau ac amodau hyn.
-manageProperties.appointAgent.confirmation.p1=You can assign properties to this agent by <a class="govuk-link" id="managing-your-agents-link" href="{0}">rheoli’ch asiantiaid</a>.
+manageProperties.appointAgent.confirmation.p1=Gallwch aseinio eiddo i'r asiant hwn trwy <a class="govuk-link" id="managing-your-agents-link" href="{0}">rheoli eich asiantau</a>.
 assessments.enddate.present.lowercase=presennol
 addPropertyStart.title= Ychwanegu eiddo i’ch cyfrif
 addPropertyStart.client.title=Ychwanegu eiddo i gyfrif eich cleient
@@ -1626,10 +1629,10 @@ chooseEvidence.occupier.title=A oes gennych brydles neu drwydded i feddiannu''r 
 chooseEvidence.occupier.client.title=Oes gennych chi brydles neu drwydded eich cleient i feddiannu ar gyfer yr eiddo hwn?
 chooseEvidence.occupier.title.caption=Dylai’r brydles neu’r drwydded i’w meddiannu fod ar gyfer {0}.
 chooseEvidence.occupier.option.lease=Mae gen i brydles
-Evidence.occupier.option.license=Mae gen i drwydded i feddiannu
+chooseEvidence.occupier.option.license=Mae gen i drwydded i feddiannu
 chooseEvidence.occupier.option.noLeaseOrLicense=Nid oes gennyf brydles na thrwydded i feddiannu
 error.chooseEvidence.occupier.option.required=Dewiswch os oes gennych brydles neu drwydded i feddiannu ar gyfer yr eiddo hwn
-Evidence.lease.title=Lanlwytho eich prydles
+uploadEvidence.lease.title=Lanlwytho eich prydles
 uploadEvidence.lease.client.title=Lanlwytho prydles eich cleient
 uploadEvidence.license.title= Lanlwytho eich trwydded i feddiannu eiddo
 uploadEvidence.license.client.title=Lanlwytho trwydded eich cleient i feddiannu eiddo
