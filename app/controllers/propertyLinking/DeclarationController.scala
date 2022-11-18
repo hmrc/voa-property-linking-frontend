@@ -133,14 +133,17 @@ class DeclarationController @Inject()(
   }
 
   def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    Future.successful(
-      Ok(
-        linkingRequestSubmittedView(
-          RequestSubmittedVM(
-            request.ses.address,
-            request.ses.submissionId,
-            request.ses.clientDetails,
-            request.ses.localAuthorityReference))))
+    sessionRepository
+      .saveOrUpdate(request.ses.copy(isSubmitted = Some(true)))
+      .map { _ =>
+        Ok(
+          linkingRequestSubmittedView(
+            RequestSubmittedVM(
+              request.ses.address,
+              request.ses.submissionId,
+              request.ses.clientDetails,
+              request.ses.localAuthorityReference)))
+      }
   }
 
   lazy val form = Form(Forms.single("declaration" -> mandatoryBoolean))

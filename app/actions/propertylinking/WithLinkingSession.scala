@@ -42,6 +42,7 @@ class WithLinkingSession @Inject()(
   override protected def refine[A](
         request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
     sessionRepository.get[LinkingSession](implicitly[Reads[LinkingSession]], hc(request)).map {
+      case Some(s) if s.isSubmitted == Some(true) => Left(Forbidden(errorHandler.alreadySubmittedTemplate(request)))
       case Some(s) =>
         Right(
           LinkingSessionRequest(

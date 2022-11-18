@@ -146,7 +146,8 @@ trait VoaPropertyLinkingSpec
           PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
         propertyOccupancy: Option[PropertyOccupancy] = Some(
           PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
-        fromCya: Option[Boolean] = Some(false)): WithLinkingSession =
+        fromCya: Option[Boolean] = Some(false),
+        isSubmitted: Option[Boolean] = None): WithLinkingSession =
     new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
 
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
@@ -168,7 +169,8 @@ trait VoaPropertyLinkingSpec
                 clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
                 localAuthorityReference = "12341531531",
                 rtp = ClaimPropertyReturnToPage.FMBR,
-                fromCya = fromCya
+                fromCya = fromCya,
+                isSubmitted = isSubmitted
               ),
               organisationId = 1L,
               individualAccount = request.individualAccount,
