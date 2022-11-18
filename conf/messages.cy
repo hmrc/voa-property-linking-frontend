@@ -1702,3 +1702,6 @@ fileUpload.allowedTypes =Rhaid i’r ffeil fod yn ddogfen Word, taenlen Excel, P
 label.selectValue=Dewiswch gyfeiriad
 addressHelp=Dylai hwn fod yn gyfeiriad cyswllt post a ffefrir ar gyfer eich busnes
 error.postcodeLookupError=Nodwch god post dilys
+
+error.alreadySubmitted.title=Mae eich cais i ychwanegu'r eiddo hwn wedi'i anfon
+error.alreadySubmitted.message=Ewch i hafan eich cyfrif

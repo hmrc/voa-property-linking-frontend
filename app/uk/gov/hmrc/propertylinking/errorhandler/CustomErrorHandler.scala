@@ -36,7 +36,8 @@ class CustomErrorHandler @Inject()(
       errorView: views.html.errors.error,
       forbiddenView: views.html.errors.forbidden,
       technicalDifficultiesView: views.html.errors.technicalDifficulties,
-      notFoundView: views.html.errors.notFound)(
+      notFoundView: views.html.errors.notFound,
+      alreadySubmittedView: views.html.errors.alreadySubmitted)(
       implicit override val messagesApi: MessagesApi,
       appConfig: ApplicationConfig)
     extends FrontendErrorHandler with Logging with I18nSupport {
@@ -55,6 +56,10 @@ class CustomErrorHandler @Inject()(
   def notFoundErrorTemplate(implicit request: RequestHeader): Html = {
     val messages: Messages = messagesApi.preferred(request)
     notFoundView()(request, messages, appConfig)
+  }
+  def alreadySubmittedTemplate(implicit request: RequestHeader): Html = {
+    val messages: Messages = messagesApi.preferred(request)
+    alreadySubmittedView()(request, messages, appConfig)
   }
 
   private def getDateTime: LocalDateTime = {

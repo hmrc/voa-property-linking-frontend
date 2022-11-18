@@ -36,9 +36,10 @@ import models.registration._
 import models.searchApi._
 import models.upscan._
 import uk.gov.hmrc.auth.core.{AffinityGroup, ConfidenceLevel, CredentialRole, User}
-
 import java.time.{Instant, LocalDate, LocalDateTime, Month}
 import java.util.UUID
+
+import binders.propertylinks.ClaimPropertyReturnToPage
 
 trait FakeObjects {
 
@@ -583,6 +584,24 @@ trait FakeObjects {
     allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
     currentFromDate = Some(april2017.plusMonths(2L)),
     currentToDate = None
+  )
+
+  val propertyLinkingSession = LinkingSession(
+    address = "LS",
+    uarn = 1L,
+    submissionId = "PL-123456",
+    personId = 1L,
+    earliestStartDate = earliestEnglishStartDate,
+    propertyRelationship = Some(PropertyRelationship(Owner, 1L)),
+    propertyOwnership = Some(PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
+    propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+    hasRatesBill = Some(true),
+    uploadEvidenceData = UploadEvidenceData.empty,
+    evidenceType = Some(RatesBillType),
+    clientDetails = Some(ClientDetails(100, "ABC")),
+    localAuthorityReference = "12341531531",
+    rtp = ClaimPropertyReturnToPage.FMBR,
+    isSubmitted = None
   )
 
 }

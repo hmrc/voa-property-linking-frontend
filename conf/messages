@@ -21,6 +21,9 @@ caption.add.property= Add a property
 error.404.title=This page can't be found
 error.404.message=Please check that you have entered the correct web address.
 
+error.alreadySubmitted.title=Your request to add this property has been sent
+error.alreadySubmitted.message=Go to your account home
+
 # Page sizes
 pageSize.showing = Showing
 pageSize.properties = properties per page
