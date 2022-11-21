@@ -32,18 +32,17 @@ import tests.{AllMocks, BaseUnitSpec}
 
 import scala.concurrent.Future
 
-class WithLinkingSessionSpec extends BaseUnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks {
+class WithSubmittedLinkingSessionSpec extends BaseUnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks {
 
   trait Setup {
     val fakeRequest = FakeRequest()
 
-    val refiner = new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository)
+    val refiner = new WithSubmittedLinkingSession(mockCustomErrorHandler, mockSessionRepository)
 
     val grpAccount: GroupAccount = groupAccount(true)
     val individualAccount = detailedIndividualAccount
 
     when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Html("not found"))
-    when(mockCustomErrorHandler.alreadySubmittedTemplate(any())).thenReturn(Html("already submitted"))
 
     val basicRequest: BasicAuthenticatedRequest[AnyContent] =
       BasicAuthenticatedRequest(grpAccount, individualAccount, fakeRequest)
@@ -61,7 +60,7 @@ class WithLinkingSessionSpec extends BaseUnitSpec with MockitoSugar with BeforeA
       Future.successful(
         Results.Ok(Json.toJson(AddedToRequest(req.ses, req.individualAccount, req.organisationAccount))))
 
-  "WithLinkingSession" should {
+  "WithSubmittedLinkingSession" should {
     "add session data to the request" when {
       "session is found" in new Setup {
 
@@ -86,16 +85,6 @@ class WithLinkingSessionSpec extends BaseUnitSpec with MockitoSugar with BeforeA
           .thenReturn(Future.successful(None))
 
         status(refiner.invokeBlock(basicRequest, actionAsJson)) shouldBe NOT_FOUND
-      }
-    }
-
-    "return 403" when {
-      "the linking request has been submitted" in new Setup {
-        val someLinkingSession: Some[LinkingSession] = Some(propertyLinkingSession.copy(isSubmitted = Some(true)))
-        when(mockSessionRepository.get[LinkingSession](any(), any()))
-          .thenReturn(Future.successful(someLinkingSession))
-
-        status(refiner.invokeBlock(basicRequest, actionAsJson)) shouldBe FORBIDDEN
       }
     }
   }

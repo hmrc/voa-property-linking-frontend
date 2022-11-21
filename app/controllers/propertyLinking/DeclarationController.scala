@@ -17,13 +17,12 @@
 package controllers.propertyLinking
 
 import actions.AuthenticatedAction
-import actions.propertylinking.WithLinkingSession
+import actions.propertylinking.{WithLinkingSession, WithSubmittedLinkingSession}
 import binders.propertylinks.EvidenceChoices
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
-
 import javax.inject.Named
 import models.propertylinking.requests.PropertyLinkRequest
 import models._
@@ -46,6 +45,7 @@ class DeclarationController @Inject()(
       @Named("propertyLinkingSession") sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
+      withSubmittedLinkingSession: WithSubmittedLinkingSession,
       declarationView: views.html.propertyLinking.declaration,
       linkingRequestSubmittedView: views.html.linkingRequestSubmitted
 )(
@@ -132,18 +132,19 @@ class DeclarationController @Inject()(
       )
   }
 
-  def confirmation: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    sessionRepository
-      .saveOrUpdate(request.ses.copy(isSubmitted = Some(true)))
-      .map { _ =>
-        Ok(
-          linkingRequestSubmittedView(
-            RequestSubmittedVM(
-              request.ses.address,
-              request.ses.submissionId,
-              request.ses.clientDetails,
-              request.ses.localAuthorityReference)))
-      }
+  def confirmation: Action[AnyContent] = authenticatedAction.andThen(withSubmittedLinkingSession).async {
+    implicit request =>
+      sessionRepository
+        .saveOrUpdate(request.ses.copy(isSubmitted = Some(true)))
+        .map { _ =>
+          Ok(
+            linkingRequestSubmittedView(
+              RequestSubmittedVM(
+                request.ses.address,
+                request.ses.submissionId,
+                request.ses.clientDetails,
+                request.ses.localAuthorityReference)))
+        }
   }
 
   lazy val form = Form(Forms.single("declaration" -> mandatoryBoolean))
