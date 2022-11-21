@@ -17,7 +17,7 @@
 package controllers
 
 import actions.AuthenticatedAction
-import actions.propertylinking.WithLinkingSession
+import actions.propertylinking.{WithLinkingSession, WithSubmittedLinkingSession}
 import actions.propertylinking.requests.LinkingSessionRequest
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
 import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
@@ -171,6 +171,46 @@ trait VoaPropertyLinkingSpec
                 rtp = ClaimPropertyReturnToPage.FMBR,
                 fromCya = fromCya,
                 isSubmitted = isSubmitted
+              ),
+              organisationId = 1L,
+              individualAccount = request.individualAccount,
+              organisationAccount = request.organisationAccount,
+              request = request
+            )))
+    }
+
+  def submittedActionRefiner(
+        evidenceData: UploadEvidenceData,
+        relationshipCapacity: CapacityType = Owner,
+        userIsAgent: Boolean = true,
+        earliestStartDate: LocalDate = earliestEnglishStartDate,
+        propertyOwnership: Option[PropertyOwnership] = Some(
+          PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
+        propertyOccupancy: Option[PropertyOccupancy] = Some(
+          PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+        fromCya: Option[Boolean] = Some(true)): WithSubmittedLinkingSession =
+    new WithSubmittedLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
+      override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
+        Future.successful(
+          Right(
+            LinkingSessionRequest[A](
+              LinkingSession(
+                address = "LS",
+                uarn = 1L,
+                submissionId = "PL-123456",
+                personId = 1L,
+                earliestStartDate = earliestStartDate,
+                propertyRelationship = Some(PropertyRelationship(relationshipCapacity, 1L)),
+                propertyOwnership = propertyOwnership,
+                propertyOccupancy = propertyOccupancy,
+                hasRatesBill = Some(true),
+                uploadEvidenceData = evidenceData,
+                evidenceType = Some(RatesBillType),
+                clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
+                localAuthorityReference = "12341531531",
+                rtp = ClaimPropertyReturnToPage.FMBR,
+                fromCya = fromCya,
+                isSubmitted = Some(true)
               ),
               organisationId = 1L,
               individualAccount = request.individualAccount,
