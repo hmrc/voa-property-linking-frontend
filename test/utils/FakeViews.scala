@@ -18,7 +18,7 @@ package utils
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import views.html.dvr._
-import views.html.errors.propertyMissing
+import views.html.errors.{alreadySubmitted, error, forbidden, notFound, propertyMissing, technicalDifficulties}
 import views.html.propertyrepresentation.appoint.appointAgentSummary
 import views.html.registration._
 import views.html.{addUserToGG, startOldJourney}
@@ -277,4 +277,9 @@ trait FakeViews extends GdsComponents {
   val revokeClientPropertyView = new revokeClient(formWithCSRF, govukButton, mainLayout)
   val confirmRevokeClientPropertyView = new confirmRevokeClientProperty(govukPanel, mainLayout)
 
+  lazy val errorView = new error(mainLayout)
+  lazy val forbiddenView = new forbidden(mainLayout)
+  lazy val technicalDifficultiesView = new technicalDifficulties(mainLayout)
+  lazy val notFoundView = new notFound(mainLayout)
+  lazy val alreadySubmittedView = new alreadySubmitted(mainLayout)
 }

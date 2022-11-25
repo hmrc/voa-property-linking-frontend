@@ -21,7 +21,7 @@ import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
 import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
-import models.{CapacityType, NoEvidenceFlag, Occupier, Owner, RatesBillType, StampDutyLandTaxForm, UploadEvidenceData}
+import models.{CapacityType, Occupier, Owner, RatesBillType, StampDutyLandTaxForm, UploadEvidenceData}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.mockito.ArgumentMatchers._

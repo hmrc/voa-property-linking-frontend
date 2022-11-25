@@ -67,10 +67,16 @@ class CustomErrorHandler @Inject()(
     LocalDateTime.ofInstant(instant, ZoneId.of("Europe/London"))
   }
 
-  private def extractErrorReference(request: Request[_]): Option[String] =
-    request.headers.get(HeaderNames.xRequestId) map {
-      _.split("-")(2)
+  private def extractErrorReference(request: Request[_]): Option[String] ={
+    val requestId = request.headers.get(HeaderNames.xRequestId)
+    if (requestId.exists(_.contains("govuk-tax-"))) {
+      // old xRequestId format with gov-uk-tax prefix
+      requestId.map(_.split("govuk-tax-")(1))
+    } else {
+      //new xRequestId format
+      requestId
     }
+  }
 
   override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] =
     statusCode match {
