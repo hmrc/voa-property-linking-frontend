@@ -20,7 +20,6 @@ import java.time.LocalDate
 import controllers.VoaPropertyLinkingSpec
 import controllers.propertyLinking.ClaimPropertyOccupancy
 import models.PropertyOccupancy
-import play.api.i18n.Lang.defaultLang
 import utils.FormBindingVerification._
 
 class PropertyOccupancyFormSpec extends VoaPropertyLinkingSpec {
