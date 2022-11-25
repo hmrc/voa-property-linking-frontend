@@ -67,7 +67,7 @@ class CustomErrorHandler @Inject()(
     LocalDateTime.ofInstant(instant, ZoneId.of("Europe/London"))
   }
 
-  private def extractErrorReference(request: Request[_]): Option[String] ={
+  private def extractErrorReference(request: Request[_]): Option[String] = {
     val requestId = request.headers.get(HeaderNames.xRequestId)
     if (requestId.exists(_.contains("govuk-tax-"))) {
       // old xRequestId format with gov-uk-tax prefix

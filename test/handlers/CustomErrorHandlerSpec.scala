@@ -17,10 +17,8 @@
 package handlers
 
 import config.ApplicationConfig
-import connectors.TaxEnrolmentConnector
 import controllers.VoaPropertyLinkingSpec
 import play.api.test.FakeRequest
-import tests.AllMocks
 import uk.gov.hmrc.http.{HeaderCarrier, HeaderNames}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.Configs
@@ -30,10 +28,10 @@ import java.time.LocalDateTime
 class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
 
   implicit val appConfig: ApplicationConfig = Configs.applicationConfig
-
   implicit val hc = HeaderCarrier()
 
-  val testErrorHandler = new CustomErrorHandler(errorView, forbiddenView, technicalDifficultiesView, notFoundView, alreadySubmittedView)
+  val testErrorHandler =
+    new CustomErrorHandler(errorView, forbiddenView, technicalDifficultiesView, notFoundView, alreadySubmittedView)
 
   "standardErrorTemplate" should
     "display the standard error page with the given page title, heading and message" in {
