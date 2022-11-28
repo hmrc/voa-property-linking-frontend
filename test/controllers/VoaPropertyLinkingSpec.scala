@@ -181,7 +181,7 @@ trait VoaPropertyLinkingSpec
 
   def submittedActionRefiner(
         evidenceData: UploadEvidenceData,
-        relationshipCapacity: CapacityType = Owner,
+        relationshipCapacity: Option[CapacityType] = Some(Owner),
         userIsAgent: Boolean = true,
         earliestStartDate: LocalDate = earliestEnglishStartDate,
         propertyOwnership: Option[PropertyOwnership] = Some(
@@ -200,7 +200,7 @@ trait VoaPropertyLinkingSpec
                 submissionId = "PL-123456",
                 personId = 1L,
                 earliestStartDate = earliestStartDate,
-                propertyRelationship = Some(PropertyRelationship(relationshipCapacity, 1L)),
+                propertyRelationship = relationshipCapacity.map(capacity => PropertyRelationship(capacity, 1L)),
                 propertyOwnership = propertyOwnership,
                 propertyOccupancy = propertyOccupancy,
                 hasRatesBill = Some(true),
