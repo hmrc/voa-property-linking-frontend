@@ -56,7 +56,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
           earliestStartDate = earliestStartDate
         ),
         withSubmittedLinkingSession = submittedActionRefiner(
-          evidenceData = uploadEvidenceData,
+          evidenceData = uploadRatesBillData,
           relationshipCapacity = propertyRelationship,
           userIsAgent = isAgent,
           earliestStartDate = earliestStartDate
@@ -267,7 +267,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       sessionRepository = mockSessionRepo,
       authenticatedAction = preAuthenticatedActionBuilders(),
       withLinkingSession = preEnrichedActionRefiner(),
-      withSubmittedLinkingSession = submittedActionRefiner(evidenceData = uploadEvidenceData),
+      withSubmittedLinkingSession = submittedActionRefiner(evidenceData = uploadRatesBillData),
       declarationView = declarationView,
       linkingRequestSubmittedView = linkingRequestSubmittedView
     )
