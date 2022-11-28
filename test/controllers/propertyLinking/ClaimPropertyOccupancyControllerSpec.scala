@@ -54,7 +54,7 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec with S
         evidenceData = UploadEvidenceData(NoEvidenceFlag, None),
         earliestStartDate = earliestStartDate,
         propertyOwnership = Some(propertyOwnership),
-        relationshipCapacity = relationshipCapacity,
+        relationshipCapacity = Some(relationshipCapacity),
         fromCya = Some(fromCya),
         userIsAgent = userIsAgent
       ),

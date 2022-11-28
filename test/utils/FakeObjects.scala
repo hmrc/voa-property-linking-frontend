@@ -81,11 +81,16 @@ trait FakeObjects {
   )
 
   val noEvidencelinkBasis: NoEvidenceFlag.type = NoEvidenceFlag
-  val fileInfo = CompleteFileInfo("test.pdf", RatesBillType)
-  val uploadEvidenceData =
-    UploadEvidenceData(RatesBillFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
-  val uploadEvidenceDataOther =
-    UploadEvidenceData(OtherEvidenceFlag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
+  def fileInfo(evType: EvidenceType): CompleteFileInfo = CompleteFileInfo("test.pdf", evType)
+
+  def uploadEvidenceData(fileInfo: FileInfo, flag: LinkBasis = RatesBillFlag): UploadEvidenceData =
+    UploadEvidenceData(flag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
+
+  val uploadRatesBillData: UploadEvidenceData = uploadEvidenceData(fileInfo(RatesBillType))
+  val uploadLeaseData: UploadEvidenceData = uploadEvidenceData(fileInfo(Lease))
+  val uploadLicenseData: UploadEvidenceData = uploadEvidenceData(fileInfo(License))
+  val uploadServiceChargeData: UploadEvidenceData = uploadEvidenceData(fileInfo(ServiceCharge), OtherEvidenceFlag)
+
   val detailedIndividualAccount =
     DetailedIndividualAccount(
       externalId = ggExternalId,

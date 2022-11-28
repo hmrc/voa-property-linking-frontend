@@ -67,12 +67,25 @@ class DeclarationController @Inject()(
     sessionRepository
       .saveOrUpdate(request.ses.copy(fromCya = Some(false)))
       .map { _ =>
-        Redirect(
-          routes.UploadController.show(
-            if (request.ses.uploadEvidenceData.linkBasis == RatesBillFlag)
-              EvidenceChoices.RATES_BILL
-            else
-              EvidenceChoices.OTHER))
+        val evidenceType: Option[EvidenceType] = request.ses.uploadEvidenceData.fileInfo.map(_.evidenceType)
+        val capacityType: Option[CapacityType] = request.ses.propertyRelationship.map(_.capacity)
+
+        val evidenceChoice: Option[EvidenceChoices.Value] = evidenceType.zip(capacityType).headOption.map {
+          case (RatesBillType, Owner | OwnerOccupier) => EvidenceChoices.RATES_BILL
+          case (Lease, Occupier)                      => EvidenceChoices.LEASE
+          case (License, Occupier)                    => EvidenceChoices.LICENSE
+          case (_, Owner | OwnerOccupier)             => EvidenceChoices.OTHER
+          case (_, Occupier)                          => EvidenceChoices.NO_LEASE_OR_LICENSE
+        }
+
+        evidenceChoice.fold {
+          Redirect(
+            if (evidenceType.isEmpty) routes.ChooseEvidenceController.show()
+            else routes.ClaimPropertyRelationshipController.back()
+          )
+        } { choice =>
+          Redirect(routes.UploadController.show(choice))
+        }
       }
   }
 
