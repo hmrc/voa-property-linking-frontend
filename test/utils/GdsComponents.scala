@@ -19,15 +19,24 @@ package utils
 import com.typesafe.config.{Config, ConfigFactory}
 import play.api.Configuration
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TrackingConsentConfig}
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TimeoutDialogConfig, TrackingConsentConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
-import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcFooter
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardFooter, HmrcTrackingConsentSnippet}
+import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcTimeoutDialog}
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardFooter, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
 
 trait GdsComponents {
 
   private val minimalConfig: Config =
-    ConfigFactory.parseString("")
+    ConfigFactory.parseString("""
+                                |timeoutDialog.timeout=13min
+                                |timeoutDialog.timeout=13min
+                                |timeoutDialog.countdown=3min
+                                |hmrc-timeout-dialog.defaultTimeoutInSeconds=15
+                                |hmrc-timeout-dialog.defaultCountdownInSeconds=15
+                                |hmrc-timeout-dialog.enableSynchroniseTabs=true
+                                |session.timeoutSeconds=10
+                                |session.timeout=10
+                            """.stripMargin)
 
   lazy val minimalConfiguration = Configuration(minimalConfig)
 
@@ -65,5 +74,6 @@ trait GdsComponents {
   lazy val hmrcFooterItems = new HmrcFooterItems(new AccessibilityStatementConfig(minimalConfiguration))
   lazy val hmrcStandardFooter = new HmrcStandardFooter(hmrcFooter, hmrcFooterItems)
   lazy val hmrcTrackingConsentSnippet = new HmrcTrackingConsentSnippet(new TrackingConsentConfig(minimalConfiguration))
-
+  lazy val hmrcTimeoutDialogHelper =
+    new HmrcTimeoutDialogHelper(new HmrcTimeoutDialog, new TimeoutDialogConfig(minimalConfiguration))
 }

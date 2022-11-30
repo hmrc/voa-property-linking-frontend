@@ -36,7 +36,8 @@ trait FakeViews extends GdsComponents {
     govukHeader,
     govukPhaseBanner,
     hmrcStandardFooter,
-    hmrcTrackingConsentSnippet
+    hmrcTrackingConsentSnippet,
+    hmrcTimeoutDialogHelper
   )
 
   lazy val mainLayout = new views.html.mainLayout(
