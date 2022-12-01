@@ -133,7 +133,7 @@ lazy val compileDependencies = Seq(
   "com.google.guava"     %  "guava"                         % "18.0",
   "org.typelevel"        %% "cats-core"                     % "1.6.1",
   "uk.gov.hmrc"          %% "bootstrap-frontend-play-28"    % "5.4.0",
-  "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "3.22.0-play-28",
+  "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "3.33.0-play-28",
   "uk.gov.hmrc"          %% "http-caching-client"           % "9.6.0-play-28",
   "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.11.0-play-28",
   "uk.gov.hmrc"          %% "play-allowlist-filter"         % "1.0.0-play-28",

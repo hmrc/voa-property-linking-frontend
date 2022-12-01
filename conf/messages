@@ -1709,3 +1709,9 @@ fileupload.chooseFile=Choose file
 label.selectValue=Select an address
 addressHelp=This should be your preferred postal contact address for your business.
 error.postcodeLookupError=Enter a valid postcode
+
+#timeout dialog
+timeout.title=You’re about to be signed out
+timeout.message=For your security, we will sign you out in
+timeout.keep-alive-button=Stay signed in
+timeout.sign-out-button=Sign out

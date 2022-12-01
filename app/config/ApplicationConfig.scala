@@ -84,9 +84,6 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   lazy val welshEnabled: Boolean = loadBooleanConfig("featureFlags.welshEnabled")
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
-  lazy val signOutTimeout = loadInt("sign-out.timeout")
-  lazy val signOutCountdown = loadInt("sign-out.countdown")
-  lazy val keepAliveUrl = loadConfig("sign-out.keep-alive-url")
 
   lazy val stubEnrolment: Boolean = loadBooleanConfig("enrolment.useStub")
 

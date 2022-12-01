@@ -26,7 +26,8 @@
         govukHeader: GovukHeader,
         govukPhaseBanner: GovukPhaseBanner,
         hmrcStandardFooter: HmrcStandardFooter,
-        hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet
+        hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet,
+        hmrcTimeoutDialogHelper: HmrcTimeoutDialogHelper
 )
 
 @(
@@ -40,7 +41,15 @@
         @hmrcTrackingConsentSnippet()
         @headScripts
         @if(request.isLoggedIn){
-            <meta name="hmrc-timeout-dialog" content="hmrc-timeout-dialog" data-language="en" data-timeout="@config.signOutTimeout" data-countdown="@config.signOutCountdown" data-keep-alive-url="@config.keepAliveUrl" data-sign-out-url="@config.signOutUrl"/>
+            @hmrcTimeoutDialogHelper(
+                signOutUrl = config.signOutUrl,
+                synchroniseTabs = Some(true),
+                title = Some(messages("timeout.title")),
+                message = Some(messages("timeout.message")),
+                keepAliveButtonText = Some(messages("timeout.keep-alive-button")),
+                signOutButtonText = Some(messages("timeout.sign-out-button")),
+                keepAliveUrl = Some(controllers.routes.KeepAliveController.keepAlive.url)
+            )
         }
     }
 

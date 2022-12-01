@@ -1661,7 +1661,7 @@ available.requestvaluation.inset=Nid dyma’r swm rydych yn ei dalu. Defnyddir i
 available.requestvaluation.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 available.requestvaluation.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 
-requestValuation.future.help.title=Cymorth gyda’ch prisiad yn y dyfodol 
+requestValuation.future.help.title=Cymorth gyda’ch prisiad yn y dyfodol
 requestValuation.future.help.subheading.1=Gall eich gwerth ardrethol newid ar {0}
 requestValuation.future.help.subheading.2=Mae angen newid manylion eich eiddo
 requestValuation.future.help.subheading.3=Rydych chi’n meddwl bod y gwerth ardrethol yn rhy uchel
@@ -1705,3 +1705,9 @@ error.postcodeLookupError=Nodwch god post dilys
 
 error.alreadySubmitted.title=Mae eich cais i ychwanegu'r eiddo hwn wedi'i anfon
 error.alreadySubmitted.message=Ewch i hafan eich cyfrif
+
+#timeout dialog
+timeout.title=Rydych ar fin cael eich allgofnodi
+timeout.message=Er eich diogelwch, byddwn yn eich allgofnodi cyn pen
+timeout.keep-alive-button=Parhau i fod wedi’ch mewngofnodi
+timeout.sign-out-button=Allgofnodi
