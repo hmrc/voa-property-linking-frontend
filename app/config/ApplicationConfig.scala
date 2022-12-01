@@ -82,7 +82,8 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
   lazy val newRegistrationJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newRegistrationJourneyEnabled")
   lazy val welshEnabled: Boolean = loadBooleanConfig("featureFlags.welshEnabled")
-  lazy val signOutUrl = s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
+  lazy val signOutUrl =
+    s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
 
   lazy val stubEnrolment: Boolean = loadBooleanConfig("enrolment.useStub")
 
