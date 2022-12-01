@@ -49,7 +49,13 @@ trait FakeViews extends GdsComponents {
   lazy val alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout)
   lazy val requestFutureValuationTab = new requestFutureValuationTab(govukInsetText)
   lazy val requestDetailedValuationView =
-    new requestDetailedValuation(mainLayout, requestFutureValuationTab, govukButton, govukTabs, formWithCSRF)
+    new requestDetailedValuation(
+      mainLayout,
+      requestFutureValuationTab,
+      govukButton,
+      govukTabs,
+      formWithCSRF,
+      govukSummaryList)
   lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout)
   lazy val agentsTab = new agentsTab(govukTable)
   lazy val challengeCasesDetailsTab = new challengeCasesDetailsTab(govukDetails, govukTable)

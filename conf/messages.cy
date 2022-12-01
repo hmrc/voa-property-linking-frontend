@@ -1205,6 +1205,7 @@ label.fixTheFollowing=Trwsiwch y canlynol:
 logout.link=Allgofnodi
 label.optional=Dewisol
 label.required=Gofynnol
+label.localCouncilReference=Cyfeirnod yr awdurdod lleol:
 
 #PAGINATION
 paginationControls.show=Dangos

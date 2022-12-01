@@ -24,10 +24,11 @@
   requestFutureValuationTab: views.html.dvr.tabs.requestFutureValuationTab,
   govukButton: GovukButton,
   govukTabs: GovukTabs,
-  formWithCSRF: FormWithCSRF
+  formWithCSRF: FormWithCSRF,
+  govukSummaryList: GovukSummaryList
 )
 
-@(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String, enquiryUrl: String, estimatorUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String, enquiryUrl: String, estimatorUrl: String, localCouncilRef: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @returnUrl = @{
     if (owner)
@@ -46,8 +47,24 @@
         mainClass = Some("govuk-grid-column-full govuk-!-padding-left-0 govuk-!-padding-right-0")) {
 
         <div class="govuk-grid-column-two-thirds">
-            <span class="govuk-caption-l">@messages("auto.requestDetailedValuation.caption")</span>
+            <span class="govuk-caption-l">@messages("available.requestvaluation.ip.titleCaption")</span>
             <h1 class="govuk-heading-l">@address</h1>
+
+            @govukSummaryList(SummaryList(
+                rows = Seq(
+                    SummaryListRow(
+                        key = Key(
+                            content = Text(messages("label.localCouncilReference")),
+                            classes = "govuk-summary-list__key govuk-!-padding-right-1 govuk-!-display-inline"
+                        ),
+                        value = Value(
+                            content = Text(localCouncilRef),
+                            classes = "govuk-summary-list__value govuk-!-display-inline"
+                        )
+                    )
+                ),
+                classes = "govuk-summary-list--no-border"
+            ))
         </div>
 
         <div class="govuk-grid-column-full">
