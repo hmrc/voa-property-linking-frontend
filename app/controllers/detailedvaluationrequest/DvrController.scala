@@ -409,7 +409,8 @@ class DvrController @Inject()(
                   "valuationId"              -> valuationId,
                   "propertyLinkSubmissionId" -> submissionId,
                   "isOwner"                  -> owner,
-                  "uarn"                     -> link.uarn)
+                  "uarn"                     -> link.uarn),
+                localCouncilRef = assessment.billingAuthorityReference
               ))
           }
         }

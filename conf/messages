@@ -1291,6 +1291,7 @@ accessibility.error.label=Error:
 error.common.title=There is a problem
 label.address=Address
 label.localAuthorityReference=Local authority reference
+label.localCouncilReference = Local council reference:
 label.status=Status
 label.search=Search
 label.clear.search=Clear search
