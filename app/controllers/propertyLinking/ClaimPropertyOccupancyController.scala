@@ -59,7 +59,7 @@ class ClaimPropertyOccupancyController @Inject()(
           .saveOrUpdate[LinkingSession](request.ses.copy(
             propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))))
           .map { _ =>
-            Redirect(routes.ChooseEvidenceController.show())
+            Redirect(propertyLinking.routes.ChooseEvidenceController.show())
           } else {
         val form = request.ses.propertyOccupancy.fold(occupancyForm(request.ses.earliestStartDate)) { occupancy =>
           occupancyForm(
@@ -91,7 +91,7 @@ class ClaimPropertyOccupancyController @Inject()(
               .map { _ =>
                 if (request.ses.fromCya.contains(true))
                   Redirect(controllers.propertyLinking.routes.DeclarationController.show().url)
-                else Redirect(routes.ChooseEvidenceController.show())
+                else Redirect(propertyLinking.routes.ChooseEvidenceController.show())
             }
         )
     }
@@ -112,6 +112,6 @@ object ClaimPropertyOccupancy {
       )(PropertyOccupancy.apply)(PropertyOccupancy.unapply))
 
   def getBackLink(implicit request: LinkingSessionRequest[_]): String =
-    if (request.ses.fromCya.contains(true)) routes.DeclarationController.show().url
-    else routes.ClaimPropertyOwnershipController.showOwnership().url
+    if (request.ses.fromCya.contains(true)) propertyLinking.routes.DeclarationController.show().url
+    else propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership().url
 }

@@ -166,8 +166,8 @@ class ClaimPropertyRelationshipController @Inject()(
             sessionRepository
               .saveOrUpdate[LinkingSession](request.ses.copy(propertyRelationship = Some(formData)))
               .map { _ =>
-                if (request.ses.fromCya.contains(true)) Redirect(routes.DeclarationController.show())
-                else Redirect(routes.ClaimPropertyOwnershipController.showOwnership())
+                if (request.ses.fromCya.contains(true)) Redirect(propertyLinking.routes.DeclarationController.show())
+                else Redirect(propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership())
             }
         )
     }
@@ -182,7 +182,7 @@ class ClaimPropertyRelationshipController @Inject()(
   }
 
   private def getBackLink(implicit request: LinkingSessionRequest[_]): String =
-    if (request.ses.fromCya.contains(true)) routes.DeclarationController.show().url
+    if (request.ses.fromCya.contains(true)) propertyLinking.routes.DeclarationController.show().url
     else controllers.propertyLinking.routes.ClaimPropertyRelationshipController.backToClaimPropertyStart().url
 
   private def initialiseSession(

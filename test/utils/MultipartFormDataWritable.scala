@@ -57,10 +57,10 @@ object MultipartFormDataWritable {
   val singleton = Writeable[MultipartFormData[TemporaryFile]](
     transform = { form: MultipartFormData[TemporaryFile] =>
       formatDataParts(form.dataParts) ++
-        form.files.flatMap { file =>
-          val fileBytes = Files.readAllBytes(file.ref.path)
-          filePartHeader(file) ++ fileBytes ++ Codec.utf_8.encode("\r\n")
-        } ++
+//        form.files.flatMap { file =>
+//          val fileBytes = Files.readAllBytes(file.ref.path)
+//          filePartHeader(file) ++ fileBytes ++ Codec.utf_8.encode("\r\n")
+//        } ++
         Codec.utf_8.encode(s"--$boundary--")
     },
     contentType = Some(s"multipart/form-data; boundary=$boundary")
