@@ -1709,5 +1709,5 @@ error.alreadySubmitted.message=Ewch i hafan eich cyfrif
 #timeout dialog
 timeout.title=Rydych ar fin cael eich allgofnodi
 timeout.message=Er eich diogelwch, byddwn yn eich allgofnodi cyn pen
-timeout.keep-alive-button=Parhau i fod wedi?ch mewngofnodi
-timeout.sing-out-button=Allgofnodi
+timeout.keep-alive-button=Parhau i fod wedi’ch mewngofnodi
+timeout.sign-out-button=Allgofnodi
