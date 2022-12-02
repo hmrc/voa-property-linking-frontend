@@ -23,7 +23,6 @@ import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
-import utils._
 
 class ManageClientsSpec extends VoaPropertyLinkingSpec {
 
