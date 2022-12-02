@@ -56,7 +56,7 @@ object Formatters {
     date.format(DateTimeFormatter.ofPattern("d M yyyy"))
 
   def formatTime(time: LocalTime): String =
-    time.format(DateTimeFormatter.ofPattern("hh:mma").withLocale(Locale.UK))
+    time.format(DateTimeFormatter.ofPattern("h:mma").withLocale(Locale.UK))
 
   def buildQueryParams(name: String, value: Option[String]): String =
     value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.trim}"; case _ => "" }
