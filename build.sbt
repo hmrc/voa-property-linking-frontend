@@ -115,6 +115,7 @@ lazy val scoverageSettings = {
 
 scalacOptions += "-Wconf:src=routes/.*:s"
 scalacOptions += "-Wconf:cat=unused-imports&src=html/.*:s"
+scalacOptions += "-Wconf:src=target/.*:s"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 

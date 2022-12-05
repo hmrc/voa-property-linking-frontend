@@ -24,8 +24,7 @@ import org.scalatest.matchers.should.Matchers
 import play.api.mvc.Result
 import play.api.test.Helpers._
 import play.twirl.api.Html
-
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.concurrent.Future
 
 case class HtmlPage(html: Document) extends Matchers with AppendedClues with OptionValues {
