@@ -47,7 +47,7 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
     }
 
     "display the current time in 12 hour format" in {
-      page should include("Time: 09:30am")
+      page should include("Time: 9:30am")
     }
   }
 
