@@ -191,46 +191,46 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     val doc: Document =
       Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
     val changeLink: Element = doc.getElementById("relationship-change")
-    changeLink.attr("href") shouldBe routes.ClaimPropertyRelationshipController.back().url
+    changeLink.attr("href") shouldBe routes.ClaimPropertyRelationshipController.back.url
   }
 
   it should "have a link to change the property connection start date" in new Setup {
     val doc: Document =
       Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
     val changeLink: Element = doc.getElementById("start-date-change")
-    changeLink.attr("href") shouldBe routes.ClaimPropertyOwnershipController.showOwnership().url
+    changeLink.attr("href") shouldBe routes.ClaimPropertyOwnershipController.showOwnership.url
   }
 
   it should "have a link to change the property occupancy" in new Setup {
     val doc: Document =
       Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
     val changeLink: Element = doc.getElementById("still-owned-change")
-    changeLink.attr("href") shouldBe routes.ClaimPropertyOccupancyController.showOccupancy().url
+    changeLink.attr("href") shouldBe routes.ClaimPropertyOccupancyController.showOccupancy.url
   }
 
   it should "have a link to change the property occupancy last day" in new Setup {
     val doc: Document =
       Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
     val changeLink: Element = doc.getElementById("end-date-change")
-    changeLink.attr("href") shouldBe routes.ClaimPropertyOccupancyController.showOccupancy().url
+    changeLink.attr("href") shouldBe routes.ClaimPropertyOccupancyController.showOccupancy.url
   }
 
   it should "have a link to change uploaded evidence" in new Setup {
     val doc: Document =
       Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
     val changeLink: Element = doc.getElementById("evidence-change")
-    changeLink.attr("href") shouldBe routes.ChooseEvidenceController.show().url
+    changeLink.attr("href") shouldBe routes.ChooseEvidenceController.show.url
   }
 
   it should "have a back link to the back endpoint" in new Setup {
     val doc: Document =
-      Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show()(FakeRequest())))
+      Jsoup.parse(contentAsString(testDeclarationController(earliestEnglishStartDate).show(FakeRequest())))
     val backLink: Element = doc.getElementById("back-link")
-    backLink.attr("href") shouldBe routes.DeclarationController.back().url
+    backLink.attr("href") shouldBe routes.DeclarationController.back.url
   }
 
   it should "require the user to accept the declaration to continue" in new Setup {
-    val res = testDeclarationController(earliestEnglishStartDate).submit()(FakeRequest())
+    val res = testDeclarationController(earliestEnglishStartDate).submit(FakeRequest())
     status(res) shouldBe BAD_REQUEST
   }
 
@@ -239,7 +239,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.apply[Future, AttachmentException, Unit](Future.successful(Left(NotAllFilesReadyToUpload))))
 
-    val res = testDeclarationController(earliestEnglishStartDate).submit()(
+    val res = testDeclarationController(earliestEnglishStartDate).submit(
       FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) shouldBe BAD_REQUEST
   }
@@ -249,7 +249,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
-    val res = testDeclarationController(earliestEnglishStartDate).submit()(
+    val res = testDeclarationController(earliestEnglishStartDate).submit(
       FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
@@ -271,7 +271,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       declarationView = declarationView,
       linkingRequestSubmittedView = linkingRequestSubmittedView
     )
-    val res = testDeclaration.submit()(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+    val res = testDeclaration.submit(FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
@@ -282,13 +282,13 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
-    val res = testDeclarationController(earliestEnglishStartDate).submit()(
+    val res = testDeclarationController(earliestEnglishStartDate).submit(
       FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
-    val confirmation = testDeclarationController(earliestEnglishStartDate).confirmation()(FakeRequest())
+    val confirmation = testDeclarationController(earliestEnglishStartDate).confirmation(FakeRequest())
 
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
@@ -306,7 +306,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
 
-    val confirmation = testDeclarationController(earliestEnglishStartDate).confirmation()(FakeRequest())
+    val confirmation = testDeclarationController(earliestEnglishStartDate).confirmation(FakeRequest())
 
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
@@ -318,7 +318,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
       .thenReturn(EitherT.rightT[Future, AttachmentException](()))
 
-    val res = testDeclarationController(earliestEnglishStartDate).confirmation()(FakeRequest())
+    val res = testDeclarationController(earliestEnglishStartDate).confirmation(FakeRequest())
 
     status(res) shouldBe OK
     val html = HtmlPage(res)
@@ -328,7 +328,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
 
   "back" should "set 'fromCya' in the session" in new Setup {
     val sessionCaptor: ArgumentCaptor[LinkingSession] = ArgumentCaptor.forClass(classOf[LinkingSession])
-    testDeclarationController(earliestEnglishStartDate).back()(FakeRequest()).futureValue
+    testDeclarationController(earliestEnglishStartDate).back(FakeRequest()).futureValue
     verify(mockSessionRepo).saveOrUpdate[LinkingSession](sessionCaptor.capture())(any(), any())
     sessionCaptor.getValue.fromCya shouldBe Some(false)
   }
@@ -337,7 +337,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     val expectedRedirect: String
 
     lazy val controller: DeclarationController = testDeclarationController(earliestEnglishStartDate)
-    lazy val result: Future[Result] = controller.back()(FakeRequest())
+    lazy val result: Future[Result] = controller.back(FakeRequest())
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result).value shouldBe expectedRedirect
@@ -387,13 +387,13 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     s"back, when the user is a ${relationshipType.name} and the session is missing uploaded evidence" should "redirect to the initial choose evidence page" in new BackLinkTest {
       override lazy val propertyRelationship: Option[CapacityType] = Some(relationshipType)
       override lazy val evidence: UploadEvidenceData = UploadEvidenceData.empty
-      lazy val expectedRedirect: String = routes.ChooseEvidenceController.show().url
+      lazy val expectedRedirect: String = routes.ChooseEvidenceController.show.url
     }
   }
 
   s"back, when the session is missing a relationship capacity" should "redirect to the claim relationship page" in new BackLinkTest {
     override lazy val propertyRelationship: Option[CapacityType] = None
     override lazy val evidence: UploadEvidenceData = uploadRatesBillData
-    lazy val expectedRedirect: String = routes.ClaimPropertyRelationshipController.back().url
+    lazy val expectedRedirect: String = routes.ClaimPropertyRelationshipController.back.url
   }
 }

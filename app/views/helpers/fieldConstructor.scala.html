@@ -38,17 +38,17 @@ Example usage:
 
 <div class="@if(elements.hasErrors) {error} form-group">
 
-    @elements.args.get('_legend) match {
+    @elements.args.get(Symbol("_legend")) match {
      	case Some(true) => {
-     		<fieldset id="@(elements.id)Group" class="@elements.args.get('_fieldsetClass)">
-   				<legend class="@elements.args.get('_labelClass)">
-                    <span class="@elements.args.get('_labelSpanClass) label-span">@elements.label</span>
+     		<fieldset id="@(elements.id)Group" class="@elements.args.get(Symbol("_fieldsetClass"))">
+   				<legend class="@elements.args.get(Symbol("_labelClass"))">
+                    <span class="@elements.args.get(Symbol("_labelSpanClass")) label-span">@elements.label</span>
 
                     @if(elements.hasErrors) {
                             <span class="error-message">@elements.errors.mkString(", ")</span>
                     }
 
-                    @elements.args.get('_optional) match {
+                    @elements.args.get(Symbol("_optional")) match {
                         case Some(true) => { <span class="govuk-visually-hidden">(@messages("label.optional"))</span> }
                         case _ => {}
                     }
@@ -56,22 +56,22 @@ Example usage:
                 </legend>
    		}
 		case _ => {
-			<div id="@elements.id.replace("_","")Group" class="@elements.args.get('_fieldsetClass)">
-                @elements.args.get('_noTopLabel) match {
+			<div id="@elements.id.replace("_","")Group" class="@elements.args.get(Symbol("_fieldsetClass"))">
+                @elements.args.get(Symbol("_noTopLabel")) match {
                     case Some(true) => {
 
                         <p class="error-message" id="@(elements.id)_error">@elements.errors.mkString(", ")</p>
 
                     }
                     case _ => {
-                        <label class="@elements.args.get('_labelClass)" for="@elements.id.replace("_", "")" >
-                            <span class="@elements.args.get('_labelSpanClass) label-span">@elements.label</span>
+                        <label class="@elements.args.get(Symbol("_labelClass"))" for="@elements.id.replace("_", "")" >
+                            <span class="@elements.args.get(Symbol("_labelSpanClass")) label-span">@elements.label</span>
 
                             @if(elements.hasErrors) {
                                 <span class="error-message">@elements.errors.mkString(", ")</span>
                             }
 
-                            @elements.args.get('_optional) match {
+                            @elements.args.get(Symbol("_optional")) match {
                                 case Some(true) => {
                                     <span class="govuk-visually-hidden">(@messages("label.optional"))</span>
                                 }
@@ -83,25 +83,25 @@ Example usage:
 		}
     }
 
-    @elements.args.get('_optional) match {
+    @elements.args.get(Symbol("_optional")) match {
         case Some(true) => { <span class="form-hint">@messages("label.optional")</span> }
         case _ => {}
     }
 
-    @elements.args.get('_nojsText).map { nojsText =>
+    @elements.args.get(Symbol("_nojsText")).map { nojsText =>
             <p class="hidden">@nojsText</p>
     }
 
 
-    @elements.args.get('_helpIndent).map { helpText =>
+    @elements.args.get(Symbol("_helpIndent")).map { helpText =>
             <p class="icon-important">@helpText</p>
     }
-    @elements.args.get('_detailsQuestion) match {
+    @elements.args.get(Symbol("_detailsQuestion")) match {
         case Some(q) => {
             <details>
                 <summary><span class="summary">@q</span></summary>
                 <div class="panel-indent">
-                  @elements.args.get('_detailsAnswer).map { detailsAnswer => @detailsAnswer }
+                  @elements.args.get(Symbol("_detailsAnswer")).map { detailsAnswer => @detailsAnswer }
                 </div>
             </details>
         }
@@ -110,19 +110,19 @@ Example usage:
 
 
 
-    @elements.args.get('_help).map { helpText =>
+    @elements.args.get(Symbol("_help")).map { helpText =>
     		<span class="form-hint">@helpText</span>
     }
 
 
-    @elements.args.get('_pound) match {
+    @elements.args.get(Symbol("_pound")) match {
         case Some(true) => { <span class="pound">£</span> }
         case _ => {}
     }
 
     @elements.input
 
-    @elements.args.get('_characterCount).map { characterCount =>
+    @elements.args.get(Symbol("_characterCount")).map { characterCount =>
 
         <div class="charCount hide-if-no-js">@Html(Messages("copy.character.count", characterCount))</div>
         <div class="charCount-no-js hidden">@Html(Messages("copy.character.count.nojs", characterCount))</div>
@@ -131,7 +131,7 @@ Example usage:
 
 
 
-    @elements.args.get('_add) match {
+    @elements.args.get(Symbol("_add")) match {
         case Some(true) => {
             <a href="#" class="remove" role="button" style="display:none">@messages("label.add.remove")</a>
             <a href="#" class="add" role="button" >@messages("label.add.individual")</a>
@@ -141,7 +141,7 @@ Example usage:
 
 
 
-	@elements.args.get('_legend) match {
+	@elements.args.get(Symbol("_legend")) match {
      	case Some(true) => { </fieldset> }
 		case _ => { </div> }
     }

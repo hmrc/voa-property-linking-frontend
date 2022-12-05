@@ -43,7 +43,7 @@ hasErrors = form.hasErrors) {
         <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
         <p class="govuk-hint">@messages("enrolment.assistant.hint")</p>
         <h2 class="govuk-heading-m">@messages("enrolment.assistant.organisation.details.title")</h2>
-        @formWithCSRF(controllers.registration.routes.RegistrationController.submitAdminToExistingOrganisation()) {
+        @formWithCSRF(controllers.registration.routes.RegistrationController.submitAdminToExistingOrganisation) {
         <table class="govuk-table">
             <tbody class="govuk-table__body">
             <tr class="govuk-table__row">

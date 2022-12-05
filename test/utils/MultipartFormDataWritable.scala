@@ -17,8 +17,6 @@
 package utils
 //taken from: http://tech.fongmun.com/post/125479939452/test-multipartformdata-in-play
 
-import java.nio.file.Files
-
 import play.api.http.{HeaderNames, Writeable}
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData.FilePart

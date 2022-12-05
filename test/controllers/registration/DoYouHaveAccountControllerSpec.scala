@@ -25,7 +25,7 @@ class DoYouHaveAccountControllerSpec extends VoaPropertyLinkingSpec with Mockito
   implicit val request = FakeRequest()
 
   private lazy val loginPage = controllers.routes.Login.show.url
-  private lazy val accountTypePage = controllers.registration.routes.AccountTypeController.show().url
+  private lazy val accountTypePage = controllers.registration.routes.AccountTypeController.show.url
 
   object testDoYouHaveAccountController extends DoYouHaveAccountController(mockCustomErrorHandler, doYouHaveAccountView)
 

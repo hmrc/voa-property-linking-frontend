@@ -64,7 +64,7 @@ class RegistrationController @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController with Logging {
 
-  def show(): Action[AnyContent] = (ggAuthenticated andThen sessionUserDetailsAction).async { implicit request =>
+  def show: Action[AnyContent] = (ggAuthenticated andThen sessionUserDetailsAction).async { implicit request =>
     individualAccounts.withExternalId(request.externalId).flatMap {
       case Some(_) =>
         Future.successful(Redirect(config.dashboardUrl("home")))
@@ -85,7 +85,7 @@ class RegistrationController @Inject()(
     }
   }
 
-  def submitIndividual(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+  def submitIndividual: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     AdminUser.individual
       .bindFromRequest()
       .fold(
@@ -97,7 +97,7 @@ class RegistrationController @Inject()(
       )
   }
 
-  def submitOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+  def submitOrganisation: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     AdminUser.organisation
       .bindFromRequest()
       .fold(
@@ -109,7 +109,7 @@ class RegistrationController @Inject()(
       )
   }
 
-  def submitAdminToExistingOrganisation(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+  def submitAdminToExistingOrganisation: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     AdminInExistingOrganisationUser.organisation
       .bindFromRequest()
       .fold(
@@ -156,7 +156,7 @@ class RegistrationController @Inject()(
       }
     }
 
-  def submitAssistant(): Action[AnyContent] = ggAuthenticated.async { implicit request =>
+  def submitAssistant: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     AssistantUser.assistant
       .bindFromRequest()
       .fold(

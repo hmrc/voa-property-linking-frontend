@@ -41,7 +41,7 @@ hasErrors = form.hasErrors) {
 
             <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
 
-            @formWithCSRF(controllers.registration.routes.RegistrationController.submitIndividual()) {
+            @formWithCSRF(controllers.registration.routes.RegistrationController.submitIndividual) {
 
             @govukInput(Input(
                 id = "firstName",

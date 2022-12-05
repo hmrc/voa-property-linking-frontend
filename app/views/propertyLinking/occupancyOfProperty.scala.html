@@ -70,7 +70,7 @@
     <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 id="page-header" class="govuk-heading-l">@messages(s"propertyOccupancy.title$clientSuffix")</h1>
 
-    @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOccupancyController.submitOccupancy()) {
+    @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOccupancyController.submitOccupancy) {
 
         @govukRadios(Radios(
             name = "stillOccupied",

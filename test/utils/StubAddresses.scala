@@ -31,7 +31,7 @@ import scala.util.Random
 object StubAddresses extends Addresses(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
   val noResultPostcode = "NO RESULT"
 
-  override def create(address: Address)(implicit hc: HeaderCarrier) = Future.successful(Random.nextInt)
+  override def create(address: Address)(implicit hc: HeaderCarrier) = Future.successful(Random.nextInt())
 
   override def findByPostcode(postcode: String)(implicit hc: HeaderCarrier): Future[Seq[DetailedAddress]] =
     if (postcode.contentEquals(noResultPostcode)) {

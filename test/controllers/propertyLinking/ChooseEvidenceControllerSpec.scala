@@ -181,7 +181,7 @@ class ChooseEvidenceControllerSpec extends VoaPropertyLinkingSpec {
   it should "have a back link to the property occupancy page" in {
     val doc: Document = Jsoup.parse(contentAsString(testChooseEvidenceController().show(request)))
     val backLink = doc.getElementById("back-link")
-    backLink.attr("href") shouldBe routes.ClaimPropertyOccupancyController.showOccupancy().url
+    backLink.attr("href") shouldBe routes.ClaimPropertyOccupancyController.showOccupancy.url
   }
 
 // //  keeping this because it will need to be re-implemented after VTCCA-5189 is complete

@@ -75,11 +75,9 @@ hasErrors = form.hasErrors) {
             </tbody>
         </table>
 
-
-        @formWithCSRF(controllers.registration.routes.RegistrationController.submitAssistant()) {
+        @formWithCSRF(controllers.registration.routes.RegistrationController.submitAssistant) {
 
         <h2 class="govuk-heading-m">@messages("label.your.details")</h2>
-
 
         @govukInput(Input(
             id = "firstName",
@@ -101,14 +99,11 @@ hasErrors = form.hasErrors) {
             classes = "govuk-input govuk-!-width-one-third"
         ))
 
-
         @govukButton(Button(
             content = Text(messages("label.confirm")),
             attributes = Map("id" -> "save-and-continue")
         ))
 
         }
-
-
 
 }

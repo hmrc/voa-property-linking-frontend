@@ -73,7 +73,7 @@ class ClaimPropertyRelationshipController @Inject()(
     Redirect(s"${config.vmvUrl}/$uri")
   }
 
-  def checkPropertyLinks() = authenticatedAction.async { implicit request =>
+  def checkPropertyLinks = authenticatedAction.async { implicit request =>
     val pLinks = propertyLinksConnector
       .getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(), PaginationParams(1, 20, false))
 
@@ -86,7 +86,7 @@ class ClaimPropertyRelationshipController @Inject()(
     }
   }
 
-  def backToClaimPropertyStart(): Action[AnyContent] =
+  def backToClaimPropertyStart: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession) { implicit request =>
       Ok(
         claimPropertyStartView(
@@ -118,7 +118,7 @@ class ClaimPropertyRelationshipController @Inject()(
           ))
     }
 
-  def showRelationship(): Action[AnyContent] =
+  def showRelationship: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession) { implicit request =>
       Ok(
         relationshipToPropertyView(
@@ -128,7 +128,7 @@ class ClaimPropertyRelationshipController @Inject()(
             request.ses.uarn,
             request.ses.localAuthorityReference),
           clientDetails = request.ses.clientDetails,
-          controllers.propertyLinking.routes.ClaimPropertyRelationshipController.backToClaimPropertyStart().url
+          controllers.propertyLinking.routes.ClaimPropertyRelationshipController.backToClaimPropertyStart.url
         ))
     }
 
@@ -144,7 +144,7 @@ class ClaimPropertyRelationshipController @Inject()(
       ))
   }
 
-  def submitRelationship(): Action[AnyContent] =
+  def submitRelationship: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       relationshipForm
         .bindFromRequest()
@@ -166,8 +166,8 @@ class ClaimPropertyRelationshipController @Inject()(
             sessionRepository
               .saveOrUpdate[LinkingSession](request.ses.copy(propertyRelationship = Some(formData)))
               .map { _ =>
-                if (request.ses.fromCya.contains(true)) Redirect(propertyLinking.routes.DeclarationController.show())
-                else Redirect(propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership())
+                if (request.ses.fromCya.contains(true)) Redirect(propertyLinking.routes.DeclarationController.show)
+                else Redirect(propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership)
             }
         )
     }
@@ -182,8 +182,8 @@ class ClaimPropertyRelationshipController @Inject()(
   }
 
   private def getBackLink(implicit request: LinkingSessionRequest[_]): String =
-    if (request.ses.fromCya.contains(true)) propertyLinking.routes.DeclarationController.show().url
-    else controllers.propertyLinking.routes.ClaimPropertyRelationshipController.backToClaimPropertyStart().url
+    if (request.ses.fromCya.contains(true)) propertyLinking.routes.DeclarationController.show.url
+    else controllers.propertyLinking.routes.ClaimPropertyRelationshipController.backToClaimPropertyStart.url
 
   private def initialiseSession(
         uarn: Long,

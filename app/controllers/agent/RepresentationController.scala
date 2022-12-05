@@ -50,7 +50,7 @@ class RepresentationController @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController with ValidPagination {
 
-  def viewClientProperties(): Action[AnyContent] = authenticated.asAgent { _ =>
+  def viewClientProperties: Action[AnyContent] = authenticated.asAgent { _ =>
     Future.successful(Redirect(config.dashboardUrl("client-properties")))
   }
 

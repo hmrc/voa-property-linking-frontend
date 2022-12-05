@@ -83,7 +83,7 @@ class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
       val result: Either[AttachmentException, List[Attachment]] =
         businessRatesChallengeService.submit("PL-123", List(FILE_REFERENCE)).value.futureValue
 
-      result shouldBe 'right
+      result shouldBe Symbol("right")
 
       verify(businessRatesAttachmentConnector).submitFile(any(), any())(any[HeaderCarrier])
     }

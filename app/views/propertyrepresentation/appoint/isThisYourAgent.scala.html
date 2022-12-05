@@ -40,7 +40,7 @@
        @agentDetails.name <br/> @Formatters.capitalisedAddress(agentDetails.address)
     </div>
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected()) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected) {
         @govukRadios(Radios(
             idPrefix = Some("isThisYourAgent"),
             name = "isThisYourAgent",

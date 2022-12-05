@@ -42,11 +42,11 @@ class AccountTypeController @Inject()(
   def continue(accountType: String): Map[String, Seq[String]] =
     Map("accountType" -> Seq(accountType), "continue" -> Seq(config.dashboardUrl("home")), "origin" -> Seq("voa"))
 
-  def show(): Action[AnyContent] = Action { implicit request =>
+  def show: Action[AnyContent] = Action { implicit request =>
     Ok(accountTypeView(AccountTypeIndividual.form))
   }
 
-  def submit(): Action[AnyContent] = Action { implicit request =>
+  def submit: Action[AnyContent] = Action { implicit request =>
     AccountTypeIndividual.form
       .bindFromRequest()
       .fold(

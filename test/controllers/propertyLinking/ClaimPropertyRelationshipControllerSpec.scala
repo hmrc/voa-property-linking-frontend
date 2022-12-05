@@ -106,9 +106,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
     html.html
       .getElementById("back-link")
-      .attr("href") shouldBe controllers.propertyLinking.routes.ClaimPropertyRelationshipController
-      .backToClaimPropertyStart()
-      .url
+      .attr("href") shouldBe controllers.propertyLinking.routes.ClaimPropertyRelationshipController.backToClaimPropertyStart.url
 
   }
 
@@ -176,7 +174,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
         FakeRequest().withFormUrlEncodedBody("capacity" -> capacity, "uarn" -> "1")
       )
       status(result) shouldBe SEE_OTHER
-      redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+      redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
     }
   }
 
@@ -184,14 +182,14 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     val result: Future[Result] = testClaimPropertyFromCya.back(FakeRequest())
     status(result) shouldBe OK
     val document: Document = Jsoup.parse(contentAsString(result))
-    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show.url
   }
 
   it should "have a back link to the CYA page when coming from CYA after an invalid submission" in new Setup {
     val result: Future[Result] = testClaimPropertyFromCya.submitRelationship()(FakeRequest())
     status(result) shouldBe BAD_REQUEST
     val document: Document = Jsoup.parse(contentAsString(result))
-    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show.url
   }
 
   "show" should "redirect the user to vmv search for property page" in new Setup {

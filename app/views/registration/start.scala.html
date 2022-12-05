@@ -41,7 +41,7 @@
     @govukButton(Button(
         isStartButton = true,
         content = Text(messages("start.registration.button")),
-        href = Some(controllers.registration.routes.DoYouHaveAccountController.show().url),
+        href = Some(controllers.registration.routes.DoYouHaveAccountController.show.url),
         attributes = Map("id" -> "startButton")
     ))
     <h4 class="govuk-label govuk-label--m">@messages("start.registration.h4")</h4>
