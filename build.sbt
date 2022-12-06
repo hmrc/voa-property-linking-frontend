@@ -52,7 +52,7 @@ lazy val microservice = Project(appName, file("."))
     IntegrationTest / testGrouping := oneForkedJvmPerTest((IntegrationTest / definedTests).value),
     IntegrationTest / parallelExecution := false
   )
-  .settings(scalaVersion := "2.13.8")
+  .settings(scalaVersion := "2.13.10")
   .settings(resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/")
   .settings(
     TwirlKeys.templateImports ++= Seq(
