@@ -51,17 +51,4 @@ object MultipartFormDataWritable {
     Codec.utf_8.encode(
       s"--$boundary\r\n${HeaderNames.CONTENT_DISPOSITION}: form-data; name=$name; filename=$filename\r\n$contentType\r\n")
   }
-
-  val singleton = Writeable[MultipartFormData[TemporaryFile]](
-    transform = { form: MultipartFormData[TemporaryFile] =>
-      formatDataParts(form.dataParts) ++
-        Codec.utf_8.encode(s"--$boundary--")
-    },
-    contentType = Some(s"multipart/form-data; boundary=$boundary")
-  )
-
-  implicit val anyContentAsMultipartFormWritable: Writeable[AnyContentAsMultipartFormData] = {
-    MultipartFormDataWritable.singleton.map(_.mfd)
-  }
-
 }
