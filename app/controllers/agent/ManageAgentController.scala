@@ -109,11 +109,10 @@ class ManageAgentController @Inject()(
   def startManageAgent(agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
     for {
       organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
-      agentToBeManagedOpt: Option[AgentSummary] = organisationsAgents.agents.size match {
-        case 1 => Some(organisationsAgents.agents.head)
-        case size if size > 1 =>
-          organisationsAgents.agents.find(a => a.representativeCode == agentCode).map(agent => agent)
-        case _ => None
+      agentToBeManagedOpt: Option[AgentSummary] = organisationsAgents.agents match {
+        case agent :: Nil => Some(agent)
+        case Nil          => None
+        case agents       => agents.find(a => a.representativeCode == agentCode)
       }
       _ <- agentToBeManagedOpt match {
             case None        => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
