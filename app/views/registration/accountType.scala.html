@@ -27,14 +27,14 @@
 
 @mainLayout(
     pageTitle = messages("accountType.heading"),
-    backUri = Some(controllers.registration.routes.DoYouHaveAccountController.show().url),
+    backUri = Some(controllers.registration.routes.DoYouHaveAccountController.show.url),
     mainClass = Some("govuk-grid-column-two-thirds"),
     hasErrors = form.hasErrors
 
 ){
     @formErrorSummary(form)
 
-    @formWithCSRF(action = controllers.registration.routes.AccountTypeController.submit()){
+    @formWithCSRF(action = controllers.registration.routes.AccountTypeController.submit){
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(

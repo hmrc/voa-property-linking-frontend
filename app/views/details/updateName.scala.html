@@ -35,7 +35,7 @@
 
     <h1 class="govuk-heading-l">@messages("updateName.title")</h1>
 
-    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateName()) {
+    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateName) {
 
         @govukInput(Input(
             value = model.form("firstName").value.orElse(Some(model.currentDetails.firstName)),

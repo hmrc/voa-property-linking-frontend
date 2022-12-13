@@ -130,7 +130,7 @@ class RegistrationService @Inject()(
       logger.info(s"New ${userDetails.affinityGroup} ${userDetails.credentialRole} successfully registered for VOA")
     } else {
       logger.warn(
-        "${userDetails.affinityGroup} ${userDetails.credentialRole} registered for VOA although enrolment for CCA failed.")
+        s"${userDetails.affinityGroup} ${userDetails.credentialRole} registered for VOA although enrolment for CCA failed.")
     }
     emailService
       .sendNewRegistrationSuccess(userDetails.email, detailedIndividualAccount, groupAccount, affinityGroupOpt)

@@ -26,6 +26,6 @@ class KeepAliveController @Inject()(
       override val controllerComponents: MessagesControllerComponents
 ) extends FrontendBaseController {
 
-  def keepAlive(): Action[AnyContent] = authenticatedAction(Ok(""))
+  def keepAlive: Action[AnyContent] = authenticatedAction(Ok(""))
 
 }

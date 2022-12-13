@@ -37,7 +37,7 @@
 
     <h1 class="govuk-heading-l">@messages("propertyRepresentation.oneProperty.question", agentName)</h1>
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitOneProperty()) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitOneProperty) {
         @govukRadios(Radios(
             idPrefix = Some("oneProperty"),
             name = "oneProperty",

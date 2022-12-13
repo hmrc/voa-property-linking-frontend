@@ -45,7 +45,7 @@
             controllers.detailedvaluationrequest.routes.DvrController.myOrganisationStartCheck(model.submissionId,model.valuationId, model.uarn)
         } else {
             controllers.detailedvaluationrequest.routes.DvrController.myClientsStartCheck(model.submissionId,model.valuationId, model.uarn)
-        } , 'id -> "checkType-form") {
+        } , Symbol("id") -> "checkType-form") {
 
             @govukRadios(Radios(
                 fieldset = Some(Fieldset(

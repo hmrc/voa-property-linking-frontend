@@ -42,5 +42,5 @@ object StubPropertyRepresentationConnector
   def reset(): Unit =
     stubbedValidCodes = Nil
 
-  override def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier) = Future.successful(Unit)
+  override def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier) = Future.successful()
 }

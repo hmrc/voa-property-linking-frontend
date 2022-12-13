@@ -58,7 +58,7 @@
         summary = Text(messages(s"declareCapacity.details.notOwner$clientSuffix")),
         content = HtmlContent(Html(Messages(s"declareCapacity.details.notOwner.text$clientSuffix")))))
 
-    @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyRelationshipController.submitRelationship()) {
+    @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyRelationshipController.submitRelationship) {
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(

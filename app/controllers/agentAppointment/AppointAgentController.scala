@@ -211,7 +211,7 @@ class AppointAgentController @Inject()(
       }
     }
 
-  def appointAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
+  def appointAgentSummary: Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentBulkActionForm
       .bindFromRequest()
       .fold(
@@ -383,7 +383,7 @@ class AppointAgentController @Inject()(
         )
     }
 
-  def revokeAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
+  def revokeAgentSummary: Action[AnyContent] = authenticated.async { implicit request =>
     revokeAgentBulkActionForm
       .bindFromRequest()
       .fold(

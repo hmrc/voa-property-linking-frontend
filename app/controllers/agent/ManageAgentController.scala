@@ -58,7 +58,7 @@ class ManageAgentController @Inject()(
 
   val logger = Logger(this.getClass.getName)
 
-  def showAgents(): Action[AnyContent] = authenticated.async { implicit request =>
+  def showAgents: Action[AnyContent] = authenticated.async { implicit request =>
     for {
       organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
       propertyLinksCount  <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
@@ -194,73 +194,81 @@ class ManageAgentController @Inject()(
     }
 
   def submitManageAgent(agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
-    ManageAgentRequest.submitManageAgentRequest.bindFromRequest.fold(
-      errors => {
-        getManageAgentView(Some(agentCode), errors).map {
-          case None       => NotFound(errorHandler.notFoundTemplate)
-          case Some(page) => BadRequest(page)
+    ManageAgentRequest.submitManageAgentRequest
+      .bindFromRequest()
+      .fold(
+        errors => {
+          getManageAgentView(Some(agentCode), errors).map {
+            case None       => NotFound(errorHandler.notFoundTemplate)
+            case Some(page) => BadRequest(page)
+          }
+        }, { success =>
+          success.manageAgentOption match {
+            case AssignToSomeProperties => Future.successful(joinOldAgentAppointJourney(agentCode))
+            case AssignToAllProperties | AssignToYourProperty =>
+              agentRelationshipService
+                .getMyOrganisationPropertyLinksCount()
+                .map(
+                  linkCount =>
+                    Ok(
+                      addAgentToAllPropertiesView(
+                        submitAgentAppointmentRequest,
+                        success.agentName,
+                        agentCode,
+                        multiplePropertyLinks = linkCount > 1)))
+            case UnassignFromAllProperties =>
+              Future.successful(
+                Ok(unassignAgentFromAllPropertiesView(submitAgentAppointmentRequest, success.agentName, agentCode)))
+            case UnassignFromSomeProperties => Future.successful(joinOldAgentRevokeJourney(agentCode))
+            case RemoveFromYourAccount =>
+              Future.successful(
+                Ok(
+                  removeAgentFromOrganisationView(
+                    submitAgentAppointmentRequest,
+                    agentCode,
+                    success.agentName,
+                    controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url)))
+          }
         }
-      }, { success =>
-        success.manageAgentOption match {
-          case AssignToSomeProperties => Future.successful(joinOldAgentAppointJourney(agentCode))
-          case AssignToAllProperties | AssignToYourProperty =>
-            agentRelationshipService
-              .getMyOrganisationPropertyLinksCount()
-              .map(
-                linkCount =>
-                  Ok(
-                    addAgentToAllPropertiesView(
-                      submitAgentAppointmentRequest,
-                      success.agentName,
-                      agentCode,
-                      multiplePropertyLinks = linkCount > 1)))
-          case UnassignFromAllProperties =>
-            Future.successful(
-              Ok(unassignAgentFromAllPropertiesView(submitAgentAppointmentRequest, success.agentName, agentCode)))
-          case UnassignFromSomeProperties => Future.successful(joinOldAgentRevokeJourney(agentCode))
-          case RemoveFromYourAccount =>
-            Future.successful(
-              Ok(
-                removeAgentFromOrganisationView(
-                  submitAgentAppointmentRequest,
-                  agentCode,
-                  success.agentName,
-                  controllers.agent.routes.ManageAgentController.manageAgent(Some(agentCode)).url)))
-        }
-      }
-    )
+      )
   }
 
   def assignAgentToAll(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
     implicit request =>
-      submitAgentAppointmentRequest.bindFromRequest.fold(
-        errors => {
-          agentRelationshipService
-            .getMyOrganisationPropertyLinksCount()
-            .map(linkCount =>
-              BadRequest(
-                addAgentToAllPropertiesView(errors, agentName, agentCode, multiplePropertyLinks = linkCount > 1)))
-        }, { success =>
-          for {
-            _         <- agentRelationshipService.assignAgent(success)
-            linkCount <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
-          } yield Ok(confirmAddAgentToAllPropertiesView(agentName, multiplePropertyLinks = linkCount > 1))
-        }
-      )
+      submitAgentAppointmentRequest
+        .bindFromRequest()
+        .fold(
+          errors => {
+            agentRelationshipService
+              .getMyOrganisationPropertyLinksCount()
+              .map(linkCount =>
+                BadRequest(
+                  addAgentToAllPropertiesView(errors, agentName, agentCode, multiplePropertyLinks = linkCount > 1)))
+          }, { success =>
+            for {
+              _         <- agentRelationshipService.assignAgent(success)
+              linkCount <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
+            } yield Ok(confirmAddAgentToAllPropertiesView(agentName, multiplePropertyLinks = linkCount > 1))
+          }
+        )
   }
 
   def unassignAgentFromAll(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
     implicit request =>
-      submitAgentAppointmentRequest.bindFromRequest.fold(
-        errors => {
-          Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
-        }, { success =>
-          agentRelationshipService.unassignAgent(success).map { _ =>
-            Redirect(
-              controllers.agent.routes.ManageAgentController.confirmationUnassignAgentFromAll(agentCode, agentName).url)
+      submitAgentAppointmentRequest
+        .bindFromRequest()
+        .fold(
+          errors => {
+            Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
+          }, { success =>
+            agentRelationshipService.unassignAgent(success).map { _ =>
+              Redirect(
+                controllers.agent.routes.ManageAgentController
+                  .confirmationUnassignAgentFromAll(agentCode, agentName)
+                  .url)
+            }
           }
-        }
-      )
+        )
   }
 
   def confirmationUnassignAgentFromAll(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
@@ -283,15 +291,17 @@ class ManageAgentController @Inject()(
 
   def removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String): Action[AnyContent] =
     authenticated.async { implicit request =>
-      submitAgentAppointmentRequest.bindFromRequest.fold(
-        errors => {
-          Future.successful(BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, backLink)))
-        }, { success =>
-          agentRelationshipService
-            .removeAgentFromOrganisation(success)
-            .map(_ => Ok(confirmRemoveAgentFromOrganisationView(agentName)))
-        }
-      )
+      submitAgentAppointmentRequest
+        .bindFromRequest()
+        .fold(
+          errors => {
+            Future.successful(BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, backLink)))
+          }, { success =>
+            agentRelationshipService
+              .removeAgentFromOrganisation(success)
+              .map(_ => Ok(confirmRemoveAgentFromOrganisationView(agentName)))
+          }
+        )
     }
 
   private def calculateBackLink(organisationsAgents: AgentList, agentCode: Long) =

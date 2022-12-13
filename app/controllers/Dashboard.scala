@@ -40,9 +40,9 @@ class Dashboard @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def home() = authenticated(Redirect(config.dashboardUrl("home")))
+  def home = authenticated(Redirect(config.dashboardUrl("home")))
 
-  def yourDetails() = authenticated(Redirect(config.dashboardUrl("your-details")))
+  def yourDetails = authenticated(Redirect(config.dashboardUrl("your-details")))
 
   def manageProperties(clientDetails: Option[ClientDetails] = None) = authenticated {
     clientDetails match {
@@ -53,9 +53,9 @@ class Dashboard @Inject()(
     }
   }
 
-  def manageAgents() = authenticated(Redirect(config.dashboardUrl("your-agents")))
+  def manageAgents = authenticated(Redirect(config.dashboardUrl("your-agents")))
 
-  def viewMessages() = authenticated(Redirect(config.dashboardUrl("inbox")))
+  def viewMessages = authenticated(Redirect(config.dashboardUrl("inbox")))
 
   def viewMessage(messageId: String) = authenticated(Redirect(config.dashboardUrl("inbox")))
 }

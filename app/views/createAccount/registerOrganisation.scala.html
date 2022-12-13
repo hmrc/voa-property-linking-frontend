@@ -46,7 +46,7 @@ hasErrors = form.hasErrors) {
             ))
 
 
-            @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisation()) {
+            @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisation) {
 
             @govukInput(Input(
                 id = "firstName",

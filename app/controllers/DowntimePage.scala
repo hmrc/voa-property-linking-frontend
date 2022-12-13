@@ -31,6 +31,6 @@ class DowntimePage @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def plannedImprovements(): Action[AnyContent] = Action(implicit request => Ok(downtimePageView()))
+  def plannedImprovements: Action[AnyContent] = Action(implicit request => Ok(downtimePageView()))
 
 }

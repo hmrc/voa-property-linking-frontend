@@ -64,7 +64,7 @@ class TestController @Inject()(
     }))
   }
 
-  def deEnrol() = authenticated.async { implicit request =>
+  def deEnrol = authenticated.async { implicit request =>
     testService
       .deEnrolUser(request.individualAccount.individualId)
       .map {

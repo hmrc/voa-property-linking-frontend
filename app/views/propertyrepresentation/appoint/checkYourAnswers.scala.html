@@ -43,8 +43,8 @@
 }
 @backLink = @{
     if(data.singleProperty)
-        controllers.agentAppointment.routes.AddAgentController.oneProperty().url
-    else controllers.agentAppointment.routes.AddAgentController.multipleProperties().url
+        controllers.agentAppointment.routes.AddAgentController.oneProperty.url
+    else controllers.agentAppointment.routes.AddAgentController.multipleProperties.url
 }
 
 @mainLayout(
@@ -83,7 +83,7 @@
         firstCellIsHeader = false
     ))
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.appointAgent()) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.appointAgent) {
         <input type="hidden" name="agentCode" value="@data.agentCode">
         <input type="hidden" name="scope" value="@appointmentScope">
 
