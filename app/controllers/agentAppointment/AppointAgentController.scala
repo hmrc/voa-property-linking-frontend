@@ -27,7 +27,7 @@ import controllers._
 import form.FormValidation.nonEmptyList
 import models.GroupAccount.AgentGroupAccount
 import models._
-import models.propertyrepresentation.{AppointAgentToSomeSession, FilterAppointProperties, FilterRevokePropertiesSessionData, RevokeAgentFromSomeSession}
+import models.propertyrepresentation.{AppointAgentToSomePropertiesSession, FilterAppointProperties, FilterRevokePropertiesSessionData, RevokeAgentFromSomePropertiesSession}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi._
 import play.api.Logger
@@ -120,7 +120,7 @@ class AppointAgentController @Inject()(
         agentAppointed: Option[String],
         backLink: String
   ): Action[AnyContent] = authenticated.async { implicit request =>
-    appointAgentPropertiesSession.get[AppointAgentToSomeSession].flatMap {
+    appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].flatMap {
       case Some(sessionData) =>
         searchForAppointableProperties(
           pagination,
@@ -155,7 +155,7 @@ class AppointAgentController @Inject()(
         implicit request: AuthenticatedRequest[_],
         hc: HeaderCarrier) =
     for {
-      sessionDataOpt    <- appointAgentPropertiesSession.get[AppointAgentToSomeSession]
+      sessionDataOpt    <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
       searchParams = searchParamsOpt match {
         case Some(params) => params
@@ -185,8 +185,8 @@ class AppointAgentController @Inject()(
         agent = searchParams.agent,
         sortOrder = searchParams.sortorder
       )
-      _ <- appointAgentPropertiesSession.saveOrUpdate[AppointAgentToSomeSession](
-            sessionDataOpt.fold(AppointAgentToSomeSession(filters = searchFilters))(data =>
+      _ <- appointAgentPropertiesSession.saveOrUpdate[AppointAgentToSomePropertiesSession](
+            sessionDataOpt.fold(AppointAgentToSomePropertiesSession(filters = searchFilters))(data =>
               data.copy(filters = searchFilters)))
       _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
     } yield {
@@ -214,8 +214,8 @@ class AppointAgentController @Inject()(
     }
 
   def confirmAppointAgentToSome(): Action[AnyContent] = authenticated.async { implicit request =>
-    appointAgentPropertiesSession.get[AppointAgentToSomeSession].map {
-      case Some(AppointAgentToSomeSession(Some(agent), _)) =>
+    appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].map {
+      case Some(AppointAgentToSomePropertiesSession(Some(agent), _)) =>
         Ok(appointAgentSummaryView(action = agent, backLinkUrl = agent.backLinkUrl))
       case _ => NotFound(errorHandler.notFoundTemplate)
     }
@@ -231,15 +231,15 @@ class AppointAgentController @Inject()(
             case Some(group) =>
               (
                 for {
-                  sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomeSession]
+                  sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
                   _ <- agentRelationshipService
                         .createAndSubmitAgentRepRequest(
                           pLinkIds = action.propertyLinkIds,
                           agentCode = action.agentCode
                         )
-                  _ <- appointAgentPropertiesSession.saveOrUpdate[AppointAgentToSomeSession](
-                        sessionDataOpt.fold(AppointAgentToSomeSession(agentAppointAction = Some(action)))(data =>
-                          data.copy(agentAppointAction = Some(action))))
+                  _ <- appointAgentPropertiesSession.saveOrUpdate[AppointAgentToSomePropertiesSession](
+                        sessionDataOpt.fold(AppointAgentToSomePropertiesSession(agentAppointAction = Some(action)))(
+                          data => data.copy(agentAppointAction = Some(action))))
                 } yield {
                   Redirect(controllers.agentAppointment.routes.AppointAgentController.confirmAppointAgentToSome())
                 }
@@ -314,7 +314,7 @@ class AppointAgentController @Inject()(
 
   def sortRevokePropertiesByAddress(pagination: PaginationParameters, agentCode: Long): Action[AnyContent] =
     authenticated.async { implicit request =>
-      revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomeSession].flatMap { data =>
+      revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession].flatMap { data =>
         searchPropertiesForRevoke(
           pagination,
           agentCode,
@@ -341,7 +341,7 @@ class AppointAgentController @Inject()(
     accounts.withAgentCode(agentCode.toString).flatMap {
       case Some(group) =>
         for {
-          sessionDataOpt <- revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomeSession]
+          sessionDataOpt <- revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession]
           searchParams = searchParamsOpt match {
             case Some(params) => params
             case None =>
@@ -362,8 +362,8 @@ class AppointAgentController @Inject()(
           searchFilters = FilterRevokePropertiesSessionData(
             address = searchParams.address,
             sortOrder = searchParams.sortorder)
-          _ <- revokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomeSession](
-                sessionDataOpt.fold(RevokeAgentFromSomeSession(filters = searchFilters))(data =>
+          _ <- revokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](
+                sessionDataOpt.fold(RevokeAgentFromSomePropertiesSession(filters = searchFilters))(data =>
                   data.copy(filters = searchFilters)))
           _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
         } yield {
@@ -395,8 +395,8 @@ class AppointAgentController @Inject()(
     }
 
   def confirmRevokeAgentFromSome(): Action[AnyContent] = authenticated.async { implicit request =>
-    revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomeSession].map {
-      case Some(RevokeAgentFromSomeSession(Some(agent), _)) =>
+    revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession].map {
+      case Some(RevokeAgentFromSomePropertiesSession(Some(agent), _)) =>
         Ok(revokeAgentSummaryView(action = agent, agentOrganisation = agent.name))
       case _ => NotFound(errorHandler.notFoundTemplate)
     }
@@ -453,13 +453,13 @@ class AppointAgentController @Inject()(
             case Some(group) =>
               (
                 for {
-                  sessionDataOpt <- revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomeSession]
+                  sessionDataOpt <- revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession]
                   _ <- agentRelationshipService
                         .createAndSubmitAgentRevokeRequest(
                           pLinkIds = action.propertyLinkIds,
                           agentCode = action.agentCode)
-                  _ <- revokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomeSession](
-                        sessionDataOpt.fold(RevokeAgentFromSomeSession(Some(action)))(data =>
+                  _ <- revokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](
+                        sessionDataOpt.fold(RevokeAgentFromSomePropertiesSession(Some(action)))(data =>
                           data.copy(agentRevokeAction = Some(action))))
                 } yield {
                   Redirect(controllers.agentAppointment.routes.AppointAgentController.confirmRevokeAgentFromSome())

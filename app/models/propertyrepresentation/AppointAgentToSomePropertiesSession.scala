@@ -19,11 +19,11 @@ package models.propertyrepresentation
 import models.AgentAppointBulkAction
 import play.api.libs.json.{Json, OFormat}
 
-case class AppointAgentToSomeSession(
+case class AppointAgentToSomePropertiesSession(
       agentAppointAction: Option[AgentAppointBulkAction] = None,
       filters: FilterAppointProperties = FilterAppointProperties(None, None)
 )
 
-object AppointAgentToSomeSession {
-  implicit val format: OFormat[AppointAgentToSomeSession] = Json.format
+object AppointAgentToSomePropertiesSession {
+  implicit val format: OFormat[AppointAgentToSomePropertiesSession] = Json.format
 }

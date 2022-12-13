@@ -19,11 +19,11 @@ package models.propertyrepresentation
 import models.AgentRevokeBulkAction
 import play.api.libs.json.{Json, OFormat}
 
-case class RevokeAgentFromSomeSession(
+case class RevokeAgentFromSomePropertiesSession(
       agentRevokeAction: Option[AgentRevokeBulkAction] = None,
       filters: FilterRevokePropertiesSessionData = FilterRevokePropertiesSessionData(None)
 )
 
-object RevokeAgentFromSomeSession {
-  implicit val format: OFormat[RevokeAgentFromSomeSession] = Json.format
+object RevokeAgentFromSomePropertiesSession {
+  implicit val format: OFormat[RevokeAgentFromSomePropertiesSession] = Json.format
 }
