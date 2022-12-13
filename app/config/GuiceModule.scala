@@ -59,6 +59,9 @@ class GuiceModule(
     bind(classOf[SessionRepo])
       .annotatedWith(Names.named("appointAgentPropertiesSession"))
       .to(classOf[AppointAgentPropertiesSessionRepository])
+    bind(classOf[SessionRepo])
+      .annotatedWith(Names.named("manageAgent"))
+      .to(classOf[ManageAgentSessionRepository])
     bind(classOf[ManageDetails]).to(classOf[ManageVoaDetails])
     bind(classOf[Clock]).toInstance(Clock.systemUTC())
 

@@ -336,13 +336,20 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     page.getElementById("manage-property-choice").text() shouldBe "No properties"
   }
 
-  "appointAgent" should "return Ok for valid appointmentChange" in {
+  "appointAgent" should "return 303 SEE OTHER and display success page" in {
     when(mockAgentRelationshipService.assignAgent(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.appointAgent()(
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> "123456", "scope" -> "ALL_PROPERTIES"))
+
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/confirm-appoint-agent")
+  }
+
+  "confirmAppointAgent" should "return Ok for valid appointmentChange" in {
+    val res = testController.confirmAppointAgent()(FakeRequest())
 
     status(res) shouldBe OK
     verifyPageHeading(res, "What happens next", "govuk-heading-m")

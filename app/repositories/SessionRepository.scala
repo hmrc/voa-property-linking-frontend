@@ -62,6 +62,10 @@ class AppointAgentPropertiesSessionRepository @Inject()(mongo: MongoComponent)(
 class AssessmentsPageSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("assessmentPage", mongo)
 
+@Singleton
+class ManageAgentSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
+    extends SessionRepository("manageAgent", mongo)
+
 abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent)(
       implicit executionContext: ExecutionContext)
     extends PlayMongoRepository[SessionData](

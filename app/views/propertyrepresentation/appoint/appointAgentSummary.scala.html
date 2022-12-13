@@ -20,7 +20,7 @@
 
 @this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukPanel : GovukPanel)
 
-@(action: AgentAppointBulkAction, agentOrganisation: String, backLinkUrl: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(action: AgentAppointBulkAction, backLinkUrl: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @heading = @{
     Messages("propertyRepresentation.agentSummary.heading")
@@ -28,10 +28,10 @@
 
 @mainLayout(pageTitle = heading) {
     @govukPanel(Panel(
-        title = Text(messages("propertyRepresentation.agentSummary.title", agentOrganisation))
+        title = Text(messages("propertyRepresentation.agentSummary.title", action.name))
     ))
     <h2 class="govuk-heading-m">@messages("propertyRepresentation.agentSummary.h2")</h2>
-    <p class="govuk-body" id="mainBodyText">@messages("propertyRepresentation.agentSummary.p", agentOrganisation)</p>
+    <p class="govuk-body" id="mainBodyText">@messages("propertyRepresentation.agentSummary.p", action.name)</p>
 
     @govukButton(Button(
         href = Some(agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), action.agentCode, None, backLinkUrl).url),

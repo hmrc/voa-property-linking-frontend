@@ -19,7 +19,8 @@ package controllers.agentAppointment
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder}
 import controllers.VoaPropertyLinkingSpec
-import models.propertyrepresentation.{FilterAppointProperties, FilterRevokePropertiesSessionData}
+import models.{AgentAppointBulkAction, AgentRevokeBulkAction}
+import models.propertyrepresentation.{AppointAgentToSomePropertiesSession, FilterAppointProperties, FilterRevokePropertiesSessionData, RevokeAgentFromSomePropertiesSession}
 import models.searchApi._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
@@ -27,6 +28,7 @@ import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.twirl.api.Html
 import repositories.SessionRepo
 import services.{AgentRelationshipService, AppointRevokeException}
 import tests.AllMocks
@@ -48,6 +50,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val testOwnerAuthResult =
       OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = Seq(testOwnerAuth))
 
+//    val sessionData = AppointAgentToSomeSession()
+
     when(
       mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
         any[HeaderCarrier]))
@@ -56,8 +60,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(organisationsAgentsListWithOneAgent))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
-    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
-      .thenReturn(Future.successful(Some(FilterAppointProperties(None, None))))
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
     when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
@@ -87,8 +91,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(testOwnerAuthResult))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
-    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
-      .thenReturn(Future.successful(Some(FilterAppointProperties(None, None))))
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
     when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
@@ -125,9 +129,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(testOwnerAuthResult))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
-    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
-      .thenReturn(
-        Future.successful(Some(FilterAppointProperties(None, None, ExternalPropertyLinkManagementSortOrder.ASC))))
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession(
+        filters = FilterAppointProperties(None, None, ExternalPropertyLinkManagementSortOrder.ASC)))))
     when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
@@ -158,8 +162,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(testOwnerAuthResult))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
-    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
-      .thenReturn(Future.successful(Some(FilterAppointProperties(None, None))))
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
     when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
@@ -193,8 +197,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(testOwnerAuthResult))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
-    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
-      .thenReturn(Future.successful(Some(FilterAppointProperties(None, None))))
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
     when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
@@ -226,8 +230,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(organisationsAgentsListWithTwoAgents))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
-    when(mockAppointAgentPropertiesSessionRepo.get[FilterAppointProperties](any(), any()))
-      .thenReturn(Future.successful(Some(FilterAppointProperties(None, None))))
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
     when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
@@ -251,22 +255,70 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     firstOption shouldBe "Some Agent Org"
   }
 
-  "appointAgentSummary" should "show the summary page" in {
+  "appointAgentSummary" should "submit appoint agent request and redirect to summary page" in {
     StubGroupAccountConnector.stubAccount(agent)
 
     when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
+    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[AppointAgentToSomePropertiesSession](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
     val res = testController.appointAgentSummary()(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"           -> s"$agentCode",
+        "name"                -> s"$companyName",
         "checkPermission"     -> "StartAndContinue",
         "challengePermission" -> "StartAndContinue",
         "linkIds[]"           -> "1",
         "backLinkUrl"         -> "/some/back/link"
       ))
 
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/appoint/properties/confirm")
+
+  }
+
+  "appointAgentSummary" should "show the summary page" in {
+    StubGroupAccountConnector.stubAccount(agent)
+
+    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+    val agentAppointAction = AgentAppointBulkAction(
+      agentCode = agentCode,
+      name = companyName,
+      propertyLinkIds = List(),
+      backLinkUrl = "/some/back/link")
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any())).thenReturn(
+      Future.successful(
+        Some(
+          AppointAgentToSomePropertiesSession(
+            agentAppointAction = Some(agentAppointAction)
+          ))))
+
+    val res = testController.confirmAppointAgentToSome()(FakeRequest())
+
     status(res) shouldBe OK
+    val document = Jsoup.parse(contentAsString(res))
+    document
+      .getElementById("mainBodyText")
+      .text() shouldBe s"${agentAppointAction.name} will be able to discuss your property with the Valuation Office Agency on your behalf."
+
+  }
+
+  "appointAgentSummary" should "show not found  page when no agent data is cached" in {
+    StubGroupAccountConnector.stubAccount(agent)
+
+    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
+    when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Html("not found"))
+
+    val res = testController.confirmAppointAgentToSome()(FakeRequest())
+
+    status(res) shouldBe NOT_FOUND
 
   }
 
@@ -317,9 +369,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
-    when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
-      .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
-    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[FilterRevokePropertiesSessionData](any())(any(), any()))
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
     val res =
@@ -344,9 +396,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(testAgentAccount)
     when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
-    when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
-      .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
-    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[FilterRevokePropertiesSessionData](any())(any(), any()))
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
     val res = testController.paginateRevokeProperties(PaginationParameters().nextPage, 1L)(FakeRequest())
@@ -373,9 +425,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(testAgentAccount)
     when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
-    when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
-      .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
-    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[FilterRevokePropertiesSessionData](any())(any(), any()))
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](any())(any(), any()))
       .thenReturn(Future.successful(()))
     when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
       .thenReturn(Future.successful(()))
@@ -398,9 +450,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(testOwnerAuthResult))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
-    when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
-      .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
-    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
     StubGroupAccountConnector.stubAccount(agent)
@@ -424,9 +476,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(testAgentAccount)
     when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(testOwnerAuthResult))
-    when(mockRevokeAgentPropertiesSessionRepo.get[FilterRevokePropertiesSessionData](any(), any()))
-      .thenReturn(Future.successful(Some(FilterRevokePropertiesSessionData(None))))
-    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[FilterRevokePropertiesSessionData](any())(any(), any()))
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
     val res = testController.selectAgentPropertiesSearchSort(PaginationParameters(), 1L)(
@@ -440,24 +492,67 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.shouldContainText("There are no properties to display")
   }
 
-  "revoke agent summary page" should "render a success screen when all is well" in {
+  "revoke agent summary page" should "redirect to the success page when all is well" in {
     val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
 
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](any())(any(), any()))
+      .thenReturn(Future.successful(()))
     StubGroupAccountConnector.stubAccount(testAgentAccount)
     when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful((): Unit))
+      .thenReturn(Future.successful(()))
 
     val res = testController.revokeAgentSummary()(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
+        "name"        -> testAgentAccount.companyName,
         "linkIds[]"   -> ownerAuthorisation.submissionId,
         "backLinkUrl" -> "backlink url"
       ))
+
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/revoke/properties/confirm")
+  }
+
+  "show revoke agent summary page" should "render a success screen when all is well" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+
+    val session = RevokeAgentFromSomePropertiesSession(
+      agentRevokeAction = Some(
+        AgentRevokeBulkAction(
+          agentCode = 123L,
+          name = "some agent",
+          propertyLinkIds = List(),
+          backLinkUrl = "/some-back-url")))
+
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(session)))
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful((): Unit))
+
+    val res = testController.confirmRevokeAgentFromSome()(FakeRequest())
 
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainText("You have removed Agent")
+  }
+
+  "show revoke agent summary page" should "render a not found template when no agent data is cached" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
+    when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Html("not found"))
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful((): Unit))
+
+    val res = testController.confirmRevokeAgentFromSome()(FakeRequest())
+
+    status(res) shouldBe NOT_FOUND
   }
 
   "submitting an incomplete revoke agent form" should "re-render the page with form errors reported to user" in {
@@ -472,6 +567,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val res = testController.revokeAgentSummary()(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
+        "name"      -> testAgentAccount.companyName,
         //"linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
         "backLinkUrl" -> "backlink url"
       ))
@@ -496,6 +592,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val res = testController.revokeAgentSummary()(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
+        "name"        -> testAgentAccount.companyName,
         "linkIds[]"   -> ownerAuthorisation.submissionId,
         "backLinkUrl" -> "backlink url"
       ))

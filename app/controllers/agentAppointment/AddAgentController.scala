@@ -252,31 +252,39 @@ class AddAgentController @Inject()(
       .getOrElse(NotFound(errorHandler.notFoundTemplate))
   }
 
+  def confirmAppointAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
+    request.sessionData match {
+      case data: ManagingProperty =>
+        val key =
+          if (data.appointmentScope == Some(AppointmentScope.RELATIONSHIP))
+            None
+          else Some("propertyRepresentation.confirmation.whatHappensNext.allOrSome")
+        Ok(confirmationView(agentName = request.agentDetails.name, guidanceMessageKey = key))
+    }
+  }
+
   def appointAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    submitAgentAppointmentRequest
-      .bindFromRequest()
-      .fold(
-        errors => {
-          PartialFunction
-            .condOpt(request.sessionData) {
-              case data: ManagingProperty =>
-                Future.successful(BadRequest(checkYourAnswersView(errors, data)))
-            }
-            .getOrElse(Future.successful(NotFound(errorHandler.notFoundTemplate)))
-        }, { success =>
-          {
-            agentRelationshipService
-              .assignAgent(success)
-              .map { _ =>
-                val key =
-                  if (success.scope == AppointmentScope.RELATIONSHIP.toString)
-                    None
-                  else Some("propertyRepresentation.confirmation.whatHappensNext.allOrSome")
-                Ok(confirmationView(agentName = request.agentDetails.name, guidanceMessageKey = key))
-              }
+    submitAgentAppointmentRequest.bindFromRequest.fold(
+      errors => {
+        PartialFunction
+          .condOpt(request.sessionData) {
+            case data: ManagingProperty =>
+              Future.successful(BadRequest(checkYourAnswersView(errors, data)))
           }
+          .getOrElse(Future.successful(NotFound(errorHandler.notFoundTemplate)))
+      }, { success =>
+        {
+          for {
+            _ <- request.sessionData match {
+                  case data: ManagingProperty =>
+                    sessionRepo.saveOrUpdate(
+                      data.copy(appointmentScope = Some(AppointmentScope.withName(success.scope))))
+                }
+            _ <- agentRelationshipService.assignAgent(success)
+          } yield Redirect(controllers.agentAppointment.routes.AddAgentController.confirmAppointAgent)
         }
-      )
+      }
+    )
   }
 
   private def getBackLink(implicit request: AppointAgentSessionRequest[AnyContent]) =
