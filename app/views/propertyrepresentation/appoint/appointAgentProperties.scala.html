@@ -264,6 +264,7 @@
         } else {
             @formWithCSRF(agentAppointment.routes.AppointAgentController.appointAgentSummary()){
                 <input type="hidden" name="agentCode" value="@agentCode">
+                <input type="hidden" name="name" value="@model.agentGroup.companyName">
                 <input type="hidden" name="backLinkUrl" value="@backLink">
 
                 <div class="hide-if-no-js margin-top-20 govuk-body">

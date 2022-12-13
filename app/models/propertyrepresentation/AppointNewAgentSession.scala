@@ -16,6 +16,7 @@
 
 package models.propertyrepresentation
 
+import models.propertyrepresentation.AppointmentScope.AppointmentScope
 import play.api.libs.json._
 
 sealed trait AppointNewAgentSession {
@@ -72,7 +73,8 @@ case class ManagingProperty(
       managingPropertyChoice: String,
       singleProperty: Boolean = false,
       status: AppointAgentJourneyStatus = ManagingPropertySelected,
-      backLink: Option[String])
+      backLink: Option[String],
+      appointmentScope: Option[AppointmentScope] = None)
     extends AppointNewAgentSession
 
 object ManagingProperty {

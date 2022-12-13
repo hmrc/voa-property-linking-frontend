@@ -88,6 +88,7 @@ GET         /my-organisation/appoint/properties/paginate                        
 GET         /my-organisation/appoint/properties/sort                                                                      controllers.agentAppointment.AppointAgentController.sortPropertiesForAppoint(sortField: ExternalPropertyLinkManagementSortField, pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
 POST        /my-organisation/appoint/properties/filter                                                                    controllers.agentAppointment.AppointAgentController.filterPropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
 POST        /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.appointAgentSummary()
+GET         /my-organisation/appoint/properties/confirm                                                                   controllers.agentAppointment.AppointAgentController.confirmAppointAgentToSome()
 
 #NEW AGENT APPOINT JOURNEY
 GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start(propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None, uarn: Option[Long] ?= None)
@@ -105,19 +106,24 @@ POST        /my-organisation/appoint-new-agent/multiple-properties              
 
 GET         /my-organisation/appoint-new-agent/checkYourAnswers                                                           controllers.agentAppointment.AddAgentController.checkAnswers()
 POST        /my-organisation/appoint-agent                                                                                controllers.agentAppointment.AddAgentController.appointAgent()
+GET         /my-organisation/confirm-appoint-agent                                                                        controllers.agentAppointment.AddAgentController.confirmAppointAgent()
 
 #MANAGE AGENT
-GET         /my-organisation/manage-agent                                                                                 controllers.agent.ManageAgentController.manageAgent(agentCode: Option[Long] ?= None)
+GET         /my-organisation/manage-agent                                                                                 controllers.agent.ManageAgentController.showManageAgent()
 GET         /my-organisation/manage-agent/property-links                                                                  controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters ?= GetPropertyLinksParameters(), propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None, uarn: Option[Long] ?= None)
 GET         /my-organisation/agents                                                                                       controllers.agent.ManageAgentController.showAgents()
 
 POST        /my-organisation/manage-agent/:agentCode                                                                      controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)
-GET         /my-organisation/manage-agent/:agentCode                                                                      controllers.agent.ManageAgentController.showManageAgent(agentCode: Long)
+GET         /my-organisation/manage-agent/:agentCode                                                                      controllers.agent.ManageAgentController.startManageAgent(agentCode: Long)
 POST        /my-organisation/manage-agent/assign/:agentCode/:agentName/to-all-properties                                  controllers.agent.ManageAgentController.assignAgentToAll(agentCode: Long, agentName: String)
+GET         /my-organisation/manage-agent/assign/to-all-properties                                                        controllers.agent.ManageAgentController.showAssignToAll()
+GET         /my-organisation/manage-agent/assign/to-all-properties/confirm                                                controllers.agent.ManageAgentController.confirmAssignAgentToAll()
 POST        /my-organisation/manage-agent/unassign/:agentCode/:agentName/from-all-properties                              controllers.agent.ManageAgentController.unassignAgentFromAll(agentCode: Long, agentName: String)
-GET        /my-organisation/manage-agent/unassign/:agentCode/:agentName/from-all-properties/confirmation                  controllers.agent.ManageAgentController.confirmationUnassignAgentFromAll(agentCode: Long, agentName: String)
+GET         /my-organisation/manage-agent/unassign/from-all-properties                                                    controllers.agent.ManageAgentController.showUnassignFromAll()
+GET         /my-organisation/manage-agent/unassign/from-all-properties/confirmation                                       controllers.agent.ManageAgentController.confirmationUnassignAgentFromAll()
 
-GET         /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  controllers.agent.ManageAgentController.showRemoveAgentFromIpOrganisation(agentCode: Long, agentName: String)
+GET         /my-organisation/manage-agent/remove/from-organisation                                                        controllers.agent.ManageAgentController.showRemoveAgentFromIpOrganisation()
+GET         /my-organisation/manage-agent/remove/from-organisation/confirm                                                controllers.agent.ManageAgentController.confirmRemoveAgentFromOrganisation()
 POST        /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  controllers.agent.ManageAgentController.removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String)
 
 
@@ -126,6 +132,7 @@ GET         /my-organisation/revoke/properties/paginate                         
 GET         /my-organisation/revoke/properties/sort                                                                       controllers.agentAppointment.AppointAgentController.sortRevokePropertiesByAddress(pagination: PaginationParameters, agentCode: Long)
 POST        /my-organisation/revoke/properties/filter                                                                     controllers.agentAppointment.AppointAgentController.filterPropertiesForRevoke(pagination: PaginationParameters, agentCode: Long)
 POST        /my-organisation/revoke/properties/create                                                                     controllers.agentAppointment.AppointAgentController.revokeAgentSummary()
+GET         /my-organisation/revoke/properties/confirm                                                                    controllers.agentAppointment.AppointAgentController.confirmRevokeAgentFromSome()
 
 #DVR
 #Owner Routes

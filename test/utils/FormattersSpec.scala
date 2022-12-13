@@ -59,8 +59,8 @@ class FormattersSpec extends BaseUnitSpec {
 
   "formatTime" should {
     "format LocalTimes correctly" in {
-      Formatters.formatTime(LocalTime.of(6, 30)) shouldBe "6:30am"
-      Formatters.formatTime(LocalTime.of(12, 30)) shouldBe "12:30pm"
+      Formatters.formatTime(LocalTime.of(6, 30)) shouldBe "6:30AM"
+      Formatters.formatTime(LocalTime.of(12, 30)) shouldBe "12:30PM"
     }
   }
 
