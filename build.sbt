@@ -57,7 +57,6 @@ lazy val microservice = Project(appName, file("."))
     IntegrationTest / parallelExecution := false
   )
   .settings(scalaVersion := "2.12.12")
-  .settings(resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/")
   .settings(
     TwirlKeys.templateImports ++= Seq(
       "uk.gov.hmrc.govukfrontend.views.html.components._",
@@ -136,7 +135,6 @@ lazy val compileDependencies = Seq(
   "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "3.33.0-play-28",
   "uk.gov.hmrc"          %% "http-caching-client"           % "9.6.0-play-28",
   "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.11.0-play-28",
-  "uk.gov.hmrc"          %% "play-allowlist-filter"         % "1.0.0-play-28",
   "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-28"            % "0.73.0",
   "uk.gov.hmrc"          %% "uri-template"                  % "1.11.0"
 )
