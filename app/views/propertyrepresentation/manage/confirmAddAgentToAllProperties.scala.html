@@ -20,7 +20,7 @@
 
 @this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
 
-@(agentName: String, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig, flash: Flash)
+@(agentName: String, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages(s"propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}"),
