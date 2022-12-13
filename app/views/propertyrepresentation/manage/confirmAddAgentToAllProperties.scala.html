@@ -20,11 +20,7 @@
 
 @this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
 
-@(agentName: String, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig, flash: Flash)
-
-@appointedAgentName = @{
-    flash.get("agentName").getOrElse("Welcome!")
-}
+@(agentName: String, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages(s"propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}"),
@@ -34,14 +30,14 @@
 
     @govukPanel(
         Panel(
-            title = Text(messages(s"propertyRepresentation.manageAgent.assignToAllProperties.confirmation.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", appointedAgentName)),
+            title = Text(messages(s"propertyRepresentation.manageAgent.assignToAllProperties.confirmation.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)),
             content = HtmlContent("")
         )
     )
 
     <h2 id="whatHappensNext" class="govuk-heading-m">@messages("propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext")</h2>
 
-    <p id="whatHappensNextP1" class="govuk-body">@messages("propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1", appointedAgentName)</p>
+    <p id="whatHappensNextP1" class="govuk-body">@messages("propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1", agentName)</p>
 
     <p class="govuk-body">
         <a class="govuk-link" id="homeLink" href="@config.dashboardUrl("home")">@messages("link.return.home")</a>
