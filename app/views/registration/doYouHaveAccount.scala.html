@@ -27,13 +27,13 @@
 
 @mainLayout(
     pageTitle = messages("govGateway.heading"),
-    backUri = Some(controllers.routes.Application.start().url),
+    backUri = Some(controllers.routes.Application.start.url),
     mainClass = Some("govuk-grid-column-two-thirds"),
     hasErrors = form.hasErrors
 ){
     @formErrorSummary(form)
 
-    @formWithCSRF(action = controllers.registration.routes.DoYouHaveAccountController.submit()){
+    @formWithCSRF(action = controllers.registration.routes.DoYouHaveAccountController.submit){
 
         @govukRadios(Radios(
             fieldset = Some(Fieldset(

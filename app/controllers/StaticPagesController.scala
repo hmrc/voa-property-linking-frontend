@@ -31,7 +31,7 @@ class StaticPagesController @Inject()(
       val config: ApplicationConfig
 ) extends FrontendBaseController {
 
-  def termsAndConditions(): Action[AnyContent] = Action { implicit request =>
+  def termsAndConditions: Action[AnyContent] = Action { implicit request =>
     Ok(termsAndConditionsView())
   }
 }

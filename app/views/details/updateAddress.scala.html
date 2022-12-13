@@ -34,7 +34,7 @@
     </div>
     <h1 class="govuk-heading-l">@messages("updateAddress.title")</h1>
 
-    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateAddress()) {
+    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateAddress) {
         @address(
             form = model.form,
             fieldName = "address",

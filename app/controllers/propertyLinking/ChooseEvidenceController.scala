@@ -74,7 +74,7 @@ class ChooseEvidenceController @Inject()(
 //    else if (session.fromCya.contains(true))
 //      controllers.propertyLinking.routes.DeclarationController.show().url
     else
-      controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy().url
+      controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy.url
 
   def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     def updateSession(newAnswer: Boolean): Future[Unit] =

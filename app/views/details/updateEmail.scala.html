@@ -34,7 +34,7 @@
 
     <h1 class="govuk-heading-l">@messages("details.edit.personalEmail")</h1>
 
-    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateEmail()) {
+    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateEmail) {
 
         @govukInput(Input(
             value = model.form("email").value.orElse(Some(model.currentDetails.email)),

@@ -55,7 +55,7 @@ class DeclarationController @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController with Cats with Logging {
 
-  def show(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+  def show: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     sessionRepository
       .saveOrUpdate(request.ses.copy(fromCya = Some(true)))
       .map { _ =>
@@ -63,7 +63,7 @@ class DeclarationController @Inject()(
       }
   }
 
-  def back(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+  def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     sessionRepository
       .saveOrUpdate(request.ses.copy(fromCya = Some(false)))
       .map { _ =>
@@ -80,8 +80,8 @@ class DeclarationController @Inject()(
 
         evidenceChoice.fold {
           Redirect(
-            if (evidenceType.isEmpty) routes.ChooseEvidenceController.show()
-            else routes.ClaimPropertyRelationshipController.back()
+            if (evidenceType.isEmpty) routes.ChooseEvidenceController.show
+            else routes.ClaimPropertyRelationshipController.back
           )
         } { choice =>
           Redirect(routes.UploadController.show(choice))
@@ -92,7 +92,7 @@ class DeclarationController @Inject()(
   /*
     We should have extra validation here to catch users that get by without supplying on the necessary information.
    */
-  def submit(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+  def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     form
       .bindFromRequest()
       .fold(
@@ -135,7 +135,7 @@ class DeclarationController @Inject()(
                     case Some(_) =>
                       Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
                     case None =>
-                      Redirect(routes.ChooseEvidenceController.show())
+                      Redirect(routes.ChooseEvidenceController.show)
                   }
               },
               _ => Redirect(routes.DeclarationController.confirmation)

@@ -38,7 +38,7 @@
 
     <h1 class="govuk-heading-l">@messages("propertyRepresentation.multipleProperties.question", agentName)</h1>
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitMultipleProperties()) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitMultipleProperties) {
         @govukRadios(Radios(
             idPrefix = Some("multipleProperties"),
             name = "multipleProperties",

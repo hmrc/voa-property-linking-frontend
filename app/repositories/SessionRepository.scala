@@ -126,7 +126,7 @@ abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent
     Mdc.preservingMdc {
       for {
         sessionId <- getSessionId
-        -         <- collection.deleteOne(equal("_id", sessionId)).toFuture
+        -         <- collection.deleteOne(equal("_id", sessionId)).toFuture()
       } yield {
         ()
       }
@@ -136,7 +136,7 @@ abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent
     Mdc.preservingMdc {
       for {
         sessionId <- getSessionId
-        -         <- collection.deleteMany(equal("_id", sessionId)).toFuture
+        -         <- collection.deleteMany(equal("_id", sessionId)).toFuture()
       } yield {
         ()
       }

@@ -38,17 +38,17 @@ class DoYouHaveAccountController @Inject()(
       implicit override val controllerComponents: MessagesControllerComponents
 ) extends PropertyLinkingController with Logging {
 
-  def show(): Action[AnyContent] = Action { implicit request =>
+  def show: Action[AnyContent] = Action { implicit request =>
     Ok(doYouHaveAccountView(AlreadyHasAccount.form))
   }
-  def submit(): Action[AnyContent] = Action { implicit request =>
+  def submit: Action[AnyContent] = Action { implicit request =>
     AlreadyHasAccount.form
       .bindFromRequest()
       .fold(
         errors => BadRequest(doYouHaveAccountView(errors)),
         hasAccount =>
           if (hasAccount) Redirect(controllers.routes.Login.show)
-          else Redirect(controllers.registration.routes.AccountTypeController.show())
+          else Redirect(controllers.registration.routes.AccountTypeController.show)
       )
   }
 

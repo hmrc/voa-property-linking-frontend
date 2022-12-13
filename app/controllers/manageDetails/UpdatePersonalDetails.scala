@@ -58,11 +58,11 @@ class UpdatePersonalDetails @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def viewEmail() = authenticated { implicit request =>
+  def viewEmail = authenticated { implicit request =>
     Ok(updateEmailView(UpdateDetailsVM(emailForm, request.individualAccount.details)))
   }
 
-  def updateEmail() = authenticated.async { implicit request =>
+  def updateEmail = authenticated.async { implicit request =>
     emailForm
       .bindFromRequest()
       .fold(
@@ -72,11 +72,11 @@ class UpdatePersonalDetails @Inject()(
       )
   }
 
-  def viewAddress() = authenticated { implicit request =>
+  def viewAddress = authenticated { implicit request =>
     Ok(updateAddressView(UpdateDetailsVM(addressForm, request.individualAccount.details)))
   }
 
-  def updateAddress() = authenticated.async { implicit request =>
+  def updateAddress = authenticated.async { implicit request =>
     addressForm
       .bindFromRequest()
       .fold(
@@ -93,11 +93,11 @@ class UpdatePersonalDetails @Inject()(
       )
   }
 
-  def viewPhone() = authenticated { implicit request =>
+  def viewPhone = authenticated { implicit request =>
     Ok(updatePhoneView(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
   }
 
-  def updatePhone() = authenticated.async { implicit request =>
+  def updatePhone = authenticated.async { implicit request =>
     telephoneForm
       .bindFromRequest()
       .fold(
@@ -107,11 +107,11 @@ class UpdatePersonalDetails @Inject()(
       )
   }
 
-  def viewName() = authenticated { implicit request =>
+  def viewName = authenticated { implicit request =>
     Ok(updateNameView(UpdateDetailsVM(nameForm, request.individualAccount.details)))
   }
 
-  def updateName() = authenticated.async { implicit request =>
+  def updateName = authenticated.async { implicit request =>
     nameForm
       .bindFromRequest()
       .fold(
@@ -121,11 +121,11 @@ class UpdatePersonalDetails @Inject()(
       )
   }
 
-  def viewMobile() = authenticated { implicit request =>
+  def viewMobile = authenticated { implicit request =>
     Ok(updateMobileView(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
   }
 
-  def updateMobile() = authenticated.async { implicit request =>
+  def updateMobile = authenticated.async { implicit request =>
     telephoneForm
       .bindFromRequest()
       .fold(
@@ -161,7 +161,7 @@ class UpdatePersonalDetails @Inject()(
           manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)))
       .map { _ =>
         updateGroup(request.organisationAccount, updatedAccount)
-        Redirect(controllers.manageDetails.routes.ViewDetails.show())
+        Redirect(controllers.manageDetails.routes.ViewDetails.show)
       }
   }
 

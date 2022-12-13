@@ -242,7 +242,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     val result = uploadController.continue(EvidenceChoices.OTHER)(
       FakeRequest().withFormUrlEncodedBody("evidenceType" -> "License"))
     status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
   }
 
   "RATES_BILL Evidence file upload with valid files" should "redirect to the declaration page" in {
@@ -254,7 +254,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     val result = uploadController.continue(EvidenceChoices.OTHER)(
       FakeRequest().withFormUrlEncodedBody("evidenceType" -> RatesBillType.name))
     status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
   }
 
   "OTHER Evidence page" should "return cannot provide evidence page for IP" in {
@@ -286,7 +286,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     val result =
       new TestFileUploadController(preEnrichedActionRefiner()).show(EvidenceChoices.OTHER, None)(FakeRequest())
     val backLink: Element = Jsoup.parse(contentAsString(result)).getElementById("back-link")
-    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show().url
+    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show.url
   }
 
   "updateEvidenceType" should "show error if no evidence type submitted" in {
@@ -315,7 +315,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     html.html.getElementById("page-header").text() shouldBe expectedPageHeader
     html.shouldContain("#newFileGroup", 1)
     val backLink: Element = html.html.getElementById("back-link")
-    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show().url
+    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show.url
   }
 
   private def testContinueWithRatesBillLeaseOrLicense(evidenceChoice: EvidenceChoices, evidenceType: String) = {
@@ -328,6 +328,6 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
 
     val result = uploadController.continue(evidenceChoice)(request)
     status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
   }
 }

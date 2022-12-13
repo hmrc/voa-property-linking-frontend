@@ -35,13 +35,13 @@ class Application @Inject()(
 
   private val fallbackUrl = config.dashboardUrl("home")
 
-  def addUserToGG(): Action[AnyContent] = Action { implicit request =>
+  def addUserToGG: Action[AnyContent] = Action { implicit request =>
     Ok(addUserToGGView())
   }
 
   def manageBusinessTaxAccount: Action[AnyContent] = Action(Redirect(config.businessTaxAccountUrl("manage-account")))
 
-  def start(): Action[AnyContent] = Action { implicit request =>
+  def start: Action[AnyContent] = Action { implicit request =>
     if (config.newRegistrationJourneyEnabled) {
       Ok(startView(RegisterHelper.choiceForm))
     } else {
@@ -49,7 +49,7 @@ class Application @Inject()(
     }
   }
 
-  def logOut(): Action[AnyContent] = Action(Redirect(routes.Application.start()).withNewSession)
+  def logOut: Action[AnyContent] = Action(Redirect(routes.Application.start).withNewSession)
 
   def invalidAccountType: Action[AnyContent] = Action { implicit request =>
     Unauthorized(invalidAccountTypeView())

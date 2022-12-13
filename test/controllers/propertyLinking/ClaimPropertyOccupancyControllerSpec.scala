@@ -160,21 +160,21 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec with S
       ))
 
     status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(routes.ChooseEvidenceController.show().url)
+    redirectLocation(res) shouldBe Some(routes.ChooseEvidenceController.show.url)
   }
 
   it should "have a back link to the property ownership page" in {
     val result = testClaimPropertyOccupancyController().showOccupancy()(FakeRequest())
     val document = Jsoup.parse(contentAsString(result))
     val backLink = document.getElementById("back-link")
-    backLink.attr("href") shouldBe routes.ClaimPropertyOwnershipController.showOwnership().url
+    backLink.attr("href") shouldBe routes.ClaimPropertyOwnershipController.showOwnership.url
   }
 
   it should "redirect to the CYA page on 'yes' submissions when coming from CYA" in {
     val result = testClaimPropertyOccupancyController(fromCya = true)
       .submitOccupancy()(FakeRequest().withFormUrlEncodedBody("stillOccupied" -> "true"))
     status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
   }
 
   it should "redirect to the CYA page on 'no' submissions when coming from CYA" in {
@@ -187,19 +187,19 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec with S
           "lastOccupiedDate.year"  -> "2017"
         ))
     status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
   }
 
   it should "have a back link to the CYA page when coming from CYA" in {
     val result = testClaimPropertyOccupancyController(fromCya = true).showOccupancy()(FakeRequest())
     val document = Jsoup.parse(contentAsString(result))
-    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show.url
   }
 
   it should "still have a back link to the CYA page when coming from CYA on failed form validation" in {
     val result = testClaimPropertyOccupancyController(fromCya = true).submitOccupancy()(FakeRequest())
     status(result) shouldBe BAD_REQUEST
     val document = Jsoup.parse(contentAsString(result))
-    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show.url
   }
 }

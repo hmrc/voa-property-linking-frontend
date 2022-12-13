@@ -51,7 +51,7 @@ class ClaimPropertyOwnershipController @Inject()(
 
   import ClaimPropertyOwnership._
 
-  def showOwnership(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+  def showOwnership: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     {
       val form = ownershipForm(request.ses.earliestStartDate, request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate))
 
@@ -63,7 +63,7 @@ class ClaimPropertyOwnershipController @Inject()(
             propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))
           ))
           .map { _ =>
-            Redirect(routes.ChooseEvidenceController.show())
+            Redirect(propertyLinking.routes.ChooseEvidenceController.show)
           } else
         Future.successful(
           Ok(ownershipToPropertyView(
@@ -79,7 +79,7 @@ class ClaimPropertyOwnershipController @Inject()(
     }
   }
 
-  def submitOwnership(): Action[AnyContent] =
+  def submitOwnership: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       ownershipForm(request.ses.earliestStartDate, request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate))
         .bindFromRequest()
@@ -98,8 +98,8 @@ class ClaimPropertyOwnershipController @Inject()(
             sessionRepository
               .saveOrUpdate[LinkingSession](request.ses.copy(propertyOwnership = Some(formData)))
               .map { _ =>
-                if (request.ses.fromCya.contains(true)) Redirect(routes.DeclarationController.show())
-                else Redirect(routes.ClaimPropertyOccupancyController.showOccupancy())
+                if (request.ses.fromCya.contains(true)) Redirect(propertyLinking.routes.DeclarationController.show)
+                else Redirect(propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy)
             }
         )
     }
@@ -123,8 +123,8 @@ object ClaimPropertyOwnership {
       )(PropertyOwnership.apply)(PropertyOwnership.unapply))
 
   def getBackLink(implicit request: LinkingSessionRequest[_]): String =
-    if (request.ses.fromCya.contains(true)) routes.DeclarationController.show().url
-    else routes.ClaimPropertyRelationshipController.back().url
+    if (request.ses.fromCya.contains(true)) propertyLinking.routes.DeclarationController.show.url
+    else propertyLinking.routes.ClaimPropertyRelationshipController.back.url
 }
 
 case class ClaimPropertyOwnershipVM(

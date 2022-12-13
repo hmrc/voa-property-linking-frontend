@@ -38,7 +38,7 @@
    @messages("propertyRepresentation.addAnAgent.caption")
   </div>
 
- @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.getAgentDetails()) {
+ @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.getAgentDetails) {
   @govukInput(Input(
    id = "agentCode",
    name = "agentCode",

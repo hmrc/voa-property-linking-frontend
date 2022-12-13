@@ -16,6 +16,7 @@
 
 package models.attachment
 
+import ai.x.play.json.Encoders.encoder
 import ai.x.play.json.Jsonx
 import models.attachment.Destinations.Destinations
 import models.attachment.request.InitiateAttachmentRequest

@@ -80,47 +80,47 @@ class AddAgentController @Inject()(
     }
     sessionRepo
       .start[Start](Start(backLink = Some(backLink)))
-      .map(_ => Redirect(controllers.agentAppointment.routes.AddAgentController.showStartPage()))
+      .map(_ => Redirect(controllers.agentAppointment.routes.AddAgentController.showStartPage))
   }
 
-  def showStartPage(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
+  def showStartPage: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     Future.successful(Ok(startPageView(agentCode, getBackLink)))
   }
 
-  def getAgentDetails(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    agentCode.bindFromRequest.fold(
-      errors => Future.successful(BadRequest(startPageView(errors, getBackLink))),
-      success => {
-        Try(success.toLong).toOption match {
-          case None =>
-            Future.successful(
-              BadRequest(
-                startPageView(
-                  agentCode.copy(
-                    data = Map("agentCode" -> success),
-                    errors = Seq[FormError](FormError(key = "agentCode", message = "error.agentCode.required"))),
-                  getBackLink
-                )))
-          case Some(representativeCode) =>
-            for {
-              organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
-              agentNameAndAddressOpt <- agentRelationshipService.getAgentNameAndAddress(success.toLong) recoverWith {
-                                         case b: BadRequestException => Future.successful(None)
-                                       }
-            } yield {
-              agentNameAndAddressOpt match {
-                case None =>
-                  BadRequest(
-                    startPageView(
+  def getAgentDetails: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
+    agentCode
+      .bindFromRequest()
+      .fold(
+        errors => Future.successful(BadRequest(startPageView(errors, getBackLink))),
+        success => {
+          Try(success.toLong).toOption match {
+            case None =>
+              Future.successful(
+                BadRequest(
+                  startPageView(
+                    agentCode.copy(
+                      data = Map("agentCode" -> success),
+                      errors = Seq[FormError](FormError(key = "agentCode", message = "error.agentCode.required"))),
+                    getBackLink
+                  )))
+            case Some(representativeCode) =>
+              for {
+                organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
+                agentNameAndAddressOpt <- agentRelationshipService.getAgentNameAndAddress(success.toLong) recoverWith {
+                                           case b: BadRequestException => Future.successful(None)
+                                         }
+              } yield {
+                agentNameAndAddressOpt match {
+                  case None =>
+                    BadRequest(startPageView(
                       agentCode.copy(
                         data = Map("agentCode" -> s"$representativeCode"),
                         errors = Seq[FormError](
                           FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent"))),
                       getBackLink
                     ))
-                case Some(_) if organisationsAgents.agents.exists(a => a.representativeCode == representativeCode) =>
-                  BadRequest(
-                    startPageView(
+                  case Some(_) if organisationsAgents.agents.exists(a => a.representativeCode == representativeCode) =>
+                    BadRequest(startPageView(
                       agentCode.copy(
                         data = Map("agentCode" -> s"$representativeCode"),
                         errors = Seq[FormError](
@@ -128,72 +128,75 @@ class AddAgentController @Inject()(
                       ),
                       getBackLink
                     ))
-                case Some(agent) =>
-                  sessionRepo.saveOrUpdate(
-                    SearchedAgent(
-                      agentCode = representativeCode,
-                      agentOrganisationName = agent.name,
-                      agentAddress = agent.address,
-                      backLink = request.sessionData.backLink
-                    ))
-                  Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent())
+                  case Some(agent) =>
+                    sessionRepo.saveOrUpdate(
+                      SearchedAgent(
+                        agentCode = representativeCode,
+                        agentOrganisationName = agent.name,
+                        agentAddress = agent.address,
+                        backLink = request.sessionData.backLink
+                      ))
+                    Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent)
+                }
               }
-            }
 
+          }
         }
-      }
-    )
+      )
   }
 
-  def isCorrectAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
+  def isCorrectAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     Future.successful(Ok(isTheCorrectAgentView(isThisTheCorrectAgent, request.agentDetails)))
   }
 
-  def agentSelected(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    isThisTheCorrectAgent.bindFromRequest.fold(
-      errors => {
-        Future.successful(BadRequest(isTheCorrectAgentView(errors, request.agentDetails)))
-      },
-      success => {
-        if (success) {
-          for {
-            searchedAgentOpt <- sessionRepo.get[SearchedAgent]
-            searchedAgent = searchedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
-            _ <- sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success))
-            propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
-                              params = GetPropertyLinksParameters(),
-                              pagination = AgentPropertiesParameters(agentCode = searchedAgent.agentCode),
-                              agentOrganisationId = searchedAgent.agentCode,
-                              organisationId = request.organisationId
-                            )
-          } yield {
-            propertyLinks.authorisations.size match {
-              case 0 =>
-                agentRelationshipService.assignAgent(
-                  AgentAppointmentChangesRequest(
-                    scope = AppointmentScope.RELATIONSHIP.toString,
-                    agentRepresentativeCode = searchedAgent.agentCode
+  def agentSelected: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
+    isThisTheCorrectAgent
+      .bindFromRequest()
+      .fold(
+        errors => {
+          Future.successful(BadRequest(isTheCorrectAgentView(errors, request.agentDetails)))
+        },
+        success => {
+          if (success) {
+            for {
+              searchedAgentOpt <- sessionRepo.get[SearchedAgent]
+              searchedAgent = searchedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+              _ <- sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success))
+              propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
+                                params = GetPropertyLinksParameters(),
+                                pagination = AgentPropertiesParameters(agentCode = searchedAgent.agentCode),
+                                agentOrganisationId = searchedAgent.agentCode,
+                                organisationId = request.organisationId
+                              )
+            } yield {
+              propertyLinks.authorisations.size match {
+                case 0 =>
+                  agentRelationshipService.assignAgent(
+                    AgentAppointmentChangesRequest(
+                      scope = AppointmentScope.RELATIONSHIP.toString,
+                      agentRepresentativeCode = searchedAgent.agentCode
+                    )
                   )
-                )
-                Ok(confirmationView(request.agentDetails.name, None))
-              case 1 => Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty())
-              case _ => Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties())
+                  Ok(confirmationView(request.agentDetails.name, None))
+                case 1 => Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty)
+                case _ => Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties)
+              }
             }
+          } else {
+            Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.showStartPage))
           }
-        } else {
-          Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.showStartPage()))
         }
-      }
-    )
+      )
   }
 
-  def oneProperty(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
+  def oneProperty: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     Future.successful(Ok(agentToManageOnePropertyView(manageOneProperty, request.agentDetails.name)))
   }
 
-  def submitOneProperty(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
-    implicit request =>
-      manageOneProperty.bindFromRequest.fold(
+  def submitOneProperty: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
+    manageOneProperty
+      .bindFromRequest()
+      .fold(
         errors => {
           Future.successful(BadRequest(agentToManageOnePropertyView(errors, request.agentDetails.name)))
         },
@@ -204,41 +207,43 @@ class AddAgentController @Inject()(
             _ <- sessionRepo.saveOrUpdate(
                   ManagingProperty(selectedAgent = selectedAgent, selection = success.name, singleProperty = true))
           } yield {
-            Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers())
+            Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers)
           }
         }
       )
   }
 
-  def multipleProperties(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
+  def multipleProperties: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
       Future.successful(Ok(agentToManageMultiplePropertiesView(manageMultipleProperties, request.agentDetails.name)))
   }
 
-  def submitMultipleProperties(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
+  def submitMultipleProperties: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
-      manageMultipleProperties.bindFromRequest.fold(
-        errors => {
-          Future.successful(BadRequest(agentToManageMultiplePropertiesView(errors, request.agentDetails.name)))
-        },
-        success => {
-          for {
-            selectedAgentOpt <- sessionRepo.get[SelectedAgent]
-            selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
-            _ <- sessionRepo.saveOrUpdate(
-                  ManagingProperty(selectedAgent = selectedAgent, selection = success.name, singleProperty = false))
-          } yield {
-            success match {
-              case ChooseFromList => joinOldJourney(selectedAgent.agentCode)
-              case propertyrepresentation.All | propertyrepresentation.NoProperties =>
-                Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers())
+      manageMultipleProperties
+        .bindFromRequest()
+        .fold(
+          errors => {
+            Future.successful(BadRequest(agentToManageMultiplePropertiesView(errors, request.agentDetails.name)))
+          },
+          success => {
+            for {
+              selectedAgentOpt <- sessionRepo.get[SelectedAgent]
+              selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+              _ <- sessionRepo.saveOrUpdate(
+                    ManagingProperty(selectedAgent = selectedAgent, selection = success.name, singleProperty = false))
+            } yield {
+              success match {
+                case ChooseFromList => joinOldJourney(selectedAgent.agentCode)
+                case propertyrepresentation.All | propertyrepresentation.NoProperties =>
+                  Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers)
+              }
             }
           }
-        }
-      )
+        )
   }
 
-  def checkAnswers(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
+  def checkAnswers: Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
     PartialFunction
       .condOpt(request.sessionData) {
         case data: ManagingProperty =>
@@ -247,7 +252,7 @@ class AddAgentController @Inject()(
       .getOrElse(NotFound(errorHandler.notFoundTemplate))
   }
 
-  def confirmAppointAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
+  def confirmAppointAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
     request.sessionData match {
       case data: ManagingProperty =>
         val key =
@@ -258,7 +263,7 @@ class AddAgentController @Inject()(
     }
   }
 
-  def appointAgent(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
+  def appointAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     submitAgentAppointmentRequest.bindFromRequest.fold(
       errors => {
         PartialFunction
@@ -276,7 +281,7 @@ class AddAgentController @Inject()(
                       data.copy(appointmentScope = Some(AppointmentScope.withName(success.scope))))
                 }
             _ <- agentRelationshipService.assignAgent(success)
-          } yield Redirect(controllers.agentAppointment.routes.AddAgentController.confirmAppointAgent())
+          } yield Redirect(controllers.agentAppointment.routes.AddAgentController.confirmAppointAgent)
         }
       }
     )

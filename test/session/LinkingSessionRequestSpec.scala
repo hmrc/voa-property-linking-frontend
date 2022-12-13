@@ -37,7 +37,7 @@ class LinkingSessionRequestSpec extends VoaPropertyLinkingSpec {
   val mockSessionRepo = mock[SessionRepo]
 
   val linkingSessionRequest =
-    LinkingSessionRequest(mockLinkingSession, 1234l, mockDetailedIndividualAccount, mockGroupAccount, request)
+    LinkingSessionRequest(mockLinkingSession, 1234L, mockDetailedIndividualAccount, mockGroupAccount, request)
 
   object TestWithLinkingSession extends WithLinkingSession(mockCustomErrorHandler, mockSessionRepo)
 

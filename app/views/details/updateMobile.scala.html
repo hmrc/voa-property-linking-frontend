@@ -33,7 +33,7 @@
 
     <h1 class="govuk-heading-l">@messages("updateMobile.title")</h1>
 
-    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateMobile()) {
+    @formWithCSRF(controllers.manageDetails.routes.UpdatePersonalDetails.updateMobile) {
 
         @govukInput(Input(
             value = model.form("phone").value.orElse(model.currentDetails.phone2),

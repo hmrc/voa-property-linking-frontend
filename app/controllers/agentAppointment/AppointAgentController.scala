@@ -213,7 +213,7 @@ class AppointAgentController @Inject()(
       }
     }
 
-  def confirmAppointAgentToSome(): Action[AnyContent] = authenticated.async { implicit request =>
+  def confirmAppointAgentToSome: Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].map {
       case Some(AppointAgentToSomePropertiesSession(Some(agent), _)) =>
         Ok(appointAgentSummaryView(action = agent, backLinkUrl = agent.backLinkUrl))
@@ -221,7 +221,7 @@ class AppointAgentController @Inject()(
     }
   }
 
-  def appointAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
+  def appointAgentSummary: Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentBulkActionForm
       .bindFromRequest()
       .fold(
@@ -241,7 +241,7 @@ class AppointAgentController @Inject()(
                         sessionDataOpt.fold(AppointAgentToSomePropertiesSession(agentAppointAction = Some(action)))(
                           data => data.copy(agentAppointAction = Some(action))))
                 } yield {
-                  Redirect(controllers.agentAppointment.routes.AppointAgentController.confirmAppointAgentToSome())
+                  Redirect(controllers.agentAppointment.routes.AppointAgentController.confirmAppointAgentToSome)
                 }
               ) recoverWith {
                 case e: services.AppointRevokeException =>
@@ -374,7 +374,7 @@ class AppointAgentController @Inject()(
               pagination,
               searchParams,
               agentCode,
-              agent.routes.ManageAgentController.showManageAgent().url
+              agent.routes.ManageAgentController.showManageAgent.url
             ))
         }
       case None => Future.successful(NotFound(s"Unknown Agent: $agentCode"))
@@ -394,7 +394,7 @@ class AppointAgentController @Inject()(
         )
     }
 
-  def confirmRevokeAgentFromSome(): Action[AnyContent] = authenticated.async { implicit request =>
+  def confirmRevokeAgentFromSome: Action[AnyContent] = authenticated.async { implicit request =>
     revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession].map {
       case Some(RevokeAgentFromSomePropertiesSession(Some(agent), _)) =>
         Ok(revokeAgentSummaryView(action = agent, agentOrganisation = agent.name))
@@ -402,7 +402,7 @@ class AppointAgentController @Inject()(
     }
   }
 
-  def revokeAgentSummary(): Action[AnyContent] = authenticated.async { implicit request =>
+  def revokeAgentSummary: Action[AnyContent] = authenticated.async { implicit request =>
     revokeAgentBulkActionForm
       .bindFromRequest()
       .fold(
@@ -462,7 +462,7 @@ class AppointAgentController @Inject()(
                         sessionDataOpt.fold(RevokeAgentFromSomePropertiesSession(Some(action)))(data =>
                           data.copy(agentRevokeAction = Some(action))))
                 } yield {
-                  Redirect(controllers.agentAppointment.routes.AppointAgentController.confirmRevokeAgentFromSome())
+                  Redirect(controllers.agentAppointment.routes.AppointAgentController.confirmRevokeAgentFromSome)
                 }
               ).recoverWith {
                 case e: services.AppointRevokeException =>

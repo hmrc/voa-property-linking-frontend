@@ -33,6 +33,6 @@ class ViewDetails @Inject()(
       config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def show(): Action[AnyContent] = authenticated(Redirect(config.dashboardUrl("your-details")))
+  def show: Action[AnyContent] = authenticated(Redirect(config.dashboardUrl("your-details")))
 
 }

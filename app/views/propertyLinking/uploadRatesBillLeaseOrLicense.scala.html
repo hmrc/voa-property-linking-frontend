@@ -76,7 +76,7 @@
 
         <div id="fileTypesText" class="govuk-hint">@messages("fileUpload.allowedTypes")</div>
 
-        @formWithCSRF(action = UploadController.initiate(evidenceChoice), 'enctype -> "multipart/form-data", 'id -> "uploadForm") {
+        @formWithCSRF(action = UploadController.initiate(evidenceChoice), Symbol("enctype") -> "multipart/form-data", Symbol("id") -> "uploadForm") {
             <div class="govuk-!-display-none" id="initiateFields"></div>
 
             @if(uploadedFiles.size < 1) {
@@ -134,7 +134,7 @@
     <span id="errorsBusinessRatesAttachmentUnsupportedFiles">@messages("error.businessRatesAttachment.does.not.support.file.types")</span>
     <span id="errorsBusinessRatesAttachmentUnavailable">@messages("error.businessRatesAttachment.unavailable")</span>
     <span id="signInPageUrl">@{config.basGatewaySignInUrl}</span>
-    <span id="startClaimUrl">@{ClaimPropertyRelationshipController.submitRelationship()}</span>
+    <span id="startClaimUrl">@{ClaimPropertyRelationshipController.submitRelationship}</span>
     <span id="submissionId">@submissionId</span>
     <span id="evidenceType">@evidenceType.name</span>
     @javascriptMessages()

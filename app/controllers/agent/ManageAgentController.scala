@@ -61,7 +61,7 @@ class ManageAgentController @Inject()(
 
   val logger = Logger(this.getClass.getName)
 
-  def showAgents(): Action[AnyContent] = authenticated.async { implicit request =>
+  def showAgents: Action[AnyContent] = authenticated.async { implicit request =>
     for {
       organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
       propertyLinksCount  <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
@@ -119,10 +119,10 @@ class ManageAgentController @Inject()(
             case Some(agent) => manageAgentSessionRepo.start[AgentSummary](agent)
           }
 
-    } yield Redirect(controllers.agent.routes.ManageAgentController.showManageAgent())
+    } yield Redirect(controllers.agent.routes.ManageAgentController.showManageAgent)
   }
 
-  def showManageAgent(): Action[AnyContent] = authenticated.async { implicit request =>
+  def showManageAgent: Action[AnyContent] = authenticated.async { implicit request =>
     getManageAgentView().map {
       case None       => NotFound(errorHandler.notFoundTemplate)
       case Some(page) => Ok(page)
@@ -211,13 +211,13 @@ class ManageAgentController @Inject()(
         success.manageAgentOption match {
           case AssignToSomeProperties => Future.successful(joinOldAgentAppointJourney(agentCode))
           case AssignToAllProperties | AssignToYourProperty =>
-            Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showAssignToAll()))
+            Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showAssignToAll))
           case UnassignFromAllProperties =>
-            Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll()))
+            Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll))
           case UnassignFromSomeProperties => Future.successful(joinOldAgentRevokeJourney(agentCode))
           case RemoveFromYourAccount =>
             Future.successful(
-              Redirect(controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation()))
+              Redirect(controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation))
         }
       }
     )
@@ -258,7 +258,7 @@ class ManageAgentController @Inject()(
                 addAgentToAllPropertiesView(errors, agentName, agentCode, multiplePropertyLinks = linkCount > 1)))
         }, { success =>
           agentRelationshipService.assignAgent(success).map { _ =>
-            Redirect(controllers.agent.routes.ManageAgentController.confirmAssignAgentToAll())
+            Redirect(controllers.agent.routes.ManageAgentController.confirmAssignAgentToAll)
           }
         }
       )
@@ -271,7 +271,7 @@ class ManageAgentController @Inject()(
           Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
         }, { success =>
           agentRelationshipService.unassignAgent(success).map { _ =>
-            Redirect(controllers.agent.routes.ManageAgentController.confirmationUnassignAgentFromAll().url)
+            Redirect(controllers.agent.routes.ManageAgentController.confirmationUnassignAgentFromAll.url)
           }
         }
       )
@@ -315,7 +315,7 @@ class ManageAgentController @Inject()(
         }, { success =>
           agentRelationshipService
             .removeAgentFromOrganisation(success)
-            .map(_ => Redirect(controllers.agent.routes.ManageAgentController.confirmRemoveAgentFromOrganisation()))
+            .map(_ => Redirect(controllers.agent.routes.ManageAgentController.confirmRemoveAgentFromOrganisation))
         }
       )
     }
@@ -339,7 +339,7 @@ class ManageAgentController @Inject()(
         pagination = PaginationParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
-        backLink = controllers.agent.routes.ManageAgentController.showManageAgent().url
+        backLink = controllers.agent.routes.ManageAgentController.showManageAgent.url
       ))
 
   private def joinOldAgentRevokeJourney(agentCode: Long) =

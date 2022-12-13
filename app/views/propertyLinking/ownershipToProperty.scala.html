@@ -93,7 +93,7 @@
         content = HtmlContent(messages(s"declareCapacity.panel.text$clientSuffix"))
     ))
 
-    @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOwnershipController.submitOwnership()) {
+    @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOwnershipController.submitOwnership) {
 
         @govukRadios(Radios(
             fieldset = Some(Fieldset(

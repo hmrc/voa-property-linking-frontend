@@ -203,7 +203,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
   it should "have a back link to the property relationship page" in {
     val result = testClaimProperty().showOwnership()(FakeRequest())
     val backLink = Jsoup.parse(contentAsString(result)).getElementById("back-link")
-    backLink.attr("href") shouldBe routes.ClaimPropertyRelationshipController.back().url
+    backLink.attr("href") shouldBe routes.ClaimPropertyRelationshipController.back.url
   }
 
   it should "reject invalid form submissions" in {
@@ -220,14 +220,14 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
       testClaimProperty().submitOwnership()(FakeRequest().withFormUrlEncodedBody("interestedOnOrBefore" -> "true"))
 
     status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(routes.ClaimPropertyOccupancyController.showOccupancy().url)
+    redirectLocation(res) shouldBe Some(routes.ClaimPropertyOccupancyController.showOccupancy.url)
   }
 
   it should "redirect to the CYA page on valid 'On or before X' submissions when coming from CYA" in {
     val result = testClaimProperty(fromCya = true)
       .submitOwnership()(FakeRequest().withFormUrlEncodedBody("interestedOnOrBefore" -> "true"))
     status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
   }
 
   it should "redirect to the CYA page on valid 'After X' submissions when coming from CYA" in {
@@ -240,7 +240,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
           "fromDate.year"        -> "2017"
         ))
     status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.DeclarationController.show().url)
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
   }
 
   it should "validate that the start date of the ownership is not after the end date of the ownership, if already set" in {
@@ -274,14 +274,14 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
   it should "have a back link to the CYA page when coming from CYA" in {
     val result = testClaimProperty(fromCya = true).showOwnership()(FakeRequest())
     val document = Jsoup.parse(contentAsString(result))
-    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show.url
   }
 
   it should "still have a back link to the CYA page when coming from CYA on failed form validation" in {
     val result = testClaimProperty(fromCya = true).submitOwnership()(FakeRequest())
     status(result) shouldBe BAD_REQUEST
     val document = Jsoup.parse(contentAsString(result))
-    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show().url
+    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show.url
   }
 
   "The claim ownership page on behalf of a client when an ownership start date in the future is submitted" should

@@ -35,7 +35,7 @@ object FrontendComponentHelper {
       Seq(fieldName, s"$fieldName.day", s"$fieldName.month", s"$fieldName.year").contains(error.key)
 
     //Merge date mapper individual filed errors(date, month and year) into one common date error to avoid duplicate messages
-    form.errors.view
+    form.errors
       .map { error =>
         (isDateFieldErrorsExists(error, fieldName), manualDateErrorHandler.isDefinedAt(error.message)) match {
           case (true, false) => FormError(fieldName, "error.common.invalid.date")

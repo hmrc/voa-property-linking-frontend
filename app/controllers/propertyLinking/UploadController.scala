@@ -115,7 +115,7 @@ class UploadController @Inject()(
       }
     }
 
-  def updateEvidenceType(): Action[JsValue] =
+  def updateEvidenceType: Action[JsValue] =
     authenticatedAction.andThen(withLinkingSession).async(parse.json) { implicit request =>
       form
         .bindFromRequest()

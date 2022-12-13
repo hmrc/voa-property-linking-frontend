@@ -57,7 +57,7 @@ class UpdateOrganisationDetails @Inject()(
     Ok(updateBusinessNameView(UpdateOrganisationDetailsVM(businessNameForm, request.organisationAccount)))
   }
 
-  def updateBusinessName(): Action[AnyContent] = authenticated.async { implicit request =>
+  def updateBusinessName: Action[AnyContent] = authenticated.async { implicit request =>
     businessNameForm
       .bindFromRequest()
       .fold(
@@ -72,7 +72,7 @@ class UpdateOrganisationDetails @Inject()(
     Ok(updateBusinessAddressView(UpdateOrganisationDetailsVM(addressForm, request.organisationAccount)))
   }
 
-  def updateBusinessAddress(): Action[AnyContent] = authenticated.async { implicit request =>
+  def updateBusinessAddress: Action[AnyContent] = authenticated.async { implicit request =>
     addressForm
       .bindFromRequest()
       .fold(
@@ -142,7 +142,7 @@ class UpdateOrganisationDetails @Inject()(
       .flatMap(_ =>
         addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(
           manageDetails.updatePostcode(request.individualAccount.individualId, current.addressId, _)))
-      .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show()))
+      .map(_ => Redirect(controllers.manageDetails.routes.ViewDetails.show))
   }
 
   lazy val businessNameForm = Form(single("businessName" -> nonEmptyText(maxLength = 45)))

@@ -37,7 +37,7 @@ class Register @Inject()(
   def continue(accountType: String): Map[String, Seq[String]] =
     Map("accountType" -> Seq(accountType), "continue" -> Seq(config.dashboardUrl("home")), "origin" -> Seq("voa"))
 
-  def show(): Action[AnyContent] = Action(redirect("organisation"))
+  def show: Action[AnyContent] = Action(redirect("organisation"))
 
   def choice: Action[AnyContent] = Action { implicit request =>
     if (config.newRegistrationJourneyEnabled) {
