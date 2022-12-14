@@ -144,7 +144,7 @@ lazy val testDependencies = Seq(
   "org.jsoup"              %  "jsoup"              % "1.12.1"        % Test,
   "org.mockito"            %  "mockito-core"       % "2.27.0"        % Test,
   "org.scalatestplus"      %% "mockito-3-4"        % "3.2.9.0"       % Test,
-  "uk.gov.hmrc.mongo"      %% "hmrc-mongo-test-play-28" % "0.73.0"   % Test,
+  "uk.gov.hmrc.mongo"      %% "hmrc-mongo-test-play-28" % "0.74.0"   % Test,
   "com.vladsch.flexmark"   %  "flexmark-all"       % "0.35.10"       % Test
 )
 
