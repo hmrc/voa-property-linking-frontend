@@ -24,11 +24,11 @@
 <nav aria-label="Language switcher">
     <ul class="govuk-list cca-menu-account">
         @if(messages.lang.code == "cy"){
-            <li><a id="english-toggle"  href="@Application.setDefaultLanguage" hreflang="en" lang="en" class="govuk-link--no-visited-state"><span class="govuk-visually-hidden">Change language to </span> English</a></li>
+            <li><a id="english-toggle"  href="@Application.setDefaultLanguage" hreflang="en" lang="en" class="govuk-link--no-visited-state govuk-link"><span class="govuk-visually-hidden">Change language to </span> English</a></li>
             <li><span aria-current="true">Cymraeg</span></li>
         } else {
             <li><span aria-current="true">English</span></li>
-            <li><a id="welsh-toggle"  href="@Application.displayWelsh" hreflang="cy" lang="cy" class="govuk-link--no-visited-state"><span class="govuk-visually-hidden">Newid yr iaith ir </span> Cymraeg</a></li>
+            <li><a id="welsh-toggle"  href="@Application.displayWelsh" hreflang="cy" lang="cy" class="govuk-link--no-visited-state govuk-link"><span class="govuk-visually-hidden">Newid yr iaith ir </span> Cymraeg</a></li>
         }
     </ul>
 </nav>
