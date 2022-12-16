@@ -38,7 +38,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(PlayKeys.playDefaultPort := 9523)
   .settings(majorVersion := 0)
   .settings(
-    targetJvm := "jvm-1.8",
+    targetJvm := "jvm-11",
     libraryDependencies ++= compileDependencies ++ testDependencies
   )
   .settings(inConfig(TemplateTest)(Defaults.testSettings): _*)
