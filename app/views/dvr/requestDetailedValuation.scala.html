@@ -131,7 +131,7 @@
                 controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuation(submissionId, model.assessmentRef)
         ) {
             <p class="govuk-body">
-                @govukButton(Button(preventDoubleClick = true, content = Text(messages("auto.requestDetailedValuation.button"))))
+                @govukButton(Button(preventDoubleClick = Some(true), content = Text(messages("auto.requestDetailedValuation.button"))))
             </p>
         }
 

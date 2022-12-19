@@ -137,7 +137,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
 
     html.titleShouldMatch(
       "Error: When you became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
-    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByClass("govuk-error-summary__title", "There is a problem")
     html.verifyElementTextByAttribute(
       "href",
       "#fromDate-day",
@@ -156,7 +156,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
 
     html.titleShouldMatch(
       "Error: When you became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
-    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByClass("govuk-error-summary__title", "There is a problem")
     html.verifyElementTextByAttribute(
       "href",
       "#fromDate-day",
@@ -176,7 +176,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
 
     html.titleShouldMatch(
       "Error: When you became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
-    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByClass("govuk-error-summary__title", "There is a problem")
     html.verifyElementTextByAttribute(
       "href",
       "#fromDate-day",
@@ -259,7 +259,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
 
     html.titleShouldMatch(
       "Error: When your client became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
-    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByClass("govuk-error-summary__title", "There is a problem")
     html.verifyElementTextByAttribute(
       "href",
       "#fromDate-day",
@@ -294,7 +294,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
 
     html.titleShouldMatch(
       "Error: When your client became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
-    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByClass("govuk-error-summary__title", "There is a problem")
     html.verifyElementTextByAttribute(
       "href",
       "#fromDate-day",
@@ -315,7 +315,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
 
     html.titleShouldMatch(
       "Error: When your client became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
-    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByClass("govuk-error-summary__title", "There is a problem")
     html.verifyElementTextByAttribute(
       "href",
       "#fromDate-day",
@@ -337,7 +337,7 @@ class ClaimPropertyOwnershipControllerSpec extends VoaPropertyLinkingSpec with S
 
     html.titleShouldMatch(
       "Error: When your client became the owner or occupier of the property - Valuation Office Agency - GOV.UK")
-    html.verifyElementText("error-summary-title", "There is a problem")
+    html.verifyElementTextByClass("govuk-error-summary__title", "There is a problem")
     html.verifyElementTextByAttribute(
       "href",
       "#fromDate-day",
