@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.ApplicationConfig
+package actions.requests
 
-@this(mainLayout: views.html.mainLayout)
+import models.Accounts
+import play.api.mvc.{Request, WrappedRequest}
 
-@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
-@mainLayout(pageTitle = messages("plannedImprovements.title")) {
-    @config.plannedImprovementsContent.map(Html.apply)
+case class StaticPageRequest[A](
+      accounts: Option[Accounts],
+      request: Request[A]
+) extends WrappedRequest[A](request) with CcaWrappedRequest {
+  override def optAccounts = accounts
 }

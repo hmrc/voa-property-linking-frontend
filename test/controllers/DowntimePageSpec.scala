@@ -26,16 +26,31 @@ class DowntimePageSpec extends VoaPropertyLinkingSpec {
   implicit val request = FakeRequest()
 
   val applicationTestController =
-    new DowntimePage(mockCustomErrorHandler, stubMessagesControllerComponents(), new downtimePage(mainLayout))
+    new DowntimePage(
+      mockCustomErrorHandler,
+      preAuthenticatedStaticPage(),
+      stubMessagesControllerComponents(),
+      new downtimePage(mainLayout))
 
-  "plannedImprovements" should "display the downtime page" in {
+  "plannedImprovements" should "display the downtime page when user is logged in" in {
 
     val result = applicationTestController.plannedImprovements()(FakeRequest())
 
     status(result) shouldBe OK
+    verifyLoggedIn(Jsoup.parse(contentAsString(result)), "Service unavailable - Valuation Office Agency - GOV.UK")
 
-    val html = Jsoup.parse(contentAsString(result))
-    html.title shouldBe "Service unavailable - Valuation Office Agency - GOV.UK"
+  }
+
+  "plannedImprovements" should "display the downtime page when user is NOT logged in" in {
+
+    val result = new DowntimePage(
+      mockCustomErrorHandler,
+      preAuthenticatedStaticPage(accounts = None),
+      stubMessagesControllerComponents(),
+      new downtimePage(mainLayout)).plannedImprovements()(FakeRequest())
+
+    status(result) shouldBe OK
+    verifyNotLoggedIn(Jsoup.parse(contentAsString(result)), "Service unavailable - Valuation Office Agency - GOV.UK")
 
   }
 
