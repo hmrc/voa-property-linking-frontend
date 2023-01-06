@@ -16,12 +16,12 @@
 
 package controllers
 
-import actions.AuthenticatedAction
+import actions.{AuthenticatedAction, StaticPageAction}
 import actions.propertylinking.{WithLinkingSession, WithSubmittedLinkingSession}
 import actions.propertylinking.requests.LinkingSessionRequest
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
 import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
-import actions.requests.BasicAuthenticatedRequest
+import actions.requests.{BasicAuthenticatedRequest, StaticPageRequest}
 import akka.stream.Materializer
 import binders.propertylinks.ClaimPropertyReturnToPage
 import config.ApplicationConfig
@@ -40,6 +40,8 @@ import tests.AllMocks
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import utils._
 import java.time.{Clock, Instant, LocalDate, ZoneId}
+
+import org.jsoup.nodes.Document
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -60,6 +62,17 @@ trait VoaPropertyLinkingSpec
 
   override implicit lazy val applicationConfig: ApplicationConfig = app.injector.instanceOf[ApplicationConfig]
   implicit def materializer: Materializer = app.injector.instanceOf[Materializer]
+
+  def preAuthenticatedStaticPage(
+        accounts: Option[Accounts] = Some(Accounts(groupAccount(false), detailedIndividualAccount))): StaticPageAction =
+    new StaticPageAction(
+      messageApi,
+      mockBusinessRatesAuthorisation,
+      mockAuthConnector
+    ) {
+      override def invokeBlock[A](request: Request[A], block: StaticPageRequest[A] => Future[Result]): Future[Result] =
+        block(new StaticPageRequest[A](accounts, request))
+    }
 
   def preAuthenticatedActionBuilders(
         userIsAgent: Boolean = true
@@ -218,5 +231,17 @@ trait VoaPropertyLinkingSpec
               request = request
             )))
     }
+
+  def verifyLoggedIn(html: Document, pageTitle: String): Unit = {
+    html.title shouldBe pageTitle
+    html.getElementById("home-link").text() shouldBe "Home"
+    html.getElementById("sign-out-link").text() shouldBe "Sign out"
+  }
+
+  def verifyNotLoggedIn(html: Document, pageTitle: String): Unit = {
+    html.title shouldBe pageTitle
+    html.getElementById("login-link").text() shouldBe "Login"
+    html.getElementById("register-link").text() shouldBe "Register"
+  }
 
 }

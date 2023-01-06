@@ -16,22 +16,24 @@
 
 package controllers
 
+import actions.StaticPageAction
 import config.ApplicationConfig
-import play.api.i18n.Messages.implicitMessagesProviderToMessages
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.createAccount.termsAndConditions
 import com.google.inject.Inject
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class StaticPagesController @Inject()(
+      val errorHandler: CustomErrorHandler,
       override val controllerComponents: MessagesControllerComponents,
+      authenticate: StaticPageAction,
       termsAndConditionsView: termsAndConditions)(
       implicit override val messagesApi: MessagesApi,
       val config: ApplicationConfig
-) extends FrontendBaseController {
+) extends PropertyLinkingController {
 
-  def termsAndConditions: Action[AnyContent] = Action { implicit request =>
+  def termsAndConditions: Action[AnyContent] = authenticate { implicit request =>
     Ok(termsAndConditionsView())
   }
 }

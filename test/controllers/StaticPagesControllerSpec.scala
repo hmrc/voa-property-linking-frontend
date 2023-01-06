@@ -16,18 +16,35 @@
 
 package controllers
 
+import org.jsoup.Jsoup
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
 class StaticPagesControllerSpec extends VoaPropertyLinkingSpec {
 
   private object TestStaticPagesController
-      extends StaticPagesController(stubMessagesControllerComponents(), termsAndConditionsView)
+      extends StaticPagesController(
+        mockCustomErrorHandler,
+        stubMessagesControllerComponents(),
+        preAuthenticatedStaticPage(),
+        termsAndConditionsView)
 
   "Static page controller" should
-    "return terms and conditions page and returns 200" in {
+    "return terms and conditions page and returns 200 when user is logged in" in {
     val res = TestStaticPagesController.termsAndConditions()(FakeRequest())
     status(res) shouldBe OK
+    verifyLoggedIn(Jsoup.parse(contentAsString(res)), "Terms and conditions - Valuation Office Agency - GOV.UK")
+  }
+
+  "Static page controller" should
+    "return terms and conditions page and returns 200 when user is NOT logged in" in {
+    val res = new StaticPagesController(
+      mockCustomErrorHandler,
+      stubMessagesControllerComponents(),
+      preAuthenticatedStaticPage(accounts = None),
+      termsAndConditionsView).termsAndConditions()(FakeRequest())
+    status(res) shouldBe OK
+    verifyNotLoggedIn(Jsoup.parse(contentAsString(res)), "Terms and conditions - Valuation Office Agency - GOV.UK")
   }
 
 }

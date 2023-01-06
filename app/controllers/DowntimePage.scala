@@ -16,6 +16,7 @@
 
 package controllers
 
+import actions.StaticPageAction
 import com.google.inject.Inject
 import config.ApplicationConfig
 import play.api.i18n.MessagesApi
@@ -24,6 +25,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 class DowntimePage @Inject()(
       val errorHandler: CustomErrorHandler,
+      authenticated: StaticPageAction,
       override val controllerComponents: MessagesControllerComponents,
       downtimePageView: views.html.downtimePage
 )(
@@ -31,6 +33,8 @@ class DowntimePage @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def plannedImprovements: Action[AnyContent] = Action(implicit request => Ok(downtimePageView()))
+  def plannedImprovements: Action[AnyContent] = authenticated { implicit request =>
+    Ok(downtimePageView())
+  }
 
 }
