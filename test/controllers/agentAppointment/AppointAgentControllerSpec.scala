@@ -20,7 +20,7 @@ import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder}
 import controllers.VoaPropertyLinkingSpec
 import models.{AgentAppointBulkAction, AgentRevokeBulkAction}
-import models.propertyrepresentation.{AppointAgentToSomePropertiesSession, FilterAppointProperties, FilterRevokePropertiesSessionData, RevokeAgentFromSomePropertiesSession}
+import models.propertyrepresentation.{AppointAgentToSomePropertiesSession, FilterAppointProperties, RevokeAgentFromSomePropertiesSession}
 import models.searchApi._
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any

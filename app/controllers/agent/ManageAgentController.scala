@@ -223,7 +223,7 @@ class ManageAgentController @Inject()(
     )
   }
 
-  def showAssignToAll(): Action[AnyContent] = authenticated.async { implicit request =>
+  def showAssignToAll: Action[AnyContent] = authenticated.async { implicit request =>
     for {
       agent     <- getCachedAgent
       linkCount <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
@@ -236,7 +236,7 @@ class ManageAgentController @Inject()(
           multiplePropertyLinks = linkCount > 1))
   }
 
-  def showUnassignFromAll(): Action[AnyContent] = authenticated.async { implicit request =>
+  def showUnassignFromAll: Action[AnyContent] = authenticated.async { implicit request =>
     getCachedAgent.map { agent =>
       Ok(unassignAgentFromAllPropertiesView(submitAgentAppointmentRequest, agent.name, agent.representativeCode))
     }
@@ -277,7 +277,7 @@ class ManageAgentController @Inject()(
       )
   }
 
-  def confirmationUnassignAgentFromAll(): Action[AnyContent] = authenticated.async { implicit request =>
+  def confirmationUnassignAgentFromAll: Action[AnyContent] = authenticated.async { implicit request =>
     for {
       agent     <- getCachedAgent
       linkCount <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
@@ -289,14 +289,14 @@ class ManageAgentController @Inject()(
           multiplePropertyLinks = linkCount > 1))
   }
 
-  def confirmAssignAgentToAll(): Action[AnyContent] = authenticated.async { implicit request =>
+  def confirmAssignAgentToAll: Action[AnyContent] = authenticated.async { implicit request =>
     for {
       agent     <- getCachedAgent
       linkCount <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
     } yield Ok(confirmAddAgentToAllPropertiesView(agent.name, multiplePropertyLinks = linkCount > 1))
   }
 
-  def showRemoveAgentFromIpOrganisation(): Action[AnyContent] = authenticated.async { implicit request =>
+  def showRemoveAgentFromIpOrganisation: Action[AnyContent] = authenticated.async { implicit request =>
     getCachedAgent.map { agent =>
       Ok(
         removeAgentFromOrganisationView(
@@ -320,7 +320,7 @@ class ManageAgentController @Inject()(
       )
     }
 
-  def confirmRemoveAgentFromOrganisation(): Action[AnyContent] = authenticated.async { implicit request =>
+  def confirmRemoveAgentFromOrganisation: Action[AnyContent] = authenticated.async { implicit request =>
     getCachedAgent.map { agent =>
       Ok(confirmRemoveAgentFromOrganisationView(agent.name))
     }
