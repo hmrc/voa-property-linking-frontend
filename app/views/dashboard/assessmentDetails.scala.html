@@ -34,18 +34,18 @@
 }
 
 @effectiveDate(assessment: ApiAssessment) = @{
-    assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")
+    assessment.effectiveDate.map(Formatters.formattedDate).getOrElse("")
 }
 
 @fromDate(assessment: ApiAssessment) = @{
-    assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
+    assessment.currentFromDate.map(Formatters.formattedDate).getOrElse("")
 }
 
 @endDate(assessment: ApiAssessment, isDraft: Boolean) = @{
     if(!isDraft) {
         (assessment.currentFromDate, assessment.currentToDate) match {
             case (Some(_), None)     => Some(Messages("assessments.enddate.present"))
-            case (Some(_), Some(to)) => Some(Formatters.formatDate(to))
+            case (Some(_), Some(to)) => Some(Formatters.formattedDate(to))
             case _                   => None
         }
     } else None
