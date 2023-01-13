@@ -33,7 +33,7 @@
         <p class="govuk-body">@messages("internalServerError.reference", ref)</p>
     }
 
-    <p class="govuk-body">@messages("internalServerError.date", formattedDate(dateTime.toLocalDate))</p>
+    <p class="govuk-body">@messages("internalServerError.date", (dateTime.toLocalDate))</p>
     <p class="govuk-body">@messages("internalServerError.time", formatTime(dateTime.toLocalTime))</p>
 
 }
