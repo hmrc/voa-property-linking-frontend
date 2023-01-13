@@ -34,18 +34,21 @@
 }
 
 @effectiveDate(assessment: ApiAssessment) = @{
-    assessment.effectiveDate.map(Formatters.formatDate).getOrElse("")
+    assessment.effectiveDate.map(Formatters.formattedFullDate).getOrElse("")
 }
 
 @fromDate(assessment: ApiAssessment) = @{
-    assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
+    assessment.currentFromDate.map(Formatters.formattedFullDate).getOrElse("")
 }
 
-@endDate(assessment: ApiAssessment, isDraft: Boolean) = @{
+@endDate(assessment: ApiAssessment, isDraft: Boolean, tableType: String) = @{
     if(!isDraft) {
-        (assessment.currentFromDate, assessment.currentToDate) match {
-            case (Some(_), None)     => Some(Messages("assessments.enddate.present"))
-            case (Some(_), Some(to)) => Some(Formatters.formatDate(to))
+        (assessment.currentFromDate, assessment.currentToDate, assessment.listYear) match {
+            case (Some(_), None, "2017")
+                if config.compiledListEnabled && tableType == "historic" =>
+                    Some(Messages("assessments.enddate.historic.empty"))
+            case (Some(_), None, _)     => Some(Messages("assessments.enddate.present"))
+            case (Some(_), Some(to), _) => Some(Formatters.formattedFullDate(to))
             case _                   => None
         }
     } else None
@@ -54,7 +57,7 @@
 @ariaLabel(assessment: ApiAssessment, tableType: String, isDraft: Boolean) = @{
     val typeText = messages(s"assessments.$tableType.text")
     val fromText = fromDate(assessment)
-    endDate(assessment, isDraft)
+    endDate(assessment, isDraft, tableType)
       .fold(messages("assessments.aria.label.partial", typeText, fromText)) { to =>
         messages("assessments.aria.label.full", typeText, fromText, to)
     }
@@ -98,7 +101,7 @@
 
                         <td class="govuk-table__cell">@fromDate(assessment)</td>
 
-                        <td class="govuk-table__cell">@endDate(assessment, isDraft).getOrElse("")</td>
+                        <td id="toDate" class="govuk-table__cell">@endDate(assessment, isDraft, tableType).getOrElse("")</td>
 
                         <td class="govuk-table__cell">
                         @assessment.rateableValue match {

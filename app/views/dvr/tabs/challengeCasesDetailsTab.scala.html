@@ -60,7 +60,7 @@
             content = HtmlContent(statusTagWithHelpLink(status))
         ),
         TableRow(
-            content = Text(closedDate.fold("")(formatDate(_)))
+            content = Text(closedDate.fold("")(formattedFullDate(_)))
         ),
         TableRow(
             content = Text(submittedBy),

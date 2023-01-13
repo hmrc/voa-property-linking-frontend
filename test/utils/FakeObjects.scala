@@ -36,10 +36,11 @@ import models.registration._
 import models.searchApi._
 import models.upscan._
 import uk.gov.hmrc.auth.core.{AffinityGroup, ConfidenceLevel, CredentialRole, User}
+
 import java.time.{Instant, LocalDate, LocalDateTime, Month}
 import java.util.UUID
-
 import binders.propertylinks.ClaimPropertyReturnToPage
+import models.ListType.ListType
 
 trait FakeObjects {
 
@@ -466,7 +467,11 @@ trait FakeObjects {
       client = a.client
     )
 
-  def apiAssessments(a: OwnerAuthorisation) =
+  def apiAssessments(
+        a: OwnerAuthorisation,
+        toDate: Option[LocalDate] = Some(april2017.plusMonths(2L)),
+        listType: ListType = ListType.CURRENT,
+        currentoDate: Option[LocalDate] = None) =
     ApiAssessments(
       authorisationId = a.authorisationId,
       submissionId = a.submissionId,
@@ -486,10 +491,10 @@ trait FakeObjects {
           address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
           billingAuthorityReference = a.localAuthorityRef,
           billingAuthorityCode = Some("2715"),
-          listType = ListType.CURRENT,
+          listType = listType,
           allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
           currentFromDate = Some(april2017),
-          currentToDate = Some(april2017.plusMonths(2L))
+          currentToDate = toDate
         ),
         ApiAssessment(
           authorisationId = a.authorisationId,

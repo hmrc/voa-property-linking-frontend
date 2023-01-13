@@ -15,7 +15,7 @@
  *@
 
 @import _root_.utils.FrontendComponentHelper._
-@import _root_.utils.Formatters.formatDate
+@import _root_.utils.Formatters._
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import config.ApplicationConfig
 @import helpers._
@@ -55,7 +55,7 @@
                                 request.ses.propertyRelationship.map(_.capacity).fold(
                                     messages("error.date.mustBeAfterStartDate.relationship.fallback"))(
                                     _.name.replace("_", s" ${messages("common.and")} ").toLowerCase),
-                                formatDate(request.ses.propertyOwnership.flatMap(_.fromDate)
+                                formattedFullDate(request.ses.propertyOwnership.flatMap(_.fromDate)
                                     .getOrElse(request.ses.earliestStartDate))
                             )
                     }

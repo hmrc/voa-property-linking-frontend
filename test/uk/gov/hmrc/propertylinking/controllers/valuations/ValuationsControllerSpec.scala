@@ -19,10 +19,10 @@ package uk.gov.hmrc.propertylinking.controllers.valuations
 import actions.assessments.WithAssessmentsPageSessionRefiner
 import controllers.VoaPropertyLinkingSpec
 import models.ApiAssessment.AssessmentWithFromDate
-import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.assessments.PreviousPage.SelectedClient
+import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.properties.AllowedAction
-import models.{ApiAssessment, ApiAssessments, ClientPropertyLink}
+import models.{ApiAssessment, ApiAssessments, ClientPropertyLink, ListType}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers.{any, eq => mEq}
@@ -293,6 +293,45 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val document: Document = Jsoup.parse(returnedHtml)
 
     document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl("home")
+  }
+
+  it should "previous/current valuations toDate should display correctly when no toDate returned from modernise with compiledListEnabled" in new ValuationsSetup {
+
+    when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
+      .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard))))
+
+    lazy val as = apiAssessments(ownerAuthorisation, None, ListType.PREVIOUS)
+
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val res = valuationsController.valuations(plSubId, owner = true)(request)
+    status(res) shouldBe OK
+
+    val returnedHtml = contentAsString(res)
+    val document: Document = Jsoup.parse(returnedHtml)
+
+    document.getElementById("historicAssessments").getElementById("toDate").text shouldBe "31 March 2023"
+    document.getElementById("currentAssessments").getElementById("toDate").text shouldBe "Present"
+  }
+
+  it should "previous valuations toDate should be displayed when toDate returned from modernise compiledListEnabled" in new ValuationsSetup {
+
+    when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
+      .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard))))
+
+    lazy val as = apiAssessments(ownerAuthorisation, listType = ListType.PREVIOUS)
+
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val res = valuationsController.valuations(plSubId, owner = true)(request)
+    status(res) shouldBe OK
+
+    val returnedHtml = contentAsString(res)
+    val document: Document = Jsoup.parse(returnedHtml)
+
+    document.getElementById("historicAssessments").getElementById("toDate").text shouldBe "1 June 2017"
+    document.getElementById("currentAssessments").getElementById("toDate").text shouldBe "Present"
+
   }
 
 }
