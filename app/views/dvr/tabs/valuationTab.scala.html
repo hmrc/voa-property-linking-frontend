@@ -23,7 +23,7 @@
 @(model: AvailableRequestDetailedValuation)(implicit config: ApplicationConfig, messages: Messages)
 
 @fromDate = @{
-    model.assessment.currentFromDate.map(Formatters.formatDate).getOrElse("")
+    model.assessment.currentFromDate.map(Formatters.formattedFullDate).getOrElse("")
 }
 
 @endDate = @{
@@ -31,7 +31,7 @@
         (model.assessment.currentFromDate, model.assessment.currentToDate) match {
             case (Some(_), None) if model.listYear == "2017" && config.compiledListEnabled  => Some(Formatters.formattedFullDate(config.default2017AssessmentEndDate))
             case (Some(_), None)     => Some(messages("assessments.enddate.present.lowercase"))
-            case (Some(_), Some(to)) => Some(Formatters.formatDate(to))
+            case (Some(_), Some(to)) => Some(Formatters.formattedFullDate(to))
             case _                   => None
         }
     } else None

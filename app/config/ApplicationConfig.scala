@@ -82,6 +82,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
   lazy val newRegistrationJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newRegistrationJourneyEnabled")
   lazy val welshEnabled: Boolean = loadBooleanConfig("featureFlags.welshEnabled")
+  lazy val compiledListEnabled: Boolean = loadBooleanConfig("featureFlags.compiledListEnabled")
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
 
@@ -99,8 +100,6 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   lazy val currentListYear: String = loadConfig("currentListYear")
   val default2017AssessmentEndDate = LocalDate.of(2023, 3, 31)
-  lazy val compiledListEnabled: Boolean = configuration.get[Boolean]("featureFlags.compiledListEnabled")
-
 
 }
 

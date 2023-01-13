@@ -421,7 +421,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "detailed valuation check" should "display correct rateable value caption when list year = 2017 and end date is None" in new Setup {
 
-    val assessmentsCurrentEndDateIsNone = assessments.copy(assessments = assessments.assessments.map(assessment => assessment.copy(currentToDate = None, listType = ListType.PREVIOUS)))
+    val assessmentsCurrentEndDateIsNone = assessments.copy(assessments = assessments.assessments.map(assessment =>
+      assessment.copy(currentToDate = None, listType = ListType.PREVIOUS)))
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessmentsCurrentEndDateIsNone)))
     when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
@@ -433,8 +434,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
-        valuationId =
-          assessmentsCurrentEndDateIsNone.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        valuationId = assessmentsCurrentEndDateIsNone.assessments.headOption
+          .fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
         uarn = 1L
       )(request)
 
@@ -470,7 +471,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
   }
-
 
   "detailed valuation of a client's DVR property" should "display the client's name above the address" in new Setup {
     when(mockPropertyLinkConnector.getClientAssessments(any())(any()))

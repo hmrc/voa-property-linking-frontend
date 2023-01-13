@@ -488,6 +488,7 @@ assessments.table.6=Actions
 assessments.table.action=Action
 assessments.enddate.present=Present
 assessments.enddate.present.lowercase=present
+assessments.enddate.historic.empty=31 March 2023
 assessments.view.valuation=View valuation
 assessments.view.summary=View summary valuation
 label.viewAssessmentRadio=Valuation
