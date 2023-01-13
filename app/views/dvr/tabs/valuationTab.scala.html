@@ -22,14 +22,14 @@
 @(model: AvailableRequestDetailedValuation)(implicit messages: Messages)
 
 @fromDate = @{
-    model.assessment.currentFromDate.map(Formatters.formattedDate).getOrElse("")
+    model.assessment.currentFromDate.map(Formatters.formattedFullDate).getOrElse("")
 }
 
 @endDate = @{
     if(!model.assessment.isDraft) {
         (model.assessment.currentFromDate, model.assessment.currentToDate) match {
             case (Some(_), None)     => Some(messages("assessments.enddate.present.lowercase"))
-            case (Some(_), Some(to)) => Some(Formatters.formattedDate(to))
+            case (Some(_), Some(to)) => Some(Formatters.formattedFullDate(to))
             case _                   => None
         }
     } else None

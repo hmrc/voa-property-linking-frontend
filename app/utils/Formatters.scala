@@ -49,7 +49,7 @@ object Formatters {
 
   def formatDate(date: LocalDate): String =
     date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
-  def formattedDate(date: LocalDate)(implicit messages: Messages): String =
+  def formattedFullDate(date: LocalDate)(implicit messages: Messages): String =
     s"${date.getDayOfMonth} ${messages(s"month.${date.getMonthValue}")} ${date.getYear}"
 
   def formatDateTimeToDate(date: LocalDateTime): String =

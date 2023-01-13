@@ -58,7 +58,7 @@
                 relationshipCapacity,
                 request.ses.propertyOccupancy
                         .flatMap(_.lastOccupiedDate)
-                        .fold(messages("interestedOnOrBefore.error.startDateMustBeBeforeEnd.endDate.fallback"))(formattedDate)
+                        .fold(messages("interestedOnOrBefore.error.startDateMustBeBeforeEnd.endDate.fallback"))(formattedFullDate)
             )
     }
     handler
@@ -107,11 +107,11 @@
             name = "interestedOnOrBefore",
             items = Seq(
                 RadioItem(
-                    content = Text(messages("interestedOnOrBefore.true", formattedDate(model.onOrBeforeDate))),
+                    content = Text(messages("interestedOnOrBefore.true", formattedFullDate(model.onOrBeforeDate))),
                     value = Some("true")
                 ),
                 RadioItem(
-                    content = Text(messages("interestedOnOrBefore.false", formattedDate(model.onOrBeforeDate))),
+                    content = Text(messages("interestedOnOrBefore.false", formattedFullDate(model.onOrBeforeDate))),
                     value = Some("false"),
                     conditionalHtml = Some(
                         dateFields(

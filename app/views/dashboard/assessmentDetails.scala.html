@@ -34,11 +34,11 @@
 }
 
 @effectiveDate(assessment: ApiAssessment) = @{
-    assessment.effectiveDate.map(Formatters.formattedDate).getOrElse("")
+    assessment.effectiveDate.map(Formatters.formattedFullDate).getOrElse("")
 }
 
 @fromDate(assessment: ApiAssessment) = @{
-    assessment.currentFromDate.map(Formatters.formattedDate).getOrElse("")
+    assessment.currentFromDate.map(Formatters.formattedFullDate).getOrElse("")
 }
 
 @endDate(assessment: ApiAssessment, isDraft: Boolean, tableType: String) = @{
@@ -48,7 +48,7 @@
                 if config.compiledListEnabled && tableType == "historic" =>
                     Some(Messages("assessments.enddate.historic.empty"))
             case (Some(_), None, _)     => Some(Messages("assessments.enddate.present"))
-            case (Some(_), Some(to), _) => Some(Formatters.formattedDate(to))
+            case (Some(_), Some(to), _) => Some(Formatters.formattedFullDate(to))
             case _                   => None
         }
     } else None
