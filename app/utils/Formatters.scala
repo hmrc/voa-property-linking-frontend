@@ -17,11 +17,12 @@
 package utils
 
 import models.{Address, PropertyAddress}
-
 import java.text.NumberFormat.getCurrencyInstance
 import java.time.{LocalDate, LocalDateTime, LocalTime}
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+
+import play.api.i18n.Messages
 
 object Formatters {
 
@@ -48,6 +49,9 @@ object Formatters {
 
   def formatDate(date: LocalDate): String =
     date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
+
+  def formattedFullDate(date: LocalDate)(implicit messages: Messages): String =
+    s"${date.getDayOfMonth} ${messages(s"month.${date.getMonthValue}")} ${date.getYear}"
 
   def formatDateTimeToDate(date: LocalDateTime): String =
     date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))

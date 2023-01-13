@@ -368,6 +368,110 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
   }
 
+  "detailed valuation" should "display correct rateable value caption when list year = 2017 and end date is present" in new Setup {
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessments)))
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerCheckCaseDetails)))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerChallengeCaseDetails)))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+
+    val doc = Jsoup.parse(contentAsString(result))
+
+    val page = HtmlPage(doc)
+
+    page.shouldContainText("If you want to change something in this valuation")
+
+    page.shouldContainText("Local authority reference: BAREF")
+    page.titleShouldMatch("123, SOME ADDRESS - Valuation Office Agency - GOV.UK")
+    page.shouldContain("#valuation-tab", 1)
+    page.verifyElementText("rateable-value-caption", "Previous rateable value (1 April 2017 to 1 June 2017)")
+
+    page.verifyElementTextByAttribute("href", "#check-cases-tab", "Checks (1)")
+    page.verifyElementTextByAttribute("href", "#challenge-cases-tab", "Challenges (1)")
+
+    page.verifyElementTextByAttribute(
+      "href",
+      "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/2L",
+      "Download the detailed valuation for this property"
+    )
+    page.verifyElementTextByAttribute(
+      "href",
+      "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/1L",
+      "download and complete a Check form")
+
+    val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
+    radiosOnStartCheckScreen should have size 7
+
+    verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
+    verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
+  }
+
+  "detailed valuation check" should "display correct rateable value caption when list year = 2017 and end date is None" in new Setup {
+
+    val assessmentsCurrentEndDateIsNone = assessments.copy(assessments = assessments.assessments.map(assessment => assessment.copy(currentToDate = None, listType = ListType.PREVIOUS)))
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessmentsCurrentEndDateIsNone)))
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerCheckCaseDetails)))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List(ownerChallengeCaseDetails)))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId =
+          assessmentsCurrentEndDateIsNone.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+
+    val doc = Jsoup.parse(contentAsString(result))
+
+    val page = HtmlPage(doc)
+
+    page.shouldContainText("If you want to change something in this valuation")
+
+    page.shouldContainText("Local authority reference: BAREF")
+    page.titleShouldMatch("123, SOME ADDRESS - Valuation Office Agency - GOV.UK")
+    page.shouldContain("#valuation-tab", 1)
+    page.verifyElementText("rateable-value-caption", "Previous rateable value (1 April 2017 to 31 March 2023)")
+
+    page.verifyElementTextByAttribute("href", "#check-cases-tab", "Checks (1)")
+    page.verifyElementTextByAttribute("href", "#challenge-cases-tab", "Challenges (1)")
+
+    page.verifyElementTextByAttribute(
+      "href",
+      "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/2L",
+      "Download the detailed valuation for this property"
+    )
+    page.verifyElementTextByAttribute(
+      "href",
+      "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/1L",
+      "download and complete a Check form")
+
+    val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
+    radiosOnStartCheckScreen should have size 7
+
+    verify(mockPropertyLinkConnector).getMyOrganisationsCheckCases(any())(any())
+    verify(mockChallengeConnector).getMyOrganisationsChallengeCases(any())(any())
+  }
+
+
   "detailed valuation of a client's DVR property" should "display the client's name above the address" in new Setup {
     when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments.copy(clientOrgName = Some("Client Org Name")))))

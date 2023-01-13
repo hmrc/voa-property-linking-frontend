@@ -98,6 +98,10 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
     .map(e => new String(Base64.getUrlDecoder.decode(e)))
 
   lazy val currentListYear: String = loadConfig("currentListYear")
+  val default2017AssessmentEndDate = LocalDate.of(2023, 3, 31)
+  lazy val compiledListEnabled: Boolean = configuration.get[Boolean]("featureFlags.compiledListEnabled")
+
+
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
