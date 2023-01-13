@@ -424,6 +424,7 @@ assessments.table.5=Hyd
 assessments.table.6=Gweithredoedd
 assessments.table.action=Gweithred
 assessments.enddate.present=Presennol
+assessments.enddate.historic.empty=31 Mawrth 2023
 assessments.view.valuation=Gweld prisiad
 assessments.view.summary=Gweld prisiad cryno
 label.viewAssessmentRadio=Prisiad
