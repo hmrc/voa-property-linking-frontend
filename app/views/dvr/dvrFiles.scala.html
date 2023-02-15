@@ -33,7 +33,7 @@
   govukErrorSummary: GovukErrorSummary
 )
 
-@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm], compiledListEnabled: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm], compiledListEnabled: Boolean, currentValuationUrl: Option[String], valuationsUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @address = @{Formatters.capitalisedAddress(model.address)}
@@ -68,7 +68,7 @@
         id = Some("valuation-tab"),
         label = messages("available.requestvaluation.valuationTab.title"),
         panel = TabPanel(
-            content = HtmlContent(valuationTab(model))
+            content = HtmlContent(valuationTab(model, currentValuationUrl, valuationsUrl))
         )
     )
     val startCheck: TabItem = TabItem(

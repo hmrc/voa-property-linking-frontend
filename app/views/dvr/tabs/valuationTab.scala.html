@@ -22,7 +22,10 @@
 
 @this(govukButton: GovukButton, govukInsetText: GovukInsetText, govukWarningText: GovukWarningText, linkWithText: link)
 
-@(model: AvailableRequestDetailedValuation)(implicit config: ApplicationConfig, messages: Messages)
+@(model: AvailableRequestDetailedValuation, currentValuationUrl: Option[String], valuationUrl: String)(implicit config: ApplicationConfig, messages: Messages)
+
+@currentValuationsUrl = @{s"${currentValuationUrl.getOrElse(valuationUrl)}#valuation-tab"}
+
 
 @fromDate = @{
     model.assessment.currentFromDate.map(Formatters.formattedFullDate).getOrElse("")
@@ -66,11 +69,11 @@
         <ul class="govuk-list govuk-list--bullet">
             <li>@linkWithText(preLinkMessage = Some(messages("available.requestvaluation.listYear.2017.li4")),
                 linkMessage = messages("available.requestvaluation.listYear.2017.link.text"),
-                location = "")
+                location = currentValuationsUrl)
             </li>
             <li>@linkWithText(preLinkMessage = Some(messages("available.requestvaluation.listYear.2017.li4")),
                 linkMessage = messages("available.requestvaluation.listYear.2017.link.text"),
-                location = "")
+                location = currentValuationsUrl)
             </li>
         </ul>
 
