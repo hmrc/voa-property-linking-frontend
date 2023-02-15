@@ -835,7 +835,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "draft detailed valuation" should "return 200 OK and not fetch checks/challenges " in new Setup {
     val firstAssessment: ApiAssessment =
       assessments.assessments.headOption.getOrElse(fail("expected to find at least 1 assessment"))
-    val draftAssessment: ApiAssessment = firstAssessment.copy(listType = ListType.DRAFT)
+    val draftAssessment: ApiAssessment =
+      firstAssessment.copy(listType = ListType.DRAFT, allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION))
 
     val ownerAssessments: ApiAssessments =
       assessments.copy(assessments = draftAssessment :: assessments.assessments.tail.toList)
@@ -858,6 +859,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.shouldContain("#challenge-cases-tab", 0)
     page.shouldContain("#agents-tab", 1)
     page.shouldContainText("If you want to change something in this valuation")
+    page.shouldContainText(
+      "This detailed valuation will not be available until 1 April 2023. You will be able to request it from that date. The current 2017 detailed valuation can be requested from the current valuation.")
 
     verify(mockPropertyLinkConnector, never()).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector, never()).getMyOrganisationsChallengeCases(any())(any())
