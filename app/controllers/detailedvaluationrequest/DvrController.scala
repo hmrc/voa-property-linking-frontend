@@ -239,7 +239,8 @@ class DvrController @Inject()(
                     uarn = uarn
                   )
                 ),
-                startCheckForm = form
+                startCheckForm = form,
+                compiledListEnabled = config.compiledListEnabled
               )
               if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
             }

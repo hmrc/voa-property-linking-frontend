@@ -17,8 +17,10 @@
 @import _root_.utils.Formatters
 @import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
 @import config.ApplicationConfig
+@import models.properties.AllowedAction.CHECK
+@import views.html.components.link
 
-@this(govukButton: GovukButton, govukInsetText: GovukInsetText, govukWarningText: GovukWarningText)
+@this(govukButton: GovukButton, govukInsetText: GovukInsetText, govukWarningText: GovukWarningText, linkWithText: link)
 
 @(model: AvailableRequestDetailedValuation)(implicit config: ApplicationConfig, messages: Messages)
 
@@ -36,6 +38,7 @@
         }
     } else None
 }
+
 @insetMessages = @{
     if(model.assessment.isCurrent) messages("available.requestvaluation.inset.current")
     else messages("available.requestvaluation.inset.previous")
@@ -47,35 +50,66 @@
     else messages("available.requestvaluation.h2.previous", fromDate, endDate.getOrElse(messages("assessments.enddate.present.lowercase")))
 }
 
+@valuationTabContent = {
+    @if(!model.isDraftList & !model.assessment.allowedActions.contains(CHECK)) {
+        <p class="govuk-body">@messages("available.requestvaluation.listYear.2017.p1")</p>
+        <p class="govuk-body">@messages("available.requestvaluation.listYear.2017.p2")</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>@messages("available.requestvaluation.listYear.2017.li1")</li>
+            <li>@messages("available.requestvaluation.listYear.2017.li2")</li>
+            <li>@messages("available.requestvaluation.listYear.2017.li3")</li>
+        </ul>
+
+        <p class="govuk-body">@messages("available.requestvaluation.listYear.2017.p3")</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>@linkWithText(preLinkMessage = Some(messages("available.requestvaluation.listYear.2017.li4")),
+                linkMessage = messages("available.requestvaluation.listYear.2017.link.text"),
+                location = "")
+            </li>
+            <li>@linkWithText(preLinkMessage = Some(messages("available.requestvaluation.listYear.2017.li4")),
+                linkMessage = messages("available.requestvaluation.listYear.2017.link.text"),
+                location = "")
+            </li>
+        </ul>
+
+    } else if(model.isDraftList & !model.assessment.allowedActions.contains(CHECK)) {
+
+    <p class="govuk-body">@messages("available.requestvaluation.listYear.isDraft.p")</p>
+
+    } else {
+
+    @if(model.isDraftList && model.isWelshProperty) {
+        <p class="govuk-body">@messages("available.requestvaluation.p1.draft.welshProperty")</p>
+    } else if (model.isDraftList && !model.isWelshProperty) {
+        <p class="govuk-body">@messages("available.requestvaluation.p1.draft.englishProperty")</p>
+    } else {
+        <p class="govuk-body">@messages("available.requestvaluation.p1")</p>
+        <p class="govuk-body">@Html(messages("available.requestvaluation.p2", model.evaluateRoute(model.check)))</p>
+        <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
+
+        @govukWarningText(WarningText(iconFallbackText = messages("warning.text"),
+            content = Text(messages("available.requestvaluation.warning"))))
+
+        @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some("#start-check-tab"), attributes = Map("id" -> "valuationtab-start-check")))
+        }
+    }
+}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
 
         <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
         <h2 id="rateable-value-caption" class="govuk-caption-l">@h2Caption</h2>
         <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="grand-total-top">@model.rateableValueFormatted.getOrElse(messages("assessments.na"))</p>
-        @govukInsetText(InsetText(
-            id=Some("intro-text"),
-            content = Text(insetMessages)
-        ))
+
+        @govukInsetText(InsetText(id=Some("intro-text"), content = Text(insetMessages)))
+
         <p class="govuk-body"><a class="govuk-link" href="@model.evaluateRoute(model.valuation)">@messages("available.requestvaluation.downloadValuationLink")</a></p>
+        <h2 class="govuk-heading-m">@messages("available.requestvaluation.changeValuation")</h2>
 
-        <h2 class="govuk-heading-l">@messages("available.requestvaluation.changeValuation")</h2>
+        @valuationTabContent
 
-        @if(model.isDraftList && model.isWelshProperty) {
-            <p class="govuk-body">@messages("available.requestvaluation.p1.draft.welshProperty")</p>
-        } else if (model.isDraftList && !model.isWelshProperty) {
-            <p class="govuk-body">@messages("available.requestvaluation.p1.draft.englishProperty")</p>
-        } else {
-            <p class="govuk-body">@messages("available.requestvaluation.p1")</p>
-            <p class="govuk-body">@Html(messages("available.requestvaluation.p2", model.evaluateRoute(model.check)))</p>
-            <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
-
-            @govukWarningText(WarningText(
-                iconFallbackText = messages("warning.text"),
-                content = Text(messages("available.requestvaluation.warning"))
-            ))
-
-            @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some("#start-check-tab"), attributes = Map("id" -> "valuationtab-start-check")))
-        }
     </div>
 </div>
