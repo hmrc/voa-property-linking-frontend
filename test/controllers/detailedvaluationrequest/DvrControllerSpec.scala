@@ -750,7 +750,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     agentsTable.getElementById("total-cases-1").text shouldBe "18"
   }
 
-  "draft detailed valuation" should "return 200 OK and not display 'start a check' tab when no check allowed action returned" in new Setup {
+  "previous detailed valuation" should "return 200 OK and not display 'start a check' tab when no check allowed action returned" in new Setup {
     val agent = assessments.agents.head
 
     val assessmentsAllowedActions = assessments.copy(assessments = assessments.assessments.map(assessment =>
