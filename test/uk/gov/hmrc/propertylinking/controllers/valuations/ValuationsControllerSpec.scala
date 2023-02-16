@@ -300,9 +300,8 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
       .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard))))
 
-    lazy val as = apiAssessments(ownerAuthorisation, None, ListType.PREVIOUS)
-
-    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+    lazy val assessmentsData = apiAssessments(ownerAuthorisation, None, ListType.PREVIOUS)
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(assessmentsData))
 
     val res = valuationsController.valuations(plSubId, owner = true)(request)
     status(res) shouldBe OK
@@ -310,8 +309,14 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val returnedHtml = contentAsString(res)
     val document: Document = Jsoup.parse(returnedHtml)
 
-    document.getElementById("historicAssessments").getElementById("toDate").text shouldBe "31 March 2023"
-    document.getElementById("currentAssessments").getElementById("toDate").text shouldBe "Present"
+    document
+      .getElementById("historicAssessments")
+      .getElementById(s"toDate-${assessmentsData.assessments(0).assessmentRef}")
+      .text shouldBe "31 March 2023"
+    document
+      .getElementById("currentAssessments")
+      .getElementById(s"toDate-${assessmentsData.assessments(1).assessmentRef}")
+      .text shouldBe "Present"
   }
 
   it should "previous valuations toDate should be displayed when toDate returned from modernise compiledListEnabled" in new ValuationsSetup {
@@ -319,9 +324,9 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
       .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard))))
 
-    lazy val as = apiAssessments(ownerAuthorisation, listType = ListType.PREVIOUS)
+    lazy val assessmentsData = apiAssessments(ownerAuthorisation, listType = ListType.PREVIOUS)
 
-    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(assessmentsData))
 
     val res = valuationsController.valuations(plSubId, owner = true)(request)
     status(res) shouldBe OK
@@ -329,8 +334,14 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val returnedHtml = contentAsString(res)
     val document: Document = Jsoup.parse(returnedHtml)
 
-    document.getElementById("historicAssessments").getElementById("toDate").text shouldBe "1 June 2017"
-    document.getElementById("currentAssessments").getElementById("toDate").text shouldBe "Present"
+    document
+      .getElementById("historicAssessments")
+      .getElementById(s"toDate-${assessmentsData.assessments(0).assessmentRef}")
+      .text shouldBe "1 June 2017"
+    document
+      .getElementById("currentAssessments")
+      .getElementById(s"toDate-${assessmentsData.assessments(1).assessmentRef}")
+      .text shouldBe "Present"
 
   }
 

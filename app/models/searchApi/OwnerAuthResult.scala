@@ -18,7 +18,14 @@ package models.searchApi
 
 import play.api.libs.json.Json
 
-case class OwnerAuthResult(start: Int, size: Int, filterTotal: Int, total: Int, authorisations: Seq[OwnerAuthorisation])
+case class OwnerAuthResult(
+      start: Int,
+      size: Int,
+      filterTotal: Int,
+      total: Int,
+      authorisations: Seq[OwnerAuthorisation]) {
+  authorisations.nonEmpty
+}
 
 object OwnerAuthResult {
   implicit val ownerAuthResult = Json.format[OwnerAuthResult]
