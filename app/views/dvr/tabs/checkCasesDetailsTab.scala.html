@@ -25,7 +25,7 @@
 
 @this(govukButton: GovukButton, govukDetails: GovukDetails, govukTable: GovukTable, govukWarningText: GovukWarningText)
 
-@(model: CheckCasesDetailsTab)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: CheckCasesDetailsTab, showCompletedCheckButton: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @viewCaseUrl(checkRef: String, submissionId: String) = @{
     config.businessRatesCheckUrl(s"check-case/$checkRef/summary?propertyLinkSubmissionId=$submissionId&isOwner=${model.isOwner}")
@@ -121,11 +121,13 @@
         <p class="govuk-body">@Html(messages("available.requestvaluation.p2", model.downloadUrl))</p>
         <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
 
+    @if(showCompletedCheckButton) {
         @govukWarningText(WarningText(
             iconFallbackText = messages("warning.text"),
             content = Text(messages("available.requestvaluation.warning"))
         ))
         @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(model.startCheckUrl), attributes = Map("id" -> "checkcasestab-start-check")))
+   }
 
 } else {
 

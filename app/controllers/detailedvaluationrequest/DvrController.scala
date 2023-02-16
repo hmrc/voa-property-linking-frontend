@@ -239,7 +239,43 @@ class DvrController @Inject()(
                     uarn = uarn
                   )
                 ),
-                startCheckForm = form
+                startCheckForm = form,
+                compiledListEnabled = config.compiledListEnabled,
+                currentValuationUrl = link.assessments
+                  .find(a =>
+                    a.listType == ListType.CURRENT &&
+                      a.currentFromDate.nonEmpty &&
+                      a.currentToDate.isEmpty)
+                  .map(current =>
+                    if (owner) {
+                      routes.DvrController
+                        .myOrganisationRequestDetailValuationCheck(
+                          propertyLinkSubmissionId = link.submissionId,
+                          valuationId = current.assessmentRef,
+                          uarn = current.uarn,
+                          challengeCaseRef = None,
+                          fromFuture = Some(true),
+                          tabName = Some("valuation-tab")
+                        )
+                        .url
+                    } else {
+                      routes.DvrController
+                        .myClientsRequestDetailValuationCheck(
+                          propertyLinkSubmissionId = link.submissionId,
+                          valuationId = current.assessmentRef,
+                          uarn = current.uarn,
+                          challengeCaseRef = None,
+                          fromFuture = Some(true),
+                          tabName = Some("valuation-tab")
+                        )
+                        .url
+                  }),
+                valuationsUrl = uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
+                  .valuations(
+                    link.submissionId,
+                    owner
+                  )
+                  .url
               )
               if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
             }

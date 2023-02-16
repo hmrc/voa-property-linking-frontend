@@ -1138,9 +1138,22 @@ available.requestvaluation.agentsTab.table.header.agent=Agent
 available.requestvaluation.agentsTab.table.header.totalCases=Total cases for this property
 available.requestvaluation.agentsTab.table.header.openCases=Open cases for this property
 
+
+available.requestvaluation.listYear.2017.p1=You can no longer tell us about changes to property details for any valuations on the 2017 rating list.
+available.requestvaluation.listYear.2017.p2=If you think the rateable value was too high, you can send us a Challenge case. You must have sent us a Check case before 1 April 2023 and (any of these apply):
+available.requestvaluation.listYear.2017.li1=you send the Challenge case within 4 months of our Check case decision
+available.requestvaluation.listYear.2017.li2=you have waited more than 12 months and not received our Check case decision
+available.requestvaluation.listYear.2017.li3=the Challenge case is about a change in the local area (such as long-term roadworks), you send it within 16 months of sending the Check case and you have received our Check case decision
+available.requestvaluation.listYear.2017.p3=You can also send us a Challenge case if (any of these apply):
+available.requestvaluation.listYear.2017.li4=we alter this valuation after 1 April 2023 and within 6 months of the alteration date, you
+available.requestvaluation.listYear.2017.li5=a court decision affected this property’s rateable value and before 1 October 2023 you
+available.requestvaluation.listYear.2017.link.text=send a Check case from the current valuation
+available.requestvaluation.listYear.isDraft.p=This detailed valuation will not be available until 1 April 2023. You will be able to request it from that date. The current 2017 detailed valuation can be requested from the current valuation.
+
+
 available.requestvaluation.downloadValuationLink=Download the detailed valuation for this property
 available.requestvaluation.changeValuation=If you want to change something in this valuation
-available.requestvaluation.p1.draft.englishProperty=If the property''s details are incorrect, or you believe the rateable value is wrong, have a look at the current valuation as well. If the details are wrong in both, you can submit a Check against the current valuation. Any changes will carry over to the draft valuation.
+available.requestvaluation.p1.draft.englishProperty=If the property’s details are incorrect, or you believe the rateable value is wrong, have a look at the current valuation as well. If the details are wrong in both, you can submit a Check against the current valuation. Any changes will carry over to the draft valuation.
 available.requestvaluation.p1.draft.welshProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a proposal against the current valuation. Any changes will carry over to the draft valuation.
 available.requestvaluation.p1=If the property''s details are incorrect, or you believe the rateable value is wrong, you must complete a Check form and confirm the property details with the VOA before you can make a challenge.
 available.requestvaluation.p2=Before you can submit a Check, you need to <a class="govuk-link" href="{0}">download and complete a Check form</a>.

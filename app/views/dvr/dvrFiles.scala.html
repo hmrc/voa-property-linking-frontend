@@ -19,6 +19,7 @@
 @import controllers.detailedvaluationrequest.AvailableRequestDetailedValuation
 @import models.dvr.cases.check.projection.CaseDetails
 @import models.dvr.cases.check.StartCheckForm
+@import models.properties.AllowedAction.CHECK
 
 @this(
   mainLayout: views.html.mainLayout,
@@ -32,7 +33,7 @@
   govukErrorSummary: GovukErrorSummary
 )
 
-@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm], compiledListEnabled: Boolean, currentValuationUrl: Option[String], valuationsUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @address = @{Formatters.capitalisedAddress(model.address)}
@@ -67,7 +68,7 @@
         id = Some("valuation-tab"),
         label = messages("available.requestvaluation.valuationTab.title"),
         panel = TabPanel(
-            content = HtmlContent(valuationTab(model))
+            content = HtmlContent(valuationTab(model, currentValuationUrl, valuationsUrl))
         )
     )
     val startCheck: TabItem = TabItem(
@@ -82,7 +83,7 @@
         label = checkCasesTabTitle,
         panel = TabPanel(
             content = HtmlContent(
-                checkCasesDetailsTab(model.checkCasesDetailsTab)
+                checkCasesDetailsTab(model.checkCasesDetailsTab, model.assessment.allowedActions.contains(CHECK))
             )
         )
     )
@@ -105,7 +106,7 @@
 
     Seq(
         Some(valuation),
-        Some(startCheck).filterNot(_ => model.isDraftList),
+        Some(startCheck).filter(_ => model.assessment.allowedActions.contains(CHECK)),
         Some(check).filterNot(_ => model.isDraftList),
         Some(challenge).filterNot(_ => model.isDraftList || challengeCases.isEmpty),
         Some(agents).filterNot(_ => !model.owner)

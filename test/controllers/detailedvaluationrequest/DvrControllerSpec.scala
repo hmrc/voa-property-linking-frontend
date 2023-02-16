@@ -32,9 +32,9 @@ import utils._
 
 import scala.collection.JavaConverters._
 import java.time.{LocalDate, LocalDateTime}
-
 import models.dvr.cases.check.common.Agent
 import models.dvr.cases.check.projection.CaseDetails
+import models.properties.AllowedAction
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
@@ -686,7 +686,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     private val tabs: Element = page.html.getElementsByClass("govuk-tabs__list").first()
 
-    tabs.getElementsByTag("li").size() shouldBe 2
+    tabs.getElementsByTag("li").size() shouldBe 3
     tabs.getElementsByAttributeValue("href", "#agents-tab").text shouldBe "Agents"
 
     page.html.getElementById("agents-tab-heading").text() shouldBe "Agents assigned to this property"
@@ -750,6 +750,44 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     agentsTable.getElementById("total-cases-1").text shouldBe "18"
   }
 
+  "previous detailed valuation" should "return 200 OK and not display 'start a check' tab when no check allowed action returned" in new Setup {
+    val agent = assessments.agents.head
+
+    val assessmentsAllowedActions = assessments.copy(assessments = assessments.assessments.map(assessment =>
+      assessment.copy(allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION), listType = ListType.PREVIOUS)))
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(assessmentsAllowedActions)))
+
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
+      .thenReturn(Future.successful(CheckCaseStatus.values.toList.map(status =>
+        ownerCheckCaseDetails.copy(status = status.toString, agent = Some(Agent(agent))))))
+
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(ChallengeCaseStatus.values.toList.map(status =>
+        ownerChallengeCaseDetails.copy(status = status.toString, agent = Some(Agent(agent))))))
+
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+
+    val result =
+      controller.myOrganisationRequestDetailValuationCheck(
+        propertyLinkSubmissionId = "1111",
+        valuationId =
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+        uarn = 1L
+      )(request)
+
+    status(result) shouldBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(result)))
+
+    //verify all tabs displayed
+    page.shouldContain("#valuation-tab", 1)
+    page.shouldContain("#start-check-tab", 0)
+    page.shouldContain("#check-cases-tab", 1)
+    page.shouldContain("#challenge-cases-tab", 1)
+    page.shouldContain("#agents-tab", 1)
+  }
+
   "draft detailed valuation" should "return 200 OK and have correct  back link when challenge case is provided" in new Setup {
     val agent = assessments.agents.head
 
@@ -797,7 +835,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "draft detailed valuation" should "return 200 OK and not fetch checks/challenges " in new Setup {
     val firstAssessment: ApiAssessment =
       assessments.assessments.headOption.getOrElse(fail("expected to find at least 1 assessment"))
-    val draftAssessment: ApiAssessment = firstAssessment.copy(listType = ListType.DRAFT)
+    val draftAssessment: ApiAssessment =
+      firstAssessment.copy(listType = ListType.DRAFT, allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION))
 
     val ownerAssessments: ApiAssessments =
       assessments.copy(assessments = draftAssessment :: assessments.assessments.tail.toList)
@@ -820,6 +859,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.shouldContain("#challenge-cases-tab", 0)
     page.shouldContain("#agents-tab", 1)
     page.shouldContainText("If you want to change something in this valuation")
+    page.shouldContainText(
+      "This detailed valuation will not be available until 1 April 2023. You will be able to request it from that date. The current 2017 detailed valuation can be requested from the current valuation.")
 
     verify(mockPropertyLinkConnector, never()).getMyOrganisationsCheckCases(any())(any())
     verify(mockChallengeConnector, never()).getMyOrganisationsChallengeCases(any())(any())

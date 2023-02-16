@@ -41,6 +41,7 @@ import java.time.{Instant, LocalDate, LocalDateTime, Month}
 import java.util.UUID
 import binders.propertylinks.ClaimPropertyReturnToPage
 import models.ListType.ListType
+import models.properties.AllowedAction.{CHECK, VIEW_DETAILED_VALUATION}
 
 trait FakeObjects {
 
@@ -470,8 +471,7 @@ trait FakeObjects {
   def apiAssessments(
         a: OwnerAuthorisation,
         toDate: Option[LocalDate] = Some(april2017.plusMonths(2L)),
-        listType: ListType = ListType.CURRENT,
-        currentoDate: Option[LocalDate] = None) =
+        listType: ListType = ListType.CURRENT) =
     ApiAssessments(
       authorisationId = a.authorisationId,
       submissionId = a.submissionId,
@@ -492,7 +492,7 @@ trait FakeObjects {
           billingAuthorityReference = a.localAuthorityRef,
           billingAuthorityCode = Some("2715"),
           listType = listType,
-          allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
+          allowedActions = List(VIEW_DETAILED_VALUATION, CHECK),
           currentFromDate = Some(april2017),
           currentToDate = toDate
         ),
