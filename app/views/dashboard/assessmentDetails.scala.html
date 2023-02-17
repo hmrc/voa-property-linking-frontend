@@ -24,12 +24,12 @@
 
 @tableHeaderRow = {
     <tr class="govuk-table__row">
-        <th class="govuk-table__cell"><span>@messages("assessments.table.1")</span></th>
-        <th class="govuk-table__cell"><span>@messages("assessments.table.2")</span></th>
-        <th class="govuk-table__cell"><span>@messages("assessments.table.3")</span></th>
-        <th class="govuk-table__cell"><span>@messages("assessments.table.4")</span></th>
-        <th class="govuk-table__cell"><span>@messages("assessments.table.5")</span></th>
-        <th class="govuk-table__cell"><span>@messages("assessments.table.action")</span></th>
+        <th class="govuk-table__cell">@messages("assessments.table.1")</th>
+        <th class="govuk-table__cell">@messages("assessments.table.2")</th>
+        <th class="govuk-table__cell">@messages("assessments.table.3")</th>
+        <th class="govuk-table__cell">@messages("assessments.table.4")</th>
+        <th class="govuk-table__cell">@messages("assessments.table.5")</th>
+        <th class="govuk-table__cell">@messages("assessments.table.action")</th>
     </tr>
 }
 
@@ -78,12 +78,12 @@
                 </colgroup>
                 <tbody class="govuk-table__body">
                     <tr class="govuk-table__row">
-                        <th class="govuk-table__cell"><span>@messages("assessments.table.1")</span></th>
-                        <th class="govuk-table__cell"><span>@messages("assessments.table.2")</span></th>
-                        <th class="govuk-table__cell"><span>@messages("assessments.table.3")</span></th>
-                        <th class="govuk-table__cell"><span>@messages("assessments.table.4")</span></th>
-                        <th class="govuk-table__cell"><span>@messages("assessments.table.5")</span></th>
-                        <th class="govuk-table__cell"><span>@messages("assessments.table.action")</span></th>
+                        <th class="govuk-table__cell">@messages("assessments.table.1")</th>
+                        <th class="govuk-table__cell">@messages("assessments.table.2")</th>
+                        <th class="govuk-table__cell">@messages("assessments.table.3")</th>
+                        <th class="govuk-table__cell">@messages("assessments.table.4")</th>
+                        <th class="govuk-table__cell">@messages("assessments.table.5")</th>
+                        <th class="govuk-table__cell">@messages("assessments.table.action")</th>
                     </tr>
 
                     @list.map {  case (url, assessment) =>
@@ -101,7 +101,7 @@
 
                         <td class="govuk-table__cell">@fromDate(assessment)</td>
 
-                        <td id="toDate" class="govuk-table__cell">@endDate(assessment, isDraft, tableType).getOrElse("")</td>
+                        <td id="toDate-@assessment.assessmentRef" class="govuk-table__cell">@endDate(assessment, isDraft, tableType).getOrElse("")</td>
 
                         <td class="govuk-table__cell">
                         @assessment.rateableValue match {

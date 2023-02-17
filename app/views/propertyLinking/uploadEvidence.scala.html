@@ -165,11 +165,10 @@
                         z-index: -9999" accept=".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png">
                 </label>
                 <div class="govuk-form-group">
-                    <label class="govuk-label--s" for="newFileButton">@messages("common.uploadFile.label")
-                        <div id="fileTypesText" class="govuk-hint">
+                    <label class="govuk-label--s" for="newFileButton">@messages("common.uploadFile.label")</label>
+                    <div id="fileTypesText" class="govuk-hint">
                         @messages("fileUpload.allowedTypes")
-                        </div>
-                    </label>
+                    </div>
                     @errors.map { error =>
                         <p id="file-upload-1-error" class="govuk-error-message">
                             <span class="govuk-visually-hidden">@messages("accessibility.error.label")</span> @messages(error)
