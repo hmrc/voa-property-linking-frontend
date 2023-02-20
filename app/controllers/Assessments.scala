@@ -19,14 +19,13 @@ package controllers
 import actions.AuthenticatedAction
 import config.ApplicationConfig
 import connectors._
-import javax.inject.Inject
 import models._
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.propertylinking.services.PropertyLinkService
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class Assessments @Inject()(
@@ -99,5 +98,3 @@ case class AssessmentsVM(
     assessmentsWithLinks.filterNot(currentAssessments.contains).filterNot(draftAssessments.contains)
 
 }
-
-case class RequestDetailedValuationVM(form: Form[_], authId: Long, assessmentRef: Long, baRef: String)
