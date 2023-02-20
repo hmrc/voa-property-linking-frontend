@@ -786,6 +786,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.shouldContain("#check-cases-tab", 1)
     page.shouldContain("#challenge-cases-tab", 1)
     page.shouldContain("#agents-tab", 1)
+    page.shouldContainText(
+      "You can no longer tell us about a change to the property details for valuations in the 2017 rating list period by starting a Check case.")
   }
 
   "draft detailed valuation" should "return 200 OK and have correct  back link when challenge case is provided" in new Setup {
