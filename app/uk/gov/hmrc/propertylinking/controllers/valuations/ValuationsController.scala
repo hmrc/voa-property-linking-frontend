@@ -17,7 +17,6 @@
 package uk.gov.hmrc.propertylinking.controllers.valuations
 
 import java.net.URLEncoder
-import java.time.LocalDate
 
 import actions.AuthenticatedAction
 import actions.assessments.WithAssessmentsPageSessionRefiner
@@ -68,15 +67,13 @@ class ValuationsController @Inject()(
   private[controllers] def assessmentsWithLinks(
         apiAssessments: ApiAssessments,
         submissionId: String,
-        owner: Boolean): Seq[(String, ApiAssessment)] = {
-    val defaultEpochDay = LocalDate.of(2017, 4, 7).toEpochDay
+        owner: Boolean): Seq[(String, ApiAssessment)] =
     apiAssessments.assessments
-      .sortBy(-_.currentFromDate.fold(defaultEpochDay)(_.toEpochDay))
+      .sortBy(ApiAssessment.sortCriteria)
       .collect {
         case a: ApiAssessment if a.allowedActions.contains(AllowedAction.VIEW_DETAILED_VALUATION) =>
           linkAndAssessment(submissionId, apiAssessments.authorisationId, a, owner)
       }
-  }
 
   def valuations(submissionId: String, owner: Boolean): Action[AnyContent] =
     authenticated.andThen(withAssessmentsPageSession).async { implicit request =>

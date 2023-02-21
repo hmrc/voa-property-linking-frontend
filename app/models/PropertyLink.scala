@@ -74,6 +74,22 @@ object ApiAssessment {
   object AssessmentWithFromDate {
     def unapply(arg: ApiAssessment): Option[LocalDate] = arg.currentFromDate
   }
+
+  /* criteria for sorting valuations defined in ticket https://jira.tools.tax.service.gov.uk/browse/VTCCA-5459
+    sort order:
+    primary:
+      future -> current -> previous
+      note: in this service, the valuations are split into future/current/previous when the view renders the individual sections
+    secondary:
+      effective date (descending)
+    tertiary:
+      current From date (descending)
+   */
+  def sortCriteria(valuation: ApiAssessment): (Long, Long) =
+    (
+      -valuation.effectiveDate.map(_.toEpochDay).getOrElse(Long.MinValue),
+      -valuation.currentFromDate.map(_.toEpochDay).getOrElse(Long.MinValue)
+    )
 }
 
 case class PropertyLinkResponse(resultCount: Option[Long], propertyLinks: Seq[PropertyLink])
