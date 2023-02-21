@@ -79,4 +79,9 @@ class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
       """<span id="value-id">this is a value</span>"""
     )
   }
+
+  "summaryListMultiValues" should "return value wrapped in a paragraph with values" in {
+    FrontendComponentHelper.summaryListMultiValues(id = "id", values = List("value-1", "value-2")) shouldBe HtmlContent(
+      s"""<p class="govuk-body" id="id">value-1<br>value-2</p>""")
+  }
 }

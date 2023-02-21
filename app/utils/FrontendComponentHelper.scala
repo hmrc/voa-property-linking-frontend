@@ -59,6 +59,11 @@ object FrontendComponentHelper {
   def valueWithId(value: String, id: String): HtmlContent =
     HtmlContent(s"""<span id="$id">$value</span>""")
 
+  def summaryListMultiValues(id: String, values: List[String]): HtmlContent =
+    HtmlContent(s"""<p class="govuk-body" id="$id">${values.zipWithIndex.map {
+      case (value, index) => if (index == 0) value else s"<br>$value"
+    }.mkString}</p>""")
+
   def summaryListRow(keyId: String, key: String, valueId: String, value: String)(implicit messages: Messages) =
     SummaryListRow(
       key = Key(
