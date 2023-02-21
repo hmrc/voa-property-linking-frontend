@@ -14,8 +14,6 @@
  * limitations under the License.
  *@
 
-@this()
-
 @(linkMessage: String,
    location: String,
    linkId: Option[String] = None,
@@ -29,7 +27,7 @@
 )
 
 @link = {
-   <a @{linkId.fold("")(id => s"id=$id")} class="@linkClass" href="@location">@Html(messages(linkMessage))</a>@if(linkSentence){.}
+   <a @{linkId.fold("")(id => s"id=$id")} class="@linkClass" href="@location">@messages(linkMessage)</a>@if(linkSentence){.}
 }
 
 @if(pWrapped) {

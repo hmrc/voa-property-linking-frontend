@@ -20,7 +20,7 @@
 @import models.properties.AllowedAction.CHECK
 @import views.html.components.link
 
-@this(govukButton: GovukButton, govukInsetText: GovukInsetText, govukWarningText: GovukWarningText, linkWithText: link)
+@this(govukButton: GovukButton, govukInsetText: GovukInsetText, govukWarningText: GovukWarningText)
 
 @(model: AvailableRequestDetailedValuation, currentValuationUrl: Option[String], valuationUrl: String)(implicit config: ApplicationConfig, messages: Messages)
 
@@ -67,12 +67,12 @@
         <p class="govuk-body">@messages("available.requestvaluation.listYear.2017.p3")</p>
 
         <ul class="govuk-list govuk-list--bullet">
-            <li>@linkWithText(preLinkMessage = Some(messages("available.requestvaluation.listYear.2017.li4")),
+            <li>@link(preLinkMessage = Some(messages("available.requestvaluation.listYear.2017.li4")),
                 linkMessage = messages("available.requestvaluation.listYear.2017.link.text"),
                 location = currentValuationsUrl,
                 linkId = Some("current-valuation-alteration"))
             </li>
-            <li>@linkWithText(preLinkMessage = Some(messages("available.requestvaluation.listYear.2017.li5")),
+            <li>@link(preLinkMessage = Some(messages("available.requestvaluation.listYear.2017.li5")),
                 linkMessage = messages("available.requestvaluation.listYear.2017.link.text"),
                 location = currentValuationsUrl,
                 linkId = Some("current-valuation-court-decision"))

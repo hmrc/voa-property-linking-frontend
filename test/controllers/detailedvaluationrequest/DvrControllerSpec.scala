@@ -17,6 +17,7 @@
 package controllers.detailedvaluationrequest
 
 import _root_.utils.Formatters
+import config.ApplicationConfig
 import connectors.SubmissionIdConnector
 import controllers.VoaPropertyLinkingSpec
 import models._
@@ -30,18 +31,20 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils._
 
-import scala.collection.JavaConverters._
 import java.time.{LocalDate, LocalDateTime}
 import models.dvr.cases.check.common.Agent
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.AllowedAction
-import org.jsoup.Jsoup
+import org.jsoup.{Jsoup, nodes}
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import org.mockito.Mockito
 import org.scalatest.Inspectors
-import play.api.mvc.Result
+import play.api.i18n.MessagesApi
+import play.api.mvc.{MessagesControllerComponents, Result}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
+import scala.jdk.CollectionConverters.ListHasAsScala
 
 class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
@@ -1213,6 +1216,165 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/confirmation?submissionId=DVR123")
   }
 
+  abstract class RequestDvrScreenTestCase(config: ApplicationConfig) extends Setup {
+    override val controller = new DvrController(
+      errorHandler = mockCustomErrorHandler,
+      propertyLinks = mockPropertyLinkConnector,
+      challengeConnector = mockChallengeConnector,
+      vmvConnector = mockVmvConnector,
+      authenticated = preAuthenticatedActionBuilders(),
+      submissionIds = mockSubmissionIds,
+      dvrCaseManagement = mockDvrCaseManagement,
+      alreadyRequestedDetailedValuationView = alreadyRequestedDetailedValuationView,
+      requestDetailedValuationView = requestDetailedValuationView,
+      requestedDetailedValuationView = requestedDetailedValuationView,
+      dvrFilesView = dvrFilesView,
+      cannotRaiseChallengeView = cannotRaiseChallengeView,
+      propertyMissingView = propertyMissingView,
+      checkSummaryUrlTemplate = checkSummaryUrlTemplate,
+      enquiryUrlTemplate = enquiryUrlTemplate,
+      estimatorUrlTemplate = estimatorUrlTemplate
+    )(
+      implicitly[ExecutionContext],
+      implicitly[MessagesApi],
+      implicitly[MessagesControllerComponents],
+      config
+    )
+
+    val testAssessments: ApiAssessments =
+      assessments.copy(assessments = assessments.assessments.map(a => a.copy(assessmentRef = assessment.assessmentRef)))
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(testAssessments)))
+    when(mockDvrCaseManagement.dvrExists(any(), any())(any())).thenReturn(Future.successful(false))
+    private val result =
+      controller.myOrganisationAlreadyRequestedDetailValuation(link.submissionId, assessment.assessmentRef)(request)
+    val html: nodes.Document = Jsoup.parse(contentAsString(result))
+
+    status(result) shouldBe OK
+
+    val addressCaption: Element = html.getElementById("assessment-address-caption")
+    val addressHeading: Element = html.getElementById("assessment-address")
+    val effectiveDate: Element = html.getElementById("effective-date")
+    val councilRef: Element = html.getElementById("local-council-reference")
+    val valuationSubhead: Element = html.getElementById("valuation-subhead")
+    val rateableValue: Element = html.getElementById("rateable-value")
+    val insetRvExplainer: Element = html.getElementById("rv-explainer")
+    val valuationDetailsSubhead: Element = html.getElementById("valuation-details-subhead")
+    val requestExplainer: Element = html.getElementById("request-explainer")
+    val returnHomeLink: Element = html.getElementById("request-explainer-return-home-link")
+    val changeSomethingHeading: Element = html.getElementById("change-something-heading")
+    val changeSomethingExplainer: Element = html.getElementById("change-something-explainer")
+    val challengeLink: Element = html.getElementById("change-something-challenge-link")
+  }
+
+  val draftList: ApplicationConfig = {
+    val spyConfig = Mockito.spy(applicationConfig)
+    when(spyConfig.compiledListEnabled).thenReturn(false)
+    spyConfig
+  }
+
+  val compiledList: ApplicationConfig = {
+    val spyConfig = Mockito.spy(applicationConfig)
+    when(spyConfig.compiledListEnabled).thenReturn(true)
+    spyConfig
+  }
+
+  "request detailed valuation" should "display the correct content in draft list for CURRENT and PREVIOUS properties (no difference)" in new RequestDvrScreenTestCase(
+    draftList) {
+    addressCaption.text() shouldBe "Detailed valuation request for"
+    addressHeading.text() shouldBe "123, SOME ADDRESS"
+    effectiveDate.text() shouldBe "Effective date: 1 April 2017"
+    Option(councilRef) should not be defined
+    Option(valuationSubhead) should not be defined
+    rateableValue.text() shouldBe "Rateable Value: £123"
+    Option(insetRvExplainer) should not be defined
+    Option(valuationDetailsSubhead) should not be defined
+    requestExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "You need to request this detailed valuation if you want to view it or submit a check.",
+      "Once your request is approved, it will be available to view on this page.",
+      "If you don’t want to request this, you can return to your home page.",
+      "Request a valuation"
+    )
+    returnHomeLink.text() shouldBe "return to your home page"
+    returnHomeLink.attr("href") shouldBe applicationConfig.dashboardUrl("home")
+
+    changeSomethingHeading.text() shouldBe "Already submitted a check?"
+    changeSomethingExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "The VOA will contact you with the outcome. If you disagree with the outcome of the check, or the rateable value of your property, you can start a challenge.",
+      "You can't start a challenge until you've received the outcome of your check.",
+      "Challenge this valuation"
+    )
+    challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
+      s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
+        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, testAssessments.uarn, tabName = Some("valuation-tab"))
+        .absoluteURL(false, "localhost:9523")}"
+    )
+  }
+
+  "request detailed valuation" should "display the correct content in compiled list for CURRENT properties" in new RequestDvrScreenTestCase(
+    compiledList) {
+    addressCaption.text() shouldBe "Your property"
+    addressHeading.text() shouldBe "123, SOME ADDRESS"
+    Option(effectiveDate) should not be defined
+    councilRef.text() shouldBe s"Local council reference: ${ownerAuthorisation.localAuthorityRef}"
+    valuationSubhead.text() shouldBe "Valuation"
+    rateableValue.text() shouldBe "Current rateable value (1 April 2017 to present) £123"
+    insetRvExplainer
+      .text() shouldBe "This is the rateable value for the property. It is not what you pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill."
+    valuationDetailsSubhead.text() shouldBe "Valuation details"
+    requestExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "To see how we calculated this rateable value, request the detailed valuation.",
+      "The detailed valuation will be available to download when your request is approved.",
+      "Request the detailed valuation"
+    )
+    Option(returnHomeLink) should not be defined
+
+    changeSomethingHeading.text() shouldBe "If you want to change something in this valuation"
+    changeSomethingExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "If the property details need changing, or you think the rateable value is too high, you must first request the detailed valuation so you can start a Check case.",
+      "If you have already sent us a Check case, we will contact you with the decision.",
+      "If you disagree with our Check case decision, you can start a Challenge case. You must complete a Check case before sending a Challenge case."
+    )
+    challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
+      s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
+        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, testAssessments.uarn, tabName = Some("valuation-tab"))
+        .absoluteURL(false, "localhost:9523")}"
+    )
+  }
+
+  "request detailed valuation" should "display the correct content in compiled list for PREVIOUS properties" in new RequestDvrScreenTestCase(
+    compiledList) {
+    override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, listType = ListType.PREVIOUS)
+    addressCaption.text() shouldBe "Your property"
+    addressHeading.text() shouldBe "123, SOME ADDRESS"
+    Option(effectiveDate) should not be defined
+    councilRef.text() shouldBe s"Local council reference: ${ownerAuthorisation.localAuthorityRef}"
+    valuationSubhead.text() shouldBe "Valuation"
+    rateableValue.text() shouldBe "Previous rateable value (1 April 2017 to 1 June 2017) £123"
+    insetRvExplainer
+      .text() shouldBe "This was the rateable value for the property. It is not what you would have paid in business rates or rent. Your local council uses the rateable value to calculate the business rates bill."
+    valuationDetailsSubhead.text() shouldBe "Valuation details"
+    requestExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "To see how we calculated this rateable value, request the detailed valuation.",
+      "The detailed valuation will be available to download when your request is approved.",
+      "Request the detailed valuation"
+    )
+    Option(returnHomeLink) should not be defined
+
+    changeSomethingHeading.text() shouldBe "If you want to change something in this valuation"
+    changeSomethingExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "If the property details need changing, or you think the rateable value is too high, you must first request the detailed valuation so you can start a Check case.",
+      "If you have already sent us a Check case, we will contact you with the decision.",
+      "If you disagree with our Check case decision, you can start a Challenge case. You must complete a Check case before sending a Challenge case."
+    )
+    challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
+      s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
+        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, testAssessments.uarn, tabName = Some("valuation-tab"))
+        .absoluteURL(false, "localhost:9523")}"
+    )
+  }
+
   "request current detailed valuation by ip" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
     val result: Future[Result] = controller.myOrganisationRequestDetailValuationCheck(
       propertyLinkSubmissionId = assessments.submissionId,
@@ -1265,20 +1427,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = controller.confirmation(link.submissionId, link.submissionId, false)(request)
 
     status(result) shouldBe OK
-  }
-
-  "already submitted detailed valuation request" should "return 200 OK when DVR does not exist" in new Setup {
-    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
-      .thenReturn(Future.successful(Some(assessments.copy(assessments = assessments.assessments.map(a =>
-        a.copy(assessmentRef = 1L))))))
-    when(mockDvrCaseManagement.dvrExists(any(), any())(any())).thenReturn(Future.successful(false))
-
-    val result =
-      controller.alreadySubmittedDetailedValuationRequest(submissionId = "11111", valuationId = 1L, owner = true)(
-        request)
-
-    status(result) shouldBe OK
-    contentAsString(result) should include("Already submitted a check?")
   }
 
   "already submitted detailed valuation request" should "return 200 OK without challenge section when viewing a draft assessment" in new Setup {

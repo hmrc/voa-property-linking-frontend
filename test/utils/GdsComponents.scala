@@ -23,7 +23,6 @@ import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TimeoutDia
 import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
 import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcTimeoutDialog}
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardFooter, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
-import views.html.components.link
 
 trait GdsComponents {
 
@@ -77,5 +76,4 @@ trait GdsComponents {
   lazy val hmrcTrackingConsentSnippet = new HmrcTrackingConsentSnippet(new TrackingConsentConfig(minimalConfiguration))
   lazy val hmrcTimeoutDialogHelper =
     new HmrcTimeoutDialogHelper(new HmrcTimeoutDialog, new TimeoutDialogConfig(minimalConfiguration))
-  lazy val linkWithText = new link()
 }

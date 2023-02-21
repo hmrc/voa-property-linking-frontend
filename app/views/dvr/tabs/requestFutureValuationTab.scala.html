@@ -19,7 +19,7 @@
 
 @this(govukInsetText: GovukInsetText)
 
-@(rateableValue: Option[Long],
+@(rateableValueFormatted: Option[String],
   effectiveDate: String,
   estimatorUrl: String,
   currentValuationUrl: Option[String],
@@ -37,13 +37,13 @@
 <div class="govuk-grid-row">
     <div id="future-valuation-tab-content"  class="govuk-grid-column-three-quarters" >
         <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
-        @rateableValue.map { rv =>
+        @rateableValueFormatted.map { rv =>
 
             <span class="govuk-caption-l" id="future-valuation-caption">
                 @messages("auto.requestDetailedValuation.future.rv.caption", effectiveDate)
             </span>
             <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="future-valuation-rv">
-            @formatCurrencyRoundedToPounds(rv)
+                @rv
             </p>
 
         @govukInsetText(InsetText(

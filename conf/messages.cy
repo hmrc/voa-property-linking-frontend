@@ -975,14 +975,25 @@ requestDetailedValuation.p.4=Os byddai’n well gennych i ni anfon hwn drwy’r 
 requestDetailedValuation.button=Gwneud cais am brisiad
 
 auto.requestDetailedValuation.title=Gwneud cais am brisiad manwl
-auto.requestDetailedValuation.smallTitle=Cais prisiad manwl ar gyfer
+auto.requestDetailedValuation.smallTitle.dvrFor=Cais prisiad manwl ar gyfer
+auto.requestDetailedValuation.smallTitle.yourProperty=Eich eidd
 auto.requestDetailedValuation.p.1=Mae angen i chi wneud cais am y prisiad manwl hwn os ydych am ei weld neu gyflwyno gwiriad.
 auto.requestDetailedValuation.p.1.draft=Mae angen i chi wneud cais am y prisiad manwl hwn os ydych am ei weld.
 auto.requestDetailedValuation.p.2=Unwaith bydd eich cais yn cael ei gymeradwyo, bydd ar gael i’w weld ar y dudalen hon.
-auto.requestDetailedValuation.p.3=Os nad ydych eisiau hyn , gallwch <a class="govuk-link" href={0}>ddychwelyd i’r hafan.</a>
+auto.requestDetailedValuation.p.3=Os nad ydych eisiau hyn , gallwch <a class="govuk-link" id="request-explainer-return-home-link" href={0}>ddychwelyd i’r hafan</a>.
 auto.requestDetailedValuation.button=Gwneud cais am brisiad
 auto.requestDetailedValuation.effectiveDate=<b>Dyddiad dod i rym :</b> {0}
-auto.requestDetailedValuation.rateableValue=<b>Gwerth Ardrethol:</b> £{0}
+auto.requestDetailedValuation.rateableValue=<b>Gwerth Ardrethol:</b> {0}
+auto.requestDetailedValuation.localCouncilRef=Cyfeirnod yr awdurdod lleol:
+
+auto.requestDetailedValuation.subhead.valuation=Prisiad
+auto.requestDetailedValuation.rv.caption.future=Gwerth ardrethol y dyfodol (o {0})
+auto.requestDetailedValuation.rv.caption.current=Gwerth ardrethol cyfredol ({0} i presennol)
+auto.requestDetailedValuation.rv.caption.previous=Gwerth ardrethol blaenorol ({0} i {1})
+auto.requestDetailedValuation.rv.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
+auto.requestDetailedValuation.rv.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
+
+auto.requestDetailedValuation.subhead.valuationDetails=Manylion prisio
 
 requestDetailedValuation.heading.challenge=Wedi cwblhau gwiriad yn barod?
 requestDetailedValuation.challenge.p=Ar ôl i chi gwblhau gwiriad, bydd y VOA yn cysylltu â chi gyda’r canlyniad.   Os ydych yn anghytuno â chanlyniad y gwiriad neu os ydych yn credu bod gwerth ardrethol eich eiddo yn anghywir, gallwch roi gwybod i ni. Mae gwneud hyn yn cael ei alw’n her. (Ni allwch ddechrau her nes eich bod wedi derbyn y canlyniad ar gyfer eich gwiriad)
@@ -1643,7 +1654,7 @@ available.requestvaluation.agentsTab.table.header.agent=Asiant
 available.requestvaluation.agentsTab.table.header.totalCases=Cyfanswm yr achosion ar gyfer yr eiddo hwn
 available.requestvaluation.agentsTab.table.header.openCases=Agor achosion ar gyfer yr eiddo hwn
 available.requestvaluation.h2.previous=Gwerth ardrethol blaenorol ({0} i {1})
-available.requestvaluation.h2.current=Gwerth ardrethol cyfredol ({0} to present)
+available.requestvaluation.h2.current=Gwerth ardrethol cyfredol ({0} i presennol)
 available.requestvaluation.h2.future=Gwerth ardrethol y dyfodol (o {0})
 available.requestvaluation.inset=Nid dyma’r swm rydych yn ei dalu. Defnyddir i gyfrifo eich bil ardrethi busnes.
 available.requestvaluation.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.

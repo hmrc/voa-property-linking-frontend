@@ -1070,14 +1070,35 @@ requestDetailedValuation.button=Request a valuation
 
 auto.requestDetailedValuation.caption=Property
 auto.requestDetailedValuation.title=Request a detailed valuation
-auto.requestDetailedValuation.smallTitle=Detailed valuation request for
+auto.requestDetailedValuation.smallTitle.dvrFor=Detailed valuation request for
+auto.requestDetailedValuation.smallTitle.yourProperty=Your property
 auto.requestDetailedValuation.p.1=You need to request this detailed valuation if you want to view it or submit a check.
 auto.requestDetailedValuation.p.1.draft=You need to request this detailed valuation if you want to view it.
 auto.requestDetailedValuation.p.2=Once your request is approved, it will be available to view on this page.
-auto.requestDetailedValuation.p.3=If you don’t want to request this, you can <a class="govuk-link" href={0}>return to your home page.</a>
+auto.requestDetailedValuation.p.3=If you don’t want to request this, you can <a class="govuk-link" id="request-explainer-return-home-link" href={0}>return to your home page</a>.
 auto.requestDetailedValuation.button=Request a valuation
 auto.requestDetailedValuation.effectiveDate=<b>Effective date:</b> {0}
-auto.requestDetailedValuation.rateableValue=<b>Rateable Value:</b> £{0}
+auto.requestDetailedValuation.rateableValue=<b>Rateable Value:</b> {0}
+auto.requestDetailedValuation.localCouncilRef=Local council reference:
+
+auto.requestDetailedValuation.subhead.valuation=Valuation
+auto.requestDetailedValuation.rv.caption.future=Future rateable value (from {0})
+auto.requestDetailedValuation.rv.caption.current=Current rateable value ({0} to present)
+auto.requestDetailedValuation.rv.caption.previous=Previous rateable value ({0} to {1})
+auto.requestDetailedValuation.rv.inset.current=This is the rateable value for the property. It is not what you pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill.
+auto.requestDetailedValuation.rv.inset.previous=This was the rateable value for the property. It is not what you would have paid in business rates or rent. Your local council uses the rateable value to calculate the business rates bill.
+
+auto.requestDetailedValuation.subhead.valuationDetails=Valuation details
+auto.requestDetailedValuation.request.howCalculated=To see how we calculated this rateable value, request the detailed valuation.
+auto.requestDetailedValuation.request.whenApproved=The detailed valuation will be available to download when your request is approved.
+auto.requestDetailedValuation.request.button=Request the detailed valuation
+
+auto.requestDetailedValuation.subhead.change=If you want to change something in this valuation
+auto.requestDetailedValuation.change.startCheck=If the property details need changing, or you think the rateable value is too high, you must first request the detailed valuation so you can start a Check case.
+auto.requestDetailedValuation.change.alreadySent=If you have already sent us a Check case, we will contact you with the decision.
+auto.requestDetailedValuation.change.challenge.preLink=If you disagree with our Check case decision, you can
+auto.requestDetailedValuation.change.challenge.link=start a Challenge case
+auto.requestDetailedValuation.change.challenge.postLink=You must complete a Check case before sending a Challenge case.
 
 auto.requestDetailedValuation.future.tabName=Valuation
 auto.requestDetailedValuation.future.rv.caption=Future rateable value (from {0})
