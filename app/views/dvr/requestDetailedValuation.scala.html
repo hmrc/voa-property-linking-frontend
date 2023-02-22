@@ -105,7 +105,7 @@
     }
 
 } else if(config.compiledListEnabled) {
-    @mainLayout(pageTitle = messages("auto.requestDetailedValuation.title"), backUri = Some(backUrl)) {
+    @mainLayout(pageTitle = address, backUri = Some(backUrl)) {
 
         <span class="govuk-caption-l" id="assessment-address-caption">@messages("auto.requestDetailedValuation.smallTitle.yourProperty")</span>
         <h1 class="govuk-heading-l margin-top-20" id="assessment-address">@address</h1>
@@ -125,46 +125,65 @@
             ))
         ))
 
-        @for(rv <- model.rateableValueFormatted; fromDate <- model.fromDate.map(Formatters.formattedFullDate)) {
+        @model.rateableValueFormatted.map { rv =>
+            <h2 class="govuk-heading-m" id="valuation-subhead">
+                @messages("auto.requestDetailedValuation.subhead.valuation")
+            </h2>
+
+            <div id="rateable-value">
+                <span class="govuk-caption-l">
+                    @model.listType match {
+                        case ListType.DRAFT => {
+                            @messages(
+                                "auto.requestDetailedValuation.rv.caption.future",
+                                model.formattedFromDate
+                            )
+                        }
+                        case ListType.CURRENT => {
+                            @model.formattedToDate.fold(
+                                messages(
+                                    "auto.requestDetailedValuation.rv.caption.current",
+                                    model.formattedFromDate
+                                )
+                            )(toDate =>
+                                messages(
+                                    "auto.requestDetailedValuation.rv.caption.previous",
+                                    model.formattedFromDate,
+                                    toDate
+                                )
+                            )
+                        }
+                        case ListType.PREVIOUS => {
+                            @messages(
+                                "auto.requestDetailedValuation.rv.caption.previous",
+                                model.formattedFromDate,
+                                model.formattedToDate.getOrElse(
+                                    if (model.listYear == "2017") Formatters.formattedFullDate(config.default2017AssessmentEndDate)
+                                    else ""
+                                )
+                            )
+                        }
+                    }
+                </span>
+
+                <p class="govuk-heading-xl govuk-!-margin-bottom-4">@rv</p>
+            </div>
+
+
             @model.listType match {
-                case ListType.PREVIOUS => { @model.toDate.map { toDate =>
-                    <h2 class="govuk-heading-m" id="valuation-subhead">
-                        @messages("auto.requestDetailedValuation.subhead.valuation")
-                    </h2>
-
-                    <div id="rateable-value">
-                      <span class="govuk-caption-l">
-                          @messages("auto.requestDetailedValuation.rv.caption.previous", fromDate, Formatters.formattedFullDate(toDate))
-                      </span>
-                      <p class="govuk-heading-xl govuk-!-margin-bottom-4">@rv</p>
-                    </div>
-
-                    @govukInsetText(InsetText(
-                        id = Some("rv-explainer"),
-                        content = Text(messages("auto.requestDetailedValuation.rv.inset.previous"))
-                    ))
-                }}
-
-                case _ => {
-                    <h2 class="govuk-heading-m" id="valuation-subhead">
-                        @messages("auto.requestDetailedValuation.subhead.valuation")
-                    </h2>
-
-                    <div id="rateable-value">
-                        <span class="govuk-caption-l">
-                            @{model.listType match {
-                                case ListType.DRAFT => messages("auto.requestDetailedValuation.rv.caption.future", fromDate)
-                                case ListType.CURRENT => messages("auto.requestDetailedValuation.rv.caption.current", fromDate)
-                            }}
-                        </span>
-                        <p class="govuk-heading-xl govuk-!-margin-bottom-4">@rv</p>
-                    </div>
-
+                case ListType.CURRENT => {
                     @govukInsetText(InsetText(
                         id = Some("rv-explainer"),
                         content = Text(messages("auto.requestDetailedValuation.rv.inset.current"))
                     ))
                 }
+                case ListType.PREVIOUS => {
+                    @govukInsetText(InsetText(
+                        id = Some("rv-explainer"),
+                        content = Text(messages("auto.requestDetailedValuation.rv.inset.previous"))
+                    ))
+                }
+                case _ => {}
             }
         }
 
@@ -198,9 +217,9 @@
 
             @link(
               linkSentence = true,
-              preLinkMessage = Some("auto.requestDetailedValuation.change.challenge.preLink"),
-              linkMessage = messages("auto.requestDetailedValuation.change.challenge.link"),
-              postLinkMessage = Some(messages("auto.requestDetailedValuation.change.challenge.postLink")),
+              preLinkText = Some(messages("auto.requestDetailedValuation.change.challenge.preLink")),
+              linkText = messages("auto.requestDetailedValuation.change.challenge.link"),
+              postLinkText = Some(messages("auto.requestDetailedValuation.change.challenge.postLink")),
               location = config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl"),
               linkId = Some("change-something-challenge-link"),
             )

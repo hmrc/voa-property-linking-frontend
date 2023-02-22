@@ -14,14 +14,28 @@
  * limitations under the License.
  *@
 
+@import _root_.utils.Formatters
 @import config.ApplicationConfig
-@import utils.Formatters
+@import views.html.components.link
 @import views.html.includes.assessmentHeading
 
-@this(mainLayout: views.html.mainLayout)
+@this(mainLayout: views.html.mainLayout, govukPanel: GovukPanel, govukSummaryList: GovukSummaryList)
 
-@(submissionId: String, address: String,  localAuthorityRef: String, clientDetails: Option[ClientDetails] = None)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(
+  submissionId: String,
+  address: String,
+  localAuthorityRef: String,
+  clientDetails: Option[ClientDetails] = None,
+  welshDvr: Boolean,
+  formattedFromDate: String,
+  formattedToDate: String
+)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@panelContent(contentMessageKey: String) = {
+  @messages(contentMessageKey)
+  <br>
+  <strong>@submissionId</strong>
+}
 
 @managePropertiesUrl = @{
     clientDetails match {
@@ -32,39 +46,116 @@
     }
 }
 
-@linkSubmitted = @{
-    clientDetails  match {
-        case Some(client)          => Html(messages("linkSubmitted.whatNext.8", managePropertiesUrl))
-        case _                     => Html(messages("linkSubmitted.whatNext.7", managePropertiesUrl))
-    }
-}
+@backToDashboardLink = @{link(
+    linkText = messages("auto.detailedValuationRequested.whatNext.accountHome"),
+    location = config.dashboardUrl("home"),
+    linkId = Some("whats-next-back-to-dashboard-link")
+)}
 
+@if(config.compiledListEnabled) {
+    @mainLayout(pageTitle = messages("auto.detailedValuationRequested.title.confirmation")) {
 
+        @govukPanel(Panel(
+            attributes = Map("id" -> "dvr-confirmation-panel"),
+            title = Text(messages("auto.detailedValuationRequested.panel.title")),
+            content = HtmlContent(panelContent("auto.detailedValuationRequested.panel.content"))
+        ))
 
-    @mainLayout(pageTitle=Messages("auto.detailedValuationRequested.title")) {
+        <div>
+            <p class="govuk-body" id="dvr-reference-property-explainer">
+                @messages("auto.detailedValuationRequested.explainer.property")
+            </p>
 
-    @assessmentHeading(localAuthorityRef,address)
+            @govukSummaryList(SummaryList(
+              attributes = Map("id" -> "property-summary-list"),
+              rows = Seq(
+                SummaryListRow(
+                  Key(Text(messages("label.address"))),
+                  Value(Text(Formatters.capitalisedAddress(address)))
+                ),
+                SummaryListRow(
+                  Key(Text(messages("auto.detailedValuationRequested.localCouncilRef"))),
+                  Value(Text(localAuthorityRef)),
+                )
+              )
+            ))
 
-    <div class="govuk-panel govuk-panel--confirmation">
-        <h1 class="govuk-panel__title">
-            @messages("auto.detailedValuationRequested.title")
-        </h1>
-        <div class="govuk-panel__body">
-            @Html(Messages("auto.detailedValuationRequested.title.reference"))<br><strong>@submissionId</strong>
+            <p class="govuk-body" id="dvr-reference-note-explainer">
+                @messages("auto.detailedValuationRequested.explainer.note")
+            </p>
         </div>
-    </div>
 
+        <h2 class="govuk-heading-m" id="whats-next-heading">@messages("heading.whatNext")</h2>
 
-    <p class="govuk-body">@messages("linkingRequestSubmitted.p1")</p>
+        <div id="whats-next-explainer">
+            <p class="govuk-body">@messages("auto.detailedValuationRequested.whatNext.leadTime")</p>
+            @link(
+                linkText = clientDetails.fold(
+                    messages("auto.detailedValuationRequested.whatNext.ipLink"))(
+                    _ => messages("auto.detailedValuationRequested.whatNext.agentLink")),
+                location = managePropertiesUrl,
+                linkId = Some("whats-next-your-properties-link"),
+                linkSentence = true,
+                preLinkText = Some(messages("auto.detailedValuationRequested.whatNext.preLink"))
+            )
+            <p class="govuk-body">@messages("auto.detailedValuationRequested.whatNext.contact")</p>
+            @if(!welshDvr) { @backToDashboardLink }
+        </div>
 
-    <h2 class="govuk-heading-m">@messages("heading.whatNext")</h2>
+        @if(welshDvr) {
+            <h2 class="govuk-heading-m" id="welsh-valuation-heading">@messages("auto.detailedValuationRequested.welsh.heading")</h2>
+            <div id="welsh-valuation-content">
+                @link(
+                  preLinkText = Some(messages("auto.detailedValuationRequested.welsh.ccaEmail.preLink")),
+                  linkText = messages("auto.detailedValuationRequested.welsh.ccaEmail.link"),
+                  postLinkText = Some(
+                      messages(
+                          "auto.detailedValuationRequested.welsh.ccaEmail.postLink",
+                          messages(
+                              "auto.detailedValuationRequested.welsh.ccaEmail.valuationPeriod",
+                              formattedFromDate,
+                              formattedToDate
+                          )
+                      )
+                  ),
+                  location = "mailto:ccaservice@voa.gov.uk",
+                  linkId = Some("welsh-valuation-email-cca"),
+                  linkSentence = true,
+                )
+                @backToDashboardLink
+            </div>
+        }
+    }
+} else {
+    @mainLayout(pageTitle = messages("auto.detailedValuationRequested.title")) {
 
-    <p class="govuk-body">@messages("linkSubmitted.whatNext.6")</p>
+        @assessmentHeading(localAuthorityRef,address)
 
-    <p class="govuk-body">@linkSubmitted</p>
+        @govukPanel(Panel(
+          attributes = Map("id" -> "dvr-confirmation-panel"),
+          title = Text(messages("auto.detailedValuationRequested.title")),
+          content = HtmlContent(panelContent("auto.detailedValuationRequested.title.reference"))
+        ))
 
-    <p class="govuk-body">@messages("linkSubmitted.whatNext.3")</p>
+        <p class="govuk-body" id="dvr-reference-note-explainer">@messages("linkingRequestSubmitted.p1")</p>
 
-    <p class="govuk-body"><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.backToDashboard")</a></p>
+        <h2 class="govuk-heading-m" id="whats-next-heading">@messages("heading.whatNext")</h2>
 
+        <div id="whats-next-explainer">
+            <p class="govuk-body">@messages("linkSubmitted.whatNext.6")</p>
+            @link(
+              linkText = clientDetails.fold(messages("linkSubmitted.whatNext.7.ipLink"))(_ => messages("linkSubmitted.whatNext.7.agentLink")),
+              location = managePropertiesUrl,
+              linkId = Some("whats-next-your-properties-link"),
+              linkSentence = true,
+              preLinkText = Some(messages("linkSubmitted.whatNext.7.preLink"))
+            )
+            <p class="govuk-body">@messages("linkSubmitted.whatNext.3")</p>
+            @link(
+              linkText = messages("link.backToDashboard"),
+              location = config.dashboardUrl("home"),
+              linkId = Some("whats-next-back-to-dashboard-link")
+            )
+        </div>
+    }
 }

@@ -48,6 +48,18 @@ import scala.jdk.CollectionConverters.ListHasAsScala
 
 class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
+  val draftList: ApplicationConfig = {
+    val spyConfig = Mockito.spy(applicationConfig)
+    when(spyConfig.compiledListEnabled).thenReturn(false)
+    spyConfig
+  }
+
+  val compiledList: ApplicationConfig = {
+    val spyConfig = Mockito.spy(applicationConfig)
+    when(spyConfig.compiledListEnabled).thenReturn(true)
+    spyConfig
+  }
+
   trait Setup {
     implicit val request = FakeRequest()
     val checkSummaryUrlTemplate =
@@ -1213,7 +1225,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
-      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/confirmation?submissionId=DVR123")
+      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/confirmation?submissionId=DVR123&valuationId=1")
   }
 
   abstract class RequestDvrScreenTestCase(config: ApplicationConfig) extends Setup {
@@ -1268,20 +1280,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val challengeLink: Element = html.getElementById("change-something-challenge-link")
   }
 
-  val draftList: ApplicationConfig = {
-    val spyConfig = Mockito.spy(applicationConfig)
-    when(spyConfig.compiledListEnabled).thenReturn(false)
-    spyConfig
-  }
-
-  val compiledList: ApplicationConfig = {
-    val spyConfig = Mockito.spy(applicationConfig)
-    when(spyConfig.compiledListEnabled).thenReturn(true)
-    spyConfig
-  }
-
   "request detailed valuation" should "display the correct content in draft list for CURRENT and PREVIOUS properties (no difference)" in new RequestDvrScreenTestCase(
     draftList) {
+    html.title() shouldBe "Request a detailed valuation - Valuation Office Agency - GOV.UK"
     addressCaption.text() shouldBe "Detailed valuation request for"
     addressHeading.text() shouldBe "123, SOME ADDRESS"
     effectiveDate.text() shouldBe "Effective date: 1 April 2017"
@@ -1312,8 +1313,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
   }
 
-  "request detailed valuation" should "display the correct content in compiled list for CURRENT properties" in new RequestDvrScreenTestCase(
+  "request detailed valuation" should "display the correct content in compiled list for CURRENT properties with no toDate" in new RequestDvrScreenTestCase(
     compiledList) {
+    override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, toDate = None)
+
+    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
     addressCaption.text() shouldBe "Your property"
     addressHeading.text() shouldBe "123, SOME ADDRESS"
     Option(effectiveDate) should not be defined
@@ -1343,9 +1347,46 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
   }
 
+  "request detailed valuation" should "display the correct content in compiled list for CURRENT properties with a toDate" in new RequestDvrScreenTestCase(
+    compiledList) {
+    override def assessments: ApiAssessments =
+      apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)))
+
+    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
+    addressCaption.text() shouldBe "Your property"
+    addressHeading.text() shouldBe "123, SOME ADDRESS"
+    Option(effectiveDate) should not be defined
+    councilRef.text() shouldBe s"Local council reference: ${ownerAuthorisation.localAuthorityRef}"
+    valuationSubhead.text() shouldBe "Valuation"
+    rateableValue.text() shouldBe "Previous rateable value (1 April 2017 to 1 January 2023) £123"
+    insetRvExplainer
+      .text() shouldBe "This is the rateable value for the property. It is not what you pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill."
+    valuationDetailsSubhead.text() shouldBe "Valuation details"
+    requestExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "To see how we calculated this rateable value, request the detailed valuation.",
+      "The detailed valuation will be available to download when your request is approved.",
+      "Request the detailed valuation"
+    )
+    Option(returnHomeLink) should not be defined
+
+    changeSomethingHeading.text() shouldBe "If you want to change something in this valuation"
+    changeSomethingExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "If the property details need changing, or you think the rateable value is too high, you must first request the detailed valuation so you can start a Check case.",
+      "If you have already sent us a Check case, we will contact you with the decision.",
+      "If you disagree with our Check case decision, you can start a Challenge case. You must complete a Check case before sending a Challenge case."
+    )
+    challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
+      s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
+        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, testAssessments.uarn, tabName = Some("valuation-tab"))
+        .absoluteURL(false, "localhost:9523")}"
+    )
+  }
+
   "request detailed valuation" should "display the correct content in compiled list for PREVIOUS properties" in new RequestDvrScreenTestCase(
     compiledList) {
     override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, listType = ListType.PREVIOUS)
+
+    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
     addressCaption.text() shouldBe "Your property"
     addressHeading.text() shouldBe "123, SOME ADDRESS"
     Option(effectiveDate) should not be defined
@@ -1399,13 +1440,270 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.html.getElementById("back-link").attr("href") shouldBe clientFutureValuationUrl + "#valuation-tab"
   }
 
-  "request detailed valuation confirmation" should "return 200 OK when request is valid" in new Setup {
-    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
-      .thenReturn(Future.successful(Some(assessments)))
+  "request detailed valuation confirmation submitted by IP in draft list" should "display the correct content" in new DvrConfirmationTestCase(
+    draftList,
+    agent = false) {
+    html.title() shouldBe "Request for detailed valuation submitted - Valuation Office Agency - GOV.UK"
+    localAuthorityRef.text() shouldBe s"Local authority reference: ${ownerAuthorisation.localAuthorityRef}"
+    propertyAddress.text() shouldBe s"Property: 123, SOME ADDRESS"
 
-    val result = controller.confirmation(link.submissionId, link.submissionId, true)(request)
+    panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Request for detailed valuation submitted",
+      "Your reference number is DVR123"
+    )
+    Option(dvrReferenceSent) should not be defined
+    Option(propertySummaryList) should not be defined
+    dvrReferenceNote
+      .text() shouldBe "Make a note of your reference number as you’ll need to provide it if you contact us."
+    whatsNextHeading.text() shouldBe "What happens next"
+    whatsNextExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "We will process your request within 20 working days. We will send you a message when the detailed valuation is available.",
+      "You will be able to access the valuation from your properties.",
+      "We will contact you if we need more information.",
+      "Go back to your dashboard"
+    )
+    yourPropertiesLink.attr("href") shouldBe draftList.dashboardUrl("your-properties")
+    backToDashboardLink.attr("href") shouldBe draftList.dashboardUrl("home")
+    Option(welshValuationHeading) should not be defined
+    Option(welshValuationContent) should not be defined
+    Option(ccaEmailLink) should not be defined
+  }
 
-    status(result) shouldBe OK
+  "request detailed valuation confirmation submitted by Agent in draft list" should "display the correct content" in new DvrConfirmationTestCase(
+    draftList,
+    agent = true) {
+    html.title() shouldBe "Request for detailed valuation submitted - Valuation Office Agency - GOV.UK"
+    localAuthorityRef.text() shouldBe s"Local authority reference: ${clientPropertyLink.localAuthorityRef}"
+    propertyAddress.text() shouldBe s"Property: 123, SOME ADDRESS"
+
+    panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Request for detailed valuation submitted",
+      "Your reference number is DVR123"
+    )
+    Option(dvrReferenceSent) should not be defined
+    Option(propertySummaryList) should not be defined
+    dvrReferenceNote
+      .text() shouldBe "Make a note of your reference number as you’ll need to provide it if you contact us."
+    whatsNextHeading.text() shouldBe "What happens next"
+    whatsNextExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "We will process your request within 20 working days. We will send you a message when the detailed valuation is available.",
+      "You will be able to access the valuation from your client’s properties.",
+      "We will contact you if we need more information.",
+      "Go back to your dashboard"
+    )
+    yourPropertiesLink.attr("href") shouldBe draftList.dashboardUrl(
+      s"selected-client-properties?clientOrganisationId=${clientPropertyLink.client.organisationId}&clientName=${clientPropertyLink.client.organisationName}"
+    )
+    backToDashboardLink.attr("href") shouldBe draftList.dashboardUrl("home")
+    Option(welshValuationHeading) should not be defined
+    Option(welshValuationContent) should not be defined
+    Option(ccaEmailLink) should not be defined
+  }
+
+  "request english detailed valuation confirmation submitted by IP in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
+    compiledList,
+    agent = false) {
+    html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
+    Option(localAuthorityRef) should not be defined
+    Option(propertyAddress) should not be defined
+    panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Request for detailed valuation sent",
+      "Your reference number DVR123"
+    )
+    dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
+    propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Address 123, SOME ADDRESS",
+      s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
+    )
+    dvrReferenceNote
+      .text() shouldBe "Make a note of your reference number as you’ll need to provide it if you contact us."
+    whatsNextHeading.text() shouldBe "What happens next"
+    whatsNextExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "We will process your request within 20 working days. We will send you a message when the detailed valuation is available.",
+      "You will be able to download the valuation from your properties.",
+      "We will contact you if we need more information.",
+      "Go to your account home"
+    )
+    yourPropertiesLink.attr("href") shouldBe compiledList.dashboardUrl("your-properties")
+    backToDashboardLink.attr("href") shouldBe compiledList.dashboardUrl("home")
+    Option(welshValuationHeading) should not be defined
+    Option(welshValuationContent) should not be defined
+    Option(ccaEmailLink) should not be defined
+  }
+
+  "request welsh CURRENT (no toDate) detailed valuation confirmation submitted by IP in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
+    compiledList,
+    agent = false) {
+    override def assessments: ApiAssessments =
+      apiAssessments(ownerAuthorisation, toDate = None, listYear = 2023, isWelsh = true)
+    html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
+    Option(localAuthorityRef) should not be defined
+    Option(propertyAddress) should not be defined
+    panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Request for detailed valuation sent",
+      "Your reference number DVR123"
+    )
+    dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
+    propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Address 123, SOME ADDRESS",
+      s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
+    )
+    dvrReferenceNote
+      .text() shouldBe "Make a note of your reference number as you’ll need to provide it if you contact us."
+    whatsNextHeading.text() shouldBe "What happens next"
+    whatsNextExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "We will process your request within 20 working days. We will send you a message when the detailed valuation is available.",
+      "You will be able to download the valuation from your properties.",
+      "We will contact you if we need more information."
+    )
+    yourPropertiesLink.attr("href") shouldBe compiledList.dashboardUrl("your-properties")
+    welshValuationHeading.text() shouldBe "If you need this valuation in Welsh"
+    welshValuationContent.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Email your request to ccaservice@voa.gov.uk. Include the property address and valuation period (1 April 2017 to present) in the email.",
+      "Go to your account home"
+    )
+    ccaEmailLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    backToDashboardLink.attr("href") shouldBe compiledList.dashboardUrl("home")
+  }
+
+  "request welsh CURRENT (with toDate) detailed valuation confirmation submitted by IP in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
+    compiledList,
+    agent = false) {
+    override def assessments: ApiAssessments =
+      apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)), isWelsh = true)
+
+    html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
+    Option(localAuthorityRef) should not be defined
+    Option(propertyAddress) should not be defined
+    panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Request for detailed valuation sent",
+      "Your reference number DVR123"
+    )
+    dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
+    propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Address 123, SOME ADDRESS",
+      s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
+    )
+    dvrReferenceNote
+      .text() shouldBe "Make a note of your reference number as you’ll need to provide it if you contact us."
+    whatsNextHeading.text() shouldBe "What happens next"
+    whatsNextExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "We will process your request within 20 working days. We will send you a message when the detailed valuation is available.",
+      "You will be able to download the valuation from your properties.",
+      "We will contact you if we need more information."
+    )
+    yourPropertiesLink.attr("href") shouldBe compiledList.dashboardUrl("your-properties")
+    welshValuationHeading.text() shouldBe "If you need this valuation in Welsh"
+    welshValuationContent.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Email your request to ccaservice@voa.gov.uk. Include the property address and valuation period (1 April 2017 to 1 January 2023) in the email.",
+      "Go to your account home"
+    )
+    ccaEmailLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    backToDashboardLink.attr("href") shouldBe compiledList.dashboardUrl("home")
+  }
+
+  "request english detailed valuation confirmation submitted by Agent in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
+    compiledList,
+    agent = true) {
+    html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
+    Option(localAuthorityRef) should not be defined
+    Option(propertyAddress) should not be defined
+    panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Request for detailed valuation sent",
+      "Your reference number DVR123"
+    )
+    dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
+    propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Address 123, SOME ADDRESS",
+      s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
+    )
+    dvrReferenceNote
+      .text() shouldBe "Make a note of your reference number as you’ll need to provide it if you contact us."
+    whatsNextHeading.text() shouldBe "What happens next"
+    whatsNextExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "We will process your request within 20 working days. We will send you a message when the detailed valuation is available.",
+      "You will be able to download the valuation from your client’s properties.",
+      "We will contact you if we need more information.",
+      "Go to your account home"
+    )
+    yourPropertiesLink.attr("href") shouldBe compiledList.dashboardUrl(
+      s"selected-client-properties?clientOrganisationId=${clientPropertyLink.client.organisationId}&clientName=${clientPropertyLink.client.organisationName}"
+    )
+    backToDashboardLink.attr("href") shouldBe compiledList.dashboardUrl("home")
+  }
+
+  "request welsh CURRENT (no toDate) detailed valuation confirmation submitted by Agent in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
+    compiledList,
+    agent = true) {
+    override def assessments: ApiAssessments =
+      clientApiAssessments(clientPropertyLink, toDate = None, listYear = 2023, isWelsh = true)
+
+    html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
+    Option(localAuthorityRef) should not be defined
+    Option(propertyAddress) should not be defined
+    panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Request for detailed valuation sent",
+      "Your reference number DVR123"
+    )
+    dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
+    propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Address 123, SOME ADDRESS",
+      s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
+    )
+    dvrReferenceNote
+      .text() shouldBe "Make a note of your reference number as you’ll need to provide it if you contact us."
+    whatsNextHeading.text() shouldBe "What happens next"
+    whatsNextExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "We will process your request within 20 working days. We will send you a message when the detailed valuation is available.",
+      "You will be able to download the valuation from your client’s properties.",
+      "We will contact you if we need more information."
+    )
+    yourPropertiesLink.attr("href") shouldBe compiledList.dashboardUrl(
+      s"selected-client-properties?clientOrganisationId=${clientPropertyLink.client.organisationId}&clientName=${clientPropertyLink.client.organisationName}"
+    )
+    welshValuationHeading.text() shouldBe "If you need this valuation in Welsh"
+    welshValuationContent.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Email your request to ccaservice@voa.gov.uk. Include the property address and valuation period (1 April 2017 to present) in the email.",
+      "Go to your account home"
+    )
+    ccaEmailLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    backToDashboardLink.attr("href") shouldBe compiledList.dashboardUrl("home")
+  }
+
+  "request welsh CURRENT (with toDate) detailed valuation confirmation submitted by Agent in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
+    compiledList,
+    agent = false) {
+    override def assessments: ApiAssessments =
+      clientApiAssessments(clientPropertyLink, toDate = Some(april2023.minusMonths(3)), isWelsh = true)
+
+    html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
+    Option(localAuthorityRef) should not be defined
+    Option(propertyAddress) should not be defined
+    panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Request for detailed valuation sent",
+      "Your reference number DVR123"
+    )
+    dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
+    propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Address 123, SOME ADDRESS",
+      s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
+    )
+    dvrReferenceNote
+      .text() shouldBe "Make a note of your reference number as you’ll need to provide it if you contact us."
+    whatsNextHeading.text() shouldBe "What happens next"
+    whatsNextExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "We will process your request within 20 working days. We will send you a message when the detailed valuation is available.",
+      "You will be able to download the valuation from your properties.",
+      "We will contact you if we need more information."
+    )
+    yourPropertiesLink.attr("href") shouldBe compiledList.dashboardUrl("your-properties")
+    welshValuationHeading.text() shouldBe "If you need this valuation in Welsh"
+    welshValuationContent.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
+      "Email your request to ccaservice@voa.gov.uk. Include the property address and valuation period (1 April 2017 to 1 January 2023) in the email.",
+      "Go to your account home"
+    )
+    ccaEmailLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    backToDashboardLink.attr("href") shouldBe compiledList.dashboardUrl("home")
   }
 
   "request detailed valuation as Agent" should "return 303 SEE_OTHER when request is valid" in new Setup {
@@ -1417,16 +1715,73 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
-      s"/business-rates-property-linking/my-organisation/property-link/clients/all/${link.submissionId}/confirmation?submissionId=DVR123")
+      s"/business-rates-property-linking/my-organisation/property-link/clients/all/${link.submissionId}/confirmation?submissionId=DVR123&valuationId=1")
   }
 
-  "request detailed valuation confirmation as Agent" should "return 200 OK when request is valid" in new Setup {
-    when(mockPropertyLinkConnector.clientPropertyLink(any())(any()))
-      .thenReturn(Future.successful(Some(clientPropertyLinks)))
+  abstract class DvrConfirmationTestCase(config: ApplicationConfig, agent: Boolean) extends Setup {
+    override val controller = new DvrController(
+      errorHandler = mockCustomErrorHandler,
+      propertyLinks = mockPropertyLinkConnector,
+      challengeConnector = mockChallengeConnector,
+      vmvConnector = mockVmvConnector,
+      authenticated = preAuthenticatedActionBuilders(),
+      submissionIds = mockSubmissionIds,
+      dvrCaseManagement = mockDvrCaseManagement,
+      alreadyRequestedDetailedValuationView = alreadyRequestedDetailedValuationView,
+      requestDetailedValuationView = requestDetailedValuationView,
+      requestedDetailedValuationView = requestedDetailedValuationView,
+      dvrFilesView = dvrFilesView,
+      cannotRaiseChallengeView = cannotRaiseChallengeView,
+      propertyMissingView = propertyMissingView,
+      checkSummaryUrlTemplate = checkSummaryUrlTemplate,
+      enquiryUrlTemplate = enquiryUrlTemplate,
+      estimatorUrlTemplate = estimatorUrlTemplate
+    )(
+      implicitly[ExecutionContext],
+      implicitly[MessagesApi],
+      implicitly[MessagesControllerComponents],
+      config
+    )
 
-    val result = controller.confirmation(link.submissionId, link.submissionId, false)(request)
+    override def assessments: ApiAssessments =
+      if (agent) clientApiAssessments(clientPropertyLink)
+      else apiAssessments(ownerAuthorisation)
+
+    if (agent) {
+      when(mockPropertyLinkConnector.clientPropertyLink(any())(any()))
+        .thenReturn(Future.successful(Some(clientPropertyLinks)))
+      when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
+        .thenReturn(Future.successful(Some(assessments)))
+    } else {
+      when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+        .thenReturn(Future.successful(Some(assessments)))
+    }
+
+    private val result =
+      if (agent)
+        controller.myClientsRequestDetailValuationConfirmation(clientPropertyLink.submissionId, "DVR123", 1234L)(
+          request)
+      else
+        controller.myOrganisationRequestDetailValuationConfirmation(ownerAuthorisation.submissionId, "DVR123", 1234L)(
+          request)
+
+    val html: nodes.Document = Jsoup.parse(contentAsString(result))
 
     status(result) shouldBe OK
+
+    val localAuthorityRef: Element = html.getElementById("local-authority-reference")
+    val propertyAddress: Element = html.getElementById("address")
+    val panel: Element = html.getElementById("dvr-confirmation-panel")
+    val dvrReferenceSent: Element = html.getElementById("dvr-reference-property-explainer")
+    val propertySummaryList: Element = html.getElementById("property-summary-list")
+    val dvrReferenceNote: Element = html.getElementById("dvr-reference-note-explainer")
+    val whatsNextHeading: Element = html.getElementById("whats-next-heading")
+    val whatsNextExplainer: Element = html.getElementById("whats-next-explainer")
+    val yourPropertiesLink: Element = html.getElementById("whats-next-your-properties-link")
+    val welshValuationHeading: Element = html.getElementById("welsh-valuation-heading")
+    val welshValuationContent: Element = html.getElementById("welsh-valuation-content")
+    val ccaEmailLink: Element = html.getElementById("welsh-valuation-email-cca")
+    val backToDashboardLink: Element = html.getElementById("whats-next-back-to-dashboard-link")
   }
 
   "already submitted detailed valuation request" should "return 200 OK without challenge section when viewing a draft assessment" in new Setup {

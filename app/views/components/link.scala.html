@@ -14,27 +14,26 @@
  * limitations under the License.
  *@
 
-@(linkMessage: String,
+@(linkText: String,
    location: String,
    linkId: Option[String] = None,
    linkClass: String = "govuk-link",
    pWrapped: Boolean = true,
    linkSentence: Boolean = false,
-   preLinkMessage: Option[String] = None,
-   postLinkMessage: Option[String] = None,
+   preLinkText: Option[String] = None,
+   postLinkText: Option[String] = None,
    pId: Option[String] = None,
-   pClass: String = "govuk-body")(implicit messages: Messages
-)
+   pClass: String = "govuk-body")
 
 @link = {
-   <a @{linkId.fold("")(id => s"id=$id")} class="@linkClass" href="@location">@messages(linkMessage)</a>@if(linkSentence){.}
+   <a @{linkId.fold("")(id => s"id=$id")} class="@linkClass" href="@location">@linkText</a>@if(linkSentence){.}
 }
 
 @if(pWrapped) {
  <p @{pId.fold("")(id => s"id=$id")} class="@pClass">
-  @preLinkMessage.map(m => messages(m))
+  @preLinkText
   @link
-  @postLinkMessage.map(m => messages(m))
+  @postLinkText
  </p>
 } else {
  @link

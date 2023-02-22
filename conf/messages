@@ -929,7 +929,7 @@ linkingRequestSubmitted.title1=Property claim submitted
 linkingRequestSubmitted.client.title2=to your client’s business’s customer record
 linkingRequestSubmitted.title3=Your submission number
 linkingRequestSubmitted.message=Thank you for your request to add {0} to your customer record.
-linkingRequestSubmitted.p1=Make a note of your reference number as you''ll need to provide it if you contact us.
+linkingRequestSubmitted.p1=Make a note of your reference number as you’ll need to provide it if you contact us.
 linkingRequestSubmitted.p.1=If the property request is approved you’ll be able to view the detailed valuation. This may take some time depending on the nature of your application.
 p.whatHappensNext=What happens next
 linkSubmitted.whatNext.1=We will process your claim to this property as quickly as possible but this may take up to 15 working days.
@@ -938,8 +938,9 @@ linkSubmitted.whatNext.3=We will contact you if we need more information.
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Go back to your dashboard</a>
 linkSubmitted.whatNext.5=You can see the status of your claim in <a class="govuk-link" href="{0}">your client''s properties</a>. Once the claim is approved, the status will update.
 linkSubmitted.whatNext.6=We will process your request within 20 working days. We will send you a message when the detailed valuation is available.
-linkSubmitted.whatNext.7= You will be able to access the valuation from <a class="govuk-link" href="{0}">your properties</a>.
-linkSubmitted.whatNext.8= You will be able to access the valuation from <a class="govuk-link" href="{0}">your client''s properties</a>
+linkSubmitted.whatNext.7.preLink=You will be able to access the valuation from
+linkSubmitted.whatNext.7.ipLink=your properties
+linkSubmitted.whatNext.7.agentLink=your client’s properties
 linkingRequestSubmitted.link=Manage your properties
 linkingRequestSubmitted.changedCircumstances.heading=Change in circumstances
 linkingRequestSubmitted.changedCircumstances.p.1=If you’re claiming a property to tell us about any external circumstances that are currently impacting on your business (such as long-term disruptive roadworks, flooding, or other external factors) you’ll be able to tell us even while your request is ‘Pending’.
@@ -1244,13 +1245,32 @@ label.requestType=How would you like to receive the detailed valuation?
 requestType.email=By email
 requestType.post=By post
 
-detailedValuationRequested.title=We''ve received your request to view the detailed valuation for {0}
-detailedValuationRequested.page.title=We''ve received your request to view the detailed valuation
+
+detailedValuationRequested.title=We’ve received your request to view the detailed valuation for {0}
+detailedValuationRequested.page.title=We’ve received your request to view the detailed valuation
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 20 working days.
 
 auto.detailedValuationRequested.title=Request for detailed valuation submitted
 auto.detailedValuationRequested.title.reference=Your reference number is
+
+auto.detailedValuationRequested.title.confirmation=Confirmation
+auto.detailedValuationRequested.panel.title=Request for detailed valuation sent
+auto.detailedValuationRequested.panel.content=Your reference number
+auto.detailedValuationRequested.explainer.property=You’ve sent us a request for a detailed valuation for the following property:
+auto.detailedValuationRequested.localCouncilRef=Local council reference
+auto.detailedValuationRequested.explainer.note=Make a note of your reference number as you’ll need to provide it if you contact us.
+auto.detailedValuationRequested.whatNext.leadTime=We will process your request within 20 working days. We will send you a message when the detailed valuation is available.
+auto.detailedValuationRequested.whatNext.preLink=You will be able to download the valuation from
+auto.detailedValuationRequested.whatNext.ipLink=your properties
+auto.detailedValuationRequested.whatNext.agentLink=your client’s properties
+auto.detailedValuationRequested.whatNext.contact=We will contact you if we need more information.
+auto.detailedValuationRequested.whatNext.accountHome=Go to your account home
+auto.detailedValuationRequested.welsh.heading=If you need this valuation in Welsh
+auto.detailedValuationRequested.welsh.ccaEmail.preLink=Email your request to
+auto.detailedValuationRequested.welsh.ccaEmail.link=ccaservice@voa.gov.uk
+auto.detailedValuationRequested.welsh.ccaEmail.postLink=Include the property address and valuation period {0} in the email.
+auto.detailedValuationRequested.welsh.ccaEmail.valuationPeriod=({0} to {1})
 
 duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.
 duplicateRequestDetailedValuation.request=We’ve received your request for a copy of the detailed valuation for this property in the last 14 days. You should receive your copy by post or email (whichever you chose as your preference) shortly.

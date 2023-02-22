@@ -841,8 +841,9 @@ linkSubmitted.whatNext.3=Byddwn yn cysylltu â chi os bydd angen mwy o wybodaeth
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Ewch yn ôl i’ch dangosfwrdd</a>
 linkSubmitted.whatNext.5=Gallwch weld statws eich cais ar <a class="govuk-link" href="{0}">eiddo eich cleient</a>.   Unwaith y bydd y cais wedi’i gymeradwyo, bydd y statws yn diweddaru.
 linkSubmitted.whatNext.6=Byddwn yn prosesu eich cais o fewn 20 diwrnod gwaith. Byddwn yn anfon neges atoch pan fydd y prisiad manwl ar gael.
-linkSubmitted.whatNext.7=Bydd modd i chi weld y prisiad drwy <a class="govuk-link" href="{0}">eich eiddo</a>.
-linkSubmitted.whatNext.8=Bydd modd i chi weld y prisiad drwy <a class="govuk-link" href="{0}">eiddo eich cleient</a>.
+linkSubmitted.whatNext.7.preLink=Bydd modd i chi weld y prisiad drwy
+linkSubmitted.whatNext.7.ipLink=eich eiddo
+linkSubmitted.whatNext.7.agentLink=eiddo eich cleient
 linkingRequestSubmitted.link=Rheoli eich eiddo
 linkingRequestSubmitted.changedCircumstances.heading=Newid mewn amgylchiadau
 linkingRequestSubmitted.changedCircumstances.p.1=Os ydych yn hawlio eiddo er mwyn dweud wrthym am unrhyw amgylchiadau allanol   sy’n effeithio ar eich busnes ar hyn o bryd (megis gwaith ffordd sy’n amharu’n hirdymor, llifogydd, neu ffactorau allanol eraill) bydd modd i chi ddweud wrthym hyd yn oed tra bod eich cais ’yn yr arfaeth ’.
@@ -1095,6 +1096,24 @@ detailedValuationRequested.p.1=Byddwn yn anfon hwn atoch erbyn {0} o fewn 20 diw
 
 auto.detailedValuationRequested.title=Cais am brisio manwl wedi’i gyflwyno
 auto.detailedValuationRequested.title.reference=Eich cyfeirnod yw
+
+auto.detailedValuationRequested.title.confirmation=WAITING FOR WELSH
+auto.detailedValuationRequested.panel.title=WAITING FOR WELSH
+auto.detailedValuationRequested.panel.content=WAITING FOR WELSH
+auto.detailedValuationRequested.explainer.property=WAITING FOR WELSH
+auto.detailedValuationRequested.localCouncilRef=Cyfeirnod yr awdurdod lleol
+auto.detailedValuationRequested.explainer.note=Gwnewch nodyn o’ch cyfeirnod gan y bydd angen i chi ei ddarparu os byddwch yn cysylltu â ni.
+auto.detailedValuationRequested.whatNext.leadTime=Byddwn yn prosesu eich cais o fewn 20 diwrnod gwaith. Byddwn yn anfon neges atoch pan fydd y prisiad manwl ar gael.
+auto.detailedValuationRequested.whatNext.preLink=WAITING FOR WELSH
+auto.detailedValuationRequested.whatNext.ipLink=eich eiddo
+auto.detailedValuationRequested.whatNext.agentLink=eiddo eich cleient
+auto.detailedValuationRequested.whatNext.contact=Byddwn yn cysylltu â chi os bydd angen mwy o wybodaeth arnom.
+auto.detailedValuationRequested.whatNext.accountHome=Ewch i hafan eich cyfrif
+auto.detailedValuationRequested.welsh.heading=WAITING FOR WELSH
+auto.detailedValuationRequested.welsh.ccaEmail.preLink=WAITING FOR WELSH
+auto.detailedValuationRequested.welsh.ccaEmail.link=ccaservice@voa.gov.uk
+auto.detailedValuationRequested.welsh.ccaEmail.postLink=WAITING FOR WELSH
+auto.detailedValuationRequested.welsh.ccaEmail.valuationPeriod=({0} i {1})
 
 duplicateRequestDetailedValuation.title=Rydych eisoes wedi gofyn am y prisiad manwl hwn.
 duplicateRequestDetailedValuation.request=Rydym wedi derbyn eich cais am gopi o’r prisiad manwl ar gyfer yr eiddo hwn yn ystod y 14 diwrnod diwethaf.   Dylech dderbyn eich copi drwy’r post neu drwy e-bost (pa bynnag un a ddewisoch chi) yn fuan.
