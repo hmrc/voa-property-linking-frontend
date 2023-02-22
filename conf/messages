@@ -1220,6 +1220,7 @@ available.requestvaluation.startCheckTab.checkType.error.missing=Select what you
 
 cannotRaiseChallenge.title=You cannot challenge this valuation
 
+property.details.checkcases.p=You can no longer tell us about a change to the property details for valuations in the 2017 rating list period by starting a Check case.
 property.details.checkcases.table.1=Check reference
 property.details.checkcases.table.2=Submitted date
 property.details.checkcases.table.3=Status

@@ -25,7 +25,7 @@
 
 @this(govukButton: GovukButton, govukDetails: GovukDetails, govukTable: GovukTable, govukWarningText: GovukWarningText)
 
-@(model: CheckCasesDetailsTab, showCompletedCheckButton: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: CheckCasesDetailsTab, checkAllowedAction: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @viewCaseUrl(checkRef: String, submissionId: String) = @{
     config.businessRatesCheckUrl(s"check-case/$checkRef/summary?propertyLinkSubmissionId=$submissionId&isOwner=${model.isOwner}")
@@ -116,27 +116,40 @@
 
 <h2 class="govuk-heading-l">@messages("property.details.div.submitted")</h2>
 
-@if(model.checkCases.isEmpty){
-        <p class="govuk-body" id="no-submitted-checks">@messages("property.details.div.noSubmittedCheck")</p>
-        <p class="govuk-body">@Html(messages("available.requestvaluation.p2", model.downloadUrl))</p>
-        <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        
+        @if(!checkAllowedAction && model.listYear == "2017") {
+            <p class="govuk-body">@messages("property.details.checkcases.p")</p>
+        }
 
-    @if(showCompletedCheckButton) {
-        @govukWarningText(WarningText(
-            iconFallbackText = messages("warning.text"),
-            content = Text(messages("available.requestvaluation.warning"))
-        ))
-        @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some(model.startCheckUrl), attributes = Map("id" -> "checkcasestab-start-check")))
-   }
+        @if(model.checkCases.isEmpty) {
 
-} else {
+            <p class="govuk-body" id="no-submitted-checks">@messages("property.details.div.noSubmittedCheck")</p>
 
-    @govukDetails(Details(
-        id = Some("when-you-may-challenge-details"),
-        summary = Text(messages("challengeRules.summary")),
-        content = HtmlContent(detailContent),
-        classes = "govuk-grid-column-two-thirds"
-    ))
+            @if(checkAllowedAction) {
+                <p class="govuk-body">@Html(messages("available.requestvaluation.p2", model.downloadUrl))</p>
+                <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
+            }
+            @if(checkAllowedAction) {
+                @govukWarningText(WarningText(
+                    iconFallbackText = messages("warning.text"),
+                    content = Text(messages("available.requestvaluation.warning"))))
+
+                @govukButton(Button(
+                    content = Text(messages("available.requestvaluation.dvrCheck.startCheck")),
+                    href = Some(model.startCheckUrl), attributes = Map("id" -> "checkcasestab-start-check")))
+            }
+
+        } else {
+
+            @govukDetails(Details(
+                id = Some("when-you-may-challenge-details"),
+                summary = Text(messages("challengeRules.summary")),
+                content = HtmlContent(detailContent)))
+        </div>
+</div>
+
 
     @govukTable(Table(
         rows = rows,
