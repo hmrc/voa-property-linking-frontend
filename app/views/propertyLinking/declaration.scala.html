@@ -15,7 +15,7 @@
  *@
 
 @import _root_.utils.Formatters
-@import _root_.utils.FrontendComponentHelper.valueWithId
+@import _root_.utils.FrontendComponentHelper._
 @import binders.propertylinks._
 @import controllers.propertyLinking.DeclarationVM
 @import config.ApplicationConfig
@@ -191,9 +191,7 @@
                         content = valueWithId(messages("declaration.checkAnswers.evidenceType.heading"), "evidence-heading")
                     ),
                     value = Value(
-                        content =
-                            valueWithId(
-                                s"""<p class="govuk-body">${evidenceType.fold("")(evType => messages(s"uploadOtherEvidence.evidenceTypes.$evType"))}</p><p class="govuk-body">$strippedFileName</p>""", "evidence-value")
+                        content = summaryListMultiValues("evidence-value", List(evidenceType.fold("")(evType => messages(s"uploadOtherEvidence.evidenceTypes.$evType")), strippedFileName))
                     ),
                     actions = Some(Actions(
                         items = Seq(
