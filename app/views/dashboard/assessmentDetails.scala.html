@@ -145,10 +145,6 @@
         }
     }
 
-    @if(model.currentAssessments.isEmpty && model.draftAssessments.isEmpty && model.historicAssessments.nonEmpty){
-        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.propertyRemoved")</h2>
-    }
-
     @if(model.draftAssessments.nonEmpty){
         <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.draft.title")</h2>
         @table(model.draftAssessments, tableType = "draft", isDraft = true)
