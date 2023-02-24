@@ -362,7 +362,6 @@ dashboard.manageProperties.status.more_evidence_required=Angen mwy o dystiolaeth
 dashboard.manageProperties.submissionId=ID cyflwyno: {0}
 dashboard.manageProperties.noAgent=Dim
 dashboard.managedProperties.addAnotherProperty=Ychwanegu eiddo
-manageProperties.revokeAgent=Dileu asiant
 manageProperties.appointAgent=Penodi asiant
 manageProperties.addAgent=Penodi asiant
 manageProperties.viewAssessments=Gweld prisiadau
@@ -370,23 +369,6 @@ link.dashboard.home=Yn ôl i’r dangosfwrdd
 search.sort.page.size.view=Gweld
 search.sort.page.size.properties.per.page=eiddo fesul tudalen
 search.sort.showing=Yn dangos {0} i {1} o {2}
-
-#MANAGED BY AGENT PROPERTIES
-dashboard.managedByAgentsProperties.title=Eiddo a reolir gan {0}
-managedByAgentsProperties.table.caption=Eich eiddo
-managedByAgentsProperties.table.1=Cyfeiriad
-managedByAgentsProperties.table.2=Cyfeirnod yr awdurdod lleol
-managedByAgentsProperties.table.3=Statws
-managedByAgentsProperties.table.4=Asiantiaid Penodedig
-managedByAgentsProperties.table.5=Gweithredoedd
-dashboard.managedByAgentsProperties.status.approved=Cymeradwywyd
-dashboard.managedByAgentsProperties.status.pending=Yn yr arfaeth
-dashboard.managedByAgentsProperties.status.declined=Gwrthodwyd
-dashboard.managedByAgentsProperties.status.revoked=Dirymwyd
-dashboard.managedByAgentsProperties.noAgent=Dim
-managedByAgentsProperties.viewAssessments=Gweld prisiadau
-managedByAgentsProperties.no.properties=Nid yw’r asiant hwn wedi’i benodi i unrhyw eiddo
-managedByAgentsProperties.no.agentId=Methu adfer manylion yr asiant
 
 manageClients.table.1=Enw’r sefydliad
 manageClients.table.2=Cyfeiriad
@@ -1177,7 +1159,6 @@ label.findAddress.tryAgain=Rhowch gynnig ar god post arall
 error.postcode=Cod post annilys
 addressLookup.manual=Nodwchy cyfeiriad â llaw
 addressLookup.lookup=Canfod cyfeiriad yn ôl cod post
-properties.searchYourProperties=Chwiliwch eich eiddo
 
 link.continue=Parhau
 link.back=Yn ôl
@@ -1519,12 +1500,6 @@ enrolment.organisation.individualOrCompany=Ydych chi eisiau cofrestru fel asiant
 enrolment.yes=Ydw
 enrolment.no=Nac ydw
 enrolment.businessName=Enw’r busnes
-
-before.you.start.title=Hawlio eiddo
-before.you.start.p1=Mae’r rhan fwyaf o’r wybodaeth brisio am eich eiddo yn gyfrinachol ac nid yw ar gael i bawb.   Drwy hawlio eiddo, rydych yn profi bod gennych hawl i weld y wybodaeth hon a’i thrafod gydag Asiantaeth y Swyddfa Brisio.
-before.you.start.p2=I hawlio eiddo, chwiliwch amdano ar y dudalen nesaf yna cliciwch ar ’’hawlio’r eiddo hwn’’ a dilyn y cyfarwyddiadau.
-before.you.start.p3=Bydd angen i chi ddarparu tystiolaeth o’ch cysylltiad â’r eiddo.   Y dystiolaeth orau ar gyfer hyn yw bil ardrethi busnes oherwydd ei fod yn dangos cyfeiriad yr eiddo, cyfeirnod yr awdurdod lleol a phwy sy’n gyfrifol am y bil. Os nad oes modd i chi ddarparu bil ardrethi busnes, gallwch ddarparu tystiolaeth arall sy’n dangos eich bod naill ai’n berchen ar yr eiddo neu’n meddiannu’r eiddo, er enghraifft biliau cyfleustodau.
-before.you.start.p4=Ar ôl i chi hawlio’ch eiddo, gall gymryd hyd at 15 diwrnod gwaith i gael ei gymeradwyo.
 
 before.you.start.startButton=Dechrau
 

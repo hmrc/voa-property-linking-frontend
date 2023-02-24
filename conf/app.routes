@@ -161,7 +161,6 @@ POST        /my-organisation/claim/property-links/capacity/relationship         
 GET         /my-organisation/claim/property-links/claim-property-start                        controllers.propertyLinking.ClaimPropertyRelationshipController.backToClaimPropertyStart
 GET         /my-organisation/claim/property-links/capacity/:uarn                              controllers.propertyLinking.ClaimPropertyRelationshipController.showStart(uarn: Long, clientDetails: Option[ClientDetails] ?= None, rtp: ClaimPropertyReturnToPage, valuationId: Option[Long] ?= None)
 GET         /my-organisation/claim/property-links                                             controllers.propertyLinking.ClaimPropertyRelationshipController.back
-GET         /my-organisation/claim/property-links/before-you-start                            controllers.propertyLinking.ClaimPropertyRelationshipController.checkPropertyLinks
 GET         /my-organisation/claim/property-links/property-search                             controllers.propertyLinking.ClaimPropertyRelationshipController.show(clientDetails: Option[ClientDetails] ?= None)
 GET         /my-organisation/claim/property-links/ownership                                   controllers.propertyLinking.ClaimPropertyOwnershipController.showOwnership
 POST        /my-organisation/claim/property-links/ownership                                   controllers.propertyLinking.ClaimPropertyOwnershipController.submitOwnership

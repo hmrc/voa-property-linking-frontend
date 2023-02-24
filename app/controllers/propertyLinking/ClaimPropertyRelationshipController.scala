@@ -20,7 +20,6 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
 import actions.requests.AuthenticatedRequest
-import binders.propertylinks.GetPropertyLinksParameters
 import binders.propertylinks.ClaimPropertyReturnToPage._
 import com.google.inject.Singleton
 import config.ApplicationConfig
@@ -54,8 +53,7 @@ class ClaimPropertyRelationshipController @Inject()(
       val vmvConnector: VmvConnector,
       val runModeConfiguration: Configuration,
       relationshipToPropertyView: views.html.propertyLinking.relationshipToProperty,
-      claimPropertyStartView: views.html.propertyLinking.claimPropertyStart,
-      beforeYouStartView: views.html.propertyLinking.beforeYouStart)(
+      claimPropertyStartView: views.html.propertyLinking.claimPropertyStart)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -64,26 +62,13 @@ class ClaimPropertyRelationshipController @Inject()(
 
   import ClaimPropertyRelationship._
 
-  def show(clientDetails: Option[ClientDetails] = None) = authenticatedAction { implicit request =>
+  def show(clientDetails: Option[ClientDetails] = None): Action[AnyContent] = authenticatedAction { implicit request =>
     val uri = clientDetails match {
       case Some(client) =>
         s"search?organisationId=${client.organisationId}&organisationName=${client.organisationName}"
       case _ => s"search"
     }
     Redirect(s"${config.vmvUrl}/$uri")
-  }
-
-  def checkPropertyLinks = authenticatedAction.async { implicit request =>
-    val pLinks = propertyLinksConnector
-      .getMyOrganisationsPropertyLinks(GetPropertyLinksParameters(), PaginationParams(1, 20, false))
-
-    pLinks.map { res =>
-      if (res.authorisations.nonEmpty) {
-        Redirect(s"${config.vmvUrl}/search")
-      } else {
-        Ok(beforeYouStartView())
-      }
-    }
   }
 
   def backToClaimPropertyStart: Action[AnyContent] =

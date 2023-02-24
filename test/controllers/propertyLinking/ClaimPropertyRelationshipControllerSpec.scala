@@ -53,8 +53,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     vmvConnector = vmvConnector,
     runModeConfiguration = configuration,
     relationshipToPropertyView = relationshipToPropertyView,
-    claimPropertyStartView = claimPropertyStartView,
-    beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton)
+    claimPropertyStartView = claimPropertyStartView
   )
 
   private lazy val testClaimPropertyFromCya = new ClaimPropertyRelationshipController(
@@ -68,8 +67,7 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     vmvConnector = vmvConnector,
     runModeConfiguration = configuration,
     relationshipToPropertyView = relationshipToPropertyView,
-    claimPropertyStartView = claimPropertyStartView,
-    beforeYouStartView = new views.html.propertyLinking.beforeYouStart(mainLayout, govukButton)
+    claimPropertyStartView = claimPropertyStartView
   )
 
   lazy val submissionId: String = shortString
