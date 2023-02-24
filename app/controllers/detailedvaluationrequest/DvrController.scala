@@ -432,7 +432,7 @@ class DvrController @Inject()(
           .getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
 
         for {
-          exists <- dvrCaseManagement.dvrExists(request.organisationAccount.id, valuationId)
+          record <- dvrCaseManagement.getDvrRecord(request.organisationAccount.id, valuationId)
           backUrl = fromFuture
             .flatMap { fromFuture =>
               if (fromFuture)
@@ -443,9 +443,7 @@ class DvrController @Inject()(
               .valuations(submissionId, owner)
               .url)
         } yield {
-          if (exists) {
-            Ok(alreadyRequestedDetailedValuationView(backUrl, isDraftList = assessment.isDraft))
-          } else {
+          record.fold {
             Ok(
               requestDetailedValuationView(
                 submissionId = submissionId,
@@ -466,6 +464,19 @@ class DvrController @Inject()(
                   "isOwner"                  -> owner,
                   "uarn"                     -> link.uarn),
                 localCouncilRef = assessment.billingAuthorityReference
+              ))
+          } { record =>
+            Ok(
+              alreadyRequestedDetailedValuationView(
+                addressFormatted = Formatters.capitalisedAddress(link.address),
+                backLink = backUrl,
+                dvrSubmissionId = record.dvrSubmissionId,
+                localCouncilRef = assessment.billingAuthorityReference,
+                listType = assessment.listType,
+                listYear = assessment.listYear,
+                rateableValueFormatted = assessment.rateableValue.map(Formatters.formatCurrencyRoundedToPounds(_)),
+                fromDateFormatted = assessment.currentFromDate.fold("")(Formatters.formattedFullDate(_)),
+                toDateFormatted = assessment.currentToDate.map(Formatters.formattedFullDate(_)),
               ))
           }
         }

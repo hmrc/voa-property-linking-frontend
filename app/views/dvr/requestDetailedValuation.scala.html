@@ -171,13 +171,13 @@
 
 
             @model.listType match {
-                case ListType.CURRENT => {
+                case ListType.CURRENT if model.formattedToDate.isEmpty => {
                     @govukInsetText(InsetText(
                         id = Some("rv-explainer"),
                         content = Text(messages("auto.requestDetailedValuation.rv.inset.current"))
                     ))
                 }
-                case ListType.PREVIOUS => {
+                case ListType.CURRENT | ListType.PREVIOUS => {
                     @govukInsetText(InsetText(
                         id = Some("rv-explainer"),
                         content = Text(messages("auto.requestDetailedValuation.rv.inset.previous"))

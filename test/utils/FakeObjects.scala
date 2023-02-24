@@ -41,6 +41,7 @@ import java.time.{Instant, LocalDate, LocalDateTime, Month}
 import java.util.UUID
 import binders.propertylinks.ClaimPropertyReturnToPage
 import models.ListType.ListType
+import models.dvr.DvrRecord
 import models.properties.AllowedAction.{CHECK, VIEW_DETAILED_VALUATION}
 
 trait FakeObjects {
@@ -58,6 +59,9 @@ trait FakeObjects {
   val nino: Nino = Nino("AA111111A")
   val dateOfBirth: LocalDate = LocalDate.of(1979, Month.OCTOBER, 12)
   val agentCode = 12345L
+  val orgIdIp = 321L
+  val orgIdAgent = 654L
+  val assessmentRef = 987L
 
   val earliestEnglishStartDate = LocalDate.of(2017, 4, 1)
   val earliestWelshStartDate = LocalDate.of(2023, 4, 1)
@@ -678,6 +682,13 @@ trait FakeObjects {
     localAuthorityReference = "12341531531",
     rtp = ClaimPropertyReturnToPage.FMBR,
     isSubmitted = None
+  )
+
+  lazy val dvrRecord: DvrRecord = DvrRecord(
+    organisationId = orgIdIp,
+    assessmentRef = assessmentRef,
+    agents = Some(List(orgIdAgent)),
+    dvrSubmissionId = Some("DVR-123A45B")
   )
 
 }

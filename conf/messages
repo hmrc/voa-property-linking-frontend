@@ -1277,9 +1277,27 @@ duplicateRequestDetailedValuation.request=We’ve received your request for a co
 duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> and ask for your request to be prioritised.
 duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and reference number of your detailed valuation request within the email.
 
+auto.duplicateRequestDetailedValuation.title.caption=Your property
 auto.duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.
+auto.duplicateRequestDetailedValuation.localCouncilReference=Local council reference:
+auto.duplicateRequestDetailedValuation.rv.heading=Valuation
+auto.duplicateRequestDetailedValuation.rv.caption.future=Future rateable value (from {0})
+auto.duplicateRequestDetailedValuation.rv.caption.current=Current rateable value ({0} to present)
+auto.duplicateRequestDetailedValuation.rv.caption.previous=Previous rateable value ({0} to {1})
+auto.duplicateRequestDetailedValuation.rv.inset.current=This is the rateable value for the property. It is not what you pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill.
+auto.duplicateRequestDetailedValuation.rv.inset.previous=This was the rateable value for the property. It is not what you would have paid in business rates or rent. Your local council uses the rateable value to calculate the business rates bill.
+auto.duplicateRequestDetailedValuation.details.subhead=Valuation details
+auto.duplicateRequestDetailedValuation.details.requested=You have sent us a request for the detailed valuation.
+auto.duplicateRequestDetailedValuation.details.whenApproved=The detailed valuation will be available to download within 20 working days of sending the request. We will send you a message when it is available.
+auto.duplicateRequestDetailedValuation.details.reference=Your request reference number is {0}.
+auto.duplicateRequestDetailedValuation.mcc.subhead=If you need to tell us about a change in the local area
+auto.duplicateRequestDetailedValuation.mcc.email.preLink=If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email
+auto.duplicateRequestDetailedValuation.mcc.email.link=ccaservice@voa.gov.uk
+auto.duplicateRequestDetailedValuation.mcc.email.postLink=and ask for your request to be prioritised.
+auto.duplicateRequestDetailedValuation.mcc.email.instruction=Include ''Urgent: external Material Change of Circumstances'' in the subject line and include the property address and the request reference number in the email.
+
 auto.duplicateRequestDetailedValuation.request=We received your request for this detailed valuation in the last 14 days. It will be available shortly.
-auto.duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> and ask for your request to be prioritised.
+auto.duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email <a class="govuk-link" id="email-cca-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> and ask for your request to be prioritised.
 auto.duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and reference number of your detailed valuation request within the email.
 
 startChallenge.title=Challenge the valuation

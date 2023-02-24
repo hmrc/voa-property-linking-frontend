@@ -17,7 +17,7 @@
 package connectors
 
 import javax.inject.Inject
-import models.dvr.DetailedValuationRequest
+import models.dvr.{DetailedValuationRequest, DvrRecord}
 import models.dvr.documents.DvrDocumentFiles
 import play.api.libs.ws.{WSClient, WSResponse}
 import uk.gov.hmrc.http.HttpReads.Implicits._
@@ -29,7 +29,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class DVRCaseManagementConnector @Inject()(config: ServicesConfig, val wsClient: WSClient, http: HttpClient)(
       implicit val executionContext: ExecutionContext) {
 
-  val url = config.baseUrl("property-linking") + "/property-linking"
+  val url: String = config.baseUrl("property-linking") + "/property-linking"
 
   def requestDetailedValuation(dvr: DetailedValuationRequest)(implicit hc: HeaderCarrier): Future[Unit] =
     http.POST[DetailedValuationRequest, HttpResponse](url + "/request-detailed-valuation", dvr) map { _ =>
@@ -41,8 +41,8 @@ class DVRCaseManagementConnector @Inject()(config: ServicesConfig, val wsClient:
       ()
     }
 
-  def dvrExists(organisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Boolean] =
-    http.GET[Boolean](url + s"/dvr-exists?organisationId=$organisationId&assessmentRef=$assessmentRef")
+  def getDvrRecord(organisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Option[DvrRecord]] =
+    http.GET[Option[DvrRecord]](url + s"/dvr-record?organisationId=$organisationId&assessmentRef=$assessmentRef")
 
   def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(
         implicit hc: HeaderCarrier): Future[Option[DvrDocumentFiles]] =

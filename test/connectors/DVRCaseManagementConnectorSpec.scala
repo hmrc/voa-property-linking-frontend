@@ -17,20 +17,20 @@
 package connectors
 
 import java.time.LocalDateTime
-
 import controllers.VoaPropertyLinkingSpec
-import models.dvr.DetailedValuationRequest
+import models.dvr.{DetailedValuationRequest, DvrRecord}
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.mockito.{ArgumentMatchers => Matchers}
+import org.scalatest.OptionValues
 import play.api.libs.ws.{WSClient, WSRequest}
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.Future
 
-class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
+class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec with OptionValues {
 
   class Setup {
     val mockWsClient = mock[WSClient]
@@ -46,9 +46,9 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(connector.requestDetailedValuation(detailedValuationRequest))(_ shouldBe ((): Unit))
   }
 
-  "dvrExists" should "successfully return a boolean" in new Setup {
-    mockHttpGET[Boolean]("tst-url", true)
-    whenReady(connector.dvrExists(1, 2))(_ shouldBe true)
+  "getDvrRecord" should "successfully return a DvrRecord" in new Setup {
+    mockHttpGET[Option[DvrRecord]]("tst-url", Some(dvrRecord))
+    connector.getDvrRecord(orgIdIp, assessmentRef).futureValue.value shouldBe dvrRecord
   }
 
   "request detailed valuation" should "update the valuation with the detailed valuation request" in new Setup {

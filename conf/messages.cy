@@ -1120,9 +1120,27 @@ duplicateRequestDetailedValuation.request=Rydym wedi derbyn eich cais am gopi o�
 duplicateRequestDetailedValuation.check=Os oes angen i chi gyflwyno gwiriad ar frys oherwydd newid yn yr ardal leol sy’n effeithio ar eich eiddo,   ac rydych chi’n aros i dderbyn copi o’ch prisiad manwl, dylech e-bostio <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> a gofyn i’ch cais gael ei flaenoriaethu.
 duplicateRequestDetailedValuation.urgent=Dylech gynnwys ’Ar Frys: Newid mewn Amgylchiadau Materol allanol’ yn y llinell destun a chynnwys cyfeiriad yr eiddo a chyfeirnod eich cais am brisiad prisio manwl yng nghorff yr e-bost.
 
+auto.duplicateRequestDetailedValuation.title.caption=Eich eidd
 auto.duplicateRequestDetailedValuation.title=Rydych eisoes wedi gofyn am y prisiad manwl hwn.
+auto.duplicateRequestDetailedValuation.localCouncilReference=Cyfeirnod yr awdurdod lleol:
+auto.duplicateRequestDetailedValuation.rv.heading=Prisiad
+auto.duplicateRequestDetailedValuation.rv.caption.future=Gwerth ardrethol y dyfodol (o {0})
+auto.duplicateRequestDetailedValuation.rv.caption.current=Gwerth ardrethol cyfredol ({0} i presennol)
+auto.duplicateRequestDetailedValuation.rv.caption.previous=Gwerth ardrethol blaenorol ({0} i {1})
+auto.duplicateRequestDetailedValuation.rv.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
+auto.duplicateRequestDetailedValuation.rv.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
+auto.duplicateRequestDetailedValuation.details.subhead=Manylion prisio
+auto.duplicateRequestDetailedValuation.details.requested=WAITING FOR WELSH
+auto.duplicateRequestDetailedValuation.details.whenApproved=WAITING FOR WELSH
+auto.duplicateRequestDetailedValuation.details.reference=WAITING FOR WELSH
+auto.duplicateRequestDetailedValuation.mcc.subhead=WAITING FOR WELSH
+auto.duplicateRequestDetailedValuation.mcc.email.preLink=WAITING FOR WELSH
+auto.duplicateRequestDetailedValuation.mcc.email.link=WAITING FOR WELSH
+auto.duplicateRequestDetailedValuation.mcc.email.postLink=WAITING FOR WELSH
+auto.duplicateRequestDetailedValuation.mcc.email.instruction=WAITING FOR WELSH
+
 auto.duplicateRequestDetailedValuation.request=Rydym wedi derbyn eich cais am y prisiad manwl hwn yn ystod y 14 diwrnod diwethaf. Bydd ar gael yn fuan.
-auto.duplicateRequestDetailedValuation.check=Os oes angen i chi gyflwyno gwiriad ar frys oherwydd newid yn yr ardal leol sy’n effeithio ar eich eiddo,   ac rydych chi’n aros i dderbyn copi o’ch prisiad manwl, dylech e-bostio <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> a gofyn i’ch cais gael ei flaenoriaethu.
+auto.duplicateRequestDetailedValuation.check=Os oes angen i chi gyflwyno gwiriad ar frys oherwydd newid yn yr ardal leol sy’n effeithio ar eich eiddo,   ac rydych chi’n aros i dderbyn copi o’ch prisiad manwl, dylech e-bostio <a class="govuk-link" id="email-cca-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> a gofyn i’ch cais gael ei flaenoriaethu.
 auto.duplicateRequestDetailedValuation.urgent=Dylech gynnwys ’Ar Frys: Newid mewn Amgylchiadau Materol allanol’ yn y llinell destun a chynnwys cyfeiriad yr eiddo a chyfeirnod eich cais am brisiad prisio manwl yng nghorff yr e-bost.
 
 startChallenge.title=Herio’r prisiad
