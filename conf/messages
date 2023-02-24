@@ -422,7 +422,6 @@ dashboard.manageProperties.status.more_evidence_required=More evidence required
 dashboard.manageProperties.submissionId=Submission ID: {0}
 dashboard.manageProperties.noAgent=None
 dashboard.managedProperties.addAnotherProperty=Add property
-manageProperties.revokeAgent=Remove agent
 manageProperties.appointAgent=Appoint agent
 manageProperties.addAgent=Appoint agent
 manageProperties.appointAgent.confirmation.p1=You can assign properties to this agent by <a class="govuk-link" id="managing-your-agents-link" href="{0}">managing your agents</a>.
@@ -431,25 +430,6 @@ link.dashboard.home=Back to dashboard
 search.sort.page.size.view=View
 search.sort.page.size.properties.per.page=properties per page
 search.sort.showing=Showing {0} to {1} of {2}
-
-
-#MANAGED BY AGENT PROPERTIES
-dashboard.managedByAgentsProperties.title=Properties managed by {0}
-managedByAgentsProperties.table.caption=Your properties
-managedByAgentsProperties.table.1=Address
-managedByAgentsProperties.table.2=Local authority reference
-managedByAgentsProperties.table.3=Status
-managedByAgentsProperties.table.4=Appointed Agents
-managedByAgentsProperties.table.5=Actions
-dashboard.managedByAgentsProperties.status.approved=Approved
-dashboard.managedByAgentsProperties.status.pending=Pending
-dashboard.managedByAgentsProperties.status.declined=Declined
-dashboard.managedByAgentsProperties.status.revoked=Revoked
-dashboard.managedByAgentsProperties.noAgent=None
-managedByAgentsProperties.viewAssessments=View valuations
-managedByAgentsProperties.no.properties=This agent is not appointed to any properties
-managedByAgentsProperties.no.agentId=Unable to retrieve agent details
-
 
 manageClients.table.1=Organisation name
 manageClients.table.2=Address
@@ -1326,7 +1306,6 @@ label.findAddress.tryAgain=Try another postcode
 error.postcode=Invalid postcode
 addressLookup.manual=Enter address manually
 addressLookup.lookup=Find address by postcode
-properties.searchYourProperties=Search your properties
 
 link.continue=Continue
 link.back=Back
@@ -1668,13 +1647,6 @@ enrolment.organisation.individualOrCompany = Do you want to register as an agent
 enrolment.yes = Yes
 enrolment.no = No
 enrolment.businessName = Business name
-
-before.you.start.title=Claim a property
-before.you.start.p1=Most of the valuation information about your property is confidential and not available to everyone. By claiming a property, you’re proving you have the right to see this information and discuss it with the Valuation Office Agency.
-before.you.start.p2=To claim a property, search for it on the next page then click on ''claim this property'' and follow the instructions.
-before.you.start.p3=You''ll need to provide evidence of your link to the property. The best evidence for this is a business rates bill as it shows the property address, local authority reference and who''s responsible for the bill. If you can''t provide a business rates bill, you can provide other evidence that shows you either own or occupy the property, such as utility bills.
-before.you.start.p4=Once you''ve claimed your property, it can take up to 15 working days to be approved.
-before.you.start.startButton=Start
 
 #COMMON
 app.common.saveAndContinue = Save and continue
