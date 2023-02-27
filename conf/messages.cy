@@ -995,6 +995,16 @@ auto.requestDetailedValuation.rv.inset.current=Dyma’r gwerth ardrethol ar gyfe
 auto.requestDetailedValuation.rv.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 
 auto.requestDetailedValuation.subhead.valuationDetails=Manylion prisio
+auto.requestDetailedValuation.request.howCalculated=WAITING FOR WELSH
+auto.requestDetailedValuation.request.whenApproved=WAITING FOR WELSH
+auto.requestDetailedValuation.request.button=WAITING FOR WELSH
+
+auto.requestDetailedValuation.subhead.change=Os ydych eisiau newid rhywbeth yn y prisiad hwn
+auto.requestDetailedValuation.change.startCheck=WAITING FOR WELSH
+auto.requestDetailedValuation.change.alreadySent=WAITING FOR WELSH
+auto.requestDetailedValuation.change.challenge.preLink=WAITING FOR WELSH
+auto.requestDetailedValuation.change.challenge.link=WAITING FOR WELSH
+auto.requestDetailedValuation.change.challenge.postLink=Mae’n rhaid i chi gwblhau achos Gwirio cyn danfon achos i Herio.
 
 requestDetailedValuation.heading.challenge=Wedi cwblhau gwiriad yn barod?
 requestDetailedValuation.challenge.p=Ar ôl i chi gwblhau gwiriad, bydd y VOA yn cysylltu â chi gyda’r canlyniad.   Os ydych yn anghytuno â chanlyniad y gwiriad neu os ydych yn credu bod gwerth ardrethol eich eiddo yn anghywir, gallwch roi gwybod i ni. Mae gwneud hyn yn cael ei alw’n her. (Ni allwch ddechrau her nes eich bod wedi derbyn y canlyniad ar gyfer eich gwiriad)
