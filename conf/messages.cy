@@ -416,7 +416,6 @@ assessments.property=Eiddo:
 assessments.title=Dewis prisiad i wirio
 assessments.pageTitle=Dewis prisiad i wirio
 assessments.paragraph=Mae gwerth ardrethol eiddo yn cael ei ailasesu gan y VOA bob tro y byddan nhw’n cyhoeddi rhestr ardrethi busnes newydd.  Gallwch wirio’r ffeithiau a’r gwerth ardrethol ar gyfer pob un o’r prisiadau a gyhoeddwyd.
-assessments.propertyRemoved=Nid yw’r eiddo hwn bellach ar y rhestr brisio
 
 assessments.current.title=Y prisiad presennol
 assessments.draft.title=Y prisiad yn y dyfodol
