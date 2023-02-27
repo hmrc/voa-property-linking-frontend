@@ -1152,11 +1152,12 @@ available.requestvaluation.listYear.isDraft.p=This detailed valuation will not b
 
 
 available.requestvaluation.downloadValuationLink=Download the detailed valuation for this property
+available.requestvaluation.downloadValuationButton=Download the detailed valuation
 available.requestvaluation.changeValuation=If you want to change something in this valuation
 available.requestvaluation.p1.draft.englishProperty=If the property’s details are incorrect, or you believe the rateable value is wrong, have a look at the current valuation as well. If the details are wrong in both, you can submit a Check against the current valuation. Any changes will carry over to the draft valuation.
 available.requestvaluation.p1.draft.welshProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a proposal against the current valuation. Any changes will carry over to the draft valuation.
 available.requestvaluation.p1=If the property''s details are incorrect, or you believe the rateable value is wrong, you must complete a Check form and confirm the property details with the VOA before you can make a challenge.
-available.requestvaluation.p2=Before you can submit a Check, you need to <a class="govuk-link" href="{0}">download and complete a Check form</a>.
+available.requestvaluation.p2=Before you can submit a Check, you need to <a class="govuk-link" id="{1}" href="{0}">download and complete a Check form</a>.
 available.requestvaluation.p3=After completing the form, you need to send it as part of a Check.
 available.requestvaluation.warning=Some older Check forms may tell you to email or post your form. Please ignore this and use the ''Send my completed Check form'' button instead.
 available.requestvaluation.dvrCheck.startCheck=Send my completed Check form
@@ -1172,6 +1173,18 @@ available.requestvaluation.inset.current=This is the rateable value for the prop
 available.requestvaluation.inset.previous=This was the rateable value for the property. It is not what you would have paid in business rates or rent. Your local council uses the rateable value to calculate the business rates bill.
 available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need to <a class="govuk-link" href="{0}">download and complete a check form</a>.
 available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
+
+available.requestvaluation.nonDraft.check.p1=If the property’s details are incorrect, or you believe the rateable value is wrong, you must complete a Check case form.
+available.requestvaluation.nonDraft.check.link=Download the Check case form
+available.requestvaluation.nonDraft.check.p2=After completing the form, send it to us as part of a Check case.
+available.requestvaluation.nonDraft.check.warning=Some older Check case forms may tell you to email or post your form. Please ignore this and use the ''Send my completed Check case form'' button instead.
+available.requestvaluation.nonDraft.check.button.send=Send my completed Check case form
+
+available.requestvaluation.welsh.ccaEmail.preLink=If you need this valuation in Welsh email
+available.requestvaluation.welsh.ccaEmail.link=ccaservice@voa.gov.uk
+available.requestvaluation.welsh.ccaEmail.postLink=with your request. Include the property address and valuation period {0} in the email.
+available.requestvaluation.welsh.ccaEmail.valuationPeriod=({0} to {1})
+
 requestValuation.future.help.title=Help with future valuation
 requestValuation.future.help.subheading.1=Your rateable value may change on {0}
 requestValuation.future.help.subheading.2=Your property details need changing

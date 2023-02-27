@@ -118,7 +118,7 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        
+
         @if(!checkAllowedAction && model.listYear == "2017") {
             <p class="govuk-body">@messages("property.details.checkcases.p")</p>
         }
@@ -128,7 +128,15 @@
             <p class="govuk-body" id="no-submitted-checks">@messages("property.details.div.noSubmittedCheck")</p>
 
             @if(checkAllowedAction) {
-                <p class="govuk-body">@Html(messages("available.requestvaluation.p2", model.downloadUrl))</p>
+                <p class="govuk-body">
+                    @Html(
+                        messages(
+                            "available.requestvaluation.p2",
+                            model.downloadUrl,
+                            "check-case-tab-download-check-form"
+                        )
+                    )
+                </p>
                 <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
             }
             @if(checkAllowedAction) {

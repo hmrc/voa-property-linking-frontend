@@ -1014,11 +1014,12 @@ available.requestvaluation.checksTab.noCases.title=Gwiriadau
 available.requestvaluation.checksTab.title=Gwiriadau ({0})
 available.requestvaluation.challengesTab.title=Heriau ({0})
 available.requestvaluation.downloadValuationLink=Lawrlwytho’r prisiad manwl ar gyfer yr eiddo hwn
+available.requestvaluation.downloadValuationButton=WAITING FOR WELSH
 available.requestvaluation.changeValuation=Os ydych eisiau newid rhywbeth yn y prisiad hwn
 available.requestvaluation.p1.draft.englishProperty=Os yw manylion yr eiddo yn anghywir, neu os ydych yn credu bod y gwerth ardrethol yn anghywir,   edrychwch ar y prisiad presennol hefyd. Os yw’r manylion yn anghywir yn y ddau, gallwch gyflwyno Gwiriad yn erbyn y prisiad presennol. Bydd unrhyw newidiadau yn trosglwyddo i’r prisiad drafft.
 available.requestvaluation.p1.draft.welshProperty=Os ydych yn meddwl bod rhywbeth o’i le gyda’r manylion yn y prisiad hwn, edrychwch ar y prisiad presennol hefyd . Os yw’r manylion yn anghywir yn y ddau, gallwch gyflwyno cynnig yn erbyn y prisiad presennol. Bydd unrhyw newidiadau yn trosglwyddo i’r prisiad drafft.
 available.requestvaluation.p1=Os yw manylion yr eiddo yn anghywir, neu os ydych yn credu bod y gwerth ardrethol yn anghywir, mae’n rhaid i chi   gwyblhau ffurflen Wirio a chadarhnhau manylion yr eiddo gyda’r VOA cyn y gallwch wneud her.
-available.requestvaluation.p2=Cyn y gallwch gyflwyno Gwiriad,   mae angen i chi <a class="govuk-link" href="{0}">lawrlwytho a chwblhau ffurflen Gwirio</a>.
+available.requestvaluation.p2=Cyn y gallwch gyflwyno Gwiriad,   mae angen i chi <a class="govuk-link" id="{1}" href="{0}">lawrlwytho a chwblhau ffurflen Gwirio</a>.
 available.requestvaluation.p3=Ar ôl cwblhau’r ffurflen, mae angen i chi ei hanfon fel rhan o’r Gwiriad.
 available.requestvaluation.warning=Efallai y bydd rhai ffurflenni Gwirio hŷn yn dweud wrthych am e-bostio’ch ffurflen. Anwybyddwch hwn a defnyddiwch  y botwm ’’Anfonwch fy ffurflen Wirio wedi’i chwblhau’’ yn lle.
 available.requestvaluation.dvrCheck.startCheck=Anfon fy ffurflen Gwirio wedi’i chwblhau
@@ -1028,6 +1029,17 @@ available.requestvaluation.check.p1=I gyflwyno gwiriad ar gyfer yr eiddo hwn byd
 available.requestvaluation.check.p2=Gallwch e-bostio’r ffurflen i <a class="govuk-link" href=  "mailto:CCAService@voa.gov.uk">CCAService@voa.gov.uk</a>neu ei phostio i:
 available.requestvaluation.address=Gwasanaeth Gwirio a Herio (Check and challenge service), PO BOX 308, PLYMOUTH, PL5 9DT
 available.requestvaluation.warning=Efallai y bydd rhai ffurflenni Gwirio hŷn yn dweud wrthych am e-bostio’ch ffurflen. Anwybyddwch hwn a defnyddiwch  y botwm ’’Anfonwch fy ffurflen Wirio wedi’i chwblhau’’ yn lle.
+
+available.requestvaluation.nonDraft.check.p1=WAITING FOR WELSH
+available.requestvaluation.nonDraft.check.link=WAITING FOR WELSH
+available.requestvaluation.nonDraft.check.p2=WAITING FOR WELSH
+available.requestvaluation.nonDraft.check.warning=WAITING FOR WELSH
+available.requestvaluation.nonDraft.check.button.send=WAITING FOR WELSH
+
+available.requestvaluation.welsh.ccaEmail.preLink=WAITING FOR WELSH
+available.requestvaluation.welsh.ccaEmail.link=WAITING FOR WELSH
+available.requestvaluation.welsh.ccaEmail.postLink=WAITING FOR WELSH
+available.requestvaluation.welsh.ccaEmail.valuationPeriod=({0} i {1})
 
 available.requestvaluation.dvrCheck.p1=Cyn i chi allu cyflwyno gwiriad, mae angen i chi <a class="govuk-link" href="{0}">lawrlwytho a chwblhau ffurflen wirio</a>.
 available.requestvaluation.dvrCheck.p2=Ar ôl cwblhau’r ffurflen, mae angen i chi ei hanfon fel rhan o’r Gwiriad.

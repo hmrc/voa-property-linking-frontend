@@ -99,13 +99,15 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val assessment = arbitrary[Assessment].sample.get
     val link: PropertyLink = arbitrary[PropertyLink]
 
-    lazy val successfulDvrDocuments: Future[Some[DvrDocumentFiles]] = Future.successful(Some({
+    lazy val successfulDvrDocuments: Future[Some[DvrDocumentFiles]] = Future.successful(Some(dvrDocuments))
+
+    lazy val dvrDocuments: DvrDocumentFiles = {
       val now = LocalDateTime.now()
       DvrDocumentFiles(
         checkForm = Document(DocumentSummary("1L", "Check Document", now)),
         detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
       )
-    }))
+    }
 
     StubPropertyLinkConnector.stubLink(link)
 
@@ -371,12 +373,12 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.verifyElementTextByAttribute(
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/2L",
-      "Download the detailed valuation for this property"
+      "Download the detailed valuation"
     )
     page.verifyElementTextByAttribute(
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/1L",
-      "download and complete a Check form")
+      "Download the Check case form")
 
     val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
     radiosOnStartCheckScreen should have size 7
@@ -422,12 +424,12 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.verifyElementTextByAttribute(
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/2L",
-      "Download the detailed valuation for this property"
+      "Download the detailed valuation"
     )
     page.verifyElementTextByAttribute(
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/1L",
-      "download and complete a Check form")
+      "Download the Check case form")
 
     val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
     radiosOnStartCheckScreen should have size 7
@@ -475,12 +477,12 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.verifyElementTextByAttribute(
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/2L",
-      "Download the detailed valuation for this property"
+      "Download the detailed valuation"
     )
     page.verifyElementTextByAttribute(
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/1L",
-      "download and complete a Check form")
+      "Download the Check case form")
 
     val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
     radiosOnStartCheckScreen should have size 7
@@ -515,6 +517,132 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.html
       .getElementById("back-link")
       .attr("href") shouldBe "/business-rates-property-linking/property-link/1111/assessments?owner=false"
+  }
+
+  "detailed valuation tab when in draft list" should "display a dvr download link and no welsh language explainer" in new ValuationTabSetup(
+    draftList) {
+    override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, isWelsh = true)
+
+    downloadValuation.classNames should contain("govuk-link")
+    downloadValuation.classNames should not contain "govuk-button"
+    downloadValuation.text shouldBe "Download the detailed valuation for this property"
+    downloadValuation.attr("href") shouldBe controllers.detailedvaluationrequest.routes.DvrController
+      .myOrganisationRequestDetailedValuationRequestFile(
+        ownerAuthorisation.submissionId,
+        assessment.assessmentRef,
+        dvrDocuments.detailedValuation.documentSummary.documentId)
+      .url
+    Option(welshLanguageExplainer) should not be defined
+    Option(emailCcaLink) should not be defined
+  }
+
+  "english detailed valuation tab when in compiled list" should "display a dvr download button and no welsh language explainer" in new ValuationTabSetup(
+    compiledList) {
+    override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, isWelsh = false)
+
+    downloadValuation.classNames should not contain "govuk-link"
+    downloadValuation.classNames should contain("govuk-button")
+    downloadValuation.attr("href") shouldBe controllers.detailedvaluationrequest.routes.DvrController
+      .myOrganisationRequestDetailedValuationRequestFile(
+        ownerAuthorisation.submissionId,
+        assessment.assessmentRef,
+        dvrDocuments.detailedValuation.documentSummary.documentId)
+      .url
+    downloadValuation.text shouldBe "Download the detailed valuation"
+    Option(welshLanguageExplainer) should not be defined
+    Option(emailCcaLink) should not be defined
+  }
+
+  "welsh detailed valuation tab when in compiled list" should "display a dvr download button and a welsh language explainer" in new ValuationTabSetup(
+    compiledList) {
+    override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, isWelsh = true)
+
+    downloadValuation.classNames should not contain "govuk-link"
+    downloadValuation.classNames should contain("govuk-button")
+    downloadValuation.text shouldBe "Download the detailed valuation"
+    downloadValuation.attr("href") shouldBe controllers.detailedvaluationrequest.routes.DvrController
+      .myOrganisationRequestDetailedValuationRequestFile(
+        ownerAuthorisation.submissionId,
+        assessment.assessmentRef,
+        dvrDocuments.detailedValuation.documentSummary.documentId)
+      .url
+    welshLanguageExplainer.text shouldBe "If you need this valuation in Welsh email ccaservice@voa.gov.uk with your request. Include the property address and valuation period (1 April 2017 to 1 June 2017) in the email."
+    emailCcaLink.text shouldBe "ccaservice@voa.gov.uk"
+    emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+  }
+
+  "detailed valuation tab when in draft list" should "display the correct 'change something' section" in new ValuationTabSetup(
+    draftList) {
+    changeSomethingHeading.text shouldBe "If you want to change something in this valuation"
+    changeSomethingContent.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
+      "If the property's details are incorrect, or you believe the rateable value is wrong, you must complete a Check form and confirm the property details with the VOA before you can make a challenge.",
+      "Before you can submit a Check, you need to download and complete a Check form.",
+      "After completing the form, you need to send it as part of a Check.",
+      "! Warning Some older Check forms may tell you to email or post your form. Please ignore this and use the 'Send my completed Check form' button instead.",
+      "Send my completed Check form"
+    )
+    downloadCheckFormLink.text shouldBe "download and complete a Check form"
+    downloadCheckFormLink.attr("href") shouldBe controllers.detailedvaluationrequest.routes.DvrController
+      .myOrganisationRequestDetailedValuationRequestFile(
+        ownerAuthorisation.submissionId,
+        assessment.assessmentRef,
+        dvrDocuments.checkForm.documentSummary.documentId)
+      .url
+    sendCheckFormButton.text shouldBe "Send my completed Check form"
+    sendCheckFormButton.attr("href") shouldBe "#start-check-tab"
+    sendCheckFormButton.classNames should contain("govuk-button")
+    sendCheckFormButton.classNames should not contain "govuk-button--secondary"
+  }
+
+  "detailed valuation tab when in compiled list" should "display the correct 'change something' section" in new ValuationTabSetup(
+    compiledList) {
+    changeSomethingHeading.text shouldBe "If you want to change something in this valuation"
+    changeSomethingContent.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
+      "If the property’s details are incorrect, or you believe the rateable value is wrong, you must complete a Check case form.",
+      "Download the Check case form",
+      "After completing the form, send it to us as part of a Check case.",
+      "! Warning Some older Check case forms may tell you to email or post your form. Please ignore this and use the 'Send my completed Check case form' button instead.",
+      "Send my completed Check case form"
+    )
+    downloadCheckFormLink.text shouldBe "Download the Check case form"
+    downloadCheckFormLink.attr("href") shouldBe controllers.detailedvaluationrequest.routes.DvrController
+      .myOrganisationRequestDetailedValuationRequestFile(
+        ownerAuthorisation.submissionId,
+        assessment.assessmentRef,
+        dvrDocuments.checkForm.documentSummary.documentId)
+      .url
+    sendCheckFormButton.text shouldBe "Send my completed Check case form"
+    sendCheckFormButton.attr("href") shouldBe "#start-check-tab"
+    sendCheckFormButton.classNames should contain("govuk-button--secondary")
+  }
+
+  abstract class ValuationTabSetup(configuration: ApplicationConfig) extends Setup {
+    override lazy val config: ApplicationConfig = configuration
+
+    val testAssessments: ApiAssessments =
+      assessments.copy(assessments = assessments.assessments.map(a => a.copy(assessmentRef = assessment.assessmentRef)))
+
+    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
+      .thenReturn(Future.successful(Some(testAssessments)))
+    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
+    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any())).thenReturn(Future.successful(List.empty))
+    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
+      .thenReturn(Future.successful(List.empty))
+
+    private val response = controller.myOrganisationRequestDetailValuationCheck(
+      ownerAuthorisation.submissionId,
+      assessment.assessmentRef,
+      ownerAuthorisation.uarn)(request)
+    status(response) shouldBe OK
+    val valuationTab: Element = Jsoup.parse(contentAsString(response)).getElementById("valuation-tab")
+
+    val downloadValuation: Element = valuationTab.getElementById("valuation-tab-download-link")
+    val welshLanguageExplainer: Element = valuationTab.getElementById("welsh-language-explainer")
+    val emailCcaLink: Element = valuationTab.getElementById("valuation-tab-email-cca-link")
+    val changeSomethingHeading: Element = valuationTab.getElementById("valuation-tab-change-something-heading")
+    val changeSomethingContent: Element = valuationTab.getElementById("valuation-tab-change-something-content")
+    val downloadCheckFormLink: Element = valuationTab.getElementById("valuation-tab-download-check-form")
+    val sendCheckFormButton: Element = valuationTab.getElementById("valuation-tab-send-check-form")
   }
 
   "detailed valuation of a client's DVR property" should "have a back link to challenge case details when challenge case ref is provided" in new Setup {
@@ -1230,30 +1358,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/confirmation?submissionId=DVR123&valuationId=1")
   }
 
-  abstract class RequestDvrScreenTestCase(config: ApplicationConfig) extends Setup {
-    override val controller = new DvrController(
-      errorHandler = mockCustomErrorHandler,
-      propertyLinks = mockPropertyLinkConnector,
-      challengeConnector = mockChallengeConnector,
-      vmvConnector = mockVmvConnector,
-      authenticated = preAuthenticatedActionBuilders(),
-      submissionIds = mockSubmissionIds,
-      dvrCaseManagement = mockDvrCaseManagement,
-      alreadyRequestedDetailedValuationView = alreadyRequestedDetailedValuationView,
-      requestDetailedValuationView = requestDetailedValuationView,
-      requestedDetailedValuationView = requestedDetailedValuationView,
-      dvrFilesView = dvrFilesView,
-      cannotRaiseChallengeView = cannotRaiseChallengeView,
-      propertyMissingView = propertyMissingView,
-      checkSummaryUrlTemplate = checkSummaryUrlTemplate,
-      enquiryUrlTemplate = enquiryUrlTemplate,
-      estimatorUrlTemplate = estimatorUrlTemplate
-    )(
-      implicitly[ExecutionContext],
-      implicitly[MessagesApi],
-      implicitly[MessagesControllerComponents],
-      config
-    )
+  abstract class RequestDvrScreenTestCase(configuration: ApplicationConfig) extends Setup {
+    override lazy val config: ApplicationConfig = configuration
 
     val testAssessments: ApiAssessments =
       assessments.copy(assessments = assessments.assessments.map(a => a.copy(assessmentRef = assessment.assessmentRef)))
@@ -1720,30 +1826,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       s"/business-rates-property-linking/my-organisation/property-link/clients/all/${link.submissionId}/confirmation?submissionId=DVR123&valuationId=1")
   }
 
-  abstract class DvrConfirmationTestCase(config: ApplicationConfig, agent: Boolean) extends Setup {
-    override val controller = new DvrController(
-      errorHandler = mockCustomErrorHandler,
-      propertyLinks = mockPropertyLinkConnector,
-      challengeConnector = mockChallengeConnector,
-      vmvConnector = mockVmvConnector,
-      authenticated = preAuthenticatedActionBuilders(),
-      submissionIds = mockSubmissionIds,
-      dvrCaseManagement = mockDvrCaseManagement,
-      alreadyRequestedDetailedValuationView = alreadyRequestedDetailedValuationView,
-      requestDetailedValuationView = requestDetailedValuationView,
-      requestedDetailedValuationView = requestedDetailedValuationView,
-      dvrFilesView = dvrFilesView,
-      cannotRaiseChallengeView = cannotRaiseChallengeView,
-      propertyMissingView = propertyMissingView,
-      checkSummaryUrlTemplate = checkSummaryUrlTemplate,
-      enquiryUrlTemplate = enquiryUrlTemplate,
-      estimatorUrlTemplate = estimatorUrlTemplate
-    )(
-      implicitly[ExecutionContext],
-      implicitly[MessagesApi],
-      implicitly[MessagesControllerComponents],
-      config
-    )
+  abstract class DvrConfirmationTestCase(configuration: ApplicationConfig, agent: Boolean) extends Setup {
+    override lazy val config: ApplicationConfig = configuration
 
     override def assessments: ApiAssessments =
       if (agent) clientApiAssessments(clientPropertyLink)
@@ -1825,7 +1909,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     explainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
       "You have sent us a request for the detailed valuation.",
       "The detailed valuation will be available to download within 20 working days of sending the request. We will send you a message when it is available.",
-      s"Your request reference number is ${dvrRecord.dvrSubmissionId.getOrElse(fail)}."
+      s"Your request reference number is ${dvrRecord.dvrSubmissionId.getOrElse(fail())}."
     )
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
@@ -1885,7 +1969,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     explainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
       "You have sent us a request for the detailed valuation.",
       "The detailed valuation will be available to download within 20 working days of sending the request. We will send you a message when it is available.",
-      s"Your request reference number is ${dvrRecord.dvrSubmissionId.getOrElse(fail)}."
+      s"Your request reference number is ${dvrRecord.dvrSubmissionId.getOrElse(fail())}."
     )
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
@@ -1896,7 +1980,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     Option(homePageLink) should not be defined
   }
   "already sent dvr screen" should "display correctly in compiled list when viewing a current valuation with a toDate" in new AlreadySentDvrTestCase(
-    compiledList, dvrRecord) {
+    compiledList,
+    dvrRecord) {
     override def assessments: ApiAssessments =
       apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)), listYear = 2023)
 
@@ -1914,7 +1999,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     explainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
       "You have sent us a request for the detailed valuation.",
       "The detailed valuation will be available to download within 20 working days of sending the request. We will send you a message when it is available.",
-      s"Your request reference number is ${dvrRecord.dvrSubmissionId.getOrElse(fail)}."
+      s"Your request reference number is ${dvrRecord.dvrSubmissionId.getOrElse(fail())}."
     )
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
@@ -1925,30 +2010,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     Option(homePageLink) should not be defined
   }
 
-  abstract class AlreadySentDvrTestCase(config: ApplicationConfig, dvrRecord: DvrRecord) extends Setup {
-    override val controller = new DvrController(
-      errorHandler = mockCustomErrorHandler,
-      propertyLinks = mockPropertyLinkConnector,
-      challengeConnector = mockChallengeConnector,
-      vmvConnector = mockVmvConnector,
-      authenticated = preAuthenticatedActionBuilders(),
-      submissionIds = mockSubmissionIds,
-      dvrCaseManagement = mockDvrCaseManagement,
-      alreadyRequestedDetailedValuationView = alreadyRequestedDetailedValuationView,
-      requestDetailedValuationView = requestDetailedValuationView,
-      requestedDetailedValuationView = requestedDetailedValuationView,
-      dvrFilesView = dvrFilesView,
-      cannotRaiseChallengeView = cannotRaiseChallengeView,
-      propertyMissingView = propertyMissingView,
-      checkSummaryUrlTemplate = checkSummaryUrlTemplate,
-      enquiryUrlTemplate = enquiryUrlTemplate,
-      estimatorUrlTemplate = estimatorUrlTemplate
-    )(
-      implicitly[ExecutionContext],
-      implicitly[MessagesApi],
-      implicitly[MessagesControllerComponents],
-      config
-    )
+  abstract class AlreadySentDvrTestCase(configuration: ApplicationConfig, dvrRecord: DvrRecord) extends Setup {
+    override lazy val config: ApplicationConfig = configuration
 
     private val testAssessments =
       assessments.copy(assessments = assessments.assessments.map(a => a.copy(assessmentRef = assessment.assessmentRef)))
