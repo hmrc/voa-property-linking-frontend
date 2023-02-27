@@ -1047,7 +1047,6 @@ available.requestvaluation.nonDraft.check.warning=WAITING FOR WELSH
 available.requestvaluation.nonDraft.check.button.send=WAITING FOR WELSH
 
 available.requestvaluation.welsh.ccaEmail.preLink=WAITING FOR WELSH
-available.requestvaluation.welsh.ccaEmail.link=WAITING FOR WELSH
 available.requestvaluation.welsh.ccaEmail.postLink=WAITING FOR WELSH
 available.requestvaluation.welsh.ccaEmail.valuationPeriod=({0} i {1})
 
@@ -1133,7 +1132,6 @@ auto.detailedValuationRequested.whatNext.contact=Byddwn yn cysylltu â chi os by
 auto.detailedValuationRequested.whatNext.accountHome=Ewch i hafan eich cyfrif
 auto.detailedValuationRequested.welsh.heading=WAITING FOR WELSH
 auto.detailedValuationRequested.welsh.ccaEmail.preLink=WAITING FOR WELSH
-auto.detailedValuationRequested.welsh.ccaEmail.link=ccaservice@voa.gov.uk
 auto.detailedValuationRequested.welsh.ccaEmail.postLink=WAITING FOR WELSH
 auto.detailedValuationRequested.welsh.ccaEmail.valuationPeriod=({0} i {1})
 

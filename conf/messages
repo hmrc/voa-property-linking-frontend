@@ -1181,7 +1181,6 @@ available.requestvaluation.nonDraft.check.warning=Some older Check case forms ma
 available.requestvaluation.nonDraft.check.button.send=Send my completed Check case form
 
 available.requestvaluation.welsh.ccaEmail.preLink=If you need this valuation in Welsh email
-available.requestvaluation.welsh.ccaEmail.link=ccaservice@voa.gov.uk
 available.requestvaluation.welsh.ccaEmail.postLink=with your request. Include the property address and valuation period {0} in the email.
 available.requestvaluation.welsh.ccaEmail.valuationPeriod=({0} to {1})
 
@@ -1281,7 +1280,6 @@ auto.detailedValuationRequested.whatNext.contact=We will contact you if we need 
 auto.detailedValuationRequested.whatNext.accountHome=Go to your account home
 auto.detailedValuationRequested.welsh.heading=If you need this valuation in Welsh
 auto.detailedValuationRequested.welsh.ccaEmail.preLink=Email your request to
-auto.detailedValuationRequested.welsh.ccaEmail.link=ccaservice@voa.gov.uk
 auto.detailedValuationRequested.welsh.ccaEmail.postLink=Include the property address and valuation period {0} in the email.
 auto.detailedValuationRequested.welsh.ccaEmail.valuationPeriod=({0} to {1})
 
