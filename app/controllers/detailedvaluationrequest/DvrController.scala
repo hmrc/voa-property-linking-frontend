@@ -17,6 +17,8 @@
 package controllers.detailedvaluationrequest
 
 import actions.AuthenticatedAction
+import cats.data.OptionT
+import cats.implicits._
 import config.ApplicationConfig
 import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
@@ -28,7 +30,7 @@ import models.dvr.cases.check.{CheckType, StartCheckForm}
 import models.dvr.DetailedValuationRequest
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
-import models.{ApiAssessment, ApiAssessments, ListType, Party}
+import models.{ApiAssessment, ApiAssessments, ClientPropertyLink, ListType, Party}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.http.HttpEntity
@@ -370,15 +372,17 @@ class DvrController @Inject()(
         valuationId: Long,
         owner: Boolean
   ): Action[AnyContent] = authenticated.async { implicit request =>
-    for {
-      optApiAssessments <- if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
-                          else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
-      clientPropertyLink <- if (!owner) propertyLinks.clientPropertyLink(propertyLinkSubmissionId)
-                           else Future.successful(None)
-    } yield {
+    {
       for {
-        apiAssessments <- optApiAssessments
-        assessment     <- apiAssessments.assessments.find(_.assessmentRef == valuationId)
+        apiAssessments <- OptionT {
+                           if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
+                           else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
+                         }
+        clientPropertyLink <- OptionT.liftF {
+                               if (!owner) propertyLinks.clientPropertyLink(propertyLinkSubmissionId)
+                               else Future.successful(None)
+                             }
+        assessment <- apiAssessments.assessments.find(_.assessmentRef == valuationId).toOptionT[Future]
       } yield {
         Ok(
           requestedDetailedValuationView(
@@ -395,8 +399,7 @@ class DvrController @Inject()(
                 case _ => implicitly[Messages].apply("assessments.enddate.present.lowercase")
               }
             }(Formatters.formattedFullDate)
-          )
-        )
+          ))
       }
     }.getOrElse(BadRequest(propertyMissingView()))
   }
