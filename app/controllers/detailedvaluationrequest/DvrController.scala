@@ -18,7 +18,6 @@ package controllers.detailedvaluationrequest
 
 import actions.AuthenticatedAction
 import cats.data.OptionT
-import cats.implicits._
 import config.ApplicationConfig
 import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
@@ -30,7 +29,7 @@ import models.dvr.cases.check.{CheckType, StartCheckForm}
 import models.dvr.DetailedValuationRequest
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
-import models.{ApiAssessment, ApiAssessments, ClientPropertyLink, ListType, Party}
+import models.{ApiAssessment, ApiAssessments, ListType, Party}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.http.HttpEntity
@@ -382,7 +381,7 @@ class DvrController @Inject()(
                                if (!owner) propertyLinks.clientPropertyLink(propertyLinkSubmissionId)
                                else Future.successful(None)
                              }
-        assessment <- apiAssessments.assessments.find(_.assessmentRef == valuationId).toOptionT[Future]
+        assessment <- OptionT.fromOption[Future](apiAssessments.assessments.find(_.assessmentRef == valuationId))
       } yield {
         Ok(
           requestedDetailedValuationView(
