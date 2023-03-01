@@ -17,28 +17,30 @@
 package controllers.detailedvaluationrequest
 
 import actions.AuthenticatedAction
+import cats.data.OptionT
 import config.ApplicationConfig
 import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import connectors.{DVRCaseManagementConnector, _}
 import controllers.PropertyLinkingController
+import models.ListType.ListType
 import models.dvr.cases.check.{CheckType, StartCheckForm}
-import models.dvr.{DetailedValuationRequest, PropertyLinkForDvr}
+import models.dvr.DetailedValuationRequest
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
 import models.{ApiAssessment, ApiAssessments, ListType, Party}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.http.HttpEntity
-import play.api.i18n.MessagesApi
+import play.api.i18n.{Messages, MessagesApi}
 import play.api.mvc.{Action, _}
 import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
 import utils.{Cats, Formatters}
-import java.time.format.DateTimeFormatter
 
+import java.time.format.DateTimeFormatter
 import javax.inject.{Inject, Named}
 import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
 import models.dvr.cases.check.common.{Agent, AgentCount}
@@ -339,9 +341,10 @@ class DvrController @Inject()(
           Redirect(
             if (owner)
               routes.DvrController
-                .myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId, submissionId)
+                .myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId, submissionId, valuationId)
             else
-              routes.DvrController.myClientsRequestDetailValuationConfirmation(propertyLinkSubmissionId, submissionId)
+              routes.DvrController
+                .myClientsRequestDetailValuationConfirmation(propertyLinkSubmissionId, submissionId, valuationId)
           )
         case None =>
           notFound
@@ -352,34 +355,52 @@ class DvrController @Inject()(
 
   def myOrganisationRequestDetailValuationConfirmation(
         propertyLinkSubmissionId: String,
-        submissionId: String): Action[AnyContent] =
-    confirmation(propertyLinkSubmissionId, submissionId, owner = true)
+        submissionId: String,
+        valuationId: Long): Action[AnyContent] =
+    confirmation(propertyLinkSubmissionId, submissionId, valuationId, owner = true)
 
   def myClientsRequestDetailValuationConfirmation(
         propertyLinkSubmissionId: String,
-        submissionId: String): Action[AnyContent] =
-    confirmation(propertyLinkSubmissionId, submissionId, owner = false)
+        submissionId: String,
+        valuationId: Long): Action[AnyContent] =
+    confirmation(propertyLinkSubmissionId, submissionId, valuationId, owner = false)
 
   private[detailedvaluationrequest] def confirmation(
         propertyLinkSubmissionId: String,
         submissionId: String,
+        valuationId: Long,
         owner: Boolean
   ): Action[AnyContent] = authenticated.async { implicit request =>
-    val pLink: Future[Option[PropertyLinkForDvr]] =
-      if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId).map(_.map(PropertyLinkForDvr(_)))
-      else propertyLinks.clientPropertyLink(propertyLinkSubmissionId).map(_.map(PropertyLinkForDvr(_)))
-    pLink.map {
-      case Some(link) =>
+    {
+      for {
+        apiAssessments <- OptionT {
+                           if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
+                           else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
+                         }
+        clientPropertyLink <- OptionT.liftF {
+                               if (!owner) propertyLinks.clientPropertyLink(propertyLinkSubmissionId)
+                               else Future.successful(None)
+                             }
+        assessment <- OptionT.fromOption[Future](apiAssessments.assessments.find(_.assessmentRef == valuationId))
+      } yield {
         Ok(
           requestedDetailedValuationView(
             submissionId = submissionId,
-            address = link.address,
-            localAuthorityRef = link.localAuthorityRef,
-            clientDetails = link.client
+            address = clientPropertyLink.fold(apiAssessments.address)(_.address),
+            localAuthorityRef = clientPropertyLink.fold(assessment.billingAuthorityReference)(_.localAuthorityRef),
+            clientDetails = clientPropertyLink.map(_.client),
+            welshDvr = assessment.isWelsh,
+            formattedFromDate = assessment.currentFromDate.fold("")(Formatters.formattedFullDate),
+            formattedToDate = assessment.currentToDate.fold {
+              assessment.listType match {
+                case ListType.CURRENT if assessment.listYear == "2017" =>
+                  Formatters.formattedFullDate(config.default2017AssessmentEndDate)
+                case _ => implicitly[Messages].apply("assessments.enddate.present.lowercase")
+              }
+            }(Formatters.formattedFullDate)
           ))
-      case None =>
-        BadRequest(propertyMissingView())
-    }
+      }
+    }.getOrElse(BadRequest(propertyMissingView()))
   }
 
   def myOrganisationAlreadyRequestedDetailValuation(
@@ -413,7 +434,7 @@ class DvrController @Inject()(
           .getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
 
         for {
-          exists <- dvrCaseManagement.dvrExists(request.organisationAccount.id, valuationId)
+          record <- dvrCaseManagement.getDvrRecord(request.organisationAccount.id, valuationId)
           backUrl = fromFuture
             .flatMap { fromFuture =>
               if (fromFuture)
@@ -424,9 +445,7 @@ class DvrController @Inject()(
               .valuations(submissionId, owner)
               .url)
         } yield {
-          if (exists) {
-            Ok(alreadyRequestedDetailedValuationView(backUrl, isDraftList = assessment.isDraft))
-          } else {
+          record.fold {
             Ok(
               requestDetailedValuationView(
                 submissionId = submissionId,
@@ -447,6 +466,19 @@ class DvrController @Inject()(
                   "isOwner"                  -> owner,
                   "uarn"                     -> link.uarn),
                 localCouncilRef = assessment.billingAuthorityReference
+              ))
+          } { record =>
+            Ok(
+              alreadyRequestedDetailedValuationView(
+                addressFormatted = Formatters.capitalisedAddress(link.address),
+                backLink = backUrl,
+                dvrSubmissionId = record.dvrSubmissionId,
+                localCouncilRef = assessment.billingAuthorityReference,
+                listType = assessment.listType,
+                listYear = assessment.listYear,
+                rateableValueFormatted = assessment.rateableValue.map(Formatters.formatCurrencyRoundedToPounds(_)),
+                fromDateFormatted = assessment.currentFromDate.fold("")(Formatters.formattedFullDate(_)),
+                toDateFormatted = assessment.currentToDate.map(Formatters.formattedFullDate(_)),
               ))
           }
         }
@@ -651,9 +683,12 @@ case class RequestDetailedValuationWithoutForm(
       assessmentRef: Long,
       address: String,
       effectiveDate: String,
-      rateableValue: Option[Long],
+      rateableValueFormatted: Option[String],
       uarn: Long,
-      isDraftList: Boolean,
+      listType: ListType,
+      listYear: String,
+      formattedFromDate: String,
+      formattedToDate: Option[String],
       isWelsh: Boolean,
       currentValuationUrl: Option[String],
       valuationsUrl: String
@@ -663,16 +698,19 @@ object RequestDetailedValuationWithoutForm {
   private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
   def apply(assessments: ApiAssessments, assessment: ApiAssessment, isOwner: Boolean)(
-        implicit config: ApplicationConfig): RequestDetailedValuationWithoutForm =
+        implicit messages: Messages): RequestDetailedValuationWithoutForm =
     RequestDetailedValuationWithoutForm(
       assessmentRef = assessment.assessmentRef,
       address = assessments.address,
       effectiveDate = formatter.format(
         assessment.effectiveDate.getOrElse(throw new RuntimeException(
           s"Assessment with ref: ${assessment.assessmentRef} does not contain an Effective Date"))),
-      rateableValue = assessment.rateableValue,
+      rateableValueFormatted = assessment.rateableValue.map(Formatters.formatCurrencyRoundedToPounds(_)),
       uarn = assessments.uarn,
-      isDraftList = assessment.isDraft,
+      listType = assessment.listType,
+      listYear = assessment.listYear,
+      formattedFromDate = assessment.currentFromDate.fold("")(Formatters.formattedFullDate(_)),
+      formattedToDate = assessment.currentToDate.map(Formatters.formattedFullDate(_)),
       isWelsh = assessment.isWelsh,
       currentValuationUrl = assessments.assessments
         .find(

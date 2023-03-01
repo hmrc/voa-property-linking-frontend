@@ -25,7 +25,6 @@ import views.html.{addUserToGG, startOldJourney}
 import views.html.helpers._
 import views.html.propertyLinking._
 import views.html._
-import views.html.components.link
 import views.html.dvr.tabs.{agentsTab, challengeCasesDetailsTab, checkCasesDetailsTab, requestFutureValuationTab, startCheckTab, valuationTab}
 import views.html.propertyrepresentation.manage._
 import views.html.propertyrepresentation._
@@ -47,22 +46,24 @@ trait FakeViews extends GdsComponents {
     new views.html.head()
   )
   lazy val dateFields = new dateFields(govukDateInput: GovukDateInput)
-  lazy val alreadyRequestedDetailedValuationView = new alreadyRequestedDetailedValuation(mainLayout)
+  lazy val alreadyRequestedDetailedValuationView =
+    new alreadyRequestedDetailedValuation(mainLayout, govukInsetText, govukSummaryList)
   lazy val requestFutureValuationTab = new requestFutureValuationTab(govukInsetText)
   lazy val requestDetailedValuationView =
     new requestDetailedValuation(
       mainLayout,
       requestFutureValuationTab,
       govukButton,
+      govukInsetText,
       govukTabs,
       formWithCSRF,
       govukSummaryList)
-  lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout)
+  lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout, govukPanel, govukSummaryList)
   lazy val agentsTab = new agentsTab(govukTable)
   lazy val challengeCasesDetailsTab = new challengeCasesDetailsTab(govukDetails, govukTable)
   lazy val checkCasesDetailsTab = new checkCasesDetailsTab(govukButton, govukDetails, govukTable, govukWarningText)
   lazy val startCheckTab = new startCheckTab(formWithCSRF, govukButton, govukDetails, govukRadios)
-  lazy val valuationTab = new valuationTab(govukButton, govukInsetText, govukWarningText, linkWithText)
+  lazy val valuationTab = new valuationTab(govukButton, govukInsetText, govukWarningText)
   lazy val dvrFilesView =
     new dvrFiles(
       mainLayout,

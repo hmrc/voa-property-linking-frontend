@@ -15,25 +15,160 @@
  *@
 
 @import config.ApplicationConfig
+@import models.ListType.ListType
+@import _root_.utils.Formatters
+@import views.html.components.link
 
-@this(mainLayout: views.html.mainLayout)
+@this(mainLayout: views.html.mainLayout, govukInsetText: GovukInsetText, govukSummaryList: GovukSummaryList)
 
-@(backLink: String, isDraftList: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(
+    addressFormatted: String,
+    backLink: String,
+    dvrSubmissionId: Option[String],
+    localCouncilRef: String,
+    listType: ListType,
+    listYear: String,
+    rateableValueFormatted: Option[String],
+    fromDateFormatted: String,
+    toDateFormatted: Option[String]
+)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
-    pageTitle = messages("requestDetailedValuation.title"),
-    backUri = Some(backLink)
-) {
-    <h1 class="govuk-heading-l">@messages("auto.duplicateRequestDetailedValuation.title")</h1>
+@if(config.compiledListEnabled) {
+    @mainLayout(
+      pageTitle = addressFormatted,
+      backUri = Some(backLink)
+    ) {
+        <span class="govuk-caption-l" id="already-requested-heading-caption">
+            @messages("auto.duplicateRequestDetailedValuation.title.caption")
+        </span>
+        <h1 class="govuk-heading-l" id="already-requested-heading">@addressFormatted</h1>
 
-    <p class="govuk-body">@messages("auto.duplicateRequestDetailedValuation.request")</p>
+        @govukSummaryList(SummaryList(
+            classes = "govuk-summary-list--no-border",
+            attributes = Map("id" -> "local-council-reference"),
+            rows = Seq(SummaryListRow(
+                Key(
+                    content = Text(messages("auto.duplicateRequestDetailedValuation.localCouncilReference")),
+                    classes = "govuk-!-padding-right-1 govuk-!-display-inline"
+                ),
+                Value(
+                    content = Text(localCouncilRef),
+                    classes = "govuk-!-display-inline"
+                )
+            ))
+        ))
 
-    @if(!isDraftList) {
-        <p class="govuk-body">@Html(messages("auto.duplicateRequestDetailedValuation.check"))</p>
-        <p class="govuk-body">@messages("auto.duplicateRequestDetailedValuation.urgent")</p>
+        @rateableValueFormatted.map { rv =>
+            <h2 class="govuk-heading-m" id="rv-heading">
+                @messages("auto.duplicateRequestDetailedValuation.rv.heading")
+            </h2>
+
+            <div id="rateable-value">
+                <span class="govuk-caption-l">
+                @listType match {
+                    case ListType.DRAFT => {
+                        @messages(
+                            "auto.duplicateRequestDetailedValuation.rv.caption.future",
+                            fromDateFormatted
+                        )
+                    }
+                    case ListType.CURRENT => {
+                        @toDateFormatted.fold(
+                            messages(
+                                "auto.duplicateRequestDetailedValuation.rv.caption.current",
+                                fromDateFormatted
+                            )
+                        )(toDate =>
+                            messages(
+                                "auto.duplicateRequestDetailedValuation.rv.caption.previous",
+                                fromDateFormatted,
+                                toDate
+                            )
+                        )
+                    }
+                    case ListType.PREVIOUS => {
+                        @messages(
+                            "auto.duplicateRequestDetailedValuation.rv.caption.previous",
+                            fromDateFormatted,
+                            toDateFormatted.getOrElse(
+                                if (listYear == "2017") Formatters.formattedFullDate(config.default2017AssessmentEndDate)
+                                else ""
+                            )
+                        )
+                    }
+                }
+                </span>
+
+                <p class="govuk-heading-xl govuk-!-margin-bottom-4">@rv</p>
+
+                @listType match {
+                    case ListType.CURRENT if toDateFormatted.isEmpty => {
+                        @govukInsetText(InsetText(
+                            id = Some("rv-explainer"),
+                            content = Text(messages("auto.duplicateRequestDetailedValuation.rv.inset.current"))
+                        ))
+                    }
+                    case ListType.CURRENT | ListType.PREVIOUS => {
+                        @govukInsetText(InsetText(
+                            id = Some("rv-explainer"),
+                            content = Text(messages("auto.duplicateRequestDetailedValuation.rv.inset.previous"))
+                        ))
+                    }
+                    case _ => {}
+                }
+            </div>
+        }
+
+        <h2 class="govuk-heading-m" id="valuation-details-heading">@messages("auto.duplicateRequestDetailedValuation.details.subhead")</h2>
+
+        <div id="valuation-details-explainer">
+            <p class="govuk-body">@messages("auto.duplicateRequestDetailedValuation.details.requested")</p>
+            <p class="govuk-body">@messages("auto.duplicateRequestDetailedValuation.details.whenApproved")</p>
+            @dvrSubmissionId.map { submissionId =>
+                <p class="govuk-body">
+                    @messages(
+                        "auto.duplicateRequestDetailedValuation.details.reference",
+                        submissionId
+                    )
+                </p>
+            }
+        </div>
+
+        <h2 class="govuk-heading-m" id="mcc-heading">
+            @messages("auto.duplicateRequestDetailedValuation.mcc.subhead")
+        </h2>
+
+        <div id="mcc-explainer">
+            @link(
+              preLinkText = Some(messages("auto.duplicateRequestDetailedValuation.mcc.email.preLink")),
+              linkText = "ccaservice@voa.gov.uk",
+              postLinkText = Some(messages("auto.duplicateRequestDetailedValuation.mcc.email.postLink")),
+              location = "mailto:ccaservice@voa.gov.uk",
+              linkId = Some("email-cca-link")
+            )
+            <p class="govuk-body">@messages("auto.duplicateRequestDetailedValuation.mcc.email.instruction")</p>
+        </div>
     }
+} else {
+    @mainLayout(
+        pageTitle = messages("requestDetailedValuation.title"),
+        backUri = Some(backLink)
+    ) {
+        <h1 class="govuk-heading-l" id="already-requested-heading">@messages("auto.duplicateRequestDetailedValuation.title")</h1>
 
-    <p class="govuk-body">
-        <a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.return.home")</a>
-    </p>
+        <div id="valuation-details-explainer">
+            <p class="govuk-body">@messages("auto.duplicateRequestDetailedValuation.request")</p>
+
+            @if(listType != ListType.DRAFT) {
+                <p class="govuk-body">@Html(messages("auto.duplicateRequestDetailedValuation.check"))</p>
+                <p class="govuk-body">@messages("auto.duplicateRequestDetailedValuation.urgent")</p>
+            }
+
+            @link(
+                linkText = messages("link.return.home"),
+                linkId = Some("dvr-home-link"),
+                location = config.dashboardUrl("home")
+            )
+        </div>
+    }
 }

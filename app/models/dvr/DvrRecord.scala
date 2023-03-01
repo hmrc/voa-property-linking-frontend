@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,29 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(linkText: String,
-   location: String,
-   linkId: Option[String] = None,
-   linkClass: String = "govuk-link",
-   pWrapped: Boolean = true,
-   linkSentence: Boolean = false,
-   preLinkText: Option[String] = None,
-   postLinkText: Option[String] = None,
-   pId: Option[String] = None,
-   pClass: String = "govuk-body")
+package models.dvr
 
-@link = {
-   <a @{linkId.fold("")(id => s"id=$id")} class="@linkClass" href="@location">@linkText</a>@if(linkSentence){.}
-}
+import play.api.libs.json.{Json, OFormat}
 
-@if(pWrapped) {
- <p @{pId.fold("")(id => s"id=$id")} class="@pClass">
-  @preLinkText
-  @link
-  @postLinkText
- </p>
-} else {
- @link
+case class DvrRecord(
+      organisationId: Long,
+      assessmentRef: Long,
+      agents: Option[List[Long]],
+      dvrSubmissionId: Option[String]
+)
+
+object DvrRecord {
+  implicit val format: OFormat[DvrRecord] = Json.format
 }

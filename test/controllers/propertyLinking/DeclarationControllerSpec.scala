@@ -311,7 +311,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(confirmation) shouldBe OK
     val html = HtmlPage(confirmation)
     html.titleShouldMatch("Property claim submitted - Valuation Office Agency - GOV.UK")
-    html.shouldContainText("Make a note of your reference number as you'll need to provide it if you contact us")
+    html.shouldContainText("Make a note of your reference number as you’ll need to provide it if you contact us")
   }
 
   "The confirmation page" should "display the submission ID" in new Setup {

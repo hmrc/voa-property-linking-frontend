@@ -41,6 +41,7 @@ import java.time.{Instant, LocalDate, LocalDateTime, Month}
 import java.util.UUID
 import binders.propertylinks.ClaimPropertyReturnToPage
 import models.ListType.ListType
+import models.dvr.DvrRecord
 import models.properties.AllowedAction.{CHECK, VIEW_DETAILED_VALUATION}
 
 trait FakeObjects {
@@ -58,6 +59,9 @@ trait FakeObjects {
   val nino: Nino = Nino("AA111111A")
   val dateOfBirth: LocalDate = LocalDate.of(1979, Month.OCTOBER, 12)
   val agentCode = 12345L
+  val orgIdIp = 321L
+  val orgIdAgent = 654L
+  val assessmentRef = 987L
 
   val earliestEnglishStartDate = LocalDate.of(2017, 4, 1)
   val earliestWelshStartDate = LocalDate.of(2023, 4, 1)
@@ -471,7 +475,9 @@ trait FakeObjects {
   def apiAssessments(
         a: OwnerAuthorisation,
         toDate: Option[LocalDate] = Some(april2017.plusMonths(2L)),
-        listType: ListType = ListType.CURRENT) =
+        listType: ListType = ListType.CURRENT,
+        listYear: Int = 2017,
+        isWelsh: Boolean = false) =
     ApiAssessments(
       authorisationId = a.authorisationId,
       submissionId = a.submissionId,
@@ -484,13 +490,13 @@ trait FakeObjects {
         ApiAssessment(
           authorisationId = a.authorisationId,
           assessmentRef = 1234L,
-          listYear = "2017",
+          listYear = listYear.toString,
           uarn = a.uarn,
           effectiveDate = Some(april2017),
           rateableValue = Some(123L),
           address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
           billingAuthorityReference = a.localAuthorityRef,
-          billingAuthorityCode = Some("2715"),
+          billingAuthorityCode = Some(if (isWelsh) "62715" else "2715"),
           listType = listType,
           allowedActions = List(VIEW_DETAILED_VALUATION, CHECK),
           currentFromDate = Some(april2017),
@@ -499,13 +505,13 @@ trait FakeObjects {
         ApiAssessment(
           authorisationId = a.authorisationId,
           assessmentRef = 1235L,
-          listYear = "2017",
+          listYear = listYear.toString,
           uarn = a.uarn,
           effectiveDate = Some(april2017),
           rateableValue = Some(1234L),
           address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
           billingAuthorityReference = a.localAuthorityRef,
-          billingAuthorityCode = Some("2715"),
+          billingAuthorityCode = Some(if (isWelsh) "62715" else "2715"),
           listType = ListType.CURRENT,
           allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
           currentFromDate = Some(april2017.plusMonths(2L)),
@@ -514,13 +520,13 @@ trait FakeObjects {
         ApiAssessment(
           authorisationId = a.authorisationId,
           assessmentRef = 1236L,
-          listYear = "2017",
+          listYear = listYear.toString,
           uarn = a.uarn,
           effectiveDate = Some(april2017),
           rateableValue = Some(1234L),
           address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
           billingAuthorityReference = a.localAuthorityRef,
-          billingAuthorityCode = Some("2715"),
+          billingAuthorityCode = Some(if (isWelsh) "62715" else "2715"),
           listType = ListType.CURRENT,
           allowedActions = List(AllowedAction.ENQUIRY),
           currentFromDate = Some(april2017.plusMonths(2L)),
@@ -535,6 +541,70 @@ trait FakeObjects {
             organisationName = agent.organisationName,
             organisationId = agent.organisationId
         ))
+    )
+
+  def clientApiAssessments(
+        a: ClientPropertyLink,
+        toDate: Option[LocalDate] = Some(april2017.plusMonths(2L)),
+        listType: ListType = ListType.CURRENT,
+        listYear: Int = 2017,
+        isWelsh: Boolean = false) =
+    ApiAssessments(
+      authorisationId = a.authorisationId,
+      submissionId = a.submissionId,
+      uarn = a.uarn,
+      address = a.address,
+      pending = a.status == PropertyLinkingPending,
+      clientOrgName = Some(a.client.organisationName),
+      capacity = Some("OWNER"),
+      assessments = List(
+        ApiAssessment(
+          authorisationId = a.authorisationId,
+          assessmentRef = 1234L,
+          listYear = listYear.toString,
+          uarn = a.uarn,
+          effectiveDate = Some(april2017),
+          rateableValue = Some(123L),
+          address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
+          billingAuthorityReference = a.localAuthorityRef,
+          billingAuthorityCode = Some(if (isWelsh) "62715" else "2715"),
+          listType = listType,
+          allowedActions = List(VIEW_DETAILED_VALUATION, CHECK),
+          currentFromDate = Some(april2017),
+          currentToDate = toDate
+        ),
+        ApiAssessment(
+          authorisationId = a.authorisationId,
+          assessmentRef = 1235L,
+          listYear = listYear.toString,
+          uarn = a.uarn,
+          effectiveDate = Some(april2017),
+          rateableValue = Some(1234L),
+          address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
+          billingAuthorityReference = a.localAuthorityRef,
+          billingAuthorityCode = Some(if (isWelsh) "62715" else "2715"),
+          listType = ListType.CURRENT,
+          allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
+          currentFromDate = Some(april2017.plusMonths(2L)),
+          currentToDate = None
+        ),
+        ApiAssessment(
+          authorisationId = a.authorisationId,
+          assessmentRef = 1236L,
+          listYear = listYear.toString,
+          uarn = a.uarn,
+          effectiveDate = Some(april2017),
+          rateableValue = Some(1234L),
+          address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
+          billingAuthorityReference = a.localAuthorityRef,
+          billingAuthorityCode = Some(if (isWelsh) "62715" else "2715"),
+          listType = ListType.CURRENT,
+          allowedActions = List(AllowedAction.ENQUIRY),
+          currentFromDate = Some(april2017.plusMonths(2L)),
+          currentToDate = None
+        )
+      ),
+      agents = Seq.empty[Party]
     )
 
   val propertyValuation1: PropertyValuation = PropertyValuation(
@@ -612,6 +682,13 @@ trait FakeObjects {
     localAuthorityReference = "12341531531",
     rtp = ClaimPropertyReturnToPage.FMBR,
     isSubmitted = None
+  )
+
+  lazy val dvrRecord: DvrRecord = DvrRecord(
+    organisationId = orgIdIp,
+    assessmentRef = assessmentRef,
+    agents = Some(List(orgIdAgent)),
+    dvrSubmissionId = Some("DVR-123A45B")
   )
 
 }

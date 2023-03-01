@@ -20,7 +20,7 @@
 @import models.properties.AllowedAction.CHECK
 @import views.html.components.link
 
-@this(govukButton: GovukButton, govukInsetText: GovukInsetText, govukWarningText: GovukWarningText, linkWithText: link)
+@this(govukButton: GovukButton, govukInsetText: GovukInsetText, govukWarningText: GovukWarningText)
 
 @(model: AvailableRequestDetailedValuation, currentValuationUrl: Option[String], valuationUrl: String)(implicit config: ApplicationConfig, messages: Messages)
 
@@ -67,13 +67,13 @@
         <p class="govuk-body">@messages("available.requestvaluation.listYear.2017.p3")</p>
 
         <ul class="govuk-list govuk-list--bullet">
-            <li>@linkWithText(preLinkMessage = Some(messages("available.requestvaluation.listYear.2017.li4")),
-                linkMessage = messages("available.requestvaluation.listYear.2017.link.text"),
+            <li>@link(preLinkText = Some(messages("available.requestvaluation.listYear.2017.li4")),
+                linkText = messages("available.requestvaluation.listYear.2017.link.text"),
                 location = currentValuationsUrl,
                 linkId = Some("current-valuation-alteration"))
             </li>
-            <li>@linkWithText(preLinkMessage = Some(messages("available.requestvaluation.listYear.2017.li5")),
-                linkMessage = messages("available.requestvaluation.listYear.2017.link.text"),
+            <li>@link(preLinkText = Some(messages("available.requestvaluation.listYear.2017.li5")),
+                linkText = messages("available.requestvaluation.listYear.2017.link.text"),
                 location = currentValuationsUrl,
                 linkId = Some("current-valuation-court-decision"))
             </li>
@@ -83,27 +83,64 @@
 
     <p class="govuk-body">@messages("available.requestvaluation.listYear.isDraft.p")</p>
 
+    } else if (config.compiledListEnabled) {
+        <p class="govuk-body">@messages("available.requestvaluation.nonDraft.check.p1")</p>
+
+        @link(
+          linkText = messages("available.requestvaluation.nonDraft.check.link"),
+          location = model.evaluateRoute(model.check),
+          linkId = Some("valuation-tab-download-check-form")
+        )
+
+        <p class="govuk-body">@messages("available.requestvaluation.nonDraft.check.p2")</p>
+
+        @govukWarningText(WarningText(
+          iconFallbackText = messages("warning.text"),
+          content = Text(messages("available.requestvaluation.nonDraft.check.warning"))
+        ))
+
+        @govukButton(Button(
+            content = Text(messages("available.requestvaluation.nonDraft.check.button.send")),
+            href = Some("#start-check-tab"),
+            classes = "govuk-button--secondary",
+            attributes = Map("id" -> "valuation-tab-send-check-form")
+        ))
+
     } else {
 
-    @if(model.isDraftList && model.isWelshProperty) {
-        <p class="govuk-body">@messages("available.requestvaluation.p1.draft.welshProperty")</p>
-    } else if (model.isDraftList && !model.isWelshProperty) {
-        <p class="govuk-body">@messages("available.requestvaluation.p1.draft.englishProperty")</p>
-    } else {
-        <p class="govuk-body">@messages("available.requestvaluation.p1")</p>
-        <p class="govuk-body">@Html(messages("available.requestvaluation.p2", model.evaluateRoute(model.check)))</p>
-        <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
+        @if(model.isDraftList && model.isWelshProperty) {
+            <p class="govuk-body">@messages("available.requestvaluation.p1.draft.welshProperty")</p>
+        } else if (model.isDraftList && !model.isWelshProperty) {
+            <p class="govuk-body">@messages("available.requestvaluation.p1.draft.englishProperty")</p>
+        } else {
+            <p class="govuk-body">@messages("available.requestvaluation.p1")</p>
+            <p class="govuk-body">
+                @Html(
+                    messages(
+                        "available.requestvaluation.p2",
+                        model.evaluateRoute(model.check),
+                        "valuation-tab-download-check-form"
+                    )
+                )
+            </p>
+            <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
 
-        @govukWarningText(WarningText(iconFallbackText = messages("warning.text"),
-            content = Text(messages("available.requestvaluation.warning"))))
+            @govukWarningText(WarningText(
+                iconFallbackText = messages("warning.text"),
+                content = Text(messages("available.requestvaluation.warning"))
+            ))
 
-        @govukButton(Button(content = Text(messages("available.requestvaluation.dvrCheck.startCheck")), href = Some("#start-check-tab"), attributes = Map("id" -> "valuationtab-start-check")))
+            @govukButton(Button(
+                content = Text(messages("available.requestvaluation.dvrCheck.startCheck")),
+                href = Some("#start-check-tab"),
+                attributes = Map("id" -> "valuation-tab-send-check-form")
+            ))
         }
     }
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
+    <div class="govuk-grid-column-two-thirds">
 
         <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
         <h2 id="rateable-value-caption" class="govuk-caption-l">@h2Caption</h2>
@@ -111,10 +148,45 @@
 
         @govukInsetText(InsetText(id=Some("intro-text"), content = Text(insetMessages)))
 
-        <p class="govuk-body"><a class="govuk-link" href="@model.evaluateRoute(model.valuation)">@messages("available.requestvaluation.downloadValuationLink")</a></p>
-        <h2 class="govuk-heading-m">@messages("available.requestvaluation.changeValuation")</h2>
+        @if(config.compiledListEnabled) {
+          @govukButton(Button(
+            content = Text(messages("available.requestvaluation.downloadValuationButton")),
+            href = Some(model.evaluateRoute(model.valuation)),
+            attributes = Map("id" -> "valuation-tab-download-link")
+          ))
+        } else {
+          @link(
+            linkText = messages("available.requestvaluation.downloadValuationLink"),
+            location = model.evaluateRoute(model.valuation),
+            linkId = Some("valuation-tab-download-link")
+          )
+        }
 
-        @valuationTabContent
+        @if(config.compiledListEnabled && model.isWelshProperty) {
+          @link(
+            preLinkText = Some(messages("available.requestvaluation.welsh.ccaEmail.preLink")),
+            linkText = "ccaservice@voa.gov.uk",
+            postLinkText = Some(
+                messages(
+                    "available.requestvaluation.welsh.ccaEmail.postLink",
+                    messages(
+                        "available.requestvaluation.welsh.ccaEmail.valuationPeriod",
+                        fromDate,
+                        endDate.getOrElse(messages("assessments.enddate.present.lowercase"))
+                    )
+                )
+            ),
+            location = "mailto:ccaservice@voa.gov.uk",
+            pId = Some("welsh-language-explainer"),
+            linkId = Some("valuation-tab-email-cca-link")
+          )
+        }
+
+        <h2 class="govuk-heading-m" id="valuation-tab-change-something-heading">
+            @messages("available.requestvaluation.changeValuation")
+        </h2>
+
+        <div id="valuation-tab-change-something-content">@valuationTabContent</div>
 
     </div>
 </div>
