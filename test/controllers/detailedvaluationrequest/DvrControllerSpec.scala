@@ -566,7 +566,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         assessment.assessmentRef,
         dvrDocuments.detailedValuation.documentSummary.documentId)
       .url
-    welshLanguageExplainer.text shouldBe "If you need this valuation in Welsh email ccaservice@voa.gov.uk with your request. Include the property address and valuation period (1 April 2017 to 1 June 2017) in the email."
+    welshLanguageExplainer.text shouldBe "If you need this valuation in Welsh, email ccaservice@voa.gov.uk with your request. Include the property address and valuation period (1 April 2017 to 1 June 2017) in the email."
     emailCcaLink.text shouldBe "ccaservice@voa.gov.uk"
     emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
   }

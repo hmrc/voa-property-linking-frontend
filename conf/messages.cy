@@ -995,15 +995,15 @@ auto.requestDetailedValuation.rv.inset.current=Dyma’r gwerth ardrethol ar gyfe
 auto.requestDetailedValuation.rv.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 
 auto.requestDetailedValuation.subhead.valuationDetails=Manylion prisio
-auto.requestDetailedValuation.request.howCalculated=WAITING FOR WELSH
-auto.requestDetailedValuation.request.whenApproved=WAITING FOR WELSH
-auto.requestDetailedValuation.request.button=WAITING FOR WELSH
+auto.requestDetailedValuation.request.howCalculated=I weld sut y gwnaethom gyfrifo’r gwerth ardrethol hwn, gwnewch gais am y prisiad manwl.
+auto.requestDetailedValuation.request.whenApproved=Bydd y prisiad manwl ar gael i’w lawrlwytho unwaith bydd eich cais wedi’i gymeradwyo.
+auto.requestDetailedValuation.request.button=Gwneud cais am y prisiad manwl
 
 auto.requestDetailedValuation.subhead.change=Os ydych eisiau newid rhywbeth yn y prisiad hwn
-auto.requestDetailedValuation.change.startCheck=WAITING FOR WELSH
-auto.requestDetailedValuation.change.alreadySent=WAITING FOR WELSH
-auto.requestDetailedValuation.change.challenge.preLink=WAITING FOR WELSH
-auto.requestDetailedValuation.change.challenge.link=WAITING FOR WELSH
+auto.requestDetailedValuation.change.startCheck=Os oes angen newid manylion yr eiddo, neu os ydych yn credu bod y gwerth ardrethol yn rhy uchel, mae’n rhaid i chi wneud cais am y prisiad manwl yn gyntaf fel bod modd i chi ddechrau achos Gwirio.
+auto.requestDetailedValuation.change.alreadySent=Os ydych wedi anfon achos Gwirio atom yn barod, byddwn yn cysylltu â chi gyda’r penderfyniad.
+auto.requestDetailedValuation.change.challenge.preLink=Os ydych yn anghytuno â’n penderfyniad ar yr achos Gwirio, gallwch chi
+auto.requestDetailedValuation.change.challenge.link=ddechrau achos Herio
 auto.requestDetailedValuation.change.challenge.postLink=Mae’n rhaid i chi gwblhau achos Gwirio cyn danfon achos i Herio.
 
 requestDetailedValuation.heading.challenge=Wedi cwblhau gwiriad yn barod?
@@ -1024,7 +1024,7 @@ available.requestvaluation.checksTab.noCases.title=Gwiriadau
 available.requestvaluation.checksTab.title=Gwiriadau ({0})
 available.requestvaluation.challengesTab.title=Heriau ({0})
 available.requestvaluation.downloadValuationLink=Lawrlwytho’r prisiad manwl ar gyfer yr eiddo hwn
-available.requestvaluation.downloadValuationButton=WAITING FOR WELSH
+available.requestvaluation.downloadValuationButton=Lawrlwythwch y prisiad manwl
 available.requestvaluation.changeValuation=Os ydych eisiau newid rhywbeth yn y prisiad hwn
 available.requestvaluation.p1.draft.englishProperty=Os yw manylion yr eiddo yn anghywir, neu os ydych yn credu bod y gwerth ardrethol yn anghywir,   edrychwch ar y prisiad presennol hefyd. Os yw’r manylion yn anghywir yn y ddau, gallwch gyflwyno Gwiriad yn erbyn y prisiad presennol. Bydd unrhyw newidiadau yn trosglwyddo i’r prisiad drafft.
 available.requestvaluation.p1.draft.welshProperty=Os ydych yn meddwl bod rhywbeth o’i le gyda’r manylion yn y prisiad hwn, edrychwch ar y prisiad presennol hefyd . Os yw’r manylion yn anghywir yn y ddau, gallwch gyflwyno cynnig yn erbyn y prisiad presennol. Bydd unrhyw newidiadau yn trosglwyddo i’r prisiad drafft.
@@ -1040,14 +1040,14 @@ available.requestvaluation.check.p2=Gallwch e-bostio’r ffurflen i <a class="go
 available.requestvaluation.address=Gwasanaeth Gwirio a Herio (Check and challenge service), PO BOX 308, PLYMOUTH, PL5 9DT
 available.requestvaluation.warning=Efallai y bydd rhai ffurflenni Gwirio hŷn yn dweud wrthych am e-bostio’ch ffurflen. Anwybyddwch hwn a defnyddiwch  y botwm ’’Anfonwch fy ffurflen Wirio wedi’i chwblhau’’ yn lle.
 
-available.requestvaluation.nonDraft.check.p1=WAITING FOR WELSH
-available.requestvaluation.nonDraft.check.link=WAITING FOR WELSH
-available.requestvaluation.nonDraft.check.p2=WAITING FOR WELSH
-available.requestvaluation.nonDraft.check.warning=WAITING FOR WELSH
-available.requestvaluation.nonDraft.check.button.send=WAITING FOR WELSH
+available.requestvaluation.nonDraft.check.p1=Os yw manylion yr eiddo yn anghywir, neu os ydych yn credu bod y gwerth ardrethol yn anghywir, mae’n rhaid i chi gwblhau ffurflen achos Gwirio.
+available.requestvaluation.nonDraft.check.link=Lawrlwythwch y ffurflen achos Gwirio
+available.requestvaluation.nonDraft.check.p2=Ar ôl cwblhau’r ffurflen, anfonwch hi atom fel rhan o achos Gwirio.
+available.requestvaluation.nonDraft.check.warning=Efallai bod rhai ffurflenni achos Gwirio hŷn yn dweud wrthych am e-bostio neu bostio eich ffurflen. Anwybyddwch hyn a defnyddiwch y botwm ''Anfon fy ffurflen achos Gwirio wedi’i chwblhau''  yn lle.
+available.requestvaluation.nonDraft.check.button.send=Anfon fy ffurflen achos Gwirio wedi’i chwblhau
 
-available.requestvaluation.welsh.ccaEmail.preLink=WAITING FOR WELSH
-available.requestvaluation.welsh.ccaEmail.postLink=WAITING FOR WELSH
+available.requestvaluation.welsh.ccaEmail.preLink=Os ydych angen y prisiad hwn yn Gymraeg anfonwch e-bost i
+available.requestvaluation.welsh.ccaEmail.postLink=gyda’ch cais. Gofynwn i chi gynnwys cyfeiriad yr eiddo a’r cyfnod prisio {0} yn yr e-bost.
 available.requestvaluation.welsh.ccaEmail.valuationPeriod=({0} i {1})
 
 available.requestvaluation.dvrCheck.p1=Cyn i chi allu cyflwyno gwiriad, mae angen i chi <a class="govuk-link" href="{0}">lawrlwytho a chwblhau ffurflen wirio</a>.
@@ -1118,21 +1118,21 @@ detailedValuationRequested.p.1=Byddwn yn anfon hwn atoch erbyn {0} o fewn 20 diw
 auto.detailedValuationRequested.title=Cais am brisio manwl wedi’i gyflwyno
 auto.detailedValuationRequested.title.reference=Eich cyfeirnod yw
 
-auto.detailedValuationRequested.title.confirmation=WAITING FOR WELSH
-auto.detailedValuationRequested.panel.title=WAITING FOR WELSH
-auto.detailedValuationRequested.panel.content=WAITING FOR WELSH
-auto.detailedValuationRequested.explainer.property=WAITING FOR WELSH
+auto.detailedValuationRequested.title.confirmation=Cadarnhad
+auto.detailedValuationRequested.panel.title=Cais am brisiad manwl wedi’i anfon
+auto.detailedValuationRequested.panel.content=Eich cyfeirnod
+auto.detailedValuationRequested.explainer.property=Rydych wedi anfon cais atom am brisiad manwl ar gyfer yr eiddo canlynol:
 auto.detailedValuationRequested.localCouncilRef=Cyfeirnod yr awdurdod lleol
 auto.detailedValuationRequested.explainer.note=Gwnewch nodyn o’ch cyfeirnod gan y bydd angen i chi ei ddarparu os byddwch yn cysylltu â ni.
 auto.detailedValuationRequested.whatNext.leadTime=Byddwn yn prosesu eich cais o fewn 20 diwrnod gwaith. Byddwn yn anfon neges atoch pan fydd y prisiad manwl ar gael.
-auto.detailedValuationRequested.whatNext.preLink=WAITING FOR WELSH
+auto.detailedValuationRequested.whatNext.preLink=Byddwch yn gallu lawrlwytho’r prisiad o
 auto.detailedValuationRequested.whatNext.ipLink=eich eiddo
 auto.detailedValuationRequested.whatNext.agentLink=eiddo eich cleient
 auto.detailedValuationRequested.whatNext.contact=Byddwn yn cysylltu â chi os bydd angen mwy o wybodaeth arnom.
 auto.detailedValuationRequested.whatNext.accountHome=Ewch i hafan eich cyfrif
-auto.detailedValuationRequested.welsh.heading=WAITING FOR WELSH
-auto.detailedValuationRequested.welsh.ccaEmail.preLink=WAITING FOR WELSH
-auto.detailedValuationRequested.welsh.ccaEmail.postLink=WAITING FOR WELSH
+auto.detailedValuationRequested.welsh.heading=Os ydych angen y prisiad hwn yn Gymraeg
+auto.detailedValuationRequested.welsh.ccaEmail.preLink=Ebostiwch eich cais i
+auto.detailedValuationRequested.welsh.ccaEmail.postLink=Dylech gynnwys cyfeiriad yr eiddo a chyfnod y prisiad {0} yn yr e-bost.
 auto.detailedValuationRequested.welsh.ccaEmail.valuationPeriod=({0} i {1})
 
 duplicateRequestDetailedValuation.title=Rydych eisoes wedi gofyn am y prisiad manwl hwn.
@@ -1150,14 +1150,13 @@ auto.duplicateRequestDetailedValuation.rv.caption.previous=Gwerth ardrethol blae
 auto.duplicateRequestDetailedValuation.rv.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 auto.duplicateRequestDetailedValuation.rv.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 auto.duplicateRequestDetailedValuation.details.subhead=Manylion prisio
-auto.duplicateRequestDetailedValuation.details.requested=WAITING FOR WELSH
-auto.duplicateRequestDetailedValuation.details.whenApproved=WAITING FOR WELSH
-auto.duplicateRequestDetailedValuation.details.reference=WAITING FOR WELSH
-auto.duplicateRequestDetailedValuation.mcc.subhead=WAITING FOR WELSH
-auto.duplicateRequestDetailedValuation.mcc.email.preLink=WAITING FOR WELSH
-auto.duplicateRequestDetailedValuation.mcc.email.link=WAITING FOR WELSH
-auto.duplicateRequestDetailedValuation.mcc.email.postLink=WAITING FOR WELSH
-auto.duplicateRequestDetailedValuation.mcc.email.instruction=WAITING FOR WELSH
+auto.duplicateRequestDetailedValuation.details.requested=Rydych wedi anfon cais atom i gael y prisiad manwl.
+auto.duplicateRequestDetailedValuation.details.whenApproved=Bydd y prisiad manwl ar gael i’w lawrlwytho o fewn 20 diwrnod gwaith o anfon y cais. Byddwn yn anfon neges atoch pan fydd ar gael.
+auto.duplicateRequestDetailedValuation.details.reference=Cyfeirnod eich cais yw {0}.
+auto.duplicateRequestDetailedValuation.mcc.subhead=Os oes angen i chi ddweud wrthym am newid yn yr ardal leol
+auto.duplicateRequestDetailedValuation.mcc.email.preLink=Os oes angen i chi ddweud wrthym am newid yn yr ardal leol sy’n effeithio ar eich eiddo, ac rydych yn aros i’r prisiad manwl fod ar gael, gallwch e-bostio
+auto.duplicateRequestDetailedValuation.mcc.email.postLink=a gofynnwch i’ch cais gael ei flaenoriaethu.
+auto.duplicateRequestDetailedValuation.mcc.email.instruction=Nodwch ''Pwysig: Newid Amgylchiadau Materol allanol'' yn y llinell destun gan gynnwys cyfeiriad yr eiddo a chyfeirnod y cais yn yr e-bost.
 
 auto.duplicateRequestDetailedValuation.request=Rydym wedi derbyn eich cais am y prisiad manwl hwn yn ystod y 14 diwrnod diwethaf. Bydd ar gael yn fuan.
 auto.duplicateRequestDetailedValuation.check=Os oes angen i chi gyflwyno gwiriad ar frys oherwydd newid yn yr ardal leol sy’n effeithio ar eich eiddo,   ac rydych chi’n aros i dderbyn copi o’ch prisiad manwl, dylech e-bostio <a class="govuk-link" id="email-cca-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> a gofyn i’ch cais gael ei flaenoriaethu.

@@ -1180,7 +1180,7 @@ available.requestvaluation.nonDraft.check.p2=After completing the form, send it 
 available.requestvaluation.nonDraft.check.warning=Some older Check case forms may tell you to email or post your form. Please ignore this and use the ''Send my completed Check case form'' button instead.
 available.requestvaluation.nonDraft.check.button.send=Send my completed Check case form
 
-available.requestvaluation.welsh.ccaEmail.preLink=If you need this valuation in Welsh email
+available.requestvaluation.welsh.ccaEmail.preLink=If you need this valuation in Welsh, email
 available.requestvaluation.welsh.ccaEmail.postLink=with your request. Include the property address and valuation period {0} in the email.
 available.requestvaluation.welsh.ccaEmail.valuationPeriod=({0} to {1})
 
@@ -1303,7 +1303,6 @@ auto.duplicateRequestDetailedValuation.details.whenApproved=The detailed valuati
 auto.duplicateRequestDetailedValuation.details.reference=Your request reference number is {0}.
 auto.duplicateRequestDetailedValuation.mcc.subhead=If you need to tell us about a change in the local area
 auto.duplicateRequestDetailedValuation.mcc.email.preLink=If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email
-auto.duplicateRequestDetailedValuation.mcc.email.link=ccaservice@voa.gov.uk
 auto.duplicateRequestDetailedValuation.mcc.email.postLink=and ask for your request to be prioritised.
 auto.duplicateRequestDetailedValuation.mcc.email.instruction=Include ''Urgent: external Material Change of Circumstances'' in the subject line and include the property address and the request reference number in the email.
 
