@@ -1584,10 +1584,10 @@ registration.error.p2=Bydd angen i chi siarad â’r person a roddodd eich manyl
 
 #challenge
 challengeRules.summary=Pryd gallaf herio’r prisiad?
-challengeRules.rules=Gallwch wneud Her os oes gennych:
-challengeRules.rules.1=wedi derbyn penderfyniad achos Gwirio yn y 4 mis diwethaf
-challengeRules.rules.2=wedi cyflwyno achos Gwirio a heb dderbyn penderfyniad yn ystod y 12 mis diwethaf
-challengeRules.rules.3=wedi cyflwyno achos Gwirio yn ystod yr 16 mis diwethaf ac mae eich Her yn ymwneud â newid yn ardal leol eiddo
+challengeRules.rules=Gallwch anfon achos Herio atom (mae unrhyw un o'r rhain yn berthnasol):
+challengeRules.rules.1=o fewn 4 mis i'n penderfyniad ar yr achos Gwirio
+challengeRules.rules.2=os ydych wedi aros mwy na 12 mis a heb dderbyn ein penderfyniad ar yr achos Gwirio
+challengeRules.rules.3=Os yw’r Her yn ymwneud â newid yn yr ardal leol (er enghraifft gwaith ffordd hirdymor), rydych yn ei anfon o fewn 16 mis o fod wedi anfon yr achos Gwirio ac eich bod wedi derbyn ein penderfyniad ar yr achos Gwirio. Rhaid i'r achos Herio fod ar yr un rhestr ardrethu â'r achos Gwirio.
 challengeRules.rules.paper=Os ydych yn parhau i feddwl bod gennych hawl i gyflwyno Her ond bod ddim achos Gwirio yn ymddangos,   bydd angen i chi <a class="govuk-link" href="{0}">lawrlwytho a chwblhau ffurflen Herio (T012)</a>.
 
 ## TIME OUT DIALOG
