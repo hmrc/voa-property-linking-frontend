@@ -370,6 +370,15 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.verifyElementTextByAttribute("href", "#check-cases-tab", "Checks (1)")
     page.verifyElementTextByAttribute("href", "#challenge-cases-tab", "Challenges (1)")
 
+    page.verifyElementText("challenge-rules-rules-1", "within 4 months of our Check case decision")
+    page.verifyElementText(
+      "challenge-rules-rules-2",
+      "if you have waited more than 12 months and not received our Check case decision")
+    page.verifyElementText(
+      "challenge-rules-rules-3",
+      "if it’s about a change in the local area (such as long-term roadworks), you send it within 16 months of sending the Check case and you have received our Check case decision"
+    )
+
     page.verifyElementTextByAttribute(
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/2L",
