@@ -816,7 +816,7 @@ uploadRatesBill.show.button=Parhau
 uploadRatesBill.reminder=Rhaid i ddyddiad y bil orgyffwrdd â’r cyfnod yr oeddech yn berchen neu’n meddiannu’r eiddo.
 uploadRatesBill.client.reminder=Rhaid i ddyddiad y bil orgyffwrdd â’r cyfnod yr oedd eich cleient yn berchen neu’n meddiannu’r eiddo.
 common.uploadFile.label=Lanlwytho ffeil
-chooseEvidence.title=Oes gennych chi gopi o’r bil ardrethi busnes ar gyfer yr eiddo hwn?
+chooseEvidence.title=Oes gennych chi fil ardrethi busnes ar gyfer yr eiddo hwn?
 chooseEvidence.client.title=Oes gennych chi gopi o fil ardrethi busnes eich cleient ar gyfer yr eiddo hwn?
 hasRatesBill.true=Oes
 hasRatesBill.false=Nac oes
@@ -828,7 +828,7 @@ uploadFile.info.content=<p>Mae trosi ffeil yn PDF yn debyg ar gyfer y rhan fwyaf
 
 #LINK REQUEST CONFIRMATION
 linkingRequestSubmitted.title=Rydym wedi derbyn eich cais i ychwanegu’r eiddo at gofnod cwsmer eich busnes
-linkingRequestSubmitted.title1=Cais am eiddo wedi’i gyflwyno
+linkingRequestSubmitted.title1=Cais i hawlio eiddo wedi’i gyflwyno
 linkingRequestSubmitted.client.title2=i gofnod cwsmer busnes eich cleient
 linkingRequestSubmitted.title3=Eich rhif cyflwyno
 linkingRequestSubmitted.message=Diolch am eich cais i ychwanegu {0} at eich cofnod cwsmer.
@@ -1682,7 +1682,7 @@ interestedOnOrBefore.error.startDateMustBeBeforeEnd.endDate.fallback=y dyddiad m
 error.date.mustBeAfterStartDate.relationship.fallback=perchennog neu feddiannydd
 chooseEvidence.occupier.title=A oes gennych brydles neu drwydded i feddiannu''r eiddo hwn?
 chooseEvidence.occupier.client.title=Oes gennych chi brydles neu drwydded eich cleient i feddiannu ar gyfer yr eiddo hwn?
-chooseEvidence.occupier.title.caption=Dylai’r brydles neu’r drwydded i’w meddiannu fod ar gyfer {0}.
+chooseEvidence.occupier.title.caption=Dylai’r brydles neu’r drwydded i feddiannu fod ar gyfer {0}.
 chooseEvidence.occupier.option.lease=Mae gen i brydles
 chooseEvidence.occupier.option.license=Mae gen i drwydded i feddiannu
 chooseEvidence.occupier.option.noLeaseOrLicense=Nid oes gennyf brydles na thrwydded i feddiannu
@@ -1758,7 +1758,7 @@ label.selectValue=Dewiswch gyfeiriad
 addressHelp=Dylai hwn fod yn gyfeiriad cyswllt post a ffefrir ar gyfer eich busnes
 error.postcodeLookupError=Nodwch god post dilys
 
-error.alreadySubmitted.title=Mae eich cais i ychwanegu'r eiddo hwn wedi'i anfon
+error.alreadySubmitted.title=Mae eich cais i ychwanegu’r eiddo hwn wedi’i anfon
 error.alreadySubmitted.message=Ewch i hafan eich cyfrif
 
 #timeout dialog
