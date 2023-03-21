@@ -25,8 +25,10 @@
 
 @(form: Form[AgentAppointmentChangesRequest], agentName: String, agentCode: Long)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@pageTitle = @{messages("propertyRepresentation.manageAgent.unassignFromAllProperties.question", agentName)}
+
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.manageAgent.unassignFromAllProperties.title"),
+    pageTitle = pageTitle,
     backUri = Some(controllers.agent.routes.ManageAgentController.showManageAgent.url)
 ) {
 
@@ -34,7 +36,7 @@
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    <h1 id="question-text" class="govuk-heading-l">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.question", agentName)</h1>
+    <h1 id="question-text" class="govuk-heading-l">@pageTitle</h1>
     <p class="govuk-body">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.p1")</p>
     @revokedAgentPrivilegesView()
 

@@ -547,7 +547,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.shouldContainText("some agent has been unassigned from your selected properties")
     page.html
       .getElementById("revoke-agent-summary-p1")
-      .text() shouldBe "The agent can no longer act for you on any of the properties you selected"
+      .text() shouldBe "The agent can no longer act for you on any of the properties you selected."
     page.html
       .getElementById("revoke-agent-summary-p2")
       .text() shouldBe "The agent has not been removed from your account. They can still act for you if they add other properties to your account."

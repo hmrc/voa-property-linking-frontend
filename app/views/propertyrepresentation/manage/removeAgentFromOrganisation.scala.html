@@ -24,8 +24,10 @@
 
 @(form: Form[AgentAppointmentChangesRequest], agentCode: Long, agentName: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@title = @{messages("propertyRepresentation.manageAgent.removeFromAccount.question", agentName)}
+
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.manageAgent.removeFromAccount.title"),
+    pageTitle = title,
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
@@ -33,7 +35,7 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    <h1 class="govuk-heading-l">@messages("propertyRepresentation.manageAgent.removeFromAccount.question", agentName)</h1>
+    <h1 class="govuk-heading-l">@title</h1>
     <p id="remove-agent-from-org-p1" class="govuk-body">@messages("propertyRepresentation.manageAgent.removeFromAccount.p1")</p>
     <p id="remove-agent-from-org-p2" class="govuk-body">@messages("propertyRepresentation.manageAgent.removeFromAccount.p2")</p>
 

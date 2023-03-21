@@ -19,16 +19,19 @@
 
 @this(govukPanel: GovukPanel, mainLayout: views.html.mainLayout)
 
+
 @(agentName: String, agentCode: Long, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@title = @{messages(s"propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)}
+
     @mainLayout(
-        pageTitle = messages(s"propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}"),
+        pageTitle = title,
         backUri = None
     ) {
 
         @govukPanel(
             Panel(
-                title = Text(messages(s"propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)),
+                title = Text(title),
                 content = HtmlContent("")
             )
         )

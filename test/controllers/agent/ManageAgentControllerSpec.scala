@@ -90,7 +90,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"${messages("propertyRepresentation.manageAgent.removeFromAccount.title")} - Valuation Office Agency - GOV.UK")
+      "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK")
   }
 
   "manageAgentProperties" should "return the correct manage agent page with property links" in {
@@ -196,7 +196,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"${messages("propertyRepresentation.manageAgent.removeFromAccount.title")} - Valuation Office Agency - GOV.UK")
+      "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -457,7 +457,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.titleShouldMatch("Remove agent from your account - Valuation Office Agency - GOV.UK")
+    html.titleShouldMatch(
+      "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK")
   }
 
   "submitManageAgent" should "return 200 Ok when IP chooses to appoint agent to only property" in {
@@ -527,7 +528,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      "Confirm you want to unassign agent from all your properties - Valuation Office Agency - GOV.UK")
+      "Are you sure you want to unassign Some agent org from all your properties? - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -554,7 +555,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.titleShouldMatch("Agent has been unassigned from all your properties - Valuation Office Agency - GOV.UK")
+    html.titleShouldMatch(
+      "Some Agent Org has been unassigned from all your properties - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -566,7 +568,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"${messages("propertyRepresentation.manageAgent.removeFromAccount.title")} - Valuation Office Agency - GOV.UK")
+      "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK")
     html.html
       .getElementById("remove-agent-from-org-p1")
       .text() shouldBe "They will no longer be able to add properties to your account and act on them for you."
@@ -583,7 +585,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.titleShouldMatch("Error: Remove agent from your account - Valuation Office Agency - GOV.UK")
+    html.titleShouldMatch(
+      "Error: Are you sure you want to remove Some agent org from your account? - Valuation Office Agency - GOV.UK")
   }
 
   "removeAgentFromIpOrganisation" should "return 200 Ok a valid form is submitted" in {
@@ -609,12 +612,11 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.titleShouldMatch(
-      s"${messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.title")} - Valuation Office Agency - GOV.UK")
+    html.titleShouldMatch("Some Agent Org has been removed from your account - Valuation Office Agency - GOV.UK")
     html.html.getElementById("remove-agent-confirmation-p1").text() shouldBe "The agent can no longer act for you."
     html.html
       .getElementById("remove-agent-confirmation-p2")
-      .text() shouldBe s"If you want the agent to act for you again, you can reappoint them to your account using agent code ${agentSummary.representativeCode}."
+      .text() shouldBe s"If you want the agent to act for you again, you can reappoint them to your account using agent code ${agentSummary.representativeCode.toString()}."
   }
 
 }

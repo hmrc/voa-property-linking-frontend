@@ -21,14 +21,16 @@
 
 @(agentName: String, agentCode: Long)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@title = @{messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation", agentName)}
+
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.title"),
+    pageTitle = title,
     backUri = None
 ) {
 
     @govukPanel(
         Panel(
-            title = Text(messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation", agentName)),
+            title = Text(title),
             content = HtmlContent("")
         )
     )
@@ -37,7 +39,7 @@
     <h2 class="govuk-heading-m">
         @messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.whatHappensNext")
     </h2>
-    <p id="remove-agent-confirmation-p2" class="govuk-body">@Html(messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2", agentCode))</p>
+    <p id="remove-agent-confirmation-p2" class="govuk-body">@Html(messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2", agentCode.toString()))</p>
     <p class="govuk-body"><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.go.account.home")</a></p>
 
 }

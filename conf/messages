@@ -728,7 +728,7 @@ propertyRepresentation.appointAgent.button=Continue
 #Remove agent summary
 propertyRepresentation.agentRemoveSummary.heading=Agent removed
 propertyRepresentation.agentRemoveSummary.h1={0} has been unassigned from your selected properties
-propertyRepresentation.agentRemoveSummary.p1=The agent can no longer act for you on any of the properties you selected
+propertyRepresentation.agentRemoveSummary.p1=The agent can no longer act for you on any of the properties you selected.
 propertyRepresentation.agentRemoveSummary.p2=The agent has not been removed from your account. They can still act for you if they add other properties to your account.
 propertyRepresentation.agentRemoveSummary.whatHappens=What happens next
 propertyRepresentation.agentRemoveSummary.p3=You can reassign an agent to a property if you want them to act for you again.
