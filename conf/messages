@@ -335,6 +335,7 @@ account.confirmation.addToGG=If anyone else wants to register on behalf of the b
 account.confirmation.youCan=You can now manage your properties.
 link.dashboard=Go to your dashboard
 link.return.home=Return to your home page
+link.go.account.home=Go to your account home
 link.go.home=Go to home page
 link.go.back=Go back
 link.go.back.property=Go back to this property
@@ -519,8 +520,8 @@ draftCases.confirm.delete.return.button=Return to drafts list
 propertyRepresentation.removeAgent.title=Remove agent permissions
 propertyRepresentation.removeAgent.message.p1=You can remove an agent''s ability to carry out checks and challenges on your behalf.
 propertyRepresentation.removeAgent.message.p2=Select an agent from the list below to remove them from one or more properties.
-propertyRepresentation.removeAgentProperties.title=Remove agent {0} from one or more properties
-propertyRepresentation.removeAgentProperties.message=(Agent ID: {0}) will no longer be able to submit checks and challenges for these properties.
+propertyRepresentation.removeAgentProperties.title=Which of your properties do you want to unassign {0} from?
+propertyRepresentation.removeAgentProperties.p1=For the properties you select, the agent will not be able to:
 
 #Appoint agent
 propertyRepresentation.appointAgent.title=Appoint an agent
@@ -617,12 +618,17 @@ propertyRepresentation.manageAgent.title=Manage agent
 propertyRepresentation.manageAgent.question=What do you want to do to the agent {0}?
 
 propertyRepresentation.manageAgent.removeFromAccount.title=Remove agent from your account
-propertyRepresentation.manageAgent.removeFromAccount.question=Would you like to remove {0} from your account?
+propertyRepresentation.manageAgent.removeFromAccount.question=Are you sure you want to remove {0} from your account?
+propertyRepresentation.manageAgent.removeFromAccount.p1=They will no longer be able to add properties to your account and act on them for you.
+propertyRepresentation.manageAgent.removeFromAccount.p2=You will no longer be able to assign properties to them or have them act for you.
 propertyRepresentation.manageAgent.removeFromAccount.continue=Confirm and remove
-propertyRepresentation.manageAgent.removeFromAccount.cancel=Cancel and return to home page
+propertyRepresentation.manageAgent.removeFromAccount.cancel=Cancel
 
 propertyRepresentation.manageAgent.removeFromAccount.confirmation.title=Agent has been removed from your account
 propertyRepresentation.manageAgent.removeFromAccount.confirmation={0} has been removed from your account
+propertyRepresentation.manageAgent.removeFromAccount.confirmation.p1=The agent can no longer act for you.
+propertyRepresentation.manageAgent.removeFromAccount.confirmation.whatHappensNext=What happens next
+propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2=If you want the agent to act for you again, you can reappoint them to your account using agent code <strong>{0}</strong>.
 
 propertyRepresentation.manageAgent.unassignFromProperty.title=Unassign from your property
 propertyRepresentation.manageAgent.unassignFromProperty.question=Would you like to unassign {0} from your property?
@@ -650,13 +656,29 @@ propertyRepresentation.manageAgent.assignToAllProperties.confirmation.singleProp
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext=What happens next
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
 
-propertyRepresentation.manageAgent.unassignFromAllProperties.title=Confirm you want to unassign agent from all properties
-propertyRepresentation.manageAgent.unassignFromAllProperties.question=Are you sure you want to unassign {0} from all properties?
+propertyRepresentation.manageAgent.unassignFromAllProperties.title=Confirm you want to unassign agent from all your properties
+propertyRepresentation.manageAgent.unassignFromAllProperties.question=Are you sure you want to unassign {0} from all your properties?
+propertyRepresentation.manageAgent.unassignFromAllProperties.p1=For all your properties, the agent will not be able to:
+propertyRepresentation.manageAgent.unassignFromProperties.confirm=Confirm and unassign
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.multipleProperties=Agent has been unassigned from all your properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.singleProperty=Agent has been unassigned from your property
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.multipleProperties={0} has been unassigned from all your properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.singleProperty={0} has been unassigned from your property
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p1=The agent can no longer act for you on any of your properties.
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p2=The agent has not been removed from your account. They can still act for you if they add other properties to your account.
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.whatHappensNext=What happens next
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p3=You can <a class="govuk-link" href="{0}">remove this agent from your account</a>.</p>
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p4=You can reassign an agent to a property if you want them to act for you again.
+
+
+propertyRepresentation.manageAgent.unassignFromProperties.li1=send or continue Check and Challenge cases
+propertyRepresentation.manageAgent.unassignFromProperties.li2=see new Check and Challenge case correspondence, such as messages and emails
+propertyRepresentation.manageAgent.unassignFromProperties.li3=see detailed property information
+propertyRepresentation.manageAgent.unassignFromProperties.warningText=Unassigning an agent that has Check and Challenge cases in progress means they will no longer be able to act on them for you.
+
+
+
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText=This agent has not been removed from your account.
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow=You can now:
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount=Remove this agent from your account
@@ -705,8 +727,11 @@ propertyRepresentation.appointAgent.button=Continue
 
 #Remove agent summary
 propertyRepresentation.agentRemoveSummary.heading=Agent removed
-propertyRepresentation.agentRemoveSummary.h1={0} has been removed from your selected properties
-propertyRepresentation.agentRemoveSummary.removed=You have removed Agent ''{0}’s'' ability to submit checks and challenges from {1} properties
+propertyRepresentation.agentRemoveSummary.h1={0} has been unassigned from your selected properties
+propertyRepresentation.agentRemoveSummary.p1=The agent can no longer act for you on any of the properties you selected
+propertyRepresentation.agentRemoveSummary.p2=The agent has not been removed from your account. They can still act for you if they add other properties to your account.
+propertyRepresentation.agentRemoveSummary.whatHappens=What happens next
+propertyRepresentation.agentRemoveSummary.p3=You can reassign an agent to a property if you want them to act for you again.
 
 label.canCheck=Do you want this agent to submit checks?
 label.canChallenge=Do you want this agent to submit challenges?

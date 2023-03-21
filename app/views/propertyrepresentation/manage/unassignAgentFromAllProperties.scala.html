@@ -19,8 +19,9 @@
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
 @import config.ApplicationConfig
+@import views.html.propertyrepresentation.revokedAgentPrivileges
 
-@this(govukErrorSummary: GovukErrorSummary, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(revokedAgentPrivilegesView: revokedAgentPrivileges, govukErrorSummary: GovukErrorSummary, govukButton: GovukButton, govukWarningText: GovukWarningText, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AgentAppointmentChangesRequest], agentName: String, agentCode: Long)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -33,13 +34,18 @@
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    <h1 class="govuk-heading-l">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.question", agentName)</h1>
+    <h1 id="question-text" class="govuk-heading-l">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.question", agentName)</h1>
+    <p class="govuk-body">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.p1")</p>
+    @revokedAgentPrivilegesView()
 
     @formWithCSRF(action = controllers.agent.routes.ManageAgentController.unassignAgentFromAll(agentCode, agentName)) {
         <input type="hidden" name="agentCode" value="@agentCode">
         <input type="hidden" name="scope" value="@ALL_PROPERTIES.toString">
-        @govukButton(Button(content = Text(messages("label.confirm"))))
+
+        <div class="govuk-button-group">
+            @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperties.confirm"))))
+            <a id="cancel-link" class="govuk-link" href="@controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode = agentCode).url">@messages("link.cancel")</a>
+		</div>
     }
-    <a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.cancel")</a>
 
 }

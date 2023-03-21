@@ -24,7 +24,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import utils.Formatters
 
-@this(mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukTable: GovukTable, govukButton: GovukButton)
+@this(revokedAgentPrivilegesView: revokedAgentPrivileges, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukTable: GovukTable, govukButton: GovukButton, govukWarningText: GovukWarningText)
 
 @(
     f: Option[Form[_]],
@@ -137,12 +137,9 @@
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">@title</h1>
-
-            <p class="govuk-body" id="intro-paragraph">
-                <span class="govuk-!-font-weight-bold">@model.agentGroup.companyName</span>
-                @messages("propertyRepresentation.removeAgentProperties.message", agentCode.toString)
-            </p>
+            <h1 id="question-text" class="govuk-heading-l">@title</h1>
+            <p class="govuk-body">@messages("propertyRepresentation.removeAgentProperties.p1")</p>
+            @revokedAgentPrivilegesView()
             <br/>
         </div>
     </div>
@@ -267,12 +264,11 @@
                         </div>
                     }
                     <div class="govuk-grid-column-full">
-                        @govukButton(
-                            Button(
-                                content = Text(messages("propertyRepresentation.appointAgent.button")),
-                                attributes = Map("id" -> "submit-button")
-                            )
-                        )
+                        <div class="govuk-button-group">
+                            @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperties.confirm")),
+                            attributes = Map("id" -> "submit-button")))
+                            <a id="cancel-link" class="govuk-link" href="@controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode = agentCode).url">@messages("link.cancel")</a>
+                        </div>
                     </div>
                 </div>
 

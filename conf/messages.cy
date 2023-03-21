@@ -457,7 +457,6 @@ propertyRepresentation.removeAgent.title=Dileu caniatâd yr asiant
 propertyRepresentation.removeAgent.message.p1=Gallwch ddileu gallu’r asiant i gynnal gwiriadau a heriau ar eich rhan.
 propertyRepresentation.removeAgent.message.p2=Dewiswch asiant o’r rhestr isod i’w dileu oddi ar un eiddo neu fwy.
 propertyRepresentation.removeAgentProperties.title=Dileu asiant {0} oddi ar un neu fwy o eiddo
-propertyRepresentation.removeAgentProperties.message=Ni fydd (ID Asiant: {0}) bellach yn gallu cyflwyno gwiriadau a heriau ar gyfer yr eiddo hwn.
 
 #Appoint agent
 propertyRepresentation.appointAgent.title=Penodi asiant
@@ -639,7 +638,6 @@ propertyRepresentation.appointAgent.button=Parhau
 #Remove agent summary
 propertyRepresentation.agentRemoveSummary.heading=Asiant wedi’i dileu
 propertyRepresentation.agentRemoveSummary.h1={0} wedi ei dileu o’ch eiddo dethol
-propertyRepresentation.agentRemoveSummary.removed=Rydych wedi dileu gallu Asiant ’’{0}’ i gyflwyno gwiriadau a heriau o {1} eiddo
 
 label.canCheck=Ydych chi eisiau i’r asiant yma gyflwyno gwiriadau?
 label.canChallenge=Ydych chi eisiau i’r asiant yma gyflwyno heriau?

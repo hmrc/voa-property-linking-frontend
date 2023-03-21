@@ -20,6 +20,7 @@ import binders.propertylinks.GetPropertyLinksParameters
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation._
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -388,7 +389,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       "/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties")
   }
 
-  "showUnassignFromAll" should "return 200 Ok when IP has unassigned agent from all properties" in {
+  "showUnassignFromAll" should "return 200 Ok and display unassign agent from all properties page" in {
     val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
@@ -401,7 +402,12 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.titleShouldMatch("Confirm you want to unassign agent from all properties - Valuation Office Agency - GOV.UK")
+
+    html.html
+      .getElementById("question-text")
+      .text() shouldBe "Are you sure you want to unassign Some Agent Org from all your properties?"
+    verifyUnassignedPrivilegesDisplayed(html.html)
+
   }
 
   "submitManageAgent" should "return 303 Redirect when IP chooses to unassign agent from some properties" in {
@@ -520,7 +526,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
-    html.titleShouldMatch("Confirm you want to unassign agent from all properties - Valuation Office Agency - GOV.UK")
+    html.titleShouldMatch(
+      "Confirm you want to unassign agent from all your properties - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -560,7 +567,12 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val html = HtmlPage(res)
     html.titleShouldMatch(
       s"${messages("propertyRepresentation.manageAgent.removeFromAccount.title")} - Valuation Office Agency - GOV.UK")
-
+    html.html
+      .getElementById("remove-agent-from-org-p1")
+      .text() shouldBe "They will no longer be able to add properties to your account and act on them for you."
+    html.html
+      .getElementById("remove-agent-from-org-p2")
+      .text() shouldBe "You will no longer be able to assign properties to them or have them act for you."
   }
 
   "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted" in {
@@ -599,6 +611,10 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val html = HtmlPage(res)
     html.titleShouldMatch(
       s"${messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.title")} - Valuation Office Agency - GOV.UK")
+    html.html.getElementById("remove-agent-confirmation-p1").text() shouldBe "The agent can no longer act for you."
+    html.html
+      .getElementById("remove-agent-confirmation-p2")
+      .text() shouldBe s"If you want the agent to act for you again, you can reappoint them to your account using agent code ${agentSummary.representativeCode}."
   }
 
 }

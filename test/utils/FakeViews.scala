@@ -143,12 +143,14 @@ trait FakeViews extends GdsComponents {
     new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, govukButton, govukPanel)
   lazy val appointAgentSummaryView = new appointAgentSummary(mainLayout, govukButton, govukPanel)
   lazy val revokeAgentPropertiesView = new views.html.propertyrepresentation.revokeAgentProperties(
+    revokedAgentPrivileges,
     mainLayout,
     formWithCSRF,
     govukErrorSummary,
     govukInput,
     govukTable,
-    govukButton)
+    govukButton,
+    govukWarningText)
 
   lazy val appointAgentPropertiesView = new views.html.propertyrepresentation.appoint.appointAgentProperties(
     mainLayout,
@@ -271,12 +273,17 @@ trait FakeViews extends GdsComponents {
       formWithCSRF: FormWithCSRF)
   lazy val confirmAddAgentToAllPropertyView =
     new confirmAddAgentToAllProperties(govukPanel, mainLayout)
+  lazy val revokedAgentPrivileges =
+    new revokedAgentPrivileges(govukWarningText)
   lazy val unassignAgentFromAllPropertiesView =
     new unassignAgentFromAllProperties(
+      revokedAgentPrivileges: revokedAgentPrivileges,
       govukErrorSummary: GovukErrorSummary,
       govukButton: GovukButton,
+      govukWarningText: GovukWarningText,
       mainLayout: views.html.mainLayout,
-      formWithCSRF: FormWithCSRF)
+      formWithCSRF: FormWithCSRF
+    )
   lazy val confirmUnassignAgentFromAllPropertiesView =
     new confirmUnassignAgentFromAllProperties(govukPanel, mainLayout)
   lazy val confirmRemoveAgentFromOrganisationView =

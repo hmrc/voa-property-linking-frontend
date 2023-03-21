@@ -19,7 +19,7 @@ package controllers.agentAppointment
 import binders.pagination.PaginationParameters
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder}
 import controllers.VoaPropertyLinkingSpec
-import models.{AgentAppointBulkAction, AgentRevokeBulkAction}
+import models.{AgentAppointBulkAction, AgentRevokeBulkAction, SessionPropertyLinks}
 import models.propertyrepresentation.{AppointAgentToSomePropertiesSession, FilterAppointProperties, RevokeAgentFromSomePropertiesSession}
 import models.searchApi._
 import org.jsoup.Jsoup
@@ -373,6 +373,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
     when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](any())(any(), any()))
       .thenReturn(Future.successful(()))
+    when(mockSessionRepo.saveOrUpdate[SessionPropertyLinks](any())(any(), any()))
+      .thenReturn(Future.successful(()))
 
     val res =
       testController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode)(
@@ -384,6 +386,11 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainText(testOwnerAuth.address)
+
+    page.html
+      .getElementById("question-text")
+      .text() shouldBe "Which of your properties do you want to unassign gg-ext-id from?"
+    verifyUnassignedPrivilegesDisplayed(page.html)
   }
 
   "paginateRevokeProperties" should "show the requested revoke properties page" in {
@@ -537,7 +544,16 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainText("You have removed Agent")
+    page.shouldContainText("some agent has been unassigned from your selected properties")
+    page.html
+      .getElementById("revoke-agent-summary-p1")
+      .text() shouldBe "The agent can no longer act for you on any of the properties you selected"
+    page.html
+      .getElementById("revoke-agent-summary-p2")
+      .text() shouldBe "The agent has not been removed from your account. They can still act for you if they add other properties to your account."
+    page.html
+      .getElementById("revoke-agent-summary-p3")
+      .text() shouldBe "You can reassign an agent to a property if you want them to act for you again."
   }
 
   "show revoke agent summary page" should "render a not found template when no agent data is cached" in {
@@ -576,8 +592,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainText("Select one or more properties")
-    page.titleShouldMatch(
-      s"Error: Remove agent $ggExternalId from one or more properties - Valuation Office Agency - GOV.UK")
+    verifyPageErrorTitle(page)
   }
 
   "errors during handling of revoke agent form" should "re-render the page with form errors reported to user" in {
@@ -586,6 +601,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(testAgentAccount)
     when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.failed(services.AppointRevokeException("something went awry")))
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
@@ -599,9 +616,12 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainText("Failed to appoint agent to all properties")
-    page.titleShouldMatch(
-      s"Error: Remove agent $ggExternalId from one or more properties - Valuation Office Agency - GOV.UK")
+    verifyPageErrorTitle(page)
   }
+
+  private def verifyPageErrorTitle(page: HtmlPage) =
+    page.titleShouldMatch(
+      s"Error: Which of your properties do you want to unassign $ggExternalId from? - Valuation Office Agency - GOV.UK")
 
   private lazy val testController = new AppointAgentController(
     errorHandler = mockCustomErrorHandler,

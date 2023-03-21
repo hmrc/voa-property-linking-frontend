@@ -34,12 +34,15 @@
  @govukPanel(Panel(
   title = Text(messages("propertyRepresentation.agentRemoveSummary.h1", agentOrganisation))
  ))
-
- <p class="govuk-body" id="mainBodyText">@messages("propertyRepresentation.agentRemoveSummary.removed", action.agentCode.toString, action.propertyLinkIds.size)</p>
+ <p id="revoke-agent-summary-p1" class="govuk-body">@messages("propertyRepresentation.agentRemoveSummary.p1")</p>
+ <p id="revoke-agent-summary-p2" class="govuk-body">@messages("propertyRepresentation.agentRemoveSummary.p2")</p>
+ <h2 class="govuk-heading-m">@messages("propertyRepresentation.agentRemoveSummary.whatHappens")</h2>
+ <p id="revoke-agent-summary-p3" class="govuk-body">@messages("propertyRepresentation.agentRemoveSummary.p3")</p>
 
  @govukButton(Button(
   href = Some(agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), action.agentCode).url),
   content = Text(messages("propertyRepresentation.agentSummary.select.more"))
  ))
+ <p class="govuk-body"><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.go.account.home")</a></p>
 
 }
