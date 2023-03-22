@@ -833,7 +833,7 @@ linkingRequestSubmitted.message=Diolch am eich cais i ychwanegu {0} at eich cofn
 linkingRequestSubmitted.p1=Gwnewch nodyn o’ch cyfeirnod gan y bydd angen i chi ei ddarparu os byddwch yn cysylltu â ni.
 linkingRequestSubmitted.p.1=Os caiff y cais am eiddo ei gymeradwyo byddwch yn gallu gweld y prisiad manwl.   Gall hyn gymryd peth amser yn dibynnu ar natur eich cais.
 p.whatHappensNext=Beth sy’n digwydd nesaf
-linkSubmitted.whatNext.1=Byddwn yn prosesu’ch cais i’r eiddo hwn cyn gynted â phosibl ond gall hyn gymryd hyd at 15 diwrnod gwaith.
+linkSubmitted.whatNext.1=Byddwn yn prosesu’ch cais i hawlio’r eiddo hwn cyn gynted â phosibl ond gall hyn gymryd hyd at 15 diwrnod gwaith.
 linkSubmitted.whatNext.2=Gallwch weld statws eich hawliad yn<a class="govuk-link" href="{0}"> eich eiddo</a>. Unwaith y bydd yr hawliad wedi’i gymeradwyo, bydd y statws yn cael ei ddiweddaru.
 linkSubmitted.whatNext.3=Byddwn yn cysylltu â chi os bydd angen mwy o wybodaeth arnom.
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Ewch yn ôl i’ch dangosfwrdd</a>
