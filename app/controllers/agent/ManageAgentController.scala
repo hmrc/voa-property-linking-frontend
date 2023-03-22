@@ -322,7 +322,7 @@ class ManageAgentController @Inject()(
 
   def confirmRemoveAgentFromOrganisation: Action[AnyContent] = authenticated.async { implicit request =>
     getCachedAgent.map { agent =>
-      Ok(confirmRemoveAgentFromOrganisationView(agent.name))
+      Ok(confirmRemoveAgentFromOrganisationView(agent.name, agent.representativeCode))
     }
   }
 

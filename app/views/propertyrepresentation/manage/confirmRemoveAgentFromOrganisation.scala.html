@@ -19,25 +19,27 @@
 
 @this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
 
-@(agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, agentCode: Long)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@title = @{messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation", agentName)}
 
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.title"),
+    pageTitle = title,
     backUri = None
 ) {
 
     @govukPanel(
         Panel(
-            title = Text(messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation", agentName)),
+            title = Text(title),
             content = HtmlContent("")
         )
     )
+    <p id="remove-agent-confirmation-p1" class="govuk-body">@messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.p1")</p>
 
     <h2 class="govuk-heading-m">
-        @messages("label.youCanNow")
+        @messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.whatHappensNext")
     </h2>
-    <ul class="govuk-list">
-        <li><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.return.home")</a></li>
-    </ul>
+    <p id="remove-agent-confirmation-p2" class="govuk-body">@Html(messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2", agentCode.toString()))</p>
+    <p class="govuk-body"><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.go.account.home")</a></p>
 
 }

@@ -19,31 +19,29 @@
 
 @this(govukPanel: GovukPanel, mainLayout: views.html.mainLayout)
 
+
 @(agentName: String, agentCode: Long, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@title = @{messages(s"propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)}
+
     @mainLayout(
-        pageTitle = messages(s"propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}"),
+        pageTitle = title,
         backUri = None
     ) {
 
         @govukPanel(
             Panel(
-                title = Text(messages(s"propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)),
+                title = Text(title),
                 content = HtmlContent("")
             )
         )
 
-        <div class="govuk-inset-text">
-        @messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText")
-        </div>
+        <p class="govuk-body">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p1")</p>
+        <p class="govuk-body">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p2")</p>
 
-        <h2 class="govuk-heading-m">
-        @messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow")
-        </h2>
-        <ul class="govuk-list">
-
-            <li><a class="govuk-link" href="@controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation.url">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount")</a></li>
-            <li><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.return.home")</a></li>
-        </ul>
+        <h2 class="govuk-heading-m">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.whatHappensNext")</h2>
+        <p class="govuk-body">@Html(messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p3", controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation.url))</p>
+        <p class="govuk-body">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p4")</p>
+        <p class="govuk-body"><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.go.account.home")</a></p>
 
     }

@@ -244,4 +244,14 @@ trait VoaPropertyLinkingSpec
     html.getElementById("register-link").text() shouldBe "Register"
   }
 
+  def verifyUnassignedPrivilegesDisplayed(html: Document) = {
+    html.getElementById("unassigned-privilege-1").text() shouldBe "send or continue Check and Challenge cases"
+    html
+      .getElementById("unassigned-privilege-2")
+      .text() shouldBe "see new Check and Challenge case correspondence, such as messages and emails"
+    html.getElementById("unassigned-privilege-3").text() shouldBe "see detailed property information"
+    html
+      .getElementById("warning-text")
+      .text() shouldBe "! Warning Unassigning an agent that has Check and Challenge cases in progress means they will no longer be able to act on them for you."
+  }
 }
