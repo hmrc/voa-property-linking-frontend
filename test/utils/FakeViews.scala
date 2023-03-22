@@ -264,7 +264,7 @@ trait FakeViews extends GdsComponents {
   lazy val removeAgentFromOrganisationView =
     new removeAgentFromOrganisation(govukErrorSummary, govukButton, mainLayout, formWithCSRF)
   lazy val unassignAgentFromPropertyView =
-    new unassignAgentFromProperty(govukErrorSummary, govukButton, mainLayout, formWithCSRF)
+    new unassignAgentFromProperty(revokedAgentPrivileges, govukErrorSummary, govukButton, mainLayout, formWithCSRF)
   lazy val addAgentToAllPropertyView =
     new addAgentToAllProperties(
       govukErrorSummary: GovukErrorSummary,
