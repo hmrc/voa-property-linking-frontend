@@ -631,9 +631,10 @@ propertyRepresentation.manageAgent.removeFromAccount.confirmation.whatHappensNex
 propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2=If you want the agent to act for you again, you can reappoint them to your account using agent code <strong>{0}</strong>.
 
 propertyRepresentation.manageAgent.unassignFromProperty.title=Unassign from your property
-propertyRepresentation.manageAgent.unassignFromProperty.question=Would you like to unassign {0} from your property?
+propertyRepresentation.manageAgent.unassignFromProperty.question=Are you sure you want to unassign {0} from your property?
+propertyRepresentation.manageAgent.unassignFromProperty.p1=For your property, the agent will not be able to:
 propertyRepresentation.manageAgent.unassignFromProperty.confirm=Confirm and unassign
-propertyRepresentation.manageAgent.unassignFromProperty.cancel=Cancel and return to home page
+propertyRepresentation.manageAgent.unassignFromProperty.cancel=Cancel
 
 propertyRepresentation.manageAgent.options.assignToAllProperties=Assign to all properties
 propertyRepresentation.manageAgent.options.assignToSomeProperties=Assign to some properties
@@ -668,7 +669,7 @@ propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.single
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p1=The agent can no longer act for you on any of your properties.
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p2=The agent has not been removed from your account. They can still act for you if they add other properties to your account.
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.whatHappensNext=What happens next
-propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p3=You can <a class="govuk-link" href="{0}">remove this agent from your account</a>.</p>
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p3=You can <a id="remove-agent-from-account" class="govuk-link" href="{0}">remove this agent from your account</a>.</p>
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p4=You can reassign an agent to a property if you want them to act for you again.
 
 

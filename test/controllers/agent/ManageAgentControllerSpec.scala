@@ -225,8 +225,16 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = testController.getManageAgentView()(FakeRequest()).futureValue.get
 
     val html = HtmlPage(res)
-    html.titleShouldMatch(
-      s"${messages("propertyRepresentation.manageAgent.unassignFromProperty.title")} - Valuation Office Agency - GOV.UK")
+    val expectedQuestion = s"Are you sure you want to unassign ${agentSummary.name} from your property?"
+    html.titleShouldMatch(s"$expectedQuestion - Valuation Office Agency - GOV.UK")
+    html.html.getElementById("unassignFromProperty-question").text() shouldBe expectedQuestion
+    html.html
+      .getElementById("unassignFromProperty-p1")
+      .text() shouldBe "For your property, the agent will not be able to:"
+    verifyUnassignedPrivilegesDisplayed(html.html)
+    html.html
+      .getElementById("cancel-link")
+      .attr("href") shouldBe s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=${agentSummary.representativeCode}"
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and more than one property links (agent not assigned)" in {
@@ -299,7 +307,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"${messages("propertyRepresentation.manageAgent.unassignFromProperty.title")} - Valuation Office Agency - GOV.UK")
+      s"Are you sure you want to unassign ${agentSummary.name} from your property? - Valuation Office Agency - GOV.UK")
   }
 
   "submitManageAgent" should "return 400 Bad Request when agentCode is not submitted " in {
@@ -316,7 +324,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"${messages("propertyRepresentation.manageAgent.unassignFromProperty.title")} - Valuation Office Agency - GOV.UK")
+      s"Are you sure you want to unassign ${agentSummary.name} from your property? - Valuation Office Agency - GOV.UK")
   }
 
   "submitManageAgent" should "return 303 SEE OTHER when IP chooses to appoint agent to all properties" in {

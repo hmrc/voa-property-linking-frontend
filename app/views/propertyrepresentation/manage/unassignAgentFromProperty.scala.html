@@ -20,13 +20,16 @@
 @import models.propertyrepresentation.AgentSummary
 @import config.ApplicationConfig
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
+@import views.html.propertyrepresentation.revokedAgentPrivileges
 
-@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(revokedAgentPrivilegesView: revokedAgentPrivileges, govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AgentAppointmentChangesRequest], agent: AgentSummary, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@title = @{messages("propertyRepresentation.manageAgent.unassignFromProperty.question", agent.name)}
+
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.manageAgent.unassignFromProperty.title"),
+    pageTitle = title,
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
@@ -34,13 +37,19 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    <h1 class="govuk-heading-l">@messages("propertyRepresentation.manageAgent.unassignFromProperty.question", agent.name)</h1>
+    <h1 id="unassignFromProperty-question" class="govuk-heading-l">@title</h1>
+    <p id="unassignFromProperty-p1" class="govuk-body">@messages("propertyRepresentation.manageAgent.unassignFromProperty.p1")</p>
+    @revokedAgentPrivilegesView()
 
     @formWithCSRF(action = controllers.agent.routes.ManageAgentController.unassignAgentFromAll(agent.representativeCode, agent.name)) {
         <input type="hidden" name="agentCode" value="@agent.representativeCode">
         <input type="hidden" name="scope" value="@ALL_PROPERTIES.toString">
-        @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperty.confirm"))))
+
+
+        <div class="govuk-button-group">
+            @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperty.confirm"))))
+            <a id="cancel-link" class="govuk-link" href="@controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode = agent.representativeCode).url">@messages("propertyRepresentation.manageAgent.unassignFromProperty.cancel")</a>
+		</div>
     }
-    <a class="govuk-link" href="@config.dashboardUrl("home")">@messages("propertyRepresentation.manageAgent.unassignFromProperty.cancel")</a>
 
 }
