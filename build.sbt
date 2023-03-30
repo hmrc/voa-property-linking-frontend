@@ -119,7 +119,6 @@ lazy val compileDependencies = Seq(
   filters,
   ws,
   "ai.x"                 %% "play-json-extensions"          % "0.42.0",
-  "com.codahale.metrics" % "metrics-graphite"               % "3.0.1",
   "com.google.guava"     % "guava"                          % "18.0",
   "org.typelevel"        %% "cats-core"                     % "2.6.1",
   "uk.gov.hmrc"          %% "bootstrap-frontend-play-28"    % bootstrapPlayVersion,
