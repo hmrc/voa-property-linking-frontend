@@ -20,7 +20,6 @@ import binders.propertylinks.GetPropertyLinksParameters
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation._
 import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -766,12 +765,6 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = welshTestController.confirmRemoveAgentFromOrganisation()(welshFakeRequest)
 
     status(res) shouldBe OK
-
-//
-//    propertyRepresentation.manageAgent.removeFromAccount.confirmation=Mae {0} wedi’i dynnu o’ch cyfrif
-//      propertyRepresentation.manageAgent.removeFromAccount.confirmation.p1=Ni all yr asiant weithredu ar eich rhan mwyach.
-//      propertyRepresentation.manageAgent.removeFromAccount.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
-//    propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2=Os ydych am i’r asiant weithredu ar eich rhan eto, gallwch ei ailbenodi i’ch cyfrif gan ddefnyddio cod asiant <strong>{0}</strong>.
 
     val html = HtmlPage(res)
     html.titleShouldMatch(s"Mae ${agentSummary.name} wedi’i dynnu o’ch cyfrif - Valuation Office Agency - GOV.UK")
