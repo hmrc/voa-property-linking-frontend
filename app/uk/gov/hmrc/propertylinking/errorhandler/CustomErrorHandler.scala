@@ -16,10 +16,10 @@
 
 package uk.gov.hmrc.propertylinking.errorhandler
 
-import java.time.{Instant, LocalDateTime, ZoneId}
+import java.time.{Clock, Instant, LocalDateTime, ZoneId}
+
 import config.ApplicationConfig
 import connectors.authorisation.errorhandler.exceptions.AuthorisationFailure
-
 import javax.inject.Inject
 import play.api.Logging
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
@@ -37,9 +37,8 @@ class CustomErrorHandler @Inject()(
       forbiddenView: views.html.errors.forbidden,
       technicalDifficultiesView: views.html.errors.technicalDifficulties,
       notFoundView: views.html.errors.notFound,
-      alreadySubmittedView: views.html.errors.alreadySubmitted)(
-      implicit override val messagesApi: MessagesApi,
-      appConfig: ApplicationConfig)
+      alreadySubmittedView: views.html.errors.alreadySubmitted,
+      clock: Clock)(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig)
     extends FrontendErrorHandler with Logging with I18nSupport {
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(
@@ -62,10 +61,7 @@ class CustomErrorHandler @Inject()(
     alreadySubmittedView()(request, messages, appConfig)
   }
 
-  private def getDateTime: LocalDateTime = {
-    val instant = Instant.ofEpochMilli(System.currentTimeMillis)
-    LocalDateTime.ofInstant(instant, ZoneId.of("Europe/London"))
-  }
+  private def getDateTime = LocalDateTime.now(clock)
 
   private def extractErrorReference(request: Request[_]): Option[String] = {
     val requestId = request.headers.get(HeaderNames.xRequestId)

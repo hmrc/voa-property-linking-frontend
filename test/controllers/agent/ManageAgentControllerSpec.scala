@@ -50,6 +50,28 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     manageAgentSessionRepo = mockSessionRepository
   )
 
+  lazy val welshTestController = new ManageAgentController(
+    errorHandler = mockCustomErrorHandler,
+    authenticated = preAuthenticatedActionBuilders(userIsAgent = false),
+    agentRelationshipService = mockAgentRelationshipService,
+    manageAgentView = manageAgentView,
+    myAgentsView = myAgentsView,
+    removeAgentFromOrganisationView = removeAgentFromOrganisationView,
+    unassignAgentFromPropertyView = unassignAgentFromPropertyView,
+    addAgentToAllPropertiesView = addAgentToAllPropertyView,
+    confirmAddAgentToAllPropertiesView = confirmAddAgentToAllPropertyView,
+    unassignAgentFromAllPropertiesView = unassignAgentFromAllPropertiesView,
+    confirmUnassignAgentFromAllPropertiesView = confirmUnassignAgentFromAllPropertiesView,
+    confirmRemoveAgentFromOrganisationView = confirmRemoveAgentFromOrganisationView,
+    manageAgentPropertiesView = manageAgentPropertiesView,
+    manageAgentSessionRepo = mockSessionRepository
+  )(
+    welshMessagesApi,
+    stubMessagesControllerComponents(messagesApi = welshMessagesApi),
+    ec,
+    applicationConfig
+  )
+
   "showAgents" should "show the manage agent page" in {
     val propertyLinksCount = 1
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
@@ -91,6 +113,22 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val html = HtmlPage(res)
     html.titleShouldMatch(
       "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK")
+  }
+
+  "manageAgent" should "show the manage agent page - in welsh" in {
+    val agent = agentSummary.copy(propertyCount = 0)
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
+    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
+    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
+
+    val res = welshTestController.showManageAgent()(welshFakeRequest)
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"Ydych chi’n siŵr eich bod am dynnu ${agentSummary.name} o’ch cyfrif? - Valuation Office Agency - GOV.UK")
   }
 
   "manageAgentProperties" should "return the correct manage agent page with property links" in {
@@ -197,6 +235,22 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val html = HtmlPage(res)
     html.titleShouldMatch(
       "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK")
+
+  }
+
+  "getManageAgentView" should "return the correct manage agent page when org has one agent but no property links - in welsh" in {
+    val agent = agentSummary.copy(propertyCount = 0)
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
+    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
+    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
+
+    val res = welshTestController.getManageAgentView()(welshFakeRequest).futureValue.get
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"Ydych chi’n siŵr eich bod am dynnu ${agentSummary.name} o’ch cyfrif? - Valuation Office Agency - GOV.UK")
 
   }
 
@@ -418,6 +472,27 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   }
 
+  "showUnassignFromAll" should "return 200 Ok and display unassign agent from all properties page - in welsh" in {
+    val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
+    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
+    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+
+    val res = welshTestController.showUnassignFromAll()(welshFakeRequest)
+
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+
+    html.html
+      .getElementById("question-text")
+      .text() shouldBe s"Ydych chi’n siŵr eich bod am ddadneilltuo ${agentSummary.name} o’ch holl eiddo?"
+    verifyUnassignedPrivilegesDisplayed(html.html, isWelsh = true)
+
+  }
+
   "submitManageAgent" should "return 303 Redirect when IP chooses to unassign agent from some properties" in {
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
       Future.successful(organisationsAgentsListWithOneAgent.copy(
@@ -539,6 +614,19 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       "Are you sure you want to unassign Some agent org from all your properties? - Valuation Office Agency - GOV.UK")
 
   }
+  "unassignAgentFromAll" should "return 400 Bad Request when invalid form submitted - in welsh" in {
+
+    val agentName = "Some agent org"
+    val res = welshTestController.unassignAgentFromAll(agentCode, agentName)(
+      welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+
+    status(res) shouldBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"Ydych chi’n siŵr eich bod am ddadneilltuo $agentName o’ch holl eiddo? - Valuation Office Agency - GOV.UK")
+
+  }
 
   "unassignAgentFromAll" should "return 303 Ok a valid form is submitted" in {
     when(mockAgentRelationshipService.unassignAgent(any())(any()))
@@ -568,6 +656,19 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   }
 
+  "confirmationUnassignAgentFromAll" should "return 200 Ok and display page - in welsh" in {
+    val agent = agentSummary.copy(propertyCount = 1)
+    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
+    val res = welshTestController.confirmationUnassignAgentFromAll()(welshFakeRequest)
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"Mae ${agentSummary.name} wedi’i ddadneilltuo o’ch holl eiddo - Valuation Office Agency - GOV.UK")
+
+  }
+
   "showRemoveAgentFromIpOrganisation" should "return 200 Ok" in {
     when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
     val res = testController.showRemoveAgentFromIpOrganisation()(FakeRequest())
@@ -585,6 +686,23 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .text() shouldBe "You will no longer be able to assign properties to them or have them act for you."
   }
 
+  "showRemoveAgentFromIpOrganisation" should "return 200 Ok - in welsh" in {
+    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
+    val res = welshTestController.showRemoveAgentFromIpOrganisation()(welshFakeRequest)
+
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"Ydych chi’n siŵr eich bod am dynnu ${agentSummary.name} o’ch cyfrif? - Valuation Office Agency - GOV.UK")
+    html.html
+      .getElementById("remove-agent-from-org-p1")
+      .text() shouldBe "Ni fyddant bellach yn gallu ychwanegu eiddo at eich cyfrif a gweithredu arnynt ar eich rhan."
+    html.html
+      .getElementById("remove-agent-from-org-p2")
+      .text() shouldBe "Ni fyddwch bellach yn gallu aseinio eiddo iddynt na’u cael i weithredu ar eich rhan."
+  }
+
   "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted" in {
 
     val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org", "some-back-link")(
@@ -595,6 +713,19 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val html = HtmlPage(res)
     html.titleShouldMatch(
       "Error: Are you sure you want to remove Some agent org from your account? - Valuation Office Agency - GOV.UK")
+  }
+
+  "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted - in welsh" in {
+
+    val agentName = "Some agent org"
+    val res = welshTestController.removeAgentFromIpOrganisation(agentCode, agentName, "some-back-link")(
+      welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+
+    status(res) shouldBe BAD_REQUEST
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(
+      s"Gwall: Ydych chi’n siŵr eich bod am dynnu $agentName o’ch cyfrif? - Valuation Office Agency - GOV.UK")
   }
 
   "removeAgentFromIpOrganisation" should "return 200 Ok a valid form is submitted" in {
@@ -625,6 +756,31 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     html.html
       .getElementById("remove-agent-confirmation-p2")
       .text() shouldBe s"If you want the agent to act for you again, you can reappoint them to your account using agent code ${agentSummary.representativeCode.toString()}."
+  }
+
+  "confirmRemoveAgentFromOrganisation" should "return 200 Ok and display page  - in welsh" in {
+    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
+    when(mockAgentRelationshipService.removeAgentFromOrganisation(any())(any()))
+      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
+
+    val res = welshTestController.confirmRemoveAgentFromOrganisation()(welshFakeRequest)
+
+    status(res) shouldBe OK
+
+//
+//    propertyRepresentation.manageAgent.removeFromAccount.confirmation=Mae {0} wedi’i dynnu o’ch cyfrif
+//      propertyRepresentation.manageAgent.removeFromAccount.confirmation.p1=Ni all yr asiant weithredu ar eich rhan mwyach.
+//      propertyRepresentation.manageAgent.removeFromAccount.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
+//    propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2=Os ydych am i’r asiant weithredu ar eich rhan eto, gallwch ei ailbenodi i’ch cyfrif gan ddefnyddio cod asiant <strong>{0}</strong>.
+
+    val html = HtmlPage(res)
+    html.titleShouldMatch(s"Mae ${agentSummary.name} wedi’i dynnu o’ch cyfrif - Valuation Office Agency - GOV.UK")
+    html.html
+      .getElementById("remove-agent-confirmation-p1")
+      .text() shouldBe "Ni all yr asiant weithredu ar eich rhan mwyach."
+    html.html
+      .getElementById("remove-agent-confirmation-p2")
+      .text() shouldBe s"Os ydych am i’r asiant weithredu ar eich rhan eto, gallwch ei ailbenodi i’ch cyfrif gan ddefnyddio cod asiant ${agentSummary.representativeCode.toString()}."
   }
 
 }

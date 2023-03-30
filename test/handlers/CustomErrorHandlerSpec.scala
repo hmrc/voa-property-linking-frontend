@@ -22,7 +22,6 @@ import play.api.test.FakeRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HeaderNames}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.Configs
-
 import java.time.LocalDateTime
 
 class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
@@ -31,7 +30,13 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   val testErrorHandler =
-    new CustomErrorHandler(errorView, forbiddenView, technicalDifficultiesView, notFoundView, alreadySubmittedView)
+    new CustomErrorHandler(
+      errorView,
+      forbiddenView,
+      technicalDifficultiesView,
+      notFoundView,
+      alreadySubmittedView,
+      clock)
 
   "standardErrorTemplate" should
     "display the standard error page with the given page title, heading and message" in {
@@ -49,7 +54,7 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
       FakeRequest()
         .withHeaders(HeaderNames.xRequestId -> "govuk-tax-253f442d-1bb2-4d3c-9943-248f5d96a812"))
 
-    result shouldBe technicalDifficultiesView(Some("253f442d-1bb2-4d3c-9943-248f5d96a812"), LocalDateTime.now())(
+    result shouldBe technicalDifficultiesView(Some("253f442d-1bb2-4d3c-9943-248f5d96a812"), LocalDateTime.now(clock))(
       FakeRequest(),
       messagesApi.preferred(FakeRequest()),
       appConfig)
@@ -63,6 +68,6 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
 
     result shouldBe technicalDifficultiesView(
       Some("05HyDTzoaHs5NmHMyzggyG-s3cURERsPiWvS6oD5XRVA9KGtYWzGkQ=="),
-      LocalDateTime.now())(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
+      LocalDateTime.now(clock))(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
   }
 }

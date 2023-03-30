@@ -34,8 +34,8 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Seconds, Span}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
-import play.api.mvc.{MessagesControllerComponents, Request, Result}
-import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
+import play.api.mvc.{Cookie, MessagesControllerComponents, Request, Result}
+import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
 import tests.AllMocks
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import utils._
@@ -62,6 +62,7 @@ trait VoaPropertyLinkingSpec
 
   override implicit lazy val applicationConfig: ApplicationConfig = app.injector.instanceOf[ApplicationConfig]
   implicit def materializer: Materializer = app.injector.instanceOf[Materializer]
+  lazy val welshFakeRequest = FakeRequest().withCookies(cookies = Cookie("PLAY_LANG", "cy"))
 
   def preAuthenticatedStaticPage(
         accounts: Option[Accounts] = Some(Accounts(groupAccount(false), detailedIndividualAccount))): StaticPageAction =
@@ -244,7 +245,11 @@ trait VoaPropertyLinkingSpec
     html.getElementById("register-link").text() shouldBe "Register"
   }
 
-  def verifyUnassignedPrivilegesDisplayed(html: Document) = {
+  def verifyUnassignedPrivilegesDisplayed(html: Document, isWelsh: Boolean = false) =
+    if (isWelsh) verifyUnassignedPrivilegesDisplayedInWelsh(html)
+    else verifyUnassignedPrivilegesDisplayedInEnglish(html)
+
+  def verifyUnassignedPrivilegesDisplayedInEnglish(html: Document) = {
     html.getElementById("unassigned-privilege-1").text() shouldBe "send or continue Check and Challenge cases"
     html
       .getElementById("unassigned-privilege-2")
@@ -253,5 +258,16 @@ trait VoaPropertyLinkingSpec
     html
       .getElementById("warning-text")
       .text() shouldBe "! Warning Unassigning an agent that has Check and Challenge cases in progress means they will no longer be able to act on them for you."
+  }
+
+  def verifyUnassignedPrivilegesDisplayedInWelsh(html: Document) = {
+    html.getElementById("unassigned-privilege-1").text() shouldBe "anfon neu barhau ag achosion Gwirio a Herio"
+    html
+      .getElementById("unassigned-privilege-2")
+      .text() shouldBe "gweld gohebiaeth achos Gwirio a Herio newydd, er enghraifft negeseuon ac e-byst"
+    html.getElementById("unassigned-privilege-3").text() shouldBe "gweld gwybodaeth eiddo fanwl"
+    html
+      .getElementById("warning-text")
+      .text() shouldBe "! Rhybudd Mae dadneilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach."
   }
 }

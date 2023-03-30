@@ -28,19 +28,26 @@ import scala.concurrent.ExecutionContext
 
 trait StubMessageControllerComponents extends Configs {
 
-  val langs: Langs = new DefaultLangs()
+  val langs: Langs = new DefaultLangs(Seq(Lang.defaultLang, Lang("cy")))
   val environment: Environment = Environment.simple()
 
   val messages: Map[String, String] =
     Messages.parse(UrlMessageSource(this.getClass.getClassLoader.getResource("messages")), "").right.get
 
+  val messages_cy: Map[String, String] =
+    Messages.parse(UrlMessageSource(this.getClass.getClassLoader.getResource("messages.cy")), "").right.get
+
   lazy val messagesApi: MessagesApi =
     new DefaultMessagesApi(messages = Map("default" -> messages))
+
+  lazy val welshMessagesApi: MessagesApi =
+    new DefaultMessagesApi(messages = Map("default" -> messages_cy))
 
   def stubMessagesControllerComponents(
         bodyParser: BodyParser[AnyContent] = stubBodyParser(AnyContentAsEmpty),
         playBodyParsers: PlayBodyParsers = stubPlayBodyParsers(NoMaterializer),
-        fileMimeTypes: FileMimeTypes = new DefaultFileMimeTypes(FileMimeTypesConfiguration())
+        fileMimeTypes: FileMimeTypes = new DefaultFileMimeTypes(FileMimeTypesConfiguration()),
+        messagesApi: MessagesApi = messagesApi
   )(
         implicit executionContext: ExecutionContext
   ): MessagesControllerComponents =
