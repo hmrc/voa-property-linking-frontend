@@ -4,6 +4,7 @@ link.home=Hafan
 link.logout=Allgofnodi
 link.login=Mewngofnodi
 link.register=Cofrestru
+link.go.account.home=Ewch i hafan eich cyfrif
 label.phase.banner.text=Mae hwn yn wasanaeth newydd – mae eich <a href="{0}" id="betaFeedback" class="govuk-link">adborth</a> yn ein helpu i’w wella
 link.feedback=Aborth
 main.cookies=Cwcis
@@ -456,7 +457,8 @@ draftCases.confirm.delete.return.button=Dychwelyd i’r rhestr ddrafftiau
 propertyRepresentation.removeAgent.title=Dileu caniatâd yr asiant
 propertyRepresentation.removeAgent.message.p1=Gallwch ddileu gallu’r asiant i gynnal gwiriadau a heriau ar eich rhan.
 propertyRepresentation.removeAgent.message.p2=Dewiswch asiant o’r rhestr isod i’w dileu oddi ar un eiddo neu fwy.
-propertyRepresentation.removeAgentProperties.title=Dileu asiant {0} oddi ar un neu fwy o eiddo
+propertyRepresentation.removeAgentProperties.title=O ba eiddo ydych chi am ddadneilltuo {0}?
+propertyRepresentation.removeAgentProperties.p1=Ar gyfer yr eiddo a ddewiswch, ni fydd yr asiant yn gallu:
 
 #Appoint agent
 propertyRepresentation.appointAgent.title=Penodi asiant
@@ -552,17 +554,29 @@ propertyRepresentation.manageAgent.title=Rheoli asiant
 propertyRepresentation.manageAgent.question=Beth ydych chi eisiau ei wneud i’r asiant {0}?
 
 propertyRepresentation.manageAgent.removeFromAccount.title=Dileu’r asiant o’ch cyfrif
-propertyRepresentation.manageAgent.removeFromAccount.question=Ydych chi’n dymuno dileu {0} o’ch cyfrif?
+propertyRepresentation.manageAgent.removeFromAccount.question=Ydych chi’n siŵr eich bod am dynnu {0} o’ch cyfrif?
+propertyRepresentation.manageAgent.removeFromAccount.p1=Ni fyddant bellach yn gallu ychwanegu eiddo at eich cyfrif a gweithredu arnynt ar eich rhan.
+propertyRepresentation.manageAgent.removeFromAccount.p2=Ni fyddwch bellach yn gallu aseinio eiddo iddynt na’u cael i weithredu ar eich rhan.
 propertyRepresentation.manageAgent.removeFromAccount.continue=Cadarnhau a dileu
 propertyRepresentation.manageAgent.removeFromAccount.cancel=Canslo a dychwelyd i’r hafan
 
 propertyRepresentation.manageAgent.removeFromAccount.confirmation.title=Mae’r asiant wedi’i ddileu o’ch cyfrif
-propertyRepresentation.manageAgent.removeFromAccount.confirmation=Mae {0} wedi eu dileu o’ch cyfrif
+propertyRepresentation.manageAgent.removeFromAccount.confirmation=Mae {0} wedi’i dynnu o’ch cyfrif
+propertyRepresentation.manageAgent.removeFromAccount.confirmation.p1=Ni all yr asiant weithredu ar eich rhan mwyach.
+propertyRepresentation.manageAgent.removeFromAccount.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
+propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2=Os ydych am i’r asiant weithredu ar eich rhan eto, gallwch ei ailbenodi i’ch cyfrif gan ddefnyddio cod asiant <strong>{0}</strong>.
 
 propertyRepresentation.manageAgent.unassignFromProperty.title=Asiant wedi ei ddad-neilltuo o’ch cyfrif
 propertyRepresentation.manageAgent.unassignFromProperty.question=A hoffwch ddad-neilltuo {0} o’ch eiddo?
-propertyRepresentation.manageAgent.unassignFromProperty.confirm=Cadarnhau a dad-neilltuo
+propertyRepresentation.manageAgent.unassignFromProperty.p1=Ar gyfer eich eiddo, ni fydd yr asiant yn gallu:
+propertyRepresentation.manageAgent.unassignFromProperty.confirm=Cadarnhau a dadneilltuo
 propertyRepresentation.manageAgent.unassignFromProperty.cancel=Canslo a dychwelyd i’r hafan
+
+propertyRepresentation.manageAgent.unassignFromProperties.li1=anfon neu barhau ag achosion Gwirio a Herio
+propertyRepresentation.manageAgent.unassignFromProperties.li2=gweld gohebiaeth achos Gwirio a Herio newydd, er enghraifft negeseuon ac e-byst
+propertyRepresentation.manageAgent.unassignFromProperties.li3=gweld gwybodaeth eiddo fanwl
+propertyRepresentation.manageAgent.unassignFromProperties.warningText=Mae dadneilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach.
+propertyRepresentation.manageAgent.unassignFromProperties.confirm=Cadarnhau a dadneilltuo
 
 propertyRepresentation.manageAgent.options.assignToAllProperties=Neilltuo i bob eiddo
 propertyRepresentation.manageAgent.options.assignToSomeProperties=Neilltuo i ambell eiddo
@@ -586,15 +600,21 @@ propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappen
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1=Bydd {0} yn gallu trafod eich eiddo gydag Asiantaeth y Swyddfa Brisio ar eich rhan.
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.title=Cadarnhau eich bod eisiau dad-neilltuo’r asiant o’r holl eiddo
-propertyRepresentation.manageAgent.unassignFromAllProperties.question=Ydych chi’n siŵr eich bod eisiau dad-neilltuo {0} o’r holl eiddo?
+propertyRepresentation.manageAgent.unassignFromAllProperties.question=Ydych chi’n siŵr eich bod am ddadneilltuo {0} o’ch holl eiddo?
+propertyRepresentation.manageAgent.unassignFromAllProperties.p1=Ar gyfer eich holl eiddo, ni fydd yr asiant yn gallu:
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.multipleProperties=Mae’r asiant wedi’i ddad-neilltuo o’ch holl eiddo
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.singleProperty=Mae’r asiant wedi’i ddad-neilltuo o’ch eiddo
-propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.multipleProperties=Mae {0} wedi’i ddad-neilltuo o’ch holl eiddo
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.multipleProperties=Mae {0} wedi’i ddadneilltuo o’ch holl eiddo
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.singleProperty=Mae {0} wedi’i ddad-neilltuo o’ch eiddo
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText=Nid yw’r asiant hwn wedi cael ei ddileu o’ch cyfrif.
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow=Gallwch nawr:
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.removeFromAccount=Dynnu’r asiant hwn o’ch cyfrif
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p1=Ni all yr asiant weithredu ar eich rhan mwyach ar unrhyw un o’ch eiddo.
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p2=Nid yw’r asiant wedi’i dynnu o’ch cyfrif. Gallant barhau i weithredu ar eich rhan os ydynt yn ychwanegu eiddo eraill at eich cyfrif.
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.whatHappensNext=Yr hyn sy’n digwydd nesaf
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p3=Gallwch <a id="remove-agent-from-account" class="govuk-link" href="{0}">dynnu’r asiant hwn o’ch cyfrif</a>.</p>
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p4=Gallwch ailbennu asiant i eiddo os ydych am iddynt weithredu ar eich rhan eto.
 
 propertyRepresentation.revokeClientProperty.title=Mae’r cleient wedi’i ddirymu
 propertyRepresentation.revokeClientProperty.confirmation=Rydych wedi dirymu eiddo’r cleient yn llwyddiannus: {0}
@@ -637,7 +657,11 @@ propertyRepresentation.appointAgent.button=Parhau
 
 #Remove agent summary
 propertyRepresentation.agentRemoveSummary.heading=Asiant wedi’i dileu
-propertyRepresentation.agentRemoveSummary.h1={0} wedi ei dileu o’ch eiddo dethol
+propertyRepresentation.agentRemoveSummary.h1=Mae {0} wedi’i ddadneilltuo o’r eiddo a ddewiswyd gennych
+propertyRepresentation.agentRemoveSummary.p1=Ni all yr asiant weithredu ar eich rhan mwyach ar unrhyw un o’r eiddo a ddewiswyd gennych.
+propertyRepresentation.agentRemoveSummary.p2=Nid yw’r asiant wedi’i dynnu o’ch cyfrif. Gallant barhau i weithredu ar eich rhan os ydynt yn ychwanegu eiddo eraill at eich cyfrif.
+propertyRepresentation.agentRemoveSummary.whatHappens=Yr hyn sy’n digwydd nesaf
+propertyRepresentation.agentRemoveSummary.p3=Gallwch ailbennu asiant i eiddo os ydych am iddynt weithredu ar eich rhan eto.
 
 label.canCheck=Ydych chi eisiau i’r asiant yma gyflwyno gwiriadau?
 label.canChallenge=Ydych chi eisiau i’r asiant yma gyflwyno heriau?

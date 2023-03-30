@@ -26,6 +26,8 @@ import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.mvc
+import play.api.mvc.{Cookie, Cookies, Session}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
@@ -49,8 +51,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val testOwnerAuthResult =
       OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = Seq(testOwnerAuth))
-
-//    val sessionData = AppointAgentToSomeSession()
 
     when(
       mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
@@ -393,6 +393,41 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     verifyUnassignedPrivilegesDisplayed(page.html)
   }
 
+  "selectAgentPropertiesSearchSort" should "show a list of properties available for removal from a agent - in welsh" in {
+
+    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address", "localAuthorityRef", testAgents)
+
+    val testOwnerAuthResult =
+      OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = Seq(testOwnerAuth))
+
+    StubGroupAccountConnector.stubAccount(agent)
+
+    when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
+    when(mockRevokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](any())(any(), any()))
+      .thenReturn(Future.successful(()))
+    when(mockSessionRepo.saveOrUpdate[SessionPropertyLinks](any())(any(), any()))
+      .thenReturn(Future.successful(()))
+
+    val res =
+      welshTestController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode)(
+        welshFakeRequest.withFormUrlEncodedBody(
+          "agentCode"      -> s"$agentCode",
+          "agentCodeRadio" -> "1"
+        ))
+
+    status(res) shouldBe OK
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+
+    page.html
+      .getElementById("question-text")
+      .text() shouldBe "O ba eiddo ydych chi am ddadneilltuo gg-ext-id?"
+    verifyUnassignedPrivilegesDisplayed(page.html, isWelsh = true)
+
+  }
+
   "paginateRevokeProperties" should "show the requested revoke properties page" in {
     val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
     val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address", "localAuthorityRef", testAgents)
@@ -556,6 +591,41 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .text() shouldBe "You can reassign an agent to a property if you want them to act for you again."
   }
 
+  "show revoke agent summary page" should "render a success screen when all is well - in welsh" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+
+    val agentName = "some agent"
+    val session = RevokeAgentFromSomePropertiesSession(
+      agentRevokeAction = Some(
+        AgentRevokeBulkAction(
+          agentCode = 123L,
+          name = agentName,
+          propertyLinkIds = List(),
+          backLinkUrl = "/some-back-url")))
+
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(session)))
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful((): Unit))
+
+    val res = welshTestController.confirmRevokeAgentFromSome()(welshFakeRequest)
+
+    status(res) shouldBe OK
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.shouldContainText(s"Mae $agentName wedi’i ddadneilltuo o’r eiddo a ddewiswyd gennych")
+    page.html
+      .getElementById("revoke-agent-summary-p1")
+      .text() shouldBe "Ni all yr asiant weithredu ar eich rhan mwyach ar unrhyw un o’r eiddo a ddewiswyd gennych."
+    page.html
+      .getElementById("revoke-agent-summary-p2")
+      .text() shouldBe "Nid yw’r asiant wedi’i dynnu o’ch cyfrif. Gallant barhau i weithredu ar eich rhan os ydynt yn ychwanegu eiddo eraill at eich cyfrif."
+    page.html
+      .getElementById("revoke-agent-summary-p3")
+      .text() shouldBe "Gallwch ailbennu asiant i eiddo os ydych am iddynt weithredu ar eich rhan eto."
+  }
+
   "show revoke agent summary page" should "render a not found template when no agent data is cached" in {
     val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
 
@@ -595,6 +665,29 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     verifyPageErrorTitle(page)
   }
 
+  "submitting an incomplete revoke agent form" should "re-render the page with form errors reported to user - in welsh" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful((): Unit))
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultResponse))
+
+    val res = welshTestController.revokeAgentSummary()(
+      welshFakeRequest.withFormUrlEncodedBody(
+        "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
+        "name"      -> testAgentAccount.companyName,
+        //"linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
+        "backLinkUrl" -> "backlink url"
+      ))
+
+    status(res) shouldBe BAD_REQUEST
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    verifyPageErrorTitle(page, isWelsh = true)
+  }
+
   "errors during handling of revoke agent form" should "re-render the page with form errors reported to user" in {
     val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
 
@@ -619,9 +712,37 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     verifyPageErrorTitle(page)
   }
 
-  private def verifyPageErrorTitle(page: HtmlPage) =
-    page.titleShouldMatch(
-      s"Error: Which of your properties do you want to unassign $ggExternalId from? - Valuation Office Agency - GOV.UK")
+  "errors during handling of revoke agent form" should "re-render the page with form errors reported to user - in welsh" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.failed(services.AppointRevokeException("something went awry")))
+    when(mockRevokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession](any(), any()))
+      .thenReturn(Future.successful(Some(RevokeAgentFromSomePropertiesSession())))
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultResponse))
+
+    val res = welshTestController.revokeAgentSummary()(
+      welshFakeRequest.withFormUrlEncodedBody(
+        "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
+        "name"        -> testAgentAccount.companyName,
+        "linkIds[]"   -> ownerAuthorisation.submissionId,
+        "backLinkUrl" -> "backlink url"
+      ))
+    status(res) shouldBe BAD_REQUEST
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.shouldContainText("Methu penodi asiant i bob eiddo")
+    verifyPageErrorTitle(page, isWelsh = true)
+  }
+
+  private def verifyPageErrorTitle(page: HtmlPage, isWelsh: Boolean = false) =
+    if (isWelsh)
+      page.titleShouldMatch(
+        s"Gwall: O ba eiddo ydych chi am ddadneilltuo $ggExternalId? - Valuation Office Agency - GOV.UK")
+    else
+      page.titleShouldMatch(
+        s"Error: Which of your properties do you want to unassign $ggExternalId from? - Valuation Office Agency - GOV.UK")
 
   private lazy val testController = new AppointAgentController(
     errorHandler = mockCustomErrorHandler,
@@ -635,6 +756,25 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     appointAgentSummaryView = appointAgentSummaryView,
     revokeAgentPropertiesView = revokeAgentPropertiesView,
     appointAgentPropertiesView = appointAgentPropertiesView
+  )
+
+  lazy val welshTestController = new AppointAgentController(
+    errorHandler = mockCustomErrorHandler,
+    accounts = StubGroupAccountConnector,
+    authenticated = preAuthenticatedActionBuilders(),
+    agentRelationshipService = mockAppointRevokeService,
+    propertyLinksSessionRepo = mockSessionRepo,
+    revokeAgentPropertiesSessionRepo = mockRevokeAgentPropertiesSessionRepo,
+    appointAgentPropertiesSession = mockAppointAgentPropertiesSessionRepo,
+    revokeAgentSummaryView = revokeAgentSummaryView,
+    appointAgentSummaryView = appointAgentSummaryView,
+    revokeAgentPropertiesView = revokeAgentPropertiesView,
+    appointAgentPropertiesView = appointAgentPropertiesView
+  )(
+    welshMessagesApi,
+    stubMessagesControllerComponents(messagesApi = welshMessagesApi),
+    ec,
+    applicationConfig
   )
 
   private lazy val mockSessionRepo = mock[SessionRepo]
