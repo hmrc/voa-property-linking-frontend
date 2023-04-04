@@ -38,10 +38,7 @@ trait StubMessageControllerComponents extends Configs {
     Messages.parse(UrlMessageSource(this.getClass.getClassLoader.getResource("messages.cy")), "").right.get
 
   lazy val messagesApi: MessagesApi =
-    new DefaultMessagesApi(messages = Map("default" -> messages))
-
-  lazy val welshMessagesApi: MessagesApi =
-    new DefaultMessagesApi(messages = Map("default" -> messages_cy))
+    new DefaultMessagesApi(messages = Map("default" -> messages, "cy" -> messages_cy), langs = langs)
 
   def stubMessagesControllerComponents(
         bodyParser: BodyParser[AnyContent] = stubBodyParser(AnyContentAsEmpty),

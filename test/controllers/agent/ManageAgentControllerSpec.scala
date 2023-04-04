@@ -49,28 +49,6 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     manageAgentSessionRepo = mockSessionRepository
   )
 
-  lazy val welshTestController = new ManageAgentController(
-    errorHandler = mockCustomErrorHandler,
-    authenticated = preAuthenticatedActionBuilders(userIsAgent = false),
-    agentRelationshipService = mockAgentRelationshipService,
-    manageAgentView = manageAgentView,
-    myAgentsView = myAgentsView,
-    removeAgentFromOrganisationView = removeAgentFromOrganisationView,
-    unassignAgentFromPropertyView = unassignAgentFromPropertyView,
-    addAgentToAllPropertiesView = addAgentToAllPropertyView,
-    confirmAddAgentToAllPropertiesView = confirmAddAgentToAllPropertyView,
-    unassignAgentFromAllPropertiesView = unassignAgentFromAllPropertiesView,
-    confirmUnassignAgentFromAllPropertiesView = confirmUnassignAgentFromAllPropertiesView,
-    confirmRemoveAgentFromOrganisationView = confirmRemoveAgentFromOrganisationView,
-    manageAgentPropertiesView = manageAgentPropertiesView,
-    manageAgentSessionRepo = mockSessionRepository
-  )(
-    welshMessagesApi,
-    stubMessagesControllerComponents(messagesApi = welshMessagesApi),
-    ec,
-    applicationConfig
-  )
-
   "showAgents" should "show the manage agent page" in {
     val propertyLinksCount = 1
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
@@ -122,7 +100,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
     when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
 
-    val res = welshTestController.showManageAgent()(welshFakeRequest)
+    val res = testController.showManageAgent()(welshFakeRequest)
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -245,7 +223,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
 
-    val res = welshTestController.getManageAgentView()(welshFakeRequest).futureValue.get
+    val res = testController.getManageAgentView()(welshFakeRequest).futureValue.get
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
@@ -479,7 +457,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
 
-    val res = welshTestController.showUnassignFromAll()(welshFakeRequest)
+    val res = testController.showUnassignFromAll()(welshFakeRequest)
 
     status(res) shouldBe OK
 
@@ -616,7 +594,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "unassignAgentFromAll" should "return 400 Bad Request when invalid form submitted - in welsh" in {
 
     val agentName = "Some agent org"
-    val res = welshTestController.unassignAgentFromAll(agentCode, agentName)(
+    val res = testController.unassignAgentFromAll(agentCode, agentName)(
       welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
     status(res) shouldBe BAD_REQUEST
@@ -659,7 +637,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val agent = agentSummary.copy(propertyCount = 1)
     when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
-    val res = welshTestController.confirmationUnassignAgentFromAll()(welshFakeRequest)
+    val res = testController.confirmationUnassignAgentFromAll()(welshFakeRequest)
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -687,7 +665,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   "showRemoveAgentFromIpOrganisation" should "return 200 Ok - in welsh" in {
     when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    val res = welshTestController.showRemoveAgentFromIpOrganisation()(welshFakeRequest)
+    val res = testController.showRemoveAgentFromIpOrganisation()(welshFakeRequest)
 
     status(res) shouldBe OK
 
@@ -717,7 +695,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted - in welsh" in {
 
     val agentName = "Some agent org"
-    val res = welshTestController.removeAgentFromIpOrganisation(agentCode, agentName, "some-back-link")(
+    val res = testController.removeAgentFromIpOrganisation(agentCode, agentName, "some-back-link")(
       welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
     status(res) shouldBe BAD_REQUEST
@@ -762,7 +740,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockAgentRelationshipService.removeAgentFromOrganisation(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
-    val res = welshTestController.confirmRemoveAgentFromOrganisation()(welshFakeRequest)
+    val res = testController.confirmRemoveAgentFromOrganisation()(welshFakeRequest)
 
     status(res) shouldBe OK
 

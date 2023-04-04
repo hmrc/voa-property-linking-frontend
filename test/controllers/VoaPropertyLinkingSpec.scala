@@ -64,6 +64,18 @@ trait VoaPropertyLinkingSpec
   implicit def materializer: Materializer = app.injector.instanceOf[Materializer]
   lazy val welshFakeRequest = FakeRequest().withCookies(cookies = Cookie("PLAY_LANG", "cy"))
 
+  sealed trait RequestLang {
+    def fakeRequest: FakeRequest[_]
+  }
+
+  trait EnglishRequest extends RequestLang {
+    lazy val fakeRequest: FakeRequest[_] = FakeRequest()
+  }
+
+  trait WelshRequest extends RequestLang {
+    lazy val fakeRequest: FakeRequest[_] = welshFakeRequest
+  }
+
   def preAuthenticatedStaticPage(
         accounts: Option[Accounts] = Some(Accounts(groupAccount(false), detailedIndividualAccount))): StaticPageAction =
     new StaticPageAction(

@@ -26,8 +26,6 @@ import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.mvc
-import play.api.mvc.{Cookie, Cookies, Session}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
@@ -412,7 +410,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(()))
 
     val res =
-      welshTestController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode)(
+      testController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode)(
         welshFakeRequest.withFormUrlEncodedBody(
           "agentCode"      -> s"$agentCode",
           "agentCodeRadio" -> "1"
@@ -609,7 +607,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful((): Unit))
 
-    val res = welshTestController.confirmRevokeAgentFromSome()(welshFakeRequest)
+    val res = testController.confirmRevokeAgentFromSome()(welshFakeRequest)
 
     status(res) shouldBe OK
 
@@ -674,7 +672,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = welshTestController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary()(
       welshFakeRequest.withFormUrlEncodedBody(
         "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"      -> testAgentAccount.companyName,
@@ -723,7 +721,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = welshTestController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary()(
       welshFakeRequest.withFormUrlEncodedBody(
         "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"        -> testAgentAccount.companyName,
@@ -756,25 +754,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     appointAgentSummaryView = appointAgentSummaryView,
     revokeAgentPropertiesView = revokeAgentPropertiesView,
     appointAgentPropertiesView = appointAgentPropertiesView
-  )
-
-  lazy val welshTestController = new AppointAgentController(
-    errorHandler = mockCustomErrorHandler,
-    accounts = StubGroupAccountConnector,
-    authenticated = preAuthenticatedActionBuilders(),
-    agentRelationshipService = mockAppointRevokeService,
-    propertyLinksSessionRepo = mockSessionRepo,
-    revokeAgentPropertiesSessionRepo = mockRevokeAgentPropertiesSessionRepo,
-    appointAgentPropertiesSession = mockAppointAgentPropertiesSessionRepo,
-    revokeAgentSummaryView = revokeAgentSummaryView,
-    appointAgentSummaryView = appointAgentSummaryView,
-    revokeAgentPropertiesView = revokeAgentPropertiesView,
-    appointAgentPropertiesView = appointAgentPropertiesView
-  )(
-    welshMessagesApi,
-    stubMessagesControllerComponents(messagesApi = welshMessagesApi),
-    ec,
-    applicationConfig
   )
 
   private lazy val mockSessionRepo = mock[SessionRepo]
