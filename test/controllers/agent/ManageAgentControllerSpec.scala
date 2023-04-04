@@ -20,15 +20,18 @@ import binders.propertylinks.GetPropertyLinksParameters
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation._
 import org.jsoup.Jsoup
+import org.jsoup.nodes.{Document, Element}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import tests.AllMocks
 import utils.HtmlPage
 
 import scala.concurrent.Future
+import scala.jdk.CollectionConverters.ListHasAsScala
 
 class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
@@ -376,21 +379,66 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   }
 
-  "showAssignToAll" should "return 200 Ok when IP chooses to appoint agent to all properties" in {
-    val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
-    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
-    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
-      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+  "showAssignToAll" should "return 200 OK" in new AssignToAllTestCase with English {
+    status(result) shouldBe OK
+  }
 
-    val res = testController.showAssignToAll()(FakeRequest())
+  "showAssignToAll" should "display static content correctly in English" in new AssignToAllTestCase with English {
+    explainerList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
+      "see detailed property information",
+      "see Check and Challenge case correspondence such as messages and emails",
+      "send Check and Challenge cases"
+    )
+    cancelLink.text shouldBe "Cancel"
+    cancelLink.attr("href") shouldBe routes.ManageAgentController
+      .manageAgentProperties(agentToAppoint.representativeCode)
+      .url
+    confirmButton shouldBe "Confirm and assign"
+  }
 
-    status(res) shouldBe OK
+  "showAssignToAll" should "display static content correctly in Welsh" in new AssignToAllTestCase with Welsh {
+    explainerList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
+      "gweld gwybodaeth eiddo fanwl",
+      "gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst",
+      "anfon achosion Gwirio a Herio"
+    )
+    cancelLink.text shouldBe "Canslo"
+    cancelLink.attr("href") shouldBe routes.ManageAgentController
+      .manageAgentProperties(agentToAppoint.representativeCode)
+      .url
+    confirmButton shouldBe "Cadarnhau a neilltuo"
+  }
 
-    val html = HtmlPage(res)
-    html.titleShouldMatch("Confirm you want to assign agent to all properties - Valuation Office Agency - GOV.UK")
+  "showAssignToAll" should "display dynamic content correctly in English when assigning to one property" in new AssignToAllTestCase
+  with English {
+    override lazy val numberOfIpPropertyLinks = 1
+    doc.title shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to your property? - Valuation Office Agency - GOV.UK"
+    heading shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to your property?"
+    explainerIntro shouldBe "For your property, the agent will be able to:"
+  }
+
+  "showAssignToAll" should "display dynamic content correctly in Welsh when assigning to one property" in new AssignToAllTestCase
+  with Welsh {
+    override lazy val numberOfIpPropertyLinks = 1
+    doc.title shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch eiddo? - Valuation Office Agency - GOV.UK"
+    heading shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch eiddo?"
+    explainerIntro shouldBe "Ar gyfer eich eiddo, bydd yr asiant yn gallu:"
+  }
+
+  "showAssignToAll" should "display dynamic content correctly in English when assigning to multiple properties" in new AssignToAllTestCase
+  with English {
+    override lazy val numberOfIpPropertyLinks = 2
+    doc.title shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to all your properties? - Valuation Office Agency - GOV.UK"
+    heading shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to all your properties?"
+    explainerIntro shouldBe "For all your properties, the agent will be able to:"
+  }
+
+  "showAssignToAll" should "display dynamic content correctly in Welsh when assigning to multiple properties" in new AssignToAllTestCase
+  with Welsh {
+    override lazy val numberOfIpPropertyLinks = 2
+    doc.title shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch holl eiddo? - Valuation Office Agency - GOV.UK"
+    heading shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch holl eiddo?"
+    explainerIntro shouldBe "Ar gyfer eich holl eiddo, bydd yr asiant yn gallu:"
   }
 
   "submitManageAgent" should "return 303 Redirect when agent is appointed to some properties" in {
@@ -546,9 +594,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     status(res) shouldBe BAD_REQUEST
 
-    val html = HtmlPage(res)
-    html.titleShouldMatch(
-      "Error: Confirm you want to assign agent to all properties - Valuation Office Agency - GOV.UK")
+    val html = Jsoup.parse(contentAsString(res))
+    html.title shouldBe s"Error: Are you sure you want to assign Some agent org to all your properties? - Valuation Office Agency - GOV.UK"
   }
 
   "assignAgentToAll" should "return 303 SEE OTHER when valid form is submitted" in {
@@ -752,6 +799,26 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     html.html
       .getElementById("remove-agent-confirmation-p2")
       .text() shouldBe s"Os ydych am i’r asiant weithredu ar eich rhan eto, gallwch ei ailbenodi i’ch cyfrif gan ddefnyddio cod asiant ${agentSummary.representativeCode.toString()}."
+  }
+
+  type English = EnglishRequest
+  type Welsh = WelshRequest
+
+  trait AssignToAllTestCase { self: RequestLang =>
+    lazy val numberOfIpPropertyLinks: Int = 2
+    val agentToAppoint: AgentSummary = agentSummary
+
+    when(mockSessionRepository.get[AgentSummary](any, any)).thenReturn(Future.successful(Some(agentToAppoint)))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any))
+      .thenReturn(Future.successful(numberOfIpPropertyLinks))
+
+    val result: Future[Result] = testController.showAssignToAll(self.fakeRequest)
+    val doc: Document = Jsoup.parse(contentAsString(result))
+    val heading: String = doc.getElementsByTag("h1").text
+    val explainerIntro: String = doc.getElementById("explainer-intro").text
+    val explainerList: Element = doc.getElementById("explainer-list")
+    val cancelLink: Element = doc.getElementById("cancel-link")
+    val confirmButton: String = doc.getElementById("confirm-button").text
   }
 
 }

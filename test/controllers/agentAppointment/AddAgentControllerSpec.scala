@@ -32,7 +32,7 @@ import play.api.mvc.Result
 import uk.gov.hmrc.http.BadRequestException
 
 import scala.concurrent.Future
-import scala.jdk.CollectionConverters.CollectionHasAsScala
+import scala.jdk.CollectionConverters.ListHasAsScala
 
 class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
@@ -60,7 +60,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     doc.title shouldBe "Appoint an agent to your account - Valuation Office Agency - GOV.UK"
     heading shouldBe "Appoint an agent to your account"
     explainerIntro shouldBe "When you appoint an agent and assign them to your properties, they will be able to:"
-    explainerList.children.asScala.map(_.text).toSeq should contain theSameElementsInOrderAs Seq(
+    explainerList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
       "see detailed property information",
       "see Check and Challenge case correspondence such as messages and emails",
       "send Check and Challenge cases"
@@ -78,7 +78,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     doc.title shouldBe "Penodi asiant i’ch cyfrif - Valuation Office Agency - GOV.UK"
     heading shouldBe "Penodi asiant i’ch cyfrif"
     explainerIntro shouldBe "Pan fyddwch yn penodi asiant ac yn eu neilltuo i’ch eiddo, byddant yn gallu:"
-    explainerList.children.asScala.map(_.text).toSeq should contain theSameElementsInOrderAs Seq(
+    explainerList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
       "gweld gwybodaeth eiddo fanwl",
       "gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst",
       "anfon achosion Gwirio a Herio"

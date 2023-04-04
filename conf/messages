@@ -641,12 +641,15 @@ propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Unassign f
 propertyRepresentation.manageAgent.options.assignToYourProperty=Assign to your property
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from your account
 
-propertyRepresentation.manageAgent.assignToAllProperties.title.multipleProperties=Confirm you want to assign agent to all properties
-propertyRepresentation.manageAgent.assignToAllProperties.title.singleProperty=Confirm you want to assign agent to your property
-propertyRepresentation.manageAgent.assignToAllProperties.question.multipleProperties=Are you sure you want to assign {0} to all your properties?
-propertyRepresentation.manageAgent.assignToAllProperties.question.singleProperty=Are you sure you want to assign {0} to your property?
-propertyRepresentation.manageAgent.assignToAllProperties.insetText.multipleProperties={0} will be added to all of your properties
-propertyRepresentation.manageAgent.assignToAllProperties.insetText.singleProperty={0} will be added to your property
+propertyRepresentation.manageAgent.assignToAllProperties.title.multiple=Are you sure you want to assign {0} to all your properties?
+propertyRepresentation.manageAgent.assignToAllProperties.title.single=Are you sure you want to assign {0} to your property?
+propertyRepresentation.manageAgent.assignToAllProperties.intro.multiple=For all your properties, the agent will be able to:
+propertyRepresentation.manageAgent.assignToAllProperties.intro.single=For your property, the agent will be able to:
+propertyRepresentation.manageAgent.assignToAllProperties.list.1=see detailed property information
+propertyRepresentation.manageAgent.assignToAllProperties.list.2=see Check and Challenge case correspondence such as messages and emails
+propertyRepresentation.manageAgent.assignToAllProperties.list.3=send Check and Challenge cases
+propertyRepresentation.manageAgent.assignToAllProperties.confirmAndAssign=Confirm and assign
+propertyRepresentation.manageAgent.assignToAllProperties.cancel=Cancel
 
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multipleProperties=Agent assigned to all properties
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.singleProperty=Agent assigned to your property

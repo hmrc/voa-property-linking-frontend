@@ -14,18 +14,24 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import config.ApplicationConfig
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
-@import config.ApplicationConfig
+@import controllers.agent.routes
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.components.link
 
-@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary: GovukErrorSummary, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AgentAppointmentChangesRequest], agentName: String, agentCode: Long, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@multipleLinksSuffix = @{if(multiplePropertyLinks) {"multiple"} else {"single"}}
+
+@title = @{messages(s"propertyRepresentation.manageAgent.assignToAllProperties.title.$multipleLinksSuffix", agentName)}
+
 @mainLayout(
-    pageTitle = messages(s"propertyRepresentation.manageAgent.assignToAllProperties.title.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}"),
+    pageTitle = title,
     backUri = Some(controllers.agent.routes.ManageAgentController.showManageAgent.url),
     hasErrors = form.hasErrors
 ) {
@@ -33,16 +39,34 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    <h1 class="govuk-heading-l">@messages(s"propertyRepresentation.manageAgent.assignToAllProperties.question.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)</h1>
+
+    <h1 class="govuk-heading-l">@title</h1>
+
+    <p class="govuk-body" id="explainer-intro">
+        @messages(s"propertyRepresentation.manageAgent.assignToAllProperties.intro.$multipleLinksSuffix")
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet" id="explainer-list">
+        <li>@messages("propertyRepresentation.manageAgent.assignToAllProperties.list.1")</li>
+        <li>@messages("propertyRepresentation.manageAgent.assignToAllProperties.list.2")</li>
+        <li>@messages("propertyRepresentation.manageAgent.assignToAllProperties.list.3")</li>
+    </ul>
 
     @formWithCSRF(action = controllers.agent.routes.ManageAgentController.assignAgentToAll(agentCode, agentName)) {
+
+        <div class="govuk-button-group">
+            @govukButton(Button(
+                content = Text(messages("propertyRepresentation.manageAgent.assignToAllProperties.confirmAndAssign")),
+                attributes = Map("id" -> "confirm-button")
+            ))
+            @link(
+              linkText = messages("propertyRepresentation.manageAgent.assignToAllProperties.cancel"),
+              location = routes.ManageAgentController.manageAgentProperties(agentCode).url,
+              linkId = Some("cancel-link")
+            )
+        </div>
+
         <input type="hidden" name="agentCode" value="@agentCode">
         <input type="hidden" name="scope" value="@ALL_PROPERTIES.toString">
-        <p class="govuk-inset-text">
-            @messages(s"propertyRepresentation.manageAgent.assignToAllProperties.insetText.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)
-        </p>
-        @govukButton(Button(content = Text(messages("label.confirm"))))
     }
-    <a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.cancel")</a>
-
 }

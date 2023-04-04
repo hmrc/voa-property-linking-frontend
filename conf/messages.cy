@@ -584,12 +584,15 @@ propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Dad-neillt
 propertyRepresentation.manageAgent.options.assignToYourProperty=Neilltuo i’ch eiddo
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Dileu o’ch cyfrif
 
-propertyRepresentation.manageAgent.assignToAllProperties.title.multipleProperties=Cadarnhau eich bod am neilltuo asiant i bob eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.title.singleProperty=Cadarnhau eich bod am neilltuo asiant i’ch eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.question.multipleProperties=Ydych chi’n siŵr eich bod am neilltuo {0} i’ch holl eiddo?
-propertyRepresentation.manageAgent.assignToAllProperties.question.singleProperty=Ydych chi’n siŵr eich bod am neilltuo {0} i’ch eiddo?
-propertyRepresentation.manageAgent.assignToAllProperties.insetText.multipleProperties={0} yn cael ei ychwanegu at eich holl eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.insetText.singleProperty={0} yn cael ei ychwanegu i’ch eiddo
+propertyRepresentation.manageAgent.assignToAllProperties.title.multiple=Ydych chi’n siŵr eich bod am neilltuo {0} i’ch holl eiddo?
+propertyRepresentation.manageAgent.assignToAllProperties.title.single=Ydych chi’n siŵr eich bod am neilltuo {0} i’ch eiddo?
+propertyRepresentation.manageAgent.assignToAllProperties.intro.multiple=Ar gyfer eich holl eiddo, bydd yr asiant yn gallu:
+propertyRepresentation.manageAgent.assignToAllProperties.intro.single=Ar gyfer eich eiddo, bydd yr asiant yn gallu:
+propertyRepresentation.manageAgent.assignToAllProperties.list.1=gweld gwybodaeth eiddo fanwl
+propertyRepresentation.manageAgent.assignToAllProperties.list.2=gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst
+propertyRepresentation.manageAgent.assignToAllProperties.list.3=anfon achosion Gwirio a Herio
+propertyRepresentation.manageAgent.assignToAllProperties.confirmAndAssign=Cadarnhau a neilltuo
+propertyRepresentation.manageAgent.assignToAllProperties.cancel=Canslo
 
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multipleProperties=Neilltuwyd asiant i’ch holl eiddo
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.singleProperty=Neilltuwyd asiant i’ch eiddo
