@@ -612,18 +612,58 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       "/business-rates-property-linking/my-organisation/manage-agent/assign/to-all-properties/confirm")
   }
 
-  "confirmAssignAgentToAll" should "return 200 Ok and show confirmation page" in {
-    val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
-    when(mockAgentRelationshipService.assignAgent(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
+  "confirmAssignAgentToAll" should "return 200 OK" in new ConfirmAssignToAllTestCase with English {
+    status(result) shouldBe OK
+  }
 
-    val res = testController.confirmAssignAgentToAll()(FakeRequest())
-    status(res) shouldBe OK
+  "confirmAssignAgentToAll" should "display static content correctly in English" in new ConfirmAssignToAllTestCase
+  with English {
+    nextStepsSubhead shouldBe "What happens next"
+    accountHomeLink.text shouldBe "Go to your account home"
+    accountHomeLink.attr("href") shouldBe "http://localhost:9542/business-rates-dashboard/home"
+  }
 
-    val html = HtmlPage(res)
-    html.titleShouldMatch("Agent assigned to all properties - Valuation Office Agency - GOV.UK")
+  "confirmAssignAgentToAll" should "display static content correctly in Welsh" in new ConfirmAssignToAllTestCase
+  with Welsh {
+    nextStepsSubhead shouldBe "Yr hyn sy’n digwydd nesaf"
+    accountHomeLink.text shouldBe "Ewch i hafan eich cyfrif"
+    accountHomeLink.attr("href") shouldBe "http://localhost:9542/business-rates-dashboard/home"
+  }
+
+  "confirmAssignAgentToAll" should "display dynamic content correctly in English when assigned to one property" in new ConfirmAssignToAllTestCase
+  with English {
+    override lazy val numberOfIpPropertyLinks: Int = 1
+    doc.title shouldBe s"${appointedAgent.name} has been assigned to your property - Valuation Office Agency - GOV.UK"
+    panel shouldBe s"${appointedAgent.name} has been assigned to your property"
+    explainer shouldBe "The agent can act for you on your property."
+    nextStepsContent shouldBe "You can unassign this agent from your property at any time."
+  }
+
+  "confirmAssignAgentToAll" should "display dynamic content correctly in Welsh when assigned to one property" in new ConfirmAssignToAllTestCase
+  with Welsh {
+    override lazy val numberOfIpPropertyLinks: Int = 1
+    doc.title shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch eiddo - Valuation Office Agency - GOV.UK"
+    panel shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch eiddo"
+    explainer shouldBe "Gall yr asiant weithredu ar eich rhan ar o’ch eiddo."
+    nextStepsContent shouldBe "Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
+  }
+
+  "confirmAssignAgentToAll" should "display dynamic content correctly in English when assigned to multiple properties" in new ConfirmAssignToAllTestCase
+  with English {
+    override lazy val numberOfIpPropertyLinks: Int = 2
+    doc.title shouldBe s"${appointedAgent.name} has been assigned to all your properties - Valuation Office Agency - GOV.UK"
+    panel shouldBe s"${appointedAgent.name} has been assigned to all your properties"
+    explainer shouldBe "The agent can act for you on all of your properties."
+    nextStepsContent shouldBe "You can unassign this agent from your properties at any time."
+  }
+
+  "confirmAssignAgentToAll" should "display dynamic content correctly in Welsh when assigned to multiple properties" in new ConfirmAssignToAllTestCase
+  with Welsh {
+    override lazy val numberOfIpPropertyLinks: Int = 2
+    doc.title shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch holl eiddo - Valuation Office Agency - GOV.UK"
+    panel shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch holl eiddo"
+    explainer shouldBe "Gall yr asiant weithredu ar eich rhan ar gyfer pob un o’ch eiddo."
+    nextStepsContent shouldBe "Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
   }
 
   "unassignAgentFromAll" should "return 400 Bad Request when invalid form submitted" in {
@@ -819,6 +859,23 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val explainerList: Element = doc.getElementById("explainer-list")
     val cancelLink: Element = doc.getElementById("cancel-link")
     val confirmButton: String = doc.getElementById("confirm-button").text
+  }
+
+  trait ConfirmAssignToAllTestCase { self: RequestLang =>
+    lazy val numberOfIpPropertyLinks: Int = 2
+    val appointedAgent: AgentSummary = agentSummary
+
+    when(mockSessionRepository.get[AgentSummary](any, any)).thenReturn(Future.successful(Some(appointedAgent)))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any))
+      .thenReturn(Future.successful(numberOfIpPropertyLinks))
+
+    val result: Future[Result] = testController.confirmAssignAgentToAll(self.fakeRequest)
+    val doc: Document = Jsoup.parse(contentAsString(result))
+    val panel: String = doc.getElementsByTag("h1").text
+    val explainer: String = doc.getElementById("explainer").text
+    val nextStepsSubhead: String = doc.getElementById("next-steps-subhead").text
+    val nextStepsContent: String = doc.getElementById("next-steps-content").text
+    val accountHomeLink: Element = doc.getElementById("account-home-link")
   }
 
 }

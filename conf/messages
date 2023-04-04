@@ -651,12 +651,16 @@ propertyRepresentation.manageAgent.assignToAllProperties.list.3=send Check and C
 propertyRepresentation.manageAgent.assignToAllProperties.confirmAndAssign=Confirm and assign
 propertyRepresentation.manageAgent.assignToAllProperties.cancel=Cancel
 
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multipleProperties=Agent assigned to all properties
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.singleProperty=Agent assigned to your property
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.multipleProperties={0} has been assigned to all your properties
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.singleProperty={0} has been assigned to your property
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext=What happens next
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
+
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multiple={0} has been assigned to all your properties
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.single={0} has been assigned to your property
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.info.multiple=The agent can act for you on all of your properties.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.info.single=The agent can act for you on your property.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.subhead=What happens next
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.multiple=You can unassign this agent from your properties at any time.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.single=You can unassign this agent from your property at any time.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.homeLink=Go to your account home
+
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.title=Confirm you want to unassign agent from all your properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.question=Are you sure you want to unassign {0} from all your properties?

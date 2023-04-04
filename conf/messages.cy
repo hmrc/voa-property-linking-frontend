@@ -594,12 +594,14 @@ propertyRepresentation.manageAgent.assignToAllProperties.list.3=anfon achosion G
 propertyRepresentation.manageAgent.assignToAllProperties.confirmAndAssign=Cadarnhau a neilltuo
 propertyRepresentation.manageAgent.assignToAllProperties.cancel=Canslo
 
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multipleProperties=Neilltuwyd asiant i’ch holl eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.singleProperty=Neilltuwyd asiant i’ch eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.multipleProperties={0} wedi ei neilltuo i’ch holl eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.singleProperty={0} wedi ei neilltuo i’ch eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1=Bydd {0} yn gallu trafod eich eiddo gydag Asiantaeth y Swyddfa Brisio ar eich rhan.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multiple=Mae {0} wedi’i neilltuo i’ch holl eiddo
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.single=Mae {0} wedi’i neilltuo i’ch eiddo
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.info.multiple=Gall yr asiant weithredu ar eich rhan ar gyfer pob un o’ch eiddo.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.info.single=Gall yr asiant weithredu ar eich rhan ar o’ch eiddo.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.subhead=Yr hyn sy’n digwydd nesaf
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.multiple=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.single=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.homeLink=Ewch i hafan eich cyfrif
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.title=Cadarnhau eich bod eisiau dad-neilltuo’r asiant o’r holl eiddo
 propertyRepresentation.manageAgent.unassignFromAllProperties.question=Ydych chi’n siŵr eich bod am ddadneilltuo {0} o’ch holl eiddo?
