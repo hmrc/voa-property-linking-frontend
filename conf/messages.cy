@@ -479,18 +479,17 @@ propertyRepresentation.table.title.agentId=Cod yr asiant
 propertyRepresentation.table.title.agentName=Enw’r asiant
 propertyRepresentation.table.title.remove=Dewis
 
-#New appoint agent journey=
-propertyRepresentation.addAnAgent.title=Penodi asiant
-
-propertyRepresentation.addAnAgent.question=Cod yr asiant
-propertyRepresentation.addAnAgent.caption=Mae angen i chi ofyn wrth eich asiant am eu cod os nad yw hwn gennych chi.
-propertyRepresentation.addAnAgent.agentCode=Cod yr asiant
-
-propertyRepresentation.addAnAgent.guidance=Beth all fy asiant ei wneud?
-propertyRepresentation.addAnAgent.guidance.yourAgentCan=Gall eich asiant:
-propertyRepresentation.addAnAgent.guidance.discussProperties=trafod prisiad eich eiddo gyda’r VOA
-propertyRepresentation.addAnAgent.guidance.challenge=herio’r gwerth os oes angen
-propertyRepresentation.addAnAgent.guidance.addProperty=ychwanegu eich eiddo i’ch cyfrif
+#New appoint agent journey
+propertyRepresentation.addAnAgent.title=Penodi asiant i’ch cyfrif
+propertyRepresentation.addAnAgent.info.1=Pan fyddwch yn penodi asiant ac yn eu neilltuo i’ch eiddo, byddant yn gallu:
+propertyRepresentation.addAnAgent.info.list.1=gweld gwybodaeth eiddo fanwl
+propertyRepresentation.addAnAgent.info.list.2=gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst
+propertyRepresentation.addAnAgent.info.list.3=anfon achosion Gwirio a Herio
+propertyRepresentation.addAnAgent.info.2=Byddant hefyd yn gallu ychwanegu eiddo at eich cyfrif a gweithredu arnynt ar eich rhan.
+propertyRepresentation.addAnAgent.info.3=Gallwch benodi mwy nag un asiant i’ch cyfrif a neilltuo mwy nag un asiant i eiddo.
+propertyRepresentation.addAnAgent.info.help.link=Help gyda phenodi a rheoli asiantau
+propertyRepresentation.addAnAgent.codeInput.label=Beth yw cod eich asiant?
+propertyRepresentation.addAnAgent.codeInput.hint=Mae hwn yn rhif a roddir i’r asiant gan Asiantaeth y Swyddfa Brisio.
 
 propertyRepresentation.isThisYourAgent.title=Cadarnhau Asiant
 propertyRepresentation.isThisYourAgent.question=Ai dyma eich asiant?
