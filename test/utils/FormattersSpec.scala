@@ -26,7 +26,7 @@ class FormattersSpec extends BaseUnitSpec {
   "capitalisedAddress" should {
     "capitalise the first letter of each word in a string, with the postcode in caps" in {
       val address = "THE OLD WAREHOUSE, CHALFONT STATION ROAD, LITTLE CHALFONT, AMERSHAM, BUCKS, HP7 9PS"
-      Formatters.capitalisedAddress(address) shouldBe "The Old Warehouse, Chalfont Station Road, Little Chalfont, Amersham, Bucks,  HP7 9PS"
+      Formatters.capitalisedAddress(address) shouldBe "The Old Warehouse, Chalfont Station Road, Little Chalfont, Amersham, Bucks, HP7 9PS"
     }
   }
 

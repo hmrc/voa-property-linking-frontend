@@ -7,7 +7,7 @@ link.register=Register
 label.phase.banner.text=This is a new service – your <a href="{0}" id="betaFeedback" class="govuk-link">feedback</a> will help us to improve it.
 link.feedback=Feedback
 label.search.for=Search for
-label.Appoint=Appoint
+label.appoint=Appoint
 main.cookies=Cookies
 footer.termsandconditions=Terms and conditions
 link.privacyPolicy=Privacy
@@ -694,8 +694,11 @@ propertyRepresentation.revokeClientProperty.confirmation=You have successfully r
 propertyRepresentation.revokeClientProperty.returnToClientProperties=Return to client properties
 
 #Appoint agents properties
-propertyRepresentation.appointAgentProperties.title=Appoint agent {0} to one or more properties
-propertyRepresentation.appointAgentProperties.appointAgent=(Agent ID: {0}) will be able to submit checks and challenges for these properties.
+propertyRepresentation.appointAgentProperties.title=Which of your properties do you want to assign {0} to?
+propertyRepresentation.appointAgentProperties.intro=For the properties you select, the agent will be able to:
+propertyRepresentation.appointAgentProperties.list.1=see detailed property information
+propertyRepresentation.appointAgentProperties.list.2=see Check and Challenge case correspondence such as messages and emails
+propertyRepresentation.appointAgentProperties.list.3=send Check and Challenge cases
 propertyRepresentation.appointAgentProperties.dropdown.single=Choose from 1 agent
 propertyRepresentation.appointAgentProperties.dropdown.multiple=Choose from {0} agents
 propertyRepresentation.appointAgentProperties.select=Select all
@@ -704,17 +707,14 @@ propertyRepresentation.th.ADDRESS=Address
 propertyRepresentation.th.AGENT=Appointed agents
 propertyRepresentation.th.BAREF=Local authority reference
 propertyRepresentation.search.filter=Search your properties
-propertyRepresentation.search=Search for {0}
-propertyRepresentation.pageSize.showing=Showing
 label.linkIds=Select one or more properties
-propertyRepresentation.pageSize.perPage=messages per page
-propertyRepresentation.paginationInfo=Page {0} of {1}
-propertyRepresentation.appointAgents.showPropertiesNoAgent.link=<a class="govuk-link" href="{0}">Only show properties with no agent</a>
-propertyRepresentation.appointAgents.showAllProperties.link=<a class="govuk-link" href="{0}">Show all properties</a>
+propertyRepresentation.appointAgents.showPropertiesNoAgent.link=Only show properties with no agent
+propertyRepresentation.appointAgents.showAllProperties.link=Show all properties
 label.propertyRepresentation.address=Address
 label.propertyRepresentation.appointedAgents=Agent
 error.propertyRepresentation.appoint.filter=You must enter something to search for
-
+propertyRepresentation.appointAgentProperties.confirmAndAssign=Confirm and assign
+propertyRepresentation.appointAgentProperties.cancel=Cancel
 
 ##Appoint agent summary
 propertyRepresentation.agentSummary.heading=Agent appointed

@@ -159,7 +159,8 @@ trait FakeViews extends GdsComponents {
     govukInput,
     govukTable,
     govukButton,
-    govukSelect)
+    govukSelect,
+    govukFieldset)
 
   lazy val startPageView = new views.html.propertyrepresentation.appoint.start(
     govukErrorSummary,

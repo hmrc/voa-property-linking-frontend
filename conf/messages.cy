@@ -625,8 +625,11 @@ propertyRepresentation.revokeClientProperty.confirmation=Rydych wedi dirymu eidd
 propertyRepresentation.revokeClientProperty.returnToClientProperties=Dychwelyd at eiddo’r cleient
 
 #Appoint agents properties
-propertyRepresentation.appointAgentProperties.title=Penodi asiant {0} i un eiddo neu fwy
-propertyRepresentation.appointAgentProperties.appointAgent=Bydd (ID Asiant: {0}) yn gallu cyflwyno gwiriadau a heriau ar gyfer yr eiddo hyn
+propertyRepresentation.appointAgentProperties.title=I ba un o’ch eiddo ydych chi am neilltuo {0}?
+propertyRepresentation.appointAgentProperties.intro=Ar gyfer yr eiddo a ddewiswch, bydd yr asiant yn gallu:
+propertyRepresentation.appointAgentProperties.list.1=gweld gwybodaeth eiddo fanwl
+propertyRepresentation.appointAgentProperties.list.2=gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst
+propertyRepresentation.appointAgentProperties.list.3=anfon achosion Gwirio a Herio
 propertyRepresentation.appointAgentProperties.dropdown.single=Dewis o 1 asiant
 propertyRepresentation.appointAgentProperties.dropdown.multiple=Dewiswch o {0} o asiantiaid
 propertyRepresentation.appointAgentProperties.select=Dewiswch popeth
@@ -635,16 +638,14 @@ propertyRepresentation.th.ADDRESS=Cyfeiriad
 propertyRepresentation.th.AGENT=Asiantiaid penodedig
 propertyRepresentation.th.BAREF=Cyfeirnod yr awdurdod lleol
 propertyRepresentation.search.filter=Chwiliwch eich eiddo
-propertyRepresentation.search=Chwilio am {0}
-propertyRepresentation.pageSize.showing=Yn dangos
 label.linkIds=Dewis un eiddo neu fwy
-propertyRepresentation.pageSize.perPage=negeseuon fesul tudalen
-propertyRepresentation.paginationInfo=Tudalen {0} o {1}
-propertyRepresentation.appointAgents.showPropertiesNoAgent.link=<a class="govuk-link" href="{0}">Yn dangos eiddo heb unrhyw asiant yn unig</a>
-propertyRepresentation.appointAgents.showAllProperties.link=<a class="govuk-link" href="{0}">Dangos holl eiddo</a>
+propertyRepresentation.appointAgents.showPropertiesNoAgent.link=Yn dangos eiddo heb unrhyw asiant yn unig
+propertyRepresentation.appointAgents.showAllProperties.link=Dangos holl eiddo
 label.propertyRepresentation.address=Cyfeiriad
 label.propertyRepresentation.appointedAgents=Asiant
 error.propertyRepresentation.appoint.filter=Mae’n rhaid i chi nodi rhywbeth i chwilio amdano
+propertyRepresentation.appointAgentProperties.confirmAndAssign=Cadarnhau a neilltuo
+propertyRepresentation.appointAgentProperties.cancel=Canslo
 
 ##Appoint agent summary
 propertyRepresentation.agentSummary.heading=Asiant wedi’i benodi
@@ -1635,7 +1636,7 @@ fileupload.support.documents.size.reached.max.limit=Rydych wedi lanlwytho 1 ffei
 fileupload.pleaseWait=Arhoswch tra bod eich ffeil yn lanlwytho. Gall hyn gymryd peth amser
 
 label.search.for=Chwilio am 
-label.Appoint=Penodi
+label.appoint=Penodi
 app.common.errorSummaryLabel=Darganfuwyd y gwallau canlynol ar y dudalen hon. 
 error.postcode.missing=Nodwch god post dilys 
 termsAndConditions.p1=Mae’r telerau ac amodau hyn yn rheoli’ch defnydd o’r gwasanaeth ar-lein ‘Gwirio a herio’ch prisiad ardrethi busnes’, a ddarparwyd gan Asiantaeth y Swyddfa Brisio (VOA), a chaiff ei reoli gan gyfreithiau Lloegr. Darllenwch y telerau ac amodau hyn yn ofalus, gan eu bod yn effeithio ar eich hawliau a’ch ymrwymiadau yn ôl y gyfraith.
