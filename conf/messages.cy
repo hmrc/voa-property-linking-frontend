@@ -648,14 +648,12 @@ propertyRepresentation.appointAgentProperties.confirmAndAssign=Cadarnhau a neill
 propertyRepresentation.appointAgentProperties.cancel=Canslo
 
 ##Appoint agent summary
-propertyRepresentation.agentSummary.heading=Asiant wedi’i benodi
-propertyRepresentation.agentSummary.title={0} wedi ei benodi i’ch eiddo dethol
-propertyRepresentation.agentSummary.h2=Beth sy’n digwydd nesaf
-propertyRepresentation.agentSummary.p=Bydd {0} yn gallu trafod eich eiddo gydag Asiantaeth y Swyddfa Brisio ar eich rhan.
-propertyRepresentation.agentSummary.appointed=Rydych wedi penodi asiant ’’{0}’’ ({1}) gyda’r gallu i gyflwyno gwiriadau a heriau i’r eiddo a ddewiswyd.
-propertyRepresentation.agentSummary.warning=Mae gan eich asiant 180 diwrnod i dderbyn eich cais.   Fel arall bydd eich cais yn cael ei wrthod a bydd angen i chi anfon cais newydd.
-propertyRepresentation.agentSummary.back=Yn ôl i’r dangosfwrdd
-propertyRepresentation.agentSummary.select.more=Dewis rhagor o eiddo
+propertyRepresentation.agentSummary.title=Mae {0} wedi’i neilltuo i’r eiddo a ddewiswyd gennych
+propertyRepresentation.agentSummary.explainer=Gall yr asiant weithredu ar eich rhan ar gyfer unrhyw un o’r eiddo a ddewiswyd gennych.
+propertyRepresentation.agentSummary.nextSteps.subhead=Beth sy’n digwydd nesaf
+propertyRepresentation.agentSummary.nextSteps.content=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
+propertyRepresentation.agentSummary.homeLink=Ewch i hafan eich cyfrif
+
 
 propertyRepresentation.appointAgent.agentCode=Cod yr asiant
 propertyRepresentation.appointAgent.button=Parhau

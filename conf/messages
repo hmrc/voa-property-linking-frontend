@@ -717,14 +717,11 @@ propertyRepresentation.appointAgentProperties.confirmAndAssign=Confirm and assig
 propertyRepresentation.appointAgentProperties.cancel=Cancel
 
 ##Appoint agent summary
-propertyRepresentation.agentSummary.heading=Agent appointed
 propertyRepresentation.agentSummary.title={0} has been assigned to your selected properties
-propertyRepresentation.agentSummary.h2=What happens next
-propertyRepresentation.agentSummary.p={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
-propertyRepresentation.agentSummary.appointed=You have appointed agent ''{0}'' ({1}) with the ability to submit checks and challenges to the selected properties.
-propertyRepresentation.agentSummary.warning=Your agent has 180 days to accept your request. Otherwise your request will be rejected and you will need to send a new request.
-propertyRepresentation.agentSummary.back=Back to dashboard
-propertyRepresentation.agentSummary.select.more=Select more properties
+propertyRepresentation.agentSummary.explainer=The agent can act for you on any of the properties you selected.
+propertyRepresentation.agentSummary.nextSteps.subhead=What happens next
+propertyRepresentation.agentSummary.nextSteps.content=You can unassign this agent from your properties at any time.
+propertyRepresentation.agentSummary.homeLink=Go to your account home
 
 
 propertyRepresentation.appointAgent.agentCode=Agent code

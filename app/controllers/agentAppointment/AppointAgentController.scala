@@ -216,7 +216,7 @@ class AppointAgentController @Inject()(
   def confirmAppointAgentToSome: Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].map {
       case Some(AppointAgentToSomePropertiesSession(Some(agent), _)) =>
-        Ok(appointAgentSummaryView(action = agent, backLinkUrl = agent.backLinkUrl))
+        Ok(appointAgentSummaryView(action = agent))
       case _ => NotFound(errorHandler.notFoundTemplate)
     }
   }
@@ -505,7 +505,7 @@ class AppointAgentController @Inject()(
         "name"        -> text,
         "linkIds"     -> list(text).verifying(nonEmptyList),
         "backLinkUrl" -> text
-      )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unpack))
+      )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unapply))
 
   def revokeAgentBulkActionForm: Form[AgentRevokeBulkAction] =
     Form(
@@ -514,7 +514,7 @@ class AppointAgentController @Inject()(
         "name"        -> text,
         "linkIds"     -> list(text).verifying(nonEmptyList),
         "backLinkUrl" -> text
-      )(AgentRevokeBulkAction.apply)(AgentRevokeBulkAction.unpack))
+      )(AgentRevokeBulkAction.apply)(AgentRevokeBulkAction.unapply))
 
 }
 

@@ -16,26 +16,27 @@
 
 @import actions.requests.AuthenticatedRequest
 @import config.ApplicationConfig
-@import binders.pagination.PaginationParameters
+@import views.html.components.link
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukPanel : GovukPanel)
+@this(mainLayout: views.html.mainLayout, govukPanel: GovukPanel)
 
-@(action: AgentAppointBulkAction, backLinkUrl: String)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
+@(action: AgentAppointBulkAction)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
-@heading = @{
-    Messages("propertyRepresentation.agentSummary.heading")
-}
+@title = @{messages("propertyRepresentation.agentSummary.title", action.name)}
 
-@mainLayout(pageTitle = heading) {
-    @govukPanel(Panel(
-        title = Text(messages("propertyRepresentation.agentSummary.title", action.name))
-    ))
-    <h2 class="govuk-heading-m">@messages("propertyRepresentation.agentSummary.h2")</h2>
-    <p class="govuk-body" id="mainBodyText">@messages("propertyRepresentation.agentSummary.p", action.name)</p>
+@mainLayout(pageTitle = title) {
 
-    @govukButton(Button(
-        href = Some(agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), action.agentCode, None, backLinkUrl).url),
-        content = Text(messages("propertyRepresentation.agentSummary.select.more"))
-    ))
+    @govukPanel(Panel(title = Text(title)))
 
+    <p class="govuk-body" id="explainer">@messages("propertyRepresentation.agentSummary.explainer")</p>
+
+    <h2 class="govuk-heading-m" id="next-steps-subhead">@messages("propertyRepresentation.agentSummary.nextSteps.subhead")</h2>
+
+    <p class="govuk-body" id="next-steps-content">@messages("propertyRepresentation.agentSummary.nextSteps.content")</p>
+
+    @link(
+      linkText = messages("propertyRepresentation.agentSummary.homeLink"),
+      location = config.dashboardUrl("home"),
+      linkId = Some("account-home-link")
+    )
 }
