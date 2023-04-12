@@ -366,8 +366,7 @@
                                         <span class="page-size-option-current">@len</span>
                                     } else {
                                         <a class="page-size-option govuk-link" href="@agentAppointment.routes.AppointAgentController.paginatePropertiesForAppoint(pagination.copy(pageSize = len, page = 1), agentCode, agentAppointed, backLinkAsString).url">
-                                            @len
-                                        </a>
+                                            @len</a> @* whitespace between number and closing tag creates unwanted space in links *@
                                     }
                                 }
                                 @messages("search.sort.page.size.properties.per.page")
@@ -413,6 +412,9 @@
                             </div>
                         </div>
                     }
+                </div>
+
+                <div class="govuk-grid-row govuk-grid-column-full">
                     <div class="govuk-button-group">
                         @govukButton(
                             Button(
@@ -421,9 +423,9 @@
                             )
                         )
                         @link(
-                          linkText = messages("propertyRepresentation.appointAgentProperties.cancel"),
-                          location = controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode).url,
-                          linkId = Some("cancel-appoint")
+                            linkText = messages("propertyRepresentation.appointAgentProperties.cancel"),
+                            location = controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode).url,
+                            linkId = Some("cancel-appoint")
                         )
                     </div>
                 </div>
