@@ -101,28 +101,33 @@
     }
 }
 
-@errorLinks = @{
-    f match {
-        case None => Seq.empty
-        case Some(form) => {
-            form.errors.map{ error =>
-                ErrorLink(href = Some("#checkbox-1"),
-                content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}"))
+    @errorLinks = @{
+        f match {
+            case None => Seq.empty
+            case Some(form) => {
+                form.errors.map{ error =>
+                    if(error.key == "linkIds"){
+                        ErrorLink(href = Some("#checkbox-1"),
+                            content = HtmlContent(messages(s"label.${error.key}")))
+                    } else {
+                        ErrorLink(href = Some("#address"),
+                            content = HtmlContent(messages("error.agentProperties.filter")))
+                    }
+                }
             }
         }
     }
-}
 
-@formErrorClass = @{
-    f match {
-        case None => ""
-        case Some(form) => {
-            if(form.hasErrors){
-                "govuk-form-group--error"
-            } else ""
+    @formErrorClass(field: String = "") = @{
+        f match {
+            case None => ""
+            case Some(form) => {
+                if(form.errors.filter(error => error.key == field).nonEmpty){
+                    "govuk-form-group--error"
+                } else ""
+            }
         }
     }
-}
 
 @mainLayout(pageTitle = title, backUri = Some(backLink), mainClass = Some("govuk-grid-column-full"), hasErrors = errorLinks.nonEmpty) {
 
@@ -147,8 +152,14 @@
     @formWithCSRF(agentAppointment.routes.AppointAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
         <input type="hidden" name="pageSize" value="@pagination.pageSize">
         <input type="hidden" name="backLink" value="@backLink">
-
         <h2 class="govuk-heading-m">@messages("propertyRepresentation.search.filter")</h2>
+
+<div class = "@formErrorClass("address")">
+
+    @if(formErrorClass("address").nonEmpty) {
+        <span class="govuk-error-message">@messages("error.propertyRepresentation.appoint.filter")</span>
+        <span class="govuk-visually-hidden">@messages("error.propertyRepresentation.appoint.filter")</span>
+    }
         @govukInput(Input(
             id = "address",
             name = "address",
@@ -156,7 +167,7 @@
             label = Label(
                 content = Text(messages("propertyRepresentation.th.ADDRESS"))
             ),
-            classes = "govuk-!-width-one-third"
+            classes = s"govuk-!-width-one-third ${if(formErrorClass("address").nonEmpty){"govuk-input--error"}}"
         ))
 
         <div class="govuk-button-group">
@@ -167,7 +178,7 @@
             <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-link" id="clear-search">@messages("manageProperties.table.clear.search")</a>
         </div>
     }
-
+</div>
     <div class="govuk-grid-row govuk-grid-column-full">
         @if(model.response.authorisations.isEmpty){
             <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
@@ -183,7 +194,10 @@
                     <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
                 </div>
 
-                <div class="govuk-grid-row @formErrorClass govuk-grid-column-full">
+                <div class="govuk-grid-row @formErrorClass("linkIds") govuk-grid-column-full">
+                @if(formErrorClass("linkIds").nonEmpty) {
+                    <span class="govuk-error-message">@messages("label.linkIds")</span>
+                }
                     @govukTable(Table(
                         attributes = Map("id" -> "agentPropertiesTableBody"),
                         rows = resultRows,

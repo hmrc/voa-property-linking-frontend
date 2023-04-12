@@ -61,10 +61,9 @@ class AppointAgentController @Inject()(
       executionContext: ExecutionContext,
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
-
   val logger: Logger = Logger(this.getClass)
 
-  lazy val addressForm: Form[String] = Form(single("address" -> text))
+  lazy val addressForm: Form[String] = Form(single("address" -> nonEmptyText))
 
   lazy val filterAppointPropertiesForm: Form[FilterAppointPropertiesForm] =
     Form(
@@ -406,7 +405,31 @@ class AppointAgentController @Inject()(
       addressForm
         .bindFromRequest()
         .fold(
-          hasErrors = errors => searchPropertiesForRevoke(pagination, agentCode),
+          hasErrors = errors =>
+            accounts.withAgentCode(agentCode.toString).flatMap {
+              case Some(group) =>
+                for {
+                  response: OwnerAuthResult <- agentRelationshipService
+                                                .getMyAgentPropertyLinks(
+                                                  agentCode = agentCode,
+                                                  searchParams = GetPropertyLinksParameters(),
+                                                  pagination = PaginationParams(
+                                                    pagination.startPoint,
+                                                    pagination.pageSize,
+                                                    requestTotalRowCount = false)
+                                                )
+                } yield {
+                  BadRequest(revokeAgentPropertiesView(
+                    Some(errors),
+                    AppointAgentPropertiesVM(group, response),
+                    pagination,
+                    GetPropertyLinksParameters(),
+                    agentCode,
+                    agent.routes.ManageAgentController.showManageAgent.url
+                  ))
+                }
+              case None => Future.successful(NotFound(s"Unknown Agent: $agentCode"))
+          },
           success = (address: String) =>
             searchPropertiesForRevoke(
               pagination,
