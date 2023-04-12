@@ -65,15 +65,15 @@ trait VoaPropertyLinkingSpec
   lazy val welshFakeRequest = FakeRequest().withCookies(cookies = Cookie("PLAY_LANG", "cy"))
 
   sealed trait RequestLang {
-    def fakeRequest: Request[AnyContent]
+    def fakeRequest: FakeRequest[AnyContent]
   }
 
   trait EnglishRequest extends RequestLang {
-    lazy val fakeRequest: Request[AnyContent] = FakeRequest()
+    lazy val fakeRequest: FakeRequest[AnyContent] = FakeRequest()
   }
 
   trait WelshRequest extends RequestLang {
-    lazy val fakeRequest: Request[AnyContent] = welshFakeRequest
+    lazy val fakeRequest: FakeRequest[AnyContent] = welshFakeRequest
   }
 
   def preAuthenticatedStaticPage(
