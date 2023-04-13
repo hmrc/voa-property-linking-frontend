@@ -183,7 +183,7 @@
         @if(model.response.authorisations.isEmpty){
             <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
         } else {
-            @formWithCSRF(agentAppointment.routes.AppointAgentController.revokeAgentSummary){
+            @formWithCSRF(agentAppointment.routes.AppointAgentController.revokeAgentSummary(pagination,agentCode)){
                 <input type="hidden" name="agentCode" value="@agentCode">
                 <input type="hidden" name="name" value="@model.agentGroup.companyName">
                 <input type="hidden" name="backLinkUrl" value="@backLink">

@@ -133,7 +133,9 @@ GET         /my-organisation/revoke/properties                                  
 GET         /my-organisation/revoke/properties/paginate                                                                   controllers.agentAppointment.AppointAgentController.paginateRevokeProperties(pagination: PaginationParameters, agentCode: Long)
 GET         /my-organisation/revoke/properties/sort                                                                       controllers.agentAppointment.AppointAgentController.sortRevokePropertiesByAddress(pagination: PaginationParameters, agentCode: Long)
 POST        /my-organisation/revoke/properties/filter                                                                     controllers.agentAppointment.AppointAgentController.filterPropertiesForRevoke(pagination: PaginationParameters, agentCode: Long)
-POST        /my-organisation/revoke/properties/create                                                                     controllers.agentAppointment.AppointAgentController.revokeAgentSummary
+GET         /my-organisation/revoke/properties/filter                                                                     controllers.agentAppointment.AppointAgentController.showFilterPropertiesForRevoke(pagination: PaginationParameters, agentCode: Long)
+POST        /my-organisation/revoke/properties/create                                                                     controllers.agentAppointment.AppointAgentController.revokeAgentSummary(pagination: PaginationParameters, agentCode: Long)
+GET         /my-organisation/revoke/properties/create                                                                     controllers.agentAppointment.AppointAgentController.showRevokeAgentSummary(pagination: PaginationParameters, agentCode: Long)
 GET         /my-organisation/revoke/properties/confirm                                                                    controllers.agentAppointment.AppointAgentController.confirmRevokeAgentFromSome
 
 #DVR

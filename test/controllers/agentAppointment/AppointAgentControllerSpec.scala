@@ -733,7 +733,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val res = testController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary(PaginationParameters(), agentCode)(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"        -> testAgentAccount.companyName,
@@ -838,7 +838,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = testController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary(PaginationParameters(), agentCode)(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"      -> testAgentAccount.companyName,
@@ -876,7 +876,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     verifyPageErrorTitle(page, isWelsh = true)
   }
 
-  "errors during handling of revoke agent form" should "re-render the page with form errors reported to user" in {
+  "errors during handling of address form" should "re-render the page with form errors reported to user" in {
     val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
@@ -887,7 +887,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = testController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary(PaginationParameters(), agentCode)(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"        -> testAgentAccount.companyName,
@@ -896,11 +896,11 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       ))
     status(res) shouldBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainText("Failed to appoint agent to all properties")
+    page.shouldContainText("There is a problem You must enter something to search for")
     verifyPageErrorTitle(page)
   }
 
-  "errors during handling of revoke agent form" should "re-render the page with form errors reported to user - in welsh" in {
+  "errors during handling of  address form" should "re-render the page with form errors reported to user - in welsh" in {
     val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
@@ -920,7 +920,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       ))
     status(res) shouldBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainText("Methu penodi asiant i bob eiddo")
+    page.shouldContainText("Mae yna broblem Rhaid i chi nodi rhywbeth i chwilio amdano")
     verifyPageErrorTitle(page, isWelsh = true)
   }
 
