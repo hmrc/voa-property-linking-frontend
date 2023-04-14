@@ -7,7 +7,7 @@ link.register=Register
 label.phase.banner.text=This is a new service – your <a href="{0}" id="betaFeedback" class="govuk-link">feedback</a> will help us to improve it.
 link.feedback=Feedback
 label.search.for=Search for
-label.Appoint=Appoint
+label.appoint=Appoint
 main.cookies=Cookies
 footer.termsandconditions=Terms and conditions
 link.privacyPolicy=Privacy
@@ -543,18 +543,16 @@ propertyRepresentation.table.title.agentName=Agent name
 propertyRepresentation.table.title.remove=Select
 
 #New appoint agent journey
-propertyRepresentation.addAnAgent.title=Appoint an agent
-
-propertyRepresentation.addAnAgent.question=Agent code
-propertyRepresentation.addAnAgent.caption=You need to ask your agent for their code if you do not have it.
-propertyRepresentation.addAnAgent.agentCode=Agent code
-
-
-propertyRepresentation.addAnAgent.guidance=What can my agent do?
-propertyRepresentation.addAnAgent.guidance.yourAgentCan=Your agent can:
-propertyRepresentation.addAnAgent.guidance.discussProperties=discuss your property’s valuation with the VOA
-propertyRepresentation.addAnAgent.guidance.challenge=challenge the value if necessary
-propertyRepresentation.addAnAgent.guidance.addProperty=add your properties to your account
+propertyRepresentation.addAnAgent.title=Appoint an agent to your account
+propertyRepresentation.addAnAgent.info.1=When you appoint an agent and assign them to your properties, they will be able to:
+propertyRepresentation.addAnAgent.info.list.1=see detailed property information
+propertyRepresentation.addAnAgent.info.list.2=see Check and Challenge case correspondence such as messages and emails
+propertyRepresentation.addAnAgent.info.list.3=send Check and Challenge cases
+propertyRepresentation.addAnAgent.info.2=They will also be able to add properties to your account and act on them for you.
+propertyRepresentation.addAnAgent.info.3=You can appoint more than one agent to your account and assign more than one agent to a property.
+propertyRepresentation.addAnAgent.info.help.link=Help with appointing and managing agents
+propertyRepresentation.addAnAgent.codeInput.label=What is your agent’s code?
+propertyRepresentation.addAnAgent.codeInput.hint=This is a number given to the agent by the Valuation Office Agency.
 
 propertyRepresentation.isThisYourAgent.title=Confirm Agent
 propertyRepresentation.isThisYourAgent.question=Is this your agent?
@@ -643,19 +641,26 @@ propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Unassign f
 propertyRepresentation.manageAgent.options.assignToYourProperty=Assign to your property
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from your account
 
-propertyRepresentation.manageAgent.assignToAllProperties.title.multipleProperties=Confirm you want to assign agent to all properties
-propertyRepresentation.manageAgent.assignToAllProperties.title.singleProperty=Confirm you want to assign agent to your property
-propertyRepresentation.manageAgent.assignToAllProperties.question.multipleProperties=Are you sure you want to assign {0} to all your properties?
-propertyRepresentation.manageAgent.assignToAllProperties.question.singleProperty=Are you sure you want to assign {0} to your property?
-propertyRepresentation.manageAgent.assignToAllProperties.insetText.multipleProperties={0} will be added to all of your properties
-propertyRepresentation.manageAgent.assignToAllProperties.insetText.singleProperty={0} will be added to your property
+propertyRepresentation.manageAgent.assignToAllProperties.title.multiple=Are you sure you want to assign {0} to all your properties?
+propertyRepresentation.manageAgent.assignToAllProperties.title.single=Are you sure you want to assign {0} to your property?
+propertyRepresentation.manageAgent.assignToAllProperties.intro.multiple=For all your properties, the agent will be able to:
+propertyRepresentation.manageAgent.assignToAllProperties.intro.single=For your property, the agent will be able to:
+propertyRepresentation.manageAgent.assignToAllProperties.list.1=see detailed property information
+propertyRepresentation.manageAgent.assignToAllProperties.list.2=see Check and Challenge case correspondence such as messages and emails
+propertyRepresentation.manageAgent.assignToAllProperties.list.3=send Check and Challenge cases
+propertyRepresentation.manageAgent.assignToAllProperties.confirmAndAssign=Confirm and assign
+propertyRepresentation.manageAgent.assignToAllProperties.cancel=Cancel
 
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multipleProperties=Agent assigned to all properties
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.singleProperty=Agent assigned to your property
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.multipleProperties={0} has been assigned to all your properties
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.singleProperty={0} has been assigned to your property
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext=What happens next
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
+
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multiple={0} has been assigned to all your properties
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.single={0} has been assigned to your property
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.info.multiple=The agent can act for you on all of your properties.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.info.single=The agent can act for you on your property.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.subhead=What happens next
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.multiple=You can unassign this agent from your properties at any time.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.single=You can unassign this agent from your property at any time.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.homeLink=Go to your account home
+
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.title=Confirm you want to unassign agent from all your properties
 propertyRepresentation.manageAgent.unassignFromAllProperties.question=Are you sure you want to unassign {0} from all your properties?
@@ -689,8 +694,11 @@ propertyRepresentation.revokeClientProperty.confirmation=You have successfully r
 propertyRepresentation.revokeClientProperty.returnToClientProperties=Return to client properties
 
 #Appoint agents properties
-propertyRepresentation.appointAgentProperties.title=Appoint agent {0} to one or more properties
-propertyRepresentation.appointAgentProperties.appointAgent=(Agent ID: {0}) will be able to submit checks and challenges for these properties.
+propertyRepresentation.appointAgentProperties.title=Which of your properties do you want to assign {0} to?
+propertyRepresentation.appointAgentProperties.intro=For the properties you select, the agent will be able to:
+propertyRepresentation.appointAgentProperties.list.1=see detailed property information
+propertyRepresentation.appointAgentProperties.list.2=see Check and Challenge case correspondence such as messages and emails
+propertyRepresentation.appointAgentProperties.list.3=send Check and Challenge cases
 propertyRepresentation.appointAgentProperties.dropdown.single=Choose from 1 agent
 propertyRepresentation.appointAgentProperties.dropdown.multiple=Choose from {0} agents
 propertyRepresentation.appointAgentProperties.select=Select all
@@ -699,27 +707,21 @@ propertyRepresentation.th.ADDRESS=Address
 propertyRepresentation.th.AGENT=Appointed agents
 propertyRepresentation.th.BAREF=Local authority reference
 propertyRepresentation.search.filter=Search your properties
-propertyRepresentation.search=Search for {0}
-propertyRepresentation.pageSize.showing=Showing
 label.linkIds=Select one or more properties
-propertyRepresentation.pageSize.perPage=messages per page
-propertyRepresentation.paginationInfo=Page {0} of {1}
-propertyRepresentation.appointAgents.showPropertiesNoAgent.link=<a class="govuk-link" href="{0}">Only show properties with no agent</a>
-propertyRepresentation.appointAgents.showAllProperties.link=<a class="govuk-link" href="{0}">Show all properties</a>
+propertyRepresentation.appointAgents.showPropertiesNoAgent.link=Only show properties with no agent
+propertyRepresentation.appointAgents.showAllProperties.link=Show all properties
 label.propertyRepresentation.address=Address
 label.propertyRepresentation.appointedAgents=Agent
 error.propertyRepresentation.appoint.filter=You must enter something to search for
-
+propertyRepresentation.appointAgentProperties.confirmAndAssign=Confirm and assign
+propertyRepresentation.appointAgentProperties.cancel=Cancel
 
 ##Appoint agent summary
-propertyRepresentation.agentSummary.heading=Agent appointed
 propertyRepresentation.agentSummary.title={0} has been assigned to your selected properties
-propertyRepresentation.agentSummary.h2=What happens next
-propertyRepresentation.agentSummary.p={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
-propertyRepresentation.agentSummary.appointed=You have appointed agent ''{0}'' ({1}) with the ability to submit checks and challenges to the selected properties.
-propertyRepresentation.agentSummary.warning=Your agent has 180 days to accept your request. Otherwise your request will be rejected and you will need to send a new request.
-propertyRepresentation.agentSummary.back=Back to dashboard
-propertyRepresentation.agentSummary.select.more=Select more properties
+propertyRepresentation.agentSummary.explainer=The agent can act for you on any of the properties you selected.
+propertyRepresentation.agentSummary.nextSteps.subhead=What happens next
+propertyRepresentation.agentSummary.nextSteps.content=You can unassign this agent from your properties at any time.
+propertyRepresentation.agentSummary.homeLink=Go to your account home
 
 
 propertyRepresentation.appointAgent.agentCode=Agent code

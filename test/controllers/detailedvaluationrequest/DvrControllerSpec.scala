@@ -361,7 +361,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.shouldContainText("If you want to change something in this valuation")
 
     page.shouldContainText("Local authority reference: BAREF")
-    page.titleShouldMatch("123, SOME ADDRESS - Valuation Office Agency - GOV.UK")
+    page.titleShouldMatch("123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK")
     page.shouldContain("#valuation-tab", 1)
     page.shouldContain("#check-cases-tab", 1)
     page.shouldContain("#start-check-tab", 1)
@@ -423,7 +423,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.shouldContainText("If you want to change something in this valuation")
 
     page.shouldContainText("Local authority reference: BAREF")
-    page.titleShouldMatch("123, SOME ADDRESS - Valuation Office Agency - GOV.UK")
+    page.titleShouldMatch("123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK")
     page.shouldContain("#valuation-tab", 1)
     page.verifyElementText("rateable-value-caption", "Previous rateable value (1 April 2017 to 1 June 2017)")
 
@@ -476,7 +476,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.shouldContainText("If you want to change something in this valuation")
 
     page.shouldContainText("Local authority reference: BAREF")
-    page.titleShouldMatch("123, SOME ADDRESS - Valuation Office Agency - GOV.UK")
+    page.titleShouldMatch("123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK")
     page.shouldContain("#valuation-tab", 1)
     page.verifyElementText("rateable-value-caption", "Previous rateable value (1 April 2017 to 31 March 2023)")
 
@@ -1401,7 +1401,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     draftList) {
     html.title() shouldBe "Request a detailed valuation - Valuation Office Agency - GOV.UK"
     addressCaption.text() shouldBe "Detailed valuation request for"
-    addressHeading.text() shouldBe "123, SOME ADDRESS"
+    addressHeading.text() shouldBe "123, Some Address, Some Town, AB1 CD2"
     effectiveDate.text() shouldBe "Effective date: 1 April 2017"
     Option(councilRef) should not be defined
     Option(valuationSubhead) should not be defined
@@ -1434,9 +1434,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     compiledList) {
     override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, toDate = None)
 
-    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
+    html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
     addressCaption.text() shouldBe "Your property"
-    addressHeading.text() shouldBe "123, SOME ADDRESS"
+    addressHeading.text() shouldBe "123, Some Address, Some Town, AB1 CD2"
     Option(effectiveDate) should not be defined
     councilRef.text() shouldBe s"Local council reference: ${ownerAuthorisation.localAuthorityRef}"
     valuationSubhead.text() shouldBe "Valuation"
@@ -1469,9 +1469,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     override def assessments: ApiAssessments =
       apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)))
 
-    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
+    html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
     addressCaption.text() shouldBe "Your property"
-    addressHeading.text() shouldBe "123, SOME ADDRESS"
+    addressHeading.text() shouldBe "123, Some Address, Some Town, AB1 CD2"
     Option(effectiveDate) should not be defined
     councilRef.text() shouldBe s"Local council reference: ${ownerAuthorisation.localAuthorityRef}"
     valuationSubhead.text() shouldBe "Valuation"
@@ -1503,9 +1503,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     compiledList) {
     override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, listType = ListType.PREVIOUS)
 
-    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
+    html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
     addressCaption.text() shouldBe "Your property"
-    addressHeading.text() shouldBe "123, SOME ADDRESS"
+    addressHeading.text() shouldBe "123, Some Address, Some Town, AB1 CD2"
     Option(effectiveDate) should not be defined
     councilRef.text() shouldBe s"Local council reference: ${ownerAuthorisation.localAuthorityRef}"
     valuationSubhead.text() shouldBe "Valuation"
@@ -1562,7 +1562,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     agent = false) {
     html.title() shouldBe "Request for detailed valuation submitted - Valuation Office Agency - GOV.UK"
     localAuthorityRef.text() shouldBe s"Local authority reference: ${ownerAuthorisation.localAuthorityRef}"
-    propertyAddress.text() shouldBe s"Property: 123, SOME ADDRESS"
+    propertyAddress.text() shouldBe "Property: 123, Some Address, Some Town, AB1 CD2"
 
     panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
       "Request for detailed valuation submitted",
@@ -1591,7 +1591,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     agent = true) {
     html.title() shouldBe "Request for detailed valuation submitted - Valuation Office Agency - GOV.UK"
     localAuthorityRef.text() shouldBe s"Local authority reference: ${clientPropertyLink.localAuthorityRef}"
-    propertyAddress.text() shouldBe s"Property: 123, SOME ADDRESS"
+    propertyAddress.text() shouldBe "Property: 123, Some Address, Some Town, EF3 GH4"
 
     panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
       "Request for detailed valuation submitted",
@@ -1629,7 +1629,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
     propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Address 123, SOME ADDRESS",
+      "Address 123, Some Address, Some Town, AB1 CD2",
       s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
     )
     dvrReferenceNote
@@ -1662,7 +1662,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
     propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Address 123, SOME ADDRESS",
+      "Address 123, Some Address, Some Town, AB1 CD2",
       s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
     )
     dvrReferenceNote
@@ -1698,7 +1698,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
     propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Address 123, SOME ADDRESS",
+      "Address 123, Some Address, Some Town, AB1 CD2",
       s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
     )
     dvrReferenceNote
@@ -1731,7 +1731,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
     propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Address 123, SOME ADDRESS",
+      "Address 123, Some Address, Some Town, EF3 GH4",
       s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
     )
     dvrReferenceNote
@@ -1764,7 +1764,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
     propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Address 123, SOME ADDRESS",
+      "Address 123, Some Address, Some Town, EF3 GH4",
       s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
     )
     dvrReferenceNote
@@ -1802,7 +1802,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     dvrReferenceSent.text() shouldBe "You’ve sent us a request for a detailed valuation for the following property:"
     propertySummaryList.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Address 123, SOME ADDRESS",
+      "Address 123, Some Address, Some Town, EF3 GH4",
       s"Local council reference ${ownerAuthorisation.localAuthorityRef}"
     )
     dvrReferenceNote
@@ -1904,9 +1904,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     override def assessments: ApiAssessments =
       apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)), listType = ListType.PREVIOUS)
 
-    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
+    html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
     headingCaption.text() shouldBe "Your property"
-    heading.text() shouldBe "123, SOME ADDRESS"
+    heading.text() shouldBe "123, Some Address, Some Town, AB1 CD2"
     councilReference.text() shouldBe s"Local council reference: ${ownerAuthorisation.localAuthorityRef}"
     rvHeading.text() shouldBe "Valuation"
     rateableValue.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
@@ -1936,9 +1936,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     override def assessments: ApiAssessments =
       apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)), listType = ListType.PREVIOUS)
 
-    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
+    html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
     headingCaption.text() shouldBe "Your property"
-    heading.text() shouldBe "123, SOME ADDRESS"
+    heading.text() shouldBe "123, Some Address, Some Town, AB1 CD2"
     councilReference.text() shouldBe s"Local council reference: ${ownerAuthorisation.localAuthorityRef}"
     rvHeading.text() shouldBe "Valuation"
     rateableValue.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
@@ -1964,9 +1964,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     dvrRecord) {
     override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, toDate = None, listYear = 2023)
 
-    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
+    html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
     headingCaption.text() shouldBe "Your property"
-    heading.text() shouldBe "123, SOME ADDRESS"
+    heading.text() shouldBe "123, Some Address, Some Town, AB1 CD2"
     councilReference.text() shouldBe s"Local council reference: ${ownerAuthorisation.localAuthorityRef}"
     rvHeading.text() shouldBe "Valuation"
     rateableValue.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
@@ -1994,9 +1994,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     override def assessments: ApiAssessments =
       apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)), listYear = 2023)
 
-    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
+    html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
     headingCaption.text() shouldBe "Your property"
-    heading.text() shouldBe "123, SOME ADDRESS"
+    heading.text() shouldBe "123, Some Address, Some Town, AB1 CD2"
     councilReference.text() shouldBe s"Local council reference: ${ownerAuthorisation.localAuthorityRef}"
     rvHeading.text() shouldBe "Valuation"
     rateableValue.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(

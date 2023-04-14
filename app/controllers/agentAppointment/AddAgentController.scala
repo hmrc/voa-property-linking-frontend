@@ -103,43 +103,44 @@ class AddAgentController @Inject()(
                       errors = Seq[FormError](FormError(key = "agentCode", message = "error.agentCode.required"))),
                     getBackLink
                   )))
-            case Some(representativeCode) =>
+            case Some(representativeCode) => {
               for {
                 organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
-                agentNameAndAddressOpt <- agentRelationshipService.getAgentNameAndAddress(success.toLong) recoverWith {
+                agentNameAndAddressOpt <- agentRelationshipService.getAgentNameAndAddress(success.toLong).recoverWith {
                                            case b: BadRequestException => Future.successful(None)
                                          }
               } yield {
                 agentNameAndAddressOpt match {
                   case None =>
-                    BadRequest(startPageView(
+                    Future.successful(BadRequest(startPageView(
                       agentCode.copy(
                         data = Map("agentCode" -> s"$representativeCode"),
                         errors = Seq[FormError](
                           FormError(key = "agentCode", message = "error.propertyRepresentation.unknownAgent"))),
                       getBackLink
-                    ))
+                    )))
                   case Some(_) if organisationsAgents.agents.exists(a => a.representativeCode == representativeCode) =>
-                    BadRequest(startPageView(
+                    Future.successful(BadRequest(startPageView(
                       agentCode.copy(
                         data = Map("agentCode" -> s"$representativeCode"),
                         errors = Seq[FormError](
                           FormError(key = "agentCode", message = "error.propertyRepresentation.agentAlreadyAppointed"))
                       ),
                       getBackLink
-                    ))
+                    )))
                   case Some(agent) =>
-                    sessionRepo.saveOrUpdate(
-                      SearchedAgent(
-                        agentCode = representativeCode,
-                        agentOrganisationName = agent.name,
-                        agentAddress = agent.address,
-                        backLink = request.sessionData.backLink
-                      ))
-                    Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent)
+                    sessionRepo
+                      .saveOrUpdate(
+                        SearchedAgent(
+                          agentCode = representativeCode,
+                          agentOrganisationName = agent.name,
+                          agentAddress = agent.address,
+                          backLink = request.sessionData.backLink
+                        ))
+                      .map(_ => Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent))
                 }
               }
-
+            }.flatten
           }
         }
       )
@@ -158,30 +159,36 @@ class AddAgentController @Inject()(
         },
         success => {
           if (success) {
-            for {
-              searchedAgentOpt <- sessionRepo.get[SearchedAgent]
-              searchedAgent = searchedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
-              _ <- sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success))
-              propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
-                                params = GetPropertyLinksParameters(),
-                                pagination = AgentPropertiesParameters(agentCode = searchedAgent.agentCode),
-                                agentOrganisationId = searchedAgent.agentCode,
-                                organisationId = request.organisationId
-                              )
-            } yield {
-              propertyLinks.authorisations.size match {
-                case 0 =>
-                  agentRelationshipService.assignAgent(
-                    AgentAppointmentChangesRequest(
-                      scope = AppointmentScope.RELATIONSHIP.toString,
-                      agentRepresentativeCode = searchedAgent.agentCode
-                    )
-                  )
-                  Ok(confirmationView(request.agentDetails.name, None))
-                case 1 => Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty)
-                case _ => Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties)
+            {
+              for {
+                searchedAgentOpt <- sessionRepo.get[SearchedAgent]
+                searchedAgent = searchedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+                _ <- sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success))
+                propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
+                                  params = GetPropertyLinksParameters(),
+                                  pagination = AgentPropertiesParameters(agentCode = searchedAgent.agentCode),
+                                  agentOrganisationId = searchedAgent.agentCode,
+                                  organisationId = request.organisationId
+                                )
+              } yield {
+                propertyLinks.authorisations.size match {
+                  case 0 =>
+                    agentRelationshipService
+                      .assignAgent(
+                        AgentAppointmentChangesRequest(
+                          scope = AppointmentScope.RELATIONSHIP.toString,
+                          agentRepresentativeCode = searchedAgent.agentCode
+                        )
+                      )
+                      .map(_ => Ok(confirmationView(request.agentDetails.name, None)))
+                  case 1 =>
+                    Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty))
+                  case _ =>
+                    Future.successful(
+                      Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties))
+                }
               }
-            }
+            }.flatten
           } else {
             Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.showStartPage))
           }

@@ -141,7 +141,7 @@ trait FakeViews extends GdsComponents {
 
   lazy val revokeAgentSummaryView =
     new views.html.propertyrepresentation.revokeAgentSummary(mainLayout, govukButton, govukPanel)
-  lazy val appointAgentSummaryView = new appointAgentSummary(mainLayout, govukButton, govukPanel)
+  lazy val appointAgentSummaryView = new appointAgentSummary(mainLayout, govukPanel)
   lazy val revokeAgentPropertiesView = new views.html.propertyrepresentation.revokeAgentProperties(
     revokedAgentPrivileges,
     mainLayout,
@@ -159,7 +159,8 @@ trait FakeViews extends GdsComponents {
     govukInput,
     govukTable,
     govukButton,
-    govukSelect)
+    govukSelect,
+    govukFieldset)
 
   lazy val startPageView = new views.html.propertyrepresentation.appoint.start(
     govukErrorSummary,

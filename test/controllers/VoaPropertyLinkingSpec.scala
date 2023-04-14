@@ -34,13 +34,13 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Seconds, Span}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Cookie, MessagesControllerComponents, Request, Result}
+import play.api.mvc.{AnyContent, Cookie, MessagesControllerComponents, Request, Result}
 import play.api.test.{DefaultAwaitTimeout, FakeRequest, FutureAwaits}
 import tests.AllMocks
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import utils._
-import java.time.{Clock, Instant, LocalDate, ZoneId}
 
+import java.time.{Clock, Instant, LocalDate, ZoneId}
 import org.jsoup.nodes.Document
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -63,6 +63,18 @@ trait VoaPropertyLinkingSpec
   override implicit lazy val applicationConfig: ApplicationConfig = app.injector.instanceOf[ApplicationConfig]
   implicit def materializer: Materializer = app.injector.instanceOf[Materializer]
   lazy val welshFakeRequest = FakeRequest().withCookies(cookies = Cookie("PLAY_LANG", "cy"))
+
+  sealed trait RequestLang {
+    def fakeRequest: FakeRequest[AnyContent]
+  }
+
+  trait EnglishRequest extends RequestLang {
+    lazy val fakeRequest: FakeRequest[AnyContent] = FakeRequest()
+  }
+
+  trait WelshRequest extends RequestLang {
+    lazy val fakeRequest: FakeRequest[AnyContent] = welshFakeRequest
+  }
 
   def preAuthenticatedStaticPage(
         accounts: Option[Accounts] = Some(Accounts(groupAccount(false), detailedIndividualAccount))): StaticPageAction =
