@@ -862,7 +862,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = testController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary(PaginationParameters(), agentCode)(
       welshFakeRequest.withFormUrlEncodedBody(
         "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"      -> testAgentAccount.companyName,
@@ -911,7 +911,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = testController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary(PaginationParameters(), agentCode)(
       welshFakeRequest.withFormUrlEncodedBody(
         "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"        -> testAgentAccount.companyName,
