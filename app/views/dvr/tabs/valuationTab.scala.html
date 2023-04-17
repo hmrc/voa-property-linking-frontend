@@ -125,7 +125,7 @@
             attributes = Map("id" -> "valuation-tab-download-link")
           ))
 
-
+        @if(model.isWelshProperty) {
           @link(
             preLinkText = Some(messages("available.requestvaluation.welsh.ccaEmail.preLink")),
             linkText = "ccaservice@voa.gov.uk",
@@ -143,7 +143,7 @@
             pId = Some("welsh-language-explainer"),
             linkId = Some("valuation-tab-email-cca-link")
           )
-
+        }
 
         <h2 class="govuk-heading-m" id="valuation-tab-change-something-heading">
             @messages("available.requestvaluation.changeValuation")

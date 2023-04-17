@@ -554,8 +554,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         dvrDocuments.detailedValuation.documentSummary.documentId)
       .url
     downloadValuation.text shouldBe "Download the detailed valuation"
-    Option(welshLanguageExplainer) shouldBe defined
-    Option(emailCcaLink) shouldBe defined
+    Option(welshLanguageExplainer) should not be defined
+    Option(emailCcaLink) should not be defined
   }
 
   "welsh detailed valuation tab when in compiled list" should "display a dvr download button and a welsh language explainer" in new ValuationTabSetup(
