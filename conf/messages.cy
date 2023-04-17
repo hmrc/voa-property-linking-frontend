@@ -1034,6 +1034,9 @@ available.requestvaluation.challengesTab.title=Heriau ({0})
 available.requestvaluation.downloadValuationButton=Lawrlwythwch y prisiad manwl
 available.requestvaluation.changeValuation=Os ydych eisiau newid rhywbeth yn y prisiad hwn
 available.requestvaluation.dvrCheck.startCheck=Anfon fy ffurflen Gwirio wedi’i chwblhau
+available.requestvaluation.p2=Cyn y gallwch gyflwyno Gwiriad,   mae angen i chi <a class="govuk-link" id="{1}" href="{0}">lawrlwytho a chwblhau ffurflen Gwirio</a>.
+available.requestvaluation.p3=Ar ôl cwblhau’r ffurflen, mae angen i chi ei hanfon fel rhan o’r Gwiriad.
+available.requestvaluation.warning=Efallai y bydd rhai ffurflenni Gwirio hŷn yn dweud wrthych am e-bostio’ch ffurflen. Anwybyddwch hwn a defnyddiwch  y botwm ’’Anfonwch fy ffurflen Wirio wedi’i chwblhau’’ yn lle.
 available.requestvaluation.print=Argraffu’r dudalen hon
 available.requestvaluation.check.title=Cyflwyno gwiriad
 available.requestvaluation.check.p1=I gyflwyno gwiriad ar gyfer yr eiddo hwn bydd angen i chi <a class="govuk-link" href={0}> lawrlwytho’r Ffurflen Wirio </a>

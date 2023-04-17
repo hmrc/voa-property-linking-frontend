@@ -25,7 +25,7 @@ import views.html.{addUserToGG, startOldJourney}
 import views.html.helpers._
 import views.html.propertyLinking._
 import views.html._
-import views.html.dvr.tabs.{agentsTab, challengeCasesDetailsTab, checkCasesDetailsTab, requestFutureValuationTab, startCheckTab, valuationTab}
+import views.html.dvr.tabs.{agentsTab, challengeCasesDetailsTab, checkCasesDetailsTab, startCheckTab, valuationTab}
 import views.html.propertyrepresentation.manage._
 import views.html.propertyrepresentation._
 
@@ -48,16 +48,8 @@ trait FakeViews extends GdsComponents {
   lazy val dateFields = new dateFields(govukDateInput: GovukDateInput)
   lazy val alreadyRequestedDetailedValuationView =
     new alreadyRequestedDetailedValuation(mainLayout, govukInsetText, govukSummaryList)
-  lazy val requestFutureValuationTab = new requestFutureValuationTab(govukInsetText)
   lazy val requestDetailedValuationView =
-    new requestDetailedValuation(
-      mainLayout,
-      requestFutureValuationTab,
-      govukButton,
-      govukInsetText,
-      govukTabs,
-      formWithCSRF,
-      govukSummaryList)
+    new requestDetailedValuation(mainLayout, govukButton, govukInsetText, govukTabs, formWithCSRF, govukSummaryList)
   lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout, govukPanel, govukSummaryList)
   lazy val agentsTab = new agentsTab(govukTable)
   lazy val challengeCasesDetailsTab = new challengeCasesDetailsTab(govukDetails, govukTable)

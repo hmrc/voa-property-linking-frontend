@@ -22,7 +22,6 @@
 
 @this(
   mainLayout: views.html.mainLayout,
-  requestFutureValuationTab: views.html.dvr.tabs.requestFutureValuationTab,
   govukButton: GovukButton,
   govukInsetText: GovukInsetText,
   govukTabs: GovukTabs,
@@ -70,37 +69,6 @@
                 ))
             </div>
 
-            <div class="govuk-grid-column-full">
-                @govukTabs(Tabs(
-                    id = Some("request-valuation-tabs"),
-                    items = Seq(
-                        TabItem(
-                            id = Some("valuation-tab"),
-                            label = messages("auto.requestDetailedValuation.future.tabName"),
-                            panel = TabPanel(HtmlContent(requestFutureValuationTab(
-                                model.rateableValueFormatted,
-                                model.effectiveDate,
-                                estimatorUrl,
-                                model.currentValuationUrl,
-                                model.valuationsUrl,
-                                model.isWelsh
-                            )))
-                        ),
-                        TabItem(
-                            id = Some("help-tab"),
-                            label = messages("requestValuation.future.help.title"),
-                            panel = TabPanel(HtmlContent(futureHelpTab(
-                                model.effectiveDate,
-                                currentValuationCheckTabUrl = model.currentValuationUrl,
-                                model.valuationsUrl,
-                                enquiryUrl,
-                                estimatorUrl,
-                                model.isWelsh
-                            )))
-                        )
-                    )
-                ))
-            </div>
         </div>
     }
 
