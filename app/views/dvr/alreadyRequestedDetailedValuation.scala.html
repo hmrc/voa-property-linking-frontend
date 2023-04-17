@@ -33,7 +33,6 @@
     toDateFormatted: Option[String]
 )(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@if(config.compiledListEnabled) {
     @mainLayout(
       pageTitle = addressFormatted,
       backUri = Some(backLink)
@@ -149,26 +148,3 @@
             <p class="govuk-body">@messages("auto.duplicateRequestDetailedValuation.mcc.email.instruction")</p>
         </div>
     }
-} else {
-    @mainLayout(
-        pageTitle = messages("requestDetailedValuation.title"),
-        backUri = Some(backLink)
-    ) {
-        <h1 class="govuk-heading-l" id="already-requested-heading">@messages("auto.duplicateRequestDetailedValuation.title")</h1>
-
-        <div id="valuation-details-explainer">
-            <p class="govuk-body">@messages("auto.duplicateRequestDetailedValuation.request")</p>
-
-            @if(listType != ListType.DRAFT) {
-                <p class="govuk-body">@Html(messages("auto.duplicateRequestDetailedValuation.check"))</p>
-                <p class="govuk-body">@messages("auto.duplicateRequestDetailedValuation.urgent")</p>
-            }
-
-            @link(
-                linkText = messages("link.return.home"),
-                linkId = Some("dvr-home-link"),
-                location = config.dashboardUrl("home")
-            )
-        </div>
-    }
-}

@@ -51,13 +51,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   val draftList: ApplicationConfig = {
     val spyConfig = Mockito.spy(applicationConfig)
-    when(spyConfig.compiledListEnabled).thenReturn(false)
     spyConfig
   }
 
   val compiledList: ApplicationConfig = {
     val spyConfig = Mockito.spy(applicationConfig)
-    when(spyConfig.compiledListEnabled).thenReturn(true)
     spyConfig
   }
   trait Setup {
@@ -531,18 +529,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "detailed valuation tab when in draft list" should "display a dvr download link and no welsh language explainer" in new ValuationTabSetup(
     draftList) {
     override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, isWelsh = true)
-
-    downloadValuation.classNames should contain("govuk-link")
-    downloadValuation.classNames should not contain "govuk-button"
-    downloadValuation.text shouldBe "Download the detailed valuation for this property"
+    downloadValuation.classNames should contain("govuk-button")
+    downloadValuation.text shouldBe "Download the detailed valuation"
     downloadValuation.attr("href") shouldBe controllers.detailedvaluationrequest.routes.DvrController
       .myOrganisationRequestDetailedValuationRequestFile(
         ownerAuthorisation.submissionId,
         assessment.assessmentRef,
         dvrDocuments.detailedValuation.documentSummary.documentId)
       .url
-    Option(welshLanguageExplainer) should not be defined
-    Option(emailCcaLink) should not be defined
+    Option(welshLanguageExplainer) shouldBe defined
+    Option(emailCcaLink) shouldBe defined
   }
 
   "english detailed valuation tab when in compiled list" should "display a dvr download button and no welsh language explainer" in new ValuationTabSetup(
@@ -558,8 +554,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         dvrDocuments.detailedValuation.documentSummary.documentId)
       .url
     downloadValuation.text shouldBe "Download the detailed valuation"
-    Option(welshLanguageExplainer) should not be defined
-    Option(emailCcaLink) should not be defined
+    Option(welshLanguageExplainer) shouldBe defined
+    Option(emailCcaLink) shouldBe defined
   }
 
   "welsh detailed valuation tab when in compiled list" should "display a dvr download button and a welsh language explainer" in new ValuationTabSetup(
@@ -583,24 +579,17 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "detailed valuation tab when in draft list" should "display the correct 'change something' section" in new ValuationTabSetup(
     draftList) {
     changeSomethingHeading.text shouldBe "If you want to change something in this valuation"
-    changeSomethingContent.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
-      "If the property's details are incorrect, or you believe the rateable value is wrong, you must complete a Check form and confirm the property details with the VOA before you can make a challenge.",
-      "Before you can submit a Check, you need to download and complete a Check form.",
-      "After completing the form, you need to send it as part of a Check.",
-      "! Warning Some older Check forms may tell you to email or post your form. Please ignore this and use the 'Send my completed Check form' button instead.",
-      "Send my completed Check form"
-    )
-    downloadCheckFormLink.text shouldBe "download and complete a Check form"
+    downloadCheckFormLink.text shouldBe "Download the Check case form"
     downloadCheckFormLink.attr("href") shouldBe controllers.detailedvaluationrequest.routes.DvrController
       .myOrganisationRequestDetailedValuationRequestFile(
         ownerAuthorisation.submissionId,
         assessment.assessmentRef,
         dvrDocuments.checkForm.documentSummary.documentId)
       .url
-    sendCheckFormButton.text shouldBe "Send my completed Check form"
+    sendCheckFormButton.text shouldBe "Send my completed Check case form"
     sendCheckFormButton.attr("href") shouldBe "#start-check-tab"
     sendCheckFormButton.classNames should contain("govuk-button")
-    sendCheckFormButton.classNames should not contain "govuk-button--secondary"
+    sendCheckFormButton.classNames should contain("govuk-button--secondary")
   }
 
   "detailed valuation tab when in compiled list" should "display the correct 'change something' section" in new ValuationTabSetup(
@@ -1399,30 +1388,15 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "request detailed valuation" should "display the correct content in draft list for CURRENT and PREVIOUS properties (no difference)" in new RequestDvrScreenTestCase(
     draftList) {
-    html.title() shouldBe "Request a detailed valuation - Valuation Office Agency - GOV.UK"
-    addressCaption.text() shouldBe "Detailed valuation request for"
+    addressCaption.text() shouldBe "Your property"
     addressHeading.text() shouldBe "123, SOME ADDRESS"
-    effectiveDate.text() shouldBe "Effective date: 1 April 2017"
-    Option(councilRef) should not be defined
-    Option(valuationSubhead) should not be defined
-    rateableValue.text() shouldBe "Rateable Value: £123"
-    Option(insetRvExplainer) should not be defined
-    Option(valuationDetailsSubhead) should not be defined
-    requestExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "You need to request this detailed valuation if you want to view it or submit a check.",
-      "Once your request is approved, it will be available to view on this page.",
-      "If you don’t want to request this, you can return to your home page.",
-      "Request a valuation"
-    )
-    returnHomeLink.text() shouldBe "return to your home page"
-    returnHomeLink.attr("href") shouldBe applicationConfig.dashboardUrl("home")
+    Option(councilRef) shouldBe defined
+    Option(valuationSubhead) shouldBe defined
+    rateableValue.text() shouldBe "Previous rateable value (1 April 2017 to 1 June 2017) £123"
+    Option(insetRvExplainer) shouldBe defined
+    Option(valuationDetailsSubhead) shouldBe defined
 
-    changeSomethingHeading.text() shouldBe "Already submitted a check?"
-    changeSomethingExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "The VOA will contact you with the outcome. If you disagree with the outcome of the check, or the rateable value of your property, you can start a challenge.",
-      "You can't start a challenge until you've received the outcome of your check.",
-      "Challenge this valuation"
-    )
+    changeSomethingHeading.text() shouldBe "If you want to change something in this valuation"
     challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
       s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
         .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, testAssessments.uarn, tabName = Some("valuation-tab"))
@@ -1560,25 +1534,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "request detailed valuation confirmation submitted by IP in draft list" should "display the correct content" in new DvrConfirmationTestCase(
     draftList,
     agent = false) {
-    html.title() shouldBe "Request for detailed valuation submitted - Valuation Office Agency - GOV.UK"
-    localAuthorityRef.text() shouldBe s"Local authority reference: ${ownerAuthorisation.localAuthorityRef}"
-    propertyAddress.text() shouldBe s"Property: 123, SOME ADDRESS"
-
+    html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
     panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Request for detailed valuation submitted",
-      "Your reference number is DVR123"
+      "Request for detailed valuation sent",
+      "Your reference number DVR123"
     )
-    Option(dvrReferenceSent) should not be defined
-    Option(propertySummaryList) should not be defined
+    Option(dvrReferenceSent) shouldBe defined
+    Option(propertySummaryList) shouldBe defined
     dvrReferenceNote
       .text() shouldBe "Make a note of your reference number as you’ll need to provide it if you contact us."
     whatsNextHeading.text() shouldBe "What happens next"
-    whatsNextExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "We will process your request within 20 working days. We will send you a message when the detailed valuation is available.",
-      "You will be able to access the valuation from your properties.",
-      "We will contact you if we need more information.",
-      "Go back to your dashboard"
-    )
     yourPropertiesLink.attr("href") shouldBe draftList.dashboardUrl("your-properties")
     backToDashboardLink.attr("href") shouldBe draftList.dashboardUrl("home")
     Option(welshValuationHeading) should not be defined
@@ -1589,25 +1554,17 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "request detailed valuation confirmation submitted by Agent in draft list" should "display the correct content" in new DvrConfirmationTestCase(
     draftList,
     agent = true) {
-    html.title() shouldBe "Request for detailed valuation submitted - Valuation Office Agency - GOV.UK"
-    localAuthorityRef.text() shouldBe s"Local authority reference: ${clientPropertyLink.localAuthorityRef}"
-    propertyAddress.text() shouldBe s"Property: 123, SOME ADDRESS"
+    html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
 
     panel.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Request for detailed valuation submitted",
-      "Your reference number is DVR123"
+      "Request for detailed valuation sent",
+      "Your reference number DVR123"
     )
-    Option(dvrReferenceSent) should not be defined
-    Option(propertySummaryList) should not be defined
+    Option(dvrReferenceSent) shouldBe defined
+    Option(propertySummaryList) shouldBe defined
     dvrReferenceNote
       .text() shouldBe "Make a note of your reference number as you’ll need to provide it if you contact us."
     whatsNextHeading.text() shouldBe "What happens next"
-    whatsNextExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "We will process your request within 20 working days. We will send you a message when the detailed valuation is available.",
-      "You will be able to access the valuation from your client’s properties.",
-      "We will contact you if we need more information.",
-      "Go back to your dashboard"
-    )
     yourPropertiesLink.attr("href") shouldBe draftList.dashboardUrl(
       s"selected-client-properties?clientOrganisationId=${clientPropertyLink.client.organisationId}&clientName=${clientPropertyLink.client.organisationName}"
     )
@@ -1880,23 +1837,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "already sent dvr screen" should "display correctly in draft list" in new AlreadySentDvrTestCase(draftList, dvrRecord) {
-    html.title() shouldBe "This detailed valuation isn’t available to view online. - Valuation Office Agency - GOV.UK"
-    heading.text() shouldBe "You’ve already requested this detailed valuation."
-    explainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "We received your request for this detailed valuation in the last 14 days. It will be available shortly.",
-      "If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email ccaservice@voa.gov.uk and ask for your request to be prioritised.",
-      "You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and reference number of your detailed valuation request within the email.",
-      "Return to your home page"
-    )
+    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
+    heading.text() shouldBe "123, SOME ADDRESS"
     emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
-    homePageLink.attr("href") shouldBe draftList.dashboardUrl("home")
-    Option(headingCaption) should not be defined
-    Option(councilReference) should not be defined
-    Option(rvHeading) should not be defined
-    Option(rateableValue) should not be defined
-    Option(detailsHeading) should not be defined
-    Option(mccHeading) should not be defined
-    Option(mccExplainer) should not be defined
+    Option(headingCaption) shouldBe defined
+    Option(councilReference) shouldBe defined
+    Option(rvHeading) shouldBe defined
+    Option(rateableValue) shouldBe defined
+    Option(detailsHeading) shouldBe defined
+    Option(mccHeading) shouldBe defined
+    Option(mccExplainer) shouldBe defined
   }
   "already sent dvr screen" should "display correctly in compiled list when viewing a previous valuation when a dvrSubmissionId has been stored" in new AlreadySentDvrTestCase(
     compiledList,
@@ -2079,7 +2029,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         request)
 
     status(result) shouldBe OK
-    contentAsString(result) should include("If you need to submit a check urgently because of a change")
+    contentAsString(result) should include(
+      "The detailed valuation will be available to download within 20 working days of sending the request. We will send you a message when it is available.")
+    contentAsString(result) should include("Your request reference number is DVR-123A45B.")
   }
 
   "already submitted detailed valuation request" should "return 200 OK without check text when viewing a draft assessment" in new Setup {
