@@ -1040,37 +1040,37 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       super.assessments.copy(assessments = futureAssessment :: super.assessments.assessments.tail.toList)
 
     lazy val futureEffectiveDate: String = Formatters.formatDate(futureAssessment.effectiveDate.get)
-    lazy val ipCurrentValuationUrl: String = routes.DvrController
-      .myOrganisationRequestDetailValuationCheck(
+    lazy val ipCurrentValuationUrl: String = controllers.routes.Assessments
+      .viewDetailedAssessment(
         assessments.submissionId,
+        assessments.authorisationId,
         currentAssessment.assessmentRef,
-        currentAssessment.uarn,
-        challengeCaseRef = None,
-        tabName = None)
+        owner = true,
+        fromValuation = Some(futureAssessment.assessmentRef))
       .url
-    lazy val clientCurrentValuationUrl: String = routes.DvrController
-      .myClientsRequestDetailValuationCheck(
+    lazy val clientCurrentValuationUrl: String = controllers.routes.Assessments
+      .viewDetailedAssessment(
         assessments.submissionId,
+        assessments.authorisationId,
         currentAssessment.assessmentRef,
-        currentAssessment.uarn,
-        challengeCaseRef = None,
-        tabName = None)
+        owner = false,
+        fromValuation = Some(futureAssessment.assessmentRef))
       .url
-    lazy val ipFutureValuationUrl: String = routes.DvrController
-      .myOrganisationRequestDetailValuationCheck(
+    lazy val ipFutureValuationUrl: String = controllers.routes.Assessments
+      .viewDetailedAssessment(
         assessments.submissionId,
+        assessments.authorisationId,
         futureAssessment.assessmentRef,
-        futureAssessment.uarn,
-        challengeCaseRef = None,
-        tabName = None)
+        owner = true,
+        fromValuation = Some(currentAssessment.assessmentRef))
       .url
-    lazy val clientFutureValuationUrl: String = routes.DvrController
-      .myClientsRequestDetailValuationCheck(
+    lazy val clientFutureValuationUrl: String = controllers.routes.Assessments
+      .viewDetailedAssessment(
         assessments.submissionId,
+        assessments.authorisationId,
         futureAssessment.assessmentRef,
-        futureAssessment.uarn,
-        challengeCaseRef = None,
-        tabName = None)
+        owner = false,
+        fromValuation = Some(currentAssessment.assessmentRef))
       .url
 
     def estimatorUrl(isOwner: Boolean): String =
@@ -1280,25 +1280,25 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
   }
 
-  "request current detailed valuation by ip" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
+  "request current detailed valuation by ip" should "have the correct back link regardless of coming from Bulk/LP/DVR" in new FutureRequestSetup {
     val result: Future[Result] = controller.myOrganisationRequestDetailValuationCheck(
       propertyLinkSubmissionId = assessments.submissionId,
       valuationId = currentAssessment.assessmentRef,
       uarn = currentAssessment.uarn,
       challengeCaseRef = None,
-      fromFuture = Some(true)
+      fromValuation = Some(futureAssessment.assessmentRef)
     )(request)
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
     page.html.getElementById("back-link").attr("href") shouldBe ipFutureValuationUrl + "#valuation-tab"
   }
 
-  "request current detailed valuation by agent" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
+  "request current detailed valuation by agent" should "have the correct back link regardless of coming from Bulk/LP/DVR" in new FutureRequestSetup {
     val result: Future[Result] = controller.myClientsRequestDetailValuationCheck(
       propertyLinkSubmissionId = assessments.submissionId,
       valuationId = currentAssessment.assessmentRef,
       uarn = currentAssessment.uarn,
       challengeCaseRef = None,
-      fromFuture = Some(true)
+      fromValuation = Some(futureAssessment.assessmentRef)
     )(request)
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
     page.html.getElementById("back-link").attr("href") shouldBe clientFutureValuationUrl + "#valuation-tab"
@@ -1821,27 +1821,27 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     contentAsString(result) should not include "If you need to submit a check urgently because of a change"
   }
 
-  "already submitted detailed valuation request by ip" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
+  "already submitted detailed valuation request by ip" should "have the correct back link regardless of coming from Bulk/LP/DVR" in new FutureRequestSetup {
     when(mockDvrCaseManagement.getDvrRecord(any(), any())(any())).thenReturn(Future.successful(None))
     val result: Future[Result] = controller.myOrganisationRequestDetailValuationCheck(
       propertyLinkSubmissionId = assessments.submissionId,
       valuationId = currentAssessment.assessmentRef,
       uarn = currentAssessment.uarn,
       challengeCaseRef = None,
-      fromFuture = Some(true)
+      fromValuation = Some(futureAssessment.assessmentRef)
     )(request)
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
     page.html.getElementById("back-link").attr("href") shouldBe ipFutureValuationUrl + "#valuation-tab"
   }
 
-  "already submitted detailed valuation request by agent" should "have the correct back link when coming from the future valuation request screen" in new FutureRequestSetup {
+  "already submitted detailed valuation request by agent" should "have the correct back link regardless of coming from Bulk/LP/DVR" in new FutureRequestSetup {
     when(mockDvrCaseManagement.getDvrRecord(any(), any())(any())).thenReturn(Future.successful(None))
     val result: Future[Result] = controller.myClientsRequestDetailValuationCheck(
       propertyLinkSubmissionId = assessments.submissionId,
       valuationId = currentAssessment.assessmentRef,
       uarn = currentAssessment.uarn,
       challengeCaseRef = None,
-      fromFuture = Some(true)
+      fromValuation = Some(futureAssessment.assessmentRef)
     )(request)
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
     page.html.getElementById("back-link").attr("href") shouldBe clientFutureValuationUrl + "#valuation-tab"

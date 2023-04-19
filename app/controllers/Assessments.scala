@@ -44,7 +44,8 @@ class Assessments @Inject()(
         submissionId: String,
         authorisationId: Long,
         assessmentRef: Long,
-        owner: Boolean
+        owner: Boolean,
+        fromValuation: Option[Long] = None
   ): Action[AnyContent] = authenticated.async { implicit request =>
     propertyLinkService.getSingularPropertyLink(submissionId, owner).flatMap {
       case Some(propertyLink) =>
@@ -54,10 +55,12 @@ class Assessments @Inject()(
             case true =>
               if (owner) {
                 Redirect(config.businessRatesValuationFrontendUrl(
-                  s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+                  s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${
+                    fromValuation.fold("")("&fromValuation=" + _)}"))
               } else {
                 Redirect(config.businessRatesValuationFrontendUrl(
-                  s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+                  s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${
+                    fromValuation.fold("")("&fromValuation=" + _)}"))
               }
             case false =>
               Redirect(
@@ -67,6 +70,7 @@ class Assessments @Inject()(
                       submissionId,
                       assessmentRef,
                       propertyLink.uarn,
+                      fromValuation = fromValuation,
                       tabName = Some("valuation-tab"))
                 else
                   controllers.detailedvaluationrequest.routes.DvrController
@@ -74,6 +78,7 @@ class Assessments @Inject()(
                       submissionId,
                       assessmentRef,
                       propertyLink.uarn,
+                      fromValuation = fromValuation,
                       tabName = Some("valuation-tab"))
               )
           }
