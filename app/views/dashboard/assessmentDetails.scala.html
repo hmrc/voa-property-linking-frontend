@@ -45,7 +45,7 @@
     if(!isDraft) {
         (assessment.currentFromDate, assessment.currentToDate, assessment.listYear) match {
             case (Some(_), None, "2017")
-                if config.compiledListEnabled && tableType == "historic" =>
+                if tableType == "historic" =>
                     Some(Messages("assessments.enddate.historic.empty"))
             case (Some(_), None, _)     => Some(Messages("assessments.enddate.present"))
             case (Some(_), Some(to), _) => Some(Formatters.formattedFullDate(to))

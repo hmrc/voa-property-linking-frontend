@@ -1090,7 +1090,6 @@ linkError.conflict.home.link=Manage your properties
 
 #REQUEST DETAILED VALUATION
 error.select.valuation.required=Please select a Valuation
-requestDetailedValuation.title=This detailed valuation isn’t available to view online.
 requestDetailedValuation.p.1=We’re working to make more detailed valuations available to view online in the next few months. If you need to view this detailed valuation sooner, please request a copy by email or post.
 requestDetailedValuation.p.2=If you don’t want to request this, you can <a class="govuk-link" href={0}>return to the home page.</a>
 requestDetailedValuation.p.3=The majority of our customers prefer us to send information by email as it means we can get it to them quicker. Although we take care to protect the security of your property data, we cannot guarantee that your detailed valuation will be secure once sent.
@@ -1098,16 +1097,7 @@ requestDetailedValuation.p.4=If you’d prefer us to send this by post, we’ll 
 requestDetailedValuation.button=Request a valuation
 
 auto.requestDetailedValuation.caption=Property
-auto.requestDetailedValuation.title=Request a detailed valuation
-auto.requestDetailedValuation.smallTitle.dvrFor=Detailed valuation request for
 auto.requestDetailedValuation.smallTitle.yourProperty=Your property
-auto.requestDetailedValuation.p.1=You need to request this detailed valuation if you want to view it or submit a check.
-auto.requestDetailedValuation.p.1.draft=You need to request this detailed valuation if you want to view it.
-auto.requestDetailedValuation.p.2=Once your request is approved, it will be available to view on this page.
-auto.requestDetailedValuation.p.3=If you don’t want to request this, you can <a class="govuk-link" id="request-explainer-return-home-link" href={0}>return to your home page</a>.
-auto.requestDetailedValuation.button=Request a valuation
-auto.requestDetailedValuation.effectiveDate=<b>Effective date:</b> {0}
-auto.requestDetailedValuation.rateableValue=<b>Rateable Value:</b> {0}
 auto.requestDetailedValuation.localCouncilRef=Local council reference:
 
 auto.requestDetailedValuation.subhead.valuation=Valuation
@@ -1139,11 +1129,7 @@ auto.requestDetailedValuation.future.p.2.link=<a class="govuk-link" id="current-
 
 requestDetailedValuation.heading.challenge=Already completed a check?
 requestDetailedValuation.challenge.p=Once you’ve completed a check, the VOA will contact you with the outcome. If you disagree with the outcome of the check or you believe the rateable value of your property is incorrect, you can let us know. Doing this is known as a challenge. (You can’t start a challenge until you’ve received the outcome for your check)
-requestDetailedValuation.challenge.start=Challenge this valuation
 
-auto.requestDetailedValuation.heading.challenge=Already submitted a check?
-auto.requestDetailedValuation.challenge.p1=The VOA will contact you with the outcome. If you disagree with the outcome of the check, or the rateable value of your property, you can start a challenge.
-auto.requestDetailedValuation.challenge.p2=You can''t start a challenge until you''ve received the outcome of your check.
 auto.requestDetailedValuation.challenge.start=Challenge this valuation
 
 #VIEW REQUEST DETAILED VALUATION
@@ -1179,20 +1165,16 @@ available.requestvaluation.listYear.2017.link.text=send a Check case from the cu
 available.requestvaluation.listYear.isDraft.p=This detailed valuation will not be available until 1 April 2023. You will be able to request it from that date. The current 2017 detailed valuation can be requested from the current valuation.
 
 
-available.requestvaluation.downloadValuationLink=Download the detailed valuation for this property
 available.requestvaluation.downloadValuationButton=Download the detailed valuation
 available.requestvaluation.changeValuation=If you want to change something in this valuation
-available.requestvaluation.p1.draft.englishProperty=If the property’s details are incorrect, or you believe the rateable value is wrong, have a look at the current valuation as well. If the details are wrong in both, you can submit a Check against the current valuation. Any changes will carry over to the draft valuation.
-available.requestvaluation.p1.draft.welshProperty=If you think something is wrong with the details in this valuation, have a look at the current valuation as well. If the details are wrong in both, you can submit a proposal against the current valuation. Any changes will carry over to the draft valuation.
-available.requestvaluation.p1=If the property''s details are incorrect, or you believe the rateable value is wrong, you must complete a Check form and confirm the property details with the VOA before you can make a challenge.
-available.requestvaluation.p2=Before you can submit a Check, you need to <a class="govuk-link" id="{1}" href="{0}">download and complete a Check form</a>.
-available.requestvaluation.p3=After completing the form, you need to send it as part of a Check.
-available.requestvaluation.warning=Some older Check forms may tell you to email or post your form. Please ignore this and use the ''Send my completed Check form'' button instead.
 available.requestvaluation.dvrCheck.startCheck=Send my completed Check form
 available.requestvaluation.print=Print this page
 available.requestvaluation.check.title=Submit a check
 available.requestvaluation.check.p1=To submit a check for this property you will need to <a class="govuk-link" href={0}> download the Check Form </a>
 available.requestvaluation.check.p2=You can email the form to <a class="govuk-link" href="mailto:CCAService@voa.gov.uk">CCAService@voa.gov.uk</a> or post it to:
+available.requestvaluation.p2=Before you can submit a Check, you need to <a class="govuk-link" id="{1}" href="{0}">download and complete a Check form</a>.
+available.requestvaluation.p3=After completing the form, you need to send it as part of a Check.
+available.requestvaluation.warning=Some older Check forms may tell you to email or post your form. Please ignore this and use the ''Send my completed Check form'' button instead.
 available.requestvaluation.address=Check and challenge service, PO Box 308, PLYMOUTH, PL5 9DT
 available.requestvaluation.h2.previous=Previous rateable value ({0} to {1})
 available.requestvaluation.h2.current=Current rateable value ({0} to present)
@@ -1291,9 +1273,6 @@ detailedValuationRequested.page.title=We’ve received your request to view the 
 detailedValuationRequested.title.reference=Your reference number is {0}.
 detailedValuationRequested.p.1=We’ll send this to you by {0} within 20 working days.
 
-auto.detailedValuationRequested.title=Request for detailed valuation submitted
-auto.detailedValuationRequested.title.reference=Your reference number is
-
 auto.detailedValuationRequested.title.confirmation=Confirmation
 auto.detailedValuationRequested.panel.title=Request for detailed valuation sent
 auto.detailedValuationRequested.panel.content=Your reference number
@@ -1317,7 +1296,6 @@ duplicateRequestDetailedValuation.check=If you need to submit a check urgently b
 duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and reference number of your detailed valuation request within the email.
 
 auto.duplicateRequestDetailedValuation.title.caption=Your property
-auto.duplicateRequestDetailedValuation.title=You’ve already requested this detailed valuation.
 auto.duplicateRequestDetailedValuation.localCouncilReference=Local council reference:
 auto.duplicateRequestDetailedValuation.rv.heading=Valuation
 auto.duplicateRequestDetailedValuation.rv.caption.future=Future rateable value (from {0})
@@ -1333,10 +1311,6 @@ auto.duplicateRequestDetailedValuation.mcc.subhead=If you need to tell us about 
 auto.duplicateRequestDetailedValuation.mcc.email.preLink=If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email
 auto.duplicateRequestDetailedValuation.mcc.email.postLink=and ask for your request to be prioritised.
 auto.duplicateRequestDetailedValuation.mcc.email.instruction=Include ''Urgent: external Material Change of Circumstances'' in the subject line and include the property address and the request reference number in the email.
-
-auto.duplicateRequestDetailedValuation.request=We received your request for this detailed valuation in the last 14 days. It will be available shortly.
-auto.duplicateRequestDetailedValuation.check=If you need to submit a check urgently because of a change in the local area affecting your property, and you’re waiting to receive a copy of your detailed valuation, you should email <a class="govuk-link" id="email-cca-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a> and ask for your request to be prioritised.
-auto.duplicateRequestDetailedValuation.urgent=You should include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and reference number of your detailed valuation request within the email.
 
 startChallenge.title=Challenge the valuation
 startChallenge.p.1=Your challenge must be submitted within 4 months of the VOA decision, or within 16 months of the date you told the VOA about a change in the surrounding area of your property. You can also submit a challenge if you told the VOA about a change and you haven’t received a decision within 12 months.

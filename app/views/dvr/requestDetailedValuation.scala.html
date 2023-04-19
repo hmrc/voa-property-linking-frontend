@@ -22,7 +22,6 @@
 
 @this(
   mainLayout: views.html.mainLayout,
-  requestFutureValuationTab: views.html.dvr.tabs.requestFutureValuationTab,
   govukButton: GovukButton,
   govukInsetText: GovukInsetText,
   govukTabs: GovukTabs,
@@ -70,41 +69,10 @@
                 ))
             </div>
 
-            <div class="govuk-grid-column-full">
-                @govukTabs(Tabs(
-                    id = Some("request-valuation-tabs"),
-                    items = Seq(
-                        TabItem(
-                            id = Some("valuation-tab"),
-                            label = messages("auto.requestDetailedValuation.future.tabName"),
-                            panel = TabPanel(HtmlContent(requestFutureValuationTab(
-                                model.rateableValueFormatted,
-                                model.effectiveDate,
-                                estimatorUrl,
-                                model.currentValuationUrl,
-                                model.valuationsUrl,
-                                model.isWelsh
-                            )))
-                        ),
-                        TabItem(
-                            id = Some("help-tab"),
-                            label = messages("requestValuation.future.help.title"),
-                            panel = TabPanel(HtmlContent(futureHelpTab(
-                                model.effectiveDate,
-                                currentValuationCheckTabUrl = model.currentValuationUrl,
-                                model.valuationsUrl,
-                                enquiryUrl,
-                                estimatorUrl,
-                                model.isWelsh
-                            )))
-                        )
-                    )
-                ))
-            </div>
         </div>
     }
 
-} else if(config.compiledListEnabled) {
+} else {
     @mainLayout(pageTitle = address, backUri = Some(backUrl)) {
 
         <span class="govuk-caption-l" id="assessment-address-caption">@messages("auto.requestDetailedValuation.smallTitle.yourProperty")</span>
@@ -224,60 +192,5 @@
               linkId = Some("change-something-challenge-link"),
             )
         </div>
-    }
-} else {
-    @mainLayout(pageTitle = messages("auto.requestDetailedValuation.title"), backUri = Some(backUrl)) {
-
-        <span class="govuk-caption-l" id="assessment-address-caption">@messages("auto.requestDetailedValuation.smallTitle.dvrFor")</span>
-        <h1 class="govuk-heading-l margin-top-20" id="assessment-address">@address</h1>
-
-        <p class="govuk-body" id="effective-date">@Html(messages("auto.requestDetailedValuation.effectiveDate", model.effectiveDate))</p>
-
-        @model.rateableValueFormatted.map { rv =>
-            <p class="govuk-body" id="rateable-value">@Html(messages("auto.requestDetailedValuation.rateableValue", rv))</p>
-        }
-
-        <div id="request-explainer">
-
-            @if(model.listType == ListType.DRAFT) {
-                <p class="govuk-body">@messages("auto.requestDetailedValuation.p.1.draft")</p>
-            } else {
-                <p class="govuk-body">@messages("auto.requestDetailedValuation.p.1")</p>
-            }
-
-            <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.p.2"))</p>
-
-            <p class="govuk-body">@Html(messages("auto.requestDetailedValuation.p.3", config.dashboardUrl("home")))</p>
-
-            @formWithCSRF(
-                if(owner)
-                    controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuation(submissionId, model.assessmentRef)
-                else
-                    controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuation(submissionId, model.assessmentRef)
-            ) {
-                @govukButton(Button(
-                    preventDoubleClick = Some(true),
-                    content = Text(messages("auto.requestDetailedValuation.button")),
-                    attributes = Map("id" -> "request-valuation-button")
-                ))
-            }
-        </div>
-
-        @if(model.listType != ListType.DRAFT) {
-            <h2 class="govuk-heading-m" id="change-something-heading">@messages("auto.requestDetailedValuation.heading.challenge")</h2>
-
-            <div id="change-something-explainer">
-                <p class="govuk-body">@messages("auto.requestDetailedValuation.challenge.p1")</p>
-
-                <p class="govuk-body">@messages("auto.requestDetailedValuation.challenge.p2")</p>
-
-                <p class="govuk-body">
-                    <a class="govuk-link"
-                        href="@{config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")}"
-                        id="change-something-challenge-link"
-                    >@messages("requestDetailedValuation.challenge.start")</a>
-                </p>
-            </div>
-        }
     }
 }

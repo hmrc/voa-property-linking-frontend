@@ -34,7 +34,7 @@
 @endDate = @{
     if(!model.assessment.isDraft) {
         (model.assessment.currentFromDate, model.assessment.currentToDate) match {
-            case (Some(_), None) if model.listYear == "2017" && config.compiledListEnabled  => Some(Formatters.formattedFullDate(config.default2017AssessmentEndDate))
+            case (Some(_), None) if model.listYear == "2017"  => Some(Formatters.formattedFullDate(config.default2017AssessmentEndDate))
             case (Some(_), None)     => Some(messages("assessments.enddate.present.lowercase"))
             case (Some(_), Some(to)) => Some(Formatters.formattedFullDate(to))
             case _                   => None
@@ -83,7 +83,7 @@
 
     <p class="govuk-body">@messages("available.requestvaluation.listYear.isDraft.p")</p>
 
-    } else if (config.compiledListEnabled) {
+    } else {
         <p class="govuk-body">@messages("available.requestvaluation.nonDraft.check.p1")</p>
 
         @link(
@@ -106,36 +106,6 @@
             attributes = Map("id" -> "valuation-tab-send-check-form")
         ))
 
-    } else {
-
-        @if(model.isDraftList && model.isWelshProperty) {
-            <p class="govuk-body">@messages("available.requestvaluation.p1.draft.welshProperty")</p>
-        } else if (model.isDraftList && !model.isWelshProperty) {
-            <p class="govuk-body">@messages("available.requestvaluation.p1.draft.englishProperty")</p>
-        } else {
-            <p class="govuk-body">@messages("available.requestvaluation.p1")</p>
-            <p class="govuk-body">
-                @Html(
-                    messages(
-                        "available.requestvaluation.p2",
-                        model.evaluateRoute(model.check),
-                        "valuation-tab-download-check-form"
-                    )
-                )
-            </p>
-            <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
-
-            @govukWarningText(WarningText(
-                iconFallbackText = messages("warning.text"),
-                content = Text(messages("available.requestvaluation.warning"))
-            ))
-
-            @govukButton(Button(
-                content = Text(messages("available.requestvaluation.dvrCheck.startCheck")),
-                href = Some("#start-check-tab"),
-                attributes = Map("id" -> "valuation-tab-send-check-form")
-            ))
-        }
     }
 }
 
@@ -148,21 +118,14 @@
 
         @govukInsetText(InsetText(id=Some("intro-text"), content = Text(insetMessages)))
 
-        @if(config.compiledListEnabled) {
+
           @govukButton(Button(
             content = Text(messages("available.requestvaluation.downloadValuationButton")),
             href = Some(model.evaluateRoute(model.valuation)),
             attributes = Map("id" -> "valuation-tab-download-link")
           ))
-        } else {
-          @link(
-            linkText = messages("available.requestvaluation.downloadValuationLink"),
-            location = model.evaluateRoute(model.valuation),
-            linkId = Some("valuation-tab-download-link")
-          )
-        }
 
-        @if(config.compiledListEnabled && model.isWelshProperty) {
+        @if(model.isWelshProperty) {
           @link(
             preLinkText = Some(messages("available.requestvaluation.welsh.ccaEmail.preLink")),
             linkText = "ccaservice@voa.gov.uk",

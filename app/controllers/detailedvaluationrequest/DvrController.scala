@@ -242,7 +242,6 @@ class DvrController @Inject()(
                   )
                 ),
                 startCheckForm = form,
-                compiledListEnabled = config.compiledListEnabled,
                 currentValuationUrl = link.assessments
                   .find(a =>
                     a.listType == ListType.CURRENT &&

@@ -98,7 +98,6 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
     .getOptional[String]("plannedImprovementsContent")
     .map(e => new String(Base64.getUrlDecoder.decode(e)))
 
-  lazy val currentListYear: String = loadConfig("currentListYear")
   val default2017AssessmentEndDate = LocalDate.of(2023, 3, 31)
 
 }

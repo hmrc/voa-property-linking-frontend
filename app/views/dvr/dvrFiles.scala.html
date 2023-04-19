@@ -33,7 +33,7 @@
   govukErrorSummary: GovukErrorSummary
 )
 
-@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm], compiledListEnabled: Boolean, currentValuationUrl: Option[String], valuationsUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(model: AvailableRequestDetailedValuation, startCheckForm: Form[StartCheckForm], currentValuationUrl: Option[String], valuationsUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @address = @{Formatters.capitalisedAddress(model.address)}

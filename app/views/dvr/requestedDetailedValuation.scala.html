@@ -52,7 +52,7 @@
     linkId = Some("whats-next-back-to-dashboard-link")
 )}
 
-@if(config.compiledListEnabled) {
+
     @mainLayout(pageTitle = messages("auto.detailedValuationRequested.title.confirmation")) {
 
         @govukPanel(Panel(
@@ -126,36 +126,3 @@
             </div>
         }
     }
-} else {
-    @mainLayout(pageTitle = messages("auto.detailedValuationRequested.title")) {
-
-        @assessmentHeading(localAuthorityRef,address)
-
-        @govukPanel(Panel(
-          attributes = Map("id" -> "dvr-confirmation-panel"),
-          title = Text(messages("auto.detailedValuationRequested.title")),
-          content = HtmlContent(panelContent("auto.detailedValuationRequested.title.reference"))
-        ))
-
-        <p class="govuk-body" id="dvr-reference-note-explainer">@messages("linkingRequestSubmitted.p1")</p>
-
-        <h2 class="govuk-heading-m" id="whats-next-heading">@messages("heading.whatNext")</h2>
-
-        <div id="whats-next-explainer">
-            <p class="govuk-body">@messages("linkSubmitted.whatNext.6")</p>
-            @link(
-              linkText = clientDetails.fold(messages("linkSubmitted.whatNext.7.ipLink"))(_ => messages("linkSubmitted.whatNext.7.agentLink")),
-              location = managePropertiesUrl,
-              linkId = Some("whats-next-your-properties-link"),
-              linkSentence = true,
-              preLinkText = Some(messages("linkSubmitted.whatNext.7.preLink"))
-            )
-            <p class="govuk-body">@messages("linkSubmitted.whatNext.3")</p>
-            @link(
-              linkText = messages("link.backToDashboard"),
-              location = config.dashboardUrl("home"),
-              linkId = Some("whats-next-back-to-dashboard-link")
-            )
-        </div>
-    }
-}
