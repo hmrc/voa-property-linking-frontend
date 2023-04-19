@@ -1162,7 +1162,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "request detailed valuation" should "display the correct content in draft list for CURRENT and PREVIOUS properties (no difference)" in new RequestDvrScreenTestCase(
     draftList) {
     addressCaption.text() shouldBe "Your property"
-    addressHeading.text() shouldBe "123, SOME ADDRESS"
+    addressHeading.text() shouldBe "123, Some Address, Some Town, AB1 CD2"
     Option(councilRef) shouldBe defined
     Option(valuationSubhead) shouldBe defined
     rateableValue.text() shouldBe "Previous rateable value (1 April 2017 to 1 June 2017) £123"
@@ -1610,8 +1610,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "already sent dvr screen" should "display correctly in draft list" in new AlreadySentDvrTestCase(draftList, dvrRecord) {
-    html.title() shouldBe "123, SOME ADDRESS - Valuation Office Agency - GOV.UK"
-    heading.text() shouldBe "123, SOME ADDRESS"
+    html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
+    heading.text() shouldBe "123, Some Address, Some Town, AB1 CD2"
     emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
     Option(headingCaption) shouldBe defined
     Option(councilReference) shouldBe defined
