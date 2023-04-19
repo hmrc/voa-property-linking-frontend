@@ -479,18 +479,17 @@ propertyRepresentation.table.title.agentId=Cod yr asiant
 propertyRepresentation.table.title.agentName=Enw’r asiant
 propertyRepresentation.table.title.remove=Dewis
 
-#New appoint agent journey=
-propertyRepresentation.addAnAgent.title=Penodi asiant
-
-propertyRepresentation.addAnAgent.question=Cod yr asiant
-propertyRepresentation.addAnAgent.caption=Mae angen i chi ofyn wrth eich asiant am eu cod os nad yw hwn gennych chi.
-propertyRepresentation.addAnAgent.agentCode=Cod yr asiant
-
-propertyRepresentation.addAnAgent.guidance=Beth all fy asiant ei wneud?
-propertyRepresentation.addAnAgent.guidance.yourAgentCan=Gall eich asiant:
-propertyRepresentation.addAnAgent.guidance.discussProperties=trafod prisiad eich eiddo gyda’r VOA
-propertyRepresentation.addAnAgent.guidance.challenge=herio’r gwerth os oes angen
-propertyRepresentation.addAnAgent.guidance.addProperty=ychwanegu eich eiddo i’ch cyfrif
+#New appoint agent journey
+propertyRepresentation.addAnAgent.title=Penodi asiant i’ch cyfrif
+propertyRepresentation.addAnAgent.info.1=Pan fyddwch yn penodi asiant ac yn eu neilltuo i’ch eiddo, byddant yn gallu:
+propertyRepresentation.addAnAgent.info.list.1=gweld gwybodaeth eiddo fanwl
+propertyRepresentation.addAnAgent.info.list.2=gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst
+propertyRepresentation.addAnAgent.info.list.3=anfon achosion Gwirio a Herio
+propertyRepresentation.addAnAgent.info.2=Byddant hefyd yn gallu ychwanegu eiddo at eich cyfrif a gweithredu arnynt ar eich rhan.
+propertyRepresentation.addAnAgent.info.3=Gallwch benodi mwy nag un asiant i’ch cyfrif a neilltuo mwy nag un asiant i eiddo.
+propertyRepresentation.addAnAgent.info.help.link=Help gyda phenodi a rheoli asiantau
+propertyRepresentation.addAnAgent.codeInput.label=Beth yw cod eich asiant?
+propertyRepresentation.addAnAgent.codeInput.hint=Mae hwn yn rhif a roddir i’r asiant gan Asiantaeth y Swyddfa Brisio.
 
 propertyRepresentation.isThisYourAgent.title=Cadarnhau Asiant
 propertyRepresentation.isThisYourAgent.question=Ai dyma eich asiant?
@@ -585,19 +584,24 @@ propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Dad-neillt
 propertyRepresentation.manageAgent.options.assignToYourProperty=Neilltuo i’ch eiddo
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Dileu o’ch cyfrif
 
-propertyRepresentation.manageAgent.assignToAllProperties.title.multipleProperties=Cadarnhau eich bod am neilltuo asiant i bob eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.title.singleProperty=Cadarnhau eich bod am neilltuo asiant i’ch eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.question.multipleProperties=Ydych chi’n siŵr eich bod am neilltuo {0} i’ch holl eiddo?
-propertyRepresentation.manageAgent.assignToAllProperties.question.singleProperty=Ydych chi’n siŵr eich bod am neilltuo {0} i’ch eiddo?
-propertyRepresentation.manageAgent.assignToAllProperties.insetText.multipleProperties={0} yn cael ei ychwanegu at eich holl eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.insetText.singleProperty={0} yn cael ei ychwanegu i’ch eiddo
+propertyRepresentation.manageAgent.assignToAllProperties.title.multiple=Ydych chi’n siŵr eich bod am neilltuo {0} i’ch holl eiddo?
+propertyRepresentation.manageAgent.assignToAllProperties.title.single=Ydych chi’n siŵr eich bod am neilltuo {0} i’ch eiddo?
+propertyRepresentation.manageAgent.assignToAllProperties.intro.multiple=Ar gyfer eich holl eiddo, bydd yr asiant yn gallu:
+propertyRepresentation.manageAgent.assignToAllProperties.intro.single=Ar gyfer eich eiddo, bydd yr asiant yn gallu:
+propertyRepresentation.manageAgent.assignToAllProperties.list.1=gweld gwybodaeth eiddo fanwl
+propertyRepresentation.manageAgent.assignToAllProperties.list.2=gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst
+propertyRepresentation.manageAgent.assignToAllProperties.list.3=anfon achosion Gwirio a Herio
+propertyRepresentation.manageAgent.assignToAllProperties.confirmAndAssign=Cadarnhau a neilltuo
+propertyRepresentation.manageAgent.assignToAllProperties.cancel=Canslo
 
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multipleProperties=Neilltuwyd asiant i’ch holl eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.singleProperty=Neilltuwyd asiant i’ch eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.multipleProperties={0} wedi ei neilltuo i’ch holl eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.singleProperty={0} wedi ei neilltuo i’ch eiddo
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.whatHappensNext.p1=Bydd {0} yn gallu trafod eich eiddo gydag Asiantaeth y Swyddfa Brisio ar eich rhan.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.multiple=Mae {0} wedi’i neilltuo i’ch holl eiddo
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.single=Mae {0} wedi’i neilltuo i’ch eiddo
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.info.multiple=Gall yr asiant weithredu ar eich rhan ar gyfer pob un o’ch eiddo.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.info.single=Gall yr asiant weithredu ar eich rhan ar o’ch eiddo.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.subhead=Yr hyn sy’n digwydd nesaf
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.multiple=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.single=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.homeLink=Ewch i hafan eich cyfrif
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.title=Cadarnhau eich bod eisiau dad-neilltuo’r asiant o’r holl eiddo
 propertyRepresentation.manageAgent.unassignFromAllProperties.question=Ydych chi’n siŵr eich bod am ddadneilltuo {0} o’ch holl eiddo?
@@ -621,8 +625,11 @@ propertyRepresentation.revokeClientProperty.confirmation=Rydych wedi dirymu eidd
 propertyRepresentation.revokeClientProperty.returnToClientProperties=Dychwelyd at eiddo’r cleient
 
 #Appoint agents properties
-propertyRepresentation.appointAgentProperties.title=Penodi asiant {0} i un eiddo neu fwy
-propertyRepresentation.appointAgentProperties.appointAgent=Bydd (ID Asiant: {0}) yn gallu cyflwyno gwiriadau a heriau ar gyfer yr eiddo hyn
+propertyRepresentation.appointAgentProperties.title=I ba un o’ch eiddo ydych chi am neilltuo {0}?
+propertyRepresentation.appointAgentProperties.intro=Ar gyfer yr eiddo a ddewiswch, bydd yr asiant yn gallu:
+propertyRepresentation.appointAgentProperties.list.1=gweld gwybodaeth eiddo fanwl
+propertyRepresentation.appointAgentProperties.list.2=gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst
+propertyRepresentation.appointAgentProperties.list.3=anfon achosion Gwirio a Herio
 propertyRepresentation.appointAgentProperties.dropdown.single=Dewis o 1 asiant
 propertyRepresentation.appointAgentProperties.dropdown.multiple=Dewiswch o {0} o asiantiaid
 propertyRepresentation.appointAgentProperties.select=Dewiswch popeth
@@ -631,26 +638,22 @@ propertyRepresentation.th.ADDRESS=Cyfeiriad
 propertyRepresentation.th.AGENT=Asiantiaid penodedig
 propertyRepresentation.th.BAREF=Cyfeirnod yr awdurdod lleol
 propertyRepresentation.search.filter=Chwiliwch eich eiddo
-propertyRepresentation.search=Chwilio am {0}
-propertyRepresentation.pageSize.showing=Yn dangos
 label.linkIds=Dewis un eiddo neu fwy
-propertyRepresentation.pageSize.perPage=negeseuon fesul tudalen
-propertyRepresentation.paginationInfo=Tudalen {0} o {1}
-propertyRepresentation.appointAgents.showPropertiesNoAgent.link=<a class="govuk-link" href="{0}">Yn dangos eiddo heb unrhyw asiant yn unig</a>
-propertyRepresentation.appointAgents.showAllProperties.link=<a class="govuk-link" href="{0}">Dangos holl eiddo</a>
+propertyRepresentation.appointAgents.showPropertiesNoAgent.link=Yn dangos eiddo heb unrhyw asiant yn unig
+propertyRepresentation.appointAgents.showAllProperties.link=Dangos holl eiddo
 label.propertyRepresentation.address=Cyfeiriad
 label.propertyRepresentation.appointedAgents=Asiant
 error.propertyRepresentation.appoint.filter=Mae’n rhaid i chi nodi rhywbeth i chwilio amdano
+propertyRepresentation.appointAgentProperties.confirmAndAssign=Cadarnhau a neilltuo
+propertyRepresentation.appointAgentProperties.cancel=Canslo
 
 ##Appoint agent summary
-propertyRepresentation.agentSummary.heading=Asiant wedi’i benodi
-propertyRepresentation.agentSummary.title={0} wedi ei benodi i’ch eiddo dethol
-propertyRepresentation.agentSummary.h2=Beth sy’n digwydd nesaf
-propertyRepresentation.agentSummary.p=Bydd {0} yn gallu trafod eich eiddo gydag Asiantaeth y Swyddfa Brisio ar eich rhan.
-propertyRepresentation.agentSummary.appointed=Rydych wedi penodi asiant ’’{0}’’ ({1}) gyda’r gallu i gyflwyno gwiriadau a heriau i’r eiddo a ddewiswyd.
-propertyRepresentation.agentSummary.warning=Mae gan eich asiant 180 diwrnod i dderbyn eich cais.   Fel arall bydd eich cais yn cael ei wrthod a bydd angen i chi anfon cais newydd.
-propertyRepresentation.agentSummary.back=Yn ôl i’r dangosfwrdd
-propertyRepresentation.agentSummary.select.more=Dewis rhagor o eiddo
+propertyRepresentation.agentSummary.title=Mae {0} wedi’i neilltuo i’r eiddo a ddewiswyd gennych
+propertyRepresentation.agentSummary.explainer=Gall yr asiant weithredu ar eich rhan ar gyfer unrhyw un o’r eiddo a ddewiswyd gennych.
+propertyRepresentation.agentSummary.nextSteps.subhead=Beth sy’n digwydd nesaf
+propertyRepresentation.agentSummary.nextSteps.content=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
+propertyRepresentation.agentSummary.homeLink=Ewch i hafan eich cyfrif
+
 
 propertyRepresentation.appointAgent.agentCode=Cod yr asiant
 propertyRepresentation.appointAgent.button=Parhau
@@ -1604,7 +1607,7 @@ fileupload.support.documents.size.reached.max.limit=Rydych wedi lanlwytho 1 ffei
 fileupload.pleaseWait=Arhoswch tra bod eich ffeil yn lanlwytho. Gall hyn gymryd peth amser
 
 label.search.for=Chwilio am 
-label.Appoint=Penodi
+label.appoint=Penodi
 app.common.errorSummaryLabel=Darganfuwyd y gwallau canlynol ar y dudalen hon. 
 error.postcode.missing=Nodwch god post dilys 
 termsAndConditions.p1=Mae’r telerau ac amodau hyn yn rheoli’ch defnydd o’r gwasanaeth ar-lein ‘Gwirio a herio’ch prisiad ardrethi busnes’, a ddarparwyd gan Asiantaeth y Swyddfa Brisio (VOA), a chaiff ei reoli gan gyfreithiau Lloegr. Darllenwch y telerau ac amodau hyn yn ofalus, gan eu bod yn effeithio ar eich hawliau a’ch ymrwymiadau yn ôl y gyfraith.

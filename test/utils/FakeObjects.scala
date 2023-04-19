@@ -235,7 +235,7 @@ trait FakeObjects {
     submissionId = "PLSubId",
     capacity = "OWNER",
     uarn = 999000111L,
-    address = "123, Some address",
+    address = "123, SOME ADDRESS, SOME TOWN, EF3 GH4",
     localAuthorityRef = "BAREF",
     client = ClientDetails(10000L, "Some organisation 2")
   )
@@ -245,7 +245,7 @@ trait FakeObjects {
     status = "APPROVED",
     submissionId = "PLSubId",
     uarn = 999000111L,
-    address = "123, Some address",
+    address = "123, SOME ADDRESS, SOME TOWN, AB1 CD2",
     localAuthorityRef = "BAREF",
     agents = Seq(ownerAuthAgent)
   )
@@ -254,7 +254,7 @@ trait FakeObjects {
     status = "APPROVED",
     submissionId = "PLSubId2",
     uarn = 999000112L,
-    address = "124, Some address",
+    address = "124, SOME ADDRESS, SOME TOWN, AB1 CD2",
     localAuthorityRef = "BAREF2",
     agents = Seq(ownerAuthAgent2)
   )
@@ -263,7 +263,7 @@ trait FakeObjects {
     status = "APPROVED",
     submissionId = "PLSubId2",
     uarn = 999000112L,
-    address = "124, Some address",
+    address = "124, SOME ADDRESS, SOME TOWN, AB1 CD2",
     localAuthorityRef = "BAREF2",
     agents = Seq.empty
   )
@@ -306,7 +306,7 @@ trait FakeObjects {
 
   val ownerAgentsWithOneAgent = OwnerAgents(agents = Seq(ownerAgent))
 
-  val agentSummary = AgentSummary(
+  val agentSummary: AgentSummary = AgentSummary(
     organisationId = 1L,
     representativeCode = 987L,
     name = "Some Agent Org",
@@ -314,7 +314,7 @@ trait FakeObjects {
     propertyCount = 2
   )
 
-  val agentSummary2 = AgentSummary(
+  val agentSummary2: AgentSummary = AgentSummary(
     organisationId = 2L,
     representativeCode = 988L,
     name = "Another Agent Org",
@@ -322,11 +322,22 @@ trait FakeObjects {
     propertyCount = 1
   )
 
-  val organisationsAgentsListWithOneAgent = AgentList(resultCount = 1, agents = List(agentSummary))
-  val organisationsAgentsListWithTwoAgents = AgentList(resultCount = 2, agents = List(agentSummary, agentSummary2))
-  val emptyOrganisationsAgentsList = AgentList(resultCount = 0, agents = List.empty)
+  val agentSummary3: AgentSummary = AgentSummary(
+    organisationId = 3L,
+    representativeCode = 989L,
+    name = "A third Agent Org",
+    appointedDate = LocalDate.now().minusDays(3),
+    propertyCount = 1
+  )
 
-  val agentDetails = AgentDetails(name = "Awesome Agent", address = "1 Awesome Street, AB1 1BA")
+  val organisationsAgentsListWithOneAgent: AgentList = AgentList(resultCount = 1, agents = List(agentSummary))
+  val organisationsAgentsListWithTwoAgents: AgentList =
+    AgentList(resultCount = 2, agents = List(agentSummary, agentSummary2))
+  val organisationsAgentsListWithThreeAgents: AgentList =
+    AgentList(resultCount = 3, agents = List(agentSummary, agentSummary2, agentSummary3))
+  val emptyOrganisationsAgentsList: AgentList = AgentList(resultCount = 0, agents = List.empty)
+
+  val agentDetails: AgentDetails = AgentDetails(name = "Awesome Agent", address = "1 Awesome Street, AB1 1BA")
 
   private val agent1: Agent = Agent(10000L, 10000L, "Some organisation")
 

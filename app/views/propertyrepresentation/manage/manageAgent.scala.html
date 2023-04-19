@@ -14,16 +14,13 @@
  * limitations under the License.
  *@
 
-@import actions.requests.BasicAuthenticatedRequest
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import models.propertyrepresentation.ManageAgentOptionItem
-@import models.propertyrepresentation.ManageAgentOptions
 @import models.propertyrepresentation.ManageAgentRequest
 @import models.propertyrepresentation.AgentSummary
-@import binders.propertylinks.GetPropertyLinksParameters
-@import binders.pagination.PaginationParameters
 @import config.ApplicationConfig
+@import views.html.components.link
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
@@ -60,8 +57,14 @@
             items = radioItems
         ).withFormField(form("manageAgentOption")))
 
-        @govukButton(Button(content = Text(messages("label.continue"))))
+        <div class="govuk-button-group">
+            @govukButton(Button(content = Text(messages("label.continue"))))
+
+            @link(
+              linkText = messages("link.cancel"),
+              location = config.dashboardUrl("home")
+            )
+        </div>
     }
-    <a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.cancel")</a>
 
 }

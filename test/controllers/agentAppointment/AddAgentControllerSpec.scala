@@ -19,6 +19,7 @@ package controllers.agentAppointment
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, No, NoProperties, SearchedAgent, SelectedAgent, Start}
 import org.jsoup.Jsoup
+import org.jsoup.nodes.{Document, Element}
 import org.mockito.ArgumentMatchers.any
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.test.FakeRequest
@@ -31,6 +32,7 @@ import play.api.mvc.Result
 import uk.gov.hmrc.http.BadRequestException
 
 import scala.concurrent.Future
+import scala.jdk.CollectionConverters.ListHasAsScala
 
 class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 
@@ -43,17 +45,51 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res = testController.showStartPage()(FakeRequest())
     status(res) shouldBe OK
-    verifyPageHeading(res, "Agent code")
     verifyBackLink(res, "http://localhost:9542/business-rates-dashboard/home")
   }
-  "showStartPage" should "back link is the cached back link" in {
+  "showStartPage" should "use the cached back link" in {
     val backLink = "/some/back/link"
     stubWithAppointAgentSession
       .stubSession(Start(backLink = Some(backLink)), detailedIndividualAccount, groupAccount(false))
     val res = testController.showStartPage()(FakeRequest())
     status(res) shouldBe OK
-    verifyPageHeading(res, "Agent code")
     verifyBackLink(res, backLink)
+  }
+
+  "showStartPage" should "display the correct content in english" in new StartPageTestCase with English {
+    doc.title shouldBe "Appoint an agent to your account - Valuation Office Agency - GOV.UK"
+    heading shouldBe "Appoint an agent to your account"
+    explainerIntro shouldBe "When you appoint an agent and assign them to your properties, they will be able to:"
+    explainerList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
+      "see detailed property information",
+      "see Check and Challenge case correspondence such as messages and emails",
+      "send Check and Challenge cases"
+    )
+    explainerAdd shouldBe "They will also be able to add properties to your account and act on them for you."
+    explainerMultiple shouldBe "You can appoint more than one agent to your account and assign more than one agent to a property."
+    explainerHelpLink.text shouldBe "Help with appointing and managing agents"
+    explainerHelpLink.attr("href") shouldBe "https://www.gov.uk/guidance/appoint-an-agent"
+    agentCodeLabel shouldBe "What is your agent’s code?"
+    agentCodeHint shouldBe "This is a number given to the agent by the Valuation Office Agency."
+    continueButton shouldBe "Continue"
+  }
+
+  "showStartPage" should "display the correct content in welsh" in new StartPageTestCase with Welsh {
+    doc.title shouldBe "Penodi asiant i’ch cyfrif - Valuation Office Agency - GOV.UK"
+    heading shouldBe "Penodi asiant i’ch cyfrif"
+    explainerIntro shouldBe "Pan fyddwch yn penodi asiant ac yn eu neilltuo i’ch eiddo, byddant yn gallu:"
+    explainerList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
+      "gweld gwybodaeth eiddo fanwl",
+      "gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst",
+      "anfon achosion Gwirio a Herio"
+    )
+    explainerAdd shouldBe "Byddant hefyd yn gallu ychwanegu eiddo at eich cyfrif a gweithredu arnynt ar eich rhan."
+    explainerMultiple shouldBe "Gallwch benodi mwy nag un asiant i’ch cyfrif a neilltuo mwy nag un asiant i eiddo."
+    explainerHelpLink.text shouldBe "Help gyda phenodi a rheoli asiantau"
+    explainerHelpLink.attr("href") shouldBe "https://www.gov.uk/guidance/appoint-an-agent"
+    agentCodeLabel shouldBe "Beth yw cod eich asiant?"
+    agentCodeHint shouldBe "Mae hwn yn rhif a roddir i’r asiant gan Asiantaeth y Swyddfa Brisio."
+    continueButton shouldBe "Parhau"
   }
 
   "getAgentDetails" should "return 400 Bad Request when agentCode is not provided" in {
@@ -98,9 +134,10 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
   "getAgentDetails" should "return 303 See Other when valid agentCode is provided and agent has not already been added to organisation" in {
     when(mockAgentRelationshipService.getAgentNameAndAddress(any())(any()))
-      .thenReturn(Future successful Some(agentDetails))
+      .thenReturn(Future.successful(Some(agentDetails)))
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future successful organisationsAgentsListWithOneAgent)
+      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.unit)
     val res = testController.getAgentDetails()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "11223"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
@@ -145,6 +182,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(Some(searchedAgent)))
     when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
       .thenReturn(Future.successful(()))
+    when(mockAgentRelationshipService.assignAgent(any())(any()))
+      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) shouldBe OK
@@ -422,6 +461,26 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   private def verifyBackLink(res: Future[Result], expectedBackLink: String) = {
     val page = Jsoup.parse(contentAsString(res))
     page.getElementById("back-link").attr("href") shouldBe expectedBackLink
+  }
+
+  type English = EnglishRequest
+  type Welsh = WelshRequest
+
+  trait StartPageTestCase {
+    self: RequestLang =>
+    stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
+
+    val doc: Document = Jsoup.parse(contentAsString(testController.showStartPage()(self.fakeRequest)))
+    val heading: String = doc.getElementsByTag("h1").text
+    val explainerIntro: String = doc.getElementById("explainer-intro").text
+    val explainerList: Element = doc.getElementById("explainer-list")
+    val explainerAdd: String = doc.getElementById("explainer-add").text
+    val explainerMultiple: String = doc.getElementById("explainer-multiple").text
+    val explainerHelpLink: Element = doc.getElementById("explainer-help-link")
+
+    val agentCodeLabel: String = doc.getElementById("agentCode-label").text
+    val agentCodeHint: String = doc.getElementById("agentCode-hint").text
+    val continueButton: String = doc.getElementById("continue-button").text
   }
 
 }

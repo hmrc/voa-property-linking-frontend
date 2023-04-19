@@ -17,17 +17,19 @@
 package controllers.agentAppointment
 
 import binders.pagination.PaginationParameters
+import binders.propertylinks.ExternalPropertyLinkManagementSortField.{ADDRESS, AGENT}
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder}
 import controllers.VoaPropertyLinkingSpec
 import models.{AgentAppointBulkAction, AgentRevokeBulkAction, SessionPropertyLinks}
-import models.propertyrepresentation.{AppointAgentToSomePropertiesSession, FilterAppointProperties, RevokeAgentFromSomePropertiesSession}
+import models.propertyrepresentation._
 import models.searchApi._
 import org.jsoup.Jsoup
+import org.jsoup.nodes.{Document, Element}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
+import org.scalatest.OptionValues
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.mvc
-import play.api.mvc.{Cookie, Cookies, Session}
+import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
@@ -35,11 +37,13 @@ import repositories.SessionRepo
 import services.{AgentRelationshipService, AppointRevokeException}
 import tests.AllMocks
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{HtmlPage, StubGroupAccountConnector}
+import utils.{Formatters, HtmlPage, StubGroupAccountConnector}
 
+import scala.collection.mutable
 import scala.concurrent.Future
+import scala.jdk.CollectionConverters.ListHasAsScala
 
-class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
+class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks with OptionValues {
 
   val agent = groupAccount(true).copy(agentCode = Some(agentCode))
 
@@ -76,6 +80,193 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainTable("#agentPropertiesTableBody")
+  }
+
+  "getMyOrganisationPropertyLinksWithAgentFiltering" should "display correctly in English" in new UnfilteredResultsTestCase
+  with English {
+    doc.title shouldBe s"Which of your properties do you want to assign ${agent.companyName} to? - Valuation Office Agency - GOV.UK"
+    heading shouldBe s"Which of your properties do you want to assign ${agent.companyName} to?"
+    explainerIntro shouldBe "For the properties you select, the agent will be able to:"
+    explainerList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
+      "see detailed property information",
+      "see Check and Challenge case correspondence such as messages and emails",
+      "send Check and Challenge cases"
+    )
+
+    searchLegend shouldBe "Search your properties"
+    addressInputLabel shouldBe "Address"
+    agentSelectLabel.value shouldBe "Agent"
+
+    private val expectedAgents = getMyOrganisationAgentsResponse.agents.filterNot(_.organisationId == agent.id)
+
+    agentSelect.value.children.first.text shouldBe s"Choose from ${expectedAgents.size} agents"
+    selectableAgents.value should contain theSameElementsInOrderAs expectedAgents.map(_.name)
+    searchButton shouldBe "Search"
+    clearSearch.text shouldBe "Clear search"
+    clearSearch.attr("href") shouldBe routes.AppointAgentController
+      .getMyOrganisationPropertyLinksWithAgentFiltering(
+        PaginationParameters(),
+        agentCode,
+        initialAgentAppointedQueryParam,
+        backLinkQueryParam
+      )
+      .url
+
+    selectAll shouldBe "Select all"
+    filterNoAgent.text shouldBe "Only show properties with no agent"
+    filterNoAgent.attr("href") shouldBe routes.AppointAgentController
+      .getMyOrganisationPropertyLinksWithAgentFiltering(
+        PaginationParameters(),
+        agentCode,
+        Some(AgentPropertiesFilter.No.name),
+        backLinkQueryParam
+      )
+      .url
+
+    sortByAddress.text shouldBe "Address"
+    sortByAddress.attr("href") shouldBe controllers.agentAppointment.routes.AppointAgentController
+      .sortPropertiesForAppoint(
+        ADDRESS,
+        initialPaginationParams,
+        agentCode,
+        initialAgentAppointedQueryParam,
+        backLinkQueryParam
+      )
+      .url
+    sortByAppointedAgents.text shouldBe "Appointed agents"
+    sortByAppointedAgents.attr("href") shouldBe controllers.agentAppointment.routes.AppointAgentController
+      .sortPropertiesForAppoint(
+        AGENT,
+        initialPaginationParams,
+        agentCode,
+        initialAgentAppointedQueryParam,
+        backLinkQueryParam
+      )
+      .url
+    confirmButton shouldBe "Confirm and assign"
+    cancelLink.text shouldBe "Cancel"
+    cancelLink.attr("href") shouldBe controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode).url
+  }
+
+  it should "display correctly in Welsh" in new UnfilteredResultsTestCase with Welsh {
+    doc.title shouldBe s"I ba un o’ch eiddo ydych chi am neilltuo ${agent.companyName}? - Valuation Office Agency - GOV.UK"
+    heading shouldBe s"I ba un o’ch eiddo ydych chi am neilltuo ${agent.companyName}?"
+    explainerIntro shouldBe "Ar gyfer yr eiddo a ddewiswch, bydd yr asiant yn gallu:"
+    explainerList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
+      "gweld gwybodaeth eiddo fanwl",
+      "gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst",
+      "anfon achosion Gwirio a Herio"
+    )
+
+    searchLegend shouldBe "Chwiliwch eich eiddo"
+    addressInputLabel shouldBe "Cyfeiriad"
+    agentSelectLabel.value shouldBe "Asiant"
+
+    private val expectedAgents = getMyOrganisationAgentsResponse.agents.filterNot(_.organisationId == agent.id)
+
+    agentSelect.value.children.first.text shouldBe s"Dewiswch o ${expectedAgents.size} o asiantiaid"
+    selectableAgents.value should contain theSameElementsInOrderAs expectedAgents.map(_.name)
+    searchButton shouldBe "Chwilio"
+    clearSearch.text shouldBe "Clirio’r chwiliad"
+    clearSearch.attr("href") shouldBe routes.AppointAgentController
+      .getMyOrganisationPropertyLinksWithAgentFiltering(
+        PaginationParameters(),
+        agentCode,
+        initialAgentAppointedQueryParam,
+        backLinkQueryParam
+      )
+      .url
+
+    selectAll shouldBe "Dewiswch popeth"
+    filterNoAgent.text shouldBe "Yn dangos eiddo heb unrhyw asiant yn unig"
+    filterNoAgent.attr("href") shouldBe routes.AppointAgentController
+      .getMyOrganisationPropertyLinksWithAgentFiltering(
+        PaginationParameters(),
+        agentCode,
+        Some(AgentPropertiesFilter.No.name),
+        backLinkQueryParam
+      )
+      .url
+
+    sortByAddress.text shouldBe "Cyfeiriad"
+    sortByAddress.attr("href") shouldBe controllers.agentAppointment.routes.AppointAgentController
+      .sortPropertiesForAppoint(
+        ADDRESS,
+        initialPaginationParams,
+        agentCode,
+        initialAgentAppointedQueryParam,
+        backLinkQueryParam
+      )
+      .url
+    sortByAppointedAgents.text shouldBe "Asiantiaid penodedig"
+    sortByAppointedAgents.attr("href") shouldBe controllers.agentAppointment.routes.AppointAgentController
+      .sortPropertiesForAppoint(
+        AGENT,
+        initialPaginationParams,
+        agentCode,
+        initialAgentAppointedQueryParam,
+        backLinkQueryParam
+      )
+      .url
+    confirmButton shouldBe "Cadarnhau a neilltuo"
+    cancelLink.text shouldBe "Canslo"
+    cancelLink.attr("href") shouldBe controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode).url
+  }
+
+  it should "return 200 OK" in new UnfilteredResultsTestCase with English {
+    status(result) shouldBe OK
+  }
+
+  it should "display the correct agent select placeholder option when only one selectable agent in English" in new UnfilteredResultsTestCase
+  with English {
+    // one agent is currently being appointed, so is filtered out
+    override lazy val getMyOrganisationAgentsResponse: AgentList = organisationsAgentsListWithTwoAgents
+    agentSelect.value.children.first.text shouldBe "Choose from 1 agent"
+    selectableAgents.value should contain theSameElementsAs organisationsAgentsListWithTwoAgents.agents.collect {
+      case appointedAgent if appointedAgent.organisationId != agent.id => appointedAgent.name
+    }
+  }
+
+  it should "display the correct agent select placeholder option when only one selectable agent in Welsh" in new UnfilteredResultsTestCase
+  with Welsh {
+    // one agent is currently being appointed, so is filtered out
+    override lazy val getMyOrganisationAgentsResponse: AgentList = organisationsAgentsListWithTwoAgents
+    agentSelect.value.children.first.text shouldBe "Dewis o 1 asiant"
+    selectableAgents.value should contain theSameElementsAs organisationsAgentsListWithTwoAgents.agents.collect {
+      case appointedAgent if appointedAgent.organisationId != agent.id => appointedAgent.name
+    }
+  }
+
+  it should "hide the agent dropdown when assigning properties to a sole already-appointed agent" in new UnfilteredResultsTestCase
+  with English {
+    override lazy val getMyOrganisationAgentsResponse: AgentList = organisationsAgentsListWithOneAgent
+
+    agentSelectLabel should not be defined
+    agentSelect should not be defined
+  }
+
+  it should "display returned property links with assigned agents in English" in new UnfilteredResultsTestCase
+  with English {
+    resultsAddresses should contain theSameElementsInOrderAs ownerAuthResult.authorisations.map { authorisation =>
+      s"Appoint ${Formatters.capitalisedAddress(authorisation.address)}"
+    }
+    resultsAgents should contain theSameElementsInOrderAs ownerAuthResult.authorisations.map {
+      _.agents.collect {
+        case appointedAgent if appointedAgent.organisationId != agent.id => appointedAgent.organisationName
+      }
+    }
+  }
+
+  it should "display returned property links with assigned agents in Welsh" in new UnfilteredResultsTestCase
+  with Welsh {
+    resultsAddresses should contain theSameElementsInOrderAs ownerAuthResult.authorisations.map { authorisation =>
+      s"Penodi ${Formatters.capitalisedAddress(authorisation.address)}"
+    }
+    resultsAgents should contain theSameElementsInOrderAs ownerAuthResult.authorisations.map {
+      _.agents.collect {
+        case appointedAgent if appointedAgent.organisationId != agent.id => appointedAgent.organisationName
+      }
+    }
   }
 
   "paginatePropertiesForAppoint" should "show the requested appoint agent properties page" in {
@@ -146,7 +337,18 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContain("#sort-by-address.sort_desc", 1)
+    page.shouldContain("#sort-by-address-head.sort_desc", 1)
+  }
+
+  "showFilterPropertiesForAppoint" should "display the filterPropertiesForAppoint page" in new UnfilteredResultsTestCase
+  with English {
+    override lazy val result: Future[Result] = testController.showFilterPropertiesForAppoint(
+      initialPaginationParams,
+      agentCode,
+      initialAgentAppointedQueryParam,
+      backLinkQueryParam)(fakeRequest)
+
+    heading shouldBe s"Which of your properties do you want to assign ${agent.companyName} to?"
   }
 
   "filterPropertiesForAppoint" should "show a filtered appoint agent properties page" in {
@@ -184,40 +386,21 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.shouldContainText("ADDRESS 1")
   }
 
-  "filterPropertiesForAppoint" should "show error when nothing is entered" in {
-
-    val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address 1", "localAuthorityRef", testAgents)
-
-    val testOwnerAuthResult =
-      OwnerAuthResult(start = 1, size = 15, filterTotal = 2, total = 2, authorisations = Seq(testOwnerAuth))
-
-    when(
-      mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
-        any[HeaderCarrier]))
-      .thenReturn(Future.successful(testOwnerAuthResult))
-
-    when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
-    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
-      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
-    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
-      .thenReturn(Future.successful(()))
-
-    StubGroupAccountConnector.stubAccount(agent)
-
-    val backLink = "/my-organisation/appoint"
-    val res =
-      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink)(
-        FakeRequest().withFormUrlEncodedBody("agentCode" -> "12345", "backLinkUrl" -> backLink))
-
-    status(res) shouldBe BAD_REQUEST
-
-    val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainText("You must enter something to search for")
-    page.titleShouldMatch(
-      s"Error: Appoint agent $ggExternalId to one or more properties - Valuation Office Agency - GOV.UK")
+  it should "show an error when nothing is entered in English" in new FilterPropertiesToAppointEmptySearchTestCase
+  with English {
+    status(errorResult) shouldBe BAD_REQUEST
+    emptySearchError.value shouldBe "You must enter something to search for"
+    errorDoc.title shouldBe s"Error: Which of your properties do you want to assign $ggExternalId to? - Valuation Office Agency - GOV.UK"
   }
 
-  "filterPropertiesForAppoint" should "remember the last searched-for agent in the dropdown" in {
+  it should "show an error when nothing is entered in Welsh" in new FilterPropertiesToAppointEmptySearchTestCase
+  with Welsh {
+    status(errorResult) shouldBe BAD_REQUEST
+    emptySearchError.value shouldBe "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano"
+    errorDoc.title shouldBe s"Gwall: I ba un o’ch eiddo ydych chi am neilltuo $ggExternalId? - Valuation Office Agency - GOV.UK"
+  }
+
+  it should "remember the last searched-for agent in the dropdown" in {
 
     val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address 1", "localAuthorityRef", testAgents)
 
@@ -249,13 +432,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val page = Jsoup.parse(contentAsString(res))
-    val dropdown = page.getElementById("agent")
+    val dropdown = page.getElementById("agent-select")
     val firstOption = dropdown.child(0).text()
 
     firstOption shouldBe "Some Agent Org"
   }
 
-  "appointAgentSummary" should "submit appoint agent request and redirect to summary page" in {
+  it should "submit appoint agent request and redirect to summary page" in {
     StubGroupAccountConnector.stubAccount(agent)
 
     when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
@@ -265,7 +448,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[AppointAgentToSomePropertiesSession](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
-    val res = testController.appointAgentSummary()(
+    val res = testController.appointAgentSummary(agentCode, None, "some/back/link")(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"           -> s"$agentCode",
         "name"                -> s"$companyName",
@@ -280,34 +463,31 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   }
 
-  "appointAgentSummary" should "show the summary page" in {
-    StubGroupAccountConnector.stubAccount(agent)
-
-    when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful(()))
-    val agentAppointAction = AgentAppointBulkAction(
-      agentCode = agentCode,
-      name = companyName,
-      propertyLinkIds = List(),
-      backLinkUrl = "/some/back/link")
-    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any())).thenReturn(
-      Future.successful(
-        Some(
-          AppointAgentToSomePropertiesSession(
-            agentAppointAction = Some(agentAppointAction)
-          ))))
-
-    val res = testController.confirmAppointAgentToSome()(FakeRequest())
-
-    status(res) shouldBe OK
-    val document = Jsoup.parse(contentAsString(res))
-    document
-      .getElementById("mainBodyText")
-      .text() shouldBe s"${agentAppointAction.name} will be able to discuss your property with the Valuation Office Agency on your behalf."
-
+  it should "return 200 OK on success" in new AppointToSomeConfirmationTestCase with English {
+    status(result) shouldBe OK
   }
 
-  "appointAgentSummary" should "show not found  page when no agent data is cached" in {
+  it should "display content correctly in English" in new AppointToSomeConfirmationTestCase with English {
+    doc.title shouldBe s"${agentAppointAction.name} has been assigned to your selected properties - Valuation Office Agency - GOV.UK"
+    panel shouldBe s"${agentAppointAction.name} has been assigned to your selected properties"
+    explainer shouldBe "The agent can act for you on any of the properties you selected."
+    nextStepsSubhead shouldBe "What happens next"
+    nextStepsContent shouldBe "You can unassign this agent from your properties at any time."
+    accountHomeLink.text shouldBe "Go to your account home"
+    accountHomeLink.attr("href") shouldBe applicationConfig.dashboardUrl("home")
+  }
+
+  it should "display content correctly in Welsh" in new AppointToSomeConfirmationTestCase with Welsh {
+    doc.title shouldBe s"Mae ${agentAppointAction.name} wedi’i neilltuo i’r eiddo a ddewiswyd gennych - Valuation Office Agency - GOV.UK"
+    panel shouldBe s"Mae ${agentAppointAction.name} wedi’i neilltuo i’r eiddo a ddewiswyd gennych"
+    explainer shouldBe "Gall yr asiant weithredu ar eich rhan ar gyfer unrhyw un o’r eiddo a ddewiswyd gennych."
+    nextStepsSubhead shouldBe "Beth sy’n digwydd nesaf"
+    nextStepsContent shouldBe "Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
+    accountHomeLink.text shouldBe "Ewch i hafan eich cyfrif"
+    accountHomeLink.attr("href") shouldBe applicationConfig.dashboardUrl("home")
+  }
+
+  it should "show not found  page when no agent data is cached" in {
     StubGroupAccountConnector.stubAccount(agent)
 
     when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
@@ -322,13 +502,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   }
 
-  "appointAgentSummary with form errors" should "show the appoint agent properties page" in {
+  it should "show the appoint agent properties page when the summary has form errors" in {
     StubGroupAccountConnector.stubAccount(agent)
 
     when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val res = testController.appointAgentSummary()(
+    val res = testController.appointAgentSummary(agentCode, None, "/some/back/link")(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode", "backLinkUrl" -> "/some/back/link"))
 
     status(res) shouldBe BAD_REQUEST
@@ -336,17 +516,17 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainTable("#agentPropertiesTableBody")
     page.titleShouldMatch(
-      s"Error: Appoint agent $ggExternalId to one or more properties - Valuation Office Agency - GOV.UK")
+      s"Error: Which of your properties do you want to assign $ggExternalId to? - Valuation Office Agency - GOV.UK")
 
   }
 
-  "appointAgentSummary" should "show the appoint agent properties page when an appointment fails" in {
+  it should "show the appoint agent properties page when an appointment fails" in {
     StubGroupAccountConnector.stubAccount(agent)
 
     when(mockAppointRevokeService.createAndSubmitAgentRepRequest(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.failed(AppointRevokeException("")))
 
-    val res = testController.appointAgentSummary()(
+    val res = testController.appointAgentSummary(agentCode, None, "/some/back/link")(
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "linkIds[]" -> "1", "backLinkUrl" -> "/some/back/link"))
 
@@ -355,8 +535,16 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainTable("#agentPropertiesTableBody")
     page.titleShouldMatch(
-      s"Error: Appoint agent $ggExternalId to one or more properties - Valuation Office Agency - GOV.UK")
+      s"Error: Which of your properties do you want to assign $ggExternalId to? - Valuation Office Agency - GOV.UK")
+  }
 
+  "showAppointAgentSummary" should "display the filterPropertiesForAppoint page" in new UnfilteredResultsTestCase
+  with English {
+    override lazy val result: Future[Result] =
+      testController.showAppointAgentSummary(agentCode, initialAgentAppointedQueryParam, backLinkQueryParam)(
+        fakeRequest)
+
+    heading shouldBe s"Which of your properties do you want to assign ${agent.companyName} to?"
   }
 
   "selectAgentPropertiesSearchSort" should "show a list of properties available for removal from a agent" in {
@@ -412,7 +600,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(()))
 
     val res =
-      welshTestController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode)(
+      testController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode)(
         welshFakeRequest.withFormUrlEncodedBody(
           "agentCode"      -> s"$agentCode",
           "agentCodeRadio" -> "1"
@@ -545,7 +733,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val res = testController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary(PaginationParameters(), agentCode)(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"        -> testAgentAccount.companyName,
@@ -609,7 +797,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.createAndSubmitAgentRevokeRequest(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful((): Unit))
 
-    val res = welshTestController.confirmRevokeAgentFromSome()(welshFakeRequest)
+    val res = testController.confirmRevokeAgentFromSome()(welshFakeRequest)
 
     status(res) shouldBe OK
 
@@ -650,7 +838,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = testController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary(PaginationParameters(), agentCode)(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"      -> testAgentAccount.companyName,
@@ -674,7 +862,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = welshTestController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary(PaginationParameters(), agentCode)(
       welshFakeRequest.withFormUrlEncodedBody(
         "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"      -> testAgentAccount.companyName,
@@ -688,7 +876,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     verifyPageErrorTitle(page, isWelsh = true)
   }
 
-  "errors during handling of revoke agent form" should "re-render the page with form errors reported to user" in {
+  "errors during handling of address form" should "re-render the page with form errors reported to user" in {
     val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
@@ -699,7 +887,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = testController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary(PaginationParameters(), agentCode)(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"        -> testAgentAccount.companyName,
@@ -708,11 +896,11 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       ))
     status(res) shouldBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainText("Failed to appoint agent to all properties")
+    page.shouldContainText("There is a problem You must enter something to search for")
     verifyPageErrorTitle(page)
   }
 
-  "errors during handling of revoke agent form" should "re-render the page with form errors reported to user - in welsh" in {
+  "errors during handling of  address form" should "re-render the page with form errors reported to user - in welsh" in {
     val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
@@ -723,7 +911,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = welshTestController.revokeAgentSummary()(
+    val res = testController.revokeAgentSummary(PaginationParameters(), agentCode)(
       welshFakeRequest.withFormUrlEncodedBody(
         "agentCode"   -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"        -> testAgentAccount.companyName,
@@ -732,7 +920,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       ))
     status(res) shouldBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainText("Methu penodi asiant i bob eiddo")
+    page.shouldContainText("Mae yna broblem Rhaid i chi nodi rhywbeth i chwilio amdano")
     verifyPageErrorTitle(page, isWelsh = true)
   }
 
@@ -758,29 +946,121 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     appointAgentPropertiesView = appointAgentPropertiesView
   )
 
-  lazy val welshTestController = new AppointAgentController(
-    errorHandler = mockCustomErrorHandler,
-    accounts = StubGroupAccountConnector,
-    authenticated = preAuthenticatedActionBuilders(),
-    agentRelationshipService = mockAppointRevokeService,
-    propertyLinksSessionRepo = mockSessionRepo,
-    revokeAgentPropertiesSessionRepo = mockRevokeAgentPropertiesSessionRepo,
-    appointAgentPropertiesSession = mockAppointAgentPropertiesSessionRepo,
-    revokeAgentSummaryView = revokeAgentSummaryView,
-    appointAgentSummaryView = appointAgentSummaryView,
-    revokeAgentPropertiesView = revokeAgentPropertiesView,
-    appointAgentPropertiesView = appointAgentPropertiesView
-  )(
-    welshMessagesApi,
-    stubMessagesControllerComponents(messagesApi = welshMessagesApi),
-    ec,
-    applicationConfig
-  )
-
   private lazy val mockSessionRepo = mock[SessionRepo]
   private lazy val mockRevokeAgentPropertiesSessionRepo = mock[SessionRepo]
   private lazy val mockAppointAgentPropertiesSessionRepo = mock[SessionRepo]
 
   private lazy val mockAppointRevokeService = mock[AgentRelationshipService]
+
+  type English = EnglishRequest
+  type Welsh = WelshRequest
+
+  trait UnfilteredResultsTestCase { self: RequestLang =>
+
+    val testOwnerAuthResult: OwnerAuthResult = OwnerAuthResult(
+      start = 1,
+      size = 15,
+      filterTotal = 1,
+      total = 1,
+      authorisations = Seq(ownerAuthorisation, ownerAuthorisation2, ownerAuthorisationWithNoAgent))
+
+    lazy val ownerAuthResult: OwnerAuthResult = testOwnerAuthResult
+
+    lazy val getMyOrganisationAgentsResponse: AgentList = organisationsAgentsListWithThreeAgents
+
+    StubGroupAccountConnector.stubAccount(agent)
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any, any))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
+    when(mockAppointRevokeService.getMyOrganisationAgents()(any))
+      .thenReturn(Future.successful(getMyOrganisationAgentsResponse))
+    when(mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any, any, any, any)(any))
+      .thenReturn(Future.successful(ownerAuthResult))
+    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate(any)(any, any)).thenReturn(Future.unit)
+    when(mockSessionRepo.saveOrUpdate(any)(any, any)).thenReturn(Future.unit)
+
+    val initialPaginationParams: PaginationParameters = PaginationParameters()
+    val initialAgentAppointedQueryParam: Option[String] = None
+    val backLinkQueryParam: String = "/my-organisation/manage-agent"
+    lazy val result: Future[Result] = testController.getMyOrganisationPropertyLinksWithAgentFiltering(
+      initialPaginationParams,
+      agentCode,
+      initialAgentAppointedQueryParam,
+      backLinkQueryParam)(self.fakeRequest)
+
+    val doc: Document = Jsoup.parse(contentAsString(result))
+    val heading: String = doc.getElementsByTag("h1").text
+    val explainerIntro: String = doc.getElementById("explainer-intro").text
+    val explainerList: Element = doc.getElementById("explainer-list")
+
+    private val searchFieldset: Element = doc.getElementById("search-fieldset")
+    val searchLegend: String = searchFieldset.getElementsByTag("legend").text
+    val addressInputLabel: String = searchFieldset.getElementById("address-input-label").text
+    val agentSelectLabel: Option[String] = Option(searchFieldset.getElementById("agent-select-label")).map(_.text)
+    val agentSelect: Option[Element] = Option(searchFieldset.getElementById("agent-select"))
+    val selectableAgents: Option[mutable.Buffer[String]] = agentSelect.map(_.children.asScala.tail.map(_.text))
+    val searchButton: String = searchFieldset.getElementById("search-submit").text
+    val clearSearch: Element = searchFieldset.getElementById("clear-search")
+
+    val selectAll: String = doc.getElementById("par-select-all-top").text
+    val filterNoAgent: Element = doc.getElementById("filter-no-agent")
+
+    private val resultsTable: Element = doc.getElementById("agentPropertiesTableBody")
+    val sortByAddress: Element = resultsTable.getElementById("sort-by-address-link")
+    val sortByAppointedAgents: Element = resultsTable.getElementById("sort-by-agent-link")
+    val results: mutable.Seq[Element] = resultsTable.getElementsByTag("tbody").first.children.asScala
+    val resultsAddresses: mutable.Seq[String] = results.map(_.getElementsByClass("govuk-checkboxes__label").first.text)
+    val resultsAgents: mutable.Seq[mutable.Seq[String]] =
+      results.map(_.getElementsByTag("td").last.children.asScala.map(_.text))
+
+    val confirmButton: String = doc.getElementById("submit-button").text
+    val cancelLink: Element = doc.getElementById("cancel-appoint")
+  }
+
+  trait FilterPropertiesToAppointEmptySearchTestCase { self: RequestLang =>
+    val testOwnerAuth: OwnerAuthorisation =
+      OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address 1", "localAuthorityRef", testAgents)
+    val testOwnerAuthResult: OwnerAuthResult =
+      OwnerAuthResult(start = 1, size = 15, filterTotal = 2, total = 2, authorisations = Seq(testOwnerAuth))
+
+    StubGroupAccountConnector.stubAccount(agent)
+    when(mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any, any, any, any)(any))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockSessionRepo.saveOrUpdate(any)(any, any)).thenReturn(Future.unit)
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any, any))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
+    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any)(any, any))
+      .thenReturn(Future.unit)
+
+    val backLink = "/my-organisation/appoint"
+    val errorResult: Future[Result] =
+      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink)(
+        self.fakeRequest.withFormUrlEncodedBody("agentCode" -> "12345", "backLinkUrl" -> backLink))
+    val errorDoc: Document = Jsoup.parse(contentAsString(errorResult))
+
+    val emptySearchError: Option[String] = Option(errorDoc.getElementsByAttributeValue("href", "#address")).map(_.text)
+  }
+
+  trait AppointToSomeConfirmationTestCase { self: RequestLang =>
+
+    val agentAppointAction: AgentAppointBulkAction = AgentAppointBulkAction(
+      agentSummary.representativeCode,
+      agentSummary.name,
+      propertyLinkIds = List.empty,
+      backLinkUrl = "/back-link-url/unused-for/successful-appointments"
+    )
+
+    StubGroupAccountConnector.stubAccount(agent)
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any, any))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession(Some(agentAppointAction)))))
+
+    val result: Future[Result] = testController.confirmAppointAgentToSome()(self.fakeRequest)
+    val doc: Document = Jsoup.parse(contentAsString(result))
+
+    val panel: String = doc.getElementsByTag("h1").text
+    val explainer: String = doc.getElementById("explainer").text
+    val nextStepsSubhead: String = doc.getElementById("next-steps-subhead").text
+    val nextStepsContent: String = doc.getElementById("next-steps-content").text
+    val accountHomeLink: Element = doc.getElementById("account-home-link")
+  }
 
 }
