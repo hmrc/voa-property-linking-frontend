@@ -1097,7 +1097,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
   }
 
-
   "detailed valuation check" should "return 303 SEE_OTHER when DVR case does exist" in new Setup {
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessments)))
