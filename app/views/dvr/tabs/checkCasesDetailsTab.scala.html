@@ -41,9 +41,9 @@
 
 @returnUrl = @{
     if(model.isOwner)
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(model.propertyLinkSubmissionId, model.assessmentRef, model.uarn, tabName = Some("valuation-tab")).url}"
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(model.propertyLinkSubmissionId, model.assessmentRef, tabName = Some("valuation-tab")).url}"
     else
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(model.propertyLinkSubmissionId, model.assessmentRef, model.uarn, tabName = Some("valuation-tab")).url}"
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(model.propertyLinkSubmissionId, model.assessmentRef, tabName = Some("valuation-tab")).url}"
 }
 
 @detailContent = {

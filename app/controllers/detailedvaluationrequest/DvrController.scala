@@ -89,7 +89,6 @@ class DvrController @Inject()(
   def myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
-        uarn: Long,
         challengeCaseRef: Option[String] = None,
         otherValuationId: Option[Long] = None,
         fromValuation: Option[Long] = None,
@@ -97,7 +96,6 @@ class DvrController @Inject()(
     detailedValuationRequestCheck(
       propertyLinkSubmissionId,
       valuationId,
-      uarn,
       owner = true,
       challengeCaseRef = challengeCaseRef,
       otherValuationId = otherValuationId,
@@ -108,7 +106,6 @@ class DvrController @Inject()(
   def myClientsRequestDetailValuationCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
-        uarn: Long,
         challengeCaseRef: Option[String] = None,
         otherValuationId: Option[Long] = None,
         fromValuation: Option[Long] = None,
@@ -116,7 +113,6 @@ class DvrController @Inject()(
     detailedValuationRequestCheck(
       propertyLinkSubmissionId,
       valuationId,
-      uarn,
       owner = false,
       challengeCaseRef = challengeCaseRef,
       otherValuationId = otherValuationId,
@@ -127,7 +123,6 @@ class DvrController @Inject()(
   private def detailedValuationRequestCheck(
         propertyLinkSubmissionId: String,
         valuationId: Long,
-        uarn: Long,
         owner: Boolean,
         formWithErrors: Option[Form[StartCheckForm]] = None,
         challengeCaseRef: Option[String] = None,
@@ -149,7 +144,7 @@ class DvrController @Inject()(
             val backUrl = challengeCaseRef
               .map { ref =>
                 config.businessRatesChallengeUrl(
-                  s"summary/property-link/${link.authorisationId}/submission-id/$propertyLinkSubmissionId/challenge-cases/$ref?isAgent=${!owner}&isDvr=true&valuationId=${otherValuationId
+                  s"summary/property-link/${link.authorisationId}/submission-id/$propertyLinkSubmissionId/challenge-cases/$ref?isAgent=${!owner}&valuationId=${otherValuationId
                     .getOrElse(valuationId)}")
               }
               .orElse {
@@ -213,7 +208,7 @@ class DvrController @Inject()(
                   valuationId = valuationId,
                   baRef = link.assessments.head.billingAuthorityReference,
                   address = link.address,
-                  uarn = uarn,
+                  uarn = link.uarn,
                   isDraftList = assessment.isDraft,
                   isWelshProperty = assessment.isWelsh,
                   submissionId = propertyLinkSubmissionId,
@@ -237,8 +232,7 @@ class DvrController @Inject()(
                         "checkRef"                 -> checkReference,
                         "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
                         "isOwner"                  -> owner,
-                        "valuationId"              -> valuationId,
-                        "isDvr"                    -> true
+                        "valuationId"              -> valuationId
                       )
                     },
                     downloadUrl = evaluateRoute(documents.checkForm.documentSummary.documentId),
@@ -246,7 +240,7 @@ class DvrController @Inject()(
                     listYear = assessment.listYear,
                     propertyLinkSubmissionId = propertyLinkSubmissionId,
                     startCheckUrl = "#start-check-tab",
-                    uarn = uarn
+                    uarn = link.uarn
                   )
                 ),
                 startCheckForm = form,
@@ -534,11 +528,11 @@ class DvrController @Inject()(
             val returnUrl =
               if (isOwner)
                 s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController
-                  .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn, tabName = Some("valuation-tab"))
+                  .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, tabName = Some("valuation-tab"))
                   .url}"
               else
                 s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController
-                  .myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, uarn, tabName = Some("valuation-tab"))
+                  .myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, tabName = Some("valuation-tab"))
                   .url}"
             Redirect(
               config.businessRatesValuationFrontendUrl(
@@ -563,7 +557,6 @@ class DvrController @Inject()(
                       .myOrganisationRequestDetailValuationCheck(
                         plSubmissionId,
                         assessmentRef,
-                        uarn,
                         tabName = Some("valuation-tab"))
                       .url
                   else
@@ -571,7 +564,6 @@ class DvrController @Inject()(
                       .myClientsRequestDetailValuationCheck(
                         plSubmissionId,
                         assessmentRef,
-                        uarn,
                         tabName = Some("valuation-tab"))
                       .url
               ))
@@ -580,10 +572,10 @@ class DvrController @Inject()(
     }
   }
 
-  def myOrganisationStartCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long): Action[AnyContent] =
-    startCheck(propertyLinkSubmissionId, valuationId, isOwner = true, uarn)
-  def myClientsStartCheck(propertyLinkSubmissionId: String, valuationId: Long, uarn: Long): Action[AnyContent] =
-    startCheck(propertyLinkSubmissionId, valuationId, isOwner = false, uarn)
+  def myOrganisationStartCheck(propertyLinkSubmissionId: String, valuationId: Long): Action[AnyContent] =
+    startCheck(propertyLinkSubmissionId, valuationId, isOwner = true)
+  def myClientsStartCheck(propertyLinkSubmissionId: String, valuationId: Long): Action[AnyContent] =
+    startCheck(propertyLinkSubmissionId, valuationId, isOwner = false)
 
   private def getCheckType(checkType: CheckType): String = checkType match {
     case RateableValueTooHigh => Internal.value
@@ -600,11 +592,7 @@ class DvrController @Inject()(
       }
       .sortWith(_.agent.organisationName < _.agent.organisationName)
 
-  private def startCheck(
-        propertyLinkSubmissionId: String,
-        valuationId: Long,
-        isOwner: Boolean,
-        uarn: Long): Action[AnyContent] =
+  private def startCheck(propertyLinkSubmissionId: String, valuationId: Long, isOwner: Boolean): Action[AnyContent] =
     authenticated.async { implicit request =>
       def startCheckUrl(form: StartCheckForm): String = {
         val rvth = form.checkType == RateableValueTooHigh
@@ -629,7 +617,6 @@ class DvrController @Inject()(
             detailedValuationRequestCheck(
               propertyLinkSubmissionId = propertyLinkSubmissionId,
               valuationId = valuationId,
-              uarn = uarn,
               owner = isOwner,
               formWithErrors = Some(formWithErrors))(request),
           form => Future.successful(Redirect(startCheckUrl(form)))
@@ -664,7 +651,6 @@ case class RequestDetailedValuationWithoutForm(
       address: String,
       effectiveDate: String,
       rateableValueFormatted: Option[String],
-      uarn: Long,
       listType: ListType,
       listYear: String,
       formattedFromDate: String,
@@ -686,7 +672,6 @@ object RequestDetailedValuationWithoutForm {
         assessment.effectiveDate.getOrElse(throw new RuntimeException(
           s"Assessment with ref: ${assessment.assessmentRef} does not contain an Effective Date"))),
       rateableValueFormatted = assessment.rateableValue.map(Formatters.formatCurrencyRoundedToPounds(_)),
-      uarn = assessments.uarn,
       listType = assessment.listType,
       listYear = assessment.listYear,
       formattedFromDate = assessment.currentFromDate.fold("")(Formatters.formattedFullDate(_)),

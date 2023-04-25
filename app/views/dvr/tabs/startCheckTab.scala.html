@@ -42,9 +42,9 @@
         ))
 
         @formWithCSRF(action = if(model.owner) {
-            controllers.detailedvaluationrequest.routes.DvrController.myOrganisationStartCheck(model.submissionId,model.valuationId, model.uarn)
+            controllers.detailedvaluationrequest.routes.DvrController.myOrganisationStartCheck(model.submissionId,model.valuationId)
         } else {
-            controllers.detailedvaluationrequest.routes.DvrController.myClientsStartCheck(model.submissionId,model.valuationId, model.uarn)
+            controllers.detailedvaluationrequest.routes.DvrController.myClientsStartCheck(model.submissionId,model.valuationId)
         } , Symbol("id") -> "checkType-form") {
 
             @govukRadios(Radios(

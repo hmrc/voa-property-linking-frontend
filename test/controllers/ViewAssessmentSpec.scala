@@ -100,7 +100,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     status(res) shouldBe SEE_OTHER
 
     redirectLocation(res).value should endWith(
-      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/valuations/1234?uarn=${link.uarn}")
+      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/valuations/1234")
   }
 
   "Viewing a detailed valuation" should "redirect to property linking with fromValuation if it's NOT viewable and user is owner" in new NotViewable {
@@ -114,7 +114,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     status(res) shouldBe SEE_OTHER
 
     redirectLocation(res).value should endWith(
-      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/valuations/1234?uarn=${link.uarn}&fromValuation=98765")
+      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/valuations/1234?fromValuation=98765")
   }
 
   "Viewing a detailed valuation" should "redirect to property linking if it's NOT viewable and user is Agent" in new NotViewable {
@@ -126,7 +126,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     )(FakeRequest())
     status(res) shouldBe SEE_OTHER
     redirectLocation(res).value should endWith(
-      s"/my-organisation/property-link/clients/all/${link.submissionId}/valuations/1234?uarn=${link.uarn}")
+      s"/my-organisation/property-link/clients/all/${link.submissionId}/valuations/1234")
   }
 
   "Viewing a detailed valuation" should "redirect to property linking with fromValuation if it's NOT viewable and user is Agent" in new NotViewable {
@@ -139,7 +139,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     )(FakeRequest())
     status(res) shouldBe SEE_OTHER
     redirectLocation(res).value should endWith(
-      s"/my-organisation/property-link/clients/all/${link.submissionId}/valuations/1234?uarn=${link.uarn}&fromValuation=98765")
+      s"/my-organisation/property-link/clients/all/${link.submissionId}/valuations/1234?fromValuation=98765")
   }
 
   trait Viewable {

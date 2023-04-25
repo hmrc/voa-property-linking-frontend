@@ -61,7 +61,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   trait Setup {
     implicit val request = FakeRequest()
     val checkSummaryUrlTemplate =
-      "/check-case/{checkRef}/summary?propertyLinkSubmissionId={propertyLinkSubmissionId}&isOwner={isOwner}&valuationId={valuationId}&isDvr={isDvr}"
+      "/check-case/{checkRef}/summary?propertyLinkSubmissionId={propertyLinkSubmissionId}&isOwner={isOwner}&valuationId={valuationId}"
     val enquiryUrlTemplate = "/draft-list-enquiry/start-from-dvr-valuation"
     val estimatorUrlTemplate = "/estimate-your-business-rates/start-from-dvr-valuation"
 
@@ -149,7 +149,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = resultCanChallenge(true)
 
     val urlBack =
-      s"http://localhost:9523/business-rates-property-linking/my-organisation/property-link/$plSubmissionId/valuations/$assessmentRef?uarn=$uarn"
+      s"http://localhost:9523/business-rates-property-linking/my-organisation/property-link/$plSubmissionId/valuations/$assessmentRef"
     val expectedRedirect =
       s"http://localhost:9537/business-rates-valuation/property-link/valuations/startChallenge?backLinkUrl=$urlBack"
 
@@ -165,7 +165,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = resultCanChallenge(false)
 
     val urlBack =
-      s"http://localhost:9523/business-rates-property-linking/my-organisation/property-link/clients/all/$plSubmissionId/valuations/$assessmentRef?uarn=$uarn"
+      s"http://localhost:9523/business-rates-property-linking/my-organisation/property-link/clients/all/$plSubmissionId/valuations/$assessmentRef"
     val expectedRedirect =
       s"http://localhost:9537/business-rates-valuation/property-link/valuations/startChallenge?backLinkUrl=$urlBack"
 
@@ -219,7 +219,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>")
     // Backlink
     contentAsString(result) should include(
-      """<a href="/business-rates-property-linking/my-organisation/property-link/123456/valuations/55555?uarn=123123""")
+      """<a href="/business-rates-property-linking/my-organisation/property-link/123456/valuations/55555""")
   }
 
   "can Challenge for Agent" should "redirect to start challenge when canChallenge response is false" in new CanChallengeSetup {
@@ -236,7 +236,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>")
     // Backlink
     contentAsString(result) should include(
-      """<a href="/business-rates-property-linking/my-organisation/property-link/clients/all/123456/valuations/55555?uarn=123123""")
+      """<a href="/business-rates-property-linking/my-organisation/property-link/clients/all/123456/valuations/55555""")
   }
 
   "current valuation" should "return 200 OK and have the correct caption" in new Setup {
@@ -256,7 +256,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         propertyLinkSubmissionId = "1111",
         valuationId =
           ownerAssessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
       )(request)
 
     status(result) shouldBe OK
@@ -287,7 +286,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         propertyLinkSubmissionId = "1111",
         valuationId =
           ownerAssessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
       )(request)
 
     status(result) shouldBe OK
@@ -314,7 +312,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         propertyLinkSubmissionId = "1111",
         valuationId =
           assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
       )(request)
 
     status(result) shouldBe OK
@@ -347,7 +344,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         propertyLinkSubmissionId = "1111",
         valuationId =
           assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
       )(request)
 
     status(result) shouldBe OK
@@ -409,7 +405,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         propertyLinkSubmissionId = "1111",
         valuationId =
           assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
       )(request)
 
     status(result) shouldBe OK
@@ -462,7 +457,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         propertyLinkSubmissionId = "1111",
         valuationId = assessmentsCurrentEndDateIsNone.assessments.headOption
           .fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
       )(request)
 
     status(result) shouldBe OK
@@ -512,7 +506,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         propertyLinkSubmissionId = "1111",
         valuationId =
           assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
       )(request)
 
     status(result) shouldBe OK
@@ -627,10 +620,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
       .thenReturn(Future.successful(List.empty))
 
-    private val response = controller.myOrganisationRequestDetailValuationCheck(
-      ownerAuthorisation.submissionId,
-      assessment.assessmentRef,
-      ownerAuthorisation.uarn)(request)
+    private val response =
+      controller.myOrganisationRequestDetailValuationCheck(ownerAuthorisation.submissionId, assessment.assessmentRef)(
+        request)
     status(response) shouldBe OK
     val valuationTab: Element = Jsoup.parse(contentAsString(response)).getElementById("valuation-tab")
 
@@ -661,7 +653,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myClientsRequestDetailValuationCheck(
         propertyLinkSubmissionId = plSubmissionId,
         valuationId = valuationId,
-        uarn = 1L,
         challengeCaseRef = Some(challengeRef)
       )(request)
 
@@ -672,7 +663,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.html.getElementById("client-name").text() shouldBe "Client property: Client Org Name"
     page.html
       .getElementById("back-link")
-      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=true&isDvr=true&valuationId=$valuationId"
+      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=true&valuationId=$valuationId"
   }
 
   "detailed valuation of a DVR property" should "display correct CHECKS tab and table of check cases" in new Setup {
@@ -692,7 +683,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         propertyLinkSubmissionId = assessments.submissionId,
         valuationId =
           assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
       )(request)
 
     status(result) shouldBe OK
@@ -736,7 +726,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     Inspectors.forAll(checkCaseDetails) { details =>
       val expectedCheckSummaryLink =
-        s"/check-case/${details.caseReference}/summary?propertyLinkSubmissionId=${assessments.submissionId}&isOwner=true&valuationId=$assessmentRef&isDvr=true"
+        s"/check-case/${details.caseReference}/summary?propertyLinkSubmissionId=${assessments.submissionId}&isOwner=true&valuationId=$assessmentRef"
 
       checksTable
         .getElementsContainingOwnText(details.caseReference)
@@ -758,8 +748,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
         valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -817,8 +806,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
-        valuationId = firstAssessment.assessmentRef,
-        uarn = 1L
+        valuationId = firstAssessment.assessmentRef
       )(request)
 
     status(result) shouldBe OK
@@ -858,8 +846,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
         valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -916,8 +903,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
         valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 1L
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -957,7 +943,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = plSubmissionId,
         valuationId = valuationId,
-        uarn = 1L,
         challengeCaseRef = Some(challengeRef)
       )(request)
 
@@ -974,7 +959,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     //verify back link
     page.html
       .getElementById("back-link")
-      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=false&isDvr=true&valuationId=$valuationId"
+      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=false&valuationId=$valuationId"
   }
 
   "draft detailed valuation" should "return 200 OK and not fetch checks/challenges " in new Setup {
@@ -993,8 +978,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result =
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
-        valuationId = firstAssessment.assessmentRef,
-        uarn = 1L
+        valuationId = firstAssessment.assessmentRef
       )(request)
 
     status(result) shouldBe OK
@@ -1061,16 +1045,16 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         assessments.submissionId,
         assessments.authorisationId,
         futureAssessment.assessmentRef,
-        owner = true,
-        fromValuation = Some(currentAssessment.assessmentRef))
+        owner = true
+      )
       .url
     lazy val clientFutureValuationUrl: String = controllers.routes.Assessments
       .viewDetailedAssessment(
         assessments.submissionId,
         assessments.authorisationId,
         futureAssessment.assessmentRef,
-        owner = false,
-        fromValuation = Some(currentAssessment.assessmentRef))
+        owner = false
+      )
       .url
 
     def estimatorUrl(isOwner: Boolean): String =
@@ -1109,8 +1093,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     val result = controller.myOrganisationRequestDetailValuationCheck(
       propertyLinkSubmissionId = "1111",
-      valuationId = link.authorisationId,
-      uarn = assessment.assessmentRef)(request)
+      valuationId = link.authorisationId)(request)
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
@@ -1172,7 +1155,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     changeSomethingHeading.text() shouldBe "If you want to change something in this valuation"
     challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
       s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
-        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, testAssessments.uarn, tabName = Some("valuation-tab"))
+        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, tabName = Some("valuation-tab"))
         .absoluteURL(false, "localhost:9523")}"
     )
   }
@@ -1206,7 +1189,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
       s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
-        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, testAssessments.uarn, tabName = Some("valuation-tab"))
+        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, tabName = Some("valuation-tab"))
         .absoluteURL(false, "localhost:9523")}"
     )
   }
@@ -1241,7 +1224,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
       s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
-        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, testAssessments.uarn, tabName = Some("valuation-tab"))
+        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, tabName = Some("valuation-tab"))
         .absoluteURL(false, "localhost:9523")}"
     )
   }
@@ -1275,7 +1258,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
       s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
-        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, testAssessments.uarn, tabName = Some("valuation-tab"))
+        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, tabName = Some("valuation-tab"))
         .absoluteURL(false, "localhost:9523")}"
     )
   }
@@ -1284,7 +1267,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result: Future[Result] = controller.myOrganisationRequestDetailValuationCheck(
       propertyLinkSubmissionId = assessments.submissionId,
       valuationId = currentAssessment.assessmentRef,
-      uarn = currentAssessment.uarn,
       challengeCaseRef = None,
       fromValuation = Some(futureAssessment.assessmentRef)
     )(request)
@@ -1296,7 +1278,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result: Future[Result] = controller.myClientsRequestDetailValuationCheck(
       propertyLinkSubmissionId = assessments.submissionId,
       valuationId = currentAssessment.assessmentRef,
-      uarn = currentAssessment.uarn,
       challengeCaseRef = None,
       fromValuation = Some(futureAssessment.assessmentRef)
     )(request)
@@ -1826,7 +1807,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result: Future[Result] = controller.myOrganisationRequestDetailValuationCheck(
       propertyLinkSubmissionId = assessments.submissionId,
       valuationId = currentAssessment.assessmentRef,
-      uarn = currentAssessment.uarn,
       challengeCaseRef = None,
       fromValuation = Some(futureAssessment.assessmentRef)
     )(request)
@@ -1839,7 +1819,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result: Future[Result] = controller.myClientsRequestDetailValuationCheck(
       propertyLinkSubmissionId = assessments.submissionId,
       valuationId = currentAssessment.assessmentRef,
-      uarn = currentAssessment.uarn,
       challengeCaseRef = None,
       fromValuation = Some(futureAssessment.assessmentRef)
     )(request)
@@ -1850,7 +1829,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "an IP starting a check case" should "get redirected to a page in check-frontend" in new Setup {
     val checkType: String = "internal"
     val result: Future[Result] =
-      controller.myOrganisationStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L, uarn = 123L)(
+      controller.myOrganisationStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L)(
         FakeRequest().withFormUrlEncodedBody("checkType" -> checkType, "authorisationId" -> "12345"))
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
@@ -1859,7 +1838,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "an IP starting a check case" should "get redirected to a page in check-frontend - rateableValueTooHigh" in new Setup {
     val result: Future[Result] =
-      controller.myOrganisationStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L, uarn = 123L)(
+      controller.myOrganisationStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L)(
         FakeRequest().withFormUrlEncodedBody("checkType" -> "rateableValueTooHigh", "authorisationId" -> "12345"))
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
@@ -1880,8 +1859,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationStartCheck(
         propertyLinkSubmissionId = "PL123",
         valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 123L
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(FakeRequest().withFormUrlEncodedBody())
     status(result) shouldBe BAD_REQUEST
 
@@ -1892,7 +1870,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "an agent starting a check case" should "get redirected to a page in check-frontend" in new Setup {
     val checkType: String = "internal"
     val result: Future[Result] =
-      controller.myClientsStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L, uarn = 123L)(
+      controller.myClientsStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L)(
         FakeRequest().withFormUrlEncodedBody("checkType" -> checkType, "authorisationId" -> "12345"))
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
@@ -1913,8 +1891,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myClientsStartCheck(
         propertyLinkSubmissionId = "PL123",
         valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
-        uarn = 123L
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(FakeRequest().withFormUrlEncodedBody())
     status(result) shouldBe BAD_REQUEST
 
