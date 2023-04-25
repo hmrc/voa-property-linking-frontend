@@ -1714,28 +1714,6 @@ available.requestvaluation.inset=Nid dyma’r swm rydych yn ei dalu. Defnyddir i
 available.requestvaluation.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 available.requestvaluation.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 
-requestValuation.future.help.title=Cymorth gyda’ch prisiad yn y dyfodol
-requestValuation.future.help.subheading.1=Gall eich gwerth ardrethol newid ar {0}
-requestValuation.future.help.subheading.2=Mae angen newid manylion eich eiddo
-requestValuation.future.help.subheading.3=Rydych chi’n meddwl bod y gwerth ardrethol yn rhy uchel
-
-requestValuation.future.help.subheading.5=Sut effeithiodd Coronafeirws (COVID-19) ar werth ardrethol y dyfodol
-requestValuation.future.help.p.1=Rydym yn diweddaru gwerthoedd ardrethol pob eiddo busnes yng Nghymru a Lloegr yn rheolaidd i adlewyrchu newidiadau yn y farchnad eiddo. Bydd yr ailbrisiad nesaf yn dod i rym ar {0}.
-requestValuation.future.help.p.2=Anfonwch achos Gwirio atom ni i ddweud wrthym fod angen newid manylion eich eiddo (megis meintiau arwynebedd llawr a pharcio). Efallai byddwn yn derbyn eich newidiadau ac yn diweddaru’r prisiadau cyfredol a dyfodol.
-requestValuation.future.help.welsh.p.2=Cyn{0}, <a class="govuk-link" id="{2}" href="{1}">anfonwch ymholiad</a> I ddweud wrthym am newidiadau i fanylion eich eiddo fel meintiau arwynebedd y llawr a pharcio. Efallai byddwn yn derbyn eich newidiadau ac yn diweddaru’r prisiadau cyfredol a  dyfodol.
-requestValuation.future.help.welsh.p.3=O’r {0}, defnyddiwch eich cyfrif prisio ardrethi busnes er mwyn anfon achos Gwirio atom.
-requestValuation.future.help.welsh.p.4=<a class="govuk-link" id="{0}" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">Sut i ddefnyddio cyfrif prisio ardrethi busnes</a>
-requestValuation.future.help.welsh.p.5=Arhoswch tan {0} a defnyddio eich cyfrif prisio ardrethi busnes i anfon achos Herio atom.
-requestValuation.future.help.p.3=Dechrau achos Gwirio o’r prisiad cyfredol 
-requestValuation.future.help.p.4=O’r {0}, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel.
-requestValuation.future.help.p.5=Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Herio atom.
-requestValuation.future.help.p.6=Cyn{0}, <a class="govuk-link" id="future-valuation-enquiry-link" href="{1}"anfon ymholiad</a>.
-requestValuation.future.help.p.7=Rydym yn seilio gwerthoedd ardrethol ar amcangyfrif o’r hyn y byddai’n ei gostio i rentu eiddo am flwyddyn, gan ddechrau ar ddyddiad penodol.
-requestValuation.future.help.p.8=Ar gyfer prisiad 2023, y dyddiad hwnnw oedd 1 Ebrill 2021. Roedd hyn yn ystod y pandemig ac roedd y wybodaeth rhent a ddefnyddiwyd gennym yn adlewyrchu hyn.
-requestValuation.future.help.help.link.1=<a class="govuk-link" id="how-to-use-account" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">Sut i ddefnyddio cyfrif prisio ardrethi busnes</a>
-requestValuation.future.help.help.link.2=<a class="govuk-link" id="how-properties-are-valued" href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">Sut y prisir eiddo busnes</a>
-requestValuation.future.help.help.link.3=Amcangyfrif beth all bil ardrethi busnes yr eiddo hwn fod o {0}
-requestValuation.future.help.help.link.4=<a class="govuk-link"  id="rates-relief" href="https://www.gov.uk/apply-for-business-rate-relief">Rhyddhad Ardrethi Busnesau</a>
 available.requestvaluation.startCheckTab.guidance.content.aboutCheck=Mwy o wybodaeth am achosion Gwirio 
 available.requestvaluation.startCheckTab.guidance.content.aboutChallenge=More o wybodaeth am achosion Herio 
 available.requestvaluation.startCheckTab.rateableValueTooHigh.content=Rydych yn meddwl bod y gwerth ardrethol yn rhy uchel ac nid oes angen newid manylion yr eiddo
