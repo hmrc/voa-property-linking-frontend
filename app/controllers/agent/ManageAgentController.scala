@@ -77,25 +77,23 @@ class ManageAgentController @Inject()(
         params: GetPropertyLinksParameters = GetPropertyLinksParameters(),
         propertyLinkId: Option[Long] = None,
         valuationId: Option[Long] = None,
-        propertyLinkSubmissionId: Option[String] = None,
-        uarn: Option[Long] = None): Action[AnyContent] = authenticated.async { implicit request =>
+        propertyLinkSubmissionId: Option[String] = None): Action[AnyContent] = authenticated.async { implicit request =>
     {
       for {
         ownerAuthResult <- agentRelationshipService
                             .getMyAgentPropertyLinks(agentCode, params, PaginationParams(1, 100, true))
         agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
         myAgents     <- agentRelationshipService.getMyOrganisationAgents()
-        backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId, uarn, myAgents.resultCount) match {
-          case (None, None, None, None, 1) => config.dashboardUrl("home")
-          case (Some(linkId), Some(valId), Some(submissionId), None, _) =>
+        backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId, myAgents.resultCount) match {
+          case (None, None, None, 1) => config.dashboardUrl("home")
+          case (Some(linkId), Some(valId), Some(submissionId), _) =>
             config.businessRatesValuationFrontendUrl(
               s"property-link/$linkId/valuations/$valId?submissionId=$submissionId#agents-tab")
-          case (None, Some(valId), Some(submissionId), Some(u), _) =>
+          case (None, Some(valId), Some(submissionId), _) =>
             controllers.detailedvaluationrequest.routes.DvrController
               .myOrganisationRequestDetailValuationCheck(
                 propertyLinkSubmissionId = submissionId,
                 valuationId = valId,
-                uarn = u,
                 tabName = Some("agents-tab"))
               .url
           case _ => controllers.agent.routes.ManageAgentController.showAgents.url

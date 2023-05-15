@@ -38,17 +38,8 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
         stubMessagesControllerComponents()
       )
 
-  "Viewing a detailed valuation" should "redirect to business rates valuation if it's viewable and user is owner" in {
-    val link: PropertyLink = arbitrary[PropertyLink]
-
-    //return TRUE - i.e. viewable
-    when(mockBusinessRatesValuationConnector.isViewable(any(), any(), any())(any())).thenReturn(Future.successful(true))
-
-    when(mockPropertyLinkService.getSingularPropertyLink(any(), any())(any())).thenReturn(Future.successful(Some(link)))
-
-    StubPropertyLinkConnector.stubLink(link)
-
-    val res = TestAssessmentController.viewDetailedAssessment(
+  "Viewing a detailed valuation" should "redirect to business rates valuation if it's viewable and user is owner" in new Viewable {
+    private val res = TestAssessmentController.viewDetailedAssessment(
       submissionId = link.submissionId,
       authorisationId = link.authorisationId,
       assessmentRef = 1234L,
@@ -60,40 +51,47 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
       s"/business-rates-valuation/property-link/${link.authorisationId}/valuations/1234?submissionId=${link.submissionId}")
   }
 
-  "Viewing a detailed valuation" should "redirect to business rates valuation if it's viewable and user is agent" in {
-    val link: PropertyLink = arbitrary[PropertyLink]
+  "Viewing a detailed valuation" should "redirect to business rates valuation with fromValuation if it's viewable and user is owner" in new Viewable {
+    private val res = TestAssessmentController.viewDetailedAssessment(
+      submissionId = link.submissionId,
+      authorisationId = link.authorisationId,
+      assessmentRef = 1234L,
+      owner = true,
+      fromValuation = Some(98765L)
+    )(FakeRequest())
+    status(res) shouldBe SEE_OTHER
 
-    //return TRUE - i.e. viewable
-    when(mockBusinessRatesValuationConnector.isViewable(any(), any(), any())(any())).thenReturn(Future.successful(true))
+    redirectLocation(res).value should endWith(
+      s"/business-rates-valuation/property-link/${link.authorisationId}/valuations/1234?submissionId=${link.submissionId}&fromValuation=98765")
+  }
 
-    when(mockPropertyLinkService.getSingularPropertyLink(any(), any())(any())).thenReturn(Future.successful(Some(link)))
-
-    StubPropertyLinkConnector.stubLink(link)
-
-    val res = TestAssessmentController.viewDetailedAssessment(
+  "Viewing a detailed valuation" should "redirect to business rates valuation if it's viewable and user is agent" in new Viewable {
+    private val res = TestAssessmentController.viewDetailedAssessment(
       submissionId = link.submissionId,
       authorisationId = link.authorisationId,
       assessmentRef = 1234L,
       owner = false,
     )(FakeRequest())
     status(res) shouldBe SEE_OTHER
-
     redirectLocation(res).value should endWith(
       s"/business-rates-valuation/property-link/clients/${link.authorisationId}/valuations/1234?submissionId=${link.submissionId}")
   }
 
-  "Viewing a detailed valuation" should "redirect to property linking if it's NOT viewable and user is owner" in {
-    val link: PropertyLink = arbitrary[PropertyLink]
+  "Viewing a detailed valuation" should "redirect to business rates valuation with fromValuation if it's viewable and user is agent" in new Viewable {
+    private val res = TestAssessmentController.viewDetailedAssessment(
+      submissionId = link.submissionId,
+      authorisationId = link.authorisationId,
+      assessmentRef = 1234L,
+      owner = false,
+      fromValuation = Some(98765L)
+    )(FakeRequest())
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res).value should endWith(
+      s"/business-rates-valuation/property-link/clients/${link.authorisationId}/valuations/1234?submissionId=${link.submissionId}&fromValuation=98765")
+  }
 
-    //return FALSE - i.e. NOT viewable
-    when(mockBusinessRatesValuationConnector.isViewable(any(), any(), any())(any()))
-      .thenReturn(Future.successful(false))
-
-    when(mockPropertyLinkService.getSingularPropertyLink(any(), any())(any())).thenReturn(Future.successful(Some(link)))
-
-    StubPropertyLinkConnector.stubLink(link)
-
-    val res = TestAssessmentController.viewDetailedAssessment(
+  "Viewing a detailed valuation" should "redirect to property linking if it's NOT viewable and user is owner" in new NotViewable {
+    private val res = TestAssessmentController.viewDetailedAssessment(
       submissionId = link.submissionId,
       authorisationId = link.authorisationId,
       assessmentRef = 1234L,
@@ -102,29 +100,65 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
     status(res) shouldBe SEE_OTHER
 
     redirectLocation(res).value should endWith(
-      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/valuations/1234?uarn=${link.uarn}")
+      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/valuations/1234")
   }
 
-  "Viewing a detailed valuation" should "redirect to business rates valuation if it's NOT viewable and user is Agent" in {
-    val link: PropertyLink = arbitrary[PropertyLink]
+  "Viewing a detailed valuation" should "redirect to property linking with fromValuation if it's NOT viewable and user is owner" in new NotViewable {
+    private val res = TestAssessmentController.viewDetailedAssessment(
+      submissionId = link.submissionId,
+      authorisationId = link.authorisationId,
+      assessmentRef = 1234L,
+      owner = true,
+      fromValuation = Some(98765L)
+    )(FakeRequest())
+    status(res) shouldBe SEE_OTHER
 
-    //return FALSE - i.e. NOT viewable
-    when(mockBusinessRatesValuationConnector.isViewable(any(), any(), any())(any())).thenReturn(Future.successful(true))
+    redirectLocation(res).value should endWith(
+      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/valuations/1234?fromValuation=98765")
+  }
 
-    when(mockPropertyLinkService.getSingularPropertyLink(any(), any())(any())).thenReturn(Future.successful(Some(link)))
-
-    StubPropertyLinkConnector.stubLink(link)
-
-    val res = TestAssessmentController.viewDetailedAssessment(
+  "Viewing a detailed valuation" should "redirect to property linking if it's NOT viewable and user is Agent" in new NotViewable {
+    private val res = TestAssessmentController.viewDetailedAssessment(
       submissionId = link.submissionId,
       authorisationId = link.authorisationId,
       assessmentRef = 1234L,
       owner = false,
     )(FakeRequest())
     status(res) shouldBe SEE_OTHER
-
     redirectLocation(res).value should endWith(
-      s"/business-rates-valuation/property-link/clients/${link.authorisationId}/valuations/1234?submissionId=${link.submissionId}")
+      s"/my-organisation/property-link/clients/all/${link.submissionId}/valuations/1234")
+  }
+
+  "Viewing a detailed valuation" should "redirect to property linking with fromValuation if it's NOT viewable and user is Agent" in new NotViewable {
+    private val res = TestAssessmentController.viewDetailedAssessment(
+      submissionId = link.submissionId,
+      authorisationId = link.authorisationId,
+      assessmentRef = 1234L,
+      owner = false,
+      fromValuation = Some(98765L)
+    )(FakeRequest())
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res).value should endWith(
+      s"/my-organisation/property-link/clients/all/${link.submissionId}/valuations/1234?fromValuation=98765")
+  }
+
+  trait Viewable {
+    val link: PropertyLink = arbitrary[PropertyLink]
+
+    //return TRUE - i.e. viewable
+    when(mockBusinessRatesValuationConnector.isViewable(any(), any(), any())(any())).thenReturn(Future.successful(true))
+    when(mockPropertyLinkService.getSingularPropertyLink(any(), any())(any())).thenReturn(Future.successful(Some(link)))
+    StubPropertyLinkConnector.stubLink(link)
+  }
+
+  trait NotViewable {
+    val link: PropertyLink = arbitrary[PropertyLink]
+
+    //return FALSE - i.e. NOT viewable
+    when(mockBusinessRatesValuationConnector.isViewable(any(), any(), any())(any()))
+      .thenReturn(Future.successful(false))
+    when(mockPropertyLinkService.getSingularPropertyLink(any(), any())(any())).thenReturn(Future.successful(Some(link)))
+    StubPropertyLinkConnector.stubLink(link)
   }
 
 }

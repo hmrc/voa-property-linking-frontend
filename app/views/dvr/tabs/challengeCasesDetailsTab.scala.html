@@ -28,7 +28,7 @@
 
 @challengeCaseDetailsUrl(challengeCaseRef: String) = @{
     config.businessRatesChallengeUrl(
-        s"summary/property-link/${model.authorisationId}/submission-id/${model.submissionId}/challenge-cases/$challengeCaseRef?isAgent=${!model.owner}&isDvr=true&valuationId=${model.assessment.assessmentRef}"
+        s"summary/property-link/${model.authorisationId}/submission-id/${model.submissionId}/challenge-cases/$challengeCaseRef?isAgent=${!model.owner}&valuationId=${model.assessment.assessmentRef}"
     )
 }
 
@@ -86,9 +86,9 @@
 
 @returnUrl = @{
     if(model.owner)
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(model.submissionId, model.assessment.assessmentRef, model.uarn, tabName = Some("valuation-tab")).url}"
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myOrganisationRequestDetailValuationCheck(model.submissionId, model.assessment.assessmentRef, tabName = Some("valuation-tab")).url}"
     else
-        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(model.submissionId, model.assessment.assessmentRef, model.uarn, tabName = Some("valuation-tab")).url}"
+        s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController.myClientsRequestDetailValuationCheck(model.submissionId, model.assessment.assessmentRef, tabName = Some("valuation-tab")).url}"
 }
 
 @detailContent = {

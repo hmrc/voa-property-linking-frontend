@@ -120,8 +120,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future.successful(organisationsAgentsListWithTwoAgents))
 
-    val res = testController.manageAgentProperties(agentCode, GetPropertyLinksParameters(), None, None, None, None)(
-      FakeRequest())
+    val res =
+      testController.manageAgentProperties(agentCode, GetPropertyLinksParameters(), None, None, None)(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -144,8 +144,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsListWithTwoAgents))
 
     val res = testController
-      .manageAgentProperties(agentCode, GetPropertyLinksParameters(), Some(1L), Some(1L), Some("subId"), None)(
-        FakeRequest())
+      .manageAgentProperties(agentCode, GetPropertyLinksParameters(), Some(1L), Some(1L), Some("subId"))(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -155,7 +154,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   }
 
-  "manageAgentProperties" should "return the correct back link for provided parameters - valuationId, propertyLinkSubmissionId, uarn" in {
+  "manageAgentProperties" should "return the correct back link for provided parameters - valuationId, propertyLinkSubmissionId" in {
     val agentCode = 1
     when(mockAgentRelationshipService.getMyAgentPropertyLinks(any(), any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
@@ -165,8 +164,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(organisationsAgentsListWithTwoAgents))
 
     val res = testController
-      .manageAgentProperties(agentCode, GetPropertyLinksParameters(), None, Some(1L), Some("subId"), Some(1L))(
-        FakeRequest())
+      .manageAgentProperties(agentCode, GetPropertyLinksParameters(), None, Some(1L), Some("subId"))(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -176,7 +174,6 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "subId",
         valuationId = 1L,
-        uarn = 1L,
         tabName = Some("agents-tab"))
       .url
 

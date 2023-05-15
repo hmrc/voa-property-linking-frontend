@@ -44,7 +44,10 @@ class Assessments @Inject()(
         submissionId: String,
         authorisationId: Long,
         assessmentRef: Long,
-        owner: Boolean
+        owner: Boolean,
+        otherValuationId: Option[Long] = None,
+        fromValuation: Option[Long] = None,
+        challengeCaseRef: Option[String] = None
   ): Action[AnyContent] = authenticated.async { implicit request =>
     propertyLinkService.getSingularPropertyLink(submissionId, owner).flatMap {
       case Some(propertyLink) =>
@@ -54,10 +57,18 @@ class Assessments @Inject()(
             case true =>
               if (owner) {
                 Redirect(config.businessRatesValuationFrontendUrl(
-                  s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+                  s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${Seq(
+                    otherValuationId.fold("")("&otherValuationId=" + _),
+                    fromValuation.fold("")("&fromValuation=" + _),
+                    challengeCaseRef.fold("")("&challengeCaseRef=" + _)
+                  ).mkString}"))
               } else {
                 Redirect(config.businessRatesValuationFrontendUrl(
-                  s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId"))
+                  s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${Seq(
+                    otherValuationId.fold("")("&otherValuationId=" + _),
+                    fromValuation.fold("")("&fromValuation=" + _),
+                    challengeCaseRef.fold("")("&challengeCaseRef=" + _)
+                  ).mkString}"))
               }
             case false =>
               Redirect(
@@ -66,15 +77,21 @@ class Assessments @Inject()(
                     .myOrganisationRequestDetailValuationCheck(
                       submissionId,
                       assessmentRef,
-                      propertyLink.uarn,
-                      tabName = Some("valuation-tab"))
+                      otherValuationId = otherValuationId,
+                      fromValuation = fromValuation,
+                      challengeCaseRef = challengeCaseRef,
+                      tabName = Some("valuation-tab")
+                    )
                 else
                   controllers.detailedvaluationrequest.routes.DvrController
                     .myClientsRequestDetailValuationCheck(
                       submissionId,
                       assessmentRef,
-                      propertyLink.uarn,
-                      tabName = Some("valuation-tab"))
+                      otherValuationId = otherValuationId,
+                      fromValuation = fromValuation,
+                      challengeCaseRef = challengeCaseRef,
+                      tabName = Some("valuation-tab")
+                    )
               )
           }
       case None => Future.successful(notFound)
