@@ -54,12 +54,12 @@
 }
 
 @valuationTabContent = {
-    @if(!model.isDraftList & !model.assessment.allowedActions.contains(CHECK)) {
+    @if(!model.assessment.allowedActions.contains(CHECK)) {
         <p class="govuk-body">@messages("available.requestvaluation.listYear.2017.p1")</p>
         <p class="govuk-body">@messages("available.requestvaluation.listYear.2017.p2")</p>
 
         <ul class="govuk-list govuk-list--bullet">
-            <li>@messages("available.requestvaluation.listYear.2017.li1")</li>
+            <li class="govuk-!-margin-bottom-0 ">@messages("available.requestvaluation.listYear.2017.li1")</li>
             <li>@messages("available.requestvaluation.listYear.2017.li2")</li>
             <li>@messages("available.requestvaluation.listYear.2017.li3")</li>
         </ul>
@@ -67,21 +67,24 @@
         <p class="govuk-body">@messages("available.requestvaluation.listYear.2017.p3")</p>
 
         <ul class="govuk-list govuk-list--bullet">
+        @if(currentValuationUrl.nonEmpty) {
             <li>@link(preLinkText = Some(messages("available.requestvaluation.listYear.2017.li4")),
                 linkText = messages("available.requestvaluation.listYear.2017.link.text"),
                 location = currentValuationsUrl,
+                pClass = "govuk-body govuk-!-margin-bottom-0" ,
                 linkId = Some("current-valuation-alteration"))
             </li>
             <li>@link(preLinkText = Some(messages("available.requestvaluation.listYear.2017.li5")),
                 linkText = messages("available.requestvaluation.listYear.2017.link.text"),
                 location = currentValuationsUrl,
+                pClass = "govuk-body govuk-!-margin-bottom-0" ,
                 linkId = Some("current-valuation-court-decision"))
             </li>
+        } else {
+            <li>@Html(messages("available.requestvaluation.listYear.2017.noCurrent.altered"))</li>
+            <li>@Html(messages("available.requestvaluation.listYear.2017.noCurrent.court"))</li>
+        }
         </ul>
-
-    } else if(model.isDraftList & !model.assessment.allowedActions.contains(CHECK)) {
-
-    <p class="govuk-body">@messages("available.requestvaluation.listYear.isDraft.p")</p>
 
     } else {
         <p class="govuk-body">@messages("available.requestvaluation.nonDraft.check.p1")</p>
