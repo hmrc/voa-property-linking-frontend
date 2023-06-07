@@ -168,8 +168,7 @@ trait VoaPropertyLinkingSpec
         relationshipCapacity: Option[CapacityType] = Some(Owner),
         userIsAgent: Boolean = true,
         earliestStartDate: LocalDate = earliestEnglishStartDate,
-        propertyOwnership: Option[PropertyOwnership] = Some(
-          PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
+        propertyOwnership: Option[PropertyOwnership] = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
         propertyOccupancy: Option[PropertyOccupancy] = Some(
           PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
         fromCya: Option[Boolean] = Some(false),
@@ -210,8 +209,7 @@ trait VoaPropertyLinkingSpec
         relationshipCapacity: Option[CapacityType] = Some(Owner),
         userIsAgent: Boolean = true,
         earliestStartDate: LocalDate = earliestEnglishStartDate,
-        propertyOwnership: Option[PropertyOwnership] = Some(
-          PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
+        propertyOwnership: Option[PropertyOwnership] = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
         propertyOccupancy: Option[PropertyOccupancy] = Some(
           PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
         fromCya: Option[Boolean] = Some(true)): WithSubmittedLinkingSession =

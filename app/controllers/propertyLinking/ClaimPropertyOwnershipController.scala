@@ -30,7 +30,6 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-import uk.gov.voa.play.form.ConditionalMappings._
 
 import java.time.LocalDate
 import javax.inject.{Inject, Named}
@@ -53,13 +52,12 @@ class ClaimPropertyOwnershipController @Inject()(
 
   def showOwnership: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     {
-      val form = ownershipForm(request.ses.earliestStartDate, request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate))
+      val form = ownershipForm(request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate))
 
       if (request.ses.earliestStartDate.isAfter(LocalDate.now()))
         sessionRepository
           .saveOrUpdate[LinkingSession](request.ses.copy(
-            propertyOwnership =
-              Some(PropertyOwnership(interestedOnOrBefore = false, fromDate = Some(request.ses.earliestStartDate))),
+            propertyOwnership = Some(PropertyOwnership(fromDate = request.ses.earliestStartDate)),
             propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))
           ))
           .map { _ =>
@@ -81,7 +79,7 @@ class ClaimPropertyOwnershipController @Inject()(
 
   def submitOwnership: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-      ownershipForm(request.ses.earliestStartDate, request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate))
+      ownershipForm(request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate))
         .bindFromRequest()
         .fold(
           errors =>
@@ -107,19 +105,15 @@ class ClaimPropertyOwnershipController @Inject()(
 
 object ClaimPropertyOwnership {
 
-  def ownershipForm(earliestStartDate: LocalDate, endDate: Option[LocalDate]): Form[PropertyOwnership] =
+  def ownershipForm(endDate: Option[LocalDate]): Form[PropertyOwnership] =
     Form(
       mapping(
-        "interestedOnOrBefore" -> mandatoryBoolean,
-        "fromDate" -> mandatoryIfFalse(
-          "interestedOnOrBefore",
-          dmyDateAfterThreshold(earliestStartDate)
-            .verifying("interestedOnOrBefore.error.dateInFuture", d => d.isBefore(LocalDate.now))
-            .verifying(
-              error = "interestedOnOrBefore.error.startDateMustBeBeforeEnd",
-              firstOccupied => endDate.forall(lastOccupied => firstOccupied.isBefore(lastOccupied))
-            )
-        )
+        "interestedStartDate" -> dmyDate
+          .verifying("interestedStartDate.error.dateInFuture", d => d.isBefore(LocalDate.now))
+          .verifying(
+            error = "interestedStartDate.error.startDateMustBeBeforeEnd",
+            firstOccupied => endDate.forall(lastOccupied => firstOccupied.isBefore(lastOccupied))
+          )
       )(PropertyOwnership.apply)(PropertyOwnership.unapply))
 
   def getBackLink(implicit request: LinkingSessionRequest[_]): String =

@@ -21,8 +21,7 @@ import play.api.libs.json.Json
 import java.time.LocalDate
 
 case class PropertyOwnership(
-      interestedOnOrBefore: Boolean,
-      fromDate: Option[LocalDate]
+      fromDate: LocalDate
 )
 
 object PropertyOwnership {

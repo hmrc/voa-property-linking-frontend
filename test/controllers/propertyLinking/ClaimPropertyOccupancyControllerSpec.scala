@@ -41,8 +41,7 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec with S
 
   private def testClaimPropertyOccupancyController(
         earliestStartDate: LocalDate = earliestEnglishStartDate,
-        propertyOwnership: PropertyOwnership =
-          PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1))),
+        propertyOwnership: PropertyOwnership = PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1)),
         relationshipCapacity: CapacityType = Owner,
         userIsAgent: Boolean = true,
         fromCya: Boolean = false) =
@@ -105,7 +104,7 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec with S
     forAll(dateGen, arbitrary[Boolean], arbitrary[CapacityType]) { (d, isAgent, cap) =>
       {
         val result = testClaimPropertyOccupancyController(
-          propertyOwnership = PropertyOwnership(interestedOnOrBefore = false, fromDate = Some(d._1)),
+          propertyOwnership = PropertyOwnership(fromDate = d._1),
           relationshipCapacity = cap,
           userIsAgent = isAgent
         ).submitOccupancy()(FakeRequest().withFormUrlEncodedBody(

@@ -52,6 +52,15 @@ class ClaimPropertyOccupancyController @Inject()(
 
   import ClaimPropertyOccupancy._
 
+  private def occupancyStartDate(implicit request: LinkingSessionRequest[_]) = {
+    val earliestStartDate = request.ses.earliestStartDate
+    request.ses.propertyOwnership.map(_.fromDate) match {
+      case Some(startDate) if startDate.isBefore(earliestStartDate) => earliestStartDate
+      case Some(value)                                              => value
+      case None                                                     => earliestStartDate
+    }
+  }
+
   def showOccupancy: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     {
       if (request.ses.earliestStartDate.isAfter(LocalDate.now()))
@@ -62,25 +71,17 @@ class ClaimPropertyOccupancyController @Inject()(
             Redirect(propertyLinking.routes.ChooseEvidenceController.show)
           } else {
         val form = request.ses.propertyOccupancy.fold(occupancyForm(request.ses.earliestStartDate)) { occupancy =>
-          occupancyForm(
-            startDate = request.ses.propertyOwnership.flatMap(_.fromDate).getOrElse(request.ses.earliestStartDate))
+          occupancyForm(startDate = occupancyStartDate)
             .fillAndValidate(occupancy)
         }
-        Future.successful(
-          Ok(
-            occupancyOfPropertyView(
-              form,
-              request.ses.clientDetails,
-              getBackLink
-            )))
+        Future.successful(Ok(occupancyOfPropertyView(form, request.ses.clientDetails, getBackLink)))
       }
     }
   }
 
   def submitOccupancy: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-      occupancyForm(
-        startDate = request.ses.propertyOwnership.flatMap(_.fromDate).getOrElse(request.ses.earliestStartDate))
+      occupancyForm(startDate = occupancyStartDate)
         .bindFromRequest()
         .fold(
           errors =>

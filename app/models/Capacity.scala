@@ -29,17 +29,12 @@ object Capacity {
   def apply(linkingSession: LinkingSession): Capacity =
     Capacity(
       capacity = linkingSession.propertyRelationship
-        .map { relationship =>
-          relationship.capacity
-        }
-        .getOrElse(throw PropertyRelationshipException("property claim relationship should not be empty")),
-      fromDate = linkingSession.propertyOwnership
-        .flatMap { ownership =>
-          ownership.fromDate
-        }
-        .getOrElse(linkingSession.earliestStartDate),
-      toDate = linkingSession.propertyOccupancy.flatMap { occupancy =>
-        occupancy.lastOccupiedDate
-      }
+        .fold(throw PropertyRelationshipException("property claim relationship should not be empty"))(_.capacity),
+      fromDate = linkingSession.propertyOwnership.fold(linkingSession.earliestStartDate) { propertyOwnership =>
+        if (propertyOwnership.fromDate.isBefore(linkingSession.earliestStartDate)) {
+          linkingSession.earliestStartDate
+        } else { propertyOwnership.fromDate }
+      },
+      toDate = linkingSession.propertyOccupancy.flatMap(_.lastOccupiedDate)
     )
 }

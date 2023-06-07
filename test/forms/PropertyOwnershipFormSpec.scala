@@ -21,7 +21,6 @@ import controllers.propertyLinking.ClaimPropertyOwnership
 import models.PropertyOwnership
 import play.api.data.Form
 import utils.FormBindingVerification._
-import views.helpers.Errors
 
 import java.time.LocalDate
 
@@ -32,34 +31,20 @@ class PropertyOwnershipFormSpec extends VoaPropertyLinkingSpec {
   behavior of "Property ownership form"
 
   it should "bind when the inputs are all valid" in {
-    shouldBindTo(form(), validData, PropertyOwnership(false, Some(LocalDate.of(2017, 4, 20))))
+    shouldBindTo(form(), validData, PropertyOwnership(LocalDate.of(2017, 4, 20)))
   }
 
   it should "require a start date if the occupation/ownership started after 1st April 2017" in {
-    val data = validData.updated("interestedOnOrBefore", "false") - "fromDate.day" - "fromDate.month" - "fromDate.year"
-    verifyMandatoryDate(form(), data, "fromDate", false)
-  }
-
-  it should "not require the start date if the occupation/ownership started before 1st April 2017" in {
-    val data = validData.updated("interestedOnOrBefore", "true")
-    verifyOptionalDate(form(), data, "fromDate")
-  }
-
-  it should "require the start date to be after 1 April 2017" in {
-    val data = validData
-      .updated("interestedOnOrBefore", "false")
-      .updated("fromDate.day", "1")
-      .updated("fromDate.month", "3")
-      .updated("fromDate.year", "2017")
-    verifyOnlyError(form(), data, "fromDate", Errors.dateMustBeAfter)
+    val data = validData - "interestedStartDate.day" - "interestedStartDate.month" - "interestedStartDate.year"
+    verifyMandatoryDate(form(), data, "interestedStartDate", exclusive = false)
   }
 
   it should "require the start date to be before the end date" in {
     verifyOnlyError(
       form(endDate = Some(LocalDate.of(2017, 4, 19))),
       validData,
-      field = "fromDate",
-      error = "interestedOnOrBefore.error.startDateMustBeBeforeEnd")
+      field = "interestedStartDate",
+      error = "interestedStartDate.error.startDateMustBeBeforeEnd")
   }
 
   it should "require the start date to be in the past" in {
@@ -67,22 +52,21 @@ class PropertyOwnershipFormSpec extends VoaPropertyLinkingSpec {
     verifyOnlyError(
       form(),
       validData
-        .updated("fromDate.day", tomorrow.getDayOfMonth.toString)
-        .updated("fromDate.month", tomorrow.getMonthValue.toString)
-        .updated("fromDate.year", tomorrow.getYear.toString),
-      field = "fromDate",
-      error = "interestedOnOrBefore.error.dateInFuture"
+        .updated("interestedStartDate.day", tomorrow.getDayOfMonth.toString)
+        .updated("interestedStartDate.month", tomorrow.getMonthValue.toString)
+        .updated("interestedStartDate.year", tomorrow.getYear.toString),
+      field = "interestedStartDate",
+      error = "interestedStartDate.error.dateInFuture"
     )
   }
 
   object TestData {
     def form(endDate: Option[LocalDate] = None): Form[PropertyOwnership] =
-      ClaimPropertyOwnership.ownershipForm(earliestEnglishStartDate, endDate)
+      ClaimPropertyOwnership.ownershipForm(endDate)
     val validData = Map(
-      "interestedOnOrBefore" -> "false",
-      "fromDate.day"         -> "20",
-      "fromDate.month"       -> "4",
-      "fromDate.year"        -> "2017"
+      "interestedStartDate.day"   -> "20",
+      "interestedStartDate.month" -> "4",
+      "interestedStartDate.year"  -> "2017"
     )
   }
 
