@@ -28,10 +28,6 @@
 
 @clientSuffix = @{ clientDetails.fold("")(_ => ".client") }
 
-@occupancyStartDateHint = @{
-    request.ses.propertyOwnership.fold(request.ses.earliestStartDate)(_.fromDate).plusDays(1)
-}
-
 @occupancyStartDate(implicit request: LinkingSessionRequest[_]) = @{
   val earliestStartDate = request.ses.earliestStartDate
   request.ses.propertyOwnership.map(_.fromDate) match {
@@ -91,7 +87,7 @@
                         dateFields(
                             form = form,
                             fieldName = "lastOccupiedDate",
-                            hintDateOverride = Some(occupancyStartDateHint),
+                            hintDateOverride = Some(occupancyStartDate.plusDays(1)),
                             label = Some(s"label.lastOccupiedDate$clientSuffix")))
 
                 )
