@@ -54,7 +54,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
         personId = 1L,
         earliestStartDate = earliestEnglishStartDate,
         propertyRelationship = Some(PropertyRelationship(Owner, 1L)),
-        propertyOwnership = Some(PropertyOwnership(interestedOnOrBefore = true, fromDate = None)),
+        propertyOwnership = None,
         propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
         hasRatesBill = Some(true),
         uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),

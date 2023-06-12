@@ -28,11 +28,13 @@
 
 @clientSuffix = @{ clientDetails.fold("")(_ => ".client") }
 
-@occupancyStartDateHint = @{
-    request.ses.
-        propertyOwnership.flatMap(_.fromDate)
-        .getOrElse(request.ses.earliestStartDate)
-        .plusDays(1)
+@occupancyStartDate(implicit request: LinkingSessionRequest[_]) = @{
+  val earliestStartDate = request.ses.earliestStartDate
+  request.ses.propertyOwnership.map(_.fromDate) match {
+  case Some(startDate) if startDate.isBefore(earliestStartDate) => earliestStartDate
+  case Some(value)                                              => value
+  case None                                                     => earliestStartDate
+  }
 }
 
 @mainLayout(
@@ -55,8 +57,7 @@
                                 request.ses.propertyRelationship.map(_.capacity).fold(
                                     messages("error.date.mustBeAfterStartDate.relationship.fallback"))(
                                     _.name.replace("_", s" ${messages("common.and")} ").toLowerCase),
-                                formattedFullDate(request.ses.propertyOwnership.flatMap(_.fromDate)
-                                    .getOrElse(request.ses.earliestStartDate))
+                                formattedFullDate(occupancyStartDate)
                             )
                     }
                 ),
@@ -86,7 +87,7 @@
                         dateFields(
                             form = form,
                             fieldName = "lastOccupiedDate",
-                            hintDateOverride = Some(occupancyStartDateHint),
+                            hintDateOverride = Some(occupancyStartDate.plusDays(1)),
                             label = Some(s"label.lastOccupiedDate$clientSuffix")))
 
                 )

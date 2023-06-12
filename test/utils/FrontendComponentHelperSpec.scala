@@ -28,49 +28,48 @@ import java.time.LocalDate
 class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
 
   "The form with multiple date validation errors" should "return only one common error 'error.common.invalid.date' " in {
-    val form = ClaimPropertyOwnership.ownershipForm(earliestEnglishStartDate, endDate = None)
+    val form = ClaimPropertyOwnership.ownershipForm(endDate = None)
     val inValidData = Map(
-      "interestedOnOrBefore" -> "false",
-      "fromDate.day"         -> "40",
-      "fromDate.month"       -> "20",
-      "fromDate.year"        -> "999"
+      "interestedStartDate.day"   -> "40",
+      "interestedStartDate.month" -> "20",
+      "interestedStartDate.year"  -> "999"
     )
 
     //Test errors size before merge and format date errors
     form.bind(inValidData).errors.size shouldBe 3
 
     //Test after merge and format date errors into only one common date error
-    val formattedErrors = FrontendComponentHelper.formatErrorMessages(form.bind(inValidData), "fromDate")(
+    val formattedErrors = FrontendComponentHelper.formatErrorMessages(form.bind(inValidData), "interestedStartDate")(
       messagesApi.preferred(Seq(defaultLang)))
 
     formattedErrors.size shouldBe 1
     formattedErrors should contain(
       ErrorLink(
-        href = Some("#fromDate-day"),
+        href = Some("#interestedStartDate-day"),
         content = Text(s"On what date did you become the owner or occupier? - Enter a valid date")))
   }
 
   it should "be able to handle non-generic date errors while removing duplicates" in {
     implicit val messages: Messages = messagesApi.preferred(Seq(defaultLang))
     val form = ClaimPropertyOwnership
-      .ownershipForm(earliestEnglishStartDate, endDate = Some(LocalDate.of(2017, 4, 2)))
+      .ownershipForm(endDate = Some(LocalDate.of(2017, 4, 2)))
     val invalidData = Map(
-      "interestedOnOrBefore" -> "false",
-      "fromDate.day"         -> "2",
-      "fromDate.month"       -> "4",
-      "fromDate.year"        -> "2017"
+      "interestedStartDate.day"   -> "2",
+      "interestedStartDate.month" -> "4",
+      "interestedStartDate.year"  -> "2017"
     )
 
     val formattedErrors =
-      FrontendComponentHelper.formatErrorMessages(form.bind(invalidData), "fromDate", manualDateErrorHandler = {
-        case e @ "interestedOnOrBefore.error.startDateMustBeBeforeEnd" => e.replace(".", "?")
-      })
+      FrontendComponentHelper
+        .formatErrorMessages(form.bind(invalidData), "interestedStartDate", manualDateErrorHandler = {
+          case e @ "interestedStartDate.error.startDateMustBeBeforeEnd" => e.replace(".", "?")
+        })
 
     formattedErrors.size shouldBe 1
     formattedErrors should contain(
       ErrorLink(
-        href = Some("#fromDate-day"),
-        content = Text("interestedOnOrBefore?error?startDateMustBeBeforeEnd")
+        href = Some("#interestedStartDate-day"),
+        content = Text("interestedStartDate?error?startDateMustBeBeforeEnd")
       ))
   }
 

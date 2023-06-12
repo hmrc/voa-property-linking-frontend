@@ -36,7 +36,7 @@ class PropertyOccupancyFormSpec extends VoaPropertyLinkingSpec {
 
   it should "require last occupied date if the occupation/ownership" in {
     val data = validData
-      .updated("interestedOnOrBefore", "true")
+      .updated("interestedStartDate", "true")
       .updated("lastOccupiedDate.day", "28")
       .updated("lastOccupiedDate.month", "2")
       .updated("lastOccupiedDate.year", "2017")

@@ -42,7 +42,7 @@
     request.ses.propertyRelationship
         .map(_.capacity)
         .fold(
-            messages("interestedOnOrBefore.error.startDateMustBeBeforeEnd.relationship.fallback")
+            messages("interestedStartDate.error.startDateMustBeBeforeEnd.relationship.fallback")
         )(
             _.name.replace("_", s" ${messages("common.and")} ").toLowerCase
         )
@@ -50,15 +50,15 @@
 
 @errorHandler = @{
     val handler: PartialFunction[String, String] = {
-        case e @ "interestedOnOrBefore.error.dateInFuture" => messages(e + clientSuffix, relationshipCapacity)
+        case e @ "interestedStartDate.error.dateInFuture" => messages(e + clientSuffix, relationshipCapacity)
 
-        case e @ "interestedOnOrBefore.error.startDateMustBeBeforeEnd" =>
+        case e @ "interestedStartDate.error.startDateMustBeBeforeEnd" =>
             messages(
                 e + clientSuffix,
                 relationshipCapacity,
                 request.ses.propertyOccupancy
                         .flatMap(_.lastOccupiedDate)
-                        .fold(messages("interestedOnOrBefore.error.startDateMustBeBeforeEnd.endDate.fallback"))(formattedFullDate)
+                        .fold(messages("interestedStartDate.error.startDateMustBeBeforeEnd.endDate.fallback"))(formattedFullDate)
             )
     }
     handler
@@ -74,7 +74,7 @@
             ErrorSummary(
                 errorList = formatErrorMessages(
                     form,
-                    "fromDate",
+                    "interestedStartDate",
                     clientSuffix,
                     manualDateErrorHandler = errorHandler
                 ),
@@ -95,35 +95,13 @@
 
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOwnershipController.submitOwnership) {
 
-        @govukRadios(Radios(
-            fieldset = Some(Fieldset(
-                legend = Some(Legend(
-                    content = Text(messages(s"label.interestedOnOrBefore$clientSuffix")),
-                    classes = "govuk-fieldset__legend--m",
-                    isPageHeading = true
-                ))
-            )),
-            idPrefix = Some("interestedOnOrBefore"),
-            name = "interestedOnOrBefore",
-            items = Seq(
-                RadioItem(
-                    content = Text(messages("interestedOnOrBefore.true", formattedFullDate(model.onOrBeforeDate))),
-                    value = Some("true")
-                ),
-                RadioItem(
-                    content = Text(messages("interestedOnOrBefore.false", formattedFullDate(model.onOrBeforeDate))),
-                    value = Some("false"),
-                    conditionalHtml = Some(
-                        dateFields(
-                            form = form,
-                            fieldName = "fromDate",
-                            hintDateOverride = Some(model.onOrBeforeDate.plusDays(1)),
-                            label = Some(s"label.fromDate$clientSuffix"),
-                            manualErrorHandler = errorHandler
-                        ))
-                )
-            )
-        ).withFormField(form("interestedOnOrBefore")))
+        @dateFields(
+          form = form,
+          fieldName = "interestedStartDate",
+          hintDateOverride = Some(model.onOrBeforeDate),
+          label = Some(s"label.interestedStartDate$clientSuffix"),
+          manualErrorHandler = errorHandler
+        )
 
         @govukButton(
             Button(

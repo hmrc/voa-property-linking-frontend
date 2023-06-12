@@ -85,14 +85,9 @@ package object utils {
   val capacityTypeGen: Gen[CapacityType] = Gen.oneOf(Owner, OwnerOccupier, Occupier)
   implicit val arbitraryCapacityType = Arbitrary(capacityTypeGen)
 
-  val propertyOwnershipGen: Gen[PropertyOwnership] = for {
-    interestedOnOrBefore <- arbitrary[Boolean]
-    fromDate             <- dateAfterApril2017
-  } yield
-    PropertyOwnership(
-      interestedOnOrBefore = interestedOnOrBefore,
-      fromDate = if (interestedOnOrBefore) None else Some(fromDate),
-    )
+  val propertyOwnershipGen: Gen[PropertyOwnership] =
+    dateAfterApril2017.map(PropertyOwnership.apply)
+
   implicit val arbitrarypropertyOwnership = Arbitrary(propertyOwnershipGen)
 
   val propertyOccupancyGen: Gen[PropertyOccupancy] = for {

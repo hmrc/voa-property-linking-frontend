@@ -684,7 +684,7 @@ trait FakeObjects {
     personId = 1L,
     earliestStartDate = earliestEnglishStartDate,
     propertyRelationship = Some(PropertyRelationship(Owner, 1L)),
-    propertyOwnership = Some(PropertyOwnership(interestedOnOrBefore = true, fromDate = Some(LocalDate.of(2017, 1, 1)))),
+    propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
     propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
     hasRatesBill = Some(true),
     uploadEvidenceData = UploadEvidenceData.empty,

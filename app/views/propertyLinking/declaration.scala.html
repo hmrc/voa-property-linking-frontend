@@ -40,7 +40,7 @@
 
 @earliestStartDateInPast = @{ LocalDate.now.isAfter(request.ses.earliestStartDate) }
 
-@propertyOwnershipFromDate = @{request.ses.propertyOwnership.flatMap(_.fromDate)}
+@propertyOwnershipFromDate = @{request.ses.propertyOwnership.map(_.fromDate)}
 
 @propertyLastOccupiedDate = @{request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate)}
 
