@@ -32,7 +32,6 @@ import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
 import java.time.LocalDate
-import java.time.temporal.ChronoUnit
 import scala.concurrent.Future
 
 class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec with ScalaCheckDrivenPropertyChecks {
