@@ -18,11 +18,14 @@ package models.propertyrepresentation
 
 import play.api.data.Form
 import play.api.libs.json.{Json, OFormat}
-import play.api.data.Forms.{longNumber, mapping, text}
+import play.api.data.Forms.{list, longNumber, mapping, optional, text}
 
 import scala.util.Try
 
-case class AgentAppointmentChangesRequest(agentRepresentativeCode: Long, scope: String)
+case class AgentAppointmentChangesRequest(
+      agentRepresentativeCode: Long,
+      scope: String,
+      listYears: Option[List[String]] = None)
 
 object AgentAppointmentChangesRequest {
 
@@ -32,8 +35,8 @@ object AgentAppointmentChangesRequest {
     Form(
       mapping(
         "agentCode" -> longNumber,
-        "scope"     -> text.verifying(s => Try(AppointmentScope.withName(s)).toOption.isDefined)
+        "scope"     -> text.verifying(s => Try(AppointmentScope.withName(s)).toOption.isDefined),
+        "listYears" -> optional(list(text))
       )(AgentAppointmentChangesRequest.apply)(AgentAppointmentChangesRequest.unapply)
     )
-
 }

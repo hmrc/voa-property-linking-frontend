@@ -18,7 +18,10 @@ package models.propertyrepresentation
 
 import play.api.libs.json.{Json, OFormat}
 
-case class AppointAgentToSomePropertiesRequest(agentCode: Long, propertyLinkIds: List[String])
+case class AppointAgentToSomePropertiesRequest(
+      agentCode: Long,
+      propertyLinkIds: List[String],
+      listYears: Option[List[String]] = None)
 
 object AppointAgentToSomePropertiesRequest {
   implicit val format: OFormat[AppointAgentToSomePropertiesRequest] = Json.format
