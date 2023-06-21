@@ -124,6 +124,50 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec with S
       }
     }
   }
+  "The claim occupancy page" should "validate that the end date of ownership is not in the future" in {
+    val dateGen: Gen[LocalDate] = Gen.choose(LocalDate.now.plusDays(1), LocalDate.now.plusYears(10))
+
+    forAll(dateGen, arbitrary[Boolean], arbitrary[CapacityType]) { (endDate, isAgent, cap) =>
+      {
+        val result = testClaimPropertyOccupancyController(
+          propertyOwnership = PropertyOwnership(fromDate = LocalDate.now),
+          relationshipCapacity = cap,
+          userIsAgent = isAgent
+        ).submitOccupancy()(FakeRequest().withFormUrlEncodedBody(
+          "stillOccupied"          -> "false",
+          "lastOccupiedDate.day"   -> endDate.getDayOfMonth.toString,
+          "lastOccupiedDate.month" -> endDate.getMonthValue.toString,
+          "lastOccupiedDate.year"  -> endDate.getYear.toString
+        ))
+        status(result) shouldBe BAD_REQUEST
+        val doc = Jsoup.parse(contentAsString(result))
+        val error = doc.getElementsByAttributeValue("href", "#lastOccupiedDate-day")
+        error.text() shouldBe
+          s"Date ${if (isAgent) "your client " else "you "}became " +
+            s"${if (cap == Owner) "owner" else if (cap == Occupier) "occupier" else "owner and occupier"} " +
+            "of the property must be in the past"
+      }
+    }
+  }
+  "The claim occupancy page" should "validate the content of the label" in {
+    forAll(arbitrary[Boolean], arbitrary[CapacityType]) { (isAgent, cap) =>
+      {
+        val result = testClaimPropertyOccupancyController(
+          relationshipCapacity = cap,
+          userIsAgent = isAgent
+        ).showOccupancy()(FakeRequest())
+
+        status(result) shouldBe OK
+        val doc = Jsoup.parse(contentAsString(result))
+        val lastOccupiedDateElement = doc.getElementById("lastOccupiedDate")
+
+        val expectedContent = s"Date of ${if (isAgent) "your client " else "your "}last day as a " +
+          s"${if (cap == Owner) "owner" else if (cap == Occupier) "occupier" else "owner and occupier"} " +
+          "of the property"
+        lastOccupiedDateElement.text().contains(expectedContent)
+      }
+    }
+  }
 
   "The claim occupancy page on client behalf" should "return valid page" in {
     StubSubmissionIdConnector.stubId(submissionId)
