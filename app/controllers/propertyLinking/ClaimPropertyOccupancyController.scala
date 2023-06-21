@@ -107,7 +107,7 @@ object ClaimPropertyOccupancy {
         "lastOccupiedDate" -> mandatoryIfFalse(
           "stillOccupied",
           dmyDate
-            .verifying(Errors.dateMustBeInPast, d => d.isBefore(LocalDate.now))
+            .verifying("interestedStartDate.error.dateInFuture", d => d.isBefore(LocalDate.now))
             .verifying("error.date.mustBeAfterStartDate", d => d.isAfter(startDate))
         )
       )(PropertyOccupancy.apply)(PropertyOccupancy.unapply))
