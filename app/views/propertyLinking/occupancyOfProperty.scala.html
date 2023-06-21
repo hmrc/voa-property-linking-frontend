@@ -112,7 +112,7 @@ val helper = request.ses.propertyRelationship.map(_.capacity).fold(
                             form = form,
                             fieldName = "lastOccupiedDate",
                             hintDateOverride = Some(occupancyStartDate.plusDays(1)),
-                            label = Some(s"label.lastOccupiedDate$clientSuffix"),
+                            label = Some(s"label.lastOccupiedDate$clientSuffix.$ownershipStatusSuffix"),
                             manualErrorHandler = errorHandler))
 
                 )

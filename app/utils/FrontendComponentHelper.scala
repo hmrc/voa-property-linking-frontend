@@ -56,7 +56,9 @@ object FrontendComponentHelper {
                   if (ownershipStatusSuffix.isEmpty) {
                     s"${messages(s"label.${error.key}$messagesKeySuffix")} - ${messages(error.message, error.args.map(_.toString): _*)}"
                   } else {
-                    messages(s"label.${error.key}$messagesKeySuffix.$ownershipStatusSuffix")
+                    s"${messages(s"label.${error.key}$messagesKeySuffix.$ownershipStatusSuffix")} - ${messages(
+                      error.message,
+                      error.args.map(_.toString): _*)}"
                 }
               ))
         )
