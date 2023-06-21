@@ -22,10 +22,7 @@ import play.api.data.Forms.{list, longNumber, mapping, optional, text}
 
 import scala.util.Try
 
-case class AgentAppointmentChangesRequest(
-      agentRepresentativeCode: Long,
-      scope: String,
-      listYears: Option[List[String]] = None)
+case class AgentAppointmentChangesRequest(agentRepresentativeCode: Long, scope: String)
 
 object AgentAppointmentChangesRequest {
 
@@ -35,8 +32,7 @@ object AgentAppointmentChangesRequest {
     Form(
       mapping(
         "agentCode" -> longNumber,
-        "scope"     -> text.verifying(s => Try(AppointmentScope.withName(s)).toOption.isDefined),
-        "listYears" -> optional(list(text))
+        "scope"     -> text.verifying(s => Try(AppointmentScope.withName(s)).toOption.isDefined)
       )(AgentAppointmentChangesRequest.apply)(AgentAppointmentChangesRequest.unapply)
     )
 }

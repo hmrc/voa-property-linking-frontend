@@ -25,7 +25,7 @@ import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
 import models.propertylinking.payload.PropertyLinkPayload
-import models.propertyrepresentation.{AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList, AppointAgentToSomePropertiesRequest}
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList, AppointAgentToSomePropertiesRequest}
 import models.searchApi.OwnerAuthResult
 import play.api.Logging
 import play.api.libs.json.Json
@@ -166,6 +166,15 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
 
   def getMyOrganisationPropertyLinksCount()(implicit hc: HeaderCarrier): Future[Int] =
     http.GET[Int](s"$baseUrl/owner/property-links/count")
+
+  //TODO: CREATE AgentAppointmentChange: One connector call that includes all schema fields to replace logic for
+  // applying scope/actions in voa-property-linking.
+  // Once implemented remove variations of connector calls below that serve AgentAppointmentChange
+  def agentAppointmentChange(agentAppointmentChangeRequest: AgentAppointmentChangeRequest)(
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+    http.POST[AgentAppointmentChangeRequest, AgentAppointmentChangesResponse](
+      s"$baseUrl/my-organisation/agent/assign",
+      agentAppointmentChangeRequest)
 
   def assignAgent(agentRelationshipRequest: AgentAppointmentChangesRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =

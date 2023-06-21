@@ -30,23 +30,17 @@ class AgentAppointmentChangesRequestSpec extends VoaPropertyLinkingSpec {
     shouldBindTo(
       form,
       validData,
-      AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "PROPERTY_LIST", listYears = None))
+      AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "PROPERTY_LIST"))
   }
 
   it should "bind when the inputs are all valid - ALL_PROPERTIES" in {
     val data = validData.updated("scope", s"${AppointmentScope.ALL_PROPERTIES}")
-    shouldBindTo(
-      form,
-      data,
-      AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "ALL_PROPERTIES", listYears = None))
+    shouldBindTo(form, data, AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "ALL_PROPERTIES"))
   }
 
   it should "bind when the inputs are all valid - RELATIONSHIP" in {
     val data = validData.updated("scope", s"${AppointmentScope.RELATIONSHIP}")
-    shouldBindTo(
-      form,
-      data,
-      AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "RELATIONSHIP", listYears = None))
+    shouldBindTo(form, data, AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "RELATIONSHIP"))
   }
 
   it should "require an agentCode" in {
