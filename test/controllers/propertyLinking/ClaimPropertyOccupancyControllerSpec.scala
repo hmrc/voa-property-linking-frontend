@@ -32,6 +32,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import utils._
 
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 import scala.concurrent.Future
 
 class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec with ScalaCheckDrivenPropertyChecks {
@@ -117,7 +118,7 @@ class ClaimPropertyOccupancyControllerSpec extends VoaPropertyLinkingSpec with S
         val doc = Jsoup.parse(contentAsString(result))
         val error = doc.getElementsByAttributeValue("href", "#lastOccupiedDate-day")
         error.text() shouldBe
-          s"Date of ${if (isAgent) "your client's " else ""}last day as " +
+          s"Date of ${if (isAgent) "your client's " else "your "}last day as " +
             s"${if (cap == Owner) "owner" else if (cap == Occupier) "occupier" else "owner and occupier"} " +
             "of the property must be after " +
             s"${d._1.getDayOfMonth} ${d._1.getMonth.toString.toLowerCase.capitalize} ${d._1.getYear}"
