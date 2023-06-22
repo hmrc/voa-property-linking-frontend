@@ -5,7 +5,7 @@ import binders.propertylinks.GetPropertyLinksParameters
 import com.github.tomakehurst.wiremock.client.WireMock._
 import controllers.PaginationParams
 import models.propertyrepresentation.{AgentList, AgentSummary}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsString, Json}
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -18,6 +18,8 @@ class PropertyLinkConnectorISpec extends ISpecBase {
     "return the organisation's agent data" in {
       implicit val testHeaderCarrier: HeaderCarrier = HeaderCarrier()
 
+      val testAppointedDate = LocalDate.now()
+
       val testAgentList = AgentList(
         resultCount = 1,
         agents = List(
@@ -25,9 +27,25 @@ class PropertyLinkConnectorISpec extends ISpecBase {
             organisationId = 12345L,
             representativeCode = 12345L,
             name = "testName",
-            appointedDate = LocalDate.now(),
+            appointedDate = testAppointedDate,
             propertyCount = 0,
             listYears = Some(Seq("2017"))
+          )
+        )
+      )
+
+      val jsonResponse = Json.obj(
+        "resultCount" -> 1,
+        "agents" -> Json.arr(
+          Json.obj(
+            "organisationId"     -> 12345,
+            "representativeCode" -> 12345,
+            "name"               -> "testName",
+            "appointedDate"      -> Json.toJson(testAppointedDate),
+            "propertyCount"      -> 0,
+            "listYears" -> Json.arr(
+              "2017"
+            )
           )
         )
       )
@@ -37,7 +55,7 @@ class PropertyLinkConnectorISpec extends ISpecBase {
           .willReturn(
             aResponse
               .withStatus(OK)
-              .withBody(Json.toJson(testAgentList).toString())
+              .withBody(jsonResponse.toString())
           )
       )
 
