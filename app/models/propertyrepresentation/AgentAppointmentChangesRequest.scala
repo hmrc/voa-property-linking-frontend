@@ -17,8 +17,8 @@
 package models.propertyrepresentation
 
 import play.api.data.Form
+import play.api.data.Forms.{longNumber, mapping, text}
 import play.api.libs.json.{Json, OFormat}
-import play.api.data.Forms.{list, longNumber, mapping, optional, text}
 
 import scala.util.Try
 
