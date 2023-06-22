@@ -173,7 +173,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
   def agentAppointmentChange(agentAppointmentChangeRequest: AgentAppointmentChangeRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     http.POST[AgentAppointmentChangeRequest, AgentAppointmentChangesResponse](
-      s"$baseUrl/my-organisation/agent/assign",
+      s"$baseUrl/my-organisation/agent/submit-appointment-changes",
       agentAppointmentChangeRequest)
 
   def assignAgent(agentRelationshipRequest: AgentAppointmentChangesRequest)(
