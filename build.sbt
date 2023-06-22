@@ -145,4 +145,4 @@ lazy val testDependencies = Seq(
   "com.vladsch.flexmark"   % "flexmark-all"             % "0.35.10"            % "test, it"
 )
 
-addCommandAlias("precommit", ";scalafmt;test:scalafmt;coverage;test;coverageReport")
+addCommandAlias("precommit", ";scalafmt;test:scalafmt;it:test::scalafmt;coverage;test;it:test;coverageReport")
