@@ -1,11 +1,9 @@
 package connectors.propertyLinking
 
 import base.ISpecBase
-import binders.propertylinks.GetPropertyLinksParameters
 import com.github.tomakehurst.wiremock.client.WireMock._
-import controllers.PaginationParams
 import models.propertyrepresentation.{AgentList, AgentSummary}
-import play.api.libs.json.{JsString, Json}
+import play.api.libs.json.Json
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 
