@@ -29,7 +29,6 @@ lazy val microservice = Project(appName, file("."))
   .disablePlugins(sbt.plugins.JUnitXmlReportPlugin)
   .settings(playSettings ++ scoverageSettings: _*)
   .settings(scalaSettings: _*)
-  .settings(publishingSettings: _*)
   .settings(PlayKeys.playDefaultPort := 9523)
   .settings(majorVersion := 0)
   .settings(
@@ -112,7 +111,7 @@ scalacOptions += "-Wconf:src=target/.*:s"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
-val bootstrapPlayVersion = "7.12.0"
+val bootstrapPlayVersion = "7.19.0"
 
 lazy val compileDependencies = Seq(
   guice,
@@ -124,9 +123,9 @@ lazy val compileDependencies = Seq(
   "uk.gov.hmrc"          %% "bootstrap-frontend-play-28"    % bootstrapPlayVersion,
   "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "5.5.0-play-28",
   "uk.gov.hmrc"          %% "http-caching-client"           % "10.0.0-play-28",
-  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.12.0-play-28",
+  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.13.0-play-28",
   "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-28"            % "0.74.0",
-  "uk.gov.hmrc"          %% "uri-template"                  % "1.11.0"
+  "uk.gov.hmrc"          %% "uri-template"                  % "1.12.0"
 )
 
 lazy val testDependencies = Seq(
