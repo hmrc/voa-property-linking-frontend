@@ -60,7 +60,7 @@ class PropertyLinkConnectorISpec extends ISpecBase {
       await(connector.getMyOrganisationAgents()) shouldBe testAgentList
     }
   }
-
+  
   "agentAppointmentChange (POST)" should {
     "return a successful AgentAppointmentChangesResponse" in {
       implicit val testHeaderCarrier: HeaderCarrier = HeaderCarrier()
