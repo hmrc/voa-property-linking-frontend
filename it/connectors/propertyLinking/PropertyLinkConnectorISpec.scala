@@ -74,11 +74,23 @@ class PropertyLinkConnectorISpec extends ISpecBase {
         propertyLinkIds = Some(List("123L")),
         listYears = Some(List("2023")))
 
+      val jsonRequest = Json.parse("""{
+                           |   "agentRepresentativeCode":123456,
+                           |   "action":"APPOINT",
+                           |   "scope":"PROPERTY_LIST",
+                           |   "propertyLinkIds":[
+                           |      "123L"
+                           |   ],
+                           |   "listYears":[
+                           |      "2023"
+                           |   ]
+                           |}""".stripMargin)
 
       val jsonResponse = Json.obj("appointmentChangeId" -> "1")
 
       stubFor(
         post("/property-linking/my-organisation/agent/submit-appointment-changes")
+          .withRequestBody(equalToJson(jsonRequest.toString(), true, false))
           .willReturn(
             aResponse
               .withStatus(CREATED)
