@@ -2,7 +2,7 @@ package connectors.propertyLinking
 
 import base.ISpecBase
 import com.github.tomakehurst.wiremock.client.WireMock._
-import models.propertyrepresentation.{AgentList, AgentSummary}
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentList, AgentSummary}
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
@@ -58,6 +58,35 @@ class PropertyLinkConnectorISpec extends ISpecBase {
       )
 
       await(connector.getMyOrganisationAgents()) shouldBe testAgentList
+    }
+  }
+
+  "agentAppointmentChange (POST)" should {
+    "return a successful AgentAppointmentChangesResponse" in {
+      implicit val testHeaderCarrier: HeaderCarrier = HeaderCarrier()
+
+      val agentChangeResponse = AgentAppointmentChangesResponse(appointmentChangeId = "1")
+
+      val agentChangeRequest = AgentAppointmentChangeRequest(
+        agentRepresentativeCode = 123456,
+        scope = "PROPERTY_LIST",
+        action = "APPOINT",
+        propertyLinkIds = Some(List("123L")),
+        listYears = Some(List("2023")))
+
+
+      val jsonResponse = Json.obj("appointmentChangeId" -> "1")
+
+      stubFor(
+        post("/property-linking/my-organisation/agent/submit-appointment-changes")
+          .willReturn(
+            aResponse
+              .withStatus(CREATED)
+              .withBody(jsonResponse.toString())
+          )
+      )
+
+      await(connector.agentAppointmentChange(agentChangeRequest)) shouldBe agentChangeResponse
     }
   }
 }
