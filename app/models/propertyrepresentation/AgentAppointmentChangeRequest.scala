@@ -16,11 +16,7 @@
 
 package models.propertyrepresentation
 
-import play.api.data.Form
-import play.api.data.Forms._
 import play.api.libs.json.{Json, OFormat}
-
-import scala.util.Try
 
 case class AgentAppointmentChangeRequest(
       agentRepresentativeCode: Long,
@@ -31,16 +27,5 @@ case class AgentAppointmentChangeRequest(
 
 object AgentAppointmentChangeRequest {
 
-  implicit val format: OFormat[AgentAppointmentChangeRequest] = Json.format
-
-  val submitAgentAppointmentRequest: Form[AgentAppointmentChangeRequest] =
-    Form(
-      mapping(
-        "agentCode"       -> longNumber,
-        "action"          -> text.verifying(s => Try(AppointmentAction.withName(s)).toOption.isDefined),
-        "scope"           -> text.verifying(s => Try(AppointmentScope.withName(s)).toOption.isDefined),
-        "propertyLinkIds" -> optional(list(text)),
-        "listYears"       -> optional(list(text))
-      )(AgentAppointmentChangeRequest.apply)(AgentAppointmentChangeRequest.unapply)
-    )
+  implicit val format: OFormat[AgentAppointmentChangeRequest] = Json.format[AgentAppointmentChangeRequest]
 }
