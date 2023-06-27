@@ -17,15 +17,13 @@
 package models.propertyrepresentation
 
 import play.api.libs.json.Format
-import utils.JsonUtils
+import utils.JsonUtils.enumFormat
 
-object AppointmentScope extends Enumeration {
-  type AppointmentScope = Value
+object AppointmentAction extends Enumeration {
+  type AppointmentAction = Value
 
-  val RELATIONSHIP = Value("RELATIONSHIP")
-  val PROPERTY_LIST = Value("PROPERTY_LIST")
-  val ALL_PROPERTIES = Value("ALL_PROPERTIES")
-  val LIST_YEAR = Value("LIST_YEAR")
+  val APPOINT = Value("APPOINT")
+  val REVOKE = Value("REVOKE")
 
-  implicit val format: Format[AppointmentScope] = JsonUtils.enumFormat(AppointmentScope)
+  implicit val format: Format[AppointmentAction] = enumFormat(AppointmentAction)
 }
