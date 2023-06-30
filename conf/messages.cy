@@ -403,9 +403,6 @@ assessments.table.1=Dyddiad dod i rym
 assessments.table.2=Gwerth ardrethol
 assessments.table.3=Capasiti
 assessments.table.4=O
-assessments.table.5=Hyd
-assessments.table.6=Gweithredoedd
-assessments.table.action=Gweithred
 assessments.enddate.present=Presennol
 assessments.enddate.historic.empty=31 Mawrth 2023
 assessments.view.valuation=Gweld prisiad
@@ -413,21 +410,18 @@ assessments.view.summary=Gweld prisiad cryno
 label.viewAssessmentRadio=Prisiad
 
 assessments.localAuthorityRef=Cyfeirnod yr awdurdod lleol:
-assessments.property=Eiddo:
+assessments.caption=Eich eiddo
 assessments.title=Dewis prisiad i wirio
-assessments.pageTitle=Dewis prisiad i wirio
-assessments.paragraph=Mae gwerth ardrethol eiddo yn cael ei ailasesu gan y VOA bob tro y byddan nhw’n cyhoeddi rhestr ardrethi busnes newydd.  Gallwch wirio’r ffeithiau a’r gwerth ardrethol ar gyfer pob un o’r prisiadau a gyhoeddwyd.
+assessments.subtitle=TODO fill this in with Welsh
 
-assessments.current.title=Y prisiad presennol
 assessments.draft.title=Y prisiad yn y dyfodol
 assessments.historic.title=Prisiadau blaenorol
-assessments.select.valuation=Dewiswch y prisiad hwn
-
 assessments.current.text=Presennol
 assessments.draft.text=Drafft
 assessments.historic.text=Hanesyddol
 assessments.aria.label.full=Dewiswch y prisiad hwn - {0} o {1} i {2}
 assessments.aria.label.partial=Dewiswch y prisiad hwn - {0} o {1}
+assessments.selectValuation.to=i
 
 assessments.na=Dim ar gael
 
@@ -1744,6 +1738,11 @@ timeout.title=Rydych ar fin cael eich allgofnodi
 timeout.message=Er eich diogelwch, byddwn yn eich allgofnodi cyn pen
 timeout.keep-alive-button=Parhau i fod wedi’ch mewngofnodi
 timeout.sign-out-button=Allgofnodi
+
+# TAGS
+tag.current=PRESENNOL
+tag.future=DYFODOL
+tag.previous=BLAENOROL
 
 #MONTHS
 month.1=Ionawr

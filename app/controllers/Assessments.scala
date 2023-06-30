@@ -104,7 +104,8 @@ case class AssessmentsVM(
       assessmentsWithLinks: Seq[(String, ApiAssessment)],
       backLink: String,
       address: String,
-      capacity: Option[String]) {
+      capacity: Option[String],
+      clientOrgName: Option[String]) {
 
   val localAuthorityReference = assessmentsWithLinks.headOption.map(_._2.billingAuthorityReference)
   val currentAssessments: Seq[(String, ApiAssessment)] =

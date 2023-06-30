@@ -88,10 +88,12 @@ class ValuationsController @Inject()(
         Ok(
           assessmentsView(
             AssessmentsVM(
-              assessmentsWithLinks(assessments, submissionId, owner),
-              backlink,
-              assessments.address,
-              assessments.capacity),
+              assessmentsWithLinks = assessmentsWithLinks(assessments, submissionId, owner),
+              backLink = backlink,
+              address = assessments.address,
+              capacity = assessments.capacity,
+              clientOrgName = assessments.clientOrgName
+            ),
             owner
           ))
 

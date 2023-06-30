@@ -18,8 +18,7 @@
 @import _root_.utils.Formatters
 @import config.ApplicationConfig
 
-@this(govukDetails: GovukDetails)
-
+@this(govukDetails: GovukDetails, govukTag: GovukTag)
 @(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @tableHeaderRow = {
@@ -47,7 +46,7 @@
             case (Some(_), None, "2017")
                 if tableType == "historic" =>
                     Some(Messages("assessments.enddate.historic.empty"))
-            case (Some(_), None, _)     => Some(Messages("assessments.enddate.present"))
+            case (Some(_), None, _)     => Some(Messages("assessments.enddate.present.lowercase"))
             case (Some(_), Some(to), _) => Some(Formatters.formattedFullDate(to))
             case _                   => None
         }
@@ -63,67 +62,52 @@
     }
 }
 
-@table(list: Seq[(String, ApiAssessment)], tableType: String, isDraft: Boolean) = {
-    <div class="form-group">
-        <div class="table-wrapper-no-pad">
-            <table id="@{tableType}Assessments" class="margin-bottom-10 margin-top-10">
-                <caption class="govuk-visually-hidden">@messages("assessments.table.caption")</caption>
-                <colgroup>
-                    <col style="width: 16%">
-                    <col style="width: 16%">
-                    <col style="width: 16%">
-                    <col style="width: 16%">
-                    <col style="width: 16%">
-                    <col style="width: 20%">
-                </colgroup>
-                <tbody class="govuk-table__body">
-                    <tr class="govuk-table__row">
-                        <th class="govuk-table__cell">@messages("assessments.table.1")</th>
-                        <th class="govuk-table__cell">@messages("assessments.table.2")</th>
-                        <th class="govuk-table__cell">@messages("assessments.table.3")</th>
-                        <th class="govuk-table__cell">@messages("assessments.table.4")</th>
-                        <th class="govuk-table__cell">@messages("assessments.table.5")</th>
-                        <th class="govuk-table__cell">@messages("assessments.table.action")</th>
-                    </tr>
+  @valuationTypeTag(valuationType:String) = @{
+      valuationType match {
+       case "current" => {
+           govukTag(Tag(content=Text(messages("tag.current")), classes = "govuk-!-margin-right-2"))
+       }
+       case "historic" => {
+           govukTag(Tag(content=Text(messages("tag.previous")), classes = "govuk-tag--grey govuk-!-margin-right-2"))
+       }
+       case "draft" => {
+           govukTag(Tag(content=Text(messages("tag.future")), classes = "govuk-tag--green govuk-!-margin-right-2"))
+       }
+    }
+  }
 
-                    @list.map {  case (url, assessment) =>
-                    <tr class="govuk-table__row">
+@tableRows(list: Seq[(String, ApiAssessment)], tableType: String, isDraft: Boolean) = {
 
-                        <td class="govuk-table__cell">@effectiveDate(assessment)</td>
+  @list.map {  case (url, assessment) =>
+  <tr class="govuk-table__row">
 
-                        <td class="govuk-table__cell">
-                        @assessment.rateableValue.fold(messages("assessments.na"))(rv => Formatters.formatCurrencyRoundedToPounds(rv))
-                        </td>
+      <td class="govuk-table__cell">
 
-                        <td class="govuk-table__cell">
-                        @model.capacity.fold("")(cap => messages(s"capacity.$cap"))
-                        </td>
+          @valuationTypeTag(tableType)
+          @if(assessment.rateableValue.isDefined){
+              <a class="govuk-link"
+              id="viewAssessmentLink-@assessment.assessmentRef"
+              href="@url"
+              aria-label="@ariaLabel(assessment, tableType, isDraft)">
+                  @fromDate(assessment) @messages("assessments.selectValuation.to") @endDate(assessment, isDraft, tableType).getOrElse("")
+              </a>
+          } else {
+              @fromDate(assessment) @messages("assessments.selectValuation.to") @endDate(assessment, isDraft, tableType).getOrElse("")
+          }
+      </td>
 
-                        <td class="govuk-table__cell">@fromDate(assessment)</td>
+      <td class="govuk-table__cell">@effectiveDate(assessment)</td>
 
-                        <td id="toDate-@assessment.assessmentRef" class="govuk-table__cell">@endDate(assessment, isDraft, tableType).getOrElse("")</td>
+      <td class="govuk-table__cell">
+      @model.capacity.fold("")(cap => messages(s"capacity.$cap"))
+      </td>
 
-                        <td class="govuk-table__cell">
-                        @assessment.rateableValue match {
-                            case Some(rv) => {
-                                <a class="govuk-link"
-                                id="viewAssessmentLink-@assessment.assessmentRef"
-                                href="@url"
-                                aria-label="@ariaLabel(assessment, tableType, isDraft)">
-                                @messages("assessments.select.valuation")
-                                </a>
-                            }
-                            case None => {
-                                @messages("assessments.na")
-                            }
-                        }
-                        </td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
+      <td class="govuk-table__cell govuk-table__cell--numeric">
+      @assessment.rateableValue.fold(messages("assessments.na"))(rv => Formatters.formatCurrencyRoundedToPounds(rv))
+      </td>
+
+  </tr>
+  }
 }
 
 @noRateableValueContent = {
@@ -132,27 +116,54 @@
     <p class="govuk-body">@Html(messages("rv.na.p.3"))</p>
 }
 
-<div id="details-content-valuations" class="govuk-body">
+  <div class="govuk-grid-row">
+<div id="details-content-valuations" class="govuk-grid-column-full">
+    <h3 class="govuk-heading-m">@messages("assessments.subtitle")</h3>
 
-    @if(model.currentAssessments.nonEmpty){
-        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.current.title")</h2>
-        @table(model.currentAssessments, tableType = "current", isDraft = false)
-        @if(model.currentAssessments.exists(a => a._2.rateableValue.isEmpty)){
-            @govukDetails(
-                Details(
-                    summary = Text(messages("rv.na")),
-                    content = HtmlContent(noRateableValueContent) ))
-        }
-    }
+          <table id="assessments-table" class="govuk-table margin-bottom-10 margin-top-10">
+              <caption class="govuk-visually-hidden">@messages("assessments.table.caption")</caption>
+              <thead class="govuk-table__head">
+                  <tr class="govuk-table__row">
+                      <th scope="col" class="govuk-table__header">
+                          @messages("assessments.table.1")
+                          <a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-valuationPeriod")" class="cca-icon cca-icon__help">
+                              <span class="govuk-visually-hidden">@messages("assessments.icon.help.valuationPeriod")</span>
+                          </a>
+                      </th>
+                      <th scope="col" class="govuk-table__header">
+                          @messages("assessments.table.2")
+                          <a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-effectiveDate")" class="cca-icon cca-icon__help">
+                              <span class="govuk-visually-hidden">@messages("assessments.icon.help.effectiveDate")</span>
+                          </a>
+                      </th>
+                      <th scope="col" class="govuk-table__header">
+                          @messages("assessments.table.3")
+                      </th>
+                      <th scope="col" class="govuk-table__header govuk-table__header--numeric">
+                          @messages("assessments.table.4")
+                      </th>
+                  </tr>
 
-    @if(model.draftAssessments.nonEmpty){
-        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.draft.title")</h2>
-        @table(model.draftAssessments, tableType = "draft", isDraft = true)
-    }
+                  @if(model.currentAssessments.nonEmpty){
+                      @tableRows(model.currentAssessments, tableType = "current", isDraft = false)
+                      @if(model.currentAssessments.exists(a => a._2.rateableValue.isEmpty)){
+                          @govukDetails(
+                              Details(
+                                  summary = Text(messages("rv.na")),
+                                  content = HtmlContent(noRateableValueContent) ))
+                      }
+                  }
 
-    @if(model.historicAssessments.nonEmpty){
-        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.historic.title")</h2>
-        @table(model.historicAssessments, tableType = "historic", isDraft = false)
-    }
+                  @if(model.draftAssessments.nonEmpty){
+                      @tableRows(model.draftAssessments, tableType = "draft", isDraft = true)
+                  }
+
+                  @if(model.historicAssessments.nonEmpty){
+                      @tableRows(model.historicAssessments, tableType = "historic", isDraft = false)
+                  }
+
+              </thead>
+          </table>
 
 </div>
+  </div>

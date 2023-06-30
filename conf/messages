@@ -460,13 +460,10 @@ property.details.cases.table.challenge=Challenge
 property.dvr.challenge.error=If you still think you have the right to make a Challenge, you will need to <a class="govuk-link" href="{0}"> download and complete a Challenge form (T012)</a>
 
 assessments.table.caption=Valuations
-assessments.table.1=Effective date
-assessments.table.2=Rateable value
-assessments.table.3=Capacity
-assessments.table.4=From
-assessments.table.5=To
-assessments.table.6=Actions
-assessments.table.action=Action
+assessments.table.1=Valuation
+assessments.table.2=Effective date
+assessments.table.3=Connection to property
+assessments.table.4=Rateable value
 assessments.enddate.present=Present
 assessments.enddate.present.lowercase=present
 assessments.enddate.historic.empty=31 March 2023
@@ -474,20 +471,18 @@ assessments.view.valuation=View valuation
 assessments.view.summary=View summary valuation
 label.viewAssessmentRadio=Valuation
 
-assessments.localAuthorityRef=Local authority reference:
-assessments.property=Property:
+assessments.localAuthorityRef=Local council reference:
+assessments.caption.ip=Your property
+assessments.caption.agent=Client property: {0}
 assessments.title=Select a valuation to check
-assessments.pageTitle=Select a valuation to check
-assessments.paragraph=The rateable value of a property is reassessed by the VOA each time they publish a new business rates valuation list. You may check the facts and the rateable value for each of the published valuations.
+assessments.subtitle=Valuations for this property
 
-assessments.current.title=Current valuation
-assessments.draft.title=Future valuation
-assessments.historic.title=Previous valuations
-assessments.select.valuation=Select this valuation
-
+assessments.icon.help.valuationPeriod=Help with valuation period
+assessments.icon.help.effectiveDate=Help with effective date
 assessments.current.text=Current
 assessments.draft.text=Draft
 assessments.historic.text=Historic
+assessments.selectValuation.to=to
 assessments.aria.label.full=Select this valuation - {0} from {1} to {2}
 assessments.aria.label.partial=Select this valuation - {0} from {1}
 
@@ -1746,6 +1741,11 @@ timeout.title=You’re about to be signed out
 timeout.message=For your security, we will sign you out in
 timeout.keep-alive-button=Stay signed in
 timeout.sign-out-button=Sign out
+
+# TAGS
+tag.current=CURRENT
+tag.future=FUTURE
+tag.previous=PREVIOUS
 
 #MONTHS
 month.1=January
