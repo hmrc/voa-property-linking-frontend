@@ -15,7 +15,7 @@ import uk.gov.hmrc.crypto.PlainText
 import uk.gov.hmrc.http.SessionKeys
 import uk.gov.hmrc.play.bootstrap.frontend.filters.crypto.SessionCookieCrypto
 
-trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite with BeforeAndAfterAll with TestData {
+trait ListYearsFeatureSwitchedISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite with BeforeAndAfterAll with TestData {
   sealed trait Language
 
   case object English extends Language
@@ -35,7 +35,7 @@ trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite wi
 
   val config: Map[String, String] = Map(
     "auditing.enabled"                      -> "false",
-    "feature-switch.agentListYears.enabled" -> "true",
+    "feature-switch.agentListYears.enabled" -> "false",
     "play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck",
     "play.filters.csrf.header.bypassHeaders.X-Requested-With" -> "*"
   ) ++ mockedMicroservices.flatMap { serviceName =>

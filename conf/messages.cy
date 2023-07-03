@@ -732,6 +732,59 @@ propertyRepresentation.selectAgent.table.2=Cod yr asiant
 propertyRepresentation.selectAgent.status.pending=Yn yr arfaeth
 propertyRepresentation.selectAgent.status.accepted=Derbyniwyd
 
+#Choose rating list years
+chooseRatingList.header = Welsh Choose a rating list {0} can act on for you
+chooseRatingList.currentlyThis.multiple = Welsh Currently this agent can act for you on the 2023 and 2017 rating lists
+chooseRatingList.currentlyThis.single = Welsh Currently this agent can act for you on the {0} rating list
+chooseRatingList.thisAgentCan = Welsh This agent can act for you on:
+chooseRatingList.the2023List = Welsh the 2023 rating list
+chooseRatingList.the2017List = Welsh the 2017 rating list
+chooseRatingList.bothLists = Welsh both rating lists
+chooseRatingList.moreAboutLists = Welsh More about rating lists
+chooseRatingList.theVoaCalculates = Welsh The Valuation Office Agency (VOA) calculates the rateable values for business properties in England and Wales. It holds the information on rating lists.
+chooseRatingList.theVoaUpdates = Welsh The VOA updates rateable values and publishes a new rating list every few years.
+chooseRatingList.the2023RatingList = Welsh The 2023 rating list is the current rating list and has the current valuation for your property. It may also have previous valuations for your property that have an effective date after 1 April 2023.
+chooseRatingList.the2017RatingList = Welsh The 2017 rating list has previous valuations for your property that have an effective date between 1 April 2017 and 31 March 2023.
+chooseRatingList.choosingAList = Welsh Choosing a rating list is different to assigning properties to the agent. You can assign properties to them by <a class="govuk-link" href="{0}">managing your agent</a>.
+chooseRatingList.doYouWant = Welsh Do you want this agent to act for you on both rating lists?
+chooseRatingList.yes = Welsh Yes
+chooseRatingList.thisAgentBoth = Welsh This agent can act for you on both the 2023 and 2017 rating lists. Choose this option if you’re not sure.
+chooseRatingList.no = Welsh No
+chooseRatingList.youWantToChoose = Welsh You want to choose either the 2023 or 2017 rating list.
+
+#Which rating list years
+whichRatingList.header = Welsh Choose the 2023 or 2017 rating list
+whichRatingList.currentYears.single = Welsh Currently this agent can act for you on the {0} rating list
+whichRatingList.currentYears.multiple = Welsh Currently this agent can act for you on the 2023 and 2017 rating lists
+whichRatingList.theRatingList = Welsh The rating list you choose for this agent will apply to all properties that you assign to them and they add to your account.
+whichRatingList.theAgentWill = Welsh The agent will only be able to act for you on valuations on the rating list you choose.
+whichRatingList.whichRatingList = Welsh Which rating list do you want this agent to act on for you?
+whichRatingList.2023List = Welsh 2023 rating list
+whichRatingList.2023ListHelp = Welsh The agent can only act for you on your current valuation for your property and any previous valuations that have an effective date after 1 April 2023.
+whichRatingList.2017List = Welsh 2017 rating list
+whichRatingList.2017ListHelp = Welsh The agent can only act for you on previous valuations for your property that have an effective date between 1 April 2017 to 31 March 2023.
+whichRatingList.error = Welsh Select which rating list you want this agent to act on for you
+
+#Rating list years confirmation screen
+ratingsListConfirmation.multiple.header = Welsh Are you sure you want {0} to act for you on the 2023 and 2017 rating lists?
+ratingsListConfirmation.multiple.forAllYour = Welsh For all your property valuations on the 2023 and 2017 rating lists, this agent will be able to:
+ratingsListConfirmation.multiple.seeDetailed = Welsh see detailed property information
+ratingsListConfirmation.multiple.seeCheck = Welsh see Check and Challenge case correspondence such as messages and emails
+ratingsListConfirmation.multiple.sendCheck = Welsh send Check and Challenge cases
+ratingsListConfirmation.multiple.thisApplies = Welsh This applies to properties that you assign to them or they add to your account
+ratingsListConfirmation.header = Welsh Are you sure you want {0} to act for you on the {1} rating list?
+ratingsListConfirmation.thisAgentWill = Welsh This agent will only be able to act for you on the {0} rating list.
+ratingsListConfirmation.theyWillNot = Welsh They will not be able to see valuations on the {0} rating list, or act on them for you.
+ratingsListConfirmation.restricting = Welsh Restricting an agent to a single rating list when they have Check and Challenge cases in progress on the other rating list means they will no longer be able to act on them for you.
+
+#Rating list years confirmed screen
+ratingsListConfirmed.header = Welsh The rating lists that {0} can act for you on has been changed
+ratingsListConfirmed.thisAgent.multiple = Welsh This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account
+ratingsListConfirmed.thisAgent.single = Welsh This agent can act for you on your property valuations on the {0} rating list, for properties that you assign to them or they add to your account
+ratingsListConfirmed.whatHappens = Welsh What happens next
+ratingsListConfirmed.youCanChange = Welsh You can change the rating lists this agent can act for you on at any time.
+ratingsListConfirmed.goToYour = Welsh Go to your account home
+
 #VIEW REPRESENTATIONS (AGENT)
 p.agentCode=Eich cod asiant yw {0}
 manageProperties.pendingRequests=Ceisiadau cynrychiolaeth yn yr arfaeth
