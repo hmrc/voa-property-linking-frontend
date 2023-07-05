@@ -138,6 +138,16 @@ POST        /my-organisation/revoke/properties/create                           
 GET         /my-organisation/revoke/properties/create                                                                     controllers.agentAppointment.AppointAgentController.showRevokeAgentSummary(pagination: PaginationParameters, agentCode: Long)
 GET         /my-organisation/revoke/properties/confirm                                                                    controllers.agentAppointment.AppointAgentController.confirmRevokeAgentFromSome
 
+GET         /my-organisation/appoint/ratings-list/are-you-sure                                                            controllers.propertyLinking.AreYouSureController.show(chosenListYear: String)
+POST        /my-organisation/appoint/ratings-list/are-you-sure                                                            controllers.propertyLinking.AreYouSureController.submitRatingListYears(chosenListYear: String)
+GET         /my-organisation/appoint/ratings-list/are-you-sure-multiple                                                   controllers.propertyLinking.AreYouSureMultipleController.show
+POST        /my-organisation/appoint/ratings-list/are-you-sure-multiple                                                   controllers.propertyLinking.AreYouSureMultipleController.submitRatingListYears
+GET         /my-organisation/appoint/ratings-list/choose                                                                  controllers.propertyLinking.ChooseRatingListController.show
+POST        /my-organisation/appoint/ratings-list/choose                                                                  controllers.propertyLinking.ChooseRatingListController.submitRatingListYears
+GET         /my-organisation/appoint/ratings-list/confirm                                                                 controllers.propertyLinking.WhichRatingListController.show
+POST        /my-organisation/appoint/ratings-list/confirm                                                                 controllers.propertyLinking.WhichRatingListController.submitRatingListYears
+GET         /my-organisation/appoint/ratings-list/confirmed                                                               controllers.propertyLinking.RatingListConfirmedController.show
+
 #DVR
 #Owner Routes
 GET         /my-organisation/property-link/:propertyLinkSubmissionId/confirmation                                                     controllers.detailedvaluationrequest.DvrController.myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId: String, submissionId: String, valuationId: Long)
