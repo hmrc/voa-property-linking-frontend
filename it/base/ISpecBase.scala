@@ -27,7 +27,9 @@ trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite wi
 
   lazy val wireMockServer: WireMockServer = new WireMockServer(wireMockConfig().port(mockPort))
 
-  val config: Map[String, String] = Map(
+  lazy val extraConfig: Map[String, Any] = Map.empty
+
+  val config: Map[String, Any] = Map(
     "auditing.enabled" -> "false",
     "feature-switch.agentListYears.enabled" -> "true",
     "play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck",
@@ -38,11 +40,11 @@ trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite wi
     "microservice.services.business-rates-authorisation.port" -> mockPort.toString,
     "microservice.services.auth.host" -> mockHost,
     "microservice.services.auth.port" -> mockPort.toString
-  )
+  ) ++ extraConfig
 
   override lazy val app: Application = new GuiceApplicationBuilder()
     .configure(config)
-    .build
+    .build()
 
   implicit val ws: WSClient = app.injector.instanceOf[WSClient]
 

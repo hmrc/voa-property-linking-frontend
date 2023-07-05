@@ -17,17 +17,8 @@ import java.util.UUID
 
 class ListYearsFeatureSwitchISpec extends ISpecBase {
 
-  override val config: Map[String, String] = Map(
-    "auditing.enabled" -> "false",
-    "feature-switch.agentListYears.enabled" -> "false",
-    "play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck",
-    "play.filters.csrf.header.bypassHeaders.X-Requested-With" -> "*",
-    "microservice.services.property-linking.host" -> mockHost,
-    "microservice.services.property-linking.port" -> mockPort.toString,
-    "microservice.services.business-rates-authorisation.host" -> mockHost,
-    "microservice.services.business-rates-authorisation.port" -> mockPort.toString,
-    "microservice.services.auth.host" -> mockHost,
-    "microservice.services.auth.port" -> mockPort.toString
+  override lazy val extraConfig: Map[String, Any] = Map(
+    "feature-switch.agentListYears.enabled" -> "false"
   )
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
