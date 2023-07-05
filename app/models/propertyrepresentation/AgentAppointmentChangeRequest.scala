@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package models
+package models.propertyrepresentation
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
-import java.time.LocalDate
+case class AgentAppointmentChangeRequest(
+      agentRepresentativeCode: Long,
+      action: String,
+      scope: String,
+      propertyLinkIds: Option[List[String]],
+      listYears: Option[List[String]] = None)
 
-case class RatingListYears(
-      multipleListYears: Boolean
-)
+object AgentAppointmentChangeRequest {
 
-object RatingListYears {
-  implicit val format = Json.format[RatingListYears]
+  implicit val format: OFormat[AgentAppointmentChangeRequest] = Json.format[AgentAppointmentChangeRequest]
 }

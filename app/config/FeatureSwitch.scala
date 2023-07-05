@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package models
+package businessrates.authorisation.config
 
-import play.api.libs.json.Json
+import play.api.Configuration
 
-import java.time.LocalDate
+import javax.inject.Inject
 
-case class RatingListYears(
-      multipleListYears: Boolean
-)
+class FeatureSwitch @Inject()(config: Configuration) {
 
-object RatingListYears {
-  implicit val format = Json.format[RatingListYears]
+  private val prefix = "feature-switch"
+
+  def isAgentListYearsEnabled: Boolean = {
+    val key = s"$prefix.agentListYears.enabled"
+    config.getOptional[Boolean](key).getOrElse(false)
+  }
 }

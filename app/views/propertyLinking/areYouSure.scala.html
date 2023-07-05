@@ -19,18 +19,18 @@
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
     govukInsetText: GovukInsetText, govukWarningText: GovukWarningText)
 
-@(agentName: String, agentCode: Long, currentRatingList: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, agentCode: Long, chosenListYear: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@invalidListYear = @{if (currentRatingList.equals("2023")) "2017" else "2023"}
+@invalidListYear = @{if (chosenListYear.equals("2023")) "2017" else "2023"}
 
 @mainLayout(
     backUri = Some(backLink),
-    pageTitle = messages("ratingsListConfirmation.header", agentName, currentRatingList)) {
+    pageTitle = messages("ratingsListConfirmation.header", agentName, chosenListYear)) {
 
     <span class="govuk-caption-l" >@messages("propertyRepresentation.manageAgent.title")</span>
-    <h1 class="govuk-heading-l">@messages("ratingsListConfirmation.header", agentName, currentRatingList)</h1>
+    <h1 class="govuk-heading-l">@messages("ratingsListConfirmation.header", agentName, chosenListYear)</h1>
 
-    <p class="govuk-body">@messages("ratingsListConfirmation.thisAgentWill", currentRatingList)</p>
+    <p class="govuk-body">@messages("ratingsListConfirmation.thisAgentWill", chosenListYear)</p>
 
     <p class="govuk-body">@messages("ratingsListConfirmation.theyWillNot", invalidListYear)</p>
 
@@ -38,11 +38,12 @@
       iconFallbackText = messages("warning.text"),
       content = Text(messages("ratingsListConfirmation.restricting"))))
 
+  @formWithCSRF(action = controllers.propertyLinking.routes.AreYouSureController.submitRatingListYears(chosenListYear)) {
     <div class="govuk-button-group">
       @govukButton(Button(
         content = Text(messages("label.confirm")),
-        href = Some(controllers.propertyLinking.routes.RatingListConfirmedController.show.url),
         attributes = Map("id" -> "submit-button")))
       <a id="cancel-link" class="govuk-link" href="@controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode = agentCode).url">@messages("link.cancel")</a>
     </div>
+  }
 }

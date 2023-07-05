@@ -16,33 +16,41 @@
 
 package controllers.propertyLinking
 
+import actions.AuthenticatedAction
+import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
+import models.propertyrepresentation.AgentSummary
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
+import repositories.ManageAgentSessionRepository
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class RatingListConfirmedController @Inject()(
-                              confirmedListView: views.html.propertyLinking.ratingListsConfirmed,
-                            )(
-                                           implicit executionContext: ExecutionContext,
-                                           override val messagesApi: MessagesApi,
-                                           override val controllerComponents: MessagesControllerComponents,
-                                           val config: ApplicationConfig
-                                         ) extends PropertyLinkingController {
+      confirmedListView: views.html.propertyLinking.ratingListsConfirmed,
+      manageAgentSessionRepository: ManageAgentSessionRepository,
+      authenticated: AuthenticatedAction,
+      featureSwitch: FeatureSwitch
+)(
+      implicit executionContext: ExecutionContext,
+      override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      val config: ApplicationConfig,
+      val errorHandler: CustomErrorHandler
+) extends PropertyLinkingController {
 
-  def show: Action[AnyContent] = Action { implicit request =>
-    Ok(confirmedListView(currentRatingList = currentListYears, agentName = getAgentName))
+  def show: Action[AnyContent] = authenticated.async { implicit request =>
+    if (featureSwitch.isAgentListYearsEnabled) {
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(AgentSummary(_, _, name, _, _, Some(listYears))) =>
+          Ok(confirmedListView(chosenListYears = listYears.toList, agentName = name))
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      }
+    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
   }
-
-  val getAgentName: String = "Joeys Agent"
-
-  val currentListYears: List[String] = List("2017")
-
-  override def errorHandler: FrontendErrorHandler = ???
 }

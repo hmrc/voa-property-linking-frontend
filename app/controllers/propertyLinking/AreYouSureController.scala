@@ -16,38 +16,70 @@
 
 package controllers.propertyLinking
 
+import actions.AuthenticatedAction
+import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
+import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentSummary}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
+import repositories.ManageAgentSessionRepository
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class AreYouSureController @Inject()(
-                              areYouSureView: views.html.propertyLinking.areYouSure,
-                            )(
-                                           implicit executionContext: ExecutionContext,
-                                           override val messagesApi: MessagesApi,
-                                           override val controllerComponents: MessagesControllerComponents,
-                                           val config: ApplicationConfig
-                                         ) extends PropertyLinkingController {
+      areYouSureView: views.html.propertyLinking.areYouSure,
+      manageAgentSessionRepository: ManageAgentSessionRepository,
+      authenticated: AuthenticatedAction,
+      featureSwitch: FeatureSwitch,
+      propertyLinkConnector: PropertyLinkConnector
+)(
+      implicit executionContext: ExecutionContext,
+      override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      val config: ApplicationConfig,
+      val errorHandler: CustomErrorHandler
+) extends PropertyLinkingController {
 
-  def show: Action[AnyContent] = Action { implicit request =>
-    Ok(areYouSureView(agentName = getAgentName, currentRatingList = currentListYears.head,
-      backLink = getBackLink, agentCode = getAgentCode))
+  def show(chosenListYear: String): Action[AnyContent] = authenticated.async { implicit request =>
+    if (featureSwitch.isAgentListYearsEnabled) {
+      if (chosenListYear == "2017" || chosenListYear == "2023") {
+        manageAgentSessionRepository.get[AgentSummary].map {
+          case Some(AgentSummary(_, representativeCode, agentName, _, _, _)) =>
+            Ok(
+              areYouSureView(
+                agentName = agentName,
+                chosenListYear = chosenListYear,
+                backLink = getBackLink,
+                agentCode = representativeCode))
+          case _ => NotFound(errorHandler.notFoundErrorTemplate)
+        }
+      } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
   }
 
-  val getAgentName: String = "Joeys Agent"
+  def submitRatingListYears(chosenListYear: String): Action[AnyContent] = authenticated.async { implicit request =>
+    if (featureSwitch.isAgentListYearsEnabled) {
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(agentSummary) =>
+          propertyLinkConnector.agentAppointmentChange(
+            AgentAppointmentChangeRequest(
+              agentRepresentativeCode = agentSummary.representativeCode,
+              scope = "APPOINT",
+              action = "LIST_YEAR",
+              propertyLinkIds = None,
+              listYears = Some(List(chosenListYear))
+            ))
 
-  val getAgentCode: Long = 1000L
-
-  val currentListYears: List[String] = List("2017")
-
-  val getBackLink: String = routes.ChooseRatingListController.show.url
-
-  override def errorHandler: FrontendErrorHandler = ???
+          Redirect(controllers.propertyLinking.routes.RatingListConfirmedController.show.url)
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      }
+    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+  }
+  def getBackLink: String = controllers.propertyLinking.routes.WhichRatingListController.show.url
 }

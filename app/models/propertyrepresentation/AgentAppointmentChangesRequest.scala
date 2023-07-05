@@ -17,8 +17,8 @@
 package models.propertyrepresentation
 
 import play.api.data.Form
-import play.api.libs.json.{Json, OFormat}
 import play.api.data.Forms.{longNumber, mapping, text}
+import play.api.libs.json.{Json, OFormat}
 
 import scala.util.Try
 
@@ -35,5 +35,4 @@ object AgentAppointmentChangesRequest {
         "scope"     -> text.verifying(s => Try(AppointmentScope.withName(s)).toOption.isDefined)
       )(AgentAppointmentChangesRequest.apply)(AgentAppointmentChangesRequest.unapply)
     )
-
 }

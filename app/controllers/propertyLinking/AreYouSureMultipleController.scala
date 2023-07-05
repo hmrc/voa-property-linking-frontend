@@ -16,35 +16,63 @@
 
 package controllers.propertyLinking
 
+import actions.AuthenticatedAction
+import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentSummary}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
+import repositories.ManageAgentSessionRepository
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
+import connectors.propertyLinking.PropertyLinkConnector
 
 @Singleton
 class AreYouSureMultipleController @Inject()(
-                              areYouSureMultipleView: views.html.propertyLinking.areYouSureMultipleYears,
-                            )(
-                                           implicit executionContext: ExecutionContext,
-                                           override val messagesApi: MessagesApi,
-                                           override val controllerComponents: MessagesControllerComponents,
-                                           val config: ApplicationConfig
-                                         ) extends PropertyLinkingController {
+      areYouSureMultipleView: views.html.propertyLinking.areYouSureMultipleYears,
+      manageAgentSessionRepository: ManageAgentSessionRepository,
+      authenticated: AuthenticatedAction,
+      featureSwitch: FeatureSwitch,
+      propertyLinkConnector: PropertyLinkConnector
+)(
+      implicit executionContext: ExecutionContext,
+      override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      val config: ApplicationConfig,
+      val errorHandler: CustomErrorHandler
+) extends PropertyLinkingController {
 
-   def show: Action[AnyContent] = Action { implicit request =>
-     Ok(areYouSureMultipleView(agentName = getAgentName, backLink = getBackLink, agentCode = getAgentCode))
-   }
+  def show: Action[AnyContent] = authenticated.async { implicit request =>
+    if (featureSwitch.isAgentListYearsEnabled) {
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(AgentSummary(_, representativeCode, agentName, _, _, _)) =>
+          Ok(areYouSureMultipleView(agentName = agentName, backLink = getBackLink, agentCode = representativeCode))
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      }
+    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+  }
 
-   val getAgentName: String = "Joeys Agent"
+  def submitRatingListYears: Action[AnyContent] = authenticated.async { implicit request =>
+    if (featureSwitch.isAgentListYearsEnabled) {
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(agentSummary) =>
+          propertyLinkConnector.agentAppointmentChange(
+            AgentAppointmentChangeRequest(
+              agentRepresentativeCode = agentSummary.representativeCode,
+              scope = "APPOINT",
+              action = "LIST_YEAR",
+              propertyLinkIds = None,
+              listYears = Some(List("2017", "2023"))
+            ))
 
-   val getAgentCode: Long = 1000L
-
-   val getBackLink: String = routes.ChooseRatingListController.show.url
-
-   override def errorHandler: FrontendErrorHandler = ???
+          Redirect(controllers.propertyLinking.routes.RatingListConfirmedController.show.url)
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      }
+    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+  }
+  def getBackLink: String = controllers.propertyLinking.routes.ChooseRatingListController.show.url
 }

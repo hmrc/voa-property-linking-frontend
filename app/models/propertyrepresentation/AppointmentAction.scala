@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package models
+package models.propertyrepresentation
 
-import play.api.libs.json.Json
+import play.api.libs.json.Format
+import utils.JsonUtils.enumFormat
 
-import java.time.LocalDate
+object AppointmentAction extends Enumeration {
+  type AppointmentAction = Value
 
-case class RatingListYears(
-      multipleListYears: Boolean
-)
+  val APPOINT = Value("APPOINT")
+  val REVOKE = Value("REVOKE")
 
-object RatingListYears {
-  implicit val format = Json.format[RatingListYears]
+  implicit val format: Format[AppointmentAction] = enumFormat(AppointmentAction)
 }

@@ -38,11 +38,12 @@
 
     <p class="govuk-body">@messages("ratingsListConfirmation.multiple.thisApplies")</p>
 
+  @formWithCSRF(action = controllers.propertyLinking.routes.AreYouSureMultipleController.submitRatingListYears) {
     <div class="govuk-button-group">
       @govukButton(Button(
         content = Text(messages("label.confirm")),
-        href = Some(controllers.propertyLinking.routes.RatingListConfirmedController.show.url),
         attributes = Map("id" -> "submit-button")))
       <a id="cancel-link" class="govuk-link" href="@controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode = agentCode).url">@messages("link.cancel")</a>
     </div>
+  }
 }

@@ -25,6 +25,7 @@ object AppointmentScope extends Enumeration {
   val RELATIONSHIP = Value("RELATIONSHIP")
   val PROPERTY_LIST = Value("PROPERTY_LIST")
   val ALL_PROPERTIES = Value("ALL_PROPERTIES")
+  val LIST_YEAR = Value("LIST_YEAR")
 
   implicit val format: Format[AppointmentScope] = JsonUtils.enumFormat(AppointmentScope)
 }

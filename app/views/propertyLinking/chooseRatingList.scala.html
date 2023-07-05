@@ -19,7 +19,7 @@
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
     govukInsetText: GovukInsetText)
 
-@(form: Form[_], agentName: String, currentRatingList: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[_], agentName: String, currentRatingList: List[String], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @moreAboutRatingLists = {
   <p class="govuk-body">@messages("chooseRatingList.theVoaCalculates")</p>
@@ -28,9 +28,16 @@
   <p class="govuk-body">@messages("chooseRatingList.the2017RatingList")</p>
 }
 
+@currentlyThisText = @{if (currentRatingList.size.equals(2)) messages("chooseRatingList.currentlyThis.multiple") else
+  messages("chooseRatingList.currentlyThis.single", currentRatingList.head)}
+
+@bothListYearsChecked = @{currentRatingList.size.equals(2)}
+@oneListYearChecked = @{currentRatingList.size.equals(1)}
+
 @mainLayout(
     backUri = Some(backLink),
-    pageTitle = messages("chooseRatingList.header", agentName)) {
+    pageTitle = messages("chooseRatingList.header", agentName),
+    hasErrors = form.hasErrors) {
 
     @if(form.errors.nonEmpty) {
       @govukErrorSummary(
@@ -48,7 +55,7 @@
     <h1 class="govuk-heading-l">@messages("chooseRatingList.header", agentName)</h1>
 
     @govukInsetText(InsetText(
-      content = Text(messages("chooseRatingList.currentlyThis", currentRatingList))
+      content = Text(currentlyThisText)
     ))
 
     <p class="govuk-body">@messages("chooseRatingList.thisAgentCan")</p>
@@ -65,7 +72,7 @@
     ))
 
     @govukInsetText(InsetText(
-      content = HtmlContent(messages("chooseRatingList.choosingAList"))
+      content = HtmlContent(messages("chooseRatingList.choosingAList", controllers.agent.routes.ManageAgentController.showManageAgent))
     ))
 
   @formWithCSRF(action = controllers.propertyLinking.routes.ChooseRatingListController.submitRatingListYears) {
@@ -79,14 +86,16 @@
       name = "multipleListYears",
       items = List(
         RadioItem(
-          value = Some("2023"),
+          value = Some("true"),
+          checked = bothListYearsChecked,
           hint = Some(Hint(
             content = Text(messages("chooseRatingList.thisAgentBoth"))
           )),
           content = Text(messages("chooseRatingList.yes"))
         ),
         RadioItem(
-          value = Some("2017"),
+          value = Some("false"),
+          checked = oneListYearChecked,
           hint = Some(Hint(
             content = Text(messages("chooseRatingList.youWantToChoose"))
           )),

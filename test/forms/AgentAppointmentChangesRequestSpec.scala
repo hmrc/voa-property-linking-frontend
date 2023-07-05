@@ -55,10 +55,6 @@ class AgentAppointmentChangesRequestSpec extends VoaPropertyLinkingSpec {
 
   object TestData {
     val form = AgentAppointmentChangesRequest.submitAgentAppointmentRequest
-    val validData = Map(
-      "agentCode" -> "12345",
-      "scope"     -> s"${AppointmentScope.PROPERTY_LIST}"
-    )
+    val validData = Map("agentCode" -> "12345", "scope" -> s"${AppointmentScope.PROPERTY_LIST}")
   }
-
 }

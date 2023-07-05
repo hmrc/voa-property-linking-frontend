@@ -19,13 +19,13 @@
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
     govukInsetText: GovukInsetText, govukWarningText: GovukWarningText, govukPanel: GovukPanel)
 
-@(agentName: String, currentRatingList: List[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, chosenListYears: List[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@thisAgentText = @{if (currentRatingList.size.equals(2)) messages("ratingsListConfirmed.thisAgent.multiple") else
-  messages("ratingsListConfirmed.thisAgent.single", currentRatingList.head)}
+@thisAgentText = @{if (chosenListYears.size.equals(2)) messages("ratingsListConfirmed.thisAgent.multiple") else
+  messages("ratingsListConfirmed.thisAgent.single", chosenListYears.head)}
 
 @mainLayout(
-    pageTitle = messages("ratingsListConfirmation.header", agentName, currentRatingList)) {
+    pageTitle = messages("ratingsListConfirmed.header", agentName)) {
 
     @govukPanel(Panel(
       title = Text(messages("ratingsListConfirmed.header", agentName)),

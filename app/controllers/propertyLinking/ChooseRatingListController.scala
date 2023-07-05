@@ -17,55 +17,79 @@
 package controllers.propertyLinking
 
 import actions.AuthenticatedAction
-import actions.propertylinking.WithLinkingSession
+import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
-import form.Mappings.{dmyDate, mandatoryBoolean}
-import models.{PropertyOccupancy, RatingListYears}
+import form.Mappings.mandatoryBoolean
+import models.RatingListYears
+import models.propertyrepresentation.AgentSummary
 import play.api.data.Form
-import play.api.data.Forms.{boolean, mapping, single}
+import play.api.data.Forms.mapping
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
-import uk.gov.voa.play.form.ConditionalMappings.mandatoryIfFalse
-import views.helpers.Errors
+import repositories.ManageAgentSessionRepository
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-import java.time.LocalDate
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class ChooseRatingListController @Inject()(
-                              chooseListView: views.html.propertyLinking.chooseRatingList,
-                            )(
-                                           implicit executionContext: ExecutionContext,
-                                           override val messagesApi: MessagesApi,
-                                           override val controllerComponents: MessagesControllerComponents,
-                                           val config: ApplicationConfig,
-                                           authenticatedAction: AuthenticatedAction,
-                                           withLinkingSession: WithLinkingSession,
-                                         ) extends PropertyLinkingController {
+      chooseListView: views.html.propertyLinking.chooseRatingList,
+      manageAgentSessionRepository: ManageAgentSessionRepository,
+      authenticated: AuthenticatedAction,
+      featureSwitch: FeatureSwitch)(
+      implicit executionContext: ExecutionContext,
+      override val messagesApi: MessagesApi,
+      override val controllerComponents: MessagesControllerComponents,
+      val config: ApplicationConfig,
+      val errorHandler: CustomErrorHandler
+) extends PropertyLinkingController {
 
-  def show: Action[AnyContent] = Action { implicit request =>
-    Ok(chooseListView(ratingListYears, currentRatingList = "2023", backLink = getBackLink, agentName = getAgentName))
+  def show: Action[AnyContent] = authenticated.async { implicit request =>
+    if (featureSwitch.isAgentListYearsEnabled) {
+
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
+          Ok(
+            chooseListView(
+              ratingListYears,
+              currentRatingList = listYears.toList,
+              backLink = getBackLink,
+              agentName = agentName))
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      }
+    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
   }
 
-  def submitRatingListYears: Action[AnyContent] = Action { implicit request =>
-    ratingListYears
-        .bindFromRequest()
-        .fold(
-          errors =>
-            BadRequest(chooseListView(form = errors, currentRatingList =  "2023", backLink = getBackLink, agentName = getAgentName)),
-          formData =>
-            if (formData.multipleListYears)
-              Redirect(controllers.propertyLinking.routes.AreYouSureMultipleController.show.url)
-            else Redirect(controllers.propertyLinking.routes.WhichRatingListController.show.url)
-        )
-    }
+  def submitRatingListYears: Action[AnyContent] = authenticated.async { implicit request =>
+    if (featureSwitch.isAgentListYearsEnabled) {
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(agentSummary @ AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
+          ratingListYears
+            .bindFromRequest()
+            .fold(
+              errors =>
+                BadRequest(
+                  chooseListView(
+                    form = errors,
+                    currentRatingList = listYears.toList,
+                    backLink = getBackLink,
+                    agentName = agentName)),
+              formData =>
+                if (formData.multipleListYears) {
+                  manageAgentSessionRepository.saveOrUpdate[AgentSummary](
+                    agentSummary.copy(listYears = Some(List("2017", "2023"))))
+                  Redirect(controllers.propertyLinking.routes.AreYouSureMultipleController.show.url)
+                } else Redirect(controllers.propertyLinking.routes.WhichRatingListController.show.url)
+            )
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      }
+    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+  }
 
-  val getBackLink: String = routes.DeclarationController.show.url
-  val getAgentName: String = "Joeys Agent"
+  def getBackLink: String = controllers.agent.routes.ManageAgentController.showManageAgent.url
 
   def ratingListYears: Form[RatingListYears] =
     Form(
@@ -73,5 +97,4 @@ class ChooseRatingListController @Inject()(
         "multipleListYears" -> mandatoryBoolean,
       )(RatingListYears.apply)(RatingListYears.unapply))
 
-  override def errorHandler: FrontendErrorHandler = ???
 }
