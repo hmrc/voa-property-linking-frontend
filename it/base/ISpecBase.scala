@@ -27,23 +27,18 @@ trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite wi
 
   lazy val wireMockServer: WireMockServer = new WireMockServer(wireMockConfig().port(mockPort))
 
-  val mockedMicroservices: Set[String] = Set(
-    "property-linking",
-    "business-rates-authorisation",
-    "auth"
-  )
-
   val config: Map[String, String] = Map(
-    "auditing.enabled"                      -> "false",
+    "auditing.enabled" -> "false",
     "feature-switch.agentListYears.enabled" -> "true",
     "play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck",
-    "play.filters.csrf.header.bypassHeaders.X-Requested-With" -> "*"
-  ) ++ mockedMicroservices.flatMap { serviceName =>
-    Map(
-      s"microservice.services.$serviceName.host" -> mockHost,
-      s"microservice.services.$serviceName.port" -> mockPort.toString,
-    )
-  }
+    "play.filters.csrf.header.bypassHeaders.X-Requested-With" -> "*",
+    "microservice.services.property-linking.host" -> mockHost,
+    "microservice.services.property-linking.port" -> mockPort.toString,
+    "microservice.services.business-rates-authorisation.host" -> mockHost,
+    "microservice.services.business-rates-authorisation.port" -> mockPort.toString,
+    "microservice.services.auth.host" -> mockHost,
+    "microservice.services.auth.port" -> mockPort.toString
+  )
 
   override lazy val app: Application = new GuiceApplicationBuilder()
     .configure(config)
