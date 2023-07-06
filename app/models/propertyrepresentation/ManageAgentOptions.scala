@@ -16,13 +16,18 @@
 
 package models.propertyrepresentation
 
+import config.FeatureSwitch
 import models.{EnumFormat, NamedEnum, NamedEnumSupport}
+import play.api.Configuration
 import play.api.libs.json.Json
+
+import javax.inject.Inject
 
 sealed trait ManageAgentOptions extends NamedEnum {
   val name: String
   val key = "choice"
   override def toString = name
+
 }
 
 case object AssignToAllProperties extends ManageAgentOptions {
@@ -49,7 +54,12 @@ case object RemoveFromYourAccount extends ManageAgentOptions {
   val name = "removeFromYourAccount"
 }
 
+case object ChangeRatingList extends ManageAgentOptions {
+  val name = "changeRatingList"
+}
+
 object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
+
   implicit val format = EnumFormat(ManageAgentOptions)
 
   override def all: List[ManageAgentOptions] =
@@ -59,16 +69,29 @@ object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
       UnassignFromAllProperties,
       UnassignFromSomeProperties,
       AssignToYourProperty,
-      RemoveFromYourAccount)
+      RemoveFromYourAccount,
+      ChangeRatingList
+    )
 
   val onePropertyLinkNoAssignedAgentsOptions = List(
     ManageAgentOptionItem(s"${AssignToYourProperty.name}"),
     ManageAgentOptionItem(s"${RemoveFromYourAccount.name}")
   )
+  val onePropertyLinkNoAssignedAgentsOptionsWithRatingList = List(
+    ManageAgentOptionItem(s"${AssignToYourProperty.name}"),
+    ManageAgentOptionItem(s"${RemoveFromYourAccount.name}"),
+    ManageAgentOptionItem(s"${ChangeRatingList.name}")
+  )
 
   val multiplePropertyLinksNoAssignedAgentsOptions = List(
     ManageAgentOptionItem(s"${AssignToAllProperties.name}"),
     ManageAgentOptionItem(s"${AssignToSomeProperties.name}"),
+    ManageAgentOptionItem(s"${RemoveFromYourAccount.name}")
+  )
+  val multiplePropertyLinksNoAssignedAgentsOptionsWithRatingList = List(
+    ManageAgentOptionItem(s"${AssignToAllProperties.name}"),
+    ManageAgentOptionItem(s"${AssignToSomeProperties.name}"),
+    ManageAgentOptionItem(s"${ChangeRatingList.name}"),
     ManageAgentOptionItem(s"${RemoveFromYourAccount.name}")
   )
 
@@ -78,10 +101,22 @@ object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
     ManageAgentOptionItem(s"${UnassignFromAllProperties.name}"),
     ManageAgentOptionItem(s"${UnassignFromSomeProperties.name}")
   )
+  val multiplePropertyLinksAgentAssignedToSomeOptionsWithRatingList = List(
+    ManageAgentOptionItem(s"${AssignToAllProperties.name}"),
+    ManageAgentOptionItem(s"${AssignToSomeProperties.name}"),
+    ManageAgentOptionItem(s"${UnassignFromAllProperties.name}"),
+    ManageAgentOptionItem(s"${UnassignFromSomeProperties.name}"),
+    ManageAgentOptionItem(s"${ChangeRatingList.name}")
+  )
 
   val multiplePropertyLinksAgentAssignedToAllOptions = List(
     ManageAgentOptionItem(s"${UnassignFromAllProperties.name}"),
     ManageAgentOptionItem(s"${UnassignFromSomeProperties.name}")
+  )
+  val multiplePropertyLinksAgentAssignedToAllOptionsWithRatingList = List(
+    ManageAgentOptionItem(s"${UnassignFromAllProperties.name}"),
+    ManageAgentOptionItem(s"${UnassignFromSomeProperties.name}"),
+    ManageAgentOptionItem(s"${ChangeRatingList.name}")
   )
 }
 

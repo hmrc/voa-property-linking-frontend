@@ -20,7 +20,7 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import auditing.AuditingService
 import auth.GovernmentGatewayProvider
-import config.ApplicationConfig
+import config.{ApplicationConfig, FeatureSwitch}
 import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector
@@ -64,6 +64,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockChallengeConnector: ChallengeConnector = mock[ChallengeConnector]
   val mockVmvConnector: VmvConnector = mock[VmvConnector]
   val mockApplicationConfig: ApplicationConfig = mock[ApplicationConfig]
+  val mockFeatureSwitch: FeatureSwitch = mock[FeatureSwitch]
 
   override protected def beforeEach(): Unit =
     Seq(
@@ -91,7 +92,8 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
       mockWithLinkingSession,
       mockPersonalDetailsSessionRepository,
       mockChallengeConnector,
-      mockVmvConnector
+      mockVmvConnector,
+      mockFeatureSwitch
     ).foreach(Mockito.reset(_))
 
 }

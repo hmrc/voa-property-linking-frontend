@@ -392,7 +392,7 @@ property.details.cases.table.2=Eich rhif cyflwyno personol (ID)
 property.details.cases.table.3=Statws
 property.details.cases.table.4=Cyfeirnod Gwirio
 property.details.cases.table.5=Dyddiad cau
-property.details.cases.table.6=Asiant
+property.details.cases.table.6=property.details.cases.table.6
 property.details.cases.table.7=Cleient
 property.details.cases.table.8=Cyflwynwyd gan
 property.details.cases.table.challenge=Her
@@ -538,6 +538,18 @@ propertyRepresentation.showAgents.label.action=Gweithred
 propertyRepresentation.showAgents.title=Eich asiantiaid
 propertyRepresentation.showAgents.appointNewAgent.link=Penodi asiant
 propertyRepresentation.noAgents=Does gennych chi ddim asiantiaid.
+propertyRepresentation.showAgents.help.link= Help with appointing and managing agents
+propertyRepresentation.showAgents.label.rating=	Rating lists they can act on for you
+propertyRepresentation.showAgents.properties.assigned={0} of {1}
+propertyRepresentation.showAgents.ratingList={0} rating list
+propertyRepresentation.showAgents.ratingLists={1} and {0} rating lists
+propertyRepresentation.showAgents.viewAgentProperties.name=<a class="govuk-link" href="{0}" aria-label="View agent {1}">{2}</a>
+propertyRepresentation.caption=Agent
+propertyRepresentation.ratingLists.heading=Rating lists they can act on for you
+propertyRepresentation.ratingList.p=This agent can act for you on your property valuations on the {0} rating list, for properties that you assign them to or they add to your account.
+propertyRepresentation.ratingLists.p=This agent can act for you on your property valuations on the {0} and {1} rating lists, for properties that you assign them to or they add to your account.
+propertyRepresentation.agentProperties.assigned.none=This agent is not assigned to any properties.
+propertyRepresentation.manageAgent.options.changeRatingList=Change which rating list they can act on for you
 
 propertyRepresentation.agentProperties.assigned.title=Eich asiant
 propertyRepresentation.agentProperties.assigned=Eiddo wedi’u neilltuo
