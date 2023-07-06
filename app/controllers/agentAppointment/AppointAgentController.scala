@@ -222,6 +222,8 @@ class AppointAgentController @Inject()(
       }
     }
 
+  //todo This should now go to check your answers and the view in here can be deleted (appointAgentSummaryView)
+  //todo Tests have already been deleted
   def confirmAppointAgentToSome: Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].map {
       case Some(AppointAgentToSomePropertiesSession(Some(agent), _)) =>

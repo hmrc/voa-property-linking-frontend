@@ -36,7 +36,8 @@
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    <h1 class="govuk-heading-l">@messages("propertyRepresentation.multipleProperties.question", agentName)</h1>
+    <span id="caption" class="govuk-caption-l">@messages("caption.appoint.agent")</span>
+    <h1 class="govuk-heading-l">@messages("propertyRepresentation.multipleProperties.title", agentName)</h1>
 
     @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitMultipleProperties) {
         @govukRadios(Radios(
@@ -44,11 +45,11 @@
             name = "multipleProperties",
             items = Seq(
                 RadioItem(id = Some("multipleProperties"), value = Some(All.name), checked = form.value.fold(false)(_ == All), content = Text(messages("propertyRepresentation.multipleProperties.options.all"))),
-                RadioItem(id = None, value = Some(NoProperties.name), checked = form.value.fold(false)(_ == NoProperties), content = Text(messages("propertyRepresentation.multipleProperties.options.noProperties"))),
-                RadioItem(id = None, value = Some(ChooseFromList.name), checked = form.value.fold(false)(_ == ChooseFromList), content = Text(messages("propertyRepresentation.multipleProperties.options.chooseFromList")))
+                RadioItem(id = None, value = Some(ChooseFromList.name), checked = form.value.fold(false)(_ == ChooseFromList), content = Text(messages("propertyRepresentation.multipleProperties.options.oneOrMore"))),
+                RadioItem(id = None, value = Some(NoProperties.name), checked = form.value.fold(false)(_ == NoProperties), content = Text(messages("propertyRepresentation.multipleProperties.options.noProperties")))
             )).withFormField(form("multipleProperties")))
 
-        @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button"))))
+        @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button.continue"))))
     }
 
 }

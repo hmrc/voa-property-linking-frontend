@@ -513,52 +513,61 @@ propertyRepresentation.table.title.agentName=Enw’r asiant
 propertyRepresentation.table.title.remove=Dewis
 
 #New appoint agent journey
-propertyRepresentation.addAnAgent.title=Penodi asiant i’ch cyfrif
-propertyRepresentation.addAnAgent.info.1=Pan fyddwch yn penodi asiant ac yn eu neilltuo i’ch eiddo, byddant yn gallu:
-propertyRepresentation.addAnAgent.info.list.1=gweld gwybodaeth eiddo fanwl
-propertyRepresentation.addAnAgent.info.list.2=gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst
-propertyRepresentation.addAnAgent.info.list.3=anfon achosion Gwirio a Herio
-propertyRepresentation.addAnAgent.info.2=Byddant hefyd yn gallu ychwanegu eiddo at eich cyfrif a gweithredu arnynt ar eich rhan.
-propertyRepresentation.addAnAgent.info.3=Gallwch benodi mwy nag un asiant i’ch cyfrif a neilltuo mwy nag un asiant i eiddo.
-propertyRepresentation.addAnAgent.info.help.link=Help gyda phenodi a rheoli asiantau
-propertyRepresentation.addAnAgent.codeInput.label=Beth yw cod eich asiant?
-propertyRepresentation.addAnAgent.codeInput.hint=Mae hwn yn rhif a roddir i’r asiant gan Asiantaeth y Swyddfa Brisio.
+#New appoint agent journey
+caption.appoint.agent=Penodi asiant
+propertyRepresentation.appointAgent.button.continue=Yn eich blaen
 
-propertyRepresentation.isThisYourAgent.title=Cadarnhau Asiant
-propertyRepresentation.isThisYourAgent.question=Ai dyma eich asiant?
-propertyRepresentation.isThisYourAgent.yes=Ie
-propertyRepresentation.isThisYourAgent.no=Na, nodi cod newydd
+propertyRepresentation.start.title=Penodi asiant i’ch cyfrif
+propertyRepresentation.start.theyCan.1=Pan fyddwch yn penodi asiant i’ch cyfrif, bydd yr asiant hwn yn gallu gweithredu ar eich rhan. Mae hyn yn golygu ei fod yn gallu:
+propertyRepresentation.start.theyCan.list.1=gweld gwybodaeth manwl am eiddo
+propertyRepresentation.start.theyCan.list.2=gweld gohebiaeth ynghylch achosion Gwirio a Herio, megis negeseuon ac e-byst
+propertyRepresentation.start.theyCan.list.3=anfon achosion Gwirio a Herio
+propertyRepresentation.start.theyCan.list.4=ychwanegu eich eiddo i’ch cyfrif
+propertyRepresentation.start.theyCan.2=Gall yr asiant weithredu ar eiddo rydych yn eu neilltuo iddo, ac ar eiddo y mae’n eu hychwanegu at eich cyfrif.
+propertyRepresentation.start.youCan.1=Gallwch wneud y canlynol:
+propertyRepresentation.start.youCan.list.1=penodi mwy nag un asiant i’ch cyfrif
+propertyRepresentation.start.youCan.list.2=neilltuo’ch eiddo i fwy nag un asiant
+propertyRepresentation.start.youCan.list.3=dewis pa restr ardrethu y gall asiant ei gweithredu ar eich rhan
+propertyRepresentation.start.help.link=Help gyda phenodi a rheoli asiantau
+propertyRepresentation.start.startNow=Dechrau nawr
 
-propertyRepresentation.onePropertyNoExistingAgent.question=Ydych chi eisiau {0} i reoli eich eiddo?
+propertyRepresentation.agentCode.title=Beth yw cod eich asiant?
+propertyRepresentation.agentCode.codeInput.hint=Dyma’r rhif a roddir i’r asiant gan Asiantaeth y Swyddfa Brisio.
 
-propertyRepresentation.oneProperty.title=A ddylai’r asiant reoli eich eiddo
-propertyRepresentation.oneProperty.question=A ddylai {0} reoli eich eiddo?
+propertyRepresentation.isThisYourAgent.title=Ai’ch asiant chi yw hwn?
+propertyRepresentation.isThisYourAgent.yes=Iawn
+propertyRepresentation.isThisYourAgent.no=Na, nodwch god newydd
+
+propertyRepresentation.onePropertyNoExistingAgent.question=Welsh needed - Do you want to assign {0} to your property?
+
+propertyRepresentation.oneProperty.title=Welsh needed- Do you want to assign {0} to your property?
 propertyRepresentation.oneProperty.options.yes=Ie
 propertyRepresentation.oneProperty.options.no=Na
 
-propertyRepresentation.multipleProperties.title=Pa eiddo ddylai’r asiant reoli
-propertyRepresentation.multipleProperties.question=Pa eiddo yr hoffech chi {0} i’w rheoli?
-propertyRepresentation.multipleProperties.options.all=Pob un
-propertyRepresentation.multipleProperties.options.noProperties=Dim
-propertyRepresentation.multipleProperties.options.chooseFromList=Dewis o restr
+propertyRepresentation.multipleProperties.title=Pa un o’ch eiddo yr hoffech ei neilltuo i {0}?
+propertyRepresentation.multipleProperties.options.all=Neilltuo pob eiddo iddo
+propertyRepresentation.multipleProperties.options.noProperties=Peidio â neilltuo unrhyw eiddo iddo
+propertyRepresentation.multipleProperties.options.oneOrMore=Neilltuo un eiddo neu fwy iddo
 
-propertyRepresentation.checkYourAnswers.title=Gwirio eich atebion
-propertyRepresentation.checkYourAnswers.newAgent=Asiant newydd
-propertyRepresentation.checkYourAnswers.managingProperty=Rheoli eiddo
+propertyRepresentation.checkYourAnswers.title=Gwirio a chadarnhau eich manylion
+propertyRepresentation.checkYourAnswers.agent=Asiant
+propertyRepresentation.checkYourAnswers.properties=Welsh needed - Which properties do you want to assign to this agent?
 propertyRepresentation.checkYourAnswers.yourProperty=Eich eiddo
 propertyRepresentation.checkYourAnswers.options.all=Pob eiddo
 propertyRepresentation.checkYourAnswers.options.none=Dim eiddo
 propertyRepresentation.checkYourAnswers.options.no=Na
 propertyRepresentation.checkYourAnswers.options.yes=Ie
+propertyRepresentation.checkYourAnswers.change=Newid
+propertyRepresentation.checkYourAnswers.confirmAndAppoint=Cadarnhau a phenodi
 
-propertyRepresentation.checkYourAnswers.submit=Cyflwyno
-
-propertyRepresentation.confirmation.title=Asiant wedi ei benodi
-propertyRepresentation.confirmation={0} wedi ei benodi ar eich cyfer
+propertyRepresentation.confirmation.title=Welsh needed - {0} has been appointed to your account
+propertyRepresentation.confirmation.yourProperty=Welsh needed - They have also been assigned to your property.
+propertyRepresentation.confirmation.selectedProperties=Welsh needed - They have also been assigned to the properties you selected.
+propertyRepresentation.confirmation.allProperties=Welsh needed - They have also been assigned to all your properties.
+propertyRepresentation.confirmation.thisAgentCan=Gall yr asiant hwn
+propertyRepresentation.confirmation.thisAgentCan.list.1=Welsh needed - add properties to your account
 propertyRepresentation.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
-propertyRepresentation.confirmation.whatHappensNext.p1=Byddwn yn rhoi gwybod I {0} eich bod wedi eu penodi fel eich asiant.
-propertyRepresentation.confirmation.whatHappensNext.allOrSome=Bydd {0} yn gallu trafod eich eiddo gydag Asiantaeth y Swyddfa Brisio ar eich rhan.
-propertyRepresentation.confirmation.whatHappensNext.relationship=Bydd {0} yn gallu ychwanegu eiddo i’ch cyfrif ar eich rhan.
+propertyRepresentation.confirmation.whatHappensNext.p1=Welsh needed - You can assign or unassign this agent from your properties by <a class="govuk-link" id="manage-agents-link" href="{0}">managing your agents</a>.
 
 error.propertyRepresentation.title=Mae yna broblem
 error.propertyRepresentation.unknownAgent=Does ddim asiant ar gyfer y cod asiant a ddarparwyd
@@ -674,7 +683,7 @@ propertyRepresentation.revokeClientProperty.confirmation=Rydych wedi dirymu eidd
 propertyRepresentation.revokeClientProperty.returnToClientProperties=Dychwelyd at eiddo’r cleient
 
 #Appoint agents properties
-propertyRepresentation.appointAgentProperties.title=I ba un o’ch eiddo ydych chi am neilltuo {0}?
+propertyRepresentation.appointAgentProperties.title=Dewis pa eiddo yr hoffech ei neilltuo i {0}
 propertyRepresentation.appointAgentProperties.intro=Ar gyfer yr eiddo a ddewiswch, bydd yr asiant yn gallu:
 propertyRepresentation.appointAgentProperties.list.1=gweld gwybodaeth eiddo fanwl
 propertyRepresentation.appointAgentProperties.list.2=gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst
@@ -693,17 +702,8 @@ propertyRepresentation.appointAgents.showAllProperties.link=Dangos holl eiddo
 label.propertyRepresentation.address=Cyfeiriad
 label.propertyRepresentation.appointedAgents=Asiant
 error.propertyRepresentation.appoint.filter=Mae’n rhaid i chi nodi rhywbeth i chwilio amdano
-propertyRepresentation.appointAgentProperties.confirmAndAssign=Cadarnhau a neilltuo
-propertyRepresentation.appointAgentProperties.cancel=Canslo
 
 ##Appoint agent summary
-propertyRepresentation.agentSummary.title=Mae {0} wedi’i neilltuo i’r eiddo a ddewiswyd gennych
-propertyRepresentation.agentSummary.explainer=Gall yr asiant weithredu ar eich rhan ar gyfer unrhyw un o’r eiddo a ddewiswyd gennych.
-propertyRepresentation.agentSummary.nextSteps.subhead=Beth sy’n digwydd nesaf
-propertyRepresentation.agentSummary.nextSteps.content=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
-propertyRepresentation.agentSummary.homeLink=Ewch i hafan eich cyfrif
-
-
 propertyRepresentation.appointAgent.agentCode=Cod yr asiant
 propertyRepresentation.appointAgent.button=Parhau
 

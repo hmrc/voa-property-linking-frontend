@@ -95,7 +95,9 @@ GET         /my-organisation/appoint/properties/confirm                         
 #NEW AGENT APPOINT JOURNEY
 GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start(propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None)
 GET         /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.showStartPage
-POST        /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.getAgentDetails
+
+GET         /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.showAgentCodePage
+POST        /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.getAgentDetails
 
 GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.isCorrectAgent
 POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.agentSelected

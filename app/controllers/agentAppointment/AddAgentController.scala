@@ -48,6 +48,7 @@ class AddAgentController @Inject()(
       agentRelationshipService: AgentRelationshipService,
       @Named("appointNewAgentSession") val sessionRepo: SessionRepo,
       startPageView: views.html.propertyrepresentation.appoint.start,
+      agentCodeView: views.html.propertyrepresentation.appoint.agentCode,
       isTheCorrectAgentView: views.html.propertyrepresentation.appoint.isThisYourAgent,
       agentToManageOnePropertyView: views.html.propertyrepresentation.appoint.agentToManageOneProperty,
       agentToManageMultiplePropertiesView: views.html.propertyrepresentation.appoint.agentToManageMultipleProperties,
@@ -83,20 +84,26 @@ class AddAgentController @Inject()(
   }
 
   def showStartPage: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(startPageView(agentCode, getBackLink)))
+    Future.successful(Ok(startPageView(getBackLink)))
+  }
+
+  //todo Fix back link when coming from CYA
+  //todo Prepopulate when coming back from CYA
+  def showAgentCodePage: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
+    Future.successful(Ok(agentCodeView(agentCode, getBackLink)))
   }
 
   def getAgentDetails: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     agentCode
       .bindFromRequest()
       .fold(
-        errors => Future.successful(BadRequest(startPageView(errors, getBackLink))),
+        errors => Future.successful(BadRequest(agentCodeView(errors, getBackLink))),
         success => {
           Try(success.toLong).toOption match {
             case None =>
               Future.successful(
                 BadRequest(
-                  startPageView(
+                  agentCodeView(
                     agentCode.copy(
                       data = Map("agentCode" -> success),
                       errors = Seq[FormError](FormError(key = "agentCode", message = "error.agentCode.required"))),
@@ -111,7 +118,7 @@ class AddAgentController @Inject()(
               } yield {
                 agentNameAndAddressOpt match {
                   case None =>
-                    Future.successful(BadRequest(startPageView(
+                    Future.successful(BadRequest(agentCodeView(
                       agentCode.copy(
                         data = Map("agentCode" -> s"$representativeCode"),
                         errors = Seq[FormError](
@@ -119,7 +126,7 @@ class AddAgentController @Inject()(
                       getBackLink
                     )))
                   case Some(_) if organisationsAgents.agents.exists(a => a.representativeCode == representativeCode) =>
-                    Future.successful(BadRequest(startPageView(
+                    Future.successful(BadRequest(agentCodeView(
                       agentCode.copy(
                         data = Map("agentCode" -> s"$representativeCode"),
                         errors = Seq[FormError](
@@ -145,6 +152,7 @@ class AddAgentController @Inject()(
       )
   }
 
+  //todo Go straight back to CYA if Yes, keep current behaviour for No
   def isCorrectAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
     Future.successful(Ok(isTheCorrectAgentView(isThisTheCorrectAgent, request.agentDetails)))
   }
@@ -172,6 +180,7 @@ class AddAgentController @Inject()(
               } yield {
                 propertyLinks.authorisations.size match {
                   case 0 =>
+                    //todo Make this go to check your answers
                     agentRelationshipService
                       .assignAgent(AgentAppointmentChangeRequest(
                         action = AppointmentAction.APPOINT,
@@ -190,7 +199,7 @@ class AddAgentController @Inject()(
               }
             }.flatten
           } else {
-            Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.showStartPage))
+            Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.showAgentCodePage))
           }
         }
       )
@@ -220,6 +229,8 @@ class AddAgentController @Inject()(
       )
   }
 
+  //todo Fix back link when coming from CYA
+  //todo Prepopulate when coming back from CYA
   def multipleProperties: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
       Future.successful(Ok(agentToManageMultiplePropertiesView(manageMultipleProperties, request.agentDetails.name)))
@@ -250,6 +261,7 @@ class AddAgentController @Inject()(
         )
   }
 
+  //todo Update for when Ip has no properties and when appointed to some properties
   def checkAnswers: Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
     PartialFunction
       .condOpt(request.sessionData) {
@@ -259,14 +271,22 @@ class AddAgentController @Inject()(
       .getOrElse(NotFound(errorHandler.notFoundTemplate))
   }
 
+  //todo Make sure the ChooseFromList match works
   def confirmAppointAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
     request.sessionData match {
       case data: ManagingProperty =>
-        val key =
-          if (data.appointmentScope == Some(AppointmentScope.RELATIONSHIP))
-            None
-          else Some("propertyRepresentation.confirmation.whatHappensNext.allOrSome")
-        Ok(confirmationView(agentName = request.agentDetails.name, guidanceMessageKey = key))
+        val key = {
+          if (data.singleProperty) {
+            Some("propertyRepresentation.confirmation.yourProperty")
+          } else {
+            data.managingPropertyChoice match {
+              case All.name  => Some("propertyRepresentation.confirmation.allProperties")
+              case ChooseFromList.name => Some("propertyRepresentation.confirmation.selectedProperties")
+              case _      => None
+            }
+          }
+        }
+        Ok(confirmationView(agentName = request.agentDetails.name, assignedToMessageKey = key))
     }
   }
 

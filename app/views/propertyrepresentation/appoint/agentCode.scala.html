@@ -1,0 +1,58 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.ApplicationConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.components.link
+
+@this(govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+
+@(form: Form[String], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@mainLayout(
+  pageTitle = messages("propertyRepresentation.agentCode.title"),
+  backUri = Some(controllers.agentAppointment.routes.AddAgentController.showStartPage.url),
+  hasErrors = form.hasErrors
+) {
+
+  @if(form.errors.nonEmpty) {
+    @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+  }
+  <span id="caption" class="govuk-caption-l">@messages("caption.appoint.agent")</span>
+  @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.getAgentDetails) {
+
+    @govukInput(Input(
+        label = Label(
+            content = Text(messages("propertyRepresentation.agentCode.title")),
+            classes = "govuk-label--l",
+            attributes = Map("id" -> "agentCode-label"),
+            isPageHeading = true
+        ),
+        hint = Some(Hint(
+            content = Text(messages("propertyRepresentation.agentCode.codeInput.hint")),
+            classes = "",
+            id = Some("agentCode-hint")
+        )),
+      classes = "govuk-input--width-10"
+    ).withFormField(form("agentCode")))
+
+    @govukButton(Button(
+      content = Text(messages("propertyRepresentation.appointAgent.button.continue")),
+      attributes = Map("id" -> "continue-button")
+    ))
+  }
+}

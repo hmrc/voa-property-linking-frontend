@@ -19,7 +19,7 @@ package utils
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import views.html.dvr._
 import views.html.errors.{alreadySubmitted, error, forbidden, notFound, propertyMissing, technicalDifficulties}
-import views.html.propertyrepresentation.appoint.appointAgentSummary
+import views.html.propertyrepresentation.appoint.{agentCode, appointAgentSummary}
 import views.html.registration._
 import views.html.{addUserToGG, startOldJourney}
 import views.html.helpers._
@@ -164,11 +164,15 @@ trait FakeViews extends GdsComponents {
     govukFieldset)
 
   lazy val startPageView = new views.html.propertyrepresentation.appoint.start(
+    govukButton,
+    mainLayout)
+  lazy val agentCodePageView = new agentCode(
     govukErrorSummary,
     govukInput,
     govukButton,
     mainLayout,
-    formWithCSRF)
+    formWithCSRF
+  )
   lazy val isTheCorrectAgentView = new views.html.propertyrepresentation.appoint.isThisYourAgent(
     govukErrorSummary,
     govukRadios,
@@ -194,7 +198,8 @@ trait FakeViews extends GdsComponents {
     govukButton,
     govukTable,
     mainLayout,
-    formWithCSRF)
+    formWithCSRF,
+    govukSummaryList)
 
   lazy val formErrorSummary = new views.html.helpers.formErrorSummary(govukErrorSummary)
 

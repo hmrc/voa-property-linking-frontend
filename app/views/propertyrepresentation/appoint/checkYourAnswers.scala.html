@@ -17,6 +17,7 @@
 @import actions.requests.BasicAuthenticatedRequest
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import _root_.utils.FrontendComponentHelper._
 
 @import config.ApplicationConfig
 @import models.propertyrepresentation.ManagingProperty
@@ -25,7 +26,7 @@
 @import models.propertyrepresentation.All
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
 
-@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
 @(form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -55,39 +56,55 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-
+    <span id="caption" class="govuk-caption-l">@messages("caption.appoint.agent")</span>
     <h1 class="govuk-heading-l">@messages("propertyRepresentation.checkYourAnswers.title")</h1>
 
-    @govukTable(Table(
+    @govukSummaryList(SummaryList(
         rows = Seq(
-            Seq(
-                TableRow(
-                    content = Text(messages("propertyRepresentation.checkYourAnswers.newAgent"))
+            SummaryListRow(
+                key = Key(
+                    content = valueWithId(messages("propertyRepresentation.checkYourAnswers.agent"), "agent-heading")
                 ),
-                TableRow(
-                    content = Text(data.agentOrganisationName)
-                )
+                value = Value(
+                    valueWithId(data.agentOrganisationName, "agent-value")
+                ),
+                actions = Some(Actions(
+                    items = Seq(
+                        ActionItem(
+                            href = s"${controllers.agentAppointment.routes.AddAgentController.showAgentCodePage}",
+                            content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
+                            visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.agent")),
+                            attributes = Map("id" -> "change-agent")
+                        )
+                    )
+                ))
             ),
-            Seq(
-                TableRow(
-                    content = Text(messages("propertyRepresentation.checkYourAnswers.managingProperty"))
+            SummaryListRow(
+                key = Key(
+                    content = valueWithId(messages("propertyRepresentation.checkYourAnswers.properties"), "properties-heading")
                 ),
-                TableRow(
-                    content = Text(messages(answerMessageKey)),
-                    attributes = Map("id" -> "manage-property-choice")
-                )
-            )
-        ),
-        head = None,
-        caption = None,
-        firstCellIsHeader = false
+                value = Value(
+                    valueWithId(messages(answerMessageKey), "properties-value")
+                ),
+                actions = Some(Actions(
+                    items = Seq(
+                        ActionItem(
+                            href = s"${controllers.agentAppointment.routes.AddAgentController.multipleProperties}",
+                            content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
+                            visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.properties")),
+                            attributes = Map("id" -> "change-properties")
+                        )
+                    )
+                ))
+            ),
+        )
     ))
 
     @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.appointAgent) {
         <input type="hidden" name="agentCode" value="@data.agentCode">
         <input type="hidden" name="scope" value="@appointmentScope">
 
-        @govukButton(Button(content = Text(messages("propertyRepresentation.checkYourAnswers.submit"))))
+        @govukButton(Button(content = Text(messages("propertyRepresentation.checkYourAnswers.confirmAndAppoint"))))
     }
 
 }

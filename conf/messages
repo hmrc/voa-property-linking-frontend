@@ -568,52 +568,60 @@ propertyRepresentation.table.title.agentName=Agent name
 propertyRepresentation.table.title.remove=Select
 
 #New appoint agent journey
-propertyRepresentation.addAnAgent.title=Appoint an agent to your account
-propertyRepresentation.addAnAgent.info.1=When you appoint an agent and assign them to your properties, they will be able to:
-propertyRepresentation.addAnAgent.info.list.1=see detailed property information
-propertyRepresentation.addAnAgent.info.list.2=see Check and Challenge case correspondence such as messages and emails
-propertyRepresentation.addAnAgent.info.list.3=send Check and Challenge cases
-propertyRepresentation.addAnAgent.info.2=They will also be able to add properties to your account and act on them for you.
-propertyRepresentation.addAnAgent.info.3=You can appoint more than one agent to your account and assign more than one agent to a property.
-propertyRepresentation.addAnAgent.info.help.link=Help with appointing and managing agents
-propertyRepresentation.addAnAgent.codeInput.label=What is your agent’s code?
-propertyRepresentation.addAnAgent.codeInput.hint=This is a number given to the agent by the Valuation Office Agency.
+caption.appoint.agent=Appoint an agent
+propertyRepresentation.appointAgent.button.continue=Continue
 
-propertyRepresentation.isThisYourAgent.title=Confirm Agent
-propertyRepresentation.isThisYourAgent.question=Is this your agent?
+propertyRepresentation.start.title=Appoint an agent to your account
+propertyRepresentation.start.theyCan.1=When you appoint an agent to your account they can act for you. This means they can:
+propertyRepresentation.start.theyCan.list.1=see detailed property information
+propertyRepresentation.start.theyCan.list.2=see Check and Challenge case correspondence such as messages and emails
+propertyRepresentation.start.theyCan.list.3=send Check and Challenge cases
+propertyRepresentation.start.theyCan.list.4=add your properties to your account
+propertyRepresentation.start.theyCan.2=They can act for you on the properties you assign to them and the properties they add to your account.
+propertyRepresentation.start.youCan.1=You can:
+propertyRepresentation.start.youCan.list.1=appoint more than one agent to your account
+propertyRepresentation.start.youCan.list.2=assign more than one agent to your property
+propertyRepresentation.start.youCan.list.3=choose the rating lists an agent can act on for you
+propertyRepresentation.start.help.link=Help with appointing and managing agents
+propertyRepresentation.start.startNow=Start now
+
+propertyRepresentation.agentCode.title=What is your agent’s code?
+propertyRepresentation.agentCode.codeInput.hint=This is a number given to the agent by the Valuation Office Agency.
+
+propertyRepresentation.isThisYourAgent.title=Is this your agent?
 propertyRepresentation.isThisYourAgent.yes=Yes
 propertyRepresentation.isThisYourAgent.no=No, enter a new code
 
-propertyRepresentation.onePropertyNoExistingAgent.question=Do you want {0} to manage your property?
+propertyRepresentation.onePropertyNoExistingAgent.question=Do you want to assign {0} to your property?
 
-propertyRepresentation.oneProperty.title=Should the agent manage your property
-propertyRepresentation.oneProperty.question=Should {0} manage your property?
+propertyRepresentation.oneProperty.title=Do you want to assign {0} to your property?
 propertyRepresentation.oneProperty.options.yes=Yes
 propertyRepresentation.oneProperty.options.no=No
 
-propertyRepresentation.multipleProperties.title=Which properties should the agent manage
-propertyRepresentation.multipleProperties.question=Which properties would you like {0} to manage?
-propertyRepresentation.multipleProperties.options.all=All
-propertyRepresentation.multipleProperties.options.noProperties=None
-propertyRepresentation.multipleProperties.options.chooseFromList=Choose from a list
+propertyRepresentation.multipleProperties.title=Which of your properties do you want to assign {0} to?
+propertyRepresentation.multipleProperties.options.all=Assign to all properties
+propertyRepresentation.multipleProperties.options.noProperties=Do not assign to any properties
+propertyRepresentation.multipleProperties.options.oneOrMore=Assign to one or more properties
 
-propertyRepresentation.checkYourAnswers.title=Check your answers
-propertyRepresentation.checkYourAnswers.newAgent=New agent
-propertyRepresentation.checkYourAnswers.managingProperty=Managing property
+propertyRepresentation.checkYourAnswers.title=Check and confirm your details
+propertyRepresentation.checkYourAnswers.agent=Agent
+propertyRepresentation.checkYourAnswers.properties=Which properties do you want to assign to this agent?
 propertyRepresentation.checkYourAnswers.yourProperty=Your property
 propertyRepresentation.checkYourAnswers.options.all=All properties
 propertyRepresentation.checkYourAnswers.options.none=No properties
 propertyRepresentation.checkYourAnswers.options.no=No
 propertyRepresentation.checkYourAnswers.options.yes=Yes
+propertyRepresentation.checkYourAnswers.change=Change
+propertyRepresentation.checkYourAnswers.confirmAndAppoint=Confirm and appoint
 
-propertyRepresentation.checkYourAnswers.submit=Submit
-
-propertyRepresentation.confirmation.title=Agent has been appointed
-propertyRepresentation.confirmation={0} has been appointed for you
+propertyRepresentation.confirmation.title={0} has been appointed to your account
+propertyRepresentation.confirmation.yourProperty=They have also been assigned to your property.
+propertyRepresentation.confirmation.selectedProperties=They have also been assigned to the properties you selected.
+propertyRepresentation.confirmation.allProperties=They have also been assigned to all your properties.
+propertyRepresentation.confirmation.thisAgentCan=This agent can:
+propertyRepresentation.confirmation.thisAgentCan.list.1=add properties to your account
 propertyRepresentation.confirmation.whatHappensNext=What happens next
-propertyRepresentation.confirmation.whatHappensNext.p1=We will notify {0} that you have appointed them as your agent.
-propertyRepresentation.confirmation.whatHappensNext.allOrSome={0} will be able to discuss your property with the Valuation Office Agency on your behalf.
-propertyRepresentation.confirmation.whatHappensNext.relationship={0} will be able to add properties to your account on your behalf.
+propertyRepresentation.confirmation.whatHappensNext.p1=You can assign or unassign this agent from your properties by <a class="govuk-link" id="manage-agents-link" href="{0}">managing your agents</a>.
 
 error.propertyRepresentation.title=There is a problem
 error.propertyRepresentation.unknownAgent=There is no agent for the provided agent code
@@ -735,7 +743,7 @@ propertyRepresentation.revokeClientProperty.confirmation=You have successfully r
 propertyRepresentation.revokeClientProperty.returnToClientProperties=Return to client properties
 
 #Appoint agents properties
-propertyRepresentation.appointAgentProperties.title=Which of your properties do you want to assign {0} to?
+propertyRepresentation.appointAgentProperties.title=Choose which of your properties you want to assign {0} to
 propertyRepresentation.appointAgentProperties.intro=For the properties you select, the agent will be able to:
 propertyRepresentation.appointAgentProperties.list.1=see detailed property information
 propertyRepresentation.appointAgentProperties.list.2=see Check and Challenge case correspondence such as messages and emails
@@ -754,8 +762,6 @@ propertyRepresentation.appointAgents.showAllProperties.link=Show all properties
 label.propertyRepresentation.address=Address
 label.propertyRepresentation.appointedAgents=Agent
 error.propertyRepresentation.appoint.filter=You must enter something to search for
-propertyRepresentation.appointAgentProperties.confirmAndAssign=Confirm and assign
-propertyRepresentation.appointAgentProperties.cancel=Cancel
 
 #Choose rating list years
 chooseRatingList.header = Choose a rating list {0} can act on for you
@@ -811,13 +817,6 @@ ratingsListConfirmed.youCanChange = You can change the rating lists this agent c
 ratingsListConfirmed.goToYour = Go to your account home
 
 ##Appoint agent summary
-propertyRepresentation.agentSummary.title={0} has been assigned to your selected properties
-propertyRepresentation.agentSummary.explainer=The agent can act for you on any of the properties you selected.
-propertyRepresentation.agentSummary.nextSteps.subhead=What happens next
-propertyRepresentation.agentSummary.nextSteps.content=You can unassign this agent from your properties at any time.
-propertyRepresentation.agentSummary.homeLink=Go to your account home
-
-
 propertyRepresentation.appointAgent.agentCode=Agent code
 propertyRepresentation.appointAgent.button=Continue
 

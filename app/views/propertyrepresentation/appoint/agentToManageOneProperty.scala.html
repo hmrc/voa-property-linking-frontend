@@ -26,7 +26,7 @@
 @(form: Form[AddAgentOptions], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.oneProperty.title"),
+    pageTitle = messages("propertyRepresentation.oneProperty.title", agentName),
     backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url),
     hasErrors = form.hasErrors
 ) {
@@ -35,7 +35,8 @@
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    <h1 class="govuk-heading-l">@messages("propertyRepresentation.oneProperty.question", agentName)</h1>
+    <span id="caption" class="govuk-caption-l">@messages("caption.appoint.agent")</span>
+    <h1 class="govuk-heading-l">@messages("propertyRepresentation.oneProperty.title", agentName)</h1>
 
     @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.submitOneProperty) {
         @govukRadios(Radios(
@@ -46,7 +47,7 @@
                 RadioItem(id = None, value = Some(No.name), checked = form.value.fold(false)(_ == No.name), content = Text(messages("propertyRepresentation.oneProperty.options.no")))
             )).withFormField(form("oneProperty")))
 
-        @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button"))))
+        @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button.continue"))))
     }
 
 }

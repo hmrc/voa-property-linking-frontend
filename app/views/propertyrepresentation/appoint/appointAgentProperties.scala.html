@@ -253,6 +253,7 @@
 
     <div class="govuk-button-group govuk-!-margin-0">
         @govukButton(Button(
+            classes = "govuk-button--secondary",
             content = Text(messages("label.search")),
             attributes = Map("id" -> "search-submit")
         ))
@@ -275,6 +276,7 @@
     <div class="govuk-grid-row govuk-!-margin-bottom-3">
         <div class="govuk-grid-column-two-thirds">
 
+            <span id="caption" class="govuk-caption-l">@messages("caption.appoint.agent")</span>
             <h1 class="govuk-heading-l">@title</h1>
 
             <p class="govuk-body" id="explainer-intro">
@@ -349,7 +351,7 @@
                           ),
                           HeadCell(
                             content = HtmlContent(appointedAgentsColumnHeader),
-                            attributes = Map("style" -> "width: 20%", "id" -> "sort-by-agent-head", "aria-sort" -> s"${ariaSortOrder(params.sortorder, params.sortfield == AGENT)}"),
+                            attributes = Map("style" -> "width: 25%", "id" -> "sort-by-agent-head", "aria-sort" -> s"${ariaSortOrder(params.sortorder, params.sortfield == AGENT)}"),
                             classes = s"${sortOrder(params.sortorder, params.sortfield == AGENT)}"
                           )
                         )),
@@ -418,14 +420,9 @@
                     <div class="govuk-button-group">
                         @govukButton(
                             Button(
-                                content = Text(messages("propertyRepresentation.appointAgentProperties.confirmAndAssign")),
+                                content = Text(messages("propertyRepresentation.appointAgent.button.continue")),
                                 attributes = Map("id" -> "submit-button")
                             )
-                        )
-                        @link(
-                            linkText = messages("propertyRepresentation.appointAgentProperties.cancel"),
-                            location = controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode).url,
-                            linkId = Some("cancel-appoint")
                         )
                     </div>
                 </div>
