@@ -1,0 +1,74 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import binders.pagination.PaginationParameters
+@import binders.propertylinks.GetPropertyLinksParameters
+@import config.ApplicationConfig
+@import models.propertyrepresentation.AgentSummary
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this(govukTable : GovukTable, mainLayout: views.html.mainLayout)
+
+@(agents: List[AgentSummary], propertyLinkingCount: Int)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+
+@mainLayout(
+    pageTitle = messages("propertyRepresentation.showAgents.title"),
+    backUri = Some(config.dashboardUrl("home"))
+) {
+
+    <h1 class="govuk-heading-l">@messages("propertyRepresentation.showAgents.title")</h1>
+
+  @if(agents.nonEmpty) {
+      @govukTable(Table(
+          rows = agents.map { agent =>
+              Seq(
+                  TableRow(
+                      content = Text(agent.name)
+                  ),
+                  TableRow(
+                      content = Text(messages("propertyRepresentation.showAgents.properties", agent.propertyCount, propertyLinkingCount))
+                  ),
+                  TableRow(
+                      content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentProperties", controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters()).url, s"${agent.name} (${agent.representativeCode})")))
+                  )
+
+              )
+          },
+          head = Some(List(
+              HeadCell(
+                  content = Text(messages("propertyRepresentation.showAgents.label.agent"))
+              ),
+              HeadCell(
+                  content = Text(messages("propertyRepresentation.showAgents.label.assigned.to"))
+              ),
+              HeadCell(
+                  content = Text(messages("propertyRepresentation.showAgents.label.action"))
+              )
+          )),
+          caption = None,
+          firstCellIsHeader = false
+      )
+      )
+  }else{
+      <p id="no-agents" class="govuk-body">@messages("propertyRepresentation.noAgents")</p>
+  }
+
+  <p class="govuk-body margin-top-5">
+      <a class="govuk-link" id=add-agent-link href="@controllers.agentAppointment.routes.AddAgentController.start()">@messages("propertyRepresentation.showAgents.appointNewAgent.link")</a>
+  </p>
+
+}

@@ -244,6 +244,8 @@ trait FakeViews extends GdsComponents {
     dateFields,
     mainLayout,
     formWithCSRF)
+  lazy val manageAgentPropertiesViewOld = new manageAgentPropertiesOld(govukTable, mainLayout)
+  lazy val myAgentViewOld = new myAgentsOld(govukTable, mainLayout)
   lazy val chooseEvidenceView =
     new chooseEvidence(govukErrorSummary, govukRadios, govukButton, mainLayout, formWithCSRF)
   lazy val chooseOccupierEvidenceView =
@@ -254,6 +256,8 @@ trait FakeViews extends GdsComponents {
     new relationshipToProperty(govukErrorSummary, govukDetails, govukRadios, govukButton, mainLayout, formWithCSRF)
   lazy val myAgentsView = new myAgents(govukTable, mainLayout)
   lazy val manageAgentView = new manageAgent(govukErrorSummary, govukRadios, govukButton, mainLayout, formWithCSRF)
+  lazy val manageAgentViewOld =
+    new manageAgentOld(govukErrorSummary, govukRadios, govukButton, mainLayout, formWithCSRF)
   lazy val removeAgentFromOrganisationView =
     new removeAgentFromOrganisation(govukErrorSummary, govukButton, mainLayout, formWithCSRF)
   lazy val unassignAgentFromPropertyView =

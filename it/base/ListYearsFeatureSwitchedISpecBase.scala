@@ -3,7 +3,7 @@ package base
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.configureFor
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
+import org.scalatest.BeforeAndAfterAll
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
@@ -15,7 +15,7 @@ import uk.gov.hmrc.crypto.PlainText
 import uk.gov.hmrc.http.SessionKeys
 import uk.gov.hmrc.play.bootstrap.frontend.filters.crypto.SessionCookieCrypto
 
-trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite with BeforeAndAfterAll with BeforeAndAfterEach with TestData {
+trait ListYearsFeatureSwitchedISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite with BeforeAndAfterAll with TestData {
   sealed trait Language
 
   case object English extends Language
@@ -27,25 +27,27 @@ trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite wi
 
   lazy val wireMockServer: WireMockServer = new WireMockServer(wireMockConfig().port(mockPort))
 
-  lazy val extraConfig: Map[String, Any] = Map.empty
+  val mockedMicroservices: Set[String] = Set(
+    "property-linking",
+    "business-rates-authorisation",
+    "auth"
+  )
 
-  val config: Map[String, Any] = Map(
-    "auditing.enabled" -> "false",
-    "feature-switch.agentListYears.enabled" -> "true",
+  val config: Map[String, String] = Map(
+    "auditing.enabled"                      -> "false",
+    "feature-switch.agentListYears.enabled" -> "false",
     "play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck",
-    "play.filters.csrf.header.bypassHeaders.X-Requested-With" -> "*",
-    "microservice.services.property-linking.host" -> mockHost,
-    "microservice.services.property-linking.port" -> mockPort.toString,
-    "microservice.services.business-rates-authorisation.host" -> mockHost,
-    "microservice.services.business-rates-authorisation.port" -> mockPort.toString,
-    "microservice.services.auth.host" -> mockHost,
-    "microservice.services.auth.port" -> mockPort.toString,
-    "business-rates-dashboard-frontend.url" -> "/business-rates-dashboard"
-  ) ++ extraConfig
+    "play.filters.csrf.header.bypassHeaders.X-Requested-With" -> "*"
+  ) ++ mockedMicroservices.flatMap { serviceName =>
+    Map(
+      s"microservice.services.$serviceName.host" -> mockHost,
+      s"microservice.services.$serviceName.port" -> mockPort.toString,
+    )
+  }
 
   override lazy val app: Application = new GuiceApplicationBuilder()
     .configure(config)
-    .build()
+    .build
 
   implicit val ws: WSClient = app.injector.instanceOf[WSClient]
 
@@ -53,9 +55,6 @@ trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite wi
     wireMockServer.start()
     configureFor(mockHost, mockPort)
   }
-
-  override def beforeEach(): Unit =
-    wireMockServer.resetAll()
 
   override def afterAll(): Unit =
     wireMockServer.stop()

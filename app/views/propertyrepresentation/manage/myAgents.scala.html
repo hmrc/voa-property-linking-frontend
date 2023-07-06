@@ -26,48 +26,59 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.showAgents.title"),
-    backUri = Some(config.dashboardUrl("home"))
+    backUri = Some(config.dashboardUrl("home")),
+    mainClass = Some("govuk-!-width-full")
 ) {
 
     <h1 class="govuk-heading-l">@messages("propertyRepresentation.showAgents.title")</h1>
+    <p class="govuk-body">
+        <a class="govuk-link" id=add-agent-link href="@controllers.agentAppointment.routes.AddAgentController.start()">@messages("propertyRepresentation.showAgents.appointNewAgent.link")</a>
+    </p>
 
-  @if(agents.nonEmpty) {
-      @govukTable(Table(
-          rows = agents.map { agent =>
-              Seq(
-                  TableRow(
-                      content = Text(agent.name)
-                  ),
-                  TableRow(
-                      content = Text(messages("propertyRepresentation.showAgents.properties", agent.propertyCount, propertyLinkingCount))
-                  ),
-                  TableRow(
-                      content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentProperties", controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters()).url, s"${agent.name} (${agent.representativeCode})")))
-                  )
+    <p class="govuk-body">
+        <a class="govuk-link" id=help-with-agent-link href="https://www.gov.uk/guidance/appoint-an-agent">@messages("propertyRepresentation.showAgents.help.link")</a>
+    </p>
 
-              )
-          },
-          head = Some(List(
-              HeadCell(
-                  content = Text(messages("propertyRepresentation.showAgents.label.agent"))
-              ),
-              HeadCell(
-                  content = Text(messages("propertyRepresentation.showAgents.label.assigned.to"))
-              ),
-              HeadCell(
-                  content = Text(messages("propertyRepresentation.showAgents.label.action"))
-              )
-          )),
-          caption = None,
-          firstCellIsHeader = false
-      )
-      )
-  }else{
-      <p id="no-agents" class="govuk-body">@messages("propertyRepresentation.noAgents")</p>
-  }
 
-  <p class="govuk-body margin-top-5">
-      <a class="govuk-link" id=add-agent-link href="@controllers.agentAppointment.routes.AddAgentController.start()">@messages("propertyRepresentation.showAgents.appointNewAgent.link")</a>
-  </p>
+
+    @if(agents.nonEmpty) {
+        @govukTable(Table(
+            rows = agents.map { agent =>
+                val listYearsText = agent.listYears match {
+                    case Some(Seq(first)) => messages("propertyRepresentation.showAgents.ratingList", first)
+                    case Some(Seq(first, second)) => messages("propertyRepresentation.showAgents.ratingLists", first, second)
+                    case _ => ""
+                }
+                Seq(
+                    TableRow(
+                        content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentProperties.name",controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters()).url, s"${agent.name} (${agent.representativeCode})", agent.name)))
+                    ),
+                    TableRow(
+                        content = Text(listYearsText)
+                    ),
+                    TableRow(
+                        content = Text(messages("propertyRepresentation.showAgents.properties.assigned", agent.propertyCount, propertyLinkingCount))
+                    )
+                )
+            },
+            head = Some(List(
+                HeadCell(
+                    content = Text(messages("propertyRepresentation.showAgents.label.agent"))
+                ),
+                HeadCell(
+                    content = Text(messages("propertyRepresentation.showAgents.label.rating"))
+                ),
+                HeadCell(
+                    content = Text(messages("propertyRepresentation.showAgents.label.assigned.to"))
+                )
+            )),
+            caption = None,
+            firstCellIsHeader = false,
+            classes = "govuk-!-width-full"
+        )
+        )
+    }else{
+        <p id="no-agents" class="govuk-body">@messages("propertyRepresentation.noAgents")</p>
+    }
 
 }
