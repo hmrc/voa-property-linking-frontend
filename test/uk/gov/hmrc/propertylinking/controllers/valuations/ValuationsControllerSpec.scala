@@ -28,6 +28,7 @@ import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers.{any, eq => mEq}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
+import play.api.mvc.Cookie
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
@@ -167,8 +168,8 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val res = valuationsController.valuations(plSubId, owner = true)(request)
     val returnedHtml = contentAsString(res)
     val doc: Document = Jsoup.parse(returnedHtml)
-    Option(doc.getElementById("viewAssessmentLink-1234")).map(_.text()) shouldBe Some("Select this valuation")
-    Option(doc.getElementById("viewAssessmentLink-1235")).map(_.text()) shouldBe Some("Select this valuation")
+    Option(doc.getElementById("viewAssessmentLink-1234")).map(_.text()) shouldBe Some("1 April 2017 to 1 June 2017")
+    Option(doc.getElementById("viewAssessmentLink-1235")).map(_.text()) shouldBe Some("1 June 2017 to present")
     Option(doc.getElementById("viewAssessmentLink-1236")) shouldBe None
   }
 
@@ -295,7 +296,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     document.getElementById("back-link").attr("href") shouldBe applicationConfig.dashboardUrl("home")
   }
 
-  it should "previous/current valuations toDate should display correctly when no toDate returned from modernise with compiledListEnabled" in new ValuationsSetup {
+  it should "previous/current valuations toDate should display correctly when no toDate returned from modernise" in new ValuationsSetup {
 
     when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
       .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard))))
@@ -309,17 +310,12 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val returnedHtml = contentAsString(res)
     val document: Document = Jsoup.parse(returnedHtml)
 
-    document
-      .getElementById("historicAssessments")
-      .getElementById(s"toDate-${assessmentsData.assessments(0).assessmentRef}")
-      .text shouldBe "31 March 2023"
-    document
-      .getElementById("currentAssessments")
-      .getElementById(s"toDate-${assessmentsData.assessments(1).assessmentRef}")
-      .text shouldBe "Present"
+    Option(document.getElementById("viewAssessmentLink-1234")).map(_.text()) shouldBe Some(
+      "1 April 2017 to 31 March 2023")
+    Option(document.getElementById("viewAssessmentLink-1235")).map(_.text()) shouldBe Some("1 June 2017 to present")
   }
 
-  it should "previous valuations toDate should be displayed when toDate returned from modernise compiledListEnabled" in new ValuationsSetup {
+  it should "previous valuations toDate should be displayed when toDate returned from modernise" in new ValuationsSetup {
 
     when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
       .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard))))
@@ -334,15 +330,56 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val returnedHtml = contentAsString(res)
     val document: Document = Jsoup.parse(returnedHtml)
 
-    document
-      .getElementById("historicAssessments")
-      .getElementById(s"toDate-${assessmentsData.assessments(0).assessmentRef}")
-      .text shouldBe "1 June 2017"
-    document
-      .getElementById("currentAssessments")
-      .getElementById(s"toDate-${assessmentsData.assessments(1).assessmentRef}")
-      .text shouldBe "Present"
+    Option(document.getElementById("viewAssessmentLink-1234")).map(_.text()) shouldBe Some(
+      "1 April 2017 to 1 June 2017")
+    Option(document.getElementById("viewAssessmentLink-1235")).map(_.text()) shouldBe Some("1 June 2017 to present")
 
+  }
+
+  it should "display the correct table headings in welsh" in new ValuationsSetup {
+
+    when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
+      .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard))))
+
+    lazy val as = apiAssessments(ownerAuthorisation)
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val res = valuationsController.valuations(plSubId, owner = true)(welshFakeRequest)
+    status(res) shouldBe OK
+
+    val returnedHtml = contentAsString(res)
+    val document: Document = Jsoup.parse(returnedHtml)
+
+    Option(document.select("#assessments-table > thead > tr:nth-child(1) > th:nth-child(1)").first().text()) shouldBe Some(
+      "Prisiadau Cymorth gyda Prisiadau")
+    Option(document.select("#assessments-table > thead > tr:nth-child(1) > th:nth-child(2)")).map(_.text()) shouldBe
+      Some("Dyddiad dod i rym Cymorth gyda Dyddiad dod i rym")
+    Option(document.select("#assessments-table > thead > tr:nth-child(1) > th:nth-child(3)")).map(_.text()) shouldBe
+      Some("Cysylltiad a r eiddo")
+    Option(document.select("#assessments-table > thead > tr:nth-child(1) > th:nth-child(4)")).map(_.text()) shouldBe
+      Some("Gwerth ardrethol")
+  }
+
+  it should "display the correct row information in welsh" in new ValuationsSetup {
+
+    when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
+      .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard))))
+
+    lazy val as = apiAssessments(ownerAuthorisation)
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val res = valuationsController.valuations(plSubId, owner = true)(welshFakeRequest)
+    status(res) shouldBe OK
+
+    val returnedHtml = contentAsString(res)
+    val document: Document = Jsoup.parse(returnedHtml)
+
+    Option(document.getElementsByClass("govuk-tag govuk-!-margin-right-2").first()).map(_.text()) shouldBe Some(
+      "PRESENNOL")
+    Option(document.getElementById("viewAssessmentLink-1234")).map(_.text()) shouldBe Some(
+      "1 Ebrill 2017 i 1 Mehefin 2017")
+    Option(document.select("#assessments-table > thead > tr:nth-child(2) > td:nth-child(3)")).map(_.text()) shouldBe Some(
+      "Perchennog")
   }
 
 }

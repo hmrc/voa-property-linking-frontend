@@ -399,10 +399,10 @@ property.details.cases.table.challenge=Her
 property.dvr.challenge.error=Os ydych chi’n dal i feddwl bod gennych chi’r hawl i wneud Her,   bydd angen i chi <a class="govuk-link" href="{0}"> lawrlwytho a llenwi ffurflen Her (T012)</a>
 
 assessments.table.caption=Prisiadau
-assessments.table.1=Dyddiad dod i rym
-assessments.table.2=Gwerth ardrethol
-assessments.table.3=Capasiti
-assessments.table.4=O
+assessments.table.1=Prisiadau
+assessments.table.2=Dyddiad dod i rym
+assessments.table.3=Cysylltiad a r eiddo
+assessments.table.4=Gwerth ardrethol
 assessments.enddate.present=Presennol
 assessments.enddate.historic.empty=31 Mawrth 2023
 assessments.view.valuation=Gweld prisiad
@@ -412,7 +412,7 @@ label.viewAssessmentRadio=Prisiad
 assessments.localAuthorityRef=Cyfeirnod yr awdurdod lleol:
 assessments.caption=Eich eiddo
 assessments.title=Dewis prisiad i wirio
-assessments.subtitle=TODO fill this in with Welsh
+assessments.subtitle=Prisiadau ar gyfer yr eiddo hwn
 
 assessments.draft.title=Y prisiad yn y dyfodol
 assessments.historic.title=Prisiadau blaenorol
@@ -424,6 +424,12 @@ assessments.aria.label.partial=Dewiswch y prisiad hwn - {0} o {1}
 assessments.selectValuation.to=i
 
 assessments.na=Dim ar gael
+assessments.icon.help.valuationPeriod = Cymorth gyda Prisiadau
+assessments.caption.ip = Eich eiddo
+assessments.caption.agent = Eiddo''r cleient: {0}
+assessments.icon.help.effectiveDate = Cymorth gyda Dyddiad dod i rym
+
+
 
 label.help=Cymorth gyda {0}
 rv.na=Gweth ardrethol ddim ar gael

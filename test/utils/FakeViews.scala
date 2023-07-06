@@ -78,7 +78,7 @@ trait FakeViews extends GdsComponents {
   lazy val accountTypeView =
     new accountType(mainLayout, formErrorSummary, govukButton, govukRadios, formWithCSRF)
   lazy val addUsertoGGView = new addUserToGG(mainLayout)
-  lazy val assessmentDetailsView = new views.html.dashboard.assessmentDetails(govukDetails)
+  lazy val assessmentDetailsView = new views.html.dashboard.assessmentDetails(govukDetails, govukTag)
   lazy val assessmentsView = new views.html.dashboard.assessments(mainLayout, assessmentDetailsView)
   lazy val invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
   lazy val invalidAccountCreationView = new views.html.errors.invalidAccountCreation(mainLayout)
