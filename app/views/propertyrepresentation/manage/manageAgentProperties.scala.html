@@ -50,15 +50,15 @@
 
     <h2 class="govuk-heading-m">@messages("propertyRepresentation.ratingLists.heading")</h2>
 
-    <p class="govuk-body">@ratingList</p>
+    <p class="govuk-body" id="ratingListText">@ratingList</p>
 
     <h2 class="govuk-heading-m">@messages("propertyRepresentation.agentProperties.assigned")</h2>
 
     @if(ownerAuthResult.authorisations.nonEmpty) {
 
         <ul class="govuk-list govuk-list--bullet">
-        @ownerAuthResult.authorisations.map { property =>
-            <li>@Formatters.capitalisedAddress(property.address)</li>
+        @ownerAuthResult.authorisations.zipWithIndex.map { case (property, index) =>
+        <li id={s"address-$index"}>@Formatters.capitalisedAddress(property.address)</li>
         }
         </ul>
     } else {

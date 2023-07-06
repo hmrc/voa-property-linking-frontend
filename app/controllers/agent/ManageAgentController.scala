@@ -19,7 +19,8 @@ package controllers.agent
 import actions.AuthenticatedAction
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
-import config.{ApplicationConfig, FeatureSwitch}
+import businessrates.authorisation.config.FeatureSwitch
+import config.{ApplicationConfig}
 import controllers.{PaginationParams, PropertyLinkingController}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.propertyrepresentation._
@@ -31,6 +32,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import services.AgentRelationshipService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+
 import javax.inject.{Inject, Named}
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
@@ -267,6 +269,8 @@ class ManageAgentController @Inject()(
           case RemoveFromYourAccount =>
             Future.successful(
               Redirect(controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation))
+          case ChangeRatingList =>
+            Future.successful(Redirect(controllers.propertyLinking.routes.ChooseRatingListController.show))
         }
       }
     )

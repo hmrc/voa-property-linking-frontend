@@ -20,7 +20,8 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import auditing.AuditingService
 import auth.GovernmentGatewayProvider
-import config.{ApplicationConfig, FeatureSwitch}
+import config.ApplicationConfig
+import businessrates.authorisation.config.FeatureSwitch
 import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.challenge.ChallengeConnector
 import connectors.propertyLinking.PropertyLinkConnector

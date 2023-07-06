@@ -52,9 +52,9 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
 
   val backLinkSelector = "#back-link"
-  val captionSelector = "span.govuk-caption-l"
+  val captionSelector = ".govuk-caption-l"
   val headerSelector = "h1.govuk-heading-l"
-  val continueButtonSelector =".govuk-button"
+  val continueButtonSelector ="button.govuk-button"
   val firstRadioLabelSelector =".govuk-radios__item:nth-child(1) > .govuk-label"
   val secondRadioLabelSelector =".govuk-radios__item:nth-child(2) > .govuk-label"
   val thirdRadioLabelSelector =".govuk-radios__item:nth-child(3) > .govuk-label"
@@ -70,8 +70,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val radioChangeHref = "Change which rating list they can act on for you"
   val radioRemoveHref = "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation"
 
-  "ManageAgentController showAgents method" should {
-    "display 'Your agents' screen with the correct text and the language is set to English" which {
+  "ManageAgentController showManageAgent method" should {
+    "display 'Manage agent' screen with the correct text and the language is set to English" which {
 
       lazy val document = getManageAgentsPage(English)
 
@@ -79,7 +79,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
         document.title() shouldBe titleText
       }
 
-      "has a back link which takes you to 'Your business rates valuation account'- dashboard home page" in {
+      "has a back link which takes you to Manage agent properties screen" in {
         document.select(backLinkSelector).text() shouldBe backLinkText
         document.select(backLinkSelector).attr("href") shouldBe backLinkHref
       }
@@ -93,7 +93,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"displays a correct text in continue button" in {
-        document.select(continueButtonText).text shouldBe continueButtonText
+        document.select(continueButtonSelector).text shouldBe continueButtonText
       }
 
       s"displays a correct text in first radio label" in {

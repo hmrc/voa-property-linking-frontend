@@ -27,12 +27,11 @@ class MyAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val assignedPropertiesHeading = "Assigned properties"
   val assignedToNoProperties = "This agent is not assigned to any properties"
 
-  def headingText(name: String) = s"Agent $name"
+  def headerText(name: String) = s"$name"
   def singleRatingListText(ratingList: String) = s"This agent can act for you on your property valuations on the $ratingList, for properties that you assign them to or they add to your account."
 
   def assignedPropertyListElement(address: String) = address
 
-  def headingTextWelsh(name: String) = s"Agent $name"
   def singleRatingListTextWelsh(ratingList: String) = s"This agent can act for you on your property valuations on the $ratingList, for properties that you assign them to or they add to your account."
 
   val titleTextWelsh = "Eich asiant - Valuation Office Agency - GOV.UK"
@@ -44,29 +43,80 @@ class MyAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val assignedPropertiesHeadingWelsh = "Eiddo wedi’u neilltuo"
   val assignedToNoPropertiesWelsh = "This agent is not assigned to any properties"
 
-  "ManageAgentController showAgents method" should {
-    "display 'Your agents' screen with the correct text and the language is set to English" which {
+  val backLinkSelector = "#back-link"
+  val captionSelector = ".govuk-caption-l"
+  val headerSelector = "h1.govuk-heading-l"
+  val manageAgentButtonSelector = ".govuk-button"
+  val ratingListHeadingSelector = ".govuk-heading-m:nth-of-type(2)"
+  val ratingListTextSelector = "#ratingListText"
+  val assignedPropertiesHeadingSelector = "h2.govuk-heading-m:nth-of-type(3)"
+  val assignedPropertiesTextSelector =".govuk-body:nth-child(7)"
 
-      lazy val document = getYourAgentsPropertiesPage(English)
+  val backLinkHref="/business-rates-property-linking/my-organisation/agents"
+
+
+  "ManageAgentController manageAgentProperties method" should {
+    "display 'Manage Agent Properties' screen with the correct text and the language is set to English" which {
+
+      lazy val document = getYourAgentsPropertiesPage(English, List("2017", "2023"))
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleText
       }
-    }
-    s"displays a correct header with agent name included" in {
-      document.select(headerSelector).text() shouldBe headerText(name = "Test Agent")
-    }
+      s"displays a correct header with agent name included" in {
+        document.select(headerSelector).text() shouldBe headerText(name = "Test Agent")
+      }
 
-    s"displays a correct caption above the header" in {
-      document.select(captionSelector).text shouldBe captionText
-    }
+      s"displays a correct caption above the header" in {
+        document.select(captionSelector).text shouldBe captionText
+      }
 
-    s"displays a correct text in continue button" in {
-      document.select(continueButtonText).text shouldBe continueButtonText
-    }
+      "has a back link which takes you to 'Agent List' page" in {
+        document.select(backLinkSelector).text() shouldBe backLinkText
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
 
+      s"has heading above rating list info with correct text" in {
+        document.select(ratingListHeadingSelector).text() shouldBe ratingListSectionHeading
+      }
+
+      s"has heading above assigned properties list with correct text" in {
+        document.select(assignedPropertiesHeadingSelector).text() shouldBe assignedPropertiesHeading
+      }
+
+    }
   }
+  "ManageAgentController manageAgentProperties method" should {
+    "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh" which {
 
+      lazy val document = getYourAgentsPropertiesPage(Welsh, List("2017", "2023"))
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleTextWelsh
+      }
+      s"displays a correct header with agent name included" in {
+        document.select(headerSelector).text() shouldBe headerText(name = "Test Agent")
+      }
+
+      s"displays a correct caption above the header" in {
+        document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      "has a back link which takes you to 'Your business rates valuation account'- dashboard home page" in {
+        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has heading above rating list info with correct text" in {
+        document.select(ratingListHeadingSelector).text() shouldBe ratingListSectionHeadingWelsh
+      }
+
+      s"has heading above assigned properties list with correct text" in {
+        document.select(assignedPropertiesHeadingSelector).text() shouldBe assignedPropertiesHeadingWelsh
+      }
+
+    }
+  }
   private def getYourAgentsPropertiesPage(language: Language, listYears: List[String]): Document = {
 
 
