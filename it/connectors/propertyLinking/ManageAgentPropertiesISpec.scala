@@ -2,6 +2,8 @@ package connectors.propertyLinking
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
+import models.propertyrepresentation.AgentList
+import models.searchApi.OwnerAuthResult
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.Status.OK
@@ -9,6 +11,7 @@ import play.api.libs.json.Json
 import play.api.test.Helpers._
 import repositories.ManageAgentSessionRepository
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
+
 import java.util.UUID
 
 class MyAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
@@ -26,13 +29,15 @@ class MyAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val ratingListSectionHeading = "Rating lists they can act on for you"
   val assignedPropertiesHeading = "Assigned properties"
   val assignedToNoProperties = "This agent is not assigned to any properties"
+  val testAddress = "TEST ADDRESS"
+  val testAddress2 = "ADDRESSTEST 2"
 
   def headerText(name: String) = s"$name"
-  def singleRatingListText(ratingList: String) = s"This agent can act for you on your property valuations on the $ratingList, for properties that you assign them to or they add to your account."
+  def singleRatingListText(ratingList: String) = s"This agent can act for you on your property valuations on the $ratingList rating list, for properties that you assign them to or they add to your account."
 
   def assignedPropertyListElement(address: String) = address
 
-  def singleRatingListTextWelsh(ratingList: String) = s"This agent can act for you on your property valuations on the $ratingList, for properties that you assign them to or they add to your account."
+  def singleRatingListTextWelsh(ratingList: String) = s"This agent can act for you on your property valuations on the $ratingList rating list, for properties that you assign them to or they add to your account."
 
   val titleTextWelsh = "Eich asiant - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
@@ -50,24 +55,26 @@ class MyAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val ratingListHeadingSelector = ".govuk-heading-m:nth-of-type(2)"
   val ratingListTextSelector = "#ratingListText"
   val assignedPropertiesHeadingSelector = "h2.govuk-heading-m:nth-of-type(3)"
-  val assignedPropertiesTextSelector =".govuk-body:nth-child(7)"
+  val assignedPropertiesTextSelectorSomePropertiesFirst =".govuk-list--bullet > li:nth-child(1)"
+  val assignedPropertiesTextSelectorSomePropertiesSecond =".govuk-list--bullet > li:nth-child(2)"
+  val assignedPropertiesTextSelectorNoProperties =".govuk-body:nth-child(7)"
 
   val backLinkHref="/business-rates-property-linking/my-organisation/agents"
 
 
   "ManageAgentController manageAgentProperties method" should {
-    "display 'Manage Agent Properties' screen with the correct text and the language is set to English" which {
+    "display 'Manage Agent Properties' screen with the correct text and the language is set to English and Agent got multiple properties assigned " which {
 
-      lazy val document = getYourAgentsPropertiesPage(English, List("2017", "2023"))
+      lazy val document = getYourAgentsPropertiesPage(English, testOwnerAuthResultMultipleProperty, testAgentList)
 
-      s"has a title of $titleText" in {
+      "has a title of $titleText" in {
         document.title() shouldBe titleText
       }
-      s"displays a correct header with agent name included" in {
+      "displays a correct header with agent name included" in {
         document.select(headerSelector).text() shouldBe headerText(name = "Test Agent")
       }
 
-      s"displays a correct caption above the header" in {
+      "displays a correct caption above the header" in {
         document.select(captionSelector).text shouldBe captionText
       }
 
@@ -76,29 +83,69 @@ class MyAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(backLinkSelector).attr("href") shouldBe backLinkHref
       }
 
-      s"has heading above rating list info with correct text" in {
+      "has heading above rating list info with correct text" in {
         document.select(ratingListHeadingSelector).text() shouldBe ratingListSectionHeading
       }
 
-      s"has heading above assigned properties list with correct text" in {
+      "has heading above assigned properties list with correct text" in {
         document.select(assignedPropertiesHeadingSelector).text() shouldBe assignedPropertiesHeading
+      }
+      s"has correct text under the heading $ratingListSectionHeading" in {
+        document.select(ratingListTextSelector).text shouldBe noOrMultipleRatingListText
+
+      }
+      s"has correct text under the heading $assignedPropertiesHeading in the first element of the list is capitalised" in {
+        document.select(assignedPropertiesTextSelectorSomePropertiesFirst).text shouldBe testAddress
+      }
+
+      s"has correct text under the heading $assignedPropertiesHeading  in the second element of the list and the address is capitalised" in {
+        document.select(assignedPropertiesTextSelectorSomePropertiesSecond).text shouldBe testAddress2
       }
 
     }
+
+    "display 'Manage Agent Properties' screen with the correct text and the language is set to English and Agent got no properties assigned " which {
+
+      lazy val document = getYourAgentsPropertiesPage(English, testOwnerAuthResultNoProperties, testAgentList)
+
+      s"has correct text under the heading $ratingListSectionHeading" in {
+        document.select(ratingListTextSelector).text shouldBe noOrMultipleRatingListText
+
+      }
+    }
+
+    "display 'Manage Agent Properties' screen with the correct text and the language is set to English and Agent got properties assigned only for 2017 list" which {
+
+      lazy val document = getYourAgentsPropertiesPage(English, testOwnerAuthResultNoProperties, testAgentListFor2017)
+
+      s"has correct text under the heading $ratingListSectionHeading" in {
+        document.select(ratingListTextSelector).text shouldBe singleRatingListText("2017")
+
+      }
+    }
+    "display 'Manage Agent Properties' screen with the correct text and the language is set to English and Agent got properties assigned only for 2023 list" which {
+
+      lazy val document = getYourAgentsPropertiesPage(English, testOwnerAuthResultNoProperties, testAgentListFor2023)
+
+      s"has correct text under the heading $ratingListSectionHeading" in {
+        document.select(ratingListTextSelector).text shouldBe singleRatingListText("2023")
+
+      }
+    }
   }
   "ManageAgentController manageAgentProperties method" should {
-    "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh" which {
+    "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh and Agent got multiple properties assigned " which {
 
-      lazy val document = getYourAgentsPropertiesPage(Welsh, List("2017", "2023"))
+      lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultMultipleProperty, testAgentList)
 
-      s"has a title of $titleText" in {
+      "has a title of $titleText" in {
         document.title() shouldBe titleTextWelsh
       }
-      s"displays a correct header with agent name included" in {
+      "displays a correct header with agent name included" in {
         document.select(headerSelector).text() shouldBe headerText(name = "Test Agent")
       }
 
-      s"displays a correct caption above the header" in {
+      "displays a correct caption above the header" in {
         document.select(captionSelector).text shouldBe captionTextWelsh
       }
 
@@ -107,23 +154,56 @@ class MyAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(backLinkSelector).attr("href") shouldBe backLinkHref
       }
 
-      s"has heading above rating list info with correct text" in {
+      "has heading above rating list info with correct text" in {
         document.select(ratingListHeadingSelector).text() shouldBe ratingListSectionHeadingWelsh
       }
 
-      s"has heading above assigned properties list with correct text" in {
+      "has heading above assigned properties list with correct text" in {
         document.select(assignedPropertiesHeadingSelector).text() shouldBe assignedPropertiesHeadingWelsh
       }
 
+      s"has correct text under the heading $ratingListSectionHeading" in {
+        document.select(ratingListTextSelector).text shouldBe noOrMultipleRatingListTextWelsh
+
+      }
+
+    }
+    "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh and Agent got no properties assigned " which {
+
+      lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultNoProperties, testAgentList)
+
+      s"has correct text under the heading $ratingListSectionHeading" in {
+        document.select(ratingListTextSelector).text shouldBe noOrMultipleRatingListTextWelsh
+
+      }
+    }
+
+    "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh and Agent got properties assigned only for 2017 list" which {
+
+      lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultNoProperties, testAgentListFor2017)
+
+      s"has correct text under the heading $ratingListSectionHeading" in {
+        document.select(ratingListTextSelector).text shouldBe singleRatingListTextWelsh("2017")
+
+      }
+    }
+    "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh and Agent got properties assigned only for 2023 list" which {
+
+      lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultNoProperties, testAgentListFor2023)
+
+      s"has correct text under the heading $ratingListSectionHeading" in {
+        document.select(ratingListTextSelector).text shouldBe singleRatingListTextWelsh("2023")
+
+      }
     }
   }
-  private def getYourAgentsPropertiesPage(language: Language, listYears: List[String]): Document = {
+  private def getYourAgentsPropertiesPage(language: Language, authDetails: OwnerAuthResult, list: AgentList): Document = {
 
 
     stubFor {
       get("/property-linking/my-organisation/agents/1001/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=true")
         .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
+          aResponse.withStatus(OK).withBody(Json.toJson(authDetails).toString())
         }
     }
 
@@ -138,7 +218,7 @@ class MyAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
     stubFor {
       get("/property-linking/owner/agents")
         .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testAgentList).toString())
+          aResponse.withStatus(OK).withBody(Json.toJson(list).toString())
         }
     }
 

@@ -547,7 +547,7 @@ propertyRepresentation.showAgents.viewAgentProperties.name=<a class="govuk-link"
 propertyRepresentation.caption=Asiant
 propertyRepresentation.ratingLists.heading=Rating lists they can act on for you
 propertyRepresentation.ratingList.p=This agent can act for you on your property valuations on the {0} rating list, for properties that you assign them to or they add to your account.
-propertyRepresentation.ratingLists.p=This agent can act for you on your property valuations on the {0} and {1} rating lists, for properties that you assign them to or they add to your account.
+propertyRepresentation.ratingLists.p=This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign them to or they add to your account.
 propertyRepresentation.agentProperties.assigned.none=This agent is not assigned to any properties.
 propertyRepresentation.manageAgent.options.changeRatingList=Change which rating list they can act on for you
 

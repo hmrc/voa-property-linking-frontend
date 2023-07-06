@@ -37,7 +37,7 @@ trait TestData {
   val placeForData = None
 
   val testAgentList = AgentList(
-    resultCount = 2,
+    resultCount = 3,
     agents = List(
       AgentSummary(
         organisationId = 1,
@@ -65,6 +65,29 @@ trait TestData {
       )
     )
   )
+
+  val testAgentListFor2023 = AgentList(
+    resultCount = 1,
+    agents = List(
+      AgentSummary(
+        organisationId = 1,
+        representativeCode = 1001,
+        name = "Test Agent",
+        appointedDate = LocalDate.parse("2023-01-01"),
+        propertyCount = 10,
+        listYears = Some(Seq("2023"))
+      )))
+  val testAgentListFor2017 = AgentList(
+    resultCount = 1,
+    agents = List(
+      AgentSummary(
+        organisationId = 1,
+        representativeCode = 1001,
+        name = "Test Agent",
+        appointedDate = LocalDate.parse("2023-01-01"),
+        propertyCount = 10,
+        listYears = Some(Seq("2017"))
+      )))
   val testResultCount = 2
   val testOwnerAuthResult = OwnerAuthResult(
     start = 0,
@@ -77,7 +100,7 @@ trait TestData {
         status = "",
         submissionId = "",
         uarn = 1L,
-        address = "",
+        address = "Test Address",
         localAuthorityRef = "",
         agents = Seq(
           OwnerAuthAgent(
@@ -89,6 +112,53 @@ trait TestData {
         )
       )
     )
+  )
+  val testOwnerAuthResultMultipleProperty = OwnerAuthResult(
+    start = 0,
+    size = 1,
+    filterTotal = 2,
+    total = 10,
+    authorisations = Seq(
+      OwnerAuthorisation(
+        authorisationId = 1,
+        status = "",
+        submissionId = "",
+        uarn = 1L,
+        address = "Test Address",
+        localAuthorityRef = "",
+        agents = Seq(
+          OwnerAuthAgent(
+            authorisedPartyId = 1L,
+            organisationId = 1L,
+            organisationName = "Test Agent",
+            agentCode = 1001
+          )
+        )
+      ),
+      OwnerAuthorisation(
+        authorisationId = 2,
+        status = "",
+        submissionId = "",
+        uarn = 2L,
+        address = "AddressTest 2",
+        localAuthorityRef = "",
+        agents = Seq(
+          OwnerAuthAgent(
+            authorisedPartyId = 2L,
+            organisationId = 2L,
+            organisationName = "Test Agent 2",
+            agentCode = 1002
+          )
+        )
+      )
+    )
+  )
+  val testOwnerAuthResultNoProperties = OwnerAuthResult(
+    start = 0,
+    size = 0,
+    filterTotal = 0,
+    total = 0,
+    authorisations = Seq.empty
   )
   val  testAgentDetails = AgentDetails(
     name = "Test Agent",

@@ -35,7 +35,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val radioChangeText = "Change which rating list they can act on for you"
   val radioRemoveText = "Remove from your account"
 
-  val titleTextWelsh  ="Rheoli asiant- Valuation Office Agency - GOV.UK"
+  val titleTextWelsh  ="Rheoli asiant - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh  ="Yn ôl"
   val continueButtonTextWelsh ="Parhau"
   val captionTextWelsh  = "Rheoli asiant"
@@ -62,7 +62,6 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val fifthRadioLabelSelector =".govuk-radios__item:nth-child(5) > .govuk-label"
 
   val backLinkHref = s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=100"
-  val continueHref = ""
   val radioAssignAllHref = "business-rates-property-linking/my-organisation/manage-agent/assign/to-all-properties"
   val radioAssignASomeHref = "http://localhost:9523/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&agentAppointed=BOTH&backLink=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fmanage-agent"
   val radioUnassignedAllHref = "/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties"
@@ -71,9 +70,9 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val radioRemoveHref = "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation"
 
   "ManageAgentController showManageAgent method" should {
-    "display 'Manage agent' screen with the correct text and the language is set to English" which {
+    "display 'Manage agent' screen with the correct text, correct radio labels and the language is set to English for Agent, who has got at least 1 property assigned" which {
 
-      lazy val document = getManageAgentsPage(English)
+      lazy val document = getPage(English, 1)
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleText
@@ -84,27 +83,139 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(backLinkSelector).attr("href") shouldBe backLinkHref
       }
 
-      s"displays a correct header with agent name included" in {
+      "displays a correct header with agent name included" in {
         document.select(headerSelector).text() shouldBe headerText(name = "Test Agent")
       }
 
-      s"displays a correct caption above the header" in{
+      "displays a correct caption above the header" in {
         document.select(captionSelector).text shouldBe captionText
       }
 
-      s"displays a correct text in continue button" in {
+      "displays a correct text in continue button" in {
         document.select(continueButtonSelector).text shouldBe continueButtonText
       }
 
-      s"displays a correct text in first radio label" in {
+      "displays a correct text in the first radio label" in {
         document.select(firstRadioLabelSelector).text shouldBe radioAssignAllText
       }
-
+      "displays a correct text in the second radio label" in {
+        document.select(secondRadioLabelSelector).text shouldBe radioAssignASomeText
+      }
+      "displays a correct text in the third radio label" in {
+        document.select(thirdRadioLabelSelector).text shouldBe radioUnassignedAllText
+      }
+      "displays a correct text in the fourth radio label" in {
+        document.select(fourthRadioLabelSelector).text shouldBe radioUnassignedASomeText
+      }
+      "displays a correct text in the fifth radio label" in {
+        document.select(fifthRadioLabelSelector).text shouldBe radioChangeText
       }
     }
 
-  private def getManageAgentsPage(language: Language): Document = {
+    "display 'Manage agent' screen with the correct radio labels and the language is set to English for Agent, who has no assigned properties" which {
 
+      lazy val document = getPage(English, 0)
+
+      "displays a correct text in the first radio label" in {
+        document.select(firstRadioLabelSelector).text shouldBe radioAssignAllText
+      }
+      "displays a correct text in the second radio label" in {
+        document.select(secondRadioLabelSelector).text shouldBe radioAssignASomeText
+      }
+      "displays a correct text in the third radio label" in {
+        document.select(thirdRadioLabelSelector).text shouldBe radioChangeText
+      }
+      "displays a correct text in the fourth radio label" in {
+        document.select(fourthRadioLabelSelector).text shouldBe radioRemoveText
+      }
+    }
+
+    "display 'Manage agent' screen with the correct radio labels and the language is set to English for Agent, who has is assigned to all client's properties" which {
+
+      lazy val document = getPage(English, 10)
+
+      "displays a correct text in the first radio label" in {
+        document.select(firstRadioLabelSelector).text shouldBe radioUnassignedAllText
+      }
+      "displays a correct text in the second radio label" in {
+        document.select(secondRadioLabelSelector).text shouldBe radioUnassignedASomeText
+      }
+      "displays a correct text in the third radio label" in {
+        document.select(thirdRadioLabelSelector).text shouldBe radioChangeText
+      }
+    }
+    "display 'Manage agent' screen with the correct text, correct radio labels and the language is set to Welsh for Agent, who has got at least 1 property assigned" which {
+
+      lazy val document = getPage(Welsh, 1)
+
+      s"has a title of $titleTextWelsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      "has a back link which takes you to Manage agent properties screen" in {
+        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
+
+      "displays a correct caption above the header" in {
+        document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      "displays a correct text in continue button" in {
+        document.select(continueButtonSelector).text shouldBe continueButtonTextWelsh
+      }
+
+      "displays a correct text in the first radio label" in {
+        document.select(firstRadioLabelSelector).text shouldBe radioAssignAllTextWelsh
+      }
+      "displays a correct text in the second radio label" in {
+        document.select(secondRadioLabelSelector).text shouldBe radioAssignASomeTextWelsh
+      }
+      "displays a correct text in the third radio label" in {
+        document.select(thirdRadioLabelSelector).text shouldBe radioUnassignedAllTextWelsh
+      }
+      "displays a correct text in the fourth radio label" in {
+        document.select(fourthRadioLabelSelector).text shouldBe radioUnassignedASomeTextWelsh
+      }
+      "displays a correct text in the fifth radio label" in {
+        document.select(fifthRadioLabelSelector).text shouldBe radioChangeTextWelsh
+      }
+    }
+
+    "display 'Manage agent' screen with the correct radio labels and the language is set to Welsh for Agent, who has no assigned properties" which {
+
+      lazy val document = getPage(Welsh, 0)
+
+      "displays a correct text in the first radio label" in {
+        document.select(firstRadioLabelSelector).text shouldBe radioAssignAllTextWelsh
+      }
+      "displays a correct text in the second radio label" in {
+        document.select(secondRadioLabelSelector).text shouldBe radioAssignASomeTextWelsh
+      }
+      "displays a correct text in the third radio label" in {
+        document.select(thirdRadioLabelSelector).text shouldBe radioChangeTextWelsh
+      }
+      "displays a correct text in the fourth radio label" in {
+        document.select(fourthRadioLabelSelector).text shouldBe radioRemoveTextWelsh
+      }
+    }
+
+    "display 'Manage agent' screen with the correct radio labels and the language is set to Welsh for Agent, who has is assigned to all client's properties" which {
+
+      lazy val document = getPage(Welsh, 10)
+
+      "displays a correct text in the first radio label" in {
+        document.select(firstRadioLabelSelector).text shouldBe radioUnassignedAllTextWelsh
+      }
+      "displays a correct text in the second radio label" in {
+        document.select(secondRadioLabelSelector).text shouldBe radioUnassignedASomeTextWelsh
+      }
+      "displays a correct text in the third radio label" in {
+        document.select(thirdRadioLabelSelector).text shouldBe radioChangeTextWelsh
+      }
+    }
+  }
+  private def getPage(language: Language, propertyCount: Int): Document = {
     await(
       mockRepository.saveOrUpdate(
         AgentSummary(
@@ -113,8 +224,10 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
           organisationId = 100L,
           representativeCode = 100L,
           appointedDate = LocalDate.now(),
-          propertyCount = 1
-        )))
+          propertyCount = propertyCount
+        )
+      )
+    )
 
     stubFor {
       get("/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
@@ -130,14 +243,12 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
         }
     }
 
-
     stubFor {
       get("/business-rates-authorisation/authenticate")
         .willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
         }
     }
-
 
     stubFor {
       post("/auth/authorise")

@@ -30,7 +30,7 @@
 @ratingList = @{
     listYears.fold("Rating lists for this property are not available yet") { years =>
         years match {
-            case Seq(first) => messages("propertyRepresentation.ratingList.p", first)
+            case Seq(listYear) => messages("propertyRepresentation.ratingList.p", listYear)
             case _ => messages("propertyRepresentation.ratingLists.p")
         }
     }
@@ -56,13 +56,14 @@
 
     @if(ownerAuthResult.authorisations.nonEmpty) {
 
-        <ul class="govuk-list govuk-list--bullet">
-        @ownerAuthResult.authorisations.zipWithIndex.map { case (property, index) =>
-        <li id={s"address-$index"}>@Formatters.capitalisedAddress(property.address)</li>
+        @if(ownerAuthResult.authorisations.nonEmpty) {
+            <ul class="govuk-list govuk-list--bullet">
+            @ownerAuthResult.authorisations.map { property =>
+                <li>@Formatters.capitalisedAddress(property.address)</li>
+            }
+            </ul>
+        } else {
+            <p class="govuk-body">@messages("propertyRepresentation.agentProperties.assigned.none")</p>
         }
-        </ul>
-    } else {
-        <p class="govuk-body"> @messages("propertyRepresentation.agentProperties.assigned.none")</p>
-    }
 
-}
+    }}
