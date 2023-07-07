@@ -24,7 +24,7 @@ import models.dvr.cases.check.myclients.CheckCasesWithClient
 import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
-import models.propertyrepresentation.AgentList
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList}
 import models.searchApi.OwnerAuthResult
 import org.mockito.ArgumentMatchers.{eq => eqs}
 import org.mockito.ArgumentMatchers._
@@ -32,7 +32,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
 import play.api.http.Status._
-import play.api.libs.json.Json
+import play.api.libs.json.{JsNull, Json}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import utils._
 
@@ -261,6 +261,30 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
       isOwner = true
     )
     whenReady(res)(_ shouldBe None)
+  }
+
+  "assignAgent" should "return AgentAppointmentChangesResponse when valid request submitted" in new Setup {
+    val request = AgentAppointmentChangesRequest(agentRepresentativeCode = 123456, scope = "PROPERTY_LIST")
+    val expectedResponse = AgentAppointmentChangesResponse(appointmentChangeId = "appointmentChangeId")
+    mockHttpPOST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse]("tst-url", expectedResponse)
+
+    val res: Future[AgentAppointmentChangesResponse] = connector.assignAgent(request)
+    whenReady(res)(_ shouldBe expectedResponse)
+  }
+
+  "agentAppointmentChange" should "return AgentAppointmentChangesResponse when valid request submitted" in new Setup {
+    val request = AgentAppointmentChangeRequest(
+      agentRepresentativeCode = 123456,
+      scope = "PROPERTY_LIST",
+      action = "APPOINT",
+      propertyLinkIds = Some(List("123L")),
+      listYears = Some(List("2023")))
+    val expectedResponse = AgentAppointmentChangesResponse(appointmentChangeId = "appointmentChangeId")
+
+    mockHttpPOST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse]("tst-url", expectedResponse)
+
+    val res: Future[AgentAppointmentChangesResponse] = connector.agentAppointmentChange(request)
+    whenReady(res)(_ shouldBe expectedResponse)
   }
 
 }

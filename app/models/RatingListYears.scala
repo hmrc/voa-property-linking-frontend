@@ -14,27 +14,16 @@
  * limitations under the License.
  */
 
-package models.propertyrepresentation
+package models
+
+import play.api.libs.json.Json
 
 import java.time.LocalDate
 
-import play.api.libs.json.{Json, OFormat}
-
-case class AgentSummary(
-      organisationId: Long,
-      representativeCode: Long,
-      name: String,
-      appointedDate: LocalDate,
-      propertyCount: Int,
-      listYears: Option[Seq[String]] = None
+case class RatingListYears(
+      multipleListYears: Boolean
 )
 
-object AgentSummary {
-  implicit val format: OFormat[AgentSummary] = Json.format
-}
-
-case class AgentList(resultCount: Int, agents: List[AgentSummary])
-
-object AgentList {
-  implicit val format: OFormat[AgentList] = Json.format
+object RatingListYears {
+  implicit val format = Json.format[RatingListYears]
 }

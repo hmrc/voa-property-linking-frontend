@@ -29,7 +29,6 @@ lazy val microservice = Project(appName, file("."))
   .disablePlugins(sbt.plugins.JUnitXmlReportPlugin)
   .settings(playSettings ++ scoverageSettings: _*)
   .settings(scalaSettings: _*)
-  .settings(publishingSettings: _*)
   .settings(PlayKeys.playDefaultPort := 9523)
   .settings(majorVersion := 0)
   .settings(
@@ -102,7 +101,9 @@ lazy val scoverageSettings = {
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true,
     Test / unmanagedSourceDirectories := (Test / baseDirectory)(base => Seq(base / "test")).value,
-    Test / parallelExecution := false
+    Test / parallelExecution := false,
+    IntegrationTest / unmanagedSourceDirectories := (IntegrationTest / baseDirectory)(base => Seq(base / "it")).value,
+    IntegrationTest / parallelExecution := false
   )
 }
 
@@ -112,7 +113,7 @@ scalacOptions += "-Wconf:src=target/.*:s"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
-val bootstrapPlayVersion = "7.12.0"
+val bootstrapPlayVersion = "7.19.0"
 
 lazy val compileDependencies = Seq(
   guice,
@@ -124,23 +125,23 @@ lazy val compileDependencies = Seq(
   "uk.gov.hmrc"          %% "bootstrap-frontend-play-28"    % bootstrapPlayVersion,
   "uk.gov.hmrc"          %% "play-frontend-hmrc"            % "5.5.0-play-28",
   "uk.gov.hmrc"          %% "http-caching-client"           % "10.0.0-play-28",
-  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.12.0-play-28",
+  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.13.0-play-28",
   "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-28"            % "0.74.0",
-  "uk.gov.hmrc"          %% "uri-template"                  % "1.11.0"
+  "uk.gov.hmrc"          %% "uri-template"                  % "1.12.0"
 )
 
 lazy val testDependencies = Seq(
-  "uk.gov.hmrc"            %% "bootstrap-test-play-28"  % bootstrapPlayVersion % Test,
-  "org.scalatestplus.play" %% "scalatestplus-play"      % "5.1.0"              % Test,
-  "org.scalatest"          %% "scalatest"               % "3.0.8"              % Test,
-  "org.scalacheck"         %% "scalacheck"              % "1.14.0"             % Test,
-  "org.scalatestplus"      %% "scalacheck-1-15"         % "3.2.10.0"           % Test,
-  "org.pegdown"            % "pegdown"                  % "1.6.0"              % Test,
-  "org.jsoup"              % "jsoup"                    % "1.12.1"             % Test,
-  "org.mockito"            % "mockito-core"             % "2.27.0"             % Test,
-  "org.scalatestplus"      %% "mockito-3-4"             % "3.2.9.0"            % Test,
-  "uk.gov.hmrc.mongo"      %% "hmrc-mongo-test-play-28" % "0.74.0"             % Test,
-  "com.vladsch.flexmark"   % "flexmark-all"             % "0.35.10"            % Test
+  "uk.gov.hmrc"            %% "bootstrap-test-play-28"  % bootstrapPlayVersion % "test, it",
+  "org.scalatestplus.play" %% "scalatestplus-play"      % "5.1.0"              % "test, it",
+  "org.scalatest"          %% "scalatest"               % "3.0.8"              % "test, it",
+  "org.scalacheck"         %% "scalacheck"              % "1.14.0"             % "test, it",
+  "org.scalatestplus"      %% "scalacheck-1-15"         % "3.2.10.0"           % "test, it",
+  "org.pegdown"            % "pegdown"                  % "1.6.0"              % "test, it",
+  "org.jsoup"              % "jsoup"                    % "1.12.1"             % "test, it",
+  "org.mockito"            % "mockito-core"             % "2.27.0"             % "test, it",
+  "org.scalatestplus"      %% "mockito-3-4"             % "3.2.9.0"            % "test, it",
+  "uk.gov.hmrc.mongo"      %% "hmrc-mongo-test-play-28" % "0.74.0"             % "test, it",
+  "com.vladsch.flexmark"   % "flexmark-all"             % "0.35.10"            % "test, it"
 )
 
-addCommandAlias("precommit", ";scalafmt;test:scalafmt;coverage;test;coverageReport")
+addCommandAlias("precommit", ";scalafmt;test:scalafmt;it:test::scalafmt;coverage;test;it:test;coverageReport")

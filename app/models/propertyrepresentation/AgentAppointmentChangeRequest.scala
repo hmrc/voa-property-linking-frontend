@@ -16,25 +16,16 @@
 
 package models.propertyrepresentation
 
-import java.time.LocalDate
-
 import play.api.libs.json.{Json, OFormat}
 
-case class AgentSummary(
-      organisationId: Long,
-      representativeCode: Long,
-      name: String,
-      appointedDate: LocalDate,
-      propertyCount: Int,
-      listYears: Option[Seq[String]] = None
-)
+case class AgentAppointmentChangeRequest(
+      agentRepresentativeCode: Long,
+      action: String,
+      scope: String,
+      propertyLinkIds: Option[List[String]],
+      listYears: Option[List[String]] = None)
 
-object AgentSummary {
-  implicit val format: OFormat[AgentSummary] = Json.format
-}
+object AgentAppointmentChangeRequest {
 
-case class AgentList(resultCount: Int, agents: List[AgentSummary])
-
-object AgentList {
-  implicit val format: OFormat[AgentList] = Json.format
+  implicit val format: OFormat[AgentAppointmentChangeRequest] = Json.format[AgentAppointmentChangeRequest]
 }

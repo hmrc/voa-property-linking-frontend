@@ -14,27 +14,18 @@
  * limitations under the License.
  */
 
-package models.propertyrepresentation
+package businessrates.authorisation.config
 
-import java.time.LocalDate
+import play.api.Configuration
 
-import play.api.libs.json.{Json, OFormat}
+import javax.inject.Inject
 
-case class AgentSummary(
-      organisationId: Long,
-      representativeCode: Long,
-      name: String,
-      appointedDate: LocalDate,
-      propertyCount: Int,
-      listYears: Option[Seq[String]] = None
-)
+class FeatureSwitch @Inject()(config: Configuration) {
 
-object AgentSummary {
-  implicit val format: OFormat[AgentSummary] = Json.format
-}
+  private val prefix = "feature-switch"
 
-case class AgentList(resultCount: Int, agents: List[AgentSummary])
-
-object AgentList {
-  implicit val format: OFormat[AgentList] = Json.format
+  def isAgentListYearsEnabled: Boolean = {
+    val key = s"$prefix.agentListYears.enabled"
+    config.getOptional[Boolean](key).getOrElse(false)
+  }
 }

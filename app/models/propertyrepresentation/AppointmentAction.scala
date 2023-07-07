@@ -16,25 +16,14 @@
 
 package models.propertyrepresentation
 
-import java.time.LocalDate
+import play.api.libs.json.Format
+import utils.JsonUtils.enumFormat
 
-import play.api.libs.json.{Json, OFormat}
+object AppointmentAction extends Enumeration {
+  type AppointmentAction = Value
 
-case class AgentSummary(
-      organisationId: Long,
-      representativeCode: Long,
-      name: String,
-      appointedDate: LocalDate,
-      propertyCount: Int,
-      listYears: Option[Seq[String]] = None
-)
+  val APPOINT = Value("APPOINT")
+  val REVOKE = Value("REVOKE")
 
-object AgentSummary {
-  implicit val format: OFormat[AgentSummary] = Json.format
-}
-
-case class AgentList(resultCount: Int, agents: List[AgentSummary])
-
-object AgentList {
-  implicit val format: OFormat[AgentList] = Json.format
+  implicit val format: Format[AppointmentAction] = enumFormat(AppointmentAction)
 }
