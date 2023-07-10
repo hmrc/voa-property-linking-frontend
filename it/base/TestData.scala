@@ -74,7 +74,7 @@ trait TestData {
         representativeCode = 1001,
         name = "Test Agent",
         appointedDate = LocalDate.parse("2023-01-01"),
-        propertyCount = 10,
+        propertyCount = 0,
         listYears = Some(Seq("2023"))
       )))
   val testAgentListFor2017 = AgentList(
@@ -94,6 +94,30 @@ trait TestData {
     size = 1,
     filterTotal = 2,
     total = 10,
+    authorisations = Seq(
+      OwnerAuthorisation(
+        authorisationId = 1,
+        status = "",
+        submissionId = "",
+        uarn = 1L,
+        address = "Test Address",
+        localAuthorityRef = "",
+        agents = Seq(
+          OwnerAuthAgent(
+            authorisedPartyId = 1L,
+            organisationId = 1L,
+            organisationName = "Test Agent",
+            agentCode = 1001
+          )
+        )
+      )
+    )
+  )
+  val testOwnerAuthResult1 = OwnerAuthResult(
+    start = 0,
+    size = 1,
+    filterTotal = 1,
+    total = 1,
     authorisations = Seq(
       OwnerAuthorisation(
         authorisationId = 1,

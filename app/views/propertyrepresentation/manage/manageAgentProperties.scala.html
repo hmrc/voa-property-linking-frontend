@@ -54,8 +54,6 @@
 
     <h2 class="govuk-heading-m">@messages("propertyRepresentation.agentProperties.assigned")</h2>
 
-    @if(ownerAuthResult.authorisations.nonEmpty) {
-
         @if(ownerAuthResult.authorisations.nonEmpty) {
             <ul class="govuk-list govuk-list--bullet">
             @ownerAuthResult.authorisations.map { property =>
@@ -66,4 +64,4 @@
             <p class="govuk-body">@messages("propertyRepresentation.agentProperties.assigned.none")</p>
         }
 
-    }}
+    }

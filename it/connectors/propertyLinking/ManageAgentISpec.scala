@@ -28,6 +28,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
   def headerText(name: String) = s"What do you want to do to the agent $name?"
 
+  val radioAssignYourText= "Assign to your property"
   val radioAssignAllText= "Assign to all properties"
   val radioAssignASomeText = "Assign to some properties"
   val radioUnassignedAllText = "Unassign from all properties"
@@ -42,6 +43,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
   def headerTextWelsh(name: String) = s"Beth ydych chi eisiau ei wneud i’r asiant  $name?"
 
+  val radioAssignYourTextWelsh= "Neilltuo i’ch eiddo"
   val radioAssignAllTextWelsh = "Neilltuo i bob eiddo"
   val radioAssignASomeTextWelsh  = "Neilltuo i ambell eiddo"
   val radioUnassignedAllTextWelsh  = "Dad-neilltuo o’ch holl eiddo"
@@ -70,7 +72,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val radioRemoveHref = "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation"
 
   "ManageAgentController showManageAgent method" should {
-    "display 'Manage agent' screen with the correct text, correct radio labels and the language is set to English for Agent, who has got at least 1 property assigned" which {
+    "display 'Manage agent' screen with the correct text, correct radio labels and the language is set to English for Agent, who has got at least 1 property assigned and Client got more properties" which {
 
       lazy val document = getPage(English, 1)
 
@@ -95,20 +97,12 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(continueButtonSelector).text shouldBe continueButtonText
       }
 
-      "displays a correct text in the first radio label" in {
-        document.select(firstRadioLabelSelector).text shouldBe radioAssignAllText
-      }
-      "displays a correct text in the second radio label" in {
+      "displays a correct text in radios, which are in the correct order" in {
+        document.select(firstRadioLabelSelector).text  shouldBe radioAssignAllText
         document.select(secondRadioLabelSelector).text shouldBe radioAssignASomeText
-      }
-      "displays a correct text in the third radio label" in {
-        document.select(thirdRadioLabelSelector).text shouldBe radioUnassignedAllText
-      }
-      "displays a correct text in the fourth radio label" in {
+        document.select(thirdRadioLabelSelector).text  shouldBe radioUnassignedAllText
         document.select(fourthRadioLabelSelector).text shouldBe radioUnassignedASomeText
-      }
-      "displays a correct text in the fifth radio label" in {
-        document.select(fifthRadioLabelSelector).text shouldBe radioChangeText
+        document.select(fifthRadioLabelSelector).text  shouldBe radioChangeText
       }
     }
 
@@ -116,31 +110,32 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
       lazy val document = getPage(English, 0)
 
-      "displays a correct text in the first radio label" in {
+      "displays a correct text in radios, which are in the correct order" in {
         document.select(firstRadioLabelSelector).text shouldBe radioAssignAllText
-      }
-      "displays a correct text in the second radio label" in {
         document.select(secondRadioLabelSelector).text shouldBe radioAssignASomeText
-      }
-      "displays a correct text in the third radio label" in {
         document.select(thirdRadioLabelSelector).text shouldBe radioChangeText
-      }
-      "displays a correct text in the fourth radio label" in {
         document.select(fourthRadioLabelSelector).text shouldBe radioRemoveText
       }
     }
 
-    "display 'Manage agent' screen with the correct radio labels and the language is set to English for Agent, who has is assigned to all client's properties" which {
+    "display 'Manage agent' screen with the correct radio labels and the language is set to English for Agent, who is assigned to all client's properties" which {
 
       lazy val document = getPage(English, 10)
 
-      "displays a correct text in the first radio label" in {
+      "displays a correct text in radios, which are in the correct order" in{
         document.select(firstRadioLabelSelector).text shouldBe radioUnassignedAllText
-      }
-      "displays a correct text in the second radio label" in {
         document.select(secondRadioLabelSelector).text shouldBe radioUnassignedASomeText
+        document.select(thirdRadioLabelSelector).text shouldBe radioChangeText
       }
-      "displays a correct text in the third radio label" in {
+    }
+
+    "display 'Manage agent' screen with the correct radio labels and the language is set to English for Agent, who has no assigned properties, but Client got exactly 1 property " which {
+
+      lazy val document = getPageWhenPropertyCountIs1(English, 0)
+
+      "displays a correct text in radios, which are in the correct order" in {
+        document.select(firstRadioLabelSelector).text shouldBe radioAssignYourText
+        document.select(secondRadioLabelSelector).text shouldBe radioRemoveText
         document.select(thirdRadioLabelSelector).text shouldBe radioChangeText
       }
     }
@@ -165,19 +160,11 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(continueButtonSelector).text shouldBe continueButtonTextWelsh
       }
 
-      "displays a correct text in the first radio label" in {
+      "displays a correct text in radios, which are in the correct order" in {
         document.select(firstRadioLabelSelector).text shouldBe radioAssignAllTextWelsh
-      }
-      "displays a correct text in the second radio label" in {
         document.select(secondRadioLabelSelector).text shouldBe radioAssignASomeTextWelsh
-      }
-      "displays a correct text in the third radio label" in {
         document.select(thirdRadioLabelSelector).text shouldBe radioUnassignedAllTextWelsh
-      }
-      "displays a correct text in the fourth radio label" in {
         document.select(fourthRadioLabelSelector).text shouldBe radioUnassignedASomeTextWelsh
-      }
-      "displays a correct text in the fifth radio label" in {
         document.select(fifthRadioLabelSelector).text shouldBe radioChangeTextWelsh
       }
     }
@@ -188,29 +175,31 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
       "displays a correct text in the first radio label" in {
         document.select(firstRadioLabelSelector).text shouldBe radioAssignAllTextWelsh
-      }
-      "displays a correct text in the second radio label" in {
         document.select(secondRadioLabelSelector).text shouldBe radioAssignASomeTextWelsh
-      }
-      "displays a correct text in the third radio label" in {
         document.select(thirdRadioLabelSelector).text shouldBe radioChangeTextWelsh
-      }
-      "displays a correct text in the fourth radio label" in {
         document.select(fourthRadioLabelSelector).text shouldBe radioRemoveTextWelsh
       }
     }
 
-    "display 'Manage agent' screen with the correct radio labels and the language is set to Welsh for Agent, who has is assigned to all client's properties" which {
+    "display 'Manage agent' screen with the correct radio labels and the language is set to Welsh for Agent, who has no assigned properties, but Client got exactly 1 property " which {
+
+      lazy val document = getPageWhenPropertyCountIs1(Welsh, 1)
+
+      "displays a correct text in radios, which are in the correct order" in {
+          document.select(firstRadioLabelSelector).text shouldBe radioAssignYourTextWelsh
+          document.select(secondRadioLabelSelector).text shouldBe radioRemoveTextWelsh
+          document.select(thirdRadioLabelSelector).text shouldBe radioChangeTextWelsh
+        }
+      }
+
+
+    "display 'Manage agent' screen with the correct radio labels and the language is set to Welsh for Agent, who is assigned to all client's properties" which {
 
       lazy val document = getPage(Welsh, 10)
 
-      "displays a correct text in the first radio label" in {
+      "displays a correct text in radios, which are in the correct order" in {
         document.select(firstRadioLabelSelector).text shouldBe radioUnassignedAllTextWelsh
-      }
-      "displays a correct text in the second radio label" in {
         document.select(secondRadioLabelSelector).text shouldBe radioUnassignedASomeTextWelsh
-      }
-      "displays a correct text in the third radio label" in {
         document.select(thirdRadioLabelSelector).text shouldBe radioChangeTextWelsh
       }
     }
@@ -267,4 +256,58 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
     res.status shouldBe OK
     Jsoup.parse(res.body)
   }
+
+  private def getPageWhenPropertyCountIs1(language: Language, propertyCount: Int): Document = {
+    await(
+      mockRepository.saveOrUpdate(
+        AgentSummary(
+          listYears = Some(List("2017")),
+          name = "Test Agent",
+          organisationId = 100L,
+          representativeCode = 100L,
+          appointedDate = LocalDate.now(),
+          propertyCount = 0
+        )
+      )
+    )
+
+    stubFor {
+      get("/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult1).toString())
+        }
+    }
+
+    stubFor {
+      get("/property-linking/owner/agents")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAgentListFor2023).toString())
+        }
+    }
+
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    val res = await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent")
+        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .get()
+    )
+
+    res.status shouldBe OK
+    Jsoup.parse(res.body)
+  }
+
 }
