@@ -56,11 +56,31 @@ val helper = request.ses.propertyRelationship.map(_.capacity).fold(
                 errorMessageMappingHelper,
                 formattedFullDate(occupancyStartDate)
             )
-        case e @ "interestedStartDate.error.dateInFuture" =>
+        case e @ "interestedEndDate.error.dateInFuture" =>
             messages(e + clientSuffix, errorMessageMappingHelper)
+
+        case e @ "error.boolean" =>
+          messages("label.stillOccupied" + clientSuffix + "." + ownershipStatusSuffix)
+
     }
     manualDateErrorHandler
 }
+
+@noChoiceError = @{
+  Seq(
+    form.error("stillOccupied")
+  ).flatten.headOption.map { formError =>
+    ErrorMessage.errorMessageWithDefaultStringsTranslated(
+      content = Text(
+        errorHandler.applyOrElse(
+          formError.message,
+          (_: String) => messages("error.common.invalid.date")
+        )
+      )
+    )
+  }
+}
+
 @occupancyStartDate(implicit request: LinkingSessionRequest[_]) = @{
   val earliestStartDate = request.ses.earliestStartDate
   request.ses.propertyOwnership.map(_.fromDate) match {
@@ -98,7 +118,8 @@ val helper = request.ses.propertyRelationship.map(_.capacity).fold(
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOccupancyController.submitOccupancy) {
 
         @govukRadios(Radios(
-            name = "stillOccupied",
+          errorMessage = if(form.errors.nonEmpty) noChoiceError else None,
+          name = "stillOccupied",
             items = Seq(
                 RadioItem(
                     content = Text(messages("app.common.yes")),

@@ -36,7 +36,7 @@
         form.error(s"$fieldName.month"),
         form.error(s"$fieldName.year")
     ).flatten.headOption.map { formError =>
-        ErrorMessage(
+        ErrorMessage.errorMessageWithDefaultStringsTranslated(
             content = Text(
                 manualErrorHandler.applyOrElse(
                     formError.message,
