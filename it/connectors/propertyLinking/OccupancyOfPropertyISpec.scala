@@ -64,6 +64,9 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
   val earlyStartDateOwnerOccupierErrorAgentText = "Date of your client’s last day as owner and occupier of the property must be after 1 April 2017"
   val earlyStartDateOwnerErrorAgentText = "Date of your client’s last day as owner of the property must be after 1 April 2017"
   val earlyStartDateOccupierErrorAgentText = "Date of your client’s last day as occupier of the property must be after 1 April 2017"
+  val emptyDateErrorText = "Date of your last day as occupier of the property - Enter a valid date"
+  val invalidDateErrorText = "Date of your last day as occupier of the property - Enter a valid date"
+  val enterValidDateErrorText = "Enter a valid date"
   val errorPrefix = "Error: "
   
   val titleTextWelsh = "Ydych chi dal i fod yn berchen neu’n meddiannu’r eiddo? - Valuation Office Agency - GOV.UK"
@@ -107,6 +110,9 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
   val earlyStartDateOwnerOccupierErrorAgentTextWelsh = "Rhaid i ddyddiad diwrnod olaf eich cleient fel perchennog a meddiannydd yr eiddo fod ar ôl 1 Ebrill 2017"
   val earlyStartDateOwnerErrorAgentTextWelsh = "Rhaid i ddyddiad diwrnod olaf eich cleient fel perchennog yr eiddo fod ar ôl 1 Ebrill 2017"
   val earlyStartDateOccupierErrorAgentTextWelsh = "Rhaid i ddyddiad diwrnod olaf eich cleient fel meddiannydd yr eiddo fod ar ôl 1 Ebrill 2017"
+  val emptyDateErrorTextWelsh = "Dyddiad eich diwrnod olaf fel meddiannydd yr eiddo - Nodwch ddyddiad dilys"
+  val invalidDateErrorTextWelsh = "Dyddiad eich diwrnod olaf fel meddiannydd yr eiddo - Nodwch ddyddiad dilys"
+  val enterValidDateErrorTextWelsh = "Nodwch ddyddiad dilys"
   val errorPrefixWelsh = "Gwall: "
 
   val backLinkSelector = "#back-link"
@@ -127,524 +133,524 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
   val backLinkHref = "/business-rates-property-linking/my-organisation/claim/property-links/ownership"
   val backLinkHrefFromCya = "/business-rates-property-linking/my-organisation/claim/property-links/summary"
 
-//  "OccupancyOfPropertyController show method" should {
-//    "Show the correct page for an English, non agent, owner and occupier not from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = false, fromCya = false,
-//        owner = true, occupier = true)
-//
-//      s"has a title of '$titleText''" in {
-//        document.title() shouldBe titleText
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkText
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-//      }
-//
-//      s"has a header of '$headerText' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerText
-//        document.select(captionSelector).text shouldBe captionText
-//      }
-//
-//      s"has a $yesText radio button that is un-checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesText
-//        document.select(yesSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noText
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfText" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfText
-//        document.select(forExampleSelector).text() shouldBe forExampleText
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayText
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthText
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearText
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueText
-//      }
-//
-//    }
-//
-//    "Show the correct page for an English, non agent, owner not from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = false, fromCya = false,
-//        owner = true, occupier = false)
-//
-//      s"has a title of '$titleText''" in {
-//        document.title() shouldBe titleText
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkText
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-//      }
-//
-//      s"has a header of '$headerText' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerText
-//        document.select(captionSelector).text shouldBe captionText
-//      }
-//
-//      s"has a $yesText radio button that is un-checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesText
-//        document.select(yesSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noText
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfOwnerText" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfOwnerText
-//        document.select(forExampleSelector).text() shouldBe forExampleText
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayText
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthText
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearText
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueText
-//      }
-//
-//    }
-//
-//    "Show the correct page for an English, non agent, occupier from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = false, fromCya = true,
-//        owner = false, occupier = true)
-//
-//      s"has a title of '$titleText''" in {
-//        document.title() shouldBe titleText
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkText
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
-//      }
-//
-//      s"has a header of '$headerText' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerText
-//        document.select(captionSelector).text shouldBe captionText
-//      }
-//
-//      s"has a $yesText radio button that is un-checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesText
-//        document.select(yesSelector).hasAttr("checked") shouldBe true
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noText
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfOccupierText" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfOccupierText
-//        document.select(forExampleSelector).text() shouldBe forExampleText
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayText
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthText
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearText
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueText
-//      }
-//
-//    }
-//
-//    "Show the correct page for an English, agent, owner and occupier from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = true, fromCya = true,
-//        owner = true, occupier = true)
-//
-//      s"has a title of '$titleTextAgent''" in {
-//        document.title() shouldBe titleTextAgent
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkText
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
-//      }
-//
-//      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerTextAgent
-//        document.select(captionSelector).text shouldBe captionText
-//      }
-//
-//      s"has a $yesText radio button that is un-checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesText
-//        document.select(yesSelector).hasAttr("checked") shouldBe true
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noText
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfTextAgent" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfTextAgent
-//        document.select(forExampleSelector).text() shouldBe forExampleText
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayText
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthText
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearText
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueText
-//      }
-//
-//    }
-//
-//    "Show the correct page for an English, agent, owner not from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = true, fromCya = false,
-//        owner = true, occupier = false)
-//
-//      s"has a title of '$titleTextAgent''" in {
-//        document.title() shouldBe titleTextAgent
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkText
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-//      }
-//
-//      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerTextAgent
-//        document.select(captionSelector).text shouldBe captionText
-//      }
-//
-//      s"has a $yesText radio button that is un-checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesText
-//        document.select(yesSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noText
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfOwnerTextAgent" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfOwnerTextAgent
-//        document.select(forExampleSelector).text() shouldBe forExampleText
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayText
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthText
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearText
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueText
-//      }
-//
-//    }
-//
-//    "Show the correct page for an English, agent, occupier from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = true, fromCya = true,
-//        owner = false, occupier = true)
-//
-//      s"has a title of '$titleTextAgent''" in {
-//        document.title() shouldBe titleTextAgent
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkText
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
-//      }
-//
-//      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerTextAgent
-//        document.select(captionSelector).text shouldBe captionText
-//      }
-//
-//      s"has a $yesText radio button that is un-checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesText
-//        document.select(yesSelector).hasAttr("checked") shouldBe true
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noText
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfOccupierTextAgent" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfOccupierTextAgent
-//        document.select(forExampleSelector).text() shouldBe forExampleText
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayText
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthText
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearText
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueText
-//      }
-//
-//    }
-//
-//    "Show the correct page for a Welsh, non agent, owner and occupier not from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = false, fromCya = false,
-//        owner = true, occupier = true)
-//
-//      s"has a title of '$titleText''" in {
-//        document.title() shouldBe titleTextWelsh
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-//      }
-//
-//      s"has a header of '$headerText' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerTextWelsh
-//        document.select(captionSelector).text shouldBe captionTextWelsh
-//      }
-//
-//      s"has a $yesText radio button that is un-checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
-//        document.select(yesSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfText" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfTextWelsh
-//        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueTextWelsh
-//      }
-//
-//    }
-//
-//    "Show the correct page for a Welsh, non agent, owner not from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = false, fromCya = false,
-//        owner = true, occupier = false)
-//
-//      s"has a title of '$titleText''" in {
-//        document.title() shouldBe titleTextWelsh
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-//      }
-//
-//      s"has a header of '$headerText' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerTextWelsh
-//        document.select(captionSelector).text shouldBe captionTextWelsh
-//      }
-//
-//      s"has a $yesText radio button that is un-checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
-//        document.select(yesSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfOwnerText" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfOwnerTextWelsh
-//        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueTextWelsh
-//      }
-//
-//    }
-//
-//    "Show the correct page for a Welsh, non agent, occupier from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = false, fromCya = true,
-//        owner = false, occupier = true)
-//
-//      s"has a title of '$titleText''" in {
-//        document.title() shouldBe titleTextWelsh
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
-//      }
-//
-//      s"has a header of '$headerText' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerTextWelsh
-//        document.select(captionSelector).text shouldBe captionTextWelsh
-//      }
-//
-//      s"has a $yesText radio button that is checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
-//        document.select(yesSelector).hasAttr("checked") shouldBe true
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfOccupierText" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfOccupierTextWelsh
-//        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueTextWelsh
-//      }
-//
-//    }
-//
-//    "Show the correct page for a Welsh, agent, owner and occupier from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = true, fromCya = true,
-//        owner = true, occupier = true)
-//
-//      s"has a title of '$titleTextAgent''" in {
-//        document.title() shouldBe titleTextWelshAgent
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
-//      }
-//
-//      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerTextWelshAgent
-//        document.select(captionSelector).text shouldBe captionTextWelsh
-//      }
-//
-//      s"has a $yesText radio button that is checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
-//        document.select(yesSelector).hasAttr("checked") shouldBe true
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfTextAgent" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfTextWelshAgent
-//        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueTextWelsh
-//      }
-//
-//    }
-//
-//    "Show the correct page for a Welsh, agent, owner not from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = true, fromCya = false,
-//        owner = true, occupier = false)
-//
-//      s"has a title of '$titleTextWelshAgent''" in {
-//        document.title() shouldBe titleTextWelshAgent
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-//      }
-//
-//      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerTextWelshAgent
-//        document.select(captionSelector).text shouldBe captionTextWelsh
-//      }
-//
-//      s"has a $yesText radio button that is un-checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
-//        document.select(yesSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfOwnerTextAgent" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfOwnerTextWelshAgent
-//        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueTextWelsh
-//      }
-//
-//    }
-//
-//    "Show the correct page for a Welsh, agent, occupier from cya" which {
-//
-//      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = true, fromCya = true,
-//        owner = false, occupier = true)
-//
-//      s"has a title of '$titleTextWelshAgent''" in {
-//        document.title() shouldBe titleTextWelshAgent
-//      }
-//
-//      "has a back link" in {
-//        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
-//        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
-//      }
-//
-//      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
-//        document.select(headerSelector).text shouldBe headerTextWelshAgent
-//        document.select(captionSelector).text shouldBe captionTextWelsh
-//      }
-//
-//      s"has a $yesText radio button that is checked" in {
-//        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
-//        document.select(yesSelector).hasAttr("checked") shouldBe true
-//      }
-//
-//      s"has a $noText radio button" in {
-//        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
-//        document.select(noSelector).hasAttr("checked") shouldBe false
-//      }
-//
-//      s"has a conditionally hidden section to input the date for $dateOfOccupierTextAgent" in {
-//        document.select(dateOfSelector).text() shouldBe dateOfOccupierTextWelshAgent
-//        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
-//        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
-//        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
-//        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
-//      }
-//
-//      s"has a '$continueText' link on the screen" in {
-//        document.select(continueSelector).text() shouldBe continueTextWelsh
-//      }
-//
-//    }
-//
-//  }
+  "OccupancyOfPropertyController show method" should {
+    "Show the correct page for an English, non agent, owner and occupier not from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = false, fromCya = false,
+        owner = true, occupier = true)
+
+      s"has a title of '$titleText''" in {
+        document.title() shouldBe titleText
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkText
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerText
+        document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has a $yesText radio button that is un-checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesText
+        document.select(yesSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noText
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfText" in {
+        document.select(dateOfSelector).text() shouldBe dateOfText
+        document.select(forExampleSelector).text() shouldBe forExampleText
+        document.select(dateInputsSelector).get(0).text() shouldBe dayText
+        document.select(dateInputsSelector).get(1).text() shouldBe monthText
+        document.select(dateInputsSelector).get(2).text() shouldBe yearText
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueText
+      }
+
+    }
+
+    "Show the correct page for an English, non agent, owner not from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = false, fromCya = false,
+        owner = true, occupier = false)
+
+      s"has a title of '$titleText''" in {
+        document.title() shouldBe titleText
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkText
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerText
+        document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has a $yesText radio button that is un-checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesText
+        document.select(yesSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noText
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfOwnerText" in {
+        document.select(dateOfSelector).text() shouldBe dateOfOwnerText
+        document.select(forExampleSelector).text() shouldBe forExampleText
+        document.select(dateInputsSelector).get(0).text() shouldBe dayText
+        document.select(dateInputsSelector).get(1).text() shouldBe monthText
+        document.select(dateInputsSelector).get(2).text() shouldBe yearText
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueText
+      }
+
+    }
+
+    "Show the correct page for an English, non agent, occupier from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = false, fromCya = true,
+        owner = false, occupier = true)
+
+      s"has a title of '$titleText''" in {
+        document.title() shouldBe titleText
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkText
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerText
+        document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has a $yesText radio button that is un-checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesText
+        document.select(yesSelector).hasAttr("checked") shouldBe true
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noText
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfOccupierText" in {
+        document.select(dateOfSelector).text() shouldBe dateOfOccupierText
+        document.select(forExampleSelector).text() shouldBe forExampleText
+        document.select(dateInputsSelector).get(0).text() shouldBe dayText
+        document.select(dateInputsSelector).get(1).text() shouldBe monthText
+        document.select(dateInputsSelector).get(2).text() shouldBe yearText
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueText
+      }
+
+    }
+
+    "Show the correct page for an English, agent, owner and occupier from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = true, fromCya = true,
+        owner = true, occupier = true)
+
+      s"has a title of '$titleTextAgent''" in {
+        document.title() shouldBe titleTextAgent
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkText
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
+      }
+
+      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerTextAgent
+        document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has a $yesText radio button that is un-checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesText
+        document.select(yesSelector).hasAttr("checked") shouldBe true
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noText
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfTextAgent" in {
+        document.select(dateOfSelector).text() shouldBe dateOfTextAgent
+        document.select(forExampleSelector).text() shouldBe forExampleText
+        document.select(dateInputsSelector).get(0).text() shouldBe dayText
+        document.select(dateInputsSelector).get(1).text() shouldBe monthText
+        document.select(dateInputsSelector).get(2).text() shouldBe yearText
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueText
+      }
+
+    }
+
+    "Show the correct page for an English, agent, owner not from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = true, fromCya = false,
+        owner = true, occupier = false)
+
+      s"has a title of '$titleTextAgent''" in {
+        document.title() shouldBe titleTextAgent
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkText
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerTextAgent
+        document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has a $yesText radio button that is un-checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesText
+        document.select(yesSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noText
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfOwnerTextAgent" in {
+        document.select(dateOfSelector).text() shouldBe dateOfOwnerTextAgent
+        document.select(forExampleSelector).text() shouldBe forExampleText
+        document.select(dateInputsSelector).get(0).text() shouldBe dayText
+        document.select(dateInputsSelector).get(1).text() shouldBe monthText
+        document.select(dateInputsSelector).get(2).text() shouldBe yearText
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueText
+      }
+
+    }
+
+    "Show the correct page for an English, agent, occupier from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = English, userIsAgent = true, fromCya = true,
+        owner = false, occupier = true)
+
+      s"has a title of '$titleTextAgent''" in {
+        document.title() shouldBe titleTextAgent
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkText
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
+      }
+
+      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerTextAgent
+        document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has a $yesText radio button that is un-checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesText
+        document.select(yesSelector).hasAttr("checked") shouldBe true
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noText
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfOccupierTextAgent" in {
+        document.select(dateOfSelector).text() shouldBe dateOfOccupierTextAgent
+        document.select(forExampleSelector).text() shouldBe forExampleText
+        document.select(dateInputsSelector).get(0).text() shouldBe dayText
+        document.select(dateInputsSelector).get(1).text() shouldBe monthText
+        document.select(dateInputsSelector).get(2).text() shouldBe yearText
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueText
+      }
+
+    }
+
+    "Show the correct page for a Welsh, non agent, owner and occupier not from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = false, fromCya = false,
+        owner = true, occupier = true)
+
+      s"has a title of '$titleText''" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerTextWelsh
+        document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has a $yesText radio button that is un-checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
+        document.select(yesSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfText" in {
+        document.select(dateOfSelector).text() shouldBe dateOfTextWelsh
+        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
+        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
+        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
+        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueTextWelsh
+      }
+
+    }
+
+    "Show the correct page for a Welsh, non agent, owner not from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = false, fromCya = false,
+        owner = true, occupier = false)
+
+      s"has a title of '$titleText''" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerTextWelsh
+        document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has a $yesText radio button that is un-checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
+        document.select(yesSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfOwnerText" in {
+        document.select(dateOfSelector).text() shouldBe dateOfOwnerTextWelsh
+        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
+        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
+        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
+        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueTextWelsh
+      }
+
+    }
+
+    "Show the correct page for a Welsh, non agent, occupier from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = false, fromCya = true,
+        owner = false, occupier = true)
+
+      s"has a title of '$titleText''" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerTextWelsh
+        document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has a $yesText radio button that is checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
+        document.select(yesSelector).hasAttr("checked") shouldBe true
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfOccupierText" in {
+        document.select(dateOfSelector).text() shouldBe dateOfOccupierTextWelsh
+        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
+        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
+        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
+        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueTextWelsh
+      }
+
+    }
+
+    "Show the correct page for a Welsh, agent, owner and occupier from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = true, fromCya = true,
+        owner = true, occupier = true)
+
+      s"has a title of '$titleTextAgent''" in {
+        document.title() shouldBe titleTextWelshAgent
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
+      }
+
+      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerTextWelshAgent
+        document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has a $yesText radio button that is checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
+        document.select(yesSelector).hasAttr("checked") shouldBe true
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfTextAgent" in {
+        document.select(dateOfSelector).text() shouldBe dateOfTextWelshAgent
+        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
+        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
+        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
+        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueTextWelsh
+      }
+
+    }
+
+    "Show the correct page for a Welsh, agent, owner not from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = true, fromCya = false,
+        owner = true, occupier = false)
+
+      s"has a title of '$titleTextWelshAgent''" in {
+        document.title() shouldBe titleTextWelshAgent
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerTextWelshAgent
+        document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has a $yesText radio button that is un-checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
+        document.select(yesSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfOwnerTextAgent" in {
+        document.select(dateOfSelector).text() shouldBe dateOfOwnerTextWelshAgent
+        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
+        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
+        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
+        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueTextWelsh
+      }
+
+    }
+
+    "Show the correct page for a Welsh, agent, occupier from cya" which {
+
+      lazy val document: Document = getOccupancyOfPropertyPage(language = Welsh, userIsAgent = true, fromCya = true,
+        owner = false, occupier = true)
+
+      s"has a title of '$titleTextWelshAgent''" in {
+        document.title() shouldBe titleTextWelshAgent
+      }
+
+      "has a back link" in {
+        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHrefFromCya
+      }
+
+      s"has a header of '$headerTextAgent' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerTextWelshAgent
+        document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has a $yesText radio button that is checked" in {
+        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
+        document.select(yesSelector).hasAttr("checked") shouldBe true
+      }
+
+      s"has a $noText radio button" in {
+        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
+        document.select(noSelector).hasAttr("checked") shouldBe false
+      }
+
+      s"has a conditionally hidden section to input the date for $dateOfOccupierTextAgent" in {
+        document.select(dateOfSelector).text() shouldBe dateOfOccupierTextWelshAgent
+        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
+        document.select(dateInputsSelector).get(0).text() shouldBe dayTextWelsh
+        document.select(dateInputsSelector).get(1).text() shouldBe monthTextWelsh
+        document.select(dateInputsSelector).get(2).text() shouldBe yearTextWelsh
+      }
+
+      s"has a '$continueText' link on the screen" in {
+        document.select(continueSelector).text() shouldBe continueTextWelsh
+      }
+
+    }
+
+  }
 
   "OccupancyOfPropertyController post method" should {
     "Redirect to the choose evidence page if the user chooses yes and has not come from cya" in {
@@ -1325,31 +1331,54 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
 
     }
 
-//    "Return a bad request and show the error page if the user has chosen no, but not given a date" in {
-//      val requestBody: JsObject = Json.obj(
-//        "stillOccupied" -> "false",
-//        "lastOccupiedDate.day" -> "01",
-//        "lastOccupiedDate.month" -> "01",
-//        "lastOccupiedDate.year" -> "2999"
-//      )
-//
-//      lazy val document: Document = postOccupancyOfPropertyPage(language = English, userIsAgent = true, fromCya = false,
-//        owner = false, occupier = true, postBody = requestBody)
-//
-//      s"has a title of $errorTitleText" in {
-//        document.title() shouldBe errorTitleText
-//      }
-//
-//      s"has an error summary that contains the correct error message '$ownerOccupierErrorText'" in {
-//        document.select(errorSummaryTitleSelector).text() shouldBe thereIsAProblemText
-//        document.select(errorSummaryErrorSelector).text() shouldBe ownerOccupierErrorText
-//      }
-//
-//      s"has an error message above the radio button of $ownerOccupierErrorText" in {
-//        document.select(aboveRadiosErrorSelector).text() shouldBe ownerOccupierErrorText
-//      }
-//
-//    }
+    "Return a bad request and show the error page if the user has chosen no, but not given a date" when {
+      val requestBody: JsObject = Json.obj(
+        "stillOccupied" -> "false"
+      )
+
+      lazy val document: Document = postOccupancyOfPropertyPage(language = English, userIsAgent = false, fromCya = false,
+        owner = false, occupier = true, postBody = requestBody)
+
+      s"has a title of $errorTitleText" in {
+        document.title() shouldBe errorTitleText
+      }
+
+      s"has an error summary that contains the correct error message '$emptyDateErrorText'" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe thereIsAProblemText
+        document.select(errorSummaryErrorSelector).text() shouldBe emptyDateErrorText
+      }
+
+      s"has an error message above the date field of ${errorPrefix + enterValidDateErrorText}" in {
+        document.select(aboveDateFieldsErrorSelector).text() shouldBe errorPrefix + enterValidDateErrorText
+      }
+
+    }
+
+    "Return a bad request and show the error page if the user has chosen no, and given an invalid date" when {
+      val requestBody: JsObject = Json.obj(
+        "stillOccupied" -> "false",
+        "lastOccupiedDate.day" -> "a",
+        "lastOccupiedDate.month" -> "01",
+        "lastOccupiedDate.year" -> "2022"
+      )
+
+      lazy val document: Document = postOccupancyOfPropertyPage(language = English, userIsAgent = false, fromCya = false,
+        owner = false, occupier = true, postBody = requestBody)
+
+      s"has a title of $errorTitleText" in {
+        document.title() shouldBe errorTitleText
+      }
+
+      s"has an error summary that contains the correct error message '$invalidDateErrorText'" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe thereIsAProblemText
+        document.select(errorSummaryErrorSelector).text() shouldBe invalidDateErrorText
+      }
+
+      s"has an error message above the date fields of ${errorPrefix + enterValidDateErrorText}" in {
+        document.select(aboveDateFieldsErrorSelector).text() shouldBe errorPrefix + enterValidDateErrorText
+      }
+
+    }
 
     "Return a Welsh bad request and show the error page if the user is an owner and occupier and has not chosen a radio button" when {
 
@@ -1807,31 +1836,54 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
 
     }
 
-//    "Return a Welsh bad request and show the error page if the user has chosen no, but not given a date" in {
-//      val requestBody: JsObject = Json.obj(
-//        "stillOccupied" -> "false",
-//        "lastOccupiedDate.day" -> "01",
-//        "lastOccupiedDate.month" -> "01",
-//        "lastOccupiedDate.year" -> "2999"
-//      )
-//
-//      lazy val document: Document = postOccupancyOfPropertyPage(language = Welsh, userIsAgent = true, fromCya = false,
-//        owner = false, occupier = true, postBody = requestBody)
-//
-//      s"has a title of $errorTitleText" in {
-//        document.title() shouldBe errorTitleTextWelsh
-//      }
-//
-//      s"has an error summary that contains the correct error message '$ownerOccupierErrorText'" in {
-//        document.select(errorSummaryTitleSelector).text() shouldBe thereIsAProblemTextWelsh
-//        document.select(errorSummaryErrorSelector).text() shouldBe ownerOccupierErrorTextWelsh
-//      }
-//
-//      s"has an error message above the radio button of $ownerOccupierErrorText" in {
-//        document.select(aboveRadiosErrorSelector).text() shouldBe ownerOccupierErrorTextWelsh
-//      }
-//
-//    }
+    "Return a Welsh bad request and show the error page if the user has chosen no, but not given a date" when {
+      val requestBody: JsObject = Json.obj(
+        "stillOccupied" -> "false"
+      )
+
+      lazy val document: Document = postOccupancyOfPropertyPage(language = Welsh, userIsAgent = false, fromCya = false,
+        owner = false, occupier = true, postBody = requestBody)
+
+      s"has a title of $errorTitleText" in {
+        document.title() shouldBe errorTitleTextWelsh
+      }
+
+      s"has an error summary that contains the correct error message '$emptyDateErrorText'" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe thereIsAProblemTextWelsh
+        document.select(errorSummaryErrorSelector).text() shouldBe emptyDateErrorTextWelsh
+      }
+
+      s"has an error message above the date fields of ${errorPrefixWelsh + enterValidDateErrorTextWelsh}" in {
+        document.select(aboveDateFieldsErrorSelector).text() shouldBe errorPrefixWelsh + enterValidDateErrorTextWelsh
+      }
+
+    }
+
+    "Return a Welsh bad request and show the error page if the user has chosen no, and given an invalid date" when {
+      val requestBody: JsObject = Json.obj(
+        "stillOccupied" -> "false",
+        "lastOccupiedDate.day" -> "a",
+        "lastOccupiedDate.month" -> "01",
+        "lastOccupiedDate.year" -> "2022"
+      )
+
+      lazy val document: Document = postOccupancyOfPropertyPage(language = Welsh, userIsAgent = false, fromCya = false,
+        owner = false, occupier = true, postBody = requestBody)
+
+      s"has a title of $errorTitleText" in {
+        document.title() shouldBe errorTitleTextWelsh
+      }
+
+      s"has an error summary that contains the correct error message '$invalidDateErrorText'" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe thereIsAProblemTextWelsh
+        document.select(errorSummaryErrorSelector).text() shouldBe invalidDateErrorTextWelsh
+      }
+
+      s"has an error message above the date fields of ${errorPrefixWelsh + enterValidDateErrorTextWelsh}" in {
+        document.select(aboveDateFieldsErrorSelector).text() shouldBe errorPrefixWelsh + enterValidDateErrorTextWelsh
+      }
+
+    }
 
   }
 
