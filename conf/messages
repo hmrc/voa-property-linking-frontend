@@ -651,6 +651,7 @@ propertyRepresentation.manageAgent.options.assignToSomeProperties=Assign to some
 propertyRepresentation.manageAgent.options.unassignFromAllProperties=Unassign from all properties
 propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Unassign from some properties
 propertyRepresentation.manageAgent.options.assignToYourProperty=Assign to your property
+propertyRepresentation.manageAgent.options.unassignFromYourProperty= Unassign from my property
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from your account
 
 propertyRepresentation.manageAgent.assignToAllProperties.title.multiple=Are you sure you want to assign {0} to all your properties?

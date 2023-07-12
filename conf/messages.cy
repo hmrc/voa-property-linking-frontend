@@ -594,6 +594,7 @@ propertyRepresentation.manageAgent.options.assignToSomeProperties=Neilltuo i amb
 propertyRepresentation.manageAgent.options.unassignFromAllProperties=Dad-neilltuo o’ch holl eiddo
 propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Dad-neilltuo o rhai eiddo
 propertyRepresentation.manageAgent.options.assignToYourProperty=Neilltuo i’ch eiddo
+propertyRepresentation.manageAgent.options.unassignFromYourProperty= Unassign from my property
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Dileu o’ch cyfrif
 
 propertyRepresentation.manageAgent.assignToAllProperties.title.multiple=Ydych chi’n siŵr eich bod am neilltuo {0} i’ch holl eiddo?

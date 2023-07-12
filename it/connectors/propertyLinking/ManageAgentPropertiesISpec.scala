@@ -14,7 +14,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class MyAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
+class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 

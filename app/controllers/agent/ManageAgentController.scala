@@ -20,7 +20,7 @@ import actions.AuthenticatedAction
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
 import businessrates.authorisation.config.FeatureSwitch
-import config.{ApplicationConfig}
+import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.propertyrepresentation._
@@ -35,8 +35,9 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
 import repositories.SessionRepo
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
 
+import java.lang
 import scala.concurrent.{ExecutionContext, Future}
 
 class ManageAgentController @Inject()(
@@ -93,7 +94,10 @@ class ManageAgentController @Inject()(
                             .getMyAgentPropertyLinks(agentCode, params, PaginationParams(1, 100, true))
         agentDetails <- agentRelationshipService.getAgentNameAndAddress(agentCode)
         myAgents     <- agentRelationshipService.getMyOrganisationAgents()
-        listYears = myAgents.agents.flatMap(_.listYears).headOption
+        listYears = myAgents.agents
+          .find(_.representativeCode == agentCode)
+          .flatMap(_.listYears)
+          .getOrElse(Seq.empty[String])
         backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId, myAgents.resultCount) match {
           case (None, None, None, 1) => config.dashboardUrl("home")
           case (Some(linkId), Some(valId), Some(submissionId), _) =>
@@ -184,12 +188,22 @@ class ManageAgentController @Inject()(
           }
         case (1, Some(agent)) if agent.propertyCount == 1 =>
           //IP has one property link and agent is assigned to that property
-          Some(
-            unassignAgentFromPropertyView(
-              submitAgentAppointmentRequest,
-              agent,
-              calculateBackLink(organisationsAgents, agent.representativeCode)))
+          if (featureSwitch.isAgentListYearsEnabled) {
+            Some(
+              manageAgentView(
+                submitManageAgentForm,
+                ManageAgentOptions.onePropertyLinkAssignedAgentsOptions,
+                agent,
+                calculateBackLink(organisationsAgents, agent.representativeCode)
+              ))
 
+          } else {
+            Some(
+              unassignAgentFromPropertyView(
+                submitAgentAppointmentRequest,
+                agent,
+                calculateBackLink(organisationsAgents, agent.representativeCode)))
+          }
         case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
           //IP has more than one property links but agent is not assigned to any
           if (featureSwitch.isAgentListYearsEnabled) {
@@ -271,6 +285,8 @@ class ManageAgentController @Inject()(
               Redirect(controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation))
           case ChangeRatingList =>
             Future.successful(Redirect(controllers.propertyLinking.routes.ChooseRatingListController.show))
+          case UnassignFromYourProperty =>
+            Future.successful((Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll)))
         }
       }
     )

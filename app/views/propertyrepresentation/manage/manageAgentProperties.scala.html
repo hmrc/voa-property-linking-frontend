@@ -24,18 +24,16 @@
 @(      ownerAuthResult: OwnerAuthResult,
         agentCode: Long,
         agentDetails:Option[AgentDetails],
-        listYears: Option[Seq[String]],
+        listYears: Seq[String],
         backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @ratingList = @{
-    listYears.fold("Rating lists for this property are not available yet") { years =>
-        years match {
-            case Seq(listYear) => messages("propertyRepresentation.ratingList.p", listYear)
-            case _ => messages("propertyRepresentation.ratingLists.p")
-        }
+    if (listYears.length == 1) {
+    messages("propertyRepresentation.ratingList.p", listYears.head)
+    } else {
+    messages("propertyRepresentation.ratingLists.p")
     }
 }
-
 @mainLayout(
     pageTitle = messages("propertyRepresentation.agentProperties.assigned.title"),
     backUri = Some(backLink)

@@ -46,6 +46,10 @@ case object AssignToYourProperty extends ManageAgentOptions {
   val name = "assignToYourProperty"
 }
 
+case object UnassignFromYourProperty extends ManageAgentOptions {
+  val name = "unassignFromYourProperty"
+}
+
 case object RemoveFromYourAccount extends ManageAgentOptions {
   val name = "removeFromYourAccount"
 }
@@ -65,6 +69,7 @@ object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
       UnassignFromAllProperties,
       UnassignFromSomeProperties,
       AssignToYourProperty,
+      UnassignFromYourProperty,
       RemoveFromYourAccount,
       ChangeRatingList
     )
@@ -75,7 +80,12 @@ object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
   )
   val onePropertyLinkNoAssignedAgentsOptionsWithRatingList = List(
     ManageAgentOptionItem(s"${AssignToYourProperty.name}"),
-    ManageAgentOptionItem(s"${RemoveFromYourAccount.name}"),
+    ManageAgentOptionItem(s"${ChangeRatingList.name}"),
+    ManageAgentOptionItem(s"${RemoveFromYourAccount.name}")
+  )
+
+  val onePropertyLinkAssignedAgentsOptions = List(
+    ManageAgentOptionItem(s"${UnassignFromYourProperty.name}"),
     ManageAgentOptionItem(s"${ChangeRatingList.name}")
   )
 

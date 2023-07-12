@@ -85,7 +85,7 @@ trait TestData {
         representativeCode = 1001,
         name = "Test Agent",
         appointedDate = LocalDate.parse("2023-01-01"),
-        propertyCount = 10,
+        propertyCount = 1,
         listYears = Some(Seq("2017"))
       )))
   val testResultCount = 2

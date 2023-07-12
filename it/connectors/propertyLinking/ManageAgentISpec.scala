@@ -2,7 +2,7 @@ package connectors.propertyLinking
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.AgentSummary
+import models.propertyrepresentation.{AgentList, AgentSummary}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.Status.OK
@@ -29,6 +29,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   def headerText(name: String) = s"What do you want to do to the agent $name?"
 
   val radioAssignYourText= "Assign to your property"
+  val radioUnAssignYourText= "Unassign from my property"
   val radioAssignAllText= "Assign to all properties"
   val radioAssignASomeText = "Assign to some properties"
   val radioUnassignedAllText = "Unassign from all properties"
@@ -50,6 +51,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val radioUnassignedASomeTextWelsh  = "Dad-neilltuo o rhai eiddo"
   val radioChangeTextWelsh  = "Change which rating list they can act on for you"
   val radioRemoveTextWelsh  = "Dileu o’ch cyfrif"
+  val radioUnAssignYourTextWelsh= "Unassign from my property"
 
 
 
@@ -131,12 +133,22 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     "display 'Manage agent' screen with the correct radio labels and the language is set to English for Agent, who has no assigned properties, but Client got exactly 1 property " which {
 
-      lazy val document = getPageWhenPropertyCountIs1(English, 0)
+      lazy val document = getPageWhenPropertyCountIs1(English, 0, testAgentListFor2023)
 
       "displays a correct text in radios, which are in the correct order" in {
         document.select(firstRadioLabelSelector).text shouldBe radioAssignYourText
-        document.select(secondRadioLabelSelector).text shouldBe radioRemoveText
-        document.select(thirdRadioLabelSelector).text shouldBe radioChangeText
+        document.select(secondRadioLabelSelector).text shouldBe radioChangeText
+        document.select(thirdRadioLabelSelector).text shouldBe radioRemoveText
+      }
+    }
+
+    "display 'Manage agent' screen with the correct radio labels and the language is set to English for Agent, who has 1 assigned property and Client got exactly 1  property " which {
+
+      lazy val document = getPageWhenPropertyCountIs1(English, 1, testAgentListFor2017)
+
+      "displays a correct text in radios, which are in the correct order" in {
+        document.select(firstRadioLabelSelector).text shouldBe radioUnAssignYourText
+        document.select(secondRadioLabelSelector).text shouldBe radioChangeText
       }
     }
     "display 'Manage agent' screen with the correct text, correct radio labels and the language is set to Welsh for Agent, who has got at least 1 property assigned" which {
@@ -183,12 +195,12 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     "display 'Manage agent' screen with the correct radio labels and the language is set to Welsh for Agent, who has no assigned properties, but Client got exactly 1 property " which {
 
-      lazy val document = getPageWhenPropertyCountIs1(Welsh, 1)
+      lazy val document = getPageWhenPropertyCountIs1(Welsh, 0, testAgentListFor2023)
 
       "displays a correct text in radios, which are in the correct order" in {
           document.select(firstRadioLabelSelector).text shouldBe radioAssignYourTextWelsh
-          document.select(secondRadioLabelSelector).text shouldBe radioRemoveTextWelsh
-          document.select(thirdRadioLabelSelector).text shouldBe radioChangeTextWelsh
+          document.select(secondRadioLabelSelector).text shouldBe radioChangeTextWelsh
+          document.select(thirdRadioLabelSelector).text shouldBe radioRemoveTextWelsh
         }
       }
 
@@ -201,6 +213,16 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(firstRadioLabelSelector).text shouldBe radioUnassignedAllTextWelsh
         document.select(secondRadioLabelSelector).text shouldBe radioUnassignedASomeTextWelsh
         document.select(thirdRadioLabelSelector).text shouldBe radioChangeTextWelsh
+      }
+    }
+
+    "display 'Manage agent' screen with the correct radio labels and the language is set to Welsh for Agent, who has 1 assigned property and Client got exactly 1  property " which {
+
+      lazy val document = getPageWhenPropertyCountIs1(Welsh, 1, testAgentListFor2017)
+
+      "displays a correct text in radios, which are in the correct order" in {
+        document.select(firstRadioLabelSelector).text shouldBe radioUnAssignYourTextWelsh
+        document.select(secondRadioLabelSelector).text shouldBe radioChangeTextWelsh
       }
     }
   }
@@ -257,7 +279,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
     Jsoup.parse(res.body)
   }
 
-  private def getPageWhenPropertyCountIs1(language: Language, propertyCount: Int): Document = {
+  private def getPageWhenPropertyCountIs1(language: Language, propertyCount: Int, agentList: AgentList): Document = {
     await(
       mockRepository.saveOrUpdate(
         AgentSummary(
@@ -266,7 +288,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
           organisationId = 100L,
           representativeCode = 100L,
           appointedDate = LocalDate.now(),
-          propertyCount = 0
+          propertyCount = propertyCount
         )
       )
     )
@@ -281,7 +303,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
     stubFor {
       get("/property-linking/owner/agents")
         .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testAgentListFor2023).toString())
+          aResponse.withStatus(OK).withBody(Json.toJson(agentList).toString())
         }
     }
 
