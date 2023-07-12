@@ -26,15 +26,16 @@
 
 @(form: Form[ManageAgentRequest], radioOptions: List[ManageAgentOptionItem], agent: AgentSummary, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@radioItems = @{
-    radioOptions.map{item =>
-        RadioItem(
-            id = if(radioOptions.nonEmpty && item == radioOptions.head) Some("manageAgentOption") else None,
-            value = Some(item.value),
-            checked = form.value.fold(false)(_ == item.value),
-            content = Text(messages(s"propertyRepresentation.manageAgent.options.${item.titleMessageKeySuffix}")))
+    @radioItems = @{
+        radioOptions.map { item =>
+            RadioItem(
+                id = if (radioOptions.nonEmpty && item == radioOptions.head) Some("manageAgentOption") else None,
+                value = Some(item.value.name),
+                checked = form.value.fold(false)(_ == item.value),
+                content = Text(messages(s"propertyRepresentation.manageAgent.options.${item.titleMessageKeySuffix}"))
+            )
+        }
     }
-}
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.title"),
