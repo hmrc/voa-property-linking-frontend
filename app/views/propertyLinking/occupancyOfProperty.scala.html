@@ -22,11 +22,64 @@
 @import play.api.data._
 @import views.html.includes.assessmentHeading
 
+
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+
 
 @(form: Form[_], clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @clientSuffix = @{ clientDetails.fold("")(_ => ".client") }
+
+@ownershipStatusSuffix= @{
+    val capacityType: Option[CapacityType] = request.ses.propertyRelationship.map(_.capacity)
+    capacityType match {
+        case Some(Owner) => "owner"
+        case Some(Occupier) => "occupier"
+        case Some(OwnerOccupier) => "ownerAndOccupier"
+    }
+}
+@errorMessageMappingHelper = @{
+val helper = request.ses.propertyRelationship.map(_.capacity).fold(
+    messages("error.date.mustBeAfterStartDate.relationship.fallback"))(
+    _.name match {
+        case "OWNER" => messages("capacity.OWNER")
+        case "OCCUPIER" => messages("capacity.OCCUPIER")
+        case "OWNER_OCCUPIER" => messages("capacity.OWNER_OCCUPIER")
+    }).toLowerCase
+    helper
+}
+@errorHandler = @{
+   val manualDateErrorHandler: PartialFunction[String, String] = {
+        case e @ "error.date.mustBeAfterStartDate"  =>
+            messages(
+                e + clientSuffix,
+                errorMessageMappingHelper,
+                formattedFullDate(occupancyStartDate)
+            )
+        case e @ "interestedEndDate.error.dateInFuture" =>
+            messages(e + clientSuffix, errorMessageMappingHelper)
+
+        case e @ "error.boolean" =>
+          messages("label.stillOccupied" + clientSuffix + "." + ownershipStatusSuffix)
+
+    }
+    manualDateErrorHandler
+}
+
+@noChoiceError = @{
+  Seq(
+    form.error("stillOccupied")
+  ).flatten.headOption.map { formError =>
+    ErrorMessage.errorMessageWithDefaultStringsTranslated(
+      content = Text(
+        errorHandler.applyOrElse(
+          formError.message,
+          (_: String) => messages("error.common.invalid.date")
+        )
+      )
+    )
+  }
+}
 
 @occupancyStartDate(implicit request: LinkingSessionRequest[_]) = @{
   val earliestStartDate = request.ses.earliestStartDate
@@ -50,17 +103,8 @@
                     form,
                     "lastOccupiedDate",
                     clientSuffix,
-                    manualDateErrorHandler = {
-                        case e @ "error.date.mustBeAfterStartDate" =>
-                            messages(
-                                e + clientSuffix,
-                                request.ses.propertyRelationship.map(_.capacity).fold(
-                                    messages("error.date.mustBeAfterStartDate.relationship.fallback"))(
-                                    _.name.replace("_", s" ${messages("common.and")} ").toLowerCase),
-                                formattedFullDate(occupancyStartDate)
-                            )
-                    }
-                ),
+                    ownershipStatusSuffix,
+                    errorHandler),
                 title = Text(messages("error.propertyRepresentation.title"))
             )
         )
@@ -74,7 +118,8 @@
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOccupancyController.submitOccupancy) {
 
         @govukRadios(Radios(
-            name = "stillOccupied",
+          errorMessage = if(form.errors.nonEmpty) noChoiceError else None,
+          name = "stillOccupied",
             items = Seq(
                 RadioItem(
                     content = Text(messages("app.common.yes")),
@@ -88,7 +133,8 @@
                             form = form,
                             fieldName = "lastOccupiedDate",
                             hintDateOverride = Some(occupancyStartDate.plusDays(1)),
-                            label = Some(s"label.lastOccupiedDate$clientSuffix")))
+                            label = Some(s"label.lastOccupiedDate$clientSuffix.$ownershipStatusSuffix"),
+                            manualErrorHandler = errorHandler))
 
                 )
             )).withFormField(form("stillOccupied")))

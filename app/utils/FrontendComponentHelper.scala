@@ -28,6 +28,7 @@ object FrontendComponentHelper {
         form: Form[_],
         fieldName: String,
         messagesKeySuffix: String = "",
+        ownershipStatusSuffix: String = "",
         manualDateErrorHandler: PartialFunction[String, String] = PartialFunction.empty)(
         implicit messages: Messages): Seq[ErrorLink] = {
 
@@ -47,11 +48,19 @@ object FrontendComponentHelper {
       .map { error: FormError =>
         ErrorLink(
           href = if (isDateFieldErrorsExists(error, fieldName)) Some(s"#${error.key}-day") else Some(s"#${error.key}"),
-          content = Text(manualDateErrorHandler
-            .applyOrElse(
-              error.message,
-              (_: String) =>
-                s"${messages(s"label.${error.key}$messagesKeySuffix")} - ${messages(error.message, error.args.map(_.toString): _*)}"))
+          content = Text(
+            manualDateErrorHandler
+              .applyOrElse(
+                error.message,
+                (_: String) =>
+                  if (ownershipStatusSuffix.isEmpty) {
+                    s"${messages(s"label.${error.key}$messagesKeySuffix")} - ${messages(error.message, error.args.map(_.toString): _*)}"
+                  } else {
+                    s"${messages(s"label.${error.key}$messagesKeySuffix.$ownershipStatusSuffix")} - ${messages(
+                      error.message,
+                      error.args.map(_.toString): _*)}"
+                }
+              ))
         )
       }
   }
