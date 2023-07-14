@@ -18,11 +18,14 @@
 @import _root_.utils.Formatters
 @import config.ApplicationConfig
 @import views.html.dashboard.assessmentDetails
+@import views.html.components.naRateableDetailSection
 
 
-@this(mainLayout: views.html.mainLayout, assessmentDetailsView: assessmentDetails)
+@this(mainLayout: views.html.mainLayout,
+      assessmentDetailsView: assessmentDetails,
+      naRateableDetailSection: naRateableDetailSection)
 
-@(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.AssessmentsVM, owner: Boolean, rateableNA: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("assessments.title"),
@@ -50,5 +53,9 @@
       </p>
     </div>
 </div>
+    @if(rateableNA && model.historicAssessments.nonEmpty){
+        @naRateableDetailSection()
+    }
+
     @assessmentDetailsView(model, owner)
 }

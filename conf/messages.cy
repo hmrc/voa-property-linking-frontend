@@ -410,7 +410,6 @@ assessments.view.summary=Gweld prisiad cryno
 label.viewAssessmentRadio=Prisiad
 
 assessments.localAuthorityRef=Cyfeirnod yr awdurdod lleol:
-assessments.caption=Eich eiddo
 assessments.title=Dewis prisiad i wirio
 assessments.subtitle=Prisiadau ar gyfer yr eiddo hwn
 
@@ -426,7 +425,7 @@ assessments.selectValuation.to=i
 assessments.na=Dim ar gael
 assessments.icon.help.valuationPeriod = Cymorth gyda Prisiadau
 assessments.caption.ip = Eich eiddo
-assessments.caption.agent = Eiddo''r cleient: {0}
+assessments.caption.agent = Eiddo‘r cleient: {0}
 assessments.icon.help.effectiveDate = Cymorth gyda Dyddiad dod i rym
 
 

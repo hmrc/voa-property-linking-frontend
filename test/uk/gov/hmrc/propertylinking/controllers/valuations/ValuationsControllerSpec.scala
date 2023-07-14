@@ -382,4 +382,24 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
       "Perchennog")
   }
 
+  it should "display the n/a rateable help for a historic property with n/a" in new ValuationsSetup {
+
+
+    when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
+      .thenReturn(Future.successful(Some(AssessmentsPageSession(PreviousPage.Dashboard))))
+
+    lazy val as = apiAssessmentsNoRateableInfo(ownerAuthorisation)
+
+    override def assessments: Future[Option[ApiAssessments]] = Future.successful(Some(as))
+
+    val res = valuationsController.valuations(plSubId, owner = true)(request)
+    status(res) shouldBe OK
+
+    val returnedHtml = contentAsString(res)
+    val document: Document = Jsoup.parse(returnedHtml)
+    Option(document.select("#main-content > div > div > details:nth-child(2) > summary")).map(_.text()) shouldBe Some(
+      "Help with rateable value not available (N/A)")
+
+  }
+
 }

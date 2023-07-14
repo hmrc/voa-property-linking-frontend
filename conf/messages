@@ -477,7 +477,7 @@ assessments.caption.agent=Client property: {0}
 assessments.title=Select a valuation to check
 assessments.subtitle=Valuations for this property
 
-assessments.icon.help.valuationPeriod=Help with valuation period
+assessments.icon.help.valuationPeriod=Help with valuation
 assessments.icon.help.effectiveDate=Help with effective date
 assessments.current.text=Current
 assessments.draft.text=Draft
@@ -487,6 +487,19 @@ assessments.aria.label.full=Select this valuation - {0} from {1} to {2}
 assessments.aria.label.partial=Select this valuation - {0} from {1}
 
 assessments.na=N/A
+
+assessments.na.help.summary=Help with rateable value not available (N/A)
+assessments.na.help.first.sentence=The rateable value is N/A because the property has been removed from the rating list.
+assessments.na.help.second.sentence=This can be when:
+assessments.na.help.first.bulletpoint=the property has been split or merged with other properties
+assessments.na.help.second.bulletpoint=the address or description has changed
+assessments.na.help.pre.link=You may
+assessments.na.help.link=find a new property
+assessments.na.help.post.link=with the same or similar address that does have a rateable value.
+assessments.na.help.fourth.sentence=If you own or occupy the property, add the new property to your account if you want to:
+assessments.na.help.third.bulletpoint=view the detailed valuation
+assessments.na.help.fourth.bulletpoint=send a Check or Challenge case
+assessments.na.help.fifth.sentence=The property can also be removed from the rating list and have a rateable value N/A when it’s no longer used for business. For example, the property may be being redeveloped, be exempt or have changed to domestic use.
 
 label.help=Help with {0}
 rv.na=Rateable value is N/A
