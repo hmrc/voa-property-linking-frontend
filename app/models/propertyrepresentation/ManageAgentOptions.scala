@@ -72,38 +72,6 @@ object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
       RemoveFromYourAccount,
       ChangeRatingList
     )
-
-  private val assignOptions = List(AssignToAllProperties, AssignToSomeProperties)
-  private val unassignOptions = List(UnassignFromAllProperties, UnassignFromSomeProperties)
-
-  val onePropertyLinkNoAssignedAgentsOptions = List(
-    ManageAgentOptionItem(AssignToYourProperty),
-    ManageAgentOptionItem(RemoveFromYourAccount)
-  )
-  val onePropertyLinkNoAssignedAgentsOptionsWithRatingList = List(
-    ManageAgentOptionItem(AssignToYourProperty),
-    ManageAgentOptionItem(ChangeRatingList),
-    ManageAgentOptionItem(RemoveFromYourAccount)
-  )
-
-  val onePropertyLinkAssignedAgentsOptions = List(
-    ManageAgentOptionItem(UnassignFromYourProperty),
-    ManageAgentOptionItem(ChangeRatingList)
-  )
-
-  val multiplePropertyLinksNoAssignedAgentsOptions = assignOptions.map(ManageAgentOptionItem.apply) :+ ManageAgentOptionItem(
-    RemoveFromYourAccount)
-  val multiplePropertyLinksNoAssignedAgentsOptionsWithRatingList = assignOptions.map(ManageAgentOptionItem.apply) :+ ManageAgentOptionItem(
-    ChangeRatingList) :+ ManageAgentOptionItem(RemoveFromYourAccount)
-
-  val multiplePropertyLinksAgentAssignedToSomeOptions =
-    (assignOptions ++ unassignOptions).map(ManageAgentOptionItem.apply)
-  val multiplePropertyLinksAgentAssignedToSomeOptionsWithRatingList = (assignOptions ++ unassignOptions).map(
-    ManageAgentOptionItem.apply) :+ ManageAgentOptionItem(ChangeRatingList)
-
-  val multiplePropertyLinksAgentAssignedToAllOptions = unassignOptions.map(ManageAgentOptionItem.apply)
-  val multiplePropertyLinksAgentAssignedToAllOptionsWithRatingList = unassignOptions.map(ManageAgentOptionItem.apply) :+ ManageAgentOptionItem(
-    ChangeRatingList)
 }
 
 case class ManageAgentOptionItem(value: ManageAgentOptions) {

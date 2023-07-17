@@ -23,7 +23,7 @@ import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
-import models.propertyrepresentation._
+import models.propertyrepresentation.{ManageAgentOptionItem, _}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi.OwnerAuthResult
 import play.api.Logger
@@ -159,109 +159,128 @@ class ManageAgentController @Inject()(
                                        )
       ipPropertyLinksCount = propertyLinks.total
     } yield {
-      (ipPropertyLinksCount, agentToBeManagedOpt) match {
-        case (0, Some(agent)) if agent.propertyCount == 0 =>
-          //IP has no property links but still has an agent
-          Some(
-            removeAgentFromOrganisationView(
-              submitAgentAppointmentRequest,
-              agent.representativeCode,
-              agent.name,
-              calculateBackLink(organisationsAgents, agent.representativeCode)))
-        case (1, Some(agent)) if agent.propertyCount == 0 =>
-          //IP has one property link but agent is not assigned
-          if (featureSwitch.isAgentListYearsEnabled) {
+      if (featureSwitch.isAgentListYearsEnabled) {
+        val ManageAgentOptionItemList =
+          (ipPropertyLinksCount, agentToBeManagedOpt) match {
+            case (0, Some(agent)) if agent.propertyCount == 0 =>
+              List(
+                ManageAgentOptionItem(ChangeRatingList),
+                ManageAgentOptionItem(RemoveFromYourAccount)
+              )
+            case (1, Some(agent)) if agent.propertyCount == 0 =>
+              List(
+                ManageAgentOptionItem(AssignToYourProperty),
+                ManageAgentOptionItem(ChangeRatingList),
+                ManageAgentOptionItem(RemoveFromYourAccount)
+              )
+            case (1, Some(agent)) if agent.propertyCount == 1 =>
+              List(
+                ManageAgentOptionItem(UnassignFromYourProperty),
+                ManageAgentOptionItem(ChangeRatingList)
+              )
+            case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
+              List(
+                ManageAgentOptionItem(AssignToAllProperties),
+                ManageAgentOptionItem(AssignToSomeProperties),
+                ManageAgentOptionItem(ChangeRatingList),
+                ManageAgentOptionItem(RemoveFromYourAccount),
+              )
+            case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
+              List(
+                ManageAgentOptionItem(AssignToAllProperties),
+                ManageAgentOptionItem(AssignToSomeProperties),
+                ManageAgentOptionItem(UnassignFromAllProperties),
+                ManageAgentOptionItem(UnassignFromSomeProperties),
+                ManageAgentOptionItem(ChangeRatingList)
+              )
+            case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
+              List(
+                ManageAgentOptionItem(UnassignFromAllProperties),
+                ManageAgentOptionItem(UnassignFromSomeProperties),
+                ManageAgentOptionItem(ChangeRatingList)
+              )
+          }
+        agentToBeManagedOpt match {
+          case (Some(agent)) =>
             Some(
               manageAgentView(
                 submitManageAgentForm,
-                ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptionsWithRatingList,
+                ManageAgentOptionItemList,
                 agent,
                 calculateBackLink(organisationsAgents, agent.representativeCode)
               ))
-          } else {
+          case _ => None
+        }
+      } else {
+        (ipPropertyLinksCount, agentToBeManagedOpt) match {
+          case (0, Some(agent)) if agent.propertyCount == 0 =>
+            //IP has no property links but still has an agent
+            Some(
+              removeAgentFromOrganisationView(
+                submitAgentAppointmentRequest,
+                agent.representativeCode,
+                agent.name,
+                calculateBackLink(organisationsAgents, agent.representativeCode)))
+          case (1, Some(agent)) if agent.propertyCount == 0 =>
+            //IP has one property link but agent is not assigned
             Some(
               manageAgentViewOld(
                 submitManageAgentForm,
-                ManageAgentOptions.onePropertyLinkNoAssignedAgentsOptions,
-                agent,
-                calculateBackLink(organisationsAgents, agent.representativeCode)))
-          }
-        case (1, Some(agent)) if agent.propertyCount == 1 =>
-          //IP has one property link and agent is assigned to that property
-          if (featureSwitch.isAgentListYearsEnabled) {
-            Some(
-              manageAgentView(
-                submitManageAgentForm,
-                ManageAgentOptions.onePropertyLinkAssignedAgentsOptions,
+                List(
+                  ManageAgentOptionItem(AssignToYourProperty),
+                  ManageAgentOptionItem(RemoveFromYourAccount)
+                ),
                 agent,
                 calculateBackLink(organisationsAgents, agent.representativeCode)
               ))
-
-          } else {
+          case (1, Some(agent)) if agent.propertyCount == 1 =>
+            //IP has one property link and agent is assigned to that property
             Some(
               unassignAgentFromPropertyView(
                 submitAgentAppointmentRequest,
                 agent,
                 calculateBackLink(organisationsAgents, agent.representativeCode)))
-          }
-        case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
-          //IP has more than one property links but agent is not assigned to any
-          if (featureSwitch.isAgentListYearsEnabled) {
-            Some(
-              manageAgentView(
-                submitManageAgentForm,
-                ManageAgentOptions.multiplePropertyLinksNoAssignedAgentsOptionsWithRatingList,
-                agent,
-                calculateBackLink(organisationsAgents, agent.representativeCode)
-              ))
-          } else {
+          case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
+            //IP has more than one property links but agent is not assigned to any
             Some(
               manageAgentViewOld(
                 submitManageAgentForm,
-                ManageAgentOptions.multiplePropertyLinksNoAssignedAgentsOptions,
+                List(
+                  ManageAgentOptionItem(AssignToAllProperties),
+                  ManageAgentOptionItem(AssignToSomeProperties),
+                  ManageAgentOptionItem(RemoveFromYourAccount)
+                ),
                 agent,
                 calculateBackLink(organisationsAgents, agent.representativeCode)
               ))
-          }
 
-        case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
-          if (featureSwitch.isAgentListYearsEnabled) {
+          case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
             Some(
               manageAgentView(
                 submitManageAgentForm,
-                ManageAgentOptions.multiplePropertyLinksAgentAssignedToSomeOptionsWithRatingList,
+                List(
+                  ManageAgentOptionItem(AssignToAllProperties),
+                  ManageAgentOptionItem(AssignToSomeProperties),
+                  ManageAgentOptionItem(UnassignFromAllProperties),
+                  ManageAgentOptionItem(UnassignFromSomeProperties)
+                ),
                 agent,
                 calculateBackLink(organisationsAgents, agent.representativeCode)
               ))
-          } else {
+          case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
+            //agent is assigned to all of the IP's property links
             Some(
               manageAgentView(
                 submitManageAgentForm,
-                ManageAgentOptions.multiplePropertyLinksAgentAssignedToSomeOptions,
+                List(
+                  ManageAgentOptionItem(UnassignFromAllProperties),
+                  ManageAgentOptionItem(UnassignFromSomeProperties)
+                ),
                 agent,
                 calculateBackLink(organisationsAgents, agent.representativeCode)
               ))
-          }
-        case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
-          //agent is assigned to all of the IP's property links
-          if (featureSwitch.isAgentListYearsEnabled) {
-            Some(
-              manageAgentView(
-                submitManageAgentForm,
-                ManageAgentOptions.multiplePropertyLinksAgentAssignedToAllOptionsWithRatingList,
-                agent,
-                calculateBackLink(organisationsAgents, agent.representativeCode)
-              ))
-          } else {
-            Some(
-              manageAgentView(
-                submitManageAgentForm,
-                ManageAgentOptions.multiplePropertyLinksAgentAssignedToAllOptions,
-                agent,
-                calculateBackLink(organisationsAgents, agent.representativeCode)
-              ))
-          }
-        case _ => None
+          case _ => None
+        }
       }
     }
 
