@@ -28,10 +28,11 @@
         backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @ratingList = @{
-    if (listYears.length == 1) {
-    messages("propertyRepresentation.ratingList.p", listYears.head)
-    } else {
-    messages("propertyRepresentation.ratingLists.p")
+
+    listYears match {
+        case Seq(year) => messages("propertyRepresentation.ratingList.p", year)
+        case Seq() => ""
+        case _ => messages("propertyRepresentation.ratingLists.p")
     }
 }
 @mainLayout(
