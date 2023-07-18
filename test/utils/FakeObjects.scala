@@ -555,11 +555,11 @@ trait FakeObjects {
     )
 
   def apiAssessmentsNoRateableInfo(
-                      a: OwnerAuthorisation,
-                      toDate: Option[LocalDate] = Some(april2017.plusMonths(2L)),
-                      listType: ListType = ListType.CURRENT,
-                      listYear: Int = 2017,
-                      isWelsh: Boolean = false) =
+        a: OwnerAuthorisation,
+        toDate: Option[LocalDate] = Some(april2017.plusMonths(2L)),
+        listType: ListType = ListType.CURRENT,
+        listYear: Int = 2017,
+        isWelsh: Boolean = false) =
     ApiAssessments(
       authorisationId = a.authorisationId,
       submissionId = a.submissionId,
@@ -622,7 +622,7 @@ trait FakeObjects {
             agentCode = agent.agentCode,
             organisationName = agent.organisationName,
             organisationId = agent.organisationId
-          ))
+        ))
     )
 
   def clientApiAssessments(

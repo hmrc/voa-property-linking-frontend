@@ -16,7 +16,4 @@
 
 package views.errors
 
-class assessmentsViewSpec {
-
-
-}
+class assessmentsViewSpec {}
