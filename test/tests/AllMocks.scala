@@ -66,6 +66,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockVmvConnector: VmvConnector = mock[VmvConnector]
   val mockApplicationConfig: ApplicationConfig = mock[ApplicationConfig]
   val mockManageAgentSessionRepository: ManageAgentSessionRepository = mock[ManageAgentSessionRepository]
+  val mockManageAgentSessionRepository: ManageAgentSessionRepository = mock[ManageAgentSessionRepository]
   val mockFeatureSwitch: FeatureSwitch = mock[FeatureSwitch]
 
   override protected def beforeEach(): Unit =
