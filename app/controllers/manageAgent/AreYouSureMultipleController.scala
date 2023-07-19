@@ -14,29 +14,30 @@
  * limitations under the License.
  */
 
-package controllers.propertyLinking
+package controllers.manageAgent
 
 import actions.AuthenticatedAction
 import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
-import models.propertyrepresentation.AgentSummary
+import models.propertyrepresentation._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.ManageAgentSessionRepository
+import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class RatingListConfirmedController @Inject()(
-      confirmedListView: views.html.propertyLinking.ratingListsConfirmed,
+class AreYouSureMultipleController @Inject()(
+      areYouSureMultipleView: views.html.manageAgent.areYouSureMultipleYears,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction,
-      featureSwitch: FeatureSwitch
-)(
+      featureSwitch: FeatureSwitch,
+      propertyLinkingService: PropertyLinkingService)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -47,10 +48,21 @@ class RatingListConfirmedController @Inject()(
   def show: Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, name, _, _, Some(listYears))) =>
-          Ok(confirmedListView(chosenListYears = listYears.toList, agentName = name))
+        case Some(AgentSummary(_, representativeCode, agentName, _, _, _)) =>
+          Ok(areYouSureMultipleView(agentName = agentName, backLink = getBackLink, agentCode = representativeCode))
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }
     } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
   }
+
+  def submitRatingListYears: Action[AnyContent] = authenticated.async { implicit request =>
+    if (featureSwitch.isAgentListYearsEnabled) {
+      manageAgentSessionRepository.get[AgentSummary].flatMap {
+        case Some(agentSummary) =>
+          propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List("2023", "2017"))
+        case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+      }
+    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+  }
+  def getBackLink: String = controllers.manageAgent.routes.ChooseRatingListController.show.url
 }

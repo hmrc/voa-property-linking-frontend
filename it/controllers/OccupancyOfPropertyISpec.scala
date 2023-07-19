@@ -1,4 +1,4 @@
-package connectors.propertyLinking
+package controllers
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import binders.propertylinks.ClaimPropertyReturnToPage

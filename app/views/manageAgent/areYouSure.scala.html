@@ -38,7 +38,7 @@
       iconFallbackText = messages("warning.text"),
       content = Text(messages("ratingsListConfirmation.restricting"))))
 
-  @formWithCSRF(action = controllers.propertyLinking.routes.AreYouSureController.submitRatingListYears(chosenListYear)) {
+  @formWithCSRF(action = controllers.manageAgent.routes.AreYouSureController.submitRatingListYears(chosenListYear)) {
     <div class="govuk-button-group">
       @govukButton(Button(
         content = Text(messages("label.confirm")),

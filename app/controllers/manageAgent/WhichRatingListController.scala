@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.propertyLinking
+package controllers.manageAgent
 
 import actions.AuthenticatedAction
 import businessrates.authorisation.config.FeatureSwitch
@@ -35,11 +35,12 @@ import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ChooseRatingListController @Inject()(
-      chooseListView: views.html.propertyLinking.chooseRatingList,
+class WhichRatingListController @Inject()(
+      whichListView: views.html.manageAgent.whichRatingList,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction,
-      featureSwitch: FeatureSwitch)(
+      featureSwitch: FeatureSwitch
+)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -49,15 +50,9 @@ class ChooseRatingListController @Inject()(
 
   def show: Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
-
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
-          Ok(
-            chooseListView(
-              ratingListYears,
-              currentRatingList = listYears.toList,
-              backLink = getBackLink,
-              agentName = agentName))
+        case Some(AgentSummary(_, _, _, _, _, Some(listYears))) =>
+          Ok(whichListView(ratingListYears, currentRatingList = listYears.toList, backLink = getBackLink))
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }
     } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
@@ -66,28 +61,25 @@ class ChooseRatingListController @Inject()(
   def submitRatingListYears: Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
+        case Some(agentSummary @ AgentSummary(_, _, _, _, _, Some(listYears))) =>
           ratingListYears
             .bindFromRequest()
             .fold(
               errors =>
-                BadRequest(
-                  chooseListView(
-                    form = errors,
-                    currentRatingList = listYears.toList,
-                    backLink = getBackLink,
-                    agentName = agentName)),
+                BadRequest(whichListView(form = errors, currentRatingList = listYears.toList, backLink = getBackLink)),
               formData =>
                 if (formData.multipleListYears) {
-                  Redirect(controllers.propertyLinking.routes.AreYouSureMultipleController.show.url)
-                } else Redirect(controllers.propertyLinking.routes.WhichRatingListController.show.url)
+                  Redirect(controllers.manageAgent.routes.AreYouSureController.show("2023").url)
+                } else {
+                  Redirect(controllers.manageAgent.routes.AreYouSureController.show("2017").url)
+              }
             )
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }
     } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
   }
 
-  def getBackLink: String = controllers.agent.routes.ManageAgentController.showManageAgent.url
+  def getBackLink: String = controllers.manageAgent.routes.ChooseRatingListController.show.url
 
   def ratingListYears: Form[RatingListYears] =
     Form(

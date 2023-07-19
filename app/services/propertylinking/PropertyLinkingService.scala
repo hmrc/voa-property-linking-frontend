@@ -23,6 +23,10 @@ import connectors.propertyLinking.PropertyLinkConnector
 import models.properties.PropertyHistory
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentSummary, AppointmentAction, AppointmentScope}
+import play.api.mvc.Result
+import play.api.mvc.Results.Redirect
+import repositories.ManageAgentSessionRepository
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.exceptions.attachments.AttachmentException
@@ -36,7 +40,8 @@ import scala.util.Try
 class PropertyLinkingService @Inject()(
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
       propertyLinkConnector: PropertyLinkConnector,
-      config: ApplicationConfig
+      config: ApplicationConfig,
+      manageAgentSessionRepository: ManageAgentSessionRepository
 )(implicit executionContext: ExecutionContext)
     extends Cats {
 
@@ -74,5 +79,46 @@ class PropertyLinkingService @Inject()(
       .flatMap(_.propertyLinkEarliestStartDate)
     Try[LocalDate](dates.min)
       .getOrElse(if (propertyHistory.isWelsh) config.earliestWelshStartDate else config.earliestEnglishStartDate)
+  }
+
+  def appointAndOrRevokeListYears(agentSummary: AgentSummary, chosenListYears: List[String])(implicit hc: HeaderCarrier): Future[Result] = {
+    val currentListYears = agentSummary.listYears.getOrElse(throw new Exception("No list years"))
+    for {
+      _ <- {
+        val yearsToAppoint = chosenListYears.filterNot(currentListYears.contains)
+        if (yearsToAppoint.nonEmpty) {
+          propertyLinkConnector.agentAppointmentChange(
+            AgentAppointmentChangeRequest(
+              agentRepresentativeCode = agentSummary.representativeCode,
+              scope = AppointmentScope.LIST_YEAR,
+              action = AppointmentAction.APPOINT,
+              propertyLinkIds = None,
+              listYears = Some(yearsToAppoint)
+            )
+          )
+        } else {
+          Future.successful(AgentAppointmentChangesResponse("No appointment needed"))
+        }
+      }
+      listYearsToRevoke = currentListYears.filterNot(chosenListYears.contains)
+      _ <- {
+        if (listYearsToRevoke.nonEmpty) {
+          propertyLinkConnector.agentAppointmentChange(
+            AgentAppointmentChangeRequest(
+              agentRepresentativeCode = agentSummary.representativeCode,
+              scope = AppointmentScope.LIST_YEAR,
+              action = AppointmentAction.REVOKE,
+              propertyLinkIds = None,
+              listYears = Some(listYearsToRevoke.toList)
+            )
+          )
+        } else {
+          Future.successful(AgentAppointmentChangesResponse("No revoke needed"))
+        }
+      }
+      _ <- manageAgentSessionRepository.saveOrUpdate[AgentSummary](
+        agentSummary.copy(listYears = Some(chosenListYears))
+      )
+    } yield Redirect(controllers.manageAgent.routes.RatingListConfirmedController.show.url)
   }
 }

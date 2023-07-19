@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package controllers.propertyLinking
+package controllers.manageAgent
 
 import actions.AuthenticatedAction
 import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
-import connectors.propertyLinking.PropertyLinkConnector
 import controllers.PropertyLinkingController
-import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentSummary, AppointmentAction, AppointmentScope}
+import models.propertyrepresentation._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.ManageAgentSessionRepository
+import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
@@ -33,11 +33,11 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class AreYouSureController @Inject()(
-      areYouSureView: views.html.propertyLinking.areYouSure,
+      areYouSureView: views.html.manageAgent.areYouSure,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction,
       featureSwitch: FeatureSwitch,
-      propertyLinkConnector: PropertyLinkConnector
+      propertyLinkingService: PropertyLinkingService
 )(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -67,40 +67,11 @@ class AreYouSureController @Inject()(
     if (featureSwitch.isAgentListYearsEnabled) {
       manageAgentSessionRepository.get[AgentSummary].flatMap {
         case Some(agentSummary) =>
-          //This should never happen, shouldn't fall into this flow if the feature switch is enabled
-          val currentListYears = agentSummary.listYears.getOrElse(throw new Exception("No list years"))
-          for {
-            _ <- if (!currentListYears.contains(chosenListYear)) {
-                  propertyLinkConnector.agentAppointmentChange(
-                    AgentAppointmentChangeRequest(
-                      agentRepresentativeCode = agentSummary.representativeCode,
-                      scope = AppointmentScope.LIST_YEAR,
-                      action = AppointmentAction.APPOINT,
-                      propertyLinkIds = None,
-                      listYears = Some(List(chosenListYear))
-                    )
-                  )
-                } else Future.successful(AgentAppointmentChangesResponse("No appointment needed"))
-            listYearsToRevoke = currentListYears.filterNot(_ == chosenListYear)
-            _ <- if (listYearsToRevoke.nonEmpty) {
-                  propertyLinkConnector.agentAppointmentChange(
-                    AgentAppointmentChangeRequest(
-                      agentRepresentativeCode = agentSummary.representativeCode,
-                      scope = AppointmentScope.LIST_YEAR,
-                      action = AppointmentAction.REVOKE,
-                      propertyLinkIds = None,
-                      listYears = Some(listYearsToRevoke.toList)
-                    )
-                  )
-                } else Future.successful(AgentAppointmentChangesResponse("No revoke needed"))
-            _ <- manageAgentSessionRepository.saveOrUpdate[AgentSummary](
-                  agentSummary.copy(listYears = Some(List(chosenListYear)))
-                )
-          } yield Redirect(controllers.propertyLinking.routes.RatingListConfirmedController.show.url)
+          propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List(chosenListYear))
         case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
       }
     } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
   }
 
-  def getBackLink: String = controllers.propertyLinking.routes.WhichRatingListController.show.url
+  def getBackLink: String = controllers.manageAgent.routes.WhichRatingListController.show.url
 }

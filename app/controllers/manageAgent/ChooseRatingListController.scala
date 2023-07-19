@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package controllers.propertyLinking
+package controllers.manageAgent
 
 import actions.AuthenticatedAction
 import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
-import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentSummary, AppointmentAction, AppointmentScope}
+import form.Mappings.mandatoryBoolean
+import models.RatingListYears
+import models.propertyrepresentation.AgentSummary
+import play.api.data.Form
+import play.api.data.Forms.mapping
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.ManageAgentSessionRepository
@@ -29,16 +33,13 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
-import connectors.propertyLinking.PropertyLinkConnector
 
 @Singleton
-class AreYouSureMultipleController @Inject()(
-      areYouSureMultipleView: views.html.propertyLinking.areYouSureMultipleYears,
+class ChooseRatingListController @Inject()(
+      chooseListView: views.html.manageAgent.chooseRatingList,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction,
-      featureSwitch: FeatureSwitch,
-      propertyLinkConnector: PropertyLinkConnector
-)(
+      featureSwitch: FeatureSwitch)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -48,9 +49,15 @@ class AreYouSureMultipleController @Inject()(
 
   def show: Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
+
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, representativeCode, agentName, _, _, _)) =>
-          Ok(areYouSureMultipleView(agentName = agentName, backLink = getBackLink, agentCode = representativeCode))
+        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
+          Ok(
+            chooseListView(
+              ratingListYears,
+              currentRatingList = listYears.toList,
+              backLink = getBackLink,
+              agentName = agentName))
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }
     } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
@@ -58,29 +65,34 @@ class AreYouSureMultipleController @Inject()(
 
   def submitRatingListYears: Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
-      manageAgentSessionRepository.get[AgentSummary].flatMap {
-        case Some(agentSummary) =>
-          //This should never happen, shouldn't fall into this flow if the feature switch is enabled
-          val currentListYears = agentSummary.listYears.getOrElse(throw new Exception("No list years"))
-          for {
-            _ <- if (!currentListYears.equals(Seq("2023", "2017"))) {
-                  propertyLinkConnector.agentAppointmentChange(
-                    AgentAppointmentChangeRequest(
-                      agentRepresentativeCode = agentSummary.representativeCode,
-                      scope = AppointmentScope.LIST_YEAR,
-                      action = AppointmentAction.APPOINT,
-                      propertyLinkIds = None,
-                      listYears = Some(List("2023", "2017"))
-                    )
-                  )
-                } else Future.successful(AgentAppointmentChangesResponse("No appointment needed"))
-            _ <- manageAgentSessionRepository.saveOrUpdate[AgentSummary](
-                  agentSummary.copy(listYears = Some(Seq("2023", "2017")))
-                )
-          } yield Redirect(controllers.propertyLinking.routes.RatingListConfirmedController.show.url)
-        case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
+          ratingListYears
+            .bindFromRequest()
+            .fold(
+              errors =>
+                BadRequest(
+                  chooseListView(
+                    form = errors,
+                    currentRatingList = listYears.toList,
+                    backLink = getBackLink,
+                    agentName = agentName)),
+              formData =>
+                if (formData.multipleListYears) {
+                  Redirect(controllers.manageAgent.routes.AreYouSureMultipleController.show.url)
+                } else Redirect(controllers.manageAgent.routes.WhichRatingListController.show.url)
+            )
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }
     } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
   }
-  def getBackLink: String = controllers.propertyLinking.routes.ChooseRatingListController.show.url
+
+  def getBackLink: String = controllers.agent.routes.ManageAgentController.showManageAgent.url
+
+  def ratingListYears: Form[RatingListYears] =
+    Form(
+      mapping(
+        "multipleListYears" -> mandatoryBoolean,
+      )(RatingListYears.apply)(RatingListYears.unapply))
+
 }
