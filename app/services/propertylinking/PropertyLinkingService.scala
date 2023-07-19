@@ -81,7 +81,8 @@ class PropertyLinkingService @Inject()(
       .getOrElse(if (propertyHistory.isWelsh) config.earliestWelshStartDate else config.earliestEnglishStartDate)
   }
 
-  def appointAndOrRevokeListYears(agentSummary: AgentSummary, chosenListYears: List[String])(implicit hc: HeaderCarrier): Future[Result] = {
+  def appointAndOrRevokeListYears(agentSummary: AgentSummary, chosenListYears: List[String])(
+        implicit hc: HeaderCarrier): Future[Result] = {
     val currentListYears = agentSummary.listYears.getOrElse(throw new Exception("No list years"))
     for {
       _ <- {
@@ -117,8 +118,8 @@ class PropertyLinkingService @Inject()(
         }
       }
       _ <- manageAgentSessionRepository.saveOrUpdate[AgentSummary](
-        agentSummary.copy(listYears = Some(chosenListYears))
-      )
+            agentSummary.copy(listYears = Some(chosenListYears))
+          )
     } yield Redirect(controllers.manageAgent.routes.RatingListConfirmedController.show.url)
   }
 }

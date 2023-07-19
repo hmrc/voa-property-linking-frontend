@@ -37,7 +37,10 @@ import scala.language.implicitConversions
 class PropertyLinkingServiceSpec extends ServiceSpec {
 
   private lazy val testService =
-    new PropertyLinkingService(mockBusinessRatesAttachmentsService, mockPropertyLinkConnector, mockApplicationConfig,
+    new PropertyLinkingService(
+      mockBusinessRatesAttachmentsService,
+      mockPropertyLinkConnector,
+      mockApplicationConfig,
       mockManageAgentSessionRepository)
 
   val httpResponse = emptyJsonHttpResponse(200)
