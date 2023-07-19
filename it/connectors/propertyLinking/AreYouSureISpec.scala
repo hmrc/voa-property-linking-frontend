@@ -1,8 +1,9 @@
 package connectors.propertyLinking
 
 import base.{HtmlComponentHelpers, ISpecBase}
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.AgentSummary
+import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalToJson, get, post, postRequestedFor, stubFor, urlEqualTo, verify}
+import com.github.tomakehurst.wiremock.stubbing.StubMapping
+import models.propertyrepresentation.{AgentAppointmentChangesResponse, AgentSummary}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
@@ -58,7 +59,7 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
     "Show an English are you sure screen with the correct text when chosen 2017 and the language is set to English" which {
 
       lazy val document: Document = getAreYouSurePage(language = English, chosenListYear = "2017")
-      
+
       s"has a title of ${titleText(listYear = "2017")}" in {
         document.title() shouldBe titleText(listYear = "2017")
       }
@@ -228,6 +229,8 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
             propertyCount = 1
           )))
 
+      stubsSetup
+
       val res = await(
         ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=1000")
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
@@ -241,7 +244,7 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
   }
 
   "AreYouSureController post method" should {
-    "Redirect to the confirmation page and send off the relevant list years data" in {
+    "Redirect to the confirmation page and REVOKE 2017 and APPOINT 2023 when currentYears is 2017 and they chose 2023" in {
       await(
         mockRepository.saveOrUpdate(
           AgentSummary(
@@ -253,19 +256,130 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
             propertyCount = 1
           )))
 
-      stubFor {
-        get("/business-rates-authorisation/authenticate")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-          }
-      }
+      stubsSetup
 
-      stubFor {
-        post("/auth/authorise")
-          .willReturn {
-            aResponse.withStatus(OK).withBody("{}")
-          }
-      }
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = "")
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(
+          """{
+            |  "agentRepresentativeCode": 100,
+            |  "action": "APPOINT",
+            |  "scope": "LIST_YEAR",
+            |  "listYears": ["2023"]
+            |}""".stripMargin
+        )))
+
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(
+          """{
+            |  "agentRepresentativeCode": 100,
+            |  "action": "REVOKE",
+            |  "scope": "LIST_YEAR",
+            |  "listYears": ["2017"]
+            |}""".stripMargin
+        )))
+
+    }
+
+    "Redirect to the confirmation page and REVOKE 2017 and not APPOINT 2023 when currentYears is both and they chose 2023" in {
+      await(
+        mockRepository.saveOrUpdate(
+          AgentSummary(
+            listYears = Some(List("2017", "2023")),
+            name = "Test Agent",
+            organisationId = 100L,
+            representativeCode = 100L,
+            appointedDate = LocalDate.now(),
+            propertyCount = 1
+          )))
+
+      stubsSetup
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = "")
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verify(0, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(
+          """{
+            |  "agentRepresentativeCode": 100,
+            |  "action": "APPOINT",
+            |  "scope": "LIST_YEAR",
+            |  "listYears": ["2023"]
+            |}""".stripMargin
+        )))
+
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(
+          """{
+            |  "agentRepresentativeCode": 100,
+            |  "action": "REVOKE",
+            |  "scope": "LIST_YEAR",
+            |  "listYears": ["2017"]
+            |}""".stripMargin
+        )))
+
+    }
+
+    "Redirect to the confirmation page and do not APPOINT/REVOKE anything when currentYears is 2023 and they chose 2023" in {
+      await(
+        mockRepository.saveOrUpdate(
+          AgentSummary(
+            listYears = Some(List("2023")),
+            name = "Test Agent",
+            organisationId = 100L,
+            representativeCode = 100L,
+            appointedDate = LocalDate.now(),
+            propertyCount = 1
+          )))
+
+      stubsSetup
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = "")
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verify(0, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        )
+    }
+
+    "Redirect to the confirmation page and APPOINT 2023 and REVOKE 2017 when currentYears is 2023 and they chose 2017" in {
+      await(
+        mockRepository.saveOrUpdate(
+          AgentSummary(
+            listYears = Some(List("2023")),
+            name = "Test Agent",
+            organisationId = 100L,
+            representativeCode = 100L,
+            appointedDate = LocalDate.now(),
+            propertyCount = 1
+          )))
+
+      stubsSetup
 
       val res = await(
         ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017")
@@ -278,8 +392,103 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
       res.status shouldBe SEE_OTHER
       res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
 
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(
+          """{
+            |  "agentRepresentativeCode": 100,
+            |  "action": "APPOINT",
+            |  "scope": "LIST_YEAR",
+            |  "listYears": ["2017"]
+            |}""".stripMargin
+        )))
+
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(
+          """{
+            |  "agentRepresentativeCode": 100,
+            |  "action": "REVOKE",
+            |  "scope": "LIST_YEAR",
+            |  "listYears": ["2023"]
+            |}""".stripMargin
+        )))
+
     }
 
+    "Redirect to the confirmation page and REVOKE 2023 and not APPOINT 2017 when currentYears is both and they chose 2017" in {
+      await(
+        mockRepository.saveOrUpdate(
+          AgentSummary(
+            listYears = Some(List("2017", "2023")),
+            name = "Test Agent",
+            organisationId = 100L,
+            representativeCode = 100L,
+            appointedDate = LocalDate.now(),
+            propertyCount = 1
+          )))
+
+      stubsSetup
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = "")
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verify(0, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(
+          """{
+            |  "agentRepresentativeCode": 100,
+            |  "action": "APPOINT",
+            |  "scope": "LIST_YEAR",
+            |  "listYears": ["2017"]
+            |}""".stripMargin
+        )))
+
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(
+          """{
+            |  "agentRepresentativeCode": 100,
+            |  "action": "REVOKE",
+            |  "scope": "LIST_YEAR",
+            |  "listYears": ["2023"]
+            |}""".stripMargin
+        )))
+
+    }
+
+    "Redirect to the confirmation page and do not APPOINT/REVOKE anything when currentYears is 2017 and they chose 2017" in {
+      await(
+        mockRepository.saveOrUpdate(
+          AgentSummary(
+            listYears = Some(List("2017")),
+            name = "Test Agent",
+            organisationId = 100L,
+            representativeCode = 100L,
+            appointedDate = LocalDate.now(),
+            propertyCount = 1
+          )))
+
+      stubsSetup
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = "")
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verify(0, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        )
+    }
   }
 
   private def getAreYouSurePage(language: Language, chosenListYear: String): Document = {
@@ -318,6 +527,30 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
 
     res.status shouldBe OK
     Jsoup.parse(res.body)
+  }
+
+  private def stubsSetup: StubMapping = {
+
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    stubFor {
+      post("/property-linking/my-organisation/agent/submit-appointment-changes")
+        .willReturn {
+          aResponse.withStatus(ACCEPTED).withBody(Json.toJson(AgentAppointmentChangesResponse("success")).toString())
+        }
+    }
   }
 
 }

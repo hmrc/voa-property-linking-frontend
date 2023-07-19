@@ -24,7 +24,7 @@ import models.dvr.cases.check.myclients.CheckCasesWithClient
 import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertylinking.requests.PropertyLinkRequest
-import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList}
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList, AppointmentAction, AppointmentScope}
 import models.searchApi.OwnerAuthResult
 import org.mockito.ArgumentMatchers.{eq => eqs}
 import org.mockito.ArgumentMatchers._
@@ -275,10 +275,11 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
   "agentAppointmentChange" should "return AgentAppointmentChangesResponse when valid request submitted" in new Setup {
     val request = AgentAppointmentChangeRequest(
       agentRepresentativeCode = 123456,
-      scope = "PROPERTY_LIST",
-      action = "APPOINT",
+      scope = AppointmentScope.PROPERTY_LIST,
+      action = AppointmentAction.APPOINT,
       propertyLinkIds = Some(List("123L")),
-      listYears = Some(List("2023")))
+      listYears = Some(List("2023"))
+    )
     val expectedResponse = AgentAppointmentChangesResponse(appointmentChangeId = "appointmentChangeId")
 
     mockHttpPOST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse]("tst-url", expectedResponse)

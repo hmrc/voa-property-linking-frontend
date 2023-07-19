@@ -16,12 +16,14 @@
 
 package models.propertyrepresentation
 
+import models.propertyrepresentation.AppointmentScope.AppointmentScope
+import models.propertyrepresentation.AppointmentAction.AppointmentAction
 import play.api.libs.json.{Json, OFormat}
 
 case class AgentAppointmentChangeRequest(
       agentRepresentativeCode: Long,
-      action: String,
-      scope: String,
+      action: AppointmentAction,
+      scope: AppointmentScope,
       propertyLinkIds: Option[List[String]],
       listYears: Option[List[String]] = None)
 

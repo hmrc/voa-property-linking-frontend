@@ -66,7 +66,7 @@ class ChooseRatingListController @Inject()(
   def submitRatingListYears: Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(agentSummary @ AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
+        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
           ratingListYears
             .bindFromRequest()
             .fold(
@@ -79,8 +79,6 @@ class ChooseRatingListController @Inject()(
                     agentName = agentName)),
               formData =>
                 if (formData.multipleListYears) {
-                  manageAgentSessionRepository.saveOrUpdate[AgentSummary](
-                    agentSummary.copy(listYears = Some(List("2017", "2023"))))
                   Redirect(controllers.propertyLinking.routes.AreYouSureMultipleController.show.url)
                 } else Redirect(controllers.propertyLinking.routes.WhichRatingListController.show.url)
             )

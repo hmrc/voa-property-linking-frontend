@@ -69,12 +69,8 @@ class WhichRatingListController @Inject()(
                 BadRequest(whichListView(form = errors, currentRatingList = listYears.toList, backLink = getBackLink)),
               formData =>
                 if (formData.multipleListYears) {
-                  manageAgentSessionRepository.saveOrUpdate[AgentSummary](
-                    agentSummary.copy(listYears = Some(List("2023"))))
                   Redirect(controllers.propertyLinking.routes.AreYouSureController.show("2023").url)
                 } else {
-                  manageAgentSessionRepository.saveOrUpdate[AgentSummary](
-                    agentSummary.copy(listYears = Some(List("2017"))))
                   Redirect(controllers.propertyLinking.routes.AreYouSureController.show("2017").url)
               }
             )

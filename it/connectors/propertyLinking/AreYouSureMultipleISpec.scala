@@ -1,14 +1,15 @@
 package connectors.propertyLinking
 
 import base.{HtmlComponentHelpers, ISpecBase}
-import models.propertyrepresentation.AgentSummary
+import models.propertyrepresentation.{AgentAppointmentChangesResponse, AgentSummary}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.Status.OK
 import play.api.test.Helpers._
 import repositories.ManageAgentSessionRepository
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
+import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalToJson, get, post, postRequestedFor, stubFor, urlEqualTo, verify}
+import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import play.api.http.HeaderNames
 import play.api.libs.json.Json
 
@@ -146,7 +147,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers {
   }
 
   "AreYouSureMultipleController post method" should {
-    "Redirect to the confirmation page and send off the relevant list years data" in {
+    "Redirect to the confirmation page and APPOINT 2023+2017 when current is 2017" in {
       await(
         mockRepository.saveOrUpdate(
           AgentSummary(
@@ -158,19 +159,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers {
             propertyCount = 1
           )))
 
-      stubFor {
-        get("/business-rates-authorisation/authenticate")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-          }
-      }
-
-      stubFor {
-        post("/auth/authorise")
-          .willReturn {
-            aResponse.withStatus(OK).withBody("{}")
-          }
-      }
+      stubsSetup
 
       val res = await(
         ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple")
@@ -183,7 +172,85 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers {
       res.status shouldBe SEE_OTHER
       res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
 
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(
+          """{
+            |  "agentRepresentativeCode": 100,
+            |  "action": "APPOINT",
+            |  "scope": "LIST_YEAR",
+            |  "listYears": ["2023", "2017"]
+            |}""".stripMargin
+        )))
+
     }
+
+    "Redirect to the confirmation page and APPOINT 2023+2017 when current is 2023" in {
+      await(
+        mockRepository.saveOrUpdate(
+          AgentSummary(
+            listYears = Some(List("2023")),
+            name = "Test Agent",
+            organisationId = 100L,
+            representativeCode = 100L,
+            appointedDate = LocalDate.now(),
+            propertyCount = 1
+          )))
+
+      stubsSetup
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = "")
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(
+          """{
+            |  "agentRepresentativeCode": 100,
+            |  "action": "APPOINT",
+            |  "scope": "LIST_YEAR",
+            |  "listYears": ["2023", "2017"]
+            |}""".stripMargin
+        )))
+
+    }
+
+    "Redirect to the confirmation page and do not APPOINT 2023+2017 when current is 2023+2017" in {
+      await(
+        mockRepository.saveOrUpdate(
+          AgentSummary(
+            listYears = Some(List("2023", "2017")),
+            name = "Test Agent",
+            organisationId = 100L,
+            representativeCode = 100L,
+            appointedDate = LocalDate.now(),
+            propertyCount = 1
+          )))
+
+      stubsSetup
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = "")
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verify(0, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+      )
+
+    }
+
 
   }
   private def getAreYouSureMultiplePage(language: Language): Document = {
@@ -223,5 +290,30 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers {
     res.status shouldBe OK
     Jsoup.parse(res.body)
   }
+
+  private def stubsSetup: StubMapping = {
+
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    stubFor {
+      post("/property-linking/my-organisation/agent/submit-appointment-changes")
+        .willReturn {
+          aResponse.withStatus(ACCEPTED).withBody(Json.toJson(AgentAppointmentChangesResponse("success")).toString())
+        }
+    }
+  }
+
 
 }
