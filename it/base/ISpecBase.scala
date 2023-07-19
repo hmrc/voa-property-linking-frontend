@@ -3,7 +3,7 @@ package base
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.configureFor
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
-import org.scalatest.BeforeAndAfterAll
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
@@ -15,7 +15,7 @@ import uk.gov.hmrc.crypto.PlainText
 import uk.gov.hmrc.http.SessionKeys
 import uk.gov.hmrc.play.bootstrap.frontend.filters.crypto.SessionCookieCrypto
 
-trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite with BeforeAndAfterAll with TestData {
+trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite with BeforeAndAfterAll with BeforeAndAfterEach with TestData {
   sealed trait Language
 
   case object English extends Language
@@ -52,6 +52,9 @@ trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite wi
     wireMockServer.start()
     configureFor(mockHost, mockPort)
   }
+
+  override def beforeEach(): Unit =
+    wireMockServer.resetAll()
 
   override def afterAll(): Unit =
     wireMockServer.stop()

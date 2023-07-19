@@ -1,26 +1,19 @@
-package connectors.propertyLinking
+package controllers
 
 import base.{HtmlComponentHelpers, ISpecBase}
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.AgentSummary
+import com.github.tomakehurst.wiremock.client.WireMock._
+import com.github.tomakehurst.wiremock.stubbing.StubMapping
+import models.propertyrepresentation.AgentAppointmentChangesResponse
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
 import play.api.http.Status.OK
 import play.api.libs.json.Json
+import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
-import repositories.ManageAgentSessionRepository
-import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
+import utils.ListYearsHelpers
 
-import java.time.LocalDate
-import java.util.UUID
-
-class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
-
-  val testSessionId = s"stubbed-${UUID.randomUUID}"
-
-  lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
-  implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
+class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
   def titleText(listYear: String) = s"Are you sure you want Test Agent to act for you on the $listYear rating list? - Valuation Office Agency - GOV.UK"
   val backLinkText = "Back"
@@ -58,7 +51,7 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
     "Show an English are you sure screen with the correct text when chosen 2017 and the language is set to English" which {
 
       lazy val document: Document = getAreYouSurePage(language = English, chosenListYear = "2017")
-      
+
       s"has a title of ${titleText(listYear = "2017")}" in {
         document.title() shouldBe titleText(listYear = "2017")
       }
@@ -217,19 +210,12 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
 
     "Show the not_found page when you send in an invalid list year on the url" in {
 
-      await(
-        mockRepository.saveOrUpdate(
-          AgentSummary(
-            listYears = Some(List("2017")),
-            name = "Test Agent",
-            organisationId = 100L,
-            representativeCode = 100L,
-            appointedDate = LocalDate.now(),
-            propertyCount = 1
-          )))
+      setCurrentListYears(List("2017"))
+
+      stubsSetup
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=1000")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2000")
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .get()
@@ -241,59 +227,126 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
   }
 
   "AreYouSureController post method" should {
-    "Redirect to the confirmation page and send off the relevant list years data" in {
-      await(
-        mockRepository.saveOrUpdate(
-          AgentSummary(
-            listYears = Some(List("2017")),
-            name = "Test Agent",
-            organisationId = 100L,
-            representativeCode = 100L,
-            appointedDate = LocalDate.now(),
-            propertyCount = 1
-          )))
+    "Redirect to the confirmation page and REVOKE 2017 and APPOINT 2023 when currentYears is 2017 and they chose 2023" in {
+      setCurrentListYears(List("2017"))
 
-      stubFor {
-        get("/business-rates-authorisation/authenticate")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-          }
-      }
+      stubsSetup
 
-      stubFor {
-        post("/auth/authorise")
-          .willReturn {
-            aResponse.withStatus(OK).withBody("{}")
-          }
-      }
-
-      val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017")
-          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
-          .withFollowRedirects(follow = false)
-          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-          .post(body = "")
-      )
+      val res = submitNewListYear(chosenListYear = "2023")
 
       res.status shouldBe SEE_OTHER
       res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
 
+      verifyAppointedListYears(amount = 1, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 1, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+
     }
 
+    "Redirect to the confirmation page and REVOKE 2017 and not APPOINT 2023 when currentYears is both and they chose 2023" in {
+      setCurrentListYears(List("2017", "2023"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2023")
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 1, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+
+    }
+
+    "Redirect to the confirmation page and do not APPOINT/REVOKE anything when currentYears is 2023 and they chose 2023" in {
+      setCurrentListYears(List("2023"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2023")
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+    }
+
+    "Redirect to the confirmation page and APPOINT 2023 and REVOKE 2017 when currentYears is 2023 and they chose 2017" in {
+      setCurrentListYears(List("2023"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2017")
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 1, chosenListYear = "2017")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 1, chosenListYear = "2023")
+
+    }
+
+    "Redirect to the confirmation page and REVOKE 2023 and not APPOINT 2017 when currentYears is both and they chose 2017" in {
+      setCurrentListYears(List("2017", "2023"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2017")
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 1, chosenListYear = "2023")
+
+    }
+
+    "Redirect to the confirmation page and do not APPOINT/REVOKE anything when currentYears is 2017 and they chose 2017" in {
+      setCurrentListYears(List("2017"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2017")
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+
+    }
   }
 
   private def getAreYouSurePage(language: Language, chosenListYear: String): Document = {
 
-    await(
-      mockRepository.saveOrUpdate(
-        AgentSummary(
-          listYears = Some(List("2017")),
-          name = "Test Agent",
-          organisationId = 100L,
-          representativeCode = 100L,
-          appointedDate = LocalDate.now(),
-          propertyCount = 1
-        )))
+    setCurrentListYears(List("2017"))
+
+    stubsSetup
+
+    val res = await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=$chosenListYear")
+        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .get()
+    )
+
+    res.status shouldBe OK
+    Jsoup.parse(res.body)
+  }
+
+  private def stubsSetup: StubMapping = {
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -309,15 +362,23 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers {
         }
     }
 
-    val res = await(
-      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=$chosenListYear")
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
-        .withFollowRedirects(follow = false)
-        .get()
-    )
-
-    res.status shouldBe OK
-    Jsoup.parse(res.body)
+    stubFor {
+      post("/property-linking/my-organisation/agent/submit-appointment-changes")
+        .willReturn {
+          aResponse.withStatus(ACCEPTED).withBody(Json.toJson(AgentAppointmentChangesResponse("success")).toString())
+        }
+    }
   }
+
+  private def submitNewListYear(chosenListYear: String): WSResponse = {
+    await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=$chosenListYear")
+        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .post(body = "")
+    )
+  }
+
 
 }

@@ -14,33 +14,30 @@
  * limitations under the License.
  */
 
-package controllers.propertyLinking
+package controllers.manageAgent
 
 import actions.AuthenticatedAction
 import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
-import form.Mappings.mandatoryBoolean
-import models.RatingListYears
-import models.propertyrepresentation.AgentSummary
-import play.api.data.Form
-import play.api.data.Forms.mapping
+import models.propertyrepresentation._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.ManageAgentSessionRepository
+import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class WhichRatingListController @Inject()(
-      whichListView: views.html.propertyLinking.whichRatingList,
+class AreYouSureMultipleController @Inject()(
+      areYouSureMultipleView: views.html.manageAgent.areYouSureMultipleYears,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction,
-      featureSwitch: FeatureSwitch
-)(
+      featureSwitch: FeatureSwitch,
+      propertyLinkingService: PropertyLinkingService)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -51,8 +48,8 @@ class WhichRatingListController @Inject()(
   def show: Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, _, _, _, Some(listYears))) =>
-          Ok(whichListView(ratingListYears, currentRatingList = listYears.toList, backLink = getBackLink))
+        case Some(AgentSummary(_, representativeCode, agentName, _, _, _)) =>
+          Ok(areYouSureMultipleView(agentName = agentName, backLink = getBackLink, agentCode = representativeCode))
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }
     } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
@@ -60,35 +57,12 @@ class WhichRatingListController @Inject()(
 
   def submitRatingListYears: Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
-      manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(agentSummary @ AgentSummary(_, _, _, _, _, Some(listYears))) =>
-          ratingListYears
-            .bindFromRequest()
-            .fold(
-              errors =>
-                BadRequest(whichListView(form = errors, currentRatingList = listYears.toList, backLink = getBackLink)),
-              formData =>
-                if (formData.multipleListYears) {
-                  manageAgentSessionRepository.saveOrUpdate[AgentSummary](
-                    agentSummary.copy(listYears = Some(List("2023"))))
-                  Redirect(controllers.propertyLinking.routes.AreYouSureController.show("2023").url)
-                } else {
-                  manageAgentSessionRepository.saveOrUpdate[AgentSummary](
-                    agentSummary.copy(listYears = Some(List("2017"))))
-                  Redirect(controllers.propertyLinking.routes.AreYouSureController.show("2017").url)
-              }
-            )
-        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      manageAgentSessionRepository.get[AgentSummary].flatMap {
+        case Some(agentSummary) =>
+          propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List("2023", "2017"))
+        case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
       }
     } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
   }
-
-  def getBackLink: String = controllers.propertyLinking.routes.ChooseRatingListController.show.url
-
-  def ratingListYears: Form[RatingListYears] =
-    Form(
-      mapping(
-        "multipleListYears" -> mandatoryBoolean,
-      )(RatingListYears.apply)(RatingListYears.unapply))
-
+  def getBackLink: String = controllers.manageAgent.routes.ChooseRatingListController.show.url
 }

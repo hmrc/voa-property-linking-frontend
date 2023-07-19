@@ -2,7 +2,7 @@ package connectors.propertyLinking
 
 import base.ISpecBase
 import com.github.tomakehurst.wiremock.client.WireMock._
-import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentList, AgentSummary}
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentList, AgentSummary, AppointmentAction, AppointmentScope}
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
@@ -69,8 +69,8 @@ class PropertyLinkConnectorISpec extends ISpecBase {
 
       val agentChangeRequest = AgentAppointmentChangeRequest(
         agentRepresentativeCode = 123456,
-        scope = "PROPERTY_LIST",
-        action = "APPOINT",
+        scope = AppointmentScope.PROPERTY_LIST,
+        action = AppointmentAction.APPOINT,
         propertyLinkIds = Some(List("123L")),
         listYears = Some(List("2023")))
 

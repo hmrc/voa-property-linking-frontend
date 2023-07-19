@@ -38,7 +38,7 @@
 
     <p class="govuk-body">@messages("ratingsListConfirmation.multiple.thisApplies")</p>
 
-  @formWithCSRF(action = controllers.propertyLinking.routes.AreYouSureMultipleController.submitRatingListYears) {
+  @formWithCSRF(action = controllers.manageAgent.routes.AreYouSureMultipleController.submitRatingListYears) {
     <div class="govuk-button-group">
       @govukButton(Button(
         content = Text(messages("label.confirm")),
