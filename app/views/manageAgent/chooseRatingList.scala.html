@@ -75,7 +75,7 @@
       content = HtmlContent(messages("chooseRatingList.choosingAList", controllers.agent.routes.ManageAgentController.showManageAgent))
     ))
 
-  @formWithCSRF(action = controllers.propertyLinking.routes.ChooseRatingListController.submitRatingListYears) {
+  @formWithCSRF(action = controllers.manageAgent.routes.ChooseRatingListController.submitRatingListYears) {
     @govukRadios(Radios(
       fieldset = Some(Fieldset(
         legend = Some(Legend(

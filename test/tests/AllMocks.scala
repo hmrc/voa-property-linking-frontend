@@ -32,7 +32,7 @@ import org.mockito.Mockito
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Request
-import repositories.{PersonalDetailsSessionRepository, SessionRepository}
+import repositories.{ManageAgentSessionRepository, PersonalDetailsSessionRepository, SessionRepository}
 import services.propertylinking.PropertyLinkingService
 import services.{AgentRelationshipService, BusinessRatesAttachmentsService, EnrolmentService}
 import uk.gov.hmrc.auth.core.AuthConnector
@@ -65,6 +65,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockChallengeConnector: ChallengeConnector = mock[ChallengeConnector]
   val mockVmvConnector: VmvConnector = mock[VmvConnector]
   val mockApplicationConfig: ApplicationConfig = mock[ApplicationConfig]
+  val mockManageAgentSessionRepository: ManageAgentSessionRepository = mock[ManageAgentSessionRepository]
   val mockFeatureSwitch: FeatureSwitch = mock[FeatureSwitch]
 
   override protected def beforeEach(): Unit =

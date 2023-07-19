@@ -1,16 +1,16 @@
-package connectors.propertyLinking
+package controllers
 
 import base.{HtmlComponentHelpers, ISpecBase}
+import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
 import models.propertyrepresentation.AgentSummary
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import play.api.http.HeaderNames
 import play.api.http.Status.OK
+import play.api.libs.json.Json
 import play.api.test.Helpers._
 import repositories.ManageAgentSessionRepository
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import play.api.http.HeaderNames
-import play.api.libs.json.Json
 
 import java.time.LocalDate
 import java.util.UUID

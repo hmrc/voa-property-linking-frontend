@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.propertyLinking
+package controllers.manageAgent
 
 import actions.AuthenticatedAction
 import businessrates.authorisation.config.FeatureSwitch
@@ -32,7 +32,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class RatingListConfirmedController @Inject()(
-      confirmedListView: views.html.propertyLinking.ratingListsConfirmed,
+      confirmedListView: views.html.manageAgent.ratingListsConfirmed,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction,
       featureSwitch: FeatureSwitch
