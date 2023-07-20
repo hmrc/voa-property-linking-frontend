@@ -263,15 +263,6 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     whenReady(res)(_ shouldBe None)
   }
 
-//  "assignAgent" should "return AgentAppointmentChangesResponse when valid request submitted" in new Setup {
-//    val request = AgentAppointmentChangesRequest(agentRepresentativeCode = 123456, scope = "PROPERTY_LIST")
-//    val expectedResponse = AgentAppointmentChangesResponse(appointmentChangeId = "appointmentChangeId")
-//    mockHttpPOST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse]("tst-url", expectedResponse)
-//
-//    val res: Future[AgentAppointmentChangesResponse] = connector.assignAgent(request)
-//    whenReady(res)(_ shouldBe expectedResponse)
-//  }
-
   "agentAppointmentChange" should "return AgentAppointmentChangesResponse when valid request submitted" in new Setup {
     val request = AgentAppointmentChangeRequest(
       agentRepresentativeCode = 123456,
@@ -287,5 +278,4 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     val res: Future[AgentAppointmentChangesResponse] = connector.agentAppointmentChange(request)
     whenReady(res)(_ shouldBe expectedResponse)
   }
-
 }
