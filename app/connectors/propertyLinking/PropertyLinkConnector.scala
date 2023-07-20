@@ -171,45 +171,12 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
   // applying scope/actions in voa-property-linking.
   // Once implemented remove variations of connector calls below that serve AgentAppointmentChange
   def agentAppointmentChange(agentAppointmentChangeRequest: AgentAppointmentChangeRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] = {
+    println(Console.YELLOW + agentAppointmentChangeRequest + Console.RESET)
     http.POST[AgentAppointmentChangeRequest, AgentAppointmentChangesResponse](
       s"$baseUrl/my-organisation/agent/submit-appointment-changes",
       agentAppointmentChangeRequest)
-
-  def assignAgent(agentRelationshipRequest: AgentAppointmentChangesRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    http
-      .POST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse](
-        s"$baseUrl/my-organisation/agent/assign",
-        agentRelationshipRequest)
-
-  def assignAgentToSomeProperties(request: AppointAgentToSomePropertiesRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    http
-      .POST[AppointAgentToSomePropertiesRequest, AgentAppointmentChangesResponse](
-        s"$baseUrl/my-organisation/agent/assign-to-some-properties",
-        request)
-
-  def removeAgentFromOrganisation(agentRelationshipRequest: AgentAppointmentChangesRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    http
-      .POST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse](
-        s"$baseUrl/my-organisation/agent/remove-from-organisation ",
-        agentRelationshipRequest)
-
-  def unassignAgent(agentRelationshipRequest: AgentAppointmentChangesRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    http
-      .POST[AgentAppointmentChangesRequest, AgentAppointmentChangesResponse](
-        s"$baseUrl/my-organisation/agent/unassign",
-        agentRelationshipRequest)
-
-  def unassignAgentFromSomeProperties(request: AppointAgentToSomePropertiesRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    http
-      .POST[AppointAgentToSomePropertiesRequest, AgentAppointmentChangesResponse](
-        s"$baseUrl/my-organisation/agent/unassign-from-some-properties",
-        request)
+  }
 
   def getMyOrganisationsCheckCases(propertyLinkSubmissionId: String)(
         implicit hc: HeaderCarrier): Future[List[CaseDetails]] =

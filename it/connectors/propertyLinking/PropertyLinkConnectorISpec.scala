@@ -71,14 +71,14 @@ class PropertyLinkConnectorISpec extends ISpecBase {
         agentRepresentativeCode = 123456,
         scope = AppointmentScope.PROPERTY_LIST,
         action = AppointmentAction.APPOINT,
-        propertyLinkIds = Some(List("123L")),
+        propertyLinks = Some(List("123L")),
         listYears = Some(List("2023")))
 
       val jsonRequest = Json.parse("""{
                            |   "agentRepresentativeCode":123456,
                            |   "action":"APPOINT",
                            |   "scope":"PROPERTY_LIST",
-                           |   "propertyLinkIds":[
+                           |   "propertyLinks":[
                            |      "123L"
                            |   ],
                            |   "listYears":[
