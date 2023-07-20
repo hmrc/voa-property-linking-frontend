@@ -159,35 +159,35 @@ class ManageAgentController @Inject()(
       ipPropertyLinksCount = propertyLinks.total
     } yield {
       agentToBeManagedOpt match {
-        case None => throw new NotFoundException("Agent is not available")
+        case None => None
         case Some(agent) =>
           if (featureSwitch.isAgentListYearsEnabled) {
             val ManageAgentOptionItemList =
-              (ipPropertyLinksCount, agentToBeManagedOpt) match {
-                case (0, Some(agent)) if agent.propertyCount == 0 =>
+              ipPropertyLinksCount match {
+                case 0 if agent.propertyCount == 0 =>
                   List(
                     ManageAgentOptionItem(ChangeRatingList),
                     ManageAgentOptionItem(RemoveFromYourAccount)
                   )
-                case (1, Some(agent)) if agent.propertyCount == 0 =>
+                case 1 if agent.propertyCount == 0 =>
                   List(
                     ManageAgentOptionItem(AssignToYourProperty),
                     ManageAgentOptionItem(ChangeRatingList),
                     ManageAgentOptionItem(RemoveFromYourAccount)
                   )
-                case (1, Some(agent)) if agent.propertyCount == 1 =>
+                case 1 if agent.propertyCount == 1 =>
                   List(
                     ManageAgentOptionItem(UnassignFromYourProperty),
                     ManageAgentOptionItem(ChangeRatingList)
                   )
-                case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
+                case numberOfPropertyLinks if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
                   List(
                     ManageAgentOptionItem(AssignToAllProperties),
                     ManageAgentOptionItem(AssignToSomeProperties),
                     ManageAgentOptionItem(ChangeRatingList),
                     ManageAgentOptionItem(RemoveFromYourAccount),
                   )
-                case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
+                case numberOfPropertyLinks if numberOfPropertyLinks > agent.propertyCount =>
                   List(
                     ManageAgentOptionItem(AssignToAllProperties),
                     ManageAgentOptionItem(AssignToSomeProperties),
@@ -195,7 +195,7 @@ class ManageAgentController @Inject()(
                     ManageAgentOptionItem(UnassignFromSomeProperties),
                     ManageAgentOptionItem(ChangeRatingList)
                   )
-                case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
+                case numberOfPropertyLinks if numberOfPropertyLinks == agent.propertyCount =>
                   List(
                     ManageAgentOptionItem(UnassignFromAllProperties),
                     ManageAgentOptionItem(UnassignFromSomeProperties),
@@ -210,8 +210,8 @@ class ManageAgentController @Inject()(
                 calculateBackLink(organisationsAgents, agent.representativeCode)
               ))
           } else {
-            (ipPropertyLinksCount, agentToBeManagedOpt) match {
-              case (0, Some(agent)) if agent.propertyCount == 0 =>
+            (ipPropertyLinksCount) match {
+              case 0 if agent.propertyCount == 0 =>
                 //IP has no property links but still has an agent
                 Some(
                   removeAgentFromOrganisationView(
@@ -219,7 +219,7 @@ class ManageAgentController @Inject()(
                     agent.representativeCode,
                     agent.name,
                     calculateBackLink(organisationsAgents, agent.representativeCode)))
-              case (1, Some(agent)) if agent.propertyCount == 0 =>
+              case 1 if agent.propertyCount == 0 =>
                 //IP has one property link but agent is not assigned
                 Some(
                   manageAgentViewOld(
@@ -231,14 +231,14 @@ class ManageAgentController @Inject()(
                     agent,
                     calculateBackLink(organisationsAgents, agent.representativeCode)
                   ))
-              case (1, Some(agent)) if agent.propertyCount == 1 =>
+              case 1 if agent.propertyCount == 1 =>
                 //IP has one property link and agent is assigned to that property
                 Some(
                   unassignAgentFromPropertyView(
                     submitAgentAppointmentRequest,
                     agent,
                     calculateBackLink(organisationsAgents, agent.representativeCode)))
-              case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
+              case numberOfPropertyLinks if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
                 //IP has more than one property links but agent is not assigned to any
                 Some(
                   manageAgentViewOld(
@@ -252,7 +252,7 @@ class ManageAgentController @Inject()(
                     calculateBackLink(organisationsAgents, agent.representativeCode)
                   ))
 
-              case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks > agent.propertyCount =>
+              case numberOfPropertyLinks if numberOfPropertyLinks > agent.propertyCount =>
                 Some(
                   manageAgentView(
                     submitManageAgentForm,
@@ -265,7 +265,7 @@ class ManageAgentController @Inject()(
                     agent,
                     calculateBackLink(organisationsAgents, agent.representativeCode)
                   ))
-              case (numberOfPropertyLinks, Some(agent)) if numberOfPropertyLinks == agent.propertyCount =>
+              case numberOfPropertyLinks if numberOfPropertyLinks == agent.propertyCount =>
                 //agent is assigned to all of the IP's property links
                 Some(
                   manageAgentView(
