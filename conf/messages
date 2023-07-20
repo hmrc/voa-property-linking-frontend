@@ -608,6 +608,18 @@ propertyRepresentation.agentProperties.label.properties=Properties
 propertyRepresentation.manage.agent=Manage this agent
 propertyRepresentation.showAgents.properties={0} of {1} properties
 propertyRepresentation.showAgents.viewAgentProperties=<a class="govuk-link" href="{0}" aria-label="View agent {1}">View</a>
+propertyRepresentation.showAgents.help.link= Help with appointing and managing agents
+propertyRepresentation.showAgents.label.rating=	Rating lists they can act on for you
+propertyRepresentation.showAgents.properties.assigned={0} of {1}
+propertyRepresentation.showAgents.ratingList={0} rating list
+propertyRepresentation.showAgents.ratingLists={1} and {0} rating lists
+propertyRepresentation.showAgents.viewAgentProperties.name=<a class="govuk-link" id="" href="{0}" aria-label="View agent {1}">{2}</a>
+propertyRepresentation.caption=Agent
+propertyRepresentation.ratingLists.heading=Rating lists they can act on for you
+propertyRepresentation.ratingList.p=This agent can act for you on your property valuations on the {0} rating list, for properties that you assign them to or they add to your account.
+propertyRepresentation.ratingLists.p=This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign them to or they add to your account.
+propertyRepresentation.agentProperties.assigned.none=This agent is not assigned to any properties.
+propertyRepresentation.manageAgent.options.changeRatingList=Change which rating list they can act on for you
 error.propertyRepresentation.agentProperties.filter=Search Properties - you must enter something to search for
 error.agentProperties.filter=You must enter something to search for
 
@@ -639,6 +651,7 @@ propertyRepresentation.manageAgent.options.assignToSomeProperties=Assign to some
 propertyRepresentation.manageAgent.options.unassignFromAllProperties=Unassign from all properties
 propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Unassign from some properties
 propertyRepresentation.manageAgent.options.assignToYourProperty=Assign to your property
+propertyRepresentation.manageAgent.options.unassignFromYourProperty= Unassign from my property
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from your account
 
 propertyRepresentation.manageAgent.assignToAllProperties.title.multiple=Are you sure you want to assign {0} to all your properties?

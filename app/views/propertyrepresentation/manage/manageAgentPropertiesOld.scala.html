@@ -14,53 +14,52 @@
  * limitations under the License.
  *@
 
+@import actions.requests.BasicAuthenticatedRequest
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
 @import models.searchApi.OwnerAuthResult
 @import models.propertyrepresentation.AgentDetails
 @import utils.Formatters
+
 @this(govukTable: GovukTable, mainLayout: views.html.mainLayout)
+
 
 @(      ownerAuthResult: OwnerAuthResult,
         agentCode: Long,
-        agentDetails:Option[AgentDetails],
-        listYears: Seq[String],
-        backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+        agentDetails:Option[AgentDetails], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@ratingList = @{
 
-    listYears match {
-        case Seq(year) => messages("propertyRepresentation.ratingList.p", year)
-        case Seq() => ""
-        case _ => messages("propertyRepresentation.ratingLists.p")
-    }
-}
 @mainLayout(
     pageTitle = messages("propertyRepresentation.agentProperties.assigned.title"),
     backUri = Some(backLink)
 
 ) {
 
-    <h2 class="govuk-caption-l">@messages("propertyRepresentation.caption")</h2>
-
     <h1 class="govuk-heading-l">@agentDetails.map(_.name).getOrElse("")</h1>
 
     <a class="govuk-button" href="@{controllers.agent.routes.ManageAgentController.startManageAgent(agentCode).url}">@messages("propertyRepresentation.manage.agent")</a>
 
-    <h2 class="govuk-heading-m">@messages("propertyRepresentation.ratingLists.heading")</h2>
-
-    <p class="govuk-body" id="ratingListText">@ratingList</p>
-
     <h2 class="govuk-heading-m">@messages("propertyRepresentation.agentProperties.assigned")</h2>
 
-        @if(ownerAuthResult.authorisations.nonEmpty) {
-            <ul class="govuk-list govuk-list--bullet">
-            @ownerAuthResult.authorisations.map { property =>
-                <li>@Formatters.capitalisedAddress(property.address)</li>
-            }
-            </ul>
-        } else {
-            <p class="govuk-body">@messages("propertyRepresentation.agentProperties.assigned.none")</p>
-        }
-
+    @if(ownerAuthResult.authorisations.nonEmpty) {
+            @govukTable(Table(
+                rows = ownerAuthResult.authorisations.map{ authorisation =>
+                    Seq(
+                        TableRow(
+                            content = Text(Formatters.capitalisedAddress(authorisation.address))
+                        )
+                    )
+                },
+                head = Some(List(
+                    HeadCell(
+                        content = Text(messages("propertyRepresentation.agentProperties.label.properties"))
+                    )
+                )),
+                caption = None,
+                firstCellIsHeader = false
+            )
+            )
     }
+
+}

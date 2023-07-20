@@ -40,7 +40,10 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     authenticated = preAuthenticatedActionBuilders(userIsAgent = false),
     agentRelationshipService = mockAgentRelationshipService,
     manageAgentView = manageAgentView,
+    manageAgentViewOld = manageAgentViewOld,
     myAgentsView = myAgentsView,
+    myAgentsViewOld = myAgentViewOld,
+    featureSwitch = mockFeatureSwitch,
     removeAgentFromOrganisationView = removeAgentFromOrganisationView,
     unassignAgentFromPropertyView = unassignAgentFromPropertyView,
     addAgentToAllPropertiesView = addAgentToAllPropertyView,
@@ -49,6 +52,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     confirmUnassignAgentFromAllPropertiesView = confirmUnassignAgentFromAllPropertiesView,
     confirmRemoveAgentFromOrganisationView = confirmRemoveAgentFromOrganisationView,
     manageAgentPropertiesView = manageAgentPropertiesView,
+    manageAgentPropertiesViewOld = manageAgentPropertiesViewOld,
     manageAgentSessionRepo = mockSessionRepository
   )
 

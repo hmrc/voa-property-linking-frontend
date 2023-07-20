@@ -43,7 +43,7 @@ class RatingListConfirmedISpec extends ISpecBase with HtmlComponentHelpers {
   val youCanSelector = "#main-content > div > div > p:nth-child(4)"
   val goToYourSelector = "#homeLink"
 
-  val goHomeHref = "http://localhost:9542/business-rates-dashboard/home"
+  val goHomeHref = "/business-rates-dashboard/home"
 
   "RatingListConfirmedController" should {
     "Show an English confirmed screen with the correct text when the user has chosen both list years and the language is set to English" which {

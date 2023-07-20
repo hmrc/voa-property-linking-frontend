@@ -20,9 +20,12 @@
 @import models.propertyrepresentation.ManageAgentRequest
 @import models.propertyrepresentation.AgentSummary
 @import config.ApplicationConfig
+@import views.html.components.link
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+
 @(form: Form[ManageAgentRequest], radioOptions: List[ManageAgentOptionItem], agent: AgentSummary, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
     @radioItems = @{
         radioOptions.map { item =>
             RadioItem(
@@ -33,20 +36,21 @@
             )
         }
     }
+
 @mainLayout(
     pageTitle = messages("propertyRepresentation.manageAgent.title"),
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
+
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    <h2 class="govuk-caption-l">@messages("propertyRepresentation.manageAgent.title")</h2>
-
     <h1 class="govuk-heading-l">@messages("propertyRepresentation.manageAgent.question", agent.name)</h1>
 
     @formWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent(agent.representativeCode)) {
+
         <input type="hidden" name="agentName" value="@agent.name">
         @govukRadios(Radios(
             idPrefix = Some("manageAgentOption"),
@@ -55,7 +59,13 @@
         ).withFormField(form("manageAgentOption")))
 
         <div class="govuk-button-group">
-        @govukButton(Button(content = Text(messages("label.continue"))))
+            @govukButton(Button(content = Text(messages("label.continue"))))
+
+            @link(
+              linkText = messages("link.cancel"),
+              location = config.dashboardUrl("home")
+            )
         </div>
     }
+
 }

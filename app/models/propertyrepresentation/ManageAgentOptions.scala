@@ -45,11 +45,20 @@ case object AssignToYourProperty extends ManageAgentOptions {
   val name = "assignToYourProperty"
 }
 
+case object UnassignFromYourProperty extends ManageAgentOptions {
+  val name = "unassignFromYourProperty"
+}
+
 case object RemoveFromYourAccount extends ManageAgentOptions {
   val name = "removeFromYourAccount"
 }
 
+case object ChangeRatingList extends ManageAgentOptions {
+  val name = "changeRatingList"
+}
+
 object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
+
   implicit val format = EnumFormat(ManageAgentOptions)
 
   override def all: List[ManageAgentOptions] =
@@ -59,35 +68,15 @@ object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
       UnassignFromAllProperties,
       UnassignFromSomeProperties,
       AssignToYourProperty,
-      RemoveFromYourAccount)
-
-  val onePropertyLinkNoAssignedAgentsOptions = List(
-    ManageAgentOptionItem(s"${AssignToYourProperty.name}"),
-    ManageAgentOptionItem(s"${RemoveFromYourAccount.name}")
-  )
-
-  val multiplePropertyLinksNoAssignedAgentsOptions = List(
-    ManageAgentOptionItem(s"${AssignToAllProperties.name}"),
-    ManageAgentOptionItem(s"${AssignToSomeProperties.name}"),
-    ManageAgentOptionItem(s"${RemoveFromYourAccount.name}")
-  )
-
-  val multiplePropertyLinksAgentAssignedToSomeOptions = List(
-    ManageAgentOptionItem(s"${AssignToAllProperties.name}"),
-    ManageAgentOptionItem(s"${AssignToSomeProperties.name}"),
-    ManageAgentOptionItem(s"${UnassignFromAllProperties.name}"),
-    ManageAgentOptionItem(s"${UnassignFromSomeProperties.name}")
-  )
-
-  val multiplePropertyLinksAgentAssignedToAllOptions = List(
-    ManageAgentOptionItem(s"${UnassignFromAllProperties.name}"),
-    ManageAgentOptionItem(s"${UnassignFromSomeProperties.name}")
-  )
+      UnassignFromYourProperty,
+      RemoveFromYourAccount,
+      ChangeRatingList
+    )
 }
 
-case class ManageAgentOptionItem(value: String) {
-  val id: String = value
-  val titleMessageKeySuffix: String = value
+case class ManageAgentOptionItem(value: ManageAgentOptions) {
+  val id: String = value.name
+  val titleMessageKeySuffix: String = value.name
 }
 
 object ManageAgentOptionItem {
