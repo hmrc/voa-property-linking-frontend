@@ -93,25 +93,69 @@ class AgentRelationshipService @Inject()(
     propertyLinks.removeAgentFromOrganisation(appointAgentRequest)
 
   def assignAgent(appointAgentRequest: AgentAppointmentChangesRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    propertyLinks.assignAgent(appointAgentRequest)
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] = {
+
+    println("did this?")
+
+    propertyLinks.agentAppointmentChange(AgentAppointmentChangeRequest(
+      agentRepresentativeCode = appointAgentRequest.agentRepresentativeCode,
+      action = AppointmentAction.APPOINT,
+      scope = if (appointAgentRequest.scope.equals("All_PROPERTIES")) AppointmentScope.ALL_PROPERTIES else if (appointAgentRequest.scope.equals("RELATIONSHIP")) AppointmentScope.RELATIONSHIP else AppointmentScope.ALL_PROPERTIES,
+      propertyLinkIds = None,
+      listYears = Some(List("2017", "2023"))
+    ))
+  }
 
   def assignAgentToSomeProperties(request: AppointAgentToSomePropertiesRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    propertyLinks.assignAgentToSomeProperties(request)
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] = {
+
+    println("Should of done this")
+
+    propertyLinks.agentAppointmentChange(AgentAppointmentChangeRequest(
+      agentRepresentativeCode = request.agentCode,
+      action = AppointmentAction.APPOINT,
+      scope = AppointmentScope.PROPERTY_LIST,
+      propertyLinkIds = Some(request.propertyLinkIds),
+      listYears = Some(List("2017", "2023"))
+    ))
+  }
 
   def unassignAgent(request: AgentAppointmentChangesRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    propertyLinks.unassignAgent(request)
+    propertyLinks.agentAppointmentChange(AgentAppointmentChangeRequest(
+      agentRepresentativeCode = request.agentRepresentativeCode,
+      action = AppointmentAction.REVOKE,
+      scope = if (request.scope.equals("All_PROPERTIES")) AppointmentScope.ALL_PROPERTIES else if (request.scope.equals("RELATIONSHIP")) AppointmentScope.RELATIONSHIP else AppointmentScope.ALL_PROPERTIES,
+      propertyLinkIds = None,
+      listYears = Some(List("2017", "2023"))
+    ))
 
   def unassignAgentFromSomeProperties(request: AppointAgentToSomePropertiesRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    propertyLinks.unassignAgentFromSomeProperties(request)
+    propertyLinks.agentAppointmentChange(AgentAppointmentChangeRequest(
+      agentRepresentativeCode = request.agentCode,
+      action = AppointmentAction.REVOKE,
+      scope = AppointmentScope.PROPERTY_LIST,
+      propertyLinkIds = Some(request.propertyLinkIds),
+      listYears = Some(List("2017", "2023"))
+    ))
 
   def getMyOrganisationAgents()(implicit hc: HeaderCarrier): Future[AgentList] =
     propertyLinks.getMyOrganisationAgents()
 
   def getMyOrganisationPropertyLinksCount()(implicit hc: HeaderCarrier): Future[Int] =
     propertyLinks.getMyOrganisationPropertyLinksCount()
+
+  def appointAgent(appointAgentRequest: AgentAppointmentChangeRequest)(
+    implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] = {
+
+    propertyLinks.agentAppointmentChange(AgentAppointmentChangeRequest(
+      agentRepresentativeCode = appointAgentRequest.agentRepresentativeCode,
+      action = appointAgentRequest.action,
+      scope = appointAgentRequest.scope,
+      propertyLinkIds = appointAgentRequest.propertyLinkIds,
+      listYears = appointAgentRequest.listYears
+    ))
+  }
 
 }
