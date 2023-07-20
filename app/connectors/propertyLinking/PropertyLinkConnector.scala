@@ -168,11 +168,10 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(
     http.GET[Int](s"$baseUrl/owner/property-links/count")
 
   def agentAppointmentChange(agentAppointmentChangeRequest: AgentAppointmentChangeRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] = {
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     http.POST[AgentAppointmentChangeRequest, AgentAppointmentChangesResponse](
       s"$baseUrl/my-organisation/agent/submit-appointment-changes",
       agentAppointmentChangeRequest)
-  }
 
   def getMyOrganisationsCheckCases(propertyLinkSubmissionId: String)(
         implicit hc: HeaderCarrier): Future[List[CaseDetails]] =
