@@ -24,8 +24,8 @@ case class AgentAppointmentChangeRequest(
       agentRepresentativeCode: Long,
       action: AppointmentAction,
       scope: AppointmentScope,
-      propertyLinkIds: Option[List[String]],
-      listYears: Option[List[String]] = None)
+      propertyLinks: Option[List[String]],
+      listYears: Option[List[String]])
 
 object AgentAppointmentChangeRequest {
 

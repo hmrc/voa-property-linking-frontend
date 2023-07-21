@@ -27,7 +27,7 @@ import controllers._
 import form.FormValidation.nonEmptyList
 import models.GroupAccount.AgentGroupAccount
 import models._
-import models.propertyrepresentation.{AppointAgentToSomePropertiesSession, FilterAppointProperties, FilterRevokePropertiesSessionData, RevokeAgentFromSomePropertiesSession}
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AppointAgentToSomePropertiesSession, AppointmentAction, AppointmentScope, FilterAppointProperties, FilterRevokePropertiesSessionData, RevokeAgentFromSomePropertiesSession}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi._
 import play.api.Logger
@@ -39,8 +39,8 @@ import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-import javax.inject.{Inject, Named}
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class AppointAgentController @Inject()(
@@ -251,10 +251,14 @@ class AppointAgentController @Inject()(
                   for {
                     sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
                     _ <- agentRelationshipService
-                          .createAndSubmitAgentRepRequest(
-                            pLinkIds = action.propertyLinkIds,
-                            agentCode = action.agentCode
-                          )
+                          .assignAgentToSomeProperties(AgentAppointmentChangeRequest(
+                            agentRepresentativeCode = agentCode,
+                            action = AppointmentAction.APPOINT,
+                            scope = AppointmentScope.PROPERTY_LIST,
+                            propertyLinks = Some(action.propertyLinkIds),
+                            listYears = Some(List("2017", "2023"))
+                          ))
+
                     _ <- appointAgentPropertiesSession.saveOrUpdate[AppointAgentToSomePropertiesSession](
                           sessionDataOpt.fold(AppointAgentToSomePropertiesSession(agentAppointAction = Some(action)))(
                             data => data.copy(agentAppointAction = Some(action))))
@@ -512,10 +516,13 @@ class AppointAgentController @Inject()(
                   for {
                     sessionDataOpt <- revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession]
                     _ <- agentRelationshipService
-                          .createAndSubmitAgentRevokeRequest(
-                            pLinkIds = action.propertyLinkIds,
-                            agentCode = action.agentCode
-                          )
+                          .unassignAgentFromSomeProperties(AgentAppointmentChangeRequest(
+                            agentRepresentativeCode = action.agentCode,
+                            action = AppointmentAction.REVOKE,
+                            scope = AppointmentScope.PROPERTY_LIST,
+                            propertyLinks = Some(action.propertyLinkIds),
+                            listYears = None
+                          ))
                     _ <- revokeAgentPropertiesSessionRepo.saveOrUpdate[RevokeAgentFromSomePropertiesSession](
                           sessionDataOpt.fold(RevokeAgentFromSomePropertiesSession(agentRevokeAction = Some(action)))(
                             data => data.copy(agentRevokeAction = Some(action))))

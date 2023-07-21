@@ -93,7 +93,7 @@ class PropertyLinkingService @Inject()(
               agentRepresentativeCode = agentSummary.representativeCode,
               scope = AppointmentScope.LIST_YEAR,
               action = AppointmentAction.APPOINT,
-              propertyLinkIds = None,
+              propertyLinks = None,
               listYears = Some(yearsToAppoint)
             )
           )
@@ -109,7 +109,7 @@ class PropertyLinkingService @Inject()(
               agentRepresentativeCode = agentSummary.representativeCode,
               scope = AppointmentScope.LIST_YEAR,
               action = AppointmentAction.REVOKE,
-              propertyLinkIds = None,
+              propertyLinks = None,
               listYears = Some(listYearsToRevoke.toList)
             )
           )

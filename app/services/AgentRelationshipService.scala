@@ -40,20 +40,6 @@ class AgentRelationshipService @Inject()(
       implicit val executionContext: ExecutionContext)
     extends Logging {
 
-  def createAndSubmitAgentRepRequest(pLinkIds: List[String], agentCode: Long)(
-        implicit hc: HeaderCarrier): Future[Unit] =
-    assignAgentToSomeProperties(AppointAgentToSomePropertiesRequest(agentCode = agentCode, propertyLinkIds = pLinkIds))
-      .map(_ => ())
-
-  def createAndSubmitAgentRevokeRequest(pLinkIds: List[String], agentCode: Long)(
-        implicit hc: HeaderCarrier): Future[Unit] =
-    unassignAgentFromSomeProperties(
-      AppointAgentToSomePropertiesRequest(
-        agentCode = agentCode,
-        propertyLinkIds = pLinkIds
-      )
-    ).map(_ => ())
-
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         params: GetPropertyLinksParameters,
         pagination: AgentPropertiesParameters,
@@ -88,25 +74,26 @@ class AgentRelationshipService @Inject()(
   def getAgentNameAndAddress(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentDetails]] =
     representations.getAgentDetails(agentCode)
 
-  def removeAgentFromOrganisation(appointAgentRequest: AgentAppointmentChangesRequest)(
+  //The following methods should be refactored into one as they all take agentAppointmentChange request body now.
+  def removeAgentFromOrganisation(appointAgentRequest: AgentAppointmentChangeRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    propertyLinks.removeAgentFromOrganisation(appointAgentRequest)
+    propertyLinks.agentAppointmentChange(appointAgentRequest)
 
-  def assignAgent(appointAgentRequest: AgentAppointmentChangesRequest)(
+  def assignAgent(appointAgentRequest: AgentAppointmentChangeRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    propertyLinks.assignAgent(appointAgentRequest)
+    propertyLinks.agentAppointmentChange(appointAgentRequest)
 
-  def assignAgentToSomeProperties(request: AppointAgentToSomePropertiesRequest)(
+  def assignAgentToSomeProperties(request: AgentAppointmentChangeRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    propertyLinks.assignAgentToSomeProperties(request)
+    propertyLinks.agentAppointmentChange(request)
 
-  def unassignAgent(request: AgentAppointmentChangesRequest)(
+  def unassignAgent(request: AgentAppointmentChangeRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    propertyLinks.unassignAgent(request)
+    propertyLinks.agentAppointmentChange(request)
 
-  def unassignAgentFromSomeProperties(request: AppointAgentToSomePropertiesRequest)(
+  def unassignAgentFromSomeProperties(request: AgentAppointmentChangeRequest)(
         implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
-    propertyLinks.unassignAgentFromSomeProperties(request)
+    propertyLinks.agentAppointmentChange(request)
 
   def getMyOrganisationAgents()(implicit hc: HeaderCarrier): Future[AgentList] =
     propertyLinks.getMyOrganisationAgents()

@@ -344,9 +344,17 @@ class ManageAgentController @Inject()(
               BadRequest(
                 addAgentToAllPropertiesView(errors, agentName, agentCode, multiplePropertyLinks = linkCount > 1)))
         }, { success =>
-          agentRelationshipService.assignAgent(success).map { _ =>
-            Redirect(controllers.agent.routes.ManageAgentController.confirmAssignAgentToAll)
-          }
+          agentRelationshipService
+            .assignAgent(AgentAppointmentChangeRequest(
+              action = AppointmentAction.APPOINT,
+              scope = AppointmentScope.ALL_PROPERTIES,
+              agentRepresentativeCode = success.agentRepresentativeCode,
+              propertyLinks = None,
+              listYears = Some(List("2017", "2023"))
+            ))
+            .map { _ =>
+              Redirect(controllers.agent.routes.ManageAgentController.confirmAssignAgentToAll)
+            }
         }
       )
   }
@@ -357,9 +365,17 @@ class ManageAgentController @Inject()(
         errors => {
           Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
         }, { success =>
-          agentRelationshipService.unassignAgent(success).map { _ =>
-            Redirect(controllers.agent.routes.ManageAgentController.confirmationUnassignAgentFromAll.url)
-          }
+          agentRelationshipService
+            .unassignAgent(AgentAppointmentChangeRequest(
+              agentRepresentativeCode = success.agentRepresentativeCode,
+              action = AppointmentAction.REVOKE,
+              scope = AppointmentScope.ALL_PROPERTIES,
+              propertyLinks = None,
+              listYears = None
+            ))
+            .map { _ =>
+              Redirect(controllers.agent.routes.ManageAgentController.confirmationUnassignAgentFromAll.url)
+            }
         }
       )
   }
@@ -401,7 +417,13 @@ class ManageAgentController @Inject()(
           Future.successful(BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, backLink)))
         }, { success =>
           agentRelationshipService
-            .removeAgentFromOrganisation(success)
+            .removeAgentFromOrganisation(AgentAppointmentChangeRequest(
+              agentRepresentativeCode = success.agentRepresentativeCode,
+              action = AppointmentAction.REVOKE,
+              scope = AppointmentScope.RELATIONSHIP,
+              propertyLinks = None,
+              listYears = None
+            ))
             .map(_ => Redirect(controllers.agent.routes.ManageAgentController.confirmRemoveAgentFromOrganisation))
         }
       )
