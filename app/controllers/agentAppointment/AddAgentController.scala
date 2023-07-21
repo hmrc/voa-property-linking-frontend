@@ -290,7 +290,7 @@ class AddAgentController @Inject()(
             _ <- agentRelationshipService.assignAgent(
                   AgentAppointmentChangeRequest(
                     action = AppointmentAction.APPOINT,
-                    scope = AppointmentScope.RELATIONSHIP,
+                    scope = AppointmentScope.withName(success.scope),
                     agentRepresentativeCode = success.agentRepresentativeCode,
                     propertyLinks = None,
                     listYears = Some(List("2017", "2023"))
