@@ -21,23 +21,23 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Manage agent - Valuation Office Agency - GOV.UK"
+  val titleText = "What do you want to do with your agent Test Agent? - Valuation Office Agency - GOV.UK"
   val backLinkText ="Back"
   val continueButtonText = "Continue"
   val captionText = "Manage agent"
 
-  def headerText(name: String) = s"What do you want to do to the agent $name?"
+  def headerText(name: String) = s"What do you want to do with your agent $name?"
 
   val radioAssignYourText= "Assign to your property"
   val radioUnAssignYourText= "Unassign from my property"
   val radioAssignAllText= "Assign to all properties"
-  val radioAssignASomeText = "Assign to some properties"
+  val radioAssignASomeText = "Assign to one or more properties"
   val radioUnassignedAllText = "Unassign from all properties"
-  val radioUnassignedASomeText = "Unassign from some properties"
+  val radioUnassignedASomeText = "Unassign from one or more properties"
   val radioChangeText = "Change which rating list they can act on for you"
   val radioRemoveText = "Remove from your account"
 
-  val titleTextWelsh  ="Rheoli asiant - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh ="What do you want to do with your agent Test Agent? - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh  ="Yn ôl"
   val continueButtonTextWelsh ="Parhau"
   val captionTextWelsh  = "Rheoli asiant"
@@ -46,9 +46,9 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
   val radioAssignYourTextWelsh= "Neilltuo i’ch eiddo"
   val radioAssignAllTextWelsh = "Neilltuo i bob eiddo"
-  val radioAssignASomeTextWelsh  = "Neilltuo i ambell eiddo"
+  val radioAssignASomeTextWelsh  = "Assign to one or more properties"
   val radioUnassignedAllTextWelsh  = "Dad-neilltuo o’ch holl eiddo"
-  val radioUnassignedASomeTextWelsh  = "Dad-neilltuo o rhai eiddo"
+  val radioUnassignedASomeTextWelsh  = "Unassign from one or more properties"
   val radioChangeTextWelsh  = "Change which rating list they can act on for you"
   val radioRemoveTextWelsh  = "Dileu o’ch cyfrif"
   val radioUnAssignYourTextWelsh= "Unassign from my property"

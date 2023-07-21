@@ -173,12 +173,13 @@ class AddAgentController @Inject()(
                 propertyLinks.authorisations.size match {
                   case 0 =>
                     agentRelationshipService
-                      .assignAgent(
-                        AgentAppointmentChangesRequest(
-                          scope = AppointmentScope.RELATIONSHIP.toString,
-                          agentRepresentativeCode = searchedAgent.agentCode
-                        )
-                      )
+                      .assignAgent(AgentAppointmentChangeRequest(
+                        action = AppointmentAction.APPOINT,
+                        scope = AppointmentScope.RELATIONSHIP,
+                        agentRepresentativeCode = searchedAgent.agentCode,
+                        propertyLinks = None,
+                        listYears = Some(List("2017", "2023"))
+                      ))
                       .map(_ => Ok(confirmationView(request.agentDetails.name, None)))
                   case 1 =>
                     Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty))
@@ -286,7 +287,14 @@ class AddAgentController @Inject()(
                     sessionRepo.saveOrUpdate(
                       data.copy(appointmentScope = Some(AppointmentScope.withName(success.scope))))
                 }
-            _ <- agentRelationshipService.assignAgent(success)
+            _ <- agentRelationshipService.assignAgent(
+                  AgentAppointmentChangeRequest(
+                    action = AppointmentAction.APPOINT,
+                    scope = AppointmentScope.withName(success.scope),
+                    agentRepresentativeCode = success.agentRepresentativeCode,
+                    propertyLinks = None,
+                    listYears = Some(List("2017", "2023"))
+                  ))
           } yield Redirect(controllers.agentAppointment.routes.AddAgentController.confirmAppointAgent)
         }
       }

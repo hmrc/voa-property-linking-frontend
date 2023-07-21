@@ -23,7 +23,7 @@ import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
-import models.propertyrepresentation.{ManageAgentOptionItem, _}
+import models.propertyrepresentation._
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi.OwnerAuthResult
 import play.api.Logger
@@ -35,7 +35,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
 import repositories.SessionRepo
-import uk.gov.hmrc.http.{HeaderCarrier, NotFoundException}
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -183,22 +183,22 @@ class ManageAgentController @Inject()(
                 case numberOfPropertyLinks if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
                   List(
                     ManageAgentOptionItem(AssignToAllProperties),
-                    ManageAgentOptionItem(AssignToSomeProperties),
+                    ManageAgentOptionItem(AssignToOneOrMoreProperties),
                     ManageAgentOptionItem(ChangeRatingList),
                     ManageAgentOptionItem(RemoveFromYourAccount),
                   )
                 case numberOfPropertyLinks if numberOfPropertyLinks > agent.propertyCount =>
                   List(
                     ManageAgentOptionItem(AssignToAllProperties),
-                    ManageAgentOptionItem(AssignToSomeProperties),
+                    ManageAgentOptionItem(AssignToOneOrMoreProperties),
                     ManageAgentOptionItem(UnassignFromAllProperties),
-                    ManageAgentOptionItem(UnassignFromSomeProperties),
+                    ManageAgentOptionItem(UnassignFromOneOrMoreProperties),
                     ManageAgentOptionItem(ChangeRatingList)
                   )
                 case numberOfPropertyLinks if numberOfPropertyLinks == agent.propertyCount =>
                   List(
                     ManageAgentOptionItem(UnassignFromAllProperties),
-                    ManageAgentOptionItem(UnassignFromSomeProperties),
+                    ManageAgentOptionItem(UnassignFromOneOrMoreProperties),
                     ManageAgentOptionItem(ChangeRatingList)
                   )
               }
@@ -254,7 +254,7 @@ class ManageAgentController @Inject()(
 
               case numberOfPropertyLinks if numberOfPropertyLinks > agent.propertyCount =>
                 Some(
-                  manageAgentView(
+                  manageAgentViewOld(
                     submitManageAgentForm,
                     List(
                       ManageAgentOptionItem(AssignToAllProperties),
@@ -268,7 +268,7 @@ class ManageAgentController @Inject()(
               case numberOfPropertyLinks if numberOfPropertyLinks == agent.propertyCount =>
                 //agent is assigned to all of the IP's property links
                 Some(
-                  manageAgentView(
+                  manageAgentViewOld(
                     submitManageAgentForm,
                     List(
                       ManageAgentOptionItem(UnassignFromAllProperties),
@@ -292,17 +292,19 @@ class ManageAgentController @Inject()(
         }
       }, { success =>
         success.manageAgentOption match {
-          case AssignToSomeProperties => Future.successful(joinOldAgentAppointJourney(agentCode))
+          case AssignToSomeProperties | AssignToOneOrMoreProperties =>
+            Future.successful(joinOldAgentAppointJourney(agentCode))
           case AssignToAllProperties | AssignToYourProperty =>
             Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showAssignToAll))
           case UnassignFromAllProperties =>
             Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll))
-          case UnassignFromSomeProperties => Future.successful(joinOldAgentRevokeJourney(agentCode))
+          case UnassignFromSomeProperties | UnassignFromOneOrMoreProperties =>
+            Future.successful(joinOldAgentRevokeJourney(agentCode))
           case RemoveFromYourAccount =>
             Future.successful(
               Redirect(controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation))
           case ChangeRatingList =>
-            Future.successful(Redirect(controllers.manageAgent.routes.WhichRatingListController.show))
+            Future.successful(Redirect(controllers.manageAgent.routes.ChooseRatingListController.show))
           case UnassignFromYourProperty =>
             Future.successful((Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll)))
         }
@@ -344,9 +346,17 @@ class ManageAgentController @Inject()(
               BadRequest(
                 addAgentToAllPropertiesView(errors, agentName, agentCode, multiplePropertyLinks = linkCount > 1)))
         }, { success =>
-          agentRelationshipService.assignAgent(success).map { _ =>
-            Redirect(controllers.agent.routes.ManageAgentController.confirmAssignAgentToAll)
-          }
+          agentRelationshipService
+            .assignAgent(AgentAppointmentChangeRequest(
+              action = AppointmentAction.APPOINT,
+              scope = AppointmentScope.ALL_PROPERTIES,
+              agentRepresentativeCode = success.agentRepresentativeCode,
+              propertyLinks = None,
+              listYears = Some(List("2017", "2023"))
+            ))
+            .map { _ =>
+              Redirect(controllers.agent.routes.ManageAgentController.confirmAssignAgentToAll)
+            }
         }
       )
   }
@@ -357,9 +367,17 @@ class ManageAgentController @Inject()(
         errors => {
           Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
         }, { success =>
-          agentRelationshipService.unassignAgent(success).map { _ =>
-            Redirect(controllers.agent.routes.ManageAgentController.confirmationUnassignAgentFromAll.url)
-          }
+          agentRelationshipService
+            .unassignAgent(AgentAppointmentChangeRequest(
+              agentRepresentativeCode = success.agentRepresentativeCode,
+              action = AppointmentAction.REVOKE,
+              scope = AppointmentScope.ALL_PROPERTIES,
+              propertyLinks = None,
+              listYears = None
+            ))
+            .map { _ =>
+              Redirect(controllers.agent.routes.ManageAgentController.confirmationUnassignAgentFromAll.url)
+            }
         }
       )
   }
@@ -401,7 +419,13 @@ class ManageAgentController @Inject()(
           Future.successful(BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, backLink)))
         }, { success =>
           agentRelationshipService
-            .removeAgentFromOrganisation(success)
+            .removeAgentFromOrganisation(AgentAppointmentChangeRequest(
+              agentRepresentativeCode = success.agentRepresentativeCode,
+              action = AppointmentAction.REVOKE,
+              scope = AppointmentScope.RELATIONSHIP,
+              propertyLinks = None,
+              listYears = None
+            ))
             .map(_ => Redirect(controllers.agent.routes.ManageAgentController.confirmRemoveAgentFromOrganisation))
         }
       )

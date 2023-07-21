@@ -19,7 +19,7 @@ package services
 import binders.propertylinks.GetPropertyLinksParameters
 import connectors.PropertyRepresentationConnector
 import controllers.DefaultPaginationParams
-import models.propertyrepresentation.AgentAppointmentChangesResponse
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AppointmentAction, AppointmentScope}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{when, _}
 import repositories.SessionRepo
@@ -68,28 +68,42 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
   "createAndSubmitAgentRepRequest" should {
     "return option unit when successful when new agent relationship is enabled" in {
 
-      when(mockPropertyLinkConnector.assignAgentToSomeProperties(any())(any()))
+      when(mockPropertyLinkConnector.agentAppointmentChange(any())(any()))
         .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))
 
-      val res = testService.createAndSubmitAgentRepRequest(pLinkIds = List("1"), agentCode = 12312L)
-
-      res.futureValue should be(())
-
-      verify(mockPropertyLinkConnector, times(1)).assignAgentToSomeProperties(any())(any())
+      val res = testService.assignAgentToSomeProperties(
+        AgentAppointmentChangeRequest(
+          action = AppointmentAction.APPOINT,
+          scope = AppointmentScope.PROPERTY_LIST,
+          agentRepresentativeCode = 12312L,
+          propertyLinks = Some(List("1")),
+          listYears = Some(List("2017", "2023"))
+        ))
+      res.futureValue shouldBe AgentAppointmentChangesResponse("some-change-id")
+      verify(mockPropertyLinkConnector, times(1)).agentAppointmentChange(any())(any())
     }
   }
 
   "createAndSubitAgentRevokeRequest" should {
     "return option unit when successful when new agent relationship enabled" in {
 
-      when(mockPropertyLinkConnector.unassignAgentFromSomeProperties(any())(any()))
+      when(mockPropertyLinkConnector.agentAppointmentChange(any())(any()))
         .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))
 
-      val res = testService.createAndSubmitAgentRevokeRequest(List("1"), 1L)
+      val res = testService.unassignAgentFromSomeProperties(
+        (
+          AgentAppointmentChangeRequest(
+            action = AppointmentAction.REVOKE,
+            scope = AppointmentScope.PROPERTY_LIST,
+            agentRepresentativeCode = 1L,
+            propertyLinks = Some(List("1")),
+            listYears = Some(List("2017", "2023"))
+          )
+        ))
 
-      res.futureValue should be(())
+      res.futureValue should be(AgentAppointmentChangesResponse("some-change-id"))
 
-      verify(mockPropertyLinkConnector).unassignAgentFromSomeProperties(any())(any())
+      verify(mockPropertyLinkConnector).agentAppointmentChange(any())(any())
     }
   }
 
