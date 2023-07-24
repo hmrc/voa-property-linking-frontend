@@ -612,7 +612,7 @@ propertyRepresentation.showAgents.help.link= Help with appointing and managing a
 propertyRepresentation.showAgents.label.rating=	Rating lists they can act on for you
 propertyRepresentation.showAgents.properties.assigned={0} of {1}
 propertyRepresentation.showAgents.ratingList={0} rating list
-propertyRepresentation.showAgents.ratingLists={1} and {0} rating lists
+propertyRepresentation.showAgents.ratingLists=2023 and 2017 rating lists
 propertyRepresentation.showAgents.viewAgentProperties.name=<a class="govuk-link" id="" href="{0}" aria-label="View agent {1}">{2}</a>
 propertyRepresentation.caption=Agent
 propertyRepresentation.ratingLists.heading=Rating lists they can act on for you
@@ -625,7 +625,8 @@ error.agentProperties.filter=You must enter something to search for
 
 #Manage Agent
 propertyRepresentation.manageAgent.title=Manage agent
-propertyRepresentation.manageAgent.question=What do you want to do to the agent {0}?
+propertyRepresentation.manageAgent.question=What do you want to do with your agent {0}?
+propertyRepresentation.manageAgent.question.old=What do you want to do to the agent {0}?
 
 propertyRepresentation.manageAgent.removeFromAccount.title=Remove agent from your account
 propertyRepresentation.manageAgent.removeFromAccount.question=Are you sure you want to remove {0} from your account?
@@ -653,6 +654,8 @@ propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Unassign f
 propertyRepresentation.manageAgent.options.assignToYourProperty=Assign to your property
 propertyRepresentation.manageAgent.options.unassignFromYourProperty= Unassign from my property
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Remove from your account
+propertyRepresentation.manageAgent.options.unassignFromOneOrMoreProperties=Unassign from one or more properties
+propertyRepresentation.manageAgent.options.assignToOneOrMoreProperties=Assign to one or more properties
 
 propertyRepresentation.manageAgent.assignToAllProperties.title.multiple=Are you sure you want to assign {0} to all your properties?
 propertyRepresentation.manageAgent.assignToAllProperties.title.single=Are you sure you want to assign {0} to your property?

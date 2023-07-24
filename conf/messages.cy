@@ -542,7 +542,7 @@ propertyRepresentation.showAgents.help.link= Help with appointing and managing a
 propertyRepresentation.showAgents.label.rating=	Rating lists they can act on for you
 propertyRepresentation.showAgents.properties.assigned={0} of {1}
 propertyRepresentation.showAgents.ratingList={0} rating list
-propertyRepresentation.showAgents.ratingLists={1} and {0} rating lists
+propertyRepresentation.showAgents.ratingLists=2023 and 2017 rating lists
 propertyRepresentation.showAgents.viewAgentProperties.name=<a class="govuk-link" href="{0}" aria-label="View agent {1}">{2}</a>
 propertyRepresentation.caption=Asiant
 propertyRepresentation.ratingLists.heading=Rating lists they can act on for you
@@ -562,7 +562,8 @@ error.agentProperties.filter=Rhaid i chi nodi rhywbeth i chwilio amdano
 
 #Manage Agent
 propertyRepresentation.manageAgent.title=Rheoli asiant
-propertyRepresentation.manageAgent.question=Beth ydych chi eisiau ei wneud i’r asiant {0}?
+propertyRepresentation.manageAgent.question=What do you want to do with your agent {0}?
+propertyRepresentation.manageAgent.question.old=Beth ydych chi eisiau ei wneud i’r asiant {0}?
 
 propertyRepresentation.manageAgent.removeFromAccount.title=Dileu’r asiant o’ch cyfrif
 propertyRepresentation.manageAgent.removeFromAccount.question=Ydych chi’n siŵr eich bod am dynnu {0} o’ch cyfrif?
@@ -589,6 +590,8 @@ propertyRepresentation.manageAgent.unassignFromProperties.li3=gweld gwybodaeth e
 propertyRepresentation.manageAgent.unassignFromProperties.warningText=Mae dadneilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach.
 propertyRepresentation.manageAgent.unassignFromProperties.confirm=Cadarnhau a dadneilltuo
 
+propertyRepresentation.manageAgent.options.unassignFromOneOrMoreProperties=Unassign from one or more properties
+propertyRepresentation.manageAgent.options.assignToOneOrMoreProperties=Assign to one or more properties
 propertyRepresentation.manageAgent.options.assignToAllProperties=Neilltuo i bob eiddo
 propertyRepresentation.manageAgent.options.assignToSomeProperties=Neilltuo i ambell eiddo
 propertyRepresentation.manageAgent.options.unassignFromAllProperties=Dad-neilltuo o’ch holl eiddo

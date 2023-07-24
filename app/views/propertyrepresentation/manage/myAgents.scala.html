@@ -46,7 +46,7 @@
             rows = agents.map { agent =>
                 val listYearsText = agent.listYears match {
                     case Some(Seq(first)) => messages("propertyRepresentation.showAgents.ratingList", first)
-                    case Some(Seq(first, second)) => messages("propertyRepresentation.showAgents.ratingLists", first, second)
+                    case Some(Seq(_,_)) => messages("propertyRepresentation.showAgents.ratingLists")
                     case _ => ""
                 }
                 Seq(

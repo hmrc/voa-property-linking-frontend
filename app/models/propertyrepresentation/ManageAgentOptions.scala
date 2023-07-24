@@ -57,6 +57,14 @@ case object ChangeRatingList extends ManageAgentOptions {
   val name = "changeRatingList"
 }
 
+case object AssignToOneOrMoreProperties extends ManageAgentOptions {
+  val name = "assignToOneOrMoreProperties"
+}
+
+case object UnassignFromOneOrMoreProperties extends ManageAgentOptions {
+  val name = "unassignFromOneOrMoreProperties"
+}
+
 object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
 
   implicit val format = EnumFormat(ManageAgentOptions)
@@ -70,6 +78,8 @@ object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
       AssignToYourProperty,
       UnassignFromYourProperty,
       RemoveFromYourAccount,
+      AssignToOneOrMoreProperties,
+      UnassignFromOneOrMoreProperties,
       ChangeRatingList
     )
 }
