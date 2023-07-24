@@ -110,12 +110,6 @@
   }
 }
 
-@noRateableValueContent = {
-    <p class="govuk-body">@messages("rv.na.p.1")</p>
-    <p class="govuk-body">@messages("rv.na.p.2")</p>
-    <p class="govuk-body">@Html(messages("rv.na.p.3"))</p>
-}
-
   <div class="govuk-grid-row">
 <div id="details-content-valuations" class="govuk-grid-column-full">
     <h3 class="govuk-heading-m">@messages("assessments.subtitle")</h3>
@@ -143,15 +137,10 @@
                           @messages("assessments.table.4")
                       </th>
                   </tr>
-
+              </thead>
+              <tbody class="govuk-table__body">
                   @if(model.currentAssessments.nonEmpty){
                       @tableRows(model.currentAssessments, tableType = "current", isDraft = false)
-                      @if(model.currentAssessments.exists(a => a._2.rateableValue.isEmpty)){
-                          @govukDetails(
-                              Details(
-                                  summary = Text(messages("rv.na")),
-                                  content = HtmlContent(noRateableValueContent) ))
-                      }
                   }
 
                   @if(model.draftAssessments.nonEmpty){
@@ -161,8 +150,7 @@
                   @if(model.historicAssessments.nonEmpty){
                       @tableRows(model.historicAssessments, tableType = "historic", isDraft = false)
                   }
-
-              </thead>
+              </tbody>
           </table>
 
 </div>

@@ -378,7 +378,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
       "PRESENNOL")
     Option(document.getElementById("viewAssessmentLink-1234")).map(_.text()) shouldBe Some(
       "1 Ebrill 2017 i 1 Mehefin 2017")
-    Option(document.select("#assessments-table > thead > tr:nth-child(2) > td:nth-child(3)"))
+    Option(document.select("#assessments-table > tbody > tr:nth-child(2) > td:nth-child(3)"))
       .map(_.text()) shouldBe Some("Perchennog")
   }
 

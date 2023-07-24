@@ -422,6 +422,21 @@ assessments.aria.label.full=Dewiswch y prisiad hwn - {0} o {1} i {2}
 assessments.aria.label.partial=Dewiswch y prisiad hwn - {0} o {1}
 assessments.selectValuation.to=i
 
+assessments.na.help.summary=Cymorth gyda gwerth ardrethol sydd ddim ar gael
+assessments.na.help.first.sentence=Nid yw’r gwerth ardrethol ar gael oherwydd bod yr eiddo wedi’i dynnu oddi ar y rhestr ardrethu.
+assessments.na.help.second.sentence=Gall hyn fod pan:
+assessments.na.help.first.bulletpoint=mae’r eiddo wedi’i rannu neu ei gyfuno gydag eiddo arall
+assessments.na.help.second.bulletpoint=mae’r cyfeiriad neu’r disgrifiad wedi newid
+assessments.na.help.pre.link=Efallai byddwch yn
+assessments.na.help.link=dod o hyd i eiddo newydd
+assessments.na.help.post.link=gyda’r un cyfeiriad neu gyfeiriad tebyg sydd â gwerth ardrethol.
+assessments.na.help.fourth.sentence=Os ydych chi’n berchen ar yr eiddo neu’n ei feddiannu, ychwanegwch yr eiddo newydd at eich cyfrif os ydych am:
+assessments.na.help.third.bulletpoint=weld y prisiad manwl
+assessments.na.help.fourth.bulletpoint=anfon achos Gwirio neu Herio
+assessments.na.help.fifth.sentence=Gall yr eiddo hefyd gael ei dynnu oddi ar y rhestr ardrethu a bod y gwerth ardrethol ddim ar gael pan na chaiff ei ddefnyddio mwyach ar gyfer busnes. Er enghraifft, gall yr eiddo fod yn cael ei ailddatblygu, wedi’i eithrio neu wedi’i newid i ddefnydd domestig
+
+
+
 assessments.na=Dim ar gael
 assessments.icon.help.valuationPeriod = Cymorth gyda Prisiadau
 assessments.caption.ip = Eich eiddo

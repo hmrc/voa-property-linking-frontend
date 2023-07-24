@@ -30,22 +30,24 @@ content = HtmlContent(content)
 ))
 
 @content = {
-<p>@messages("assessments.na.help.first.sentence")</p>
-<p>@messages("assessments.na.help.second.sentence")</p>
+<div class="govuk-!-width-two-thirds">
+  <p>@messages("assessments.na.help.first.sentence")</p>
+  <p>@messages("assessments.na.help.second.sentence")</p>
 
-@bullets(Seq(messages("assessments.na.help.first.bulletpoint"), messages("assessments.na.help.second.bulletpoint")))
+  @bullets(Seq(messages("assessments.na.help.first.bulletpoint"), messages("assessments.na.help.second.bulletpoint")))
 
-@link(
-preLinkText = Some(messages("assessments.na.help.pre.link")),
-linkText = messages("assessments.na.help.link"),
-postLinkText = Some(messages("assessments.na.help.post.link")),
-location = "https://www.gov.uk/find-business-rates",
-linkId = Some("naHelpLink")
-)
+  @link(
+  preLinkText = Some(messages("assessments.na.help.pre.link")),
+  linkText = messages("assessments.na.help.link"),
+  postLinkText = Some(messages("assessments.na.help.post.link")),
+  location = "https://www.gov.uk/find-business-rates",
+  linkId = Some("naHelpLink")
+  )
 
-<p>@messages("assessments.na.help.fourth.sentence")</p>
+  <p>@messages("assessments.na.help.fourth.sentence")</p>
 
-@bullets(Seq(messages("assessments.na.help.third.bulletpoint"), messages("assessments.na.help.fourth.bulletpoint")))
+  @bullets(Seq(messages("assessments.na.help.third.bulletpoint"), messages("assessments.na.help.fourth.bulletpoint")))
 
-<p>@messages("assessments.na.help.fifth.sentence")</p>
+  <p>@messages("assessments.na.help.fifth.sentence")</p>
+</div>
 }
