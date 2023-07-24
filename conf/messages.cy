@@ -542,7 +542,7 @@ propertyRepresentation.showAgents.help.link= Help with appointing and managing a
 propertyRepresentation.showAgents.label.rating=	Rating lists they can act on for you
 propertyRepresentation.showAgents.properties.assigned={0} of {1}
 propertyRepresentation.showAgents.ratingList={0} rating list
-propertyRepresentation.showAgents.ratingLists={1} and {0} rating lists
+propertyRepresentation.showAgents.ratingLists=2023 and 2017 rating lists
 propertyRepresentation.showAgents.viewAgentProperties.name=<a class="govuk-link" href="{0}" aria-label="View agent {1}">{2}</a>
 propertyRepresentation.caption=Asiant
 propertyRepresentation.ratingLists.heading=Rating lists they can act on for you
