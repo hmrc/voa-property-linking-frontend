@@ -1,0 +1,184 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import actions.assessments.request.AssessmentsPageSessionRequest
+@import _root_.utils.Formatters
+@import config.ApplicationConfig
+
+@this(govukDetails: GovukDetails)
+
+@(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
+    @vmvUrl = @{
+        val uarn = model.assessmentsWithLinks.headOption.map(_._2.uarn).getOrElse("")
+        val rtp = if (owner) "your_properties" else "client_properties"
+        s"${config.vmvUrl}/valuations/start/$uarn?rtp=$rtp"
+    }
+@tableHeaderRow = {
+    <tr class="govuk-table__row">
+        <th class="govuk-table__cell">@messages("assessments.table.1")</th>
+        <th class="govuk-table__cell">@messages("assessments.table.2")</th>
+        <th class="govuk-table__cell">@messages("assessments.table.3")</th>
+        <th class="govuk-table__cell">@messages("assessments.table.4")</th>
+        <th class="govuk-table__cell">@messages("assessments.table.5")</th>
+        <th class="govuk-table__cell">@messages("assessments.table.action")</th>
+    </tr>
+}
+
+@effectiveDate(assessment: ApiAssessment) = @{
+    assessment.effectiveDate.map(Formatters.formattedFullDate).getOrElse("")
+}
+
+@fromDate(assessment: ApiAssessment) = @{
+    assessment.currentFromDate.map(Formatters.formattedFullDate).getOrElse("")
+}
+@listYear(assessment: ApiAssessment) = @{
+    assessment.listYear
+}
+@endDate(assessment: ApiAssessment, isDraft: Boolean, tableType: String) = @{
+    if(!isDraft) {
+        (assessment.currentFromDate, assessment.currentToDate, assessment.listYear) match {
+            case (Some(_), None, "2017")
+                if tableType == "historic" =>
+                Some(Messages("assessments.enddate.historic.empty"))
+            case (Some(_), None, _)     => Some(Messages("assessments.enddate.present"))
+            case (Some(_), Some(to), _) => Some(Formatters.formattedFullDate(to))
+            case _                   => None
+        }
+    } else None
+}
+
+@ariaLabel(assessment: ApiAssessment, tableType: String, isDraft: Boolean) = @{
+    val typeText = messages(s"assessments.$tableType.text")
+    val fromText = fromDate(assessment)
+    endDate(assessment, isDraft, tableType)
+            .fold(messages("assessments.aria.label.partial", typeText, fromText)) { to =>
+        messages("assessments.aria.label.full", typeText, fromText, to)
+    }
+}
+
+@table(list: Seq[(String, ApiAssessment)], tableType: String, isDraft: Boolean) = {
+    <div class="form-group">
+        <div class="table-wrapper-no-pad">
+            <table id="@{tableType}Assessments" class="margin-bottom-10 margin-top-10">
+                <caption class="govuk-visually-hidden">@messages("assessments.table.caption")</caption>
+                <colgroup>
+                    <col style="width: 16%">
+                    <col style="width: 16%">
+                    <col style="width: 16%">
+                    <col style="width: 16%">
+                    <col style="width: 16%">
+                    <col style="width: 20%">
+                </colgroup>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <th class="govuk-table__cell">@messages("assessments.table.1")</th>
+                        <th class="govuk-table__cell">@messages("assessments.table.2")</th>
+                        <th class="govuk-table__cell">@messages("assessments.table.3")</th>
+                        <th class="govuk-table__cell">@messages("assessments.table.4")</th>
+                        <th class="govuk-table__cell">@messages("assessments.table.5")</th>
+                        <th class="govuk-table__cell">@messages("assessments.table.action")</th>
+                    </tr>
+
+                    @list.map {  case (url, assessment) =>
+                    <tr class="govuk-table__row">
+
+                        <td class="govuk-table__cell">@effectiveDate(assessment)</td>
+
+                        <td class="govuk-table__cell">
+                        @assessment.rateableValue.fold(messages("assessments.na"))(rv => Formatters.formatCurrencyRoundedToPounds(rv))
+                        </td>
+
+                        <td class="govuk-table__cell">
+                        @model.capacity.fold("")(cap => messages(s"capacity.$cap"))
+                        </td>
+
+                        <td class="govuk-table__cell">@fromDate(assessment)  @listYear(assessment)</td>
+
+                        <td id="toDate-@assessment.assessmentRef" class="govuk-table__cell">@endDate(assessment, isDraft, tableType).getOrElse("")</td>
+
+                        <td class="govuk-table__cell">
+                        @assessment.rateableValue match {
+                            case Some(rv) => {
+                                <a class="govuk-link"
+                                id="viewAssessmentLink-@assessment.assessmentRef"
+                                href="@url"
+                                aria-label="@ariaLabel(assessment, tableType, isDraft)">
+                                @messages("assessments.select.valuation")
+                                </a>
+                            }
+                            case None => {
+                                @messages("assessments.na")
+                            }
+                        }
+                    </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@noRateableValueContent = {
+    <p class="govuk-body">@messages("rv.na.p.1")</p>
+    <p class="govuk-body">@messages("rv.na.p.2")</p>
+    <p class="govuk-body">@Html(messages("rv.na.p.3"))</p>
+}
+
+<div id="details-content-valuations" class="govuk-body">
+
+    @if(model.currentAssessments.nonEmpty){
+        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.current.title")</h2>
+        @table(model.currentAssessments, tableType = "current", isDraft = false)
+        @if(model.currentAssessments.exists(a => a._2.rateableValue.isEmpty)){
+            @govukDetails(
+                Details(
+                    summary = Text(messages("rv.na")),
+                    content = HtmlContent(noRateableValueContent) ))
+        }
+    }
+
+    @if(model.draftAssessments.nonEmpty){
+        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.draft.title")</h2>
+        @table(model.draftAssessments, tableType = "draft", isDraft = true)
+    }
+
+    @if(model.historicAssessments.nonEmpty){
+        <h2 class="govuk-heading-m govuk-!-margin-top-9">@messages("assessments.historic.title")</h2>
+        @table(model.historicAssessments, tableType = "historic", isDraft = false)
+    }
+</div>
+
+
+        <div id="explanatory-section" class=" govuk-grid-column-two-thirds govuk-body  govuk-!-margin-left-0 govuk-!-padding-left-0 govuk-!-margin-right-9">
+
+        @if(owner) {
+            <p>@messages("assessments.explanatory.ip.show")</p>
+            <p>@messages("assessments.explanatory.other.periods")
+                <a id="explanatory-link" class="govuk-link" href="@vmvUrl">@messages("assessments.explanatory.link")</a>
+            </p>
+        } else {
+            <p>@messages("assessments.explanatory.agent.show")</p>
+            <ul id="reasons-list" class="govuk-list--bullet">@messages("")
+                <li>@messages("assessments.explanatory.agent.show.lists")</li>
+                <li>@messages("assessments.explanatory.agent.show.client")</li>
+            </ul>
+            <p id="link-section">@messages("assessments.explanatory.other.periods")
+                <a id="explanatory-link" class="govuk-link" href="@vmvUrl">@messages("assessments.explanatory.link")</a>
+            </p>
+            <p id="contact-text">@messages("assessments.explanatory.agent.contact.client")</p>
+        }
+</div>

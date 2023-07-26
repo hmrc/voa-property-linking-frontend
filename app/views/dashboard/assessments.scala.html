@@ -57,5 +57,9 @@
         @naRateableDetailSection()
     }
 
-    @assessmentDetailsView(model, owner)
+    @if(config.agentListYears) {
+        @assessmentDetailsWithRatingListView(model, owner)
+    } else {
+        @assessmentDetailsView(model, owner)
+    }
 }

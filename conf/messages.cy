@@ -445,6 +445,14 @@ assessments.icon.help.effectiveDate = Cymorth gyda Dyddiad dod i rym
 
 
 
+assessments.explanatory.ip.show=We only show valuations for when you owned or occupied the property.
+assessments.explanatory.other.periods=Valuations for other periods may be available.
+assessments.explanatory.agent.show=We only show valuations:
+assessments.explanatory.agent.show.lists=for the rating lists your client wants you to act on
+assessments.explanatory.agent.show.client=for when your client owned or occupied the property
+assessments.explanatory.link=Find public versions of all valuations for this property.
+assessments.explanatory.agent.contact.client=Contact your client if you need to change which lists you can act on.
+
 label.help=Cymorth gyda {0}
 rv.na=Gweth ardrethol ddim ar gael
 rv.na.p.1=Mae’r eiddo hwn wedi’i dynnu o’r rhestr prisio.   Gallai hyn fod oherwydd bod ganddo gyfeiriad newydd, mae’r disgrifiad wedi newid neu mae wedi ei rannu neu ei uno ag eiddo arall.

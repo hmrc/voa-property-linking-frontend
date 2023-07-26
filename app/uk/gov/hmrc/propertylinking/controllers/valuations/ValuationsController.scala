@@ -33,6 +33,7 @@ import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepo
+import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
@@ -48,6 +49,7 @@ class ValuationsController @Inject()(
       assessmentsView: views.html.dashboard.assessments,
       @Named("assessmentPage") val sessionRepo: SessionRepo,
       withAssessmentsPageSession: WithAssessmentsPageSessionRefiner,
+      agentRelationshipService: AgentRelationshipService,
       override val controllerComponents: MessagesControllerComponents
 )(
       implicit override val messagesApi: MessagesApi,
@@ -77,14 +79,34 @@ class ValuationsController @Inject()(
 
   def valuations(submissionId: String, owner: Boolean): Action[AnyContent] =
     authenticated.andThen(withAssessmentsPageSession).async { implicit request =>
-      val assessments: Future[Option[ApiAssessments]] = {
-        if (owner)
-          propertyLinks.getOwnerAssessments(submissionId)
-        else
-          propertyLinks.getClientAssessments(submissionId)
-      }
+
+      val agentCode = request.groupAccount.agentCode
+
+      val agentLists = agentRelationshipService.getMyOrganisationAgents()
+
+      agentLists.flatMap { agentLists =>
+        val listYears = agentLists.agents
+          .find(_.representativeCode == agentCode)
+          .flatMap(_.listYears)
+          .getOrElse(Seq.empty[String])
+
+        val assessments: Future[Option[ApiAssessments]] = {
+          if (owner)
+            propertyLinks.getOwnerAssessments(submissionId)
+          else
+            propertyLinks.getClientAssessments(submissionId)
+
+        }
 
       def okResponse(assessments: ApiAssessments, backlink: String): Result = {
+        val filteredAssessments = if (owner) {
+          assessments
+        } else {
+          println(s"!!!!!!!!!!!!**********************$agentLists")
+          assessments.copy(assessments = assessments.assessments.filter { assessment =>
+            listYears.contains(assessment.listYear)
+          })
+      }
         val rateableNA = assessments.assessments.map(_.rateableValue).contains(None)
         Ok(
           assessmentsView(
@@ -108,6 +130,7 @@ class ValuationsController @Inject()(
               Future.successful(okResponse(assessments, backlink = calculateOwnerBackLink))
             else calculateAgentBackLink(submissionId).map(backlink => okResponse(assessments, backlink))
         }
+      }
     }
 
   private def linkAndAssessment(
