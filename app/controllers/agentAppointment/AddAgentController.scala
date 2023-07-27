@@ -36,8 +36,8 @@ import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.BadRequestException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-import javax.inject.{Inject, Named}
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
@@ -249,7 +249,9 @@ class AddAgentController @Inject()(
               selectedAgentOpt <- sessionRepo.get[SelectedAgent]
               selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
               _ <- sessionRepo.saveOrUpdate(
-                    ManagingProperty(selectedAgent = selectedAgent, selection = success.name, singleProperty = false))
+                    ManagingProperty(selectedAgent = selectedAgent.copy(backLink =
+                      Some(routes.AddAgentController.submitMultipleProperties.url)),
+                      selection = success.name, singleProperty = false))
             } yield {
               success match {
                 case ChooseFromList => joinOldJourney(selectedAgent.agentCode)
@@ -305,7 +307,8 @@ class AddAgentController @Inject()(
             _ <- request.sessionData match {
                   case data: ManagingProperty =>
                     sessionRepo.saveOrUpdate(
-                      data.copy(appointmentScope = Some(AppointmentScope.withName(success.scope))))
+                      data.copy(appointmentScope = Some(AppointmentScope.withName(success.scope)))
+                        .copy(backLink = Some(routes.AddAgentController.appointAgent.url)))
                 }
             _ <- agentRelationshipService.assignAgent(
                   AgentAppointmentChangeRequest(
