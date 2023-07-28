@@ -255,7 +255,6 @@ link.createGroupAccount=Register your business
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
 groupAlreadyExists.title={0} has already registered.
 groupAlreadyExists.addedToGroup=You’ve been added to their customer record.
-account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
 
 #TermsAndConditions
 termsAndConditions.title=Terms and conditions
@@ -329,9 +328,6 @@ createAccount.group.details.header=I’m not a business
 createAccount.group.details.content=If you are a non-commercial organisation such as a community venture hiring out rooms, village hall, trust or a charity, you should create an account in the same way as you would for a business. This also applies for any other property that is liable for business rates, such as beach huts and stables.
 
 #ACCOUNT CREATED
-account.confirmation.title=You’ve successfully registered your business.
-account.confirmation.heading=You’ve successfully registered for this service.
-account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a class="govuk-link" href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
 account.confirmation.youCan=You can now manage your properties.
 link.dashboard=Go to your dashboard
 link.return.home=Return to your home page
@@ -1727,16 +1723,12 @@ label.createAccount.tradingName=Trading Name
 choice.individual=Individual (you represent yourself) – you won’t be able to add others to this account
 choice.organisation=Organisation (you represent a business, charity or other organisation) – you’ll be able to add others to this account
 account.enrolment.link.text=Go To Dashboard
-account.enrolment.link.success=Continue
 account.enrolment.description=As part of the registration for the check and challenge service, you’ve been given a personal ID number. You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
 account.enrolment.description.existing=As part of the ongoing improvements to the check and challenge service, we’re giving you a personal ID number. You should keep a note of this number in a safe place as you will need it if you want to reset your password.
 account.enrolment.personId=Your ID number is {0}
 account.enrolment.disclaimer=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
 account.enrolment.footer=Valuation Office Agency (VOA)
 
-create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
-create.success.keepUsingGg=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
-create.success.personId=VOA Personal ID:
 create-account.type.question=Which type of account would you like to create?
 
 enrolment.title = Complete your contact details
@@ -1843,3 +1835,14 @@ month.11=November
 month.12=December
 
 govukErrorMessage.visuallyHiddenText = Error
+
+#REGISTRATION CONFIRMATION PAGE
+account.confirmation.title=You’ve successfully registered your business.
+account.confirmation.heading=You’ve successfully registered for this service.
+create.success.personId=VOA Personal ID:
+create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
+create.success.keepUsingGg=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
+account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a class="govuk-link" href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
+registration.confirmation.weUseYourDetails = We use your contact details to send you correspondence related to the service and your account.
+account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
+account.enrolment.link.success=Continue

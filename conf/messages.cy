@@ -246,7 +246,6 @@ link.createGroupAccount=Cofrestru eich busnes
 #INDIVIDUAL ACCOUNT CREATED; GROUP ALREADY KNOWN
 groupAlreadyExists.title={0} wedi cofrestru yn barod.
 groupAlreadyExists.addedToGroup=Rydych wedi cael eich ychwanegu at eu cofnod cwsmeriaid.
-account.confirmation.disclaimer=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="telerau-ac-amodau">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
 
 #TermsAndConditions
 termsAndConditions.title=Telerau ac amodau
@@ -270,9 +269,6 @@ createAccount.group.details.header=Dydw i ddim yn fusnes
 createAccount.group.details.content=Os ydych chi’n sefydliad anfasnachol fel menter gymunedol sy’n llogi ystafelloedd,   neuadd y pentref, ymddiriedaeth neu elusen, dylech greu cyfrif yn yr un ffordd ag y byddech chi ar gyfer busnes. Mae hyn hefyd yn berthnasol ar gyfer unrhyw eiddo arall sy’n atebol am ardrethi busnes, fel cytiau traeth a stablau.
 
 #ACCOUNT CREATED
-account.confirmation.title=Rydych chi wedi cofrestru eich busnes yn llwyddiannus.
-account.confirmation.heading=Rydych chi wedi cofrestru’n llwyddiannus ar gyfer y gwasanaeth hwn.
-account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
 account.confirmation.youCan=Gallwch reoli eich eiddo nawr.
 link.dashboard=Ewch i’ch dangosfwrdd
 link.return.home=Dychwelyd i’ch hafan
@@ -1601,16 +1597,12 @@ label.createAccount.tradingName=Enw Masnachu
 choice.individual=Unigolyn (rydych yn cynrychioli eich hun) – ni fyddwch yn gallu ychwanegu eraill at y cyfrif hwn
 choice.organisation=Sefydliad (rydych yn cynrychioli busnes, elusen neu sefydliad arall) – byddwch yn gallu ychwanegu eraill at y cyfrif hwn
 account.enrolment.link.text=Ewch i’r dangosfwrdd
-account.enrolment.link.success=Parhau
 account.enrolment.description=Fel rhan o’r cofrestriad ar gyfer y gwasanaeth gwirio a herio, rydych wedi derbyn rhif adnabod personol (ID).   Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
 account.enrolment.description.existing=Fel rhan o’r gwelliannau parhaus i’r gwasanaeth gwirio a herio, rydym yn rhoi rhif adnabod personol i chi (ID).   Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
 account.enrolment.personId=Eich rhif adnabod personol (ID) yw {0}
 account.enrolment.disclaimer=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
 account.enrolment.footer=Asiantaeth y Swyddfa Brisio (VOA)
 
-create.success.keepNote=Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
-create.success.keepUsingGg=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
-create.success.personId=Cyfeirnod adnabod personol y VOA (ID)
 create-account.type.question=Pa fath o gyfrif hoffech chi ei greu?
 
 enrolment.title=Cwblhewch eich manylion cyswllt
@@ -1841,3 +1833,14 @@ month.11=Tachwedd
 month.12=Rhagfyr
 
 govukErrorMessage.visuallyHiddenText = Gwall
+
+#REGISTRATION CONFIRMATION PAGE
+account.confirmation.title=Rydych chi wedi cofrestru eich busnes yn llwyddiannus.
+account.confirmation.heading=Rydych chi wedi cofrestru’n llwyddiannus ar gyfer y gwasanaeth hwn.
+create.success.personId=Cyfeirnod adnabod personol y VOA (ID)
+create.success.keepNote=Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
+create.success.keepUsingGg=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
+account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
+registration.confirmation.weUseYourDetails = Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif.
+account.confirmation.disclaimer=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="telerau-ac-amodau">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
+account.enrolment.link.success=Parhau
