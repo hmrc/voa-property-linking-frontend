@@ -1,0 +1,41 @@
+
+a.cca-icon {
+  margin-left: 5px;
+  text-align: center;
+  background-color: $govuk-link-colour;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  font-style: normal;
+  text-decoration: none;
+  &:hover {
+    background-color: $govuk-link-hover-colour;
+  }
+  &:focus {
+    background-color: $govuk-focus-colour;
+    outline: 3px solid govuk-colour("black");
+    box-shadow: none;
+    &:before {
+      color: $govuk-focus-text-colour;
+    }
+  }
+  &:before {
+    color: govuk-colour("white");
+    font-weight: $govuk-font-weight-bold;
+  }
+  @include govuk-media-query($until: tablet) {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+br + a.cca-icon {
+  margin-left: 0;
+}
+
+a.cca-icon__help {
+  &:before {
+    content:'?';
+  }
+}

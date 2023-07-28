@@ -84,16 +84,21 @@ class ValuationsController @Inject()(
           propertyLinks.getClientAssessments(submissionId)
       }
 
-      def okResponse(assessments: ApiAssessments, backlink: String): Result =
+      def okResponse(assessments: ApiAssessments, backlink: String): Result = {
+        val rateableNA = assessments.assessments.map(_.rateableValue).contains(None)
         Ok(
           assessmentsView(
             AssessmentsVM(
-              assessmentsWithLinks(assessments, submissionId, owner),
-              backlink,
-              assessments.address,
-              assessments.capacity),
-            owner
+              assessmentsWithLinks = assessmentsWithLinks(assessments, submissionId, owner),
+              backLink = backlink,
+              address = assessments.address,
+              capacity = assessments.capacity,
+              clientOrgName = assessments.clientOrgName
+            ),
+            owner,
+            rateableNA
           ))
+      }
 
       assessments
         .flatMap {

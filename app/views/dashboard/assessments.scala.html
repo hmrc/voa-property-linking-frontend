@@ -18,29 +18,44 @@
 @import _root_.utils.Formatters
 @import config.ApplicationConfig
 @import views.html.dashboard.assessmentDetails
+@import views.html.components.naRateableDetailSection
 
 
-@this(mainLayout: views.html.mainLayout, assessmentDetailsView: assessmentDetails)
+@this(mainLayout: views.html.mainLayout,
+      assessmentDetailsView: assessmentDetails,
+      naRateableDetailSection: naRateableDetailSection)
 
-@(model: controllers.AssessmentsVM, owner: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.AssessmentsVM, owner: Boolean, rateableNA: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("assessments.title"),
     backUri = Some(model.backLink),
     mainClass = Some("govuk-grid-column-full")
 ) {
-    <p class="govuk-body">
-        @model.localAuthorityReference.map{ localAuthorityRef =>
-            <span class="govuk-!-font-weight-bold">@messages("assessments.localAuthorityRef")</span> &nbsp;@localAuthorityRef<br>
-        }
-        <span class="govuk-!-font-weight-bold">@messages("assessments.property")</span> &nbsp;@Formatters.capitalisedAddress(model.address)
-    </p>
 
-    <h1 class="govuk-heading-l">
-        @messages("assessments.pageTitle")
-    </h1>
+ <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">
+          @if(owner) {
+            @messages("assessments.caption.ip")
+          } else {
+            @messages("assessments.caption.agent", model.clientOrgName.getOrElse(""))
+          }
+      </span>
+      <h1 class="govuk-heading-l">
+        @Formatters.capitalisedAddress(model.address)
+      </h1>
 
-    <p class="govuk-body">@messages("assessments.paragraph")</p>
+      <p class="govuk-body">
+          @model.localAuthorityReference.map{ localAuthorityRef =>
+              <span class="govuk-!-font-weight-bold">@messages("assessments.localAuthorityRef")</span> &nbsp;@localAuthorityRef<br>
+          }
+      </p>
+    </div>
+</div>
+    @if(rateableNA && model.historicAssessments.nonEmpty){
+        @naRateableDetailSection()
+    }
 
     @assessmentDetailsView(model, owner)
 }
