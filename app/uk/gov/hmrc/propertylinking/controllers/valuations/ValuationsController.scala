@@ -45,6 +45,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class ValuationsController @Inject()(
       val errorHandler: CustomErrorHandler,
       propertyLinks: PropertyLinkConnector,
+      agentRelationshipService: AgentRelationshipService,
       authenticated: AuthenticatedAction,
       assessmentsView: views.html.dashboard.assessments,
       @Named("assessmentPage") val sessionRepo: SessionRepo,
@@ -83,29 +84,27 @@ class ValuationsController @Inject()(
 
       val agentLists = agentRelationshipService.getMyOrganisationAgents()
 
-      println(s"***********************$agentCode")
-
       agentLists.flatMap { agentLists =>
         val listYears = agentLists.agents
           .find(_.representativeCode == agentCode)
           .flatMap(_.listYears)
           .getOrElse(Seq.empty[String])
 
+
         val assessments: Future[Option[ApiAssessments]] = {
           if (owner)
             propertyLinks.getOwnerAssessments(submissionId)
           else
-            println(s"***********************$agentLists")
             propertyLinks.getClientAssessments(submissionId)
-
         }
 
         def okResponse(assessments: ApiAssessments, backlink: String): Result = {
           val rateableNA = assessments.assessments.map(_.rateableValue).contains(None)
-          val filteredAssessments = if (owner) {
+
+          val filteredAssessments: ApiAssessments = if (owner) {
             assessments
           } else {
-//            assessments.copy(assessments = assessments.assessments.filter(el => listYears.contains(el.listYear)))
+            // assessments.copy(assessments = assessments.assessments.filter(el => listYears.contains(el.listYear)))
             assessments.copy(assessments = assessments.assessments.filter(_.listYear == "2023"))
           }
           Ok(
