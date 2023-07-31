@@ -27,6 +27,7 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
   val addThemTooText = "add them to your Government Gateway account"
   val weUseYourText = "We use your contact details to send you correspondence related to the service and your account."
   val termsOfUseText = "Terms of use"
+  //  TODO: The below incorrectly spelt text will be fixed under VTCCA-5902
   val infoProvidedText = "Information provided using this service is only for the purpose of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the terms and conditions of service. Unlawful access may be prosected under the relevant legisation, including the Computer Misuse Act 1990 or the Fraud Act 2006."
   val termsLinkText = "terms and conditions"
   val goToDashboardText = "Go To Dashboard"
@@ -35,6 +36,7 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
   val headingTextWelsh = "Wedi cofrestru’n llwyddiannus"
   val yourVoaIdTextWelsh = "Eich rhif adnabod personol (ID) VOA 3164"
   val yourAgentCodeTextWelsh = "Eich cod Asiant 100"
+//  TODO: The below spacing issue will be fixed under VTCCA-5902
   val weHaveSentTextWelsh = "Rydym wedi anfon y manylion yma atindividual@test.com"
   val whatHappensNextTextWelsh = "Beth sy’n digwydd nesaf"
   val nextTimeYouTextWelsh = "Y tro nesaf y byddwch yn mewngofnodi I ddefnyddio’r gwasanaeth, defnyddiwch eich manylion Porth y Llywodraeth."
@@ -66,6 +68,7 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
 
   val addThemTooHref = "/business-rates-property-linking/add-user-to-gg"
   val termsLinkHref = "terms-and-conditions"
+  //  TODO: The below incorrect link href will be fixed under VTCCA-5902
   val termsLinkHrefWelsh = "telerau-ac-amodau"
   val goToDashboardButtonHref = "/business-rates-dashboard/home"
 
