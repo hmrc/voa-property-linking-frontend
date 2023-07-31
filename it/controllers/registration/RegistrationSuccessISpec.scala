@@ -48,7 +48,7 @@ class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with 
 
   val addThemTooHref = "/business-rates-property-linking/add-user-to-gg"
   val termsLinkHref = "terms-and-conditions"
-  //  TODO: The below incorrect link href will be fixed under VTCCA-5903
+  //  TODO: The below incorrect link href will be fixed under VTCCA-5904
   val termsLinkHrefWelsh = "telerau-ac-amodau"
   val continueButtonHref = "/business-rates-dashboard/home"
 
