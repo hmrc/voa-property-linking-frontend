@@ -41,7 +41,10 @@
             <p class="govuk-body">@Html(messages("registration.confirmation.whatNext.p4", routes.Application.addUserToGG))</p>
         }
 
-        <h2 id="terms-of-use" class="govuk-heading-m">@messages("heading.terms.of.use")</h2>
+        <p class="govuk-body">@Html(messages("registration.confirmation.weUseYourDetails"))</p>
+
+
+  <h2 id="terms-of-use" class="govuk-heading-m">@messages("heading.terms.of.use")</h2>
         <p class="govuk-body">@Html(messages("registration.confirmation.termsOfUse.p"))</p>
 
         @govukButton(Button(

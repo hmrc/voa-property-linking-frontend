@@ -18,7 +18,7 @@ trait TestData {
       trustId = None,
       organisationId = 1L,
       individualId = 2L,
-      details = IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
+      details = IndividualDetails(firstName = "", lastName = "", email = "individual@test.com", phone1 = "", phone2 = None, addressId = 12)
     )
 
   def groupAccount(agent: Boolean): GroupAccount =
