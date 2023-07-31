@@ -27,10 +27,10 @@
       assessmentDetailsWithRatingListView: assessmentDetailsWithRatingList,
       naRateableDetailSection: naRateableDetailSection)
 
-@(model: controllers.AssessmentsVM, owner: Boolean, rateableNA: Boolean)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.AssessmentsVM, owner: Boolean, rateableNA: Boolean, vmvLink: String)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = messages("assessments.title"),
+    pageTitle = Formatters.capitalisedAddress(model.address),
     backUri = Some(model.backLink),
     mainClass = Some("govuk-grid-column-full")
 ) {
@@ -60,7 +60,7 @@
     }
 
     @if(config.agentListYears) {
-        @assessmentDetailsWithRatingListView(model, owner)
+        @assessmentDetailsWithRatingListView(model, owner, vmvLink)
     } else {
         @assessmentDetailsView(model, owner)
     }

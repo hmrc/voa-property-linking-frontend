@@ -79,7 +79,6 @@ class ValuationsController @Inject()(
 
   def valuations(submissionId: String, owner: Boolean): Action[AnyContent] =
     authenticated.andThen(withAssessmentsPageSession).async { implicit request =>
-
       val agentCode = request.groupAccount.agentCode
 
       val agentLists = agentRelationshipService.getMyOrganisationAgents()
@@ -89,7 +88,6 @@ class ValuationsController @Inject()(
           .find(_.representativeCode == agentCode)
           .flatMap(_.listYears)
           .getOrElse(Seq.empty[String])
-
 
         val assessments: Future[Option[ApiAssessments]] = {
           if (owner)
@@ -107,6 +105,9 @@ class ValuationsController @Inject()(
             // assessments.copy(assessments = assessments.assessments.filter(el => listYears.contains(el.listYear)))
             assessments.copy(assessments = assessments.assessments.filter(_.listYear == "2023"))
           }
+          val rtp = if (owner) "your_assessments" else "client_assessments"
+          val vmvLink = s"${config.vmvUrl}/valuations/start/${filteredAssessments.uarn}?rtp=$rtp"
+
           Ok(
             assessmentsView(
               AssessmentsVM(
@@ -117,7 +118,8 @@ class ValuationsController @Inject()(
                 clientOrgName = filteredAssessments.clientOrgName
               ),
               owner,
-              rateableNA
+              rateableNA,
+              vmvLink = vmvLink
             ))
         }
 

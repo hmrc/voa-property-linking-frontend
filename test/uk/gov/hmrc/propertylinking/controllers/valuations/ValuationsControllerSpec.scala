@@ -49,10 +49,13 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
       .thenReturn(Future.successful(Some(assessmentPageSession)))
     when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Html("not found"))
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent))
 
     val valuationsController = new ValuationsController(
       errorHandler = mockCustomErrorHandler,
       propertyLinks = mockPropertyLinkConnector,
+      agentRelationshipService = mockAgentRelationshipService,
       authenticated = preAuthenticatedActionBuilders(),
       sessionRepo = mockSessionRepository,
       assessmentsView = assessmentsView,

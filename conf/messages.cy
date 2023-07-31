@@ -452,6 +452,9 @@ assessments.explanatory.agent.show.lists=for the rating lists your client wants 
 assessments.explanatory.agent.show.client=for when your client owned or occupied the property
 assessments.explanatory.link=Find public versions of all valuations for this property.
 assessments.explanatory.agent.contact.client=Contact your client if you need to change which lists you can act on.
+assessments.no.valuation.available= There are no valuations available for this property.
+
+
 
 label.help=Cymorth gyda {0}
 rv.na=Gweth ardrethol ddim ar gael
