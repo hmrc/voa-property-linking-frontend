@@ -12,7 +12,7 @@ import uk.gov.hmrc.auth.core.AffinityGroup
 import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import utils.ListYearsHelpers
 
-class RegistrationISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
+class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
   val titleText = "You’ve successfully registered your business. - Valuation Office Agency - GOV.UK"
   val headingText = "You’ve successfully registered for this service."
@@ -155,7 +155,7 @@ class RegistrationISpec extends ISpecBase with HtmlComponentHelpers with ListYea
       }
     }
 
-    "Show an Welsh registration confirmation screen with the correct text for an individual + admin" which {
+    "show a welsh registration confirmation screen with the correct text for an individual + admin" which {
 
       val weUseYourSelector = "#main-content > div > div > p:nth-child(4)"
       val infoProvidedSelector = "#main-content > div > div > p:nth-child(5)"
@@ -202,7 +202,7 @@ class RegistrationISpec extends ISpecBase with HtmlComponentHelpers with ListYea
       }
     }
 
-    "Show an Welsh registration confirmation screen with the correct text for an organisation + admin" which {
+    "show a welsh registration confirmation screen with the correct text for an organisation + admin" which {
 
       val ifAnyoneElseSelector = "#main-content > div > div > p:nth-child(4)"
       val addThemTooLinkSelector = "#main-content > div > div > p:nth-child(4) > a"

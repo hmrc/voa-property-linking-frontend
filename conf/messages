@@ -341,12 +341,24 @@ createAccount.group.details.header.multipleAddress=There’s more than one addre
 createAccount.group.details.content.multipleAddress=You should enter the address that you want any business correspondence to be sent to.
 createAccount.business.email.help=This should be your email address and not your agent’s. The email address should be monitored.
 
+#REGISTRATION SUCCESS PAGE
+account.confirmation.title=You’ve successfully registered your business.
+account.confirmation.heading=You’ve successfully registered for this service.
+create.success.personId=VOA Personal ID:
+create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
+create.success.keepUsingGg=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
+account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a class="govuk-link" href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
+registration.confirmation.weUseYourDetails = We use your contact details to send you correspondence related to the service and your account.
+account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
+account.enrolment.link.success=Continue
+
+#REGISTRATION CONFIRMATION PAGE
 registration.successful=Registration successful
 registration.confirmation.voa.personal.id.number=Your VOA personal ID number
 registration.confirmation.agent.code=Your Agent code
 registration.confirmation.email.sent.to=We have sent these details to <strong>{0}</strong>
 registration.confirmation.whatNext.p1=Next time you sign in to the service, use your Government Gateway details.
-registration.confirmation.whatNext.p2=If you need to reset your password, you'll need to provide your VOA personal ID number.
+registration.confirmation.whatNext.p2=If you need to reset your password, you’ll need to provide your VOA personal ID number.
 registration.confirmation.whatNext.p3=Give your Agent code to your client so they can appoint you to act for them.
 registration.confirmation.whatNext.p4=If anyone else wants to register on your behalf of the organisation, you’ll need to <a class="govuk-link" href="{0}" rel="external noopener noreferrer">add them to your Government Gateway account</a>.
 registration.confirmation.termsOfUse.p=Information provided using this service is only for the purpose of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosected under the relevant legisation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
@@ -1835,14 +1847,3 @@ month.11=November
 month.12=December
 
 govukErrorMessage.visuallyHiddenText = Error
-
-#REGISTRATION CONFIRMATION PAGE
-account.confirmation.title=You’ve successfully registered your business.
-account.confirmation.heading=You’ve successfully registered for this service.
-create.success.personId=VOA Personal ID:
-create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
-create.success.keepUsingGg=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
-account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a class="govuk-link" href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
-registration.confirmation.weUseYourDetails = We use your contact details to send you correspondence related to the service and your account.
-account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
-account.enrolment.link.success=Continue

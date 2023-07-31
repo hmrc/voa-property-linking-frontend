@@ -281,6 +281,18 @@ createAccount.group.details.header.multipleAddress=Mae mwy nag un cyfeiriad ar g
 createAccount.group.details.content.multipleAddress=Dylech nodi’r cyfeiriad rydych yn dymuno i unrhyw ohebiaeth busnes gael ei danfon ato
 createAccount.business.email.help=Eich e-bost chi dylai hwn fod ac nid y cyfeiriad e-bost ar gyfer eich asiant.  Dylai’r cyfeiriad e-bost hwn gael ei fonitro.
 
+#REGISTRATION SUCCESS PAGE
+account.confirmation.title=Rydych chi wedi cofrestru eich busnes yn llwyddiannus.
+account.confirmation.heading=Rydych chi wedi cofrestru’n llwyddiannus ar gyfer y gwasanaeth hwn.
+create.success.personId=Cyfeirnod adnabod personol y VOA (ID)
+create.success.keepNote=Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
+create.success.keepUsingGg=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
+account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
+registration.confirmation.weUseYourDetails = Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif.
+account.confirmation.disclaimer=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="telerau-ac-amodau">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
+account.enrolment.link.success=Parhau
+
+#REGISTRATION CONFIRMATION PAGE
 registration.successful=Wedi cofrestru’n llwyddiannus
 registration.confirmation.voa.personal.id.number=Eich rhif adnabod personol (ID) VOA
 registration.confirmation.agent.code=Eich cod Asiant
@@ -1833,14 +1845,3 @@ month.11=Tachwedd
 month.12=Rhagfyr
 
 govukErrorMessage.visuallyHiddenText = Gwall
-
-#REGISTRATION CONFIRMATION PAGE
-account.confirmation.title=Rydych chi wedi cofrestru eich busnes yn llwyddiannus.
-account.confirmation.heading=Rydych chi wedi cofrestru’n llwyddiannus ar gyfer y gwasanaeth hwn.
-create.success.personId=Cyfeirnod adnabod personol y VOA (ID)
-create.success.keepNote=Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
-create.success.keepUsingGg=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
-account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
-registration.confirmation.weUseYourDetails = Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif.
-account.confirmation.disclaimer=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="telerau-ac-amodau">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
-account.enrolment.link.success=Parhau
