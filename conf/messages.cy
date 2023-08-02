@@ -1407,17 +1407,7 @@ dashboard.manageAgents.viewManagedProperties=Gweld yr eiddo a reolir
 dashboard.manageAgents.howToAppoint=Gallwch fynd i <a class="govuk-link" href={0}>’Fy eiddo’</a> i benodi asiant ar gyfer eiddo.
 
 #details page
-viewDetails.title=Fy manylion
-details.user=Manylion cyswllt y busnes
-details.disclaimer=Mae’n ofynnol arnom ni yn ôl y gyfraith i’ch diweddaru ar bwyntiau penodol yn ystod eich achos,   felly mae’n bwysig i ni gael eich manylion cyswllt cywir.
-details.advice=Dylai’r cyfeiriad rydych yn ei ddarparu fod yn gyfeiriad cyswllt rydych yn ei ffafrio ar gyfer eich busnes.   Ni ddylai fod yn gyfeiriad eich asiant na’ch cynrychiolydd awdurdodedig.
-details.personal.name=Enw
-details.personal.tradingName=Enw Masnachu
-details.personal.address=Cyfeiriad
-details.personal.phone=Rhif Ffôn
-details.personal.email=E-bost
-details.personal.mobile=Rhif ffôn symudol
-details.mobile.notSet=Heb ei osod
+details.contactDetailsUse=Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif.
 
 details.business=Manylion busnes
 details.business.agentCode=Cod asiant

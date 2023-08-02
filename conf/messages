@@ -1527,17 +1527,7 @@ dashboard.manageAgents.viewManagedProperties=View managed properties
 dashboard.manageAgents.howToAppoint=You can go to <a class="govuk-link" href={0}>‘My properties’</a> to appoint an agent for a property.
 
 #details page
-viewDetails.title=My details
-details.user=Business contact details
-details.disclaimer= We are required by law to keep you updated at specific points of your case, so it’s important that we have your correct contact details.
-details.advice=The address you provide should be your preferred postal contact address for your business. It must not be that of your agent or authorised representative.
-details.personal.name=Name
-details.personal.tradingName=Trading Name
-details.personal.address=Address
-details.personal.phone=Telephone
-details.personal.email=Email
-details.personal.mobile=Mobile number
-details.mobile.notSet=Not set
+details.contactDetailsUse=We use your contact details to send you correspondence related to the service and your account.
 
 details.business=Business details
 details.business.agentCode=Agent code
