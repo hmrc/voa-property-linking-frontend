@@ -79,59 +79,40 @@ class ValuationsController @Inject()(
 
   def valuations(submissionId: String, owner: Boolean): Action[AnyContent] =
     authenticated.andThen(withAssessmentsPageSession).async { implicit request =>
-      val agentCode = request.groupAccount.agentCode
-
-      val agentLists = agentRelationshipService.getMyOrganisationAgents()
-
-      agentLists.flatMap { agentLists =>
-        val listYears = agentLists.agents
-          .find(_.representativeCode == agentCode)
-          .flatMap(_.listYears)
-          .getOrElse(Seq.empty[String])
-
-        val assessments: Future[Option[ApiAssessments]] = {
-          if (owner)
-            propertyLinks.getOwnerAssessments(submissionId)
-          else
-            propertyLinks.getClientAssessments(submissionId)
-        }
-
-        def okResponse(assessments: ApiAssessments, backlink: String): Result = {
-          val rateableNA = assessments.assessments.map(_.rateableValue).contains(None)
-
-          val filteredAssessments: ApiAssessments = if (owner) {
-            assessments
-          } else {
-            // assessments.copy(assessments = assessments.assessments.filter(el => listYears.contains(el.listYear)))
-            assessments.copy(assessments = assessments.assessments.filter(_.listYear == "2023"))
-          }
-          val rtp = if (owner) "your_assessments" else "client_assessments"
-          val vmvLink = s"${config.vmvUrl}/valuations/start/${filteredAssessments.uarn}?rtp=$rtp"
-
-          Ok(
-            assessmentsView(
-              AssessmentsVM(
-                assessmentsWithLinks = assessmentsWithLinks(filteredAssessments, submissionId, owner),
-                backLink = backlink,
-                address = filteredAssessments.address,
-                capacity = filteredAssessments.capacity,
-                clientOrgName = filteredAssessments.clientOrgName
-              ),
-              owner,
-              rateableNA,
-              vmvLink = vmvLink
-            ))
-        }
-
-        assessments
-          .flatMap {
-            case Some(EmptyAssessments()) | None => Future.successful(notFound)
-            case Some(assessments) =>
-              if (owner)
-                Future.successful(okResponse(assessments, backlink = calculateOwnerBackLink))
-              else calculateAgentBackLink(submissionId).map(backlink => okResponse(assessments, backlink))
-          }
+      val assessments: Future[Option[ApiAssessments]] = {
+        if (owner)
+          propertyLinks.getOwnerAssessments(submissionId)
+        else
+          propertyLinks.getClientAssessments(submissionId)
       }
+
+      def okResponse(assessments: ApiAssessments, backlink: String): Result = {
+        val rateableNA = assessments.assessments.map(_.rateableValue).contains(None)
+        val rtp = if (owner) "your_assessments" else "client_assessments"
+        val vmvLink = s"${config.vmvUrl}/valuations/start/${assessments.uarn}?rtp=$rtp&submissionId=$submissionId"
+        Ok(
+          assessmentsView(
+            AssessmentsVM(
+              assessmentsWithLinks = assessmentsWithLinks(assessments, submissionId, owner),
+              backLink = backlink,
+              address = assessments.address,
+              capacity = assessments.capacity,
+              clientOrgName = assessments.clientOrgName
+            ),
+            owner,
+            rateableNA,
+            vmvLink
+          ))
+      }
+
+      assessments
+        .flatMap {
+          case Some(EmptyAssessments()) | None => Future.successful(notFound)
+          case Some(assessments) =>
+            if (owner)
+              Future.successful(okResponse(assessments, backlink = calculateOwnerBackLink))
+            else calculateAgentBackLink(submissionId).map(backlink => okResponse( assessments.copy(assessments = assessments.assessments.filter(_.listYear == "2021")), backlink))
+        }
     }
   private def linkAndAssessment(
         submissionId: String,

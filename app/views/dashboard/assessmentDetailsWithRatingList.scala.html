@@ -21,7 +21,6 @@
 @this(govukDetails: GovukDetails, govukTag: GovukTag)
 @(model: controllers.AssessmentsVM, owner: Boolean, vmvLink: String )(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-
 @tableHeaderRow = {
     <tr class="govuk-table__row">
         <th class="govuk-table__cell">@messages("assessments.table.1")</th>
@@ -176,9 +175,9 @@
         <li>@messages("assessments.explanatory.agent.show.lists")</li>
         <li>@messages("assessments.explanatory.agent.show.client")</li>
     </ul>
-    <p id="link-section">@messages("assessments.explanatory.other.periods")
-        <a id="explanatory-link" class="govuk-link" href="@vmvLink">@messages("assessments.explanatory.link")</a>
-    </p>
+      <span>@messages("assessments.explanatory.other.periods")</span>
+      <a id="explanatory-link" class="govuk-link" href="@vmvLink">@messages("assessments.explanatory.link")</a>
+
     <p id="contact-text">@messages("assessments.explanatory.agent.contact.client")</p>
     </div>
 }

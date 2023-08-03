@@ -445,14 +445,14 @@ assessments.icon.help.effectiveDate = Cymorth gyda Dyddiad dod i rym
 
 
 
-assessments.explanatory.ip.show=We only show valuations for when you owned or occupied the property.
-assessments.explanatory.other.periods=Valuations for other periods may be available.
-assessments.explanatory.agent.show=We only show valuations:
-assessments.explanatory.agent.show.lists=for the rating lists your client wants you to act on
-assessments.explanatory.agent.show.client=for when your client owned or occupied the property
-assessments.explanatory.link=Find public versions of all valuations for this property.
-assessments.explanatory.agent.contact.client=Contact your client if you need to change which lists you can act on.
-assessments.no.valuation.available= There are no valuations available for this property.
+assessments.explanatory.ip.show=Rydym ond yn dangos prisiadau ar gyfer yr adeg yr oeddech yn berchen ar yr eiddo neu’n ei feddiannu.
+assessments.explanatory.other.periods=Mae’n bosibl bod prisiadau ar gyfer cyfnodau eraill ar gael.
+assessments.explanatory.agent.show=Rydym ond yn dangos prisiadau ar gyfer:
+assessments.explanatory.agent.show.lists=y rhestrau ardrethu y mae’ch cleient am i chi eu gweithredu
+assessments.explanatory.agent.show.client=yr adeg yr oedd eich cleient yn berchen ar yr eiddo neu’n ei feddiannu
+assessments.explanatory.link=Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn.
+assessments.explanatory.agent.contact.client=Cysylltwch â’ch cleient os oes angen i chi newid y rhestrau mae gennych ganiatâd i weithredu arnynt.
+assessments.no.valuation.available= Nid oes prisiadau ar gael ar gyfer yr eiddo hwn.
 
 
 
