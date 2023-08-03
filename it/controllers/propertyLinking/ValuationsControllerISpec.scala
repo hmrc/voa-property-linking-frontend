@@ -1,7 +1,7 @@
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
 import models.ListType.CURRENT
-import models.{Accounts, ApiAssessment, ApiAssessments, ListType, Party, PropertyAddress}
+import models.{ApiAssessment, ApiAssessments, ClientDetails, ClientPropertyLink, ListType, Party, PropertyAddress, PropertyLinkingApproved}
 import models.assessments.AssessmentsPageSession
 import models.properties.AllowedAction
 import models.properties.AllowedAction.{CHECK, VIEW_DETAILED_VALUATION}
@@ -16,18 +16,16 @@ import java.time.LocalDate
 import java.util.UUID
 
 
-class ValuationControllerISpec extends ISpecBase with HtmlComponentHelpers {
+class ValuationsControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   val plSubId = "pl-submission-id"
 
-  val paragraphOneOwnerSelector = "#agent-section > p:nth-child(1)"
-  val paragraphLinkOwnerSelector = "#owner-section > p:nth-child(2)"
+  val paragraphOneOwnerSelector = "#owner-section > p"
+  val paragraphLinkOwnerSelector = "#owner-section > span"
   val linkSectionTextSelector = "span:nth-child(3)"
   val linkSectionLinkSelector = "#explanatory-link"
   val listCaptionSelector = "#agent-section > p:nth-child(1)"
-  val paragraphOneClientSelector = "#owner-section > p:nth-child(1)"
-  val paragraphLinkClientSelector = "#owner-section > p:nth-child(2)"
   val bulletPointOneSelector = "#reasons-list > li:nth-child(1)"
   val bulletPointTwoSelector = "#reasons-list > li:nth-child(2)"
   val contactTextSelector = "#contact-text"
@@ -38,29 +36,29 @@ class ValuationControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
   "Valuation controller" should {
 
-     "displays assessment page with the correct content for owner in English" in {
+    "displays assessment page with the correct content when logged in as an IP in English" in {
 
-          lazy val document: Document = getPage(language = English, gotAssessments = true, testIpAccounts)
+      lazy val document: Document = getPage(English,false, true)
 
-          document.select(paragraphOneOwnerSelector).text shouldBe("We only show valuations for when you owned or occupied the property.")
-          document.select(paragraphLinkOwnerSelector).text shouldBe("Valuations for other periods may be available.")
-          document.select(linkSectionTextSelector).text shouldBe("Find public versions of all valuations for this property.")
+      document.select(paragraphOneOwnerSelector).text shouldBe ("We only show valuations for when you owned or occupied the property.")
+      document.select(paragraphLinkOwnerSelector).text shouldBe ("Valuations for other periods may be available.")
+      document.select(linkSectionLinkSelector).text shouldBe ("Find public versions of all valuations for this property.")
 
-        }
+    }
 
-    "displays assessment page with the correct content for owner in Welsh" in {
+    "displays assessment page with the correct content when logged in as an IP in Welsh" in {
 
-      lazy val document: Document = getPage(language = Welsh, gotAssessments = true, testIpAccounts)
+      lazy val document: Document = getPage(Welsh, false, true)
 
       document.select(paragraphOneOwnerSelector).text shouldBe ("Rydym ond yn dangos prisiadau ar gyfer yr adeg yr oeddech yn berchen ar yr eiddo neu’n ei feddiannu.")
       document.select(paragraphLinkOwnerSelector).text shouldBe ("Mae’n bosibl bod prisiadau ar gyfer cyfnodau eraill ar gael.")
-      document.select(linkSectionTextSelector).text shouldBe ("Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn.")
+      document.select(linkSectionLinkSelector).text shouldBe ("Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn.")
 
     }
 
     "displays assessment page with the correct content when logged in as an agent in English" in {
 
-      lazy val document: Document = getPage(language = English, gotAssessments = true, testAccounts)
+      lazy val document: Document = getPage(English, false, false)
 
       document.title() shouldBe ("ADDRESS - Valuation Office Agency - GOV.UK")
       document.select(listCaptionSelector).text shouldBe ("We only show valuations:")
@@ -74,7 +72,7 @@ class ValuationControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     "displays assessment page with the correct content when logged in as an agent in Welsh" in {
 
-      lazy val document: Document = getPage(language = Welsh, gotAssessments = true, testAccounts)
+      lazy val document: Document = getPage(Welsh, false, false)
 
       document.select(listCaptionSelector).text shouldBe ("Rydym ond yn dangos prisiadau ar gyfer:")
       document.select(bulletPointOneSelector).text shouldBe ("y rhestrau ardrethu y mae’ch cleient am i chi eu gweithredu")
@@ -84,24 +82,24 @@ class ValuationControllerISpec extends ISpecBase with HtmlComponentHelpers {
       document.select(contactTextSelector).text shouldBe ("Cysylltwch â’ch cleient os oes angen i chi newid y rhestrau mae gennych ganiatâd i weithredu arnynt.")
 
     }
-//        "displays assessment page with the correct content when logged in as an agent in English when there is no valuations to display" in {
-//
-//          lazy val document: Document = getPage(language = English, gotAssessments = false)
-//
-//          document.select(noValuationsTextSelector).text shouldBe("There are no valuations available for this property.")
-//
-//        }
-//
-//        "displays assessment page with the correct content for client in Welsh when there is no valuations to display" in {
-//
-//          lazy val document: Document = getPage(language = Welsh, gotAssessments = false)
-//
-//          document.select(noValuationsTextSelector).text shouldBe("Nid oes prisiadau ar gael ar gyfer yr eiddo hwn.")
-//
-//        }
-  }
+            "displays assessment page with the correct content when logged in as an agent in English when there is no valuations to display" in {
 
-    private def getPage(language: Language, gotAssessments: Boolean, accountType: Accounts): Document = {
+              lazy val document: Document = getPage(English, true, false)
+
+              document.select(noValuationsTextSelector).text shouldBe("There are no valuations available for this property.")
+
+            }
+
+            "displays assessment page with the correct content for client in Welsh when there is no valuations to display" in {
+
+              lazy val document: Document = getPage(Welsh, true, false)
+
+              document.select(noValuationsTextSelector).text shouldBe("Nid oes prisiadau ar gael ar gyfer yr eiddo hwn.")
+
+            }
+ }
+
+    private def getPage(language: Language, noAssessments: Boolean, isOwner: Boolean): Document = {
 
       def apiAssessments(): ApiAssessments = {
         ApiAssessments(
@@ -112,7 +110,7 @@ class ValuationControllerISpec extends ISpecBase with HtmlComponentHelpers {
           pending = false,
           clientOrgName = None,
           capacity = Some("OWNER"),
-          assessments = if (gotAssessments == false) Seq.empty[ApiAssessment] else
+            assessments = if (noAssessments) { Seq.empty[ApiAssessment]} else {
             Seq(
             ApiAssessment(
               authorisationId = 1111L,
@@ -144,14 +142,41 @@ class ValuationControllerISpec extends ISpecBase with HtmlComponentHelpers {
               currentFromDate = Some(LocalDate.of(2017, 4, 1).plusMonths(2L)),
               currentToDate = None
             )
-          ),
+          )},
           agents = Seq.empty[Party]
         )
       }
 
+      val testData = ClientPropertyLink(
+        authorisationId = 123345505L,
+        authorisedPartyId = 45624L,
+        status = PropertyLinkingApproved,
+        startDate = LocalDate.of(2023, 8, 7),
+        endDate = Some(LocalDate.of(2023, 12, 31)),
+        submissionId = "17282920",
+        capacity = "Owner",
+        uarn = 789349L,
+        address = "123 Main Street",
+        localAuthorityRef = "LA123",
+        client = ClientDetails(12345L, "Test Organisation name")
+      )
+
+      val owner = if (isOwner) "owner" else "agent"
+      val assessments = if(isOwner) "assessments" else "assessments?owner=false"
+
+      if (!isOwner) {
+
+        stubFor {
+          get(s"/property-linking/agent/property-links/$plSubId?projection=clientsPropertyLink")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testData).toString())
+            }
+        }
+
+      }
 
       stubFor {
-        get(s"/property-linking/dashboard/agent/assessments/$plSubId")
+        get(s"/property-linking/dashboard/$owner/assessments/$plSubId")
           .willReturn {
             aResponse.withStatus(OK).withBody(Json.toJson(apiAssessments).toString())
           }
@@ -161,7 +186,7 @@ class ValuationControllerISpec extends ISpecBase with HtmlComponentHelpers {
       stubFor {
         get("/business-rates-authorisation/authenticate")
           .willReturn {
-            aResponse.withStatus(OK).withBody(Json.toJson(accountType).toString())
+            aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
           }
       }
 
@@ -173,7 +198,7 @@ class ValuationControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/property-link/$plSubId/assessments?owner=false")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/property-link/$plSubId/$assessments")
           .withCookies(languageCookie(language), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .get()
@@ -182,5 +207,4 @@ class ValuationControllerISpec extends ISpecBase with HtmlComponentHelpers {
       res.status shouldBe OK
       Jsoup.parse(res.body)
     }
-
-  }
+}

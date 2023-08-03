@@ -55,7 +55,6 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     val valuationsController = new ValuationsController(
       errorHandler = mockCustomErrorHandler,
       propertyLinks = mockPropertyLinkConnector,
-      agentRelationshipService = mockAgentRelationshipService,
       authenticated = preAuthenticatedActionBuilders(),
       sessionRepo = mockSessionRepository,
       assessmentsView = assessmentsView,
@@ -118,14 +117,14 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
 
   behavior of "valuations page"
 
-  it should "return 404 when no assessments for given property link are found" in new ValuationsSetup {
+  it should "return 200 when no assessments for given property link are found" in new ValuationsSetup {
 
     override def assessments: Future[Option[ApiAssessments]] =
       Future.successful(Some(apiAssessments(ownerAuthorisation).copy(assessments = List.empty)))
 
     val res = valuationsController.valuations(plSubId, owner = true)(request)
 
-    status(res) shouldBe NOT_FOUND
+    status(res) shouldBe OK
   }
 
   it should "return 200 with assessments for OWNER" in new ValuationsSetup {

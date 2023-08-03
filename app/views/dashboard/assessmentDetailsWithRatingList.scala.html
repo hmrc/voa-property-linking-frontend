@@ -114,59 +114,58 @@
     <div id="details-content-valuations" class="govuk-grid-column-full">
         <h3 class="govuk-heading-m">@messages("assessments.subtitle")</h3>
 
-@if(model.assessmentsWithLinks.isEmpty){
-    <p id="no-valuation-text" class="govuk-body">@messages("assessments.no.valuation.available")</p>
-}else {
-    <table id="assessments-table" class="govuk-table margin-bottom-10 margin-top-10">
-        <caption class="govuk-visually-hidden">@messages("assessments.table.caption")</caption>
-        <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">
-                    @messages("assessments.table.1")
-                    <a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-valuationPeriod")" class="cca-icon cca-icon__help">
-                        <span class="govuk-visually-hidden">@messages("assessments.icon.help.valuationPeriod")</span>
-                    </a>
-                </th>
-                <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">
-                    @messages("assessments.table.2")
-                    <a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-effectiveDate")" class="cca-icon cca-icon__help">
-                        <span class="govuk-visually-hidden">@messages("assessments.icon.help.effectiveDate")</span>
-                    </a>
-                </th>
-                <th scope="col" class="govuk-table__header">
-                @messages("assessments.table.3")
-                </th>
-                <th scope="col" class="govuk-table__header govuk-table__header--numeric">
-                @messages("assessments.table.4")
-                </th>
-            </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-            @if(model.currentAssessments.nonEmpty) {
-                @tableRows(model.currentAssessments, tableType = "current", isDraft = false)
-            }
+        @if(model.assessmentsWithLinks.isEmpty){
+            <p id="no-valuation-text" class="govuk-body">@messages("assessments.no.valuation.available")</p>
+        }else {
+            <table id="assessments-table" class="govuk-table margin-bottom-10 margin-top-10">
+                <caption class="govuk-visually-hidden">@messages("assessments.table.caption")</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">
+                            @messages("assessments.table.1")
+                            <a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-valuationPeriod")" class="cca-icon cca-icon__help">
+                                <span class="govuk-visually-hidden">@messages("assessments.icon.help.valuationPeriod")</span>
+                            </a>
+                        </th>
+                        <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">
+                            @messages("assessments.table.2")
+                            <a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-effectiveDate")" class="cca-icon cca-icon__help">
+                                <span class="govuk-visually-hidden">@messages("assessments.icon.help.effectiveDate")</span>
+                            </a>
+                        </th>
+                        <th scope="col" class="govuk-table__header">
+                        @messages("assessments.table.3")
+                        </th>
+                        <th scope="col" class="govuk-table__header govuk-table__header--numeric">
+                        @messages("assessments.table.4")
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    @if(model.currentAssessments.nonEmpty) {
+                        @tableRows(model.currentAssessments, tableType = "current", isDraft = false)
+                    }
 
-            @if(model.draftAssessments.nonEmpty) {
-                @tableRows(model.draftAssessments, tableType = "draft", isDraft = true)
-            }
+                    @if(model.draftAssessments.nonEmpty) {
+                        @tableRows(model.draftAssessments, tableType = "draft", isDraft = true)
+                    }
 
-            @if(model.historicAssessments.nonEmpty) {
-                @tableRows(model.historicAssessments, tableType = "historic", isDraft = false)
-            }
-        </tbody>
-    </table>
-}
+                    @if(model.historicAssessments.nonEmpty) {
+                        @tableRows(model.historicAssessments, tableType = "historic", isDraft = false)
+                    }
+                </tbody>
+            </table>
+        }
     </div>
 </div>
 
-<div id="explanatory-section" class=" govuk-grid-column-two-thirds govuk-body  govuk-!-margin-left-0 govuk-!-padding-left-0 govuk-!-margin-right-9">
 
+<div id="explanatory-section" class=" govuk-grid-column-two-thirds govuk-body  govuk-!-margin-left-0 govuk-!-padding-left-0 govuk-!-margin-right-9">
 @if(owner) {
     <div id="owner-section">
     <p>@messages("assessments.explanatory.ip.show")</p>
-    <p>@messages("assessments.explanatory.other.periods")
+    <span>@messages("assessments.explanatory.other.periods")</span>
         <a id="explanatory-link" class="govuk-link" href="@vmvLink">@messages("assessments.explanatory.link")</a>
-    </p>
     </div>
 } else {
     <div id="agent-section">

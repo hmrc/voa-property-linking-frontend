@@ -27,10 +27,13 @@
       assessmentDetailsWithRatingListView: assessmentDetailsWithRatingList,
       naRateableDetailSection: naRateableDetailSection)
 
-@(model: controllers.AssessmentsVM, owner: Boolean, rateableNA: Boolean, vmvLink: String)(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.AssessmentsVM, owner: Boolean, rateableNA: Boolean, vmvLink: String, address: Option[String], localAuthRef: Option[String])(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
-    pageTitle = Formatters.capitalisedAddress(model.address),
+    @formattedAddress =@{
+        if (model.assessmentsWithLinks.nonEmpty) Formatters.capitalisedAddress(model.address) else Formatters.capitalisedAddress(address.getOrElse(messages("assessments.na")))
+    }
+    @mainLayout(
+    pageTitle = formattedAddress ,
     backUri = Some(model.backLink),
     mainClass = Some("govuk-grid-column-full")
 ) {
@@ -45,13 +48,17 @@
           }
       </span>
       <h1 class="govuk-heading-l">
-        @Formatters.capitalisedAddress(model.address)
+          @formattedAddress
       </h1>
 
       <p class="govuk-body">
+      @if(model.assessmentsWithLinks.isEmpty){
+      <span class="govuk-!-font-weight-bold">@messages("assessments.localAuthorityRef")</span> &nbsp;@localAuthRef<br>
+      }else{
           @model.localAuthorityReference.map{ localAuthorityRef =>
               <span class="govuk-!-font-weight-bold">@messages("assessments.localAuthorityRef")</span> &nbsp;@localAuthorityRef<br>
           }
+      }
       </p>
     </div>
 </div>
