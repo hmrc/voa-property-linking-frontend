@@ -74,6 +74,8 @@ case class ManagingProperty(
       singleProperty: Boolean = false,
       status: AppointAgentJourneyStatus = ManagingPropertySelected,
       backLink: Option[String],
+      totalPropertySelectionSize: Option[Int],
+      propertySelectedSize: Option[Int],
       appointmentScope: Option[AppointmentScope] = None)
     extends AppointNewAgentSession
 
@@ -88,7 +90,9 @@ object ManagingProperty {
       isCorrectAgent = selectedAgent.isCorrectAgent,
       managingPropertyChoice = selection,
       singleProperty = singleProperty,
-      backLink = selectedAgent.backLink
+      backLink = selectedAgent.backLink,
+      totalPropertySelectionSize = None,
+      propertySelectedSize = None
     )
 }
 

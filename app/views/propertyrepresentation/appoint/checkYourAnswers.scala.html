@@ -23,22 +23,32 @@
 @import models.propertyrepresentation.ManagingProperty
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 @import models.propertyrepresentation.AppointmentScope.RELATIONSHIP
+@import models.propertyrepresentation.AppointmentScope.PROPERTY_LIST
 @import models.propertyrepresentation.All
+@import models.propertyrepresentation.ChooseFromList
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
 
 @this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
-@(form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AgentAppointmentChangesRequest], data: ManagingProperty, propertySelectionSize: Option[(Int, Int)])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+
+@answerMessage = @{
+    if(propertySelectionSize == None) messages(answerMessageKey) else messages("propertyRepresentation.checkYourAnswers.ofProperties",   propertySelectionSize.get._1,   propertySelectionSize.get._2)
+}
 
 @answerMessageKey = @{
     (data.managingPropertyChoice, data.singleProperty) match {
         case (All.name, true) => "propertyRepresentation.checkYourAnswers.yourProperty"
+        case (ChooseFromList.name, _) => "propertyRepresentation.checkYourAnswers.yourProperty"
         case _ => s"propertyRepresentation.checkYourAnswers.options.${data.managingPropertyChoice}"
     }
 }
+
 @appointmentScope = @{
     data.managingPropertyChoice match {
         case All.name => ALL_PROPERTIES.toString
+        case ChooseFromList.name => PROPERTY_LIST.toString
         case models.propertyrepresentation.NoProperties.name | models.propertyrepresentation.No.name => RELATIONSHIP.toString
     }
 }
@@ -84,7 +94,7 @@
                     content = valueWithId(messages("propertyRepresentation.checkYourAnswers.properties"), "properties-heading")
                 ),
                 value = Value(
-                    valueWithId(messages(answerMessageKey), "properties-value")
+                    valueWithId(answerMessage, "properties-value")
                 ),
                 actions = Some(Actions(
                     items = Seq(

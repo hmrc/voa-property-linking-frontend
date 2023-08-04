@@ -425,7 +425,7 @@ assessments.draft.title=Y prisiad yn y dyfodol
 assessments.historic.title=Prisiadau blaenorol
 assessments.current.text=Presennol
 assessments.draft.text=Drafft
-assessments.historic.text=Hanesyddol
+assessments.historic.text=HanepropertyRepresentation.onePropertyNoExistingAgent.questionsyddol
 assessments.aria.label.full=Dewiswch y prisiad hwn - {0} o {1} i {2}
 assessments.aria.label.partial=Dewiswch y prisiad hwn - {0} o {1}
 assessments.selectValuation.to=i
@@ -538,7 +538,7 @@ propertyRepresentation.isThisYourAgent.title=Ai’ch asiant chi yw hwn?
 propertyRepresentation.isThisYourAgent.yes=Iawn
 propertyRepresentation.isThisYourAgent.no=Na, nodwch god newydd
 
-propertyRepresentation.onePropertyNoExistingAgent.question=Welsh needed - Do you want to assign {0} to your property?
+propertyRepresentation.onePropertyNoExistingAgent.question=Ydych chi am neilltuo {0} i'ch eiddo?
 
 propertyRepresentation.oneProperty.title=Welsh needed- Do you want to assign {0} to your property?
 propertyRepresentation.oneProperty.options.yes=Ie
@@ -551,7 +551,7 @@ propertyRepresentation.multipleProperties.options.oneOrMore=Neilltuo un eiddo ne
 
 propertyRepresentation.checkYourAnswers.title=Gwirio a chadarnhau eich manylion
 propertyRepresentation.checkYourAnswers.agent=Asiant
-propertyRepresentation.checkYourAnswers.properties=Welsh needed - Which properties do you want to assign to this agent?
+propertyRepresentation.checkYourAnswers.properties=Pa eiddo ydych chi’n dymuno neilltuo i'r asiant hwn?
 propertyRepresentation.checkYourAnswers.yourProperty=Eich eiddo
 propertyRepresentation.checkYourAnswers.options.all=Pob eiddo
 propertyRepresentation.checkYourAnswers.options.none=Dim eiddo
@@ -560,17 +560,18 @@ propertyRepresentation.checkYourAnswers.options.yes=Ie
 propertyRepresentation.checkYourAnswers.change=Newid
 propertyRepresentation.checkYourAnswers.confirmAndAppoint=Cadarnhau a phenodi
 
-propertyRepresentation.confirmation.title=Welsh needed - {0} has been appointed to your account
-propertyRepresentation.confirmation.yourProperty=Welsh needed - They have also been assigned to your property.
-propertyRepresentation.confirmation.selectedProperties=Welsh needed - They have also been assigned to the properties you selected.
-propertyRepresentation.confirmation.allProperties=Welsh needed - They have also been assigned to all your properties.
+propertyRepresentation.confirmation.title=Mae {0} wedi'i benodi i'ch cyfrif
+propertyRepresentation.confirmation.yourProperty=Maent hefyd wedi'u neilltuo i'ch eiddo.
+propertyRepresentation.confirmation.selectedProperties=Maent hefyd wedi'u neilltuo i'r eiddo a ddewiswyd gennych.
+propertyRepresentation.confirmation.allProperties=Maent hefyd wedi'u neilltuo i'ch holl eiddo.
 propertyRepresentation.confirmation.thisAgentCan=Gall yr asiant hwn
-propertyRepresentation.confirmation.thisAgentCan.list.1=Welsh needed - add properties to your account
+propertyRepresentation.confirmation.thisAgentCan.list.1=ychwanegu eiddo at eich cyfrif
 propertyRepresentation.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
-propertyRepresentation.confirmation.whatHappensNext.p1=Welsh needed - You can assign or unassign this agent from your properties by <a class="govuk-link" id="manage-agents-link" href="{0}">managing your agents</a>.
+propertyRepresentation.confirmation.whatHappensNext.p1=Gallwch neilltuo neu ddadneilltuo'r asiant hwn o'ch eiddo trwy <a class="govuk-link" id="manage-agents-link" href="{0}">reoli eich asiantiaid</a>.
 
 error.propertyRepresentation.title=Mae yna broblem
-error.propertyRepresentation.unknownAgent=Does ddim asiant ar gyfer y cod asiant a ddarparwyd
+error.propertyRepresentation.unknownAgent=Does ddim asiant ar gyfer y cod asiant a ddarparwyd;
+
 error.propertyRepresentation.agentAlreadyAppointed=Mae’r asiant yma wedi cael ei ychwanegu at eich cyfrif yn barod
 
 #Show your agents

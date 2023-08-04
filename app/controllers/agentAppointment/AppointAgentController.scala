@@ -27,7 +27,7 @@ import controllers._
 import form.FormValidation.nonEmptyList
 import models.GroupAccount.AgentGroupAccount
 import models._
-import models.propertyrepresentation.{AgentAppointmentChangeRequest, AppointAgentToSomePropertiesSession, AppointmentAction, AppointmentScope, FilterAppointProperties, FilterRevokePropertiesSessionData, RevokeAgentFromSomePropertiesSession}
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AppointAgentToSomePropertiesSession, AppointNewAgentSession, AppointmentAction, AppointmentScope, FilterAppointProperties, FilterRevokePropertiesSessionData, ManagingProperty, RevokeAgentFromSomePropertiesSession}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi._
 import play.api.Logger
@@ -48,10 +48,10 @@ class AppointAgentController @Inject()(
       accounts: GroupAccounts,
       authenticated: AuthenticatedAction,
       agentRelationshipService: AgentRelationshipService,
+      @Named("appointNewAgentSession") val appointNewAgentSession: SessionRepo,
       @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
       @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
       @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
-      appointAgentSummaryView: views.html.propertyrepresentation.appoint.appointAgentSummary,
       revokeAgentSummaryView: views.html.propertyrepresentation.revokeAgentSummary,
       revokeAgentPropertiesView: views.html.propertyrepresentation.revokeAgentProperties,
       appointAgentPropertiesView: views.html.propertyrepresentation.appoint.appointAgentProperties
@@ -73,7 +73,7 @@ class AppointAgentController @Inject()(
       )(FilterAppointPropertiesForm.apply)(FilterAppointPropertiesForm.unapply)
         .verifying("error.propertyRepresentation.appoint.filter", f => f.address.nonEmpty || f.agent.nonEmpty)
     )
-
+//l
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         pagination: PaginationParameters,
         agentCode: Long,
@@ -225,10 +225,23 @@ class AppointAgentController @Inject()(
   //todo This should now go to check your answers and the view in here can be deleted (appointAgentSummaryView)
   //todo Tests have already been deleted
   def confirmAppointAgentToSome: Action[AnyContent] = authenticated.async { implicit request =>
-    appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].map {
-      case Some(AppointAgentToSomePropertiesSession(Some(agent), _)) =>
-        Ok(appointAgentSummaryView(action = agent))
-      case _ => NotFound(errorHandler.notFoundTemplate)
+
+    for {
+    data <- appointNewAgentSession.get[AppointNewAgentSession]
+    propertySelectionSize <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
+    agent <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
+    } yield (data, propertySelectionSize, agent) match {
+      case (Some(data :ManagingProperty), propertySelectionSize, Some(AppointAgentToSomePropertiesSession(Some(agent), _))) =>
+        println(Console.CYAN_B + "hellloooooo" + agent.propertyLinkIds.size + "/" + propertySelectionSize + Console.RESET)
+        appointNewAgentSession.saveOrUpdate(
+          data.copy(
+            propertySelectedSize = Some(agent.propertyLinkIds.size),
+            totalPropertySelectionSize = Some(propertySelectionSize)
+          )
+        )
+        Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers)
+      case _ =>
+        NotFound(errorHandler.notFoundTemplate)
     }
   }
 
@@ -242,6 +255,7 @@ class AppointAgentController @Inject()(
 
   def appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String): Action[AnyContent] =
     authenticated.async { implicit request =>
+      println(Console.CYAN_B + "I am called" + Console.RESET)
       appointAgentBulkActionForm
         .bindFromRequest()
         .fold(

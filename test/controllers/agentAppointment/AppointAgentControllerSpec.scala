@@ -437,6 +437,10 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   it should "submit appoint agent request and redirect to summary page" in {
     StubGroupAccountConnector.stubAccount(agent)
 
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(managingPropertyChooseProperties)))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
+      .thenReturn(Future.successful(2))
     when(mockAppointRevokeService.assignAgentToSomeProperties(any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("id")))
     when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
@@ -462,6 +466,10 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   it should "show not found  page when no agent data is cached" in {
     StubGroupAccountConnector.stubAccount(agent)
 
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(None))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
+      .thenReturn(Future.successful(2))
     when(mockAppointRevokeService.assignAgentToSomeProperties(any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("id")))
     when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
@@ -909,15 +917,16 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     accounts = StubGroupAccountConnector,
     authenticated = preAuthenticatedActionBuilders(),
     agentRelationshipService = mockAppointRevokeService,
+    appointNewAgentSession = mockNewAgentSession ,
     propertyLinksSessionRepo = mockSessionRepo,
     revokeAgentPropertiesSessionRepo = mockRevokeAgentPropertiesSessionRepo,
     appointAgentPropertiesSession = mockAppointAgentPropertiesSessionRepo,
     revokeAgentSummaryView = revokeAgentSummaryView,
-    appointAgentSummaryView = appointAgentSummaryView,
     revokeAgentPropertiesView = revokeAgentPropertiesView,
     appointAgentPropertiesView = appointAgentPropertiesView
   )
 
+  private lazy val mockNewAgentSession = mock[SessionRepo]
   private lazy val mockSessionRepo = mock[SessionRepo]
   private lazy val mockRevokeAgentPropertiesSessionRepo = mock[SessionRepo]
   private lazy val mockAppointAgentPropertiesSessionRepo = mock[SessionRepo]

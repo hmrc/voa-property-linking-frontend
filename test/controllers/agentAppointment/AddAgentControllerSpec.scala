@@ -17,7 +17,7 @@
 package controllers.agentAppointment
 
 import controllers.VoaPropertyLinkingSpec
-import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, No, NoProperties, SearchedAgent, SelectedAgent, Start}
+import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, ManagingProperty, No, NoProperties, SearchedAgent, SelectedAgent, Start}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.{Document, Element}
 import org.mockito.ArgumentMatchers.any
@@ -104,6 +104,10 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
   "showAgentCodePage" should "show the agent code page and go back to the appoint agent start page" in {
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
+
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(None))
+
     val res = testController.showAgentCodePage()(FakeRequest())
     status(res) shouldBe OK
     verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/start")
@@ -235,6 +239,10 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(()))
     when(mockAgentRelationshipService.assignAgent(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
+    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
+      .thenReturn(Future.successful(Some(managingPropertyNoProperties)))
+    when(mockSessionRepo.get[ManagingProperty](any(), any()))
+      .thenReturn(Future.successful(Some(managingPropertyNoProperties)))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) shouldBe OK

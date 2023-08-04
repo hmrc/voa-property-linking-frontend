@@ -606,6 +606,7 @@ propertyRepresentation.multipleProperties.options.oneOrMore=Assign to one or mor
 propertyRepresentation.checkYourAnswers.title=Check and confirm your details
 propertyRepresentation.checkYourAnswers.agent=Agent
 propertyRepresentation.checkYourAnswers.properties=Which properties do you want to assign to this agent?
+propertyRepresentation.checkYourAnswers.ofProperties={0} of {1} properties
 propertyRepresentation.checkYourAnswers.yourProperty=Your property
 propertyRepresentation.checkYourAnswers.options.all=All properties
 propertyRepresentation.checkYourAnswers.options.none=No properties

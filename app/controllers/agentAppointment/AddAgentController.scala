@@ -87,10 +87,25 @@ class AddAgentController @Inject()(
     Future.successful(Ok(startPageView(getBackLink)))
   }
 
-  //todo Fix back link when coming from CYA
-  //todo Prepopulate when coming back from CYA
   def showAgentCodePage: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(agentCodeView(agentCode, getBackLink)))
+    val backLink = routes.AddAgentController.showStartPage.url
+    for {
+      agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
+    } yield agentDetailsOpt match {
+      case Some(answers) =>
+        answers match {
+          case answers : SearchedAgent =>
+            Ok(agentCodeView(agentCode.fill(answers.agentCode.toString), getBackLink))
+          case answers : SelectedAgent =>
+            Ok(agentCodeView(agentCode.fill(answers.agentCode.toString), getBackLink))
+          case answers : ManagingProperty =>
+            Ok(agentCodeView(agentCode.fill(answers.agentCode.toString), getBackLink))
+          case _ =>
+            Ok(agentCodeView(agentCode, getBackLink))
+        }
+      case _ =>
+        Ok(agentCodeView(agentCode, backLink))
+    }
   }
 
   def getAgentDetails: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
@@ -135,15 +150,43 @@ class AddAgentController @Inject()(
                       getBackLink
                     )))
                   case Some(agent) =>
-                    sessionRepo
-                      .saveOrUpdate(
-                        SearchedAgent(
-                          agentCode = representativeCode,
-                          agentOrganisationName = agent.name,
-                          agentAddress = agent.address,
-                          backLink = request.sessionData.backLink
-                        ))
-                      .map(_ => Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent))
+                    println(Console.MAGENTA_B + "asdasdad" + Console.RESET)
+                    sessionRepo.get[AppointNewAgentSession].map {
+                      case Some(sessionData) =>
+                        sessionData match {
+                          case answers: ManagingProperty =>
+                            sessionRepo
+                              .saveOrUpdate(
+                                answers.copy(
+                                  agentCode = representativeCode,
+                                  agentOrganisationName = agent.name,
+                                  agentAddress = agent.address,
+                                  backLink = request.sessionData.backLink
+                                )
+                              )
+                              .map(_ => Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent))
+                          case _ =>
+                            sessionRepo
+                              .saveOrUpdate(
+                                SearchedAgent(
+                                  agentCode = representativeCode,
+                                  agentOrganisationName = agent.name,
+                                  agentAddress = agent.address,
+                                  backLink = request.sessionData.backLink
+                                ))
+                              .map(_ => Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent))
+                        }
+                      case _ =>
+                        sessionRepo
+                          .saveOrUpdate(
+                            SearchedAgent(
+                              agentCode = representativeCode,
+                              agentOrganisationName = agent.name,
+                              agentAddress = agent.address,
+                              backLink = request.sessionData.backLink
+                            ))
+                          .map(_ => Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent))
+                    }.flatten
                 }
               }
             }.flatten
@@ -152,9 +195,9 @@ class AddAgentController @Inject()(
       )
   }
 
-  //todo Go straight back to CYA if Yes, keep current behaviour for No
   def isCorrectAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(isTheCorrectAgentView(isThisTheCorrectAgent, request.agentDetails)))
+    val backLink = routes.AddAgentController.showAgentCodePage.url
+    Future.successful(Ok(isTheCorrectAgentView(isThisTheCorrectAgent, request.agentDetails, backLink)))
   }
 
   def agentSelected: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
@@ -162,7 +205,7 @@ class AddAgentController @Inject()(
       .bindFromRequest()
       .fold(
         errors => {
-          Future.successful(BadRequest(isTheCorrectAgentView(errors, request.agentDetails)))
+          Future.successful(BadRequest(isTheCorrectAgentView(errors, request.agentDetails, getBackLink)))
         },
         success => {
           if (success) {
@@ -170,7 +213,6 @@ class AddAgentController @Inject()(
               for {
                 searchedAgentOpt <- sessionRepo.get[SearchedAgent]
                 searchedAgent = searchedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
-                _ <- sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success))
                 propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
                                   params = GetPropertyLinksParameters(),
                                   pagination = AgentPropertiesParameters(agentCode = searchedAgent.agentCode),
@@ -178,24 +220,38 @@ class AddAgentController @Inject()(
                                   organisationId = request.organisationId
                                 )
               } yield {
-                propertyLinks.authorisations.size match {
-                  case 0 =>
-                    //todo Make this go to check your answers
-                    agentRelationshipService
-                      .assignAgent(AgentAppointmentChangeRequest(
-                        action = AppointmentAction.APPOINT,
-                        scope = AppointmentScope.RELATIONSHIP,
-                        agentRepresentativeCode = searchedAgent.agentCode,
-                        propertyLinks = None,
-                        listYears = Some(List("2017", "2023"))
-                      ))
-                      .map(_ => Ok(confirmationView(request.agentDetails.name, None)))
-                  case 1 =>
-                    Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty))
-                  case _ =>
-                    Future.successful(
-                      Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties))
-                }
+                sessionRepo.get[AppointNewAgentSession].map {
+                  case Some(sessionData) =>
+                    println(Console.MAGENTA_B + s"did i go here$sessionData" + Console.RESET)
+                    sessionData match {
+                      case _: ManagingProperty =>
+                        println(Console.MAGENTA_B + "damamammdamsm" + Console.RESET)
+                        Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers))
+                      case _ =>
+                        propertyLinks.authorisations.size match {
+                          case 0 =>
+                            println(Console.MAGENTA_B + "HUH!!!!" +Console.RESET)
+                            agentRelationshipService
+                              .assignAgent(AgentAppointmentChangeRequest(
+                                action = AppointmentAction.APPOINT,
+                                scope = AppointmentScope.RELATIONSHIP,
+                                agentRepresentativeCode = searchedAgent.agentCode,
+                                propertyLinks = None,
+                                listYears = Some(List("2017", "2023"))
+                              ))
+                              .flatMap(_ => sessionRepo.saveOrUpdate(ManagingProperty(SelectedAgent(searchedAgent, success), selection = "none", singleProperty = false)).map( _ =>
+                                Ok(checkYourAnswersView(submitAgentAppointmentRequest, request.sessionData.asInstanceOf[ManagingProperty], None)))
+                              )
+                          case 1 =>
+                            sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success))
+                            Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty))
+                          case _ =>
+                            sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success))
+                            println (Console.MAGENTA_B + request.sessionData + Console.RESET)
+                            Future.successful(Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties))
+                        }
+                    }
+                }.flatten
               }
             }.flatten
           } else {
@@ -206,6 +262,7 @@ class AddAgentController @Inject()(
   }
 
   def oneProperty: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
+    println(Console.MAGENTA_B + "????????" + Console.RESET)
     Future.successful(Ok(agentToManageOnePropertyView(manageOneProperty, request.agentDetails.name)))
   }
 
@@ -229,11 +286,22 @@ class AddAgentController @Inject()(
       )
   }
 
-  //todo Fix back link when coming from CYA
-  //todo Prepopulate when coming back from CYA
   def multipleProperties: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
-      Future.successful(Ok(agentToManageMultiplePropertiesView(manageMultipleProperties, request.agentDetails.name)))
+      println(Console.MAGENTA_B + "!!!!" + Console.RESET)
+        for {
+          agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
+        } yield agentDetailsOpt match {
+          case Some(answers) =>
+            answers match {
+              case answers : ManagingProperty =>
+                Ok(agentToManageMultiplePropertiesView(manageMultipleProperties.fill(AddAgentOptions.fromName(answers.managingPropertyChoice).get), request.agentDetails.name, getBackLink))
+              case _ =>
+                Ok(agentToManageMultiplePropertiesView(manageMultipleProperties, request.agentDetails.name, getBackLink))
+            }
+          case _ =>
+            Ok(agentToManageMultiplePropertiesView(manageMultipleProperties, request.agentDetails.name, getBackLink))
+        }
   }
 
   def submitMultipleProperties: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
@@ -242,7 +310,7 @@ class AddAgentController @Inject()(
         .bindFromRequest()
         .fold(
           errors => {
-            Future.successful(BadRequest(agentToManageMultiplePropertiesView(errors, request.agentDetails.name)))
+            Future.successful(BadRequest(agentToManageMultiplePropertiesView(errors, request.agentDetails.name, getBackLink)))
           },
           success => {
             for {
@@ -254,7 +322,9 @@ class AddAgentController @Inject()(
                       selection = success.name, singleProperty = false))
             } yield {
               success match {
-                case ChooseFromList => joinOldJourney(selectedAgent.agentCode)
+                case ChooseFromList =>
+                  println(Console.MAGENTA_B + "i have gone down this path" + Console.RESET)
+                  joinOldJourney(selectedAgent.agentCode)
                 case propertyrepresentation.All | propertyrepresentation.NoProperties =>
                   Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers)
               }
@@ -263,17 +333,23 @@ class AddAgentController @Inject()(
         )
   }
 
-  //todo Update for when Ip has no properties and when appointed to some properties
-  def checkAnswers: Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
+  def checkAnswers(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
     PartialFunction
       .condOpt(request.sessionData) {
         case data: ManagingProperty =>
-          Ok(checkYourAnswersView(submitAgentAppointmentRequest, data))
+          println(Console.MAGENTA_B + data + Console.RESET)
+          sessionRepo.saveOrUpdate(
+            data.copy().copy(backLink = Some(routes.AddAgentController.checkAnswers.url)))
+
+            val propertyAmount =
+              if(data.totalPropertySelectionSize != None && data.propertySelectedSize != None)
+                Some(data.propertySelectedSize.get,data.totalPropertySelectionSize.get) else None
+                println(Console.CYAN_B + propertyAmount + Console.RESET)
+          Ok(checkYourAnswersView(submitAgentAppointmentRequest, data, propertyAmount))
       }
       .getOrElse(NotFound(errorHandler.notFoundTemplate))
   }
 
-  //todo Make sure the ChooseFromList match works
   def confirmAppointAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
     request.sessionData match {
       case data: ManagingProperty =>
@@ -298,7 +374,7 @@ class AddAgentController @Inject()(
         PartialFunction
           .condOpt(request.sessionData) {
             case data: ManagingProperty =>
-              Future.successful(BadRequest(checkYourAnswersView(errors, data)))
+              Future.successful(BadRequest(checkYourAnswersView(errors, data, None)))
           }
           .getOrElse(Future.successful(NotFound(errorHandler.notFoundTemplate)))
       }, { success =>
@@ -324,8 +400,9 @@ class AddAgentController @Inject()(
     )
   }
 
-  private def getBackLink(implicit request: AppointAgentSessionRequest[AnyContent]) =
+  private def getBackLink(implicit request: AppointAgentSessionRequest[AnyContent]) = {
     request.sessionData.backLink.getOrElse(config.dashboardUrl("home"))
+  }
 
   private def joinOldJourney(agentCode: Long) =
     Redirect(

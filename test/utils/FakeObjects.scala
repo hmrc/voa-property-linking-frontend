@@ -209,7 +209,31 @@ trait FakeObjects {
     isCorrectAgent = true,
     managingPropertyChoice = All.name,
     agentAddress = "An Address",
-    backLink = None
+    backLink = None,
+    totalPropertySelectionSize = None,
+    propertySelectedSize = None
+  )
+
+  val managingPropertyNoProperties = ManagingProperty(
+    agentCode = agentCode,
+    agentOrganisationName = "Some Org",
+    isCorrectAgent = true,
+    managingPropertyChoice = NoProperties.name,
+    agentAddress = "An Address",
+    backLink = None,
+    totalPropertySelectionSize = None,
+    propertySelectedSize = None
+  )
+
+  val managingPropertyChooseProperties = ManagingProperty(
+    agentCode = agentCode,
+    agentOrganisationName = "Some Org",
+    isCorrectAgent = true,
+    managingPropertyChoice = ChooseFromList.name,
+    agentAddress = "An Address",
+    backLink = None,
+    totalPropertySelectionSize = None,
+    propertySelectedSize = None
   )
 
   val ownerAuthAgent = OwnerAuthAgent(
