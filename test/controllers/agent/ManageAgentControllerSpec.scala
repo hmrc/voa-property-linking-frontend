@@ -30,6 +30,7 @@ import play.api.test.Helpers._
 import tests.AllMocks
 import utils.HtmlPage
 
+import java.time.LocalDate
 import scala.concurrent.Future
 import scala.jdk.CollectionConverters.ListHasAsScala
 
@@ -600,6 +601,17 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "assignAgentToAll" should "return 303 SEE OTHER when valid form is submitted" in {
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(Future.successful(AgentList(
+      1,
+      List(
+        AgentSummary(
+          organisationId = 1,
+          representativeCode = 1,
+          name = "name",
+          appointedDate = LocalDate.now,
+          propertyCount = 1,
+          listYears = Some(Seq("2017", "2023"))))
+    )))
     when(mockAgentRelationshipService.assignAgent(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
