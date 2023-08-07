@@ -450,7 +450,7 @@ assessments.explanatory.other.periods=Mae’n bosibl bod prisiadau ar gyfer cyfn
 assessments.explanatory.agent.show=Rydym ond yn dangos prisiadau ar gyfer:
 assessments.explanatory.agent.show.lists=y rhestrau ardrethu y mae’ch cleient am i chi eu gweithredu
 assessments.explanatory.agent.show.client=yr adeg yr oedd eich cleient yn berchen ar yr eiddo neu’n ei feddiannu
-assessments.explanatory.link=Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn.
+assessments.explanatory.link=Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn
 assessments.explanatory.agent.contact.client=Cysylltwch â’ch cleient os oes angen i chi newid y rhestrau mae gennych ganiatâd i weithredu arnynt.
 assessments.no.valuation.available= Nid oes prisiadau ar gael ar gyfer yr eiddo hwn.
 

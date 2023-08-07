@@ -42,7 +42,7 @@ class ValuationsControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       document.select(paragraphOneOwnerSelector).text shouldBe ("We only show valuations for when you owned or occupied the property.")
       document.select(paragraphLinkOwnerSelector).text shouldBe ("Valuations for other periods may be available.")
-      document.select(linkSectionLinkSelector).text shouldBe ("Find public versions of all valuations for this property.")
+      document.select(linkSectionLinkSelector).text shouldBe ("Find public versions of all valuations for this property")
 
     }
 
@@ -52,7 +52,7 @@ class ValuationsControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       document.select(paragraphOneOwnerSelector).text shouldBe ("Rydym ond yn dangos prisiadau ar gyfer yr adeg yr oeddech yn berchen ar yr eiddo neu’n ei feddiannu.")
       document.select(paragraphLinkOwnerSelector).text shouldBe ("Mae’n bosibl bod prisiadau ar gyfer cyfnodau eraill ar gael.")
-      document.select(linkSectionLinkSelector).text shouldBe ("Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn.")
+      document.select(linkSectionLinkSelector).text shouldBe ("Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn")
 
     }
 
@@ -65,7 +65,7 @@ class ValuationsControllerISpec extends ISpecBase with HtmlComponentHelpers {
       document.select(bulletPointOneSelector).text shouldBe ("for the rating lists your client wants you to act on")
       document.select(bulletPointTwoSelector).text shouldBe ("for when your client owned or occupied the property")
       document.select(linkSectionTextSelector).text shouldBe ("Valuations for other periods may be available.")
-      document.select(linkSectionLinkSelector).text shouldBe ("Find public versions of all valuations for this property.")
+      document.select(linkSectionLinkSelector).text shouldBe ("Find public versions of all valuations for this property")
       document.select(contactTextSelector).text shouldBe ("Contact your client if you need to change which lists you can act on.")
 
     }
@@ -78,7 +78,7 @@ class ValuationsControllerISpec extends ISpecBase with HtmlComponentHelpers {
       document.select(bulletPointOneSelector).text shouldBe ("y rhestrau ardrethu y mae’ch cleient am i chi eu gweithredu")
       document.select(bulletPointTwoSelector).text shouldBe ("yr adeg yr oedd eich cleient yn berchen ar yr eiddo neu’n ei feddiannu")
       document.select(linkSectionTextSelector).text shouldBe ("Mae’n bosibl bod prisiadau ar gyfer cyfnodau eraill ar gael.")
-      document.select(linkSectionLinkSelector).text shouldBe ("Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn.")
+      document.select(linkSectionLinkSelector).text shouldBe ("Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn")
       document.select(contactTextSelector).text shouldBe ("Cysylltwch â’ch cleient os oes angen i chi newid y rhestrau mae gennych ganiatâd i weithredu arnynt.")
 
     }
