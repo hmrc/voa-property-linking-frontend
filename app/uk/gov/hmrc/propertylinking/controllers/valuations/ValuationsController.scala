@@ -17,18 +17,17 @@
 package uk.gov.hmrc.propertylinking.controllers.valuations
 
 import java.net.URLEncoder
-
 import actions.AuthenticatedAction
 import actions.assessments.WithAssessmentsPageSessionRefiner
 import actions.assessments.request.AssessmentsPageSessionRequest
 import config.ApplicationConfig
 import connectors.propertyLinking.PropertyLinkConnector
 import controllers.{AssessmentsVM, PropertyLinkingController}
+
 import javax.inject.{Inject, Named, Singleton}
-import models.ApiAssessments.EmptyAssessments
 import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.properties.AllowedAction
-import models.{ApiAssessment, ApiAssessments}
+import models.{ApiAssessment, ApiAssessments, ClientPropertyLink, PropertyLink}
 import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -83,9 +82,13 @@ class ValuationsController @Inject()(
         else
           propertyLinks.getClientAssessments(submissionId)
       }
+      val propertyLink = propertyLinks.clientPropertyLink(submissionId)
 
-      def okResponse(assessments: ApiAssessments, backlink: String): Result = {
+      def okResponse(assessments: ApiAssessments, backlink: String, clientPropertyLink: Option[ClientPropertyLink])
+        : Result = {
         val rateableNA = assessments.assessments.map(_.rateableValue).contains(None)
+        val rtp = if (owner) "your_assessments" else "client_assessments"
+        val vmvLink = s"${config.vmvUrl}/valuations/start/${assessments.uarn}?rtp=$rtp&submissionId=$submissionId"
         Ok(
           assessmentsView(
             AssessmentsVM(
@@ -96,20 +99,28 @@ class ValuationsController @Inject()(
               clientOrgName = assessments.clientOrgName
             ),
             owner,
-            rateableNA
+            rateableNA,
+            vmvLink,
+            if (owner) None else clientPropertyLink.map(propertyLink => propertyLink.address),
+            if (owner) None else clientPropertyLink.map(propertyLink => propertyLink.localAuthorityRef)
           ))
       }
-
       assessments
         .flatMap {
-          case Some(EmptyAssessments()) | None => Future.successful(notFound)
+          case None => Future.successful(notFound)
           case Some(assessments) =>
-            if (owner)
-              Future.successful(okResponse(assessments, backlink = calculateOwnerBackLink))
-            else calculateAgentBackLink(submissionId).map(backlink => okResponse(assessments, backlink))
+            if (owner) {
+              Future.successful(okResponse(assessments, backlink = calculateOwnerBackLink, None))
+            } else {
+              propertyLink.flatMap {
+                case Some(clientPropertyLink: ClientPropertyLink) =>
+                  calculateAgentBackLink(submissionId).map(backlink =>
+                    okResponse(assessments, backlink, Some(clientPropertyLink)))
+                case None => Future.successful(notFound)
+              }
+            }
         }
     }
-
   private def linkAndAssessment(
         submissionId: String,
         authorisationId: Long,

@@ -496,6 +496,15 @@ assessments.aria.label.partial=Select this valuation - {0} from {1}
 
 assessments.na=N/A
 
+assessments.explanatory.ip.show=We only show valuations for when you owned or occupied the property.
+assessments.explanatory.other.periods=Valuations for other periods may be available.
+assessments.explanatory.agent.show=We only show valuations:
+assessments.explanatory.agent.show.lists=for the rating lists your client wants you to act on
+assessments.explanatory.agent.show.client=for when your client owned or occupied the property
+assessments.explanatory.link=Find public versions of all valuations for this property
+assessments.explanatory.agent.contact.client=Contact your client if you need to change which lists you can act on.
+assessments.no.valuation.available= There are no valuations available for this property.
+
 assessments.na.help.summary=Help with rateable value not available (N/A)
 assessments.na.help.first.sentence=The rateable value is N/A because the property has been removed from the rating list.
 assessments.na.help.second.sentence=This can be when:

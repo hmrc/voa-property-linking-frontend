@@ -34,6 +34,8 @@ trait TestData {
 
   val testAccounts: Accounts = Accounts(groupAccount(agent = true), detailedIndividualAccount)
 
+  val testIpAccounts: Accounts = Accounts(groupAccount(agent = false), detailedIndividualAccount)
+
   val placeForData = None
 
   val testAgentList = AgentList(

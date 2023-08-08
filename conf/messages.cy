@@ -453,6 +453,17 @@ assessments.icon.help.effectiveDate = Cymorth gyda Dyddiad dod i rym
 
 
 
+assessments.explanatory.ip.show=Rydym ond yn dangos prisiadau ar gyfer yr adeg yr oeddech yn berchen ar yr eiddo neu’n ei feddiannu.
+assessments.explanatory.other.periods=Mae’n bosibl bod prisiadau ar gyfer cyfnodau eraill ar gael.
+assessments.explanatory.agent.show=Rydym ond yn dangos prisiadau ar gyfer:
+assessments.explanatory.agent.show.lists=y rhestrau ardrethu y mae’ch cleient am i chi eu gweithredu
+assessments.explanatory.agent.show.client=yr adeg yr oedd eich cleient yn berchen ar yr eiddo neu’n ei feddiannu
+assessments.explanatory.link=Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn
+assessments.explanatory.agent.contact.client=Cysylltwch â’ch cleient os oes angen i chi newid y rhestrau mae gennych ganiatâd i weithredu arnynt.
+assessments.no.valuation.available= Nid oes prisiadau ar gael ar gyfer yr eiddo hwn.
+
+
+
 label.help=Cymorth gyda {0}
 rv.na=Gweth ardrethol ddim ar gael
 rv.na.p.1=Mae’r eiddo hwn wedi’i dynnu o’r rhestr prisio.   Gallai hyn fod oherwydd bod ganddo gyfeiriad newydd, mae’r disgrifiad wedi newid neu mae wedi ei rannu neu ei uno ag eiddo arall.
