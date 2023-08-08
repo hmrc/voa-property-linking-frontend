@@ -1,10 +1,14 @@
 package controllers.propertyLinking
 
 import base.{HtmlComponentHelpers, ISpecBase}
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.{AgentList, AgentSummary}
+import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalToJson, get, post, stubFor}
+import models.propertyrepresentation.AppointmentScope.AppointmentScope
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentList, AgentSummary, AppointmentAction, AppointmentScope}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import play.api.http.HeaderNames
 import play.api.http.Status.OK
 import play.api.libs.json.Json
 import play.api.test.Helpers._
@@ -13,6 +17,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.time.LocalDate
 import java.util.UUID
+import scala.concurrent.Future
 
 class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
@@ -22,48 +27,47 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
   val titleText = "What do you want to do with your agent Test Agent? - Valuation Office Agency - GOV.UK"
-  val backLinkText ="Back"
+  val backLinkText = "Back"
   val continueButtonText = "Continue"
   val captionText = "Manage agent"
 
   def headerText(name: String) = s"What do you want to do with your agent $name?"
 
-  val radioAssignYourText= "Assign to your property"
-  val radioUnAssignYourText= "Unassign from my property"
-  val radioAssignAllText= "Assign to all properties"
+  val radioAssignYourText = "Assign to your property"
+  val radioUnAssignYourText = "Unassign from my property"
+  val radioAssignAllText = "Assign to all properties"
   val radioAssignASomeText = "Assign to one or more properties"
   val radioUnassignedAllText = "Unassign from all properties"
   val radioUnassignedASomeText = "Unassign from one or more properties"
   val radioChangeText = "Change which rating list they can act on for you"
   val radioRemoveText = "Remove from your account"
 
-  val titleTextWelsh ="What do you want to do with your agent Test Agent? - Valuation Office Agency - GOV.UK"
-  val backLinkTextWelsh  ="Yn ôl"
-  val continueButtonTextWelsh ="Parhau"
-  val captionTextWelsh  = "Rheoli asiant"
+  val titleTextWelsh = "What do you want to do with your agent Test Agent? - Valuation Office Agency - GOV.UK"
+  val backLinkTextWelsh = "Yn ôl"
+  val continueButtonTextWelsh = "Parhau"
+  val captionTextWelsh = "Rheoli asiant"
 
   def headerTextWelsh(name: String) = s"Beth ydych chi eisiau ei wneud i’r asiant  $name?"
 
-  val radioAssignYourTextWelsh= "Neilltuo i’ch eiddo"
+  val radioAssignYourTextWelsh = "Neilltuo i’ch eiddo"
   val radioAssignAllTextWelsh = "Neilltuo i bob eiddo"
-  val radioAssignASomeTextWelsh  = "Assign to one or more properties"
-  val radioUnassignedAllTextWelsh  = "Dad-neilltuo o’ch holl eiddo"
-  val radioUnassignedASomeTextWelsh  = "Unassign from one or more properties"
-  val radioChangeTextWelsh  = "Change which rating list they can act on for you"
-  val radioRemoveTextWelsh  = "Dileu o’ch cyfrif"
-  val radioUnAssignYourTextWelsh= "Unassign from my property"
-
+  val radioAssignASomeTextWelsh = "Assign to one or more properties"
+  val radioUnassignedAllTextWelsh = "Dad-neilltuo o’ch holl eiddo"
+  val radioUnassignedASomeTextWelsh = "Unassign from one or more properties"
+  val radioChangeTextWelsh = "Change which rating list they can act on for you"
+  val radioRemoveTextWelsh = "Dileu o’ch cyfrif"
+  val radioUnAssignYourTextWelsh = "Unassign from my property"
 
 
   val backLinkSelector = "#back-link"
   val captionSelector = ".govuk-caption-l"
   val headerSelector = "h1.govuk-heading-l"
-  val continueButtonSelector ="button.govuk-button"
-  val firstRadioLabelSelector =".govuk-radios__item:nth-child(1) > .govuk-label"
-  val secondRadioLabelSelector =".govuk-radios__item:nth-child(2) > .govuk-label"
-  val thirdRadioLabelSelector =".govuk-radios__item:nth-child(3) > .govuk-label"
-  val fourthRadioLabelSelector =".govuk-radios__item:nth-child(4) > .govuk-label"
-  val fifthRadioLabelSelector =".govuk-radios__item:nth-child(5) > .govuk-label"
+  val continueButtonSelector = "button.govuk-button"
+  val firstRadioLabelSelector = ".govuk-radios__item:nth-child(1) > .govuk-label"
+  val secondRadioLabelSelector = ".govuk-radios__item:nth-child(2) > .govuk-label"
+  val thirdRadioLabelSelector = ".govuk-radios__item:nth-child(3) > .govuk-label"
+  val fourthRadioLabelSelector = ".govuk-radios__item:nth-child(4) > .govuk-label"
+  val fifthRadioLabelSelector = ".govuk-radios__item:nth-child(5) > .govuk-label"
 
   val backLinkHref = s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=100"
   val radioAssignAllHref = "business-rates-property-linking/my-organisation/manage-agent/assign/to-all-properties"
@@ -100,11 +104,11 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       "displays a correct text in radios, which are in the correct order" in {
-        document.select(firstRadioLabelSelector).text  shouldBe radioAssignAllText
+        document.select(firstRadioLabelSelector).text shouldBe radioAssignAllText
         document.select(secondRadioLabelSelector).text shouldBe radioAssignASomeText
-        document.select(thirdRadioLabelSelector).text  shouldBe radioUnassignedAllText
+        document.select(thirdRadioLabelSelector).text shouldBe radioUnassignedAllText
         document.select(fourthRadioLabelSelector).text shouldBe radioUnassignedASomeText
-        document.select(fifthRadioLabelSelector).text  shouldBe radioChangeText
+        document.select(fifthRadioLabelSelector).text shouldBe radioChangeText
       }
     }
 
@@ -124,7 +128,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
       lazy val document = getPage(English, 10)
 
-      "displays a correct text in radios, which are in the correct order" in{
+      "displays a correct text in radios, which are in the correct order" in {
         document.select(firstRadioLabelSelector).text shouldBe radioUnassignedAllText
         document.select(secondRadioLabelSelector).text shouldBe radioUnassignedASomeText
         document.select(thirdRadioLabelSelector).text shouldBe radioChangeText
@@ -198,11 +202,11 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
       lazy val document = getPageWhenPropertyCountIs1(Welsh, 0, testAgentListFor2023)
 
       "displays a correct text in radios, which are in the correct order" in {
-          document.select(firstRadioLabelSelector).text shouldBe radioAssignYourTextWelsh
-          document.select(secondRadioLabelSelector).text shouldBe radioChangeTextWelsh
-          document.select(thirdRadioLabelSelector).text shouldBe radioRemoveTextWelsh
-        }
+        document.select(firstRadioLabelSelector).text shouldBe radioAssignYourTextWelsh
+        document.select(secondRadioLabelSelector).text shouldBe radioChangeTextWelsh
+        document.select(thirdRadioLabelSelector).text shouldBe radioRemoveTextWelsh
       }
+    }
 
 
     "display 'Manage agent' screen with the correct radio labels and the language is set to Welsh for Agent, who is assigned to all client's properties" which {
@@ -225,7 +229,155 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(secondRadioLabelSelector).text shouldBe radioChangeTextWelsh
       }
     }
+
+    "assignAgentToAll" should {
+      "return 303 SEE OTHER when valid form is submitted" in {
+
+        val agentSummary = AgentSummary(organisationId = 1L, representativeCode = 1L, name = "name",
+          appointedDate = LocalDate.now, propertyCount = 1, listYears = Some(Seq("2017")))
+        val testAgentList = AgentList(1, List(agentSummary))
+
+
+        await(mockRepository.saveOrUpdate(agentSummary))
+
+        stubFor {
+          get("/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
+            }
+        }
+
+        stubFor {
+          get("/property-linking/owner/agents")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testAgentList).toString())
+            }
+        }
+        val jsonRequest = Json.parse(
+          """{
+            |   "agentRepresentativeCode":1,
+            |   "action":"APPOINT",
+            |   "scope":"ALL_PROPERTIES",
+            |   "listYears":[
+            |      "2017"
+            |   ]
+            |}""".stripMargin)
+
+        //Check that the listYears returned from agent summary list is sent to backend
+        stubFor {
+          post("/property-linking/my-organisation/agent/submit-appointment-changes").
+            withRequestBody(equalToJson(jsonRequest.toString(), true, false))
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
+            }
+        }
+
+        stubFor {
+          get("/business-rates-authorisation/authenticate")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+            }
+        }
+
+        stubFor {
+          post("/auth/authorise")
+            .willReturn {
+              aResponse.withStatus(OK).withBody("{}")
+            }
+        }
+
+        val requestBody = Json.obj(
+          "agentCode" -> "1",
+          "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"
+        )
+
+        val res = await(
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/1/name/to-all-properties")
+            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            .withFollowRedirects(follow = false)
+            .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+            .post(body = requestBody)
+        )
+
+        res.status shouldBe SEE_OTHER
+
+      }
+    }
+
+
+    "assignAgentToAll" should {
+      "return 303 SEE OTHER when valid form is submitted & assert that 2017&2023 listYears are provided when agent summary returns none for listyears" in {
+
+        val agentSummary = AgentSummary(organisationId = 1L, representativeCode = 1L, name = "name",
+          appointedDate = LocalDate.now, propertyCount = 1, listYears = None)
+        val testAgentList = AgentList(1, List(agentSummary))
+
+
+        await(mockRepository.saveOrUpdate(agentSummary))
+
+        stubFor {
+          get("/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
+            }
+        }
+
+        stubFor {
+          get("/property-linking/owner/agents")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testAgentList).toString())
+            }
+        }
+        val jsonRequest = Json.parse(
+          """{
+            |   "agentRepresentativeCode":1,
+            |   "action":"APPOINT",
+            |   "scope":"ALL_PROPERTIES",
+            |   "listYears":[
+            |      "2017", "2023"
+            |   ]
+            |}""".stripMargin)
+
+        //Check that the listYears returned from agent summary list is sent to backend
+        stubFor {
+          post("/property-linking/my-organisation/agent/submit-appointment-changes").
+            withRequestBody(equalToJson(jsonRequest.toString(), true, false))
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
+            }
+        }
+
+        stubFor {
+          get("/business-rates-authorisation/authenticate")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+            }
+        }
+
+        stubFor {
+          post("/auth/authorise")
+            .willReturn {
+              aResponse.withStatus(OK).withBody("{}")
+            }
+        }
+
+        val requestBody = Json.obj(
+          "agentCode" -> "1",
+          "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"
+        )
+
+        val res = await(
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/1/name/to-all-properties")
+            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            .withFollowRedirects(follow = false)
+            .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+            .post(body = requestBody)
+        )
+        res.status shouldBe SEE_OTHER
+      }
+    }
   }
+
   private def getPage(language: Language, propertyCount: Int): Document = {
     await(
       mockRepository.saveOrUpdate(
@@ -331,5 +483,4 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
     res.status shouldBe OK
     Jsoup.parse(res.body)
   }
-
 }
