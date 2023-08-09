@@ -346,17 +346,23 @@ class ManageAgentController @Inject()(
               BadRequest(
                 addAgentToAllPropertiesView(errors, agentName, agentCode, multiplePropertyLinks = linkCount > 1)))
         }, { success =>
-          agentRelationshipService
-            .assignAgent(AgentAppointmentChangeRequest(
-              action = AppointmentAction.APPOINT,
-              scope = AppointmentScope.ALL_PROPERTIES,
-              agentRepresentativeCode = success.agentRepresentativeCode,
-              propertyLinks = None,
-              listYears = Some(List("2017", "2023"))
-            ))
-            .map { _ =>
-              Redirect(controllers.agent.routes.ManageAgentController.confirmAssignAgentToAll)
-            }
+          for {
+            agentListYears <- agentRelationshipService.getMyOrganisationAgents()
+            listYears = agentListYears.agents
+              .find(_.representativeCode == agentCode)
+              .flatMap(_.listYears)
+              .getOrElse(Seq("2017", "2023"))
+              .toList
+            _ <- agentRelationshipService
+                  .assignAgent(
+                    AgentAppointmentChangeRequest(
+                      action = AppointmentAction.APPOINT,
+                      scope = AppointmentScope.ALL_PROPERTIES,
+                      agentRepresentativeCode = success.agentRepresentativeCode,
+                      propertyLinks = None,
+                      listYears = Some(listYears)
+                    ))
+          } yield Redirect(controllers.agent.routes.ManageAgentController.confirmAssignAgentToAll)
         }
       )
   }

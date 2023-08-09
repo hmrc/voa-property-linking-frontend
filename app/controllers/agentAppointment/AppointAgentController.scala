@@ -250,13 +250,19 @@ class AppointAgentController @Inject()(
                 (
                   for {
                     sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
+                    agentListYears <- agentRelationshipService.getMyOrganisationAgents()
+                    listYears = agentListYears.agents
+                      .find(_.representativeCode == agentCode)
+                      .flatMap(_.listYears)
+                      .getOrElse(Seq("2017", "2023"))
+                      .toList
                     _ <- agentRelationshipService
                           .assignAgentToSomeProperties(AgentAppointmentChangeRequest(
                             agentRepresentativeCode = agentCode,
                             action = AppointmentAction.APPOINT,
                             scope = AppointmentScope.PROPERTY_LIST,
                             propertyLinks = Some(action.propertyLinkIds),
-                            listYears = Some(List("2017", "2023"))
+                            listYears = Some(listYears)
                           ))
 
                     _ <- appointAgentPropertiesSession.saveOrUpdate[AppointAgentToSomePropertiesSession](

@@ -68,6 +68,18 @@ trait TestData {
     )
   )
 
+  val testAgentNoListYears = AgentList(
+    resultCount = 1,
+    agents = List(
+      AgentSummary(
+        organisationId = 1,
+        representativeCode = 1001,
+        name = "Test Agent",
+        appointedDate = LocalDate.parse("2023-01-01"),
+        propertyCount = 0,
+        listYears = None)
+      ))
+
   val testAgentListFor2023 = AgentList(
     resultCount = 1,
     agents = List(
