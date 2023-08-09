@@ -1,7 +1,7 @@
 package controllers.propertyLinking
 
 import base.{HtmlComponentHelpers, ISpecBase}
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalToJson, get, post, stubFor}
+import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalToJson, get, post, postRequestedFor, stubFor, urlEqualTo, verify}
 import models.propertyrepresentation.AppointmentScope.AppointmentScope
 import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentList, AgentSummary, AppointmentAction, AppointmentScope}
 import org.jsoup.Jsoup
@@ -231,28 +231,14 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     "assignAgentToAll" should {
-      "return 303 SEE OTHER when valid form is submitted" in {
+      "return 303 SEE OTHER when valid form is submitted" in new AssignAllSetup {
 
         val agentSummary = AgentSummary(organisationId = 1L, representativeCode = 1L, name = "name",
           appointedDate = LocalDate.now, propertyCount = 1, listYears = Some(Seq("2017")))
         val testAgentList = AgentList(1, List(agentSummary))
 
-
         await(mockRepository.saveOrUpdate(agentSummary))
 
-        stubFor {
-          get("/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
-            .willReturn {
-              aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
-            }
-        }
-
-        stubFor {
-          get("/property-linking/owner/agents")
-            .willReturn {
-              aResponse.withStatus(OK).withBody(Json.toJson(testAgentList).toString())
-            }
-        }
         val jsonRequest = Json.parse(
           """{
             |   "agentRepresentativeCode":1,
@@ -263,26 +249,19 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
             |   ]
             |}""".stripMargin)
 
+        stubFor {
+          get("/property-linking/owner/agents")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testAgentList).toString())
+            }
+        }
+
         //Check that the listYears returned from agent summary list is sent to backend
         stubFor {
           post("/property-linking/my-organisation/agent/submit-appointment-changes").
             withRequestBody(equalToJson(jsonRequest.toString(), true, false))
             .willReturn {
               aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
-            }
-        }
-
-        stubFor {
-          get("/business-rates-authorisation/authenticate")
-            .willReturn {
-              aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-            }
-        }
-
-        stubFor {
-          post("/auth/authorise")
-            .willReturn {
-              aResponse.withStatus(OK).withBody("{}")
             }
         }
 
@@ -299,14 +278,15 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
             .post(body = requestBody)
         )
 
+        verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+          .withRequestBody(equalToJson(jsonRequest.toString())))
+
+
         res.status shouldBe SEE_OTHER
 
       }
-    }
 
-
-    "assignAgentToAll" should {
-      "return 303 SEE OTHER when valid form is submitted & assert that 2017&2023 listYears are provided when agent summary returns none for listyears" in {
+      "return 303 SEE OTHER when valid form is submitted & assert that 2017&2023 listYears are provided when agent summary returns none for listyears" in new AssignAllSetup {
 
         val agentSummary = AgentSummary(organisationId = 1L, representativeCode = 1L, name = "name",
           appointedDate = LocalDate.now, propertyCount = 1, listYears = None)
@@ -315,19 +295,6 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
         await(mockRepository.saveOrUpdate(agentSummary))
 
-        stubFor {
-          get("/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
-            .willReturn {
-              aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
-            }
-        }
-
-        stubFor {
-          get("/property-linking/owner/agents")
-            .willReturn {
-              aResponse.withStatus(OK).withBody(Json.toJson(testAgentList).toString())
-            }
-        }
         val jsonRequest = Json.parse(
           """{
             |   "agentRepresentativeCode":1,
@@ -338,26 +305,12 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
             |   ]
             |}""".stripMargin)
 
-        //Check that the listYears returned from agent summary list is sent to backend
+        //        //Check that the listYears returned from agent summary list is sent to backend
         stubFor {
           post("/property-linking/my-organisation/agent/submit-appointment-changes").
             withRequestBody(equalToJson(jsonRequest.toString(), true, false))
             .willReturn {
               aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
-            }
-        }
-
-        stubFor {
-          get("/business-rates-authorisation/authenticate")
-            .willReturn {
-              aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-            }
-        }
-
-        stubFor {
-          post("/auth/authorise")
-            .willReturn {
-              aResponse.withStatus(OK).withBody("{}")
             }
         }
 
@@ -373,8 +326,43 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
             .post(body = requestBody)
         )
+
+        verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+          .withRequestBody(equalToJson(jsonRequest.toString())))
+
         res.status shouldBe SEE_OTHER
       }
+    }
+  }
+
+  class AssignAllSetup {
+
+    stubFor {
+      get("/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
+        }
+    }
+
+    stubFor {
+      get("/property-linking/owner/agents")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAgentList).toString())
+        }
+    }
+
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
     }
   }
 

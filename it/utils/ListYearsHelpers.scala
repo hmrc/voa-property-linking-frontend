@@ -41,6 +41,18 @@ trait ListYearsHelpers extends ISpecBase with HtmlComponentHelpers{
       )))
   }
 
+  def verifyAllPropertiesAppointed(amount: Int, chosenListYear: String): Unit = {
+    verify(amount, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+      .withRequestBody(equalToJson(
+        s"""{
+           |  "agentRepresentativeCode": 100,
+           |  "action": "APPOINT",
+           |  "scope": "LIST_YEAR",
+           |  "listYears": ["$chosenListYear"]
+           |}""".stripMargin
+      )))
+  }
+
   def setCurrentListYears(listYears: List[String]): Unit = {
     await(
       mockRepository.saveOrUpdate(
