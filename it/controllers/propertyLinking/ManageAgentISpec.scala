@@ -229,125 +229,106 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(secondRadioLabelSelector).text shouldBe radioChangeTextWelsh
       }
     }
+  }
 
-    "assignAgentToAll" should {
-      "return 303 SEE OTHER when valid form is submitted" in new AssignAllSetup {
+  "assignAgentToAll" should {
+    "return 303 SEE OTHER with valid submission & assert that 2017 listYears are submitted to backend when agent summary returns 2017" in new AssignAllSetup {
 
-        val agentSummary = AgentSummary(organisationId = 1L, representativeCode = 1L, name = "name",
-          appointedDate = LocalDate.now, propertyCount = 1, listYears = Some(Seq("2017")))
-        val testAgentList = AgentList(1, List(agentSummary))
-
-        await(mockRepository.saveOrUpdate(agentSummary))
-
-        val jsonRequest = Json.parse(
-          """{
-            |   "agentRepresentativeCode":1,
-            |   "action":"APPOINT",
-            |   "scope":"ALL_PROPERTIES",
-            |   "listYears":[
-            |      "2017"
-            |   ]
-            |}""".stripMargin)
-
-        stubFor {
-          get("/property-linking/owner/agents")
-            .willReturn {
-              aResponse.withStatus(OK).withBody(Json.toJson(testAgentList).toString())
-            }
-        }
-
-        //Check that the listYears returned from agent summary list is sent to backend
-        stubFor {
-          post("/property-linking/my-organisation/agent/submit-appointment-changes").
-            withRequestBody(equalToJson(jsonRequest.toString(), true, false))
-            .willReturn {
-              aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
-            }
-        }
-
-        val requestBody = Json.obj(
-          "agentCode" -> "1",
-          "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"
-        )
-
-        val res = await(
-          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/1/name/to-all-properties")
-            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
-            .withFollowRedirects(follow = false)
-            .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-            .post(body = requestBody)
-        )
-
-        verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
-          .withRequestBody(equalToJson(jsonRequest.toString())))
-
-
-        res.status shouldBe SEE_OTHER
-
+      //Return agent in summary list that has only 2017 listYears assigned
+      stubFor {
+        get("/property-linking/owner/agents")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testAgentListFor2017).toString())
+          }
       }
 
-      "return 303 SEE OTHER when valid form is submitted & assert that 2017&2023 listYears are provided when agent summary returns none for listyears" in new AssignAllSetup {
+      val requestBody = Json.obj(
+        "agentCode" -> agentCode,
+        "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"
+      )
 
-        val agentSummary = AgentSummary(organisationId = 1L, representativeCode = 1L, name = "name",
-          appointedDate = LocalDate.now, propertyCount = 1, listYears = None)
-        val testAgentList = AgentList(1, List(agentSummary))
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/$agentCode/$agentName/to-all-properties")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
 
+      val expectedJsonBody = Json.parse(
+        """{
+          |   "agentRepresentativeCode":1001,
+          |   "action":"APPOINT",
+          |   "scope":"ALL_PROPERTIES",
+          |   "listYears":[
+          |      "2017"
+          |   ]
+          |}""".stripMargin)
 
-        await(mockRepository.saveOrUpdate(agentSummary))
+      //Check that the listYears returned from agent summary list is sent to backend
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(expectedJsonBody.toString())))
 
-        val jsonRequest = Json.parse(
-          """{
-            |   "agentRepresentativeCode":1,
-            |   "action":"APPOINT",
-            |   "scope":"ALL_PROPERTIES",
-            |   "listYears":[
-            |      "2017", "2023"
-            |   ]
-            |}""".stripMargin)
+      res.status shouldBe SEE_OTHER
 
-        //        //Check that the listYears returned from agent summary list is sent to backend
-        stubFor {
-          post("/property-linking/my-organisation/agent/submit-appointment-changes").
-            withRequestBody(equalToJson(jsonRequest.toString(), true, false))
-            .willReturn {
-              aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
-            }
-        }
+    }
 
-        val requestBody = Json.obj(
-          "agentCode" -> "1",
-          "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"
-        )
+    "return 303 SEE OTHER assert that 2017&2023 listYears are submitted to backend when agent summary returns none for listYears" in new AssignAllSetup {
 
-        val res = await(
-          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/1/name/to-all-properties")
-            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
-            .withFollowRedirects(follow = false)
-            .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-            .post(body = requestBody)
-        )
-
-        verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
-          .withRequestBody(equalToJson(jsonRequest.toString())))
-
-        res.status shouldBe SEE_OTHER
+      //Return agent in summary list that has no listYears assigned
+      stubFor {
+        get("/property-linking/owner/agents")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testAgentNoListYears).toString())
+          }
       }
+
+      val requestBody = Json.obj(
+        "agentCode" -> agentCode,
+        "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"
+      )
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/$agentCode/$agentName/to-all-properties")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      val jsonRequest = Json.parse(
+        """{
+          |   "agentRepresentativeCode":1001,
+          |   "action":"APPOINT",
+          |   "scope":"ALL_PROPERTIES",
+          |   "listYears":[
+          |      "2017", "2023"
+          |   ]
+          |}""".stripMargin)
+
+      //Check that the listYears returned from agent summary list is sent to backend
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(jsonRequest.toString())))
+
+      res.status shouldBe SEE_OTHER
     }
   }
 
   class AssignAllSetup {
+    val agentCode = 1001
+    val agentName = "Test Agent"
+
+    stubFor {
+      post("/property-linking/my-organisation/agent/submit-appointment-changes")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
+        }
+    }
 
     stubFor {
       get("/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
         .willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
-        }
-    }
-
-    stubFor {
-      get("/property-linking/owner/agents")
-        .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testAgentList).toString())
         }
     }
 
