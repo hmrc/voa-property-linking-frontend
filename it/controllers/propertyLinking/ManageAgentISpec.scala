@@ -1,13 +1,10 @@
 package controllers.propertyLinking
 
 import base.{HtmlComponentHelpers, ISpecBase}
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalToJson, get, post, postRequestedFor, stubFor, urlEqualTo, verify}
-import models.propertyrepresentation.AppointmentScope.AppointmentScope
-import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentList, AgentSummary, AppointmentAction, AppointmentScope}
+import com.github.tomakehurst.wiremock.client.WireMock._
+import models.propertyrepresentation.{AgentAppointmentChangesResponse, AgentList, AgentSummary, AppointmentScope}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
 import play.api.http.HeaderNames
 import play.api.http.Status.OK
 import play.api.libs.json.Json
@@ -17,7 +14,6 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.time.LocalDate
 import java.util.UUID
-import scala.concurrent.Future
 
 class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 

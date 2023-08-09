@@ -2,17 +2,12 @@ package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
-import models.propertyrepresentation.{AgentAppointmentChangesResponse, AgentList, AgentSummary, AppointmentScope}
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
+import models.propertyrepresentation.AgentAppointmentChangesResponse
 import play.api.http.HeaderNames
 import play.api.http.Status.OK
 import play.api.libs.json.Json
 import play.api.test.Helpers._
-import repositories.ManageAgentSessionRepository
-import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
-import java.time.LocalDate
 import java.util.UUID
 
 class AppointAgentISpec extends ISpecBase with HtmlComponentHelpers {
@@ -63,50 +58,50 @@ class AppointAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     }
 
-        "return 303 SEE OTHER assert that 2017&2023 listYears are submitted to backend when agent summary returns none for listYears" in new AssignSomeSetup {
+    "return 303 SEE OTHER assert that 2017&2023 listYears are submitted to backend when agent summary returns none for listYears" in new AssignSomeSetup {
 
-          //Return agent in summary list that has no listYears assigned
-          stubFor {
-            get("/property-linking/owner/agents")
-              .willReturn {
-                aResponse.withStatus(OK).withBody(Json.toJson(testAgentNoListYears).toString())
-              }
+      //Return agent in summary list that has no listYears assigned
+      stubFor {
+        get("/property-linking/owner/agents")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testAgentNoListYears).toString())
           }
+      }
 
-          val requestBody = Json.obj(
-            "agentCode" -> agentCode,
-            "name" -> agentName,
-            "linkIds" -> List(123L),
-            "backLinkUrl" -> "some/back/link"
-          )
+      val requestBody = Json.obj(
+        "agentCode" -> agentCode,
+        "name" -> agentName,
+        "linkIds" -> List(123L),
+        "backLinkUrl" -> "some/back/link"
+      )
 
-          val res = await(
-            ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=$agentCode&agentName=$agentName&backLinkUrl=$backLinkUrl")
-              .withCookies(languageCookie(English), getSessionCookie(testSessionId))
-              .withFollowRedirects(follow = false)
-              .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-              .post(body = requestBody)
-          )
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=$agentCode&agentName=$agentName&backLinkUrl=$backLinkUrl")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
 
-          val jsonRequest = Json.parse(
-            """{
-              |   "agentRepresentativeCode":1001,
-              |   "action":"APPOINT",
-              |   "scope":"PROPERTY_LIST",
-              |   "propertyLinks":[
-              |      "123"
-              |   ],
-              |   "listYears":[
-              |      "2017","2023"
-              |   ]
-              |}""".stripMargin)
+      val jsonRequest = Json.parse(
+        """{
+          |   "agentRepresentativeCode":1001,
+          |   "action":"APPOINT",
+          |   "scope":"PROPERTY_LIST",
+          |   "propertyLinks":[
+          |      "123"
+          |   ],
+          |   "listYears":[
+          |      "2017","2023"
+          |   ]
+          |}""".stripMargin)
 
-          //Check that the when no listYears returned from agent summary call that listYears is defaulted to 2017&2023
-          verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
-            .withRequestBody(equalToJson(jsonRequest.toString())))
+      //Check that the when no listYears returned from agent summary call that listYears is defaulted to 2017&2023
+      verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(equalToJson(jsonRequest.toString())))
 
-          res.status shouldBe SEE_OTHER
-        }
+      res.status shouldBe SEE_OTHER
+    }
   }
 
   class AssignSomeSetup {
