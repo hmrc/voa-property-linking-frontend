@@ -326,9 +326,20 @@ class ManageAgentController @Inject()(
   }
 
   def showUnassignFromAll: Action[AnyContent] = authenticated.async { implicit request =>
-    getCachedAgent.map { agent =>
-      Ok(unassignAgentFromAllPropertiesView(submitAgentAppointmentRequest, agent.name, agent.representativeCode))
-    }
+    for {
+      agent               <- getCachedAgent
+      organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
+      linkCount           <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
+    } yield
+      if (linkCount == 1) {
+        Ok(
+          unassignAgentFromPropertyView(
+            submitAgentAppointmentRequest,
+            agent,
+            calculateBackLink(organisationsAgents, agent.representativeCode)))
+      } else {
+        Ok(unassignAgentFromAllPropertiesView(submitAgentAppointmentRequest, agent.name, agent.representativeCode))
+      }
   }
 
   private def getCachedAgent(implicit hc: HeaderCarrier) = manageAgentSessionRepo.get[AgentSummary].map {
