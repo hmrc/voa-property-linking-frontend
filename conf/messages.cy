@@ -282,9 +282,8 @@ createAccount.group.details.content.multipleAddress=Dylech nodi’r cyfeiriad ry
 createAccount.business.email.help=Eich e-bost chi dylai hwn fod ac nid y cyfeiriad e-bost ar gyfer eich asiant.  Dylai’r cyfeiriad e-bost hwn gael ei fonitro.
 
 #REGISTRATION SUCCESS PAGE
-account.confirmation.title=Rydych chi wedi cofrestru eich busnes yn llwyddiannus.
-account.confirmation.heading=Rydych chi wedi cofrestru’n llwyddiannus ar gyfer y gwasanaeth hwn.
-create.success.personId=Cyfeirnod adnabod personol y VOA (ID)
+account.confirmation.title=Rydych chi wedi cofrestru’n llwyddiannus
+create.success.personId=Cyfeirnod adnabod personol y VOA (ID):
 create.success.keepNote=Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
 create.success.keepUsingGg=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
 account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
