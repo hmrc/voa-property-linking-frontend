@@ -342,8 +342,7 @@ createAccount.group.details.content.multipleAddress=You should enter the address
 createAccount.business.email.help=This should be your email address and not your agent’s. The email address should be monitored.
 
 #REGISTRATION SUCCESS PAGE
-account.confirmation.title=You’ve successfully registered your business.
-account.confirmation.heading=You’ve successfully registered for this service.
+account.confirmation.title=You’ve successfully registered
 create.success.personId=VOA Personal ID:
 create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
 create.success.keepUsingGg=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
