@@ -68,8 +68,7 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
 
   val addThemTooHref = "/business-rates-property-linking/add-user-to-gg"
   val termsLinkHref = "terms-and-conditions"
-  //  TODO: The below incorrect link href will be fixed under VTCCA-5902
-  val termsLinkHrefWelsh = "telerau-ac-amodau"
+  val termsLinkHrefWelsh = "terms-and-conditions"
   val goToDashboardButtonHref = "/business-rates-dashboard/home"
 
   "RegistrationController confirmation method" should {
