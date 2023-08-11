@@ -110,7 +110,7 @@
         )
     ))
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.appointAgent) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.CheckYourAnswersController.onSubmit) {
         <input type="hidden" name="agentCode" value="@data.agentCode">
         <input type="hidden" name="scope" value="@appointmentScope">
 

@@ -354,7 +354,7 @@ class ManageAgentController @Inject()(
               .getOrElse(Seq("2017", "2023"))
               .toList
             _ <- agentRelationshipService
-                  .assignAgent(
+                  .postAgentAppointmentChange(
                     AgentAppointmentChangeRequest(
                       action = AppointmentAction.APPOINT,
                       scope = AppointmentScope.ALL_PROPERTIES,
@@ -374,7 +374,7 @@ class ManageAgentController @Inject()(
           Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
         }, { success =>
           agentRelationshipService
-            .unassignAgent(AgentAppointmentChangeRequest(
+            .postAgentAppointmentChange(AgentAppointmentChangeRequest(
               agentRepresentativeCode = success.agentRepresentativeCode,
               action = AppointmentAction.REVOKE,
               scope = AppointmentScope.ALL_PROPERTIES,
@@ -425,7 +425,7 @@ class ManageAgentController @Inject()(
           Future.successful(BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, backLink)))
         }, { success =>
           agentRelationshipService
-            .removeAgentFromOrganisation(AgentAppointmentChangeRequest(
+            .postAgentAppointmentChange(AgentAppointmentChangeRequest(
               agentRepresentativeCode = success.agentRepresentativeCode,
               action = AppointmentAction.REVOKE,
               scope = AppointmentScope.RELATIONSHIP,
@@ -452,7 +452,7 @@ class ManageAgentController @Inject()(
 
   private def joinOldAgentAppointJourney(agentCode: Long) =
     Redirect(
-      controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
+      controllers.agentAppointment.routes.AppointPropertiesController.onPageLoad(
         pagination = PaginationParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),

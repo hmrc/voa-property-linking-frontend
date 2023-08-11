@@ -612,7 +612,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
           propertyCount = 1,
           listYears = Some(Seq("2017", "2023"))))
     )))
-    when(mockAgentRelationshipService.assignAgent(any())(any()))
+    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
@@ -706,7 +706,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "unassignAgentFromAll" should "return 303 Ok a valid form is submitted" in {
-    when(mockAgentRelationshipService.unassignAgent(any())(any()))
+    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
@@ -806,7 +806,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "removeAgentFromIpOrganisation" should "return 200 Ok a valid form is submitted" in {
-    when(mockAgentRelationshipService.removeAgentFromOrganisation(any())(any()))
+    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org", "back-link")(
@@ -820,7 +820,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   "confirmRemoveAgentFromOrganisation" should "return 200 Ok and display page" in {
     when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    when(mockAgentRelationshipService.removeAgentFromOrganisation(any())(any()))
+    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.confirmRemoveAgentFromOrganisation()(FakeRequest())
@@ -837,7 +837,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   "confirmRemoveAgentFromOrganisation" should "return 200 Ok and display page  - in welsh" in {
     when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    when(mockAgentRelationshipService.removeAgentFromOrganisation(any())(any()))
+    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.confirmRemoveAgentFromOrganisation()(welshFakeRequest)

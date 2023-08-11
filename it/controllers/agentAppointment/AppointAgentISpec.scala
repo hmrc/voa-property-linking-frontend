@@ -55,6 +55,7 @@ class AppointAgentISpec extends ISpecBase with HtmlComponentHelpers {
         .withRequestBody(equalToJson(jsonRequest.toString())))
 
       res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
 
     }
 
@@ -101,10 +102,55 @@ class AppointAgentISpec extends ISpecBase with HtmlComponentHelpers {
         .withRequestBody(equalToJson(jsonRequest.toString())))
 
       res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
     }
   }
 
   class AssignSomeSetup {
+    val testSessionId = s"stubbed-${UUID.randomUUID}"
+    val account = groupAccount(true)
+    val agentCode = 1001
+    val agentName = "Test Agent"
+    val backLinkUrl = "some/url"
+
+    stubFor {
+      post("/property-linking/my-organisation/agent/submit-appointment-changes")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
+        }
+    }
+
+    stubFor {
+      get(s"/property-linking/groups/agentCode/$agentCode")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(account).toString())
+        }
+    }
+
+    stubFor {
+      get("/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
+        }
+    }
+
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+  }
+
+
+  class AppointAgentSummarySetup {
     val testSessionId = s"stubbed-${UUID.randomUUID}"
     val account = groupAccount(true)
     val agentCode = 1001

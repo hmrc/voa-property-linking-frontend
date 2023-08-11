@@ -73,7 +73,8 @@ class AppointAgentController @Inject()(
       )(FilterAppointPropertiesForm.apply)(FilterAppointPropertiesForm.unapply)
         .verifying("error.propertyRepresentation.appoint.filter", f => f.address.nonEmpty || f.agent.nonEmpty)
     )
-//l
+
+  // TODO: REMOVE
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         pagination: PaginationParameters,
         agentCode: Long,
@@ -222,29 +223,6 @@ class AppointAgentController @Inject()(
       }
     }
 
-  //todo This should now go to check your answers and the view in here can be deleted (appointAgentSummaryView)
-  //todo Tests have already been deleted
-  def confirmAppointAgentToSome: Action[AnyContent] = authenticated.async { implicit request =>
-
-    for {
-    data <- appointNewAgentSession.get[AppointNewAgentSession]
-    propertySelectionSize <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
-    agent <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
-    } yield (data, propertySelectionSize, agent) match {
-      case (Some(data :ManagingProperty), propertySelectionSize, Some(AppointAgentToSomePropertiesSession(Some(agent), _))) =>
-        println(Console.CYAN_B + "hellloooooo" + agent.propertyLinkIds.size + "/" + propertySelectionSize + Console.RESET)
-        appointNewAgentSession.saveOrUpdate(
-          data.copy(
-            propertySelectedSize = Some(agent.propertyLinkIds.size),
-            totalPropertySelectionSize = Some(propertySelectionSize)
-          )
-        )
-        Redirect(controllers.agentAppointment.routes.AddAgentController.checkAnswers)
-      case _ =>
-        NotFound(errorHandler.notFoundTemplate)
-    }
-  }
-
   // this endpoint only exists so we don't 404 when changing language after getting an error on submit
   def showAppointAgentSummary(
         agentCode: Long,
@@ -253,6 +231,7 @@ class AppointAgentController @Inject()(
     searchForAppointableProperties(PaginationParameters(), agentCode, agentAppointed, backLinkUrl)
   }
 
+  //TODO: remove this once tests done, replaced by checkYourAnswersController onSubmit
   def appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String): Action[AnyContent] =
     authenticated.async { implicit request =>
       println(Console.CYAN_B + "I am called" + Console.RESET)
@@ -273,7 +252,7 @@ class AppointAgentController @Inject()(
                       .getOrElse(Seq("2017", "2023"))
                       .toList
                     _ <- agentRelationshipService
-                          .assignAgentToSomeProperties(AgentAppointmentChangeRequest(
+                          .postAgentAppointmentChange(AgentAppointmentChangeRequest(
                             agentRepresentativeCode = agentCode,
                             action = AppointmentAction.APPOINT,
                             scope = AppointmentScope.PROPERTY_LIST,
@@ -285,7 +264,7 @@ class AppointAgentController @Inject()(
                           sessionDataOpt.fold(AppointAgentToSomePropertiesSession(agentAppointAction = Some(action)))(
                             data => data.copy(agentAppointAction = Some(action))))
                   } yield {
-                    Redirect(controllers.agentAppointment.routes.AppointAgentController.confirmAppointAgentToSome)
+                    Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad())
                   }
                 ) recoverWith {
                   case e: services.AppointRevokeException =>
@@ -538,7 +517,7 @@ class AppointAgentController @Inject()(
                   for {
                     sessionDataOpt <- revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession]
                     _ <- agentRelationshipService
-                          .unassignAgentFromSomeProperties(AgentAppointmentChangeRequest(
+                          .postAgentAppointmentChange(AgentAppointmentChangeRequest(
                             agentRepresentativeCode = action.agentCode,
                             action = AppointmentAction.REVOKE,
                             scope = AppointmentScope.PROPERTY_LIST,

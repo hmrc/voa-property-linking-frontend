@@ -83,14 +83,17 @@ GET        /terms-and-conditions                                                
 #OWNER ONLY
 #APPOINT
 
-GET         /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
+GET         /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointPropertiesController.onPageLoad(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
+POST        /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointPropertiesController.onSubmit(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String)
+
 GET         /my-organisation/appoint/properties/paginate                                                                  controllers.agentAppointment.AppointAgentController.paginatePropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
 GET         /my-organisation/appoint/properties/sort                                                                      controllers.agentAppointment.AppointAgentController.sortPropertiesForAppoint(sortField: ExternalPropertyLinkManagementSortField, pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
 GET         /my-organisation/appoint/properties/filter                                                                    controllers.agentAppointment.AppointAgentController.showFilterPropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
 POST        /my-organisation/appoint/properties/filter                                                                    controllers.agentAppointment.AppointAgentController.filterPropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
 GET         /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.showAppointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String)
-POST        /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String)
-GET         /my-organisation/appoint/properties/confirm                                                                   controllers.agentAppointment.AppointAgentController.confirmAppointAgentToSome
+#GET        /my-organisation/appoint/properties/confirm                                                                  controllers.agentAppointment.AppointAgentController.confirmAppointAgentToSome
+GET         /my-organisation/appoint-new-agent/check-your-answers                                                         controllers.agentAppointment.CheckYourAnswersController.onPageLoad()
+POST        /my-organisation/appoint-new-agent/check-your-answers                                                         controllers.agentAppointment.CheckYourAnswersController.onSubmit()
 
 #NEW AGENT APPOINT JOURNEY
 GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start(propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None)

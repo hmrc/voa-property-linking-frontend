@@ -150,7 +150,6 @@ class AddAgentController @Inject()(
                       getBackLink
                     )))
                   case Some(agent) =>
-                    println(Console.MAGENTA_B + "asdasdad" + Console.RESET)
                     sessionRepo.get[AppointNewAgentSession].map {
                       case Some(sessionData) =>
                         sessionData match {
@@ -232,7 +231,7 @@ class AddAgentController @Inject()(
                           case 0 =>
                             println(Console.MAGENTA_B + "HUH!!!!" +Console.RESET)
                             agentRelationshipService
-                              .assignAgent(AgentAppointmentChangeRequest(
+                              .postAgentAppointmentChange(AgentAppointmentChangeRequest(
                                 action = AppointmentAction.APPOINT,
                                 scope = AppointmentScope.RELATIONSHIP,
                                 agentRepresentativeCode = searchedAgent.agentCode,
@@ -337,14 +336,11 @@ class AddAgentController @Inject()(
     PartialFunction
       .condOpt(request.sessionData) {
         case data: ManagingProperty =>
-          println(Console.MAGENTA_B + data + Console.RESET)
           sessionRepo.saveOrUpdate(
             data.copy().copy(backLink = Some(routes.AddAgentController.checkAnswers.url)))
-
             val propertyAmount =
               if(data.totalPropertySelectionSize != None && data.propertySelectedSize != None)
                 Some(data.propertySelectedSize.get,data.totalPropertySelectionSize.get) else None
-                println(Console.CYAN_B + propertyAmount + Console.RESET)
           Ok(checkYourAnswersView(submitAgentAppointmentRequest, data, propertyAmount))
       }
       .getOrElse(NotFound(errorHandler.notFoundTemplate))
@@ -386,7 +382,7 @@ class AddAgentController @Inject()(
                       data.copy(appointmentScope = Some(AppointmentScope.withName(success.scope)))
                         .copy(backLink = Some(routes.AddAgentController.appointAgent.url)))
                 }
-            _ <- agentRelationshipService.assignAgent(
+            _ <- agentRelationshipService.postAgentAppointmentChange(
                   AgentAppointmentChangeRequest(
                     action = AppointmentAction.APPOINT,
                     scope = AppointmentScope.withName(success.scope),
@@ -406,7 +402,7 @@ class AddAgentController @Inject()(
 
   private def joinOldJourney(agentCode: Long) =
     Redirect(
-      controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
+      controllers.agentAppointment.routes.AppointPropertiesController.onPageLoad(
         pagination = PaginationParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
