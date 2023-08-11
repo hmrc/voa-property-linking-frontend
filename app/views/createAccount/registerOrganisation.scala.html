@@ -132,12 +132,12 @@
             name = "isAgent",
             items = Seq(
                 RadioItem(
-                    content = Text("Yes"),
+                    content = Text(messages("app.common.yes")),
                     value = Some("true"),
                     checked = form.data.get("isAgent").fold(false)(_ == "true")
                 ),
                 RadioItem(
-                    content = Text("No"),
+                    content = Text(messages("app.common.no")),
                     value = Some("false"),
                     checked = form.data.get("isAgent").fold(true)(_ == "false")
                 )
