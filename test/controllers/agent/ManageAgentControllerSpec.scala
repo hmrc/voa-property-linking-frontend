@@ -478,13 +478,14 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       "/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties")
   }
 
-  "showUnassignFromAll" should "return 200 Ok and display unassign agent from all properties page" in {
-    val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
+  "showUnassignFromAll" should "return 200 Ok and for multiple properties display unassign agent from all properties page" in {
+    val agent = agentSummary.copy(propertyCount = 2, representativeCode = agentCode)
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
     when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(2))
 
     val res = testController.showUnassignFromAll()(FakeRequest())
 
@@ -499,13 +500,14 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   }
 
-  "showUnassignFromAll" should "return 200 Ok and display unassign agent from all properties page - in welsh" in {
-    val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
+  "showUnassignFromAll" should "return 200 Ok and for multiple properties display unassign agent from all properties page - in welsh" in {
+    val agent = agentSummary.copy(propertyCount = 2, representativeCode = agentCode)
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
     when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(2))
 
     val res = testController.showUnassignFromAll()(welshFakeRequest)
 
@@ -516,6 +518,50 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     html.html
       .getElementById("question-text")
       .text() shouldBe s"Ydych chi’n siŵr eich bod am ddadneilltuo ${agentSummary.name} o’ch holl eiddo?"
+    verifyUnassignedPrivilegesDisplayed(html.html, isWelsh = true)
+
+  }
+
+  "showUnassignFromAll" should "return 200 Ok and for one property display unassign agent from your property page" in {
+    val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
+    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
+    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(1))
+
+    val res = testController.showUnassignFromAll()(FakeRequest())
+
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+
+    html.html
+      .getElementById("unassignFromProperty-question")
+      .text() shouldBe "Are you sure you want to unassign Some Agent Org from your property?"
+    verifyUnassignedPrivilegesDisplayed(html.html)
+
+  }
+
+  "showUnassignFromAll" should "return 200 Ok and for one property display unassign agent from your property page in welsh" in {
+    val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
+      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
+    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
+    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(1))
+
+    val res = testController.showUnassignFromAll()(welshFakeRequest)
+
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+
+    html.html
+      .getElementById("unassignFromProperty-question")
+      .text() shouldBe s"A hoffwch ddad-neilltuo ${agentSummary.name} o’ch eiddo?"
     verifyUnassignedPrivilegesDisplayed(html.html, isWelsh = true)
 
   }
