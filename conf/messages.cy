@@ -288,7 +288,7 @@ create.success.keepNote=Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y b
 create.success.keepUsingGg=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
 account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
 registration.confirmation.weUseYourDetails = Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif.
-account.confirmation.disclaimer=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="telerau-ac-amodau">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
+account.confirmation.disclaimer=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="terms-and-conditions">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
 account.enrolment.link.success=Parhau
 
 #REGISTRATION CONFIRMATION PAGE
