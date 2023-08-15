@@ -23,121 +23,125 @@
 @import views.html._
 @import utils.FrontendComponentHelper._
 
-@this(address: address, mainLayout: mainLayout, govukDetails: GovukDetails, govukErrorSummary : GovukErrorSummary, govukInput : GovukInput, dateFields: dateFields, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
+@this(address: address, mainLayout: mainLayout, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, dateFields: dateFields, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
 
 @(form: Form[IndividualUserAccountDetails], individualFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-pageTitle = messages("enrolment.title"),
-showTopNavigation = false,
-hasErrors = form.hasErrors) {
+    pageTitle = messages("enrolment.title"),
+    showTopNavigation = false,
+    hasErrors = form.hasErrors) {
 
+    <div id="page-error-summary">
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "dob"), title = Text(messages("error.propertyRepresentation.title"))))
+    }
+    </div>
 
-            <div id="page-error-summary">
-                @if(form.errors.nonEmpty) {
-                        @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "dob"), title = Text(messages("error.propertyRepresentation.title"))))
-                }
-            </div>
+    <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
 
-            <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
+    <p id="contactDetailsUse" class="govuk-body">@messages("details.contactDetailsUse")</p>
 
-            @formWithCSRF(controllers.registration.routes.RegistrationController.submitIndividual) {
+    @formWithCSRF(controllers.registration.routes.RegistrationController.submitIndividual) {
 
-            @govukInput(Input(
-                id = "firstName",
-                name = "firstName",
-                label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
-                value =  form("firstName").value.orElse(Some(individualFieldData.firstName)),
-                errorMessage = form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-input govuk-!-width-one-third"
-            ))
+        @govukInput(Input(
+            id = "firstName",
+            name = "firstName",
+            label = Label(content = HtmlContent(messages("enrolment.firstName")), classes = "govuk-label--m"),
+            value = form("firstName").value.orElse(Some(individualFieldData.firstName)),
+            errorMessage = form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
 
-            @govukInput(Input(
-                id = "lastName",
-                name = "lastName",
-                label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
-                value =  form("lastName").value.orElse(Some(individualFieldData.lastName)),
-                errorMessage = form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-input govuk-!-width-one-third"
-            ))
+        @govukInput(Input(
+            id = "lastName",
+            name = "lastName",
+            label = Label(content = HtmlContent(messages("enrolment.lastName")), classes = "govuk-label--m"),
+            value = form("lastName").value.orElse(Some(individualFieldData.lastName)),
+            errorMessage = form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
 
+        @address(
+            form = form,
+            fieldName = keys.address,
+            postcode = individualFieldData.postcode,
+            addressData = if(individualFieldData.businessAddress == Address.empty) {
+                None
+            } else {
+                Some(individualFieldData.businessAddress)
+            },
+            selectedAddress = individualFieldData.selectedAddress
+        )
 
-            @address(
-                form = form,
-                fieldName = keys.address,
-                postcode = individualFieldData.postcode,
-                addressData = if(individualFieldData.businessAddress == Address.empty){None} else {Some(individualFieldData.businessAddress)},
-                selectedAddress = individualFieldData.selectedAddress
-            )
+        @govukInput(Input(
+            id = "email",
+            name = "email",
+            label = Label(content = HtmlContent(messages("enrolment.email")), classes = "govuk-label--m"),
+            value = form("email").value.orElse(Some(individualFieldData.email)),
+            errorMessage = form("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
 
-            @govukInput(Input(
-                id = "email",
-                name = "email",
-                label = Label(content = HtmlContent(messages("enrolment.email")), classes="govuk-label--m"),
-                value =  form("email").value.orElse(Some(individualFieldData.email)),
-                errorMessage = form("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-input govuk-!-width-one-third"
-            ))
+        @govukInput(Input(
+            id = "confirmedEmail",
+            name = "confirmedEmail",
+            label = Label(content = HtmlContent(messages("enrolment.confirmedEmail")), classes = "govuk-label--m"),
+            value = form("confirmedEmail").value.orElse(Some(individualFieldData.email)),
+            errorMessage = form("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
 
-            @govukInput(Input(
-                id = "confirmedEmail",
-                name = "confirmedEmail",
-                label = Label(content = HtmlContent(messages("enrolment.confirmedEmail")), classes="govuk-label--m"),
-                value =  form("confirmedEmail").value.orElse(Some(individualFieldData.email)),
-                errorMessage = form("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-input govuk-!-width-one-third"
-            ))
+        @govukInput(Input(
+            id = "phone",
+            name = "phone",
+            label = Label(content = HtmlContent(messages("enrolment.phone")), classes = "govuk-label--m"),
+            value = form("phone").value.orElse(Some(individualFieldData.businessPhoneNumber)),
+            errorMessage = form("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
 
-            @govukInput(Input(
-                id = "phone",
-                name = "phone",
-                label = Label(content = HtmlContent(messages("enrolment.phone")), classes="govuk-label--m"),
-                value =  form("phone").value.orElse(Some(individualFieldData.businessPhoneNumber)),
-                errorMessage = form("phone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-input govuk-!-width-one-third"
-            ))
+        @govukInput(Input(
+            id = "mobilePhone",
+            name = "mobilePhone",
+            label = Label(content = HtmlContent(messages("enrolment.mobphone")), classes = "govuk-label--m"),
+            value = form("mobilePhone").value.orElse(Some(individualFieldData.mobilePhone)),
+            errorMessage = form("mobilePhone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
 
-            @govukInput(Input(
-                id = "mobilePhone",
-                name = "mobilePhone",
-                label = Label(content = HtmlContent(messages("enrolment.mobphone")), classes="govuk-label--m"),
-                value =  form("mobilePhone").value.orElse(Some(individualFieldData.mobilePhone)),
-                errorMessage = form("mobilePhone").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-input govuk-!-width-one-third"
-            ))
+        @govukInput(Input(
+            id = "tradingName",
+            name = "tradingName",
+            label = Label(content = HtmlContent(messages("enrolment.tradeName")), classes = "govuk-label--m"),
+            value = form("tradingName").value.orElse(Some(individualFieldData.businessName)),
+            hint = Some(Hint(content = Text(messages("optional.label")))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
 
-            @govukInput(Input(
-                id = "tradingName",
-                name = "tradingName",
-                label = Label(content = HtmlContent(messages("enrolment.tradeName")), classes="govuk-label--m"),
-                value =  form("tradingName").value.orElse(Some(individualFieldData.businessName)),
-                hint = Some(Hint( content = Text(messages("optional.label")) )),
-                classes = "govuk-input govuk-!-width-one-third"
-            ))
+        @dateFields(form = form, fieldName = "dob", label = Some("label.dob"))
 
-            @dateFields(form = form, fieldName = "dob", label = Some("label.dob"))
-
-            @govukInput(Input(
-                id = "nino",
-                name = "nino",
-                label = Label(content = HtmlContent(messages("label.ninoText")), classes="govuk-label--m"),
-                value =  form(keys.nino).value.orElse(Some(individualFieldData.nino)),
-                errorMessage = form(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-                classes = "govuk-input govuk-!-width-one-third",
-                hint = Some(Hint(
+        @govukInput(Input(
+            id = "nino",
+            name = "nino",
+            label = Label(content = HtmlContent(messages("label.ninoText")), classes = "govuk-label--m"),
+            value = form(keys.nino).value.orElse(Some(individualFieldData.nino)),
+            errorMessage = form(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third",
+            hint = Some(Hint(
                 content = Text(messages("hint.nino"))
             ))
-            ))
+        ))
 
-            @govukDetails(Details(
-                summary = HtmlContent(messages("start.registration.IdontHave")),
-                content = HtmlContent(messages("start.registration.IdontHave.answer"))
-            ))
+        @govukDetails(Details(
+            summary = HtmlContent(messages("start.registration.IdontHave")),
+            content = HtmlContent(messages("start.registration.IdontHave.answer"))
+        ))
 
-            @govukButton(Button(
-                content = Text(messages("app.common.saveAndContinue")),
-                attributes = Map("id" -> "save-and-continue")
-            ))
+        @govukButton(Button(
+            content = Text(messages("app.common.saveAndContinue")),
+            attributes = Map("id" -> "save-and-continue")
+        ))
 
-            }
+    }
 }
