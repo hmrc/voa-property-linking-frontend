@@ -102,6 +102,18 @@ trait TestData {
         propertyCount = 1,
         listYears = Some(Seq("2017"))
       )))
+
+  val testAgentListForBoth = AgentList(
+    resultCount = 1,
+    agents = List(
+      AgentSummary(
+        organisationId = 1,
+        representativeCode = 1001,
+        name = "Test Agent",
+        appointedDate = LocalDate.parse("2023-01-01"),
+        propertyCount = 1,
+        listYears = Some(Seq("2017", "2023"))
+      )))
   val testResultCount = 2
   val testOwnerAuthResult = OwnerAuthResult(
     start = 0,

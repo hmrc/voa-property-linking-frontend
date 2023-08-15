@@ -552,6 +552,7 @@ propertyRepresentation.multipleProperties.options.oneOrMore=Neilltuo un eiddo ne
 propertyRepresentation.checkYourAnswers.title=Gwirio a chadarnhau eich manylion
 propertyRepresentation.checkYourAnswers.agent=Asiant
 propertyRepresentation.checkYourAnswers.properties=Pa eiddo ydych chi’n dymuno neilltuo i'r asiant hwn?
+propertyRepresentation.checkYourAnswers.ofProperties={0} o {1} eiddo
 propertyRepresentation.checkYourAnswers.yourProperty=Eich eiddo
 propertyRepresentation.checkYourAnswers.options.all=Pob eiddo
 propertyRepresentation.checkYourAnswers.options.none=Dim eiddo
@@ -560,14 +561,14 @@ propertyRepresentation.checkYourAnswers.options.yes=Ie
 propertyRepresentation.checkYourAnswers.change=Newid
 propertyRepresentation.checkYourAnswers.confirmAndAppoint=Cadarnhau a phenodi
 
-propertyRepresentation.confirmation.title=Mae {0} wedi'i benodi i'ch cyfrif
-propertyRepresentation.confirmation.yourProperty=Maent hefyd wedi'u neilltuo i'ch eiddo.
-propertyRepresentation.confirmation.selectedProperties=Maent hefyd wedi'u neilltuo i'r eiddo a ddewiswyd gennych.
-propertyRepresentation.confirmation.allProperties=Maent hefyd wedi'u neilltuo i'ch holl eiddo.
-propertyRepresentation.confirmation.thisAgentCan=Gall yr asiant hwn
+propertyRepresentation.confirmation.title=Mae {0} wedi’i benodi i’ch cyfrif
+propertyRepresentation.confirmation.yourProperty=Maent hefyd wedi’u neilltuo i’ch eiddo.
+propertyRepresentation.confirmation.selectedProperties=Maent hefyd wedi’u neilltuo i’r eiddo a ddewiswyd gennych.
+propertyRepresentation.confirmation.allProperties=Maent hefyd wedi’u neilltuo i’ch holl eiddo.
+propertyRepresentation.confirmation.thisAgentCan=Gall yr asiant hwn:
 propertyRepresentation.confirmation.thisAgentCan.list.1=ychwanegu eiddo at eich cyfrif
 propertyRepresentation.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
-propertyRepresentation.confirmation.whatHappensNext.p1=Gallwch neilltuo neu ddadneilltuo'r asiant hwn o'ch eiddo trwy <a class="govuk-link" id="manage-agents-link" href="{0}">reoli eich asiantiaid</a>.
+propertyRepresentation.confirmation.whatHappensNext.p1=Gallwch neilltuo neu ddadneilltuo’r asiant hwn o’ch eiddo trwy <a class="govuk-link" id="manage-agents-link" href="{0}">reoli eich asiantiaid</a>.
 
 error.propertyRepresentation.title=Mae yna broblem
 error.propertyRepresentation.unknownAgent=Does ddim asiant ar gyfer y cod asiant a ddarparwyd;

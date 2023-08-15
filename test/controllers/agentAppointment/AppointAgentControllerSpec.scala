@@ -434,90 +434,6 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     firstOption shouldBe "Some Agent Org"
   }
 
-  it should "submit appoint agent request and redirect to summary page" in {
-    StubGroupAccountConnector.stubAccount(agent)
-
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(managingPropertyChooseProperties)))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
-      .thenReturn(Future.successful(2))
-    when(mockAppointRevokeService.postAgentAppointmentChange(any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("id")))
-    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
-      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
-    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[AppointAgentToSomePropertiesSession](any())(any(), any()))
-      .thenReturn(Future.successful(()))
-
-    val res = testController.appointAgentSummary(agentCode, None, "some/back/link")(
-      FakeRequest().withFormUrlEncodedBody(
-        "agentCode"           -> s"$agentCode",
-        "name"                -> s"$companyName",
-        "checkPermission"     -> "StartAndContinue",
-        "challengePermission" -> "StartAndContinue",
-        "linkIds[]"           -> "1",
-        "backLinkUrl"         -> "/some/back/link"
-      ))
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/appoint/properties/confirm")
-
-  }
-
-  it should "show not found  page when no agent data is cached" in {
-    StubGroupAccountConnector.stubAccount(agent)
-
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(None))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
-      .thenReturn(Future.successful(2))
-    when(mockAppointRevokeService.postAgentAppointmentChange(any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("id")))
-    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
-      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
-    when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Html("not found"))
-
-    val res = testController.confirmAppointAgentToSome()(FakeRequest())
-
-    status(res) shouldBe NOT_FOUND
-
-  }
-
-  it should "show the appoint agent properties page when the summary has form errors" in {
-    StubGroupAccountConnector.stubAccount(agent)
-
-    when(mockAppointRevokeService.postAgentAppointmentChange(any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("id")))
-
-    val res = testController.appointAgentSummary(agentCode, None, "/some/back/link")(
-      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode", "backLinkUrl" -> "/some/back/link"))
-
-    status(res) shouldBe BAD_REQUEST
-
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainTable("#agentPropertiesTableBody")
-    page.titleShouldMatch(
-      s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK")
-
-  }
-
-  it should "show the appoint agent properties page when an appointment fails" in {
-    StubGroupAccountConnector.stubAccount(agent)
-
-    when(mockAppointRevokeService.postAgentAppointmentChange(any())(any[HeaderCarrier]))
-      .thenReturn(Future.failed(AppointRevokeException("")))
-
-    val res = testController.appointAgentSummary(agentCode, None, "/some/back/link")(
-      FakeRequest()
-        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "linkIds[]" -> "1", "backLinkUrl" -> "/some/back/link"))
-
-    status(res) shouldBe BAD_REQUEST
-
-    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainTable("#agentPropertiesTableBody")
-    page.titleShouldMatch(
-      s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK")
-  }
-
   "showAppointAgentSummary" should "display the filterPropertiesForAppoint page" in new UnfilteredResultsTestCase
   with English {
     override lazy val result: Future[Result] =
@@ -917,7 +833,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     accounts = StubGroupAccountConnector,
     authenticated = preAuthenticatedActionBuilders(),
     agentRelationshipService = mockAppointRevokeService,
-    appointNewAgentSession = mockNewAgentSession ,
+    appointNewAgentSession = mockNewAgentSession,
     propertyLinksSessionRepo = mockSessionRepo,
     revokeAgentPropertiesSessionRepo = mockRevokeAgentPropertiesSessionRepo,
     appointAgentPropertiesSession = mockAppointAgentPropertiesSessionRepo,

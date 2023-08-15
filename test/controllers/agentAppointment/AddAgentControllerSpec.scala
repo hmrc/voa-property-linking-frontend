@@ -17,19 +17,19 @@
 package controllers.agentAppointment
 
 import controllers.VoaPropertyLinkingSpec
-import models.propertyrepresentation.{AgentAppointmentChangesResponse, AppointNewAgentSession, ManagingProperty, No, NoProperties, SearchedAgent, SelectedAgent, Start}
+import models.propertyrepresentation._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.{Document, Element}
 import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepo
 import tests.AllMocks
-import utils.{HtmlPage, StubWithAppointAgentSessionRefiner}
-import org.mockito.Mockito._
-import play.api.mvc.Result
 import uk.gov.hmrc.http.BadRequestException
+import utils.StubWithAppointAgentSessionRefiner
 
 import scala.concurrent.Future
 import scala.jdk.CollectionConverters.ListHasAsScala
@@ -185,7 +185,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     status(res) shouldBe OK
     verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code")
   }
-  "isThisYourAgentPage" should "display the correct content in english" in new IsThisYourAgentPageTestCase with English {
+  "isThisYourAgentPage" should "display the correct content in english" in new IsThisYourAgentPageTestCase
+  with English {
     doc.title shouldBe "Is this your agent? - Valuation Office Agency - GOV.UK"
     caption shouldBe "Appoint an agent"
     heading shouldBe "Is this your agent?"
@@ -228,7 +229,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code")
   }
 
-  "agentSelected" should "return 200 Ok and go to the confirmation page if organisation have no authorisations" in {
+  "agentSelected" should "return 303 Ok and go to the check your answers page if organisation have no authorisations" in {
     stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
     when(
       mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any()))
@@ -239,14 +240,11 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(()))
     when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
-      .thenReturn(Future.successful(Some(managingPropertyNoProperties)))
-    when(mockSessionRepo.get[ManagingProperty](any(), any()))
-      .thenReturn(Future.successful(Some(managingPropertyNoProperties)))
 
     val res = testController.agentSelected()(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
-    status(res) shouldBe OK
-    verifyPageHeading(res, "What happens next", "govuk-heading-m")
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe Some(
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
   }
 
   "agentSelected" should "return 303 See Other and go to the agentToManageOnePropertyNoExistingAgent page if organisation has only one authorisation and no existing agent" in {
@@ -295,7 +293,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
   }
 
-  //todo A lot more testing
   "oneProperty" should "return 200 Ok" in {
     stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
@@ -331,7 +328,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/checkYourAnswers")
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
   }
 
   "multipleProperties" should "return 200 Ok" in {
@@ -360,19 +357,23 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
       .thenReturn(Future.successful(Some(selectedAgent)))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
+      .thenReturn(Future.successful(1))
 
     val res =
       testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody("multipleProperties" -> "all"))
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/checkYourAnswers")
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
   }
 
   "submitMultipleProperties" should "return 303 See Other and redirect to old journey when ChooseFromList is selected" in {
     stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
       .thenReturn(Future.successful(Some(selectedAgent)))
+    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
+      .thenReturn(Future.successful(1))
 
     val res = testController.submitMultipleProperties()(
       FakeRequest().withFormUrlEncodedBody("multipleProperties" -> "choose_from_list"))
@@ -384,107 +385,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
         "&agentAppointed=BOTH" +
         "&backLink=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fmultiple-properties")
 
-  }
-
-  //checkAnswers
-
-  "checkAnswers - single property" should "return 200 Ok" in {
-    val data = managingProperty.copy(singleProperty = true)
-    stubWithAppointAgentSession.stubSession(data, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(data)))
-
-    val res = testController.checkAnswers()(FakeRequest())
-    status(res) shouldBe OK
-    val page = Jsoup.parse(contentAsString(res))
-    page.getElementById("properties-value").text() shouldBe "Your property"
-  }
-
-  "checkAnswers - single property when user selects no" should "return 200 Ok" in {
-    val data = managingProperty.copy(singleProperty = true, managingPropertyChoice = No.name)
-    stubWithAppointAgentSession.stubSession(data, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(data)))
-
-    val res = testController.checkAnswers()(FakeRequest())
-    status(res) shouldBe OK
-    val page = Jsoup.parse(contentAsString(res))
-    page.getElementById("properties-value").text() shouldBe "No"
-  }
-
-  "checkAnswers - multiple properties" should "return 200 Ok" in {
-    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(managingProperty)))
-
-    val res = testController.checkAnswers()(FakeRequest())
-    status(res) shouldBe OK
-    val page = Jsoup.parse(contentAsString(res))
-    page.getElementById("properties-value").text() shouldBe "All properties"
-  }
-
-  "checkAnswers - multiple properties when user selects no properties" should "return 200 Ok" in {
-    val data = managingProperty.copy(singleProperty = false, managingPropertyChoice = NoProperties.name)
-    stubWithAppointAgentSession.stubSession(data, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(data)))
-
-    val res = testController.checkAnswers()(FakeRequest())
-    status(res) shouldBe OK
-    val page = Jsoup.parse(contentAsString(res))
-    page.getElementById("properties-value").text() shouldBe "No properties"
-  }
-
-  "appointAgent" should "return 303 SEE OTHER and display success page" in {
-    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-
-    val res = testController.appointAgent()(
-      FakeRequest()
-        .withFormUrlEncodedBody("agentCode" -> "123456", "scope" -> "ALL_PROPERTIES"))
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/confirm-appoint-agent")
-  }
-
-  //todo Create a test for all possible options on this page e.g. 1 property, all properties, some property, no property
-  //todo Do this for Welsh
-  "confirmAppointAgent" should "display the correct content in English" in new ConfirmationPageTestCase with English {
-
-    val res = testController.confirmAppointAgent()(FakeRequest())
-    status(res) shouldBe OK
-
-    doc.title shouldBe "Some Org has been appointed to your account - Valuation Office Agency - GOV.UK"
-    heading shouldBe "Some Org has been appointed to your account"
-    agentCanText shouldBe "This agent can:"
-    agentCanList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
-      "add properties to your account"
-    )
-    whatHappensNextTitle shouldBe "What happens next"
-    whatHappensNextText shouldBe "You can assign or unassign this agent from your properties by managing your agents."
-    homeLink.text shouldBe "Go to your account home"
-    homeLink.attr("href") shouldBe "http://localhost:9542/business-rates-dashboard/home"
-
-    manageAgentsLink.text() shouldBe "managing your agents"
-    manageAgentsLink.attr("href") shouldBe "/business-rates-property-linking/my-organisation/agents"
-  }
-
-  "appointAgent" should "return 400 Bad Request when invalid form is submitted - scope is missing" in {
-    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-
-    val res = testController.appointAgent()(FakeRequest().withFormUrlEncodedBody("agentCode" -> "123456"))
-
-    status(res) shouldBe BAD_REQUEST
-  }
-
-  "appointAgent" should "return 400 Bad Request when invalid form is submitted - agentCode is missing" in {
-    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-
-    val res = testController.appointAgent()(FakeRequest().withFormUrlEncodedBody("scope" -> "ALL_PROPERTIES"))
-
-    status(res) shouldBe BAD_REQUEST
   }
 
   private val stubWithAppointAgentSession = new StubWithAppointAgentSessionRefiner(mockSessionRepo)
@@ -500,7 +400,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     isTheCorrectAgentView,
     agentToManageOnePropertyView,
     agentToManageMultiplePropertiesView,
-    checkYourAnswersView,
     addAgentconfirmationView
   )
 

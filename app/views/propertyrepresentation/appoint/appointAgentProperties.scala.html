@@ -58,7 +58,7 @@
     if(showAllProperties){
         link(
             linkText = messages("propertyRepresentation.appointAgents.showPropertiesNoAgent.link"),
-            location = agentAppointment.routes.AppointPropertiesController.onPageLoad(
+            location = agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
                 pagination,
                 agentCode,
                 agentAppointed = Some(AgentPropertiesFilter.No.name), backLink
@@ -69,7 +69,7 @@
     } else {
         link(
             linkText = messages("propertyRepresentation.appointAgents.showAllProperties.link"),
-            location = agentAppointment.routes.AppointPropertiesController.onPageLoad(
+            location = agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
                 pagination,
                 agentCode,
                 None,
@@ -83,6 +83,14 @@
 
 @backLinkAsString = @{
     backLink.getOrElse(config.dashboardUrl("home"))
+}
+
+@submitBackLinkAsString = @{
+    agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
+        pagination,
+        agentCode,
+        None,
+        backLinkAsString).url
 }
 
 @appointedAgentToggle = @{
@@ -257,7 +265,7 @@
             content = Text(messages("label.search")),
             attributes = Map("id" -> "search-submit")
         ))
-        <a href="@agentAppointment.routes.AppointPropertiesController.onPageLoad(PaginationParameters(), agentCode, agentAppointed, backLinkAsString)"
+        <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), agentCode, agentAppointed, backLinkAsString)"
         id="clear-search" class="govuk-link pull-right">@messages("label.clear.search")</a>
     </div>
 }
@@ -318,7 +326,7 @@
         @if(model.response.authorisations.isEmpty){
             <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
         } else {
-            @formWithCSRF(agentAppointment.routes.AppointPropertiesController.onSubmit(agentCode, agentAppointed, backLinkAsString)){
+            @formWithCSRF(agentAppointment.routes.AppointPropertiesController.onSubmit(agentCode, agentAppointed, submitBackLinkAsString)){
                 <input type="hidden" name="agentCode" value="@agentCode">
                 <input type="hidden" name="name" value="@model.agentGroup.companyName">
                 <input type="hidden" name="backLinkUrl" value="@backLink">

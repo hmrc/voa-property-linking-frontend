@@ -81,7 +81,7 @@ class AgentRelationshipService @Inject()(
     propertyLinks.getMyOrganisationPropertyLinksCount()
 
   def postAgentAppointmentChange(appointAgentRequest: AgentAppointmentChangeRequest)(
-    implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     propertyLinks.agentAppointmentChange(appointAgentRequest)
 
 }

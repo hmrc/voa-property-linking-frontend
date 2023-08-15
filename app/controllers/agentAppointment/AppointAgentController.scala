@@ -74,7 +74,6 @@ class AppointAgentController @Inject()(
         .verifying("error.propertyRepresentation.appoint.filter", f => f.address.nonEmpty || f.agent.nonEmpty)
     )
 
-  // TODO: REMOVE
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         pagination: PaginationParameters,
         agentCode: Long,
@@ -234,7 +233,6 @@ class AppointAgentController @Inject()(
   //TODO: remove this once tests done, replaced by checkYourAnswersController onSubmit
   def appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String): Action[AnyContent] =
     authenticated.async { implicit request =>
-      println(Console.CYAN_B + "I am called" + Console.RESET)
       appointAgentBulkActionForm
         .bindFromRequest()
         .fold(

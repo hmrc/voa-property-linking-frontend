@@ -452,7 +452,7 @@ class ManageAgentController @Inject()(
 
   private def joinOldAgentAppointJourney(agentCode: Long) =
     Redirect(
-      controllers.agentAppointment.routes.AppointPropertiesController.onPageLoad(
+      controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
         pagination = PaginationParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
