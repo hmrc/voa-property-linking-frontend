@@ -493,6 +493,8 @@ propertyRepresentation.removeAgentProperties.title=O ba eiddo ydych chi am ddadn
 propertyRepresentation.removeAgentProperties.p1=Ar gyfer yr eiddo a ddewiswch, ni fydd yr asiant yn gallu:
 
 #Appoint agent
+propertyRepresentation.appointAgent.caption=Appoint an agent
+propertyRepresentation.appointAgent.choosingAList=Choosing a rating list is different to assigning properties to the agent. You will assign properties after choosing a rating list.
 propertyRepresentation.appointAgent.title=Penodi asiant
 propertyRepresentation.appointAgent.message.1=Bydd angen i chi nodi cod yr asiant yr ydych am ei benodi a dweud wrthym beth y gallant ei wneud ar ran eich busnes.
 propertyRepresentation.appointAgent.message.2=Byddwch yn ymwybodol mai chi fydd yn gyfrifol am unrhyw wybodaeth y mae eich asiant yn ei gyflwyno i ni am eich eiddo.   Byddwch yn atebol i unrhyw gosb neu ôl-ddyddio prisiadau diwygiedig os yw eich asiant yn cyflwyno gwybodaeth ffug.

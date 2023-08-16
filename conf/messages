@@ -548,6 +548,8 @@ propertyRepresentation.removeAgentProperties.title=Which of your properties do y
 propertyRepresentation.removeAgentProperties.p1=For the properties you select, the agent will not be able to:
 
 #Appoint agent
+propertyRepresentation.appointAgent.caption=Appoint an agent
+propertyRepresentation.appointAgent.choosingAList=Choosing a rating list is different to assigning properties to the agent. You will assign properties after choosing a rating list.
 propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
 propertyRepresentation.appointAgent.message.2=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
