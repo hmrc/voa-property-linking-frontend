@@ -25,7 +25,6 @@ import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import controllers.agentAppointment.AppointNewAgentForms._
 import models.propertyrepresentation
-import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.propertyrepresentation._
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi.AgentPropertiesParameters
@@ -94,14 +93,13 @@ class AddAgentController @Inject()(
       agentDetailsOpt match {
         case Some(answers) =>
           answers match {
-            case answers: SearchedAgent =>
-              Ok(agentCodeView(agentCode.fill(answers.agentCode.toString), getBackLink))
-            case answers: SelectedAgent =>
-              Ok(agentCodeView(agentCode.fill(answers.agentCode.toString), getBackLink))
             case answers: ManagingProperty =>
-              Ok(agentCodeView(agentCode.fill(answers.agentCode.toString), getBackLink))
+              Ok(
+                agentCodeView(
+                  agentCode.fill(answers.agentCode.toString),
+                  backLink = routes.CheckYourAnswersController.onPageLoad().url))
             case _ =>
-              Ok(agentCodeView(agentCode, getBackLink))
+              Ok(agentCodeView(agentCode, backLink))
           }
         case _ =>
           Ok(agentCodeView(agentCode, backLink))
@@ -200,7 +198,9 @@ class AddAgentController @Inject()(
   }
 
   def isCorrectAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    val backLink = routes.AddAgentController.showAgentCodePage.url
+    val backLink =
+      if (request.sessionData.cyaVisited) routes.CheckYourAnswersController.onPageLoad().url
+      else routes.AddAgentController.getAgentDetails.url
     Future.successful(Ok(isTheCorrectAgentView(isThisTheCorrectAgent, request.agentDetails, backLink)))
   }
 
@@ -245,11 +245,13 @@ class AddAgentController @Inject()(
                               Future.successful(
                                 Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
                             case 1 =>
-                              sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success))
+                              sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success).copy(
+                                backLink = Some(routes.AddAgentController.isCorrectAgent.url)))
                               Future.successful(
                                 Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty))
                             case _ =>
-                              sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success))
+                              sessionRepo.saveOrUpdate(SelectedAgent(searchedAgent, success).copy(
+                                backLink = Some(routes.AddAgentController.isCorrectAgent.url)))
                               Future.successful(
                                 Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties))
                           }
@@ -266,7 +268,11 @@ class AddAgentController @Inject()(
   }
 
   def oneProperty: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(Ok(agentToManageOnePropertyView(manageOneProperty, request.agentDetails.name)))
+    val backLink =
+      if (request.sessionData.cyaVisited) routes.CheckYourAnswersController.onPageLoad().url
+      else routes.AddAgentController.isCorrectAgent.url
+
+    Future.successful(Ok(agentToManageOnePropertyView(manageOneProperty, request.agentDetails.name, backLink)))
   }
 
   def submitOneProperty: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
@@ -274,7 +280,7 @@ class AddAgentController @Inject()(
       .bindFromRequest()
       .fold(
         errors => {
-          Future.successful(BadRequest(agentToManageOnePropertyView(errors, request.agentDetails.name)))
+          Future.successful(BadRequest(agentToManageOnePropertyView(errors, request.agentDetails.name, getBackLink)))
         },
         success => {
           for {
@@ -308,7 +314,8 @@ class AddAgentController @Inject()(
                   agentToManageMultiplePropertiesView(
                     manageMultipleProperties.fill(AddAgentOptions.fromName(answers.managingPropertyChoice).get),
                     request.agentDetails.name,
-                    getBackLink))
+                    routes.CheckYourAnswersController.onPageLoad().url
+                  ))
               case _ =>
                 Ok(
                   agentToManageMultiplePropertiesView(manageMultipleProperties, request.agentDetails.name, getBackLink))

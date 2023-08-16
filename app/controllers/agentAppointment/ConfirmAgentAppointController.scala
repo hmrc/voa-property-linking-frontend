@@ -41,7 +41,6 @@ class ConfirmAgentAppointController @Inject()(
       executionContext: ExecutionContext)
     extends PropertyLinkingController {
 
-  //Clear session???
   def onPageLoad(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
     request.sessionData match {
       case data: ManagingProperty =>

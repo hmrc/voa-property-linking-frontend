@@ -23,11 +23,11 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
-@(form: Form[AddAgentOptions], agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AddAgentOptions], agentName: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.oneProperty.title", agentName),
-    backUri = Some(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url),
+    backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {
 
