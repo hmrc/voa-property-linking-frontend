@@ -46,8 +46,6 @@ class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with 
 
   val addThemTooHref = "/business-rates-property-linking/add-user-to-gg"
   val termsLinkHref = "terms-and-conditions"
-  //  TODO: The below incorrect link href will be fixed under VTCCA-5904
-  val termsLinkHrefWelsh = "telerau-ac-amodau"
   val continueButtonHref = "/business-rates-dashboard/home"
 
   "RegistrationController success method" should {
@@ -194,7 +192,7 @@ class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with 
 
       s"has a $termsLinkText link in welsh" in {
         document.select(termsLinkSelector).text() shouldBe termsLinkTextWelsh
-        document.select(termsLinkSelector).attr("href") shouldBe termsLinkHrefWelsh
+        document.select(termsLinkSelector).attr("href") shouldBe termsLinkHref
       }
 
       s"has a $continueText button in welsh" in {
@@ -252,7 +250,7 @@ class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with 
 
       s"has a $termsLinkText link in welsh" in {
         document.select(termsLinkSelector).text() shouldBe termsLinkTextWelsh
-        document.select(termsLinkSelector).attr("href") shouldBe termsLinkHrefWelsh
+        document.select(termsLinkSelector).attr("href") shouldBe termsLinkHref
       }
 
       s"has a $continueText button in welsh" in {
