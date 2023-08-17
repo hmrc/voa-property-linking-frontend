@@ -41,7 +41,7 @@
        @agentDetails.name <br/> @Formatters.capitalisedAddress(agentDetails.address)
     </div>
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected(backLink)) {
         @govukRadios(Radios(
             idPrefix = Some("isThisYourAgent"),
             classes = "govuk-radios--inline",

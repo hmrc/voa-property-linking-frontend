@@ -97,10 +97,10 @@ GET         /my-organisation/appoint-new-agent                                  
 GET         /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.showStartPage
 
 GET         /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.showAgentCodePage(fromCyaChange: Boolean ?= false)
-POST        /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.getAgentDetails
+POST        /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.getAgentDetails(backLink: String)
 
 GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.isCorrectAgent
-POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.agentSelected
+POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.agentSelected(backLink: String)
 
 #TAX PAYER - SINGLE PROPERTIES
 GET         /my-organisation/appoint-new-agent/one-property                                                               controllers.agentAppointment.AddAgentController.oneProperty(fromCyaChange: Boolean ?= false)

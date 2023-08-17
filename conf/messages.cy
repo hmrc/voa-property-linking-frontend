@@ -540,7 +540,7 @@ propertyRepresentation.isThisYourAgent.no=Na, nodwch god newydd
 
 propertyRepresentation.onePropertyNoExistingAgent.question=Ydych chi am neilltuo {0} i'ch eiddo?
 
-propertyRepresentation.oneProperty.title=Welsh needed- Do you want to assign {0} to your property?
+propertyRepresentation.oneProperty.title=Pa un o’ch eiddo yr hoffech ei neilltuo i {0}?
 propertyRepresentation.oneProperty.options.yes=Ie
 propertyRepresentation.oneProperty.options.no=Na
 
@@ -784,10 +784,10 @@ propertyRepresentation.selectAgent.status.pending=Yn yr arfaeth
 propertyRepresentation.selectAgent.status.accepted=Derbyniwyd
 
 ##Appoint agent summary
-propertyRepresentation.agentSummary.title=Mae {0} wedi?i neilltuo i?r eiddo a ddewiswyd gennych
-propertyRepresentation.agentSummary.explainer=Gall yr asiant weithredu ar eich rhan ar gyfer unrhyw un o?r eiddo a ddewiswyd gennych.
-propertyRepresentation.agentSummary.nextSteps.subhead=Beth sy?n digwydd nesaf
-propertyRepresentation.agentSummary.nextSteps.content=Gallwch ddadneilltuo?r asiant hwn o?ch eiddo ar unrhyw adeg.
+propertyRepresentation.agentSummary.title=Mae {0} wedi’i neilltuo i’r eiddo a ddewiswyd gennych
+propertyRepresentation.agentSummary.explainer=Gall yr asiant weithredu ar eich rhan ar gyfer unrhyw un o’r eiddo a ddewiswyd gennych.
+propertyRepresentation.agentSummary.nextSteps.subhead=Beth sy’n digwydd nesaf
+propertyRepresentation.agentSummary.nextSteps.content=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
 propertyRepresentation.agentSummary.homeLink=Ewch i hafan eich cyfrif
 
 #Choose rating list years

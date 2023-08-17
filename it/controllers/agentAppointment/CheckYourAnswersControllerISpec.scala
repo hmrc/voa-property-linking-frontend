@@ -40,6 +40,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
   val propertiesValueId = "properties-value"
   val changePropertiesLinkId = "change-properties"
   val continueButtonSelector = "button.govuk-button"
+  val backLinkSelector = "#back-link"
 
   "onPageLoad" should {
     "return 200 & display correct content (Some properties)" in new TestSetup {
@@ -50,6 +51,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
       lazy val document = getDocument(English)
       document.getElementById(propertiesValueId).text() shouldBe "1 of 2 properties"
+      document.select(backLinkSelector).text() shouldBe backLinkText
+      document.select(backLinkSelector).attr("href")shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
     }
 
     "return 200 & display correct content (Some properties) - Welsh" in new TestSetup {
@@ -60,6 +64,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
       lazy val document = getDocument(Welsh)
       document.getElementById(propertiesValueId).text() shouldBe "1 o 2 eiddo"
+      document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+      document.select(backLinkSelector).attr("href") shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
 
     }
 
@@ -99,22 +106,28 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Assigned to only property)" in new TestSetup {
       await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1)))
+        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1).copy(singleProperty = true)))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
       lazy val document = getDocument(English)
       document.getElementById(propertiesValueId).text() shouldBe "Your property"
+      document.select(backLinkSelector).text() shouldBe backLinkText
+      document.select(backLinkSelector).attr("href") shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"
     }
 
     "return 200 & display correct content (Assigned to only property) - Welsh" in new TestSetup {
       await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1)))
+        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1).copy(singleProperty = true)))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
       lazy val document = getDocument(Welsh)
       document.getElementById(propertiesValueId).text() shouldBe "Eich eiddo"
+      document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+      document.select(backLinkSelector).attr("href") shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"
     }
 
     "return 200 & display correct content (Assigned to no properties)" in new TestSetup {
