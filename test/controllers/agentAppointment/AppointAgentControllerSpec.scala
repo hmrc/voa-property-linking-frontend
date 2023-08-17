@@ -108,7 +108,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         PaginationParameters(),
         agentCode,
         initialAgentAppointedQueryParam,
-        backLinkQueryParam
+        backLinkQueryParam,
+        false
       )
       .url
 
@@ -119,7 +120,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         PaginationParameters(),
         agentCode,
         Some(AgentPropertiesFilter.No.name),
-        backLinkQueryParam
+        backLinkQueryParam,
+        false
       )
       .url
 
@@ -171,7 +173,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         PaginationParameters(),
         agentCode,
         initialAgentAppointedQueryParam,
-        backLinkQueryParam
+        backLinkQueryParam,
+        false
       )
       .url
 
@@ -182,7 +185,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         PaginationParameters(),
         agentCode,
         Some(AgentPropertiesFilter.No.name),
-        backLinkQueryParam
+        backLinkQueryParam,
+        false
       )
       .url
 
@@ -837,6 +841,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     propertyLinksSessionRepo = mockSessionRepo,
     revokeAgentPropertiesSessionRepo = mockRevokeAgentPropertiesSessionRepo,
     appointAgentPropertiesSession = mockAppointAgentPropertiesSessionRepo,
+    appointAgentSummaryView = appointAgentSummaryView,
     revokeAgentSummaryView = revokeAgentSummaryView,
     revokeAgentPropertiesView = revokeAgentPropertiesView,
     appointAgentPropertiesView = appointAgentPropertiesView

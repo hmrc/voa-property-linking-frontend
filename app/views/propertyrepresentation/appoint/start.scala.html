@@ -55,7 +55,7 @@
     )
 
     @govukButton(Button(
-        href = Some(controllers.agentAppointment.routes.AddAgentController.showAgentCodePage.url),
+        href = Some(controllers.agentAppointment.routes.AddAgentController.showAgentCodePage().url),
         isStartButton = true,
         content = Text(messages("propertyRepresentation.start.startNow")),
         attributes = Map("id" -> "start-now-button")

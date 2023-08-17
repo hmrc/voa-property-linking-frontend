@@ -783,6 +783,13 @@ propertyRepresentation.selectAgent.table.2=Cod yr asiant
 propertyRepresentation.selectAgent.status.pending=Yn yr arfaeth
 propertyRepresentation.selectAgent.status.accepted=Derbyniwyd
 
+##Appoint agent summary
+propertyRepresentation.agentSummary.title=Mae {0} wedi?i neilltuo i?r eiddo a ddewiswyd gennych
+propertyRepresentation.agentSummary.explainer=Gall yr asiant weithredu ar eich rhan ar gyfer unrhyw un o?r eiddo a ddewiswyd gennych.
+propertyRepresentation.agentSummary.nextSteps.subhead=Beth sy?n digwydd nesaf
+propertyRepresentation.agentSummary.nextSteps.content=Gallwch ddadneilltuo?r asiant hwn o?ch eiddo ar unrhyw adeg.
+propertyRepresentation.agentSummary.homeLink=Ewch i hafan eich cyfrif
+
 #Choose rating list years
 chooseRatingList.header = Welsh Choose a rating list {0} can act on for you
 chooseRatingList.currentlyThis.multiple = Welsh Currently this agent can act for you on the 2023 and 2017 rating lists

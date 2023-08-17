@@ -112,6 +112,16 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     status(res) shouldBe OK
     verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/start")
   }
+
+  "showAgentCodePage" should "back link to the check your answers page when its been visited" in {
+    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(managingProperty)))
+
+    val res = testController.showAgentCodePage(true)(FakeRequest())
+    status(res) shouldBe OK
+    verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
+  }
   "showAgentCodePage" should "display the correct content in english" in new AgentCodePageTestCase with English {
     doc.title shouldBe "What is your agent’s code? - Valuation Office Agency - GOV.UK"
     caption shouldBe "Appoint an agent"
@@ -185,6 +195,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     status(res) shouldBe OK
     verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code")
   }
+
   "isThisYourAgentPage" should "display the correct content in english" in new IsThisYourAgentPageTestCase
   with English {
     doc.title shouldBe "Is this your agent? - Valuation Office Agency - GOV.UK"
@@ -303,6 +314,16 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")
   }
 
+  "oneProperty" should "return 200 Ok with correct back link when CYA page has been visited" in {
+    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(managingProperty)))
+
+    val res = testController.oneProperty(true)(FakeRequest())
+    status(res) shouldBe OK
+    verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
+  }
+
   "submitOneProperty" should "return 400 Bad Request if no selection is made" in {
     stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
@@ -332,13 +353,23 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   }
 
   "multipleProperties" should "return 200 Ok" in {
-    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(managingProperty)))
+      .thenReturn(Future.successful(Some(selectedAgent)))
 
     val res = testController.multipleProperties()(FakeRequest())
     status(res) shouldBe OK
     verifyPageHeading(res, "Which of your properties do you want to assign Some Org to?")
+  }
+
+  "multipleProperties" should "back link should return to CYA page" in {
+    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
+    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
+      .thenReturn(Future.successful(Some(managingProperty)))
+
+    val res = testController.multipleProperties(true)(FakeRequest())
+    status(res) shouldBe OK
+    verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
   }
 
   "submitMultipleProperties" should "return 400 Bad Request if no selection is made" in {
@@ -383,7 +414,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       "/business-rates-property-linking/my-organisation/appoint/properties?page=1" +
         "&pageSize=15&agentCode=12345" +
         "&agentAppointed=BOTH" +
-        "&backLink=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fmultiple-properties")
+        "&backLink=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fmultiple-properties&fromManageAgentJourney=false")
 
   }
 

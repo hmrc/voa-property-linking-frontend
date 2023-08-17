@@ -809,6 +809,13 @@ ratingsListConfirmation.thisAgentWill = This agent will only be able to act for 
 ratingsListConfirmation.theyWillNot = They will not be able to see valuations on the {0} rating list, or act on them for you.
 ratingsListConfirmation.restricting = Restricting an agent to a single rating list when they have Check and Challenge cases in progress on the other rating list means they will no longer be able to act on them for you.
 
+##Appoint agent summary
+propertyRepresentation.agentSummary.title={0} has been assigned to your selected properties
+propertyRepresentation.agentSummary.explainer=The agent can act for you on any of the properties you selected.
+propertyRepresentation.agentSummary.nextSteps.subhead=What happens next
+propertyRepresentation.agentSummary.nextSteps.content=You can unassign this agent from your properties at any time.
+propertyRepresentation.agentSummary.homeLink=Go to your account home
+
 #Rating list years confirmed screen
 ratingsListConfirmed.header = The rating lists that {0} can act for you on has been changed
 ratingsListConfirmed.thisAgent.multiple = This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account

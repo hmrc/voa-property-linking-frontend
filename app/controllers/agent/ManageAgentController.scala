@@ -210,7 +210,7 @@ class ManageAgentController @Inject()(
                 calculateBackLink(organisationsAgents, agent.representativeCode)
               ))
           } else {
-            (ipPropertyLinksCount) match {
+            ipPropertyLinksCount match {
               case 0 if agent.propertyCount == 0 =>
                 //IP has no property links but still has an agent
                 Some(
@@ -293,6 +293,7 @@ class ManageAgentController @Inject()(
       }, { success =>
         success.manageAgentOption match {
           case AssignToSomeProperties | AssignToOneOrMoreProperties =>
+            println(Console.BLUE + "manage agent" + Console.RESET)
             Future.successful(joinOldAgentAppointJourney(agentCode))
           case AssignToAllProperties | AssignToYourProperty =>
             Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showAssignToAll))
@@ -456,7 +457,8 @@ class ManageAgentController @Inject()(
         pagination = PaginationParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
-        backLink = controllers.agent.routes.ManageAgentController.showManageAgent.url
+        backLink = controllers.agent.routes.ManageAgentController.showManageAgent.url,
+        fromManageAgentJourney = true
       ))
 
   private def joinOldAgentRevokeJourney(agentCode: Long) =

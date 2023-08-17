@@ -443,7 +443,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     explainerIntro shouldBe "Ar gyfer eich holl eiddo, bydd yr asiant yn gallu:"
   }
 
-  "submitManageAgent" should "return 303 Redirect when agent is appointed to some properties" in {
+  "submitManageAgent" should "return 303 Redirect when agent is appointed to some properties & from manage agent journey should be true" in {
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
       Future.successful(organisationsAgentsListWithOneAgent.copy(
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
@@ -459,7 +459,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       Some(
         "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&" +
           "agentCode=12345&agentAppointed=BOTH&backLink=%2F" +
-          "business-rates-property-linking%2Fmy-organisation%2Fmanage-agent")
+          "business-rates-property-linking%2Fmy-organisation%2Fmanage-agent&fromManageAgentJourney=true")
   }
 
   "submitManageAgent" should "return 303 SEE OTHER when IP chooses to unassigned agent from all properties" in {

@@ -22,7 +22,6 @@ import play.api.libs.json._
 sealed trait AppointNewAgentSession {
   val status: AppointAgentJourneyStatus
   val backLink: Option[String]
-  val cyaVisited: Boolean = false
 }
 
 case class Start(status: AppointAgentJourneyStatus = StartJourney, backLink: Option[String])
@@ -77,8 +76,7 @@ case class ManagingProperty(
       backLink: Option[String],
       totalPropertySelectionSize: Int = 0,
       propertySelectedSize: Int = 0,
-      appointmentScope: Option[AppointmentScope] = None,
-      override val cyaVisited: Boolean = true)
+      appointmentScope: Option[AppointmentScope] = None)
     extends AppointNewAgentSession
 
 object ManagingProperty {

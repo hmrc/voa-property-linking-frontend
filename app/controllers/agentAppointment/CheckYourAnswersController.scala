@@ -48,6 +48,8 @@ class CheckYourAnswersController @Inject()(
     PartialFunction
       .condOpt(request.sessionData) {
         case data: ManagingProperty =>
+//          appointNewAgentSession.saveOrUpdate(
+//            data.copy(backLink = Some(routes.CheckYourAnswersController.onPageLoad().url)))
           Ok(checkYourAnswersView(submitAgentAppointmentRequest, data))
       }
       .getOrElse(NotFound(errorHandler.notFoundTemplate))
@@ -61,32 +63,30 @@ class CheckYourAnswersController @Inject()(
             Future.successful(BadRequest(checkYourAnswersView(errors, data)))
         }
       }, { success =>
-        {
-          for {
-            _ <- request.sessionData match {
-                  case data: ManagingProperty =>
-                    appointNewAgentSession.saveOrUpdate(
-                      data
-                        .copy(appointmentScope = Some(AppointmentScope.withName(success.scope)))
-                        .copy(backLink = None))
-                }
-            sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
-            agentListYears <- agentRelationshipService.getMyOrganisationAgents()
-            listYears = agentListYears.agents
-              .find(_.representativeCode == success.agentRepresentativeCode)
-              .flatMap(_.listYears)
-              .getOrElse(Seq("2017", "2023"))
-              .toList
-            _ <- agentRelationshipService.postAgentAppointmentChange(
-                  AgentAppointmentChangeRequest(
-                    action = AppointmentAction.APPOINT,
-                    scope = AppointmentScope.withName(success.scope),
-                    agentRepresentativeCode = success.agentRepresentativeCode,
-                    propertyLinks = sessionDataOpt.flatMap(_.agentAppointAction.map(_.propertyLinkIds)),
-                    listYears = Some(listYears)
-                  ))
-          } yield Redirect(routes.ConfirmAgentAppointController.onPageLoad())
-        }
+        for {
+          _ <- request.sessionData match {
+                case data: ManagingProperty =>
+                  appointNewAgentSession.saveOrUpdate(
+                    data
+                      .copy(appointmentScope = Some(AppointmentScope.withName(success.scope)))
+                      .copy(backLink = None))
+              }
+          sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
+          agentListYears <- agentRelationshipService.getMyOrganisationAgents()
+          listYears = agentListYears.agents
+            .find(_.representativeCode == success.agentRepresentativeCode)
+            .flatMap(_.listYears)
+            .getOrElse(Seq("2017", "2023"))
+            .toList
+          _ <- agentRelationshipService.postAgentAppointmentChange(
+                AgentAppointmentChangeRequest(
+                  action = AppointmentAction.APPOINT,
+                  scope = AppointmentScope.withName(success.scope),
+                  agentRepresentativeCode = success.agentRepresentativeCode,
+                  propertyLinks = sessionDataOpt.flatMap(_.agentAppointAction.map(_.propertyLinkIds)),
+                  listYears = Some(listYears)
+                ))
+        } yield Redirect(routes.ConfirmAgentAppointController.onPageLoad())
       }
     )
   }

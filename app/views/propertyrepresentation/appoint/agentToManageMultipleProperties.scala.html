@@ -27,7 +27,7 @@
 @(form: Form[AddAgentOptions], agentName: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.multipleProperties.title"),
+    pageTitle = messages("propertyRepresentation.multipleProperties.title", agentName),
     backUri = Some(backLink),
     hasErrors = form.hasErrors
 ) {

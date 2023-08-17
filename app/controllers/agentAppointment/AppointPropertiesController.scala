@@ -27,7 +27,7 @@ import controllers._
 import form.FormValidation.nonEmptyList
 import models.GroupAccount.AgentGroupAccount
 import models._
-import models.propertyrepresentation.{AgentAppointmentChangeRequest, AppointAgentToSomePropertiesSession, AppointNewAgentSession, AppointmentAction, AppointmentScope, FilterAppointProperties, FilterRevokePropertiesSessionData, ManagingProperty, RevokeAgentFromSomePropertiesSession}
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AppointAgentToSomePropertiesSession, AppointNewAgentSession, AppointmentAction, AppointmentScope, FilterAppointProperties, FilterRevokePropertiesSessionData, ManagingProperty, RevokeAgentFromSomePropertiesSession, SelectedAgent}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi._
 import play.api.Logger
@@ -37,7 +37,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}

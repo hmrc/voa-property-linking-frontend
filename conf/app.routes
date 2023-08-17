@@ -87,32 +87,36 @@ GET         /my-organisation/appoint/properties/paginate                        
 GET         /my-organisation/appoint/properties/sort                                                                      controllers.agentAppointment.AppointAgentController.sortPropertiesForAppoint(sortField: ExternalPropertyLinkManagementSortField, pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
 GET         /my-organisation/appoint/properties/filter                                                                    controllers.agentAppointment.AppointAgentController.showFilterPropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
 POST        /my-organisation/appoint/properties/filter                                                                    controllers.agentAppointment.AppointAgentController.filterPropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
+GET         /my-organisation/appoint/properties/confirm                                                                   controllers.agentAppointment.AppointAgentController.confirmAppointAgentToSome
+
+GET         /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.showAppointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String)
+POST        /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String)
 
 #NEW AGENT APPOINT JOURNEY
 GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start(propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None)
 GET         /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.showStartPage
 
-GET         /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.showAgentCodePage
+GET         /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.showAgentCodePage(fromCyaChange: Boolean ?= false)
 POST        /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.getAgentDetails
 
 GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.isCorrectAgent
 POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.agentSelected
 
 #TAX PAYER - SINGLE PROPERTIES
-GET         /my-organisation/appoint-new-agent/one-property                                                               controllers.agentAppointment.AddAgentController.oneProperty
+GET         /my-organisation/appoint-new-agent/one-property                                                               controllers.agentAppointment.AddAgentController.oneProperty(fromCyaChange: Boolean ?= false)
 POST        /my-organisation/appoint-new-agent/one-property                                                               controllers.agentAppointment.AddAgentController.submitOneProperty
 
 #TAX PAYER - MULTIPLE PROPERTIES
-GET         /my-organisation/appoint-new-agent/multiple-properties                                                        controllers.agentAppointment.AddAgentController.multipleProperties
+GET         /my-organisation/appoint-new-agent/multiple-properties                                                        controllers.agentAppointment.AddAgentController.multipleProperties(fromCyaChange: Boolean ?= false)
 POST        /my-organisation/appoint-new-agent/multiple-properties                                                        controllers.agentAppointment.AddAgentController.submitMultipleProperties
 
 #CHOOSE PROPERTIES TO APPOINT
-GET         /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String)
+GET         /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String, fromManageAgentJourney: Boolean)
 POST        /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointPropertiesController.onSubmit(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String)
 
 #CHECK YOUR ANSWERS
 GET         /my-organisation/appoint-new-agent/check-your-answers                                                         controllers.agentAppointment.CheckYourAnswersController.onPageLoad()
-POST        /my-organisation/appoint-new-agent/check-your-answers                                                         controllers.agentAppointment.CheckYourAnswersController.onSubmit()
+POST        /my-organisation/appoint-new-agent/check-your-answers                                                        controllers.agentAppointment.CheckYourAnswersController.onSubmit()
 
 #CONFIRMATION
 GET         /my-organisation/confirm-appoint-agent                                                                        controllers.agentAppointment.ConfirmAgentAppointController.onPageLoad()

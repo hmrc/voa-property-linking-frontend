@@ -44,7 +44,6 @@ class ConfirmAgentAppointController @Inject()(
   def onPageLoad(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
     request.sessionData match {
       case data: ManagingProperty =>
-        appointNewAgentSession.remove()
         val key = {
           if (data.singleProperty)
             Some("propertyRepresentation.confirmation.yourProperty")
@@ -56,6 +55,7 @@ class ConfirmAgentAppointController @Inject()(
             }
           }
         }
+        appointNewAgentSession.remove()
         Ok(confirmationView(agentName = request.agentDetails.name, assignedToMessageKey = key))
     }
   }

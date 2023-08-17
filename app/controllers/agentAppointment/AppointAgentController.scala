@@ -52,6 +52,7 @@ class AppointAgentController @Inject()(
       @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
       @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
       @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
+      appointAgentSummaryView: views.html.propertyrepresentation.appoint.appointAgentSummary,
       revokeAgentSummaryView: views.html.propertyrepresentation.revokeAgentSummary,
       revokeAgentPropertiesView: views.html.propertyrepresentation.revokeAgentProperties,
       appointAgentPropertiesView: views.html.propertyrepresentation.appoint.appointAgentProperties
@@ -78,9 +79,16 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String
+        backLink: String,
+        fromManageAgentJourney: Boolean = false
   ): Action[AnyContent] = authenticated.async { implicit request =>
-    searchForAppointableProperties(pagination, agentCode, agentAppointed, backLink, Some(GetPropertyLinksParameters()))
+    searchForAppointableProperties(
+      pagination,
+      agentCode,
+      agentAppointed,
+      backLink,
+      Some(GetPropertyLinksParameters()),
+      fromManageAgentJourney)
   }
 
   // this endpoint only exists so we don't 404 when changing language after getting an error on search
@@ -160,9 +168,8 @@ class AppointAgentController @Inject()(
         agentCode: Long,
         agentAppointed: Option[String],
         backLink: String,
-        searchParamsOpt: Option[GetPropertyLinksParameters] = None)(
-        implicit request: AuthenticatedRequest[_],
-        hc: HeaderCarrier) =
+        searchParamsOpt: Option[GetPropertyLinksParameters] = None,
+        fromManageAgentJourney: Boolean = false)(implicit request: AuthenticatedRequest[_], hc: HeaderCarrier) =
     for {
       sessionDataOpt    <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
@@ -215,12 +222,21 @@ class AppointAgentController @Inject()(
               agentCode = agentCode,
               agentAppointed = agentAppointed,
               organisationAgents = agentList,
-              backLink = Some(backLink)
+              backLink = Some(backLink),
+              manageJourneyFlag = fromManageAgentJourney
             ))
         case None =>
           notFound
       }
     }
+
+  def confirmAppointAgentToSome: Action[AnyContent] = authenticated.async { implicit request =>
+    appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].map {
+      case Some(AppointAgentToSomePropertiesSession(Some(agent), _)) =>
+        Ok(appointAgentSummaryView(action = agent))
+      case _ => NotFound(errorHandler.notFoundTemplate)
+    }
+  }
 
   // this endpoint only exists so we don't 404 when changing language after getting an error on submit
   def showAppointAgentSummary(
@@ -230,13 +246,14 @@ class AppointAgentController @Inject()(
     searchForAppointableProperties(PaginationParameters(), agentCode, agentAppointed, backLinkUrl)
   }
 
-  //TODO: remove this once tests done, replaced by checkYourAnswersController onSubmit
   def appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String): Action[AnyContent] =
     authenticated.async { implicit request =>
       appointAgentBulkActionForm
         .bindFromRequest()
         .fold(
-          errors => appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl),
+          errors => {
+            appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl)
+          },
           success = (action: AgentAppointBulkAction) => {
             accounts.withAgentCode(action.agentCode.toString).flatMap {
               case Some(group) =>
@@ -262,7 +279,7 @@ class AppointAgentController @Inject()(
                           sessionDataOpt.fold(AppointAgentToSomePropertiesSession(agentAppointAction = Some(action)))(
                             data => data.copy(agentAppointAction = Some(action))))
                   } yield {
-                    Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad())
+                    Redirect(controllers.agentAppointment.routes.AppointAgentController.confirmAppointAgentToSome)
                   }
                 ) recoverWith {
                   case e: services.AppointRevokeException =>
@@ -274,7 +291,7 @@ class AppointAgentController @Inject()(
                                    request.organisationAccount.id,
                                    group.id
                                  )
-                    } yield
+                    } yield {
                       BadRequest(appointAgentPropertiesView(
                         f = Some(appointAgentBulkActionForm.withError("appoint.error", "error.transaction")),
                         model = AppointAgentPropertiesVM(group, response),
@@ -283,8 +300,10 @@ class AppointAgentController @Inject()(
                         agentCode = action.agentCode,
                         agentAppointed = None,
                         organisationAgents = agentList,
-                        backLink = Some(action.backLinkUrl)
+                        backLink = Some(action.backLinkUrl),
+                        manageJourneyFlag = true
                       ))
+                    }
                   case e: Exception => throw e
                 }
               case None =>
@@ -319,7 +338,8 @@ class AppointAgentController @Inject()(
               agentCode,
               agentAppointed,
               agentList,
-              backLink = Some(backLinkUrl)
+              backLink = Some(backLinkUrl),
+              manageJourneyFlag = true
             ))
       case None =>
         Future.successful(notFound)

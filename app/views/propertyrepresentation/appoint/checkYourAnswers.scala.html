@@ -43,14 +43,6 @@
     }
 }
 
-@answerMessageKey = @{
-    (data.managingPropertyChoice, data.singleProperty) match {
-        case (All.name, true) => "propertyRepresentation.checkYourAnswers.yourProperty"
-        case (ChooseFromList.name, _) => "propertyRepresentation.checkYourAnswers.yourProperty"
-        case _ => s"propertyRepresentation.checkYourAnswers.options.${data.managingPropertyChoice}"
-    }
-}
-
 @appointmentScope = @{
     data.managingPropertyChoice match {
         case All.name => ALL_PROPERTIES.toString
@@ -59,15 +51,16 @@
     }
 }
 
-@changeLinkProperties = @{
+@submitPropertyUrls = @{
     if(data.singleProperty)
-        controllers.agentAppointment.routes.AddAgentController.oneProperty.url
-    else controllers.agentAppointment.routes.AddAgentController.multipleProperties.url
+        controllers.agentAppointment.routes.AddAgentController.oneProperty(fromCyaChange = true).url
+    else controllers.agentAppointment.routes.AddAgentController.multipleProperties(fromCyaChange = true).url
 }
-@backLink = @{
-    if(data.singleProperty)
-        controllers.agentAppointment.routes.AddAgentController.oneProperty.url
-    else controllers.agentAppointment.routes.AddAgentController.multipleProperties.url
+
+@backLinks = @{
+   if(data.singleProperty)
+       controllers.agentAppointment.routes.AddAgentController.oneProperty().url
+   else controllers.agentAppointment.routes.AddAgentController.multipleProperties().url
 }
 
 @summaryRowHiddenClass = @{
@@ -76,7 +69,7 @@
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.checkYourAnswers.title"),
-    backUri = data.backLink
+    backUri = Some(backLinks)
 ) {
 
     @if(form.errors.nonEmpty) {
@@ -97,7 +90,7 @@
                 actions = Some(Actions(
                     items = Seq(
                         ActionItem(
-                            href = s"${controllers.agentAppointment.routes.AddAgentController.showAgentCodePage}",
+                            href = s"${controllers.agentAppointment.routes.AddAgentController.showAgentCodePage(fromCyaChange = true)}",
                             content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
                             visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.agent")),
                             attributes = Map("id" -> "change-agent")
@@ -116,7 +109,7 @@
                 actions = Some(Actions(
                     items = Seq(
                         ActionItem(
-                            href = changeLinkProperties,
+                            href = submitPropertyUrls,
                             content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
                             visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.properties")),
                             attributes = Map("id" -> "change-properties")
