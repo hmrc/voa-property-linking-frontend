@@ -293,7 +293,6 @@ class ManageAgentController @Inject()(
       }, { success =>
         success.manageAgentOption match {
           case AssignToSomeProperties | AssignToOneOrMoreProperties =>
-            println(Console.BLUE + "manage agent" + Console.RESET)
             Future.successful(joinOldAgentAppointJourney(agentCode))
           case AssignToAllProperties | AssignToYourProperty =>
             Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showAssignToAll))

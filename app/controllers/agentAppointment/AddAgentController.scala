@@ -348,9 +348,7 @@ class AddAgentController @Inject()(
                     selection = success.name,
                     singleProperty = false,
                     totalPropertySelectionSize = propertyCount,
-                    propertySelectedSize =
-                      if (success.name == "all") propertyCount
-                      else 0
+                    propertySelectedSize = if (success.name == "all") propertyCount else 0
                   ).copy(backLink = Some(routes.AddAgentController.multipleProperties().url)))
             } yield {
               success match {

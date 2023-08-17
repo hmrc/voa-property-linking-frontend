@@ -48,8 +48,6 @@ class CheckYourAnswersController @Inject()(
     PartialFunction
       .condOpt(request.sessionData) {
         case data: ManagingProperty =>
-//          appointNewAgentSession.saveOrUpdate(
-//            data.copy(backLink = Some(routes.CheckYourAnswersController.onPageLoad().url)))
           Ok(checkYourAnswersView(submitAgentAppointmentRequest, data))
       }
       .getOrElse(NotFound(errorHandler.notFoundTemplate))
