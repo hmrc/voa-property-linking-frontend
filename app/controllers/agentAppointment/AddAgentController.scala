@@ -279,7 +279,22 @@ class AddAgentController @Inject()(
       val backLink =
         if (fromCyaChange) routes.CheckYourAnswersController.onPageLoad().url
         else routes.AddAgentController.isCorrectAgent.url
-      Future.successful(Ok(agentToManageOnePropertyView(manageOneProperty, request.agentDetails.name, backLink)))
+      for {
+        agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
+      } yield
+        agentDetailsOpt match {
+          case Some(answers) =>
+            answers match {
+              case answers: ManagingProperty =>
+                Ok(
+                  agentToManageOnePropertyView(
+                    manageOneProperty.fill(AddAgentOptions.fromName(answers.managingPropertyChoice).get),
+                    request.agentDetails.name,
+                    backLink))
+              case _ =>
+                Ok(agentToManageOnePropertyView(manageOneProperty, request.agentDetails.name, backLink))
+            }
+        }
     }
 
   def submitOneProperty: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>

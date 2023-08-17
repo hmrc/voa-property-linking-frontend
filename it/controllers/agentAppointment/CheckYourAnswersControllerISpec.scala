@@ -91,6 +91,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
       lazy val document = getDocument(English)
       document.select("#main-content > div > div > dl > div:nth-child(2)").hasClass("govuk-visually-hidden") shouldBe true
+      document.select(backLinkSelector).text() shouldBe backLinkText
+      document.select(backLinkSelector).attr("href") shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"
     }
 
     "return 200 & display correct content (Rate payer has no properties) - Welsh" in new TestSetup {
@@ -101,7 +104,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
       lazy val document = getDocument(Welsh)
       document.select("#main-content > div > div > dl > div:nth-child(2)").hasClass("govuk-visually-hidden") shouldBe true
-
+      document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+      document.select(backLinkSelector).attr("href") shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"
     }
 
     "return 200 & display correct content (Assigned to only property)" in new TestSetup {

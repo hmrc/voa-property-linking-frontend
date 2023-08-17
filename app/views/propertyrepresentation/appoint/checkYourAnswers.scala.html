@@ -58,9 +58,11 @@
 }
 
 @backLinks = @{
-   if(data.singleProperty)
+   if(data.singleProperty) {
        controllers.agentAppointment.routes.AddAgentController.oneProperty().url
-   else controllers.agentAppointment.routes.AddAgentController.multipleProperties().url
+   } else if(data.totalPropertySelectionSize == 0){
+       controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url
+   } else controllers.agentAppointment.routes.AddAgentController.multipleProperties().url
 }
 
 @summaryRowHiddenClass = @{
