@@ -1,0 +1,79 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.ApplicationConfig
+
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
+        govukInsetText: GovukInsetText)
+
+@(form: Form[_], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@mainLayout(
+    backUri = Some(backLink),
+    pageTitle = messages("whichRatingList.header"),
+    hasErrors = form.hasErrors) {
+
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(
+            ErrorSummary(
+                errorList = Seq(ErrorLink(
+                    href = Some("#multipleListYears"),
+                    content = Text(messages("whichRatingList.error"))
+                )),
+                title = Text(messages("error.propertyRepresentation.title"))
+            )
+        )
+    }
+
+    <span class="govuk-caption-l" >@messages("propertyRepresentation.appointAgent.caption")</span>
+    <h1 class="govuk-heading-l">@messages("whichRatingList.header")</h1>
+
+    <p class="govuk-body">@messages("whichRatingList.theRatingList")</p>
+    <p class="govuk-body">@messages("whichRatingList.theAgentWill")</p>
+
+    @formWithCSRF(action = controllers.agentAppointment.routes.SelectRatingListController.submitRatingListYear) {
+        @govukRadios(Radios(
+            errorMessage = if(form.errors.nonEmpty) Some(ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages("whichRatingList.error")))) else None,
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(messages("whichRatingList.whichRatingList")),
+                    classes = "govuk-fieldset__legend--m"
+                ))
+            )),
+            name = "multipleListYears",
+            items = List(
+                RadioItem(
+                    value = Some("true"),
+                    hint = Some(Hint(
+                        content = Text(messages("whichRatingList.2023ListHelp"))
+                    )),
+                    content = Text(messages("whichRatingList.2023List"))
+                ),
+                RadioItem(
+                    value = Some("false"),
+                    hint = Some(Hint(
+                        content = Text(messages("whichRatingList.2017ListHelp"))
+                    )),
+                    content = Text(messages("whichRatingList.2017List"))
+                )
+            )).withFormField(form("multipleListYears")))
+
+        @govukButton(Button(
+            attributes = Map("id" -> "continue"),
+            content = Text(messages("label.continue"))
+        ))
+    }
+}

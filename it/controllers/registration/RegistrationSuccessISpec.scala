@@ -14,9 +14,8 @@ import utils.ListYearsHelpers
 
 class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
-  val titleText = "You’ve successfully registered your business. - Valuation Office Agency - GOV.UK"
-  //  TODO: The below not matching text will be fixed under VTCCA-5903
-  val headingText = "You’ve successfully registered for this service."
+  val titleText = "You’ve successfully registered - Valuation Office Agency - GOV.UK"
+  val headingText = "You’ve successfully registered"
   val voaIdText = "VOA Personal ID: 3164"
   val youShouldKeepText = "You should keep a note of this number in a safe place as you’ll need it if you want to reset your password."
   val youWillNotText = "You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in."
@@ -27,10 +26,9 @@ class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with 
   val termsLinkText = "terms and conditions"
   val continueText = "Continue"
 
-  val titleTextWelsh = "Rydych chi wedi cofrestru eich busnes yn llwyddiannus. - Valuation Office Agency - GOV.UK"
-  val headingTextWelsh = "Rydych chi wedi cofrestru’n llwyddiannus ar gyfer y gwasanaeth hwn."
-  //  TODO: The below text without a colon will be fixed under VTCCA-5903
-  val voaIdTextWelsh = "Cyfeirnod adnabod personol y VOA (ID) 3164"
+  val titleTextWelsh = "Rydych chi wedi cofrestru’n llwyddiannus - Valuation Office Agency - GOV.UK"
+  val headingTextWelsh = "Rydych chi wedi cofrestru’n llwyddiannus"
+  val voaIdTextWelsh = "Cyfeirnod adnabod personol y VOA (ID): 3164"
   val youShouldKeepTextWelsh = "Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair."
   val youWillNotTextWelsh = "Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio – dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi."
   val ifAnyoneElseTextWelsh = "Os oes unrhyw un arall eisiau cofrestru ar ran y busnes, bydd angen i chi eu hychwanegu i’ch cyfrif Porth y Llywodraeth fel gweinyddwr neu gynorthwyydd yn gyntaf."

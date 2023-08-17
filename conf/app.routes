@@ -121,6 +121,12 @@ POST        /my-organisation/appoint-new-agent/check-your-answers               
 #CONFIRMATION
 GET         /my-organisation/confirm-appoint-agent                                                                        controllers.agentAppointment.ConfirmAgentAppointController.onPageLoad()
 
+#RATING LIST
+GET         /my-organisation/appoint-new-agent/ratings-list                                                               controllers.agentAppointment.RatingListOptionsController.show
+POST        /my-organisation/appoint-new-agent/ratings-list/confirm                                                       controllers.agentAppointment.RatingListOptionsController.submitRatingListYear
+GET         /my-organisation/appoint-new-agent/ratings-list-select                                                        controllers.agentAppointment.SelectRatingListController.show
+POST        /my-organisation/appoint-new-agent/ratings-list-select/confirm                                                controllers.agentAppointment.SelectRatingListController.submitRatingListYear
+
 #MANAGE AGENT
 GET         /my-organisation/manage-agent                                                                                 controllers.agent.ManageAgentController.showManageAgent
 GET         /my-organisation/manage-agent/property-links                                                                  controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters ?= GetPropertyLinksParameters(), propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None)

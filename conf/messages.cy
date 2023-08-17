@@ -282,9 +282,8 @@ createAccount.group.details.content.multipleAddress=Dylech nodi’r cyfeiriad ry
 createAccount.business.email.help=Eich e-bost chi dylai hwn fod ac nid y cyfeiriad e-bost ar gyfer eich asiant.  Dylai’r cyfeiriad e-bost hwn gael ei fonitro.
 
 #REGISTRATION SUCCESS PAGE
-account.confirmation.title=Rydych chi wedi cofrestru eich busnes yn llwyddiannus.
-account.confirmation.heading=Rydych chi wedi cofrestru’n llwyddiannus ar gyfer y gwasanaeth hwn.
-create.success.personId=Cyfeirnod adnabod personol y VOA (ID)
+account.confirmation.title=Rydych chi wedi cofrestru’n llwyddiannus
+create.success.personId=Cyfeirnod adnabod personol y VOA (ID):
 create.success.keepNote=Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
 create.success.keepUsingGg=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
 account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
@@ -494,6 +493,8 @@ propertyRepresentation.removeAgentProperties.title=O ba eiddo ydych chi am ddadn
 propertyRepresentation.removeAgentProperties.p1=Ar gyfer yr eiddo a ddewiswch, ni fydd yr asiant yn gallu:
 
 #Appoint agent
+propertyRepresentation.appointAgent.caption=Penodi Asiant
+propertyRepresentation.appointAgent.choosingAList=Mae dewis rhestr ardrethu yn wahanol i neilltuo eiddo i asiant. Byddwch yn neilltuo eiddo ar ôl i chi ddewis rhestr ardrethu.
 propertyRepresentation.appointAgent.title=Penodi asiant
 propertyRepresentation.appointAgent.message.1=Bydd angen i chi nodi cod yr asiant yr ydych am ei benodi a dweud wrthym beth y gallant ei wneud ar ran eich busnes.
 propertyRepresentation.appointAgent.message.2=Byddwch yn ymwybodol mai chi fydd yn gyfrifol am unrhyw wybodaeth y mae eich asiant yn ei gyflwyno i ni am eich eiddo.   Byddwch yn atebol i unrhyw gosb neu ôl-ddyddio prisiadau diwygiedig os yw eich asiant yn cyflwyno gwybodaeth ffug.
@@ -791,24 +792,24 @@ propertyRepresentation.agentSummary.nextSteps.content=Gallwch ddadneilltuo’r a
 propertyRepresentation.agentSummary.homeLink=Ewch i hafan eich cyfrif
 
 #Choose rating list years
-chooseRatingList.header = Welsh Choose a rating list {0} can act on for you
+chooseRatingList.header = Dewis rhestr ardrethu y gall {0} ei gweithredu ar eich rhan
 chooseRatingList.currentlyThis.multiple = Welsh Currently this agent can act for you on the 2023 and 2017 rating lists
 chooseRatingList.currentlyThis.single = Welsh Currently this agent can act for you on the {0} rating list
-chooseRatingList.thisAgentCan = Welsh This agent can act for you on:
-chooseRatingList.the2023List = Welsh the 2023 rating list
-chooseRatingList.the2017List = Welsh the 2017 rating list
-chooseRatingList.bothLists = Welsh both rating lists
-chooseRatingList.moreAboutLists = Welsh More about rating lists
-chooseRatingList.theVoaCalculates = Welsh The Valuation Office Agency (VOA) calculates the rateable values for business properties in England and Wales. It holds the information on rating lists.
-chooseRatingList.theVoaUpdates = Welsh The VOA updates rateable values and publishes a new rating list every few years.
-chooseRatingList.the2023RatingList = Welsh The 2023 rating list is the current rating list and has the current valuation for your property. It may also have previous valuations for your property that have an effective date after 1 April 2023.
-chooseRatingList.the2017RatingList = Welsh The 2017 rating list has previous valuations for your property that have an effective date between 1 April 2017 and 31 March 2023.
+chooseRatingList.thisAgentCan = Gall yr asiant hwn weithredu ar y canlynol ar eich rhan:
+chooseRatingList.the2023List = rhestr ardrethu 2023
+chooseRatingList.the2017List = rhestr ardrethu 2017
+chooseRatingList.bothLists = y ddwy restr ardrethu
+chooseRatingList.moreAboutLists = Rhagor o wybodaeth am restrau ardrethu
+chooseRatingList.theVoaCalculates = Mae Asiantaeth y Swyddfa Brisio (VOA) yn cyfrifo’r gwerth ardrethol ar gyfer eiddo busnes yng Nghymru a Lloegr. Mae’n cadw’r wybodaeth ar restrau ardrethu.
+chooseRatingList.theVoaUpdates = Mae’r VOA yn diweddaru gwerthoedd ardrethol ac yn cyhoeddi rhestr ardrethu newydd bob ychydig flynyddoedd.
+chooseRatingList.the2023RatingList = Rhestr ardrethu 2023 yw’r rhestr ardrethu presennol, ac mae ganddi brisiad cyfredol eich eiddo. Os oes gan eich eiddo brisiadau blaenorol a ddaeth i rym ar ôl 1 Ebrill 2023, mae’n bosibl bod y prisiadau hyn ar restr ardrethu 2023 hefyd.
+chooseRatingList.the2017RatingList = Mae prisiadau blaenorol eich eiddo ar restr ardrethu 2017 – sef y prisiadau sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023.
 chooseRatingList.choosingAList = Welsh Choosing a rating list is different to assigning properties to the agent. You can assign properties to them by <a class="govuk-link" href="{0}">managing your agent</a>.
-chooseRatingList.doYouWant = Welsh Do you want this agent to act for you on both rating lists?
-chooseRatingList.yes = Welsh Yes
-chooseRatingList.thisAgentBoth = Welsh This agent can act for you on both the 2023 and 2017 rating lists. Choose this option if you’re not sure.
-chooseRatingList.no = Welsh No
-chooseRatingList.youWantToChoose = Welsh You want to choose either the 2023 or 2017 rating list.
+chooseRatingList.doYouWant = A hoffech i’r asiant hwn weithredu ar y ddwy restr ardrethu ar eich rhan?
+chooseRatingList.yes = Iawn
+chooseRatingList.thisAgentBoth = Gall yr asiant hwn weithredu ar restr ardrethu 2023 a rhestr ardrethu 2017 ar eich rhan. Dewiswch yr opsiwn hwn os nad ydych yn siŵr.
+chooseRatingList.no = Na
+chooseRatingList.youWantToChoose = Rydych am ddewis naill ai restr ardrethu 2023 neu restr ardrethu 2017.
 
 #Which rating list years
 whichRatingList.header = Welsh Choose the 2023 or 2017 rating list
@@ -816,10 +817,10 @@ whichRatingList.currentYears.single = Welsh Currently this agent can act for you
 whichRatingList.currentYears.multiple = Welsh Currently this agent can act for you on the 2023 and 2017 rating lists
 whichRatingList.theRatingList = Welsh The rating list you choose for this agent will apply to all properties that you assign to them and they add to your account.
 whichRatingList.theAgentWill = Welsh The agent will only be able to act for you on valuations on the rating list you choose.
-whichRatingList.whichRatingList = Welsh Which rating list do you want this agent to act on for you?
-whichRatingList.2023List = Welsh 2023 rating list
+whichRatingList.whichRatingList = Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?
+whichRatingList.2023List = rhestr ardrethu 2023
 whichRatingList.2023ListHelp = Welsh The agent can only act for you on your current valuation for your property and any previous valuations that have an effective date after 1 April 2023.
-whichRatingList.2017List = Welsh 2017 rating list
+whichRatingList.2017List = rhestr ardrethu 2017
 whichRatingList.2017ListHelp = Welsh The agent can only act for you on previous valuations for your property that have an effective date between 1 April 2017 to 31 March 2023.
 whichRatingList.error = Welsh Select which rating list you want this agent to act on for you
 
@@ -1427,17 +1428,7 @@ dashboard.manageAgents.viewManagedProperties=Gweld yr eiddo a reolir
 dashboard.manageAgents.howToAppoint=Gallwch fynd i <a class="govuk-link" href={0}>’Fy eiddo’</a> i benodi asiant ar gyfer eiddo.
 
 #details page
-viewDetails.title=Fy manylion
-details.user=Manylion cyswllt y busnes
-details.disclaimer=Mae’n ofynnol arnom ni yn ôl y gyfraith i’ch diweddaru ar bwyntiau penodol yn ystod eich achos,   felly mae’n bwysig i ni gael eich manylion cyswllt cywir.
-details.advice=Dylai’r cyfeiriad rydych yn ei ddarparu fod yn gyfeiriad cyswllt rydych yn ei ffafrio ar gyfer eich busnes.   Ni ddylai fod yn gyfeiriad eich asiant na’ch cynrychiolydd awdurdodedig.
-details.personal.name=Enw
-details.personal.tradingName=Enw Masnachu
-details.personal.address=Cyfeiriad
-details.personal.phone=Rhif Ffôn
-details.personal.email=E-bost
-details.personal.mobile=Rhif ffôn symudol
-details.mobile.notSet=Heb ei osod
+details.contactDetailsUse=Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif.
 
 details.business=Manylion busnes
 details.business.agentCode=Cod asiant

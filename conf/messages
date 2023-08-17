@@ -342,8 +342,7 @@ createAccount.group.details.content.multipleAddress=You should enter the address
 createAccount.business.email.help=This should be your email address and not your agent’s. The email address should be monitored.
 
 #REGISTRATION SUCCESS PAGE
-account.confirmation.title=You’ve successfully registered your business.
-account.confirmation.heading=You’ve successfully registered for this service.
+account.confirmation.title=You’ve successfully registered
 create.success.personId=VOA Personal ID:
 create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
 create.success.keepUsingGg=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
@@ -549,6 +548,8 @@ propertyRepresentation.removeAgentProperties.title=Which of your properties do y
 propertyRepresentation.removeAgentProperties.p1=For the properties you select, the agent will not be able to:
 
 #Appoint agent
+propertyRepresentation.appointAgent.caption=Appoint an agent
+propertyRepresentation.appointAgent.choosingAList=Choosing a rating list is different to assigning properties to the agent. You will assign properties after choosing a rating list.
 propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
 propertyRepresentation.appointAgent.message.2=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
@@ -1543,17 +1544,7 @@ dashboard.manageAgents.viewManagedProperties=View managed properties
 dashboard.manageAgents.howToAppoint=You can go to <a class="govuk-link" href={0}>‘My properties’</a> to appoint an agent for a property.
 
 #details page
-viewDetails.title=My details
-details.user=Business contact details
-details.disclaimer= We are required by law to keep you updated at specific points of your case, so it’s important that we have your correct contact details.
-details.advice=The address you provide should be your preferred postal contact address for your business. It must not be that of your agent or authorised representative.
-details.personal.name=Name
-details.personal.tradingName=Trading Name
-details.personal.address=Address
-details.personal.phone=Telephone
-details.personal.email=Email
-details.personal.mobile=Mobile number
-details.mobile.notSet=Not set
+details.contactDetailsUse=We use your contact details to send you correspondence related to the service and your account.
 
 details.business=Business details
 details.business.agentCode=Agent code

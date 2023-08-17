@@ -36,6 +36,9 @@
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
+    @if(config.agentListYears) {
+        <span class="govuk-caption-l" >@messages("propertyRepresentation.manageAgent.title")</span>
+    }
     <h1 id="question-text" class="govuk-heading-l">@pageTitle</h1>
     <p class="govuk-body">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.p1")</p>
     @revokedAgentPrivilegesView()
