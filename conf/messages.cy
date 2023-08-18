@@ -300,7 +300,7 @@ registration.confirmation.whatNext.p1=Y tro nesaf y byddwch yn mewngofnodi I dde
 registration.confirmation.whatNext.p2=Os oes angen i chi ailosod eich cyfrinair, bydd angen i chi ddarparu eich rhif adnabod (ID) personol y VOA.
 registration.confirmation.whatNext.p3=Rhowch eich cod Asiant i’ch cleient fel y gallant eich penodi i weithredu ar eich rhan.
 registration.confirmation.whatNext.p4=Os oes unrhyw un arall eisiau cofrestru ar eich rhan chi o’r mudiad,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external noopener noreferrer">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a>.
-registration.confirmation.termsOfUse.p=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="telerau-ac-amodau">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
+registration.confirmation.termsOfUse.p=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="terms-and-conditions">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
 
 #MIGRATED ENROLMENT USER
 account.migrated.welcome=Croeso nôl

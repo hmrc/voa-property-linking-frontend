@@ -68,8 +68,6 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
 
   val addThemTooHref = "/business-rates-property-linking/add-user-to-gg"
   val termsLinkHref = "terms-and-conditions"
-  //  TODO: The below incorrect link href will be fixed under VTCCA-5902
-  val termsLinkHrefWelsh = "telerau-ac-amodau"
   val goToDashboardButtonHref = "/business-rates-dashboard/home"
 
   "RegistrationController confirmation method" should {
@@ -208,7 +206,7 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
 
       s"has a $termsLinkText link in welsh" in {
         document.select(termsLinkSelector).text() shouldBe termsLinkTextWelsh
-        document.select(termsLinkSelector).attr("href") shouldBe termsLinkHrefWelsh
+        document.select(termsLinkSelector).attr("href") shouldBe termsLinkHref
       }
 
       s"has a $goToDashboardText button in welsh" in {
