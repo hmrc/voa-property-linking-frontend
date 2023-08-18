@@ -1,12 +1,17 @@
 package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
+import binders.propertylinks.ClaimPropertyReturnToPage
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
+import models.{ClientDetails, LinkingSession, Owner, PropertyOccupancy, PropertyOwnership, PropertyRelationship, RatesBillType, UploadEvidenceData}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import play.api.http.HeaderNames
 import play.api.http.Status._
 import play.api.libs.json.Json
-import play.api.test.Helpers.{await, defaultAwaitTimeout}
+import play.api.test.Helpers.{OK, await, defaultAwaitTimeout}
+
+import java.time.LocalDate
 import java.util.UUID
 
 class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
@@ -221,6 +226,143 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(continueSelector).text() shouldBe continueTextWelsh
       }
     }
+  }
+
+  "RatingListOption Controller submit method" should {
+    "redirect to select ratings if no" in  {
+      await(
+        mockRepository.saveOrUpdate()
+      )
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody("{}")
+          }
+      }
+
+      val requestBody = Json.obj()
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/choose")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm"
+    }
+
+    "redirect too check your answers if yes" in {
+      await(
+        mockRepository.saveOrUpdate()
+      )
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody("{}")
+          }
+      }
+
+      val requestBody = Json.obj()
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/choose")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm"
+
+    }
+
+    "redirect too check your answers if yes and no properties" in {
+      await(
+        mockRepository.saveOrUpdate()
+      )
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody("{}")
+          }
+      }
+
+      val requestBody = Json.obj()
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/choose")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm"
+
+    }
+
+    "redirect too single properties if yes and single property" in {
+      await(
+        mockRepository.saveOrUpdate()
+      )
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody("{}")
+          }
+      }
+
+      val requestBody = Json.obj()
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/choose")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm"
+
+    }
+
+    "redirect too multiple if yes and multiple properties" in {
+      await(
+        mockRepository.saveOrUpdate()
+      )
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody("{}")
+          }
+      }
+
+      val requestBody = Json.obj()
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/choose")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm"
+
+    }
+
   }
 
   private def getRatingListOptionPage(language: Language): Document = {

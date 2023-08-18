@@ -163,6 +163,21 @@ class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
         }
       }
     }
+
+    "SelectRatingList Controller submit method" should {
+      "redirect too check your answers when answer is selected and no properties" in {
+
+      }
+
+      "redirect too check your answers when answer is selected and no properties" in {
+
+      }
+
+      "redirect too check your answers when answer is selected and no properties" in {
+
+      }
+    }
+
     private def getSelectRatingListPage(language: Language): Document = {
 
       stubFor {
