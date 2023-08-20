@@ -285,7 +285,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       agentAddress = "An Address",
       backLink = None,
       totalPropertySelectionSize = 2,
-      propertySelectedSize = 2
+      propertySelectedSize = 2,
+      bothRatingLists = Some(true),
+      specificRatingList = None
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(agentAppointAction =

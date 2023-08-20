@@ -2,15 +2,21 @@ package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
+import models.{Address, AgentAppointBulkAction}
+import models.propertyrepresentation.{AgentAppointmentChangesResponse, AgentSelected, All, AppointAgentJourneyStatus, AppointAgentToSomePropertiesSession, FilterAppointProperties, ManagingProperty, SearchedAgent, SelectedAgent}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import play.api.http.Status.OK
+import play.api.http.HeaderNames
+import play.api.http.Status.{OK, SEE_OTHER}
 import play.api.libs.json.Json
 import play.api.test.Helpers.{await, defaultAwaitTimeout}
+import repositories.{AppointAgentPropertiesSessionRepository, AppointAgentSessionRepository}
+import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
 class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
+
 
     val testSessionId = s"stubbed-${UUID.randomUUID}"
 
@@ -162,8 +168,95 @@ class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
           document.select(continueSelector).text() shouldBe continueTextWelsh
         }
       }
+
+      "SelectRatingList Controller submit method" should {
+        "redirect too check your answers when answer is selected and no properties" in {
+          submitSelectRatingListCommonStubbing()
+
+          stubFor {
+            get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+              .willReturn {
+                aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultNoProperties).toString())
+              }
+          }
+
+          val requestBody = Json.obj("multipleListYears" -> "2017")
+
+          val res = await(
+            ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
+              .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+              .withFollowRedirects(follow = false)
+              .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+              .post(body = requestBody)
+          )
+
+          res.status shouldBe SEE_OTHER
+          res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
+
+        }
+
+        "redirect too single property after answer is selected" in {
+          submitSelectRatingListCommonStubbing()
+
+          stubFor {
+            get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+              .willReturn {
+                aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult1).toString())
+              }
+          }
+
+          val requestBody = Json.obj("multipleListYears" -> "2017")
+
+          val res = await(
+            ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
+              .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+              .withFollowRedirects(follow = false)
+              .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+              .post(body = requestBody)
+          )
+
+          res.status shouldBe SEE_OTHER
+          res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"
+
+        }
+
+        "redirect too multiple property after answer is selected" in {
+          submitSelectRatingListCommonStubbing()
+
+          stubFor {
+            get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+              .willReturn {
+                aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultMultipleProperty).toString())
+              }
+          }
+
+          val requestBody = Json.obj("multipleListYears" -> "2017")
+
+          val res = await(
+            ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
+              .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+              .withFollowRedirects(follow = false)
+              .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+              .post(body = requestBody)
+          )
+
+          res.status shouldBe SEE_OTHER
+          res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+
+        }
+      }
     }
     private def getSelectRatingListPage(language: Language): Document = {
+
+      implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
+
+      lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
+
+      val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001,"Some Org", "street", AgentSelected, None)
+
+      val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Some(true), None)
+
+      await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
 
       stubFor {
         get("/business-rates-authorisation/authenticate")
@@ -188,6 +281,39 @@ class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
 
       res.status shouldBe OK
       Jsoup.parse(res.body)
+    }
+
+    private def submitSelectRatingListCommonStubbing() = {
+      implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
+
+      lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
+
+      val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001,"Some Org", "street", AgentSelected, None)
+
+      val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Some(true), Some("2017"))
+
+      await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody("{}")
+          }
+      }
+
+      stubFor {
+        get("/business-rates-authorisation/authenticate")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+          }
+      }
+
+      stubFor {
+        get("/property-linking/owner/property-links/count")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(0).toString())
+          }
+      }
     }
 
   }

@@ -15,11 +15,14 @@
  *@
 
 @import config.ApplicationConfig
+@import models.propertyrepresentation.RatingListYearsOptions
+@import models.propertyrepresentation.ratingList2017
+@import models.propertyrepresentation.ratingList2023
 
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
         govukInsetText: GovukInsetText)
 
-@(form: Form[_], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(fromCyaChange: Boolean, form: Form[RatingListYearsOptions], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     backUri = Some(backLink),
@@ -44,7 +47,7 @@
     <p class="govuk-body">@messages("whichRatingList.theRatingList")</p>
     <p class="govuk-body">@messages("whichRatingList.theAgentWill")</p>
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.SelectRatingListController.submitRatingListYear) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.SelectRatingListController.submitRatingListYear(fromCyaChange)) {
         @govukRadios(Radios(
             errorMessage = if(form.errors.nonEmpty) Some(ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages("whichRatingList.error")))) else None,
             fieldset = Some(Fieldset(
@@ -56,14 +59,16 @@
             name = "multipleListYears",
             items = List(
                 RadioItem(
-                    value = Some("true"),
+                    value = Some(ratingList2023.name),
+                    checked = form.value.fold(false)(_ == ratingList2023),
                     hint = Some(Hint(
                         content = Text(messages("whichRatingList.2023ListHelp"))
                     )),
                     content = Text(messages("whichRatingList.2023List"))
                 ),
                 RadioItem(
-                    value = Some("false"),
+                    value = Some(ratingList2017.name),
+                    checked = form.value.fold(false)(_ == ratingList2017),
                     hint = Some(Hint(
                         content = Text(messages("whichRatingList.2017ListHelp"))
                     )),

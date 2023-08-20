@@ -429,6 +429,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     preAuthenticatedActionBuilders(),
     stubWithAppointAgentSession,
     mockAgentRelationshipService,
+    mockFeatureSwitch,
     mockSessionRepo,
     startPageView,
     agentCodePageView,

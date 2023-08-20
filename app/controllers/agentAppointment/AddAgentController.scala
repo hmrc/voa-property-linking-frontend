@@ -21,6 +21,7 @@ import actions.agentrelationship.WithAppointAgentSessionRefiner
 import actions.agentrelationship.request.AppointAgentSessionRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
+import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import controllers.agentAppointment.AppointNewAgentForms._
@@ -45,6 +46,7 @@ class AddAgentController @Inject()(
       authenticated: AuthenticatedAction,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
       agentRelationshipService: AgentRelationshipService,
+      featureSwitch: FeatureSwitch,
       @Named("appointNewAgentSession") val sessionRepo: SessionRepo,
       startPageView: views.html.propertyrepresentation.appoint.start,
       agentCodeView: views.html.propertyrepresentation.appoint.agentCode,
@@ -226,11 +228,11 @@ class AddAgentController @Inject()(
                   searchedAgentOpt <- sessionRepo.get[SearchedAgent]
                   searchedAgent = searchedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
                   propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
-                                    params = GetPropertyLinksParameters(),
-                                    pagination = AgentPropertiesParameters(agentCode = searchedAgent.agentCode),
-                                    agentOrganisationId = searchedAgent.agentCode,
-                                    organisationId = request.organisationId
-                                  )
+                    params = GetPropertyLinksParameters(),
+                    pagination = AgentPropertiesParameters(agentCode = searchedAgent.agentCode),
+                    agentOrganisationId = searchedAgent.agentCode,
+                    organisationId = request.organisationId
+                  )
                 } yield {
                   sessionRepo
                     .get[AppointNewAgentSession]
@@ -240,27 +242,33 @@ class AddAgentController @Inject()(
                           case _: ManagingProperty =>
                             Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
                           case _ =>
-                            propertyLinks.authorisations.size match {
-                              case 0 =>
-                                sessionRepo.saveOrUpdate(
-                                  ManagingProperty(
-                                    SelectedAgent(searchedAgent, success),
-                                    selection = "none",
-                                    singleProperty = false,
-                                    totalPropertySelectionSize = 0,
-                                    propertySelectedSize = 0).copy(backLink = Some(backLink)))
-                                Future.successful(
-                                  Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
-                              case 1 =>
-                                sessionRepo.saveOrUpdate(
-                                  SelectedAgent(searchedAgent, success).copy(backLink = Some(backLink)))
-                                Future.successful(
-                                  Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty()))
-                              case _ =>
-                                sessionRepo.saveOrUpdate(
-                                  SelectedAgent(searchedAgent, success).copy(backLink = Some(backLink)))
-                                Future.successful(
-                                  Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties()))
+                            if (featureSwitch.isAgentListYearsEnabled) {
+                              sessionRepo.saveOrUpdate(
+                                SelectedAgent(searchedAgent, success, None, None).copy(backLink = Some(backLink)))
+                              Future.successful(Redirect(routes.RatingListOptionsController.show))
+                            } else {
+                              propertyLinks.authorisations.size match {
+                                case 0 =>
+                                  sessionRepo.saveOrUpdate(
+                                    ManagingProperty(
+                                      SelectedAgent(searchedAgent, success, None, None),
+                                      selection = "none",
+                                      singleProperty = false,
+                                      totalPropertySelectionSize = 0,
+                                      propertySelectedSize = 0).copy(backLink = Some(backLink)))
+                                  Future.successful(
+                                    Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
+                                case 1 =>
+                                  sessionRepo.saveOrUpdate(
+                                    SelectedAgent(searchedAgent, success, None, None).copy(backLink = Some(backLink)))
+                                  Future.successful(
+                                    Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty()))
+                                case _ =>
+                                  sessionRepo.saveOrUpdate(
+                                    SelectedAgent(searchedAgent, success, None, None).copy(backLink = Some(backLink)))
+                                  Future.successful(
+                                    Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties()))
+                              }
                             }
                         }
                     }
@@ -327,7 +335,7 @@ class AddAgentController @Inject()(
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
       val backLink =
         if (fromCyaChange) routes.CheckYourAnswersController.onPageLoad().url
-        else routes.AddAgentController.isCorrectAgent.url
+        else getBackLink
       for {
         agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
       } yield
@@ -339,7 +347,9 @@ class AddAgentController @Inject()(
                   agentToManageMultiplePropertiesView(
                     manageMultipleProperties.fill(AddAgentOptions.fromName(answers.managingPropertyChoice).get),
                     request.agentDetails.name,
-                    backLink))
+                    backLink
+                  )
+                )
               case _ =>
                 Ok(agentToManageMultiplePropertiesView(manageMultipleProperties, request.agentDetails.name, backLink))
             }
