@@ -23,33 +23,38 @@
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 
-@(form: Form[Boolean], agentDetails: AgentDetails)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[Boolean], agentDetails: AgentDetails, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.isThisYourAgent.title"),
-    backUri = Some(controllers.agentAppointment.routes.AddAgentController.showStartPage.url), hasErrors = form.hasErrors
+    backUri = Some(backLink), hasErrors = form.hasErrors
 ) {
 
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    <h1 class="govuk-heading-l">@messages("propertyRepresentation.isThisYourAgent.question")</h1>
+    <span id="caption" class="govuk-caption-l">@messages("caption.appoint.agent")</span>
+    <h1 class="govuk-heading-l">@messages("propertyRepresentation.isThisYourAgent.title")</h1>
 
-    <div class="govuk-inset-text">
+    <div class="govuk-inset-text" id="agent-details">
        @agentDetails.name <br/> @Formatters.capitalisedAddress(agentDetails.address)
     </div>
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected(backLink)) {
         @govukRadios(Radios(
             idPrefix = Some("isThisYourAgent"),
+            classes = "govuk-radios--inline",
             name = "isThisYourAgent",
             items = Seq(
                 RadioItem(id = Some("isThisYourAgent"), value = Some("true"), checked = form.value.fold(false)(_ == true), content = Text(messages("propertyRepresentation.isThisYourAgent.yes"))),
                 RadioItem(id = None, value = Some("false"), checked = form.value.fold(false)(_ == false), content = Text(messages("propertyRepresentation.isThisYourAgent.no")))
             )).withFormField(form("isThisYourAgent")))
 
-        @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button"))))
+        @govukButton(Button(
+            content = Text(messages("propertyRepresentation.appointAgent.button.continue")),
+            attributes = Map("id" -> "continue-button")
+        ))
     }
 
 }

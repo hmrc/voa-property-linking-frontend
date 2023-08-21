@@ -19,29 +19,33 @@
 
 @this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
 
-@(agentName: String, guidanceMessageKey: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, assignedToMessageKey: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-    pageTitle = messages("propertyRepresentation.confirmation.title"),
+    pageTitle = messages("propertyRepresentation.confirmation.title", agentName),
     backUri = None
 ) {
 
     @govukPanel(Panel(
-        title = Text(messages("propertyRepresentation.confirmation", agentName)),
+        title = Text(messages("propertyRepresentation.confirmation.title", agentName)),
         content = HtmlContent("")
     ))
 
-    <h2 id="whatHappensNext" class="govuk-heading-m">@messages("propertyRepresentation.confirmation.whatHappensNext")</h2>
-    @guidanceMessageKey.map{ messageKey =>
-        <p id="whatHappensNextP1" class="govuk-body">@messages(messageKey, agentName)</p>
+    @assignedToMessageKey.map{ messageKey =>
+        <p id="assigned-to" class="govuk-body">@messages(messageKey)</p>
     }
-<p class="govuk-body">
-     @Html(messages("manageProperties.appointAgent.confirmation.p1", controllers.agent.routes.ManageAgentController.showAgents.url))
-</p>
+
+    <p class="govuk-body" id="agent-can-text">@messages("propertyRepresentation.confirmation.thisAgentCan")</p>
+    <ul class="govuk-list govuk-list--bullet" id="agent-can-list">
+        <li>@messages("propertyRepresentation.confirmation.thisAgentCan.list.1")</li>
+    </ul>
+
+    <h2 id="what-happens-next-title" class="govuk-heading-m">@messages("propertyRepresentation.confirmation.whatHappensNext")</h2>
+    <p class="govuk-body" id="what-happens-next-text">@Html(messages("propertyRepresentation.confirmation.whatHappensNext.p1", controllers.agent.routes.ManageAgentController.showAgents.url))</p>
 
 
-<p class="govuk-body">
-        <a class="govuk-link" id="homeLink" href="@config.dashboardUrl("home")">@messages("link.return.home")</a>
+    <p class="govuk-body">
+        <a class="govuk-link" id="go-home-link" href="@config.dashboardUrl("home")">@messages("link.go.account.home")</a>
     </p>
 
 }

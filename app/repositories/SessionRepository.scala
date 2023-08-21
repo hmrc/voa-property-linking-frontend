@@ -66,14 +66,19 @@ class AssessmentsPageSessionRepository @Inject()(mongo: MongoComponent)(implicit
 class ManageAgentSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("manageAgent", mongo)
 
+//TODO: investigate ttl being 2Hours(Other services session cache is set to 15mins - make config driven
 abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent)(
       implicit executionContext: ExecutionContext)
     extends PlayMongoRepository[SessionData](
       collectionName = "sessions",
       mongoComponent = mongo,
       domainFormat = SessionData.format,
-      indexes =
-        Seq(IndexModel(Indexes.ascending("createdAt"), IndexOptions().name("sessionTTL").expireAfter((2L), HOURS)))
+      indexes = Seq(
+        IndexModel(
+          Indexes.ascending("createdAt"),
+          IndexOptions()
+            .name("sessionTTL")
+            .expireAfter(2L, HOURS)))
     ) with SessionRepo {
 
   override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] =

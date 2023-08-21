@@ -71,7 +71,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
       when(mockPropertyLinkConnector.agentAppointmentChange(any())(any()))
         .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))
 
-      val res = testService.assignAgentToSomeProperties(
+      val res = testService.postAgentAppointmentChange(
         AgentAppointmentChangeRequest(
           action = AppointmentAction.APPOINT,
           scope = AppointmentScope.PROPERTY_LIST,
@@ -90,7 +90,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
       when(mockPropertyLinkConnector.agentAppointmentChange(any())(any()))
         .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))
 
-      val res = testService.unassignAgentFromSomeProperties(
+      val res = testService.postAgentAppointmentChange(
         (
           AgentAppointmentChangeRequest(
             action = AppointmentAction.REVOKE,

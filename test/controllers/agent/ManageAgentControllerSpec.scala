@@ -443,7 +443,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     explainerIntro shouldBe "Ar gyfer eich holl eiddo, bydd yr asiant yn gallu:"
   }
 
-  "submitManageAgent" should "return 303 Redirect when agent is appointed to some properties" in {
+  "submitManageAgent" should "return 303 Redirect when agent is appointed to some properties & from manage agent journey should be true" in {
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
       Future.successful(organisationsAgentsListWithOneAgent.copy(
         agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
@@ -459,7 +459,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       Some(
         "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&" +
           "agentCode=12345&agentAppointed=BOTH&backLink=%2F" +
-          "business-rates-property-linking%2Fmy-organisation%2Fmanage-agent")
+          "business-rates-property-linking%2Fmy-organisation%2Fmanage-agent&fromManageAgentJourney=true")
   }
 
   "submitManageAgent" should "return 303 SEE OTHER when IP chooses to unassigned agent from all properties" in {
@@ -658,7 +658,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
           propertyCount = 1,
           listYears = Some(Seq("2017", "2023"))))
     )))
-    when(mockAgentRelationshipService.assignAgent(any())(any()))
+    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
@@ -752,7 +752,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "unassignAgentFromAll" should "return 303 Ok a valid form is submitted" in {
-    when(mockAgentRelationshipService.unassignAgent(any())(any()))
+    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
@@ -852,7 +852,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "removeAgentFromIpOrganisation" should "return 200 Ok a valid form is submitted" in {
-    when(mockAgentRelationshipService.removeAgentFromOrganisation(any())(any()))
+    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org", "back-link")(
@@ -866,7 +866,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   "confirmRemoveAgentFromOrganisation" should "return 200 Ok and display page" in {
     when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    when(mockAgentRelationshipService.removeAgentFromOrganisation(any())(any()))
+    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.confirmRemoveAgentFromOrganisation()(FakeRequest())
@@ -883,7 +883,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   "confirmRemoveAgentFromOrganisation" should "return 200 Ok and display page  - in welsh" in {
     when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    when(mockAgentRelationshipService.removeAgentFromOrganisation(any())(any()))
+    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res = testController.confirmRemoveAgentFromOrganisation()(welshFakeRequest)

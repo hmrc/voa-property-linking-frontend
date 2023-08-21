@@ -47,13 +47,20 @@
     agentCode: Long,
     agentAppointed: Option[String],
     organisationAgents: AgentList,
-    backLink: Option[String]
+    backLink: Option[String],
+    manageJourneyFlag: Boolean = false
 )(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{
     messages("propertyRepresentation.appointAgentProperties.title", model.agentGroup.companyName)
 }
 
+@submitControllerRoute =@{
+    if(manageJourneyFlag)
+        agentAppointment.routes.AppointAgentController.appointAgentSummary(agentCode, agentAppointed, submitBackLinkAsString)
+    else
+        agentAppointment.routes.AppointPropertiesController.onSubmit(agentCode, agentAppointed, submitBackLinkAsString)
+}
 @agentPropertiesFilter(showAllProperties: Boolean, backLink: String) = @{
     if(showAllProperties){
         link(
@@ -61,7 +68,7 @@
             location = agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
                 pagination,
                 agentCode,
-                agentAppointed = Some(AgentPropertiesFilter.No.name), backLink
+                agentAppointed = Some(AgentPropertiesFilter.No.name), backLink, false
             ).url,
             linkId = Some("filter-no-agent"),
             pWrapped = false
@@ -73,7 +80,8 @@
                 pagination,
                 agentCode,
                 None,
-                backLink
+                backLink,
+                false
             ).url,
             linkId = Some("filter-no-agent"),
             pWrapped = false
@@ -83,6 +91,14 @@
 
 @backLinkAsString = @{
     backLink.getOrElse(config.dashboardUrl("home"))
+}
+
+@submitBackLinkAsString = @{
+    agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
+        pagination,
+        agentCode,
+        None,
+        backLinkAsString, false).url
 }
 
 @appointedAgentToggle = @{
@@ -253,10 +269,11 @@
 
     <div class="govuk-button-group govuk-!-margin-0">
         @govukButton(Button(
+            classes = "govuk-button--secondary",
             content = Text(messages("label.search")),
             attributes = Map("id" -> "search-submit")
         ))
-        <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), agentCode, agentAppointed, backLinkAsString)"
+        <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), agentCode, agentAppointed, backLinkAsString, false)"
         id="clear-search" class="govuk-link pull-right">@messages("label.clear.search")</a>
     </div>
 }
@@ -275,6 +292,7 @@
     <div class="govuk-grid-row govuk-!-margin-bottom-3">
         <div class="govuk-grid-column-two-thirds">
 
+            <span id="caption" class="govuk-caption-l">@messages("caption.appoint.agent")</span>
             <h1 class="govuk-heading-l">@title</h1>
 
             <p class="govuk-body" id="explainer-intro">
@@ -316,7 +334,7 @@
         @if(model.response.authorisations.isEmpty){
             <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
         } else {
-            @formWithCSRF(agentAppointment.routes.AppointAgentController.appointAgentSummary(agentCode, agentAppointed, backLinkAsString)){
+            @formWithCSRF(submitControllerRoute){
                 <input type="hidden" name="agentCode" value="@agentCode">
                 <input type="hidden" name="name" value="@model.agentGroup.companyName">
                 <input type="hidden" name="backLinkUrl" value="@backLink">
@@ -349,7 +367,7 @@
                           ),
                           HeadCell(
                             content = HtmlContent(appointedAgentsColumnHeader),
-                            attributes = Map("style" -> "width: 20%", "id" -> "sort-by-agent-head", "aria-sort" -> s"${ariaSortOrder(params.sortorder, params.sortfield == AGENT)}"),
+                            attributes = Map("style" -> "width: 25%", "id" -> "sort-by-agent-head", "aria-sort" -> s"${ariaSortOrder(params.sortorder, params.sortfield == AGENT)}"),
                             classes = s"${sortOrder(params.sortorder, params.sortfield == AGENT)}"
                           )
                         )),
@@ -418,14 +436,9 @@
                     <div class="govuk-button-group">
                         @govukButton(
                             Button(
-                                content = Text(messages("propertyRepresentation.appointAgentProperties.confirmAndAssign")),
+                                content = Text(messages("propertyRepresentation.appointAgent.button.continue")),
                                 attributes = Map("id" -> "submit-button")
                             )
-                        )
-                        @link(
-                            linkText = messages("propertyRepresentation.appointAgentProperties.cancel"),
-                            location = controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode).url,
-                            linkId = Some("cancel-appoint")
                         )
                     </div>
                 </div>

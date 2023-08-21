@@ -210,7 +210,7 @@ class ManageAgentController @Inject()(
                 calculateBackLink(organisationsAgents, agent.representativeCode)
               ))
           } else {
-            (ipPropertyLinksCount) match {
+            ipPropertyLinksCount match {
               case 0 if agent.propertyCount == 0 =>
                 //IP has no property links but still has an agent
                 Some(
@@ -365,7 +365,7 @@ class ManageAgentController @Inject()(
               .getOrElse(Seq("2017", "2023"))
               .toList
             _ <- agentRelationshipService
-                  .assignAgent(
+                  .postAgentAppointmentChange(
                     AgentAppointmentChangeRequest(
                       action = AppointmentAction.APPOINT,
                       scope = AppointmentScope.ALL_PROPERTIES,
@@ -385,7 +385,7 @@ class ManageAgentController @Inject()(
           Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
         }, { success =>
           agentRelationshipService
-            .unassignAgent(AgentAppointmentChangeRequest(
+            .postAgentAppointmentChange(AgentAppointmentChangeRequest(
               agentRepresentativeCode = success.agentRepresentativeCode,
               action = AppointmentAction.REVOKE,
               scope = AppointmentScope.ALL_PROPERTIES,
@@ -436,7 +436,7 @@ class ManageAgentController @Inject()(
           Future.successful(BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, backLink)))
         }, { success =>
           agentRelationshipService
-            .removeAgentFromOrganisation(AgentAppointmentChangeRequest(
+            .postAgentAppointmentChange(AgentAppointmentChangeRequest(
               agentRepresentativeCode = success.agentRepresentativeCode,
               action = AppointmentAction.REVOKE,
               scope = AppointmentScope.RELATIONSHIP,
@@ -467,7 +467,8 @@ class ManageAgentController @Inject()(
         pagination = PaginationParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
-        backLink = controllers.agent.routes.ManageAgentController.showManageAgent.url
+        backLink = controllers.agent.routes.ManageAgentController.showManageAgent.url,
+        fromManageAgentJourney = true
       ))
 
   private def joinOldAgentRevokeJourney(agentCode: Long) =

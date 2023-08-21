@@ -19,58 +19,45 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components.link
 
-@this(govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukButton: GovukButton, mainLayout: views.html.mainLayout)
 
-@(form: Form[String], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
-  pageTitle = messages("propertyRepresentation.addAnAgent.title"),
+  pageTitle = messages("propertyRepresentation.start.title"),
   backUri = Some(backLink),
-  hasErrors = form.hasErrors
-) {
+    ) {
 
-  @if(form.errors.nonEmpty) {
-    @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
-  }
+    <h1 class="govuk-heading-l">@messages("propertyRepresentation.start.title")</h1>
 
-  <h1 class="govuk-heading-l">@messages("propertyRepresentation.addAnAgent.title")</h1>
+    <p class="govuk-body" id="they-can-intro">@messages("propertyRepresentation.start.theyCan.1")</p>
 
-  <p class="govuk-body" id="explainer-intro">@messages("propertyRepresentation.addAnAgent.info.1")</p>
+    <ul class="govuk-list govuk-list--bullet" id="they-can-list">
+        <li>@messages("propertyRepresentation.start.theyCan.list.1")</li>
+        <li>@messages("propertyRepresentation.start.theyCan.list.2")</li>
+        <li>@messages("propertyRepresentation.start.theyCan.list.3")</li>
+        <li>@messages("propertyRepresentation.start.theyCan.list.4")</li>
+    </ul>
 
-  <ul class="govuk-list govuk-list--bullet" id="explainer-list">
-    <li>@messages("propertyRepresentation.addAnAgent.info.list.1")</li>
-    <li>@messages("propertyRepresentation.addAnAgent.info.list.2")</li>
-    <li>@messages("propertyRepresentation.addAnAgent.info.list.3")</li>
-  </ul>
+    <p class="govuk-body" id="they-can-info">@messages("propertyRepresentation.start.theyCan.2")</p>
+    <p class="govuk-body" id="you-can-intro">@messages("propertyRepresentation.start.youCan.1")</p>
 
-  <p class="govuk-body" id="explainer-add">@messages("propertyRepresentation.addAnAgent.info.2")</p>
-  <p class="govuk-body" id="explainer-multiple">@messages("propertyRepresentation.addAnAgent.info.3")</p>
+    <ul class="govuk-list govuk-list--bullet" id="you-can-list">
+        <li>@messages("propertyRepresentation.start.youCan.list.1")</li>
+        <li>@messages("propertyRepresentation.start.youCan.list.2")</li>
+        <li>@messages("propertyRepresentation.start.youCan.list.3")</li>
+    </ul>
 
-  @link(
-    linkText = messages("propertyRepresentation.addAnAgent.info.help.link"),
-    location = "https://www.gov.uk/guidance/appoint-an-agent",
-    linkId = Some("explainer-help-link")
-  )
-
-  @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.getAgentDetails) {
-
-    @govukInput(Input(
-      label = Label(
-        content = Text(messages("propertyRepresentation.addAnAgent.codeInput.label")),
-        classes = "govuk-label--m",
-        attributes = Map("id" -> "agentCode-label")
-      ),
-      hint = Some(Hint(
-        content = Text(messages("propertyRepresentation.addAnAgent.codeInput.hint")),
-        classes = "",
-        id = Some("agentCode-hint")
-      )),
-      classes = "govuk-input--width-10"
-    ).withFormField(form("agentCode")))
+    @link(
+        linkText = messages("propertyRepresentation.start.help.link"),
+        location = "https://www.gov.uk/guidance/appoint-an-agent",
+        linkId = Some("help-link")
+    )
 
     @govukButton(Button(
-      content = Text(messages("propertyRepresentation.appointAgent.button")),
-      attributes = Map("id" -> "continue-button")
+        href = Some(controllers.agentAppointment.routes.AddAgentController.showAgentCodePage().url),
+        isStartButton = true,
+        content = Text(messages("propertyRepresentation.start.startNow")),
+        attributes = Map("id" -> "start-now-button")
     ))
-  }
 }

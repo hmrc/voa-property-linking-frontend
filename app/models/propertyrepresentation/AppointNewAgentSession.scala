@@ -74,13 +74,20 @@ case class ManagingProperty(
       singleProperty: Boolean = false,
       status: AppointAgentJourneyStatus = ManagingPropertySelected,
       backLink: Option[String],
+      totalPropertySelectionSize: Int = 0,
+      propertySelectedSize: Int = 0,
       appointmentScope: Option[AppointmentScope] = None)
     extends AppointNewAgentSession
 
 object ManagingProperty {
   implicit val format: OFormat[ManagingProperty] = Json.format[ManagingProperty]
 
-  def apply(selectedAgent: SelectedAgent, selection: String, singleProperty: Boolean): ManagingProperty =
+  def apply(
+        selectedAgent: SelectedAgent,
+        selection: String,
+        singleProperty: Boolean,
+        totalPropertySelectionSize: Int,
+        propertySelectedSize: Int): ManagingProperty =
     ManagingProperty(
       agentCode = selectedAgent.agentCode,
       agentOrganisationName = selectedAgent.agentOrganisationName,
@@ -88,7 +95,9 @@ object ManagingProperty {
       isCorrectAgent = selectedAgent.isCorrectAgent,
       managingPropertyChoice = selection,
       singleProperty = singleProperty,
-      backLink = selectedAgent.backLink
+      backLink = selectedAgent.backLink,
+      totalPropertySelectionSize = totalPropertySelectionSize,
+      propertySelectedSize = propertySelectedSize
     )
 }
 

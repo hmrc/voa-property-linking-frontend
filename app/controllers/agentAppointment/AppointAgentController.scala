@@ -27,7 +27,7 @@ import controllers._
 import form.FormValidation.nonEmptyList
 import models.GroupAccount.AgentGroupAccount
 import models._
-import models.propertyrepresentation.{AgentAppointmentChangeRequest, AppointAgentToSomePropertiesSession, AppointmentAction, AppointmentScope, FilterAppointProperties, FilterRevokePropertiesSessionData, RevokeAgentFromSomePropertiesSession}
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AppointAgentToSomePropertiesSession, AppointNewAgentSession, AppointmentAction, AppointmentScope, FilterAppointProperties, FilterRevokePropertiesSessionData, ManagingProperty, RevokeAgentFromSomePropertiesSession}
 import models.searchApi.AgentPropertiesFilter.Both
 import models.searchApi._
 import play.api.Logger
@@ -48,6 +48,7 @@ class AppointAgentController @Inject()(
       accounts: GroupAccounts,
       authenticated: AuthenticatedAction,
       agentRelationshipService: AgentRelationshipService,
+      @Named("appointNewAgentSession") val appointNewAgentSession: SessionRepo,
       @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
       @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
       @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
@@ -78,9 +79,16 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String
+        backLink: String,
+        fromManageAgentJourney: Boolean = false
   ): Action[AnyContent] = authenticated.async { implicit request =>
-    searchForAppointableProperties(pagination, agentCode, agentAppointed, backLink, Some(GetPropertyLinksParameters()))
+    searchForAppointableProperties(
+      pagination,
+      agentCode,
+      agentAppointed,
+      backLink,
+      Some(GetPropertyLinksParameters()),
+      fromManageAgentJourney)
   }
 
   // this endpoint only exists so we don't 404 when changing language after getting an error on search
@@ -160,9 +168,8 @@ class AppointAgentController @Inject()(
         agentCode: Long,
         agentAppointed: Option[String],
         backLink: String,
-        searchParamsOpt: Option[GetPropertyLinksParameters] = None)(
-        implicit request: AuthenticatedRequest[_],
-        hc: HeaderCarrier) =
+        searchParamsOpt: Option[GetPropertyLinksParameters] = None,
+        fromManageAgentJourney: Boolean = false)(implicit request: AuthenticatedRequest[_], hc: HeaderCarrier) =
     for {
       sessionDataOpt    <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
@@ -215,7 +222,8 @@ class AppointAgentController @Inject()(
               agentCode = agentCode,
               agentAppointed = agentAppointed,
               organisationAgents = agentList,
-              backLink = Some(backLink)
+              backLink = Some(backLink),
+              manageJourneyFlag = fromManageAgentJourney
             ))
         case None =>
           notFound
@@ -243,7 +251,9 @@ class AppointAgentController @Inject()(
       appointAgentBulkActionForm
         .bindFromRequest()
         .fold(
-          errors => appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl),
+          errors => {
+            appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl)
+          },
           success = (action: AgentAppointBulkAction) => {
             accounts.withAgentCode(action.agentCode.toString).flatMap {
               case Some(group) =>
@@ -257,7 +267,7 @@ class AppointAgentController @Inject()(
                       .getOrElse(Seq("2017", "2023"))
                       .toList
                     _ <- agentRelationshipService
-                          .assignAgentToSomeProperties(AgentAppointmentChangeRequest(
+                          .postAgentAppointmentChange(AgentAppointmentChangeRequest(
                             agentRepresentativeCode = agentCode,
                             action = AppointmentAction.APPOINT,
                             scope = AppointmentScope.PROPERTY_LIST,
@@ -281,7 +291,7 @@ class AppointAgentController @Inject()(
                                    request.organisationAccount.id,
                                    group.id
                                  )
-                    } yield
+                    } yield {
                       BadRequest(appointAgentPropertiesView(
                         f = Some(appointAgentBulkActionForm.withError("appoint.error", "error.transaction")),
                         model = AppointAgentPropertiesVM(group, response),
@@ -290,8 +300,10 @@ class AppointAgentController @Inject()(
                         agentCode = action.agentCode,
                         agentAppointed = None,
                         organisationAgents = agentList,
-                        backLink = Some(action.backLinkUrl)
+                        backLink = Some(action.backLinkUrl),
+                        manageJourneyFlag = true
                       ))
+                    }
                   case e: Exception => throw e
                 }
               case None =>
@@ -326,7 +338,8 @@ class AppointAgentController @Inject()(
               agentCode,
               agentAppointed,
               agentList,
-              backLink = Some(backLinkUrl)
+              backLink = Some(backLinkUrl),
+              manageJourneyFlag = true
             ))
       case None =>
         Future.successful(notFound)
@@ -522,7 +535,7 @@ class AppointAgentController @Inject()(
                   for {
                     sessionDataOpt <- revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession]
                     _ <- agentRelationshipService
-                          .unassignAgentFromSomeProperties(AgentAppointmentChangeRequest(
+                          .postAgentAppointmentChange(AgentAppointmentChangeRequest(
                             agentRepresentativeCode = action.agentCode,
                             action = AppointmentAction.REVOKE,
                             scope = AppointmentScope.PROPERTY_LIST,
