@@ -616,6 +616,10 @@ propertyRepresentation.checkYourAnswers.options.no=No
 propertyRepresentation.checkYourAnswers.options.yes=Yes
 propertyRepresentation.checkYourAnswers.change=Change
 propertyRepresentation.checkYourAnswers.confirmAndAppoint=Confirm and appoint
+propertyRepresentation.checkYourAnswers.ratings=Which rating list do you want this agent to act on for you?
+propertyRepresentation.checkYourAnswers.ratings.single.answer={0} rating lists
+propertyRepresentation.checkYourAnswers.ratings.multiple.answer=2023 and 2017 rating lists
+
 
 propertyRepresentation.confirmation.title={0} has been appointed to your account
 propertyRepresentation.confirmation.yourProperty=They have also been assigned to your property.

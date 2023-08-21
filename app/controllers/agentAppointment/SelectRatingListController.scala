@@ -18,25 +18,30 @@ package controllers.agentAppointment
 
 import actions.AuthenticatedAction
 import actions.agentrelationship.WithAppointAgentSessionRefiner
+import binders.propertylinks.GetPropertyLinksParameters
 import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
-import form.Mappings.mandatoryBoolean
-import models.RatingListYears
-import play.api.data.Form
-import play.api.data.Forms.mapping
+import form.EnumMapping
+import models.propertyrepresentation.{AppointNewAgentSession, ManagingProperty, RatingListYearsOptions, SelectedAgent}
+import models.searchApi.AgentPropertiesParameters
+import play.api.data.{Form, Forms}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import repositories.SessionRepo
+import services.AgentRelationshipService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class SelectRatingListController @Inject()(
       authenticated: AuthenticatedAction,
       featureSwitch: FeatureSwitch,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
+      agentRelationshipService: AgentRelationshipService,
+      @Named("appointNewAgentSession") val sessionRepo: SessionRepo,
       selectRatingListView: views.html.appointAgent.selectRatingList)(
       implicit executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -45,25 +50,127 @@ class SelectRatingListController @Inject()(
       val errorHandler: CustomErrorHandler
 ) extends PropertyLinkingController {
 
-  def show: Action[AnyContent] = authenticated.async { implicit request =>
+  def show(fromCyaChange: Boolean = false): Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
-      Future.successful(
-        Ok(
-          selectRatingListView(
-            ratingListYears,
-            backLink = getBackLink
-          )))
-    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+      for {
+        agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
+        selectedAgent = agentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+      } yield {
+        selectedAgent match {
+          case answers: ManagingProperty if (answers.specificRatingList.nonEmpty) =>
+            Future.successful(
+              Ok(
+                selectRatingListView(
+                  fromCyaChange,
+                  ratingListYears.fill(RatingListYearsOptions.fromName(answers.specificRatingList.get).get),
+                  backLink = getBackLink
+                )))
+          case answers: SelectedAgent if (answers.specificRatingList.nonEmpty) =>
+            Future.successful(
+              Ok(
+                selectRatingListView(
+                  fromCyaChange,
+                  ratingListYears.fill(RatingListYearsOptions.fromName(answers.specificRatingList.get).get),
+                  backLink = getBackLink
+                )))
+          case _ =>
+            Future.successful(
+              Ok(
+                selectRatingListView(
+                  fromCyaChange,
+                  ratingListYears,
+                  backLink = getBackLink
+                )))
+        }
+      }
+    }.flatten
+    else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
   }
 
-  def submitRatingListYear: Action[AnyContent] = TODO
+  def submitRatingListYear(fromCyaChange: Boolean = false): Action[AnyContent] =
+    authenticated.andThen(withAppointAgentSession).async { implicit request =>
+      ratingListYears
+        .bindFromRequest()
+        .fold(
+          errors => {
+            Future.successful(BadRequest(selectRatingListView(fromCyaChange, errors, getBackLink)))
+          },
+          success => {
+            if (fromCyaChange) {
+              sessionRepo
+                .get[AppointNewAgentSession]
+                .map { session =>
+                  session.get match {
+                    case managingProperty: ManagingProperty =>
+                      sessionRepo.saveOrUpdate(managingProperty.copy(specificRatingList = Some(success.name)))
+                      Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
+                  }
+                }
+                .flatten
+            } else {
+              for {
+                selectedAgentOpt <- sessionRepo.get[SelectedAgent]
+                selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+                propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
+                                  params = GetPropertyLinksParameters(),
+                                  pagination = AgentPropertiesParameters(agentCode = selectedAgent.agentCode),
+                                  agentOrganisationId = selectedAgent.agentCode,
+                                  organisationId = request.organisationId
+                                )
+                _ <- sessionRepo.saveOrUpdate(selectedAgent.copy(specificRatingList = Some(success.name)))
+              } yield {
+                sessionRepo
+                  .get[AppointNewAgentSession]
+                  .map {
+                    case Some(sessionData) =>
+                      sessionData match {
+                        case _ =>
+                          propertyLinks.authorisations.size match {
+                            case 0 =>
+                              sessionRepo.saveOrUpdate(
+                                ManagingProperty(
+                                  selectedAgent.copy(specificRatingList = Some(success.name)),
+                                  selection = "none",
+                                  singleProperty = false,
+                                  totalPropertySelectionSize = 0,
+                                  propertySelectedSize = 0,
+                                ).copy(backLink = Some(getBackLink)))
+                              Future.successful(
+                                Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
+                            case 1 =>
+                              sessionRepo.saveOrUpdate(
+                                selectedAgent.copy(
+                                  specificRatingList = Some(success.name),
+                                  backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url)
+                                )
+                              )
+                              Future.successful(
+                                Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty()))
+                            case _ =>
+                              sessionRepo.saveOrUpdate(
+                                selectedAgent.copy(
+                                  specificRatingList = Some(success.name),
+                                  backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url)
+                                )
+                              )
+                              Future.successful(
+                                Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties()))
+                          }
+                      }
+                  }
+                  .flatten
+              }
+            }.flatten
+          }
+        )
+    }
 
   def getBackLink = controllers.agentAppointment.routes.RatingListOptionsController.show.url
 
-  def ratingListYears: Form[RatingListYears] =
-    Form(
-      mapping(
-        "multipleListYears" -> mandatoryBoolean,
-      )(RatingListYears.apply)(RatingListYears.unapply))
+  def ratingListYears: Form[RatingListYearsOptions] = Form(
+    Forms.single(
+      "multipleListYears" -> EnumMapping(RatingListYearsOptions)
+    )
+  )
 
 }

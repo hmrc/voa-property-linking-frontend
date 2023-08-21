@@ -32,12 +32,18 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
   val agentHeadingWelsh = "Asiant"
   val assignPropertiesHeading = "Which properties do you want to assign to this agent?"
   val assignPropertiesHeadingWelsh = "Pa eiddo ydych chi’n dymuno neilltuo ir asiant hwn?"
+  val assignRatingListHeading = "Which rating list do you want this agent to act on for you?"
+  val assignRatingListHeadingWelsh = "Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?"
+  val answerRatingList = "2023 and 2017 rating lists"
+  val answerRatingListWelsh = "Rhestr ardrethu 2023 a rhestr ardrethu 2017"
 
   val agentHeadingId = "agent-heading"
   val agentValueId = "agent-value"
   val changeAgentLinkId = "change-agent"
   val propertiesHeadingId = "properties-heading"
   val propertiesValueId = "properties-value"
+  val ratingsHeadingId = "ratings-heading"
+  val ratingsValueId = "ratings-value"
   val changePropertiesLinkId = "change-properties"
   val continueButtonSelector = "button.govuk-button"
   val backLinkSelector = "#back-link"
@@ -153,6 +159,33 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
       lazy val document = getDocument(Welsh)
       document.getElementById(propertiesValueId).text() shouldBe "Dim eiddo"
+    }
+
+    "return 200 & display correct content (both rating values)" in new TestSetup {
+
+      await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData.copy(propertySelectedSize = 1)))
+      await(mockAppointAgentPropertiesSessionRepository
+        .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
+
+      lazy val document = getDocument(English)
+      document.getElementById(ratingsValueId).text() shouldBe answerRatingList
+      document.select(backLinkSelector).text() shouldBe backLinkText
+      document.select(backLinkSelector).attr("href")shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+    }
+
+    "return 200 & display correct content (both rating values) - Welsh" in new TestSetup {
+
+      await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData.copy(propertySelectedSize = 1)))
+      await(mockAppointAgentPropertiesSessionRepository
+        .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
+
+      lazy val document = getDocument(Welsh)
+      document.getElementById(ratingsValueId).text() shouldBe answerRatingListWelsh
+      document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+      document.select(backLinkSelector).attr("href") shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+
     }
 
     "return 404 Not Found when no ManagingProperty data found in cache" in new TestSetup {
@@ -299,7 +332,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       agentAddress = "An Address",
       backLink = None,
       totalPropertySelectionSize = 2,
-      propertySelectedSize = 2
+      propertySelectedSize = 2,
+      bothRatingLists = Some(true),
+      specificRatingList = None
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(agentAppointAction =
@@ -354,6 +389,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       document.getElementById(agentHeadingId).text() shouldBe agentHeading
       document.getElementById(agentValueId).text() shouldBe "Some Org"
       document.getElementById(propertiesHeadingId).text() shouldBe assignPropertiesHeading
+      document.getElementById(ratingsHeadingId).text() shouldBe assignRatingListHeading
       document.select(continueButtonSelector).text() shouldBe continueButtonText
     } else {
       document.title() shouldBe titleTextWelsh
@@ -361,6 +397,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       document.getElementById(agentHeadingId).text() shouldBe agentHeadingWelsh
       document.getElementById(agentValueId).text() shouldBe "Some Org"
       document.getElementById(propertiesHeadingId).text() shouldBe assignPropertiesHeadingWelsh
+      document.getElementById(ratingsHeadingId).text() shouldBe assignRatingListHeadingWelsh
       document.select(continueButtonSelector).text() shouldBe continueButtonTextWelsh
     }
 

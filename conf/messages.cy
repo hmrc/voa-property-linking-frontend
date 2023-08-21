@@ -562,6 +562,9 @@ propertyRepresentation.checkYourAnswers.options.no=Na
 propertyRepresentation.checkYourAnswers.options.yes=Ie
 propertyRepresentation.checkYourAnswers.change=Newid
 propertyRepresentation.checkYourAnswers.confirmAndAppoint=Cadarnhau a phenodi
+propertyRepresentation.checkYourAnswers.ratings=Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?
+propertyRepresentation.checkYourAnswers.ratings.single.answer={0} rating lists
+propertyRepresentation.checkYourAnswers.ratings.multiple.answer=Rhestr ardrethu 2023 a rhestr ardrethu 2017
 
 propertyRepresentation.confirmation.title=Mae {0} wedi’i benodi i’ch cyfrif
 propertyRepresentation.confirmation.yourProperty=Maent hefyd wedi’u neilltuo i’ch eiddo.

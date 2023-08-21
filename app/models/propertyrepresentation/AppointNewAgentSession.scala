@@ -49,19 +49,27 @@ case class SelectedAgent(
       agentAddress: String,
       isCorrectAgent: Boolean,
       status: AppointAgentJourneyStatus = AgentSelected,
-      backLink: Option[String])
+      backLink: Option[String],
+      bothRatingLists: Option[Boolean],
+      specificRatingList: Option[String])
     extends AppointNewAgentSession
 
 object SelectedAgent {
   implicit val format: OFormat[SelectedAgent] = Json.format[SelectedAgent]
 
-  def apply(searchedAgent: SearchedAgent, isTheCorrectAgent: Boolean): SelectedAgent =
+  def apply(
+        searchedAgent: SearchedAgent,
+        isTheCorrectAgent: Boolean,
+        bothRatingLists: Option[Boolean],
+        specificRatingList: Option[String]): SelectedAgent =
     SelectedAgent(
       agentCode = searchedAgent.agentCode,
       agentOrganisationName = searchedAgent.agentOrganisationName,
       agentAddress = searchedAgent.agentAddress,
       isCorrectAgent = isTheCorrectAgent,
-      backLink = searchedAgent.backLink
+      backLink = searchedAgent.backLink,
+      bothRatingLists = bothRatingLists,
+      specificRatingList = specificRatingList
     )
 }
 
@@ -76,7 +84,9 @@ case class ManagingProperty(
       backLink: Option[String],
       totalPropertySelectionSize: Int = 0,
       propertySelectedSize: Int = 0,
-      appointmentScope: Option[AppointmentScope] = None)
+      appointmentScope: Option[AppointmentScope] = None,
+      bothRatingLists: Option[Boolean] = None,
+      specificRatingList: Option[String] = None)
     extends AppointNewAgentSession
 
 object ManagingProperty {
@@ -97,7 +107,9 @@ object ManagingProperty {
       singleProperty = singleProperty,
       backLink = selectedAgent.backLink,
       totalPropertySelectionSize = totalPropertySelectionSize,
-      propertySelectedSize = propertySelectedSize
+      propertySelectedSize = propertySelectedSize,
+      bothRatingLists = selectedAgent.bothRatingLists,
+      specificRatingList = selectedAgent.specificRatingList
     )
 }
 

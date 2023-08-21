@@ -124,8 +124,8 @@ GET         /my-organisation/confirm-appoint-agent                              
 #RATING LIST
 GET         /my-organisation/appoint-new-agent/ratings-list                                                               controllers.agentAppointment.RatingListOptionsController.show
 POST        /my-organisation/appoint-new-agent/ratings-list/confirm                                                       controllers.agentAppointment.RatingListOptionsController.submitRatingListYear
-GET         /my-organisation/appoint-new-agent/ratings-list-select                                                        controllers.agentAppointment.SelectRatingListController.show
-POST        /my-organisation/appoint-new-agent/ratings-list-select/confirm                                                controllers.agentAppointment.SelectRatingListController.submitRatingListYear
+GET         /my-organisation/appoint-new-agent/ratings-list-select                                                        controllers.agentAppointment.SelectRatingListController.show(fromCyaChange: Boolean ?= false)
+POST        /my-organisation/appoint-new-agent/ratings-list-select/confirm                                                controllers.agentAppointment.SelectRatingListController.submitRatingListYear(fromCyaChange: Boolean ?= false)
 
 #MANAGE AGENT
 GET         /my-organisation/manage-agent                                                                                 controllers.agent.ManageAgentController.showManageAgent
