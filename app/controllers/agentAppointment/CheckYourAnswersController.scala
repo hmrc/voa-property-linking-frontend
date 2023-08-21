@@ -47,6 +47,9 @@ class CheckYourAnswersController @Inject()(
   def onPageLoad(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
     PartialFunction
       .condOpt(request.sessionData) {
+        case data: ManagingProperty if data.appointmentSubmitted =>
+          appointNewAgentSession.remove()
+          NotFound(errorHandler.notFoundTemplate)
         case data: ManagingProperty =>
           Ok(checkYourAnswersView(submitAgentAppointmentRequest, data))
       }

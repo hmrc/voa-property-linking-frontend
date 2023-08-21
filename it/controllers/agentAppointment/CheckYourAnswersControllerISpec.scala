@@ -154,6 +154,34 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       lazy val document = getDocument(Welsh)
       document.getElementById(propertiesValueId).text() shouldBe "Dim eiddo"
     }
+
+    "return 404 Not Found when no ManagingProperty data found in cache" in new TestSetup {
+      await(mockAppointAgentSessionRepository.remove())
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .get()
+      )
+
+      res.status shouldBe NOT_FOUND
+
+    }
+
+    "return 404 Not Found when appointmentSubmitted is true" in new TestSetup {
+      await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
+        .copy(appointmentSubmitted = true)))
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .get()
+      )
+
+      res.status shouldBe NOT_FOUND
+    }
   }
 
   "onSubmit" should {

@@ -122,7 +122,6 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
         }
     }
 
-
     stubFor {
       get("/business-rates-authorisation/authenticate")
         .willReturn {
