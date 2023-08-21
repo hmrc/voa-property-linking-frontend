@@ -360,7 +360,7 @@ registration.confirmation.whatNext.p1=Next time you sign in to the service, use 
 registration.confirmation.whatNext.p2=If you need to reset your password, you’ll need to provide your VOA personal ID number.
 registration.confirmation.whatNext.p3=Give your Agent code to your client so they can appoint you to act for them.
 registration.confirmation.whatNext.p4=If anyone else wants to register on your behalf of the organisation, you’ll need to <a class="govuk-link" href="{0}" rel="external noopener noreferrer">add them to your Government Gateway account</a>.
-registration.confirmation.termsOfUse.p=Information provided using this service is only for the purpose of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosected under the relevant legisation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
+registration.confirmation.termsOfUse.p=Information provided using this service is only for the purpose of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
 
 #MIGRATED ENROLMENT USER
 account.migrated.welcome=Welcome back
