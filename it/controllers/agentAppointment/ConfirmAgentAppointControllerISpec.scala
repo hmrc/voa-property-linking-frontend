@@ -30,10 +30,6 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       lazy val document = getDocument(English)
       document.getElementById(assignedToId).text() shouldBe "They have also been assigned to the properties you selected."
 
-      //Verify that the ManagingProperty cache data is updated with appointmentSubmitted = true
-      val cacheResult = await(mockAppointAgentSessionRepository.get[ManagingProperty])
-      cacheResult shouldBe Some(managingPropertyData.copy(managingPropertyChoice =  ChooseFromList.name)
-        .copy(appointmentSubmitted = true))
     }
 
     "return 200 & display correct content (Some properties) - Welsh" in new TestSetup {

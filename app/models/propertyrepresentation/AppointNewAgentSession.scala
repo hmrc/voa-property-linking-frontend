@@ -76,8 +76,7 @@ case class ManagingProperty(
       backLink: Option[String],
       totalPropertySelectionSize: Int = 0,
       propertySelectedSize: Int = 0,
-      appointmentScope: Option[AppointmentScope] = None,
-      appointmentSubmitted: Boolean = false)
+      appointmentScope: Option[AppointmentScope] = None)
     extends AppointNewAgentSession
 
 object ManagingProperty {

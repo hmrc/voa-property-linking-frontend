@@ -45,7 +45,6 @@ class ConfirmAgentAppointController @Inject()(
     request.sessionData match {
       case data: ManagingProperty =>
         val key = {
-          appointNewAgentSession.saveOrUpdate(data.copy(appointmentSubmitted = true))
           if (data.singleProperty)
             Some("propertyRepresentation.confirmation.yourProperty")
           else {
