@@ -80,7 +80,7 @@ class AppointAgentController @Inject()(
         agentCode: Long,
         agentAppointed: Option[String],
         backLink: String,
-        fromManageAgentJourney: Boolean = false
+        fromManageAgentJourney: Boolean
   ): Action[AnyContent] = authenticated.async { implicit request =>
     searchForAppointableProperties(
       pagination,
@@ -96,17 +96,23 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String
+        backLink: String,
+        fromManageAgentJourney: Boolean
   ): Action[AnyContent] = authenticated.async { implicit request =>
-    searchForAppointableProperties(pagination, agentCode, agentAppointed, backLink)
+    searchForAppointableProperties(
+      pagination,
+      agentCode,
+      agentAppointed,
+      backLink,
+      fromManageAgentJourney = fromManageAgentJourney)
   }
 
   def filterPropertiesForAppoint(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String
-  ): Action[AnyContent] = authenticated.async { implicit request =>
+        backLink: String,
+        fromManageAgentJourney: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
     filterAppointPropertiesForm
       .bindFromRequest()
       .fold(
@@ -117,7 +123,9 @@ class AppointAgentController @Inject()(
             agentCode,
             agentAppointed,
             backLink,
-            Some(GetPropertyLinksParameters().copy(address = filter.address, agent = filter.agent)))
+            Some(GetPropertyLinksParameters().copy(address = filter.address, agent = filter.agent)),
+            fromManageAgentJourney
+        )
       )
   }
 
@@ -125,9 +133,14 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String
-  ): Action[AnyContent] = authenticated.async { implicit request =>
-    searchForAppointableProperties(pagination, agentCode, agentAppointed, backLink)
+        backLink: String,
+        fromManageAgentJourney: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
+    searchForAppointableProperties(
+      pagination,
+      agentCode,
+      agentAppointed,
+      backLink,
+      fromManageAgentJourney = fromManageAgentJourney)
   }
 
   def sortPropertiesForAppoint(
@@ -135,8 +148,8 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String
-  ): Action[AnyContent] = authenticated.async { implicit request =>
+        backLink: String,
+        fromManageAgentJourney: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].flatMap {
       case Some(sessionData) =>
         searchForAppointableProperties(
@@ -151,7 +164,8 @@ class AppointAgentController @Inject()(
                 agent = sessionData.filters.agent,
                 sortorder = sessionData.filters.sortOrder,
                 sortfield = sortField)
-              .reverseSorting)
+              .reverseSorting),
+          fromManageAgentJourney = fromManageAgentJourney
         )
       case None =>
         searchForAppointableProperties(
@@ -159,7 +173,9 @@ class AppointAgentController @Inject()(
           agentCode,
           agentAppointed,
           backLink,
-          Some(GetPropertyLinksParameters().copy(sortfield = sortField).reverseSorting))
+          Some(GetPropertyLinksParameters().copy(sortfield = sortField).reverseSorting),
+          fromManageAgentJourney = fromManageAgentJourney
+        )
     }
   }
 
@@ -169,7 +185,7 @@ class AppointAgentController @Inject()(
         agentAppointed: Option[String],
         backLink: String,
         searchParamsOpt: Option[GetPropertyLinksParameters] = None,
-        fromManageAgentJourney: Boolean = false)(implicit request: AuthenticatedRequest[_], hc: HeaderCarrier) =
+        fromManageAgentJourney: Boolean)(implicit request: AuthenticatedRequest[_], hc: HeaderCarrier) =
     for {
       sessionDataOpt    <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
@@ -242,8 +258,14 @@ class AppointAgentController @Inject()(
   def showAppointAgentSummary(
         agentCode: Long,
         agentAppointed: Option[String],
-        backLinkUrl: String): Action[AnyContent] = authenticated.async { implicit request =>
-    searchForAppointableProperties(PaginationParameters(), agentCode, agentAppointed, backLinkUrl)
+        backLinkUrl: String,
+        fromManageAgentJourney: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
+    searchForAppointableProperties(
+      PaginationParameters(),
+      agentCode,
+      agentAppointed,
+      backLinkUrl,
+      fromManageAgentJourney = fromManageAgentJourney)
   }
 
   def appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String): Action[AnyContent] =

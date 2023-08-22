@@ -22,11 +22,13 @@ import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
 import models.propertyrepresentation._
+import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -42,7 +44,7 @@ class CheckYourAnswersController @Inject()(
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
       val config: ApplicationConfig
-) extends PropertyLinkingController {
+) extends PropertyLinkingController with Logging {
 
   def onPageLoad(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
     PartialFunction
@@ -50,7 +52,10 @@ class CheckYourAnswersController @Inject()(
         case data: ManagingProperty =>
           Ok(checkYourAnswersView(submitAgentAppointmentRequest, data))
       }
-      .getOrElse(NotFound(errorHandler.notFoundTemplate))
+      .getOrElse {
+        logger.info("Failed to find ManagingProperty data in the session cache.")
+        NotFound(errorHandler.notFoundTemplate)
+      }
   }
 
   def onSubmit: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>

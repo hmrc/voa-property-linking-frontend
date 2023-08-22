@@ -75,7 +75,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       PaginationParameters(),
       agentCode,
       None,
-      "/my-organisation/appoint")(FakeRequest())
+      "/my-organisation/appoint",
+      false)(FakeRequest())
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
@@ -132,7 +133,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         initialPaginationParams,
         agentCode,
         initialAgentAppointedQueryParam,
-        backLinkQueryParam
+        backLinkQueryParam,
+        false
       )
       .url
     sortByAppointedAgents.text shouldBe "Appointed agents"
@@ -142,7 +144,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         initialPaginationParams,
         agentCode,
         initialAgentAppointedQueryParam,
-        backLinkQueryParam
+        backLinkQueryParam,
+        false
       )
       .url
     confirmButton shouldBe "Continue"
@@ -197,7 +200,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         initialPaginationParams,
         agentCode,
         initialAgentAppointedQueryParam,
-        backLinkQueryParam
+        backLinkQueryParam,
+        false
       )
       .url
     sortByAppointedAgents.text shouldBe "Asiantiaid penodedig"
@@ -207,7 +211,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         initialPaginationParams,
         agentCode,
         initialAgentAppointedQueryParam,
-        backLinkQueryParam
+        backLinkQueryParam,
+        false
       )
       .url
     confirmButton shouldBe "Yn eich blaen"
@@ -293,7 +298,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       PaginationParameters().nextPage,
       agentCode,
       None,
-      "/my-organisation/appoint")(FakeRequest())
+      "/my-organisation/appoint",
+      false)(FakeRequest())
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
@@ -333,7 +339,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       PaginationParameters(),
       agentCode,
       None,
-      "/my-organisation/appoint")(FakeRequest())
+      "/my-organisation/appoint",
+      false)(FakeRequest())
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
@@ -346,7 +353,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       initialPaginationParams,
       agentCode,
       initialAgentAppointedQueryParam,
-      backLinkQueryParam)(fakeRequest)
+      backLinkQueryParam,
+      false)(fakeRequest)
 
     heading shouldBe s"Choose which of your properties you want to assign ${agent.companyName} to"
   }
@@ -373,7 +381,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val backLink = "/my-organisation/appoint"
     val res =
-      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink)(
+      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink, false)(
         FakeRequest().withFormUrlEncodedBody(
           "address"     -> "address 1",
           "agentCode"   -> "12345",
@@ -422,7 +430,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val backLink = "/my-organisation/appoint"
     val res =
-      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink)(
+      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink, false)(
         FakeRequest().withFormUrlEncodedBody(
           "address"     -> "address 1",
           "agent"       -> "Some Agent Org",
@@ -538,7 +546,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "showAppointAgentSummary" should "display the filterPropertiesForAppoint page" in new UnfilteredResultsTestCase
   with English {
     override lazy val result: Future[Result] =
-      testController.showAppointAgentSummary(agentCode, initialAgentAppointedQueryParam, backLinkQueryParam)(
+      testController.showAppointAgentSummary(agentCode, initialAgentAppointedQueryParam, backLinkQueryParam, false)(
         fakeRequest)
 
     heading shouldBe s"Choose which of your properties you want to assign ${agent.companyName} to"
@@ -1008,7 +1016,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       initialPaginationParams,
       agentCode,
       initialAgentAppointedQueryParam,
-      backLinkQueryParam)(self.fakeRequest)
+      backLinkQueryParam,
+      false)(self.fakeRequest)
 
     val doc: Document = Jsoup.parse(contentAsString(result))
     val heading: String = doc.getElementsByTag("h1").text
@@ -1056,7 +1065,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val backLink = "/my-organisation/appoint"
     val errorResult: Future[Result] =
-      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink)(
+      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLink, false)(
         self.fakeRequest.withFormUrlEncodedBody("agentCode" -> "12345", "backLinkUrl" -> backLink))
     val errorDoc: Document = Jsoup.parse(contentAsString(errorResult))
 
