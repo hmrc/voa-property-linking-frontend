@@ -479,6 +479,7 @@ assessments.view.summary=View summary valuation
 label.viewAssessmentRadio=Valuation
 
 assessments.localAuthorityRef=Local council reference:
+assessments.property=Property:
 assessments.caption.ip=Your property
 assessments.caption.agent=Client property: {0}
 assessments.title=Select a valuation to check
