@@ -107,10 +107,10 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     clearSearch.attr("href") shouldBe routes.AppointAgentController
       .getMyOrganisationPropertyLinksWithAgentFiltering(
         PaginationParameters(),
-        agentCode,
-        initialAgentAppointedQueryParam,
-        backLinkQueryParam,
-        false
+        agentCode = agentCode,
+        agentAppointed = initialAgentAppointedQueryParam,
+        backLink = backLinkQueryParam,
+        fromManageAgentJourney = false
       )
       .url
 
@@ -119,33 +119,33 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     filterNoAgent.attr("href") shouldBe routes.AppointAgentController
       .getMyOrganisationPropertyLinksWithAgentFiltering(
         PaginationParameters(),
-        agentCode,
-        Some(AgentPropertiesFilter.No.name),
-        backLinkQueryParam,
-        false
+        agentCode = agentCode,
+        agentAppointed = Some(AgentPropertiesFilter.No.name),
+        backLink = backLinkQueryParam,
+        fromManageAgentJourney = false
       )
       .url
 
     sortByAddress.text shouldBe "Address"
     sortByAddress.attr("href") shouldBe controllers.agentAppointment.routes.AppointAgentController
       .sortPropertiesForAppoint(
-        ADDRESS,
-        initialPaginationParams,
-        agentCode,
-        initialAgentAppointedQueryParam,
-        backLinkQueryParam,
-        false
+        sortField = ADDRESS,
+        pagination = initialPaginationParams,
+        agentCode = agentCode,
+        agentAppointed = initialAgentAppointedQueryParam,
+        backLink = backLinkQueryParam,
+        fromManageAgentJourney = false
       )
       .url
     sortByAppointedAgents.text shouldBe "Appointed agents"
     sortByAppointedAgents.attr("href") shouldBe controllers.agentAppointment.routes.AppointAgentController
       .sortPropertiesForAppoint(
-        AGENT,
-        initialPaginationParams,
-        agentCode,
-        initialAgentAppointedQueryParam,
-        backLinkQueryParam,
-        false
+        sortField = AGENT,
+        pagination = initialPaginationParams,
+        agentCode = agentCode,
+        agentAppointed = initialAgentAppointedQueryParam,
+        backLink = backLinkQueryParam,
+        fromManageAgentJourney = false
       )
       .url
     confirmButton shouldBe "Continue"
@@ -196,23 +196,23 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     sortByAddress.text shouldBe "Cyfeiriad"
     sortByAddress.attr("href") shouldBe controllers.agentAppointment.routes.AppointAgentController
       .sortPropertiesForAppoint(
-        ADDRESS,
-        initialPaginationParams,
-        agentCode,
-        initialAgentAppointedQueryParam,
-        backLinkQueryParam,
-        false
+        sortField = ADDRESS,
+        pagination = initialPaginationParams,
+        agentCode = agentCode,
+        agentAppointed = initialAgentAppointedQueryParam,
+        backLink = backLinkQueryParam,
+        fromManageAgentJourney = false
       )
       .url
     sortByAppointedAgents.text shouldBe "Asiantiaid penodedig"
     sortByAppointedAgents.attr("href") shouldBe controllers.agentAppointment.routes.AppointAgentController
       .sortPropertiesForAppoint(
-        AGENT,
-        initialPaginationParams,
-        agentCode,
-        initialAgentAppointedQueryParam,
-        backLinkQueryParam,
-        false
+        sortField = AGENT,
+        pagination = initialPaginationParams,
+        agentCode = agentCode,
+        agentAppointed = initialAgentAppointedQueryParam,
+        backLink = backLinkQueryParam,
+        fromManageAgentJourney = false
       )
       .url
     confirmButton shouldBe "Yn eich blaen"
@@ -335,12 +335,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     StubGroupAccountConnector.stubAccount(agent)
 
     val res = testController.sortPropertiesForAppoint(
-      ExternalPropertyLinkManagementSortField.ADDRESS,
-      PaginationParameters(),
-      agentCode,
-      None,
-      "/my-organisation/appoint",
-      false)(FakeRequest())
+      sortField = ExternalPropertyLinkManagementSortField.ADDRESS,
+      pagination = PaginationParameters(),
+      agentCode = agentCode,
+      agentAppointed = None,
+      backLink = "/my-organisation/appoint",
+      fromManageAgentJourney = false
+    )(FakeRequest())
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
