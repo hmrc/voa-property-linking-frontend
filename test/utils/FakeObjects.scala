@@ -46,6 +46,121 @@ import models.properties.AllowedAction.{CHECK, VIEW_DETAILED_VALUATION}
 
 trait FakeObjects {
 
+  lazy val clientPropertyLink = ClientPropertyLink(
+    authorisationId = 4222211L,
+    authorisedPartyId = 1222L,
+    status = PropertyLinkingApproved,
+    startDate = LocalDate.parse("2019-07-22"),
+    endDate = Some(LocalDate.parse("2020-07-12")),
+    submissionId = "PLSubId",
+    capacity = "OWNER",
+    uarn = 999000111L,
+    address = "123, SOME ADDRESS, SOME TOWN, EF3 GH4",
+    localAuthorityRef = "BAREF",
+    client = ClientDetails(10000L, "Some organisation 2")
+  )
+  lazy val ownerAuthorisation = OwnerAuthorisation(
+    authorisationId = 4222211L,
+    status = "APPROVED",
+    submissionId = "PLSubId",
+    uarn = 999000111L,
+    address = "123, SOME ADDRESS, SOME TOWN, AB1 CD2",
+    localAuthorityRef = "BAREF",
+    agents = Seq(ownerAuthAgent)
+  )
+  lazy val ownerCheckCase = CheckCaseWithAgent(
+    checkCaseSubmissionId = "123344",
+    checkCaseReference = "CHK10000732",
+    checkCaseStatus = CheckCaseStatus.CLOSED,
+    address = "CHK-1234",
+    uarn = 1000L,
+    createdDateTime = LocalDateTime.parse("2020-07-11T17:19:33"),
+    settledDate = Some(LocalDate.parse("2020-07-12")),
+    agent = Some(agent1),
+    submittedBy = "Some other person",
+    originatingAssessmentReference = 1L
+  )
+  lazy val agentCheckCase = new CheckCaseWithClient(
+    checkCaseSubmissionId = "123344",
+    checkCaseReference = "CHK10000742",
+    checkCaseStatus = CheckCaseStatus.OPEN,
+    address = "CHK-1234",
+    uarn = 1000L,
+    createdDateTime = LocalDateTime.parse("2020-07-21T17:19:33"),
+    settledDate = Some(LocalDate.parse("2020-07-22")),
+    client = Client(10000L, "Some organisation 2"),
+    submittedBy = "Some other person 2",
+    originatingAssessmentReference = 1L
+  )
+  lazy val agentChallengeCase = new ChallengeCaseWithClient(
+    challengeCaseSubmissionId = "123344",
+    challengeCaseReference = "CHG10000742",
+    challengeCaseStatus = ChallengeCaseStatus.OPEN,
+    address = "CHG-1234",
+    uarn = 1000L,
+    createdDateTime = LocalDateTime.parse("2020-07-21T17:19:33"),
+    settledDate = Some(LocalDate.parse("2020-07-22")),
+    client = Client(10000L, "Some organisation 2"),
+    submittedBy = "Some other person 2",
+    originatingAssessmentReference = 1L
+  )
+  lazy val ownerChallengeCase = ChallengeCaseWithAgent(
+    challengeCaseSubmissionId = "123344",
+    challengeCaseReference = "CHG10000732",
+    challengeCaseStatus = ChallengeCaseStatus.CLOSED,
+    address = "CHG-1234",
+    uarn = 1000L,
+    createdDateTime = LocalDateTime.parse("2020-07-11T17:19:33"),
+    settledDate = Some(LocalDate.parse("2020-07-12")),
+    agent = Some(agent1),
+    submittedBy = "Some other person",
+    originatingAssessmentReference = 1L
+  )
+  lazy val canChallengeResponse = CanChallengeResponse(result = true, reasonCode = Some("41a"), reason = Some("Ok"))
+  lazy val ownerCheckCasesResponse =
+    CheckCasesWithAgent(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(ownerCheckCase))
+  lazy val agentCheckCasesResponse =
+    CheckCasesWithClient(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(agentCheckCase))
+  lazy val ownerAuthResultResponse =
+    OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = List(ownerAuthorisation))
+  lazy val ownerChallengeCasesResponse =
+    ChallengeCasesWithAgent(start = 1, size = 15, filterTotal = 1, total = 1, challengeCases = List(ownerChallengeCase))
+  lazy val agentChallengeCasesResponse =
+    ChallengeCasesWithClient(
+      start = 1,
+      size = 15,
+      filterTotal = 1,
+      total = 1,
+      challengeCases = List(agentChallengeCase))
+  lazy val assessmentPageSession: AssessmentsPageSession = AssessmentsPageSession(PreviousPage.SelectedClient)
+  lazy val appointNewAgentSession: AppointNewAgentSession = SelectedAgent(
+    agentCode = agentCode,
+    agentOrganisationName = agentDetails.name,
+    agentAddress = agentDetails.address,
+    isCorrectAgent = true,
+    backLink = None,
+    bothRatingLists = None,
+    specificRatingList = None
+  )
+  lazy val april2017 = LocalDate.of(2017, 4, 1)
+  lazy val april2023 = LocalDate.of(2023, 4, 1)
+  lazy val dvrRecord: DvrRecord = DvrRecord(
+    organisationId = orgIdIp,
+    assessmentRef = assessmentRef,
+    agents = Some(List(orgIdAgent)),
+    dvrSubmissionId = Some("DVR-123A45B")
+  )
+  lazy val ownerChallengeCaseDetails =
+    CaseDetails(
+      submittedDate = LocalDateTime.parse("2020-07-11T17:19:33"),
+      status = "CLOSED",
+      caseReference = "CHG10000732",
+      closedDate = Some(LocalDate.parse("2020-07-12")),
+      clientOrAgent = "Some organisation",
+      submittedBy = "Some other person",
+      agent = Some(agent1)
+    )
+  private lazy val agent1: Agent = Agent(10000L, 10000L, "Some organisation")
   val ggExternalId = "gg-ext-id"
   val ggGroupId = "gg-group-id"
   val firstName = "Bob"
@@ -62,10 +177,8 @@ trait FakeObjects {
   val orgIdIp = 321L
   val orgIdAgent = 654L
   val assessmentRef = 987L
-
   val earliestEnglishStartDate = LocalDate.of(2017, 4, 1)
   val earliestWelshStartDate = LocalDate.of(2023, 4, 1)
-
   val principal = Principal(ggExternalId, ggGroupId)
   val FILE_REFERENCE: String = "1862956069192540"
   val preparedUpload = PreparedUpload(Reference(FILE_REFERENCE), UploadFormTemplate("http://localhost/upscan", Map()))
@@ -85,18 +198,11 @@ trait FakeObjects {
     initiateResult = None,
     principal = principal
   )
-
   val noEvidencelinkBasis: NoEvidenceFlag.type = NoEvidenceFlag
-  def fileInfo(evType: EvidenceType): CompleteFileInfo = CompleteFileInfo("test.pdf", evType)
-
-  def uploadEvidenceData(fileInfo: FileInfo, flag: LinkBasis = RatesBillFlag): UploadEvidenceData =
-    UploadEvidenceData(flag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
-
   val uploadRatesBillData: UploadEvidenceData = uploadEvidenceData(fileInfo(RatesBillType))
   val uploadLeaseData: UploadEvidenceData = uploadEvidenceData(fileInfo(Lease))
   val uploadLicenseData: UploadEvidenceData = uploadEvidenceData(fileInfo(License))
   val uploadServiceChargeData: UploadEvidenceData = uploadEvidenceData(fileInfo(ServiceCharge), OtherEvidenceFlag)
-
   val detailedIndividualAccount =
     DetailedIndividualAccount(
       externalId = ggExternalId,
@@ -107,21 +213,8 @@ trait FakeObjects {
     )
   val individualUserDetails: UserDetails = userDetails(AffinityGroup.Individual)
   val orgUserDetails: UserDetails = userDetails(AffinityGroup.Organisation)
-
-  def groupAccount(agent: Boolean): GroupAccount =
-    GroupAccount(
-      id = 1L,
-      groupId = ggGroupId,
-      companyName = ggExternalId,
-      addressId = 1,
-      email = email,
-      phone = phone,
-      isAgent = agent,
-      agentCode = Some(300L).filter(_ => agent))
-
   val groupAccountDetails = GroupAccountDetails(companyName, address, email, email, phone, isAgent = false)
   val testAccounts = Accounts(groupAccount(agent = true), detailedIndividualAccount)
-
   val individualUserAccountDetails = IndividualUserAccountDetails(
     firstName = firstName,
     lastName = lastName,
@@ -135,13 +228,11 @@ trait FakeObjects {
     tradingName = Some("Trading name"),
     selectedAddress = None
   )
-
   val adminInExistingOrganisationAccountDetails = AdminInExistingOrganisationAccountDetails(
     firstName = "Billy-Bob",
     lastName = "AdminInExistingOrganisation",
     dob = dateOfBirth,
     nino = nino)
-
   val adminOrganisationAccountDetails = AdminOrganisationAccountDetails(
     firstName = firstName,
     lastName = lastName,
@@ -155,23 +246,6 @@ trait FakeObjects {
     selectedAddress = None,
     isAgent = false
   )
-
-  def userDetails(
-        affinityGroup: AffinityGroup = AffinityGroup.Individual,
-        credentialRole: CredentialRole = User,
-        confidenceLevel: ConfidenceLevel = ConfidenceLevel.L200): UserDetails =
-    UserDetails(
-      firstName = Some(firstName),
-      lastName = Some(lastName),
-      email = email,
-      postcode = Some(postCode),
-      groupIdentifier = ggGroupId,
-      affinityGroup = affinityGroup,
-      externalId = ggExternalId,
-      credentialRole = credentialRole,
-      confidenceLevel = confidenceLevel
-    )
-
   val agentOrganisation = AgentOrganisation(
     id = 12L,
     representativeCode = Some(agentCode),
@@ -185,16 +259,13 @@ trait FakeObjects {
     ),
     persons = List()
   )
-
   val startJourney = Start(backLink = None)
-
   val searchedAgent = SearchedAgent(
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
     agentAddress = "An Address",
     backLink = None
   )
-
   val selectedAgent = SelectedAgent(
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
@@ -204,7 +275,6 @@ trait FakeObjects {
     bothRatingLists = None,
     specificRatingList = None
   )
-
   val managingProperty = ManagingProperty(
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
@@ -215,7 +285,6 @@ trait FakeObjects {
     totalPropertySelectionSize = 1,
     propertySelectedSize = 1
   )
-
   val managingPropertyNoProperties = ManagingProperty(
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
@@ -224,7 +293,6 @@ trait FakeObjects {
     agentAddress = "An Address",
     backLink = None
   )
-
   val managingPropertyChooseProperties = ManagingProperty(
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
@@ -235,43 +303,17 @@ trait FakeObjects {
     totalPropertySelectionSize = 1,
     propertySelectedSize = 1
   )
-
   val ownerAuthAgent = OwnerAuthAgent(
     authorisedPartyId = 12L,
     organisationId = 1L,
     organisationName = "Some Org name",
     agentCode = agentCode
   )
-
   val ownerAuthAgent2 = OwnerAuthAgent(
     authorisedPartyId = 1222L,
     organisationId = 122L,
     organisationName = "Some Org name 2",
     agentCode = 6754L
-  )
-
-  lazy val clientPropertyLink = ClientPropertyLink(
-    authorisationId = 4222211L,
-    authorisedPartyId = 1222L,
-    status = PropertyLinkingApproved,
-    startDate = LocalDate.parse("2019-07-22"),
-    endDate = Some(LocalDate.parse("2020-07-12")),
-    submissionId = "PLSubId",
-    capacity = "OWNER",
-    uarn = 999000111L,
-    address = "123, SOME ADDRESS, SOME TOWN, EF3 GH4",
-    localAuthorityRef = "BAREF",
-    client = ClientDetails(10000L, "Some organisation 2")
-  )
-
-  lazy val ownerAuthorisation = OwnerAuthorisation(
-    authorisationId = 4222211L,
-    status = "APPROVED",
-    submissionId = "PLSubId",
-    uarn = 999000111L,
-    address = "123, SOME ADDRESS, SOME TOWN, AB1 CD2",
-    localAuthorityRef = "BAREF",
-    agents = Seq(ownerAuthAgent)
   )
   val ownerAuthorisation2 = OwnerAuthorisation(
     authorisationId = 4222212L,
@@ -291,7 +333,6 @@ trait FakeObjects {
     localAuthorityRef = "BAREF2",
     agents = Seq.empty
   )
-
   val ownerAuthResultWithOneAuthorisation = OwnerAuthResult(
     start = 1,
     size = 15,
@@ -299,7 +340,6 @@ trait FakeObjects {
     total = 1,
     authorisations = Seq(ownerAuthorisation)
   )
-
   val ownerAuthResultWithTwoAuthorisation = OwnerAuthResult(
     start = 1,
     size = 15,
@@ -307,7 +347,6 @@ trait FakeObjects {
     total = 2,
     authorisations = Seq(ownerAuthorisation, ownerAuthorisation2)
   )
-
   val ownerAuthResultWithTwoAuthsAgentAssignedToOne = OwnerAuthResult(
     start = 1,
     size = 15,
@@ -315,7 +354,6 @@ trait FakeObjects {
     total = 2,
     authorisations = Seq(ownerAuthorisation, ownerAuthorisationWithNoAgent)
   )
-
   val ownerAuthResultWithNoAuthorisations = OwnerAuthResult(
     start = 1,
     size = 15,
@@ -323,13 +361,9 @@ trait FakeObjects {
     total = 0,
     authorisations = Seq.empty
   )
-
   val ownerAgentsNoAgents = OwnerAgents(agents = Seq.empty)
-
   val ownerAgent = OwnerAgent(name = "Some Agent Org", ref = agentCode)
-
   val ownerAgentsWithOneAgent = OwnerAgents(agents = Seq(ownerAgent))
-
   val agentSummary: AgentSummary = AgentSummary(
     organisationId = 1L,
     representativeCode = 987L,
@@ -337,7 +371,6 @@ trait FakeObjects {
     appointedDate = LocalDate.now().minusDays(1),
     propertyCount = 2
   )
-
   val agentSummary2: AgentSummary = AgentSummary(
     organisationId = 2L,
     representativeCode = 988L,
@@ -345,7 +378,6 @@ trait FakeObjects {
     appointedDate = LocalDate.now().minusDays(2),
     propertyCount = 1
   )
-
   val agentSummary3: AgentSummary = AgentSummary(
     organisationId = 3L,
     representativeCode = 989L,
@@ -353,18 +385,13 @@ trait FakeObjects {
     appointedDate = LocalDate.now().minusDays(3),
     propertyCount = 1
   )
-
   val organisationsAgentsListWithOneAgent: AgentList = AgentList(resultCount = 1, agents = List(agentSummary))
   val organisationsAgentsListWithTwoAgents: AgentList =
     AgentList(resultCount = 2, agents = List(agentSummary, agentSummary2))
   val organisationsAgentsListWithThreeAgents: AgentList =
     AgentList(resultCount = 3, agents = List(agentSummary, agentSummary2, agentSummary3))
   val emptyOrganisationsAgentsList: AgentList = AgentList(resultCount = 0, agents = List.empty)
-
   val agentDetails: AgentDetails = AgentDetails(name = "Awesome Agent", address = "1 Awesome Street, AB1 1BA")
-
-  private val agent1: Agent = Agent(10000L, 10000L, "Some organisation")
-
   val ownerCheckCaseDetails =
     CaseDetails(
       submittedDate = LocalDateTime.parse("2020-07-11T17:19:33"),
@@ -375,7 +402,6 @@ trait FakeObjects {
       submittedBy = "Some other person",
       agent = Some(agent1)
     )
-
   val agentCheckCaseDetails =
     CaseDetails(
       submittedDate = LocalDateTime.parse("2020-07-21T17:19:33"),
@@ -385,18 +411,6 @@ trait FakeObjects {
       clientOrAgent = "Some organisation 2",
       submittedBy = "Some other person 2"
     )
-
-  val ownerChallengeCaseDetails =
-    CaseDetails(
-      submittedDate = LocalDateTime.parse("2020-07-11T17:19:33"),
-      status = "CLOSED",
-      caseReference = "CHG10000732",
-      closedDate = Some(LocalDate.parse("2020-07-12")),
-      clientOrAgent = "Some organisation",
-      submittedBy = "Some other person",
-      agent = Some(agent1)
-    )
-
   val agentChallengeCaseDetails =
     CaseDetails(
       submittedDate = LocalDateTime.parse("2020-07-21T17:19:33"),
@@ -406,93 +420,121 @@ trait FakeObjects {
       clientOrAgent = "Some organisation 2",
       submittedBy = "Some other person 2"
     )
-
-  lazy val ownerCheckCase = CheckCaseWithAgent(
-    checkCaseSubmissionId = "123344",
-    checkCaseReference = "CHK10000732",
-    checkCaseStatus = CheckCaseStatus.CLOSED,
-    address = "CHK-1234",
-    uarn = 1000L,
-    createdDateTime = LocalDateTime.parse("2020-07-11T17:19:33"),
-    settledDate = Some(LocalDate.parse("2020-07-12")),
-    agent = Some(agent1),
-    submittedBy = "Some other person",
-    originatingAssessmentReference = 1L
+  val propertyValuation1: PropertyValuation = PropertyValuation(
+    valuationId = 123,
+    valuationStatus = ValuationStatus.CURRENT,
+    rateableValue = Some(BigDecimal(1000)),
+    scatCode = Some("scatCode"),
+    effectiveDate = LocalDate.of(2019, 2, 21),
+    currentFromDate = LocalDate.of(2019, 2, 21),
+    currentToDate = None,
+    listYear = "current",
+    primaryDescription = ReferenceData("code", "description"),
+    allowedActions = AllowedAction.values.toList,
+    listType = ListType.CURRENT,
+    propertyLinkEarliestStartDate = None
+  )
+  val propertyValuation2: PropertyValuation = PropertyValuation(
+    valuationId = 123,
+    valuationStatus = ValuationStatus.CURRENT,
+    rateableValue = Some(BigDecimal(1000)),
+    scatCode = Some("scatCode"),
+    effectiveDate = LocalDate.of(2019, 2, 21),
+    currentFromDate = LocalDate.of(2019, 2, 21),
+    currentToDate = None,
+    listYear = "current",
+    primaryDescription = ReferenceData("code", "description"),
+    allowedActions = AllowedAction.values.toList,
+    listType = ListType.CURRENT,
+    propertyLinkEarliestStartDate = Some(LocalDate.now().plusYears(1))
+  )
+  val propertyValuationNoRateable: PropertyValuation = PropertyValuation(
+    valuationId = 123,
+    valuationStatus = ValuationStatus.CURRENT,
+    rateableValue = None,
+    scatCode = Some("scatCode"),
+    effectiveDate = LocalDate.of(2019, 2, 21),
+    currentFromDate = LocalDate.of(2019, 2, 21),
+    currentToDate = None,
+    listYear = "current",
+    primaryDescription = ReferenceData("code", "description"),
+    allowedActions = AllowedAction.values.toList,
+    listType = ListType.CURRENT,
+    propertyLinkEarliestStartDate = Some(LocalDate.now().plusYears(1))
+  )
+  val testPropertyValuations = Seq(
+    propertyValuation1,
+    propertyValuation2
+  )
+  val testPropertyValuationsNoRateableInfo = Seq(
+    propertyValuation1,
+    propertyValuationNoRateable
+  )
+  val propertyHistory = new PropertyHistory(
+    uarn = 4500,
+    addressFull = address.toString,
+    localAuthorityCode = "4500",
+    localAuthorityReference = "BACODE",
+    history = testPropertyValuations,
+    allowedActions = List(AllowedAction.PROPERTY_LINK)
+  )
+  val propertyHistoryNoRatableInfo = new PropertyHistory(
+    uarn = 4500,
+    addressFull = address.toString,
+    localAuthorityCode = "4500",
+    localAuthorityReference = "BACODE",
+    history = testPropertyValuations,
+    allowedActions = List(AllowedAction.PROPERTY_LINK)
+  )
+  val propertyLinkingSession = LinkingSession(
+    address = "LS",
+    uarn = 1L,
+    submissionId = "PL-123456",
+    personId = 1L,
+    earliestStartDate = earliestEnglishStartDate,
+    propertyRelationship = Some(PropertyRelationship(Owner, 1L)),
+    propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
+    propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+    hasRatesBill = Some(true),
+    uploadEvidenceData = UploadEvidenceData.empty,
+    evidenceType = Some(RatesBillType),
+    clientDetails = Some(ClientDetails(100, "ABC")),
+    localAuthorityReference = "12341531531",
+    rtp = ClaimPropertyReturnToPage.FMBR,
+    isSubmitted = None
   )
 
-  lazy val agentCheckCase = new CheckCaseWithClient(
-    checkCaseSubmissionId = "123344",
-    checkCaseReference = "CHK10000742",
-    checkCaseStatus = CheckCaseStatus.OPEN,
-    address = "CHK-1234",
-    uarn = 1000L,
-    createdDateTime = LocalDateTime.parse("2020-07-21T17:19:33"),
-    settledDate = Some(LocalDate.parse("2020-07-22")),
-    client = Client(10000L, "Some organisation 2"),
-    submittedBy = "Some other person 2",
-    originatingAssessmentReference = 1L
-  )
+  def fileInfo(evType: EvidenceType): CompleteFileInfo = CompleteFileInfo("test.pdf", evType)
 
-  lazy val agentChallengeCase = new ChallengeCaseWithClient(
-    challengeCaseSubmissionId = "123344",
-    challengeCaseReference = "CHG10000742",
-    challengeCaseStatus = ChallengeCaseStatus.OPEN,
-    address = "CHG-1234",
-    uarn = 1000L,
-    createdDateTime = LocalDateTime.parse("2020-07-21T17:19:33"),
-    settledDate = Some(LocalDate.parse("2020-07-22")),
-    client = Client(10000L, "Some organisation 2"),
-    submittedBy = "Some other person 2",
-    originatingAssessmentReference = 1L
-  )
+  def uploadEvidenceData(fileInfo: FileInfo, flag: LinkBasis = RatesBillFlag): UploadEvidenceData =
+    UploadEvidenceData(flag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
 
-  lazy val ownerChallengeCase = ChallengeCaseWithAgent(
-    challengeCaseSubmissionId = "123344",
-    challengeCaseReference = "CHG10000732",
-    challengeCaseStatus = ChallengeCaseStatus.CLOSED,
-    address = "CHG-1234",
-    uarn = 1000L,
-    createdDateTime = LocalDateTime.parse("2020-07-11T17:19:33"),
-    settledDate = Some(LocalDate.parse("2020-07-12")),
-    agent = Some(agent1),
-    submittedBy = "Some other person",
-    originatingAssessmentReference = 1L
-  )
+  def groupAccount(agent: Boolean): GroupAccount =
+    GroupAccount(
+      id = 1L,
+      groupId = ggGroupId,
+      companyName = ggExternalId,
+      addressId = 1,
+      email = email,
+      phone = phone,
+      isAgent = agent,
+      agentCode = Some(300L).filter(_ => agent))
 
-  lazy val canChallengeResponse = CanChallengeResponse(result = true, reasonCode = Some("41a"), reason = Some("Ok"))
-
-  lazy val ownerCheckCasesResponse =
-    CheckCasesWithAgent(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(ownerCheckCase))
-
-  lazy val agentCheckCasesResponse =
-    CheckCasesWithClient(start = 1, size = 15, filterTotal = 1, total = 1, checkCases = List(agentCheckCase))
-
-  lazy val ownerAuthResultResponse =
-    OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = List(ownerAuthorisation))
-
-  lazy val ownerChallengeCasesResponse =
-    ChallengeCasesWithAgent(start = 1, size = 15, filterTotal = 1, total = 1, challengeCases = List(ownerChallengeCase))
-
-  lazy val agentChallengeCasesResponse =
-    ChallengeCasesWithClient(
-      start = 1,
-      size = 15,
-      filterTotal = 1,
-      total = 1,
-      challengeCases = List(agentChallengeCase))
-
-  lazy val assessmentPageSession: AssessmentsPageSession = AssessmentsPageSession(PreviousPage.SelectedClient)
-  lazy val appointNewAgentSession: AppointNewAgentSession = SelectedAgent(
-    agentCode = agentCode,
-    agentOrganisationName = agentDetails.name,
-    agentAddress = agentDetails.address,
-    isCorrectAgent = true,
-    backLink = None,
-    bothRatingLists = None,
-    specificRatingList = None)
-
-  lazy val april2017 = LocalDate.of(2017, 4, 1)
-  lazy val april2023 = LocalDate.of(2023, 4, 1)
+  def userDetails(
+        affinityGroup: AffinityGroup = AffinityGroup.Individual,
+        credentialRole: CredentialRole = User,
+        confidenceLevel: ConfidenceLevel = ConfidenceLevel.L200): UserDetails =
+    UserDetails(
+      firstName = Some(firstName),
+      lastName = Some(lastName),
+      email = email,
+      postcode = Some(postCode),
+      groupIdentifier = ggGroupId,
+      affinityGroup = affinityGroup,
+      externalId = ggExternalId,
+      credentialRole = credentialRole,
+      confidenceLevel = confidenceLevel
+    )
 
   def clientProperties(a: ClientPropertyLink) =
     ClientPropertyLink(
@@ -715,79 +757,6 @@ trait FakeObjects {
       agents = Seq.empty[Party]
     )
 
-  val propertyValuation1: PropertyValuation = PropertyValuation(
-    valuationId = 123,
-    valuationStatus = ValuationStatus.CURRENT,
-    rateableValue = Some(BigDecimal(1000)),
-    scatCode = Some("scatCode"),
-    effectiveDate = LocalDate.of(2019, 2, 21),
-    currentFromDate = LocalDate.of(2019, 2, 21),
-    currentToDate = None,
-    listYear = "current",
-    primaryDescription = ReferenceData("code", "description"),
-    allowedActions = AllowedAction.values.toList,
-    listType = ListType.CURRENT,
-    propertyLinkEarliestStartDate = None
-  )
-
-  val propertyValuation2: PropertyValuation = PropertyValuation(
-    valuationId = 123,
-    valuationStatus = ValuationStatus.CURRENT,
-    rateableValue = Some(BigDecimal(1000)),
-    scatCode = Some("scatCode"),
-    effectiveDate = LocalDate.of(2019, 2, 21),
-    currentFromDate = LocalDate.of(2019, 2, 21),
-    currentToDate = None,
-    listYear = "current",
-    primaryDescription = ReferenceData("code", "description"),
-    allowedActions = AllowedAction.values.toList,
-    listType = ListType.CURRENT,
-    propertyLinkEarliestStartDate = Some(LocalDate.now().plusYears(1))
-  )
-
-  val propertyValuationNoRateable: PropertyValuation = PropertyValuation(
-    valuationId = 123,
-    valuationStatus = ValuationStatus.CURRENT,
-    rateableValue = None,
-    scatCode = Some("scatCode"),
-    effectiveDate = LocalDate.of(2019, 2, 21),
-    currentFromDate = LocalDate.of(2019, 2, 21),
-    currentToDate = None,
-    listYear = "current",
-    primaryDescription = ReferenceData("code", "description"),
-    allowedActions = AllowedAction.values.toList,
-    listType = ListType.CURRENT,
-    propertyLinkEarliestStartDate = Some(LocalDate.now().plusYears(1))
-  )
-
-  val testPropertyValuations = Seq(
-    propertyValuation1,
-    propertyValuation2
-  )
-
-  val testPropertyValuationsNoRateableInfo = Seq(
-    propertyValuation1,
-    propertyValuationNoRateable
-  )
-
-  val propertyHistory = new PropertyHistory(
-    uarn = 4500,
-    addressFull = address.toString,
-    localAuthorityCode = "4500",
-    localAuthorityReference = "BACODE",
-    history = testPropertyValuations,
-    allowedActions = List(AllowedAction.PROPERTY_LINK)
-  )
-
-  val propertyHistoryNoRatableInfo = new PropertyHistory(
-    uarn = 4500,
-    addressFull = address.toString,
-    localAuthorityCode = "4500",
-    localAuthorityReference = "BACODE",
-    history = testPropertyValuations,
-    allowedActions = List(AllowedAction.PROPERTY_LINK)
-  )
-
   def apiAssessment(a: OwnerAuthorisation) = ApiAssessment(
     authorisationId = a.authorisationId,
     assessmentRef = 1L,
@@ -802,31 +771,6 @@ trait FakeObjects {
     allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
     currentFromDate = Some(april2017.plusMonths(2L)),
     currentToDate = None
-  )
-
-  val propertyLinkingSession = LinkingSession(
-    address = "LS",
-    uarn = 1L,
-    submissionId = "PL-123456",
-    personId = 1L,
-    earliestStartDate = earliestEnglishStartDate,
-    propertyRelationship = Some(PropertyRelationship(Owner, 1L)),
-    propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
-    propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
-    hasRatesBill = Some(true),
-    uploadEvidenceData = UploadEvidenceData.empty,
-    evidenceType = Some(RatesBillType),
-    clientDetails = Some(ClientDetails(100, "ABC")),
-    localAuthorityReference = "12341531531",
-    rtp = ClaimPropertyReturnToPage.FMBR,
-    isSubmitted = None
-  )
-
-  lazy val dvrRecord: DvrRecord = DvrRecord(
-    organisationId = orgIdIp,
-    assessmentRef = assessmentRef,
-    agents = Some(List(orgIdAgent)),
-    dvrSubmissionId = Some("DVR-123A45B")
   )
 
 }
