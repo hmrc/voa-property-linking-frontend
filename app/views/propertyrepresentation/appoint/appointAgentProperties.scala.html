@@ -68,7 +68,9 @@
             location = agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
                 pagination,
                 agentCode,
-                agentAppointed = Some(AgentPropertiesFilter.No.name), backLink, false
+                agentAppointed = Some(AgentPropertiesFilter.No.name),
+                backLink,
+                fromManageAgentJourney = manageJourneyFlag
             ).url,
             linkId = Some("filter-no-agent"),
             pWrapped = false
@@ -81,7 +83,7 @@
                 agentCode,
                 None,
                 backLink,
-                false
+                fromManageAgentJourney = manageJourneyFlag
             ).url,
             linkId = Some("filter-no-agent"),
             pWrapped = false
@@ -98,7 +100,8 @@
         pagination,
         agentCode,
         None,
-        backLinkAsString, false).url
+        backLinkAsString,
+        fromManageAgentJourney = manageJourneyFlag).url
 }
 
 @appointedAgentToggle = @{
@@ -109,7 +112,8 @@
 
 @addressColumnHeaderLink = {
     <a
-       href="@agentAppointment.routes.AppointAgentController.sortPropertiesForAppoint(ADDRESS, pagination, agentCode, agentAppointed = appointedAgentToggle, backLinkAsString).url"
+       href="@agentAppointment.routes.AppointAgentController.sortPropertiesForAppoint(ADDRESS, pagination, agentCode, agentAppointed = appointedAgentToggle, backLinkAsString,
+           fromManageAgentJourney = manageJourneyFlag).url"
        role="link"
        id="sort-by-address-link">
         @messages("propertyRepresentation.th.ADDRESS")
@@ -117,7 +121,8 @@
 }
 @appointedAgentsColumnHeader = {
     <a
-       href="@agentAppointment.routes.AppointAgentController.sortPropertiesForAppoint(AGENT, pagination, agentCode, agentAppointed = appointedAgentToggle, backLinkAsString).url"
+       href="@agentAppointment.routes.AppointAgentController.sortPropertiesForAppoint(AGENT, pagination, agentCode, agentAppointed = appointedAgentToggle, backLinkAsString,
+           fromManageAgentJourney = manageJourneyFlag).url"
        role="link"
        id="sort-by-agent-link">
         @messages("propertyRepresentation.th.AGENT")
@@ -273,7 +278,7 @@
             content = Text(messages("label.search")),
             attributes = Map("id" -> "search-submit")
         ))
-        <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), agentCode, agentAppointed, backLinkAsString, false)"
+        <a href="@agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), agentCode, agentAppointed, backLinkAsString, fromManageAgentJourney = manageJourneyFlag)"
         id="clear-search" class="govuk-link pull-right">@messages("label.clear.search")</a>
     </div>
 }
@@ -308,7 +313,7 @@
         </div>
     </div>
 
-    @formWithCSRF(agentAppointment.routes.AppointAgentController.filterPropertiesForAppoint(pagination, agentCode, agentAppointed, backLinkAsString)) {
+    @formWithCSRF(agentAppointment.routes.AppointAgentController.filterPropertiesForAppoint(pagination, agentCode, agentAppointed, backLinkAsString, fromManageAgentJourney = manageJourneyFlag)) {
         <div class="@{if (formErrorClass().nonEmpty) "govuk-form-group--error" else ""}">
             @govukFieldset(Fieldset(
                 attributes = Map("id" -> "search-fieldset"),
@@ -383,7 +388,7 @@
                                     @if(pagination.pageSize == len) {
                                         <span class="page-size-option-current">@len</span>
                                     } else {
-                                        <a class="page-size-option govuk-link" href="@agentAppointment.routes.AppointAgentController.paginatePropertiesForAppoint(pagination.copy(pageSize = len, page = 1), agentCode, agentAppointed, backLinkAsString).url">
+                                        <a class="page-size-option govuk-link" href="@agentAppointment.routes.AppointAgentController.paginatePropertiesForAppoint(pagination.copy(pageSize = len, page = 1), agentCode, agentAppointed, backLinkAsString, fromManageAgentJourney = manageJourneyFlag).url">
                                             @len</a> @* whitespace between number and closing tag creates unwanted space in links *@
                                     }
                                 }
@@ -411,7 +416,7 @@
                                 <ul class="pagination govuk-list" style="margin: 0px">
                                     @if(pagination.page > 1) {
                                         <li class="previous ">
-                                            <a href="@agentAppointment.routes.AppointAgentController.paginatePropertiesForAppoint(pagination.previousPage, agentCode, agentAppointed, backLinkAsString).url" role="link" class="govuk-link">
+                                            <a href="@agentAppointment.routes.AppointAgentController.paginatePropertiesForAppoint(pagination.previousPage, agentCode, agentAppointed, backLinkAsString, fromManageAgentJourney = manageJourneyFlag).url" role="link" class="govuk-link">
                                                 <i class="previous-arrow"></i>@messages("pagination.previous")</a>
                                         </li>
                                     } else {
@@ -421,7 +426,7 @@
                                     <li class="active">@pagination.page</li>
                                     @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                                         <li class="next">
-                                            <a href="@agentAppointment.routes.AppointAgentController.paginatePropertiesForAppoint(pagination.nextPage, agentCode, agentAppointed, backLinkAsString).url" role="link" class="govuk-link">@messages("pagination.next")<i class="next-arrow"></i></a>
+                                            <a href="@agentAppointment.routes.AppointAgentController.paginatePropertiesForAppoint(pagination.nextPage, agentCode, agentAppointed, backLinkAsString, fromManageAgentJourney = manageJourneyFlag).url" role="link" class="govuk-link">@messages("pagination.next")<i class="next-arrow"></i></a>
                                         </li>
                                     } else {
                                         <li class="next disabled"><i class="next-arrow govuk-body"></i>@messages("pagination.next")</li>

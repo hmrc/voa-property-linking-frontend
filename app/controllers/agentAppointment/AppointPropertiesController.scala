@@ -17,18 +17,15 @@
 package controllers.agentAppointment
 
 import actions.AuthenticatedAction
-import actions.requests.{AuthenticatedRequest, BasicAuthenticatedRequest}
+import actions.requests.BasicAuthenticatedRequest
 import binders.pagination.PaginationParameters
-import binders.propertylinks.ExternalPropertyLinkManagementSortField.ExternalPropertyLinkManagementSortField
-import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
+import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
 import connectors._
 import controllers._
 import form.FormValidation.nonEmptyList
-import models.GroupAccount.AgentGroupAccount
 import models._
-import models.propertyrepresentation.{AgentAppointmentChangeRequest, AppointAgentToSomePropertiesSession, AppointNewAgentSession, AppointmentAction, AppointmentScope, FilterAppointProperties, FilterRevokePropertiesSessionData, ManagingProperty, RevokeAgentFromSomePropertiesSession, SelectedAgent}
-import models.searchApi.AgentPropertiesFilter.Both
+import models.propertyrepresentation.{AppointAgentToSomePropertiesSession, AppointNewAgentSession, ManagingProperty}
 import models.searchApi._
 import play.api.Logger
 import play.api.data.Form
@@ -37,7 +34,6 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
-import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
@@ -74,18 +70,18 @@ class AppointPropertiesController @Inject()(
                       data.copy(agentAppointAction = Some(action))))
               propertySelectionSize <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
               agentSessionData      <- appointNewAgentSession.get[AppointNewAgentSession]
-              _ = agentSessionData match {
+              result = agentSessionData match {
                 case Some(data: ManagingProperty) =>
                   appointNewAgentSession.saveOrUpdate(
                     data.copy(
                       propertySelectedSize = action.propertyLinkIds.size,
                       totalPropertySelectionSize = propertySelectionSize,
-                      backLink = Some(backLinkUrl)
-                    )
-                  )
-                case _ => NotFound(errorHandler.notFoundTemplate)
+                      backLink = Some(backLinkUrl)))
+                  Redirect(agentAppointment.routes.CheckYourAnswersController.onPageLoad())
+                case _ =>
+                  NotFound(errorHandler.notFoundTemplate)
               }
-            } yield Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad())
+            } yield result
           }
         )
     }
