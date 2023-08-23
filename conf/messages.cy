@@ -417,6 +417,7 @@ assessments.view.summary=Gweld prisiad cryno
 label.viewAssessmentRadio=Prisiad
 
 assessments.localAuthorityRef=Cyfeirnod yr awdurdod lleol:
+assessments.property=Eiddo:
 assessments.title=Dewis prisiad i wirio
 assessments.subtitle=Prisiadau ar gyfer yr eiddo hwn
 
