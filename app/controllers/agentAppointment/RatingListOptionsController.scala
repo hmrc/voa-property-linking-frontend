@@ -24,7 +24,6 @@ import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings.mandatoryBoolean
-import models.RatingListYears
 import models.propertyrepresentation.{AppointNewAgentSession, ManagingProperty, SelectedAgent}
 import models.searchApi.AgentPropertiesParameters
 import play.api.data.Form
@@ -64,6 +63,7 @@ class RatingListOptionsController @Inject()(
             Future.successful(
               Ok(
                 ratingListOptionsView(
+                  fromCyaChange,
                   ratingListYears.fill(answers.bothRatingLists.get),
                   agentName = answers.agentOrganisationName,
                   backLink = getBackLink(fromCyaChange))))
@@ -71,12 +71,18 @@ class RatingListOptionsController @Inject()(
             Future.successful(
               Ok(
                 ratingListOptionsView(
+                  fromCyaChange,
                   ratingListYears.fill(answers.bothRatingLists.get),
                   agentName = answers.agentOrganisationName,
                   backLink = getBackLink(fromCyaChange))))
           case answers: SelectedAgent =>
             Future.successful(
-              Ok(ratingListOptionsView(ratingListYears, agentName = answers.agentOrganisationName, backLink = getBackLink(fromCyaChange))))
+              Ok(
+                ratingListOptionsView(
+                  fromCyaChange,
+                  ratingListYears,
+                  agentName = answers.agentOrganisationName,
+                  backLink = getBackLink(fromCyaChange))))
         }
       }
     }.flatten
@@ -85,14 +91,14 @@ class RatingListOptionsController @Inject()(
     }
   }
 
-  def submitRatingListYear(fromCyaChange: Boolean = false): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
-    implicit request =>
+  def submitRatingListYear(fromCyaChange: Boolean = false): Action[AnyContent] =
+    authenticated.andThen(withAppointAgentSession).async { implicit request =>
       ratingListYears
         .bindFromRequest()
         .fold(
           errors => {
-            Future.successful(
-              BadRequest(ratingListOptionsView(errors, agentName = "Test Agent", backLink = getBackLink(fromCyaChange))))
+            Future.successful(BadRequest(
+              ratingListOptionsView(fromCyaChange, errors, agentName = "Test Agent", backLink = getBackLink(fromCyaChange))))
           },
           success => {
             if (success) {
@@ -153,16 +159,15 @@ class RatingListOptionsController @Inject()(
                 }
               }.flatten
             } else {
-              Future.successful(Redirect(controllers.agentAppointment.routes.SelectRatingListController.show(false)))
+              Future.successful(Redirect(controllers.agentAppointment.routes.SelectRatingListController.show(fromCyaChange)))
             }
           }
         )
-  }
+    }
 
-  def getBackLink(fromCya:  Boolean) = {
+  def getBackLink(fromCya: Boolean) =
     if (fromCya) routes.CheckYourAnswersController.onPageLoad().url
     else controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url
-  }
 
   def ratingListYears: Form[Boolean] =
     Form(

@@ -19,7 +19,7 @@
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
         govukInsetText: GovukInsetText)
 
-@(form: Form[_], agentName: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(fromCyaChange: Boolean, form: Form[_], agentName: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @test = @{request.session}
@@ -69,7 +69,7 @@
         content = HtmlContent(messages("propertyRepresentation.appointAgent.choosingAList"))
     ))
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.RatingListOptionsController.submitRatingListYear()) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.RatingListOptionsController.submitRatingListYear(fromCyaChange)) {
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(

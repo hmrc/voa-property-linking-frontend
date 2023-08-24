@@ -563,7 +563,7 @@ propertyRepresentation.checkYourAnswers.options.yes=Ie
 propertyRepresentation.checkYourAnswers.change=Newid
 propertyRepresentation.checkYourAnswers.confirmAndAppoint=Cadarnhau a phenodi
 propertyRepresentation.checkYourAnswers.ratings=Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?
-propertyRepresentation.checkYourAnswers.ratings.single.answer={0} rating lists
+propertyRepresentation.checkYourAnswers.ratings.single.answer=Rhestr ardrethu {0}
 propertyRepresentation.checkYourAnswers.ratings.multiple.answer=Rhestr ardrethu 2023 a rhestr ardrethu 2017
 
 propertyRepresentation.confirmation.title=Mae {0} wedi’i benodi i’ch cyfrif
@@ -816,16 +816,16 @@ chooseRatingList.no = Na
 chooseRatingList.youWantToChoose = Rydych am ddewis naill ai restr ardrethu 2023 neu restr ardrethu 2017.
 
 #Which rating list years
-whichRatingList.header = Welsh Choose the 2023 or 2017 rating list
+whichRatingList.header = Dewiswch restr ardrethu 2023 neu 2017
 whichRatingList.currentYears.single = Welsh Currently this agent can act for you on the {0} rating list
 whichRatingList.currentYears.multiple = Welsh Currently this agent can act for you on the 2023 and 2017 rating lists
-whichRatingList.theRatingList = Welsh The rating list you choose for this agent will apply to all properties that you assign to them and they add to your account.
-whichRatingList.theAgentWill = Welsh The agent will only be able to act for you on valuations on the rating list you choose.
+whichRatingList.theRatingList = Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac i’r rheiny maen nhw’n ychwanegu at eich cyfrif.
+whichRatingList.theAgentWill = Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan.
 whichRatingList.whichRatingList = Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?
 whichRatingList.2023List = rhestr ardrethu 2023
-whichRatingList.2023ListHelp = Welsh The agent can only act for you on your current valuation for your property and any previous valuations that have an effective date after 1 April 2023.
+whichRatingList.2023ListHelp = Dim ond ar eich prisiad cyfredol ar gyfer eich eiddo ac unrhyw brisiadau blaenorol sydd â dyddiad dod i rym ar ôl 1 Ebrill 2023 y gall yr asiant weithredu ar eich rhan.
 whichRatingList.2017List = rhestr ardrethu 2017
-whichRatingList.2017ListHelp = Welsh The agent can only act for you on previous valuations for your property that have an effective date between 1 April 2017 to 31 March 2023.
+whichRatingList.2017ListHelp = Dim ond ar brisiadau blaenorol ar gyfer eich eiddo sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023 y gall yr asiant weithredu ar eich rhan.
 whichRatingList.error = Welsh Select which rating list you want this agent to act on for you
 
 #Rating list years confirmation screen

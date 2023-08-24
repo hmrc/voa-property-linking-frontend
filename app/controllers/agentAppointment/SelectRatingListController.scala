@@ -165,10 +165,9 @@ class SelectRatingListController @Inject()(
         )
     }
 
-  def getBackLink(fromCya:  Boolean) = {
+  def getBackLink(fromCya: Boolean) =
     if (fromCya) routes.CheckYourAnswersController.onPageLoad().url
     else controllers.agentAppointment.routes.RatingListOptionsController.show().url
-  }
 
   def ratingListYears: Form[RatingListYearsOptions] = Form(
     Forms.single(

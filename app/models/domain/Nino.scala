@@ -21,14 +21,12 @@ import play.api.libs.json.{Format, Reads, Writes}
 case class Nino(nino: String) {
   require(Nino.isValid(nino), s"$nino is not a valid nino.")
   override val toString: String = nino
-
+  val name = "nino"
   private val LengthWithoutSuffix: Int = 8
 
-  def value: String = nino
-
-  val name = "nino"
-
   def formatted: String = value.grouped(2).mkString(" ")
+
+  def value: String = nino
 
   def withoutSuffix: String = value.take(LengthWithoutSuffix)
 }
@@ -36,19 +34,17 @@ case class Nino(nino: String) {
 object Nino extends (String => Nino) {
 
   implicit val format: Format[Nino] = Format(Reads.of[String].map(Nino), Writes.of[String].contramap(_.nino))
-
+  lazy val validPrefixes =
+    validFirstCharacters.flatMap(a => validSecondCharacters.map(a + _)).filterNot(invalidPrefixes.contains(_))
+  lazy val validSuffixes = ('A' to 'D').map(_.toString)
   private val validNinoFormat = "[[A-Z]&&[^DFIQUV]][[A-Z]&&[^DFIQUVO]] ?\\d{2} ?\\d{2} ?\\d{2} ?[A-D]{1}"
   private val invalidPrefixes = List("BG", "GB", "NK", "KN", "TN", "NT", "ZZ")
-
-  private def hasValidPrefix(nino: String) = !invalidPrefixes.exists(nino.startsWith)
-
-  def isValid(nino: String): Boolean = nino != null && hasValidPrefix(nino) && nino.matches(validNinoFormat)
-
   private val validFirstCharacters =
     ('A' to 'Z').filterNot(List('D', 'F', 'I', 'Q', 'U', 'V').contains).map(_.toString)
   private val validSecondCharacters =
     ('A' to 'Z').filterNot(List('D', 'F', 'I', 'O', 'Q', 'U', 'V').contains).map(_.toString)
-  val validPrefixes =
-    validFirstCharacters.flatMap(a => validSecondCharacters.map(a + _)).filterNot(invalidPrefixes.contains(_))
-  val validSuffixes = ('A' to 'D').map(_.toString)
+
+  def isValid(nino: String): Boolean = nino != null && hasValidPrefix(nino) && nino.matches(validNinoFormat)
+
+  private def hasValidPrefix(nino: String) = !invalidPrefixes.exists(nino.startsWith)
 }
