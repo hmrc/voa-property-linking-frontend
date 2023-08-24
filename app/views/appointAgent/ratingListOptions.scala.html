@@ -69,7 +69,7 @@
         content = HtmlContent(messages("propertyRepresentation.appointAgent.choosingAList"))
     ))
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.RatingListOptionsController.submitRatingListYear) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.RatingListOptionsController.submitRatingListYear()) {
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(

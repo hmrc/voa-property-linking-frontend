@@ -63,7 +63,7 @@ class SelectRatingListController @Inject()(
                 selectRatingListView(
                   fromCyaChange,
                   ratingListYears.fill(RatingListYearsOptions.fromName(answers.specificRatingList.get).get),
-                  backLink = getBackLink
+                  backLink = getBackLink(fromCyaChange)
                 )))
           case answers: SelectedAgent if (answers.specificRatingList.nonEmpty) =>
             Future.successful(
@@ -71,7 +71,7 @@ class SelectRatingListController @Inject()(
                 selectRatingListView(
                   fromCyaChange,
                   ratingListYears.fill(RatingListYearsOptions.fromName(answers.specificRatingList.get).get),
-                  backLink = getBackLink
+                  backLink = getBackLink(fromCyaChange)
                 )))
           case _ =>
             Future.successful(
@@ -79,7 +79,7 @@ class SelectRatingListController @Inject()(
                 selectRatingListView(
                   fromCyaChange,
                   ratingListYears,
-                  backLink = getBackLink
+                  backLink = getBackLink(fromCyaChange)
                 )))
         }
       }
@@ -93,7 +93,7 @@ class SelectRatingListController @Inject()(
         .bindFromRequest()
         .fold(
           errors => {
-            Future.successful(BadRequest(selectRatingListView(fromCyaChange, errors, getBackLink)))
+            Future.successful(BadRequest(selectRatingListView(fromCyaChange, errors, getBackLink(fromCyaChange))))
           },
           success => {
             if (fromCyaChange) {
@@ -134,7 +134,7 @@ class SelectRatingListController @Inject()(
                                   singleProperty = false,
                                   totalPropertySelectionSize = 0,
                                   propertySelectedSize = 0,
-                                ).copy(backLink = Some(getBackLink)))
+                                ).copy(backLink = Some(getBackLink(fromCyaChange))))
                               Future.successful(
                                 Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
                             case 1 =>
@@ -165,7 +165,10 @@ class SelectRatingListController @Inject()(
         )
     }
 
-  def getBackLink = controllers.agentAppointment.routes.RatingListOptionsController.show.url
+  def getBackLink(fromCya:  Boolean) = {
+    if (fromCya) routes.CheckYourAnswersController.onPageLoad().url
+    else controllers.agentAppointment.routes.RatingListOptionsController.show().url
+  }
 
   def ratingListYears: Form[RatingListYearsOptions] = Form(
     Forms.single(

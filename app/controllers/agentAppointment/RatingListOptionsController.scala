@@ -53,7 +53,7 @@ class RatingListOptionsController @Inject()(
       val errorHandler: CustomErrorHandler
 ) extends PropertyLinkingController {
 
-  def show: Action[AnyContent] = authenticated.async { implicit request =>
+  def show(fromCyaChange: Boolean = false): Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
       for {
         agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
@@ -65,18 +65,18 @@ class RatingListOptionsController @Inject()(
               Ok(
                 ratingListOptionsView(
                   ratingListYears.fill(answers.bothRatingLists.get),
-                  agentName = "Test Agent",
-                  backLink = getBackLink)))
+                  agentName = answers.agentOrganisationName,
+                  backLink = getBackLink(fromCyaChange))))
           case answers: SelectedAgent if (answers.bothRatingLists.nonEmpty) =>
             Future.successful(
               Ok(
                 ratingListOptionsView(
                   ratingListYears.fill(answers.bothRatingLists.get),
-                  agentName = "Test Agent",
-                  backLink = getBackLink)))
-          case _ =>
+                  agentName = answers.agentOrganisationName,
+                  backLink = getBackLink(fromCyaChange))))
+          case answers: SelectedAgent =>
             Future.successful(
-              Ok(ratingListOptionsView(ratingListYears, agentName = "Test Agent", backLink = getBackLink)))
+              Ok(ratingListOptionsView(ratingListYears, agentName = answers.agentOrganisationName, backLink = getBackLink(fromCyaChange))))
         }
       }
     }.flatten
@@ -85,14 +85,14 @@ class RatingListOptionsController @Inject()(
     }
   }
 
-  def submitRatingListYear: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
+  def submitRatingListYear(fromCyaChange: Boolean = false): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
       ratingListYears
         .bindFromRequest()
         .fold(
           errors => {
             Future.successful(
-              BadRequest(ratingListOptionsView(errors, agentName = "Test Agent", backLink = getBackLink)))
+              BadRequest(ratingListOptionsView(errors, agentName = "Test Agent", backLink = getBackLink(fromCyaChange))))
           },
           success => {
             if (success) {
@@ -125,14 +125,14 @@ class RatingListOptionsController @Inject()(
                                     singleProperty = false,
                                     totalPropertySelectionSize = 0,
                                     propertySelectedSize = 0,
-                                  ).copy(backLink = Some(getBackLink)))
+                                  ).copy(backLink = Some(getBackLink(fromCyaChange))))
                                 Future.successful(
                                   Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
                               case 1 =>
                                 sessionRepo.saveOrUpdate(
                                   selectedAgent.copy(
                                     bothRatingLists = Some(success),
-                                    backLink = Some(routes.RatingListOptionsController.show.url)
+                                    backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                                   )
                                 )
                                 Future.successful(
@@ -141,7 +141,7 @@ class RatingListOptionsController @Inject()(
                                 sessionRepo.saveOrUpdate(
                                   selectedAgent.copy(
                                     bothRatingLists = Some(success),
-                                    backLink = Some(routes.RatingListOptionsController.show.url)
+                                    backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                                   )
                                 )
                                 Future.successful(
@@ -159,7 +159,10 @@ class RatingListOptionsController @Inject()(
         )
   }
 
-  def getBackLink = controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url
+  def getBackLink(fromCya:  Boolean) = {
+    if (fromCya) routes.CheckYourAnswersController.onPageLoad().url
+    else controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url
+  }
 
   def ratingListYears: Form[Boolean] =
     Form(

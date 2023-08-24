@@ -71,7 +71,7 @@
 
 @ratingListAnswerUrl = @{
 if(data.bothRatingLists.nonEmpty){
-controllers.agentAppointment.routes.RatingListOptionsController.show.url
+controllers.agentAppointment.routes.RatingListOptionsController.show(true).url
 } else {
 controllers.agentAppointment.routes.SelectRatingListController.show(true).url
 }
@@ -151,6 +151,24 @@ attributes = Map("id" -> "change-agent")
 ))
 ),
 SummaryListRow(
+key = Key(
+content = valueWithId(messages("propertyRepresentation.checkYourAnswers.ratings"), "ratings-heading")
+),
+value = Value(
+valueWithId(ratingListAnswer, "ratings-value")
+),
+actions = Some(Actions(
+items = Seq(
+ActionItem(
+href = ratingListAnswerUrl,
+content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
+visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.ratings")),
+attributes = Map("id" -> "change-rating-years")
+)
+)
+)),
+),
+SummaryListRow(
 classes = summaryRowHiddenClass,
 key = Key(
 content = valueWithId(messages("propertyRepresentation.checkYourAnswers.properties"), "properties-heading")
@@ -165,24 +183,6 @@ href = submitPropertyUrls,
 content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
 visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.properties")),
 attributes = Map("id" -> "change-properties")
-)
-)
-)),
-),
-SummaryListRow(
-key = Key(
-content = valueWithId(messages("propertyRepresentation.checkYourAnswers.ratings"), "ratings-heading")
-),
-value = Value(
-valueWithId(ratingListAnswer, "ratings-value")
-),
-actions = Some(Actions(
-items = Seq(
-ActionItem(
-href = ratingListAnswerUrl,
-content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
-visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.ratings")),
-attributes = Map("id" -> "change-rating-years")
 )
 )
 )),

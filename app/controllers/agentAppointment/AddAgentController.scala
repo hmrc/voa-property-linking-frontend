@@ -248,7 +248,7 @@ class AddAgentController @Inject()(
                             if (featureSwitch.isAgentListYearsEnabled) {
                               sessionRepo.saveOrUpdate(
                                 SelectedAgent(searchedAgent, success, None, None).copy(backLink = Some(backLink)))
-                              Future.successful(Redirect(routes.RatingListOptionsController.show))
+                              Future.successful(Redirect(routes.RatingListOptionsController.show()))
                             } else {
                               propertyLinks.authorisations.size match {
                                 case 0 =>
@@ -338,7 +338,7 @@ class AddAgentController @Inject()(
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
       val backLink =
         if (fromCyaChange) routes.CheckYourAnswersController.onPageLoad().url
-        else routes.AddAgentController.isCorrectAgent.url
+        else routes.RatingListOptionsController.show().url
       for {
         agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
       } yield

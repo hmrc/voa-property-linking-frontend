@@ -96,7 +96,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List().empty))))
 
       lazy val document = getDocument(English)
-      document.select("#main-content > div > div > dl > div:nth-child(2)").hasClass("govuk-visually-hidden") shouldBe true
+      document.select("#main-content > div > div > dl > div:nth-child(3)").hasClass("govuk-visually-hidden") shouldBe true
       document.select(backLinkSelector).text() shouldBe backLinkText
       document.select(backLinkSelector).attr("href") shouldBe
         "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"
@@ -109,7 +109,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List().empty))))
 
       lazy val document = getDocument(Welsh)
-      document.select("#main-content > div > div > dl > div:nth-child(2)").hasClass("govuk-visually-hidden") shouldBe true
+      document.select("#main-content > div > div > dl > div:nth-child(3)").hasClass("govuk-visually-hidden") shouldBe true
       document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
       document.select(backLinkSelector).attr("href") shouldBe
         "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"
