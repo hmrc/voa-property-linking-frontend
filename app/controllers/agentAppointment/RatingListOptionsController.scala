@@ -91,14 +91,30 @@ class RatingListOptionsController @Inject()(
     }
   }
 
+  def getBackLink(fromCya: Boolean) =
+    if (fromCya) routes.CheckYourAnswersController.onPageLoad().url
+    else controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url
+
+  def ratingListYears: Form[Boolean] =
+    Form(
+      single(
+        "multipleListYears" -> mandatoryBoolean
+      )
+    )
+
   def submitRatingListYear(fromCyaChange: Boolean = false): Action[AnyContent] =
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
       ratingListYears
         .bindFromRequest()
         .fold(
           errors => {
-            Future.successful(BadRequest(
-              ratingListOptionsView(fromCyaChange, errors, agentName = "Test Agent", backLink = getBackLink(fromCyaChange))))
+            Future.successful(
+              BadRequest(
+                ratingListOptionsView(
+                  fromCyaChange,
+                  errors,
+                  agentName = "Test Agent",
+                  backLink = getBackLink(fromCyaChange))))
           },
           success => {
             if (success) {
@@ -159,21 +175,11 @@ class RatingListOptionsController @Inject()(
                 }
               }.flatten
             } else {
-              Future.successful(Redirect(controllers.agentAppointment.routes.SelectRatingListController.show(fromCyaChange)))
+              Future.successful(
+                Redirect(controllers.agentAppointment.routes.SelectRatingListController.show(fromCyaChange)))
             }
           }
         )
     }
-
-  def getBackLink(fromCya: Boolean) =
-    if (fromCya) routes.CheckYourAnswersController.onPageLoad().url
-    else controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url
-
-  def ratingListYears: Form[Boolean] =
-    Form(
-      single(
-        "multipleListYears" -> mandatoryBoolean
-      )
-    )
 
 }
