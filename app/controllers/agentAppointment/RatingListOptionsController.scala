@@ -175,8 +175,18 @@ class RatingListOptionsController @Inject()(
                 }
               }.flatten
             } else {
+              sessionRepo.get[AppointNewAgentSession].map {
+                case Some(answers) =>
+                  answers match {
+                    case answers: ManagingProperty =>
+                      sessionRepo.saveOrUpdate(answers.copy(bothRatingLists = Some(false)))
+                    case answers: SelectedAgent =>
+                      sessionRepo.saveOrUpdate(answers.copy(bothRatingLists = Some(false)))
+                  }
+              }
               Future.successful(
-                Redirect(controllers.agentAppointment.routes.SelectRatingListController.show(fromCyaChange)))
+                Redirect(controllers.agentAppointment.routes.SelectRatingListController.show(fromCyaChange))
+              )
             }
           }
         )

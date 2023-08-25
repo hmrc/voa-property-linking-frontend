@@ -102,7 +102,12 @@ class SelectRatingListController @Inject()(
                 .map { session =>
                   session.get match {
                     case managingProperty: ManagingProperty =>
-                      sessionRepo.saveOrUpdate(managingProperty.copy(specificRatingList = Some(success.name)))
+                      sessionRepo.saveOrUpdate(
+                        managingProperty.copy(
+                          bothRatingLists = None,
+                          specificRatingList = Some(success.name)
+                        )
+                      )
                       Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
                   }
                 }
@@ -127,19 +132,22 @@ class SelectRatingListController @Inject()(
                         case _ =>
                           propertyLinks.authorisations.size match {
                             case 0 =>
-                              sessionRepo.saveOrUpdate(
-                                ManagingProperty(
-                                  selectedAgent.copy(specificRatingList = Some(success.name)),
-                                  selection = "none",
-                                  singleProperty = false,
-                                  totalPropertySelectionSize = 0,
-                                  propertySelectedSize = 0,
-                                ).copy(backLink = Some(getBackLink(fromCyaChange))))
+                              sessionRepo.saveOrUpdate(ManagingProperty(
+                                selectedAgent.copy(
+                                  bothRatingLists = None,
+                                  specificRatingList = Some(success.name),
+                                ),
+                                selection = "none",
+                                singleProperty = false,
+                                totalPropertySelectionSize = 0,
+                                propertySelectedSize = 0,
+                              ).copy(backLink = Some(getBackLink(fromCyaChange))))
                               Future.successful(
                                 Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
                             case 1 =>
                               sessionRepo.saveOrUpdate(
                                 selectedAgent.copy(
+                                  bothRatingLists = None,
                                   specificRatingList = Some(success.name),
                                   backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url)
                                 )
@@ -149,6 +157,7 @@ class SelectRatingListController @Inject()(
                             case _ =>
                               sessionRepo.saveOrUpdate(
                                 selectedAgent.copy(
+                                  bothRatingLists = None,
                                   specificRatingList = Some(success.name),
                                   backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url)
                                 )

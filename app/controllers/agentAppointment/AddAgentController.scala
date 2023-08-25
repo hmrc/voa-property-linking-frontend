@@ -210,11 +210,8 @@ class AddAgentController @Inject()(
         isTheCorrectAgentView(
           isThisTheCorrectAgent,
           request.agentDetails,
-          routes.AddAgentController.getAgentDetails(backLink = getBackLink).url)))
+          routes.AddAgentController.getAgentDetails(backLink = getBackLinkFromSession).url)))
   }
-
-  private def getBackLink(implicit request: AppointAgentSessionRequest[AnyContent]) =
-    request.sessionData.backLink.getOrElse(config.dashboardUrl("home"))
 
   def agentSelected(backLink: String): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
@@ -287,9 +284,7 @@ class AddAgentController @Inject()(
 
   def oneProperty(fromCyaChange: Boolean = false): Action[AnyContent] =
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
-      val backLink =
-        if (fromCyaChange) routes.CheckYourAnswersController.onPageLoad().url
-        else routes.AddAgentController.isCorrectAgent.url
+      val backLink = getBacklink(fromCyaChange)
       for {
         agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
       } yield
@@ -313,7 +308,8 @@ class AddAgentController @Inject()(
       .bindFromRequest()
       .fold(
         errors => {
-          Future.successful(BadRequest(agentToManageOnePropertyView(errors, request.agentDetails.name, getBackLink)))
+          Future.successful(
+            BadRequest(agentToManageOnePropertyView(errors, request.agentDetails.name, getBackLinkFromSession)))
         },
         success => {
           for {
@@ -336,9 +332,7 @@ class AddAgentController @Inject()(
 
   def multipleProperties(fromCyaChange: Boolean = false): Action[AnyContent] =
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
-      val backLink =
-        if (fromCyaChange) routes.CheckYourAnswersController.onPageLoad().url
-        else routes.RatingListOptionsController.show().url
+      val backLink = getBacklink(fromCyaChange)
       for {
         agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
       } yield
@@ -359,14 +353,20 @@ class AddAgentController @Inject()(
         }
     }
 
+  private def getBacklink(fromCya: Boolean)(implicit request: AppointAgentSessionRequest[AnyContent]) =
+    if (fromCya) routes.CheckYourAnswersController.onPageLoad().url else getBackLinkFromSession
+
+  private def getBackLinkFromSession(implicit request: AppointAgentSessionRequest[AnyContent]) =
+    request.sessionData.backLink.getOrElse(config.dashboardUrl("home"))
+
   def submitMultipleProperties: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
       manageMultipleProperties
         .bindFromRequest()
         .fold(
           errors => {
-            Future.successful(
-              BadRequest(agentToManageMultiplePropertiesView(errors, request.agentDetails.name, getBackLink)))
+            Future.successful(BadRequest(
+              agentToManageMultiplePropertiesView(errors, request.agentDetails.name, getBackLinkFromSession)))
           },
           success => {
             for {
