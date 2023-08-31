@@ -101,6 +101,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
   val aboveRadiosErrorSelector = "#multipleListYears-error"
 
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"
+  val checkYourAnswersBackLink = "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
 
   "RatingListOptionController show method" should {
     "Show an English choose rating list screen with the correct text when the language is set to English" when {
@@ -227,6 +228,68 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
       }
     }
 
+    "Show an English choose rating list screen with the correct back link when coming back from check your answers" when {
+
+      lazy val document = getRatingListOptionPage(English, "?fromCyaChange=true")
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      "has a back link which takes you to the agent details page" in {
+        document.select(backLinkSelector).text() shouldBe backLinkText
+        document.select(backLinkSelector).attr("href") shouldBe checkYourAnswersBackLink
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerText
+        document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has text on the screen of '$thisAgentCanText'" in {
+        document.select(thisAgentCanSelector).text() shouldBe thisAgentCanText
+      }
+
+      s"has radio buttons on the screen with values of '$the2023RatingListText', '$the2017RatingListText' and '$bothListsText'" in {
+        document.select(bulletPointSelector).get(0).text() shouldBe the2023RatingListText
+        document.select(bulletPointSelector).get(1).text() shouldBe the2017RatingListText
+        document.select(bulletPointSelector).get(2).text() shouldBe bothListsText
+      }
+
+      s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
+        s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText'" in {
+        document.select(moreAboutSelector).text() shouldBe moreAboutText
+        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
+        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
+        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
+        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
+      }
+
+      s"has inset text on the screen of '$choosingAListText', which has a link to the manage agent screens" in {
+        document.select(choosingAListSelector).text() shouldBe choosingAListText
+      }
+
+      s"has a medium heading on the screen of '$doYouWantText'" in {
+        document.select(doYouWantSelector).text() shouldBe doYouWantText
+      }
+
+      s"has a un-checked '$yesText' radio button, with hint text of '$thisAgentCanText'" in {
+        document.select(yesRadioButtonSelector).hasAttr("checked") shouldBe false
+        document.select(yesSelector).text() shouldBe yesText
+        document.select(thisAgentCanSelector).text() shouldBe thisAgentCanText
+      }
+
+      s"has an un-checked '$noText' radio button, with hint text of '$youWantToText'" in {
+        document.select(noRadioButtonSelector).hasAttr("checked") shouldBe false
+        document.select(noSelector).text() shouldBe noText
+        document.select(youWantToSelector).text() shouldBe youWantToText
+      }
+
+      s"has a '$continueText' button on the screen, which submits the users choice" in {
+        document.select(continueSelector).text() shouldBe continueText
+      }
+    }
+
     "RatingListOption Controller submit method" should {
       "redirect to select ratings if no" in  {
         submitSelectRatingListOptionCommonStubbing()
@@ -323,7 +386,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
-  private def getRatingListOptionPage(language: Language): Document = {
+  private def getRatingListOptionPage(language: Language, checkYourAnswers: String = ""): Document = {
 
     implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
@@ -350,7 +413,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     val res = await(
-      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list$checkYourAnswers")
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()

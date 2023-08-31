@@ -51,7 +51,12 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
   "onPageLoad" should {
     "return 200 & display correct content (Some properties)" in new TestSetup {
 
-      await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData.copy(propertySelectedSize = 1)))
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"))
+      ))
+
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
@@ -64,7 +69,12 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Some properties) - Welsh" in new TestSetup {
 
-      await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData.copy(propertySelectedSize = 1)))
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        ))
+      )
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
@@ -91,7 +101,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Rate payer has no properties)" in new TestSetup {
       await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-        .copy(totalPropertySelectionSize = 0).copy(propertySelectedSize = 0)))
+        .copy(totalPropertySelectionSize = 0).copy(propertySelectedSize = 0)
+        .copy(backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"))
+      ))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List().empty))))
 
@@ -104,7 +116,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Rate payer has no properties) - Welsh" in new TestSetup {
       await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-        .copy(totalPropertySelectionSize = 0).copy(propertySelectedSize = 0)))
+        .copy(totalPropertySelectionSize = 0).copy(propertySelectedSize = 0)
+        .copy(backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"))
+      ))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List().empty))))
 
@@ -117,7 +131,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Assigned to only property)" in new TestSetup {
       await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1).copy(singleProperty = true)))
+        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1).copy(singleProperty = true)
+        .copy(backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"))
+      ))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
@@ -130,7 +146,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Assigned to only property) - Welsh" in new TestSetup {
       await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1).copy(singleProperty = true)))
+        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1).copy(singleProperty = true)
+        .copy(backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"))
+      ))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
@@ -163,7 +181,13 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (both rating values)" in new TestSetup {
 
-      await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData.copy(propertySelectedSize = 1)))
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        )
+      ))
+
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
@@ -176,7 +200,12 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (both rating values) - Welsh" in new TestSetup {
 
-      await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData.copy(propertySelectedSize = 1)))
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        )
+      ))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
@@ -204,7 +233,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
   }
 
   "onSubmit" should {
-    "return 303 & redirect confirm appointment page on successful appointment(some properties - 2017 list years)" in new TestSetup {
+    "return 303 & redirect confirm appointment page on successful appointment(some properties - 2017 list years)" in new TestSetup(bothYears = None, specificYears = Some("2017")) {
 
       val requestBody = Json.obj(
         "agentCode" -> agentCode,
@@ -240,7 +269,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/confirm-appoint-agent"
     }
 
-    "return 303 & redirect confirm appointment page on successful appointment(some properties - 2023 list years)" in new TestSetup {
+    "return 303 & redirect confirm appointment page on successful appointment(some properties - 2023 list years)" in new TestSetup(bothYears = None, specificYears = Some("2023")) {
       stubFor {
         get("/property-linking/owner/agents")
           .willReturn {
@@ -313,8 +342,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
     }
   }
 
-  class TestSetup {
-
+  class TestSetup(specificYears: Option[String] = None, bothYears: Option[Boolean] = Some(true)) {
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
     lazy val mockAppointAgentPropertiesSessionRepository: AppointAgentPropertiesSessionRepository = app.injector.instanceOf[AppointAgentPropertiesSessionRepository]
     implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
@@ -333,8 +361,8 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       backLink = None,
       totalPropertySelectionSize = 2,
       propertySelectedSize = 2,
-      bothRatingLists = Some(true),
-      specificRatingList = None
+      bothRatingLists = bothYears,
+      specificRatingList = specificYears
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(agentAppointAction =

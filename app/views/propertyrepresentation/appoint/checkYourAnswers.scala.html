@@ -30,7 +30,7 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
-@(form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(backLink: String, form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @answerMessage = @{
@@ -58,11 +58,7 @@
 }
 
 @backLinks = @{
-   if(data.singleProperty) {
-       controllers.agentAppointment.routes.AddAgentController.oneProperty().url
-   } else if(data.totalPropertySelectionSize == 0){
-       controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url
-   } else controllers.agentAppointment.routes.AddAgentController.multipleProperties().url
+    backLink
 }
 
 @summaryRowHiddenClass = @{
@@ -70,11 +66,7 @@
 }
 
 @ratingListAnswerUrl = @{
-if(data.bothRatingLists.nonEmpty){
 controllers.agentAppointment.routes.RatingListOptionsController.show(true).url
-} else {
-controllers.agentAppointment.routes.SelectRatingListController.show(true).url
-}
 }
 
 @ratingListAnswer = @{

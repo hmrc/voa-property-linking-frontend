@@ -309,7 +309,11 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   }
 
   "oneProperty" should "return 200 Ok" in {
-    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(
+      selectedAgent.copy(backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")),
+      detailedIndividualAccount,
+      groupAccount(false)
+    )
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
       .thenReturn(Future.successful(Some(selectedAgent)))
 

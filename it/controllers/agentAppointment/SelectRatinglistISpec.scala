@@ -70,8 +70,10 @@ class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
     val aboveRadiosErrorSelector = "#multipleListYears-error"
 
     val backLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+    val checkYourAnswersBackLink = "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
 
     "SelectRatingList show method" should {
+
       "Show a 'Choose the 2023 or 2017 rating list screen' when the language is set to English" which {
 
         lazy val document = getSelectRatingListPage(English)
@@ -167,84 +169,133 @@ class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
         }
       }
 
-      "SelectRatingList Controller submit method" should {
-        "redirect too check your answers when answer is selected and no properties" in {
-          submitSelectRatingListCommonStubbing()
+      "Show a 'Choose the 2023 or 2017 rating list screen' when coming back from check your answers" which {
 
-          stubFor {
-            get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-              .willReturn {
-                aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultNoProperties).toString())
-              }
-          }
+        lazy val document = getSelectRatingListPage(English, "?fromCyaChange=true")
 
-          val requestBody = Json.obj("multipleListYears" -> "2017")
-
-          val res = await(
-            ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
-              .withCookies(languageCookie(English), getSessionCookie(testSessionId))
-              .withFollowRedirects(follow = false)
-              .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-              .post(body = requestBody)
-          )
-
-          res.status shouldBe SEE_OTHER
-          res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
-
+        s"has a title of $titleText" in {
+          document.title() shouldBe titleText
         }
 
-        "redirect too single property after answer is selected" in {
-          submitSelectRatingListCommonStubbing()
-
-          stubFor {
-            get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-              .willReturn {
-                aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult1).toString())
-              }
-          }
-
-          val requestBody = Json.obj("multipleListYears" -> "2017")
-
-          val res = await(
-            ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
-              .withCookies(languageCookie(English), getSessionCookie(testSessionId))
-              .withFollowRedirects(follow = false)
-              .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-              .post(body = requestBody)
-          )
-
-          res.status shouldBe SEE_OTHER
-          res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"
-
+        "has a back link which takes you to the agent details page" in {
+          document.select(backLinkSelector).text() shouldBe backLinkText
+          document.select(backLinkSelector).attr("href") shouldBe checkYourAnswersBackLink
         }
 
-        "redirect too multiple property after answer is selected" in {
-          submitSelectRatingListCommonStubbing()
+        s"has a header of '$headerText' with a caption above of '$captionText'" in {
+          document.select(headerSelector).text shouldBe headerText
+          document.select(captionSelector).text shouldBe captionText
+        }
 
-          stubFor {
-            get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-              .willReturn {
-                aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultMultipleProperty).toString())
-              }
-          }
 
-          val requestBody = Json.obj("multipleListYears" -> "2017")
+        s"has text on the screen of '$theRatingListText'" in {
+          document.select(theRatingListSelector).text() shouldBe theRatingListText
+        }
 
-          val res = await(
-            ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
-              .withCookies(languageCookie(English), getSessionCookie(testSessionId))
-              .withFollowRedirects(follow = false)
-              .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-              .post(body = requestBody)
-          )
+        s"has text on the screen of '$theAgentText'" in {
+          document.select(theAgentSelector).text() shouldBe theAgentText
+        }
 
-          res.status shouldBe SEE_OTHER
-          res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+        s"has a medium heading on the screen of '$whichRatingText'" in {
+          document.select(whichRatingSelector).text() shouldBe whichRatingText
+        }
 
+        s"has an un-checked '$the2023ListText' radio button, with hint text of '$theAgent2023Text'" in {
+          document.select(the2023RadioButtonSelector).hasAttr("checked") shouldBe false
+          document.select(the2023ListSelector).text() shouldBe the2023ListText
+          document.select(theAgent2023Selector).text() shouldBe theAgent2023Text
+        }
+
+        s"has an un-checked '$the2017ListText' radio button, with hint text of '$theAgent2017Text'" in {
+          document.select(the2017RadioButtonSelector).hasAttr("checked") shouldBe false
+          document.select(the2017ListSelector).text() shouldBe the2017ListText
+          document.select(theAgent2017Selector).text() shouldBe theAgent2017Text
+        }
+
+        s"has a '$continueText' button on the screen, which submits the users choice" in {
+          document.select(continueSelector).text() shouldBe continueText
         }
       }
+
     }
-    private def getSelectRatingListPage(language: Language): Document = {
+
+  "SelectRatingList Controller submit method" should {
+    "redirect too check your answers when answer is selected and no properties" in {
+      submitSelectRatingListCommonStubbing()
+
+      stubFor {
+        get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultNoProperties).toString())
+          }
+      }
+
+      val requestBody = Json.obj("multipleListYears" -> "2017")
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
+
+    }
+
+    "redirect too single property after answer is selected" in {
+      submitSelectRatingListCommonStubbing()
+
+      stubFor {
+        get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult1).toString())
+          }
+      }
+
+      val requestBody = Json.obj("multipleListYears" -> "2017")
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"
+
+    }
+
+    "redirect too multiple property after answer is selected" in {
+      submitSelectRatingListCommonStubbing()
+
+      stubFor {
+        get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultMultipleProperty).toString())
+          }
+      }
+
+      val requestBody = Json.obj("multipleListYears" -> "2017")
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+    }
+  }
+
+  private def getSelectRatingListPage(language: Language, checkYourAnswers: String = ""): Document = {
 
       implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
@@ -271,7 +322,7 @@ class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
       }
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select$checkYourAnswers")
           .withCookies(languageCookie(language), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .get()

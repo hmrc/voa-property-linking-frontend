@@ -141,7 +141,7 @@ class SelectRatingListController @Inject()(
                                 singleProperty = false,
                                 totalPropertySelectionSize = 0,
                                 propertySelectedSize = 0,
-                              ).copy(backLink = Some(getBackLink(fromCyaChange))))
+                              ).copy(backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url)))
                               Future.successful(
                                 Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
                             case 1 =>
