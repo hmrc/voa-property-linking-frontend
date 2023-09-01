@@ -23,7 +23,7 @@
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 
-@(form: Form[Boolean], agentDetails: AgentDetails, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[Boolean], agentDetails: AgentDetails, backLink: String, fromCyaChange: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.isThisYourAgent.title"),
@@ -41,7 +41,7 @@
        @agentDetails.name <br/> @Formatters.capitalisedAddress(agentDetails.address)
     </div>
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected(backLink)) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent(fromCyaChange).url, fromCyaChange)) {
         @govukRadios(Radios(
             idPrefix = Some("isThisYourAgent"),
             classes = "govuk-radios--inline",

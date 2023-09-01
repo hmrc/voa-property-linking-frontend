@@ -105,16 +105,16 @@ class SelectRatingListController @Inject()(
                       sessionRepo.saveOrUpdate(
                         managingProperty.copy(
                           bothRatingLists = None,
-                          specificRatingList = Some(success.name)
+                          specificRatingList = Some(success.name),
+                          backLink = Some(routes.SelectRatingListController.show().url)
                         )
                       )
                       Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
                   }
-                }
-                .flatten
+                }.flatten
             } else {
               for {
-                selectedAgentOpt <- sessionRepo.get[SelectedAgent]
+                selectedAgentOpt <- sessionRepo.get[ManagingProperty]
                 selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
                 propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
                                   params = GetPropertyLinksParameters(),
@@ -132,16 +132,15 @@ class SelectRatingListController @Inject()(
                         case _ =>
                           propertyLinks.authorisations.size match {
                             case 0 =>
-                              sessionRepo.saveOrUpdate(ManagingProperty(
-                                selectedAgent.copy(
-                                  bothRatingLists = None,
-                                  specificRatingList = Some(success.name),
-                                ),
-                                selection = "none",
+                              sessionRepo.saveOrUpdate(selectedAgent.copy(
+                                bothRatingLists = None,
+                                specificRatingList = Some(success.name),
+                                managingPropertyChoice = "none",
                                 singleProperty = false,
                                 totalPropertySelectionSize = 0,
                                 propertySelectedSize = 0,
-                              ).copy(backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url)))
+                                backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url
+                              )))
                               Future.successful(
                                 Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
                             case 1 =>

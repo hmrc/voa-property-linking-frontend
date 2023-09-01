@@ -297,7 +297,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
 
         val res = await(
-          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list/confirm")
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
             .withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -321,7 +321,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
         val requestBody = Json.obj("multipleListYears" -> "true")
 
         val res = await(
-          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list/confirm")
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
             .withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -346,7 +346,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
         val requestBody = Json.obj("multipleListYears" -> "true")
 
         val res = await(
-          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list/confirm")
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
             .withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -371,7 +371,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
         val requestBody = Json.obj("multipleListYears" -> "true")
 
         val res = await(
-          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list/confirm")
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
             .withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")

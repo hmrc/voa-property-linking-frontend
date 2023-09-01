@@ -2,7 +2,7 @@ package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.{AgentSelected, SearchedAgent, SelectedAgent}
+import models.propertyrepresentation.{AgentSelected, ManagingProperty, SearchedAgent, SelectedAgent}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.Status.{OK, SEE_OTHER}
@@ -233,7 +233,7 @@ class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
       val requestBody = Json.obj("multipleListYears" -> "2017")
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select")
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -258,7 +258,7 @@ class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
       val requestBody = Json.obj("multipleListYears" -> "2017")
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select")
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -283,7 +283,7 @@ class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
       val requestBody = Json.obj("multipleListYears" -> "2017")
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select/confirm")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select")
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -341,7 +341,8 @@ class SelectRatingListISpec  extends ISpecBase with HtmlComponentHelpers {
 
     val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Some(true), Some("2017"))
 
-    await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
+    val managedAgentData = ManagingProperty.apply(selectedAgentData, "None", false, 1, 1)
+    await(mockAppointAgentSessionRepository.saveOrUpdate(managedAgentData))
 
     stubFor {
       post("/auth/authorise")
