@@ -70,7 +70,7 @@ controllers.agentAppointment.routes.RatingListOptionsController.show(true).url
 }
 
 @ratingListAnswer = @{
-if(data.bothRatingLists){
+if(data.bothRatingLists.get){
 messages("propertyRepresentation.checkYourAnswers.ratings.multiple.answer")
 } else {
 messages("propertyRepresentation.checkYourAnswers.ratings.single.answer",  data.specificRatingList.get)

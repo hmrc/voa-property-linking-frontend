@@ -54,7 +54,6 @@ class RatingListOptionsController @Inject()(
 
   def show(fromCyaChange: Boolean = false): Action[AnyContent] = authenticated.async { implicit request =>
     if (featureSwitch.isAgentListYearsEnabled) {
-      println(Console.CYAN_B + "hellooooo")
       for {
         agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
         selectedAgent = agentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
@@ -122,135 +121,126 @@ class RatingListOptionsController @Inject()(
                 ratingListOptionsView(
                   fromCyaChange,
                   errors,
-                  agentName =  request.agentDetails.name,
+                  agentName = request.agentDetails.name,
                   backLink = getBackLink(fromCyaChange))
               )
             )
           },
           success => {
             if (success) {
-              if (fromCyaChange) {
-                sessionRepo
-                  .get[AppointNewAgentSession]
-                  .map { session =>
-                    session.get match {
-                      case managingProperty: ManagingProperty =>
-                        sessionRepo.saveOrUpdate(
-                          managingProperty.copy(
-                            bothRatingLists = Some(success),
-                            specificRatingList = None,
-                            backLink = Some(routes.RatingListOptionsController.show().url)
-                          )
-                        )
-                        Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
+              {
+                for {
+                  selectedAgentOpt <- sessionRepo.get[SelectedAgent]
+                  selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+                  propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
+                                    params = GetPropertyLinksParameters(),
+                                    pagination = AgentPropertiesParameters(agentCode = selectedAgent.agentCode),
+                                    agentOrganisationId = selectedAgent.agentCode,
+                                    organisationId = request.organisationId
+                                  )
+                } yield {
+                  sessionRepo
+                    .get[AppointNewAgentSession]
+                    .map {
+                      case Some(sessionData) =>
+                        sessionData match {
+                          case managingProperty: ManagingProperty if (fromCyaChange) =>
+                            sessionRepo.saveOrUpdate(
+                              managingProperty.copy(
+                                bothRatingLists = Some(success),
+                                specificRatingList = None,
+                                backLink = Some(getBacklinkForCheckAnswersPage(propertyLinks.authorisations.size, None))
+                              )
+                            )
+                            Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
+                          case selectedAgent: SelectedAgent =>
+                            propertyLinks.authorisations.size match {
+                              case 0 =>
+                                sessionRepo.saveOrUpdate(ManagingProperty(
+                                  selectedAgent.copy(
+                                    bothRatingLists = Some(success),
+                                    specificRatingList = None
+                                  ),
+                                  selection = "none",
+                                  singleProperty = false,
+                                  totalPropertySelectionSize = 0,
+                                  propertySelectedSize = 0,
+                                ).copy(backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)))
+                                Future.successful(
+                                  Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
+                              case 1 =>
+                                sessionRepo.saveOrUpdate(
+                                  selectedAgent.copy(
+                                    bothRatingLists = Some(success),
+                                    specificRatingList = None,
+                                    backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
+                                  )
+                                )
+                                Future.successful(
+                                  Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty()))
+                              case _ =>
+                                sessionRepo.saveOrUpdate(
+                                  selectedAgent.copy(
+                                    bothRatingLists = Some(success),
+                                    specificRatingList = None,
+                                    backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
+                                  )
+                                )
+                                Future.successful(
+                                  Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties()))
+                            }
+                          case selectedAgent: ManagingProperty =>
+                            propertyLinks.authorisations.size match {
+                              case 0 =>
+                                sessionRepo.saveOrUpdate(
+                                  selectedAgent.copy(
+                                    bothRatingLists = Some(success),
+                                    specificRatingList = None,
+                                    backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
+                                  )
+                                )
+                                Future.successful(
+                                  Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
+                              case 1 =>
+                                sessionRepo.saveOrUpdate(
+                                  selectedAgent.copy(
+                                    bothRatingLists = Some(success),
+                                    specificRatingList = None,
+                                    backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
+                                  )
+                                )
+                                Future.successful(
+                                  Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty()))
+                              case _ =>
+                                sessionRepo.saveOrUpdate(
+                                  selectedAgent.copy(
+                                    bothRatingLists = Some(success),
+                                    specificRatingList = None,
+                                    backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
+                                  )
+                                )
+                                Future.successful(
+                                  Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties()))
+                            }
+                        }
                     }
-                  }.flatten
-              } else {
-                {
-                  for {
-                    selectedAgentOpt <- sessionRepo.get[SelectedAgent]
-                    selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
-                    propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
-                      params = GetPropertyLinksParameters(),
-                      pagination = AgentPropertiesParameters(agentCode = selectedAgent.agentCode),
-                      agentOrganisationId = selectedAgent.agentCode,
-                      organisationId = request.organisationId
-                    )
-                  } yield {
-                    sessionRepo
-                      .get[AppointNewAgentSession]
-                      .map {
-                        case Some(sessionData) =>
-                          sessionData match {
-                            case selectedAgent: SelectedAgent =>
-                              propertyLinks.authorisations.size match {
-                                case 0 =>
-                                  sessionRepo.saveOrUpdate(
-                                    ManagingProperty(
-                                      selectedAgent.copy(
-                                        bothRatingLists = Some(success),
-                                        specificRatingList = None
-                                      ),
-                                      selection = "none",
-                                      singleProperty = false,
-                                      totalPropertySelectionSize = 0,
-                                      propertySelectedSize = 0,
-                                    ).copy(backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)))
-                                  Future.successful(
-                                    Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
-                                case 1 =>
-                                  sessionRepo.saveOrUpdate(
-                                    selectedAgent.copy(
-                                      bothRatingLists = Some(success),
-                                      specificRatingList = None,
-                                      backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
-                                    )
-                                  )
-                                  Future.successful(
-                                    Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty()))
-                                case _ =>
-                                  sessionRepo.saveOrUpdate(
-                                    selectedAgent.copy(
-                                      bothRatingLists = Some(success),
-                                      specificRatingList = None,
-                                      backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
-                                    )
-                                  )
-                                  Future.successful(
-                                    Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties()))
-                              }
-                            case selectedAgent: ManagingProperty =>
-                              propertyLinks.authorisations.size match {
-                                case 0 =>
-                                  sessionRepo.saveOrUpdate(
-                                    selectedAgent.copy(
-                                      bothRatingLists = Some(success),
-                                      specificRatingList = None,
-                                      backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
-                                    )
-                                  )
-                                  Future.successful(
-                                    Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
-                                case 1 =>
-                                  sessionRepo.saveOrUpdate(
-                                    selectedAgent.copy(
-                                      bothRatingLists = Some(success),
-                                      specificRatingList = None,
-                                      backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
-                                    )
-                                  )
-                                  Future.successful(
-                                    Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty()))
-                                case _ =>
-                                  sessionRepo.saveOrUpdate(
-                                    selectedAgent.copy(
-                                      bothRatingLists = Some(success),
-                                      specificRatingList = None,
-                                      backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
-                                    )
-                                  )
-                                  Future.successful(
-                                    Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties()))
-                              }
-                          }
-                      }
-                      .flatten
-                  }
-                }.flatten
-              }
-
+                    .flatten
+                }
+              }.flatten
             } else {
               sessionRepo.get[AppointNewAgentSession].map {
                 case Some(answers) =>
                   answers match {
                     case answers: ManagingProperty =>
-                      sessionRepo.saveOrUpdate(answers.copy(bothRatingLists = Some(false)))
+                      sessionRepo.saveOrUpdate(
+                        answers.copy(
+                          bothRatingLists = Some(false),
+                          backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)))
                     case answers: SelectedAgent =>
                       sessionRepo.saveOrUpdate(
                         ManagingProperty(
                           answers.copy(
-                            bothRatingLists = Some(false),
-                            specificRatingList = None
+                            bothRatingLists = Some(false)
                           ),
                           selection = "",
                           singleProperty = false,
@@ -265,6 +255,19 @@ class RatingListOptionsController @Inject()(
             }
           }
         )
+    }
+
+  private def getBacklinkForCheckAnswersPage(propertySize: Int, specificTaxYears: Option[String]): String =
+    propertySize match {
+      case 0 if (featureSwitch.isAgentListYearsEnabled) =>
+        if (specificTaxYears.nonEmpty) routes.SelectRatingListController.show().url
+        else routes.RatingListOptionsController.show().url
+      case 0 =>
+        routes.AddAgentController.isCorrectAgent().url
+      case 1 =>
+        routes.AddAgentController.oneProperty().url
+      case _ =>
+        routes.AddAgentController.multipleProperties().url
     }
 
 }
