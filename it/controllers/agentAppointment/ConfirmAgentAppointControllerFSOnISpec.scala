@@ -15,17 +15,15 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHelpers {
-
-  override lazy val extraConfig: Map[String, Any] = Map(
-    "feature-switch.agentListYears.enabled" -> "false"
-  )
+class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponentHelpers {
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
-  val assignedToId = "assigned-to"
+  val assignedToId = "rates-for"
+
+  val linkID = "showAgent"
 
   "onPageLoad" should {
-    "return 200 & display correct content (Some properties)" in new TestSetup {
+    "return 200 & display correct content (both tax year rates)" in new TestSetup(Some(true), None) {
 
       await(
         mockAppointAgentSessionRepository.saveOrUpdate(
@@ -37,38 +35,20 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       lazy val document = getDocument(English)
       document
         .getElementById(assignedToId)
-        .text() shouldBe "They have also been assigned to the properties you selected."
+        .text() shouldBe "act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account"
 
     }
 
-    "return 200 & display correct content (Some properties) - Welsh" in new TestSetup {
-
-      await(
-        mockAppointAgentSessionRepository.saveOrUpdate(
-          managingPropertyData.copy(managingPropertyChoice = ChooseFromList.name)))
-      await(
-        mockAppointAgentPropertiesSessionRepository
-          .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
-
-      lazy val document = getDocument(Welsh)
-      document.getElementById(assignedToId).text() shouldBe "Maent hefyd wedi’u neilltuo i’r eiddo a ddewiswyd gennych."
-
-    }
-
-    "return 200 & display correct content (All properties)" in new TestSetup {
+    "return 200 & display correct content (2017 tax year rates)" in new TestSetup(Some(false), Some("2017")) {
 
       lazy val document = getDocument(English)
-      document.getElementById(assignedToId).text() shouldBe "They have also been assigned to all your properties."
+      document
+        .getElementById(assignedToId)
+        .text() shouldBe "act for you on your property valuations on the 2017 rating list, for properties that you assign to them or they add to your account"
 
     }
 
-    "return 200 & display correct content (All properties) - Welsh" in new TestSetup {
-
-      lazy val document = getDocument(Welsh)
-      document.getElementById(assignedToId).text() shouldBe "Maent hefyd wedi’u neilltuo i’ch holl eiddo."
-    }
-
-    "return 200 & display correct content (Assigned to only property)" in new TestSetup {
+    "return 200 & display correct content (2023 tax year rates)" in new TestSetup(Some(false), Some("2023")) {
       await(
         mockAppointAgentSessionRepository.saveOrUpdate(
           managingPropertyData
@@ -76,16 +56,9 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
             .copy(singleProperty = true)))
 
       lazy val document = getDocument(English)
-      document.getElementById(assignedToId).text() shouldBe "They have also been assigned to your property."
-    }
-
-    "return 200 & display correct content (Assigned to only property) - Welsh" in new TestSetup {
-      await(
-        mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-          .copy(singleProperty = true)))
-
-      lazy val document = getDocument(Welsh)
-      document.getElementById(assignedToId).text() shouldBe "Maent hefyd wedi’u neilltuo i’ch eiddo."
+      document
+        .getElementById(assignedToId)
+        .text() shouldBe "act for you on your property valuations on the 2023 rating list, for properties that you assign to them or they add to your account"
     }
   }
 
@@ -104,17 +77,17 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       document.title() shouldBe "Some Org has been appointed to your account - Valuation Office Agency - GOV.UK"
       document.getElementsByClass("govuk-panel__title").text() shouldBe "Some Org has been appointed to your account"
       document.getElementById("agent-can-text").text() shouldBe "This agent can:"
-      document.select("#agent-can-list > li").text() shouldBe "add properties to your account"
+      document.select("#agent-can-list > li:nth-child(1)").text() shouldBe "add properties to your account"
       document.getElementById("what-happens-next-title").text() shouldBe "What happens next"
       document
-        .getElementById("what-happens-next-text")
-        .text() shouldBe "You can assign or unassign this agent from your properties by managing your agents."
+        .select("#main-content > div > div > p:nth-child(5)")
+        .text() shouldBe "You can assign or unassign this agent from your properties or change the rating lists they can act for you on by managing your agents."
       document.getElementById("go-home-link").text() shouldBe "Go to your account home"
     } else {
       document.title() shouldBe "Mae Some Org wedi’i benodi i’ch cyfrif - Valuation Office Agency - GOV.UK"
       document.getElementsByClass("govuk-panel__title").text() shouldBe "Mae Some Org wedi’i benodi i’ch cyfrif"
       document.getElementById("agent-can-text").text() shouldBe "Gall yr asiant hwn:"
-      document.select("#agent-can-list > li").text() shouldBe "ychwanegu eiddo at eich cyfrif"
+      document.select("#agent-can-list > li:nth-child(1)").text() shouldBe "ychwanegu eiddo at eich cyfrif"
       document.getElementById("what-happens-next-title").text() shouldBe "Beth sy’n digwydd nesaf"
       document
         .getElementById("what-happens-next-text")
@@ -125,7 +98,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
     document
   }
 
-  class TestSetup() {
+  class TestSetup(bothRatingList: Option[Boolean], specificRatingList: Option[String]) {
 
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =
       app.injector.instanceOf[AppointAgentSessionRepository]
@@ -146,7 +119,9 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       agentAddress = "An Address",
       backLink = None,
       totalPropertySelectionSize = 2,
-      propertySelectedSize = 2
+      propertySelectedSize = 2,
+      bothRatingLists = bothRatingList,
+      specificRatingList = specificRatingList
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(

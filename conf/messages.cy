@@ -574,6 +574,11 @@ propertyRepresentation.confirmation.thisAgentCan=Gall yr asiant hwn:
 propertyRepresentation.confirmation.thisAgentCan.list.1=ychwanegu eiddo at eich cyfrif
 propertyRepresentation.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
 propertyRepresentation.confirmation.whatHappensNext.p1=Gallwch neilltuo neu ddadneilltuo’r asiant hwn o’ch eiddo trwy <a class="govuk-link" id="manage-agents-link" href="{0}">reoli eich asiantiaid</a>.
+propertyRepresentation.confirmation.secondBulletPoint.both_years= act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account
+propertyRepresentation.confirmation.secondBulletPoint.2017= act for you on your property valuations on the 2017 rating list, for properties that you assign to them or they add to your account
+propertyRepresentation.confirmation.secondBulletPoint.2023= act for you on your property valuations on the 2023 rating list, for properties that you assign to them or they add to your account
+propertyRepresentation.confirmation.whatHappensNext.new.p1=You can assign or unassign this agent from your properties or change the rating lists they can act for you on by
+propertyRepresentation.confirmation.whatHappensNext.new.p1.link=managing your agents
 
 error.propertyRepresentation.title=Mae yna broblem
 error.propertyRepresentation.unknownAgent=Does ddim asiant ar gyfer y cod asiant a ddarparwyd;
