@@ -20,7 +20,6 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
 
   val titleText = "Choose a rating list Some Org can act on for you - Valuation Office Agency - GOV.UK"
-  val errorTitleText = "Error: Choose a rating list Some Org can act on for you - Valuation Office Agency - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Appoint an agent"
   val headerText = "Choose a rating list Some Org can act on for you"
@@ -49,7 +48,6 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
   val thereIsAProblemText = "There is a problem"
   val aboveRadioErrorText = "Error: Select an option"
 
-  val errorTitleTextWelsh = "Gwall: Welsh Choose a rating list Some Org can act on for you - Valuation Office Agency - GOV.UK"
   val titleTextWelsh = "Dewis rhestr ardrethu y gall Some Org ei gweithredu ar eich rhan - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Penodi Asiant"
@@ -381,6 +379,29 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
         res.status shouldBe SEE_OTHER
         res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
 
+      }
+
+      "receive a bad request when answer is not selected" in {
+        submitSelectRatingListOptionCommonStubbing()
+
+        stubFor {
+          get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultMultipleProperty).toString())
+            }
+        }
+
+        val requestBody = Json.obj()
+
+        val res = await(
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            .withFollowRedirects(follow = false)
+            .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+            .post(body = requestBody)
+        )
+
+        res.status shouldBe BAD_REQUEST
       }
 
     }

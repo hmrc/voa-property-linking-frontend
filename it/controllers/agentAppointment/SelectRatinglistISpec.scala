@@ -5,7 +5,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, st
 import models.propertyrepresentation.{AgentSelected, ManagingProperty, SearchedAgent, SelectedAgent}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import play.api.http.Status.{OK, SEE_OTHER}
+import play.api.http.Status.{BAD_REQUEST, OK, SEE_OTHER}
 import play.api.libs.json.Json
 import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import repositories.AppointAgentSessionRepository
@@ -19,7 +19,6 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
   val titleText = "Choose the 2023 or 2017 rating list - Valuation Office Agency - GOV.UK"
-  val errorTitleText = "Error: Choose the 2023 or 2017 rating list - Valuation Office Agency - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Appoint an agent"
   val headerText = "Choose the 2023 or 2017 rating list"
@@ -34,12 +33,9 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   val theAgent2017Text =
     "The agent can only act for you on previous valuations for your property that have an effective date between 1 April 2017 to 31 March 2023."
   val continueText = "Continue"
-  val errorText = "Select which rating list you want this agent to act on for you"
   val thereIsAProblemText = "There is a problem"
-  val aboveRadioErrorText = "Error: Select which rating list you want this agent to act on for you"
 
   val titleTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017 - Valuation Office Agency - GOV.UK"
-  val errorTitleTextWelsh = "Gwall: Welsh Choose the 2023 or 2017 rating list - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Penodi Asiant"
   val headerTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017"
@@ -55,9 +51,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   val theAgent2017TextWelsh =
     "Dim ond ar brisiadau blaenorol ar gyfer eich eiddo sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023 y gall yr asiant weithredu ar eich rhan."
   val continueTextWelsh = "Parhau"
-  val errorTextWelsh = "Welsh Select which rating list you want this agent to act on for you"
   val thereIsAProblemTextWelsh = "Mae yna broblem"
-  val aboveRadioErrorTextWelsh = "Gwall: Welsh Select which rating list you want this agent to act on for you"
 
   val backLinkSelector = "#back-link"
   val captionSelector = "span.govuk-caption-l"
@@ -303,6 +297,29 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
       res
         .headers("Location")
         .head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+    }
+
+    "receive a bad request when answer is not selected" in {
+      submitSelectRatingListCommonStubbing()
+
+      stubFor {
+        get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultMultipleProperty).toString())
+          }
+      }
+
+      val requestBody = Json.obj()
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe BAD_REQUEST
     }
   }
 
