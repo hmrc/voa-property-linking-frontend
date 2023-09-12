@@ -34,6 +34,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
     "The agent can only act for you on previous valuations for your property that have an effective date between 1 April 2017 to 31 March 2023."
   val continueText = "Continue"
   val thereIsAProblemText = "There is a problem"
+  val selectionErrorText = "Select which rating list you want this agent to act on for you"
 
   val titleTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017 - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
@@ -52,6 +53,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
     "Dim ond ar brisiadau blaenorol ar gyfer eich eiddo sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023 y gall yr asiant weithredu ar eich rhan."
   val continueTextWelsh = "Parhau"
   val thereIsAProblemTextWelsh = "Mae yna broblem"
+  val selectionErrorTextWelsh = "Dewis ar ba restr ardrethu chi am i’r asiant hwn weithredu ar eich rhan"
 
   val backLinkSelector = "#back-link"
   val captionSelector = "span.govuk-caption-l"
@@ -69,6 +71,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   val errorSummaryTitleSelector = "#main-content > div > div > div.govuk-error-summary > div > h2"
   val errorSummaryErrorSelector = "#main-content > div > div > div.govuk-error-summary > div > div"
   val aboveRadiosErrorSelector = "#multipleListYears-error"
+  val inputErrorSummarySelector = "#main-content > div > div > div > div > div"
 
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
   val checkYourAnswersBackLink = "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
@@ -299,7 +302,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
         .head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
     }
 
-    "receive a bad request when answer is not selected" in {
+    "receive a bad request when answer is not selected in english" in {
       submitSelectRatingListCommonStubbing()
 
       stubFor {
@@ -320,6 +323,35 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
       )
 
       res.status shouldBe BAD_REQUEST
+      val body = Jsoup.parse(res.body)
+      body.select(inputErrorSummarySelector).text() shouldBe selectionErrorText
+
+    }
+
+    "receive a bad request when answer is not selected in welsh" in {
+      submitSelectRatingListCommonStubbing()
+
+      stubFor {
+        get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultMultipleProperty).toString())
+          }
+      }
+
+      val requestBody = Json.obj()
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select")
+          .withCookies(languageCookie(Welsh), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe BAD_REQUEST
+      val body = Jsoup.parse(res.body)
+      body.select(inputErrorSummarySelector).text() shouldBe selectionErrorTextWelsh
+
     }
   }
 

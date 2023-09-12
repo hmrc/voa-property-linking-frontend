@@ -831,7 +831,7 @@ whichRatingList.2023List = rhestr ardrethu 2023
 whichRatingList.2023ListHelp = Dim ond ar eich prisiad cyfredol ar gyfer eich eiddo ac unrhyw brisiadau blaenorol sydd â dyddiad dod i rym ar ôl 1 Ebrill 2023 y gall yr asiant weithredu ar eich rhan.
 whichRatingList.2017List = rhestr ardrethu 2017
 whichRatingList.2017ListHelp = Dim ond ar brisiadau blaenorol ar gyfer eich eiddo sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023 y gall yr asiant weithredu ar eich rhan.
-whichRatingList.error = Welsh Select which rating list you want this agent to act on for you
+whichRatingList.error = Dewis ar ba restr ardrethu chi am i’r asiant hwn weithredu ar eich rhan
 
 #Rating list years confirmation screen
 ratingsListConfirmation.multiple.header = Welsh Are you sure you want {0} to act for you on the 2023 and 2017 rating lists?

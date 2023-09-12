@@ -16,50 +16,50 @@ import java.time.LocalDate
 import java.util.UUID
 
 class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
-
-  val testSessionId = s"stubbed-${UUID.randomUUID}"
-
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
+  val testSessionId = s"stubbed-${UUID.randomUUID}"
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
-
   val titleText = "Choose the 2023 or 2017 rating list - Valuation Office Agency - GOV.UK"
   val errorTitleText = "Error: Choose the 2023 or 2017 rating list - Valuation Office Agency - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Manage agent"
   val headerText = "Choose the 2023 or 2017 rating list"
   val currentlyThisTextMultiple = "Currently this agent can act for you on the 2023 and 2017 rating lists"
-  def currentlyThisTextSingle(listYear: String) = s"Currently this agent can act for you on the $listYear rating list"
-  val theRatingListText = "The rating list you choose for this agent will apply to all properties that you assign to them and they add to your account."
+  val theRatingListText =
+    "The rating list you choose for this agent will apply to all properties that you assign to them and they add to your account."
   val theAgentText = "The agent will only be able to act for you on valuations on the rating list you choose."
   val whichRatingText = "Which rating list do you want this agent to act on for you?"
   val the2023ListText = "2023 rating list"
-  val theAgent2023Text = "The agent can only act for you on your current valuation for your property and any previous valuations that have an effective date after 1 April 2023."
+  val theAgent2023Text =
+    "The agent can only act for you on your current valuation for your property and any previous valuations that have an effective date after 1 April 2023."
   val the2017ListText = "2017 rating list"
-  val theAgent2017Text = "The agent can only act for you on previous valuations for your property that have an effective date between 1 April 2017 to 31 March 2023."
+  val theAgent2017Text =
+    "The agent can only act for you on previous valuations for your property that have an effective date between 1 April 2017 to 31 March 2023."
   val continueText = "Continue"
   val errorText = "Select which rating list you want this agent to act on for you"
   val thereIsAProblemText = "There is a problem"
   val aboveRadioErrorText = "Error: Select which rating list you want this agent to act on for you"
-
   val titleTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017 - Valuation Office Agency - GOV.UK"
   val errorTitleTextWelsh = "Gwall: Dewiswch restr ardrethu 2023 neu 2017 - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
   val headerTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017"
   val currentlyThisTextMultipleWelsh = "Welsh Currently this agent can act for you on the 2023 and 2017 rating lists"
-  def currentlyThisTextSingleWelsh(listYear: String) = s"Welsh Currently this agent can act for you on the $listYear rating list"
-  val theRatingListTextWelsh = "Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac i’r rheiny maen nhw’n ychwanegu at eich cyfrif."
-  val theAgentTextWelsh = "Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan."
+  val theRatingListTextWelsh =
+    "Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac i’r rheiny maen nhw’n ychwanegu at eich cyfrif."
+  val theAgentTextWelsh =
+    "Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan."
   val whichRatingTextWelsh = "Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?"
   val the2023ListTextWelsh = "rhestr ardrethu 2023"
-  val theAgent2023TextWelsh = "Dim ond ar eich prisiad cyfredol ar gyfer eich eiddo ac unrhyw brisiadau blaenorol sydd â dyddiad dod i rym ar ôl 1 Ebrill 2023 y gall yr asiant weithredu ar eich rhan."
+  val theAgent2023TextWelsh =
+    "Dim ond ar eich prisiad cyfredol ar gyfer eich eiddo ac unrhyw brisiadau blaenorol sydd â dyddiad dod i rym ar ôl 1 Ebrill 2023 y gall yr asiant weithredu ar eich rhan."
   val the2017ListTextWelsh = "rhestr ardrethu 2017"
-  val theAgent2017TextWelsh = "Dim ond ar brisiadau blaenorol ar gyfer eich eiddo sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023 y gall yr asiant weithredu ar eich rhan."
+  val theAgent2017TextWelsh =
+    "Dim ond ar brisiadau blaenorol ar gyfer eich eiddo sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023 y gall yr asiant weithredu ar eich rhan."
   val continueTextWelsh = "Parhau"
-  val errorTextWelsh = "Welsh Select which rating list you want this agent to act on for you"
+  val errorTextWelsh = "Dewis ar ba restr ardrethu chi am i’r asiant hwn weithredu ar eich rhan"
   val thereIsAProblemTextWelsh = "Mae yna broblem"
-  val aboveRadioErrorTextWelsh = "Gwall: Welsh Select which rating list you want this agent to act on for you"
-
+  val aboveRadioErrorTextWelsh = "Gwall: Dewis ar ba restr ardrethu chi am i’r asiant hwn weithredu ar eich rhan"
   val backLinkSelector = "#back-link"
   val captionSelector = "span.govuk-caption-l"
   val headerSelector = "h1.govuk-heading-l"
@@ -77,8 +77,12 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   val errorSummaryTitleSelector = "#main-content > div > div > div.govuk-error-summary > div > h2"
   val errorSummaryErrorSelector = "#main-content > div > div > div.govuk-error-summary > div > div"
   val aboveRadiosErrorSelector = "#multipleListYears-error"
-
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/choose"
+
+  def currentlyThisTextSingle(listYear: String) = s"Currently this agent can act for you on the $listYear rating list"
+
+  def currentlyThisTextSingleWelsh(listYear: String) =
+    s"Welsh Currently this agent can act for you on the $listYear rating list"
 
   "WhichRatingListController show method" should {
     "Show an English which rating list screen with the correct text for already being on both lists when the language is set to English" which {
@@ -466,7 +470,9 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
       )
 
       res.status shouldBe SEE_OTHER
-      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017"
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017"
 
     }
 
@@ -509,7 +515,9 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
       )
 
       res.status shouldBe SEE_OTHER
-      res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023"
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023"
 
     }
 
@@ -641,13 +649,14 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-          .post(body="")
+          .post(body = "")
       )
 
       res.status shouldBe NOT_FOUND
     }
 
   }
+
   private def getWhichRatingListPage(language: Language, listYears: List[String]): Document = {
 
     await(
@@ -718,7 +727,7 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-        .post(body="")
+        .post(body = "")
     )
 
     res.status shouldBe BAD_REQUEST
