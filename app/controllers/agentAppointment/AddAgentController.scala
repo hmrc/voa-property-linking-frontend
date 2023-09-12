@@ -21,6 +21,7 @@ import actions.agentrelationship.WithAppointAgentSessionRefiner
 import actions.agentrelationship.request.AppointAgentSessionRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
+import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import controllers.agentAppointment.AppointNewAgentForms._
@@ -45,6 +46,7 @@ class AddAgentController @Inject()(
       authenticated: AuthenticatedAction,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
       agentRelationshipService: AgentRelationshipService,
+      featureSwitch: FeatureSwitch,
       @Named("appointNewAgentSession") val sessionRepo: SessionRepo,
       startPageView: views.html.propertyrepresentation.appoint.start,
       agentCodeView: views.html.propertyrepresentation.appoint.agentCode,
@@ -108,6 +110,7 @@ class AddAgentController @Inject()(
 
   def getAgentDetails(backLink: String): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
+      val fromCyaChange = if (backLink == routes.CheckYourAnswersController.onPageLoad().url) true else false
       agentCode
         .bindFromRequest()
         .fold(
@@ -169,7 +172,8 @@ class AddAgentController @Inject()(
                                     )
                                   )
                                   .map(_ =>
-                                    Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent))
+                                    Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent(
+                                      fromCyaChange)))
                               case _ =>
                                 sessionRepo
                                   .saveOrUpdate(
@@ -180,7 +184,8 @@ class AddAgentController @Inject()(
                                       backLink = Some(backLink)
                                     ))
                                   .map(_ =>
-                                    Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent))
+                                    Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent(
+                                      fromCyaChange)))
                             }
                           case _ =>
                             sessionRepo
@@ -191,7 +196,9 @@ class AddAgentController @Inject()(
                                   agentAddress = agent.address,
                                   backLink = Some(backLink)
                                 ))
-                              .map(_ => Redirect(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent))
+                              .map(_ =>
+                                Redirect(
+                                  controllers.agentAppointment.routes.AddAgentController.isCorrectAgent(fromCyaChange)))
                         }
                         .flatten
                   }
@@ -202,22 +209,25 @@ class AddAgentController @Inject()(
         )
   }
 
-  def isCorrectAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    Future.successful(
-      Ok(
-        isTheCorrectAgentView(
-          isThisTheCorrectAgent,
-          request.agentDetails,
-          routes.AddAgentController.getAgentDetails(backLink = getBackLink).url)))
-  }
+  def isCorrectAgent(fromCyaChange: Boolean = false): Action[AnyContent] =
+    authenticated.andThen(withAppointAgentSession).async { implicit request =>
+      Future.successful(
+        Ok(
+          isTheCorrectAgentView(
+            isThisTheCorrectAgent,
+            request.agentDetails,
+            routes.AddAgentController.getAgentDetails(backLink = getBackLinkFromSession).url,
+            fromCyaChange
+          )))
+    }
 
-  def agentSelected(backLink: String): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
-    implicit request =>
+  def agentSelected(backLink: String, fromCyaChange: Boolean = false): Action[AnyContent] =
+    authenticated.andThen(withAppointAgentSession).async { implicit request =>
       isThisTheCorrectAgent
         .bindFromRequest()
         .fold(
           errors => {
-            Future.successful(BadRequest(isTheCorrectAgentView(errors, request.agentDetails, backLink)))
+            Future.successful(BadRequest(isTheCorrectAgentView(errors, request.agentDetails, backLink, fromCyaChange)))
           },
           success => {
             if (success) {
@@ -237,30 +247,45 @@ class AddAgentController @Inject()(
                     .map {
                       case Some(sessionData) =>
                         sessionData match {
-                          case _: ManagingProperty =>
+                          case answers: ManagingProperty if (fromCyaChange) =>
+                            sessionRepo.saveOrUpdate(
+                              answers.copy(
+                                backLink = Some(
+                                  getBacklinkForCheckAnswersPage(
+                                    propertyLinks.authorisations.size,
+                                    answers.specificRatingList)
+                                )
+                              )
+                            )
                             Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
                           case _ =>
-                            propertyLinks.authorisations.size match {
-                              case 0 =>
-                                sessionRepo.saveOrUpdate(
-                                  ManagingProperty(
-                                    SelectedAgent(searchedAgent, success),
-                                    selection = "none",
-                                    singleProperty = false,
-                                    totalPropertySelectionSize = 0,
-                                    propertySelectedSize = 0).copy(backLink = Some(backLink)))
-                                Future.successful(
-                                  Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
-                              case 1 =>
-                                sessionRepo.saveOrUpdate(
-                                  SelectedAgent(searchedAgent, success).copy(backLink = Some(backLink)))
-                                Future.successful(
-                                  Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty()))
-                              case _ =>
-                                sessionRepo.saveOrUpdate(
-                                  SelectedAgent(searchedAgent, success).copy(backLink = Some(backLink)))
-                                Future.successful(
-                                  Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties()))
+                            if (featureSwitch.isAgentListYearsEnabled) {
+                              sessionRepo.saveOrUpdate(
+                                SelectedAgent(searchedAgent, success, None, None).copy(backLink = Some(backLink)))
+                              Future.successful(Redirect(routes.RatingListOptionsController.show()))
+                            } else {
+                              propertyLinks.authorisations.size match {
+                                case 0 =>
+                                  sessionRepo.saveOrUpdate(
+                                    ManagingProperty(
+                                      SelectedAgent(searchedAgent, success, None, None),
+                                      selection = "none",
+                                      singleProperty = false,
+                                      totalPropertySelectionSize = 0,
+                                      propertySelectedSize = 0).copy(backLink = Some(backLink)))
+                                  Future.successful(Redirect(
+                                    controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
+                                case 1 =>
+                                  sessionRepo.saveOrUpdate(
+                                    SelectedAgent(searchedAgent, success, None, None).copy(backLink = Some(backLink)))
+                                  Future.successful(
+                                    Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty()))
+                                case _ =>
+                                  sessionRepo.saveOrUpdate(
+                                    SelectedAgent(searchedAgent, success, None, None).copy(backLink = Some(backLink)))
+                                  Future.successful(Redirect(
+                                    controllers.agentAppointment.routes.AddAgentController.multipleProperties()))
+                              }
                             }
                         }
                     }
@@ -272,20 +297,31 @@ class AddAgentController @Inject()(
             }
           }
         )
-  }
+    }
+
+  private def getBacklinkForCheckAnswersPage(propertySize: Int, specificTaxYears: Option[String]): String =
+    propertySize match {
+      case 0 if (featureSwitch.isAgentListYearsEnabled) =>
+        if (specificTaxYears.nonEmpty) routes.SelectRatingListController.show().url
+        else routes.RatingListOptionsController.show().url
+      case 0 =>
+        routes.AddAgentController.isCorrectAgent().url
+      case 1 =>
+        routes.AddAgentController.oneProperty().url
+      case _ =>
+        routes.AddAgentController.multipleProperties().url
+    }
 
   def oneProperty(fromCyaChange: Boolean = false): Action[AnyContent] =
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
-      val backLink =
-        if (fromCyaChange) routes.CheckYourAnswersController.onPageLoad().url
-        else routes.AddAgentController.isCorrectAgent.url
       for {
         agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
+        backLink        <- getBackLinkForPreliminaryCheckYourAnswers(fromCyaChange)
       } yield
         agentDetailsOpt match {
           case Some(answers) =>
             answers match {
-              case answers: ManagingProperty =>
+              case answers: ManagingProperty if (answers.managingPropertyChoice != "") =>
                 Ok(
                   agentToManageOnePropertyView(
                     manageOneProperty.fill(AddAgentOptions.fromName(answers.managingPropertyChoice).get),
@@ -302,7 +338,8 @@ class AddAgentController @Inject()(
       .bindFromRequest()
       .fold(
         errors => {
-          Future.successful(BadRequest(agentToManageOnePropertyView(errors, request.agentDetails.name, getBackLink)))
+          Future.successful(
+            BadRequest(agentToManageOnePropertyView(errors, request.agentDetails.name, getBackLinkFromSession)))
         },
         success => {
           for {
@@ -323,18 +360,35 @@ class AddAgentController @Inject()(
       )
   }
 
+  private def getBackLinkFromSession(implicit request: AppointAgentSessionRequest[AnyContent]) = {
+    sessionRepo.get[AppointNewAgentSession].map {
+      case Some(answer) =>
+        answer match {
+          case answer: ManagingProperty if (answer.specificRatingList.nonEmpty) =>
+            routes.SelectRatingListController.show().url
+          case answer: ManagingProperty if (answer.bothRatingLists.nonEmpty) =>
+            routes.RatingListOptionsController.show().url
+          case answer: SelectedAgent if (answer.specificRatingList.nonEmpty) =>
+            routes.SelectRatingListController.show().url
+          case answer: SelectedAgent if (answer.bothRatingLists.nonEmpty) =>
+            routes.RatingListOptionsController.show().url
+          case _ => routes.AddAgentController.isCorrectAgent().url
+        }
+    }
+
+    request.sessionData.backLink.getOrElse(config.dashboardUrl("home"))
+  }
+
   def multipleProperties(fromCyaChange: Boolean = false): Action[AnyContent] =
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
-      val backLink =
-        if (fromCyaChange) routes.CheckYourAnswersController.onPageLoad().url
-        else routes.AddAgentController.isCorrectAgent.url
       for {
         agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
+        backLink        <- getBackLinkForPreliminaryCheckYourAnswers(fromCyaChange)
       } yield
         agentDetailsOpt match {
           case Some(answers) =>
             answers match {
-              case answers: ManagingProperty =>
+              case answers: ManagingProperty if (answers.managingPropertyChoice != "") =>
                 Ok(
                   agentToManageMultiplePropertiesView(
                     manageMultipleProperties.fill(AddAgentOptions.fromName(answers.managingPropertyChoice).get),
@@ -348,14 +402,34 @@ class AddAgentController @Inject()(
         }
     }
 
+  private def getBackLinkForPreliminaryCheckYourAnswers(fromCya: Boolean)(
+        implicit request: AppointAgentSessionRequest[AnyContent]): Future[String] =
+    if (fromCya) Future.successful(routes.CheckYourAnswersController.onPageLoad().url)
+    else {
+      sessionRepo.get[AppointNewAgentSession].map {
+        case Some(answer) =>
+          answer match {
+            case answer: ManagingProperty if (answer.specificRatingList.nonEmpty) =>
+              routes.SelectRatingListController.show().url
+            case answer: ManagingProperty if (answer.bothRatingLists.nonEmpty) =>
+              routes.RatingListOptionsController.show().url
+            case answer: SelectedAgent if (answer.specificRatingList.nonEmpty) =>
+              routes.SelectRatingListController.show().url
+            case answer: SelectedAgent if (answer.bothRatingLists.nonEmpty) =>
+              routes.RatingListOptionsController.show().url
+            case _ => routes.AddAgentController.isCorrectAgent().url
+          }
+      }
+    }
+
   def submitMultipleProperties: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
     implicit request =>
       manageMultipleProperties
         .bindFromRequest()
         .fold(
           errors => {
-            Future.successful(
-              BadRequest(agentToManageMultiplePropertiesView(errors, request.agentDetails.name, getBackLink)))
+            Future.successful(BadRequest(
+              agentToManageMultiplePropertiesView(errors, request.agentDetails.name, getBackLinkFromSession)))
           },
           success => {
             for {
@@ -382,27 +456,6 @@ class AddAgentController @Inject()(
         )
   }
 
-  def confirmAppointAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
-    request.sessionData match {
-      case data: ManagingProperty =>
-        val key = {
-          if (data.singleProperty) {
-            Some("propertyRepresentation.confirmation.yourProperty")
-          } else {
-            data.managingPropertyChoice match {
-              case All.name            => Some("propertyRepresentation.confirmation.allProperties")
-              case ChooseFromList.name => Some("propertyRepresentation.confirmation.selectedProperties")
-              case _                   => None
-            }
-          }
-        }
-        Ok(confirmationView(agentName = request.agentDetails.name, assignedToMessageKey = key))
-    }
-  }
-
-  private def getBackLink(implicit request: AppointAgentSessionRequest[AnyContent]) =
-    request.sessionData.backLink.getOrElse(config.dashboardUrl("home"))
-
   private def joinOldJourney(agentCode: Long) =
     Redirect(
       controllers.agentAppointment.routes.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(
@@ -412,6 +465,44 @@ class AddAgentController @Inject()(
         backLink = routes.AddAgentController.multipleProperties().url,
         fromManageAgentJourney = false
       ))
+
+  def confirmAppointAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
+    request.sessionData match {
+      case data: ManagingProperty =>
+        val key = {
+          if (featureSwitch.isAgentListYearsEnabled == false) {
+            if (data.singleProperty)
+              Some("propertyRepresentation.confirmation.yourProperty")
+            else {
+              data.managingPropertyChoice match {
+                case All.name            => Some("propertyRepresentation.confirmation.allProperties")
+                case ChooseFromList.name => Some("propertyRepresentation.confirmation.selectedProperties")
+                case _                   => None
+              }
+            }
+          } else None
+        }
+        val secondKey: Option[String] = {
+          (data.bothRatingLists, data.specificRatingList) match {
+            case (Some(true), _) if (featureSwitch.isAgentListYearsEnabled) =>
+              Some("propertyRepresentation.confirmation.secondBulletPoint.both_years")
+            case (Some(false), Some("2023")) if (featureSwitch.isAgentListYearsEnabled) =>
+              Some("propertyRepresentation.confirmation.secondBulletPoint.2023")
+            case (Some(false), Some("2017")) if (featureSwitch.isAgentListYearsEnabled) =>
+              Some("propertyRepresentation.confirmation.secondBulletPoint.2017")
+            case _ => None
+          }
+        }
+        Ok(
+          confirmationView(
+            agentName = request.agentDetails.name,
+            assignedToMessageKey = key,
+            secondBulletPoint = secondKey))
+    }
+  }
+
+  private def getBacklink(fromCya: Boolean)(implicit request: AppointAgentSessionRequest[AnyContent]) =
+    if (fromCya) routes.CheckYourAnswersController.onPageLoad().url else getBackLinkFromSession
 
 }
 

@@ -30,7 +30,7 @@
 
 @this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
-@(form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(backLink: String, form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @answerMessage = @{
@@ -58,15 +58,131 @@
 }
 
 @backLinks = @{
-   if(data.singleProperty) {
-       controllers.agentAppointment.routes.AddAgentController.oneProperty().url
-   } else if(data.totalPropertySelectionSize == 0){
-       controllers.agentAppointment.routes.AddAgentController.isCorrectAgent.url
-   } else controllers.agentAppointment.routes.AddAgentController.multipleProperties().url
+    backLink
 }
 
 @summaryRowHiddenClass = @{
     if(data.totalPropertySelectionSize == 0) "govuk-visually-hidden" else ""
+}
+
+@ratingListAnswerUrl = @{
+    controllers.agentAppointment.routes.RatingListOptionsController.show(true).url
+}
+
+@ratingListAnswer = @{
+    if(data.bothRatingLists.get){
+        messages("propertyRepresentation.checkYourAnswers.ratings.multiple.answer")
+    } else {
+        messages("propertyRepresentation.checkYourAnswers.ratings.single.answer",  data.specificRatingList.get)
+    }
+}
+
+
+@summaryList = @{
+    if(data.specificRatingList.isEmpty && data.bothRatingLists.isEmpty){
+        SummaryList(
+            rows = Seq(
+            SummaryListRow(
+            key = Key(
+            content = valueWithId(messages("propertyRepresentation.checkYourAnswers.agent"), "agent-heading")
+            ),
+            value = Value(
+            valueWithId(data.agentOrganisationName, "agent-value")
+            ),
+            actions = Some(Actions(
+            items = Seq(
+            ActionItem(
+            href = s"${controllers.agentAppointment.routes.AddAgentController.showAgentCodePage(fromCyaChange = true)}",
+            content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
+            visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.agent")),
+            attributes = Map("id" -> "change-agent")
+            )
+            )
+            ))
+        ),
+        SummaryListRow(
+            classes = summaryRowHiddenClass,
+            key = Key(
+            content = valueWithId(messages("propertyRepresentation.checkYourAnswers.properties"), "properties-heading")
+            ),
+            value = Value(
+            valueWithId(answerMessage, "properties-value")
+            ),
+            actions = Some(Actions(
+            items = Seq(
+            ActionItem(
+            href = submitPropertyUrls,
+            content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
+            visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.properties")),
+            attributes = Map("id" -> "change-properties")
+            )
+            )
+            )),
+        ),
+        )
+        )
+        } else {
+        SummaryList(
+            rows = Seq(
+            SummaryListRow(
+            key = Key(
+            content = valueWithId(messages("propertyRepresentation.checkYourAnswers.agent"), "agent-heading")
+            ),
+            value = Value(
+            valueWithId(data.agentOrganisationName, "agent-value")
+            ),
+            actions = Some(Actions(
+            items = Seq(
+            ActionItem(
+            href = s"${controllers.agentAppointment.routes.AddAgentController.showAgentCodePage(fromCyaChange = true)}",
+            content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
+            visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.agent")),
+            attributes = Map("id" -> "change-agent")
+            )
+            )
+            ))
+        ),
+        SummaryListRow(
+            key = Key(
+            content = valueWithId(messages("propertyRepresentation.checkYourAnswers.ratings"), "ratings-heading")
+            ),
+            value = Value(
+            valueWithId(ratingListAnswer, "ratings-value")
+            ),
+            actions = Some(Actions(
+            items = Seq(
+            ActionItem(
+            href = ratingListAnswerUrl,
+            content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
+            visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.ratings")),
+            attributes = Map("id" -> "change-rating-years")
+            )
+            )
+            )),
+        ),
+        SummaryListRow(
+            classes = summaryRowHiddenClass,
+            key = Key(
+            content = valueWithId(messages("propertyRepresentation.checkYourAnswers.properties"), "properties-heading")
+            ),
+            value = Value(
+            valueWithId(answerMessage, "properties-value")
+            ),
+            actions = Some(Actions(
+            items = Seq(
+            ActionItem(
+            href = submitPropertyUrls,
+            content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
+            visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.properties")),
+            attributes = Map("id" -> "change-properties")
+            )
+            )
+            )),
+        ),
+    )
+)
+
+}
 }
 
 @mainLayout(
@@ -80,47 +196,7 @@
     <span id="caption" class="govuk-caption-l">@messages("caption.appoint.agent")</span>
     <h1 class="govuk-heading-l">@messages("propertyRepresentation.checkYourAnswers.title")</h1>
 
-    @govukSummaryList(SummaryList(
-        rows = Seq(
-            SummaryListRow(
-                key = Key(
-                    content = valueWithId(messages("propertyRepresentation.checkYourAnswers.agent"), "agent-heading")
-                ),
-                value = Value(
-                    valueWithId(data.agentOrganisationName, "agent-value")
-                ),
-                actions = Some(Actions(
-                    items = Seq(
-                        ActionItem(
-                            href = s"${controllers.agentAppointment.routes.AddAgentController.showAgentCodePage(fromCyaChange = true)}",
-                            content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
-                            visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.agent")),
-                            attributes = Map("id" -> "change-agent")
-                        )
-                    )
-                ))
-            ),
-            SummaryListRow(
-                classes = summaryRowHiddenClass,
-                key = Key(
-                    content = valueWithId(messages("propertyRepresentation.checkYourAnswers.properties"), "properties-heading")
-                ),
-                value = Value(
-                    valueWithId(answerMessage, "properties-value")
-                ),
-                actions = Some(Actions(
-                    items = Seq(
-                        ActionItem(
-                            href = submitPropertyUrls,
-                            content = Text(messages("propertyRepresentation.checkYourAnswers.change")),
-                            visuallyHiddenText = Some(messages("propertyRepresentation.checkYourAnswers.properties")),
-                            attributes = Map("id" -> "change-properties")
-                        )
-                    )
-                )),
-            ),
-        )
-    ))
+    @govukSummaryList(summaryList)
 
     @formWithCSRF(action = controllers.agentAppointment.routes.CheckYourAnswersController.onSubmit) {
         <input type="hidden" name="agentCode" value="@data.agentCode">

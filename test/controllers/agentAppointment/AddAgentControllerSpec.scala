@@ -309,7 +309,12 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   }
 
   "oneProperty" should "return 200 Ok" in {
-    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
+    stubWithAppointAgentSession.stubSession(
+      selectedAgent.copy(
+        backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")),
+      detailedIndividualAccount,
+      groupAccount(false)
+    )
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
       .thenReturn(Future.successful(Some(selectedAgent)))
 
@@ -422,13 +427,14 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
   }
 
-  private val stubWithAppointAgentSession = new StubWithAppointAgentSessionRefiner(mockSessionRepo)
-
+  type English = EnglishRequest
+  type Welsh = WelshRequest
   private lazy val testController = new AddAgentController(
     mockCustomErrorHandler,
     preAuthenticatedActionBuilders(),
     stubWithAppointAgentSession,
     mockAgentRelationshipService,
+    mockFeatureSwitch,
     mockSessionRepo,
     startPageView,
     agentCodePageView,
@@ -437,12 +443,12 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     agentToManageMultiplePropertiesView,
     addAgentconfirmationView
   )
-
   private lazy val mockSessionRepo = {
     val f = mock[SessionRepo]
     when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
     f
   }
+  private val stubWithAppointAgentSession = new StubWithAppointAgentSessionRefiner(mockSessionRepo)
 
   private def verifyPageHeading(
         res: Future[Result],
@@ -462,9 +468,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     val page = Jsoup.parse(contentAsString(res))
     page.getElementById("back-link").attr("href") shouldBe expectedBackLink
   }
-
-  type English = EnglishRequest
-  type Welsh = WelshRequest
 
   trait StartPageTestCase {
     self: RequestLang =>

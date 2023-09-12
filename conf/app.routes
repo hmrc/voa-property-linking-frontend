@@ -99,8 +99,8 @@ GET         /my-organisation/appoint-new-agent/start                            
 GET         /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.showAgentCodePage(fromCyaChange: Boolean ?= false)
 POST        /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.getAgentDetails(backLink: String)
 
-GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.isCorrectAgent
-POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.agentSelected(backLink: String)
+GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.isCorrectAgent(fromCyaChange: Boolean ?= false)
+POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.agentSelected(backLink: String, fromCyaChange: Boolean ?= false)
 
 #TAX PAYER - SINGLE PROPERTIES
 GET         /my-organisation/appoint-new-agent/one-property                                                               controllers.agentAppointment.AddAgentController.oneProperty(fromCyaChange: Boolean ?= false)
@@ -122,10 +122,10 @@ POST        /my-organisation/appoint-new-agent/check-your-answers               
 GET         /my-organisation/confirm-appoint-agent                                                                        controllers.agentAppointment.ConfirmAgentAppointController.onPageLoad()
 
 #RATING LIST
-GET         /my-organisation/appoint-new-agent/ratings-list                                                               controllers.agentAppointment.RatingListOptionsController.show
-POST        /my-organisation/appoint-new-agent/ratings-list/confirm                                                       controllers.agentAppointment.RatingListOptionsController.submitRatingListYear
-GET         /my-organisation/appoint-new-agent/ratings-list-select                                                        controllers.agentAppointment.SelectRatingListController.show
-POST        /my-organisation/appoint-new-agent/ratings-list-select/confirm                                                controllers.agentAppointment.SelectRatingListController.submitRatingListYear
+GET         /my-organisation/appoint-new-agent/ratings-list                                                               controllers.agentAppointment.RatingListOptionsController.show(fromCyaChange: Boolean ?= false)
+POST        /my-organisation/appoint-new-agent/ratings-list                                                               controllers.agentAppointment.RatingListOptionsController.submitRatingListYear(fromCyaChange: Boolean ?= false)
+GET         /my-organisation/appoint-new-agent/ratings-list-select                                                        controllers.agentAppointment.SelectRatingListController.show(fromCyaChange: Boolean ?= false)
+POST        /my-organisation/appoint-new-agent/ratings-list-select                                                        controllers.agentAppointment.SelectRatingListController.submitRatingListYear(fromCyaChange: Boolean ?= false)
 
 #MANAGE AGENT
 GET         /my-organisation/manage-agent                                                                                 controllers.agent.ManageAgentController.showManageAgent

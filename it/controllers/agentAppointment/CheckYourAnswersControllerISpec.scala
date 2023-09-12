@@ -32,12 +32,18 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
   val agentHeadingWelsh = "Asiant"
   val assignPropertiesHeading = "Which properties do you want to assign to this agent?"
   val assignPropertiesHeadingWelsh = "Pa eiddo ydych chi’n dymuno neilltuo ir asiant hwn?"
+  val assignRatingListHeading = "Which rating list do you want this agent to act on for you?"
+  val assignRatingListHeadingWelsh = "Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?"
+  val answerRatingList = "2023 and 2017 rating lists"
+  val answerRatingListWelsh = "Rhestr ardrethu 2023 a rhestr ardrethu 2017"
 
   val agentHeadingId = "agent-heading"
   val agentValueId = "agent-value"
   val changeAgentLinkId = "change-agent"
   val propertiesHeadingId = "properties-heading"
   val propertiesValueId = "properties-value"
+  val ratingsHeadingId = "ratings-heading"
+  val ratingsValueId = "ratings-value"
   val changePropertiesLinkId = "change-properties"
   val continueButtonSelector = "button.govuk-button"
   val backLinkSelector = "#back-link"
@@ -45,7 +51,12 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
   "onPageLoad" should {
     "return 200 & display correct content (Some properties)" in new TestSetup {
 
-      await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData.copy(propertySelectedSize = 1)))
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"))
+      ))
+
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
@@ -58,7 +69,12 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Some properties) - Welsh" in new TestSetup {
 
-      await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData.copy(propertySelectedSize = 1)))
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        ))
+      )
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
@@ -85,12 +101,14 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Rate payer has no properties)" in new TestSetup {
       await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-        .copy(totalPropertySelectionSize = 0).copy(propertySelectedSize = 0)))
+        .copy(totalPropertySelectionSize = 0).copy(propertySelectedSize = 0)
+        .copy(backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"))
+      ))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List().empty))))
 
       lazy val document = getDocument(English)
-      document.select("#main-content > div > div > dl > div:nth-child(2)").hasClass("govuk-visually-hidden") shouldBe true
+      document.select("#main-content > div > div > dl > div:nth-child(3)").hasClass("govuk-visually-hidden") shouldBe true
       document.select(backLinkSelector).text() shouldBe backLinkText
       document.select(backLinkSelector).attr("href") shouldBe
         "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"
@@ -98,12 +116,14 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Rate payer has no properties) - Welsh" in new TestSetup {
       await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-        .copy(totalPropertySelectionSize = 0).copy(propertySelectedSize = 0)))
+        .copy(totalPropertySelectionSize = 0).copy(propertySelectedSize = 0)
+        .copy(backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"))
+      ))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List().empty))))
 
       lazy val document = getDocument(Welsh)
-      document.select("#main-content > div > div > dl > div:nth-child(2)").hasClass("govuk-visually-hidden") shouldBe true
+      document.select("#main-content > div > div > dl > div:nth-child(3)").hasClass("govuk-visually-hidden") shouldBe true
       document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
       document.select(backLinkSelector).attr("href") shouldBe
         "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"
@@ -111,7 +131,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Assigned to only property)" in new TestSetup {
       await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1).copy(singleProperty = true)))
+        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1).copy(singleProperty = true)
+        .copy(backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"))
+      ))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
@@ -124,7 +146,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
     "return 200 & display correct content (Assigned to only property) - Welsh" in new TestSetup {
       await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData
-        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1).copy(singleProperty = true)))
+        .copy(totalPropertySelectionSize = 1).copy(propertySelectedSize = 1).copy(singleProperty = true)
+        .copy(backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"))
+      ))
       await(mockAppointAgentPropertiesSessionRepository
         .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
 
@@ -155,6 +179,44 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       document.getElementById(propertiesValueId).text() shouldBe "Dim eiddo"
     }
 
+    "return 200 & display correct content (both rating values)" in new TestSetup {
+
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        )
+      ))
+
+      await(mockAppointAgentPropertiesSessionRepository
+        .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
+
+      lazy val document = getDocument(English)
+      document.getElementById(ratingsValueId).text() shouldBe answerRatingList
+      document.select(backLinkSelector).text() shouldBe backLinkText
+      document.select(backLinkSelector).attr("href")shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+    }
+
+    "return 200 & display correct content (both rating values) - Welsh" in new TestSetup {
+
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        )
+      ))
+      await(mockAppointAgentPropertiesSessionRepository
+        .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
+
+      lazy val document = getDocument(Welsh)
+      document.getElementById(ratingsValueId).text() shouldBe answerRatingListWelsh
+      document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+      document.select(backLinkSelector).attr("href") shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+
+    }
+
     "return 404 Not Found when no ManagingProperty data found in cache" in new TestSetup {
       await(mockAppointAgentSessionRepository.remove())
 
@@ -171,7 +233,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
   }
 
   "onSubmit" should {
-    "return 303 & redirect confirm appointment page on successful appointment(some properties - 2017 list years)" in new TestSetup {
+    "return 303 & redirect confirm appointment page on successful appointment(some properties - 2017 list years)" in new TestSetup(bothYears = None, specificYears = Some("2017")) {
 
       val requestBody = Json.obj(
         "agentCode" -> agentCode,
@@ -207,7 +269,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/confirm-appoint-agent"
     }
 
-    "return 303 & redirect confirm appointment page on successful appointment(some properties - 2023 list years)" in new TestSetup {
+    "return 303 & redirect confirm appointment page on successful appointment(some properties - 2023 list years)" in new TestSetup(bothYears = None, specificYears = Some("2023")) {
       stubFor {
         get("/property-linking/owner/agents")
           .willReturn {
@@ -280,8 +342,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
     }
   }
 
-  class TestSetup {
-
+  class TestSetup(specificYears: Option[String] = None, bothYears: Option[Boolean] = Some(true)) {
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
     lazy val mockAppointAgentPropertiesSessionRepository: AppointAgentPropertiesSessionRepository = app.injector.instanceOf[AppointAgentPropertiesSessionRepository]
     implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
@@ -299,7 +360,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       agentAddress = "An Address",
       backLink = None,
       totalPropertySelectionSize = 2,
-      propertySelectedSize = 2
+      propertySelectedSize = 2,
+      bothRatingLists = bothYears,
+      specificRatingList = specificYears
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(agentAppointAction =
@@ -354,6 +417,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       document.getElementById(agentHeadingId).text() shouldBe agentHeading
       document.getElementById(agentValueId).text() shouldBe "Some Org"
       document.getElementById(propertiesHeadingId).text() shouldBe assignPropertiesHeading
+      document.getElementById(ratingsHeadingId).text() shouldBe assignRatingListHeading
       document.select(continueButtonSelector).text() shouldBe continueButtonText
     } else {
       document.title() shouldBe titleTextWelsh
@@ -361,6 +425,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
       document.getElementById(agentHeadingId).text() shouldBe agentHeadingWelsh
       document.getElementById(agentValueId).text() shouldBe "Some Org"
       document.getElementById(propertiesHeadingId).text() shouldBe assignPropertiesHeadingWelsh
+      document.getElementById(ratingsHeadingId).text() shouldBe assignRatingListHeadingWelsh
       document.select(continueButtonSelector).text() shouldBe continueButtonTextWelsh
     }
 

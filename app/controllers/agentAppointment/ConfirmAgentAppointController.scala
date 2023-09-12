@@ -18,6 +18,7 @@ package controllers.agentAppointment
 
 import actions.AuthenticatedAction
 import actions.agentrelationship.WithAppointAgentSessionRefiner
+import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import models.propertyrepresentation._
@@ -34,7 +35,8 @@ class ConfirmAgentAppointController @Inject()(
       authenticated: AuthenticatedAction,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
       @Named("appointNewAgentSession") val appointNewAgentSession: SessionRepo,
-      confirmationView: views.html.propertyrepresentation.appoint.confirmation)(
+      confirmationView: views.html.propertyrepresentation.appoint.confirmation,
+      featureSwitch: FeatureSwitch)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig,
@@ -45,17 +47,35 @@ class ConfirmAgentAppointController @Inject()(
     request.sessionData match {
       case data: ManagingProperty =>
         val key = {
-          if (data.singleProperty)
-            Some("propertyRepresentation.confirmation.yourProperty")
-          else {
-            data.managingPropertyChoice match {
-              case All.name            => Some("propertyRepresentation.confirmation.allProperties")
-              case ChooseFromList.name => Some("propertyRepresentation.confirmation.selectedProperties")
-              case _                   => None
+          if (featureSwitch.isAgentListYearsEnabled == false) {
+            if (data.singleProperty)
+              Some("propertyRepresentation.confirmation.yourProperty")
+            else {
+              data.managingPropertyChoice match {
+                case All.name            => Some("propertyRepresentation.confirmation.allProperties")
+                case ChooseFromList.name => Some("propertyRepresentation.confirmation.selectedProperties")
+                case _                   => None
+              }
             }
+          } else None
+        }
+
+        val secondKey: Option[String] = {
+          (data.bothRatingLists, data.specificRatingList) match {
+            case (Some(true), _) if (featureSwitch.isAgentListYearsEnabled) =>
+              Some("propertyRepresentation.confirmation.secondBulletPoint.both_years")
+            case (Some(false), Some("2023")) if (featureSwitch.isAgentListYearsEnabled) =>
+              Some("propertyRepresentation.confirmation.secondBulletPoint.2023")
+            case (Some(false), Some("2017")) if (featureSwitch.isAgentListYearsEnabled) =>
+              Some("propertyRepresentation.confirmation.secondBulletPoint.2017")
+            case _ => None
           }
         }
-        Ok(confirmationView(agentName = request.agentDetails.name, assignedToMessageKey = key))
+        Ok(
+          confirmationView(
+            agentName = request.agentDetails.name,
+            assignedToMessageKey = key,
+            secondBulletPoint = secondKey))
     }
   }
 }

@@ -2,11 +2,16 @@ package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
+import models.propertyrepresentation.{AgentSelected, SearchedAgent, SelectedAgent}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.test.Helpers.{await, defaultAwaitTimeout}
+import repositories.AppointAgentSessionRepository
+import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
+import play.api.http.HeaderNames
+
 import java.util.UUID
 
 class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
@@ -14,11 +19,10 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
 
-  val titleText = "Choose a rating list Test Agent can act on for you - Valuation Office Agency - GOV.UK"
-  val errorTitleText = "Error: Choose a rating list Test Agent can act on for you - Valuation Office Agency - GOV.UK"
+  val titleText = "Choose a rating list Some Org can act on for you - Valuation Office Agency - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Appoint an agent"
-  val headerText = "Choose a rating list Test Agent can act on for you"
+  val headerText = "Choose a rating list Some Org can act on for you"
   val thisAgentText = "This agent can act for you on:"
   val the2023RatingListText = "the 2023 rating list"
   val the2017RatingListText = "the 2017 rating list"
@@ -44,11 +48,10 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
   val thereIsAProblemText = "There is a problem"
   val aboveRadioErrorText = "Error: Select an option"
 
-  val errorTitleTextWelsh = "Gwall: Welsh Choose a rating list Test Agent can act on for you - Valuation Office Agency - GOV.UK"
-  val titleTextWelsh = "Dewis rhestr ardrethu y gall Test Agent ei gweithredu ar eich rhan - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Dewis rhestr ardrethu y gall Some Org ei gweithredu ar eich rhan - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Penodi Asiant"
-  val headerTextWelsh = "Dewis rhestr ardrethu y gall Test Agent ei gweithredu ar eich rhan"
+  val headerTextWelsh = "Dewis rhestr ardrethu y gall Some Org ei gweithredu ar eich rhan"
   val thisAgentTextWelsh = "Gall yr asiant hwn weithredu ar y canlynol ar eich rhan:"
   val the2023RatingListTextWelsh = "rhestr ardrethu 2023"
   val the2017RatingListTextWelsh = "rhestr ardrethu 2017"
@@ -96,6 +99,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
   val aboveRadiosErrorSelector = "#multipleListYears-error"
 
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"
+  val checkYourAnswersBackLink = "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
 
   "RatingListOptionController show method" should {
     "Show an English choose rating list screen with the correct text when the language is set to English" when {
@@ -221,9 +225,199 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(continueSelector).text() shouldBe continueTextWelsh
       }
     }
+
+    "Show an English choose rating list screen with the correct back link when coming back from check your answers" when {
+
+      lazy val document = getRatingListOptionPage(English, "?fromCyaChange=true")
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      "has a back link which takes you to the agent details page" in {
+        document.select(backLinkSelector).text() shouldBe backLinkText
+        document.select(backLinkSelector).attr("href") shouldBe checkYourAnswersBackLink
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerText
+        document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has text on the screen of '$thisAgentCanText'" in {
+        document.select(thisAgentCanSelector).text() shouldBe thisAgentCanText
+      }
+
+      s"has radio buttons on the screen with values of '$the2023RatingListText', '$the2017RatingListText' and '$bothListsText'" in {
+        document.select(bulletPointSelector).get(0).text() shouldBe the2023RatingListText
+        document.select(bulletPointSelector).get(1).text() shouldBe the2017RatingListText
+        document.select(bulletPointSelector).get(2).text() shouldBe bothListsText
+      }
+
+      s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
+        s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText'" in {
+        document.select(moreAboutSelector).text() shouldBe moreAboutText
+        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
+        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
+        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
+        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
+      }
+
+      s"has inset text on the screen of '$choosingAListText', which has a link to the manage agent screens" in {
+        document.select(choosingAListSelector).text() shouldBe choosingAListText
+      }
+
+      s"has a medium heading on the screen of '$doYouWantText'" in {
+        document.select(doYouWantSelector).text() shouldBe doYouWantText
+      }
+
+      s"has a un-checked '$yesText' radio button, with hint text of '$thisAgentCanText'" in {
+        document.select(yesRadioButtonSelector).hasAttr("checked") shouldBe false
+        document.select(yesSelector).text() shouldBe yesText
+        document.select(thisAgentCanSelector).text() shouldBe thisAgentCanText
+      }
+
+      s"has an un-checked '$noText' radio button, with hint text of '$youWantToText'" in {
+        document.select(noRadioButtonSelector).hasAttr("checked") shouldBe false
+        document.select(noSelector).text() shouldBe noText
+        document.select(youWantToSelector).text() shouldBe youWantToText
+      }
+
+      s"has a '$continueText' button on the screen, which submits the users choice" in {
+        document.select(continueSelector).text() shouldBe continueText
+      }
+    }
+
+    "RatingListOption Controller submit method" should {
+      "redirect to select ratings if no" in  {
+        submitSelectRatingListOptionCommonStubbing()
+        val requestBody = Json.obj("multipleListYears" -> "false")
+
+
+        val res = await(
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            .withFollowRedirects(follow = false)
+            .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+            .post(body = requestBody)
+        )
+
+        res.status shouldBe SEE_OTHER
+        res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
+      }
+
+      "redirect too check your answers if yes and no properties" in {
+        submitSelectRatingListOptionCommonStubbing()
+
+        stubFor {
+          get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultNoProperties).toString())
+            }
+        }
+
+        val requestBody = Json.obj("multipleListYears" -> "true")
+
+        val res = await(
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            .withFollowRedirects(follow = false)
+            .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+            .post(body = requestBody)
+        )
+
+        res.status shouldBe SEE_OTHER
+        res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
+
+      }
+
+      "redirect too single properties if yes and single property" in {
+        submitSelectRatingListOptionCommonStubbing()
+
+        stubFor {
+          get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
+            }
+        }
+
+        val requestBody = Json.obj("multipleListYears" -> "true")
+
+        val res = await(
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            .withFollowRedirects(follow = false)
+            .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+            .post(body = requestBody)
+        )
+
+        res.status shouldBe SEE_OTHER
+        res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"
+
+      }
+
+      "redirect too multiple if yes and multiple properties" in {
+        submitSelectRatingListOptionCommonStubbing()
+
+        stubFor {
+          get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultMultipleProperty).toString())
+            }
+        }
+
+        val requestBody = Json.obj("multipleListYears" -> "true")
+
+        val res = await(
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            .withFollowRedirects(follow = false)
+            .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+            .post(body = requestBody)
+        )
+
+        res.status shouldBe SEE_OTHER
+        res.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+
+      }
+
+      "receive a bad request when answer is not selected" in {
+        submitSelectRatingListOptionCommonStubbing()
+
+        stubFor {
+          get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+            .willReturn {
+              aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultMultipleProperty).toString())
+            }
+        }
+
+        val requestBody = Json.obj()
+
+        val res = await(
+          ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            .withFollowRedirects(follow = false)
+            .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+            .post(body = requestBody)
+        )
+
+        res.status shouldBe BAD_REQUEST
+      }
+
+    }
   }
 
-  private def getRatingListOptionPage(language: Language): Document = {
+  private def getRatingListOptionPage(language: Language, checkYourAnswers: String = ""): Document = {
+
+    implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
+
+    lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
+
+    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001,"Some Org", "street", AgentSelected, None)
+
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, None, None)
+
+    await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -240,7 +434,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     val res = await(
-      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list$checkYourAnswers")
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
@@ -251,4 +445,29 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
   }
 
+  private def submitSelectRatingListOptionCommonStubbing() = {
+    implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
+
+    lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
+
+    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001,"Some Org", "street", AgentSelected, None)
+
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, None, None)
+
+    await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+  }
 }

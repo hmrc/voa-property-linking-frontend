@@ -35,9 +35,9 @@ case class AppointAgentSessionRequest[A](
   def agentDetails = sessionData match {
     case SearchedAgent(_, agentOrganisationName, agentAddress, _, _) =>
       AgentDetails(agentOrganisationName, agentAddress)
-    case SelectedAgent(_, agentOrganisationName, agentAddress, _, _, _) =>
+    case SelectedAgent(_, agentOrganisationName, agentAddress, _, _, _, _, _) =>
       AgentDetails(agentOrganisationName, agentAddress)
-    case ManagingProperty(_, agentOrganisationName, agentAddress, _, _, _, _, _, _, _, _) =>
+    case ManagingProperty(_, agentOrganisationName, agentAddress, _, _, _, _, _, _, _, _, _, _) =>
       AgentDetails(agentOrganisationName, agentAddress)
   }
 }

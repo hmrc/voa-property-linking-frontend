@@ -18,6 +18,8 @@ package controllers.agentAppointment
 
 import actions.AuthenticatedAction
 import actions.agentrelationship.WithAppointAgentSessionRefiner
+import actions.agentrelationship.request.AppointAgentSessionRequest
+import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest
@@ -37,6 +39,7 @@ class CheckYourAnswersController @Inject()(
       authenticated: AuthenticatedAction,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
       agentRelationshipService: AgentRelationshipService,
+      featureSwitch: FeatureSwitch,
       @Named("appointNewAgentSession") val appointNewAgentSession: SessionRepo,
       @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
       checkYourAnswersView: views.html.propertyrepresentation.appoint.checkYourAnswers)(
@@ -50,7 +53,7 @@ class CheckYourAnswersController @Inject()(
     PartialFunction
       .condOpt(request.sessionData) {
         case data: ManagingProperty =>
-          Ok(checkYourAnswersView(submitAgentAppointmentRequest, data))
+          Ok(checkYourAnswersView(getBackLinkFromSession, submitAgentAppointmentRequest, data))
       }
       .getOrElse {
         logger.info("Failed to find ManagingProperty data in the session cache.")
@@ -63,7 +66,7 @@ class CheckYourAnswersController @Inject()(
       errors => {
         request.sessionData match {
           case data: ManagingProperty =>
-            Future.successful(BadRequest(checkYourAnswersView(errors, data)))
+            Future.successful(BadRequest(checkYourAnswersView(getBackLinkFromSession, errors, data)))
         }
       }, { success =>
         for {
@@ -76,11 +79,17 @@ class CheckYourAnswersController @Inject()(
               }
           sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
           agentListYears <- agentRelationshipService.getMyOrganisationAgents()
-          listYears = agentListYears.agents
-            .find(_.representativeCode == success.agentRepresentativeCode)
-            .flatMap(_.listYears)
-            .getOrElse(Seq("2017", "2023"))
-            .toList
+          agentAnswers   <- appointNewAgentSession.get[ManagingProperty]
+          listYears: List[String] = if (featureSwitch.isAgentListYearsEnabled) {
+            agentAnswers.fold(List("2017", "2023"))(answers =>
+              answers.specificRatingList.fold(List("2017", "2023"))(List(_)))
+          } else {
+            agentListYears.agents
+              .find(_.representativeCode == success.agentRepresentativeCode)
+              .flatMap(_.listYears)
+              .getOrElse(Seq("2017", "2023"))
+              .toList
+          }
           _ <- agentRelationshipService.postAgentAppointmentChange(
                 AgentAppointmentChangeRequest(
                   action = AppointmentAction.APPOINT,
@@ -93,4 +102,7 @@ class CheckYourAnswersController @Inject()(
       }
     )
   }
+
+  private def getBackLinkFromSession(implicit request: AppointAgentSessionRequest[AnyContent]) =
+    request.sessionData.backLink.getOrElse(config.dashboardUrl("home"))
 }

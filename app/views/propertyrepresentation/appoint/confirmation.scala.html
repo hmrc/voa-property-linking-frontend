@@ -15,11 +15,12 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.components.link
 @import config.ApplicationConfig
 
 @this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
 
-@(agentName: String, assignedToMessageKey: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, assignedToMessageKey: Option[String], secondBulletPoint: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.confirmation.title", agentName),
@@ -38,10 +39,25 @@
     <p class="govuk-body" id="agent-can-text">@messages("propertyRepresentation.confirmation.thisAgentCan")</p>
     <ul class="govuk-list govuk-list--bullet" id="agent-can-list">
         <li>@messages("propertyRepresentation.confirmation.thisAgentCan.list.1")</li>
+        @secondBulletPoint.map{ messageKey =>
+            <li id="rates-for">@messages(messageKey)</li>
+        }
     </ul>
 
     <h2 id="what-happens-next-title" class="govuk-heading-m">@messages("propertyRepresentation.confirmation.whatHappensNext")</h2>
-    <p class="govuk-body" id="what-happens-next-text">@Html(messages("propertyRepresentation.confirmation.whatHappensNext.p1", controllers.agent.routes.ManageAgentController.showAgents.url))</p>
+
+    @if(secondBulletPoint.nonEmpty) {
+    @link(
+        preLinkText = Some(messages("propertyRepresentation.confirmation.whatHappensNext.new.p1")),
+        linkText = messages("propertyRepresentation.confirmation.whatHappensNext.new.p1.link"),
+        location = controllers.agent.routes.ManageAgentController.showAgents.url,
+        linkId = Some("showAgent")
+    )
+
+    } else {
+        <p class="govuk-body" id="what-happens-next-text">@Html(messages("propertyRepresentation.confirmation.whatHappensNext.p1", controllers.agent.routes.ManageAgentController.showAgents.url))</p>
+    }
+
 
 
     <p class="govuk-body">
