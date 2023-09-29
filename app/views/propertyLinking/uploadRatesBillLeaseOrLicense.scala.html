@@ -39,10 +39,12 @@
     (request.ses.clientDetails, evidenceType) match {
         case (Some(_), Lease) => {messages("uploadEvidence.lease.client.title")}
         case (Some(_), License) => {messages("uploadEvidence.license.client.title")}
+        case (Some(_), RatesBillType) => {messages("uploadRatesBill.show.client.title")}
+        case(Some(_), _) => {messages(s"uploadEvidence.$evidenceType.title")}
         case (None, Lease) => {messages("uploadEvidence.lease.title")}
         case (None, License) => {messages("uploadEvidence.license.title")}
-        case (Some(_), _)    => {messages("uploadRatesBill.show.client.title")}
-        case _          => {messages("uploadRatesBill.show.title")}
+        case (None, RatesBillType) => {messages("uploadRatesBill.show.title")}
+        case (None, _) => {messages(s"uploadEvidence.$evidenceType.title")}
     }
 }
 

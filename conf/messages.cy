@@ -1810,6 +1810,13 @@ uploadEvidence.lease.title=Lanlwytho eich prydles
 uploadEvidence.lease.client.title=Lanlwytho prydles eich cleient
 uploadEvidence.license.title= Lanlwytho eich trwydded i feddiannu eiddo
 uploadEvidence.license.client.title=Lanlwytho trwydded eich cleient i feddiannu eiddo
+
+uploadEvidence.serviceCharge.title=Lanlwytho eich datganiad tâl gwasanaeth
+uploadEvidence.stampDutyLandTaxForm.title=Lanlwytho eich Ffurflen Treth Dir y Dreth Stamp
+uploadEvidence.landRegistryTitle.title=Lanlwytho eich teitl gofrestrfa tir
+uploadEvidence.waterRateDemand.title=Lanlwytho eich archeb trethi dŵr
+uploadEvidence.otherUtilityBill.title=Lanlwytho eich bil cyfleustodau
+
 uploadOtherEvidence.evidenceTypes.noLeaseOrLicense=Nid oes gennyf brydles na thrwydded i feddiannu
 auto.requestDetailedValuation.caption=Eiddo 
 auto.requestDetailedValuation.future.tabName=Prisiad

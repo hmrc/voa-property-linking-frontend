@@ -38,34 +38,48 @@ import utils._
 import scala.concurrent.Future
 
 class UploadControllerSpec extends VoaPropertyLinkingSpec {
-
-  def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
+  lazy val mockBusinessRatesChallengeService = mock[BusinessRatesAttachmentsService]
   override implicit val messagesControllerComponents: MessagesControllerComponents =
     app.injector.instanceOf[MessagesControllerComponents]
-  lazy val mockBusinessRatesChallengeService = mock[BusinessRatesAttachmentsService]
+  lazy val linkingSession: WithLinkingSession = preEnrichedActionRefiner()
   implicit lazy val request = FakeRequest().withHeaders(HOST -> "localhost:9523")
   implicit lazy val hc = HeaderCarrier()
 
-  class TestFileUploadController(
-        linkingSession: WithLinkingSession,
-        authenticatedAction: AuthenticatedAction = preAuthenticatedActionBuilders())
-      extends UploadController(
-        mockCustomErrorHandler,
-        authenticatedAction,
-        linkingSession,
-        mockBusinessRatesChallengeService,
-        uploadRatesBillLeaseOrLicenseView,
-        uploadEvidenceView,
-        cannotProvideEvidenceView
-      )
-  lazy val linkingSession: WithLinkingSession = preEnrichedActionRefiner()
   def agentController = new TestFileUploadController(linkingSession)
+
   def ipController(relationshipCapacity: CapacityType = Owner) =
     new TestFileUploadController(
       preEnrichedActionRefiner(
         evidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
         userIsAgent = false,
         relationshipCapacity = Some(relationshipCapacity)))
+
+  private def testShowRatesBillLeaseOrLicense(
+        uploadController: TestFileUploadController = agentController,
+        evidenceChoice: EvidenceChoices,
+        expectedPageHeader: String) = {
+    val res = uploadController.show(evidenceChoice, None)(FakeRequest())
+    status(res) shouldBe OK
+
+    val html = HtmlPage(res)
+    html.html.getElementById("page-header").text() shouldBe expectedPageHeader
+    html.shouldContain("#newFileGroup", 1)
+    val backLink: Element = html.html.getElementById("back-link")
+    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show.url
+  }
+
+  private def testContinueWithRatesBillLeaseOrLicense(evidenceChoice: EvidenceChoices, evidenceType: String) = {
+    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadRatesBillData)
+    lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
+    val request =
+      fakeRequest.withHeaders(HOST -> "localhost:9523").withBody(Json.obj("evidenceType" -> evidenceType))
+    when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(()))
+
+    val result = uploadController.continue(evidenceChoice)(request)
+    status(result) shouldBe SEE_OTHER
+    redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
+  }
 
   "RATES_BILL file upload page" should "return valid page with correct back link - agent" in {
     testShowRatesBillLeaseOrLicense(
@@ -233,14 +247,14 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     status(result) shouldBe BAD_REQUEST
   }
 
-  "OTHER Evidence file upload with valid files" should "redirect to the declaration page" in {
+  "SERVICE_CHARGE Evidence file upload with valid files" should "redirect to the declaration page" in {
     lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadServiceChargeData)
     lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val result = uploadController.continue(EvidenceChoices.OTHER)(
-      FakeRequest().withFormUrlEncodedBody("evidenceType" -> "License"))
+    val result = uploadController.continue(EvidenceChoices.SERVICE_CHARGE)(
+      FakeRequest().withFormUrlEncodedBody("evidenceType" -> "ServiceCharge"))
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
   }
@@ -251,7 +265,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val result = uploadController.continue(EvidenceChoices.OTHER)(
+    val result = uploadController.continue(EvidenceChoices.RATES_BILL)(
       FakeRequest().withFormUrlEncodedBody("evidenceType" -> RatesBillType.name))
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
@@ -304,30 +318,18 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     status(result) shouldBe OK
   }
 
-  private def testShowRatesBillLeaseOrLicense(
-        uploadController: TestFileUploadController = agentController,
-        evidenceChoice: EvidenceChoices,
-        expectedPageHeader: String) = {
-    val res = uploadController.show(evidenceChoice, None)(FakeRequest())
-    status(res) shouldBe OK
+  def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 
-    val html = HtmlPage(res)
-    html.html.getElementById("page-header").text() shouldBe expectedPageHeader
-    html.shouldContain("#newFileGroup", 1)
-    val backLink: Element = html.html.getElementById("back-link")
-    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show.url
-  }
-
-  private def testContinueWithRatesBillLeaseOrLicense(evidenceChoice: EvidenceChoices, evidenceType: String) = {
-    lazy val linkingSessionWithAttachments: WithLinkingSession = preEnrichedActionRefiner(uploadRatesBillData)
-    lazy val uploadController = new TestFileUploadController(linkingSessionWithAttachments)
-    val request =
-      fakeRequest.withHeaders(HOST -> "localhost:9523").withBody(Json.obj("evidenceType" -> evidenceType))
-    when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
-      .thenReturn(Future.successful(()))
-
-    val result = uploadController.continue(evidenceChoice)(request)
-    status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
-  }
+  class TestFileUploadController(
+        linkingSession: WithLinkingSession,
+        authenticatedAction: AuthenticatedAction = preAuthenticatedActionBuilders())
+      extends UploadController(
+        mockCustomErrorHandler,
+        authenticatedAction,
+        linkingSession,
+        mockBusinessRatesChallengeService,
+        uploadRatesBillLeaseOrLicenseView,
+        uploadEvidenceView,
+        cannotProvideEvidenceView
+      )
 }
