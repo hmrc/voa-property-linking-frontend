@@ -86,26 +86,6 @@ class UploadController @Inject()(
       }
     }
 
-  private def getEvidenceType(evidence: EvidenceChoices, evidenceType: Option[EvidenceType] = None): EvidenceType =
-    evidence match {
-      case EvidenceChoices.RATES_BILL     => RatesBillType
-      case EvidenceChoices.LEASE          => Lease
-      case EvidenceChoices.LICENSE        => License
-      case EvidenceChoices.RATES_BILL     => RatesBillType
-      case EvidenceChoices.SERVICE_CHARGE => ServiceCharge
-      case EvidenceChoices.STAMP_DUTY     => StampDutyLandTaxForm
-      case EvidenceChoices.LAND_REGISTRY  => LandRegistryTitle
-      case EvidenceChoices.WATER_RATE     => WaterRateDemand
-      case EvidenceChoices.UTILITY_RATE   => OtherUtilityBill
-      case EvidenceChoices.OTHER          => evidenceType.get
-    }
-
-  //Catching error message received from Upscan & replacing
-  private def upscanErrors(errorMessage: Option[String])(implicit messages: Messages): Option[String] =
-    if (errorMessage.contains("Your proposed upload exceeds the maximum allowed size"))
-      Some(messages("error.businessRatesAttachment.file.size.exceed.max.limit"))
-    else errorMessage
-
   def initiate(evidence: EvidenceChoices): Action[JsValue] =
     authenticatedAction.andThen(withLinkingSession).async(parse.json) { implicit request =>
       withJsonBody[InitiateAttachmentRequest] { attachmentRequest =>
@@ -174,11 +154,17 @@ class UploadController @Inject()(
 
   def continue(evidence: EvidenceChoices): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async {
     implicit request =>
-      def upload(uploadedData: UploadEvidenceData)(implicit request: LinkingSessionRequest[_]): Option[Future[Result]] =
+      def upload(uploadedData: UploadEvidenceData, linkingSession: LinkingSession = request.ses)(
+            implicit request: LinkingSessionRequest[_]): Option[Future[Result]] =
         PartialFunction.condOpt(request.ses.uploadEvidenceData.attachments) {
           case Some(fileData) if fileData.nonEmpty =>
+            val fileInfo: FileInfo = uploadedData.fileInfo match {
+              case Some(CompleteFileInfo(name, _)) => CompleteFileInfo(name, getEvidenceType(evidence))
+              case _                               => PartialFileInfo(getEvidenceType(evidence))
+            }
+
             businessRatesAttachmentsService
-              .persistSessionData(request.ses, uploadedData)
+              .persistSessionData(linkingSession, uploadedData.copy(fileInfo = Some(fileInfo)))
               .map(_ => Redirect(routes.DeclarationController.show.url))
         }
       val session: LinkingSession = request.ses
@@ -229,6 +215,7 @@ class UploadController @Inject()(
                 case UnableToProvide =>
                   Future.successful(Ok(cannotProvideEvidenceView()))
                 case formData =>
+                  val a = request.ses.propertyRelationship.map(_.capacity)
                   Future.successful(Ok(uploadRatesBillLeaseOrLicenseView(
                     getEvidenceType(evidence, Some(formData)),
                     getEvidenceChoice(Some(formData)),
@@ -242,6 +229,26 @@ class UploadController @Inject()(
           Future.successful(BadRequest(errorHandler.badRequestTemplate))
       }
   }
+
+  private def getEvidenceType(evidence: EvidenceChoices, evidenceType: Option[EvidenceType] = None): EvidenceType =
+    evidence match {
+      case EvidenceChoices.RATES_BILL     => RatesBillType
+      case EvidenceChoices.LEASE          => Lease
+      case EvidenceChoices.LICENSE        => License
+      case EvidenceChoices.RATES_BILL     => RatesBillType
+      case EvidenceChoices.SERVICE_CHARGE => ServiceCharge
+      case EvidenceChoices.STAMP_DUTY     => StampDutyLandTaxForm
+      case EvidenceChoices.LAND_REGISTRY  => LandRegistryTitle
+      case EvidenceChoices.WATER_RATE     => WaterRateDemand
+      case EvidenceChoices.UTILITY_RATE   => OtherUtilityBill
+      case EvidenceChoices.OTHER          => evidenceType.get
+    }
+
+  //Catching error message received from Upscan & replacing
+  private def upscanErrors(errorMessage: Option[String])(implicit messages: Messages): Option[String] =
+    if (errorMessage.contains("Your proposed upload exceeds the maximum allowed size"))
+      Some(messages("error.businessRatesAttachment.file.size.exceed.max.limit"))
+    else errorMessage
 
   private def getEvidenceChoice(evidenceType: Option[EvidenceType] = None): EvidenceChoices =
     evidenceType match {

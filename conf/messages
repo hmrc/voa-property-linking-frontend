@@ -1071,8 +1071,8 @@ error.chooseEvidence.occupier.option.required=Select if you have a lease or lice
 
 uploadEvidence.lease.title=Upload your lease
 uploadEvidence.lease.client.title=Upload your client''s lease
-uploadEvidence.license.title=Upload your licence to occupy property
-uploadEvidence.license.client.title=Upload your client''s licence to occupy property
+uploadEvidence.license.title=Upload your licence to occupy
+uploadEvidence.license.client.title=Upload your client''s licence to occupy
 
 uploadEvidence.serviceCharge.title=Upload your service charge statement
 uploadEvidence.stampDutyLandTaxForm.title=Upload your Stamp Duty Land Tax form

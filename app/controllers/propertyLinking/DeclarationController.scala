@@ -55,6 +55,9 @@ class DeclarationController @Inject()(
       val config: ApplicationConfig
 ) extends PropertyLinkingController with Cats with Logging {
 
+  lazy val form = Form(Forms.single("declaration" -> mandatoryBoolean))
+  lazy val formWithNoDeclaration = form.withError(FormError("declaration", "declaration.required"))
+
   def show: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     sessionRepository
       .saveOrUpdate(request.ses.copy(fromCya = Some(true)))
@@ -71,11 +74,16 @@ class DeclarationController @Inject()(
         val capacityType: Option[CapacityType] = request.ses.propertyRelationship.map(_.capacity)
 
         val evidenceChoice: Option[EvidenceChoices.Value] = evidenceType.zip(capacityType).headOption.map {
-          case (RatesBillType, Owner | OwnerOccupier) => EvidenceChoices.RATES_BILL
-          case (Lease, Occupier)                      => EvidenceChoices.LEASE
-          case (License, Occupier)                    => EvidenceChoices.LICENSE
-          case (_, Owner | OwnerOccupier)             => EvidenceChoices.OTHER
-          case (_, Occupier)                          => EvidenceChoices.NO_LEASE_OR_LICENSE
+          case (RatesBillType, Owner | OwnerOccupier)        => EvidenceChoices.RATES_BILL
+          case (ServiceCharge, Owner | OwnerOccupier)        => EvidenceChoices.SERVICE_CHARGE
+          case (StampDutyLandTaxForm, Owner | OwnerOccupier) => EvidenceChoices.STAMP_DUTY
+          case (LandRegistryTitle, Owner | OwnerOccupier)    => EvidenceChoices.LAND_REGISTRY
+          case (WaterRateDemand, Owner | OwnerOccupier)      => EvidenceChoices.WATER_RATE
+          case (OtherUtilityBill, Owner | OwnerOccupier)     => EvidenceChoices.UTILITY_RATE
+          case (Lease, Occupier | Owner | OwnerOccupier)     => EvidenceChoices.LEASE
+          case (License, Occupier | Owner | OwnerOccupier)   => EvidenceChoices.LICENSE
+          case (_, Owner | OwnerOccupier)                    => EvidenceChoices.OTHER
+          case (_, Occupier)                                 => EvidenceChoices.NO_LEASE_OR_LICENSE
         }
 
         evidenceChoice.fold {
@@ -159,9 +167,6 @@ class DeclarationController @Inject()(
                 request.ses.localAuthorityReference)))
         }
   }
-
-  lazy val form = Form(Forms.single("declaration" -> mandatoryBoolean))
-  lazy val formWithNoDeclaration = form.withError(FormError("declaration", "declaration.required"))
 }
 
 case class DeclarationVM(form: Form[_], address: String, localAuthorityReference: String)

@@ -23,6 +23,7 @@
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import helpers._
 @import models.EvidenceType
+@import models.CapacityType
 @import binders.propertylinks.EvidenceChoices.EvidenceChoices
 
 @this(govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
@@ -48,9 +49,22 @@
     }
 }
 
+@backUri = @{
+    val propertyRelationship = request.ses.propertyRelationship.map(_.capacity).get
+    (evidenceType, propertyRelationship) match {
+        case (Lease, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (License, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (Lease, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (License, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (RatesBillType, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (_, _) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+    }
+}
+
+
 @mainLayout(
     pageTitle = title,
-    backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url),
+    backUri = backUri,
     hasErrors = errors.nonEmpty
 ) {
 

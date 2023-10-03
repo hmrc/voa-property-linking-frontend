@@ -1808,8 +1808,8 @@ chooseEvidence.occupier.option.noLeaseOrLicense=Nid oes gennyf brydles na thrwyd
 error.chooseEvidence.occupier.option.required=Dewiswch os oes gennych brydles neu drwydded i feddiannu ar gyfer yr eiddo hwn
 uploadEvidence.lease.title=Lanlwytho eich prydles
 uploadEvidence.lease.client.title=Lanlwytho prydles eich cleient
-uploadEvidence.license.title= Lanlwytho eich trwydded i feddiannu eiddo
-uploadEvidence.license.client.title=Lanlwytho trwydded eich cleient i feddiannu eiddo
+uploadEvidence.license.title= Lanlwytho eich trwydded i feddiannu
+uploadEvidence.license.client.title=Lanlwytho trwydded eich cleient i feddiannu
 
 uploadEvidence.serviceCharge.title=Lanlwytho eich datganiad tâl gwasanaeth
 uploadEvidence.stampDutyLandTaxForm.title=Lanlwytho eich Ffurflen Treth Dir y Dreth Stamp

@@ -57,15 +57,16 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
   private def testShowRatesBillLeaseOrLicense(
         uploadController: TestFileUploadController = agentController,
         evidenceChoice: EvidenceChoices,
-        expectedPageHeader: String) = {
+        expectedPageHeader: String,
+        backLink: String = routes.ChooseEvidenceController.show.url) = {
     val res = uploadController.show(evidenceChoice, None)(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.html.getElementById("page-header").text() shouldBe expectedPageHeader
     html.shouldContain("#newFileGroup", 1)
-    val backLink: Element = html.html.getElementById("back-link")
-    backLink.attr("href") shouldBe routes.ChooseEvidenceController.show.url
+    val backLinkRes: Element = html.html.getElementById("back-link")
+    backLinkRes.attr("href") shouldBe backLink
   }
 
   private def testContinueWithRatesBillLeaseOrLicense(evidenceChoice: EvidenceChoices, evidenceType: String) = {
@@ -89,12 +90,15 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
   "LEASE file upload page" should "return valid page with correct back link - agent" in {
     testShowRatesBillLeaseOrLicense(
       evidenceChoice = EvidenceChoices.LEASE,
-      expectedPageHeader = "Upload your client's lease")
+      expectedPageHeader = "Upload your client's lease",
+      backLink = routes.UploadController.show(EvidenceChoices.OTHER).url)
   }
   "LICENSE file upload page" should "return valid page with correct back link - agent" in {
     testShowRatesBillLeaseOrLicense(
       evidenceChoice = EvidenceChoices.LICENSE,
-      expectedPageHeader = "Upload your client's licence to occupy property")
+      expectedPageHeader = "Upload your client's licence to occupy",
+      backLink = routes.UploadController.show(EvidenceChoices.OTHER).url
+    )
   }
   "RATES_BILL file upload page" should "return valid page with correct back link - IP" in {
     testShowRatesBillLeaseOrLicense(
@@ -106,13 +110,17 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     testShowRatesBillLeaseOrLicense(
       uploadController = ipController(),
       evidenceChoice = EvidenceChoices.LEASE,
-      expectedPageHeader = "Upload your lease")
+      expectedPageHeader = "Upload your lease",
+      backLink = routes.UploadController.show(EvidenceChoices.OTHER).url
+    )
   }
   "LICENSE file upload page" should "return valid page with correct back link - IP" in {
     testShowRatesBillLeaseOrLicense(
       uploadController = ipController(),
       evidenceChoice = EvidenceChoices.LICENSE,
-      expectedPageHeader = "Upload your licence to occupy property")
+      expectedPageHeader = "Upload your licence to occupy",
+      backLink = routes.UploadController.show(EvidenceChoices.OTHER).url
+    )
   }
 
   "RATES_BILL file initiate" should "return file upload initiate success" in {

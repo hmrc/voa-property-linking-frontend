@@ -43,6 +43,18 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   implicit val hc = HeaderCarrier()
 
   trait Setup {
+    lazy val mockSessionRepo = {
+      val f = mock[SessionRepo]
+      when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
+      when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
+      when(f.remove()(any())).thenReturn(Future.successful(()))
+      f
+    }
+    lazy val envelopeId: String = shortString
+    lazy val propertyRelationship: Option[CapacityType] = Some(Owner)
+    lazy val evidence: UploadEvidenceData = uploadRatesBillData
+    val isAgent: Boolean = true
+
     def testDeclarationController(earliestStartDate: LocalDate) =
       new DeclarationController(
         errorHandler = mockCustomErrorHandler,
@@ -64,20 +76,6 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
         declarationView = declarationView,
         linkingRequestSubmittedView = linkingRequestSubmittedView
       )
-
-    lazy val mockSessionRepo = {
-      val f = mock[SessionRepo]
-      when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
-      when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-      when(f.remove()(any())).thenReturn(Future.successful(()))
-      f
-    }
-
-    lazy val envelopeId: String = shortString
-
-    val isAgent: Boolean = true
-    lazy val propertyRelationship: Option[CapacityType] = Some(Owner)
-    lazy val evidence: UploadEvidenceData = uploadRatesBillData
   }
 
   "show" should "set 'fromCya' in the session" in new Setup {
@@ -334,10 +332,9 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   abstract class BackLinkTest(implicit pos: Position) extends Setup with OptionValues {
-    val expectedRedirect: String
-
     lazy val controller: DeclarationController = testDeclarationController(earliestEnglishStartDate)
     lazy val result: Future[Result] = controller.back(FakeRequest())
+    val expectedRedirect: String
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result).value shouldBe expectedRedirect
@@ -350,13 +347,33 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       lazy val expectedRedirect: String = routes.UploadController.show(EvidenceChoices.RATES_BILL).url
     }
 
-    Inspectors.forAll(Seq(uploadLeaseData, uploadLicenseData, uploadServiceChargeData)) { upload =>
+    Inspectors.forAll(Seq(uploadLeaseData)) { upload =>
       val uploadType = upload.fileInfo.getOrElse(fail("could not get upload info")).evidenceType.name
 
       it should s"redirect to the choose evidence page when a $uploadType is uploaded" in new BackLinkTest {
         override lazy val propertyRelationship: Option[CapacityType] = Some(relationshipType)
         override lazy val evidence: UploadEvidenceData = upload
-        lazy val expectedRedirect: String = routes.UploadController.show(EvidenceChoices.OTHER).url
+        lazy val expectedRedirect: String = routes.UploadController.show(EvidenceChoices.LEASE).url
+      }
+    }
+
+    Inspectors.forAll(Seq(uploadLicenseData)) { upload =>
+      val uploadType = upload.fileInfo.getOrElse(fail("could not get upload info")).evidenceType.name
+
+      it should s"redirect to the choose evidence page when a $uploadType is uploaded" in new BackLinkTest {
+        override lazy val propertyRelationship: Option[CapacityType] = Some(relationshipType)
+        override lazy val evidence: UploadEvidenceData = upload
+        lazy val expectedRedirect: String = routes.UploadController.show(EvidenceChoices.LICENSE).url
+      }
+    }
+
+    Inspectors.forAll(Seq(uploadServiceChargeData)) { upload =>
+      val uploadType = upload.fileInfo.getOrElse(fail("could not get upload info")).evidenceType.name
+
+      it should s"redirect to the choose evidence page when a $uploadType is uploaded" in new BackLinkTest {
+        override lazy val propertyRelationship: Option[CapacityType] = Some(relationshipType)
+        override lazy val evidence: UploadEvidenceData = upload
+        lazy val expectedRedirect: String = routes.UploadController.show(EvidenceChoices.SERVICE_CHARGE).url
       }
     }
   }
