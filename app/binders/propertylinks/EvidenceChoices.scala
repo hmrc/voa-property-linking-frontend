@@ -32,7 +32,7 @@ object EvidenceChoices extends Enumeration {
   val NO_LEASE_OR_LICENSE = Value("NO_LEASE_OR_LICENSE")
   val SERVICE_CHARGE = Value("SERVICE_CHARGE")
   val STAMP_DUTY = Value("STAMP_DUTY")
-  val LAND_REGISTRY  = Value("LAND_REGISTRY")
+  val LAND_REGISTRY = Value("LAND_REGISTRY")
   val WATER_RATE = Value("WATER_RATE")
   val UTILITY_RATE = Value("UTILITY_RATE")
 

@@ -215,14 +215,7 @@ class UploadController @Inject()(
                 case UnableToProvide =>
                   Future.successful(Ok(cannotProvideEvidenceView()))
                 case formData =>
-                  val a = request.ses.propertyRelationship.map(_.capacity)
-                  Future.successful(Ok(uploadRatesBillLeaseOrLicenseView(
-                    getEvidenceType(evidence, Some(formData)),
-                    getEvidenceChoice(Some(formData)),
-                    session.submissionId,
-                    upscanErrors(None).toList,
-                    session.uploadEvidenceData.attachments.getOrElse(Map.empty)
-                  )))
+                  Future.successful(Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
               }
             )
         case _ =>

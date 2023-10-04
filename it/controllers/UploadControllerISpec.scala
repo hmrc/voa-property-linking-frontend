@@ -277,7 +277,7 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       "from other evidence upload page" in {
         val res = continueOtherEvidencePage(English, EvidenceChoices.OTHER, LandRegistryTitle)
-        res.status shouldBe OK
+        res.status shouldBe SEE_OTHER
       }
 
     }

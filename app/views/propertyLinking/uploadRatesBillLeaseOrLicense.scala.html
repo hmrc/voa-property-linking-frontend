@@ -56,6 +56,7 @@
         case (License, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
         case (Lease, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
         case (License, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (noLeaseOrLicense, Occupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
         case (RatesBillType, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
         case (_, _) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
     }
