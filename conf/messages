@@ -1040,6 +1040,8 @@ label.toDate.year=When was your last day as the owner or occupier of the propert
 label.toDate.year.client=When was your client’s last day as the owner or occupier of the property? - Year
 #UPLOAD RATES BILL
 uploadRatesBill.show.title=Upload your business rates bill
+
+
 uploadRatesBill.show.client.title=Upload your client''s business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
@@ -1069,8 +1071,14 @@ error.chooseEvidence.occupier.option.required=Select if you have a lease or lice
 
 uploadEvidence.lease.title=Upload your lease
 uploadEvidence.lease.client.title=Upload your client''s lease
-uploadEvidence.license.title=Upload your licence to occupy property
-uploadEvidence.license.client.title=Upload your client''s licence to occupy property
+uploadEvidence.license.title=Upload your licence to occupy
+uploadEvidence.license.client.title=Upload your client''s licence to occupy
+
+uploadEvidence.serviceCharge.title=Upload your service charge statement
+uploadEvidence.stampDutyLandTaxForm.title=Upload your Stamp Duty Land Tax form
+uploadEvidence.landRegistryTitle.title=Upload your Land Registry title
+uploadEvidence.waterRateDemand.title=Upload your water rate demand
+uploadEvidence.otherUtilityBill.title=Upload your utility bill
 
 #LINK REQUEST CONFIRMATION
 
