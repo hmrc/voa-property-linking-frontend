@@ -20,7 +20,7 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
 import binders.propertylinks.EvidenceChoices
-import binders.propertylinks.EvidenceChoices.{EvidenceChoices, Value}
+import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import models.EvidenceType.form
@@ -44,7 +44,8 @@ class UploadController @Inject()(
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       businessRatesAttachmentsService: BusinessRatesAttachmentsService,
-      uploadRatesBillLeaseOrLicenseView: views.html.propertyLinking.uploadRatesBillLeaseOrLicense,
+      uploadView: views.html.propertyLinking.upload,
+      oldUploadView: views.html.propertyLinking.uploadRatesBillLeaseOrLicense,
       uploadEvidenceView: views.html.propertyLinking.uploadEvidence,
       cannotProvideEvidenceView: views.html.propertyLinking.cannotProvideEvidence
 )(
@@ -58,11 +59,20 @@ class UploadController @Inject()(
     authenticatedAction.andThen(withLinkingSession) { implicit request =>
       val session = request.ses
       evidence match {
+        case EvidenceChoices.LEASE =>
+          Ok(
+            oldUploadView(
+              getEvidenceType(evidence),
+              evidence,
+              session.submissionId,
+              upscanErrors(errorMessage).toList,
+              session.uploadEvidenceData.attachments.getOrElse(Map.empty)
+            ))
         case EvidenceChoices.RATES_BILL | EvidenceChoices.LEASE | EvidenceChoices.LICENSE |
             EvidenceChoices.SERVICE_CHARGE | EvidenceChoices.STAMP_DUTY | EvidenceChoices.LAND_REGISTRY |
             EvidenceChoices.WATER_RATE | EvidenceChoices.UTILITY_RATE => {
           Ok(
-            uploadRatesBillLeaseOrLicenseView(
+            uploadView(
               getEvidenceType(evidence),
               evidence,
               session.submissionId,
@@ -88,6 +98,7 @@ class UploadController @Inject()(
 
   def initiate(evidence: EvidenceChoices): Action[JsValue] =
     authenticatedAction.andThen(withLinkingSession).async(parse.json) { implicit request =>
+      println(s"\nHELLO THERE\n")
       withJsonBody[InitiateAttachmentRequest] { attachmentRequest =>
         businessRatesAttachmentsService
           .initiateAttachmentUpload(
@@ -174,7 +185,7 @@ class UploadController @Inject()(
             .getOrElse(
               Future.successful(
                 BadRequest(
-                  uploadRatesBillLeaseOrLicenseView(
+                  uploadView(
                     getEvidenceType(evidence),
                     evidence,
                     request.ses.submissionId,
@@ -190,7 +201,7 @@ class UploadController @Inject()(
             .getOrElse(
               Future.successful(
                 BadRequest(
-                  uploadRatesBillLeaseOrLicenseView(
+                  uploadView(
                     getEvidenceType(evidence),
                     evidence,
                     request.ses.submissionId,
