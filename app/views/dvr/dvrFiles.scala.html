@@ -154,7 +154,7 @@
     <br/>
 
     @for(activeTabId <- model.activeTabId) {
-        <script type="text/javascript">
+        <script CSPNonce.attr type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
             location.hash = "@activeTabId";
             @if(startCheckForm.hasErrors){

@@ -17,11 +17,12 @@
 @import config.ApplicationConfig
 @import actions.requests.CcaWrappedRequest
 @import actions.requests.CcaWrappedRequestHelper._
+@import views.html.helper.CSPNonce
 
 @()(implicit request: RequestHeader, config: ApplicationConfig)
 
 
-<script type="text/javascript">
+<script CSPNonce.attr type="text/javascript">
 
         // Track custom dimensions in GTM
         window.dataLayer = window.dataLayer || [];
