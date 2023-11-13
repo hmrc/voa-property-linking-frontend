@@ -141,7 +141,7 @@
             }
             @if(checkAllowedAction) {
                 @govukWarningText(WarningText(
-                    iconFallbackText = messages("warning.text"),
+                    iconFallbackText = Some(messages("warning.text")),
                     content = Text(messages("available.requestvaluation.warning"))))
 
                 @govukButton(Button(
