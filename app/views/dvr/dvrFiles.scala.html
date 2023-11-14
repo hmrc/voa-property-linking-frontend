@@ -20,6 +20,7 @@
 @import models.dvr.cases.check.projection.CaseDetails
 @import models.dvr.cases.check.StartCheckForm
 @import models.properties.AllowedAction.CHECK
+@import views.html.helper.CSPNonce
 
 @this(
   mainLayout: views.html.mainLayout,
@@ -154,7 +155,7 @@
     <br/>
 
     @for(activeTabId <- model.activeTabId) {
-        <script type="text/javascript">
+        <script @{CSPNonce.attr} type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
             location.hash = "@activeTabId";
             @if(startCheckForm.hasErrors){

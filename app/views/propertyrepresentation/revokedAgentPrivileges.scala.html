@@ -25,6 +25,6 @@
 </ul>
 
 @govukWarningText(WarningText(
-    iconFallbackText = messages("warning.text"),
+    iconFallbackText = Some(messages("warning.text")),
     attributes = Map("id" -> "warning-text"),
     content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperties.warningText"))))

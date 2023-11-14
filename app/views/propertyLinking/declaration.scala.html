@@ -211,7 +211,7 @@
         <h2 class="govuk-heading-m">@messages("label.declaration")</h2>
 
         @govukWarningText(WarningText(
-            iconFallbackText = messages("warning.text"),
+            iconFallbackText = Some(messages("warning.text")),
             content = Text(messages("declaration.p.3"))
         ))
 
