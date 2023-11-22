@@ -39,11 +39,9 @@
         <a class="govuk-link" id=help-with-agent-link href="https://www.gov.uk/guidance/appoint-an-agent">@messages("propertyRepresentation.showAgents.help.link")</a>
     </p>
 
-
-
     @if(agents.nonEmpty) {
         @govukTable(Table(
-            rows = agents.map { agent =>
+            rows = agents.zipWithIndex.map { case (agent, index) =>
                 val listYearsText = agent.listYears match {
                     case Some(Seq(first)) => messages("propertyRepresentation.showAgents.ratingList", first)
                     case Some(Seq(_,_)) => messages("propertyRepresentation.showAgents.ratingLists")
@@ -51,7 +49,8 @@
                 }
                 Seq(
                     TableRow(
-                        content = HtmlContent(Html(messages("propertyRepresentation.showAgents.viewAgentProperties.name",controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters()).url, s"${agent.name} (${agent.representativeCode})", agent.name)))
+                        content = HtmlContent(s"""<a class="govuk-link" id="agent-${index + 1}" href="${controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters()).url}" aria-label="${messages("propertyRepresentation.showAgents.viewAgent")} ${agent.name} (${agent.representativeCode})">${agent.name}</a>""")
+
                     ),
                     TableRow(
                         content = Text(listYearsText)
