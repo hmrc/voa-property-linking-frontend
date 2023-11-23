@@ -19,7 +19,7 @@ package services.iv
 import config.ApplicationConfig
 import connectors.identityVerificationProxy.IdentityVerificationProxyConnector
 import models._
-import models.identityVerificationProxy.{Journey, Link, Uplift}
+import models.identityVerificationProxy.{Journey, Link}
 import models.registration._
 import services.RegistrationService
 import uk.gov.hmrc.auth.core.ConfidenceLevel
@@ -31,10 +31,10 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class IdentityVerificationService @Inject()(
-                                             val errorHandler: CustomErrorHandler,
-                                             registrationService: RegistrationService,
-                                             val proxyConnector: IdentityVerificationProxyConnector,
-                                             implicit val config: ApplicationConfig) {
+      val errorHandler: CustomErrorHandler,
+      registrationService: RegistrationService,
+      val proxyConnector: IdentityVerificationProxyConnector,
+      implicit val config: ApplicationConfig) {
 
   // lazy is required here to ensure that the reverse route lookup
   // includes the context (/business-rates-property-linking) in the URL
@@ -47,7 +47,8 @@ class IdentityVerificationService @Inject()(
       .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
 
   def continue(journeyId: Option[String], userDetails: UserDetails)(
-    implicit hc: HeaderCarrier, xec: ExecutionContext): Future[Option[RegistrationResult]] =
+        implicit hc: HeaderCarrier,
+        xec: ExecutionContext): Future[Option[RegistrationResult]] =
     if (config.ivUpliftEnabled) registrationService.continueUplift(journeyId, userDetails)
     else registrationService.continue(journeyId, userDetails)
 

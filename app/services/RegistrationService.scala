@@ -84,26 +84,33 @@ class RegistrationService @Inject()(
     }
 
   def continueUplift(journeyId: Option[String], userDetails: UserDetails)(
-    implicit hc: HeaderCarrier,
-    ec: ExecutionContext): Future[Option[RegistrationResult]] = {
+        implicit hc: HeaderCarrier,
+        ec: ExecutionContext): Future[Option[RegistrationResult]] =
     (userDetails.affinityGroup, userDetails.credentialRole) match {
       case (Organisation, role) if role != Assistant =>
         for {
           organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetailsUplift]
           organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
           registrationResult <- create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(
-                                organisationDetails.toIndividualAccountSubmissionUplift(journeyId,
-                                  userDetails.firstName, userDetails.lastName))
+                                 organisationDetails.toIndividualAccountSubmissionUplift(
+                                   journeyId,
+                                   userDetails.firstName,
+                                   userDetails.lastName))
         } yield Some(registrationResult)
       case (Individual, _) =>
         for {
           individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetailsUplift]
           individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
-          registrationResult <- create(individualDetails.toGroupDetails(userDetails.firstName,userDetails.lastName), userDetails, Some(Individual))(
-            individualDetails.toIndividualAccountSubmissionUplift(journeyId, userDetails.firstName, userDetails.lastName))
+          registrationResult <- create(
+                                 individualDetails.toGroupDetails(userDetails.firstName, userDetails.lastName),
+                                 userDetails,
+                                 Some(Individual))(
+                                 individualDetails.toIndividualAccountSubmissionUplift(
+                                   journeyId,
+                                   userDetails.firstName,
+                                   userDetails.lastName))
         } yield Some(registrationResult)
     }
-  }
 
   private def register(groupId: String, groupExists: GroupAccount => Future[Int], noGroup: => Future[Long])(
         implicit hc: HeaderCarrier,

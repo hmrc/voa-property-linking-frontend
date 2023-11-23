@@ -73,22 +73,22 @@ class RegistrationController @Inject()(
       case None =>
         request.userDetails match {
           case user @ IndividualUserDetails() =>
-            if(config.ivUpliftEnabled) {
+            if (config.ivUpliftEnabled) {
               val fieldDataUplift: FieldDataUplift = request.sessionPersonDetails match {
                 case None => FieldDataUplift(user)
-                case Some(sessionPersonDetails: IndividualUserAccountDetailsUplift) => FieldDataUplift(sessionPersonDetails)
+                case Some(sessionPersonDetails: IndividualUserAccountDetailsUplift) =>
+                  FieldDataUplift(sessionPersonDetails)
               }
               Future.successful(Ok(registerIndividualUpliftView(AdminUserUplift.individual, fieldDataUplift)))
-            }
-            else {
+            } else {
               val fieldData = request.sessionPersonDetails match {
-                case None => FieldData(user)
+                case None                                                     => FieldData(user)
                 case Some(sessionPersonDetails: IndividualUserAccountDetails) => FieldData(sessionPersonDetails)
               }
               Future.successful(Ok(registerIndividualView(AdminUser.individual, fieldData)))
             }
           case user @ OrganisationUserDetails() =>
-            if(config.ivUpliftEnabled) orgShowUplift(user, request.sessionPersonDetails)
+            if (config.ivUpliftEnabled) orgShowUplift(user, request.sessionPersonDetails)
             else orgShow(user, request.sessionPersonDetails)
           case _ @AgentUserDetails() =>
             Future.successful(Ok(invalidAccountTypeView()))
@@ -119,7 +119,7 @@ class RegistrationController @Inject()(
         (success: IndividualUserAccountDetailsUplift) =>
           personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
             identityVerificationIfRequiredUplift(request)
-          }
+        }
       )
   }
 
@@ -136,19 +136,20 @@ class RegistrationController @Inject()(
   }
 
   //TODO: submit org for new uplift journey
-  def submitOrganisationUplift: Action[AnyContent] = ggAuthenticated.async { implicit request => {
-    AdminUserUplift.organisation
-      .bindFromRequest()
-      .fold(
-        errors => {
-          Future.successful(BadRequest(registerOrganisationUpliftView(errors, FieldDataUplift())))
-        },
-        (success: AdminOrganisationAccountDetailsUplift) =>
-          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
-            identityVerificationIfRequiredUplift(request)
+  def submitOrganisationUplift: Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    {
+      AdminUserUplift.organisation
+        .bindFromRequest()
+        .fold(
+          errors => {
+            Future.successful(BadRequest(registerOrganisationUpliftView(errors, FieldDataUplift())))
+          },
+          (success: AdminOrganisationAccountDetailsUplift) =>
+            personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
+              identityVerificationIfRequiredUplift(request)
           }
-      )
-  }
+        )
+    }
   }
 
   //TODO: Scenario not covered in VTCCA-5761 for registering Admin to org
@@ -200,7 +201,7 @@ class RegistrationController @Inject()(
     }
 
   private def identityVerificationIfRequiredUplift(request: RequestWithUserDetails[_])(
-    implicit hc: HeaderCarrier): Future[Result] =
+        implicit hc: HeaderCarrier): Future[Result] =
     if (request.userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
       Future.successful(Redirect(controllers.routes.IdentityVerification.upliftIv))
     } else {
@@ -270,13 +271,13 @@ class RegistrationController @Inject()(
         userDetails.credentialRole match {
           case User =>
             val data = sessionPersonDetails match {
-              case None => fieldData
+              case None                                       => fieldData
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
             Ok(registerAssistantAdminView(AdminInExistingOrganisationUser.organisation, data))
           case Assistant =>
             val data = sessionPersonDetails match {
-              case None => fieldData
+              case None                                                 => fieldData
               case Some(spd: AdminInExistingOrganisationAccountDetails) => FieldData(spd)
             }
             Ok(registerAssistantView(AssistantUser.assistant, data))
@@ -287,44 +288,43 @@ class RegistrationController @Inject()(
             Ok(invalidAccountCreationView())
           case _ =>
             val data = sessionPersonDetails match {
-              case None => FieldData(userDetails)
+              case None                                       => FieldData(userDetails)
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
             Ok(registerOrganisationView(AdminUser.organisation, data))
         }
     }
 
-    private def orgShowUplift(userDetails: UserDetails, sessionPersonDetails: Option[User])(
-      implicit request: Request[AnyContent]): Future[Result] = {
-      getCompanyDetails(userDetails.groupIdentifier).map {
-        case Some(fieldData) =>
-          userDetails.credentialRole match {
-            case User =>
-              val data = sessionPersonDetails match {
-                case None => fieldData
-                case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
-              }
+  private def orgShowUplift(userDetails: UserDetails, sessionPersonDetails: Option[User])(
+        implicit request: Request[AnyContent]): Future[Result] =
+    getCompanyDetails(userDetails.groupIdentifier).map {
+      case Some(fieldData) =>
+        userDetails.credentialRole match {
+          case User =>
+            val data = sessionPersonDetails match {
+              case None                                       => fieldData
+              case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
+            }
 
-              Ok(registerAssistantAdminView(AdminInExistingOrganisationUser.organisation, data))
-            case Assistant =>
-              val data = sessionPersonDetails match {
-                case None => fieldData
-                case Some(spd: AdminInExistingOrganisationAccountDetails) => FieldData(spd)
-              }
-              Ok(registerAssistantView(AssistantUser.assistant, data))
-          }
-        case None =>
-          userDetails.credentialRole match {
-            case Assistant =>
-              Ok(invalidAccountCreationView())
-            case _ =>
-                val upliftData = sessionPersonDetails match {
-                  case None => FieldDataUplift(userDetails)
-                  case Some(spd: AdminOrganisationAccountDetailsUplift) => FieldDataUplift(spd)
-                }
-                Ok(registerOrganisationUpliftView(AdminUserUplift.organisation, upliftData))
-          }
-      }
+            Ok(registerAssistantAdminView(AdminInExistingOrganisationUser.organisation, data))
+          case Assistant =>
+            val data = sessionPersonDetails match {
+              case None                                                 => fieldData
+              case Some(spd: AdminInExistingOrganisationAccountDetails) => FieldData(spd)
+            }
+            Ok(registerAssistantView(AssistantUser.assistant, data))
+        }
+      case None =>
+        userDetails.credentialRole match {
+          case Assistant =>
+            Ok(invalidAccountCreationView())
+          case _ =>
+            val upliftData = sessionPersonDetails match {
+              case None                                             => FieldDataUplift(userDetails)
+              case Some(spd: AdminOrganisationAccountDetailsUplift) => FieldDataUplift(spd)
+            }
+            Ok(registerOrganisationUpliftView(AdminUserUplift.organisation, upliftData))
+        }
     }
 
   private def getCompanyDetails[A](groupIdentifier: String)(implicit hc: HeaderCarrier): Future[Option[FieldData]] =

@@ -72,8 +72,9 @@ class GgAuthenticatedAction @Inject()(
       credentialRole and confidenceLevel and itmpDateOfBirth and nino
     authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual))
       .retrieve(retrieval) {
-        case optItmpName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(role)
-          ~ confidenceLevel ~ itmpDateOfBirth ~ nino =>
+        case optItmpName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(
+              role)
+              ~ confidenceLevel ~ itmpDateOfBirth ~ nino =>
           block(
             new RequestWithUserDetails(
               UserDetails

@@ -47,7 +47,7 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
   val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Valuation Office Agency - GOV.UK"
   val headingTextWelsh = "Cwblhewch eich manylion cyswllt"
-  val weUseYourTextWelsh = "Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif."
+  val weUseYourTextWelsh = "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
   val registeringAsAgentTextWelsh = "Rwy’n cofrestru fel asiant"
   val registeringAsAgentExpandedTextWelsh = "Bydd angen i chi ddarparu gwybodaeth am eich busnes eich hun yma, nid busnes eich cleient."
   val firstNameTextWelsh = "Enw cyntaf"

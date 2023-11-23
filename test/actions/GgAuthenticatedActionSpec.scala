@@ -99,35 +99,35 @@ class GgAuthenticatedActionSpec
     def user: UserDetails = userDetails()
 
     def success: Option[ItmpName] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[
-      AffinityGroup] ~ Option[CredentialRole] ~ ConfidenceLevel ~ Option[LocalDate] ~ Option[String] = {
-        new~(
-          new~(
-            new~(
-              new~(
-                new~(
-                  new~(
-                    new~(
-                      new~(
-                        new~(
-                          Option(ItmpName(user.firstName, None, user.lastName)), Option(user.email)
-                        ),
-                        user.postcode
+      AffinityGroup] ~ Option[CredentialRole] ~ ConfidenceLevel ~ Option[LocalDate] ~ Option[String] =
+      new ~(
+        new ~(
+          new ~(
+            new ~(
+              new ~(
+                new ~(
+                  new ~(
+                    new ~(
+                      new ~(
+                        Option(ItmpName(user.firstName, None, user.lastName)),
+                        Option(user.email)
                       ),
-                      Option(user.groupIdentifier)
+                      user.postcode
                     ),
-                    Option(user.externalId)
+                    Option(user.groupIdentifier)
                   ),
-                  Option(user.affinityGroup)
+                  Option(user.externalId)
                 ),
-                Option(user.credentialRole)
+                Option(user.affinityGroup)
               ),
-              user.confidenceLevel
+              Option(user.credentialRole)
             ),
-            user.dob
+            user.confidenceLevel
           ),
-          user.nino
-        )
-    }
+          user.dob
+        ),
+        user.nino
+      )
 
     def exception: Option[Throwable] = None
 

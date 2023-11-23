@@ -41,7 +41,7 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
 
   val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Valuation Office Agency - GOV.UK"
   val headingTextWelsh = "Cwblhewch eich manylion cyswllt"
-  val weUseYourTextWelsh = "Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif."
+  val weUseYourTextWelsh = "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
   val firstNameTextWelsh = "Enw cyntaf"
   val lastNameTextWelsh = "Cyfenw"
   val enterAddressManuallyTextWelsh = "Nodwchy cyfeiriad â llaw"

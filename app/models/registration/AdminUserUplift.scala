@@ -36,13 +36,20 @@ sealed trait AdminUserUplift {
   val email: String
   val confirmedEmail: String
 
-  def toIndividualAccountSubmissionUplift(trustId: Option[String], firstName: Option[String], lastName: Option[String])(user: UserDetails)(id: Long)(
-    organisationId: Option[Long]) =
+  def toIndividualAccountSubmissionUplift(trustId: Option[String], firstName: Option[String], lastName: Option[String])(
+        user: UserDetails)(id: Long)(organisationId: Option[Long]) =
     IndividualAccountSubmission(
       externalId = user.externalId,
       trustId = trustId,
       organisationId = organisationId,
-      details = IndividualDetails(firstName.getOrElse(throw new Exception(s"Missing itmp first name")), lastName.getOrElse(throw new Exception(s"Missing itmp last name")), email, phone, None, id)
+      details = IndividualDetails(
+        firstName.getOrElse(throw new Exception(s"Missing itmp first name")),
+        lastName.getOrElse(throw new Exception(s"Missing itmp last name")),
+        email,
+        phone,
+        None,
+        id
+      )
     )
 
 }
@@ -71,20 +78,26 @@ object AdminUserUplift {
       keys.selectedAddress        -> optional(text)
     )(AdminOrganisationAccountDetailsUplift.apply)(AdminOrganisationAccountDetailsUplift.unapply))
 
-
   implicit val enrolmentUserFormat: Format[AdminUserUplift] = new Format[AdminUserUplift] {
     override def reads(json: JsValue): JsResult[AdminUserUplift] =
-      AdminOrganisationAccountDetailsUplift.format.reads(json).orElse(IndividualUserAccountDetailsUplift.format.reads(json))
+      AdminOrganisationAccountDetailsUplift.format
+        .reads(json)
+        .orElse(IndividualUserAccountDetailsUplift.format.reads(json))
 
     override def writes(o: AdminUserUplift): JsObject = o match {
-      case organisation: AdminOrganisationAccountDetailsUplift => AdminOrganisationAccountDetailsUplift.format.writes(organisation)
-      case individual: IndividualUserAccountDetailsUplift      => IndividualUserAccountDetailsUplift.format.writes(individual)
+      case organisation: AdminOrganisationAccountDetailsUplift =>
+        AdminOrganisationAccountDetailsUplift.format.writes(organisation)
+      case individual: IndividualUserAccountDetailsUplift =>
+        IndividualUserAccountDetailsUplift.format.writes(individual)
     }
   }
 }
 
-
-case class AdminInExistingOrganisationAccountDetailsUplift(firstName: String, lastName: String, dob: LocalDate, nino: Nino)
+case class AdminInExistingOrganisationAccountDetailsUplift(
+      firstName: String,
+      lastName: String,
+      dob: LocalDate,
+      nino: Nino)
     extends AdminInExistingOrganisationUser {
 
   override val address = Address(None, "", "", "", "", "")
@@ -139,7 +152,8 @@ case class IndividualUserAccountDetailsUplift(
       email: String,
       confirmedEmail: String,
       tradingName: Option[String],
-      selectedAddress: Option[String] = None) extends AdminUserUplift {
+      selectedAddress: Option[String] = None)
+    extends AdminUserUplift {
 
   def toGroupDetails(firstName: Option[String], lastName: Option[String]) = GroupAccountDetails(
     companyName = tradingName.getOrElse(truncateCompanyName(s"$firstName $lastName")),
@@ -150,13 +164,23 @@ case class IndividualUserAccountDetailsUplift(
     isAgent = false
   )
 
-  override def toIndividualAccountSubmissionUplift(trustId: Option[String], firstName: Option[String], lastName: Option[String])(user: UserDetails)(id: Long)(
-    organisationId: Option[Long]) = IndividualAccountSubmission(
-    externalId = user.externalId,
-    trustId = trustId,
-    organisationId = organisationId,
-    details = IndividualDetails(firstName.getOrElse(throw new Exception(s"Missing itmp first name")), lastName.getOrElse(throw new Exception(s"Missing itmp last name")), email, phone, Some(mobilePhone), id)
-  )
+  override def toIndividualAccountSubmissionUplift(
+        trustId: Option[String],
+        firstName: Option[String],
+        lastName: Option[String])(user: UserDetails)(id: Long)(organisationId: Option[Long]) =
+    IndividualAccountSubmission(
+      externalId = user.externalId,
+      trustId = trustId,
+      organisationId = organisationId,
+      details = IndividualDetails(
+        firstName.getOrElse(throw new Exception(s"Missing itmp first name")),
+        lastName.getOrElse(throw new Exception(s"Missing itmp last name")),
+        email,
+        phone,
+        Some(mobilePhone),
+        id
+      )
+    )
 
   private def truncateCompanyName(companyName: String): String =
     companyName.take(45).toString

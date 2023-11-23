@@ -64,10 +64,10 @@ class IdentityVerification @Inject()(
       Redirect(
         config.identityVerificationUrl,
         Map(
-          "origin" -> Seq(config.appName),
+          "origin"          -> Seq(config.appName),
           "confidenceLevel" -> Seq(ConfidenceLevel.L200.toString),
-          "completionURL" -> Seq(s"${config.serviceUrl}$successUrl"),
-          "failureURL" ->Seq(s"${config.serviceUrl}$failureUrl")
+          "completionURL"   -> Seq(s"${config.serviceUrl}$successUrl"),
+          "failureURL"      -> Seq(s"${config.serviceUrl}$failureUrl")
         )
       ))
   }
