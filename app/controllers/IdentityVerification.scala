@@ -25,9 +25,10 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepo
 import services.iv.IdentityVerificationService
+import uk.gov.hmrc.auth.core.ConfidenceLevel
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-import javax.inject.{Inject, Named}
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerification @Inject()(
@@ -56,6 +57,21 @@ class IdentityVerification @Inject()(
     }
   }
 
+  def upliftIv: Action[AnyContent] = ggAction.async { implicit request =>
+    lazy val successUrl: String = controllers.routes.IdentityVerification.success(None).url
+    lazy val failureUrl: String = controllers.routes.IdentityVerification.fail(None).url
+    Future.successful(
+      Redirect(
+        config.identityVerificationUrl,
+        Map(
+          "origin" -> Seq(config.appName),
+          "confidenceLevel" -> Seq(ConfidenceLevel.L200.toString),
+          "completionURL" -> Seq(s"${config.serviceUrl}$successUrl"),
+          "failureURL" ->Seq(s"${config.serviceUrl}$failureUrl")
+        )
+      ))
+  }
+
   def fail(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
     journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
       identityVerificationConnector.journeyStatus(id).map {
@@ -82,5 +98,4 @@ class IdentityVerification @Inject()(
       }
     }
   }
-
 }

@@ -51,7 +51,9 @@ class RegistrationController @Inject()(
       invalidAccountTypeView: errors.invalidAccountType,
       invalidAccountCreationView: errors.invalidAccountCreation,
       registerIndividualView: createAccount.registerIndividual,
+      registerIndividualUpliftView: createAccount.registerIndividualUplift,
       registerOrganisationView: createAccount.registerOrganisation,
+      registerOrganisationUpliftView: createAccount.registerOrganisationUplift,
       registerAssistantAdminView: createAccount.registerAssistantAdmin,
       registerAssistantView: createAccount.registerAssistant,
       registerConfirmationView: createAccount.registrationConfirmation,
@@ -71,13 +73,23 @@ class RegistrationController @Inject()(
       case None =>
         request.userDetails match {
           case user @ IndividualUserDetails() =>
-            val fieldData = request.sessionPersonDetails match {
-              case None                                                     => FieldData(user)
-              case Some(sessionPersonDetails: IndividualUserAccountDetails) => FieldData(sessionPersonDetails)
+            if(config.ivUpliftEnabled) {
+              val fieldDataUplift: FieldDataUplift = request.sessionPersonDetails match {
+                case None => FieldDataUplift(user)
+                case Some(sessionPersonDetails: IndividualUserAccountDetailsUplift) => FieldDataUplift(sessionPersonDetails)
+              }
+              Future.successful(Ok(registerIndividualUpliftView(AdminUserUplift.individual, fieldDataUplift)))
             }
-            Future.successful(Ok(registerIndividualView(AdminUser.individual, fieldData)))
+            else {
+              val fieldData = request.sessionPersonDetails match {
+                case None => FieldData(user)
+                case Some(sessionPersonDetails: IndividualUserAccountDetails) => FieldData(sessionPersonDetails)
+              }
+              Future.successful(Ok(registerIndividualView(AdminUser.individual, fieldData)))
+            }
           case user @ OrganisationUserDetails() =>
-            orgShow(user, request.sessionPersonDetails)
+            if(config.ivUpliftEnabled) orgShowUplift(user, request.sessionPersonDetails)
+            else orgShow(user, request.sessionPersonDetails)
           case _ @AgentUserDetails() =>
             Future.successful(Ok(invalidAccountTypeView()))
           case _ => Future.successful(Ok(invalidAccountTypeView()))
@@ -97,6 +109,20 @@ class RegistrationController @Inject()(
       )
   }
 
+  //TODO: submit ind for new uplift journey
+//  TODO: implement error handling on form
+  def submitIndividualUplift: Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    AdminUserUplift.individual
+      .bindFromRequest()
+      .fold(
+        errors => Future.successful(BadRequest(registerIndividualUpliftView(errors, FieldDataUplift()))),
+        (success: IndividualUserAccountDetailsUplift) =>
+          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
+            identityVerificationIfRequiredUplift(request)
+          }
+      )
+  }
+
   def submitOrganisation: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     AdminUser.organisation
       .bindFromRequest()
@@ -109,6 +135,23 @@ class RegistrationController @Inject()(
       )
   }
 
+  //TODO: submit org for new uplift journey
+  def submitOrganisationUplift: Action[AnyContent] = ggAuthenticated.async { implicit request => {
+    AdminUserUplift.organisation
+      .bindFromRequest()
+      .fold(
+        errors => {
+          Future.successful(BadRequest(registerOrganisationUpliftView(errors, FieldDataUplift())))
+        },
+        (success: AdminOrganisationAccountDetailsUplift) =>
+          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
+            identityVerificationIfRequiredUplift(request)
+          }
+      )
+  }
+  }
+
+  //TODO: Scenario not covered in VTCCA-5761 for registering Admin to org
   def submitAdminToExistingOrganisation: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     AdminInExistingOrganisationUser.organisation
       .bindFromRequest()
@@ -148,6 +191,20 @@ class RegistrationController @Inject()(
     } else {
       // skip IV as user's Confidence Level is sufficient
       registrationService.continue(None, request.userDetails).map {
+        case Some(RegistrationSuccess(personId)) =>
+          if (config.newRegistrationJourneyEnabled)
+            Redirect(routes.RegistrationController.confirmation(personId))
+          else Redirect(routes.RegistrationController.success(personId))
+        case _ => InternalServerError(errorHandler.internalServerErrorTemplate(request))
+      }
+    }
+
+  private def identityVerificationIfRequiredUplift(request: RequestWithUserDetails[_])(
+    implicit hc: HeaderCarrier): Future[Result] =
+    if (request.userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
+      Future.successful(Redirect(controllers.routes.IdentityVerification.upliftIv))
+    } else {
+      registrationService.continueUplift(None, request.userDetails).map {
         case Some(RegistrationSuccess(personId)) =>
           if (config.newRegistrationJourneyEnabled)
             Redirect(routes.RegistrationController.confirmation(personId))
@@ -213,14 +270,13 @@ class RegistrationController @Inject()(
         userDetails.credentialRole match {
           case User =>
             val data = sessionPersonDetails match {
-              case None                                       => fieldData
+              case None => fieldData
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
-
             Ok(registerAssistantAdminView(AdminInExistingOrganisationUser.organisation, data))
           case Assistant =>
             val data = sessionPersonDetails match {
-              case None                                                 => fieldData
+              case None => fieldData
               case Some(spd: AdminInExistingOrganisationAccountDetails) => FieldData(spd)
             }
             Ok(registerAssistantView(AssistantUser.assistant, data))
@@ -231,12 +287,44 @@ class RegistrationController @Inject()(
             Ok(invalidAccountCreationView())
           case _ =>
             val data = sessionPersonDetails match {
-              case None                                       => FieldData(userDetails)
+              case None => FieldData(userDetails)
               case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
             }
-
             Ok(registerOrganisationView(AdminUser.organisation, data))
         }
+    }
+
+    private def orgShowUplift(userDetails: UserDetails, sessionPersonDetails: Option[User])(
+      implicit request: Request[AnyContent]): Future[Result] = {
+      getCompanyDetails(userDetails.groupIdentifier).map {
+        case Some(fieldData) =>
+          userDetails.credentialRole match {
+            case User =>
+              val data = sessionPersonDetails match {
+                case None => fieldData
+                case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
+              }
+
+              Ok(registerAssistantAdminView(AdminInExistingOrganisationUser.organisation, data))
+            case Assistant =>
+              val data = sessionPersonDetails match {
+                case None => fieldData
+                case Some(spd: AdminInExistingOrganisationAccountDetails) => FieldData(spd)
+              }
+              Ok(registerAssistantView(AssistantUser.assistant, data))
+          }
+        case None =>
+          userDetails.credentialRole match {
+            case Assistant =>
+              Ok(invalidAccountCreationView())
+            case _ =>
+                val upliftData = sessionPersonDetails match {
+                  case None => FieldDataUplift(userDetails)
+                  case Some(spd: AdminOrganisationAccountDetailsUplift) => FieldDataUplift(spd)
+                }
+                Ok(registerOrganisationUpliftView(AdminUserUplift.organisation, upliftData))
+          }
+      }
     }
 
   private def getCompanyDetails[A](groupIdentifier: String)(implicit hc: HeaderCarrier): Future[Option[FieldData]] =

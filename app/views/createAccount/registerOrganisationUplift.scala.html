@@ -1,0 +1,141 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import models.registration._
+@import helpers._
+
+@import models.registration.FieldData
+@import config.ApplicationConfig
+@import views.html.mainLayout
+@import views.html._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import utils.FrontendComponentHelper._
+
+@this(address: address, mainLayout: mainLayout, govukButton: GovukButton, dateFields: dateFields, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF)
+
+@(form: Form[AdminOrganisationAccountDetailsUplift], organisationFieldData: FieldDataUplift)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@mainLayout(
+    pageTitle = messages("enrolment.title"),
+    showTopNavigation = false,
+    hasErrors = form.hasErrors) {
+
+    <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
+    <p id="contactDetailsUse" class="govuk-body">@messages("details.contactDetailsUse")</p>
+
+    @govukDetails(Details(
+        summary = Text(messages("createAccount.group.details.header.agent")),
+        content = Text(messages("createAccount.group.details.content.agent"))
+    ))
+
+    @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisationUplift) {
+
+        @govukInput(Input(
+            id = "companyName",
+            name = "companyName",
+            label = Label(content = HtmlContent(messages("enrolment.organisation.name")), classes = "govuk-label--m"),
+            value = form("companyName").value.orElse(Some(organisationFieldData.businessName)),
+            errorMessage = form("companyName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
+
+        @address(
+            form = form,
+            fieldName = keys.address,
+            postcode = organisationFieldData.postcode,
+            addressData = if(organisationFieldData.businessAddress == Address.empty) {
+                None
+            } else {
+                Some(organisationFieldData.businessAddress)
+            },
+            selectedAddress = organisationFieldData.selectedAddress
+        )
+
+        @govukDetails(Details(
+            summary = Text(messages("createAccount.group.details.header.multipleAddress")),
+            content = Text(messages("createAccount.group.details.content.multipleAddress"))
+        ))
+
+        @govukInput(Input(
+            id = "phone",
+            name = "phone",
+            label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber")), classes = "govuk-label--m"),
+            value = form(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
+            errorMessage = form(keys.phone).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
+
+        @govukInput(Input(
+            id = "email",
+            name = "email",
+            label = Label(content = HtmlContent(messages("enrolment.emailAddress")), classes = "govuk-label--m"),
+            value = form(keys.email).value.orElse(Some(organisationFieldData.email)),
+            errorMessage = form(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
+
+        @govukInput(Input(
+            id = "confirmedBusinessEmail",
+            name = "confirmedBusinessEmail",
+            label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress")), classes = "govuk-label--m"),
+            value = form(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
+            errorMessage = form(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            classes = "govuk-input govuk-!-width-one-third"
+        ))
+
+        @govukRadios(Radios(
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(messages("enrolment.organisation.individualOrCompany")),
+                    classes = "govuk-fieldset__legend--m"
+                ))
+            )),
+            errorMessage = form(keys.isAgent).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            idPrefix = Some("isAgent"),
+            name = "isAgent",
+            items = Seq(
+                RadioItem(
+                    content = Text(messages("app.common.yes")),
+                    value = Some("true"),
+                    checked = form.data.get("isAgent").fold(false)(_ == "true")
+                ),
+                RadioItem(
+                    content = Text(messages("app.common.no")),
+                    value = Some("false"),
+                    checked = form.data.get("isAgent").fold(true)(_ == "false")
+                )
+            ),
+            classes = "govuk-radios--inline"
+        ))
+
+        @govukInsetText(InsetText(
+            content = Text(messages("isAgent.details"))
+        ))
+
+        @govukDetails(Details(
+            summary = HtmlContent(messages("start.registration.IdontHave")),
+            content = HtmlContent(messages("start.registration.IdontHave.answer"))
+        ))
+
+        @govukButton(Button(
+            content = Text(messages("app.common.saveAndContinue")),
+            attributes = Map("id" -> "save-and-continue")
+        ))
+
+    }
+
+
+}

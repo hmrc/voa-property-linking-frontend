@@ -26,6 +26,7 @@ GET         /invalid-account                                                    
 
 #Identity verification
 GET         /identity-verification/start                                                      controllers.IdentityVerification.startIv
+GET         /identity-verification/start-uplift                                               controllers.IdentityVerification.upliftIv
 GET         /identity-verification/failed                                                     controllers.IdentityVerification.fail(journeyId: Option[String])
 GET         /identity-verification/success                                                    controllers.IdentityVerification.success(journeyId: Option[String])
 
@@ -60,10 +61,12 @@ GET         /planned-improvements                                               
 #Enrolment page
 GET         /complete-contact-details                                                         controllers.registration.RegistrationController.show
 POST        /complete-contact-details                                                         controllers.registration.RegistrationController.submitOrganisation
+POST        /complete-contact-details-uplift                                                  controllers.registration.RegistrationController.submitOrganisationUplift
 GET         /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.show
 POST        /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.submitAdminToExistingOrganisation
 GET         /complete-your-contact-details                                                    controllers.registration.RegistrationController.show
 POST        /complete-your-contact-details                                                    controllers.registration.RegistrationController.submitIndividual
+POST        /complete-your-contact-details-uplift                                             controllers.registration.RegistrationController.submitIndividualUplift
 GET         /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.show
 POST        /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.submitAssistant
 GET         /create-success                                                                   controllers.registration.RegistrationController.success(personId: Long)
