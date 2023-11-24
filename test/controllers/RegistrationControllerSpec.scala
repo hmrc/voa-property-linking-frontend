@@ -46,6 +46,9 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     f
   }
 
+  override def additionalAppConfig: Seq[(String, String)] =
+    Seq("feature-switch.ivUplift.enabled" -> "false")
+
   val mockIdentityVerificationService = mock[IdentityVerificationService]
 
   val mockRegistrationService = mock[RegistrationService]

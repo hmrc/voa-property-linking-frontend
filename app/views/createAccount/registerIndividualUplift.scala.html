@@ -94,11 +94,6 @@
             classes = "govuk-input govuk-!-width-one-third"
         ))
 
-        @govukDetails(Details(
-            summary = HtmlContent(messages("start.registration.IdontHave")),
-            content = HtmlContent(messages("start.registration.IdontHave.answer"))
-        ))
-
         @govukButton(Button(
             content = Text(messages("app.common.saveAndContinue")),
             attributes = Map("id" -> "save-and-continue")

@@ -28,6 +28,7 @@ import models.registration.UserDetails._
 import models.registration._
 import play.api.Logging
 import play.api.i18n.MessagesApi
+import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepo
 import services._
@@ -36,6 +37,7 @@ import uk.gov.hmrc.auth.core.{Assistant, ConfidenceLevel, User}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import views.html._
+
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -116,9 +118,11 @@ class RegistrationController @Inject()(
       .bindFromRequest()
       .fold(
         errors => Future.successful(BadRequest(registerIndividualUpliftView(errors, FieldDataUplift()))),
-        (success: IndividualUserAccountDetailsUplift) =>
+        (success: IndividualUserAccountDetailsUplift) => {
+          Console.println(Console.MAGENTA + Json.toJson(success) + Console.RESET)
           personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
             identityVerificationIfRequiredUplift(request)
+          }
         }
       )
   }
@@ -144,9 +148,11 @@ class RegistrationController @Inject()(
           errors => {
             Future.successful(BadRequest(registerOrganisationUpliftView(errors, FieldDataUplift())))
           },
-          (success: AdminOrganisationAccountDetailsUplift) =>
+          (success: AdminOrganisationAccountDetailsUplift) => {
+            println(Console.MAGENTA + success + Console.RESET)
             personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
               identityVerificationIfRequiredUplift(request)
+            }
           }
         )
     }

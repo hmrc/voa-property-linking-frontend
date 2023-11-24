@@ -125,11 +125,6 @@
             content = Text(messages("isAgent.details"))
         ))
 
-        @govukDetails(Details(
-            summary = HtmlContent(messages("start.registration.IdontHave")),
-            content = HtmlContent(messages("start.registration.IdontHave.answer"))
-        ))
-
         @govukButton(Button(
             content = Text(messages("app.common.saveAndContinue")),
             attributes = Map("id" -> "save-and-continue")

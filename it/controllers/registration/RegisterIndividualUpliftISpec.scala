@@ -5,18 +5,18 @@ import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, _}
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import play.api.http.HeaderNames
 import play.api.http.Status.OK
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import utils.ListYearsHelpers
 
-class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
+
+class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
   val titleText = "Complete your contact details - Valuation Office Agency - GOV.UK"
   val headingText = "Complete your contact details"
   val weUseYourText = "We use your contact details to send you correspondence related to the service and your account."
-  val firstNameText = "First name"
-  val lastNameText = "Last name"
   val enterAddressManuallyText = "Enter address manually"
   val findAddressByPostcodeText = "Find address by postcode"
   val findAddressButtonText = "Find address"
@@ -28,22 +28,11 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
   val mobileNumText = "Mobile number"
   val tradingNameText = "Trading name (Optional)"
   val optionalText = "Optional"
-  val dateOfBirthText = "Date of birth"
-  val forExampleText = "For example, 28 4 2017"
-  val dayText = "Day"
-  val monthText = "Month"
-  val yearText = "Year"
-  val ninoText = "National Insurance number"
-  val itsOnYourText = "It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C."
-  val noNinoText = "I don’t have a National Insurance number"
-  val expandedNoNinoText = "If you don’t have these details you’ll need to contact the Valuation Office Agency (VOA)."
   val saveAndContinueText = "Save and continue"
 
   val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Valuation Office Agency - GOV.UK"
   val headingTextWelsh = "Cwblhewch eich manylion cyswllt"
   val weUseYourTextWelsh = "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
-  val firstNameTextWelsh = "Enw cyntaf"
-  val lastNameTextWelsh = "Cyfenw"
   val enterAddressManuallyTextWelsh = "Nodwchy cyfeiriad â llaw"
   val findAddressByPostcodeTextWelsh = "Canfod cyfeiriad yn ôl cod post"
   val findAddressButtonTextWelsh = "Dod o hyd i gyfeiriad"
@@ -55,23 +44,10 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
   val mobileNumTextWelsh = "Rhif ffôn symudol"
   val tradingNameTextWelsh = "Enw masnachu (Dewisol)"
   val optionalTextWelsh = "Dewisol"
-  val dateOfBirthTextWelsh = "Dyddiad geni"
-  val forExampleTextWelsh = "Er enghraifft, 28 4 2017"
-  val dayTextWelsh = "Diwrnod"
-  val monthTextWelsh = "Mis"
-  val yearTextWelsh = "Blwyddyn"
-  val ninoTextWelsh = "Rhif Yswiriant Gwladol"
-  val itsOnYourTextWelsh = "Mae ar eich cerdyn Yswiriant Gwladol, llythyr budd-dal, slip cyflog neu P60. Er enghraifft, QQ123456C."
-  val noNinoTextWelsh = "Does gen i ddim rhif Yswiriant Gwladol"
-  val expandedNoNinoTextWelsh = "Os nad oes gennych y manylion hyn bydd angen i chi gysylltu ag Asiantaeth y Swyddfa Brisio (VOA)."
   val saveAndContinueTextWelsh = "Arbed a pharhau"
 
   val headingSelector = "#main-content > div > div > h1"
   val weUseYourSelector = "#contactDetailsUse"
-  val firstNameTextSelector = "#main-content > div > div > form > div:nth-child(2) > label"
-  val firstNameInputSelector = "input[id='firstName']"
-  val lastNameTextSelector = "#main-content > div > div > form > div:nth-child(3) > label"
-  val lastNameInputSelector = "input[id='lastName']"
   val enterAddressManuallySelector = "#addressGroup > p:nth-child(4) > a"
   val findAddressByPostcodeSelector = "#backLookup"
   val findAddressButtonSelector = "#postcodeLookupButton"
@@ -84,30 +60,18 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
   val addressPostcodeInputSelector = "input[id='address.postcode']"
   val postcodeSelector = "#postcodeSearchOnly > div.postcodeSearchGroup.govuk-body > div > label"
   val postcodeInputSelector = "input[id='postcodeSearch']"
-  val emailSelector = "#main-content > div > div > form > div:nth-child(5) > label"
+  val emailSelector = "#main-content > div > div > form > div:nth-child(3) > label"
+
   val emailInputSelector = "input[id='email']"
-  val confirmEmailSelector = "#main-content > div > div > form > div:nth-child(6) > label"
+  val confirmEmailSelector = "#main-content > div > div > form > div:nth-child(4) > label"
   val confirmEmailInputSelector = "input[id='confirmedEmail']"
-  val phoneNumSelector = "#main-content > div > div > form > div:nth-child(7) > label"
+  val phoneNumSelector = "#main-content > div > div > form > div:nth-child(5) > label"
   val phoneNumInputSelector = "input[id='phone']"
-  val mobileNumSelector = "#main-content > div > div > form > div:nth-child(8) > label"
+  val mobileNumSelector = "#main-content > div > div > form > div:nth-child(6) > label"
   val mobileNumInputSelector = "input[id='mobilePhone']"
-  val tradingNameSelector = "#main-content > div > div > form > div:nth-child(9) > label"
+  val tradingNameSelector = "#main-content > div > div > form > div:nth-child(7) > label"
   val optionalSelector = "#tradingName-hint"
   val tradingNameInputSelector = "input[id='tradingName']"
-  val dateOfBirthSelector = "#dob > div > fieldset > legend > h1"
-  val forExampleSelector = "#dob_dates-hint"
-  val daySelector = "#dob_dates > div:nth-child(1) > div > label"
-  val dayInputSelector = "input[id='dob-day']"
-  val monthSelector = "#dob_dates > div:nth-child(2) > div > label"
-  val monthInputSelector = "input[id='dob-month']"
-  val yearSelector = "#dob_dates > div:nth-child(3) > div > label"
-  val yearInputSelector = "input[id='dob-year']"
-  val ninoSelector = "#main-content > div > div > form > div:nth-child(11) > label"
-  val ninoInputSelector = "input[id='nino']"
-  val itsOnYourSelector = "#nino-hint"
-  val noNinoSelector = "#main-content > div > div > form > details > summary > span"
-  val noNinoExpandedSelector = "#main-content > div > div > form > details > div"
   val saveAndContinueSelector = "button[id='save-and-continue']"
 
   "RegistrationController show method for a new individual" should {
@@ -125,16 +89,6 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
 
       s"has text on the screen of $weUseYourText" in {
         document.select(weUseYourSelector).text() shouldBe weUseYourText
-      }
-
-      s"has a text input field for the $firstNameText" in {
-        document.select(firstNameTextSelector).text() shouldBe firstNameText
-        document.select(firstNameInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $lastNameText" in {
-        document.select(lastNameTextSelector).text() shouldBe lastNameText
-        document.select(lastNameInputSelector).attr("type") shouldBe "text"
       }
 
       s"has a link to $enterAddressManuallyText" in {
@@ -193,43 +147,6 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
         document.select(optionalSelector).text() shouldBe optionalText
       }
 
-      s"has text on the screen of $dateOfBirthText" in {
-        document.select(dateOfBirthSelector).text() shouldBe dateOfBirthText
-      }
-
-      s"has text on the screen of $forExampleText" in {
-        document.select(forExampleSelector).text() shouldBe forExampleText
-      }
-
-      s"has a text input field for the $dayText" in {
-        document.select(daySelector).text() shouldBe dayText
-        document.select(dayInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $monthText" in {
-        document.select(monthSelector).text() shouldBe monthText
-        document.select(monthInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $yearText" in {
-        document.select(yearSelector).text() shouldBe yearText
-        document.select(yearInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $ninoText" in {
-        document.select(ninoSelector).text() shouldBe ninoText
-        document.select(itsOnYourSelector).text() shouldBe itsOnYourText
-        document.select(ninoInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has text on the screen of $noNinoText" in {
-        document.select(noNinoSelector).text() shouldBe noNinoText
-      }
-
-      s"has text on the screen of $expandedNoNinoText" in {
-        document.select(noNinoExpandedSelector).text() shouldBe expandedNoNinoText
-      }
-
       s"has a $saveAndContinueText button" in {
         document.select(saveAndContinueSelector).text() shouldBe saveAndContinueText
       }
@@ -249,16 +166,6 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
 
       s"has text on the screen of $weUseYourText in Welsh" in {
         document.select(weUseYourSelector).text() shouldBe weUseYourTextWelsh
-      }
-
-      s"has a text input field for the $firstNameText in Welsh" in {
-        document.select(firstNameTextSelector).text() shouldBe firstNameTextWelsh
-        document.select(firstNameInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $lastNameText in Welsh" in {
-        document.select(lastNameTextSelector).text() shouldBe lastNameTextWelsh
-        document.select(lastNameInputSelector).attr("type") shouldBe "text"
       }
 
       s"has a link to $enterAddressManuallyText in Welsh" in {
@@ -317,51 +224,11 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
         document.select(optionalSelector).text() shouldBe optionalTextWelsh
       }
 
-      s"has text on the screen of $dateOfBirthText in Welsh" in {
-        document.select(dateOfBirthSelector).text() shouldBe dateOfBirthTextWelsh
-      }
-
-      s"has text on the screen of $forExampleText in Welsh" in {
-        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
-      }
-
-      s"has a text input field for the $dayText in Welsh" in {
-        document.select(daySelector).text() shouldBe dayTextWelsh
-        document.select(dayInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $monthText in Welsh" in {
-        document.select(monthSelector).text() shouldBe monthTextWelsh
-        document.select(monthInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $yearText in Welsh" in {
-        document.select(yearSelector).text() shouldBe yearTextWelsh
-        document.select(yearInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $ninoText in Welsh" in {
-        document.select(ninoSelector).text() shouldBe ninoTextWelsh
-        document.select(itsOnYourSelector).text() shouldBe itsOnYourTextWelsh
-        document.select(ninoInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has text on the screen of $noNinoText in Welsh" in {
-        document.select(noNinoSelector).text() shouldBe noNinoTextWelsh
-      }
-
-      s"has text on the screen of $expandedNoNinoText in Welsh" in {
-        document.select(noNinoExpandedSelector).text() shouldBe expandedNoNinoTextWelsh
-      }
-
       s"has a $saveAndContinueText button in Welsh" in {
         document.select(saveAndContinueSelector).text() shouldBe saveAndContinueTextWelsh
       }
     }
   }
-  override lazy val extraConfig: Map[String, Any] = Map(
-    "feature-switch.ivUplift.enabled" -> "false"
-  )
 
   private def getSuccessPage(language: Language): Document = {
 
@@ -377,6 +244,7 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
     res.status shouldBe OK
     Jsoup.parse(res.body)
   }
+
 
   private def stubsSetup: StubMapping = {
 
@@ -400,7 +268,5 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
       get("/property-linking/individuals?externalId=3")
         .willReturn(notFound)
     )
-
   }
-
 }
