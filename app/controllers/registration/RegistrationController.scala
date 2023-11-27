@@ -28,7 +28,6 @@ import models.registration.UserDetails._
 import models.registration._
 import play.api.Logging
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepo
 import services._
@@ -111,8 +110,6 @@ class RegistrationController @Inject()(
       )
   }
 
-  //TODO: submit ind for new uplift journey
-//  TODO: implement error handling on form
   def submitIndividualUplift: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     AdminUserUplift.individual
       .bindFromRequest()
@@ -137,7 +134,6 @@ class RegistrationController @Inject()(
       )
   }
 
-  //TODO: submit org for new uplift journey
   def submitOrganisationUplift: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     {
       AdminUserUplift.organisation
