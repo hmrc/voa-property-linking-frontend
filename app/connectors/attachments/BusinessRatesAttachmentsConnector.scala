@@ -17,7 +17,7 @@
 package connectors.attachments
 
 import models.attachment._
-import models.attachment.request.MetaDataRequest
+import models.attachment.request.{MetaDataRequest, UpscanInitiateRequest}
 import models.upscan.PreparedUpload
 import play.api.Logging
 import uk.gov.hmrc.http.HttpReads.Implicits._
@@ -35,6 +35,17 @@ class BusinessRatesAttachmentsConnector @Inject()(
     extends Logging {
 
   val baseURL: String = servicesConfig.baseUrl("business-rates-attachments")
+
+  //call to initiate an upload without storing all information
+  def initiateUpload(request: UpscanInitiateRequest)(implicit hc: HeaderCarrier): Future[PreparedUpload] =
+    http.POST[UpscanInitiateRequest, PreparedUpload](
+      url = s"$baseURL/business-rates-attachments/initiate-upload", request)
+
+
+  //upload attachment without calling upcan/initiate
+  def uploadAttachment(request: InitiateAttachmentPayload)(implicit hc: HeaderCarrier): Future[AttachmentId] =
+    http.POST[InitiateAttachmentPayload, AttachmentId](
+      url = s"$baseURL/business-rates-attachments/upload/attachment", request)
 
   def initiateAttachmentUpload(uploadSettings: InitiateAttachmentPayload)(
         implicit headerCarrier: HeaderCarrier): Future[PreparedUpload] =

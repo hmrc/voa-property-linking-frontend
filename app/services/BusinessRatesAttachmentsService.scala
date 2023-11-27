@@ -20,9 +20,9 @@ import actions.propertylinking.requests.LinkingSessionRequest
 import auditing.AuditingService
 import cats.data.EitherT
 import connectors.attachments.BusinessRatesAttachmentsConnector
-import javax.inject.{Inject, Named}
 import models._
-import models.attachment.{Attachment, _}
+import models.attachment._
+import models.attachment.request.UpscanInitiateRequest
 import models.upscan.{FileMetadata, PreparedUpload, UploadedFileDetails}
 import play.api.libs.json.Json
 import repositories.SessionRepo
@@ -30,6 +30,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.propertylinking.exceptions.attachments._
 import utils.Cats
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class BusinessRatesAttachmentsService @Inject()(
@@ -38,6 +39,13 @@ class BusinessRatesAttachmentsService @Inject()(
       auditingService: AuditingService
 )(implicit executionContext: ExecutionContext)
     extends Cats {
+
+  def initiateUpload(request: UpscanInitiateRequest)(implicit hc: HeaderCarrier): Future[PreparedUpload] = {
+    businessRatesAttachmentsConnector.initiateUpload(request)
+  }
+
+  def uploadAttachment(request: InitiateAttachmentPayload)(implicit hc: HeaderCarrier): Future[AttachmentId] =
+    businessRatesAttachmentsConnector.uploadAttachment(request)
 
   def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload, evidenceType: EvidenceType)(
         implicit request: LinkingSessionRequest[_],

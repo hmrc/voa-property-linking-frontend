@@ -14,24 +14,26 @@
  * limitations under the License.
  *@
 
-@import actions.propertylinking.requests.LinkingSessionRequest
-@import binders.propertylinks.EvidenceChoices.EvidenceChoices
 @import binders.propertylinks._
+@import controllers.propertyLinking.routes._
 @import config.ApplicationConfig
-@import models.{EvidenceType, _}
 @import models.upscan._
-@import views.html.helper.CSRF
+@import models._
 @import views.html.includes.assessmentHeading
-@import views.html.helper.form
+@import actions.propertylinking.requests.LinkingSessionRequest
+@import helpers._
+@import models.EvidenceType
+@import models.CapacityType
+@import binders.propertylinks.EvidenceChoices.EvidenceChoices
 
-@this(govukButton: GovukButton, govukFileUpload: GovukFileUpload, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukButton: GovukButton, govukTag: GovukTag, govukSummaryList: GovukSummaryList, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(
         evidenceType: EvidenceType,
         evidenceChoice: EvidenceChoices,
         submissionId: String,
-        errors: List[String] = Nil,
-        preparedUpload: PreparedUpload
+        errors: Option[String] = None,
+        uploadedFiles: Map[String, UploadedFileDetails] = Map()
 )(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{
@@ -68,42 +70,47 @@
 ) {
 
 
-    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
+    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address + "HELLO")
 
+    <h1 class="govuk-heading-xl">Upload receipt</h1>
 
-    @form(
-        Call("POST", preparedUpload.uploadRequest.href),
-        Symbol("enctype") -> "multipart/form-data",
-        Symbol("id") -> "upload-form") {
-        @{
-            play.filters.csrf.CSRF.getToken(request).map {token => CSRF.formField(request)}
-        }
-        @for(field <- preparedUpload.uploadRequest.fields) {
-            <input type="hidden" name="@field._1" value="@field._2"/>
-        }
-        @govukFileUpload(FileUpload(
-            name = "file",
-            id = "choose-file",
-            attributes = Map(
-                "accept" -> ".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png",
-                "type" -> "file",
-                "multiple" -> "false"
-            ),
-            errorMessage = Option(errors).filter(_.nonEmpty).map { err => ErrorMessage(content = Text(messages(err))) },
-            label = Label(
-                isPageHeading = true,
-                classes = "govuk-label--l govuk-!-margin-bottom-3",
-                content = Text(title)
-            ),
-            hint = Some(Hint(
-                content = Text(messages("fileUpload.allowedTypes"))
+    <div id="file-upload-1-hint" class="govuk-hint">
+        You can upload your receipt as a scanned copy or photo of the original. The selected file must be smaller than 100MB.
+    </div>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <div class="govuk-visually-hidden" aria-live="polite" id="statusInformation"></div>
+
+            <p class="govuk-body govuk-!-display-none" id="refreshPageProgress"><a href="#" class="govuk-link">Refresh page to update file upload progress</a></p>
+
+            @govukSummaryList(SummaryList(
+                classes = "govuk-summary-list--long-key",
+                rows = Seq(
+                    SummaryListRow(
+                        key = Key(content = Text("receipt1.jpg")),
+                        value = Value(content = HtmlContent(
+                            govukTag(Tag(content = Text("uploading"), classes = "govuk-tag--yellow"))
+                        )),
+                        actions = Some(Actions(
+                            items = Seq(
+                                ActionItem(
+                                    href = "#",
+                                    content = Text("Remove"),
+                                    visuallyHiddenText = Some("receipt1.jpg")
+                                )
+                            )
+                        ))
+                    )
+                )
             ))
-        ))
-        @govukButton(Button(
-            inputType = Some("submit"),
-            classes = "button",
-            content = Text(messages("label.continue")),
-            attributes = Map("id" -> "continue")
-        ))
-    }
+
+            @govukButton(Button(
+                content = Text("Continue")
+            ))
+
+        </div>
+    </div>
+
 }
