@@ -3,6 +3,7 @@ package controllers.registration
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, _}
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
+import models.GroupAccount
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
@@ -245,7 +246,6 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
     Jsoup.parse(res.body)
   }
 
-
   private def stubsSetup: StubMapping = {
 
     stubFor {
@@ -255,7 +255,7 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
         }
     }
 
-    val authResponseBody = """{ "affinityGroup": "Individual", "credentialRole": "User", "optionalName": {"name": "Test First Name", "lastName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
+    val authResponseBody = """{ "affinityGroup": "Individual", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
 
     stubFor {
       post("/auth/authorise")
@@ -268,5 +268,97 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
       get("/property-linking/individuals?externalId=3")
         .willReturn(notFound)
     )
+  }
+
+  "RegistrationController post method for a new individual" should {
+    "with correct confidence redirect to confirmation page" in {
+      val authResponseBody = """{ "affinityGroup": "Individual", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(authResponseBody)
+          }
+      }
+
+      stubFor {
+        post("/property-linking/address")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+          }
+      }
+
+      stubFor {
+        get("/property-linking/individuals?externalId=3")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(detailedIndividualAccount).toString())
+          }
+      }
+
+      val testGroup = GroupAccount(id = 1L, groupId = "1L", companyName = "Test name", addressId = 1L, email = "test@email.com", phone = "1234567890", isAgent = false, agentCode = None)
+
+      stubFor {
+        get("/property-linking/groups?groupId=1")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testGroup).toString())
+          }
+      }
+
+
+      stubFor {
+        post("/property-linking/groups")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+          }
+      }
+
+      stubFor {
+        post("/property-linking/individuals")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+          }
+      }
+
+      postForm("/business-rates-property-linking/create-confirmation?personId=2")
+
+    }
+
+    "with confidence level 50 redirects to IV uplift start" in {
+      val authResponseBody = """{ "affinityGroup": "Individual", "credentialRole": "User", "optionalName": {"name": "Test First Name", "lastName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 50}"""
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(authResponseBody)
+          }
+      }
+      postForm("/business-rates-property-linking/identity-verification/start-uplift")
+    }
+  }
+
+  private def postForm(redirectUrl: String) = {
+
+    val requestBody = Json.obj(
+      "address" -> Json.obj(
+        "line1" -> "test street",
+        "line2" -> "",
+        "line3" -> "",
+        "line4" -> "",
+        "postcode" -> "LS1 3SP"),
+      "phone" -> "0177728837298",
+      "mobilePhone" -> "07829879332",
+      "email" -> "test@email.com",
+      "confirmedEmail" -> "test@email.com",
+      "tradingName" -> "test trade name")
+
+    val res = await(ws.url(s"http://localhost:$port/business-rates-property-linking/complete-your-contact-details-uplift")
+      .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+      .withFollowRedirects(follow = false)
+      .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+      .post(body = requestBody))
+
+    res.status shouldBe SEE_OTHER
+    res.headers("Location").head shouldBe redirectUrl
+
   }
 }

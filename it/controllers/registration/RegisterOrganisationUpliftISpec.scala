@@ -3,8 +3,10 @@ package controllers.registration
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
+import models.GroupAccount
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import play.api.http.HeaderNames
 import play.api.http.Status.OK
 import play.api.libs.json.Json
 import play.api.test.Helpers._
@@ -275,10 +277,6 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
     }
   }
 
-  override lazy val extraConfig: Map[String, Any] = Map(
-    "feature-switch.ivUplift.enabled" -> "true"
-  )
-
   private def getSuccessPage(language: Language): Document = {
 
     stubsSetup
@@ -316,6 +314,98 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
       get(s"/property-linking/groups?groupId=3")
         .willReturn(notFound)
     )
+
+  }
+
+
+  "RegistrationController post method for a new organisation" should {
+    "with correct confidence redirect to confirmation page" in {
+      val authResponseBody = """{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(authResponseBody)
+          }
+      }
+
+      stubFor {
+        post("/property-linking/address")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+          }
+      }
+
+      stubFor {
+        get("/property-linking/individuals?externalId=3")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(detailedIndividualAccount).toString())
+          }
+      }
+
+      val testGroup = GroupAccount(id = 1L, groupId = "1L", companyName = "Test name", addressId = 1L, email = "test@email.com", phone = "1234567890", isAgent = false, agentCode = None)
+
+      stubFor {
+        get("/property-linking/groups?groupId=1")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testGroup).toString())
+          }
+      }
+
+      stubFor {
+        post("/property-linking/groups")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+          }
+      }
+
+      stubFor {
+        post("/property-linking/individuals")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+          }
+      }
+
+      postForm("/business-rates-property-linking/create-confirmation?personId=2")
+
+    }
+
+    "with confidence level 50 redirects to IV uplift start" in {
+      val authResponseBody = """{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 50}"""
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(authResponseBody)
+          }
+      }
+      postForm("/business-rates-property-linking/identity-verification/start-uplift")
+    }
+  }
+
+  private def postForm(redirectUrl: String) = {
+
+    val requestBody = Json.obj(
+      "companyName" -> "testCompany",
+      "address" -> Json.obj(
+        "line1" -> "test street",
+        "line2" -> "",
+        "line3" -> "",
+        "line4" -> "",
+        "postcode" -> "LS1 3SP"),
+      "phone" -> "0177728837298",
+      "email" -> "test@email.com",
+      "confirmedBusinessEmail" -> "test@email.com",
+      "isAgent" -> "false")
+
+    val res = await(ws.url(s"http://localhost:$port/business-rates-property-linking/complete-contact-details-uplift")
+      .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+      .withFollowRedirects(follow = false)
+      .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+      .post(body = requestBody))
+
+    res.status shouldBe SEE_OTHER
+    res.headers("Location").head shouldBe redirectUrl
 
   }
 

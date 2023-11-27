@@ -118,11 +118,9 @@ class RegistrationController @Inject()(
       .bindFromRequest()
       .fold(
         errors => Future.successful(BadRequest(registerIndividualUpliftView(errors, FieldDataUplift()))),
-        (success: IndividualUserAccountDetailsUplift) => {
-          Console.println(Console.MAGENTA + Json.toJson(success) + Console.RESET)
+        (success: IndividualUserAccountDetailsUplift) =>
           personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
             identityVerificationIfRequiredUplift(request)
-          }
         }
       )
   }
@@ -148,11 +146,9 @@ class RegistrationController @Inject()(
           errors => {
             Future.successful(BadRequest(registerOrganisationUpliftView(errors, FieldDataUplift())))
           },
-          (success: AdminOrganisationAccountDetailsUplift) => {
-            println(Console.MAGENTA + success + Console.RESET)
+          (success: AdminOrganisationAccountDetailsUplift) =>
             personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
               identityVerificationIfRequiredUplift(request)
-            }
           }
         )
     }
