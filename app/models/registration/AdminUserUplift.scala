@@ -155,14 +155,18 @@ case class IndividualUserAccountDetailsUplift(
       selectedAddress: Option[String] = None)
     extends AdminUserUplift {
 
-  def toGroupDetails(firstName: Option[String], lastName: Option[String]) = GroupAccountDetails(
-    companyName = tradingName.getOrElse(truncateCompanyName(s"$firstName $lastName")),
-    address = address,
-    email = email,
-    confirmedEmail = confirmedEmail,
-    phone = phone,
-    isAgent = false
-  )
+  def toGroupDetails(firstName: Option[String], lastName: Option[String]) = {
+    val fName = firstName.getOrElse(throw new Exception("Missing itmp first name"))
+    val lName = lastName.getOrElse(throw new Exception("Missing itmp last name"))
+    GroupAccountDetails(
+      companyName = tradingName.getOrElse(truncateCompanyName(s"$fName $lName")),
+      address = address,
+      email = email,
+      confirmedEmail = confirmedEmail,
+      phone = phone,
+      isAgent = false
+    )
+  }
 
   override def toIndividualAccountSubmissionUplift(
         trustId: Option[String],
@@ -173,8 +177,8 @@ case class IndividualUserAccountDetailsUplift(
       trustId = trustId,
       organisationId = organisationId,
       details = IndividualDetails(
-        firstName.getOrElse(throw new Exception(s"Missing itmp first name")),
-        lastName.getOrElse(throw new Exception(s"Missing itmp last name")),
+        firstName.getOrElse(throw new Exception("Missing itmp first name")),
+        lastName.getOrElse(throw new Exception("Missing itmp last name")),
         email,
         phone,
         Some(mobilePhone),
