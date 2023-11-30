@@ -104,7 +104,7 @@ class IdentityVerification @Inject()(
     journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
       identityVerificationConnector.verifySuccess(id).flatMap {
         case true => Future.successful(Redirect(registration.routes.RegistrationController.show))
-        case _ =>
+        case _    =>
           //TODO: should this go to iv failure screen?
           //TODO: Need to clear cached user answers on failure
           Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))

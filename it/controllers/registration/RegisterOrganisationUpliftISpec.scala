@@ -277,6 +277,33 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
     }
   }
 
+  "RegistrationController onPageLoad method" should {
+
+    "with confidence level 50 redirects to IV uplift start" in {
+      stubsSetup
+
+      val authResponseBody = """{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 50}"""
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(authResponseBody)
+          }
+      }
+
+      val result = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/complete-contact-details")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .get()
+      )
+
+      result.status shouldBe SEE_OTHER
+      result.headers("Location").head shouldBe "/business-rates-property-linking/identity-verification/start-uplift"
+    }
+  }
+
+
   private def getSuccessPage(language: Language): Document = {
 
     stubsSetup
@@ -330,13 +357,6 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
       }
 
       stubFor {
-        post("/property-linking/address")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
-          }
-      }
-
-      stubFor {
         get("/property-linking/individuals?externalId=3")
           .willReturn {
             aResponse.withStatus(OK).withBody(Json.toJson(detailedIndividualAccount).toString())
@@ -360,6 +380,13 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
       }
 
       stubFor {
+        post("/property-linking/address")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+          }
+      }
+
+      stubFor {
         post("/property-linking/individuals")
           .willReturn {
             aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
@@ -370,17 +397,6 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
 
     }
 
-    "with confidence level 50 redirects to IV uplift start" in {
-      val authResponseBody = """{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 50}"""
-
-      stubFor {
-        post("/auth/authorise")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(authResponseBody)
-          }
-      }
-      postForm("/business-rates-property-linking/identity-verification/start-uplift")
-    }
   }
 
   private def postForm(redirectUrl: String) = {

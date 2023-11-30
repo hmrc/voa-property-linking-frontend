@@ -231,6 +231,31 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
     }
   }
 
+  "RegistrationController show" should {
+    "with confidence level 50 redirects to IV uplift start" in {
+      stubsSetup
+
+      val authResponseBody = """{ "affinityGroup": "Individual", "credentialRole": "User", "optionalName": {"name": "Test First Name", "lastName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 50}"""
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(authResponseBody)
+          }
+      }
+
+      val result = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/complete-contact-details")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .get()
+      )
+
+      result.status shouldBe SEE_OTHER
+      result.headers("Location").head shouldBe "/business-rates-property-linking/identity-verification/start-uplift"
+    }
+  }
+
   private def getSuccessPage(language: Language): Document = {
 
     stubsSetup
@@ -271,7 +296,7 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
   }
 
   "RegistrationController post method for a new individual" should {
-    "with correct confidence redirect to confirmation page" in {
+    "redirect to confirmation page" in {
       val authResponseBody = """{ "affinityGroup": "Individual", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
 
       stubFor {
@@ -321,18 +346,6 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
 
       postForm("/business-rates-property-linking/create-confirmation?personId=2")
 
-    }
-
-    "with confidence level 50 redirects to IV uplift start" in {
-      val authResponseBody = """{ "affinityGroup": "Individual", "credentialRole": "User", "optionalName": {"name": "Test First Name", "lastName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 50}"""
-
-      stubFor {
-        post("/auth/authorise")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(authResponseBody)
-          }
-      }
-      postForm("/business-rates-property-linking/identity-verification/start-uplift")
     }
   }
 
