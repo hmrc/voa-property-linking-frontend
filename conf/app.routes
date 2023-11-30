@@ -28,7 +28,9 @@ GET         /invalid-account                                                    
 GET         /identity-verification/start                                                      controllers.IdentityVerification.startIv
 GET         /identity-verification/start-uplift                                               controllers.IdentityVerification.upliftIv
 GET         /identity-verification/failed                                                     controllers.IdentityVerification.fail(journeyId: Option[String])
+GET         /identity-verification/iv-failed                                                  controllers.IdentityVerification.upliftFail(journeyId: Option[String])
 GET         /identity-verification/success                                                    controllers.IdentityVerification.success(journeyId: Option[String])
+GET         /identity-verification/iv-success                                                 controllers.IdentityVerification.upliftSuccess(journeyId: Option[String])
 
 #Dashboard
 GET         /home                                                                             controllers.Dashboard.home

@@ -58,8 +58,8 @@ class IdentityVerification @Inject()(
   }
 
   def upliftIv: Action[AnyContent] = ggAction.async { implicit request =>
-    lazy val successUrl: String = controllers.routes.IdentityVerification.success(None).url
-    lazy val failureUrl: String = controllers.routes.IdentityVerification.fail(None).url
+    lazy val successUrl: String = controllers.routes.IdentityVerification.upliftSuccess(None).url
+    lazy val failureUrl: String = controllers.routes.IdentityVerification.upliftFail(None).url
     Future.successful(
       Redirect(
         config.identityVerificationUrl,
@@ -78,6 +78,7 @@ class IdentityVerification @Inject()(
         case IvResult.IvSuccess =>
           Redirect(controllers.routes.IdentityVerification.success(journeyId))
         case ivFailureReason: IvResult.IvFailure =>
+          //TODO: Need to clear cached user answers on failure
           Ok(ivFailedView(ivFailureReason))
       }
     }
@@ -95,6 +96,30 @@ class IdentityVerification @Inject()(
             case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
           }
         case false => Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
+      }
+    }
+  }
+
+  def upliftSuccess(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
+    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+      identityVerificationConnector.verifySuccess(id).flatMap {
+        case true => Future.successful(Redirect(registration.routes.RegistrationController.show))
+        case _ =>
+          //TODO: should this go to iv failure screen?
+          //TODO: Need to clear cached user answers on failure
+          Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
+      }
+    }
+  }
+
+  def upliftFail(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
+    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+      identityVerificationConnector.journeyStatus(id).map {
+        case IvResult.IvSuccess =>
+          Redirect(registration.routes.RegistrationController.show)
+        case ivFailureReason: IvResult.IvFailure =>
+          //TODO: Need to clear cached user answers on failure
+          Ok(ivFailedView(ivFailureReason))
       }
     }
   }
