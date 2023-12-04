@@ -58,16 +58,14 @@ class IdentityVerification @Inject()(
   }
 
   def upliftIv: Action[AnyContent] = ggAction.async { implicit request =>
-    lazy val successUrl: String = controllers.routes.IdentityVerification.upliftSuccess(None).url
-    lazy val failureUrl: String = controllers.routes.IdentityVerification.upliftFail(None).url
     Future.successful(
       Redirect(
         config.identityVerificationUrl,
         Map(
           "origin"          -> Seq(config.appName),
           "confidenceLevel" -> Seq(ConfidenceLevel.L200.toString),
-          "completionURL"   -> Seq(s"${config.serviceUrl}$successUrl"),
-          "failureURL"      -> Seq(s"${config.serviceUrl}$failureUrl")
+          "completionURL"   -> Seq(s"${config.upliftCompletionUrl}"),
+          "failureURL"      -> Seq(s"${config.upliftFailureUrl}")
         )
       ))
   }
