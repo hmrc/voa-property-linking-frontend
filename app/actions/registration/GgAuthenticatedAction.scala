@@ -68,23 +68,27 @@ class GgAuthenticatedAction @Inject()(
         throw otherException
     }
 
-    val retrieval = name and email and postCode and groupIdentifier and externalId and affinityGroup and credentialRole and confidenceLevel
+    val retrieval = itmpName and email and postCode and groupIdentifier and externalId and affinityGroup and
+      credentialRole and confidenceLevel and itmpDateOfBirth and nino
     authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual))
       .retrieve(retrieval) {
-        case optName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(
-              role) ~ confidenceLevel =>
+        case optItmpName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(
+              role)
+              ~ confidenceLevel ~ itmpDateOfBirth ~ nino =>
           block(
             new RequestWithUserDetails(
               UserDetails
                 .fromRetrieval(
-                  name = optName,
+                  name = optItmpName,
                   optEmail = optEmail,
                   optPostCode = optPostCode,
                   groupIdentifier = groupIdentifier,
                   externalId = externalId,
                   affinityGroup = affinityGroup,
                   role = role,
-                  confidenceLevel = confidenceLevel
+                  confidenceLevel = confidenceLevel,
+                  dob = itmpDateOfBirth,
+                  nino = nino
                 ),
               request
             ))

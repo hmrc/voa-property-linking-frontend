@@ -33,7 +33,7 @@ class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with 
   val youWillNotTextWelsh = "Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio – dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi."
   val ifAnyoneElseTextWelsh = "Os oes unrhyw un arall eisiau cofrestru ar ran y busnes, bydd angen i chi eu hychwanegu i’ch cyfrif Porth y Llywodraeth fel gweinyddwr neu gynorthwyydd yn gyntaf."
   val addThemTooTextWelsh = "eu hychwanegu i’ch cyfrif Porth y Llywodraeth"
-  val weUseYourTextWelsh = "Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif."
+  val weUseYourTextWelsh = "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
   val infoProvidedTextWelsh = "Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri telerau ac amodau’r gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006."
   val termsLinkTextWelsh = "telerau ac amodau’r"
   val continueTextWelsh = "Parhau"

@@ -172,6 +172,7 @@ trait FakeObjects {
   val email = "some@email.com"
   val phone = "01293666666"
   val nino: Nino = Nino("AA111111A")
+  val ninoString: String = "AA111111A"
   val dateOfBirth: LocalDate = LocalDate.of(1979, Month.OCTOBER, 12)
   val agentCode = 12345L
   val orgIdIp = 321L
@@ -533,7 +534,9 @@ trait FakeObjects {
       affinityGroup = affinityGroup,
       externalId = ggExternalId,
       credentialRole = credentialRole,
-      confidenceLevel = confidenceLevel
+      confidenceLevel = confidenceLevel,
+      dob = Some(LocalDate.now().minusYears(28)),
+      nino = Some(ninoString)
     )
 
   def clientProperties(a: ClientPropertyLink) =

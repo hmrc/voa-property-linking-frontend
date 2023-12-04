@@ -3,22 +3,22 @@ package controllers.registration
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
+import models.GroupAccount
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import play.api.http.HeaderNames
 import play.api.http.Status.OK
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import utils.ListYearsHelpers
 
-class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
+class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
   val titleText = "Complete your contact details - Valuation Office Agency - GOV.UK"
   val headingText = "Complete your contact details"
   val weUseYourText = "We use your contact details to send you correspondence related to the service and your account."
   val registeringAsAgentText = "I’m registering as an agent"
   val registeringAsAgentExpandedText = "You’ll need to provide information about your own business here, not your client’s business."
-  val firstNameText = "First name"
-  val lastNameText = "Last name"
   val businessNameText = "Business name"
   val enterAddressManuallyText = "Enter address manually"
   val findAddressByPostcodeText = "Find address by postcode"
@@ -34,15 +34,7 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val yesText = "Yes"
   val noText = "No"
   val representAnotherBusinessText = "If you want to represent another business (either as a professional surveyor, an accountant, friend or relative), we will give you a unique agent code. You will need to give this code to that business so they can appoint you to speak for them."
-  val dateOfBirthText = "Date of birth"
-  val forExampleText = "For example, 28 4 2017"
-  val dayText = "Day"
-  val monthText = "Month"
-  val yearText = "Year"
-  val ninoText = "National Insurance number"
   val itsOnYourText = "It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C."
-  val noNinoText = "I don’t have a National Insurance number"
-  val expandedNoNinoText = "If you don’t have these details you’ll need to contact the Valuation Office Agency (VOA)."
   val saveAndContinueText = "Save and continue"
 
   val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Valuation Office Agency - GOV.UK"
@@ -50,8 +42,6 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val weUseYourTextWelsh = "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
   val registeringAsAgentTextWelsh = "Rwy’n cofrestru fel asiant"
   val registeringAsAgentExpandedTextWelsh = "Bydd angen i chi ddarparu gwybodaeth am eich busnes eich hun yma, nid busnes eich cleient."
-  val firstNameTextWelsh = "Enw cyntaf"
-  val lastNameTextWelsh = "Cyfenw"
   val businessNameTextWelsh = "Enw busnes"
   val enterAddressManuallyTextWelsh = "Nodwchy cyfeiriad â llaw"
   val findAddressByPostcodeTextWelsh = "Canfod cyfeiriad yn ôl cod post"
@@ -67,26 +57,14 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val yesTextWelsh = "Ie"
   val noTextWelsh = "Na"
   val representAnotherBusinessTextWelsh = "Os ydych chi eisiau cynrychioli busnes arall (naill ai fel syrfëwr proffesiynol, cyfrifydd, ffrind neu berthynas), byddwn yn rhoi cod asiant unigryw i chi. Bydd angen i chi roi’r côd hwn i’r busnes hwnnw er mwyn iddynt allu eich penodi i siarad ar eu rhan."
-  val dateOfBirthTextWelsh = "Dyddiad geni"
-  val forExampleTextWelsh = "Er enghraifft, 28 4 2017"
-  val dayTextWelsh = "Diwrnod"
-  val monthTextWelsh = "Mis"
-  val yearTextWelsh = "Blwyddyn"
-  val ninoTextWelsh = "Rhif Yswiriant Gwladol"
   val itsOnYourTextWelsh = "Mae ar eich cerdyn Yswiriant Gwladol, llythyr budd-dal, slip cyflog neu P60. Er enghraifft, QQ123456C."
-  val noNinoTextWelsh = "Does gen i ddim rhif Yswiriant Gwladol"
-  val expandedNoNinoTextWelsh = "Os nad oes gennych y manylion hyn bydd angen i chi gysylltu ag Asiantaeth y Swyddfa Brisio (VOA)."
   val saveAndContinueTextWelsh = "Arbed a pharhau"
 
   val headingSelector = "#main-content > div > div > h1"
   val weUseYourSelector = "#contactDetailsUse"
-  val registeringAsAgentSelector = "#main-content > div > div > details:nth-child(4) > summary > span"
-  val registeringAsAgentExpandedSelector = "#main-content > div > div > details:nth-child(4) > div"
-  val firstNameTextSelector = "#main-content > div > div > form > div:nth-child(2) > label"
-  val firstNameInputSelector = "input[id='firstName']"
-  val lastNameTextSelector = "#main-content > div > div > form > div:nth-child(3) > label"
-  val lastNameInputSelector = "input[id='lastName']"
-  val businessNameSelector = "#main-content > div > div > form > div:nth-child(4) > label"
+  val registeringAsAgentSelector = "#main-content > div > div > details:nth-child(3) > summary > span"
+  val registeringAsAgentExpandedSelector = "#main-content > div > div > details:nth-child(3) > div"
+  val businessNameSelector = "#main-content > div > div > form > div:nth-child(2) > label"
   val businessNameInputSelector = "input[id='companyName']"
   val enterAddressManuallySelector = "#addressGroup > p:nth-child(4) > a"
   val findAddressByPostcodeSelector = "#backLookup"
@@ -100,33 +78,21 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val addressPostcodeInputSelector = "input[id='address.postcode']"
   val postcodeSelector = "#postcodeSearchOnly > div.postcodeSearchGroup.govuk-body > div > label"
   val postcodeInputSelector = "input[id='postcodeSearch']"
-  val moreThanOneAddressSelector = "#main-content > div > div > form > details:nth-child(6) > summary > span"
-  val moreThanOneAddressExpandedSelector = "#main-content > div > div > form > details:nth-child(6) > div"
-  val phoneNumSelector = "#main-content > div > div > form > div:nth-child(7) > label"
+  val moreThanOneAddressSelector = "#main-content > div > div > form > details:nth-child(4) > summary > span"
+  val moreThanOneAddressExpandedSelector = "#main-content > div > div > form > details:nth-child(4) > div"
+  val phoneNumSelector = "#main-content > div > div > form > div:nth-child(5) > label"
   val phoneNumInputSelector = "input[id='phone']"
-  val emailSelector = "#main-content > div > div > form > div:nth-child(8) > label"
+  val emailSelector = "#main-content > div > div > form > div:nth-child(6) > label"
   val emailInputSelector = "input[id='email']"
-  val confirmEmailSelector = "#main-content > div > div > form > div:nth-child(9) > label"
+  val confirmEmailSelector = "#main-content > div > div > form > div:nth-child(7) > label"
   val confirmEmailInputSelector = "input[id='confirmedBusinessEmail']"
-  val doYouWantToRegisterAsAgentSelector = "#main-content > div > div > form > div:nth-child(10) > fieldset > legend"
-  val yesSelector = "#main-content > div > div > form > div:nth-child(10) > fieldset > div > div:nth-child(1) > label"
-  val noSelector = "#main-content > div > div > form > div:nth-child(10) > fieldset > div > div:nth-child(2) > label"
+  val doYouWantToRegisterAsAgentSelector = "#main-content > div > div > form > div:nth-child(8) > fieldset > legend"
+  val yesSelector = "#main-content > div > div > form > div:nth-child(8) > fieldset > div > div:nth-child(1) > label"
+  val noSelector = "#main-content > div > div > form > div:nth-child(8) > fieldset > div > div:nth-child(2) > label"
   val yesInputSelector = "#isAgent"
   val noInputSelector = "#isAgent-2"
   val representAnotherBusinessSelector = "#main-content > div > div > form > div.govuk-inset-text"
-  val dateOfBirthSelector = "#dob > div > fieldset > legend > h1"
-  val forExampleSelector = "#dob_dates-hint"
-  val daySelector = "#dob_dates > div:nth-child(1) > div > label"
-  val dayInputSelector = "input[id='dob-day']"
-  val monthSelector = "#dob_dates > div:nth-child(2) > div > label"
-  val monthInputSelector = "input[id='dob-month']"
-  val yearSelector = "#dob_dates > div:nth-child(3) > div > label"
-  val yearInputSelector = "input[id='dob-year']"
-  val ninoSelector = "#main-content > div > div > form > div:nth-child(13) > label"
-  val ninoInputSelector = "input[id='nino']"
   val itsOnYourSelector = "#nino-hint"
-  val noNinoSelector = "#main-content > div > div > form > details:nth-child(14) > summary > span"
-  val noNinoExpandedSelector = "#main-content > div > div > form > details:nth-child(14) > div"
   val saveAndContinueSelector = "button[id='save-and-continue']"
 
   "RegistrationController show method for a new organisation" should {
@@ -149,16 +115,6 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
       s"has text on the screen of $registeringAsAgentText" in {
         document.select(registeringAsAgentSelector).text() shouldBe registeringAsAgentText
         document.select(registeringAsAgentExpandedSelector).text() shouldBe registeringAsAgentExpandedText
-      }
-
-      s"has a text input field for the $firstNameText" in {
-        document.select(firstNameTextSelector).text() shouldBe firstNameText
-        document.select(firstNameInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $lastNameText" in {
-        document.select(lastNameTextSelector).text() shouldBe lastNameText
-        document.select(lastNameInputSelector).attr("type") shouldBe "text"
       }
 
       s"has a text input field for the $businessNameText" in {
@@ -225,43 +181,6 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(representAnotherBusinessSelector).text() shouldBe representAnotherBusinessText
       }
 
-      s"has text on the screen of $dateOfBirthText" in {
-        document.select(dateOfBirthSelector).text() shouldBe dateOfBirthText
-      }
-
-      s"has text on the screen of $forExampleText" in {
-        document.select(forExampleSelector).text() shouldBe forExampleText
-      }
-
-      s"has a text input field for the $dayText" in {
-        document.select(daySelector).text() shouldBe dayText
-        document.select(dayInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $monthText" in {
-        document.select(monthSelector).text() shouldBe monthText
-        document.select(monthInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $yearText" in {
-        document.select(yearSelector).text() shouldBe yearText
-        document.select(yearInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $ninoText" in {
-        document.select(ninoSelector).text() shouldBe ninoText
-        document.select(itsOnYourSelector).text() shouldBe itsOnYourText
-        document.select(ninoInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has text on the screen of $noNinoText" in {
-        document.select(noNinoSelector).text() shouldBe noNinoText
-      }
-
-      s"has text on the screen of $expandedNoNinoText" in {
-        document.select(noNinoExpandedSelector).text() shouldBe expandedNoNinoText
-      }
-
       s"has a $saveAndContinueText button" in {
         document.select(saveAndContinueSelector).text() shouldBe saveAndContinueText
       }
@@ -286,16 +205,6 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
       s"has text on the screen of $registeringAsAgentText in Welsh" in {
         document.select(registeringAsAgentSelector).text() shouldBe registeringAsAgentTextWelsh
         document.select(registeringAsAgentExpandedSelector).text() shouldBe registeringAsAgentExpandedTextWelsh
-      }
-
-      s"has a text input field for the $firstNameText in Welsh" in {
-        document.select(firstNameTextSelector).text() shouldBe firstNameTextWelsh
-        document.select(firstNameInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $lastNameText in Welsh" in {
-        document.select(lastNameTextSelector).text() shouldBe lastNameTextWelsh
-        document.select(lastNameInputSelector).attr("type") shouldBe "text"
       }
 
       s"has a text input field for the $businessNameText in Welsh" in {
@@ -362,52 +271,38 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(representAnotherBusinessSelector).text() shouldBe representAnotherBusinessTextWelsh
       }
 
-      s"has text on the screen of $dateOfBirthText in Welsh" in {
-        document.select(dateOfBirthSelector).text() shouldBe dateOfBirthTextWelsh
-      }
-
-      s"has text on the screen of $forExampleText in Welsh" in {
-        document.select(forExampleSelector).text() shouldBe forExampleTextWelsh
-      }
-
-      s"has a text input field for the $dayText in Welsh" in {
-        document.select(daySelector).text() shouldBe dayTextWelsh
-        document.select(dayInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $monthText in Welsh" in {
-        document.select(monthSelector).text() shouldBe monthTextWelsh
-        document.select(monthInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $yearText in Welsh" in {
-        document.select(yearSelector).text() shouldBe yearTextWelsh
-        document.select(yearInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has a text input field for the $ninoText in Welsh" in {
-        document.select(ninoSelector).text() shouldBe ninoTextWelsh
-        document.select(itsOnYourSelector).text() shouldBe itsOnYourTextWelsh
-        document.select(ninoInputSelector).attr("type") shouldBe "text"
-      }
-
-      s"has text on the screen of $noNinoText in Welsh" in {
-        document.select(noNinoSelector).text() shouldBe noNinoTextWelsh
-      }
-
-      s"has text on the screen of $expandedNoNinoText in Welsh" in {
-        document.select(noNinoExpandedSelector).text() shouldBe expandedNoNinoTextWelsh
-      }
-
       s"has a $saveAndContinueText button in Welsh" in {
         document.select(saveAndContinueSelector).text() shouldBe saveAndContinueTextWelsh
       }
     }
   }
 
-  override lazy val extraConfig: Map[String, Any] = Map(
-    "feature-switch.ivUplift.enabled" -> "false"
-  )
+  "RegistrationController onPageLoad method" should {
+
+    "with confidence level 50 redirects to IV uplift start" in {
+      stubsSetup
+
+      val authResponseBody = """{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 50}"""
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(authResponseBody)
+          }
+      }
+
+      val result = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/complete-contact-details")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .get()
+      )
+
+      result.status shouldBe SEE_OTHER
+      result.headers("Location").head shouldBe "/business-rates-property-linking/identity-verification/start-uplift"
+    }
+  }
+
 
   private def getSuccessPage(language: Language): Document = {
 
@@ -446,6 +341,87 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
       get(s"/property-linking/groups?groupId=3")
         .willReturn(notFound)
     )
+
+  }
+
+
+  "RegistrationController post method for a new organisation" should {
+    "with correct confidence redirect to confirmation page" in {
+      val authResponseBody = """{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
+
+      stubFor {
+        post("/auth/authorise")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(authResponseBody)
+          }
+      }
+
+      stubFor {
+        get("/property-linking/individuals?externalId=3")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(detailedIndividualAccount).toString())
+          }
+      }
+
+      val testGroup = GroupAccount(id = 1L, groupId = "1L", companyName = "Test name", addressId = 1L, email = "test@email.com", phone = "1234567890", isAgent = false, agentCode = None)
+
+      stubFor {
+        get("/property-linking/groups?groupId=1")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.toJson(testGroup).toString())
+          }
+      }
+
+      stubFor {
+        post("/property-linking/groups")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+          }
+      }
+
+      stubFor {
+        post("/property-linking/address")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+          }
+      }
+
+      stubFor {
+        post("/property-linking/individuals")
+          .willReturn {
+            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+          }
+      }
+
+      postForm("/business-rates-property-linking/create-confirmation?personId=2")
+
+    }
+
+  }
+
+  private def postForm(redirectUrl: String) = {
+
+    val requestBody = Json.obj(
+      "companyName" -> "testCompany",
+      "address" -> Json.obj(
+        "line1" -> "test street",
+        "line2" -> "",
+        "line3" -> "",
+        "line4" -> "",
+        "postcode" -> "LS1 3SP"),
+      "phone" -> "0177728837298",
+      "email" -> "test@email.com",
+      "confirmedBusinessEmail" -> "test@email.com",
+      "isAgent" -> "false")
+
+    val res = await(ws.url(s"http://localhost:$port/business-rates-property-linking/complete-contact-details-uplift")
+      .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+      .withFollowRedirects(follow = false)
+      .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+      .post(body = requestBody))
+
+    res.status shouldBe SEE_OTHER
+    res.headers("Location").head shouldBe redirectUrl
 
   }
 

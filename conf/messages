@@ -347,7 +347,7 @@ create.success.personId=VOA Personal ID:
 create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
 create.success.keepUsingGg=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
 account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a class="govuk-link" href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
-registration.confirmation.weUseYourDetails = We use your contact details to send you correspondence related to the service and your account.
+registration.confirmation.weUseYourDetails=We use your contact details to send you correspondence related to the service and your account.
 account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
 account.enrolment.link.success=Continue
 

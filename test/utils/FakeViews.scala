@@ -104,8 +104,31 @@ trait FakeViews extends GdsComponents {
     govukButton,
     formWithCSRF)
 
+  lazy val registerIndividualUpliftView = new views.html.createAccount.registerIndividualUplift(
+    addressView,
+    mainLayout,
+    govukDetails,
+    govukErrorSummary,
+    govukInput,
+    dateFields,
+    govukButton,
+    formWithCSRF)
+
   lazy val registerOrganisationView =
     new views.html.createAccount.registerOrganisation(
+      addressView,
+      mainLayout,
+      govukButton,
+      dateFields,
+      govukInsetText,
+      govukDetails,
+      govukErrorSummary,
+      govukInput,
+      govukRadios,
+      formWithCSRF)
+
+  lazy val registerOrganisationUpliftView =
+    new views.html.createAccount.registerOrganisationUplift(
       addressView,
       mainLayout,
       govukButton,

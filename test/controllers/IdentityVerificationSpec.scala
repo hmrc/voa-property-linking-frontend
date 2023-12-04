@@ -39,7 +39,7 @@ import scala.concurrent.Future
 class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
 
   override def additionalAppConfig: Seq[(String, String)] =
-    Seq("featureFlags.newRegistrationJourneyEnabled" -> "false")
+    Seq("featureFlags.newRegistrationJourneyEnabled" -> "false", "feature-switch.ivUplift.enabled" -> "false")
 
   "Successfully verifying identity when an organisation does not have a CCA account" should
     "register and enrol the user then redirect to the registration success page" in new TestCase {
