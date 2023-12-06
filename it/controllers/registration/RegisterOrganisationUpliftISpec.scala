@@ -346,7 +346,7 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
 
 
   "RegistrationController post method for a new organisation" should {
-    "with correct confidence redirect to confirmation page" in {
+    "redirect to confirmation page" in {
       val authResponseBody = """{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
 
       stubFor {

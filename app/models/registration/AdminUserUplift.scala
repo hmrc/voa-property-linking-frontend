@@ -105,7 +105,7 @@ case class AdminInExistingOrganisationAccountDetailsUplift(
   override val email = ""
   override val confirmedEmail = ""
 
-  def toAdminOrganisationAccountDetailsUplift(fieldData: FieldData) = AdminOrganisationAccountDetailsUplift(
+  def toAdminOrganisationAccountDetailsUplift(fieldData: FieldDataUplift) = AdminOrganisationAccountDetailsUplift(
     companyName = fieldData.businessName,
     address = fieldData.businessAddress,
     email = fieldData.email,

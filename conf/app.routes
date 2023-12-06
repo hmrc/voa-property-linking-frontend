@@ -66,6 +66,7 @@ POST        /complete-contact-details                                           
 POST        /complete-contact-details-uplift                                                  controllers.registration.RegistrationController.submitOrganisationUplift
 GET         /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.show
 POST        /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.submitAdminToExistingOrganisation
+POST        /complete-existing-business-contact-details-uplift                                controllers.registration.RegistrationController.submitAdminToExistingOrganisationUplift
 GET         /complete-your-contact-details                                                    controllers.registration.RegistrationController.show
 POST        /complete-your-contact-details                                                    controllers.registration.RegistrationController.submitIndividual
 POST        /complete-your-contact-details-uplift                                             controllers.registration.RegistrationController.submitIndividualUplift
