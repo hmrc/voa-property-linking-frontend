@@ -1776,6 +1776,9 @@ account.enrolment.footer=Valuation Office Agency (VOA)
 
 create-account.type.question=Which type of account would you like to create?
 
+admin.enrolment.title=Confirm your organisation details
+admin.enrolment.p=We use your organisation details to send you correspondence related to the service and your account.
+
 enrolment.title = Complete your contact details
 enrolment.organisation.name = Business name
 enrolment.organisation.name.label = Organisation name

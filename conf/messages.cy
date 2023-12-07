@@ -1651,6 +1651,9 @@ account.enrolment.footer=Asiantaeth y Swyddfa Brisio (VOA)
 
 create-account.type.question=Pa fath o gyfrif hoffech chi ei greu?
 
+admin.enrolment.title=Cadarnhau manylion eich sefydliad
+admin.enrolment.p=Rydym yn defnyddio manylion eich sefydliad i anfon gohebiaeth atoch yn ymwneud â’r gwasanaeth a’ch cyfrif.
+
 enrolment.title=Cwblhewch eich manylion cyswllt
 enrolment.organisation.name=Enw busnes
 enrolment.organisation.name.label=Enw sefydliad

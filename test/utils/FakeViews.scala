@@ -149,6 +149,15 @@ trait FakeViews extends GdsComponents {
     dateFields,
     formWithCSRF)
 
+  lazy val registerAssistantAdminUpliftView = new views.html.createAccount.registerAssistantAdminUplift(
+    addressView,
+    mainLayout,
+    govukErrorSummary,
+    govukInput,
+    govukButton,
+    dateFields,
+    formWithCSRF)
+
   lazy val registerAssistantView =
     new views.html.createAccount.registerAssistant(
       addressView,

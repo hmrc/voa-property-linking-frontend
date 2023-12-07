@@ -56,6 +56,7 @@ class RegistrationController @Inject()(
       registerOrganisationView: createAccount.registerOrganisation,
       registerOrganisationUpliftView: createAccount.registerOrganisationUplift,
       registerAssistantAdminView: createAccount.registerAssistantAdmin,
+      registerAssistantAdminUpliftView: createAccount.registerAssistantAdminUplift,
       registerAssistantView: createAccount.registerAssistant,
       registerConfirmationView: createAccount.registrationConfirmation,
       confirmationView: createAccount.confirmation,
@@ -167,6 +168,26 @@ class RegistrationController @Inject()(
         }
       )
   }
+
+  def submitAdminToExistingOrganisationUplift: Action[AnyContent] = ggAuthenticated.async { implicit request =>
+    getCompanyDetails(request.groupIdentifier).flatMap {
+      case Some(fieldData) =>
+        personalDetailsSessionRepo.saveOrUpdate(toAdminOrganisationAccountDetailsUplift(fieldData)) flatMap { _ =>
+          continueRegistration(request)
+        }
+      case _ =>
+        unableToRetrieveCompanyDetails
+    }
+  }
+
+  private def toAdminOrganisationAccountDetailsUplift(fieldData: FieldData) = AdminOrganisationAccountDetailsUplift(
+    companyName = fieldData.businessName,
+    address = fieldData.businessAddress,
+    email = fieldData.email,
+    confirmedEmail = fieldData.email,
+    phone = fieldData.businessPhoneNumber,
+    isAgent = fieldData.isAgent
+  )
 
   // TODO check IV enabled flag here
   private def identityVerificationIfRequired(request: RequestWithUserDetails[_])(
@@ -288,7 +309,7 @@ class RegistrationController @Inject()(
                 case None                                       => fieldData
                 case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
               }
-              Ok(registerAssistantAdminView(AdminInExistingOrganisationUser.organisation, data))
+              Ok(registerAssistantAdminUpliftView(data))
             }
           case Assistant =>
             val data = sessionPersonDetails match {

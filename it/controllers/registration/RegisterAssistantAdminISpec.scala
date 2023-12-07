@@ -269,8 +269,11 @@ class RegisterAssistantAdminISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(confirmSelector).text() shouldBe confirmTextWelsh
       }
     }
-
   }
+
+  override lazy val extraConfig: Map[String, Any] = Map(
+    "feature-switch.ivUplift.enabled" -> "false"
+  )
 
   private def getSuccessPage(language: Language): Document = {
 
