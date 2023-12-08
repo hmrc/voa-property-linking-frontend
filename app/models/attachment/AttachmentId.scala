@@ -18,7 +18,7 @@ package models.attachment
 
 import play.api.libs.json.{Json, OFormat}
 
-case class AttachmentId(attachmentId: String)
+case class AttachmentId(reference: String)
 
 object AttachmentId {
   implicit val fmt: OFormat[AttachmentId] = Json.format[AttachmentId]

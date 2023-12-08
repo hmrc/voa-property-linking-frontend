@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-package models.upscan
+package models.attachment.request
 
-import utils.JsonUtils
+import models.attachment.Destinations
+import models.attachment.Destinations.Destinations
+import models.upscan.PreparedUpload
+import play.api.libs.json.Json
 
-object FileStatus extends Enumeration {
-  type FileStatus = Value
+case class InitiatedUpload(id: String, destination: Destinations, preparedUpload: PreparedUpload)
 
-  val READY = Value("READY")
-  val UPLOADING = Value("UPLOADING")
-  val FAILED = Value("FAILED")
+object InitiatedUpload {
 
-  implicit val format = JsonUtils.enumFormat(FileStatus)
+  implicit val format = Json.format[InitiatedUpload]
+
+  def apply(preparedUpload: PreparedUpload): InitiatedUpload =
+    InitiatedUpload(preparedUpload.reference.value, Destinations.PROPERTY_LINK_EVIDENCE_DFE, preparedUpload)
+
 }

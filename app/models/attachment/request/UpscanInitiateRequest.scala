@@ -16,9 +16,10 @@
 
 package models.attachment.request
 
+import models.attachment.Destinations.Destinations
 import play.api.libs.json.Json
 
-case class UpscanInitiateRequest(successRedirect: String, errorRedirect: String)
+case class UpscanInitiateRequest(successRedirect: String, errorRedirect: String, destination: Destinations)
 
 object UpscanInitiateRequest {
   implicit val fmt = Json.format[UpscanInitiateRequest]

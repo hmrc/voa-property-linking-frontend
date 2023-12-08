@@ -21,29 +21,33 @@ import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
 import binders.propertylinks.EvidenceChoices
 import binders.propertylinks.EvidenceChoices.EvidenceChoices
+import cats.data.OptionT
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import models.EvidenceType.form
 import models._
-import models.attachment.InitiateAttachmentPayload
 import models.attachment.request.{InitiateAttachmentRequest, UpscanInitiateRequest}
-import models.upscan.PreparedUpload
+import models.attachment.{Destinations, InitiateAttachmentPayload}
+import models.upscan.FileStatus.FileStatus
+import models.upscan.{FileStatus, PreparedUpload}
 import play.api.Logging
 import play.api.data.FormError
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
+import repositories.SessionRepo
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.{HeaderCarrier, UpstreamErrorResponse}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class UploadController @Inject()(
                                   val errorHandler: CustomErrorHandler,
                                   authenticatedAction: AuthenticatedAction,
                                   withLinkingSession: WithLinkingSession,
+                                  @Named("propertyLinkingSession") sessionRepository: SessionRepo,
                                   businessRatesAttachmentsService: BusinessRatesAttachmentsService,
                                   uploadView: views.html.propertyLinking.upload,
                                   oldUploadView: views.html.propertyLinking.uploadRatesBillLeaseOrLicense,
@@ -62,7 +66,10 @@ class UploadController @Inject()(
 
       val session = request.ses
 
-      requestNewUpscanForm(evidence).map { preparedUpload =>
+      for {
+        preparedUpload <- requestNewUpscanForm(evidence)
+        _ <- sessionRepository.saveOrUpdate(request.ses.copy(fileReference = Some(preparedUpload.reference.value)))
+      } yield {
         evidence match {
           case EvidenceChoices.LEASE =>
             Ok(
@@ -101,6 +108,40 @@ class UploadController @Inject()(
       }
     }
 
+  def result(evidence: EvidenceChoices): Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+
+      def resultPage(status: FileStatus): Result =
+        Ok(
+          uploadResultView(
+            getEvidenceType(evidence),
+            evidence,
+            request.ses.submissionId,
+            request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
+            status
+          )
+        )
+
+      val result: OptionT[Future, Result] = for {
+        reference <- OptionT(Future.successful(request.ses.fileReference))
+        scanResult <- OptionT(businessRatesAttachmentsService.getAttachment(reference).map(_.scanResult))
+        status <- OptionT(Future.successful(Option(scanResult.fileStatus)))
+      } yield {
+        resultPage(status)
+      }
+
+      result.value.map {
+        case Some(res) => res
+        case None =>
+          //todo I think this needs to be something else
+          BadRequest(errorHandler.badRequestTemplate)
+      }.recover {
+        case _ @ UpstreamErrorResponse.WithStatusCode(EXPECTATION_FAILED) =>
+          resultPage(FileStatus.UPLOADING)
+      }
+
+    }
+
   def initiate(evidence: EvidenceChoices): Action[JsValue] =
     authenticatedAction.andThen(withLinkingSession).async(parse.json) { implicit request =>
       withJsonBody[InitiateAttachmentRequest] { attachmentRequest =>
@@ -124,7 +165,6 @@ class UploadController @Inject()(
           }
       }
     }
-
 
   def updateEvidenceType: Action[JsValue] =
     authenticatedAction.andThen(withLinkingSession).async(parse.json) { implicit request =>
@@ -170,6 +210,7 @@ class UploadController @Inject()(
 
   def continue(evidence: EvidenceChoices): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async {
     implicit request =>
+
       def upload(
                   uploadedData: UploadEvidenceData,
                   linkingSession: LinkingSession = request.ses
@@ -247,11 +288,14 @@ class UploadController @Inject()(
       }
   }
 
-  private def requestNewUpscanForm(evidence: EvidenceChoices)(implicit hc: HeaderCarrier): Future[PreparedUpload] = {
+  private def requestNewUpscanForm(evidence: EvidenceChoices)(
+    implicit request: LinkingSessionRequest[_],
+    hc: HeaderCarrier): Future[PreparedUpload] = {
     val initiateUploadRequest =
       UpscanInitiateRequest(
-        successRedirect = applicationConfig.serviceUrl + routes.UploadController.show(evidence).url,
-        errorRedirect = applicationConfig.serviceUrl + routes.UploadController.upscanFailure(evidence, None)
+        successRedirect = applicationConfig.serviceUrl + routes.UploadController.result(evidence),
+        errorRedirect = applicationConfig.serviceUrl + routes.UploadController.upscanFailure(evidence, None),
+        Destinations.PROPERTY_LINK_EVIDENCE_DFE
       )
 
     businessRatesAttachmentsService.initiateUpload(initiateUploadRequest)

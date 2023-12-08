@@ -22,7 +22,7 @@ import cats.data.EitherT
 import connectors.attachments.BusinessRatesAttachmentsConnector
 import models._
 import models.attachment._
-import models.attachment.request.UpscanInitiateRequest
+import models.attachment.request.{InitiatedUpload, UpscanInitiateRequest}
 import models.upscan.{FileMetadata, PreparedUpload, UploadedFileDetails}
 import play.api.libs.json.Json
 import repositories.SessionRepo
@@ -40,12 +40,18 @@ class BusinessRatesAttachmentsService @Inject()(
 )(implicit executionContext: ExecutionContext)
     extends Cats {
 
-  def initiateUpload(request: UpscanInitiateRequest)(implicit hc: HeaderCarrier): Future[PreparedUpload] = {
-    businessRatesAttachmentsConnector.initiateUpload(request)
+  def initiateUpload(upscanRequest: UpscanInitiateRequest)(
+  implicit request: LinkingSessionRequest[_],
+  hc: HeaderCarrier
+  ): Future[PreparedUpload] = {
+    businessRatesAttachmentsConnector.initiateUpload(upscanRequest)
   }
 
-  def uploadAttachment(request: InitiateAttachmentPayload)(implicit hc: HeaderCarrier): Future[AttachmentId] =
-    businessRatesAttachmentsConnector.uploadAttachment(request)
+  def uploadAttachment(preparedUpload: InitiatedUpload)(
+    implicit request: LinkingSessionRequest[_],
+    hc: HeaderCarrier
+  ): Future[AttachmentId] =
+    businessRatesAttachmentsConnector.storeUploadInformation(preparedUpload)
 
   def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload, evidenceType: EvidenceType)(
         implicit request: LinkingSessionRequest[_],

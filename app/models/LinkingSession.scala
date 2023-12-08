@@ -32,6 +32,7 @@ case class LinkingSession(
       propertyOccupancy: Option[PropertyOccupancy],
       hasRatesBill: Option[Boolean],
       uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty,
+      fileReference: Option[String] = None,
       evidenceType: Option[EvidenceType] = None,
       clientDetails: Option[ClientDetails] = None,
       localAuthorityReference: String,

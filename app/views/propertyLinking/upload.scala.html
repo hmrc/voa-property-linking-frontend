@@ -66,10 +66,7 @@
     backUri = backUri,
     hasErrors = errors.nonEmpty
 ) {
-
-
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
-
 
     @form(
         Call("POST", preparedUpload.uploadRequest.href),

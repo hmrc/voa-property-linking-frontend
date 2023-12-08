@@ -25,15 +25,16 @@
 @import models.EvidenceType
 @import models.CapacityType
 @import binders.propertylinks.EvidenceChoices.EvidenceChoices
+@import models.upscan.FileStatus.FileStatus
 
-@this(govukButton: GovukButton, govukTag: GovukTag, govukSummaryList: GovukSummaryList, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukTag: GovukTag, govukSummaryList: GovukSummaryList, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
 @(
         evidenceType: EvidenceType,
         evidenceChoice: EvidenceChoices,
         submissionId: String,
-        errors: Option[String] = None,
-        uploadedFiles: Map[String, UploadedFileDetails] = Map()
+        uploadedFiles: Map[String, UploadedFileDetails] = Map(),
+        status: FileStatus
 )(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{
@@ -62,55 +63,40 @@
     }
 }
 
+@tag = @{
+    status match {
+        case _ @ FileStatus.UPLOADING => govukTag(Tag(content = Text("uploading"), classes = "govuk-tag--yellow"))
+        case _ @ FileStatus.READY => govukTag(Tag(content = Text("uploaded"), classes = "govuk-tag--green"))
+        case _ @ FileStatus.FAILED => govukTag(Tag(content = Text("failed"), classes = "govuk-tag--red"))
+    }
+}
 
 @mainLayout(
     pageTitle = title,
-    backUri = backUri,
-    hasErrors = errors.nonEmpty
+    backUri = backUri
 ) {
 
+    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
-    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address + "HELLO")
 
-    <h1 class="govuk-heading-xl">Upload receipt</h1>
 
-    <div id="file-upload-1-hint" class="govuk-hint">
-        You can upload your receipt as a scanned copy or photo of the original. The selected file must be smaller than 100MB.
-    </div>
 
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-
-            <div class="govuk-visually-hidden" aria-live="polite" id="statusInformation"></div>
-
-            <p class="govuk-body govuk-!-display-none" id="refreshPageProgress"><a href="#" class="govuk-link">Refresh page to update file upload progress</a></p>
-
-            @govukSummaryList(SummaryList(
-                classes = "govuk-summary-list--long-key",
-                rows = Seq(
-                    SummaryListRow(
-                        key = Key(content = Text("receipt1.jpg")),
-                        value = Value(content = HtmlContent(
-                            govukTag(Tag(content = Text("uploading"), classes = "govuk-tag--yellow"))
-                        )),
-                        actions = Some(Actions(
-                            items = Seq(
-                                ActionItem(
-                                    href = "#",
-                                    content = Text("Remove"),
-                                    visuallyHiddenText = Some("receipt1.jpg")
-                                )
-                            )
-                        ))
+    @govukSummaryList(SummaryList(
+        classes = "govuk-summary-list--long-key",
+        rows = Seq(
+            SummaryListRow(
+                key = Key(content = Text("receipt2.jpg")),
+                value = Value(content = HtmlContent(tag)),
+                actions = Some(Actions(
+                    items = Seq(
+                        ActionItem(
+                            href = "#",
+                            content = Text("Remove"),
+                            visuallyHiddenText = Some("receipt1.jpg")
+                        )
                     )
-                )
-            ))
-
-            @govukButton(Button(
-                content = Text("Continue")
-            ))
-
-        </div>
-    </div>
-
+                ))
+            )
+        )
+    ))
 }

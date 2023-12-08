@@ -201,6 +201,7 @@ GET         /my-organisation/claim/property-links/evidence                      
 POST        /my-organisation/claim/property-links/evidence                                    controllers.propertyLinking.ChooseEvidenceController.submit
 POST        /my-organisation/claim/property-links/occupier-evidence                           controllers.propertyLinking.ChooseEvidenceController.submitOccupierForm
 GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorMessage: Option[String] ?= None)
+GET         /my-organisation/claim/property-links/evidence/:choice/upload/result              controllers.propertyLinking.UploadController.result(choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.continue(choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/initiate            controllers.propertyLinking.UploadController.initiate(choice: EvidenceChoices)
 GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorMessage: Option[String])
