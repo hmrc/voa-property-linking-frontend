@@ -34,8 +34,8 @@
         evidenceChoice: EvidenceChoices,
         submissionId: String,
         uploadedFiles: Map[String, UploadedFileDetails] = Map(),
-        status: FileStatus
-)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+        status: FileStatus,
+        fileReference: Option[String])(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{
     (request.ses.clientDetails, evidenceType) match {
@@ -63,7 +63,7 @@
     }
 }
 
-@tag = @{
+@tag(status: FileStatus) = @{
     status match {
         case _ @ FileStatus.UPLOADING => govukTag(Tag(content = Text("uploading"), classes = "govuk-tag--yellow"))
         case _ @ FileStatus.READY => govukTag(Tag(content = Text("uploaded"), classes = "govuk-tag--green"))
@@ -77,7 +77,43 @@
 ) {
 
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
+    <script>
+            function makeGetRequest() {
+                $.ajax({
+                    url: $("#fileUploadStatusUrl").text(),  // Replace with attachment API endpoint
+                    method: 'GET',
+                    dataType: 'json',  // Specify to expect JSON response
+                    success: function (responseBody, status, xmlHttpRequest) {
+                        //function - callback that gets executed on a successful AJAX request
+                        console.log('Data received:', responseBody);
+                        console.log('Status:', status);
+                        console.log('Response Headers:', xmlHttpRequest.getAllResponseHeaders());
 
+                        // Parse the nested JSON response model
+                        var fileStatus = responseBody.scanResult.fileStatus;
+                        console.log('File status:', fileStatus);
+
+                        var dataTable = $('#example').DataTable();
+
+
+                    },
+                    error: function (xmlHttpRequest, status, error) {
+                        //function - callback that gets executed if the AJAX request encounters an error
+                        console.error('AJAX error:', status, error);
+                        console.log('Response Text:', xmlHttpRequest.responseText);
+                        console.log('Status:', status);
+                    }
+                });
+            }
+
+            makeGetRequest();
+
+            // Set up an interval to make the AJAX call every 30 seconds
+            var intervalId = setInterval(makeGetRequest, 30000);  // 30 seconds in milliseconds
+
+    </script>
+
+    <span id="fileUploadStatusUrl">@{s"${config.attachmentsUrl}/attachments/${fileReference.getOrElse("")}"}</span>
 
 
 
@@ -86,7 +122,7 @@
         rows = Seq(
             SummaryListRow(
                 key = Key(content = Text("receipt2.jpg")),
-                value = Value(content = HtmlContent(tag)),
+                value = Value(content = HtmlContent(tag(status))),
                 actions = Some(Actions(
                     items = Seq(
                         ActionItem(

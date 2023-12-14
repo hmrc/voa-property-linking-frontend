@@ -60,6 +60,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   lazy val vmvUrl = loadConfig("vmv-frontend.url")
   lazy val valuationFrontendUrl = loadConfig("business-rates-valuation.url")
   lazy val basGatewaySignInUrl: String = loadConfig("bas-gateway-sign-in.url")
+  lazy val attachmentsUrl: String = loadConfig("business-rates-attachments.url")
   lazy val ggRegistrationUrl: String = loadConfig("gg-registration.url")
   lazy val serviceUrl: String = loadConfig("voa-property-linking-frontend.url")
   lazy val checkUrl = loadConfig("microservice.services.business-rates-check-frontend.url")

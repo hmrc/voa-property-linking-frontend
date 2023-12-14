@@ -118,7 +118,8 @@ class UploadController @Inject()(
             evidence,
             request.ses.submissionId,
             request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
-            status
+            status,
+            request.ses.fileReference
           )
         )
 
