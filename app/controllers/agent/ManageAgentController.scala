@@ -30,15 +30,13 @@ import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
-import services.AgentRelationshipService
-import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-
-import javax.inject.{Inject, Named}
 import repositories.SessionRepo
+import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl.idFunctor
-import uk.gov.hmrc.play.bootstrap.binders.{AbsoluteWithHostnameFromAllowlist, RedirectUrl}
-
+import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class ManageAgentController @Inject()(
@@ -80,7 +78,6 @@ class ManageAgentController @Inject()(
         Ok(myAgentsViewOld(organisationsAgents.agents, propertyLinksCount))
       }
     }
-
   }
 
   def manageAgentProperties(
