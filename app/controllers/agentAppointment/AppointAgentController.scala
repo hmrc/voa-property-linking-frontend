@@ -38,6 +38,8 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl.{idFunctor, isRelativeUrl}
+import uk.gov.hmrc.play.bootstrap.binders.{AbsoluteWithHostnameFromAllowlist, OnlyRelative, RedirectUrl}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
@@ -79,14 +81,14 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String,
+        backLinkUrl: RedirectUrl,
         fromManageAgentJourney: Boolean
   ): Action[AnyContent] = authenticated.async { implicit request =>
     searchForAppointableProperties(
       pagination,
       agentCode,
       agentAppointed,
-      backLink,
+      backLinkUrl,
       Some(GetPropertyLinksParameters()),
       fromManageAgentJourney)
   }
@@ -96,14 +98,14 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String,
+        backLinkUrl: RedirectUrl,
         fromManageAgentJourney: Boolean
   ): Action[AnyContent] = authenticated.async { implicit request =>
     searchForAppointableProperties(
       pagination,
       agentCode,
       agentAppointed,
-      backLink,
+      backLinkUrl,
       fromManageAgentJourney = fromManageAgentJourney)
   }
 
@@ -111,18 +113,18 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String,
+        backLinkUrl: RedirectUrl,
         fromManageAgentJourney: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
     filterAppointPropertiesForm
       .bindFromRequest()
       .fold(
-        hasErrors = errors => appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLink),
+        hasErrors = errors => appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl),
         success = (filter: FilterAppointPropertiesForm) =>
           searchForAppointableProperties(
             pagination,
             agentCode,
             agentAppointed,
-            backLink,
+            backLinkUrl,
             Some(GetPropertyLinksParameters().copy(address = filter.address, agent = filter.agent)),
             fromManageAgentJourney
         )
@@ -133,13 +135,13 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String,
+        backLinkUrl: RedirectUrl,
         fromManageAgentJourney: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
     searchForAppointableProperties(
       pagination,
       agentCode,
       agentAppointed,
-      backLink,
+      backLinkUrl,
       fromManageAgentJourney = fromManageAgentJourney)
   }
 
@@ -148,7 +150,7 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String,
+        backLinkUrl: RedirectUrl,
         fromManageAgentJourney: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
     appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].flatMap {
       case Some(sessionData) =>
@@ -156,7 +158,7 @@ class AppointAgentController @Inject()(
           pagination,
           agentCode,
           agentAppointed,
-          backLink,
+          backLinkUrl,
           Some(
             GetPropertyLinksParameters()
               .copy(
@@ -172,7 +174,7 @@ class AppointAgentController @Inject()(
           pagination,
           agentCode,
           agentAppointed,
-          backLink,
+          backLinkUrl,
           Some(GetPropertyLinksParameters().copy(sortfield = sortField).reverseSorting),
           fromManageAgentJourney = fromManageAgentJourney
         )
@@ -183,7 +185,7 @@ class AppointAgentController @Inject()(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
-        backLink: String,
+        backLinkUrl: RedirectUrl,
         searchParamsOpt: Option[GetPropertyLinksParameters] = None,
         fromManageAgentJourney: Boolean)(implicit request: AuthenticatedRequest[_], hc: HeaderCarrier) =
     for {
@@ -238,7 +240,7 @@ class AppointAgentController @Inject()(
               agentCode = agentCode,
               agentAppointed = agentAppointed,
               organisationAgents = agentList,
-              backLink = Some(backLink),
+              backLink = Some(backLinkUrl.get(config.hostAllowList).url),
               manageJourneyFlag = fromManageAgentJourney
             ))
         case None =>
@@ -258,7 +260,7 @@ class AppointAgentController @Inject()(
   def showAppointAgentSummary(
         agentCode: Long,
         agentAppointed: Option[String],
-        backLinkUrl: String,
+        backLinkUrl: RedirectUrl,
         fromManageAgentJourney: Boolean): Action[AnyContent] = authenticated.async { implicit request =>
     searchForAppointableProperties(
       PaginationParameters(),
@@ -268,7 +270,10 @@ class AppointAgentController @Inject()(
       fromManageAgentJourney = fromManageAgentJourney)
   }
 
-  def appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String): Action[AnyContent] =
+  def appointAgentSummary(
+        agentCode: Long,
+        agentAppointed: Option[String],
+        backLinkUrl: RedirectUrl): Action[AnyContent] =
     authenticated.async { implicit request =>
       appointAgentBulkActionForm
         .bindFromRequest()
@@ -339,7 +344,7 @@ class AppointAgentController @Inject()(
         errors: Form[_],
         agentCode: Long,
         agentAppointed: Option[String],
-        backLinkUrl: String)(implicit request: BasicAuthenticatedRequest[_]) =
+        backLinkUrl: RedirectUrl)(implicit request: BasicAuthenticatedRequest[_]) =
     accounts.withAgentCode(agentCode.toString).flatMap {
       case Some(group) =>
         for {
@@ -360,7 +365,7 @@ class AppointAgentController @Inject()(
               agentCode,
               agentAppointed,
               agentList,
-              backLink = Some(backLinkUrl),
+              backLink = Some(backLinkUrl.get(config.hostAllowList).url),
               manageJourneyFlag = true
             ))
       case None =>

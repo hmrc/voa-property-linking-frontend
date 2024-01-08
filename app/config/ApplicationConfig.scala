@@ -19,6 +19,7 @@ package config
 import java.util.Base64
 import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
+import uk.gov.hmrc.play.bootstrap.binders.AbsoluteWithHostnameFromAllowlist
 
 import java.time.LocalDate
 import scala.util.Try
@@ -99,6 +100,10 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
     .map(e => new String(Base64.getUrlDecoder.decode(e)))
 
   val default2017AssessmentEndDate = LocalDate.of(2023, 3, 31)
+
+  lazy val environmentHost: String = configuration.get[String]("environment-base.host")
+
+  lazy val hostAllowList = AbsoluteWithHostnameFromAllowlist(environmentHost)
 
 }
 

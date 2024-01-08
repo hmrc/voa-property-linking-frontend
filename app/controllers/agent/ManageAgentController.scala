@@ -36,6 +36,8 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import javax.inject.{Inject, Named}
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl.idFunctor
+import uk.gov.hmrc.play.bootstrap.binders.{AbsoluteWithHostnameFromAllowlist, RedirectUrl}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -429,11 +431,13 @@ class ManageAgentController @Inject()(
     }
   }
 
-  def removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String): Action[AnyContent] =
+  def removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLinkUrl: RedirectUrl): Action[AnyContent] =
     authenticated.async { implicit request =>
       submitAgentAppointmentRequest.bindFromRequest.fold(
         errors => {
-          Future.successful(BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, backLink)))
+          Future.successful(
+            BadRequest(
+              removeAgentFromOrganisationView(errors, agentCode, agentName, backLinkUrl.get(config.hostAllowList).url)))
         }, { success =>
           agentRelationshipService
             .postAgentAppointmentChange(AgentAppointmentChangeRequest(
@@ -467,7 +471,7 @@ class ManageAgentController @Inject()(
         pagination = PaginationParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
-        backLink = controllers.agent.routes.ManageAgentController.showManageAgent.url,
+        backLinkUrl = RedirectUrl(controllers.agent.routes.ManageAgentController.showManageAgent.url),
         fromManageAgentJourney = true
       ))
 

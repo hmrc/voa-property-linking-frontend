@@ -34,6 +34,8 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl.idFunctor
+import uk.gov.hmrc.play.bootstrap.binders.{AbsoluteWithHostnameFromAllowlist, RedirectUrl}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
@@ -56,7 +58,7 @@ class AppointPropertiesController @Inject()(
 ) extends PropertyLinkingController {
   val logger: Logger = Logger(this.getClass)
 
-  def onSubmit(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String): Action[AnyContent] =
+  def onSubmit(agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl): Action[AnyContent] =
     authenticated.async { implicit request =>
       appointAgentBulkActionForm
         .bindFromRequest()
@@ -76,7 +78,8 @@ class AppointPropertiesController @Inject()(
                     data.copy(
                       propertySelectedSize = action.propertyLinkIds.size,
                       totalPropertySelectionSize = propertySelectionSize,
-                      backLink = Some(backLinkUrl)))
+                      backLink = Some(backLinkUrl.get(config.hostAllowList).url)
+                    ))
                   Redirect(agentAppointment.routes.CheckYourAnswersController.onPageLoad())
                 case _ =>
                   NotFound(errorHandler.notFoundTemplate)
@@ -90,7 +93,7 @@ class AppointPropertiesController @Inject()(
         errors: Form[_],
         agentCode: Long,
         agentAppointed: Option[String],
-        backLinkUrl: String)(implicit request: BasicAuthenticatedRequest[_]) =
+        backLinkUrl: RedirectUrl)(implicit request: BasicAuthenticatedRequest[_]) =
     accounts.withAgentCode(agentCode.toString).flatMap {
       case Some(group) =>
         for {
@@ -111,7 +114,7 @@ class AppointPropertiesController @Inject()(
               agentCode,
               agentAppointed,
               agentList,
-              backLink = Some(backLinkUrl)
+              backLink = Some(backLinkUrl.get(config.hostAllowList).url)
             ))
       case None =>
         Future.successful(notFound)

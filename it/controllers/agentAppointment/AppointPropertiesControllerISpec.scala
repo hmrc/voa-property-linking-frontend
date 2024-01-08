@@ -9,6 +9,7 @@ import play.api.libs.json.Json
 import play.api.test.Helpers._
 import repositories.{AppointAgentPropertiesSessionRepository, AppointAgentSessionRepository}
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 
 import java.util.UUID
 
@@ -21,11 +22,11 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
         "agentCode" -> agentCode,
         "name" -> agentName,
         "linkIds" -> List(123L),
-        "backLinkUrl" -> "some/back/link"
+        "backLinkUrl" -> s"$backLinkUrl"
       )
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=$backLinkUrl&fromManageAgentJourney=true")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true")
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -42,11 +43,11 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
         "agentCode" -> agentCode,
         "name" -> agentName,
         "linkIds" -> List(123L),
-        "backLinkUrl" -> "some/back/link"
+        "backLinkUrl" -> s"$backLinkUrl"
       )
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=&backLinkUrl=$backLinkUrl")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=&backLinkUrl=${backLinkUrl.unsafeValue}")
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -64,17 +65,39 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
         "agentCode" -> agentCode,
         "name" -> agentName,
         "linkIds" -> List(123L),
-        "backLinkUrl" -> "some/back/link"
+        "backLinkUrl" -> s"$backLinkUrl"
       )
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=&backLinkUrl=$backLinkUrl")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=${backLinkUrl.unsafeValue}")
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .post(body = requestBody))
 
-      res.status shouldBe BAD_REQUEST
+      res.status shouldBe NOT_FOUND
+    }
+
+    "return 500 when backLinkUrk fails host policy checks" in new AppointSomePropertiesSetup {
+
+      override val backLinkUrl = RedirectUrl("/some-back-link")
+
+      val requestBody = Json.obj(
+        "agentCode" -> agentCode,
+        "name" -> agentName,
+        "linkIds" -> List(123L),
+        "backLinkUrl" -> s"$backLinkUrl"
+      )
+
+      val res = await(
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true")
+          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(body = requestBody)
+      )
+
+      res.status shouldBe INTERNAL_SERVER_ERROR
     }
   }
 
@@ -83,7 +106,7 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
     val account = groupAccount(true)
     val agentCode = 1001
     val agentName = "Test Agent"
-    val backLinkUrl = "some/url"
+    val backLinkUrl = RedirectUrl("http://localhost/some-back-link")
 
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
     lazy val mockAppointAgentPropertiesSessionRepository: AppointAgentPropertiesSessionRepository = app.injector.instanceOf[AppointAgentPropertiesSessionRepository]
