@@ -80,17 +80,17 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
 
     "return 500 when backLinkUrk fails host policy checks" in new AppointSomePropertiesSetup {
 
-      override val backLinkUrl = RedirectUrl("/some-back-link")
+      val backLink = "http://malicioussite.com/"
 
       val requestBody = Json.obj(
         "agentCode" -> agentCode,
         "name" -> agentName,
         "linkIds" -> List(123L),
-        "backLinkUrl" -> s"$backLinkUrl"
+        "backLinkUrl" -> backLink
       )
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=$backLink&fromManageAgentJourney=true")
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")

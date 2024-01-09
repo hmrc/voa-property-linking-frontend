@@ -39,7 +39,6 @@ import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
-import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl.idFunctor
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
@@ -62,8 +61,8 @@ class AppointAgentController @Inject()(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
-      val config: ApplicationConfig
-) extends PropertyLinkingController {
+      val config: ApplicationConfig)
+    extends PropertyLinkingController {
   val logger: Logger = Logger(this.getClass)
 
   lazy val addressForm: Form[String] = Form(single("address" -> nonEmptyText))
@@ -240,7 +239,7 @@ class AppointAgentController @Inject()(
               agentCode = agentCode,
               agentAppointed = agentAppointed,
               organisationAgents = agentList,
-              backLink = Some(backLinkUrl.get(config.hostAllowList).url),
+              backLink = Some(config.safeRedirect(backLinkUrl)),
               manageJourneyFlag = fromManageAgentJourney
             ))
         case None =>
@@ -365,7 +364,7 @@ class AppointAgentController @Inject()(
               agentCode,
               agentAppointed,
               agentList,
-              backLink = Some(backLinkUrl.get(config.hostAllowList).url),
+              backLink = Some(config.safeRedirect(backLinkUrl)),
               manageJourneyFlag = true
             ))
       case None =>

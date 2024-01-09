@@ -34,8 +34,8 @@ import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
-import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl.idFunctor
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -57,13 +57,12 @@ class ManageAgentController @Inject()(
       confirmRemoveAgentFromOrganisationView: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation,
       manageAgentPropertiesView: views.html.propertyrepresentation.manage.manageAgentProperties,
       manageAgentPropertiesViewOld: views.html.propertyrepresentation.manage.manageAgentPropertiesOld,
-      @Named("manageAgent") val manageAgentSessionRepo: SessionRepo
-)(
+      @Named("manageAgent") val manageAgentSessionRepo: SessionRepo)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
-      val config: ApplicationConfig
-) extends PropertyLinkingController {
+      val config: ApplicationConfig)
+    extends PropertyLinkingController {
 
   val logger = Logger(this.getClass.getName)
 
@@ -433,8 +432,7 @@ class ManageAgentController @Inject()(
       submitAgentAppointmentRequest.bindFromRequest.fold(
         errors => {
           Future.successful(
-            BadRequest(
-              removeAgentFromOrganisationView(errors, agentCode, agentName, backLinkUrl.get(config.hostAllowList).url)))
+            BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, config.safeRedirect(backLinkUrl))))
         }, { success =>
           agentRelationshipService
             .postAgentAppointmentChange(AgentAppointmentChangeRequest(

@@ -36,7 +36,6 @@ import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.BadRequestException
 import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
-import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl.idFunctor
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
@@ -59,8 +58,8 @@ class AddAgentController @Inject()(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
-      val config: ApplicationConfig
-) extends PropertyLinkingController {
+      val config: ApplicationConfig)
+    extends PropertyLinkingController {
 
   def start(
         propertyLinkId: Option[Long] = None,
@@ -112,7 +111,7 @@ class AddAgentController @Inject()(
 
   def getAgentDetails(backLinkUrl: RedirectUrl): Action[AnyContent] =
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
-      val backLink = backLinkUrl.get(config.hostAllowList).url
+      val backLink = config.safeRedirect(backLinkUrl)
       val fromCyaChange = if (backLink == routes.CheckYourAnswersController.onPageLoad().url) true else false
       agentCode
         .bindFromRequest()
@@ -224,7 +223,7 @@ class AddAgentController @Inject()(
     }
 
   def agentSelected(backLinkUrl: RedirectUrl, fromCyaChange: Boolean = false): Action[AnyContent] = {
-    val backLink = backLinkUrl.get(config.hostAllowList).url
+    val backLink = config.safeRedirect(backLinkUrl)
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
       isThisTheCorrectAgent
         .bindFromRequest()

@@ -35,7 +35,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
-import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl.idFunctor
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
@@ -78,7 +77,7 @@ class AppointPropertiesController @Inject()(
                     data.copy(
                       propertySelectedSize = action.propertyLinkIds.size,
                       totalPropertySelectionSize = propertySelectionSize,
-                      backLink = Some(backLinkUrl.get(config.hostAllowList).url)
+                      backLink = Some(config.safeRedirect(backLinkUrl))
                     ))
                   Redirect(agentAppointment.routes.CheckYourAnswersController.onPageLoad())
                 case _ =>
@@ -114,7 +113,7 @@ class AppointPropertiesController @Inject()(
               agentCode,
               agentAppointed,
               agentList,
-              backLink = Some(backLinkUrl.get(config.hostAllowList).url)
+              backLink = Some(config.safeRedirect(backLinkUrl))
             ))
       case None =>
         Future.successful(notFound)
