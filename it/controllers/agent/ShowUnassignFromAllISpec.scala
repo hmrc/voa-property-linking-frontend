@@ -1,3 +1,5 @@
+package controllers.agent
+
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
 import models.propertyrepresentation.AgentSummary
@@ -13,14 +15,13 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import java.time.LocalDate
 import java.util.UUID
 
-class UnassignFromAllISpec extends ISpecBase with HtmlComponentHelpers {
+class ShowUnassignFromAllISpec extends ISpecBase with HtmlComponentHelpers {
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  // Unassign from all question page
   val headingTag = "h1"
   val captionSelector = "#main-content > div > div > span"
   val paragraph1OnePropertyId = "unassignFromProperty-p1"
@@ -67,42 +68,6 @@ class UnassignFromAllISpec extends ISpecBase with HtmlComponentHelpers {
   val cancelLinkHref = "/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1"
   val backLinkOnePropertyHref = "/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1"
   val backLinkMultiplePropertiesHref = "/business-rates-property-linking/my-organisation/manage-agent"
-
-  // Unassign from all confirmation page
-  val confirmationParagraphOneLocator = "#main-content > div > div > p:nth-child(2)"
-  val confirmationParagraphTwoLocator = "#main-content > div > div > p:nth-child(3)"
-  val confirmationWhatHappensNextLocator = "#main-content > div > div > h2"
-  val confirmationWhatHappensNextParaOneLocator = "#main-content > div > div > p:nth-child(5)"
-  val confirmationWhatHappensNextParaTwoLocator = "#main-content > div > div > p:nth-child(7)"
-  val confirmationRemoveAgentLinkLocator = "remove-agent-from-account"
-  val confirmationGoHomeLinkLocator = "#main-content > div > div > p:nth-child(8) > a"
-
-  val confirmationTitleMultiplePropertiesText = "Test Agent has been unassigned from all your properties - Valuation Office Agency - GOV.UK"
-  val confirmationTitleOnePropertyText = "Test Agent has been unassigned from your property - Valuation Office Agency - GOV.UK"
-  val confirmationHeadingMultiplePropertiesText = "Test Agent has been unassigned from all your properties"
-  val confirmationHeadingOnePropertyText = "Test Agent has been unassigned from your property"
-  val confirmationParagraphOneText = "The agent can no longer act for you on any of your properties."
-  val confirmationParagraphTwoText = "The agent has not been removed from your account. They can still act for you if they add other properties to your account."
-  val confirmationWhatHappensNextText = "What happens next"
-  val confirmationWhatHappensNextParaOneText = "You can remove this agent from your account."
-  val confirmationWhatHappensRemoveAgentLinkText = "remove this agent from your account"
-  val confirmationWhatHappensNextParaTwoText = "You can reassign an agent to a property if you want them to act for you again."
-  val confirmationGoHomeLinkText = "Go to your account home"
-
-  val confirmationTitleMultiplePropertiesTextWelsh = "Mae Test Agent wedi’i ddadneilltuo o’ch holl eiddo - Valuation Office Agency - GOV.UK"
-  val confirmationTitleOnePropertyTextWelsh = "Mae Test Agent wedi’i ddad-neilltuo o’ch eiddo - Valuation Office Agency - GOV.UK"
-  val confirmationHeadingMultiplePropertiesTextWelsh = "Mae Test Agent wedi’i ddadneilltuo o’ch holl eiddo"
-  val confirmationHeadingOnePropertyTextWelsh = "Mae Test Agent wedi’i ddad-neilltuo o’ch eiddo"
-  val confirmationParagraphOneTextWelsh = "Ni all yr asiant weithredu ar eich rhan mwyach ar unrhyw un o’ch eiddo."
-  val confirmationParagraphTwoTextWelsh = "Nid yw’r asiant wedi’i dynnu o’ch cyfrif. Gallant barhau i weithredu ar eich rhan os ydynt yn ychwanegu eiddo eraill at eich cyfrif."
-  val confirmationWhatHappensNextTextWelsh = "Yr hyn sy’n digwydd nesaf"
-  val confirmationWhatHappensNextParaOneTextWelsh = "Gallwch dynnu’r asiant hwn o’ch cyfrif."
-  val confirmationWhatHappensRemoveAgentLinkTextWelsh = "dynnu’r asiant hwn o’ch cyfrif"
-  val confirmationWhatHappensNextParaTwoTextWelsh = "Gallwch ailbennu asiant i eiddo os ydych am iddynt weithredu ar eich rhan eto."
-  val confirmationGoHomeLinkTextWelsh = "Ewch i hafan eich cyfrif"
-
-  val confirmationRemoveAgentLinkHref = "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation"
-  val confirmationGoHomeLinkHref = "/business-rates-dashboard/home"
 
   "showUnassignFromAll displays the correct content in English when a user has 1 property" which {
     lazy val document: Document = getUnassignFromAllQuestionPage(English, numOfProperties = 1)
@@ -280,163 +245,7 @@ class UnassignFromAllISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
-  "confirmationUnassignAgentFromAll displays the correct content in English when a user has 1 property" which {
-    lazy val document: Document = getUnassignFromAllConfirmationPage(English, numOfProperties = 1)
-
-    s"has a title of $confirmationTitleOnePropertyText" in {
-      document.title() shouldBe confirmationTitleOnePropertyText
-    }
-
-    s"has a heading of $confirmationHeadingOnePropertyText" in {
-      document.getElementsByTag(headingTag).text shouldBe confirmationHeadingOnePropertyText
-    }
-
-    s"has the first paragraph of $confirmationParagraphOneText" in {
-      document.select(confirmationParagraphOneLocator).text shouldBe confirmationParagraphOneText
-    }
-
-    s"has the second paragraph of $confirmationParagraphTwoText" in {
-      document.select(confirmationParagraphTwoLocator).text shouldBe confirmationParagraphTwoText
-    }
-
-    s"has a subheading of $confirmationWhatHappensNextText" in {
-      document.select(confirmationWhatHappensNextLocator).text shouldBe confirmationWhatHappensNextText
-    }
-
-    s"has the first paragraph in the $confirmationWhatHappensNextText section of $confirmationWhatHappensNextParaOneText" in {
-      document.select(confirmationWhatHappensNextParaOneLocator).text shouldBe confirmationWhatHappensNextParaOneText
-      document.getElementById(confirmationRemoveAgentLinkLocator).text shouldBe confirmationWhatHappensRemoveAgentLinkText
-      document.getElementById(confirmationRemoveAgentLinkLocator).attr("href") shouldBe confirmationRemoveAgentLinkHref
-    }
-
-    s"has the second paragraph in the $confirmationWhatHappensNextText section of $confirmationWhatHappensNextParaTwoText" in {
-      document.select(confirmationWhatHappensNextParaTwoLocator).text shouldBe confirmationWhatHappensNextParaTwoText
-    }
-
-    s"has a $confirmationGoHomeLinkText link" in {
-      document.select(confirmationGoHomeLinkLocator).text shouldBe confirmationGoHomeLinkText
-      document.select(confirmationGoHomeLinkLocator).attr("href") shouldBe confirmationGoHomeLinkHref
-    }
-  }
-
-  "confirmationUnassignAgentFromAll displays the correct content in Welsh when a user has 1 property" which {
-    lazy val document: Document = getUnassignFromAllConfirmationPage(Welsh, numOfProperties = 1)
-
-    s"has a title of $confirmationTitleOnePropertyText in Welsh" in {
-      document.title() shouldBe confirmationTitleOnePropertyTextWelsh
-    }
-
-    s"has a heading of $confirmationHeadingOnePropertyText in Welsh" in {
-      document.getElementsByTag(headingTag).text shouldBe confirmationHeadingOnePropertyTextWelsh
-    }
-
-    s"has the first paragraph of $confirmationParagraphOneText in Welsh" in {
-      document.select(confirmationParagraphOneLocator).text shouldBe confirmationParagraphOneTextWelsh
-    }
-
-    s"has the second paragraph of $confirmationParagraphTwoText in Welsh" in {
-      document.select(confirmationParagraphTwoLocator).text shouldBe confirmationParagraphTwoTextWelsh
-    }
-
-    s"has a subheading of $confirmationWhatHappensNextText in Welsh" in {
-      document.select(confirmationWhatHappensNextLocator).text shouldBe confirmationWhatHappensNextTextWelsh
-    }
-
-    s"has the first paragraph in the $confirmationWhatHappensNextText section of $confirmationWhatHappensNextParaOneText in Welsh" in {
-      document.select(confirmationWhatHappensNextParaOneLocator).text shouldBe confirmationWhatHappensNextParaOneTextWelsh
-      document.getElementById(confirmationRemoveAgentLinkLocator).text shouldBe confirmationWhatHappensRemoveAgentLinkTextWelsh
-      document.getElementById(confirmationRemoveAgentLinkLocator).attr("href") shouldBe confirmationRemoveAgentLinkHref
-    }
-
-    s"has the second paragraph in the $confirmationWhatHappensNextText section of $confirmationWhatHappensNextParaTwoText in Welsh" in {
-      document.select(confirmationWhatHappensNextParaTwoLocator).text shouldBe confirmationWhatHappensNextParaTwoTextWelsh
-    }
-
-    s"has a $confirmationGoHomeLinkText link in Welsh" in {
-      document.select(confirmationGoHomeLinkLocator).text shouldBe confirmationGoHomeLinkTextWelsh
-      document.select(confirmationGoHomeLinkLocator).attr("href") shouldBe confirmationGoHomeLinkHref
-    }
-  }
-
-  "confirmationUnassignAgentFromAll displays the correct content in English when a user has more than 1 property" which {
-    lazy val document: Document = getUnassignFromAllConfirmationPage(English, numOfProperties = 10)
-
-    s"has a title of $confirmationTitleMultiplePropertiesText" in {
-      document.title() shouldBe confirmationTitleMultiplePropertiesText
-    }
-
-    s"has a heading of $confirmationHeadingMultiplePropertiesText" in {
-      document.getElementsByTag(headingTag).text shouldBe confirmationHeadingMultiplePropertiesText
-    }
-
-    s"has the first paragraph of $confirmationParagraphOneText" in {
-      document.select(confirmationParagraphOneLocator).text shouldBe confirmationParagraphOneText
-    }
-
-    s"has the second paragraph of $confirmationParagraphTwoText" in {
-      document.select(confirmationParagraphTwoLocator).text shouldBe confirmationParagraphTwoText
-    }
-
-    s"has a subheading of $confirmationWhatHappensNextText" in {
-      document.select(confirmationWhatHappensNextLocator).text shouldBe confirmationWhatHappensNextText
-    }
-
-    s"has the first paragraph in the $confirmationWhatHappensNextText section of $confirmationWhatHappensNextParaOneText" in {
-      document.select(confirmationWhatHappensNextParaOneLocator).text shouldBe confirmationWhatHappensNextParaOneText
-      document.getElementById(confirmationRemoveAgentLinkLocator).text shouldBe confirmationWhatHappensRemoveAgentLinkText
-      document.getElementById(confirmationRemoveAgentLinkLocator).attr("href") shouldBe confirmationRemoveAgentLinkHref
-    }
-
-    s"has the second paragraph in the $confirmationWhatHappensNextText section of $confirmationWhatHappensNextParaTwoText" in {
-      document.select(confirmationWhatHappensNextParaTwoLocator).text shouldBe confirmationWhatHappensNextParaTwoText
-    }
-
-    s"has a $confirmationGoHomeLinkText link" in {
-      document.select(confirmationGoHomeLinkLocator).text shouldBe confirmationGoHomeLinkText
-      document.select(confirmationGoHomeLinkLocator).attr("href") shouldBe confirmationGoHomeLinkHref
-    }
-  }
-
-  "confirmationUnassignAgentFromAll displays the correct content in Welsh when a user has more than 1 property" which {
-    lazy val document: Document = getUnassignFromAllConfirmationPage(Welsh, numOfProperties = 10)
-
-    s"has a title of $confirmationTitleMultiplePropertiesText in Welsh" in {
-      document.title() shouldBe confirmationTitleMultiplePropertiesTextWelsh
-    }
-
-    s"has a heading of $confirmationHeadingMultiplePropertiesText in Welsh" in {
-      document.getElementsByTag(headingTag).text shouldBe confirmationHeadingMultiplePropertiesTextWelsh
-    }
-
-    s"has the first paragraph of $confirmationParagraphOneText in Welsh" in {
-      document.select(confirmationParagraphOneLocator).text shouldBe confirmationParagraphOneTextWelsh
-    }
-
-    s"has the second paragraph of $confirmationParagraphTwoText in Welsh" in {
-      document.select(confirmationParagraphTwoLocator).text shouldBe confirmationParagraphTwoTextWelsh
-    }
-
-    s"has a subheading of $confirmationWhatHappensNextText in Welsh" in {
-      document.select(confirmationWhatHappensNextLocator).text shouldBe confirmationWhatHappensNextTextWelsh
-    }
-
-    s"has the first paragraph in the $confirmationWhatHappensNextText section of $confirmationWhatHappensNextParaOneText in Welsh" in {
-      document.select(confirmationWhatHappensNextParaOneLocator).text shouldBe confirmationWhatHappensNextParaOneTextWelsh
-      document.getElementById(confirmationRemoveAgentLinkLocator).text shouldBe confirmationWhatHappensRemoveAgentLinkTextWelsh
-      document.getElementById(confirmationRemoveAgentLinkLocator).attr("href") shouldBe confirmationRemoveAgentLinkHref
-    }
-
-    s"has the second paragraph in the $confirmationWhatHappensNextText section of $confirmationWhatHappensNextParaTwoText in Welsh" in {
-      document.select(confirmationWhatHappensNextParaTwoLocator).text shouldBe confirmationWhatHappensNextParaTwoTextWelsh
-    }
-
-    s"has a $confirmationGoHomeLinkText link in Welsh" in {
-      document.select(confirmationGoHomeLinkLocator).text shouldBe confirmationGoHomeLinkTextWelsh
-      document.select(confirmationGoHomeLinkLocator).attr("href") shouldBe confirmationGoHomeLinkHref
-    }
-  }
-
-  private def stubSetup(numOfProperties: Int): Unit = {
+  private def getUnassignFromAllQuestionPage(language: Language, numOfProperties: Int) = {
     await(
       mockRepository.saveOrUpdate(
         AgentSummary(
@@ -477,26 +286,6 @@ class UnassignFromAllISpec extends ISpecBase with HtmlComponentHelpers {
           aResponse.withStatus(OK).withBody(Json.toJson(numOfProperties).toString())
         }
     }
-  }
-
-  private def getUnassignFromAllConfirmationPage(language: Language, numOfProperties: Int) = {
-    stubSetup(numOfProperties)
-
-    val res = await(
-      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties/confirmation")
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
-        .withFollowRedirects(follow = false)
-        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId")
-        .get()
-    )
-
-    res.status shouldBe OK
-    Jsoup.parse(res.body)
-  }
-
-  private def getUnassignFromAllQuestionPage(language: Language, numOfProperties: Int) = {
-    stubSetup(numOfProperties)
-
     val res = await(
       ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties")
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
