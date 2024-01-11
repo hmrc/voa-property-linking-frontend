@@ -425,7 +425,8 @@ class ManageAgentController @Inject()(
           form = submitAgentAppointmentRequest,
           agentCode = agent.representativeCode,
           agentName = agent.name,
-          backLink = config.dashboardUrl("home")))
+          backLink = controllers.agent.routes.ManageAgentController.showManageAgent.url
+        ))
     }
   }
 
