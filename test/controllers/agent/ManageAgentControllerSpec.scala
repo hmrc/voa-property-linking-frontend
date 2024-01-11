@@ -28,6 +28,7 @@ import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import tests.AllMocks
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 import utils.HtmlPage
 
 import java.time.LocalDate
@@ -458,7 +459,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     redirectLocation(res) shouldBe
       Some(
         "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&" +
-          "agentCode=12345&agentAppointed=BOTH&backLink=%2F" +
+          "agentCode=12345&agentAppointed=BOTH&backLinkUrl=%2F" +
           "business-rates-property-linking%2Fmy-organisation%2Fmanage-agent&fromManageAgentJourney=true")
   }
 
@@ -714,8 +715,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted" in {
 
-    val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org", "some-back-link")(
-      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+    val res = testController
+      .removeAgentFromIpOrganisation(agentCode, "Some agent org", RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
     status(res) shouldBe BAD_REQUEST
 
@@ -727,8 +729,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted - in welsh" in {
 
     val agentName = "Some agent org"
-    val res = testController.removeAgentFromIpOrganisation(agentCode, agentName, "some-back-link")(
-      welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+    val res = testController
+      .removeAgentFromIpOrganisation(agentCode, agentName, RedirectUrl("http://localhost/some-back-link"))(
+        welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
     status(res) shouldBe BAD_REQUEST
 
@@ -741,9 +744,10 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
-    val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org", "back-link")(
-      FakeRequest()
-        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.RELATIONSHIP}"))
+    val res = testController
+      .removeAgentFromIpOrganisation(agentCode, "Some agent org", RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest()
+          .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.RELATIONSHIP}"))
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(

@@ -19,6 +19,7 @@
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
 @import models.propertyrepresentation.AppointmentScope.RELATIONSHIP
 @import config.ApplicationConfig
+@import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 
 @this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
@@ -39,7 +40,7 @@
     <p id="remove-agent-from-org-p1" class="govuk-body">@messages("propertyRepresentation.manageAgent.removeFromAccount.p1")</p>
     <p id="remove-agent-from-org-p2" class="govuk-body">@messages("propertyRepresentation.manageAgent.removeFromAccount.p2")</p>
 
-    @formWithCSRF(action = controllers.agent.routes.ManageAgentController.removeAgentFromIpOrganisation(agentCode, agentName, backLink)) {
+    @formWithCSRF(action = controllers.agent.routes.ManageAgentController.removeAgentFromIpOrganisation(agentCode, agentName, RedirectUrl(backLink))) {
         <input type="hidden" name="agentCode" value="@agentCode">
         <input type="hidden" name="scope" value="@RELATIONSHIP.toString">
 

@@ -19,9 +19,9 @@
 @import models.propertyrepresentation._
 @import config.ApplicationConfig
 @import utils.Formatters
+@import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
-
 
 @(form: Form[Boolean], agentDetails: AgentDetails, backLink: String, fromCyaChange: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -41,7 +41,7 @@
        @agentDetails.name <br/> @Formatters.capitalisedAddress(agentDetails.address)
     </div>
 
-    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent(fromCyaChange).url, fromCyaChange)) {
+    @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.agentSelected(RedirectUrl(controllers.agentAppointment.routes.AddAgentController.isCorrectAgent(fromCyaChange).url), fromCyaChange)) {
         @govukRadios(Radios(
             idPrefix = Some("isThisYourAgent"),
             classes = "govuk-radios--inline",

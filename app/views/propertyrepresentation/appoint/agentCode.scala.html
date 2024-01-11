@@ -17,7 +17,7 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import views.html.components.link
+@import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 
 @this(govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
@@ -33,7 +33,7 @@
     @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
   }
   <span id="caption" class="govuk-caption-l">@messages("caption.appoint.agent")</span>
-  @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.getAgentDetails(backLink)) {
+  @formWithCSRF(action = controllers.agentAppointment.routes.AddAgentController.getAgentDetails(RedirectUrl(backLink))) {
 
     @govukInput(Input(
         label = Label(

@@ -29,6 +29,7 @@ import play.api.test.Helpers._
 import repositories.SessionRepo
 import tests.AllMocks
 import uk.gov.hmrc.http.BadRequestException
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 import utils.StubWithAppointAgentSessionRefiner
 
 import scala.concurrent.Future
@@ -131,7 +132,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
 
   "getAgentDetails" should "return 400 Bad Request when agentCode is not provided" in {
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
-    val res = testController.getAgentDetails("some/back/link")(FakeRequest().withFormUrlEncodedBody("agentCode" -> ""))
+    val res = testController.getAgentDetails(RedirectUrl("http://localhost/some-back-link"))(
+      FakeRequest().withFormUrlEncodedBody("agentCode" -> ""))
     status(res) shouldBe BAD_REQUEST
     verifyErrorPage(res, "#agentCode", "Enter a valid agent code")
   }
@@ -142,7 +144,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future successful organisationsAgentsListWithOneAgent)
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
     val res =
-      testController.getAgentDetails("some/back/link")(FakeRequest().withFormUrlEncodedBody("agentCode" -> "213414"))
+      testController.getAgentDetails(RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest().withFormUrlEncodedBody("agentCode" -> "213414"))
     status(res) shouldBe BAD_REQUEST
     verifyErrorPage(res, "#agentCode", "There is no agent for the provided agent code")
   }
@@ -153,7 +156,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future successful organisationsAgentsListWithOneAgent)
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
-    val res = testController.getAgentDetails("some/back/link")(
+    val res = testController.getAgentDetails(RedirectUrl("http://localhost/some-back-link"))(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> "123456789012345"))
     status(res) shouldBe BAD_REQUEST
     verifyErrorPage(res, "#agentCode", "There is no agent for the provided agent code")
@@ -165,7 +168,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
       Future successful organisationsAgentsListWithOneAgent.copy(
         agents = List(agentSummary.copy(representativeCode = agentOrganisation.representativeCode.get))))
-    val res = testController.getAgentDetails("some/back/link")(
+    val res = testController.getAgentDetails(RedirectUrl("http://localhost/some-back-link"))(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"${agentOrganisation.representativeCode.get}"))
     status(res) shouldBe BAD_REQUEST
     verifyErrorPage(res, "#agentCode", "This agent has already been added to your account")
@@ -178,7 +181,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(organisationsAgentsListWithOneAgent))
     when(mockSessionRepo.saveOrUpdate(any())(any(), any())).thenReturn(Future.unit)
     val res =
-      testController.getAgentDetails("some/back/link")(FakeRequest().withFormUrlEncodedBody("agentCode" -> "11223"))
+      testController.getAgentDetails(RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest().withFormUrlEncodedBody("agentCode" -> "11223"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")
@@ -190,7 +194,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     status(res) shouldBe OK
     verifyBackLink(
       res,
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code?backLink=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome"
+      "/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code?backLinkUrl=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome"
     )
   }
 
@@ -223,7 +227,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
       .thenReturn(Future.successful(Some(managingProperty)))
     val res =
-      testController.agentSelected("some/back/link")(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> ""))
+      testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> ""))
     status(res) shouldBe BAD_REQUEST
     verifyErrorPage(res, "#isThisYourAgent", "Select yes if this is your agent")
   }
@@ -235,7 +240,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(()))
 
     val res =
-      testController.agentSelected("some/back/link")(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "false"))
+      testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "false"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code")
   }
@@ -253,7 +259,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
     val res =
-      testController.agentSelected("some/back/link")(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
+      testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
@@ -268,7 +275,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(Some(searchedAgent)))
 
     val res =
-      testController.agentSelected("some/back/link")(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
+      testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
@@ -285,7 +293,8 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       .thenReturn(Future.successful(()))
 
     val res =
-      testController.agentSelected("some/back/link")(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
+      testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
@@ -301,8 +310,10 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
       .thenReturn(Future.successful(()))
 
-    val res =
-      testController.agentSelected("some/back/link")(FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true"))
+    val res = testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
+      FakeRequest()
+        .withFormUrlEncodedBody("isThisYourAgent" -> "true"))
+
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
@@ -423,7 +434,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       "/business-rates-property-linking/my-organisation/appoint/properties?page=1" +
         "&pageSize=15&agentCode=12345" +
         "&agentAppointed=BOTH" +
-        "&backLink=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fmultiple-properties&fromManageAgentJourney=false")
+        "&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fmultiple-properties&fromManageAgentJourney=false")
 
   }
 

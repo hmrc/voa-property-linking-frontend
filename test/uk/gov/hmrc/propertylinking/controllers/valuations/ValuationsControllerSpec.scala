@@ -28,7 +28,6 @@ import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers.{any, eq => mEq}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
-import play.api.mvc.Cookie
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html

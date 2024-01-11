@@ -19,9 +19,11 @@ package config
 import java.util.Base64
 import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
-
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl.idFunctor
+import uk.gov.hmrc.play.bootstrap.binders.{AbsoluteWithHostnameFromAllowlist, OnlyRelative, RedirectUrl}
 import java.time.LocalDate
 import scala.util.Try
+
 @Singleton()
 class ApplicationConfig @Inject()(configuration: Configuration) {
 
@@ -100,6 +102,10 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   val default2017AssessmentEndDate = LocalDate.of(2023, 3, 31)
 
+  lazy val environmentHost: String = configuration.get[String]("environment-base.host")
+
+  def safeRedirect(url: RedirectUrl): String =
+    url.get(AbsoluteWithHostnameFromAllowlist(environmentHost) | OnlyRelative).url
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
