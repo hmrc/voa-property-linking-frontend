@@ -7,7 +7,7 @@ import models.propertyrepresentation.RevokeAgentFromSomePropertiesSession
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
-import play.api.http.Status.OK
+import play.api.http.Status.{NOT_FOUND, OK}
 import play.api.libs.json.Json
 import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import repositories.RevokeAgentPropertiesSessionRepository
@@ -114,6 +114,38 @@ class ConfirmRevokeAgentFromSomeISpec extends ISpecBase with HtmlComponentHelper
       document.select(goHomeLinkSelector).attr("href") shouldBe goHomeLinkHref
     }
   }
+
+  "confirmRevokeAgentFromSome method returns a not found if no agent revoke data is cached" in {
+
+    await(
+      mockRevokeAgentPropertiesSessionRepository.remove()
+    )
+
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    val res = await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/revoke/properties/confirm")
+        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId")
+        .get()
+    )
+
+    res.status shouldBe NOT_FOUND
+  }
+
 
   private def getConfirmRevokeAgentFromSomePage(language: Language): Document = {
 
