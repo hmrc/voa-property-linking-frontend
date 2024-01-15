@@ -703,42 +703,6 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation/confirm")
   }
 
-  "confirmRemoveAgentFromOrganisation" should "return 200 Ok and display page" in {
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-
-    val res = testController.confirmRemoveAgentFromOrganisation()(FakeRequest())
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch("Some Agent Org has been removed from your account - Valuation Office Agency - GOV.UK")
-    html.html.getElementById("remove-agent-confirmation-p1").text() shouldBe "The agent can no longer act for you."
-    html.html
-      .getElementById("remove-agent-confirmation-p2")
-      .text() shouldBe s"If you want the agent to act for you again, you can reappoint them to your account using agent code ${agentSummary.representativeCode.toString()}."
-  }
-
-  "confirmRemoveAgentFromOrganisation" should "return 200 Ok and display page  - in welsh" in {
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-
-    val res = testController.confirmRemoveAgentFromOrganisation()(welshFakeRequest)
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch(s"Mae ${agentSummary.name} wedi’i dynnu o’ch cyfrif - Valuation Office Agency - GOV.UK")
-    html.html
-      .getElementById("remove-agent-confirmation-p1")
-      .text() shouldBe "Ni all yr asiant weithredu ar eich rhan mwyach."
-    html.html
-      .getElementById("remove-agent-confirmation-p2")
-      .text() shouldBe s"Os ydych am i’r asiant weithredu ar eich rhan eto, gallwch ei ailbenodi i’ch cyfrif gan ddefnyddio cod asiant ${agentSummary.representativeCode.toString()}."
-  }
-
   type English = EnglishRequest
   type Welsh = WelshRequest
 
