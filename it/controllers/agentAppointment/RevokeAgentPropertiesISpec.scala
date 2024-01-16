@@ -39,21 +39,12 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val selectAllSelector = "#par-select-all-top"
   val addressHeaderSelector = "#sort-by-address > a"
   val appointedAgentsSelector = "#agentPropertiesTableBody > thead > tr > th:nth-child(2)"
-
   val checkboxSelector = "#checkbox-1"
   val addressValueSelector = "#agentPropertiesTableBody > tbody > tr:nth-child(1) > td:nth-child(1) > div > label"
   val appointedAgentsValueSelector = "#agentPropertiesTableBody > tbody > tr:nth-Child(1) > td:nth-child(2)"
-
   val secondCheckboxSelector = "#checkbox-2"
   val secondAddressValueSelector = "#agentPropertiesTableBody > tbody > tr:nth-child(2) > td:nth-child(1) > div > label"
   val secondAppointedAgentsValueSelector = "#agentPropertiesTableBody > tbody > tr:nth-Child(2) > td:nth-child(2)"
-
-  val firstRowSelector = "#agentPropertiesTableBody > tbody > tr:nth-Child(1)"
-  val additionalBitsForCheckbox = "td > div > input"
-  val additionalBitsForAddress = "td > div > label > span"
-  val additionalBitsForAgents = "td:nth-child(2)"
-  val columnInRowSelector = "#agentPropertiesTableBody > tbody > tr:nth-child(1) > td"
-
   val confirmAndUnassignSelector = "#submit-button"
   val cancelSelector = "#cancel-link"
 
@@ -81,7 +72,7 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val sendOrContinueTextWelsh = "anfon neu barhau ag achosion Gwirio a Herio"
   val seeNewTextWelsh = "gweld gohebiaeth achos Gwirio a Herio newydd, er enghraifft negeseuon ac e-byst"
   val seeDetailedTextWelsh = "gweld gwybodaeth eiddo fanwl"
-  val unassigningAnAgentTextWelsh = "Mae dadneilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach."
+  val unassigningAnAgentTextWelsh = "Rhybudd Mae dadneilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach."
   val searchYourTextWelsh = "Chwiliwch eich eiddo"
   val addressTextWelsh = "Cyfeiriad"
   val searchTextWelsh = "Chwilio"
@@ -246,7 +237,7 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
       document.select(appointedAgentsValueSelector).text shouldBe ""
     }
 
-    s"have a second row that contains a checkbox, $addressText and $appointedAgentsText" in {
+    s"does not have a second row that contains a checkbox, $addressText and $appointedAgentsText" in {
       document.select(secondCheckboxSelector).size() shouldBe 0
       document.select(secondAddressValueSelector).size() shouldBe 0
       document.select(secondAppointedAgentsValueSelector).size() shouldBe 0
@@ -258,6 +249,172 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
     s"has a $cancelText link" in {
       document.select(cancelSelector).text shouldBe cancelText
+      document.select(cancelSelector).attr("href") shouldBe cancelHref
+    }
+  }
+
+  "revokeAgentProperties method displays the correct content in Welsh when theres multiple properties" which {
+    lazy val document: Document = getRevokeAgentPropertiesPage(Welsh, multipleProps = true)
+
+    s"has a title of $titleText in welsh" in {
+      document.title() shouldBe titleTextWelsh
+    }
+
+    s"has a $backLinkText link in welsh" in {
+      document.select(backLinkSelector).text shouldBe backLinkTextWelsh
+      document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+    }
+
+    s"has a heading of $headingText in welsh" in {
+      document.getElementsByTag(headingSelector).text shouldBe headingTextWelsh
+    }
+
+    s"has text on the screen of $forThePropertiesText in welsh" in {
+      document.select(forThePropertiesSelector).text shouldBe forThePropertiesTextWelsh
+    }
+
+    s"has bullet point list on the screen with text $sendOrContinueText, $seeNewText and $seeDetailedText in welsh" in {
+      document.select(bulletPointSelector).get(0).text shouldBe sendOrContinueTextWelsh
+      document.select(bulletPointSelector).get(1).text shouldBe seeNewTextWelsh
+      document.select(bulletPointSelector).get(2).text shouldBe seeDetailedTextWelsh
+    }
+
+    s"has a warning on the screen of $unassigningAnAgentText in welsh" in {
+      document.select(unassigningAnAgentSelector).text shouldBe unassigningAnAgentTextWelsh
+    }
+
+    s"has a subheading of $searchYourText in welsh" in {
+      document.select(searchYourSelector).text shouldBe searchYourTextWelsh
+    }
+
+    s"has a text input field for an $addressText in welsh" in {
+      document.select(addressSelector).text shouldBe addressTextWelsh
+      document.select(addressInputSelector).attr("type") shouldBe "text"
+    }
+
+    s"has a $searchText button in welsh" in {
+      document.select(searchSelector).text shouldBe searchTextWelsh
+    }
+
+    s"has a $clearSearchText link in welsh" in {
+      document.select(clearSearchSelector).text shouldBe clearSearchTextWelsh
+      document.select(clearSearchSelector).attr("href") shouldBe clearSearchHref
+    }
+
+    s"has a $selectAllText link in welsh" in {
+      document.select(selectAllSelector).text shouldBe selectAllTextWelsh
+      document.select(selectAllSelector).attr("href") shouldBe selectAllHref
+    }
+
+    s"has an $addressText column header in welsh" in {
+      document.select(addressHeaderSelector).text shouldBe addressTextWelsh
+    }
+
+    s"has an $appointedAgentsText column header in welsh" in {
+      document.select(appointedAgentsSelector).text shouldBe appointedAgentsTextWelsh + " Asiantiaid penodedig"
+    }
+
+    s"has a row that contains a checkbox, $addressText and $appointedAgentsText in welsh" in {
+      document.select(checkboxSelector).attr("type") shouldBe "checkbox"
+      document.select(addressValueSelector).text shouldBe "Penodi TEST ADDRESS"
+      document.select(appointedAgentsValueSelector).text shouldBe ""
+    }
+
+    s"have a second row that contains a checkbox, $addressText and $appointedAgentsText in welsh" in {
+      document.select(secondCheckboxSelector).attr("type") shouldBe "checkbox"
+      document.select(secondAddressValueSelector).text shouldBe "Penodi ADDRESSTEST 2"
+      document.select(secondAppointedAgentsValueSelector).text shouldBe "Test Agent 2"
+    }
+
+    s"has a $confirmAndUnassignText button in welsh" in {
+      document.select(confirmAndUnassignSelector).text shouldBe confirmAndUnassignTextWelsh
+    }
+
+    s"has a $cancelText link in welsh" in {
+      document.select(cancelSelector).text shouldBe cancelTextWelsh
+      document.select(cancelSelector).attr("href") shouldBe cancelHref
+    }
+  }
+
+  "revokeAgentProperties method displays the correct content in Welsh when theres one property" which {
+    lazy val document: Document = getRevokeAgentPropertiesPage(Welsh, multipleProps = false)
+
+    s"has a title of $titleText in welsh" in {
+      document.title() shouldBe titleTextWelsh
+    }
+
+    s"has a $backLinkText link in welsh" in {
+      document.select(backLinkSelector).text shouldBe backLinkTextWelsh
+      document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+    }
+
+    s"has a heading of $headingText in welsh" in {
+      document.getElementsByTag(headingSelector).text shouldBe headingTextWelsh
+    }
+
+    s"has text on the screen of $forThePropertiesText in welsh" in {
+      document.select(forThePropertiesSelector).text shouldBe forThePropertiesTextWelsh
+    }
+
+    s"has bullet point list on the screen with text $sendOrContinueText, $seeNewText and $seeDetailedText in welsh" in {
+      document.select(bulletPointSelector).get(0).text shouldBe sendOrContinueTextWelsh
+      document.select(bulletPointSelector).get(1).text shouldBe seeNewTextWelsh
+      document.select(bulletPointSelector).get(2).text shouldBe seeDetailedTextWelsh
+    }
+
+    s"has a warning on the screen of $unassigningAnAgentText in welsh" in {
+      document.select(unassigningAnAgentSelector).text shouldBe unassigningAnAgentTextWelsh
+    }
+
+    s"has a subheading of $searchYourText in welsh" in {
+      document.select(searchYourSelector).text shouldBe searchYourTextWelsh
+    }
+
+    s"has a text input field for an $addressText in welsh" in {
+      document.select(addressSelector).text shouldBe addressTextWelsh
+      document.select(addressInputSelector).attr("type") shouldBe "text"
+    }
+
+    s"has a $searchText button in welsh" in {
+      document.select(searchSelector).text shouldBe searchTextWelsh
+    }
+
+    s"has a $clearSearchText link in welsh" in {
+      document.select(clearSearchSelector).text shouldBe clearSearchTextWelsh
+      document.select(clearSearchSelector).attr("href") shouldBe clearSearchHref
+    }
+
+    s"has a $selectAllText link in welsh" in {
+      document.select(selectAllSelector).text shouldBe selectAllTextWelsh
+      document.select(selectAllSelector).attr("href") shouldBe selectAllHref
+    }
+
+    s"has an $addressText column header in welsh" in {
+      document.select(addressHeaderSelector).text shouldBe addressTextWelsh
+    }
+
+    s"has an $appointedAgentsText column header in welsh" in {
+      document.select(appointedAgentsSelector).text shouldBe appointedAgentsTextWelsh + " Asiantiaid penodedig"
+    }
+
+    s"has a row that contains a checkbox, $addressText and $appointedAgentsText in welsh" in {
+      document.select(checkboxSelector).attr("type") shouldBe "checkbox"
+      document.select(addressValueSelector).text shouldBe "Penodi TEST ADDRESS"
+      document.select(appointedAgentsValueSelector).text shouldBe ""
+    }
+
+    s"does not have a second row that contains a checkbox, $addressText and $appointedAgentsText in welsh" in {
+      document.select(secondCheckboxSelector).size() shouldBe 0
+      document.select(secondAddressValueSelector).size() shouldBe 0
+      document.select(secondAppointedAgentsValueSelector).size() shouldBe 0
+    }
+
+    s"has a $confirmAndUnassignText button in welsh" in {
+      document.select(confirmAndUnassignSelector).text shouldBe confirmAndUnassignTextWelsh
+    }
+
+    s"has a $cancelText link in welsh" in {
+      document.select(cancelSelector).text shouldBe cancelTextWelsh
       document.select(cancelSelector).attr("href") shouldBe cancelHref
     }
   }
