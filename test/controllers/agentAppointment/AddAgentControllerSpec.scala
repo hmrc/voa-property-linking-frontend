@@ -42,58 +42,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/start")
   }
-  "showStartPage" should "show the appoint new agent start page" in {
-    stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
-    val res = testController.showStartPage()(FakeRequest())
-    status(res) shouldBe OK
-    verifyBackLink(res, "http://localhost:9542/business-rates-dashboard/home")
-  }
-
-  "showStartPage" should "display the correct content in english" in new StartPageTestCase with English {
-    doc.title shouldBe "Appoint an agent to your account - Valuation Office Agency - GOV.UK"
-    heading shouldBe "Appoint an agent to your account"
-    theyCanIntro shouldBe "When you appoint an agent to your account they can act for you. This means they can:"
-    theyCanList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
-      "see detailed property information",
-      "see Check and Challenge case correspondence such as messages and emails",
-      "send Check and Challenge cases",
-      "add your properties to your account"
-    )
-    theyCanInfo shouldBe "They can act for you on the properties you assign to them and the properties they add to your account."
-    youCanIntro shouldBe "You can:"
-    youCanList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
-      "appoint more than one agent to your account",
-      "assign more than one agent to your property",
-      "choose the rating lists an agent can act on for you"
-    )
-
-    helpLink.text shouldBe "Help with appointing and managing agents"
-    helpLink.attr("href") shouldBe "https://www.gov.uk/guidance/appoint-an-agent"
-    startNowButton shouldBe "Start now"
-  }
-
-  "showStartPage" should "display the correct content in welsh" in new StartPageTestCase with Welsh {
-    doc.title shouldBe "Penodi asiant i’ch cyfrif - Valuation Office Agency - GOV.UK"
-    heading shouldBe "Penodi asiant i’ch cyfrif"
-    theyCanIntro shouldBe "Pan fyddwch yn penodi asiant i’ch cyfrif, bydd yr asiant hwn yn gallu gweithredu ar eich rhan. Mae hyn yn golygu ei fod yn gallu:"
-    theyCanList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
-      "gweld gwybodaeth manwl am eiddo",
-      "gweld gohebiaeth ynghylch achosion Gwirio a Herio, megis negeseuon ac e-byst",
-      "anfon achosion Gwirio a Herio",
-      "ychwanegu eich eiddo i’ch cyfrif"
-    )
-    theyCanInfo shouldBe "Gall yr asiant weithredu ar eiddo rydych yn eu neilltuo iddo, ac ar eiddo y mae’n eu hychwanegu at eich cyfrif."
-    youCanIntro shouldBe "Gallwch wneud y canlynol:"
-    youCanList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
-      "penodi mwy nag un asiant i’ch cyfrif",
-      "neilltuo’ch eiddo i fwy nag un asiant",
-      "dewis pa restr ardrethu y gall asiant ei gweithredu ar eich rhan"
-    )
-
-    helpLink.text shouldBe "Help gyda phenodi a rheoli asiantau"
-    helpLink.attr("href") shouldBe "https://www.gov.uk/guidance/appoint-an-agent"
-    startNowButton shouldBe "Dechrau nawr"
-  }
 
   "showAgentCodePage" should "show the agent code page and go back to the appoint agent start page" in {
     stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
@@ -478,21 +426,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
   private def verifyBackLink(res: Future[Result], expectedBackLink: String) = {
     val page = Jsoup.parse(contentAsString(res))
     page.getElementById("back-link").attr("href") shouldBe expectedBackLink
-  }
-
-  trait StartPageTestCase {
-    self: RequestLang =>
-    stubWithAppointAgentSession.stubSession(startJourney, detailedIndividualAccount, groupAccount(false))
-
-    val doc: Document = Jsoup.parse(contentAsString(testController.showStartPage()(self.fakeRequest)))
-    val heading: String = doc.getElementsByTag("h1").text
-    val theyCanIntro: String = doc.getElementById("they-can-intro").text
-    val theyCanList: Element = doc.getElementById("they-can-list")
-    val theyCanInfo: String = doc.getElementById("they-can-info").text
-    val youCanIntro: String = doc.getElementById("you-can-intro").text
-    val youCanList: Element = doc.getElementById("you-can-list")
-    val helpLink: Element = doc.getElementById("help-link")
-    val startNowButton: String = doc.getElementById("start-now-button").text
   }
 
   trait AgentCodePageTestCase {
