@@ -2,6 +2,7 @@ package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
+import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import models.propertyrepresentation.{AgentSelected, SearchedAgent, SelectedAgent}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -133,7 +134,7 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
   "AddAgentController agentSelected post method" should {
 
-    "Return a BAD_REQUEST and show the error on the isYourAgent page with the correct English page content" when {
+    "Return a BAD_REQUEST and show the error on the isYourAgent page with the correct English page content if the user chooses no radio button" when {
 
       lazy val document = postIsCorrectAgentWithErrorPage(English)
 
@@ -151,7 +152,7 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
       }
     }
 
-    "Return a BAD_REQUEST and show the error on the isYourAgent page with the correct Welsh page content" when {
+    "Return a BAD_REQUEST and show the error on the isYourAgent page with the correct Welsh page content if the user chooses no radio button" when {
 
       lazy val document = postIsCorrectAgentWithErrorPage(Welsh)
 
@@ -170,11 +171,20 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     s"Redirect to the Choose a ratings list page when the user chooses $yesText" when {
+      lazy val res = validPostIsCorrectAgentPage(true)
 
-      lazy val document = validPostIsCorrectAgentPage(true)
+      "has the correct status and redirect location" in {
+        res.status shouldBe SEE_OTHER
+        res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+      }
+    }
 
-      s"has a title of the Choose a ratings list page" in {
-        document.title() shouldBe ""
+    s"Redirect to the Agent Code page when the user chooses $noText" when {
+      lazy val res = validPostIsCorrectAgentPage(false)
+
+      "has the correct status and redirect location" in {
+        res.status shouldBe SEE_OTHER
+        res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code")
       }
     }
 
@@ -182,29 +192,7 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
   private def getIsCorrectAgentPage(language: Language): Document = {
 
-    implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
-
-    lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
-
-    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, agentName, agentAddress, AgentSelected, None)
-
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, None, None)
-
-    await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
-
-    stubFor {
-      get("/business-rates-authorisation/authenticate")
-        .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-        }
-    }
-
-    stubFor {
-      post("/auth/authorise")
-        .willReturn {
-          aResponse.withStatus(OK).withBody("{}")
-        }
-    }
+    commonSetup()
 
     val res = await(
       ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")
@@ -219,29 +207,7 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
   }
   private def postIsCorrectAgentWithErrorPage(language: Language): Document = {
 
-    implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
-
-    lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
-
-    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, agentName, agentAddress, AgentSelected, None)
-
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, None, None)
-
-    await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
-
-    stubFor {
-      get("/business-rates-authorisation/authenticate")
-        .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-        }
-    }
-
-    stubFor {
-      post("/auth/authorise")
-        .willReturn {
-          aResponse.withStatus(OK).withBody("{}")
-        }
-    }
+    commonSetup()
 
     val res = await(
       ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fagent-code?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome")
@@ -257,16 +223,40 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
   }
   private def validPostIsCorrectAgentPage(answer: Boolean) = {
 
+    commonSetup()
+
+    stubFor {
+      get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult1).toString())
+        }
+    }
+
+    val requestBody = Json.obj(
+      "isThisYourAgent" -> answer
+    )
+
+    await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fagent-code?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome")
+        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .post(body = requestBody)
+    )
+  }
+
+  def commonSetup(): StubMapping = {
+
     implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
 
     val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, agentName, agentAddress, AgentSelected, None)
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, None, None)
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, isTheCorrectAgent = true, None, None)
 
     await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
-
+    
     stubFor {
       get("/business-rates-authorisation/authenticate")
         .willReturn {
@@ -280,32 +270,6 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
           aResponse.withStatus(OK).withBody("{}")
         }
     }
-
-    stubFor {
-      get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-        .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult1).toString())
-        }
-    }
-
-    val requestBody = Json.obj(
-      "isThisYourAgent" -> answer
-    )
-
-    val res = await(
-      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fagent-code?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome")
-        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
-        .withFollowRedirects(follow = true)
-        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-        .post(body = requestBody)
-    )
-
-    res.status shouldBe OK
-    res.header("Location") shouldBe "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
-
-    Jsoup.parse(res.body)
-
   }
-
 
 }
