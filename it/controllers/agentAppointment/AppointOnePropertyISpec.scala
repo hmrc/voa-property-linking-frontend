@@ -264,8 +264,17 @@ class AppointOnePropertyISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
-  "AddAgentController submitOneProperty redirects the user to the Check Your Answers page when a radio button is selected" which {
-    lazy val res = postAssignToOnePropertyPage(language = English, errorPage = false)
+  "AddAgentController submitOneProperty redirects the user to the Check Your Answers page when the 'Yes' radio button is selected" which {
+    lazy val res = postAssignToOnePropertyPage(language = English, selectedRadio = Some("all"))
+
+    "has the correct status and redirect location" in {
+      res.status shouldBe SEE_OTHER
+      res.header("location") shouldBe Some(cyaBackLinkHref)
+    }
+  }
+
+  "AddAgentController submitOneProperty redirects the user to the Check Your Answers page when the 'No' radio button is selected" which {
+    lazy val res = postAssignToOnePropertyPage(language = Welsh, selectedRadio = Some("no"))
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -274,7 +283,7 @@ class AppointOnePropertyISpec extends ISpecBase with HtmlComponentHelpers {
   }
 
   "AddAgentController submitOneProperty displays an error in English when a radio button isn't selected" which {
-    lazy val res = postAssignToOnePropertyPage(language = English, errorPage = true)
+    lazy val res = postAssignToOnePropertyPage(language = English, selectedRadio = None)
     lazy val document = Jsoup.parse(res.body)
 
     "has a status of 400" in {
@@ -323,7 +332,7 @@ class AppointOnePropertyISpec extends ISpecBase with HtmlComponentHelpers {
   }
 
   "AddAgentController submitOneProperty displays an error in Welsh when a radio button isn't selected" which {
-    lazy val res = postAssignToOnePropertyPage(language = Welsh, errorPage = true)
+    lazy val res = postAssignToOnePropertyPage(language = Welsh, selectedRadio = None)
     lazy val document = Jsoup.parse(res.body)
 
     "has a status of 400" in {
@@ -440,7 +449,7 @@ class AppointOnePropertyISpec extends ISpecBase with HtmlComponentHelpers {
     Jsoup.parse(res.body)
   }
 
-  private def postAssignToOnePropertyPage(language: Language, errorPage: Boolean) = {
+  private def postAssignToOnePropertyPage(language: Language, selectedRadio: Option[String]) = {
     stubAuth()
 
     val cacheData = SelectedAgent(
@@ -460,7 +469,7 @@ class AppointOnePropertyISpec extends ISpecBase with HtmlComponentHelpers {
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .withFollowRedirects(follow = false)
-        .post(Map("oneProperty" -> Seq(if (errorPage) "" else "no")))
+        .post(Map("oneProperty" -> Seq(selectedRadio.getOrElse(""))))
     )
   }
 }
