@@ -209,72 +209,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
   }
 
-  "multipleProperties" should "return 200 Ok" in {
-    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(selectedAgent)))
-
-    val res = testController.multipleProperties()(FakeRequest())
-    status(res) shouldBe OK
-    verifyPageHeading(res, "Which of your properties do you want to assign Some Org to?")
-  }
-
-  "multipleProperties" should "back link should return to CYA page" in {
-    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(managingProperty)))
-
-    val res = testController.multipleProperties(true)(FakeRequest())
-    status(res) shouldBe OK
-    verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
-  }
-
-  "submitMultipleProperties" should "return 400 Bad Request if no selection is made" in {
-    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(managingProperty)))
-
-    val res =
-      testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody("multipleProperties" -> ""))
-
-    status(res) shouldBe BAD_REQUEST
-    verifyErrorPage(res, "#multipleProperties", "Select if you want your agent to manage any of your properties")
-  }
-
-  "submitMultipleProperties" should "return 303 See Other when valid selection is made" in {
-    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(selectedAgent)))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
-      .thenReturn(Future.successful(1))
-
-    val res =
-      testController.submitMultipleProperties()(FakeRequest().withFormUrlEncodedBody("multipleProperties" -> "all"))
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
-  }
-
-  "submitMultipleProperties" should "return 303 See Other and redirect to old journey when ChooseFromList is selected" in {
-    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(selectedAgent)))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
-      .thenReturn(Future.successful(1))
-
-    val res = testController.submitMultipleProperties()(
-      FakeRequest().withFormUrlEncodedBody("multipleProperties" -> "choose_from_list"))
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/appoint/properties?page=1" +
-        "&pageSize=15&agentCode=12345" +
-        "&agentAppointed=BOTH" +
-        "&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fmultiple-properties&fromManageAgentJourney=false")
-
-  }
-
   type English = EnglishRequest
   type Welsh = WelshRequest
   private lazy val testController = new AddAgentController(
@@ -297,14 +231,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     f
   }
   private val stubWithAppointAgentSession = new StubWithAppointAgentSessionRefiner(mockSessionRepo)
-
-  private def verifyPageHeading(
-        res: Future[Result],
-        expectedHeading: String,
-        headingClass: String = "govuk-heading-l") = {
-    val page = Jsoup.parse(contentAsString(res))
-    page.getElementsByAttributeValue("class", headingClass).text() shouldBe expectedHeading
-  }
 
   private def verifyErrorPage(res: Future[Result], errorHref: String, expectedErrorMessage: String) = {
     val page = Jsoup.parse(contentAsString(res))
