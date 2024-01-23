@@ -78,7 +78,7 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
       res.status shouldBe NOT_FOUND
     }
 
-    "return 500 when backLinkUrk fails host policy checks" in new AppointSomePropertiesSetup {
+    "return 500 when backLinkUrl fails host policy checks" in new AppointSomePropertiesSetup {
 
       val backLink = "http://malicioussite.com/"
 
