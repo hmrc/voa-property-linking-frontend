@@ -136,64 +136,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")
   }
 
-  "isThisYourAgentPage" should "go back to the agent code page" in {
-    stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
-    val res = testController.isCorrectAgent()(FakeRequest())
-    status(res) shouldBe OK
-    verifyBackLink(
-      res,
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code?backLinkUrl=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome"
-    )
-  }
-
-  "isThisYourAgentPage" should "display the correct content in english" in new IsThisYourAgentPageTestCase
-  with English {
-    doc.title shouldBe "Is this your agent? - Valuation Office Agency - GOV.UK"
-    caption shouldBe "Appoint an agent"
-    heading shouldBe "Is this your agent?"
-    agentDetails shouldBe "Some Org AN ADDRESS"
-    radioLabels.asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Yes",
-      "No, enter a new code"
-    )
-    continueButton shouldBe "Continue"
-  }
-  "isThisYourAgentPage" should "display the correct content in welsh" in new IsThisYourAgentPageTestCase with Welsh {
-    doc.title shouldBe "Ai’ch asiant chi yw hwn? - Valuation Office Agency - GOV.UK"
-    caption shouldBe "Penodi asiant"
-    heading shouldBe "Ai’ch asiant chi yw hwn?"
-    agentDetails shouldBe "Some Org AN ADDRESS"
-    radioLabels.asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Iawn",
-      "Na, nodwch god newydd"
-    )
-    continueButton shouldBe "Yn eich blaen"
-  }
-
-  "agentSelected" should "return 400 Bad Request when no option is selected" in {
-    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(managingProperty)))
-    val res =
-      testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
-        FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> ""))
-    status(res) shouldBe BAD_REQUEST
-    verifyErrorPage(res, "#isThisYourAgent", "Select yes if this is your agent")
-  }
-
-  "agentSelected" should "return 303 See Other and go to start page when user confirms that the presented agent is not their agent" in {
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(managingProperty)))
-    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
-      .thenReturn(Future.successful(()))
-
-    val res =
-      testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
-        FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "false"))
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code")
-  }
-
   "agentSelected" should "return 303 Ok and go to the check your answers page if organisation have no authorisations" in {
     stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
     when(

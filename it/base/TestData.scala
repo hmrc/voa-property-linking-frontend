@@ -215,4 +215,25 @@ trait TestData {
     address = ""
   )
 
+  val ownerAuthResultWithOneAuthorisation = OwnerAuthResult(
+    start = 1,
+    size = 15,
+    filterTotal = 1,
+    total = 1,
+    authorisations = Seq(OwnerAuthorisation(
+      authorisationId = 4222211L,
+      status = "APPROVED",
+      submissionId = "PLSubId",
+      uarn = 999000111L,
+      address = "123, SOME ADDRESS, SOME TOWN, AB1 CD2",
+      localAuthorityRef = "BAREF",
+      agents = Seq(OwnerAuthAgent(
+        authorisedPartyId = 12L,
+        organisationId = 1L,
+        organisationName = "Some Org name",
+        agentCode = 1001
+      ))
+    ))
+  )
+
 }
