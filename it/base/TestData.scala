@@ -236,29 +236,4 @@ trait TestData {
     ))
   )
 
-  val ownerAuthResultWithOneAuthorisationAndOtherAgent = OwnerAuthResult(
-    start = 0,
-    size = 1,
-    filterTotal = 2,
-    total = 10,
-    authorisations = Seq(
-      OwnerAuthorisation(
-        authorisationId = 1,
-        status = "",
-        submissionId = "",
-        uarn = 1L,
-        address = "Test Address",
-        localAuthorityRef = "",
-        agents = Seq(
-          OwnerAuthAgent(
-            authorisedPartyId = 1L,
-            organisationId = 1L,
-            organisationName = "Test Agent",
-            agentCode = 1002
-          )
-        )
-      )
-    )
-  )
-
 }

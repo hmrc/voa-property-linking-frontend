@@ -82,7 +82,7 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
   }
 
   s"AddAgentController agentSelected method should redirect to the check your answers page if organisation has no authorisations and the user chooses yes" when {
-    lazy val res = postIsCorrectAgentPage("NoAuths")
+    lazy val res = postIsCorrectAgentPage(properties = 0)
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -90,8 +90,8 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
     }
   }
 
-  s"AddAgentController agentSelected method should redirect to the agentToManageOnePropertyNoExistingAgent page if organisation has only one authorisation and no existing agent and the user chooses yes" when {
-    lazy val res = postIsCorrectAgentPage("OneAuthNoAgent")
+  s"AddAgentController agentSelected method should redirect to the agentToManageOneProperty page if organisation has only one authorisation and the user chooses yes" when {
+    lazy val res = postIsCorrectAgentPage(properties = 1)
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -99,17 +99,8 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
     }
   }
 
-  s"AddAgentController agentSelected method should redirect to the agentToManageOneProperty page if organisation has only one authorisation and an existing agent and the user chooses yes" when {
-    lazy val res = postIsCorrectAgentPage("OneAuthOneOtherAgent")
-
-    "has the correct status and redirect location" in {
-      res.status shouldBe SEE_OTHER
-      res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
-    }
-  }
-
-  s"AddAgentController agentSelected method should redirect to the agentToManageMultipleProperties page if organisation has only multiple authorisations and the user chooses yes" when {
-    lazy val res = postIsCorrectAgentPage("NoAgentMultipleAuths")
+  s"AddAgentController agentSelected method should redirect to the agentToManageMultipleProperties page if organisation has multiple authorisations and the user chooses yes" when {
+    lazy val res = postIsCorrectAgentPage(properties = 2)
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -195,7 +186,7 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
     Jsoup.parse(res.body)
   }
 
-  private def postIsCorrectAgentPage(scenario: String) = {
+  private def postIsCorrectAgentPage(properties: Int) = {
 
     implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
@@ -221,12 +212,10 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
         }
     }
 
-    val authData: OwnerAuthResult = scenario match {
-      case "OneAuthOneAgent" => testOwnerAuthResult1
-      case "NoAuths" => testOwnerAuthResultNoProperties
-      case "OneAuthNoAgent" => ownerAuthResultWithOneAuthorisation
-      case "OneAuthOneOtherAgent" => ownerAuthResultWithOneAuthorisationAndOtherAgent
-      case "NoAgentMultipleAuths" => testOwnerAuthResultMultipleProperty
+    val authData: OwnerAuthResult = properties match {
+      case 0 => testOwnerAuthResultNoProperties
+      case 1 => ownerAuthResultWithOneAuthorisation
+      case 2 => testOwnerAuthResultMultipleProperty
       case _ => testOwnerAuthResult
     }
 
