@@ -2,14 +2,15 @@ package controllers
 
 import base.ISpecBase
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.AgentSummary
+import models.propertyrepresentation.{AgentSelected, AgentSummary, SearchedAgent, SelectedAgent}
+import models.searchApi.OwnerAuthResult
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
 import play.api.http.Status.OK
 import play.api.libs.json.Json
 import play.api.test.Helpers._
-import repositories.ManageAgentSessionRepository
+import repositories.{AppointAgentSessionRepository, ManageAgentSessionRepository}
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.time.LocalDate
@@ -79,6 +80,43 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
       getRequest(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed")
     }
   }
+
+  s"AddAgentController agentSelected method should redirect to the check your answers page if organisation has no authorisations and the user chooses yes" when {
+    lazy val res = postIsCorrectAgentPage("NoAuths")
+
+    "has the correct status and redirect location" in {
+      res.status shouldBe SEE_OTHER
+      res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
+    }
+  }
+
+  s"AddAgentController agentSelected method should redirect to the agentToManageOnePropertyNoExistingAgent page if organisation has only one authorisation and no existing agent and the user chooses yes" when {
+    lazy val res = postIsCorrectAgentPage("OneAuthNoAgent")
+
+    "has the correct status and redirect location" in {
+      res.status shouldBe SEE_OTHER
+      res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
+    }
+  }
+
+  s"AddAgentController agentSelected method should redirect to the agentToManageOneProperty page if organisation has only one authorisation and an existing agent and the user chooses yes" when {
+    lazy val res = postIsCorrectAgentPage("OneAuthOneOtherAgent")
+
+    "has the correct status and redirect location" in {
+      res.status shouldBe SEE_OTHER
+      res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
+    }
+  }
+
+  s"AddAgentController agentSelected method should redirect to the agentToManageMultipleProperties page if organisation has only multiple authorisations and the user chooses yes" when {
+    lazy val res = postIsCorrectAgentPage("NoAgentMultipleAuths")
+
+    "has the correct status and redirect location" in {
+      res.status shouldBe SEE_OTHER
+      res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+    }
+  }
+
 
   private def getRequest(url: String): Document = {
 
@@ -156,5 +194,61 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
     res.status shouldBe NOT_FOUND
     Jsoup.parse(res.body)
   }
+
+  private def postIsCorrectAgentPage(scenario: String) = {
+
+    implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
+
+    lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository = app.injector.instanceOf[AppointAgentSessionRepository]
+
+    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Agent", "Address", AgentSelected, None)
+
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, isTheCorrectAgent = true, None, None)
+
+    await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
+
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    val authData: OwnerAuthResult = scenario match {
+      case "OneAuthOneAgent" => testOwnerAuthResult1
+      case "NoAuths" => testOwnerAuthResultNoProperties
+      case "OneAuthNoAgent" => ownerAuthResultWithOneAuthorisation
+      case "OneAuthOneOtherAgent" => ownerAuthResultWithOneAuthorisationAndOtherAgent
+      case "NoAgentMultipleAuths" => testOwnerAuthResultMultipleProperty
+      case _ => testOwnerAuthResult
+    }
+
+    stubFor {
+      get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(authData).toString())
+        }
+    }
+
+    val requestBody = Json.obj(
+      "isThisYourAgent" -> "true"
+    )
+
+    await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome")
+        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .post(body = requestBody)
+    )
+  }
+
 
 }

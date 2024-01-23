@@ -170,21 +170,23 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
       }
     }
 
-    s"Redirect to the Choose a ratings list page when the user chooses $yesText" when {
-      lazy val res = validPostIsCorrectAgentPage(true)
-
-      "has the correct status and redirect location" in {
-        res.status shouldBe SEE_OTHER
-        res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
-      }
-    }
+    // These scenarios are for the ratings list being enabled. Check ListYearsFeatureSwitchISpec for when its disabled.
 
     s"Redirect to the Agent Code page when the user chooses $noText" when {
-      lazy val res = validPostIsCorrectAgentPage(false)
+      lazy val res = validPostIsCorrectAgentPage(answer = false)
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code")
+      }
+    }
+
+    s"Redirect to the Ratings List page when the user chooses $yesText" when {
+      lazy val res = validPostIsCorrectAgentPage(answer = true)
+
+      "has the correct status and redirect location" in {
+        res.status shouldBe SEE_OTHER
+        res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
       }
     }
 
@@ -237,7 +239,7 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
     )
 
     await(
-      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fagent-code?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome")
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome")
         .withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
