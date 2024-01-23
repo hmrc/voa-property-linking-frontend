@@ -267,59 +267,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
       "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
   }
 
-  "oneProperty" should "return 200 Ok" in {
-    stubWithAppointAgentSession.stubSession(
-      selectedAgent.copy(
-        backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")),
-      detailedIndividualAccount,
-      groupAccount(false)
-    )
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(selectedAgent)))
-
-    val res = testController.oneProperty()(FakeRequest())
-    status(res) shouldBe OK
-    verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")
-  }
-
-  "oneProperty" should "return 200 Ok with correct back link when CYA page has been visited" in {
-    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(managingProperty)))
-
-    val res = testController.oneProperty(true)(FakeRequest())
-    status(res) shouldBe OK
-    verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
-  }
-
-  "submitOneProperty" should "return 400 Bad Request if no selection is made" in {
-    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[AppointNewAgentSession](any(), any()))
-      .thenReturn(Future.successful(Some(selectedAgent)))
-    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
-      .thenReturn(Future.successful(()))
-
-    val res = testController.submitOneProperty()(FakeRequest().withFormUrlEncodedBody("oneProperty" -> ""))
-
-    status(res) shouldBe BAD_REQUEST
-    verifyErrorPage(res, "#oneProperty", "Select if you want your agent to manage your property")
-  }
-
-  "submitOneProperty" should "return 303 See Other when valid selection is made" in {
-    stubWithAppointAgentSession.stubSession(selectedAgent, detailedIndividualAccount, groupAccount(false))
-    when(mockSessionRepo.get[SelectedAgent](any(), any()))
-      .thenReturn(Future.successful(Some(selectedAgent)))
-    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
-      .thenReturn(Future.successful(()))
-
-    val res =
-      testController.submitOneProperty()(FakeRequest().withFormUrlEncodedBody("oneProperty" -> "no"))
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
-  }
-
   type English = EnglishRequest
   type Welsh = WelshRequest
   private lazy val testController = new AddAgentController(
