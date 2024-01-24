@@ -36,6 +36,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
   val assignRatingListHeadingWelsh = "Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?"
   val answerRatingList = "2023 and 2017 rating lists"
   val answerRatingListWelsh = "Rhestr ardrethu 2023 a rhestr ardrethu 2017"
+  val ratingList2017 = "2017 rating list"
+  val ratingList2017Welsh = "Rhestr ardrethu 2017"
+  val ratingList2023 = "2023 rating list"
+  val ratingList2023Welsh = "Rhestr ardrethu 2023"
 
   val agentHeadingId = "agent-heading"
   val agentValueId = "agent-value"
@@ -211,6 +215,83 @@ class CheckYourAnswersControllerISpec extends ISpecBase with HtmlComponentHelper
 
       lazy val document = getDocument(Welsh)
       document.getElementById(ratingsValueId).text() shouldBe answerRatingListWelsh
+      document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+      document.select(backLinkSelector).attr("href") shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+
+    }
+
+    "return 200 & display correct content (2017 rating list)" in new TestSetup(bothYears = Some(false), specificYears = Some("2017")) {
+
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        )
+      ))
+
+      await(mockAppointAgentPropertiesSessionRepository
+        .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
+
+
+      lazy val document = getDocument(English)
+      document.getElementById(ratingsValueId).text() shouldBe ratingList2017
+      document.select(backLinkSelector).text() shouldBe backLinkText
+      document.select(backLinkSelector).attr("href")shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+    }
+
+    "return 200 & display correct content (2017 rating list) - Welsh" in new TestSetup(bothYears = Some(false), specificYears = Some("2017")) {
+
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        )
+      ))
+      await(mockAppointAgentPropertiesSessionRepository
+        .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
+
+      lazy val document = getDocument(Welsh)
+      document.getElementById(ratingsValueId).text() shouldBe ratingList2017Welsh
+      document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+      document.select(backLinkSelector).attr("href") shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+
+    }
+
+    "return 200 & display correct content (2023 rating list)" in new TestSetup(bothYears = Some(false), specificYears = Some("2023")) {
+
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        )
+      ))
+
+      await(mockAppointAgentPropertiesSessionRepository
+        .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
+
+      lazy val document = getDocument(English)
+      document.getElementById(ratingsValueId).text() shouldBe ratingList2023
+      document.select(backLinkSelector).text() shouldBe backLinkText
+      document.select(backLinkSelector).attr("href")shouldBe
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+    }
+
+    "return 200 & display correct content (2023 rating list) - Welsh" in new TestSetup(bothYears = Some(false), specificYears = Some("2023")) {
+
+      await(mockAppointAgentSessionRepository.saveOrUpdate(
+        managingPropertyData.copy(
+          propertySelectedSize = 1,
+          backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        )
+      ))
+      await(mockAppointAgentPropertiesSessionRepository
+        .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
+
+      lazy val document = getDocument(Welsh)
+      document.getElementById(ratingsValueId).text() shouldBe ratingList2023Welsh
       document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
       document.select(backLinkSelector).attr("href") shouldBe
         "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
