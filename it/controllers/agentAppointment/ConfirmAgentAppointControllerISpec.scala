@@ -66,6 +66,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
   val youCanAssignSelector = "#what-happens-next-text"
   val managingAgentsLinkSelector = "#manage-agents-link"
   val goToHomeSelector = "#go-home-link"
+  val ratingsListSelector = "#rates-for"
 
   val managingAgentsLinkHref = "/business-rates-property-linking/my-organisation/agents"
   val goToHomeLinkHref = "/business-rates-dashboard/home"
@@ -94,6 +95,10 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
 
       s"has a bullet point on the screen of $addPropertiesText" in {
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
+      }
+
+      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+        document.select(ratingsListSelector).size() shouldBe 0
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -140,6 +145,10 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
+      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+        document.select(ratingsListSelector).size() shouldBe 0
+      }
+
       s"has a subheading on the screen of $whatHappensNextText" in {
         document.select(whatHappensNextSelector).text shouldBe whatHappensNextText
       }
@@ -182,6 +191,10 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
 
       s"has a bullet point on the screen of $addPropertiesText" in {
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
+      }
+
+      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+        document.select(ratingsListSelector).size() shouldBe 0
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -228,6 +241,10 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
+      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+        document.select(ratingsListSelector).size() shouldBe 0
+      }
+
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
         document.select(whatHappensNextSelector).text shouldBe whatHappensNextTextWelsh
       }
@@ -272,6 +289,10 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
+      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+        document.select(ratingsListSelector).size() shouldBe 0
+      }
+
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
         document.select(whatHappensNextSelector).text shouldBe whatHappensNextTextWelsh
       }
@@ -314,6 +335,10 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
 
       s"has a bullet point on the screen of $addPropertiesText in welsh" in {
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
+      }
+
+      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+        document.select(ratingsListSelector).size() shouldBe 0
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
