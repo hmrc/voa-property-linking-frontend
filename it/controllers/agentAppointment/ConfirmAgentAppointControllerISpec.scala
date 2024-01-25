@@ -97,7 +97,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
-      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+      s"should not have a bullet point on the screen for the ratings list years" in {
         document.select(ratingsListSelector).size() shouldBe 0
       }
 
@@ -145,7 +145,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
-      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+      s"should not have a bullet point on the screen for the ratings list years" in {
         document.select(ratingsListSelector).size() shouldBe 0
       }
 
@@ -193,7 +193,55 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
-      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+      s"should not have a bullet point on the screen for the ratings list years" in {
+        document.select(ratingsListSelector).size() shouldBe 0
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextText
+      }
+
+      s"has text on the screen of $youCanAssignText" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignText
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsText
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeText
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct English content when the agent has been assigned to no properties" when {
+
+      lazy val document: Document = getDocument(English, "None")
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      s"has a header of '$headingText'" in {
+        document.select(headingSelector).text shouldBe headingText
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(onePropertySelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanText
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesText
+      }
+
+      s"should not have a bullet point on the screen for the ratings list years" in {
         document.select(ratingsListSelector).size() shouldBe 0
       }
 
@@ -241,7 +289,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
-      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+      s"should not have a bullet point on the screen for the ratings list years" in {
         document.select(ratingsListSelector).size() shouldBe 0
       }
 
@@ -289,7 +337,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
-      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+      s"should not have a bullet point on the screen for the ratings list years" in {
         document.select(ratingsListSelector).size() shouldBe 0
       }
 
@@ -337,7 +385,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
-      s"doesn't not have a bullet point on the screen for the ratings list years" in {
+      s"should not have a bullet point on the screen for the ratings list years" in {
         document.select(ratingsListSelector).size() shouldBe 0
       }
 
@@ -369,7 +417,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       case "One" => (ChooseFromList.name, true)
       case "Some" => (ChooseFromList.name, false)
       case "All" => (All.name, false)
-      case _ => ("Invalid", false)
+      case _ => (NoProperties.name, false)
     }
 
     val managingPropertyData: ManagingProperty = ManagingProperty(
