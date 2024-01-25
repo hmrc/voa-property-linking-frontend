@@ -409,6 +409,55 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
 
     }
 
+    "return 200 & display the correct Welsh content when the agent has been assigned to no properties" when {
+
+      lazy val document: Document = getDocument(Welsh, "None")
+
+      s"has a title of $titleText in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      s"has a header of '$headingText' in welsh" in {
+        document.select(headingSelector).text shouldBe headingTextWelsh
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(onePropertySelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText in welsh" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanTextWelsh
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText in welsh" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
+      }
+
+      s"should not have a bullet point on the screen for the ratings list years" in {
+        document.select(ratingsListSelector).size() shouldBe 0
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText in welsh" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextTextWelsh
+      }
+
+      s"has text on the screen of $youCanAssignText in welsh" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignTextWelsh
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen in welsh" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsTextWelsh
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen in welsh" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeTextWelsh
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+
   }
 
   def getDocument(language: Language, properties: String): Document = {
