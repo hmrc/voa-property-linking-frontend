@@ -18,110 +18,365 @@ import java.util.UUID
 class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponentHelpers {
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
-  val assignedToId = "rates-for"
+  val agentCode = 1001
+  val agentName = "Test Agent"
 
-  val linkID = "showAgent"
+  lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =
+    app.injector.instanceOf[AppointAgentSessionRepository]
+  lazy val mockAppointAgentPropertiesSessionRepository: AppointAgentPropertiesSessionRepository =
+    app.injector.instanceOf[AppointAgentPropertiesSessionRepository]
+  implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
+  val titleText = s"$agentName has been appointed to your account - Valuation Office Agency - GOV.UK"
+  val headingText = s"$agentName has been appointed to your account"
+  val thisAgentCanText = "This agent can:"
+  val addPropertiesText = "add properties to your account"
+  val multipleRatingsListsText = "act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account"
+  val ratingsList2017Text = "act for you on your property valuations on the 2017 rating list, for properties that you assign to them or they add to your account"
+  val ratingsList2023Text = "act for you on your property valuations on the 2023 rating list, for properties that you assign to them or they add to your account"
+  val whatHappensNextText = "What happens next"
+  val youCanAssignText = "You can assign or unassign this agent from your properties or change the rating lists they can act for you on by managing your agents."
+  val managingAgentsText = "managing your agents."
+  val goToHomeText = "Go to your account home"
+
+  val titleTextWelsh = s"Mae $agentName wedi’i benodi i’ch cyfrif - Valuation Office Agency - GOV.UK"
+  val headingTextWelsh = s"Mae $agentName wedi’i benodi i’ch cyfrif"
+  val thisAgentCanTextWelsh = "Gall yr asiant hwn:"
+  val addPropertiesTextWelsh = "ychwanegu eiddo at eich cyfrif"
+  val multipleRatingsListsTextWelsh = "act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account"
+  val ratingsList2017TextWelsh = "act for you on your property valuations on the 2017 rating list, for properties that you assign to them or they add to your account"
+  val ratingsList2023TextWelsh = "act for you on your property valuations on the 2023 rating list, for properties that you assign to them or they add to your account"
+  val whatHappensNextTextWelsh = "Beth sy’n digwydd nesaf"
+  val youCanAssignTextWelsh = "You can assign or unassign this agent from your properties or change the rating lists they can act for you on by managing your agents"
+  val managingAgentsTextWelsh = "managing your agents"
+  val goToHomeTextWelsh = "Ewch i hafan eich cyfrif"
+
+  val headingSelector = "h1"
+  val assignedToPropertiesSelector = "#assigned-to"
+  val thisAgentCanSelector = "#agent-can-text"
+  val addPropertiesSelector = "#agent-can-list > li:nth-child(1)"
+  val ratingsListSelector = "#rates-for"
+  val whatHappensNextSelector = "#what-happens-next-title"
+  val youCanAssignSelector = "#main-content > div > div > p:nth-child(5)"
+  val managingAgentsLinkSelector = "#showAgent"
+  val goToHomeSelector = "#go-home-link"
+
+  val managingAgentsLinkHref = "/business-rates-property-linking/my-organisation/agents"
+  val goToHomeLinkHref = "/business-rates-dashboard/home"
+
+  // These are all the scenarios where the agentListYears flag is enabled, see ConfirmAgentAppointControllerFSOnISpec for when its disabled
   "onPageLoad" should {
-    "return 200 & display correct content (both tax year rates)" in new TestSetup(Some(true), None) {
+    "return 200 & display the correct English content when the agent has been assigned to both list years" when {
 
-      await(
-        mockAppointAgentSessionRepository.saveOrUpdate(
-          managingPropertyData.copy(managingPropertyChoice = ChooseFromList.name)))
-      await(
-        mockAppointAgentPropertiesSessionRepository
-          .saveOrUpdate(propertiesSessionData.agentAppointAction.map(_.copy(propertyLinkIds = List("123")))))
+      lazy val document: Document = getDocument(English, ratingsList = "Both")
 
-      lazy val document = getDocument(English)
-      document
-        .getElementById(assignedToId)
-        .text() shouldBe "act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account"
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      s"has a header of '$headingText'" in {
+        document.select(headingSelector).text shouldBe headingText
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanText
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesText
+      }
+
+      s"has a bullet point on the screen of $multipleRatingsListsText" in {
+        document.select(ratingsListSelector).text shouldBe multipleRatingsListsText
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextText
+      }
+
+      s"has text on the screen of $youCanAssignText" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignText
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsText
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeText
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
 
     }
 
-    "return 200 & display correct content (2017 tax year rates)" in new TestSetup(Some(false), Some("2017")) {
+    "return 200 & display the correct English content when the agent has been assigned to the 2023 list year only" when {
 
-      lazy val document = getDocument(English)
-      document
-        .getElementById(assignedToId)
-        .text() shouldBe "act for you on your property valuations on the 2017 rating list, for properties that you assign to them or they add to your account"
+      lazy val document: Document = getDocument(English, ratingsList = "2023")
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      s"has a header of '$headingText'" in {
+        document.select(headingSelector).text shouldBe headingText
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanText
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesText
+      }
+
+      s"has a bullet point on the screen of $ratingsList2023Text" in {
+        document.select(ratingsListSelector).text shouldBe ratingsList2023Text
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextText
+      }
+
+      s"has text on the screen of $youCanAssignText" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignText
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsText
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeText
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
 
     }
 
-    "return 200 & display correct content (2023 tax year rates)" in new TestSetup(Some(false), Some("2023")) {
-      await(
-        mockAppointAgentSessionRepository.saveOrUpdate(
-          managingPropertyData
-            .copy(totalPropertySelectionSize = 1)
-            .copy(singleProperty = true)))
+    "return 200 & display the correct English content when the agent has been assigned to the 2017 list year only" when {
 
-      lazy val document = getDocument(English)
-      document
-        .getElementById(assignedToId)
-        .text() shouldBe "act for you on your property valuations on the 2023 rating list, for properties that you assign to them or they add to your account"
+      lazy val document: Document = getDocument(English, ratingsList = "2017")
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      s"has a header of '$headingText'" in {
+        document.select(headingSelector).text shouldBe headingText
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanText
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesText
+      }
+
+      s"has a bullet point on the screen of $ratingsList2017Text" in {
+        document.select(ratingsListSelector).text shouldBe ratingsList2017Text
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextText
+      }
+
+      s"has text on the screen of $youCanAssignText" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignText
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsText
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeText
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
     }
+
+    "return 200 & display the correct Welsh content when the agent has been assigned to both list years" when {
+
+      lazy val document: Document = getDocument(Welsh, ratingsList = "Both")
+
+      s"has a title of $titleText in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      s"has a header of '$headingText' in welsh" in {
+        document.select(headingSelector).text shouldBe headingTextWelsh
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText in welsh" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanTextWelsh
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText in welsh" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
+      }
+
+      s"has a bullet point on the screen of $multipleRatingsListsTextWelsh in welsh" in {
+        document.select(ratingsListSelector).text shouldBe multipleRatingsListsTextWelsh
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText in welsh" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextTextWelsh
+      }
+
+      s"has text on the screen of $youCanAssignText in welsh" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignTextWelsh
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen in welsh" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsTextWelsh
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen in welsh" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeTextWelsh
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct Welsh content when the agent has been assigned to the 2023 list year only" when {
+
+      lazy val document: Document = getDocument(Welsh, ratingsList = "2023")
+
+      s"has a title of $titleText  in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      s"has a header of '$headingText' in welsh" in {
+        document.select(headingSelector).text shouldBe headingTextWelsh
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText in welsh" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanTextWelsh
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText in welsh" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
+      }
+
+      s"has a bullet point on the screen of $ratingsList2023TextWelsh in welsh" in {
+        document.select(ratingsListSelector).text shouldBe ratingsList2023TextWelsh
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText in welsh" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextTextWelsh
+      }
+
+      s"has text on the screen of $youCanAssignText in welsh" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignTextWelsh
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen in welsh" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsTextWelsh
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen in welsh" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeTextWelsh
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct Welsh content when the agent has been assigned to the 2017 list year only" when {
+
+      lazy val document: Document = getDocument(Welsh, ratingsList = "2017")
+
+      s"has a title of $titleText in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      s"has a header of '$headingText' in welsh" in {
+        document.select(headingSelector).text shouldBe headingTextWelsh
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText in welsh" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanTextWelsh
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText in welsh" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
+      }
+
+      s"has a bullet point on the screen of $ratingsList2017TextWelsh in welsh" in {
+        document.select(ratingsListSelector).text shouldBe ratingsList2017TextWelsh
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText in welsh" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextTextWelsh
+      }
+
+      s"has text on the screen of $youCanAssignText in welsh" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignTextWelsh
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen in welsh" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsTextWelsh
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen in welsh" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeTextWelsh
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
   }
 
-  def getDocument(language: Language): Document = {
-    val res = await(
-      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/confirm-appoint-agent")
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
-        .withFollowRedirects(follow = false)
-        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-        .get()
-    )
-    res.status shouldBe OK
-    val document = Jsoup.parse(res.body)
+  def getDocument(language: Language, ratingsList: String): Document = {
 
-    if (language == English) {
-      document.title() shouldBe "Some Org has been appointed to your account - Valuation Office Agency - GOV.UK"
-      document.getElementsByClass("govuk-panel__title").text() shouldBe "Some Org has been appointed to your account"
-      document.getElementById("agent-can-text").text() shouldBe "This agent can:"
-      document.select("#agent-can-list > li:nth-child(1)").text() shouldBe "add properties to your account"
-      document.getElementById("what-happens-next-title").text() shouldBe "What happens next"
-      document
-        .select("#main-content > div > div > p:nth-child(5)")
-        .text() shouldBe "You can assign or unassign this agent from your properties or change the rating lists they can act for you on by managing your agents."
-      document.getElementById("go-home-link").text() shouldBe "Go to your account home"
-    } else {
-      document.title() shouldBe "Mae Some Org wedi’i benodi i’ch cyfrif - Valuation Office Agency - GOV.UK"
-      document.getElementsByClass("govuk-panel__title").text() shouldBe "Mae Some Org wedi’i benodi i’ch cyfrif"
-      document.getElementById("agent-can-text").text() shouldBe "Gall yr asiant hwn:"
-      document.select("#agent-can-list > li:nth-child(1)").text() shouldBe "ychwanegu eiddo at eich cyfrif"
-      document.getElementById("what-happens-next-title").text() shouldBe "Beth sy’n digwydd nesaf"
-      document
-        .getElementById("what-happens-next-text")
-        .text() shouldBe "Gallwch neilltuo neu ddadneilltuo’r asiant hwn o’ch eiddo trwy reoli eich asiantiaid."
-      document.getElementById("go-home-link").text() shouldBe "Ewch i hafan eich cyfrif"
+    val (bothRatingsListChoice, specificRatingsListChoice): (Option[Boolean], Option[String]) = ratingsList match {
+      case "Both" => (Some(true), None)
+      case "2023" => (Some(false), Some("2023"))
+      case "2017" => (Some(false), Some("2017"))
+      case _ => (None, None)
     }
-
-    document
-  }
-
-  class TestSetup(bothRatingList: Option[Boolean], specificRatingList: Option[String]) {
-
-    lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =
-      app.injector.instanceOf[AppointAgentSessionRepository]
-    lazy val mockAppointAgentPropertiesSessionRepository: AppointAgentPropertiesSessionRepository =
-      app.injector.instanceOf[AppointAgentPropertiesSessionRepository]
-    implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
-
-    val account = groupAccount(true)
-    val agentCode = 1001
-    val agentName = "Test Agent"
-    val backLinkUrl = "some/url"
 
     val managingPropertyData: ManagingProperty = ManagingProperty(
       agentCode = agentCode,
-      agentOrganisationName = "Some Org",
+      agentOrganisationName = agentName,
       isCorrectAgent = true,
-      managingPropertyChoice = All.name,
+      managingPropertyChoice = ChooseFromList.name,
       agentAddress = "An Address",
       backLink = None,
       totalPropertySelectionSize = 2,
       propertySelectedSize = 2,
-      bothRatingLists = bothRatingList,
-      specificRatingList = specificRatingList
+      singleProperty = true,
+      bothRatingLists = bothRatingsListChoice,
+      specificRatingList = specificRatingsListChoice
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(
@@ -150,5 +405,15 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
           aResponse.withStatus(OK).withBody("{}")
         }
     }
+
+    val res = await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/confirm-appoint-agent")
+        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .get()
+    )
+    res.status shouldBe OK
+    Jsoup.parse(res.body)
   }
 }
