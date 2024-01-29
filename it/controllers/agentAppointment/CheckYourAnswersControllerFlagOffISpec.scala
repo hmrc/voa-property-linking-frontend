@@ -7,7 +7,7 @@ import models.propertyrepresentation.AppointmentScope._
 import models.propertyrepresentation._
 import org.jsoup.Jsoup
 import play.api.http.HeaderNames
-import play.api.http.Status.{BAD_REQUEST, NOT_FOUND, OK, SEE_OTHER}
+import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import repositories.{AppointAgentPropertiesSessionRepository, AppointAgentSessionRepository}
@@ -15,7 +15,11 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class CheckYourAnswersControllerISpec extends ISpecBase {
+class CheckYourAnswersControllerFlagOffISpec extends ISpecBase {
+
+  override lazy val extraConfig: Map[String, Any] = Map(
+    "feature-switch.agentListYears.enabled" -> "false"
+  )
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   val agentCode = 1234
@@ -32,10 +36,6 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   val backLinkText = "Back"
   val agentHeadingText = "Agent"
   val agentAnswerText = "Test Agent"
-  val ratingListHeadingText = "Which rating list do you want this agent to act on for you?"
-  val ratingListAnswerBothText = "2023 and 2017 rating lists"
-  val ratingListAnswer2017Text = "2017 rating list"
-  val ratingListAnswer2023Text = "2023 rating list"
   val propertiesHeadingText = "Which properties do you want to assign to this agent?"
   val propertiesAnswerNoPropertiesText = "No properties"
   val propertiesAnswerOnePropertyText = "Your property"
@@ -50,10 +50,6 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   val backLinkTextWelsh = "Yn ôl"
   val agentHeadingTextWelsh = "Asiant"
   val agentAnswerTextWelsh = "Test Agent"
-  val ratingListHeadingTextWelsh = "Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?"
-  val ratingListAnswerBothTextWelsh = "Rhestr ardrethu 2023 a rhestr ardrethu 2017"
-  val ratingListAnswer2017TextWelsh = "Rhestr ardrethu 2017"
-  val ratingListAnswer2023TextWelsh = "Rhestr ardrethu 2023"
   val propertiesHeadingTextWelsh = "Pa eiddo ydych chi’n dymuno neilltuo ir asiant hwn?"
   val propertiesAnswerNoPropertiesTextWelsh = "Dim eiddo"
   val propertiesAnswerOnePropertyTextWelsh = "Eich eiddo"
@@ -68,9 +64,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   val agentHeadingLocator = "agent-heading"
   val agentAnswerLocator = "agent-value"
   val agentChangeLinkLocator = "change-agent"
-  val ratingListHeadingLocator = "ratings-heading"
-  val ratingListAnswerLocator = "ratings-value"
-  val ratingListChangeLinkLocator = "change-rating-years"
+  val ratingListHeadingLocator = "#ratings-heading"
+  val ratingListAnswerLocator = "#ratings-value"
+  val ratingListChangeLinkLocator = "#change-rating-years"
   val propertiesHeadingLocator = "properties-heading"
   val propertiesAnswerLocator = "properties-value"
   val propertiesChangeLinkLocator = "change-properties"
@@ -79,15 +75,13 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   val defaultBackLinkHref = "/business-rates-dashboard/home"
   val backLinkFromSessionHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
   val agentChangeLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code?fromCyaChange=true"
-  val ratingListChangeLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list?fromCyaChange=true"
   val multiplePropertiesChangeLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties?fromCyaChange=true"
   val onePropertyChangeLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property?fromCyaChange=true"
   val redirectLocation = "/business-rates-property-linking/my-organisation/confirm-appoint-agent"
 
-  "CheckYourAnswersController onPageLoad displays the correct content in English (Client has no properties & 2017 list year)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in English (Client has no properties)" which {
     lazy val res = getCheckYourAnswersPage(
       language = English,
-      listYear = "2017",
       assignedProperties = 0,
       totalProperties = 0,
       backLink = None
@@ -123,11 +117,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
     }
 
-    "has the correct rating list details in the summary list" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswer2017Text
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    "doesn't have any information about the rating list" in {
+      document.select(ratingListHeadingLocator).size shouldBe 0
+      document.select(ratingListAnswerLocator).size shouldBe 0
+      document.select(ratingListChangeLinkLocator).size shouldBe 0
     }
 
     "has the correct property details in the summary list" in {
@@ -142,10 +135,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Client has no properties & 2017 list year)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Client has no properties)" which {
     lazy val res = getCheckYourAnswersPage(
       language = Welsh,
-      listYear = "2017",
       assignedProperties = 0,
       totalProperties = 0,
       backLink = None
@@ -181,11 +173,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
     }
 
-    "has the correct rating list details in the summary list in Welsh" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingTextWelsh
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswer2017TextWelsh
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkTextWelsh $ratingListHeadingTextWelsh"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    "doesn't have any information about the rating list" in {
+      document.select(ratingListHeadingLocator).size shouldBe 0
+      document.select(ratingListAnswerLocator).size shouldBe 0
+      document.select(ratingListChangeLinkLocator).size shouldBe 0
     }
 
     "has the correct property details in the summary list in Welsh" in {
@@ -200,10 +191,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to only property & 2023 list year)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to only property)" which {
     lazy val res = getCheckYourAnswersPage(
       language = English,
-      listYear = "2023",
       assignedProperties = 1,
       totalProperties = 1,
       backLink = None
@@ -239,11 +229,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
     }
 
-    "has the correct rating list details in the summary list" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswer2023Text
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    "doesn't have any information about the rating list" in {
+      document.select(ratingListHeadingLocator).size shouldBe 0
+      document.select(ratingListAnswerLocator).size shouldBe 0
+      document.select(ratingListChangeLinkLocator).size shouldBe 0
     }
 
     "has the correct property details in the summary list" in {
@@ -258,10 +247,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to only property & 2023 list year)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to only property)" which {
     lazy val res = getCheckYourAnswersPage(
       language = Welsh,
-      listYear = "2023",
       assignedProperties = 1,
       totalProperties = 1,
       backLink = None
@@ -297,11 +285,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
     }
 
-    "has the correct rating list details in the summary list in Welsh" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingTextWelsh
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswer2023TextWelsh
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkTextWelsh $ratingListHeadingTextWelsh"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    "doesn't have any information about the rating list" in {
+      document.select(ratingListHeadingLocator).size shouldBe 0
+      document.select(ratingListAnswerLocator).size shouldBe 0
+      document.select(ratingListChangeLinkLocator).size shouldBe 0
     }
 
     "has the correct property details in the summary list in Welsh" in {
@@ -316,10 +303,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to all properties & both list years)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to all properties)" which {
     lazy val res = getCheckYourAnswersPage(
       language = English,
-      listYear = "Both",
       assignedProperties = 10,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref)
@@ -355,11 +341,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
     }
 
-    "has the correct rating list details in the summary list" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothText
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    "doesn't have any information about the rating list" in {
+      document.select(ratingListHeadingLocator).size shouldBe 0
+      document.select(ratingListAnswerLocator).size shouldBe 0
+      document.select(ratingListChangeLinkLocator).size shouldBe 0
     }
 
     "has the correct property details in the summary list" in {
@@ -374,10 +359,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to all properties & both list years)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to all properties)" which {
     lazy val res = getCheckYourAnswersPage(
       language = Welsh,
-      listYear = "Both",
       assignedProperties = 10,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref)
@@ -413,11 +397,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
     }
 
-    "has the correct rating list details in the summary list in Welsh" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingTextWelsh
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothTextWelsh
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkTextWelsh $ratingListHeadingTextWelsh"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    "doesn't have any information about the rating list" in {
+      document.select(ratingListHeadingLocator).size shouldBe 0
+      document.select(ratingListAnswerLocator).size shouldBe 0
+      document.select(ratingListChangeLinkLocator).size shouldBe 0
     }
 
     "has the correct property details in the summary list in Welsh" in {
@@ -432,10 +415,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to no properties & both list years)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to no properties)" which {
     lazy val res = getCheckYourAnswersPage(
       language = English,
-      listYear = "Both",
       assignedProperties = 0,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref)
@@ -471,11 +453,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
     }
 
-    "has the correct rating list details in the summary list" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothText
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    "doesn't have any information about the rating list" in {
+      document.select(ratingListHeadingLocator).size shouldBe 0
+      document.select(ratingListAnswerLocator).size shouldBe 0
+      document.select(ratingListChangeLinkLocator).size shouldBe 0
     }
 
     "has the correct property details in the summary list" in {
@@ -490,10 +471,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to no properties & both list years)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to no properties)" which {
     lazy val res = getCheckYourAnswersPage(
       language = Welsh,
-      listYear = "Both",
       assignedProperties = 0,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref)
@@ -529,11 +509,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
     }
 
-    "has the correct rating list details in the summary list in Welsh" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingTextWelsh
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothTextWelsh
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkTextWelsh $ratingListHeadingTextWelsh"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    "doesn't have any information about the rating list" in {
+      document.select(ratingListHeadingLocator).size shouldBe 0
+      document.select(ratingListAnswerLocator).size shouldBe 0
+      document.select(ratingListChangeLinkLocator).size shouldBe 0
     }
 
     "has the correct property details in the summary list in Welsh" in {
@@ -548,10 +527,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to some properties & both list years)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to some properties)" which {
     lazy val res = getCheckYourAnswersPage(
       language = English,
-      listYear = "Both",
       assignedProperties = 5,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref)
@@ -587,11 +565,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
     }
 
-    "has the correct rating list details in the summary list" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothText
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    "doesn't have any information about the rating list" in {
+      document.select(ratingListHeadingLocator).size shouldBe 0
+      document.select(ratingListAnswerLocator).size shouldBe 0
+      document.select(ratingListChangeLinkLocator).size shouldBe 0
     }
 
     "has the correct property details in the summary list" in {
@@ -606,10 +583,9 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to some properties & both list years)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to some properties)" which {
     lazy val res = getCheckYourAnswersPage(
       language = Welsh,
-      listYear = "Both",
       assignedProperties = 5,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref)
@@ -645,11 +621,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
     }
 
-    "has the correct rating list details in the summary list in Welsh" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingTextWelsh
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothTextWelsh
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkTextWelsh $ratingListHeadingTextWelsh"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    "doesn't have any information about the rating list" in {
+      document.select(ratingListHeadingLocator).size shouldBe 0
+      document.select(ratingListAnswerLocator).size shouldBe 0
+      document.select(ratingListChangeLinkLocator).size shouldBe 0
     }
 
     "has the correct property details in the summary list in Welsh" in {
@@ -667,7 +642,6 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   "CheckYourAnswersController onPageLoad returns 404 NOT FOUND when no ManagingPropertyData is found in the cache" which {
     lazy val res = getCheckYourAnswersPage(
       language = English,
-      listYear = "Both",
       assignedProperties = 10,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref),
@@ -679,47 +653,47 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (All properties & 2023 list year)" which {
-    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, "2023")
+  "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (All properties)" which {
+    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES)
 
     "has a status of 303 SEE OTHER with the correct redirect location & request sent to the backend" in {
       res.status shouldBe SEE_OTHER
       res.headers("Location").head shouldBe redirectLocation
 
-      val expJsonBody = getExpectedJsonBody(ALL_PROPERTIES, Seq("2023"))
+      val expJsonBody = getExpectedJsonBody(ALL_PROPERTIES)
       verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
         .withRequestBody(equalToJson(expJsonBody.toString())))
     }
   }
 
-  "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (Some properties & 2017 list year)" which {
-    lazy val res = postCheckYourAnswersPage(PROPERTY_LIST, "2017")
+  "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (Some properties)" which {
+    lazy val res = postCheckYourAnswersPage(PROPERTY_LIST)
 
     "has a status of 303 SEE OTHER with the correct redirect location & request sent to the backend" in {
       res.status shouldBe SEE_OTHER
       res.headers("Location").head shouldBe redirectLocation
 
-      val expJsonBody = getExpectedJsonBody(PROPERTY_LIST, Seq("2017"))
+      val expJsonBody = getExpectedJsonBody(PROPERTY_LIST)
       verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
         .withRequestBody(equalToJson(expJsonBody.toString())))
     }
   }
 
-  "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (No properties & both list years)" which {
-    lazy val res = postCheckYourAnswersPage(RELATIONSHIP, "Both")
+  "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (No properties)" which {
+    lazy val res = postCheckYourAnswersPage(RELATIONSHIP)
 
     "has a status of 303 SEE OTHER with the correct redirect location & request sent to the backend" in {
       res.status shouldBe SEE_OTHER
       res.headers("Location").head shouldBe redirectLocation
 
-      val expJsonBody = getExpectedJsonBody(RELATIONSHIP, Seq("2017", "2023"))
+      val expJsonBody = getExpectedJsonBody(RELATIONSHIP)
       verify(1, postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
         .withRequestBody(equalToJson(expJsonBody.toString())))
     }
   }
 
   "CheckYourAnswersController onSubmit returns 400 BAD REQUEST when an agent code isn't submitted" which {
-    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, "2023", Some("Missing agentCode"))
+    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, Some("Missing agentCode"))
 
     "has a status of 400 BAD REQUEST" in {
       res.status shouldBe BAD_REQUEST
@@ -727,21 +701,14 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   }
 
   "CheckYourAnswersController onSubmit returns 400 BAD REQUEST when a scope isn't submitted" which {
-    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, "2017", Some("Missing scope"))
+    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, Some("Missing scope"))
 
     "has a status of 400 BAD REQUEST" in {
       res.status shouldBe BAD_REQUEST
     }
   }
 
-  private def commonStubs(listYear: String, assignedProperties: Int, totalProperties: Int, backLink: Option[String] = None) = {
-    val (bothListYears, specificListYears): (Option[Boolean], Option[String]) = listYear match {
-      case "Both" => (Some(true), None)
-      case "2023" => (Some(false), Some("2023"))
-      case "2017" => (Some(false), Some("2017"))
-      case _ => (None, None)
-    }
-
+  private def commonStubs(assignedProperties: Int, totalProperties: Int, backLink: Option[String] = None) = {
     val selectedOption = (assignedProperties, totalProperties) match {
       case (0, _) => "none"
       case (assigned, total) if assigned >= 1 && assigned < total => "choose_from_list"
@@ -757,8 +724,8 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       backLink = backLink,
       totalPropertySelectionSize = totalProperties,
       propertySelectedSize = assignedProperties,
-      bothRatingLists = bothListYears,
-      specificRatingList = specificListYears
+      bothRatingLists = None,
+      specificRatingList = None
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(agentAppointAction =
@@ -797,8 +764,8 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  private def getCheckYourAnswersPage(language: Language, listYear: String, assignedProperties: Int, totalProperties: Int, backLink: Option[String], errorPage: Boolean = false) = {
-    commonStubs(listYear, assignedProperties, totalProperties, backLink)
+  private def getCheckYourAnswersPage(language: Language, assignedProperties: Int, totalProperties: Int, backLink: Option[String], errorPage: Boolean = false) = {
+    commonStubs(assignedProperties, totalProperties, backLink)
 
     if (errorPage) {
       mockAppointAgentSessionRepository.remove()
@@ -813,14 +780,14 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     )
   }
 
-  private def postCheckYourAnswersPage(scope: AppointmentScope, listYear: String, errorType: Option[String] = None) = {
+  private def postCheckYourAnswersPage(scope: AppointmentScope, errorType: Option[String] = None) = {
     val (assignedProperties, totalProperties) = scope match {
       case ALL_PROPERTIES => (10, 10)
       case PROPERTY_LIST => (5, 10)
       case RELATIONSHIP => (0, 10)
     }
 
-    commonStubs(listYear, assignedProperties, totalProperties)
+    commonStubs(assignedProperties, totalProperties)
 
     val request = Json.obj(
       "agentCode" -> agentCode,
@@ -841,14 +808,14 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     )
   }
 
-  private def getExpectedJsonBody(scope: AppointmentScope, listYears: Seq[String]) = Json.parse(
+  private def getExpectedJsonBody(scope: AppointmentScope) = Json.parse(
     s"""{
-      |   "agentRepresentativeCode": $agentCode,
-      |   "action":"APPOINT",
-      |   "scope":"$scope",
-      |   "propertyLinks":[
-      |       "123", "321"
-      |   ],
-      |   "listYears": ${Json.toJson(listYears)}
-      |}""".stripMargin)
+       |   "agentRepresentativeCode": $agentCode,
+       |   "action":"APPOINT",
+       |   "scope":"$scope",
+       |   "propertyLinks":[
+       |       "123", "321"
+       |   ],
+       |   "listYears": [ "2017", "2023" ]
+       |}""".stripMargin)
 }
