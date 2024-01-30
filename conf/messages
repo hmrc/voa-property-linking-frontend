@@ -937,9 +937,9 @@ search.select.link=Select
 
 #ADD PROPERTY START PAGE
 addPropertyStart.title=Add a property to your account
-addPropertyStart.client.title=Add a property to your client''s account
-addPropertyStart.p1=You''ll need to prove your connection to the property with evidence such as a business rates bill or lease. The date of the evidence must overlap with the period you owned or occupied the property. See <a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">how we will use the information you provide</a>.
-addPropertyStart.client.p1=You''ll need to prove your client''s connection to the property with evidence such as a business rates bill or lease. The date of the evidence must overlap with the period your client owned or occupied the property. See <a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">how we will use the information you provide</a>.
+addPropertyStart.client.title=Add a property to your client’s account
+addPropertyStart.p1=You’ll need to prove your connection to the property with evidence such as a business rates bill or lease. The date of the evidence must overlap with the period you owned or occupied the property. See <a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">how we will use the information you provide</a>.
+addPropertyStart.client.p1=You’ll need to prove your client’s connection to the property with evidence such as a business rates bill or lease. The date of the evidence must overlap with the period your client owned or occupied the property. See <a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">how we will use the information you provide</a>.
 addPropertyStart.p2=We aim to give you a decision on your request to add a property as quickly as possible, but it may take up to 15 working days.
 addPropertyStart.p3=When we approve your request you can:
 addPropertyStart.p3.li1=change property details
@@ -989,7 +989,7 @@ declareCapacity.fromDate.help=
 declareCapacity.toDate.help=Leave blank if still in occupation or ownership
 declareCapacity.submit.button=Add property
 label.capacity=What is your connection to the property?
-label.capacity.client=What is your client''s connection to the property?
+label.capacity.client=What is your client’s connection to the property?
 capacity.OWNER=Owner
 capacity.OCCUPIER=Occupier
 capacity.OWNER_OCCUPIER=Owner and occupier

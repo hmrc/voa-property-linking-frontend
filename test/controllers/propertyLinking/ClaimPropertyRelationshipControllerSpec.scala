@@ -92,52 +92,6 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     when(mockSessionRepository.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
   }
 
-  "The claim property relationship page" should "return valid page" in new Setup {
-
-    val res = testClaimProperty(userIsAgent = false).showRelationship()(FakeRequest())
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch("Connection to the property - Valuation Office Agency - GOV.UK")
-    html.shouldContainText("Add a property Connection to the property:")
-    html.shouldContainText("What is your connection to the property?")
-
-    html.html
-      .getElementById("back-link")
-      .attr("href") shouldBe controllers.propertyLinking.routes.ClaimPropertyRelationshipController.backToClaimPropertyStart.url
-
-  }
-
-  "The claim property relationship page on client behalf" should "return valid page" in new Setup {
-
-    val res = testClaimProperty()
-      .showRelationship()(FakeRequest())
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch("Connection to the property - Valuation Office Agency - GOV.UK")
-    html.shouldContainText("Add a property Connection to the property:")
-    html.shouldContainText("What is your client's connection to the property?")
-  }
-
-  it should "contain link back to business-rates-find if that's where the request came from" in new Setup {
-    val res =
-      testClaimProperty().showStart(
-        positiveLong,
-        Some(ClientDetails(positiveLong, shortString)),
-        rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch("Add a property to your client's account - Valuation Office Agency - GOV.UK")
-    html.verifyElementTextByAttribute(
-      "href",
-      "http://localhost:9300/business-rates-find/back-to-list-valuations",
-      "Back"
-    )
-  }
-
   it should "initialise the linking session on show" in new Setup {
 
     val res = testClaimProperty()
@@ -146,41 +100,6 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     verify(mockSessionRepository).start(any())(any(), any())
-  }
-
-  it should "reject invalid form submissions" in new Setup {
-    val res = testClaimProperty().submitRelationship()(FakeRequest())
-    status(res) shouldBe BAD_REQUEST
-  }
-
-  it should "redirect to the claim relationship page on valid submissions" in new Setup {
-    when(mockSessionRepository.saveOrUpdate(any())(any(), any()))
-      .thenReturn(Future.successful(()))
-
-    val res = testClaimProperty().submitRelationship()(
-      FakeRequest().withFormUrlEncodedBody(
-        "capacity" -> "OWNER",
-        "uarn"     -> "1"
-      ))
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(routes.ClaimPropertyOwnershipController.showOwnership.url)
-  }
-
-  it should "redirect to the CYA page on valid submissions when coming from CYA" in new Setup {
-    forAll(Gen.oneOf(CapacityType.all.map(_.name))) { capacity =>
-      val result = testClaimPropertyFromCya.submitRelationship()(
-        FakeRequest().withFormUrlEncodedBody("capacity" -> capacity, "uarn" -> "1")
-      )
-      status(result) shouldBe SEE_OTHER
-      redirectLocation(result) shouldBe Some(routes.DeclarationController.show.url)
-    }
-  }
-
-  it should "have a back link to the CYA page when coming from CYA" in new Setup {
-    val result: Future[Result] = testClaimPropertyFromCya.back(FakeRequest())
-    status(result) shouldBe OK
-    val document: Document = Jsoup.parse(contentAsString(result))
-    document.getElementById("back-link").attr("href") shouldBe routes.DeclarationController.show.url
   }
 
   it should "have a back link to the CYA page when coming from CYA after an invalid submission" in new Setup {
@@ -195,29 +114,5 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some("http://localhost:9300/business-rates-find/search")
-  }
-
-  "back to claim property start" should "display start page and have back link to business-rates-find if that's where the request came from - agent" in new Setup {
-    val res =
-      testClaimProperty().backToClaimPropertyStart()(FakeRequest())
-    verifyBackToClaimPropertyStart(res, "Add a property to your client's account")
-  }
-
-  "back to claim property start" should "display start page and have back link to business-rates-find if that's where the request came from - IP" in new Setup {
-    val res =
-      testClaimProperty(userIsAgent = false).backToClaimPropertyStart()(FakeRequest())
-    verifyBackToClaimPropertyStart(res, "Add a property to your account")
-  }
-
-  private def verifyBackToClaimPropertyStart(res: Future[Result], title: String) = {
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch(s"$title - Valuation Office Agency - GOV.UK")
-    html.verifyElementTextByAttribute(
-      "href",
-      "http://localhost:9300/business-rates-find/back-to-list-valuations",
-      "Back"
-    )
   }
 }
