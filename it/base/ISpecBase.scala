@@ -34,6 +34,8 @@ trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite wi
     "feature-switch.agentListYears.enabled" -> "true",
     "play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck",
     "play.filters.csrf.header.bypassHeaders.X-Requested-With" -> "*",
+    "microservice.services.vmv.host" -> mockHost,
+    "microservice.services.vmv.port" -> mockPort.toString,
     "microservice.services.property-linking.host" -> mockHost,
     "microservice.services.property-linking.port" -> mockPort.toString,
     "microservice.services.business-rates-authorisation.host" -> mockHost,
