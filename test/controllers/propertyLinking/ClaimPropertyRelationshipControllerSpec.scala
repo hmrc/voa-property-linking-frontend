@@ -92,24 +92,6 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
     when(mockSessionRepository.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
   }
 
-  it should "contain link back to business-rates-find if that's where the request came from" in new Setup {
-    val res =
-      testClaimProperty().showStart(
-        positiveLong,
-        Some(ClientDetails(positiveLong, shortString)),
-        rtp = ClaimPropertyReturnToPage.FMBR)(FakeRequest())
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch("Add a property to your client's account - Valuation Office Agency - GOV.UK")
-    html.verifyElementTextByAttribute(
-      "href",
-      "http://localhost:9300/business-rates-find/back-to-list-valuations",
-      "Back"
-    )
-  }
-
   it should "initialise the linking session on show" in new Setup {
 
     val res = testClaimProperty()
@@ -132,29 +114,5 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some("http://localhost:9300/business-rates-find/search")
-  }
-
-  "back to claim property start" should "display start page and have back link to business-rates-find if that's where the request came from - agent" in new Setup {
-    val res =
-      testClaimProperty().backToClaimPropertyStart()(FakeRequest())
-    verifyBackToClaimPropertyStart(res, "Add a property to your client's account")
-  }
-
-  "back to claim property start" should "display start page and have back link to business-rates-find if that's where the request came from - IP" in new Setup {
-    val res =
-      testClaimProperty(userIsAgent = false).backToClaimPropertyStart()(FakeRequest())
-    verifyBackToClaimPropertyStart(res, "Add a property to your account")
-  }
-
-  private def verifyBackToClaimPropertyStart(res: Future[Result], title: String) = {
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch(s"$title - Valuation Office Agency - GOV.UK")
-    html.verifyElementTextByAttribute(
-      "href",
-      "http://localhost:9300/business-rates-find/back-to-list-valuations",
-      "Back"
-    )
   }
 }

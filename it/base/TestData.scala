@@ -4,7 +4,7 @@ import models.properties.{AllowedAction, PropertyHistory, PropertyValuation, Val
 import models.propertyrepresentation.{AgentDetails, AgentList, AgentSummary}
 import models.referencedata.ReferenceData
 import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
-import models.{Accounts, DetailedIndividualAccount, GroupAccount, IndividualDetails, ListType}
+import models.{Accounts, Address, DetailedIndividualAccount, GroupAccount, IndividualDetails, ListType}
 
 import java.time.LocalDate
 
@@ -218,6 +218,30 @@ trait TestData {
     address = ""
   )
 
+  val testPropertyValuation: PropertyValuation = PropertyValuation(
+    valuationId = 10007980,
+    valuationStatus = ValuationStatus.CURRENT,
+    rateableValue = Some(BigDecimal(1000)),
+    scatCode = Some("scatCode"),
+    effectiveDate = LocalDate.of(2019, 2, 21),
+    currentFromDate = LocalDate.of(2019, 2, 21),
+    currentToDate = None,
+    listYear = "current",
+    primaryDescription = ReferenceData("code", "description"),
+    allowedActions = AllowedAction.values.toList,
+    listType = ListType.CURRENT,
+    propertyLinkEarliestStartDate = None
+  )
+
+  val testPropertyHistory = new PropertyHistory(
+    uarn = 2198480000L,
+    addressFull = "Test Address, Test Lane, T35 T3R",
+    localAuthorityCode = "4500",
+    localAuthorityReference = "2050466366770",
+    history = Seq(testPropertyValuation),
+    allowedActions = List(AllowedAction.PROPERTY_LINK)
+  )
+
   val ownerAuthResultWithOneAuthorisation = OwnerAuthResult(
     start = 1,
     size = 15,
@@ -237,50 +261,6 @@ trait TestData {
         agentCode = 1001
       ))
     ))
-  )
-
-  val propertyValuation1: PropertyValuation = PropertyValuation(
-    valuationId = 123,
-    valuationStatus = ValuationStatus.CURRENT,
-    rateableValue = Some(BigDecimal(1000)),
-    scatCode = Some("scatCode"),
-    effectiveDate = LocalDate.of(2019, 2, 21),
-    currentFromDate = LocalDate.of(2019, 2, 21),
-    currentToDate = None,
-    listYear = "current",
-    primaryDescription = ReferenceData("code", "description"),
-    allowedActions = AllowedAction.values.toList,
-    listType = ListType.CURRENT,
-    propertyLinkEarliestStartDate = None
-  )
-
-  val propertyValuation2: PropertyValuation = PropertyValuation(
-    valuationId = 123,
-    valuationStatus = ValuationStatus.CURRENT,
-    rateableValue = Some(BigDecimal(1000)),
-    scatCode = Some("scatCode"),
-    effectiveDate = LocalDate.of(2019, 2, 21),
-    currentFromDate = LocalDate.of(2019, 2, 21),
-    currentToDate = None,
-    listYear = "current",
-    primaryDescription = ReferenceData("code", "description"),
-    allowedActions = AllowedAction.values.toList,
-    listType = ListType.CURRENT,
-    propertyLinkEarliestStartDate = Some(LocalDate.now().plusYears(1))
-  )
-
-  val testPropertyValuations = Seq(
-    propertyValuation1,
-    propertyValuation2
-  )
-
-  val testPropertyHistory = new PropertyHistory(
-    uarn = 1L,
-    addressFull = "1 First Line, Second Line, BN11 1PZ",
-    localAuthorityCode = "1234",
-    localAuthorityReference = "123456789",
-    history = testPropertyValuations,
-    allowedActions = List(AllowedAction.PROPERTY_LINK)
   )
 
 }
