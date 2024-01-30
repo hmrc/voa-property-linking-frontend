@@ -263,28 +263,4 @@ trait TestData {
     ))
   )
 
-  val testPropertyValuation: PropertyValuation = PropertyValuation(
-    valuationId = 10007980,
-    valuationStatus = ValuationStatus.CURRENT,
-    rateableValue = Some(BigDecimal(1000)),
-    scatCode = Some("scatCode"),
-    effectiveDate = LocalDate.of(2019, 2, 21),
-    currentFromDate = LocalDate.of(2019, 2, 21),
-    currentToDate = None,
-    listYear = "current",
-    primaryDescription = ReferenceData("code", "description"),
-    allowedActions = AllowedAction.values.toList,
-    listType = ListType.CURRENT,
-    propertyLinkEarliestStartDate = None
-  )
-
-  val testPropertyHistory = new PropertyHistory(
-    uarn = 2198480000L,
-    addressFull = "Test Address, Test Lane, T35 T3R",
-    localAuthorityCode = "4500",
-    localAuthorityReference = "2050466366770",
-    history = Seq(testPropertyValuation),
-    allowedActions = List(AllowedAction.PROPERTY_LINK)
-  )
-
 }
