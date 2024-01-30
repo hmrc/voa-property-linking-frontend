@@ -42,6 +42,8 @@ trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite wi
     "microservice.services.business-rates-authorisation.port" -> mockPort.toString,
     "microservice.services.auth.host" -> mockHost,
     "microservice.services.auth.port" -> mockPort.toString,
+    "microservice.services.vmv.host" -> mockHost,
+    "microservice.services.vmv.port" -> mockPort.toString,
     "business-rates-dashboard-frontend.url" -> "/business-rates-dashboard"
   ) ++ extraConfig
 
