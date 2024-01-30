@@ -27,8 +27,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val headingText = "Connection to the property:"
   val captionText = "Add a property"
   val backLinkText = "Back"
-  val localCouncilReferenceText = "Local council reference: 123456789"
-  val propertyText = "Property: 1 First Line, Second Line, BN11 1PZ"
+  val localCouncilReferenceText = "Local council reference: 2050466366770"
+  val propertyText = "Property: Test Address, Test Lane, T35 T3R"
   val errorSummaryTitleText = "There is a problem"
   val errorSummaryMessageText = "What is your connection to the property? - Select an option"
   val errorSummaryMessageTextAgent = "What is your client’s connection to the property? - Select an option"
@@ -55,8 +55,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val headingTextWelsh = "Cysylltiad â’r eiddo:"
   val captionTextWelsh = "Ychwanegu eiddo"
   val backLinkTextWelsh = "Yn ôl"
-  val localCouncilReferenceTextWelsh = "Cyfeirnod yr awdurdod lleol: 123456789"
-  val propertyTextWelsh = "Eiddo: 1 First Line, Second Line, BN11 1PZ"
+  val localCouncilReferenceTextWelsh = "Cyfeirnod yr awdurdod lleol: 2050466366770"
+  val propertyTextWelsh = "Eiddo: Test Address, Test Lane, T35 T3R"
   val errorSummaryTitleTextWelsh = "Mae yna broblem"
   val errorSummaryMessageTextWelsh = "Beth yw eich cysylltiad chi â’r eiddo? - Dewiswch opsiwn"
   val errorSummaryMessageTextAgentWelsh = "Beth yw cysylltiad eich cleient â’r eiddo? - Dewiswch opsiwn"
@@ -1614,7 +1614,7 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     await(
       mockPropertyLinkingSessionRepository.saveOrUpdate(
         LinkingSession(
-          address = "1 First Line, Second Line, BN11 1PZ",
+          address = "Test Address, Test Lane, T35 T3R",
           uarn = 1L,
           submissionId = "PL-123456",
           personId = 1L,
@@ -1624,7 +1624,7 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
           propertyOccupancy = None,
           hasRatesBill = None,
           clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
-          localAuthorityReference = "123456789",
+          localAuthorityReference = "2050466366770",
           rtp = ClaimPropertyReturnToPage.FMBR,
           fromCya = Some(fromCya),
           isSubmitted = None
