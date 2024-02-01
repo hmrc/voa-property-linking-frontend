@@ -2,6 +2,7 @@
 logs
 project/project
 project/target
+app/assets
 target
 lib_managed
 tmp
