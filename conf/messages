@@ -1094,7 +1094,7 @@ linkSubmitted.whatNext.1=We will process your claim to this property as quickly 
 linkSubmitted.whatNext.2=You can see the status of your claim in <a class="govuk-link" href="{0}">your properties</a>. Once the claim is approved, the status will update.
 linkSubmitted.whatNext.3=We will contact you if we need more information.
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Go back to your dashboard</a>
-linkSubmitted.whatNext.5=You can see the status of your claim in <a class="govuk-link" href="{0}">your client''s properties</a>. Once the claim is approved, the status will update.
+linkSubmitted.whatNext.5=You can see the status of your claim in <a class="govuk-link" href="{0}">your client’s properties</a>. Once the claim is approved, the status will update.
 linkSubmitted.whatNext.6=We will process your request within 20 working days. We will send you a message when the detailed valuation is available.
 linkSubmitted.whatNext.7.preLink=You will be able to access the valuation from
 linkSubmitted.whatNext.7.ipLink=your properties
