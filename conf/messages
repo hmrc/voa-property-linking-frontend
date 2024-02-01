@@ -1051,7 +1051,7 @@ uploadRatesBill.reminder=The date of the bill must overlap with the period you o
 uploadRatesBill.client.reminder=The date of the bill must overlap with the period your client owned or occupied the property
 common.uploadFile.label=Upload a file
 chooseEvidence.title=Do you have a business rates bill for this property?
-chooseEvidence.client.title=Do you have your client''s business rates bill for this property?
+chooseEvidence.client.title=Do you have your client’s business rates bill for this property?
 hasRatesBill.true=Yes
 hasRatesBill.false=No
 label.ratesBill=Please upload a copy of the rates bill
@@ -1062,7 +1062,7 @@ uploadFile.info.content=<p>Converting a file into a PDF is similar for most soft
 
 #OCCUPIER EVIDENCE PAGE
 chooseEvidence.occupier.title=Do you have a lease or a licence to occupy for this property?
-chooseEvidence.occupier.client.title=Do you have your client''s lease or licence to occupy for this property?
+chooseEvidence.occupier.client.title=Do you have your client’s lease or licence to occupy for this property?
 chooseEvidence.occupier.title.caption=The lease or licence to occupy should be for {0}.
 chooseEvidence.occupier.option.lease=I have a lease
 chooseEvidence.occupier.option.license=I have a licence to occupy
