@@ -90,7 +90,8 @@
 
     @govukDetails(Details(
         summary = Text(messages(s"declareCapacity.panel.title$clientSuffix")),
-        content = HtmlContent(messages(s"declareCapacity.panel.text$clientSuffix"))
+        content = HtmlContent(messages(s"declareCapacity.panel.text$clientSuffix")),
+        attributes = Map("id" -> "multipleOwnership")
     ))
 
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOwnershipController.submitOwnership) {
