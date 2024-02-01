@@ -1042,7 +1042,7 @@ label.toDate.year.client=When was your client’s last day as the owner or occup
 uploadRatesBill.show.title=Upload your business rates bill
 
 
-uploadRatesBill.show.client.title=Upload your client''s business rates bill
+uploadRatesBill.show.client.title=Upload your client’s business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
@@ -1070,9 +1070,9 @@ chooseEvidence.occupier.option.noLeaseOrLicense=I do not have a lease or licence
 error.chooseEvidence.occupier.option.required=Select if you have a lease or licence to occupy for this property
 
 uploadEvidence.lease.title=Upload your lease
-uploadEvidence.lease.client.title=Upload your client''s lease
+uploadEvidence.lease.client.title=Upload your client’s lease
 uploadEvidence.license.title=Upload your licence to occupy
-uploadEvidence.license.client.title=Upload your client''s licence to occupy
+uploadEvidence.license.client.title=Upload your client’s licence to occupy
 
 uploadEvidence.serviceCharge.title=Upload your service charge statement
 uploadEvidence.stampDutyLandTaxForm.title=Upload your Stamp Duty Land Tax form
