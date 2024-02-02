@@ -992,7 +992,7 @@ linkingRequestSubmitted.p1=Gwnewch nodyn o’ch cyfeirnod gan y bydd angen i chi
 linkingRequestSubmitted.p.1=Os caiff y cais am eiddo ei gymeradwyo byddwch yn gallu gweld y prisiad manwl.   Gall hyn gymryd peth amser yn dibynnu ar natur eich cais.
 p.whatHappensNext=Beth sy’n digwydd nesaf
 linkSubmitted.whatNext.1=Byddwn yn prosesu’ch cais i hawlio’r eiddo hwn cyn gynted â phosibl ond gall hyn gymryd hyd at 15 diwrnod gwaith.
-linkSubmitted.whatNext.2=Gallwch weld statws eich hawliad yn<a class="govuk-link" href="{0}"> eich eiddo</a>. Unwaith y bydd yr hawliad wedi’i gymeradwyo, bydd y statws yn cael ei ddiweddaru.
+linkSubmitted.whatNext.2=Gallwch weld statws eich hawliad yn <a class="govuk-link" href="{0}">eich eiddo</a>. Unwaith y bydd yr hawliad wedi’i gymeradwyo, bydd y statws yn cael ei ddiweddaru.
 linkSubmitted.whatNext.3=Byddwn yn cysylltu â chi os bydd angen mwy o wybodaeth arnom.
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Ewch yn ôl i’ch dangosfwrdd</a>
 linkSubmitted.whatNext.5=Gallwch weld statws eich cais ar <a class="govuk-link" href="{0}">eiddo eich cleient</a>.   Unwaith y bydd y cais wedi’i gymeradwyo, bydd y statws yn diweddaru.
@@ -1802,7 +1802,7 @@ interestedStartDate.error.startDateMustBeBeforeEnd.client=Rhaid i’r dyddiad y 
 interestedStartDate.error.startDateMustBeBeforeEnd.relationship.fallback=perchennog neu feddiannydd
 interestedStartDate.error.startDateMustBeBeforeEnd.endDate.fallback=y dyddiad meddiannu olaf
 error.date.mustBeAfterStartDate.relationship.fallback=perchennog neu feddiannydd
-chooseEvidence.occupier.title=A oes gennych brydles neu drwydded i feddiannu''r eiddo hwn?
+chooseEvidence.occupier.title=A oes gennych brydles neu drwydded i feddiannu’r eiddo hwn?
 chooseEvidence.occupier.client.title=Oes gennych chi brydles neu drwydded eich cleient i feddiannu ar gyfer yr eiddo hwn?
 chooseEvidence.occupier.title.caption=Dylai’r brydles neu’r drwydded i feddiannu fod ar gyfer {0}.
 chooseEvidence.occupier.option.lease=Mae gen i brydles

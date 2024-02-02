@@ -1051,7 +1051,7 @@ uploadRatesBill.reminder=The date of the bill must overlap with the period you o
 uploadRatesBill.client.reminder=The date of the bill must overlap with the period your client owned or occupied the property
 common.uploadFile.label=Upload a file
 chooseEvidence.title=Do you have a business rates bill for this property?
-chooseEvidence.client.title=Do you have your client''s business rates bill for this property?
+chooseEvidence.client.title=Do you have your client’s business rates bill for this property?
 hasRatesBill.true=Yes
 hasRatesBill.false=No
 label.ratesBill=Please upload a copy of the rates bill
@@ -1062,7 +1062,7 @@ uploadFile.info.content=<p>Converting a file into a PDF is similar for most soft
 
 #OCCUPIER EVIDENCE PAGE
 chooseEvidence.occupier.title=Do you have a lease or a licence to occupy for this property?
-chooseEvidence.occupier.client.title=Do you have your client''s lease or licence to occupy for this property?
+chooseEvidence.occupier.client.title=Do you have your client’s lease or licence to occupy for this property?
 chooseEvidence.occupier.title.caption=The lease or licence to occupy should be for {0}.
 chooseEvidence.occupier.option.lease=I have a lease
 chooseEvidence.occupier.option.license=I have a licence to occupy
@@ -1094,7 +1094,7 @@ linkSubmitted.whatNext.1=We will process your claim to this property as quickly 
 linkSubmitted.whatNext.2=You can see the status of your claim in <a class="govuk-link" href="{0}">your properties</a>. Once the claim is approved, the status will update.
 linkSubmitted.whatNext.3=We will contact you if we need more information.
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Go back to your dashboard</a>
-linkSubmitted.whatNext.5=You can see the status of your claim in <a class="govuk-link" href="{0}">your client''s properties</a>. Once the claim is approved, the status will update.
+linkSubmitted.whatNext.5=You can see the status of your claim in <a class="govuk-link" href="{0}">your client’s properties</a>. Once the claim is approved, the status will update.
 linkSubmitted.whatNext.6=We will process your request within 20 working days. We will send you a message when the detailed valuation is available.
 linkSubmitted.whatNext.7.preLink=You will be able to access the valuation from
 linkSubmitted.whatNext.7.ipLink=your properties
