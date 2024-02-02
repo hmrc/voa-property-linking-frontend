@@ -494,7 +494,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + emptyInputAboveLabelErrorText
       }
 
-      genericUserPageStuff("","","", "owner")
+      genericUserPageTests("","","", "owner")
 
     }
 
@@ -519,7 +519,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + emptyInputAboveLabelErrorText
       }
 
-      genericAgentPageStuff("", "", "", "owner")
+      genericAgentPageTests("", "", "", "owner")
 
     }
 
@@ -544,7 +544,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + futureDateErrorOwnerText
       }
 
-      genericUserPageStuff("01", "01", "2999", "owner")
+      genericUserPageTests("01", "01", "2999", "owner")
     }
 
     "Return a bad request with errors for a user who's an occupier when the date is in the future" which {
@@ -568,7 +568,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + futureDateErrorOccupierText
       }
 
-      genericUserPageStuff("01", "01", "2999", "occupier")
+      genericUserPageTests("01", "01", "2999", "occupier")
 
     }
 
@@ -593,7 +593,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + futureDateErrorOwnerOccupierText
       }
 
-      genericUserPageStuff("01", "01", "2999", "both")
+      genericUserPageTests("01", "01", "2999", "both")
 
     }
 
@@ -618,7 +618,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + futureDateErrorOwnerAgentText
       }
 
-      genericAgentPageStuff("01", "01", "2999", "owner")
+      genericAgentPageTests("01", "01", "2999", "owner")
 
     }
 
@@ -643,7 +643,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + futureDateErrorOccupierAgentText
       }
 
-      genericAgentPageStuff("01", "01", "2999", "occupier")
+      genericAgentPageTests("01", "01", "2999", "occupier")
 
     }
 
@@ -668,7 +668,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + futureDateErrorOwnerOccupierAgentText
       }
 
-      genericAgentPageStuff("01", "01", "2999", "both")
+      genericAgentPageTests("01", "01", "2999", "both")
 
     }
 
@@ -693,7 +693,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + dateBeforeErrorOwnerText
       }
 
-      genericUserPageStuff("01", "02", "2021", "owner", endDate = occupancyEndDate)
+      genericUserPageTests("01", "02", "2021", "owner", endDate = occupancyEndDate)
 
     }
 
@@ -718,7 +718,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + dateBeforeErrorOccupierText
       }
 
-      genericUserPageStuff("01", "02", "2021", "occupier", endDate = occupancyEndDate)
+      genericUserPageTests("01", "02", "2021", "occupier", endDate = occupancyEndDate)
 
     }
 
@@ -743,7 +743,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + dateBeforeErrorOwnerOccupierText
       }
 
-      genericUserPageStuff("01", "02", "2021", "both", endDate = occupancyEndDate)
+      genericUserPageTests("01", "02", "2021", "both", endDate = occupancyEndDate)
 
     }
 
@@ -768,7 +768,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + dateBeforeErrorOwnerAgentText
       }
 
-      genericAgentPageStuff("01", "02", "2021", "owner", endDate = occupancyEndDate)
+      genericAgentPageTests("01", "02", "2021", "owner", endDate = occupancyEndDate)
 
     }
 
@@ -793,7 +793,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + dateBeforeErrorOccupierAgentText
       }
 
-      genericAgentPageStuff("01", "02", "2021", "occupier", endDate = occupancyEndDate)
+      genericAgentPageTests("01", "02", "2021", "occupier", endDate = occupancyEndDate)
 
     }
 
@@ -818,7 +818,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorText + dateBeforeErrorOwnerOccupierAgentText
       }
 
-      genericAgentPageStuff("01", "02", "2021", "both", endDate = occupancyEndDate)
+      genericAgentPageTests("01", "02", "2021", "both", endDate = occupancyEndDate)
 
     }
 
@@ -843,7 +843,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + emptyInputAboveLabelErrorTextWelsh
       }
 
-      genericUserPageStuffInWelsh("", "", "", "owner")
+      genericUserPageTestsInWelsh("", "", "", "owner")
 
     }
 
@@ -868,7 +868,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + emptyInputAboveLabelErrorTextWelsh
       }
 
-      genericAgentPageStuffInWelsh("", "", "", "owner")
+      genericAgentPageTestsInWelsh("", "", "", "owner")
 
     }
 
@@ -894,7 +894,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOwnerTextWelsh
       }
 
-      genericUserPageStuffInWelsh("01", "01", "2999", "owner")
+      genericUserPageTestsInWelsh("01", "01", "2999", "owner")
     }
 
     "Return a bad request with errors for a user who's an occupier when the date is in the future in welsh" which {
@@ -918,7 +918,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOccupierTextWelsh
       }
 
-      genericUserPageStuffInWelsh("01", "01", "2999", "occupier")
+      genericUserPageTestsInWelsh("01", "01", "2999", "occupier")
 
     }
 
@@ -943,7 +943,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOwnerOccupierTextWelsh
       }
 
-      genericUserPageStuffInWelsh("01", "01", "2999", "both")
+      genericUserPageTestsInWelsh("01", "01", "2999", "both")
 
     }
 
@@ -968,7 +968,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOwnerAgentTextWelsh
       }
 
-      genericAgentPageStuffInWelsh("01", "01", "2999", "owner")
+      genericAgentPageTestsInWelsh("01", "01", "2999", "owner")
 
     }
 
@@ -993,7 +993,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOccupierAgentTextWelsh
       }
 
-      genericAgentPageStuffInWelsh("01", "01", "2999", "occupier")
+      genericAgentPageTestsInWelsh("01", "01", "2999", "occupier")
 
     }
 
@@ -1018,7 +1018,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOwnerOccupierAgentTextWelsh
       }
 
-      genericAgentPageStuffInWelsh("01", "01", "2999", "both")
+      genericAgentPageTestsInWelsh("01", "01", "2999", "both")
 
     }
 
@@ -1043,7 +1043,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOwnerTextWelsh
       }
 
-      genericUserPageStuffInWelsh("01", "02", "2021", "owner", endDate = occupancyEndDate)
+      genericUserPageTestsInWelsh("01", "02", "2021", "owner", endDate = occupancyEndDate)
 
     }
 
@@ -1068,7 +1068,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOccupierTextWelsh
       }
 
-      genericUserPageStuffInWelsh("01", "02", "2021", "occupier", endDate = occupancyEndDate)
+      genericUserPageTestsInWelsh("01", "02", "2021", "occupier", endDate = occupancyEndDate)
 
     }
 
@@ -1093,7 +1093,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOwnerOccupierTextWelsh
       }
 
-      genericUserPageStuffInWelsh("01", "02", "2021", "both", endDate = occupancyEndDate)
+      genericUserPageTestsInWelsh("01", "02", "2021", "both", endDate = occupancyEndDate)
 
     }
 
@@ -1118,7 +1118,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOwnerAgentTextWelsh
       }
 
-      genericAgentPageStuffInWelsh("01", "02", "2021", "owner", endDate = occupancyEndDate)
+      genericAgentPageTestsInWelsh("01", "02", "2021", "owner", endDate = occupancyEndDate)
 
     }
 
@@ -1143,7 +1143,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOccupierAgentTextWelsh
       }
 
-      genericAgentPageStuffInWelsh("01", "02", "2021", "occupier", endDate = occupancyEndDate)
+      genericAgentPageTestsInWelsh("01", "02", "2021", "occupier", endDate = occupancyEndDate)
 
     }
 
@@ -1168,7 +1168,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOwnerOccupierAgentTextWelsh
       }
 
-      genericAgentPageStuffInWelsh("01", "02", "2021", "both", endDate = occupancyEndDate)
+      genericAgentPageTestsInWelsh("01", "02", "2021", "both", endDate = occupancyEndDate)
 
     }
 
@@ -1250,7 +1250,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     )
   }
 
-  private def genericUserPageStuff(day: String, month: String, year: String, relationshipChoice: String, endDate: Option[PropertyOccupancy] = None): Unit = {
+  private def genericUserPageTests(day: String, month: String, year: String, relationshipChoice: String, endDate: Option[PropertyOccupancy] = None): Unit = {
 
     lazy val res = submitOwnership(day = day, month = month, year = year, relationship = relationshipChoice, endDate = endDate)
 
@@ -1310,7 +1310,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     }
   }
 
-  private def genericAgentPageStuff(day: String, month: String, year: String, relationshipChoice: String, endDate: Option[PropertyOccupancy] = None): Unit = {
+  private def genericAgentPageTests(day: String, month: String, year: String, relationshipChoice: String, endDate: Option[PropertyOccupancy] = None): Unit = {
 
     lazy val res = submitOwnership(day = day, month = month, year = year, userIsAgent = true, relationship = relationshipChoice, endDate = endDate)
 
@@ -1370,7 +1370,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     }
   }
 
-  private def genericUserPageStuffInWelsh(day: String, month: String, year: String, relationshipChoice: String, endDate: Option[PropertyOccupancy] = None): Unit = {
+  private def genericUserPageTestsInWelsh(day: String, month: String, year: String, relationshipChoice: String, endDate: Option[PropertyOccupancy] = None): Unit = {
 
     lazy val res = submitOwnership(language = Welsh, day = day, month = month, year = year, relationship = relationshipChoice, endDate = endDate)
 
@@ -1430,7 +1430,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     }
   }
 
-  private def genericAgentPageStuffInWelsh(day: String, month: String, year: String, relationshipChoice: String, endDate: Option[PropertyOccupancy] = None): Unit = {
+  private def genericAgentPageTestsInWelsh(day: String, month: String, year: String, relationshipChoice: String, endDate: Option[PropertyOccupancy] = None): Unit = {
 
     lazy val res = submitOwnership(language = Welsh, day = day, month = month, year = year, userIsAgent = true, relationship = relationshipChoice, endDate = endDate)
 
