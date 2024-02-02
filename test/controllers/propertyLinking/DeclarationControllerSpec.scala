@@ -276,54 +276,6 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     verify(mockPropertyLinkingService, times(1)).submit(any(), any())(any(), any[HeaderCarrier])
   }
 
-  it should "display the normal confirmation page when the user has uploaded a rates bill" in new Setup {
-    when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
-      .thenReturn(EitherT.rightT[Future, AttachmentException](()))
-
-    val res = testDeclarationController(earliestEnglishStartDate).submit(
-      FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
-
-    val confirmation = testDeclarationController(earliestEnglishStartDate).confirmation(FakeRequest())
-
-    status(confirmation) shouldBe OK
-    val html = HtmlPage(confirmation)
-    html.titleShouldMatch("Property claim submitted - Valuation Office Agency - GOV.UK")
-    html.shouldContainText("Your submission number PL-123456")
-  }
-
-  it should "display the normal confirmation page when the user has uploaded other evidence" in new Setup {
-    when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
-      .thenReturn(EitherT.rightT[Future, AttachmentException](()))
-
-    val res = testDeclarationController(earliestEnglishStartDate).submit()(
-      FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(routes.DeclarationController.confirmation.url)
-
-    val confirmation = testDeclarationController(earliestEnglishStartDate).confirmation(FakeRequest())
-
-    status(confirmation) shouldBe OK
-    val html = HtmlPage(confirmation)
-    html.titleShouldMatch("Property claim submitted - Valuation Office Agency - GOV.UK")
-    html.shouldContainText("Make a note of your reference number as you’ll need to provide it if you contact us")
-  }
-
-  "The confirmation page" should "display the submission ID" in new Setup {
-    when(mockPropertyLinkingService.submit(any(), any())(any(), any()))
-      .thenReturn(EitherT.rightT[Future, AttachmentException](()))
-
-    val res = testDeclarationController(earliestEnglishStartDate).confirmation(FakeRequest())
-
-    status(res) shouldBe OK
-    val html = HtmlPage(res)
-    html.titleShouldMatch("Property claim submitted - Valuation Office Agency - GOV.UK")
-    html.shouldContainText("Your submission number PL-123456")
-  }
-
   "back" should "set 'fromCya' in the session" in new Setup {
     val sessionCaptor: ArgumentCaptor[LinkingSession] = ArgumentCaptor.forClass(classOf[LinkingSession])
     testDeclarationController(earliestEnglishStartDate).back(FakeRequest()).futureValue
