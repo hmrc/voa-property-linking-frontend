@@ -27,8 +27,8 @@ import controllers.PropertyLinkingController
 import models.EvidenceType.form
 import models._
 import models.attachment.request.{InitiateAttachmentRequest, UpscanInitiateRequest}
-import models.attachment.{Destinations, InitiateAttachmentPayload}
-import models.upscan.FileStatus.FileStatus
+import models.attachment.{Attachment, Destinations, InitiateAttachmentPayload}
+import models.upscan.FileStatus.{FileStatus, fileStatusForm}
 import models.upscan.{FileStatus, PreparedUpload}
 import play.api.Logging
 import play.api.data.FormError
@@ -111,28 +111,32 @@ class UploadController @Inject()(
   def result(evidence: EvidenceChoices): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
 
-      def resultPage(status: FileStatus): Result =
+      def resultPage(fileStatus: FileStatus, attachment: Option[Attachment] = None): Result = {
         Ok(
           uploadResultView(
             getEvidenceType(evidence),
             evidence,
             request.ses.submissionId,
             request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
-            status,
-            request.ses.fileReference
+            fileStatus,
+            request.ses.fileReference,
+            attachment
           )
         )
+      }
 
-      val result: OptionT[Future, Result] = for {
+      val result: OptionT[Future, Attachment] = for {
         reference <- OptionT(Future.successful(request.ses.fileReference))
-        scanResult <- OptionT(businessRatesAttachmentsService.getAttachment(reference).map(_.scanResult))
-        status <- OptionT(Future.successful(Option(scanResult.fileStatus)))
+        attachment <- OptionT.liftF(businessRatesAttachmentsService.getAttachment(reference))
+        fullAttachment = attachment
       } yield {
-        resultPage(status)
+        fullAttachment
       }
 
       result.value.map {
-        case Some(res) => res
+        case Some(attachment) =>
+          val fileStatus = attachment.scanResult.map(_.fileStatus).getOrElse(FileStatus.UPLOADING)
+          resultPage(fileStatus, Some(attachment))
         case None =>
           //todo I think this needs to be something else
           BadRequest(errorHandler.badRequestTemplate)
@@ -294,7 +298,7 @@ class UploadController @Inject()(
     hc: HeaderCarrier): Future[PreparedUpload] = {
     val initiateUploadRequest =
       UpscanInitiateRequest(
-        successRedirect = applicationConfig.serviceUrl + routes.UploadController.result(evidence),
+        successRedirect = applicationConfig.serviceUrl + routes.UploadResultController.show(evidence),
         errorRedirect = applicationConfig.serviceUrl + routes.UploadController.upscanFailure(evidence, None),
         Destinations.PROPERTY_LINK_EVIDENCE_DFE
       )
@@ -351,8 +355,7 @@ class UploadController @Inject()(
         .map(_ => Redirect(routes.UploadController.show(evidence, errorMessage)))
     }
 
-  def remove(
-              fileReference: String,
+  def remove(fileReference: String,
               evidence: EvidenceChoices
             ): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     val session = request.ses

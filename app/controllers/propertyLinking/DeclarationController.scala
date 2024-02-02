@@ -19,17 +19,20 @@ package controllers.propertyLinking
 import actions.AuthenticatedAction
 import actions.propertylinking.{WithLinkingSession, WithSubmittedLinkingSession}
 import binders.propertylinks.EvidenceChoices
+import cats.data.OptionT
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
+
 import javax.inject.Named
 import models.propertylinking.requests.PropertyLinkRequest
 import models._
+import models.attachment.Attachment
 import play.api.Logging
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import repositories.SessionRepo
 import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler

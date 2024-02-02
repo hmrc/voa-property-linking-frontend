@@ -21,13 +21,13 @@
 @import models._
 @import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
-@import helpers._
 @import models.EvidenceType
-@import models.CapacityType
 @import binders.propertylinks.EvidenceChoices.EvidenceChoices
 @import models.upscan.FileStatus.FileStatus
+@import models.attachment.Attachment
 
-@this(govukTag: GovukTag, govukSummaryList: GovukSummaryList, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+
+@this(govukTag: GovukTag, govukSummaryList: GovukSummaryList, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukButton: GovukButton, govukErrorSummary: GovukErrorSummary)
 
 @(
         evidenceType: EvidenceType,
@@ -35,7 +35,29 @@
         submissionId: String,
         uploadedFiles: Map[String, UploadedFileDetails] = Map(),
         status: FileStatus,
-        fileReference: Option[String])(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+        fileReference: Option[String],
+        optAttachment: Option[Attachment],
+        notReadyError: Boolean = false)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+
+@fileUploadStatusUrl = @{
+    controllers.propertyLinking.routes.UploadResultController.getUploadStatus.url
+}
+
+@attachmentFileName = @{
+    optAttachment.map(_.fileName).getOrElse("")
+}
+
+@attachmentDownloadLink = @{
+    optAttachment.flatMap(_.scanResult.flatMap(_.downloadUrl))
+}
+
+@attachmentFileNameHtml = {
+    @if(attachmentDownloadLink.isDefined) {
+            <a class="govuk-link" href="@attachmentDownloadLink.get">@attachmentFileName</a>
+    }else{
+            <p class="govuk-body">@attachmentFileName</p>
+    }
+}
 
 @title = @{
     (request.ses.clientDetails, evidenceType) match {
@@ -65,9 +87,27 @@
 
 @tag(status: FileStatus) = @{
     status match {
-        case _ @ FileStatus.UPLOADING => govukTag(Tag(content = Text("uploading"), classes = "govuk-tag--yellow"))
-        case _ @ FileStatus.READY => govukTag(Tag(content = Text("uploaded"), classes = "govuk-tag--green"))
-        case _ @ FileStatus.FAILED => govukTag(Tag(content = Text("failed"), classes = "govuk-tag--red"))
+        case _ @ FileStatus.UPLOADING => govukTag(Tag(content = Text("uploading"), classes = "govuk-tag--yellow", attributes = Map("id" -> "uploadStatus")))
+        case _ @ FileStatus.READY => govukTag(Tag(content = Text("uploaded"), classes = "govuk-tag--green", attributes = Map("id" -> "uploadStatus")))
+        case _ @ FileStatus.FAILED => govukTag(Tag(content = Text("failed"), classes = "govuk-tag--red", attributes = Map("id" -> "uploadStatus")))
+    }
+}
+
+@fileStatusConverter(fileStatus: String) = @{
+    fileStatus match {
+        case "UPLOADING" => FileStatus.UPLOADING
+        case "READY" => FileStatus.READY
+        case "FAILED" => FileStatus.FAILED
+        case _ => status
+
+    }
+}
+
+
+@removeLink(fileReference: Option[String]) = @{
+    fileReference match {
+        case Some(value) => value
+        case None => ""
     }
 }
 
@@ -76,63 +116,113 @@
     backUri = backUri
 ) {
 
+    @if(notReadyError) {
+        @govukErrorSummary(
+            ErrorSummary(
+                errorList = Seq(ErrorLink(
+                    href = Some(""),
+                    content = Text(messages("error.common.noValueSelected"))
+                )),
+                title = Text(messages("error.propertyRepresentation.title"))
+            )
+        )
+    }
+
     @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
-    <script>
-            function makeGetRequest() {
-                $.ajax({
-                    url: $("#fileUploadStatusUrl").text(),  // Replace with attachment API endpoint
-                    method: 'GET',
-                    dataType: 'json',  // Specify to expect JSON response
-                    success: function (responseBody, status, xmlHttpRequest) {
-                        //function - callback that gets executed on a successful AJAX request
-                        console.log('Data received:', responseBody);
-                        console.log('Status:', status);
-                        console.log('Response Headers:', xmlHttpRequest.getAllResponseHeaders());
-
-                        // Parse the nested JSON response model
-                        var fileStatus = responseBody.scanResult.fileStatus;
-                        console.log('File status:', fileStatus);
-
-                        var dataTable = $('#example').DataTable();
-
-
-                    },
-                    error: function (xmlHttpRequest, status, error) {
-                        //function - callback that gets executed if the AJAX request encounters an error
-                        console.error('AJAX error:', status, error);
-                        console.log('Response Text:', xmlHttpRequest.responseText);
-                        console.log('Status:', status);
-                    }
-                });
-            }
-
-            makeGetRequest();
-
-            // Set up an interval to make the AJAX call every 30 seconds
-            var intervalId = setInterval(makeGetRequest, 30000);  // 30 seconds in milliseconds
-
-    </script>
-
-    <span id="fileUploadStatusUrl">@{s"${config.attachmentsUrl}/attachments/${fileReference.getOrElse("")}"}</span>
-
+    <span class="govuk-caption-l">@messages("caption.add.property")</span>
+    <h1 class="govuk-heading-l">@title</h1>
+    <p class="govuk-hint">@messages("fileUploadResult.hintText")</p>
 
 
     @govukSummaryList(SummaryList(
         classes = "govuk-summary-list--long-key",
         rows = Seq(
             SummaryListRow(
-                key = Key(content = Text("receipt2.jpg")),
+                key = Key(content = HtmlContent(attachmentFileNameHtml)),
                 value = Value(content = HtmlContent(tag(status))),
                 actions = Some(Actions(
                     items = Seq(
                         ActionItem(
-                            href = "#",
+                            href = controllers.propertyLinking.routes.UploadController.remove(removeLink(request.ses.fileReference), evidenceChoice).url,
                             content = Text("Remove"),
-                            visuallyHiddenText = Some("receipt1.jpg")
+                            visuallyHiddenText = Some(attachmentFileName)
                         )
                     )
-                ))
-            )
-        )
-    ))
+                )))
+    )))
+
+    @formWithCSRF(action = controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, status.toString)) {
+        @govukButton(Button(
+            content = Text(messages("label.continue")),
+            attributes = Map("id" -> "continue")
+        ))
+    }
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript">
+            function makeGetRequest() {
+
+                $.ajax({
+                    url: "@fileUploadStatusUrl",
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (responseBody, status, xmlHttpRequest) {
+                        updateTag(responseBody);
+                        updateFormAction(responseBody)
+                    },
+                    error: function (xmlHttpRequest, status, error) {
+                    }
+                });
+            }
+
+            // Function to update the tag with the new status
+            function updateTag(newStatus) {
+                var ddElement = document.querySelector('.govuk-summary-list__value strong');
+                if (ddElement) {
+                    ddElement.className = getStatusClass(newStatus);
+                    ddElement.textContent = getStatusText(newStatus);
+                }
+            }
+
+            // Function to get the status text based on the provided status
+            function getStatusText(status) {
+                switch (status) {
+                    case "UPLOADING":
+                        return "uploading";
+                    case "READY":
+                        return "uploaded";
+                    case "FAILED":
+                        return "failed";
+                    default:
+                        return "";
+                }
+            }
+
+            // Function to get the status class based on the provided status
+            function getStatusClass(status) {
+                switch (status) {
+                    case "UPLOADING":
+                        return "govuk-tag govuk-tag--yellow";
+                    case "READY":
+                        return "govuk-tag govuk-tag--green";
+                    case "FAILED":
+                        return "govuk-tag govuk-tag--red";
+                    default:
+                        return "";
+                }
+            }
+
+            // Function to update the form action with the new status
+            function updateFormAction(newStatus) {
+                var formElement = document.querySelector('#main-content > div > div > form');
+                if (formElement) {
+                    formElement.action = '@controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, status.toString)'.replace('@status.toString', newStatus);
+                }
+            }
+
+            var intervalId = setInterval(makeGetRequest, 1000);
+    </script>
+
 }

@@ -16,7 +16,12 @@
 
 package models.upscan
 
+import play.api.data.Form
+import play.api.data.Forms.{nonEmptyText, single}
+import play.api.mvc.PathBindable
 import utils.JsonUtils
+
+import scala.util.Try
 
 object FileStatus extends Enumeration {
   type FileStatus = Value
@@ -26,4 +31,17 @@ object FileStatus extends Enumeration {
   val FAILED = Value("FAILED")
 
   implicit val format = JsonUtils.enumFormat(FileStatus)
+
+  implicit object Binder extends PathBindable[FileStatus] {
+
+    override def bind(key: String, value: String): Either[String, FileStatus] =
+      Try(FileStatus.withName(value)).toOption
+        .map(Right.apply)
+        .getOrElse(Left(s"Invalid value for FileStatus: $value"))
+
+    override def unbind(key: String, value: FileStatus): String = value.toString
+  }
+
+  val fileStatusForm = Form(single("fileStatus" -> nonEmptyText))
+
 }

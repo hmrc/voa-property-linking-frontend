@@ -201,11 +201,15 @@ GET         /my-organisation/claim/property-links/evidence                      
 POST        /my-organisation/claim/property-links/evidence                                    controllers.propertyLinking.ChooseEvidenceController.submit
 POST        /my-organisation/claim/property-links/occupier-evidence                           controllers.propertyLinking.ChooseEvidenceController.submitOccupierForm
 GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorMessage: Option[String] ?= None)
-GET         /my-organisation/claim/property-links/evidence/:choice/upload/result              controllers.propertyLinking.UploadController.result(choice: EvidenceChoices)
+GET         /my-organisation/claim/property-links/evidence/:choice/upload/result              controllers.propertyLinking.UploadResultController.show(choice: EvidenceChoices)
+GET         /my-organisation/claim/property-links/evidence/:choice/upload/result/:status      controllers.propertyLinking.UploadResultController.submit(choice: EvidenceChoices, status: String)
+
+GET         /my-organisation/claim/property-links/evidence/scan-status                        controllers.propertyLinking.UploadResultController.getUploadStatus
+
 POST        /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.continue(choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/initiate            controllers.propertyLinking.UploadController.initiate(choice: EvidenceChoices)
 GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorMessage: Option[String])
-POST        /my-organisation/claim/property-links/evidence/:choice/upload/remove              controllers.propertyLinking.UploadController.remove(fileReference: String, choice: EvidenceChoices)
+GET         /my-organisation/claim/property-links/evidence/:choice/upload/remove              controllers.propertyLinking.UploadController.remove(fileReference: String, choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/evidence-type                      controllers.propertyLinking.UploadController.updateEvidenceType
 GET         /my-organisation/claim/property-links/summary                                     controllers.propertyLinking.DeclarationController.show
 GET         /my-organisation/claim/property-links/summary/back                                controllers.propertyLinking.DeclarationController.back

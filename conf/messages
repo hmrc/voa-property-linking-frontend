@@ -1080,6 +1080,9 @@ uploadEvidence.landRegistryTitle.title=Upload your Land Registry title
 uploadEvidence.waterRateDemand.title=Upload your water rate demand
 uploadEvidence.otherUtilityBill.title=Upload your utility bill
 
+#FILE UPLOAD RESULTS PAGE
+fileUploadResult.hintText=The selected file must be a Word document, Excel spreadsheet, PDF or image (PNG or JPG) and be smaller than 10MB.
+
 #LINK REQUEST CONFIRMATION
 
 linkingRequestSubmitted.title=We’ve received your request to add the property to your business’s customer record

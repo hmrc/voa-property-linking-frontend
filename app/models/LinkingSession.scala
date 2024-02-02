@@ -17,6 +17,8 @@
 package models
 
 import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
+import models.attachment.Attachment
+import models.upscan.{PreparedUpload, ScanResult}
 import play.api.libs.json.Json
 
 import java.time.LocalDate
@@ -40,7 +42,9 @@ case class LinkingSession(
       valuationId: Option[Long] = None,
       fromCya: Option[Boolean] = Some(false),
       occupierEvidenceType: Option[EvidenceType] = None,
-      isSubmitted: Option[Boolean] = Some(false))
+      isSubmitted: Option[Boolean] = Some(false),
+      preparedUpload: Option[PreparedUpload] = None,
+      attachment: Option[Attachment] = None)
 
 object LinkingSession {
   implicit val format = Json.format[LinkingSession]
