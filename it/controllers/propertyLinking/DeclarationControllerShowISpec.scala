@@ -4,14 +4,16 @@ import base.ISpecBase
 import binders.propertylinks.ClaimPropertyReturnToPage
 import com.github.tomakehurst.wiremock.client.WireMock._
 import models._
+import models.upscan.{FileMetadata, PreparedUpload, Reference, UploadFormTemplate, UploadedFileDetails}
 import org.jsoup.Jsoup
-import play.api.http.Status.OK
-import play.api.libs.json.Json
+import play.api.http.HeaderNames
+import play.api.http.Status.{BAD_REQUEST, OK, SEE_OTHER}
+import play.api.libs.json.{JsObject, Json}
 import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import repositories.PropertyLinkingSessionRepository
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
-import java.time.LocalDate
+import java.time.{Instant, LocalDate}
 import java.util.UUID
 
 class DeclarationControllerShowISpec extends ISpecBase {
@@ -60,6 +62,9 @@ class DeclarationControllerShowISpec extends ISpecBase {
   val otherUtilityBillText = "Utility bill Test File"
   val ratesBillTypeText = "Business rates bill Test File"
   val landRegistryTitleText = "Land Registry title Test File"
+  val thereIsAProblemText = "There is a problem"
+  val errorText = "Error: "
+  val errorMessageText = "You must agree to the declaration to continue"
 
   val titleTextWelsh = "Gwiriwch a chadarnhau eich manylion - Valuation Office Agency - GOV.UK"
   val captionTextWelsh = "Ychwanegu eiddo"
@@ -96,6 +101,9 @@ class DeclarationControllerShowISpec extends ISpecBase {
   val otherUtilityBillTextWelsh = "Bil cyfleustodau Test File"
   val ratesBillTypeTextWelsh = "Bil ardrethi busnes Test File"
   val landRegistryTitleTextWelsh = "Teitl y Gofrestrfa Tir Test File"
+  val thereIsAProblemTextWelsh = "Mae yna broblem"
+  val errorTextWelsh = "Gwall: "
+  val errorMessageTextWelsh = "Rhaid i chi gytuno â’r datganiad er mwyn parhau"
 
   val captionSelector = "#caption"
   val headerSelector = "h1"
@@ -121,6 +129,9 @@ class DeclarationControllerShowISpec extends ISpecBase {
   val iDeclareTextSelector = "#main-content > div > div > form > div.govuk-form-group > div > div > label"
   val iDeclareCheckboxSelector = "#declaration"
   val confirmSelector = "#confirmAndSend"
+  val errorSummaryTitleSelector = "#main-content > div > div > div > div > h2"
+  val errorSummaryErrorSelector = "#main-content > div > div > div > div > div > ul > li > a"
+  val errorAboveCheckboxSelector = "#declaration-error"
 
   val backHref = "/business-rates-property-linking/my-organisation/claim/property-links/summary/back"
   val changeConnectionHref = "/business-rates-property-linking/my-organisation/claim/property-links"
@@ -128,6 +139,11 @@ class DeclarationControllerShowISpec extends ISpecBase {
   val changeStillOwnerHref = "/business-rates-property-linking/my-organisation/claim/property-links/occupancy"
   val changeEvidenceHref = "/business-rates-property-linking/my-organisation/claim/property-links/evidence"
   val changeEndDateHref = "/business-rates-property-linking/my-organisation/claim/property-links/occupancy"
+  val errorSummaryHref = "#declaration"
+
+  //TODO: Does there need to be scenarios for when !earliestStartDateInPast for when the rows dont show? Dont think you can do this
+  //TODO: Does there need to be scenarios for the other evidence types that cant actually be chosen in the flow?
+  //TODO: Does there need to be the scenario that triggers declaration.checkAnswers.startDate.onOrBefore?
 
   "DeclarationController show method displays the correct content in English for an IP who no longer owns and has a Lease" which {
     lazy val document = getShowPage(language = English, userIsAgent = false, relationshipChoice = "owner",
@@ -1917,6 +1933,104 @@ class DeclarationControllerShowISpec extends ISpecBase {
 
   }
 
+  "DeclarationController submit method redirects to the correct page when a user confirms the declaration and clicks submit" in {
+    val res = postSubmitPage(userIsAgent = true, relationshipChoice = "both",
+      stillOwnedOccupiedChoice = true, evidenceChoice = "OtherUtilityBill")
+
+    res.status shouldBe SEE_OTHER
+    res.header("Location") shouldBe Some("/business-rates-property-linking/my-organisation/claim/property-links/confirmation")
+  }
+
+  "DeclarationController submit method returns a bad request and shows an error on the page when a user doesn't click confirm and then clicks submit" which {
+    lazy val res = postSubmitPageWithError(language = English, userIsAgent = false, relationshipChoice = "owner",
+      stillOwnedOccupiedChoice = false, evidenceChoice = "Lease")
+
+    lazy val document = Jsoup.parse(res.body)
+
+    "has a status of 400" in {
+      res.status shouldBe BAD_REQUEST
+    }
+
+    s"has a title of ${errorText + titleText}" in {
+      document.title() shouldBe errorText + titleText
+    }
+
+    s"has an error summary that contains the correct error message $errorMessageText" in {
+      document.select(errorSummaryTitleSelector).text() shouldBe thereIsAProblemText
+      document.select(errorSummaryErrorSelector).text() shouldBe errorMessageText
+    }
+
+    s"has a caption above the heading of of $captionText" in {
+      document.select(captionSelector).text shouldBe captionText
+    }
+
+    s"has a header of of $headerText" in {
+      document.select(headerSelector).text shouldBe headerText
+    }
+
+    s"has an $addressText row with the $addressValue" in {
+      document.select(addressHeaderSelector).text shouldBe addressText
+      document.select(addressValueSelector).text shouldBe addressValue
+    }
+
+    s"has an $connectionToPropertyText row with the $ownerText and $changeText link" in {
+      document.select(connectionToPropertyHeaderSelector).text shouldBe connectionToPropertyText
+      document.select(connectionToPropertyValueSelector).text shouldBe ownerText
+      document.select(connectionToPropertyHrefSelector).text shouldBe changeText + connectionToPropertyText
+      document.select(connectionToPropertyHrefSelector).attr("href") shouldBe changeConnectionHref
+    }
+
+    s"has an $startedText row with the $startedValue and $changeText link" in {
+      document.select(startedHeaderSelector).text shouldBe startedText
+      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedHrefSelector).text shouldBe changeText + startedText
+      document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
+    }
+
+    s"has an $stillOwnText row with the $noText and $changeText link" in {
+      document.select(doYouStillOwnHeaderSelector).text shouldBe stillOwnText
+      document.select(doYouStillOwnValueSelector).text shouldBe noText
+      document.select(doYouStillOwnHrefSelector).text shouldBe changeText + stillOwnText
+      document.select(doYouStillOwnHrefSelector).attr("href") shouldBe changeStillOwnerHref
+    }
+
+    s"has an $lastDayOwnerText row with the $lastDayValue and $changeText link" in {
+      document.select(lastDayOwnerHeaderSelector).text shouldBe lastDayOwnerText
+      document.select(lastDayOwnerValueSelector).text shouldBe lastDayValue
+      document.select(lastDayOwnerHrefSelector).text shouldBe changeText + lastDayOwnerText
+      document.select(lastDayOwnerHrefSelector).attr("href") shouldBe changeEndDateHref
+    }
+
+    s"has an $evidenceText row with the $leaseEvidenceText and $changeText link" in {
+      document.select(evidenceHeaderSelector).text shouldBe evidenceText
+      document.select(evidenceValueSelector).text shouldBe leaseEvidenceText
+      document.select(evidenceHrefSelector).text shouldBe changeText + evidenceText
+      document.select(evidenceHrefSelector).attr("href") shouldBe changeEvidenceHref
+    }
+
+    s"has a subheading of $declarationText" in {
+      document.select(declarationSelector).text shouldBe declarationText
+    }
+
+    s"has a warning on the screen of $youCouldBeText" in {
+      document.select(warningSelector).text shouldBe youCouldBeText
+    }
+
+    s"has an error message above the check box of ${errorText + errorMessageText}" in {
+      document.select(errorAboveCheckboxSelector).text() shouldBe errorText + errorMessageText
+    }
+
+    s"has an $iDeclareText checkbox" in {
+      document.select(iDeclareCheckboxSelector).attr("type") shouldBe "checkbox"
+      document.select(iDeclareTextSelector).text shouldBe iDeclareText
+    }
+
+    s"has a $confirmText button" in {
+      document.select(confirmSelector).text shouldBe confirmText
+    }
+  }
+
+
   private def getShowPage(language: Language, userIsAgent: Boolean, relationshipChoice: String, stillOwnedOccupiedChoice: Boolean, evidenceChoice: String) = {
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -1986,4 +2100,246 @@ class DeclarationControllerShowISpec extends ISpecBase {
     res.status shouldBe OK
     Jsoup.parse(res.body)
   }
+
+  //TODO: Theres scenarios around the evidence NotAllFilesReadyToUpload/MissingRequiredNumberOfFiles can a user ever actually do this?
+  //TODO: Any need to do a POST for anything other than a generic user? Body only has declaration = true
+  //TODO: Remember to do the error scenario of no declaration value
+  //TODO: If you post declaration false, it still goes through fine - surely that's wrong (obviously a user cant actually do this)
+  private def postSubmitPage(userIsAgent: Boolean, relationshipChoice: String, stillOwnedOccupiedChoice: Boolean, evidenceChoice: String) = {
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    stubFor {
+      post("/property-linking/clients/123/property-links")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    val attachmentsResponseBody = s"""{
+      "_id": "${UUID.randomUUID()}",
+      "initiatedAt": "${Instant.now()}",
+      "fileName": "fileName",
+      "mimeType": "image/jpeg",
+      "destination": "DESTINATION",
+      "data": {},
+      "state": "UploadAttachmentComplete",
+      "history":[],
+      "scanResult": null,
+      "initiateResult": null,
+      "principal": {
+        "externalId": "gg-external-id",
+        "groupId": "gg-group-id"
+      }
+    }"""
+
+    stubFor {
+      get("/business-rates-attachments/attachments/1862956069192540")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(attachmentsResponseBody)
+        }
+    }
+
+    val relationshipType: Option[PropertyRelationship] = relationshipChoice match {
+      case "owner" => Some(PropertyRelationship(Owner, 1L))
+      case "occupier" => Some(PropertyRelationship(Occupier, 1L))
+      case "both" => Some(PropertyRelationship(OwnerOccupier, 1L))
+      case _ => None
+    }
+
+    val stillOwnedOccupied: Option[PropertyOccupancy] = if (stillOwnedOccupiedChoice) {
+      Some(PropertyOccupancy(stillOccupied = true, Some(LocalDate.of(2017, 4, 3))))
+    } else {
+      Some(PropertyOccupancy(stillOccupied = false, Some(LocalDate.of(2017, 4, 3))))
+    }
+
+    val evidenceType: UploadEvidenceData = evidenceChoice match {
+      case "Lease" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", Lease)))
+      case "License" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", License)))
+      case "ServiceCharge" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", ServiceCharge)))
+      case "StampDutyLandTaxForm" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", StampDutyLandTaxForm)))
+      case "WaterRateDemand" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", WaterRateDemand)))
+      case "OtherUtilityBill" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", OtherUtilityBill)))
+      case "RatesBill" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", RatesBillType)))
+      case "LandRegistryTitle" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", LandRegistryTitle)))
+    }
+
+    def fileInfo(evType: EvidenceType): CompleteFileInfo = CompleteFileInfo("test.pdf", evType)
+
+    val FILE_REFERENCE: String = "1862956069192540"
+    val preparedUpload = PreparedUpload(Reference(FILE_REFERENCE), UploadFormTemplate("http://localhost/upscan", Map()))
+    val fileMetadata = FileMetadata(FILE_REFERENCE, "application/pdf")
+
+    val uploadedFileDetails = UploadedFileDetails(fileMetadata, preparedUpload)
+
+    def uploadEvidenceData(fileInfo: FileInfo, flag: LinkBasis = RatesBillFlag): UploadEvidenceData =
+      UploadEvidenceData(flag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
+
+    val uploadRatesBillData: UploadEvidenceData = uploadEvidenceData(fileInfo(RatesBillType))
+
+
+    await(
+      mockPropertyLinkingSessionRepository.saveOrUpdate(
+        LinkingSession(
+          address = "Test Address, Test Lane, T35 T3R",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = relationshipType,
+          propertyOwnership = Some(PropertyOwnership(LocalDate.of(2017, 4, 2))),
+          propertyOccupancy = stillOwnedOccupied,
+          hasRatesBill = Some(true),
+          uploadEvidenceData = uploadRatesBillData,
+          evidenceType = Some(Lease),
+          clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
+          localAuthorityReference = "2050466366770",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = None,
+          isSubmitted = None
+        )))
+
+    val requestBody: JsObject = Json.obj(
+      "declaration" -> "true"
+    )
+
+    await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/summary")
+        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .post(body = requestBody)
+    )
+  }
+
+  private def postSubmitPageWithError(language: Language, userIsAgent: Boolean, relationshipChoice: String, stillOwnedOccupiedChoice: Boolean, evidenceChoice: String) = {
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    stubFor {
+      post("/property-linking/clients/123/property-links")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    val attachmentsResponseBody =
+      s"""{
+    "_id": "${UUID.randomUUID()}",
+    "initiatedAt": "${Instant.now()}",
+    "fileName": "fileName",
+    "mimeType": "image/jpeg",
+    "destination": "DESTINATION",
+    "data": {},
+    "state": "UploadAttachmentComplete",
+    "history":[],
+    "scanResult": null,
+    "initiateResult": null,
+    "principal": {
+      "externalId": "gg-external-id",
+      "groupId": "gg-group-id"
+    }
+  }"""
+
+    stubFor {
+      get("/business-rates-attachments/attachments/1862956069192540")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(attachmentsResponseBody)
+        }
+    }
+
+    val relationshipType: Option[PropertyRelationship] = relationshipChoice match {
+      case "owner" => Some(PropertyRelationship(Owner, 1L))
+      case "occupier" => Some(PropertyRelationship(Occupier, 1L))
+      case "both" => Some(PropertyRelationship(OwnerOccupier, 1L))
+      case _ => None
+    }
+
+    val stillOwnedOccupied: Option[PropertyOccupancy] = if (stillOwnedOccupiedChoice) {
+      Some(PropertyOccupancy(stillOccupied = true, Some(LocalDate.of(2017, 4, 3))))
+    } else {
+      Some(PropertyOccupancy(stillOccupied = false, Some(LocalDate.of(2017, 4, 3))))
+    }
+
+    val evidenceType: UploadEvidenceData = evidenceChoice match {
+      case "Lease" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", Lease)))
+      case "License" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", License)))
+      case "ServiceCharge" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", ServiceCharge)))
+      case "StampDutyLandTaxForm" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", StampDutyLandTaxForm)))
+      case "WaterRateDemand" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", WaterRateDemand)))
+      case "OtherUtilityBill" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", OtherUtilityBill)))
+      case "RatesBill" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", RatesBillType)))
+      case "LandRegistryTitle" => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", LandRegistryTitle)))
+    }
+
+    def fileInfo(evType: EvidenceType): CompleteFileInfo = CompleteFileInfo("Test File", evType)
+
+    val FILE_REFERENCE: String = "1862956069192540"
+    val preparedUpload = PreparedUpload(Reference(FILE_REFERENCE), UploadFormTemplate("http://localhost/upscan", Map()))
+    val fileMetadata = FileMetadata(FILE_REFERENCE, "application/pdf")
+
+    val uploadedFileDetails = UploadedFileDetails(fileMetadata, preparedUpload)
+
+    def uploadEvidenceData(fileInfo: FileInfo, flag: LinkBasis = RatesBillFlag): UploadEvidenceData =
+      UploadEvidenceData(flag, Some(fileInfo), Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
+
+    val uploadRatesBillData: UploadEvidenceData = uploadEvidenceData(fileInfo(Lease))
+
+
+    await(
+      mockPropertyLinkingSessionRepository.saveOrUpdate(
+        LinkingSession(
+          address = "Test Address, Test Lane, T35 T3R",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = relationshipType,
+          propertyOwnership = Some(PropertyOwnership(LocalDate.of(2017, 4, 2))),
+          propertyOccupancy = stillOwnedOccupied,
+          hasRatesBill = Some(true),
+          uploadEvidenceData = uploadRatesBillData,
+          evidenceType = Some(Lease),
+          clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
+          localAuthorityReference = "2050466366770",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = None,
+          isSubmitted = None
+        )))
+
+    val requestBody: JsObject = Json.obj(
+      "declaration" -> ""
+    )
+
+    await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/summary")
+        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .post(body = requestBody)
+    )
+  }
+
 }
