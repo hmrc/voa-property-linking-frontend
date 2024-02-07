@@ -109,7 +109,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
     status(res) shouldBe BAD_REQUEST
   }
-  
+
   "back" should "set 'fromCya' in the session" in new Setup {
     val sessionCaptor: ArgumentCaptor[LinkingSession] = ArgumentCaptor.forClass(classOf[LinkingSession])
     testDeclarationController(earliestEnglishStartDate).back(FakeRequest()).futureValue
