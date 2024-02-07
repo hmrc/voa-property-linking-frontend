@@ -1933,7 +1933,7 @@ class DeclarationControllerShowISpec extends ISpecBase {
 
   }
 
-  "DeclarationController submit method redirects to the correct page when a user confirms the declaration and clicks submit" in {
+  "DeclarationController submit method redirects to the correct page when a user chooses true for the declaration and clicks submit" in {
     val res = postSubmitPage(language = English, declarationChoice = "true")
 
     res.status shouldBe SEE_OTHER
@@ -1941,7 +1941,7 @@ class DeclarationControllerShowISpec extends ISpecBase {
   }
 
   // This is weird behaviour but technically a user cant make the choice false as its a checkbox
-  "DeclarationController submit method redirects to the correct page when a user confirms the declaration and clicks submit" in {
+  "DeclarationController submit method redirects to the correct page when a user chooses false for the declaration and clicks submit" in {
     val res = postSubmitPage(language = English, declarationChoice = "false")
 
     res.status shouldBe SEE_OTHER
