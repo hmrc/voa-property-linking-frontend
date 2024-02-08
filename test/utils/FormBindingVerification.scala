@@ -83,10 +83,10 @@ trait ContactDetailsVerification { this: BasicVerification =>
   }
 
   def verifyAddressFieldCharacterLimits(form: Form[_], validData: Map[String, String], field: String): Unit = {
-    verifyCharacterLimit(form, validData, s"$field.line1", 36)
-    verifyCharacterLimit(form, validData, s"$field.line2", 36)
-    verifyCharacterLimit(form, validData, s"$field.line3", 36)
-    verifyCharacterLimit(form, validData, s"$field.line4", 36)
+    verifyCharacterLimit(form, validData, s"$field.line1", 30)
+    verifyCharacterLimit(form, validData, s"$field.line2", 30)
+    verifyCharacterLimit(form, validData, s"$field.line3", 30)
+    verifyCharacterLimit(form, validData, s"$field.line4", 30)
   }
 }
 trait DateVerification { this: BasicVerification =>

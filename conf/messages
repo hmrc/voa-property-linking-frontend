@@ -1812,6 +1812,8 @@ enrolment.yes = Yes
 enrolment.no = No
 enrolment.businessName = Business name
 
+enrolment.address.maxLengthError = This field must be 30 characters or less
+
 #COMMON
 app.common.saveAndContinue = Save and continue
 app.common.yes = Yes

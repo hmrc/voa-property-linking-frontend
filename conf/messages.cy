@@ -1687,6 +1687,8 @@ enrolment.yes=Ydw
 enrolment.no=Nac ydw
 enrolment.businessName=Enw’r busnes
 
+enrolment.address.maxLengthError = Mae’n rhaid i’r maes hwn fod yn 30 o gymeriadau neu lai
+
 before.you.start.startButton=Dechrau
 
 #COMMON
