@@ -20,7 +20,6 @@ import java.util.UUID
 class DeclarationControllerShowISpec extends ISpecBase {
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
-
   lazy val mockPropertyLinkingSessionRepository: PropertyLinkingSessionRepository = app.injector.instanceOf[PropertyLinkingSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
