@@ -44,7 +44,9 @@ trait ISpecBase extends AnyWordSpec with Matchers with GuiceOneServerPerSuite wi
     "microservice.services.auth.port" -> mockPort.toString,
     "microservice.services.vmv.host" -> mockHost,
     "microservice.services.vmv.port" -> mockPort.toString,
-    "business-rates-dashboard-frontend.url" -> "/business-rates-dashboard"
+    "business-rates-dashboard-frontend.url" -> "/business-rates-dashboard",
+    "microservice.services.business-rates-attachments.host" -> mockHost,
+    "microservice.services.business-rates-attachments.port" -> mockPort.toString
   ) ++ extraConfig
 
   override lazy val app: Application = new GuiceApplicationBuilder()
