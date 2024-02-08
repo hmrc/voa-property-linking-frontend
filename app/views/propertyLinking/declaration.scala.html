@@ -225,7 +225,7 @@
                 )
             ),
             errorMessage =  { model.form.error("declaration").map{ error =>
-                ErrorMessage(content = Text(messages(error.message)))
+                ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(error.message)))
             }}
         ))
 
