@@ -17,7 +17,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import java.time.{Instant, LocalDate}
 import java.util.UUID
 
-class DeclarationControllerShowISpec extends ISpecBase {
+class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   lazy val mockPropertyLinkingSessionRepository: PropertyLinkingSessionRepository = app.injector.instanceOf[PropertyLinkingSessionRepository]
