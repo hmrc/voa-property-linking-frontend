@@ -7,7 +7,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
 import play.api.http.Status.OK
-import play.api.libs.json.Json
+import play.api.libs.json.{JsObject, Json}
 import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
 import utils.ListYearsHelpers
@@ -373,7 +373,20 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
   "RegistrationController submit individual method for a new individual" should {
     "Return a bad request with the relevant errors when each address line is greater than 30 characters in english" which {
 
-      lazy val res = postSuccessAddressErrorPage(English)
+      val body: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1" -> "Address line of 31 charssssssss",
+          "line2" -> "Address line of 31 charssssssss",
+          "line3" -> "Address line of 31 charssssssss",
+          "line4" -> "Address line of 31 charssssssss",
+          "postcode" -> "LS1 3SP"),
+        "phone" -> "0177728837298",
+        "mobilePhone" -> "07829879332",
+        "email" -> "test@email.com",
+        "confirmedEmail" -> "test@email.com",
+        "tradingName" -> "test trade name")
+
+      lazy val res = postContactDetailsPage(language = English, postBody = body)
 
       lazy val document: Document = Jsoup.parse(res.body)
 
@@ -405,7 +418,20 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
 
     "Return a bad request with the relevant errors when each address line is greater than 30 characters in welsh" which {
 
-      lazy val res = postSuccessAddressErrorPage(Welsh)
+      val body: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1" -> "Address line of 31 charssssssss",
+          "line2" -> "Address line of 31 charssssssss",
+          "line3" -> "Address line of 31 charssssssss",
+          "line4" -> "Address line of 31 charssssssss",
+          "postcode" -> "LS1 3SP"),
+        "phone" -> "0177728837298",
+        "mobilePhone" -> "07829879332",
+        "email" -> "test@email.com",
+        "confirmedEmail" -> "test@email.com",
+        "tradingName" -> "test trade name")
+
+      lazy val res = postContactDetailsPage(language = Welsh, postBody = body)
 
       lazy val document: Document = Jsoup.parse(res.body)
 
@@ -461,29 +487,16 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
     Jsoup.parse(res.body)
   }
 
-  private def postSuccessAddressErrorPage(language: Language): WSResponse = {
+  private def postContactDetailsPage(language: Language, postBody: JsObject): WSResponse = {
 
     stubsSetup
-
-    val body = Map(
-      "address.line1" -> "Address line of 31 charssssssss",
-      "address.line2" -> "Address line of 31 charssssssss",
-      "address.line3" -> "Address line of 31 charssssssss",
-      "address.line4" -> "Address line of 31 charssssssss",
-      "address.postcode" -> "TF3 4ER",
-      "email" -> "test@email.com",
-      "confirmedEmail" -> "test@email.com",
-      "phone" -> "01234567890",
-      "mobilePhone" -> "01234567890",
-      "tradingName" -> "Trading Name"
-    )
 
     await(
       ws.url(s"http://localhost:$port/business-rates-property-linking/complete-contact-details")
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withHttpHeaders(HeaderNames.COOKIE -> testSessionId, "Csrf-Token" -> "nocheck")
         .withFollowRedirects(follow = false)
-        .post(body)
+        .post(postBody)
     )
   }
 

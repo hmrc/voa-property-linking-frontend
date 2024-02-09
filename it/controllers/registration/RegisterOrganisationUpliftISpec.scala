@@ -8,7 +8,8 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
 import play.api.http.Status.OK
-import play.api.libs.json.Json
+import play.api.libs.json.{JsObject, Json}
+import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
 import utils.ListYearsHelpers
 
@@ -36,6 +37,8 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
   val representAnotherBusinessText = "If you want to represent another business (either as a professional surveyor, an accountant, friend or relative), we will give you a unique agent code. You will need to give this code to that business so they can appoint you to speak for them."
   val itsOnYourText = "It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C."
   val saveAndContinueText = "Save and continue"
+  val errorText = "Error: "
+  val addressLengthErrorText = "This field must be 30 characters or less"
 
   val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Valuation Office Agency - GOV.UK"
   val headingTextWelsh = "Cwblhewch eich manylion cyswllt"
@@ -59,6 +62,8 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
   val representAnotherBusinessTextWelsh = "Os ydych chi eisiau cynrychioli busnes arall (naill ai fel syrfëwr proffesiynol, cyfrifydd, ffrind neu berthynas), byddwn yn rhoi cod asiant unigryw i chi. Bydd angen i chi roi’r côd hwn i’r busnes hwnnw er mwyn iddynt allu eich penodi i siarad ar eu rhan."
   val itsOnYourTextWelsh = "Mae ar eich cerdyn Yswiriant Gwladol, llythyr budd-dal, slip cyflog neu P60. Er enghraifft, QQ123456C."
   val saveAndContinueTextWelsh = "Arbed a pharhau"
+  val errorTextWelsh = "Gwall: "
+  val addressLengthErrorTextWelsh = "Mae’n rhaid i’r maes hwn fod yn 30 o gymeriadau neu lai"
 
   val headingSelector = "#main-content > div > div > h1"
   val weUseYourSelector = "#contactDetailsUse"
@@ -94,6 +99,10 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
   val representAnotherBusinessSelector = "#main-content > div > div > form > div.govuk-inset-text"
   val itsOnYourSelector = "#nino-hint"
   val saveAndContinueSelector = "button[id='save-and-continue']"
+  val addressLine1ErrorSelector = "p[id='address.line1-error']"
+  val addressLine2ErrorSelector = "p[id='address.line2-error']"
+  val addressLine3ErrorSelector = "p[id='address.line3-error']"
+  val addressLine4ErrorSelector = "p[id='address.line4-error']"
 
   "RegistrationController show method for a new organisation" should {
     "Show an English registration contact details screen with the correct text" which {
@@ -346,82 +355,184 @@ class RegisterOrganisationUpliftISpec extends ISpecBase with HtmlComponentHelper
 
 
   "RegistrationController post method for a new organisation" should {
-    "redirect to confirmation page" in {
-      val authResponseBody = """{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
+    "redirect to confirmation page when all valid details are passed in" which {
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1" -> "test street",
+          "line2" -> "",
+          "line3" -> "",
+          "line4" -> "",
+          "postcode" -> "LS1 3SP"),
+        "phone" -> "0177728837298",
+        "mobilePhone" -> "07829879332",
+        "email" -> "test@email.com",
+        "confirmedEmail" -> "test@email.com",
+        "tradingName" -> "test trade name")
 
-      stubFor {
-        post("/auth/authorise")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(authResponseBody)
-          }
+      lazy val res = postContactDetailsUpliftPage(language = English, postBody = requestBody)
+
+      val redirectUrl = "/business-rates-property-linking/create-confirmation?personId=2"
+
+      "has a status of 303" in {
+        res.status shouldBe SEE_OTHER
       }
 
-      stubFor {
-        get("/property-linking/individuals?externalId=3")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(Json.toJson(detailedIndividualAccount).toString())
-          }
+      s"has a location header of $redirectUrl" in {
+        res.header("Location") shouldBe Some(redirectUrl)
       }
 
-      val testGroup = GroupAccount(id = 1L, groupId = "1L", companyName = "Test name", addressId = 1L, email = "test@email.com", phone = "1234567890", isAgent = false, agentCode = None)
+    }
 
-      stubFor {
-        get("/property-linking/groups?groupId=1")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(Json.toJson(testGroup).toString())
-          }
+    "Return a bad request with the relevant errors when each address line is greater than 30 characters in English" which {
+
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1" -> "Address line of 31 charssssssss",
+          "line2" -> "Address line of 31 charssssssss",
+          "line3" -> "Address line of 31 charssssssss",
+          "line4" -> "Address line of 31 charssssssss",
+          "postcode" -> "LS1 3SP"),
+        "phone" -> "0177728837298",
+        "mobilePhone" -> "07829879332",
+        "email" -> "test@email.com",
+        "confirmedEmail" -> "test@email.com",
+        "tradingName" -> "test trade name")
+
+      lazy val res = postContactDetailsUpliftPage(language = English, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
       }
 
-      stubFor {
-        post("/property-linking/groups")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
-          }
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText}" in {
+        document.title() shouldBe errorText + titleText
       }
 
-      stubFor {
-        post("/property-linking/address")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
-          }
+      s"has an error above the address line 1 field of ${errorText + addressLengthErrorText}" in {
+        document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthErrorText
       }
 
-      stubFor {
-        post("/property-linking/individuals")
-          .willReturn {
-            aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
-          }
+      s"has an error above the address line 2 field of ${errorText + addressLengthErrorText}" in {
+        document.select(addressLine2ErrorSelector).text() shouldBe errorText + addressLengthErrorText
       }
 
-      postForm("/business-rates-property-linking/create-confirmation?personId=2")
+      s"has an error above the address line 3 field of ${errorText + addressLengthErrorText}" in {
+        document.select(addressLine3ErrorSelector).text() shouldBe errorText + addressLengthErrorText
+      }
+
+      s"has an error above the address line 4 field of ${errorText + addressLengthErrorText}" in {
+        document.select(addressLine4ErrorSelector).text() shouldBe errorText + addressLengthErrorText
+      }
+
+    }
+
+    "Return a bad request with the relevant errors when each address line is greater than 30 characters in Welsh" which {
+
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1" -> "Address line of 31 charssssssss",
+          "line2" -> "Address line of 31 charssssssss",
+          "line3" -> "Address line of 31 charssssssss",
+          "line4" -> "Address line of 31 charssssssss",
+          "postcode" -> "LS1 3SP"),
+        "phone" -> "0177728837298",
+        "mobilePhone" -> "07829879332",
+        "email" -> "test@email.com",
+        "confirmedEmail" -> "test@email.com",
+        "tradingName" -> "test trade name")
+
+      lazy val res = postContactDetailsUpliftPage(language = Welsh, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText} in welsh" in {
+        document.title() shouldBe errorTextWelsh + titleTextWelsh
+      }
+
+      s"has an error above the address line 1 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+      s"has an error above the address line 2 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine2ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+      s"has an error above the address line 3 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine3ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+      s"has an error above the address line 4 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine4ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
 
     }
 
   }
 
-  private def postForm(redirectUrl: String) = {
+  private def postContactDetailsUpliftPage(language: Language, postBody: JsObject): WSResponse = {
 
-    val requestBody = Json.obj(
-      "companyName" -> "testCompany",
-      "address" -> Json.obj(
-        "line1" -> "test street",
-        "line2" -> "",
-        "line3" -> "",
-        "line4" -> "",
-        "postcode" -> "LS1 3SP"),
-      "phone" -> "0177728837298",
-      "email" -> "test@email.com",
-      "confirmedBusinessEmail" -> "test@email.com",
-      "isAgent" -> "false")
+    val authResponseBody = """{ "affinityGroup": "Individual", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
 
-    val res = await(ws.url(s"http://localhost:$port/business-rates-property-linking/complete-contact-details-uplift")
-      .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(authResponseBody)
+        }
+    }
+
+    stubFor {
+      post("/property-linking/address")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+        }
+    }
+
+    stubFor {
+      get("/property-linking/individuals?externalId=3")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(detailedIndividualAccount).toString())
+        }
+    }
+
+    val testGroup = GroupAccount(id = 1L, groupId = "1L", companyName = "Test name", addressId = 1L, email = "test@email.com", phone = "1234567890", isAgent = false, agentCode = None)
+
+    stubFor {
+      get("/property-linking/groups?groupId=1")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testGroup).toString())
+        }
+    }
+
+
+    stubFor {
+      post("/property-linking/groups")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+        }
+    }
+
+    stubFor {
+      post("/property-linking/individuals")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.obj("id" -> 1L).toString())
+        }
+    }
+
+    await(ws.url(s"http://localhost:$port/business-rates-property-linking/complete-your-contact-details-uplift")
+      .withCookies(languageCookie(language), getSessionCookie(testSessionId))
       .withFollowRedirects(follow = false)
       .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-      .post(body = requestBody))
-
-    res.status shouldBe SEE_OTHER
-    res.headers("Location").head shouldBe redirectUrl
+      .post(body = postBody))
 
   }
 

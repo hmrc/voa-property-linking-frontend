@@ -320,7 +320,7 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
         "confirmedEmail" -> "test@email.com",
         "tradingName" -> "test trade name")
 
-      lazy val res = postForm(requestBody)
+      lazy val res = postContactDetailsUpliftPage(language = English, postBody = requestBody)
 
       val redirectUrl = "/business-rates-property-linking/create-confirmation?personId=2"
 
@@ -334,7 +334,7 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
 
     }
 
-    "Return a bad request with the relevant errors when each address line is greater than 30 characters in english" which {
+    "Return a bad request with the relevant errors when each address line is greater than 30 characters in English" which {
 
       val requestBody: JsObject = Json.obj(
         "address" -> Json.obj(
@@ -349,7 +349,7 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
         "confirmedEmail" -> "test@email.com",
         "tradingName" -> "test trade name")
 
-      lazy val res = postForm(requestBody)
+      lazy val res = postContactDetailsUpliftPage(language = English, postBody = requestBody)
 
       "has a status of 400" in {
         res.status shouldBe BAD_REQUEST
@@ -379,9 +379,58 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
 
     }
 
+    "Return a bad request with the relevant errors when each address line is greater than 30 characters in Welsh" which {
+
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1" -> "Address line of 31 charssssssss",
+          "line2" -> "Address line of 31 charssssssss",
+          "line3" -> "Address line of 31 charssssssss",
+          "line4" -> "Address line of 31 charssssssss",
+          "postcode" -> "LS1 3SP"),
+        "phone" -> "0177728837298",
+        "mobilePhone" -> "07829879332",
+        "email" -> "test@email.com",
+        "confirmedEmail" -> "test@email.com",
+        "tradingName" -> "test trade name")
+
+      lazy val res = postContactDetailsUpliftPage(language = Welsh, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText} in welsh" in {
+        document.title() shouldBe errorTextWelsh + titleTextWelsh
+      }
+
+      s"has an error above the address line 1 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+      s"has an error above the address line 2 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine2ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+      s"has an error above the address line 3 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine3ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+      s"has an error above the address line 4 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine4ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+    }
+
   }
 
-  private def postForm(postBody: JsObject): WSResponse = {
+  private def postContactDetailsUpliftPage(language: Language, postBody: JsObject): WSResponse = {
 
     val authResponseBody = """{ "affinityGroup": "Individual", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
 
@@ -431,7 +480,7 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     await(ws.url(s"http://localhost:$port/business-rates-property-linking/complete-your-contact-details-uplift")
-      .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+      .withCookies(languageCookie(language), getSessionCookie(testSessionId))
       .withFollowRedirects(follow = false)
       .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
       .post(body = postBody))
