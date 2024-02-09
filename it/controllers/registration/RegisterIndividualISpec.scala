@@ -1,12 +1,14 @@
 package controllers.registration
 
 import base.{HtmlComponentHelpers, ISpecBase}
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, _}
+import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import play.api.http.HeaderNames
 import play.api.http.Status.OK
 import play.api.libs.json.Json
+import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
 import utils.ListYearsHelpers
 
@@ -38,6 +40,8 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
   val noNinoText = "I don’t have a National Insurance number"
   val expandedNoNinoText = "If you don’t have these details you’ll need to contact the Valuation Office Agency (VOA)."
   val saveAndContinueText = "Save and continue"
+  val errorText = "Error: "
+  val addressLengthErrorText = "This field must be 30 characters or less"
 
   val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Valuation Office Agency - GOV.UK"
   val headingTextWelsh = "Cwblhewch eich manylion cyswllt"
@@ -65,6 +69,8 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
   val noNinoTextWelsh = "Does gen i ddim rhif Yswiriant Gwladol"
   val expandedNoNinoTextWelsh = "Os nad oes gennych y manylion hyn bydd angen i chi gysylltu ag Asiantaeth y Swyddfa Brisio (VOA)."
   val saveAndContinueTextWelsh = "Arbed a pharhau"
+  val errorTextWelsh = "Gwall: "
+  val addressLengthErrorTextWelsh = "Mae’n rhaid i’r maes hwn fod yn 30 o gymeriadau neu lai"
 
   val headingSelector = "#main-content > div > div > h1"
   val weUseYourSelector = "#contactDetailsUse"
@@ -109,6 +115,10 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
   val noNinoSelector = "#main-content > div > div > form > details > summary > span"
   val noNinoExpandedSelector = "#main-content > div > div > form > details > div"
   val saveAndContinueSelector = "button[id='save-and-continue']"
+  val addressLine1ErrorSelector = "p[id='address.line1-error']"
+  val addressLine2ErrorSelector = "p[id='address.line2-error']"
+  val addressLine3ErrorSelector = "p[id='address.line3-error']"
+  val addressLine4ErrorSelector = "p[id='address.line4-error']"
 
   "RegistrationController show method for a new individual" should {
     "Show an English registration contact details screen with the correct text" which {
@@ -359,6 +369,79 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
       }
     }
   }
+
+  "RegistrationController submit individual method for a new individual" should {
+    "Return a bad request with the relevant errors when each address line is greater than 30 characters in english" which {
+
+      lazy val res = postSuccessAddressErrorPage(English)
+
+      lazy val document: Document = Jsoup.parse(res.body)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has a title of ${errorText + titleText}" in {
+        document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error above the address line 1 field of ${errorText + addressLengthErrorText}" in {
+        document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthErrorText
+      }
+
+      s"has an error above the address line 2 field of ${errorText + addressLengthErrorText}" in {
+        document.select(addressLine2ErrorSelector).text() shouldBe errorText + addressLengthErrorText
+      }
+
+      s"has an error above the address line 3 field of ${errorText + addressLengthErrorText}" in {
+        document.select(addressLine3ErrorSelector).text() shouldBe errorText + addressLengthErrorText
+      }
+
+      s"has an error above the address line 4 field of ${errorText + addressLengthErrorText}" in {
+        document.select(addressLine4ErrorSelector).text() shouldBe errorText + addressLengthErrorText
+      }
+
+    }
+
+    "Return a bad request with the relevant errors when each address line is greater than 30 characters in welsh" which {
+
+      lazy val res = postSuccessAddressErrorPage(Welsh)
+
+      lazy val document: Document = Jsoup.parse(res.body)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has a title of ${errorText + titleText} in welsh" in {
+        document.title() shouldBe errorTextWelsh + titleTextWelsh
+      }
+
+      s"has an error above the address line 1 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+      s"has an error above the address line 2 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine2ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+      s"has an error above the address line 3 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine3ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+      s"has an error above the address line 4 field of ${errorText + addressLengthErrorText} in welsh" in {
+        // The below is a bug, it should translate the Error part to welsh too
+        document.select(addressLine4ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+    }
+
+  }
+
+
   override lazy val extraConfig: Map[String, Any] = Map(
     "feature-switch.ivUplift.enabled" -> "false"
   )
@@ -377,6 +460,33 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
     res.status shouldBe OK
     Jsoup.parse(res.body)
   }
+
+  private def postSuccessAddressErrorPage(language: Language): WSResponse = {
+
+    stubsSetup
+
+    val body = Map(
+      "address.line1" -> "Address line of 31 charssssssss",
+      "address.line2" -> "Address line of 31 charssssssss",
+      "address.line3" -> "Address line of 31 charssssssss",
+      "address.line4" -> "Address line of 31 charssssssss",
+      "address.postcode" -> "TF3 4ER",
+      "email" -> "test@email.com",
+      "confirmedEmail" -> "test@email.com",
+      "phone" -> "01234567890",
+      "mobilePhone" -> "01234567890",
+      "tradingName" -> "Trading Name"
+    )
+
+    await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/complete-contact-details")
+        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withHttpHeaders(HeaderNames.COOKIE -> testSessionId, "Csrf-Token" -> "nocheck")
+        .withFollowRedirects(follow = false)
+        .post(body)
+    )
+  }
+
 
   private def stubsSetup: StubMapping = {
 
