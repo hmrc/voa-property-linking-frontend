@@ -48,10 +48,12 @@ object Mappings extends DateMappings {
 
   val addressMapping: Mapping[Address] = mapping(
     "addressId" -> addressId,
-    "line1"     -> onlyIf(addressEnteredManually, text.verifying(nonEmpty, maxLength(30, "enrolment.address.maxLengthError")))(""),
-    "line2"     -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
-    "line3"     -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
-    "line4"     -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
+    "line1" -> onlyIf(
+      addressEnteredManually,
+      text.verifying(nonEmpty, maxLength(30, "enrolment.address.maxLengthError")))(""),
+    "line2" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
+    "line3" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
+    "line4" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
     "postcode" -> onlyIf(
       addressEnteredManually,
       text
