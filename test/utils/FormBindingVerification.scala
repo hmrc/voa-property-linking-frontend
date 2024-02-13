@@ -202,7 +202,11 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
     shouldContainError(f, field, "enrolment.address.maxLengthError", Some(Seq(limit)))
   }
 
-  def verifyAddressLine1CharacterLimit(form: Form[_], validData: Map[String, String], field: String, limit: Int): Unit = {
+  def verifyAddressLine1CharacterLimit(
+        form: Form[_],
+        validData: Map[String, String],
+        field: String,
+        limit: Int): Unit = {
     shouldBind(form, validData.updated(field, (1 to limit).map(_ => "a").mkString))
 
     val f = form.bind(validData.updated(field, (1 to limit + 1).map(_ => "b").mkString))
