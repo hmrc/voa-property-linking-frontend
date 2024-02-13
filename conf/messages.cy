@@ -1688,6 +1688,7 @@ enrolment.no=Nac ydw
 enrolment.businessName=Enw’r busnes
 
 enrolment.address.maxLengthError = Mae’n rhaid i’r maes hwn fod yn 30 o gymeriadau neu lai
+enrolment.address.line1.maxLengthError = Mae’n rhaid i’r maes hwn fod yn 80 o gymeriadau neu lai
 
 before.you.start.startButton=Dechrau
 

@@ -1812,6 +1812,7 @@ enrolment.yes = Yes
 enrolment.no = No
 enrolment.businessName = Business name
 
+enrolment.address.line1.maxLengthError = This field must be 80 characters or less
 enrolment.address.maxLengthError = This field must be 30 characters or less
 
 #COMMON

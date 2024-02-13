@@ -50,7 +50,7 @@ object Mappings extends DateMappings {
     "addressId" -> addressId,
     "line1" -> onlyIf(
       addressEnteredManually,
-      text.verifying(nonEmpty, maxLength(30, "enrolment.address.maxLengthError")))(""),
+      text.verifying(nonEmpty, maxLength(80, "enrolment.address.line1.maxLengthError")))(""),
     "line2" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
     "line3" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
     "line4" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),

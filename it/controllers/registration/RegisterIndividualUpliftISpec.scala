@@ -32,6 +32,7 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
   val optionalText = "Optional"
   val saveAndContinueText = "Save and continue"
   val errorText = "Error: "
+  val addressLengthLine1ErrorText = "This field must be 80 characters or less"
   val addressLengthErrorText = "This field must be 30 characters or less"
 
   val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Valuation Office Agency - GOV.UK"
@@ -51,6 +52,7 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
   val saveAndContinueTextWelsh = "Arbed a pharhau"
   val errorTextWelsh = "Gwall: "
   val addressLengthErrorTextWelsh = "Mae’n rhaid i’r maes hwn fod yn 30 o gymeriadau neu lai"
+  val addressLengthLine1ErrorTextWelsh = "Mae’n rhaid i’r maes hwn fod yn 80 o gymeriadau neu lai"
 
   val headingSelector = "#main-content > div > div > h1"
   val weUseYourSelector = "#contactDetailsUse"
@@ -338,7 +340,7 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
 
       val requestBody: JsObject = Json.obj(
         "address" -> Json.obj(
-          "line1" -> "Address line of 31 charssssssss",
+          "line1" -> "Address line of 81 charssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
           "line2" -> "Address line of 31 charssssssss",
           "line3" -> "Address line of 31 charssssssss",
           "line4" -> "Address line of 31 charssssssss",
@@ -361,8 +363,8 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
         document.title() shouldBe errorText + titleText
       }
 
-      s"has an error above the address line 1 field of ${errorText + addressLengthErrorText}" in {
-        document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthErrorText
+      s"has an error above the address line 1 field of ${errorText + addressLengthLine1ErrorText}" in {
+        document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthLine1ErrorText
       }
 
       s"has an error above the address line 2 field of ${errorText + addressLengthErrorText}" in {
@@ -383,7 +385,7 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
 
       val requestBody: JsObject = Json.obj(
         "address" -> Json.obj(
-          "line1" -> "Address line of 31 charssssssss",
+          "line1" -> "Address line of 81 charssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
           "line2" -> "Address line of 31 charssssssss",
           "line3" -> "Address line of 31 charssssssss",
           "line4" -> "Address line of 31 charssssssss",
@@ -406,9 +408,9 @@ class RegisterIndividualUpliftISpec extends ISpecBase with HtmlComponentHelpers 
         document.title() shouldBe errorTextWelsh + titleTextWelsh
       }
 
-      s"has an error above the address line 1 field of ${errorText + addressLengthErrorText} in welsh" in {
+      s"has an error above the address line 1 field of ${errorText + addressLengthLine1ErrorText} in welsh" in {
         // The below is a bug, it should translate the Error part to welsh too
-        document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+        document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthLine1ErrorTextWelsh
       }
 
       s"has an error above the address line 2 field of ${errorText + addressLengthErrorText} in welsh" in {
