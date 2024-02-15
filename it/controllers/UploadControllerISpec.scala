@@ -19,8 +19,6 @@ import java.util.UUID
 
 class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
-//  TODO: this spec needs to cover all page content
-
   lazy val mockRepository: PropertyLinkingSessionRepository = app.injector.instanceOf[PropertyLinkingSessionRepository]
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
