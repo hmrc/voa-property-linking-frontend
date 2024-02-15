@@ -28,7 +28,7 @@ import models.EvidenceType.form
 import models._
 import models.attachment.request.{InitiateAttachmentRequest, UpscanInitiateRequest}
 import models.attachment.{Attachment, Destinations, InitiateAttachmentPayload}
-import models.upscan.FileStatus.{FileStatus, fileStatusForm}
+import models.upscan.FileStatus.FileStatus
 import models.upscan.{FileStatus, PreparedUpload}
 import play.api.Logging
 import play.api.data.FormError
@@ -50,7 +50,6 @@ class UploadController @Inject()(
       @Named("propertyLinkingSession") sessionRepository: SessionRepo,
       businessRatesAttachmentsService: BusinessRatesAttachmentsService,
       uploadView: views.html.propertyLinking.upload,
-      oldUploadView: views.html.propertyLinking.uploadRatesBillLeaseOrLicense,
       uploadEvidenceView: views.html.propertyLinking.uploadEvidence,
       uploadResultView: views.html.propertyLinking.upload_result,
       cannotProvideEvidenceView: views.html.propertyLinking.cannotProvideEvidence

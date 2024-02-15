@@ -14,17 +14,14 @@
  * limitations under the License.
  *@
 
-@import binders.propertylinks._
-@import controllers.propertyLinking.routes._
-@import config.ApplicationConfig
-@import models.upscan._
-@import models._
-@import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
-@import models.EvidenceType
 @import binders.propertylinks.EvidenceChoices.EvidenceChoices
-@import models.upscan.FileStatus.FileStatus
+@import config.ApplicationConfig
+@import models.{EvidenceType, _}
 @import models.attachment.Attachment
+@import models.upscan.FileStatus.FileStatus
+@import models.upscan._
+@import views.html.includes.assessmentHeading
 
 
 @this(govukTag: GovukTag, govukSummaryList: GovukSummaryList, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukButton: GovukButton, govukErrorSummary: GovukErrorSummary)
@@ -68,19 +65,6 @@
     }
 }
 
-@backUri = @{
-    val propertyRelationship = request.ses.propertyRelationship.map(_.capacity).get
-    (evidenceType, propertyRelationship) match {
-        case (Lease, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
-        case (License, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
-        case (Lease, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
-        case (License, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
-        case (noLeaseOrLicense, Occupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
-        case (RatesBillType, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
-        case (_, _) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
-    }
-}
-
 @tag(status: FileStatus) = @{
     status match {
         case _ @ FileStatus.UPLOADING => govukTag(Tag(content = Text(messages("fileUploadResult.uploading")), classes = "govuk-tag--yellow", attributes = Map("id" -> "uploadStatus")))
@@ -109,7 +93,7 @@
 
 @mainLayout(
     pageTitle = title,
-    backUri = backUri
+    backUri = Some(controllers.propertyLinking.routes.UploadController.show(evidenceChoice).url)
 ) {
 
     @if(notReadyError) {

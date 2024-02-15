@@ -12,8 +12,8 @@
         var $element = $('#newFile');
         var errorHeading = $('#error-common-title').text();
         var errorMessages = '<div id="error-summary" class="govuk-error-summary" aria-labelledby="error-summary-heading" role="alert" tabindex="-1" data-module="govuk-error-summary">'+
-                            '<h2 class="govuk-error-summary__title" id="error-summary-heading">' + errorHeading + '</h2>' +
-                            '<ul class="govuk-list govuk-error-summary__list"><li></li></ul></div>';
+            '<h2 class="govuk-error-summary__title" id="error-summary-heading">' + errorHeading + '</h2>' +
+            '<ul class="govuk-list govuk-error-summary__list"><li></li></ul></div>';
 
         $element.change(function(){
             var file = this.files[0];
@@ -40,42 +40,42 @@
                 }
 
                 if(file.type){
-                   return file.type;
+                    return file.type;
                 }
 
                 var mime;
                 switch(extension){
-                            case "xls":
-                            mime = "application/vnd.ms-excel";
-                            break;
+                    case "xls":
+                        mime = "application/vnd.ms-excel";
+                        break;
 
-                            case "xlsb":
-                            mime = "application/vnd.ms-excel.sheet.binary.macroEnabled.12";
-                            break;
+                    case "xlsb":
+                        mime = "application/vnd.ms-excel.sheet.binary.macroEnabled.12";
+                        break;
 
-                            case "xlsx":
-                            mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                            break;
+                    case "xlsx":
+                        mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                        break;
 
-                            case "pdf":
-                            mime = "application/pdf";
-                            break;
+                    case "pdf":
+                        mime = "application/pdf";
+                        break;
 
-                            case "docx":
-                            mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-                            break;
+                    case "docx":
+                        mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                        break;
 
-                            case "doc":
-                            mime = "application/msword";
-                            break;
+                    case "doc":
+                        mime = "application/msword";
+                        break;
 
-                            case "jpg":
-                            mime = "image/jpeg";
-                            break;
+                    case "jpg":
+                        mime = "image/jpeg";
+                        break;
 
-                            case "png":
-                            mime = "image/png";
-                            break;
+                    case "png":
+                        mime = "image/png";
+                        break;
 
                     default:
                         mime = file.type ? file.type : defaultErrorText;

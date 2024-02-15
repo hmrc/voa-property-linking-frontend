@@ -42,12 +42,6 @@ class BusinessRatesAttachmentsConnector @Inject()(
       url = s"$baseURL/business-rates-attachments/initiate-upload",
       request)
 
-  //upload information without calling upcan/initiate
-  def storeUploadInformation(initiatedUpload: InitiatedUpload)(implicit hc: HeaderCarrier): Future[AttachmentId] =
-    http.POST[InitiatedUpload, AttachmentId](
-      url = s"$baseURL/business-rates-attachments/upload/attachment",
-      initiatedUpload)
-
   def initiateAttachmentUpload(uploadSettings: InitiateAttachmentPayload)(
         implicit headerCarrier: HeaderCarrier): Future[PreparedUpload] =
     http.POST[InitiateAttachmentPayload, PreparedUpload](

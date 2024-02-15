@@ -46,12 +46,6 @@ class BusinessRatesAttachmentsService @Inject()(
   ): Future[PreparedUpload] =
     businessRatesAttachmentsConnector.initiateUpload(upscanRequest)
 
-  def uploadAttachment(preparedUpload: InitiatedUpload)(
-        implicit request: LinkingSessionRequest[_],
-        hc: HeaderCarrier
-  ): Future[AttachmentId] =
-    businessRatesAttachmentsConnector.storeUploadInformation(preparedUpload)
-
   def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload, evidenceType: EvidenceType)(
         implicit request: LinkingSessionRequest[_],
         hc: HeaderCarrier): Future[PreparedUpload] =
