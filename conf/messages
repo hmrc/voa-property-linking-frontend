@@ -1082,6 +1082,10 @@ uploadEvidence.otherUtilityBill.title=Upload your utility bill
 
 #FILE UPLOAD RESULTS PAGE
 fileUploadResult.hintText=The selected file must be a Word document, Excel spreadsheet, PDF or image (PNG or JPG) and be smaller than 10MB.
+fileUploadResult.remove=Remove
+fileUploadResult.uploading=uploading
+fileUploadResult.uploaded=uploaded
+fileUploadResult.failed=failed
 
 #LINK REQUEST CONFIRMATION
 

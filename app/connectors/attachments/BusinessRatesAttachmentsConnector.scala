@@ -39,13 +39,14 @@ class BusinessRatesAttachmentsConnector @Inject()(
   //call to initiate an upload without storing all information
   def initiateUpload(request: UpscanInitiateRequest)(implicit hc: HeaderCarrier): Future[PreparedUpload] =
     http.POST[UpscanInitiateRequest, PreparedUpload](
-      url = s"$baseURL/business-rates-attachments/initiate-upload", request)
-
+      url = s"$baseURL/business-rates-attachments/initiate-upload",
+      request)
 
   //upload information without calling upcan/initiate
   def storeUploadInformation(initiatedUpload: InitiatedUpload)(implicit hc: HeaderCarrier): Future[AttachmentId] =
     http.POST[InitiatedUpload, AttachmentId](
-      url = s"$baseURL/business-rates-attachments/upload/attachment", initiatedUpload)
+      url = s"$baseURL/business-rates-attachments/upload/attachment",
+      initiatedUpload)
 
   def initiateAttachmentUpload(uploadSettings: InitiateAttachmentPayload)(
         implicit headerCarrier: HeaderCarrier): Future[PreparedUpload] =

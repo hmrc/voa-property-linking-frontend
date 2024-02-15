@@ -11,6 +11,7 @@
         new VOA.ErrorSummary();
         new VOA.viewMessage();
         new VOA.FileUpload();
+        new VOA.FileUploadNew();
         new VOA.UpdateEvidenceType();
         new VOA.UpdateOtherEvidencePage();
     };

@@ -39,10 +39,6 @@
         optAttachment: Option[Attachment],
         notReadyError: Boolean = false)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@fileUploadStatusUrl = @{
-    controllers.propertyLinking.routes.UploadResultController.getUploadStatus.url
-}
-
 @attachmentFileName = @{
     optAttachment.map(_.fileName).getOrElse("")
 }
@@ -87,9 +83,9 @@
 
 @tag(status: FileStatus) = @{
     status match {
-        case _ @ FileStatus.UPLOADING => govukTag(Tag(content = Text("uploading"), classes = "govuk-tag--yellow", attributes = Map("id" -> "uploadStatus")))
-        case _ @ FileStatus.READY => govukTag(Tag(content = Text("uploaded"), classes = "govuk-tag--green", attributes = Map("id" -> "uploadStatus")))
-        case _ @ FileStatus.FAILED => govukTag(Tag(content = Text("failed"), classes = "govuk-tag--red", attributes = Map("id" -> "uploadStatus")))
+        case _ @ FileStatus.UPLOADING => govukTag(Tag(content = Text(messages("fileUploadResult.uploading")), classes = "govuk-tag--yellow", attributes = Map("id" -> "uploadStatus")))
+        case _ @ FileStatus.READY => govukTag(Tag(content = Text(messages("fileUploadResult.uploaded")), classes = "govuk-tag--green", attributes = Map("id" -> "uploadStatus")))
+        case _ @ FileStatus.FAILED => govukTag(Tag(content = Text(messages("fileUploadResult.failed")), classes = "govuk-tag--red", attributes = Map("id" -> "uploadStatus")))
     }
 }
 
@@ -144,85 +140,20 @@
                     items = Seq(
                         ActionItem(
                             href = controllers.propertyLinking.routes.UploadController.remove(removeLink(request.ses.fileReference), evidenceChoice).url,
-                            content = Text("Remove"),
+                            content = Text(messages("fileUploadResult.remove")),
                             visuallyHiddenText = Some(attachmentFileName)
                         )
                     )
                 )))
     )))
 
-    @formWithCSRF(action = controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, status.toString)) {
+    @formWithCSRF(action = controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, status.toString), Symbol("id") -> "fileUploadForm") {
         @govukButton(Button(
             content = Text(messages("label.continue")),
             attributes = Map("id" -> "continue")
         ))
     }
 
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script type="text/javascript">
-            function makeGetRequest() {
-
-                $.ajax({
-                    url: "@fileUploadStatusUrl",
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function (responseBody, status, xmlHttpRequest) {
-                        updateTag(responseBody);
-                        updateFormAction(responseBody)
-                    },
-                    error: function (xmlHttpRequest, status, error) {
-                    }
-                });
-            }
-
-            // Function to update the tag with the new status
-            function updateTag(newStatus) {
-                var ddElement = document.querySelector('.govuk-summary-list__value strong');
-                if (ddElement) {
-                    ddElement.className = getStatusClass(newStatus);
-                    ddElement.textContent = getStatusText(newStatus);
-                }
-            }
-
-            // Function to get the status text based on the provided status
-            function getStatusText(status) {
-                switch (status) {
-                    case "UPLOADING":
-                        return "uploading";
-                    case "READY":
-                        return "uploaded";
-                    case "FAILED":
-                        return "failed";
-                    default:
-                        return "";
-                }
-            }
-
-            // Function to get the status class based on the provided status
-            function getStatusClass(status) {
-                switch (status) {
-                    case "UPLOADING":
-                        return "govuk-tag govuk-tag--yellow";
-                    case "READY":
-                        return "govuk-tag govuk-tag--green";
-                    case "FAILED":
-                        return "govuk-tag govuk-tag--red";
-                    default:
-                        return "";
-                }
-            }
-
-            // Function to update the form action with the new status
-            function updateFormAction(newStatus) {
-                var formElement = document.querySelector('#main-content > div > div > form');
-                if (formElement) {
-                    formElement.action = '@controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, status.toString)'.replace('@status.toString', newStatus);
-                }
-            }
-
-            var intervalId = setInterval(makeGetRequest, 1000);
-    </script>
-
+    <span class="govuk-visually-hidden" id="fileUploadStatusUrl">@{s"${controllers.propertyLinking.routes.UploadResultController.getUploadStatus}"}</span>
+    <input class="govuk-visually-hidden" id="submitUrlPrefix" value="@controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, "")">
 }

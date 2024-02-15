@@ -41,15 +41,14 @@ class BusinessRatesAttachmentsService @Inject()(
     extends Cats {
 
   def initiateUpload(upscanRequest: UpscanInitiateRequest)(
-  implicit request: LinkingSessionRequest[_],
-  hc: HeaderCarrier
-  ): Future[PreparedUpload] = {
+        implicit request: LinkingSessionRequest[_],
+        hc: HeaderCarrier
+  ): Future[PreparedUpload] =
     businessRatesAttachmentsConnector.initiateUpload(upscanRequest)
-  }
 
   def uploadAttachment(preparedUpload: InitiatedUpload)(
-    implicit request: LinkingSessionRequest[_],
-    hc: HeaderCarrier
+        implicit request: LinkingSessionRequest[_],
+        hc: HeaderCarrier
   ): Future[AttachmentId] =
     businessRatesAttachmentsConnector.storeUploadInformation(preparedUpload)
 

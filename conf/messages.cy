@@ -1048,6 +1048,13 @@ uploadEvidence.noEvidence.p1=<p>Os na allwch ddarparu un o’r dogfennau a restr
 uploadEvidence.noEvidence.p2=<p>Bydd angen i chi gysylltu â ni i drafod dogfennau eraill sy’n profi eich cysylltiad â’r eiddo hwn.</p>
 uploadEvidence.noEvidence.p3=<p>E-bost: <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a></p>
 
+#FILE UPLOAD RESULTS PAGE
+fileUploadResult.hintText=Rhaid i’r ffeil a ddewiswyd fod yn ddogfen Word, taenlen Excel, PDF neu ddelwedd (PNG neu JPG) ac yn llai na 10MB.
+fileUploadResult.remove=Dileu
+fileUploadResult.uploading=Wrthi’n lanlwytho
+fileUploadResult.uploaded=Wedi ei lanlwytho
+fileUploadResult.failed=methu
+
 evidenceType.assignment=Aseiniad
 evidenceType.label=Math o dystiolaeth
 evidenceType.lease=Prydles

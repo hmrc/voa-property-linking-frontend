@@ -4,6 +4,7 @@ import base.{HtmlComponentHelpers, ISpecBase}
 import binders.propertylinks.{ClaimPropertyReturnToPage, EvidenceChoices}
 import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
+import models.upscan.{PreparedUpload, Reference, UploadFormTemplate}
 import models.{ClientDetails, EvidenceType, LandRegistryTitle, LinkingSession, Occupier, PropertyOccupancy, PropertyOwnership, PropertyRelationship, RatesBillType, UploadEvidenceData}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -17,6 +18,9 @@ import java.time.LocalDate
 import java.util.UUID
 
 class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
+
+//  TODO: this spec needs to cover all page content
+
   lazy val mockRepository: PropertyLinkingSessionRepository = app.injector.instanceOf[PropertyLinkingSessionRepository]
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
@@ -55,6 +59,7 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Bil ardrethi busnes Datganiad tâl gwasanaeth Ffurflen Treth Dir y Dreth Stamp Teitl y Gofrestrfa Tir Archeb trethi dŵr Bil cyfleustodau neu Ni allaf ddarparu tystiolaeth"
 
   val headerSelector = "h1"
+  val chooseFileId = "choose-file"
 
   def thisAgentTextSingle(listYear: String) =
     s"This agent can act for you on your property valuations on the $listYear rating list, for properties that you assign to them or they add to your account"
@@ -80,7 +85,7 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a choose file button" in {
-        document.getElementById("newFileButton").className() shouldBe "govuk-file-upload"
+        document.getElementById(chooseFileId).className() shouldBe "govuk-file-upload"
       }
     }
 
@@ -101,7 +106,7 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a choose file button" in {
-        document.getElementById("newFileButton").className() shouldBe "govuk-file-upload"
+        document.getElementById(chooseFileId).className() shouldBe "govuk-file-upload"
       }
     }
 
@@ -122,7 +127,7 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a choose file button" in {
-        document.getElementById("newFileButton").className() shouldBe "govuk-file-upload"
+        document.getElementById(chooseFileId).className() shouldBe "govuk-file-upload"
       }
     }
 
@@ -143,7 +148,7 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a choose file button" in {
-        document.getElementById("newFileButton").className() shouldBe "govuk-file-upload"
+        document.getElementById(chooseFileId).className() shouldBe "govuk-file-upload"
       }
     }
 
@@ -164,7 +169,7 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a choose file button" in {
-        document.getElementById("newFileButton").className() shouldBe "govuk-file-upload"
+        document.getElementById(chooseFileId).className() shouldBe "govuk-file-upload"
       }
     }
 
@@ -185,7 +190,7 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a choose file button" in {
-        document.getElementById("newFileButton").className() shouldBe "govuk-file-upload"
+        document.getElementById(chooseFileId).className() shouldBe "govuk-file-upload"
       }
     }
 
@@ -206,7 +211,7 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a choose file button" in {
-        document.getElementById("newFileButton").className() shouldBe "govuk-file-upload"
+        document.getElementById(chooseFileId).className() shouldBe "govuk-file-upload"
       }
     }
 
@@ -227,7 +232,7 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a choose file button" in {
-        document.getElementById("newFileButton").className() shouldBe "govuk-file-upload"
+        document.getElementById(chooseFileId).className() shouldBe "govuk-file-upload"
       }
     }
 
@@ -326,6 +331,14 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
         }
     }
 
+    stubFor {
+      post("/business-rates-attachments/initiate-upload")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(PreparedUpload(Reference("12345678910111213"), UploadFormTemplate("http://localhost/upscan", Map()))
+          ).toString())
+        }
+    }
+
     val res = await(
       ws.url(
           s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload")
@@ -382,6 +395,14 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
         }
     }
 
+    stubFor {
+      post("/business-rates-attachments/initiate-upload")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(PreparedUpload(Reference("12345678910111213"), UploadFormTemplate("http://localhost/upscan", Map()))
+          ).toString())
+        }
+    }
+
     await(
       ws.url(
           s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload")
@@ -391,5 +412,4 @@ class UploadControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .post(Json.obj("evidenceType" -> evidencetype.name))
     )
   }
-
 }

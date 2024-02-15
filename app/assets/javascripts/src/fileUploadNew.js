@@ -11,6 +11,8 @@
     var FileUploadNew = function (){
         function makeGetRequest() {
 
+            var csrfToken = $("#fileUploadForm input[name='csrfToken']").val();
+
             $.ajax({
                 url: $("#fileUploadStatusUrl").text(),
                 method: 'GET',
@@ -63,13 +65,14 @@
 
         // Function to update the form action with the new status
         function updateFormAction(newStatus) {
-            var formElement = document.querySelector('#main-content > div > div > form');
+            var formElement = document.querySelector('#fileUploadForm');
             if (formElement) {
-                formElement.action = '@controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, status.toString)'.replace('@status.toString', newStatus);
+                var submitUrlPrefix = document.getElementById('submitUrlPrefix').value;
+                formElement.action = submitUrlPrefix + newStatus;
             }
         }
 
-        var intervalId = setInterval(makeGetRequest, 1000);
+        var intervalId = setInterval(makeGetRequest, 5000);
     };
 
     root.VOA.FileUploadNew = FileUploadNew;
