@@ -111,6 +111,22 @@ class UploadResultController @Inject()(
   def submit(evidenceChoices: EvidenceChoices, fileStatus: String): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val status = FileStatus.withName(fileStatus)
+
+      def updatedUploadData(attachment: Attachment): UploadEvidenceData = {
+
+        val evidenceChoice = getEvidenceType(evidenceChoices)
+        val fileInfo = request.ses.uploadEvidenceData.fileInfo match {
+          case Some(CompleteFileInfo(name, _)) => CompleteFileInfo(name, evidenceChoice)
+          case _                               => CompleteFileInfo(attachment.fileName, evidenceChoice)
+        }
+
+        UploadEvidenceData(
+          linkBasis = if (evidenceChoice == RatesBillType) RatesBillFlag else OtherEvidenceFlag,
+          fileInfo = Some(fileInfo),
+          attachments = request.ses.uploadEvidenceData.attachments
+        )
+      }
+
       status match {
         case FileStatus.READY =>
           val result: Future[Result] = (
@@ -122,6 +138,9 @@ class UploadResultController @Inject()(
                 reference -> UploadedFileDetails(
                   FileMetadata(attachment.fileName, attachment.mimeType),
                   preparedUpload))
+              _ <- OptionT.liftF(
+                    sessionRepository.saveOrUpdate(
+                      request.ses.copy(uploadEvidenceData = updatedUploadData(attachment))))
               _ <- OptionT.liftF(
                     businessRatesAttachmentsService.persistSessionData(
                       request.ses.copy(evidenceType = Some(getEvidenceType(evidenceChoices))),
