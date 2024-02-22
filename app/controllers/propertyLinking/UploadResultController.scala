@@ -145,7 +145,10 @@ class UploadResultController @Inject()(
                     )
                   )
               result <- OptionT.pure[Future](Redirect(routes.DeclarationController.show))
-            } yield result
+            } yield {
+              println(Console.GREEN + Json.toJson(preparedUpload) + Console.RESET)
+              result
+            }
           ).getOrElse(Redirect(routes.UploadController.show(evidenceChoices)))
 
           result
