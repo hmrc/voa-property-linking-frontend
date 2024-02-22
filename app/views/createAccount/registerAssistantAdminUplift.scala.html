@@ -1,0 +1,71 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import models.registration._
+@import helpers._
+
+@import models.registration.FieldData
+@import config.ApplicationConfig
+@import utils.Formatters._
+@import views.html.mainLayout
+@import views.html._
+@import utils.FrontendComponentHelper._
+
+@this(address: address, mainLayout: mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, dateFields: dateFields, formWithCSRF: FormWithCSRF)
+
+@(organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@isAgent(selected: Boolean) = @{
+    if(selected) """checked="checked""" else """ disabled="disabled" """
+}
+
+@mainLayout(pageTitle = messages("admin.enrolment.title"),
+showTopNavigation = false) {
+
+        <h1 class="govuk-heading-l">@messages("admin.enrolment.title")</h1>
+        <p class="govuk-body">@messages("admin.enrolment.p")</p>
+        <h2 class="govuk-heading-m">@messages("enrolment.assistant.organisation.details.title")</h2>
+        <table class="govuk-table">
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("enrolment.organisation.name.label")</th>
+                <td class="govuk-table__cell">@organisationFieldData.businessName</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("label.postal.address")</th>
+                <td class="govuk-table__cell">
+                    @Html(capitalizedAddress(organisationFieldData.businessAddress).replaceAll(", ", "<br>"))
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("label.telephone.number")</th>
+                <td class="govuk-table__cell">@organisationFieldData.businessPhoneNumber</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">@messages("label.correspondence.email.address")</th>
+                <td class="govuk-table__cell">@organisationFieldData.email</td>
+            </tr>
+            </tbody>
+        </table>
+
+    @formWithCSRF(controllers.registration.routes.RegistrationController.submitAdminToExistingOrganisationUplift) {
+
+        @govukButton(Button(
+            content = Text(messages("label.confirm")),
+            attributes = Map("id" -> "save-and-continue")))
+    }
+
+}

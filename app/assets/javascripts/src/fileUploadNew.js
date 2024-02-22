@@ -8,18 +8,26 @@
         root.VOA = {};
     }
 
+    // Check if the fileUploadForm element exists on the page
+    var fileUploadFormElement = document.querySelector('#fileUploadForm');
+    if (!fileUploadFormElement) {
+        return; // If the form doesn't exist, exit the script
+    }
+
     var FileUploadNew = function (){
         function makeGetRequest() {
-
-            var csrfToken = $("#fileUploadForm input[name='csrfToken']").val();
 
             $.ajax({
                 url: $("#fileUploadStatusUrl").text(),
                 method: 'GET',
                 dataType: 'json',
                 success: function (responseBody, status, xmlHttpRequest) {
-                    updateTag(responseBody);
-                    updateFormAction(responseBody)
+                    var fileStatus = responseBody[0];
+                    var fileName = responseBody[1];
+                    var fileDownloadLink = responseBody[2];
+                    updateTag(fileStatus);
+                    updateFormAction(fileStatus);
+                    updateFileName(fileName, fileDownloadLink);
                 },
                 error: function (xmlHttpRequest, status, error) {
                 }
@@ -35,15 +43,41 @@
             }
         }
 
-        // Function to get the status text based on the provided status
+        // Function to update view with file name and download link
+        function updateFileName(fileName, fileDownloadLink) {
+            var element = document.querySelector('#main-content > div > div > dl > div > dt > a');
+            if (element) {
+                // Use the implicit Messages for the current language
+                element.textContent = fileName;
+                element.href = fileDownloadLink;
+            }
+        }
+
+        var messages;
+
+        // Fetch implicit messages & keys from server side
+        $.ajax({
+            url: $("#messageKeyUrl").text(), // Replace with the correct route
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                messages = response;
+                // Now you can use messages in your JavaScript logic
+            },
+            error: function() {
+                console.error('Failed to fetch messages');
+            }
+        });
+
+        // Use implicit messages response to update the status text
         function getStatusText(status) {
             switch (status) {
                 case "UPLOADING":
-                    return "uploading";
+                    return messages[0];
                 case "READY":
-                    return "uploaded";
+                    return messages[1];
                 case "FAILED":
-                    return "failed";
+                    return messages[2];
                 default:
                     return "";
             }
@@ -71,8 +105,8 @@
                 formElement.action = submitUrlPrefix + newStatus;
             }
         }
-
-        var intervalId = setInterval(makeGetRequest, 5000);
+        // 2 second interval for update view
+        var intervalId = setInterval(makeGetRequest, 2000);
     };
 
     root.VOA.FileUploadNew = FileUploadNew;

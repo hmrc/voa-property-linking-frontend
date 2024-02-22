@@ -98,7 +98,7 @@
         <p class="govuk-body">@messages("available.requestvaluation.nonDraft.check.p2")</p>
 
         @govukWarningText(WarningText(
-          iconFallbackText = messages("warning.text"),
+          iconFallbackText = Some(messages("warning.text")),
           content = Text(messages("available.requestvaluation.nonDraft.check.warning"))
         ))
 

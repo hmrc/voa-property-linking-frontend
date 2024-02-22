@@ -309,9 +309,12 @@ class UploadController @Inject()(
 
   //Catching error message received from Upscan & replacing
   private def upscanErrors(errorMessage: Option[String])(implicit messages: Messages): Option[String] =
-    if (errorMessage.contains("Your proposed upload exceeds the maximum allowed size"))
-      Some(messages("error.businessRatesAttachment.file.size.exceed.max.limit"))
-    else errorMessage
+    errorMessage match {
+      case Some("Your proposed upload exceeds the maximum allowed size") =>
+        Some(messages("error.businessRatesAttachment.file.size.exceed.max.limit"))
+      case Some("'file' field not found") => Some(messages("error.businessRatesAttachment.ratesBill.not.selected"))
+      case _                              => errorMessage
+    }
 
   private def getEvidenceChoice(evidenceType: Option[EvidenceType] = None): EvidenceChoices =
     evidenceType match {

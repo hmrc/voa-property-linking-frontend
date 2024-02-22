@@ -20,22 +20,17 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import utils.Formatters
 @import views.html.includes.assessmentHeading
+@import java.net.URLEncoder
 
 @this(govukPanel: GovukPanel, mainLayout: views.html.mainLayout)
 
 @(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@clientParameter = @{
-        model.clientDetails match {
-            case Some(client) => s"?organisationId=${client.organisationId}&organisationName=${client.organisationName}"
-            case _        => ""
-        }
-}
 @managePropertiesUrl = @{
     model.clientDetails match {
         case Some(client) =>
             config.dashboardUrl(
-                s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}")
+                s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${URLEncoder.encode(client.organisationName, "UTF-8")}")
         case _        => config.dashboardUrl("your-properties")
     }
 }

@@ -42,7 +42,7 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
   val giveYourAgentTextWelsh = "Rhowch eich cod Asiant i’ch cleient fel y gallant eich penodi i weithredu ar eich rhan."
   val ifAnyoneElseTextWelsh = "Os oes unrhyw un arall eisiau cofrestru ar eich rhan chi o’r mudiad, bydd angen i chi eu hychwanegu i’ch cyfrif Porth y Llywodraeth."
   val addThemTooTextWelsh = "eu hychwanegu i’ch cyfrif Porth y Llywodraeth"
-  val weUseYourTextWelsh = "Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif."
+  val weUseYourTextWelsh = "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
   val termsOfUseTextWelsh = "Telerau defnyddio"
   val infoProvidedTextWelsh = "Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri telerau ac amodau’r gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006."
   val termsLinkTextWelsh = "telerau ac amodau’r"

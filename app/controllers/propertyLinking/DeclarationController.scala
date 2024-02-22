@@ -95,7 +95,7 @@ class DeclarationController @Inject()(
             else routes.ClaimPropertyRelationshipController.back
           )
         } { choice =>
-          Redirect(routes.UploadController.show(choice))
+          Redirect(routes.UploadResultController.show(choice))
         }
       }
   }

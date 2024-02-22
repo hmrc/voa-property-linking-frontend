@@ -16,7 +16,6 @@
 
 @import config.ApplicationConfig
 @import binders.propertylinks._
-@import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
 
 @this(mainLayout: views.html.mainLayout)
@@ -26,8 +25,6 @@
     pageTitle = messages("cannotProvideEvidence.title"),
     backUri = Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
 ) {
-    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
-
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@messages("cannotProvideEvidence.title")</h1>
 

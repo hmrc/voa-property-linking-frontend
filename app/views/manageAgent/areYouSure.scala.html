@@ -35,7 +35,7 @@
     <p class="govuk-body">@messages("ratingsListConfirmation.theyWillNot", invalidListYear)</p>
 
     @govukWarningText(WarningText(
-      iconFallbackText = messages("warning.text"),
+      iconFallbackText = Some(messages("warning.text")),
       content = Text(messages("ratingsListConfirmation.restricting"))))
 
   @formWithCSRF(action = controllers.manageAgent.routes.AreYouSureController.submitRatingListYears(chosenListYear)) {

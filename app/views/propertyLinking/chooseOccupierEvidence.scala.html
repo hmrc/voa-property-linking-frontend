@@ -15,7 +15,6 @@
  *@
 
 @import config.ApplicationConfig
-@import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import _root_.utils.Formatters
 
@@ -39,8 +38,6 @@
             errorList = form.errors.asTextErrorLinks,
             title = Text(messages("errors.heading.title"))))
     }
-
-    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
     <h2 class="govuk-caption-l">@messages("caption.add.property")</h2>
 

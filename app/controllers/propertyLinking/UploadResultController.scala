@@ -28,7 +28,7 @@ import models.attachment.Attachment
 import models.upscan.FileStatus.FileStatus
 import models.upscan.{FileMetadata, FileStatus, UploadedFileDetails}
 import play.api.Logging
-import play.api.i18n.MessagesApi
+import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import repositories.SessionRepo
@@ -72,7 +72,7 @@ class UploadResultController @Inject()(
 
         val evidenceChoice = getEvidenceType(evidence)
         val fileInfo = request.ses.uploadEvidenceData.fileInfo match {
-          case Some(CompleteFileInfo(name, _)) => CompleteFileInfo(name, evidenceChoice)
+          case Some(CompleteFileInfo(name, _)) => CompleteFileInfo(attachment.fileName, evidenceChoice)
           case _                               => CompleteFileInfo(attachment.fileName, evidenceChoice)
         }
 
@@ -113,18 +113,17 @@ class UploadResultController @Inject()(
       val status = FileStatus.withName(fileStatus)
 
       def updatedUploadData(attachment: Attachment): UploadEvidenceData = {
-
         val evidenceChoice = getEvidenceType(evidenceChoices)
-        val fileInfo = request.ses.uploadEvidenceData.fileInfo match {
-          case Some(CompleteFileInfo(name, _)) => CompleteFileInfo(name, evidenceChoice)
-          case _                               => CompleteFileInfo(attachment.fileName, evidenceChoice)
-        }
-
         UploadEvidenceData(
           linkBasis = if (evidenceChoice == RatesBillType) RatesBillFlag else OtherEvidenceFlag,
-          fileInfo = Some(fileInfo),
+          fileInfo = Some(CompleteFileInfo(attachment.fileName, evidenceChoice)),
           attachments = request.ses.uploadEvidenceData.attachments
         )
+      }
+
+      def completeFileInfo(attachment: Attachment): CompleteFileInfo = {
+        val evidenceChoice = getEvidenceType(evidenceChoices)
+        CompleteFileInfo(attachment.fileName, evidenceChoice)
       }
 
       status match {
@@ -139,12 +138,11 @@ class UploadResultController @Inject()(
                   FileMetadata(attachment.fileName, attachment.mimeType),
                   preparedUpload))
               _ <- OptionT.liftF(
-                    sessionRepository.saveOrUpdate(
-                      request.ses.copy(uploadEvidenceData = updatedUploadData(attachment))))
-              _ <- OptionT.liftF(
                     businessRatesAttachmentsService.persistSessionData(
                       request.ses.copy(evidenceType = Some(getEvidenceType(evidenceChoices))),
-                      request.ses.uploadEvidenceData.copy(attachments = Some(map)))
+                      request.ses.uploadEvidenceData.copy(fileInfo = Some(completeFileInfo(attachment)))
+                        .copy(attachments = Some(map)),
+                    )
                   )
               result <- OptionT.pure[Future](Redirect(routes.DeclarationController.show))
             } yield result
@@ -185,9 +183,10 @@ class UploadResultController @Inject()(
         .map {
           case Some(attachment) =>
             val fileStatus = attachment.scanResult.map(_.fileStatus).getOrElse(FileStatus.UPLOADING)
-            Ok(Json.toJson(fileStatus))
+            val fileName = attachment.fileName
+            val fileDownloadLink = attachment.scanResult.map(_.downloadUrl)
+            Ok(Json.toJson(fileStatus, fileName, fileDownloadLink))
           case None =>
-            //todo I think this needs to be something else
             BadRequest(errorHandler.badRequestTemplate)
         }
         .recover {
@@ -196,4 +195,12 @@ class UploadResultController @Inject()(
         }
     }
 
+  def getMessageKeys = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+    val messageKeys = Array(
+      Messages("fileUploadResult.uploading"),
+      Messages("fileUploadResult.uploaded"),
+      Messages("fileUploadResult.failed")
+    )
+    Future.successful(Ok(Json.toJson(messageKeys)))
+  }
 }

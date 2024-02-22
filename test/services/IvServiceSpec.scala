@@ -33,6 +33,9 @@ import scala.concurrent.Future
 
 class IvServiceSpec extends ServiceSpec {
 
+  override def additionalAppConfig: Seq[(String, String)] =
+    Seq("feature-switch.ivUplift.enabled" -> "false")
+
   "continue" should {
     "return a successful registration result if registration was successful for a new organisation" in new TestCase {
       StubGroupAccountConnector.stubAccount(groupAccount(agent = true))

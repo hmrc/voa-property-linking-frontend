@@ -28,6 +28,7 @@ import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import tests.AllMocks
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 import utils.HtmlPage
 
 import java.time.LocalDate
@@ -458,7 +459,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     redirectLocation(res) shouldBe
       Some(
         "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&" +
-          "agentCode=12345&agentAppointed=BOTH&backLink=%2F" +
+          "agentCode=12345&agentAppointed=BOTH&backLinkUrl=%2F" +
           "business-rates-property-linking%2Fmy-organisation%2Fmanage-agent&fromManageAgentJourney=true")
   }
 
@@ -476,94 +477,6 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties")
-  }
-
-  "showUnassignFromAll" should "return 200 Ok and for multiple properties display unassign agent from all properties page" in {
-    val agent = agentSummary.copy(propertyCount = 2, representativeCode = agentCode)
-    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
-    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
-      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(2))
-
-    val res = testController.showUnassignFromAll()(FakeRequest())
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-
-    html.html
-      .getElementById("question-text")
-      .text() shouldBe "Are you sure you want to unassign Some Agent Org from all your properties?"
-    verifyUnassignedPrivilegesDisplayed(html.html)
-
-  }
-
-  "showUnassignFromAll" should "return 200 Ok and for multiple properties display unassign agent from all properties page - in welsh" in {
-    val agent = agentSummary.copy(propertyCount = 2, representativeCode = agentCode)
-    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
-    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
-      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(2))
-
-    val res = testController.showUnassignFromAll()(welshFakeRequest)
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-
-    html.html
-      .getElementById("question-text")
-      .text() shouldBe s"Ydych chi’n siŵr eich bod am ddadneilltuo ${agentSummary.name} o’ch holl eiddo?"
-    verifyUnassignedPrivilegesDisplayed(html.html, isWelsh = true)
-
-  }
-
-  "showUnassignFromAll" should "return 200 Ok and for one property display unassign agent from your property page" in {
-    val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
-    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
-    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
-      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(1))
-
-    val res = testController.showUnassignFromAll()(FakeRequest())
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-
-    html.html
-      .getElementById("unassignFromProperty-question")
-      .text() shouldBe "Are you sure you want to unassign Some Agent Org from your property?"
-    verifyUnassignedPrivilegesDisplayed(html.html)
-
-  }
-
-  "showUnassignFromAll" should "return 200 Ok and for one property display unassign agent from your property page in welsh" in {
-    val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
-    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
-    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
-      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(1))
-
-    val res = testController.showUnassignFromAll()(welshFakeRequest)
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-
-    html.html
-      .getElementById("unassignFromProperty-question")
-      .text() shouldBe s"A hoffwch ddad-neilltuo ${agentSummary.name} o’ch eiddo?"
-    verifyUnassignedPrivilegesDisplayed(html.html, isWelsh = true)
-
   }
 
   "submitManageAgent" should "return 303 Redirect when IP chooses to unassign agent from some properties" in {
@@ -598,23 +511,6 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation")
-  }
-
-  "showRemoveAgentFromIpOrganisation" should "return 200 Ok when IP removes agent from account" in {
-    val agent = agentSummary.copy(propertyCount = 1, representativeCode = agentCode)
-    when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agent))))
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
-    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
-      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-
-    val res = testController.showRemoveAgentFromIpOrganisation()(FakeRequest())
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch(
-      "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK")
   }
 
   "submitManageAgent" should "return 200 Ok when IP chooses to appoint agent to only property" in {
@@ -766,70 +662,11 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   }
 
-  "confirmationUnassignAgentFromAll" should "return 200 Ok and display page" in {
-    val agent = agentSummary.copy(propertyCount = 1)
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
-    val res = testController.confirmationUnassignAgentFromAll()(FakeRequest())
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch(
-      "Some Agent Org has been unassigned from all your properties - Valuation Office Agency - GOV.UK")
-
-  }
-
-  "confirmationUnassignAgentFromAll" should "return 200 Ok and display page - in welsh" in {
-    val agent = agentSummary.copy(propertyCount = 1)
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agent)))
-    when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
-    val res = testController.confirmationUnassignAgentFromAll()(welshFakeRequest)
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch(
-      s"Mae ${agentSummary.name} wedi’i ddadneilltuo o’ch holl eiddo - Valuation Office Agency - GOV.UK")
-
-  }
-
-  "showRemoveAgentFromIpOrganisation" should "return 200 Ok" in {
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    val res = testController.showRemoveAgentFromIpOrganisation()(FakeRequest())
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch(
-      "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK")
-    html.html
-      .getElementById("remove-agent-from-org-p1")
-      .text() shouldBe "They will no longer be able to add properties to your account and act on them for you."
-    html.html
-      .getElementById("remove-agent-from-org-p2")
-      .text() shouldBe "You will no longer be able to assign properties to them or have them act for you."
-  }
-
-  "showRemoveAgentFromIpOrganisation" should "return 200 Ok - in welsh" in {
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    val res = testController.showRemoveAgentFromIpOrganisation()(welshFakeRequest)
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch(
-      s"Ydych chi’n siŵr eich bod am dynnu ${agentSummary.name} o’ch cyfrif? - Valuation Office Agency - GOV.UK")
-    html.html
-      .getElementById("remove-agent-from-org-p1")
-      .text() shouldBe "Ni fyddant bellach yn gallu ychwanegu eiddo at eich cyfrif a gweithredu arnynt ar eich rhan."
-    html.html
-      .getElementById("remove-agent-from-org-p2")
-      .text() shouldBe "Ni fyddwch bellach yn gallu aseinio eiddo iddynt na’u cael i weithredu ar eich rhan."
-  }
-
   "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted" in {
 
-    val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org", "some-back-link")(
-      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+    val res = testController
+      .removeAgentFromIpOrganisation(agentCode, "Some agent org", RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
     status(res) shouldBe BAD_REQUEST
 
@@ -841,8 +678,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted - in welsh" in {
 
     val agentName = "Some agent org"
-    val res = testController.removeAgentFromIpOrganisation(agentCode, agentName, "some-back-link")(
-      welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+    val res = testController
+      .removeAgentFromIpOrganisation(agentCode, agentName, RedirectUrl("http://localhost/some-back-link"))(
+        welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
 
     status(res) shouldBe BAD_REQUEST
 
@@ -855,49 +693,14 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
 
-    val res = testController.removeAgentFromIpOrganisation(agentCode, "Some agent org", "back-link")(
-      FakeRequest()
-        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.RELATIONSHIP}"))
+    val res = testController
+      .removeAgentFromIpOrganisation(agentCode, "Some agent org", RedirectUrl("http://localhost/some-back-link"))(
+        FakeRequest()
+          .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.RELATIONSHIP}"))
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
       "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation/confirm")
-  }
-
-  "confirmRemoveAgentFromOrganisation" should "return 200 Ok and display page" in {
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-
-    val res = testController.confirmRemoveAgentFromOrganisation()(FakeRequest())
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch("Some Agent Org has been removed from your account - Valuation Office Agency - GOV.UK")
-    html.html.getElementById("remove-agent-confirmation-p1").text() shouldBe "The agent can no longer act for you."
-    html.html
-      .getElementById("remove-agent-confirmation-p2")
-      .text() shouldBe s"If you want the agent to act for you again, you can reappoint them to your account using agent code ${agentSummary.representativeCode.toString()}."
-  }
-
-  "confirmRemoveAgentFromOrganisation" should "return 200 Ok and display page  - in welsh" in {
-    when(mockSessionRepository.get[AgentSummary](any(), any())).thenReturn(Future.successful(Some(agentSummary)))
-    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-
-    val res = testController.confirmRemoveAgentFromOrganisation()(welshFakeRequest)
-
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.titleShouldMatch(s"Mae ${agentSummary.name} wedi’i dynnu o’ch cyfrif - Valuation Office Agency - GOV.UK")
-    html.html
-      .getElementById("remove-agent-confirmation-p1")
-      .text() shouldBe "Ni all yr asiant weithredu ar eich rhan mwyach."
-    html.html
-      .getElementById("remove-agent-confirmation-p2")
-      .text() shouldBe s"Os ydych am i’r asiant weithredu ar eich rhan eto, gallwch ei ailbenodi i’ch cyfrif gan ddefnyddio cod asiant ${agentSummary.representativeCode.toString()}."
   }
 
   type English = EnglishRequest

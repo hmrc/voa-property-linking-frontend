@@ -30,13 +30,13 @@ import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import repositories.SessionRepo
 import services.AgentRelationshipService
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
-import repositories.SessionRepo
-import uk.gov.hmrc.http.HeaderCarrier
-
 import scala.concurrent.{ExecutionContext, Future}
 
 class ManageAgentController @Inject()(
@@ -57,13 +57,12 @@ class ManageAgentController @Inject()(
       confirmRemoveAgentFromOrganisationView: views.html.propertyrepresentation.manage.confirmRemoveAgentFromOrganisation,
       manageAgentPropertiesView: views.html.propertyrepresentation.manage.manageAgentProperties,
       manageAgentPropertiesViewOld: views.html.propertyrepresentation.manage.manageAgentPropertiesOld,
-      @Named("manageAgent") val manageAgentSessionRepo: SessionRepo
-)(
+      @Named("manageAgent") val manageAgentSessionRepo: SessionRepo)(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
-      val config: ApplicationConfig
-) extends PropertyLinkingController {
+      val config: ApplicationConfig)
+    extends PropertyLinkingController {
 
   val logger = Logger(this.getClass.getName)
 
@@ -78,7 +77,6 @@ class ManageAgentController @Inject()(
         Ok(myAgentsViewOld(organisationsAgents.agents, propertyLinksCount))
       }
     }
-
   }
 
   def manageAgentProperties(
@@ -425,15 +423,17 @@ class ManageAgentController @Inject()(
           form = submitAgentAppointmentRequest,
           agentCode = agent.representativeCode,
           agentName = agent.name,
-          backLink = config.dashboardUrl("home")))
+          backLink = controllers.agent.routes.ManageAgentController.showManageAgent.url
+        ))
     }
   }
 
-  def removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String): Action[AnyContent] =
+  def removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLinkUrl: RedirectUrl): Action[AnyContent] =
     authenticated.async { implicit request =>
       submitAgentAppointmentRequest.bindFromRequest.fold(
         errors => {
-          Future.successful(BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, backLink)))
+          Future.successful(
+            BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, config.safeRedirect(backLinkUrl))))
         }, { success =>
           agentRelationshipService
             .postAgentAppointmentChange(AgentAppointmentChangeRequest(
@@ -467,7 +467,7 @@ class ManageAgentController @Inject()(
         pagination = PaginationParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
-        backLink = controllers.agent.routes.ManageAgentController.showManageAgent.url,
+        backLinkUrl = RedirectUrl(controllers.agent.routes.ManageAgentController.showManageAgent.url),
         fromManageAgentJourney = true
       ))
 

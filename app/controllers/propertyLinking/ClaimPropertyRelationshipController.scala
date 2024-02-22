@@ -29,6 +29,7 @@ import connectors.vmv.VmvConnector
 import controllers._
 import form.EnumMapping
 import models._
+import models.properties.PropertyHistory
 import play.api.Configuration
 import play.api.data.Form
 import play.api.data.Forms._
@@ -92,12 +93,16 @@ class ClaimPropertyRelationshipController @Inject()(
         valuationId: Option[Long] = None): Action[AnyContent] =
     authenticatedAction.async { implicit request =>
       for {
-        property <- vmvConnector.getPropertyHistory(uarn)
-        _        <- initialiseSession(uarn, clientDetails, rtp, valuationId)
+        propertyHistory <- vmvConnector.getPropertyHistory(uarn)
+        _               <- initialiseSession(uarn, clientDetails, rtp, valuationId, propertyHistory)
       } yield
         Ok(
           claimPropertyStartView(
-            ClaimPropertyRelationshipVM(relationshipForm, property.addressFull, uarn, property.localAuthorityReference),
+            ClaimPropertyRelationshipVM(
+              relationshipForm,
+              propertyHistory.addressFull,
+              uarn,
+              propertyHistory.localAuthorityReference),
             clientDetails = clientDetails,
             backLinkToVmv(rtp, uarn, valuationId)
           ))
@@ -174,10 +179,10 @@ class ClaimPropertyRelationshipController @Inject()(
         uarn: Long,
         clientDetails: Option[ClientDetails],
         rtp: ClaimPropertyReturnToPage,
-        valuationId: Option[Long])(implicit request: AuthenticatedRequest[_]): Future[Unit] =
+        valuationId: Option[Long],
+        propertyHistory: PropertyHistory)(implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
-      propertyHistory <- vmvConnector.getPropertyHistory(uarn)
-      submissionId    <- submissionIdConnector.get()
+      submissionId <- submissionIdConnector.get()
       earliestStartDate = propertyLinkingService.findEarliestStartDate(propertyHistory)
       _ <- sessionRepository.start[LinkingSession](
             LinkingSession(

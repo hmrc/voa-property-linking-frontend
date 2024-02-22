@@ -21,7 +21,6 @@
 @import models.attachment.Attachment
 @import models.upscan.FileStatus.FileStatus
 @import models.upscan._
-@import views.html.includes.assessmentHeading
 
 
 @this(govukTag: GovukTag, govukSummaryList: GovukSummaryList, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukButton: GovukButton, govukErrorSummary: GovukErrorSummary)
@@ -33,8 +32,7 @@
         uploadedFiles: Map[String, UploadedFileDetails] = Map(),
         status: FileStatus,
         fileReference: Option[String],
-        optAttachment: Option[Attachment],
-        notReadyError: Boolean = false)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+        optAttachment: Option[Attachment])(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @attachmentFileName = @{
     optAttachment.map(_.fileName).getOrElse("")
@@ -48,7 +46,7 @@
     @if(attachmentDownloadLink.isDefined) {
             <a class="govuk-link" href="@attachmentDownloadLink.get">@attachmentFileName</a>
     }else{
-            <p class="govuk-body">@attachmentFileName</p>
+        <a class="govuk-link" href=""></a>
     }
 }
 
@@ -93,22 +91,9 @@
 
 @mainLayout(
     pageTitle = title,
-    backUri = Some(controllers.propertyLinking.routes.UploadController.show(evidenceChoice).url)
+    backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
 ) {
 
-    @if(notReadyError) {
-        @govukErrorSummary(
-            ErrorSummary(
-                errorList = Seq(ErrorLink(
-                    href = Some(""),
-                    content = Text(messages("error.common.noValueSelected"))
-                )),
-                title = Text(messages("error.propertyRepresentation.title"))
-            )
-        )
-    }
-
-    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@title</h1>
     <p class="govuk-hint">@messages("fileUploadResult.hintText")</p>
@@ -139,5 +124,6 @@
     }
 
     <span class="govuk-visually-hidden" id="fileUploadStatusUrl">@{s"${controllers.propertyLinking.routes.UploadResultController.getUploadStatus}"}</span>
+    <span class="govuk-visually-hidden" id="messageKeyUrl">@{s"${controllers.propertyLinking.routes.UploadResultController.getMessageKeys}"}</span>
     <input class="govuk-visually-hidden" id="submitUrlPrefix" value="@controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, "")">
 }

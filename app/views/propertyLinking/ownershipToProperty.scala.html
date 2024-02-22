@@ -19,7 +19,6 @@
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyOwnershipVM
-@import views.html.includes.assessmentHeading
 @import helpers._
 
 @this(
@@ -83,14 +82,13 @@
         )
     }
 
-    @assessmentHeading(model.localAuthorityReference, model.address)
-
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@messages(s"declareCapacity.title$clientSuffix")</h1>
 
     @govukDetails(Details(
         summary = Text(messages(s"declareCapacity.panel.title$clientSuffix")),
-        content = HtmlContent(messages(s"declareCapacity.panel.text$clientSuffix"))
+        content = HtmlContent(messages(s"declareCapacity.panel.text$clientSuffix")),
+        attributes = Map("id" -> "multipleOwnership")
     ))
 
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyOwnershipController.submitOwnership) {

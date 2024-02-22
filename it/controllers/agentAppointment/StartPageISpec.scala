@@ -61,6 +61,7 @@ class StartPageISpec extends ISpecBase with HtmlComponentHelpers {
   val helpLinkSelector = "#help-link"
   val startButtonSelector = "#start-now-button"
 
+  val startButtonHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code"
   val backLinkHref = "/business-rates-dashboard/home"
   val helpLinkHref = "https://www.gov.uk/guidance/appoint-an-agent"
 
@@ -99,6 +100,7 @@ class StartPageISpec extends ISpecBase with HtmlComponentHelpers {
 
       "displays a correct text in start button" in {
         document.select(startButtonSelector).text shouldBe startButtonText
+        document.select(startButtonSelector).attr("href") shouldBe startButtonHref
       }
     }
 
@@ -137,6 +139,7 @@ class StartPageISpec extends ISpecBase with HtmlComponentHelpers {
 
       "displays a correct text in start button" in {
         document.select(startButtonSelector).text shouldBe startButtonTextWelsh
+        document.select(startButtonSelector).attr("href") shouldBe startButtonHref
       }
     }
   }

@@ -347,7 +347,7 @@ create.success.personId=VOA Personal ID:
 create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
 create.success.keepUsingGg=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
 account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a class="govuk-link" href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
-registration.confirmation.weUseYourDetails = We use your contact details to send you correspondence related to the service and your account.
+registration.confirmation.weUseYourDetails=We use your contact details to send you correspondence related to the service and your account.
 account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
 account.enrolment.link.success=Continue
 
@@ -658,7 +658,7 @@ propertyRepresentation.showAgents.label.rating=	Rating lists they can act on for
 propertyRepresentation.showAgents.properties.assigned={0} of {1}
 propertyRepresentation.showAgents.ratingList={0} rating list
 propertyRepresentation.showAgents.ratingLists=2023 and 2017 rating lists
-propertyRepresentation.showAgents.viewAgentProperties.name=<a class="govuk-link" id="" href="{0}" aria-label="View agent {1}">{2}</a>
+propertyRepresentation.showAgents.viewAgent = View agent
 propertyRepresentation.caption=Agent
 propertyRepresentation.ratingLists.heading=Rating lists they can act on for you
 propertyRepresentation.ratingList.p=This agent can act for you on your property valuations on the {0} rating list, for properties that you assign them to or they add to your account.
@@ -937,9 +937,9 @@ search.select.link=Select
 
 #ADD PROPERTY START PAGE
 addPropertyStart.title=Add a property to your account
-addPropertyStart.client.title=Add a property to your client''s account
-addPropertyStart.p1=You''ll need to prove your connection to the property with evidence such as a business rates bill or lease. The date of the evidence must overlap with the period you owned or occupied the property. See <a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">how we will use the information you provide</a>.
-addPropertyStart.client.p1=You''ll need to prove your client''s connection to the property with evidence such as a business rates bill or lease. The date of the evidence must overlap with the period your client owned or occupied the property. See <a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">how we will use the information you provide</a>.
+addPropertyStart.client.title=Add a property to your client’s account
+addPropertyStart.p1=You’ll need to prove your connection to the property with evidence such as a business rates bill or lease. The date of the evidence must overlap with the period you owned or occupied the property. See <a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">how we will use the information you provide</a>.
+addPropertyStart.client.p1=You’ll need to prove your client’s connection to the property with evidence such as a business rates bill or lease. The date of the evidence must overlap with the period your client owned or occupied the property. See <a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">how we will use the information you provide</a>.
 addPropertyStart.p2=We aim to give you a decision on your request to add a property as quickly as possible, but it may take up to 15 working days.
 addPropertyStart.p3=When we approve your request you can:
 addPropertyStart.p3.li1=change property details
@@ -989,7 +989,7 @@ declareCapacity.fromDate.help=
 declareCapacity.toDate.help=Leave blank if still in occupation or ownership
 declareCapacity.submit.button=Add property
 label.capacity=What is your connection to the property?
-label.capacity.client=What is your client''s connection to the property?
+label.capacity.client=What is your client’s connection to the property?
 capacity.OWNER=Owner
 capacity.OCCUPIER=Occupier
 capacity.OWNER_OCCUPIER=Owner and occupier
@@ -1042,7 +1042,7 @@ label.toDate.year.client=When was your client’s last day as the owner or occup
 uploadRatesBill.show.title=Upload your business rates bill
 
 
-uploadRatesBill.show.client.title=Upload your client''s business rates bill
+uploadRatesBill.show.client.title=Upload your client’s business rates bill
 uploadFile.allowedTypes.mustbe=Your file must be:
 uploadRatesBill.show.hasRatesBill.label=Do you have a business rates bill?
 uploadRatesBill.show.hasRatesBill.text=I have a business rates bill
@@ -1051,7 +1051,7 @@ uploadRatesBill.reminder=The date of the bill must overlap with the period you o
 uploadRatesBill.client.reminder=The date of the bill must overlap with the period your client owned or occupied the property
 common.uploadFile.label=Upload a file
 chooseEvidence.title=Do you have a business rates bill for this property?
-chooseEvidence.client.title=Do you have your client''s business rates bill for this property?
+chooseEvidence.client.title=Do you have your client’s business rates bill for this property?
 hasRatesBill.true=Yes
 hasRatesBill.false=No
 label.ratesBill=Please upload a copy of the rates bill
@@ -1062,7 +1062,7 @@ uploadFile.info.content=<p>Converting a file into a PDF is similar for most soft
 
 #OCCUPIER EVIDENCE PAGE
 chooseEvidence.occupier.title=Do you have a lease or a licence to occupy for this property?
-chooseEvidence.occupier.client.title=Do you have your client''s lease or licence to occupy for this property?
+chooseEvidence.occupier.client.title=Do you have your client’s lease or licence to occupy for this property?
 chooseEvidence.occupier.title.caption=The lease or licence to occupy should be for {0}.
 chooseEvidence.occupier.option.lease=I have a lease
 chooseEvidence.occupier.option.license=I have a licence to occupy
@@ -1070,9 +1070,9 @@ chooseEvidence.occupier.option.noLeaseOrLicense=I do not have a lease or licence
 error.chooseEvidence.occupier.option.required=Select if you have a lease or licence to occupy for this property
 
 uploadEvidence.lease.title=Upload your lease
-uploadEvidence.lease.client.title=Upload your client''s lease
+uploadEvidence.lease.client.title=Upload your client’s lease
 uploadEvidence.license.title=Upload your licence to occupy
-uploadEvidence.license.client.title=Upload your client''s licence to occupy
+uploadEvidence.license.client.title=Upload your client’s licence to occupy
 
 uploadEvidence.serviceCharge.title=Upload your service charge statement
 uploadEvidence.stampDutyLandTaxForm.title=Upload your Stamp Duty Land Tax form
@@ -1101,7 +1101,7 @@ linkSubmitted.whatNext.1=We will process your claim to this property as quickly 
 linkSubmitted.whatNext.2=You can see the status of your claim in <a class="govuk-link" href="{0}">your properties</a>. Once the claim is approved, the status will update.
 linkSubmitted.whatNext.3=We will contact you if we need more information.
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Go back to your dashboard</a>
-linkSubmitted.whatNext.5=You can see the status of your claim in <a class="govuk-link" href="{0}">your client''s properties</a>. Once the claim is approved, the status will update.
+linkSubmitted.whatNext.5=You can see the status of your claim in <a class="govuk-link" href="{0}">your client’s properties</a>. Once the claim is approved, the status will update.
 linkSubmitted.whatNext.6=We will process your request within 20 working days. We will send you a message when the detailed valuation is available.
 linkSubmitted.whatNext.7.preLink=You will be able to access the valuation from
 linkSubmitted.whatNext.7.ipLink=your properties
@@ -1209,7 +1209,7 @@ declaration.2=the file/details that I have uploaded contains proof of my relatio
 declaration.client.2=the file/details that I have uploaded contains proof of my client''s relationship to the property for dates that overlap with the period claimed
 declaration.p.2=I understand that I could be taken to court if I knowingly submit false information.
 declaration.p.3=You could be taken to court if you knowingly submit false information.
-declaration.p.agent=I declare that the information I have given is correct and complete. The evidence I have uploaded contains proof of my client''s connection to the property for dates that overlap with the period I have stated.
+declaration.p.agent=I declare that the information I have given is correct and complete. The evidence I have uploaded contains proof of my client’s connection to the property for dates that overlap with the period I have stated.
 declaration.p.ip=I declare that the information I have given is correct and complete. The evidence I have uploaded contains proof of my connection to the property for dates that overlap with the period I have stated.
 
 label.declaration=Declaration
@@ -1783,6 +1783,9 @@ account.enrolment.footer=Valuation Office Agency (VOA)
 
 create-account.type.question=Which type of account would you like to create?
 
+admin.enrolment.title=Confirm your organisation details
+admin.enrolment.p=We use your organisation details to send you correspondence related to the service and your account.
+
 enrolment.title = Complete your contact details
 enrolment.organisation.name = Business name
 enrolment.organisation.name.label = Organisation name
@@ -1815,6 +1818,9 @@ enrolment.organisation.individualOrCompany = Do you want to register as an agent
 enrolment.yes = Yes
 enrolment.no = No
 enrolment.businessName = Business name
+
+enrolment.address.line1.maxLengthError = This field must be 80 characters or less
+enrolment.address.maxLengthError = This field must be 30 characters or less
 
 #COMMON
 app.common.saveAndContinue = Save and continue

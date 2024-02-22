@@ -287,7 +287,7 @@ create.success.personId=Cyfeirnod adnabod personol y VOA (ID):
 create.success.keepNote=Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
 create.success.keepUsingGg=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
 account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
-registration.confirmation.weUseYourDetails = Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif.
+registration.confirmation.weUseYourDetails=Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth.
 account.confirmation.disclaimer=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="terms-and-conditions">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
 account.enrolment.link.success=Parhau
 
@@ -597,7 +597,7 @@ propertyRepresentation.showAgents.label.rating=	Rating lists they can act on for
 propertyRepresentation.showAgents.properties.assigned={0} of {1}
 propertyRepresentation.showAgents.ratingList={0} rating list
 propertyRepresentation.showAgents.ratingLists=2023 and 2017 rating lists
-propertyRepresentation.showAgents.viewAgentProperties.name=<a class="govuk-link" href="{0}" aria-label="View agent {1}">{2}</a>
+propertyRepresentation.showAgents.viewAgent = View agent
 propertyRepresentation.caption=Asiant
 propertyRepresentation.ratingLists.heading=Rating lists they can act on for you
 propertyRepresentation.ratingList.p=This agent can act for you on your property valuations on the {0} rating list, for properties that you assign them to or they add to your account.
@@ -936,7 +936,7 @@ error.date.mustBeAfterStartDate=Rhaid i ddyddiad eich diwrnod olaf fel {0} yr ei
 declareCapacity.details.ownerOrOccupier=Rwy’n berchen neu’n meddiannu rhan o’r eiddo hwn
 declareCapacity.details.ownerOrOccupier.text=Ar ôl i Asiantaeth y Swyddfa Brisio gymeradwyo eich cysylltiad, efallai byddwch yn dymuno eu holi i    rannu’r eiddo hwn er mwyn cael prisiadau ar wahân ar gyfer pob rhan.
 declareCapacity.details.notOwner=Nid fi sy’n berchen ar yr eiddo ond rwy’n ei isosod i rywun arall
-declareCapacity.details.notOwner.text=<p>Os ydych yn isosod yr eiddo i berson neu fusnes arall, dewiswch ’Perchennog’ a nodi’r dyddiadau neu’r cyfnod isosod  </p><p> Os ydych yn isosod rhan o’r eiddo yn unig, efallai dymunwch holi Asiantaeth y Swyddfa Brisio i rannu’r eiddo er mwyn derbyn prisiadau ar wahân ar gyfer pob rhan. Gallwch wneud hyn wedi iddynt gymeradwyo eich cysylltiad â’r eiddo.</p>
+declareCapacity.details.notOwner.text=<p>Os ydych yn isosod yr eiddo i berson neu fusnes arall, dewiswch ’Perchennog’ a nodi’r dyddiadau neu’r cyfnod isosod.  </p><p> Os ydych yn isosod rhan o’r eiddo yn unig, efallai dymunwch holi Asiantaeth y Swyddfa Brisio i rannu’r eiddo er mwyn derbyn prisiadau ar wahân ar gyfer pob rhan. Gallwch wneud hyn wedi iddynt gymeradwyo eich cysylltiad â’r eiddo.</p>
 declareCapacity.details.ownerOrOccupier.client=Fy nghleient sydd berchen ar neu’n meddiannu rhan o’r eiddo hwn
 declareCapacity.details.ownerOrOccupier.text.client=<p>Gallwch barhau i ychwanegu’r eiddo hwn ar ran eich cleient, fel pe baent yn berchen neu’n meddiannu’r eiddo cyfan.  </p><p>Ar ôl i ni gymeradwyo cysylltiad eich cleient â’r eiddo, gallwch ofyn i ni rannu’r eiddo i gael prisiadau ar wahân ar gyfer pob rhan.</p>
 declareCapacity.details.notOwner.client=Nid fy nghleient sydd berchen yr eiddo, ond maen nhw’n ei isosod i rywun arall
@@ -992,7 +992,7 @@ linkingRequestSubmitted.p1=Gwnewch nodyn o’ch cyfeirnod gan y bydd angen i chi
 linkingRequestSubmitted.p.1=Os caiff y cais am eiddo ei gymeradwyo byddwch yn gallu gweld y prisiad manwl.   Gall hyn gymryd peth amser yn dibynnu ar natur eich cais.
 p.whatHappensNext=Beth sy’n digwydd nesaf
 linkSubmitted.whatNext.1=Byddwn yn prosesu’ch cais i hawlio’r eiddo hwn cyn gynted â phosibl ond gall hyn gymryd hyd at 15 diwrnod gwaith.
-linkSubmitted.whatNext.2=Gallwch weld statws eich hawliad yn<a class="govuk-link" href="{0}"> eich eiddo</a>. Unwaith y bydd yr hawliad wedi’i gymeradwyo, bydd y statws yn cael ei ddiweddaru.
+linkSubmitted.whatNext.2=Gallwch weld statws eich hawliad yn <a class="govuk-link" href="{0}">eich eiddo</a>. Unwaith y bydd yr hawliad wedi’i gymeradwyo, bydd y statws yn cael ei ddiweddaru.
 linkSubmitted.whatNext.3=Byddwn yn cysylltu â chi os bydd angen mwy o wybodaeth arnom.
 linkSubmitted.whatNext.4=<a class="govuk-link" href="{0}">Ewch yn ôl i’ch dangosfwrdd</a>
 linkSubmitted.whatNext.5=Gallwch weld statws eich cais ar <a class="govuk-link" href="{0}">eiddo eich cleient</a>.   Unwaith y bydd y cais wedi’i gymeradwyo, bydd y statws yn diweddaru.
@@ -1444,7 +1444,7 @@ dashboard.manageAgents.viewManagedProperties=Gweld yr eiddo a reolir
 dashboard.manageAgents.howToAppoint=Gallwch fynd i <a class="govuk-link" href={0}>’Fy eiddo’</a> i benodi asiant ar gyfer eiddo.
 
 #details page
-details.contactDetailsUse=Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif.
+details.contactDetailsUse=Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth.
 
 details.business=Manylion busnes
 details.business.agentCode=Cod asiant
@@ -1658,6 +1658,9 @@ account.enrolment.footer=Asiantaeth y Swyddfa Brisio (VOA)
 
 create-account.type.question=Pa fath o gyfrif hoffech chi ei greu?
 
+admin.enrolment.title=Cadarnhau manylion eich sefydliad
+admin.enrolment.p=Rydym yn defnyddio manylion eich sefydliad i anfon gohebiaeth atoch yn ymwneud â’r gwasanaeth a’ch cyfrif.
+
 enrolment.title=Cwblhewch eich manylion cyswllt
 enrolment.organisation.name=Enw busnes
 enrolment.organisation.name.label=Enw sefydliad
@@ -1690,6 +1693,9 @@ enrolment.organisation.individualOrCompany=Ydych chi eisiau cofrestru fel asiant
 enrolment.yes=Ydw
 enrolment.no=Nac ydw
 enrolment.businessName=Enw’r busnes
+
+enrolment.address.maxLengthError = Mae’n rhaid i’r maes hwn fod yn 30 o gymeriadau neu lai
+enrolment.address.line1.maxLengthError = Mae’n rhaid i’r maes hwn fod yn 80 o gymeriadau neu lai
 
 before.you.start.startButton=Dechrau
 
@@ -1797,16 +1803,16 @@ addPropertyStart.p3=Pan fyddwn yn cymeradwyo eich cais, gallwch wneud y canlynol
 addPropertyStart.p3.li1=newid manylion eich eiddo
 addPropertyStart.p3.li2=herio’r gwerth ardrethol os ydych chi’n credu ei fod yn rhy uchel
 addPropertyStart.startNow=Dechrau nawr
-interestedStartDate.error.dateInFuture=Rhaid i’r dyddiad y daethoch yn {0} yr eiddo fod yn y gorffennol.
+interestedStartDate.error.dateInFuture=Rhaid i’r dyddiad y daethoch yn {0} yr eiddo fod yn y gorffennol
 interestedStartDate.error.dateInFuture.client=Rhaid i’r dyddiad y daeth eich cleient yn {0} yr eiddo fod yn y gorffennol
 interestedEndDate.error.dateInFuture=Rhaid i ddyddiad eich diwrnod olaf fel {0} yr eiddo fod yn y gorffennol
 interestedEndDate.error.dateInFuture.client=Rhaid i ddyddiad diwrnod olaf eich cleient fel {0} yr eiddo fod yn y gorffennol
-interestedStartDate.error.startDateMustBeBeforeEnd=Rhaid i’r dyddiad y daethoch yn {0} yr eiddo fod cyn  {1}
+interestedStartDate.error.startDateMustBeBeforeEnd=Rhaid i’r dyddiad y daethoch yn {0} yr eiddo fod cyn {1}
 interestedStartDate.error.startDateMustBeBeforeEnd.client=Rhaid i’r dyddiad y daeth eich cleient yn {0} yr eiddo fod cyn {1}
 interestedStartDate.error.startDateMustBeBeforeEnd.relationship.fallback=perchennog neu feddiannydd
 interestedStartDate.error.startDateMustBeBeforeEnd.endDate.fallback=y dyddiad meddiannu olaf
 error.date.mustBeAfterStartDate.relationship.fallback=perchennog neu feddiannydd
-chooseEvidence.occupier.title=A oes gennych brydles neu drwydded i feddiannu''r eiddo hwn?
+chooseEvidence.occupier.title=A oes gennych brydles neu drwydded i feddiannu’r eiddo hwn?
 chooseEvidence.occupier.client.title=Oes gennych chi brydles neu drwydded eich cleient i feddiannu ar gyfer yr eiddo hwn?
 chooseEvidence.occupier.title.caption=Dylai’r brydles neu’r drwydded i feddiannu fod ar gyfer {0}.
 chooseEvidence.occupier.option.lease=Mae gen i brydles

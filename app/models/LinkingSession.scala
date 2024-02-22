@@ -35,6 +35,7 @@ case class LinkingSession(
       hasRatesBill: Option[Boolean],
       uploadEvidenceData: UploadEvidenceData = UploadEvidenceData.empty,
       fileReference: Option[String] = None,
+      fileReferenceNew: Option[String] = None,
       evidenceType: Option[EvidenceType] = None,
       clientDetails: Option[ClientDetails] = None,
       localAuthorityReference: String,

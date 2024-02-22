@@ -18,8 +18,10 @@ package models.registration
 
 import play.api.libs.json.{Json, OFormat}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
-import uk.gov.hmrc.auth.core.retrieve.Name
+import uk.gov.hmrc.auth.core.retrieve.{ItmpName, Name}
 import uk.gov.hmrc.auth.core.{AffinityGroup, ConfidenceLevel, CredentialRole}
+
+import java.time.LocalDate
 
 case class UserDetails(
       firstName: Option[String],
@@ -30,31 +32,36 @@ case class UserDetails(
       externalId: String,
       affinityGroup: AffinityGroup,
       credentialRole: CredentialRole,
-      confidenceLevel: ConfidenceLevel
+      confidenceLevel: ConfidenceLevel,
+      dob: Option[LocalDate],
+      nino: Option[String]
 )
 
 object UserDetails {
 
   def fromRetrieval(
-        name: Option[Name],
+        name: Option[ItmpName],
         optEmail: Option[String],
         optPostCode: Option[String],
         groupIdentifier: String,
         externalId: String,
         affinityGroup: AffinityGroup,
         role: CredentialRole,
-        confidenceLevel: ConfidenceLevel
-  ): UserDetails =
+        confidenceLevel: ConfidenceLevel,
+        dob: Option[LocalDate],
+        nino: Option[String]): UserDetails =
     UserDetails(
-      firstName = name.flatMap(_.name),
-      lastName = name.flatMap(_.lastName),
+      firstName = name.flatMap(_.givenName),
+      lastName = name.flatMap(_.familyName),
       email = optEmail.getOrElse(""),
       postcode = optPostCode,
       groupIdentifier = groupIdentifier,
       externalId = externalId,
       affinityGroup = affinityGroup,
       credentialRole = role,
-      confidenceLevel = confidenceLevel
+      confidenceLevel = confidenceLevel,
+      dob = dob,
+      nino = nino
     )
 
   implicit val format: OFormat[UserDetails] = Json.format

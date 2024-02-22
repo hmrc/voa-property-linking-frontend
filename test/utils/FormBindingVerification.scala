@@ -83,10 +83,10 @@ trait ContactDetailsVerification { this: BasicVerification =>
   }
 
   def verifyAddressFieldCharacterLimits(form: Form[_], validData: Map[String, String], field: String): Unit = {
-    verifyCharacterLimit(form, validData, s"$field.line1", 36)
-    verifyCharacterLimit(form, validData, s"$field.line2", 36)
-    verifyCharacterLimit(form, validData, s"$field.line3", 36)
-    verifyCharacterLimit(form, validData, s"$field.line4", 36)
+    verifyAddressLine1CharacterLimit(form, validData, s"$field.line1", 80)
+    verifyAddressCharacterLimit(form, validData, s"$field.line2", 30)
+    verifyAddressCharacterLimit(form, validData, s"$field.line3", 30)
+    verifyAddressCharacterLimit(form, validData, s"$field.line4", 30)
   }
 }
 trait DateVerification { this: BasicVerification =>
@@ -193,6 +193,24 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
 
     val f = form.bind(validData.updated(field, (1 to limit + 1).map(_ => "b").mkString))
     shouldContainError(f, field, "error.maxLength", Some(Seq(limit)))
+  }
+
+  def verifyAddressCharacterLimit(form: Form[_], validData: Map[String, String], field: String, limit: Int): Unit = {
+    shouldBind(form, validData.updated(field, (1 to limit).map(_ => "a").mkString))
+
+    val f = form.bind(validData.updated(field, (1 to limit + 1).map(_ => "b").mkString))
+    shouldContainError(f, field, "enrolment.address.maxLengthError", Some(Seq(limit)))
+  }
+
+  def verifyAddressLine1CharacterLimit(
+        form: Form[_],
+        validData: Map[String, String],
+        field: String,
+        limit: Int): Unit = {
+    shouldBind(form, validData.updated(field, (1 to limit).map(_ => "a").mkString))
+
+    val f = form.bind(validData.updated(field, (1 to limit + 1).map(_ => "b").mkString))
+    shouldContainError(f, field, "enrolment.address.line1.maxLengthError", Some(Seq(limit)))
   }
 
   def verifyPhoneCharacterLimit(form: Form[_], validData: Map[String, String], field: String, limit: Int): Unit = {

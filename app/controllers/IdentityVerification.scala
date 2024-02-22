@@ -25,9 +25,10 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepo
 import services.iv.IdentityVerificationService
+import uk.gov.hmrc.auth.core.ConfidenceLevel
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-import javax.inject.{Inject, Named}
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerification @Inject()(
@@ -56,12 +57,26 @@ class IdentityVerification @Inject()(
     }
   }
 
+  def upliftIv: Action[AnyContent] = ggAction.async { implicit request =>
+    Future.successful(
+      Redirect(
+        config.identityVerificationUrl,
+        Map(
+          "origin"          -> Seq(config.appName),
+          "confidenceLevel" -> Seq(ConfidenceLevel.L200.toString),
+          "completionURL"   -> Seq(s"${config.upliftCompletionUrl}"),
+          "failureURL"      -> Seq(s"${config.upliftFailureUrl}")
+        )
+      ))
+  }
+
   def fail(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
     journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
       identityVerificationConnector.journeyStatus(id).map {
         case IvResult.IvSuccess =>
           Redirect(controllers.routes.IdentityVerification.success(journeyId))
         case ivFailureReason: IvResult.IvFailure =>
+          //TODO: Need to clear cached user answers on failure
           Ok(ivFailedView(ivFailureReason))
       }
     }
@@ -83,4 +98,27 @@ class IdentityVerification @Inject()(
     }
   }
 
+  def upliftSuccess(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
+    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+      identityVerificationConnector.verifySuccess(id).flatMap {
+        case true => Future.successful(Redirect(registration.routes.RegistrationController.show))
+        case _    =>
+          //TODO: should this go to iv failure screen?
+          //TODO: Need to clear cached user answers on failure
+          Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
+      }
+    }
+  }
+
+  def upliftFail(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
+    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+      identityVerificationConnector.journeyStatus(id).map {
+        case IvResult.IvSuccess =>
+          Redirect(registration.routes.RegistrationController.show)
+        case ivFailureReason: IvResult.IvFailure =>
+          //TODO: Need to clear cached user answers on failure
+          Ok(ivFailedView(ivFailureReason))
+      }
+    }
+  }
 }

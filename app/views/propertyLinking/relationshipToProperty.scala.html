@@ -16,7 +16,6 @@
 
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyRelationshipVM
-@import views.html.includes.assessmentHeading
 
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
@@ -46,17 +45,17 @@
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
 
-    @assessmentHeading(model.localAuthorityReference, model.address)
-
     <span class="govuk-caption-l" >@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@messages("declarePropertyRelationship.title"):</h1>
 
     @govukDetails(Details(
         summary = Text(messages(s"declareCapacity.details.ownerOrOccupier$clientSuffix")),
-        content = HtmlContent(Html(Messages(s"declareCapacity.details.ownerOrOccupier.text$clientSuffix")))))
+        content = HtmlContent(Html(Messages(s"declareCapacity.details.ownerOrOccupier.text$clientSuffix"))),
+        attributes = Map("id" -> "own-or-occupy-details")))
     @govukDetails(Details(
         summary = Text(messages(s"declareCapacity.details.notOwner$clientSuffix")),
-        content = HtmlContent(Html(Messages(s"declareCapacity.details.notOwner.text$clientSuffix")))))
+        content = HtmlContent(Html(Messages(s"declareCapacity.details.notOwner.text$clientSuffix"))),
+        attributes = Map("id" -> "do-not-details")))
 
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyRelationshipController.submitRelationship) {
         @govukRadios(Radios(

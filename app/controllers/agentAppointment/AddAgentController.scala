@@ -35,6 +35,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.BadRequestException
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
@@ -57,8 +58,8 @@ class AddAgentController @Inject()(
       implicit override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
-      val config: ApplicationConfig
-) extends PropertyLinkingController {
+      val config: ApplicationConfig)
+    extends PropertyLinkingController {
 
   def start(
         propertyLinkId: Option[Long] = None,
@@ -108,8 +109,9 @@ class AddAgentController @Inject()(
         }
     }
 
-  def getAgentDetails(backLink: String): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async {
-    implicit request =>
+  def getAgentDetails(backLinkUrl: RedirectUrl): Action[AnyContent] =
+    authenticated.andThen(withAppointAgentSession).async { implicit request =>
+      val backLink = config.safeRedirect(backLinkUrl)
       val fromCyaChange = if (backLink == routes.CheckYourAnswersController.onPageLoad().url) true else false
       agentCode
         .bindFromRequest()
@@ -207,21 +209,21 @@ class AddAgentController @Inject()(
             }
           }
         )
-  }
+    }
 
   def isCorrectAgent(fromCyaChange: Boolean = false): Action[AnyContent] =
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
       Future.successful(
-        Ok(
-          isTheCorrectAgentView(
-            isThisTheCorrectAgent,
-            request.agentDetails,
-            routes.AddAgentController.getAgentDetails(backLink = getBackLinkFromSession).url,
-            fromCyaChange
-          )))
+        Ok(isTheCorrectAgentView(
+          isThisTheCorrectAgent,
+          request.agentDetails,
+          routes.AddAgentController.getAgentDetails(backLinkUrl = RedirectUrl(getBackLinkFromSession)).url,
+          fromCyaChange
+        )))
     }
 
-  def agentSelected(backLink: String, fromCyaChange: Boolean = false): Action[AnyContent] =
+  def agentSelected(backLinkUrl: RedirectUrl, fromCyaChange: Boolean = false): Action[AnyContent] = {
+    val backLink = config.safeRedirect(backLinkUrl)
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
       isThisTheCorrectAgent
         .bindFromRequest()
@@ -298,6 +300,7 @@ class AddAgentController @Inject()(
           }
         )
     }
+  }
 
   private def getBacklinkForCheckAnswersPage(propertySize: Int, specificTaxYears: Option[String]): String =
     propertySize match {
@@ -462,7 +465,7 @@ class AddAgentController @Inject()(
         pagination = PaginationParameters(),
         agentCode = agentCode,
         agentAppointed = Some(Both.name),
-        backLink = routes.AddAgentController.multipleProperties().url,
+        backLinkUrl = RedirectUrl(routes.AddAgentController.multipleProperties().url),
         fromManageAgentJourney = false
       ))
 

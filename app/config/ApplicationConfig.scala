@@ -19,9 +19,11 @@ package config
 import java.util.Base64
 import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
-
+import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl.idFunctor
+import uk.gov.hmrc.play.bootstrap.binders.{AbsoluteWithHostnameFromAllowlist, OnlyRelative, RedirectUrl}
 import java.time.LocalDate
 import scala.util.Try
+
 @Singleton()
 class ApplicationConfig @Inject()(configuration: Configuration) {
 
@@ -54,17 +56,17 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   def businessRatesChallengeUrl(page: String): String =
     loadConfig("business-rates-challenge-frontend.url") + s"/$page"
 
-  lazy val helpGuideUrl = loadConfig("help-guide.url")
+  lazy val appName: String = loadConfig("appName")
 
   lazy val ivBaseUrl = loadConfig("microservice.services.identity-verification.url")
   lazy val vmvUrl = loadConfig("vmv-frontend.url")
-  lazy val valuationFrontendUrl = loadConfig("business-rates-valuation.url")
   lazy val basGatewaySignInUrl: String = loadConfig("bas-gateway-sign-in.url")
   lazy val attachmentsUrl: String = loadConfig("business-rates-attachments.url")
   lazy val ggRegistrationUrl: String = loadConfig("gg-registration.url")
   lazy val serviceUrl: String = loadConfig("voa-property-linking-frontend.url")
-  lazy val checkUrl = loadConfig("microservice.services.business-rates-check-frontend.url")
-  lazy val externalCaseManagementApiUrl: String = loadConfig("external-case-management-api.url")
+  lazy val upliftCompletionUrl: String = loadConfig("upliftCompletion.url")
+  lazy val upliftFailureUrl: String = loadConfig("upliftFailure.url")
+  lazy val identityVerificationUrl: String = loadConfig("microservice.services.identity-verification-frontend.url")
 
   lazy val agentAppointDelay: Int = loadInt("agent.appoint.async.delay")
 
@@ -83,6 +85,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
   lazy val newRegistrationJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newRegistrationJourneyEnabled")
   lazy val agentListYears: Boolean = loadBooleanConfig("feature-switch.agentListYears.enabled")
+  lazy val ivUpliftEnabled: Boolean = loadBooleanConfig("feature-switch.ivUplift.enabled")
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
 
@@ -100,6 +103,10 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 
   val default2017AssessmentEndDate = LocalDate.of(2023, 3, 31)
 
+  lazy val environmentHost: String = configuration.get[String]("environment-base.host")
+
+  def safeRedirect(url: RedirectUrl): String =
+    url.get(AbsoluteWithHostnameFromAllowlist(environmentHost) | OnlyRelative).url
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")

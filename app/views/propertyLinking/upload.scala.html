@@ -21,10 +21,9 @@
 @import models.{EvidenceType, _}
 @import models.upscan._
 @import views.html.helper.CSRF
-@import views.html.includes.assessmentHeading
 @import views.html.helper.form
 
-@this(govukButton: GovukButton, govukFileUpload: GovukFileUpload, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukButton: GovukButton, govukFileUpload: GovukFileUpload, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
 
 @(
         evidenceType: EvidenceType,
@@ -66,7 +65,19 @@
     backUri = backUri,
     hasErrors = errors.nonEmpty
 ) {
-    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
+    @if(errors.nonEmpty) {
+        @govukErrorSummary(
+            ErrorSummary(
+                errorList = Seq(ErrorLink(
+                    href = Some("#choose-file"),
+                    content = Text(messages(errors))
+                )),
+                title = Text(messages("error.propertyRepresentation.title"))
+            )
+        )
+    }
+
+    <span class="govuk-caption-l">@messages("caption.add.property")</span>
 
     @form(
         Call("POST", preparedUpload.uploadRequest.href),
@@ -93,7 +104,8 @@
                 content = Text(title)
             ),
             hint = Some(Hint(
-                content = Text(messages("fileUpload.allowedTypes"))
+                content = Text(messages("fileUpload.allowedTypes")),
+                id = Some("fileTypesText")
             ))
         ))
         @govukButton(Button(

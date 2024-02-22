@@ -89,7 +89,6 @@ class AdminUserSpec extends BaseUnitSpec {
         }
       }
     }
-
     "ensure email address" when {
       "is mandatory" in {
         verifyMandatory(form, validData, keys.email)
@@ -253,7 +252,7 @@ class AdminUserSpec extends BaseUnitSpec {
 
   object AdminOrganisationAccountDetailsTestData {
     val form: Form[AdminOrganisationAccountDetails] = AdminUser.organisation
-    val validData = Map(
+    val validData: Map[String, String] = Map(
       keys.firstName               -> firstName,
       keys.lastName                -> lastName,
       keys.companyName             -> companyName,
@@ -271,7 +270,7 @@ class AdminUserSpec extends BaseUnitSpec {
       keys.confirmedBusinessEmail  -> email,
       keys.isAgent                 -> "false"
     )
-    val expected = AdminOrganisationAccountDetails(
+    val expected: AdminOrganisationAccountDetails = AdminOrganisationAccountDetails(
       firstName = firstName,
       lastName = lastName,
       companyName = companyName,
@@ -288,7 +287,7 @@ class AdminUserSpec extends BaseUnitSpec {
 
   object IndividualUserAccountDetailsTestData {
     val form: Form[IndividualUserAccountDetails] = AdminUser.individual
-    val validData = Map(
+    val validData: Map[String, String] = Map(
       keys.firstName               -> firstName,
       keys.lastName                -> lastName,
       s"${keys.address}.line1"     -> address.line1,
@@ -306,7 +305,7 @@ class AdminUserSpec extends BaseUnitSpec {
       keys.confirmedEmail          -> email,
       keys.tradingName             -> companyName
     )
-    val expected = IndividualUserAccountDetails(
+    val expected: IndividualUserAccountDetails = IndividualUserAccountDetails(
       firstName = firstName,
       lastName = lastName,
       address = address.copy(addressUnitId = None),
@@ -323,7 +322,7 @@ class AdminUserSpec extends BaseUnitSpec {
 
   object AdminInExistingOrganisationUserTestData {
     val form: Form[AdminInExistingOrganisationAccountDetails] = AdminInExistingOrganisationUser.organisation
-    val validData = Map(
+    val validData: Map[String, String] = Map(
       keys.firstName               -> firstName,
       keys.lastName                -> lastName,
       s"${keys.dateOfBirth}.day"   -> dateOfBirth.getDayOfMonth.toString,
@@ -331,7 +330,7 @@ class AdminUserSpec extends BaseUnitSpec {
       s"${keys.dateOfBirth}.year"  -> dateOfBirth.getYear.toString,
       keys.nino                    -> nino.toString
     )
-    val expected = AdminInExistingOrganisationAccountDetails(
+    val expected: AdminInExistingOrganisationAccountDetails = AdminInExistingOrganisationAccountDetails(
       firstName = firstName,
       lastName = lastName,
       dob = dateOfBirth,

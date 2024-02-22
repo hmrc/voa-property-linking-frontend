@@ -46,6 +46,9 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     f
   }
 
+  override def additionalAppConfig: Seq[(String, String)] =
+    Seq("feature-switch.ivUplift.enabled" -> "false")
+
   val mockIdentityVerificationService = mock[IdentityVerificationService]
 
   val mockRegistrationService = mock[RegistrationService]
@@ -67,8 +70,11 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       invalidAccountTypeView = invalidAccountTypeView,
       invalidAccountCreationView = invalidAccountCreationView,
       registerIndividualView = registerIndividualView,
+      registerIndividualUpliftView = registerIndividualUpliftView,
       registerOrganisationView = registerOrganisationView,
+      registerOrganisationUpliftView = registerOrganisationUpliftView,
       registerAssistantAdminView = registerAssistantAdminView,
+      registerAssistantAdminUpliftView = registerAssistantAdminUpliftView,
       registerAssistantView = registerAssistantView,
       registerConfirmationView = registerConfirmationView,
       confirmationView = confirmationView,

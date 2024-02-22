@@ -36,7 +36,7 @@ class RegisterAssistantAdminISpec extends ISpecBase with HtmlComponentHelpers wi
 
   val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Valuation Office Agency - GOV.UK"
   val headingTextWelsh = "Cwblhewch eich manylion cyswllt"
-  val weUseYourTextWelsh = "Rydym yn defnyddio eich manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’r gwasanaeth a’ch cyfrif."
+  val weUseYourTextWelsh = "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
   val youHaveTextWelsh = "Rydych wedi cael eich ychwanegu fel defnyddiwr i’ch sefydliad, cadarnhewch eich manylion isod"
   val yourOrgTextWelsh = "Manylion eich sefydliad"
   val orgNameTextWelsh = "Enw sefydliad"
@@ -269,8 +269,11 @@ class RegisterAssistantAdminISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(confirmSelector).text() shouldBe confirmTextWelsh
       }
     }
-
   }
+
+  override lazy val extraConfig: Map[String, Any] = Map(
+    "feature-switch.ivUplift.enabled" -> "false"
+  )
 
   private def getSuccessPage(language: Language): Document = {
 

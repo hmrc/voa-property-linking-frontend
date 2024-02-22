@@ -26,8 +26,11 @@ GET         /invalid-account                                                    
 
 #Identity verification
 GET         /identity-verification/start                                                      controllers.IdentityVerification.startIv
+GET         /identity-verification/start-uplift                                               controllers.IdentityVerification.upliftIv
 GET         /identity-verification/failed                                                     controllers.IdentityVerification.fail(journeyId: Option[String])
+GET         /identity-verification/iv-failed                                                  controllers.IdentityVerification.upliftFail(journeyId: Option[String])
 GET         /identity-verification/success                                                    controllers.IdentityVerification.success(journeyId: Option[String])
+GET         /identity-verification/iv-success                                                 controllers.IdentityVerification.upliftSuccess(journeyId: Option[String])
 
 #Dashboard
 GET         /home                                                                             controllers.Dashboard.home
@@ -60,10 +63,13 @@ GET         /planned-improvements                                               
 #Enrolment page
 GET         /complete-contact-details                                                         controllers.registration.RegistrationController.show
 POST        /complete-contact-details                                                         controllers.registration.RegistrationController.submitOrganisation
+POST        /complete-contact-details-uplift                                                  controllers.registration.RegistrationController.submitOrganisationUplift
 GET         /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.show
 POST        /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.submitAdminToExistingOrganisation
+POST        /complete-existing-business-contact-details-uplift                                controllers.registration.RegistrationController.submitAdminToExistingOrganisationUplift
 GET         /complete-your-contact-details                                                    controllers.registration.RegistrationController.show
 POST        /complete-your-contact-details                                                    controllers.registration.RegistrationController.submitIndividual
+POST        /complete-your-contact-details-uplift                                             controllers.registration.RegistrationController.submitIndividualUplift
 GET         /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.show
 POST        /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.submitAssistant
 GET         /create-success                                                                   controllers.registration.RegistrationController.success(personId: Long)
@@ -83,24 +89,24 @@ GET        /terms-and-conditions                                                
 #OWNER ONLY
 #APPOINT
 
-GET         /my-organisation/appoint/properties/paginate                                                                  controllers.agentAppointment.AppointAgentController.paginatePropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String, fromManageAgentJourney: Boolean)
-GET         /my-organisation/appoint/properties/sort                                                                      controllers.agentAppointment.AppointAgentController.sortPropertiesForAppoint(sortField: ExternalPropertyLinkManagementSortField, pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String, fromManageAgentJourney: Boolean)
-GET         /my-organisation/appoint/properties/filter                                                                    controllers.agentAppointment.AppointAgentController.showFilterPropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String, fromManageAgentJourney: Boolean)
-POST        /my-organisation/appoint/properties/filter                                                                    controllers.agentAppointment.AppointAgentController.filterPropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String, fromManageAgentJourney: Boolean)
+GET         /my-organisation/appoint/properties/paginate                                                                  controllers.agentAppointment.AppointAgentController.paginatePropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl, fromManageAgentJourney: Boolean)
+GET         /my-organisation/appoint/properties/sort                                                                      controllers.agentAppointment.AppointAgentController.sortPropertiesForAppoint(sortField: ExternalPropertyLinkManagementSortField, pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl, fromManageAgentJourney: Boolean)
+GET         /my-organisation/appoint/properties/filter                                                                    controllers.agentAppointment.AppointAgentController.showFilterPropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl, fromManageAgentJourney: Boolean)
+POST        /my-organisation/appoint/properties/filter                                                                    controllers.agentAppointment.AppointAgentController.filterPropertiesForAppoint(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl, fromManageAgentJourney: Boolean)
 GET         /my-organisation/appoint/properties/confirm                                                                   controllers.agentAppointment.AppointAgentController.confirmAppointAgentToSome
 
-GET         /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.showAppointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String, fromManageAgentJourney: Boolean)
-POST        /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String)
+GET         /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.showAppointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl, fromManageAgentJourney: Boolean)
+POST        /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl)
 
 #NEW AGENT APPOINT JOURNEY
 GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start(propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None)
 GET         /my-organisation/appoint-new-agent/start                                                                      controllers.agentAppointment.AddAgentController.showStartPage
 
 GET         /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.showAgentCodePage(fromCyaChange: Boolean ?= false)
-POST        /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.getAgentDetails(backLink: String)
+POST        /my-organisation/appoint-new-agent/agent-code                                                                 controllers.agentAppointment.AddAgentController.getAgentDetails(backLinkUrl: RedirectUrl)
 
 GET         /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.isCorrectAgent(fromCyaChange: Boolean ?= false)
-POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.agentSelected(backLink: String, fromCyaChange: Boolean ?= false)
+POST        /my-organisation/appoint-new-agent/is-correct-agent                                                           controllers.agentAppointment.AddAgentController.agentSelected(backLinkUrl: RedirectUrl, fromCyaChange: Boolean ?= false)
 
 #TAX PAYER - SINGLE PROPERTIES
 GET         /my-organisation/appoint-new-agent/one-property                                                               controllers.agentAppointment.AddAgentController.oneProperty(fromCyaChange: Boolean ?= false)
@@ -111,12 +117,12 @@ GET         /my-organisation/appoint-new-agent/multiple-properties              
 POST        /my-organisation/appoint-new-agent/multiple-properties                                                        controllers.agentAppointment.AddAgentController.submitMultipleProperties
 
 #CHOOSE PROPERTIES TO APPOINT
-GET         /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLink: String, fromManageAgentJourney: Boolean)
-POST        /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointPropertiesController.onSubmit(agentCode: Long, agentAppointed: Option[String], backLinkUrl: String)
+GET         /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl, fromManageAgentJourney: Boolean)
+POST        /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointPropertiesController.onSubmit(agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl)
 
 #CHECK YOUR ANSWERS
 GET         /my-organisation/appoint-new-agent/check-your-answers                                                         controllers.agentAppointment.CheckYourAnswersController.onPageLoad()
-POST        /my-organisation/appoint-new-agent/check-your-answers                                                        controllers.agentAppointment.CheckYourAnswersController.onSubmit()
+POST        /my-organisation/appoint-new-agent/check-your-answers                                                         controllers.agentAppointment.CheckYourAnswersController.onSubmit()
 
 #CONFIRMATION
 GET         /my-organisation/confirm-appoint-agent                                                                        controllers.agentAppointment.ConfirmAgentAppointController.onPageLoad()
@@ -143,7 +149,7 @@ GET         /my-organisation/manage-agent/unassign/from-all-properties/confirmat
 
 GET         /my-organisation/manage-agent/remove/from-organisation                                                        controllers.agent.ManageAgentController.showRemoveAgentFromIpOrganisation
 GET         /my-organisation/manage-agent/remove/from-organisation/confirm                                                controllers.agent.ManageAgentController.confirmRemoveAgentFromOrganisation
-POST        /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  controllers.agent.ManageAgentController.removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLink: String)
+POST        /my-organisation/manage-agent/remove/:agentCode/:agentName/from-organisation                                  controllers.agent.ManageAgentController.removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLinkUrl: RedirectUrl)
 
 
 GET         /my-organisation/revoke/properties                                                                            controllers.agentAppointment.AppointAgentController.selectAgentPropertiesSearchSort(pagination: PaginationParameters, agentCode: Long)
@@ -199,13 +205,15 @@ GET         /my-organisation/claim/property-links/occupancy                     
 POST        /my-organisation/claim/property-links/occupancy                                   controllers.propertyLinking.ClaimPropertyOccupancyController.submitOccupancy
 GET         /my-organisation/claim/property-links/evidence                                    controllers.propertyLinking.ChooseEvidenceController.show
 POST        /my-organisation/claim/property-links/evidence                                    controllers.propertyLinking.ChooseEvidenceController.submit
+GET         /my-organisation/claim/property-links/occupier-evidence                           controllers.propertyLinking.ChooseEvidenceController.show
 POST        /my-organisation/claim/property-links/occupier-evidence                           controllers.propertyLinking.ChooseEvidenceController.submitOccupierForm
-GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorMessage: Option[String] ?= None)
 GET         /my-organisation/claim/property-links/evidence/:choice/upload/result              controllers.propertyLinking.UploadResultController.show(choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/result/:status      controllers.propertyLinking.UploadResultController.submit(choice: EvidenceChoices, status: String)
 
 GET         /my-organisation/claim/property-links/evidence/scan-status                        controllers.propertyLinking.UploadResultController.getUploadStatus
+GET         /my-organisation/claim/property-links/evidence/message-key                        controllers.propertyLinking.UploadResultController.getMessageKeys
 
+GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorMessage: Option[String] ?= None)
 POST        /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.continue(choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/initiate            controllers.propertyLinking.UploadController.initiate(choice: EvidenceChoices)
 GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorMessage: Option[String])

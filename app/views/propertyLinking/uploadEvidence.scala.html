@@ -19,7 +19,6 @@
 @import controllers.propertyLinking.routes._
 @import models.upscan._
 @import models._
-@import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import _root_.utils.Formatters._
 @import helpers._
@@ -91,8 +90,6 @@
             </div>
         </div>
     }
-
-    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
     @formWithCSRF(action = UploadController.continue(EvidenceChoices.OTHER)) {
