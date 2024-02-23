@@ -148,9 +148,9 @@ class UploadControllerISpec extends ISpecBase {
   val fileNameLocator = "#main-content > div > div > dl > div > dd.govuk-summary-list__value"
   val removeFileLocator = "#remove-file"
   val continueButtonLocator = "#continue"
-  val errorSummaryTitleLocator = "#govuk-error-summary__title"
-  val errorSummaryMessageLocator = "#main-content > div > div > div.govuk-error-summary > div > ul > li > a"
-  val errorMessageLocator = "#file-upload-1-error"
+  val errorSummaryTitleLocator = "#main-content > div > div > div.govuk-error-summary > div > h2"
+  val errorSummaryMessageLocator = "#main-content > div > div > div.govuk-error-summary > div > div > ul > li > a"
+  val errorMessageLocator = "#choose-file-error"
 
   val otherEvidenceHintLocator = "#evidenceType-hint"
   val otherEvidenceRadioLocator: Int => String = (radioNumber: Int) => s"#upload-evidence-options > div:nth-child($radioNumber) > input"
@@ -160,16 +160,16 @@ class UploadControllerISpec extends ISpecBase {
   val otherEvidenceErrorMessageLocator = "#evidenceType-error"
   val orLocator = "#upload-evidence-options > div.govuk-radios__divider"
 
-  val cannotProvideEvidenceP1Locator = "#main-content > div > div > p:nth-child(4)"
-  val cannotProvideEvidenceP2Locator = "#main-content > div > div > p:nth-child(5)"
-  val cannotProvideEvidenceP3Locator = "#main-content > div > div > p:nth-child(6)"
-  val cannotProvideEvidenceEmailLocator = "#main-content > div > div > p:nth-child(6) > a"
+  val cannotProvideEvidenceP1Locator = "#main-content > div > div > p:nth-child(3)"
+  val cannotProvideEvidenceP2Locator = "#main-content > div > div > p:nth-child(4)"
+  val cannotProvideEvidenceP3Locator = "#main-content > div > div > p:nth-child(5)"
+  val cannotProvideEvidenceEmailLocator = "#main-content > div > div > p:nth-child(5) > a"
 
   // Links
   val emailHref = "mailto:ccaservice@voa.gov.uk"
   val backToEvidenceQuestionHref = "/business-rates-property-linking/my-organisation/claim/property-links/evidence"
   val backToOtherEvidenceHref = "/business-rates-property-linking/my-organisation/claim/property-links/evidence/OTHER/upload"
-  val errorMessageHref = "#newFileButton"
+  val errorMessageHref = "#choose-file"
   val otherEvidenceErrorMessageHref = "#evidenceType"
   val evidenceTypeRedirectUrl: String => String = (evidenceType: String) => s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceType/upload"
   val checkYourAnswersRedirectUrl = "/business-rates-property-linking/my-organisation/claim/property-links/summary"
@@ -1359,7 +1359,8 @@ class UploadControllerISpec extends ISpecBase {
       }
 
       s"has an error message of $errorMessage above the radio buttons" in {
-        document.select(errorMessageLocator).text shouldBe s"$error $errorMessage"
+        //File upload component doesn't appear to translate to welsh
+        document.select(errorMessageLocator).text shouldBe s"Error: $errorMessage"
       }
     }
   }

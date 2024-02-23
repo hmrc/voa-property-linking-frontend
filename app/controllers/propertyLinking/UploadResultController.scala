@@ -112,15 +112,6 @@ class UploadResultController @Inject()(
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val status = FileStatus.withName(fileStatus)
 
-      def updatedUploadData(attachment: Attachment): UploadEvidenceData = {
-        val evidenceChoice = getEvidenceType(evidenceChoices)
-        UploadEvidenceData(
-          linkBasis = if (evidenceChoice == RatesBillType) RatesBillFlag else OtherEvidenceFlag,
-          fileInfo = Some(CompleteFileInfo(attachment.fileName, evidenceChoice)),
-          attachments = request.ses.uploadEvidenceData.attachments
-        )
-      }
-
       def completeFileInfo(attachment: Attachment): CompleteFileInfo = {
         val evidenceChoice = getEvidenceType(evidenceChoices)
         CompleteFileInfo(attachment.fileName, evidenceChoice)
@@ -140,7 +131,8 @@ class UploadResultController @Inject()(
               _ <- OptionT.liftF(
                     businessRatesAttachmentsService.persistSessionData(
                       request.ses.copy(evidenceType = Some(getEvidenceType(evidenceChoices))),
-                      request.ses.uploadEvidenceData.copy(fileInfo = Some(completeFileInfo(attachment)))
+                      request.ses.uploadEvidenceData
+                        .copy(fileInfo = Some(completeFileInfo(attachment)))
                         .copy(attachments = Some(map)),
                     )
                   )
@@ -155,7 +147,19 @@ class UploadResultController @Inject()(
         case FileStatus.UPLOADING =>
           Future.successful(Redirect(routes.UploadResultController.show(evidenceChoices)))
         case FileStatus.FAILED =>
-          Future.successful(Redirect(routes.UploadController.show(evidenceChoices)))
+          val result: Future[Result] = (
+            for {
+              reference      <- OptionT(Future.successful(request.ses.fileReference))
+              attachment     <- OptionT.liftF(businessRatesAttachmentsService.getAttachment(reference))
+              scanResult     <- OptionT(Future.successful(attachment.scanResult))
+              failureDetails <- OptionT(Future.successful(scanResult.failureDetails))
+              result <- OptionT.pure[Future](Redirect(
+                         routes.UploadController.show(evidenceChoices, Some(failureDetails.failureReason.toString))))
+            } yield {
+              result
+            }
+          ).getOrElse(Redirect(routes.UploadController.show(evidenceChoices)))
+          result
       }
     }
 

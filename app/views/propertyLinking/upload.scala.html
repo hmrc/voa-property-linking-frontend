@@ -29,9 +29,19 @@
         evidenceType: EvidenceType,
         evidenceChoice: EvidenceChoices,
         submissionId: String,
-        errors: List[String] = Nil,
+        errorCode: Option[String] = None,
         preparedUpload: PreparedUpload
 )(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+
+
+@errorMessageKey(errorCode: Option[String]) = @{
+    errorCode match {
+        case Some("EntityTooLarge") => "fileUpload.EntityTooLarge"
+        case Some("InvalidArgument") => "fileUpload.InvalidArgument"
+        case Some("REJECTED") => "fileUpload.rejected"
+        case _ => "fileUpload.failed"
+    }
+}
 
 @title = @{
     (request.ses.clientDetails, evidenceType) match {
@@ -63,14 +73,14 @@
 @mainLayout(
     pageTitle = title,
     backUri = backUri,
-    hasErrors = errors.nonEmpty
+    hasErrors = errorCode.nonEmpty
 ) {
-    @if(errors.nonEmpty) {
+    @if(errorCode.nonEmpty) {
         @govukErrorSummary(
             ErrorSummary(
                 errorList = Seq(ErrorLink(
                     href = Some("#choose-file"),
-                    content = Text(messages(errors))
+                    content = Text(messages(errorMessageKey(errorCode)))
                 )),
                 title = Text(messages("error.propertyRepresentation.title"))
             )
@@ -97,7 +107,7 @@
                 "type" -> "file",
                 "multiple" -> "false"
             ),
-            errorMessage = Option(errors).filter(_.nonEmpty).map { err => ErrorMessage(content = Text(messages(err))) },
+            errorMessage = Option(errorCode).filter(_.nonEmpty).map { err => ErrorMessage(content = Text(messages(errorMessageKey(errorCode)))) },
             label = Label(
                 isPageHeading = true,
                 classes = "govuk-label--l govuk-!-margin-bottom-3",

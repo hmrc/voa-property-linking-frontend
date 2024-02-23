@@ -60,7 +60,7 @@ class UploadController @Inject()(
       applicationConfig: ApplicationConfig
 ) extends PropertyLinkingController with Logging {
 
-  def show(evidence: EvidenceChoices, errorMessage: Option[String]): Action[AnyContent] =
+  def show(evidence: EvidenceChoices, errorMessage: Option[String], errorCode: Option[String]): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
 
@@ -77,7 +77,7 @@ class UploadController @Inject()(
                 getEvidenceType(evidence),
                 evidence,
                 session.submissionId,
-                upscanErrors(errorMessage).toList,
+                errorCode,
                 preparedUpload
               ))
           case EvidenceChoices.OTHER | EvidenceChoices.NO_LEASE_OR_LICENSE =>
@@ -231,7 +231,7 @@ class UploadController @Inject()(
                     getEvidenceType(evidence),
                     evidence,
                     request.ses.submissionId,
-                    List("error.businessRatesAttachment.ratesBill.not.selected"),
+                    Some("InvalidArgument"),
                     preparedUpload
                   )
                 )
@@ -250,7 +250,7 @@ class UploadController @Inject()(
                     getEvidenceType(evidence),
                     evidence,
                     request.ses.submissionId,
-                    List("error.businessRatesAttachment.ratesBill.not.selected"),
+                    Some("InvalidArgument"),
                     preparedUpload
                   )
                 )
@@ -334,7 +334,10 @@ class UploadController @Inject()(
 
     Upscan should return the fileReference with the error ???
    */
-  def upscanFailure(evidence: EvidenceChoices, errorMessage: Option[String]): Action[AnyContent] =
+  def upscanFailure(
+        evidence: EvidenceChoices,
+        errorMessage: Option[String],
+        errorCode: Option[String]): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
 
@@ -342,7 +345,7 @@ class UploadController @Inject()(
         .persistSessionData(
           session.copy(evidenceType = None),
           session.uploadEvidenceData.copy(attachments = Some(Map.empty)))
-        .map(_ => Redirect(routes.UploadController.show(evidence, errorMessage)))
+        .map(_ => Redirect(routes.UploadController.show(evidence, errorMessage, errorCode)))
     }
 
   def remove(fileReference: String, evidence: EvidenceChoices): Action[AnyContent] =

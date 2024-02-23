@@ -1865,7 +1865,10 @@ fileUpload.descriptionList.key=Evidence
 fileUpload.descriptionList.action=Remove
 fileUpload.pleaseWait=Please wait whilst your file is uploading. This may take some time.
 fileUpload.allowedTypes=The file must be a Word document, Excel spreadsheet, PDF or image (PNG or JPG) and be less than 10MB.
-fileupload.chooseFile=Choose file
+fileUpload.failed=The selected file could not be uploaded – try again
+fileUpload.InvalidArgument=Select a file
+fileUpload.EntityTooLarge=The selected file must be smaller than 10MB
+fileUpload.rejected=The selected file must be a Word doc, Excel sheet, PDF, PNG or JPG
 
 #Javascript Error messages
 label.selectValue=Select an address

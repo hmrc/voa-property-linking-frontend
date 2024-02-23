@@ -264,7 +264,7 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Redirect to the UploadResultController show when the file status is failed" in {
       val result = submitUploadResultPage(EvidenceChoices.RATES_BILL, FAILED)
       result.status shouldBe SEE_OTHER
-      result.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload"
+      result.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorMessage=QUARANTINE"
     }
   }
 
@@ -313,7 +313,7 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
     fileStatus match {
       case READY => fileUploadedStub
       case UPLOADING => fileUploadingStub
-      case FAILED => fileUploadFailedStub
+      case FAILED => fileUploadFailedStub()
     }
 
     fileStatus
@@ -330,7 +330,7 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
     Jsoup.parse(res.body)
   }
 
-  private def submitUploadResultPage(evidenceChoice: EvidenceChoices, fileStatus: FileStatus = READY) = {
+  private def submitUploadResultPage(evidenceChoice: EvidenceChoices, fileStatus: FileStatus = READY, failureReason: Option[String] = None) = {
     val relationshipCapacity = Some(Occupier)
     val userIsAgent = false
     val propertyOwnership: Option[PropertyOwnership] = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1)))
@@ -375,7 +375,7 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
     fileStatus match {
       case READY => fileUploadedStub
       case UPLOADING => fileUploadingStub
-      case FAILED => fileUploadFailedStub
+      case FAILED => fileUploadFailedStub(failureReason)
     }
 
     fileStatus
@@ -467,9 +467,9 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
-  def fileUploadFailedStub = {
+  def fileUploadFailedStub(failureReason: String = "QUARANTINE") = {
     val attachmentJson = Json.parse(
-      """{
+      s"""{
         |   "_id":"81eb7217-49dd-486d-a5fe-b2fbb10731cf",
         |   "initiatedAt":"2024-01-22T16:39:29.136326Z",
         |   "fileName":"test-file.jpeg",
@@ -479,7 +479,7 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
         |      "success_action_redirect":"http://localhost:9523/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/result?key=ad344c3c-0560-40be-842a-511b4b09b404",
         |      "x-amz-credential":"ASIAxxxxxxxxx/20180202/eu-west-2/s3/aws4_request",
         |      "x-amz-meta-upscan-initiate-response":"2024-01-22T16:39:24.962360Z",
-        |      "x-amz-meta-original-filename":"${filename}",
+        |      "x-amz-meta-original-filename":"filename",
         |      "x-amz-algorithm":"AWS4-HMAC-SHA256",
         |      "x-amz-signature":"xxxx",
         |      "error_action_redirect":"http://localhost:9523/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/clear",
@@ -516,7 +516,7 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
         |      "reference":"ad344c3c-0560-40be-842a-511b4b09b404",
         |      "fileStatus" : "FAILED",
         |      "failureDetails": {
-        |        "failureReason": "QUARANTINE",
+        |        "failureReason": "$failureReason",
         |        "message": "e.g. This file has a virus"
         |      }
         |   },
