@@ -60,7 +60,7 @@ class UploadController @Inject()(
       applicationConfig: ApplicationConfig
 ) extends PropertyLinkingController with Logging {
 
-  def show(evidence: EvidenceChoices, errorMessage: Option[String], errorCode: Option[String]): Action[AnyContent] =
+  def show(evidence: EvidenceChoices, errorCode: Option[String]): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
 
@@ -84,7 +84,6 @@ class UploadController @Inject()(
             Ok(
               uploadEvidenceView(
                 session.submissionId,
-                upscanErrors(errorMessage).toList,
                 session.uploadEvidenceData.attachments.getOrElse(Map.empty),
                 session.uploadEvidenceData.fileInfo
                   .map(x => form.fill(x.evidenceType))
@@ -168,7 +167,6 @@ class UploadController @Inject()(
           hasErrors = _ =>
             Future.successful(BadRequest(uploadEvidenceView(
               request.ses.submissionId,
-              List.empty,
               request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
               form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
               request.ses
@@ -193,7 +191,6 @@ class UploadController @Inject()(
                   Ok(
                     uploadEvidenceView(
                       request.ses.submissionId,
-                      List.empty,
                       request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
                       form.fill(evidenceType),
                       request.ses
@@ -263,7 +260,6 @@ class UploadController @Inject()(
               _ =>
                 Future.successful(BadRequest(uploadEvidenceView(
                   submissionId = request.ses.submissionId,
-                  errors = Nil,
                   uploadedFiles = request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
                   formEvidence =
                     form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
@@ -334,10 +330,7 @@ class UploadController @Inject()(
 
     Upscan should return the fileReference with the error ???
    */
-  def upscanFailure(
-        evidence: EvidenceChoices,
-        errorMessage: Option[String],
-        errorCode: Option[String]): Action[AnyContent] =
+  def upscanFailure(evidence: EvidenceChoices, errorCode: Option[String]): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
 
@@ -345,7 +338,7 @@ class UploadController @Inject()(
         .persistSessionData(
           session.copy(evidenceType = None),
           session.uploadEvidenceData.copy(attachments = Some(Map.empty)))
-        .map(_ => Redirect(routes.UploadController.show(evidence, errorMessage, errorCode)))
+        .map(_ => Redirect(routes.UploadController.show(evidence, errorCode)))
     }
 
   def remove(fileReference: String, evidence: EvidenceChoices): Action[AnyContent] =

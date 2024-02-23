@@ -110,7 +110,7 @@
             errorMessage = Option(errorCode).filter(_.nonEmpty).map { err => ErrorMessage(content = Text(messages(errorMessageKey(errorCode)))) },
             label = Label(
                 isPageHeading = true,
-                classes = "govuk-label--l govuk-!-margin-bottom-3",
+                classes = "govuk-heading-l govuk-label--l govuk-!-margin-bottom-3",
                 content = Text(title)
             ),
             hint = Some(Hint(

@@ -5,6 +5,7 @@ import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import binders.propertylinks.{ClaimPropertyReturnToPage, EvidenceChoices}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
 import models._
+import models.upscan.FailureReason
 import models.upscan.FileStatus.{FAILED, FileStatus, READY, UPLOADING}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -261,10 +262,22 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
       result.headers("Location").head shouldBe s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/result"
     }
 
-    "Redirect to the UploadResultController show when the file status is failed" in {
-      val result = submitUploadResultPage(EvidenceChoices.RATES_BILL, FAILED)
+    "Redirect to the UploadResultController show when the file status is failed with reason 'QUARANTINED'" in {
+      val result = submitUploadResultPage(EvidenceChoices.RATES_BILL, FAILED, Some(FailureReason.QUARANTINED.toString))
       result.status shouldBe SEE_OTHER
-      result.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorMessage=QUARANTINE"
+      result.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorCode=QUARANTINE"
+    }
+
+    "Redirect to the UploadResultController show when the file status is failed with reason 'REJECTED'" in {
+      val result = submitUploadResultPage(EvidenceChoices.RATES_BILL, FAILED, Some(FailureReason.REJECTED.toString))
+      result.status shouldBe SEE_OTHER
+      result.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorCode=REJECTED"
+    }
+
+    "Redirect to the UploadResultController show when the file status is failed with reason 'UNKNOWN'" in {
+      val result = submitUploadResultPage(EvidenceChoices.RATES_BILL, FAILED, Some(FailureReason.UNKNOWN.toString))
+      result.status shouldBe SEE_OTHER
+      result.headers("Location").head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorCode=UNKNOWN"
     }
   }
 
@@ -375,7 +388,7 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
     fileStatus match {
       case READY => fileUploadedStub
       case UPLOADING => fileUploadingStub
-      case FAILED => fileUploadFailedStub(failureReason)
+      case FAILED => failureReason.map(reason => fileUploadFailedStub(reason))
     }
 
     fileStatus

@@ -213,10 +213,10 @@ POST        /my-organisation/claim/property-links/evidence/:choice/upload/result
 GET         /my-organisation/claim/property-links/evidence/scan-status                        controllers.propertyLinking.UploadResultController.getUploadStatus
 GET         /my-organisation/claim/property-links/evidence/message-key                        controllers.propertyLinking.UploadResultController.getMessageKeys
 
-GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorMessage: Option[String] ?= None, errorCode: Option[String] ?= None)
+GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorCode: Option[String] ?= None)
 POST        /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.continue(choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/initiate            controllers.propertyLinking.UploadController.initiate(choice: EvidenceChoices)
-GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorMessage: Option[String], errorCode: Option[String] ?= None)
+GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorCode: Option[String] ?= None)
 GET         /my-organisation/claim/property-links/evidence/:choice/upload/remove              controllers.propertyLinking.UploadController.remove(fileReference: String, choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/evidence-type                      controllers.propertyLinking.UploadController.updateEvidenceType
 GET         /my-organisation/claim/property-links/summary                                     controllers.propertyLinking.DeclarationController.show
