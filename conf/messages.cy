@@ -977,7 +977,7 @@ chooseEvidence.client.title=Oes gennych chi gopi o fil ardrethi busnes eich clei
 hasRatesBill.true=Oes
 hasRatesBill.false=Nac oes
 label.ratesBill=Lanlwythwch gopi o’r bil ardrethi os gwelwch yn dda
-label.ratesBill.help=Dylai’r bil ardrethi busnes hwn fod y bil mwyaf diweddar sydd gennych ar gyfer yr eiddo, ar gyfer y cyfnod mai chi   oedd y perchennog neu’r meddiannydd.
+label.ratesBill.help=Dylai’r bil fod ar gyfer {0}.
 ratesBill.label.1=Caniateir PDF, delweddau wedi’u sganio a ffotograffau. Rhaid i’ch ffeil fod yn llai na 10MB o ran maint.
 uploadFile.info.title=Sut ydw i’n trosi ffeil i PDF?
 uploadFile.info.content=<p>Mae trosi ffeil yn PDF yn debyg ar gyfer y rhan fwyaf o feddalwedd.   Yn gyntaf, agorwch y ddogfen yr ydych am ei throsi, yna:</p> <ul class="list-number"><li>cliciwch "Ffeil"</li><li>dewiswch unai "Allgludo", "Allgludo fel PDF" neu "Save as" (yn dibynnu ar eich meddalwedd)</li><li>dewiswch "Creu PDF" neu "PDF"</li><li>cliciwch ar naill ai "Cyhoeddi" neu "Save"</li></ul><p>Ar gyfer defnyddwyr Mac a meddalwedd hŷn:</p><ul class="list-number"><li>cliciwch "File"</li><li>dewiswch "Print"</li><li> cliciwch naill ai "PDF", neu ddewiswch argraffydd sydd wedi’i labelu "PDF"</li><li>cliciwch naill ai "Save" neu "OK"</li> </ul><p>Gallwch hefyd chwilio am wefannau sy’n gallu trosi eich dogfen am ddim.</p> <p>Oherwydd Covid-19 ni allwn gynnig gwasanaeth teleffoni ar hyn o bryd a bydd yn cymryd mwy o amser na’r arfer i ymateb i’ch ymholiad. Os oes angen i chi gysylltu â ni defnyddiwch ein <a href="https://www.gov.uk/contact-voa" class="govuk-link">Ffurflen gyswllt </a> a byddwn yn ymateb cyn gynted â phosibl. Mae’n ddrwg gennym am unrhyw anghyfleustra y mae hyn wedi’i achosi.</p>
