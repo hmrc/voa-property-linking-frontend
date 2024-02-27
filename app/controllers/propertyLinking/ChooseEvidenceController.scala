@@ -19,20 +19,20 @@ package controllers.propertyLinking
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
+import binders.propertylinks.EvidenceChoices.{EvidenceChoices, OTHER, RATES_BILL}
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
-import models.{EvidenceType, Lease, LinkingSession, NoLeaseOrLicense, OccupierEvidenceType, UploadEvidenceData}
+import models.{CompleteFileInfo, EvidenceType, Lease, LinkingSession, NoLeaseOrLicense, OccupierEvidenceType, UploadEvidenceData}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+
 import java.time.LocalDate
-
 import javax.inject.Inject
-
 import scala.concurrent.{ExecutionContext, Future}
 
 class ChooseEvidenceController @Inject()(
@@ -77,22 +77,24 @@ class ChooseEvidenceController @Inject()(
       controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy.url
 
   def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    def updateSession(newAnswer: Boolean): Future[Unit] =
-      // if the same answer was already in the linking session, then do nothing
-      if (request.ses.hasRatesBill.contains(newAnswer)) Future.successful((): Unit)
-      else {
-        businessRatesAttachmentService.persistSessionData(
-          request.ses.copy(hasRatesBill = Some(newAnswer), uploadEvidenceData = UploadEvidenceData.empty))
-      }
-
     ChooseEvidence.form
       .bindFromRequest()
       .fold(
         errors => Future.successful(BadRequest(chooseEvidenceView(errors, Some(backlink(request.ses))))),
-        hasRatesBill =>
-          updateSession(hasRatesBill).map { _ =>
-            if (hasRatesBill) Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
-            else Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
+        hasRatesBill => {
+          val evidence = if (hasRatesBill) RATES_BILL else OTHER
+          if (request.ses.hasRatesBill.contains(hasRatesBill)) {
+            request.ses.uploadEvidenceData.fileInfo match {
+              case Some(CompleteFileInfo(_, _)) =>
+                Future.successful(Redirect(routes.UploadResultController.show(evidence)))
+              case _ =>
+                Future.successful(Redirect(routes.UploadController.show(evidence)))
+            }
+          } else {
+            businessRatesAttachmentService.persistSessionData(
+              request.ses.copy(hasRatesBill = Some(hasRatesBill), uploadEvidenceData = UploadEvidenceData.empty))
+            Future.successful(Redirect(routes.UploadController.show(evidence)))
+          }
         }
       )
   }

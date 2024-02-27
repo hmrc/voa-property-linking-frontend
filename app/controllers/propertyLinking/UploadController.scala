@@ -63,15 +63,14 @@ class UploadController @Inject()(
   def show(evidence: EvidenceChoices, errorCode: Option[String]): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
-
-      for {
-        preparedUpload <- requestNewUpscanForm(evidence)
-        _              <- sessionRepository.saveOrUpdate(request.ses.copy(fileReference = Some(preparedUpload.reference.value)))
-      } yield {
-        evidence match {
-          case EvidenceChoices.RATES_BILL | EvidenceChoices.LEASE | EvidenceChoices.LICENSE |
-              EvidenceChoices.SERVICE_CHARGE | EvidenceChoices.STAMP_DUTY | EvidenceChoices.LAND_REGISTRY |
-              EvidenceChoices.WATER_RATE | EvidenceChoices.UTILITY_RATE =>
+      evidence match {
+        case EvidenceChoices.RATES_BILL | EvidenceChoices.LEASE | EvidenceChoices.LICENSE |
+            EvidenceChoices.SERVICE_CHARGE | EvidenceChoices.STAMP_DUTY | EvidenceChoices.LAND_REGISTRY |
+            EvidenceChoices.WATER_RATE | EvidenceChoices.UTILITY_RATE =>
+          for {
+            preparedUpload <- requestNewUpscanForm(evidence)
+            _              <- sessionRepository.saveOrUpdate(request.ses.copy(fileReference = Some(preparedUpload.reference.value)))
+          } yield {
             Ok(
               uploadView(
                 getEvidenceType(evidence),
@@ -80,59 +79,20 @@ class UploadController @Inject()(
                 errorCode,
                 preparedUpload
               ))
-          case EvidenceChoices.OTHER | EvidenceChoices.NO_LEASE_OR_LICENSE =>
-            Ok(
-              uploadEvidenceView(
-                session.submissionId,
-                session.uploadEvidenceData.attachments.getOrElse(Map.empty),
-                session.uploadEvidenceData.fileInfo
-                  .map(x => form.fill(x.evidenceType))
-                  .getOrElse(form),
-                session
-              ))
-          case _ =>
-            BadRequest(errorHandler.badRequestTemplate)
-        }
+          }
+        case EvidenceChoices.OTHER | EvidenceChoices.NO_LEASE_OR_LICENSE =>
+          Future.successful(
+            Ok(uploadEvidenceView(
+              session.submissionId,
+              session.uploadEvidenceData.attachments.getOrElse(Map.empty),
+              session.uploadEvidenceData.fileInfo
+                .map(x => form.fill(x.evidenceType))
+                .getOrElse(form),
+              session
+            )))
+        case _ =>
+          Future.successful(BadRequest(errorHandler.badRequestTemplate))
       }
-    }
-
-  def result(evidence: EvidenceChoices): Action[AnyContent] =
-    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-      def resultPage(fileStatus: FileStatus, attachment: Option[Attachment] = None): Result =
-        Ok(
-          uploadResultView(
-            getEvidenceType(evidence),
-            evidence,
-            request.ses.submissionId,
-            request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
-            fileStatus,
-            request.ses.fileReference,
-            attachment
-          )
-        )
-
-      val result: OptionT[Future, Attachment] = for {
-        reference  <- OptionT(Future.successful(request.ses.fileReference))
-        attachment <- OptionT.liftF(businessRatesAttachmentsService.getAttachment(reference))
-        fullAttachment = attachment
-      } yield {
-        fullAttachment
-      }
-
-      result.value
-        .map {
-          case Some(attachment) =>
-            val fileStatus = attachment.scanResult.map(_.fileStatus).getOrElse(FileStatus.UPLOADING)
-            resultPage(fileStatus, Some(attachment))
-          case None =>
-            //todo I think this needs to be something else
-            BadRequest(errorHandler.badRequestTemplate)
-        }
-        .recover {
-          case _ @UpstreamErrorResponse.WithStatusCode(EXPECTATION_FAILED) =>
-            resultPage(FileStatus.UPLOADING)
-        }
-
     }
 
   def initiate(evidence: EvidenceChoices): Action[JsValue] =
@@ -211,7 +171,6 @@ class UploadController @Inject()(
               case Some(CompleteFileInfo(name, _)) => CompleteFileInfo(name, getEvidenceType(evidence))
               case _                               => PartialFileInfo(getEvidenceType(evidence))
             }
-
             businessRatesAttachmentsService
               .persistSessionData(linkingSession, uploadedData.copy(fileInfo = Some(fileInfo)))
               .map(_ => Redirect(routes.DeclarationController.show.url))
@@ -220,6 +179,7 @@ class UploadController @Inject()(
       val session: LinkingSession = request.ses
       evidence match {
         case EvidenceChoices.RATES_BILL | EvidenceChoices.LEASE | EvidenceChoices.LICENSE =>
+          println(Console.GREEN + evidence + Console.RESET)
           upload(session.uploadEvidenceData.copy(linkBasis = RatesBillFlag))
             .getOrElse(
               requestNewUpscanForm(evidence).map { preparedUpload =>
@@ -268,12 +228,50 @@ class UploadController @Inject()(
                 case UnableToProvide =>
                   Future.successful(Ok(cannotProvideEvidenceView()))
                 case formData =>
+                  businessRatesAttachmentsService.persistSessionData(
+                    request.ses.copy(evidenceType = Some(formData)),
+                    request.ses.uploadEvidenceData
+                      .copy(fileInfo = Some(PartialFileInfo(formData))))
                   Future.successful(Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
               }
             )
         case _ =>
           Future.successful(BadRequest(errorHandler.badRequestTemplate))
       }
+  }
+
+  def continueNew(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
+        _ =>
+          Future.successful(BadRequest(uploadEvidenceView(
+            submissionId = request.ses.submissionId,
+            uploadedFiles = request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
+            formEvidence =
+              form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
+            linkingSession = request.ses
+          ))), {
+          case UnableToProvide =>
+            Future.successful(Ok(cannotProvideEvidenceView()))
+          case formData if request.ses.evidenceType.contains(formData) =>
+            request.ses.uploadEvidenceData.fileInfo match {
+              case Some(CompleteFileInfo(_, _)) =>
+                Future.successful(Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(formData)))))
+              case _ =>
+                Future.successful(Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
+
+            }
+          case formData =>
+            businessRatesAttachmentsService
+              .persistSessionData(
+                request.ses.copy(evidenceType = Some(formData)),
+                request.ses.uploadEvidenceData
+                  .copy(fileInfo = Some(PartialFileInfo(formData))))
+              .map(_ => Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
+
+        }
+      )
   }
 
   private def requestNewUpscanForm(evidence: EvidenceChoices)(
@@ -344,13 +342,10 @@ class UploadController @Inject()(
   def remove(fileReference: String, evidence: EvidenceChoices): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
-      val updatedSessionData =
-        session.uploadEvidenceData.attachments.map(map => map - fileReference).getOrElse(Map.empty)
-
       businessRatesAttachmentsService
         .persistSessionData(
-          session.copy(evidenceType = None),
-          session.uploadEvidenceData.copy(attachments = Some(updatedSessionData)))
+          request.ses.copy(uploadEvidenceData = UploadEvidenceData.empty),
+          session.uploadEvidenceData.copy(fileInfo = None))
         .map(_ => Redirect(routes.UploadController.show(evidence)))
     }
 }

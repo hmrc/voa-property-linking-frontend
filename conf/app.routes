@@ -215,6 +215,7 @@ GET         /my-organisation/claim/property-links/evidence/message-key          
 
 GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorCode: Option[String] ?= None)
 POST        /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.continue(choice: EvidenceChoices)
+POST        /my-organisation/claim/property-links/evidence/upload-n                           controllers.propertyLinking.UploadController.continueNew()
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/initiate            controllers.propertyLinking.UploadController.initiate(choice: EvidenceChoices)
 GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorCode: Option[String] ?= None)
 GET         /my-organisation/claim/property-links/evidence/:choice/upload/remove              controllers.propertyLinking.UploadController.remove(fileReference: String, choice: EvidenceChoices)

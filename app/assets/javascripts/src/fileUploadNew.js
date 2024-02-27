@@ -28,6 +28,10 @@
                     updateTag(fileStatus);
                     updateFormAction(fileStatus);
                     updateFileName(fileName, fileDownloadLink);
+                    updateLiveRegion(fileStatus);
+                    if (fileStatus === "READY") {
+                        clearInterval(intervalId);
+                    }
                 },
                 error: function (xmlHttpRequest, status, error) {
                 }
@@ -105,6 +109,15 @@
                 formElement.action = submitUrlPrefix + newStatus;
             }
         }
+
+        // Function to update the ARIA live region with the new status
+        function updateLiveRegion(newStatus) {
+            var liveRegion = document.getElementById('ariaLiveRegion');
+            if (liveRegion) {
+                liveRegion.textContent = getStatusText(newStatus);
+            }
+        }
+
         // 2 second interval for update view
         var intervalId = setInterval(makeGetRequest, 2000);
     };

@@ -16,6 +16,7 @@
 
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import binders.propertylinks.EvidenceChoices.EvidenceChoices
+@import binders.propertylinks.EvidenceChoices
 @import config.ApplicationConfig
 @import models.{EvidenceType, _}
 @import models.attachment.Attachment
@@ -43,31 +44,47 @@
 }
 
 @attachmentFileNameHtml = {
-    @if(attachmentDownloadLink.isDefined) {
-            <a class="govuk-link" href="@attachmentDownloadLink.get">@attachmentFileName</a>
-    }else{
-        <a class="govuk-link" href=""></a>
-    }
+@if(attachmentDownloadLink.isDefined) {
+    <a class="govuk-link" href="@attachmentDownloadLink.get">@attachmentFileName</a>
+} else {
+    <a class="govuk-link" href=""></a>
+}
 }
 
 @title = @{
     (request.ses.clientDetails, evidenceType) match {
-        case (Some(_), Lease) => {messages("uploadEvidence.lease.client.title")}
-        case (Some(_), License) => {messages("uploadEvidence.license.client.title")}
-        case (Some(_), RatesBillType) => {messages("uploadRatesBill.show.client.title")}
-        case(Some(_), _) => {messages(s"uploadEvidence.$evidenceType.title")}
-        case (None, Lease) => {messages("uploadEvidence.lease.title")}
-        case (None, License) => {messages("uploadEvidence.license.title")}
-        case (None, RatesBillType) => {messages("uploadRatesBill.show.title")}
-        case (None, _) => {messages(s"uploadEvidence.$evidenceType.title")}
+        case (Some(_), Lease) => {
+            messages("uploadEvidence.lease.client.title")
+        }
+        case (Some(_), License) => {
+            messages("uploadEvidence.license.client.title")
+        }
+        case (Some(_), RatesBillType) => {
+            messages("uploadRatesBill.show.client.title")
+        }
+        case (Some(_), _) => {
+            messages(s"uploadEvidence.$evidenceType.title")
+        }
+        case (None, Lease) => {
+            messages("uploadEvidence.lease.title")
+        }
+        case (None, License) => {
+            messages("uploadEvidence.license.title")
+        }
+        case (None, RatesBillType) => {
+            messages("uploadRatesBill.show.title")
+        }
+        case (None, _) => {
+            messages(s"uploadEvidence.$evidenceType.title")
+        }
     }
 }
 
 @tag(status: FileStatus) = @{
     status match {
-        case _ @ FileStatus.UPLOADING => govukTag(Tag(content = Text(messages("fileUploadResult.uploading")), classes = "govuk-tag--yellow", attributes = Map("id" -> "uploadStatus")))
-        case _ @ FileStatus.READY => govukTag(Tag(content = Text(messages("fileUploadResult.uploaded")), classes = "govuk-tag--green", attributes = Map("id" -> "uploadStatus")))
-        case _ @ FileStatus.FAILED => govukTag(Tag(content = Text(messages("fileUploadResult.failed")), classes = "govuk-tag--red", attributes = Map("id" -> "uploadStatus")))
+        case _@FileStatus.UPLOADING => govukTag(Tag(content = Text(messages("fileUploadResult.uploading")), classes = "govuk-tag--yellow", attributes = Map("id" -> "uploadStatus")))
+        case _@FileStatus.READY => govukTag(Tag(content = Text(messages("fileUploadResult.uploaded")), classes = "govuk-tag--green", attributes = Map("id" -> "uploadStatus")))
+        case _@FileStatus.FAILED => govukTag(Tag(content = Text(messages("fileUploadResult.failed")), classes = "govuk-tag--red", attributes = Map("id" -> "uploadStatus")))
     }
 }
 
@@ -89,15 +106,29 @@
     }
 }
 
+@backUri = @{
+    val propertyRelationship = request.ses.propertyRelationship.map(_.capacity).get
+    (evidenceType, propertyRelationship) match {
+        case (Lease, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (License, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (Lease, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (License, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (noLeaseOrLicense, Occupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (RatesBillType, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (_, _) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+    }
+}
+
 @mainLayout(
     pageTitle = title,
-    backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+    backUri = backUri
 ) {
 
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@title</h1>
     <p class="govuk-hint">@messages("fileUploadResult.hintText")</p>
 
+    <span id="ariaLiveRegion" class="govuk-visually-hidden" aria-live="polite"></span>
 
     @govukSummaryList(SummaryList(
         classes = "govuk-summary-list--long-key",
@@ -123,7 +154,11 @@
         ))
     }
 
-    <span class="govuk-visually-hidden" id="fileUploadStatusUrl">@{s"${controllers.propertyLinking.routes.UploadResultController.getUploadStatus}"}</span>
-    <span class="govuk-visually-hidden" id="messageKeyUrl">@{s"${controllers.propertyLinking.routes.UploadResultController.getMessageKeys}"}</span>
+    <span class="govuk-visually-hidden" id="fileUploadStatusUrl">@{
+        s"${controllers.propertyLinking.routes.UploadResultController.getUploadStatus}"
+    }</span>
+    <span class="govuk-visually-hidden" id="messageKeyUrl">@{
+        s"${controllers.propertyLinking.routes.UploadResultController.getMessageKeys}"
+    }</span>
     <input class="govuk-visually-hidden" id="submitUrlPrefix" value="@controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, "")">
 }
