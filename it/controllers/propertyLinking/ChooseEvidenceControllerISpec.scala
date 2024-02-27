@@ -60,7 +60,7 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
   val backLinkTextWelsh = "Yn ôl"
   val localCouncilReferenceTextWelsh = "Cyfeirnod yr awdurdod lleol: 2050466366770"
   val propertyTextWelsh = "Eiddo: Test Address, Test Lane, T35 T3R"
-  val hintTextWelsh = "Dylai’r bil ardrethi busnes hwn fod y bil mwyaf diweddar sydd gennych ar gyfer yr eiddo, ar gyfer y cyfnod mai chi oedd y perchennog neu’r meddiannydd." //VTCCA-6436 raised as this doesn't match the English text
+  val hintTextWelsh = "Dylai’r bil fod ar gyfer Test Address, Test Lane, T35 T3R."
   val occupierHintTextWelsh = "Dylai’r brydles neu’r drwydded i feddiannu fod ar gyfer Test Address, Test Lane, T35 T3R."
   val yesRadioTextWelsh = "Oes"
   val noRadioTextWelsh = "Nac oes"
