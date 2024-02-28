@@ -69,7 +69,7 @@ class UploadResultController @Inject()(
         )
 
       def updatedUploadData(attachment: Attachment): UploadEvidenceData = {
-
+        println(Console.GREEN + evidence + Console.RESET)
         val evidenceChoice = getEvidenceType(evidence)
         val fileInfo = request.ses.uploadEvidenceData.fileInfo match {
           case Some(CompleteFileInfo(name, _)) => CompleteFileInfo(attachment.fileName, evidenceChoice)
@@ -164,16 +164,17 @@ class UploadResultController @Inject()(
 
   private def getEvidenceType(evidence: EvidenceChoices, evidenceType: Option[EvidenceType] = None): EvidenceType =
     evidence match {
-      case EvidenceChoices.RATES_BILL     => RatesBillType
-      case EvidenceChoices.LEASE          => Lease
-      case EvidenceChoices.LICENSE        => License
-      case EvidenceChoices.RATES_BILL     => RatesBillType
-      case EvidenceChoices.SERVICE_CHARGE => ServiceCharge
-      case EvidenceChoices.STAMP_DUTY     => StampDutyLandTaxForm
-      case EvidenceChoices.LAND_REGISTRY  => LandRegistryTitle
-      case EvidenceChoices.WATER_RATE     => WaterRateDemand
-      case EvidenceChoices.UTILITY_RATE   => OtherUtilityBill
-      case EvidenceChoices.OTHER          => evidenceType.get
+      case EvidenceChoices.RATES_BILL          => RatesBillType
+      case EvidenceChoices.LEASE               => Lease
+      case EvidenceChoices.LICENSE             => License
+      case EvidenceChoices.RATES_BILL          => RatesBillType
+      case EvidenceChoices.SERVICE_CHARGE      => ServiceCharge
+      case EvidenceChoices.STAMP_DUTY          => StampDutyLandTaxForm
+      case EvidenceChoices.LAND_REGISTRY       => LandRegistryTitle
+      case EvidenceChoices.WATER_RATE          => WaterRateDemand
+      case EvidenceChoices.UTILITY_RATE        => OtherUtilityBill
+      case EvidenceChoices.NO_LEASE_OR_LICENSE => NoLeaseOrLicense
+      case EvidenceChoices.OTHER               => evidenceType.get
     }
 
   def getUploadStatus: Action[AnyContent] =
