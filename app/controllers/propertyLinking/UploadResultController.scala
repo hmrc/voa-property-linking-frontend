@@ -69,7 +69,6 @@ class UploadResultController @Inject()(
         )
 
       def updatedUploadData(attachment: Attachment): UploadEvidenceData = {
-        println(Console.GREEN + evidence + Console.RESET)
         val evidenceChoice = getEvidenceType(evidence)
         val fileInfo = request.ses.uploadEvidenceData.fileInfo match {
           case Some(CompleteFileInfo(name, _)) => CompleteFileInfo(attachment.fileName, evidenceChoice)
@@ -206,7 +205,10 @@ class UploadResultController @Inject()(
     val messageKeys = Array(
       Messages("fileUploadResult.uploading"),
       Messages("fileUploadResult.uploaded"),
-      Messages("fileUploadResult.failed")
+      Messages("fileUploadResult.failed"),
+      Messages("fileUploadResult.uploaded-aria-live"),
+      Messages("fileUploadResult.removed-file-aria-live"),
+      Messages("fileUploadResult.removed-file-name-aria-live")
     )
     Future.successful(Ok(Json.toJson(messageKeys)))
   }

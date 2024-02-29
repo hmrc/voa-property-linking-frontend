@@ -21,20 +21,18 @@ import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
 import binders.propertylinks.EvidenceChoices
 import binders.propertylinks.EvidenceChoices.EvidenceChoices
-import cats.data.OptionT
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import models.EvidenceType.form
 import models._
 import models.attachment.request.{InitiateAttachmentRequest, UpscanInitiateRequest}
-import models.attachment.{Attachment, Destinations, InitiateAttachmentPayload}
-import models.upscan.FileStatus.FileStatus
-import models.upscan.{FileStatus, PreparedUpload}
+import models.attachment.{Destinations, InitiateAttachmentPayload}
+import models.upscan.PreparedUpload
 import play.api.Logging
 import play.api.data.FormError
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.{HeaderCarrier, UpstreamErrorResponse}
@@ -50,7 +48,7 @@ class UploadController @Inject()(
       @Named("propertyLinkingSession") sessionRepository: SessionRepo,
       businessRatesAttachmentsService: BusinessRatesAttachmentsService,
       uploadView: views.html.propertyLinking.upload,
-      uploadEvidenceView: views.html.propertyLinking.uploadEvidence,
+      uploadOtherEvidenceView: views.html.propertyLinking.uploadEvidence,
       uploadResultView: views.html.propertyLinking.upload_result,
       cannotProvideEvidenceView: views.html.propertyLinking.cannotProvideEvidence
 )(
@@ -60,7 +58,7 @@ class UploadController @Inject()(
       applicationConfig: ApplicationConfig
 ) extends PropertyLinkingController with Logging {
 
-  def show(evidence: EvidenceChoices, errorCode: Option[String]): Action[AnyContent] =
+  def show(evidence: EvidenceChoices, errorCode: Option[String], fileRemoved: Boolean): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
       evidence match {
@@ -77,12 +75,13 @@ class UploadController @Inject()(
                 evidence,
                 session.submissionId,
                 errorCode,
-                preparedUpload
+                preparedUpload,
+                fileRemoved
               ))
           }
         case EvidenceChoices.OTHER | EvidenceChoices.NO_LEASE_OR_LICENSE =>
           Future.successful(
-            Ok(uploadEvidenceView(
+            Ok(uploadOtherEvidenceView(
               session.submissionId,
               session.uploadEvidenceData.attachments.getOrElse(Map.empty),
               session.uploadEvidenceData.fileInfo
@@ -125,7 +124,7 @@ class UploadController @Inject()(
         .bindFromRequest()
         .fold(
           hasErrors = _ =>
-            Future.successful(BadRequest(uploadEvidenceView(
+            Future.successful(BadRequest(uploadOtherEvidenceView(
               request.ses.submissionId,
               request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
               form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
@@ -149,7 +148,7 @@ class UploadController @Inject()(
               .map(
                 _ =>
                   Ok(
-                    uploadEvidenceView(
+                    uploadOtherEvidenceView(
                       request.ses.submissionId,
                       request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
                       form.fill(evidenceType),
@@ -159,93 +158,12 @@ class UploadController @Inject()(
         )
     }
 
-  def continue(evidence: EvidenceChoices): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async {
-    implicit request =>
-      def upload(
-            uploadedData: UploadEvidenceData,
-            linkingSession: LinkingSession = request.ses
-      )(implicit request: LinkingSessionRequest[_]): Option[Future[Result]] =
-        PartialFunction.condOpt(request.ses.uploadEvidenceData.attachments) {
-          case Some(fileData) if fileData.nonEmpty =>
-            val fileInfo: FileInfo = uploadedData.fileInfo match {
-              case Some(CompleteFileInfo(name, _)) => CompleteFileInfo(name, getEvidenceType(evidence))
-              case _                               => PartialFileInfo(getEvidenceType(evidence))
-            }
-            businessRatesAttachmentsService
-              .persistSessionData(linkingSession, uploadedData.copy(fileInfo = Some(fileInfo)))
-              .map(_ => Redirect(routes.DeclarationController.show.url))
-        }
-
-      val session: LinkingSession = request.ses
-      evidence match {
-        case EvidenceChoices.RATES_BILL | EvidenceChoices.LEASE | EvidenceChoices.LICENSE =>
-          println(Console.GREEN + evidence + Console.RESET)
-          upload(session.uploadEvidenceData.copy(linkBasis = RatesBillFlag))
-            .getOrElse(
-              requestNewUpscanForm(evidence).map { preparedUpload =>
-                BadRequest(
-                  uploadView(
-                    getEvidenceType(evidence),
-                    evidence,
-                    request.ses.submissionId,
-                    Some("InvalidArgument"),
-                    preparedUpload
-                  )
-                )
-              }
-            )
-        case EvidenceChoices.SERVICE_CHARGE | EvidenceChoices.STAMP_DUTY | EvidenceChoices.LAND_REGISTRY |
-            EvidenceChoices.WATER_RATE | EvidenceChoices.UTILITY_RATE =>
-          val updatedSession = session.copy(evidenceType = Some(getEvidenceType(evidence)))
-          val sessionUploadData: UploadEvidenceData = updatedSession.uploadEvidenceData
-            .copy(linkBasis = if (getEvidenceType(evidence) == RatesBillType) RatesBillFlag else OtherEvidenceFlag)
-          upload(sessionUploadData)
-            .getOrElse(
-              requestNewUpscanForm(evidence).map { preparedUpload =>
-                BadRequest(
-                  uploadView(
-                    getEvidenceType(evidence),
-                    evidence,
-                    request.ses.submissionId,
-                    Some("InvalidArgument"),
-                    preparedUpload
-                  )
-                )
-              }
-            )
-        case EvidenceChoices.OTHER =>
-          form
-            .bindFromRequest()
-            .fold(
-              _ =>
-                Future.successful(BadRequest(uploadEvidenceView(
-                  submissionId = request.ses.submissionId,
-                  uploadedFiles = request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
-                  formEvidence =
-                    form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
-                  linkingSession = session
-                ))), {
-                case UnableToProvide =>
-                  Future.successful(Ok(cannotProvideEvidenceView()))
-                case formData =>
-                  businessRatesAttachmentsService.persistSessionData(
-                    request.ses.copy(evidenceType = Some(formData)),
-                    request.ses.uploadEvidenceData
-                      .copy(fileInfo = Some(PartialFileInfo(formData))))
-                  Future.successful(Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
-              }
-            )
-        case _ =>
-          Future.successful(BadRequest(errorHandler.badRequestTemplate))
-      }
-  }
-
-  def continueNew(): Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+  def continue: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
     form
       .bindFromRequest()
       .fold(
         _ =>
-          Future.successful(BadRequest(uploadEvidenceView(
+          Future.successful(BadRequest(uploadOtherEvidenceView(
             submissionId = request.ses.submissionId,
             uploadedFiles = request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
             formEvidence =
@@ -253,7 +171,7 @@ class UploadController @Inject()(
             linkingSession = request.ses
           ))), {
           case UnableToProvide =>
-            Future.successful(Ok(cannotProvideEvidenceView()))
+            Future.successful(Redirect(routes.UploadController.cannotProvideEvidence))
           case formData if request.ses.evidenceType.contains(formData) =>
             request.ses.uploadEvidenceData.fileInfo match {
               case Some(CompleteFileInfo(_, _)) =>
@@ -269,7 +187,6 @@ class UploadController @Inject()(
                 request.ses.uploadEvidenceData
                   .copy(fileInfo = Some(PartialFileInfo(formData))))
               .map(_ => Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
-
         }
       )
   }
@@ -298,16 +215,7 @@ class UploadController @Inject()(
       case EvidenceChoices.LAND_REGISTRY  => LandRegistryTitle
       case EvidenceChoices.WATER_RATE     => WaterRateDemand
       case EvidenceChoices.UTILITY_RATE   => OtherUtilityBill
-      case EvidenceChoices.OTHER          => evidenceType.get
-    }
-
-  //Catching error message received from Upscan & replacing
-  private def upscanErrors(errorMessage: Option[String])(implicit messages: Messages): Option[String] =
-    errorMessage match {
-      case Some("Your proposed upload exceeds the maximum allowed size") =>
-        Some(messages("error.businessRatesAttachment.file.size.exceed.max.limit"))
-      case Some("'file' field not found") => Some(messages("error.businessRatesAttachment.ratesBill.not.selected"))
-      case _                              => errorMessage
+      case _                              => evidenceType.get
     }
 
   private def getEvidenceChoice(evidenceType: Option[EvidenceType] = None): EvidenceChoices =
@@ -320,7 +228,6 @@ class UploadController @Inject()(
       case Some(LandRegistryTitle)    => EvidenceChoices.LAND_REGISTRY
       case Some(WaterRateDemand)      => EvidenceChoices.WATER_RATE
       case Some(OtherUtilityBill)     => EvidenceChoices.UTILITY_RATE
-
     }
 
   /*
@@ -339,13 +246,18 @@ class UploadController @Inject()(
         .map(_ => Redirect(routes.UploadController.show(evidence, errorCode)))
     }
 
-  def remove(fileReference: String, evidence: EvidenceChoices): Action[AnyContent] =
+  def remove(evidence: EvidenceChoices): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
       businessRatesAttachmentsService
         .persistSessionData(
           request.ses.copy(uploadEvidenceData = UploadEvidenceData.empty),
           session.uploadEvidenceData.copy(fileInfo = None))
-        .map(_ => Redirect(routes.UploadController.show(evidence)))
+        .map(_ => Redirect(routes.UploadController.show(evidence, fileRemoved = true)))
+    }
+
+  def cannotProvideEvidence(): Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+      Future.successful(Ok(cannotProvideEvidenceView()))
     }
 }

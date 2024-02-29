@@ -30,7 +30,8 @@
         evidenceChoice: EvidenceChoices,
         submissionId: String,
         errorCode: Option[String] = None,
-        preparedUpload: PreparedUpload
+        preparedUpload: PreparedUpload,
+        fileRemoved: Boolean
 )(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 
@@ -56,6 +57,14 @@
     }
 }
 
+@fileRemovedAriaLiveContent = @{
+    request.ses.uploadEvidenceData.fileInfo match {
+        case Some(completeFileInfo: CompleteFileInfo) =>
+            Messages("fileUploadResult.removed-file-name-aria-live", completeFileInfo.name)
+        case _ => Messages("fileUploadResult.removed-file-aria-live")
+    }
+}
+
 @backUri = @{
     val propertyRelationship = request.ses.propertyRelationship.map(_.capacity).get
     (evidenceType, propertyRelationship) match {
@@ -68,7 +77,6 @@
         case (_, _) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
     }
 }
-
 
 @mainLayout(
     pageTitle = title,
@@ -89,6 +97,10 @@
 
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@title</h1>
+
+    @if(fileRemoved) {
+        <span id="ariaLiveRegion" class="govuk-visually-hidden" aria-live="polite">@fileRemovedAriaLiveContent</span>
+    }
 
     @form(
         Call("POST", preparedUpload.uploadRequest.href),

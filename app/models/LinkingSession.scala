@@ -18,7 +18,7 @@ package models
 
 import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import models.attachment.Attachment
-import models.upscan.{PreparedUpload, ScanResult}
+import models.upscan.PreparedUpload
 import play.api.libs.json.Json
 
 import java.time.LocalDate

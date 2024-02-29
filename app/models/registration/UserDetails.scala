@@ -18,7 +18,7 @@ package models.registration
 
 import play.api.libs.json.{Json, OFormat}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
-import uk.gov.hmrc.auth.core.retrieve.{ItmpName, Name}
+import uk.gov.hmrc.auth.core.retrieve.ItmpName
 import uk.gov.hmrc.auth.core.{AffinityGroup, ConfidenceLevel, CredentialRole}
 
 import java.time.LocalDate

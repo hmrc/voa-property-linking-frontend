@@ -83,17 +83,23 @@ class ChooseEvidenceController @Inject()(
         errors => Future.successful(BadRequest(chooseEvidenceView(errors, Some(backlink(request.ses))))),
         hasRatesBill => {
           val evidence = if (hasRatesBill) RATES_BILL else OTHER
-          if (request.ses.hasRatesBill.contains(hasRatesBill)) {
-            request.ses.uploadEvidenceData.fileInfo match {
-              case Some(CompleteFileInfo(_, evidenceType)) =>
-                Future.successful(Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(evidenceType)))))
-              case _ =>
-                Future.successful(Redirect(routes.UploadController.show(evidence)))
-            }
-          } else {
-            businessRatesAttachmentService.persistSessionData(
-              request.ses.copy(hasRatesBill = Some(hasRatesBill), uploadEvidenceData = UploadEvidenceData.empty))
-            Future.successful(Redirect(routes.UploadController.show(evidence)))
+
+          request.ses.hasRatesBill match {
+            case Some(bool) if bool == hasRatesBill =>
+              if (hasRatesBill) {
+                request.ses.uploadEvidenceData.fileInfo match {
+                  case Some(CompleteFileInfo(_, evidenceType)) =>
+                    Future.successful(
+                      Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(evidenceType)))))
+                  case _ =>
+                    Future.successful(Redirect(routes.UploadController.show(evidence)))
+                }
+              } else Future.successful(Redirect(routes.UploadController.show(evidence)))
+            case _ =>
+              businessRatesAttachmentService
+                .persistSessionData(
+                  request.ses.copy(hasRatesBill = Some(hasRatesBill), uploadEvidenceData = UploadEvidenceData.empty))
+                .map(_ => Redirect(routes.UploadController.show(evidence)))
           }
         }
       )

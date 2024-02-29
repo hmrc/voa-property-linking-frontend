@@ -19,27 +19,23 @@ package controllers.propertyLinking
 import actions.AuthenticatedAction
 import actions.propertylinking.{WithLinkingSession, WithSubmittedLinkingSession}
 import binders.propertylinks.EvidenceChoices
-import binders.propertylinks.EvidenceChoices.NO_LEASE_OR_LICENSE
-import cats.data.OptionT
 import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
-
-import javax.inject.Named
-import models.propertylinking.requests.PropertyLinkRequest
 import models._
-import models.attachment.Attachment
+import models.propertylinking.requests.PropertyLinkRequest
 import play.api.Logging
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
 import utils.Cats
 
+import javax.inject.Named
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
@@ -76,8 +72,6 @@ class DeclarationController @Inject()(
       .map { _ =>
         val evidenceType: Option[EvidenceType] = request.ses.uploadEvidenceData.fileInfo.map(_.evidenceType)
         val capacityType: Option[CapacityType] = request.ses.propertyRelationship.map(_.capacity)
-        println(Console.BLUE + evidenceType + Console.RESET)
-        println(Console.BLUE + capacityType + Console.RESET)
         val evidenceChoice: Option[EvidenceChoices.Value] = evidenceType.zip(capacityType).headOption.map {
           case (RatesBillType, Owner | OwnerOccupier | Occupier)        => EvidenceChoices.RATES_BILL
           case (ServiceCharge, Owner | OwnerOccupier | Occupier)        => EvidenceChoices.SERVICE_CHARGE
@@ -97,10 +91,7 @@ class DeclarationController @Inject()(
             else routes.ClaimPropertyRelationshipController.back
           )
         } { choice =>
-//          if (choice == NO_LEASE_OR_LICENSE)
-//            Redirect(routes.UploadController.show(choice))
-//          else
-            Redirect(routes.UploadResultController.show(choice))
+          Redirect(routes.UploadResultController.show(choice))
         }
       }
   }

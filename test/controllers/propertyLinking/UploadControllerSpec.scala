@@ -68,7 +68,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val result = agentController.remove("01222333", EvidenceChoices.RATES_BILL)(request)
+    val result = agentController.remove(EvidenceChoices.RATES_BILL)(request)
 
     status(result) shouldBe SEE_OTHER
   }
@@ -90,7 +90,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val result = agentController.remove("01222333", EvidenceChoices.OTHER)(request)
+    val result = agentController.remove(EvidenceChoices.OTHER)(request)
 
     status(result) shouldBe SEE_OTHER
   }

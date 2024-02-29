@@ -173,13 +173,23 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     lazy val expectedRedirect: String = routes.UploadResultController.show(EvidenceChoices.LICENSE).url
   }
 
-  Inspectors.forAll(Seq(uploadRatesBillData, uploadServiceChargeData)) { upload =>
+  Inspectors.forAll(Seq(uploadRatesBillData)) { upload =>
     val uploadType = upload.fileInfo.getOrElse(fail("could not get upload info")).evidenceType.name
 
     it should s"redirect to the choose evidence page when a $uploadType is uploaded" in new BackLinkTest {
       override lazy val propertyRelationship: Option[CapacityType] = Some(Occupier)
       override lazy val evidence: UploadEvidenceData = upload
-      lazy val expectedRedirect: String = routes.UploadResultController.show(EvidenceChoices.NO_LEASE_OR_LICENSE).url
+      lazy val expectedRedirect: String = routes.UploadResultController.show(EvidenceChoices.RATES_BILL).url
+    }
+  }
+
+  Inspectors.forAll(Seq(uploadServiceChargeData)) { upload =>
+    val uploadType = upload.fileInfo.getOrElse(fail("could not get upload info")).evidenceType.name
+
+    it should s"redirect to the choose evidence page when a $uploadType is uploaded" in new BackLinkTest {
+      override lazy val propertyRelationship: Option[CapacityType] = Some(Occupier)
+      override lazy val evidence: UploadEvidenceData = upload
+      lazy val expectedRedirect: String = routes.UploadResultController.show(EvidenceChoices.SERVICE_CHARGE).url
     }
   }
 

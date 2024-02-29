@@ -27,7 +27,7 @@ import controllers.{AssessmentsVM, PropertyLinkingController}
 import javax.inject.{Inject, Named, Singleton}
 import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.properties.AllowedAction
-import models.{ApiAssessment, ApiAssessments, ClientPropertyLink, PropertyLink}
+import models.{ApiAssessment, ApiAssessments, ClientPropertyLink}
 import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc._

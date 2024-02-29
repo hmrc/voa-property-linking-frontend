@@ -71,7 +71,7 @@
     }
 
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
-    @formWithCSRF(action = UploadController.continueNew()) {
+    @formWithCSRF(action = UploadController.continue) {
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
               legend = Some(Legend(

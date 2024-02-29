@@ -22,7 +22,7 @@ import cats.data.EitherT
 import connectors.attachments.BusinessRatesAttachmentsConnector
 import models._
 import models.attachment._
-import models.attachment.request.{InitiatedUpload, UpscanInitiateRequest}
+import models.attachment.request.UpscanInitiateRequest
 import models.upscan.{FileMetadata, PreparedUpload, UploadedFileDetails}
 import play.api.libs.json.Json
 import repositories.SessionRepo
