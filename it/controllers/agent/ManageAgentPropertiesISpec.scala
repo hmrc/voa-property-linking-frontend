@@ -1,4 +1,4 @@
-package controllers.propertyLinking
+package controllers.agent
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
