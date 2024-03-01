@@ -44,7 +44,7 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val captionTextWelsh = "Asiant"
   val noOrMultipleRatingListTextWelsh = "This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign them to or they add to your account."
   val manageButtonTextWelsh = "Rheoli’r asiant hwn"
-  val ratingListSectionHeadingWelsh = "Rating lists they can act on for you"
+  val ratingListSectionHeadingWelsh = "Rhestrau ardrethu y gallant weithredu arnynt ar eich rhan"
   val assignedPropertiesHeadingWelsh = "Eiddo wedi’u neilltuo"
   val assignedToNoPropertiesWelsh = "This agent is not assigned to any properties"
 
