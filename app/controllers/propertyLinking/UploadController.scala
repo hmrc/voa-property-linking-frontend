@@ -58,7 +58,11 @@ class UploadController @Inject()(
       applicationConfig: ApplicationConfig
 ) extends PropertyLinkingController with Logging {
 
-  def show(evidence: EvidenceChoices, errorCode: Option[String], fileRemoved: Boolean): Action[AnyContent] =
+  def show(
+        evidence: EvidenceChoices,
+        errorCode: Option[String],
+        fileRemoved: Boolean,
+        removedFileName: Option[String]): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
       evidence match {
@@ -76,7 +80,8 @@ class UploadController @Inject()(
                 session.submissionId,
                 errorCode,
                 preparedUpload,
-                fileRemoved
+                fileRemoved,
+                removedFileName
               ))
           }
         case EvidenceChoices.OTHER | EvidenceChoices.NO_LEASE_OR_LICENSE =>
@@ -249,11 +254,15 @@ class UploadController @Inject()(
   def remove(evidence: EvidenceChoices): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
+      val optFileName = session.uploadEvidenceData.fileInfo match {
+        case Some(completeFileInfo: CompleteFileInfo) => Some(completeFileInfo.name)
+        case _                                        => None
+      }
       businessRatesAttachmentsService
         .persistSessionData(
           request.ses.copy(uploadEvidenceData = UploadEvidenceData.empty),
           session.uploadEvidenceData.copy(fileInfo = None))
-        .map(_ => Redirect(routes.UploadController.show(evidence, fileRemoved = true)))
+        .map(_ => Redirect(routes.UploadController.show(evidence, fileRemoved = true, removedFileName = optFileName)))
     }
 
   def cannotProvideEvidence(): Action[AnyContent] =

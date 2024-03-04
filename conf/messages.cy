@@ -1056,7 +1056,7 @@ fileUploadResult.uploaded=Wedi ei lanlwytho
 fileUploadResult.failed=methu
 fileUploadResult.uploaded-aria-live=File uploaded
 fileUploadResult.removed-file-aria-live=File removed
-fileUploadResult.removed-file-name-aria-live-=File {0} removed
+fileUploadResult.removed-file-name-aria-live=File {0} removed
 
 evidenceType.assignment=Aseiniad
 evidenceType.label=Math o dystiolaeth

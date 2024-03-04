@@ -1285,4 +1285,50 @@ class UploadControllerISpec extends ISpecBase {
       }
     }
   }
+
+  "UploadController show method" should {
+    val ariaLiveId = "ariaLiveRegion"
+    val ariaFileRemovedWithNameText = "File image.png removed"
+    val ariaFileRemovedWithNameTextWelsh = "File image.png removed"
+    val ariaFileRemovedWithoutNameText = "File removed"
+    val ariaFileRemovedWithoutNameTextWelsh = "File removed"
+
+    "display the aria correct content in English for when a user has used the remove file link with file name present" in {
+      val document = testAriaLiveContent(fileRemoved = true, withFileName = true, English)
+      document.getElementsByTag(headingLocator).text shouldBe ratesBillHeadingText
+      document.getElementById(ariaLiveId).text() shouldBe ariaFileRemovedWithNameText
+    }
+
+    "display the aria correct content in Welsh for when a user has used the remove file link with file name present" in {
+      val document = testAriaLiveContent(fileRemoved = true, withFileName = true, Welsh)
+      document.getElementsByTag(headingLocator).text shouldBe ratesBillHeadingTextWelsh
+      document.getElementById(ariaLiveId).text() shouldBe ariaFileRemovedWithNameTextWelsh
+    }
+
+    "display the aria correct content in English for when a user has used the remove file link with no file name present" in {
+      val document = testAriaLiveContent(fileRemoved = true, withFileName = false, English)
+      document.getElementsByTag(headingLocator).text shouldBe ratesBillHeadingText
+      document.getElementById(ariaLiveId).text() shouldBe ariaFileRemovedWithoutNameText
+    }
+
+    "display the aria correct content in Welsh for when a user has used the remove file link with no file name present" in {
+      val document = testAriaLiveContent(fileRemoved = true, withFileName = false, Welsh)
+      document.getElementsByTag(headingLocator).text shouldBe ratesBillHeadingTextWelsh
+      document.getElementById(ariaLiveId).text() shouldBe ariaFileRemovedWithoutNameTextWelsh
+    }
+  }
+
+  def testAriaLiveContent(fileRemoved: Boolean = false, withFileName: Boolean = false, language: Language) = {
+    commonSetup(evidenceType = "RATES_BILL", relationship = "Owner", false, fromCya = false)
+    val optFileName = if(withFileName) "&removedFileName=image.png" else ""
+    val res = await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?fileRemoved=$fileRemoved$optFileName")
+        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .get()
+    )
+    res.status shouldBe OK
+    Jsoup.parse(res.body)
+  }
+
 }

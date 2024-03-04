@@ -5,12 +5,12 @@ import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import binders.propertylinks.{ClaimPropertyReturnToPage, EvidenceChoices}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
 import models._
-import models.upscan.FailureReason
+import models.upscan.{FailureReason, FileStatus}
 import models.upscan.FileStatus.{FAILED, FileStatus, READY, UPLOADING}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
-import play.api.libs.json.Json
+import play.api.libs.json.{JsNull, Json}
 import play.api.test.Helpers._
 import repositories.PropertyLinkingSessionRepository
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
@@ -281,55 +281,34 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
+  "UploadResultController getUploadStatus" should {
+
+    "Redirect to the DeclarationController when the file status is uploaded" in {
+      val result = getUploadStatus(READY)
+      result.status shouldBe OK
+      result.body shouldBe Json.toJson(FileStatus.READY, "test-file.jpeg", "http://localhost:9570/upscan/download/3a0b10d9-a18b-4ed2-b67b-64861453f131").toString
+    }
+
+    "Redirect to the UploadResultController show when the file status is uploading" in {
+      val result = getUploadStatus(UPLOADING)
+      result.status shouldBe OK
+      result.body shouldBe Json.toJson(FileStatus.UPLOADING).toString
+    }
+
+    "Redirect to the UploadResultController show when the file status is failed" in {
+      val result = getUploadStatus(FAILED)
+      result.body shouldBe Json.toJson(FileStatus.FAILED, "test-file.jpeg", JsNull).toString
+      result.status shouldBe OK
+    }
+  }
+
   private def getUploadResultPage(language: Language, evidenceChoice: EvidenceChoices, fileStatus: FileStatus = READY): Document = {
-    val relationshipCapacity = Some(Occupier)
-    val userIsAgent = false
-    val propertyOwnership: Option[PropertyOwnership] = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1)))
-    val propertyOccupancy: Option[PropertyOccupancy] = Some(
-      PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None))
-    await(
-      mockRepository.saveOrUpdate[LinkingSession](
-        LinkingSession(
-          address = "LS",
-          uarn = 1L,
-          submissionId = "PL-123456",
-          personId = 1L,
-          earliestStartDate = LocalDate.of(2017, 4, 1),
-          propertyRelationship = relationshipCapacity.map(capacity => PropertyRelationship(capacity, 1L)),
-          propertyOwnership = propertyOwnership,
-          propertyOccupancy = propertyOccupancy,
-          hasRatesBill = Some(true),
-          uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
-          evidenceType = Some(RatesBillType),
-          clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
-          localAuthorityReference = "12341531531",
-          rtp = ClaimPropertyReturnToPage.FMBR,
-          fromCya = None,
-          isSubmitted = None,
-          fileReference = Some(fileRef)
-        ))
-    )
-    stubFor {
-      get("/business-rates-authorisation/authenticate")
-        .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-        }
-    }
-
-    stubFor {
-      post("/auth/authorise")
-        .willReturn {
-          aResponse.withStatus(OK).withBody("{}")
-        }
-    }
-
+    commonStubs
     fileStatus match {
       case READY => fileUploadedStub
       case UPLOADING => fileUploadingStub
       case FAILED => fileUploadFailedStub()
     }
-
-    fileStatus
 
     val res = await(
       ws.url(
@@ -344,54 +323,12 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
   }
 
   private def submitUploadResultPage(evidenceChoice: EvidenceChoices, fileStatus: FileStatus = READY, failureReason: Option[String] = None) = {
-    val relationshipCapacity = Some(Occupier)
-    val userIsAgent = false
-    val propertyOwnership: Option[PropertyOwnership] = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1)))
-    val propertyOccupancy: Option[PropertyOccupancy] = Some(
-      PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None))
-    await(
-      mockRepository.saveOrUpdate[LinkingSession](
-        LinkingSession(
-          address = "LS",
-          uarn = 1L,
-          submissionId = "PL-123456",
-          personId = 1L,
-          earliestStartDate = LocalDate.of(2017, 4, 1),
-          propertyRelationship = relationshipCapacity.map(capacity => PropertyRelationship(capacity, 1L)),
-          propertyOwnership = propertyOwnership,
-          propertyOccupancy = propertyOccupancy,
-          hasRatesBill = Some(true),
-          uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
-          evidenceType = Some(RatesBillType),
-          clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
-          localAuthorityReference = "12341531531",
-          rtp = ClaimPropertyReturnToPage.FMBR,
-          fromCya = None,
-          isSubmitted = None,
-          fileReference = Some(fileRef)
-        ))
-    )
-    stubFor {
-      get("/business-rates-authorisation/authenticate")
-        .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-        }
-    }
-
-    stubFor {
-      post("/auth/authorise")
-        .willReturn {
-          aResponse.withStatus(OK).withBody("{}")
-        }
-    }
-
+    commonStubs
     fileStatus match {
       case READY => fileUploadedStub
       case UPLOADING => fileUploadingStub
       case FAILED => failureReason.map(reason => fileUploadFailedStub(reason))
     }
-
-    fileStatus
 
     val res = await(
       ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload/result/$fileStatus")
@@ -400,7 +337,24 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .post(body = "")
     )
+    res
+  }
 
+  private def getUploadStatus(fileStatus: FileStatus) = {
+    commonStubs
+    fileStatus match {
+      case READY => fileUploadedStub
+      case UPLOADING => fileUploadingStub
+      case FAILED => fileUploadFailedStub()
+    }
+
+    val res = await(
+      ws.url(
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/scan-status")
+        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .get()
+    )
     res
   }
 
@@ -552,6 +506,49 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
       get(s"/business-rates-attachments/attachments/$fileRef")
         .willReturn {
           aResponse.withStatus(EXPECTATION_FAILED)
+        }
+    }
+  }
+
+  def commonStubs = {
+    val relationshipCapacity = Some(Occupier)
+    val userIsAgent = false
+    val propertyOwnership: Option[PropertyOwnership] = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1)))
+    val propertyOccupancy: Option[PropertyOccupancy] = Some(
+      PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None))
+    await(
+      mockRepository.saveOrUpdate[LinkingSession](
+        LinkingSession(
+          address = "LS",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = relationshipCapacity.map(capacity => PropertyRelationship(capacity, 1L)),
+          propertyOwnership = propertyOwnership,
+          propertyOccupancy = propertyOccupancy,
+          hasRatesBill = Some(true),
+          uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+          evidenceType = Some(RatesBillType),
+          clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
+          localAuthorityReference = "12341531531",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = None,
+          isSubmitted = None,
+          fileReference = Some(fileRef)
+        ))
+    )
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
         }
     }
   }

@@ -31,7 +31,8 @@
         submissionId: String,
         errorCode: Option[String] = None,
         preparedUpload: PreparedUpload,
-        fileRemoved: Boolean
+        fileRemoved: Boolean,
+        removedFileName: Option[String] = None
 )(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 
@@ -58,10 +59,10 @@
 }
 
 @fileRemovedAriaLiveContent = @{
-    request.ses.uploadEvidenceData.fileInfo match {
-        case Some(completeFileInfo: CompleteFileInfo) =>
-            Messages("fileUploadResult.removed-file-name-aria-live", completeFileInfo.name)
-        case _ => Messages("fileUploadResult.removed-file-aria-live")
+    removedFileName match {
+        case Some(removedFileName) =>
+            messages("fileUploadResult.removed-file-name-aria-live", removedFileName)
+        case _ => messages("fileUploadResult.removed-file-aria-live")
     }
 }
 

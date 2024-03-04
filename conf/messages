@@ -1088,7 +1088,7 @@ fileUploadResult.uploaded=uploaded
 fileUploadResult.failed=failed
 fileUploadResult.uploaded-aria-live=File uploaded
 fileUploadResult.removed-file-aria-live=File removed
-fileUploadResult.removed-file-name-aria-live-=File {0} removed
+fileUploadResult.removed-file-name-aria-live=File {0} removed
 
 #LINK REQUEST CONFIRMATION
 

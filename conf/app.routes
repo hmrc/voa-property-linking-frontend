@@ -213,7 +213,7 @@ POST        /my-organisation/claim/property-links/evidence/:choice/upload/result
 GET         /my-organisation/claim/property-links/evidence/scan-status                        controllers.propertyLinking.UploadResultController.getUploadStatus
 GET         /my-organisation/claim/property-links/evidence/message-key                        controllers.propertyLinking.UploadResultController.getMessageKeys
 
-GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorCode: Option[String] ?= None, fileRemoved: Boolean ?= false)
+GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorCode: Option[String] ?= None, fileRemoved: Boolean ?= false, removedFileName: Option[String] ?= None)
 POST        /my-organisation/claim/property-links/evidence/upload                             controllers.propertyLinking.UploadController.continue
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/initiate            controllers.propertyLinking.UploadController.initiate(choice: EvidenceChoices)
 GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorCode: Option[String] ?= None)

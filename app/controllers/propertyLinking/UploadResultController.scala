@@ -206,9 +206,7 @@ class UploadResultController @Inject()(
       Messages("fileUploadResult.uploading"),
       Messages("fileUploadResult.uploaded"),
       Messages("fileUploadResult.failed"),
-      Messages("fileUploadResult.uploaded-aria-live"),
-      Messages("fileUploadResult.removed-file-aria-live"),
-      Messages("fileUploadResult.removed-file-name-aria-live")
+      Messages("fileUploadResult.uploaded-aria-live")
     )
     Future.successful(Ok(Json.toJson(messageKeys)))
   }

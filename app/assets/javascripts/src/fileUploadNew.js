@@ -87,6 +87,15 @@
             }
         }
 
+        function getAriaLiveText(status) {
+            switch (status) {
+                case "READY":
+                    return messages[4];
+                default:
+                    return "";
+            }
+        }
+
         // Function to get the status class based on the provided status
         function getStatusClass(status) {
             switch (status) {
@@ -114,7 +123,7 @@
         function updateLiveRegion(newStatus) {
             var liveRegion = document.getElementById('ariaLiveRegion');
             if (liveRegion) {
-                liveRegion.textContent = getStatusText(newStatus);
+                liveRegion.textContent = getAriaLiveText(newStatus);
             }
         }
 
