@@ -11,7 +11,11 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
+class YourAgentsFlagOffISpec extends ISpecBase with HtmlComponentHelpers {
+
+  override lazy val extraConfig: Map[String, Any] = Map(
+    "feature-switch.agentListYears.enabled" -> "false"
+  )
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   val agentName = "Test Agent"
@@ -24,12 +28,10 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
   val appointAgentLinkText = "Appoint an agent"
   val helpWithAppointingLinkText = "Help with appointing and managing agents"
   val agentTableHeadingText = "Agent"
-  val ratingListTableHeadingText = "Rating lists they can act on for you"
   val assignedToTableHeadingText = "Assigned to"
-  val bothListYearsText = "2023 and 2017 rating lists"
-  val listYear2017Text = "2017 rating list"
-  val listYear2023Text = "2023 rating list"
-  val ofText = "of"
+  val actionTableHeadingText = "Action"
+  val ofPropertiesText: (Int, Int) => String = (x: Int, y: Int) => s"$x of $y properties"
+  val viewText = "View"
   val noAgentsText = "You have no agents."
 
   val titleTextWelsh = "Eich asiantiaid - Valuation Office Agency - GOV.UK"
@@ -38,12 +40,10 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
   val appointAgentLinkTextWelsh = "Penodi asiant"
   val helpWithAppointingLinkTextWelsh = "Help gyda phenodi a rheoli asiantiaid"
   val agentTableHeadingTextWelsh = "Asiant"
-  val ratingListTableHeadingTextWelsh = "Rhestrau ardrethu y gallant weithredu arnynt ar eich rhan"
   val assignedToTableHeadingTextWelsh = "Neilltuwyd i"
-  val bothListYearsTextWelsh = "Rhestrau ardrethu 2023 a 2017"
-  val listYear2017TextWelsh = "Rhestrau ardrethu 2017"
-  val listYear2023TextWelsh = "Rhestrau ardrethu 2023"
-  val ofTextWelsh = "o"
+  val actionTableHeadingTextWelsh = "Gweithred"
+  val ofPropertiesTextWelsh: (Int, Int) => String = (x: Int, y: Int) => s"$x o $y eiddo"
+  val viewTextWelsh = "Gweld"
   val noAgentsTextWelsh = "Does gennych chi ddim asiantiaid."
 
   val backLinkSelector = "#back-link"
@@ -51,19 +51,18 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
   val appointAgentLinkSelector = "#add-agent-link"
   val helpWithAppointingLinkSelector = "#help-with-agent-link"
   val agentTableHeadingSelector = ".govuk-table__header:nth-child(1)"
-  val ratingListTableHeadingSelector = ".govuk-table__header:nth-child(2)"
-  val assignedToTableHeadingSelector = ".govuk-table__header:nth-child(3)"
-  val agentNameSelector: Int => String = (row: Int) => s".govuk-table__row:nth-child($row) > .govuk-table__cell:nth-child(1) > a"
-  val ratingListSelector: Int => String = (row: Int) => s".govuk-table__row:nth-child($row) > .govuk-table__cell:nth-child(2)"
-  val assignedPropertiesSelector: Int => String = (row: Int) => s".govuk-table__row:nth-child($row) > .govuk-table__cell:nth-child(3)"
+  val assignedToTableHeadingSelector = ".govuk-table__header:nth-child(2)"
+  val actionTableHeadingSelector = ".govuk-table__header:nth-child(3)"
+  val agentNameSelector: Int => String = (row: Int) => s".govuk-table__row:nth-child($row) > .govuk-table__cell:nth-child(1)"
+  val assignedPropertiesSelector: Int => String = (row: Int) => s".govuk-table__row:nth-child($row) > .govuk-table__cell:nth-child(2)"
+  val actionSelector: Int => String = (row: Int) => s".govuk-table__row:nth-child($row) > .govuk-table__cell:nth-child(3) > a"
   val noAgentsSelector = "#no-agents"
 
   val backLinkHref = s"/business-rates-dashboard/home"
-  val agentHref: Int => String = (agentCode: Int) => s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=$agentCode"
+  val viewHref: Int => String = (agentCode: Int) => s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=$agentCode"
   val appointAgentHref = "/business-rates-property-linking/my-organisation/appoint-new-agent"
-  val helpWithAppointingHref = "https://www.gov.uk/guidance/appoint-an-agent"
 
-  "ManageAgentController showAgents method with agentListYears flag ON" should {
+  "ManageAgentController showAgents method with agentListYears flag OFF" should {
     "display the 'Your agents' page with the correct text in English when the user has agents appointed" which {
       lazy val document = getYourAgentsPage(language = English, agentsAppointed = true)
 
@@ -85,36 +84,35 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(appointAgentLinkSelector).attr("href") shouldBe appointAgentHref
       }
 
-      s"has a '$helpWithAppointingLinkText' link that takes you to the Gov.uk Guidance page" in {
-        document.select(helpWithAppointingLinkSelector).text() shouldBe helpWithAppointingLinkText
-        document.select(helpWithAppointingLinkSelector).attr("href") shouldBe helpWithAppointingHref
+      s"doesn't have a '$helpWithAppointingLinkText' link" in {
+        document.select(helpWithAppointingLinkSelector).size() shouldBe 0
       }
 
-      s"has a table with the headings '$agentTableHeadingText', '$ratingListTableHeadingText' and '$assignedToTableHeadingText'" in {
+      s"has a table with the headings '$agentTableHeadingText', '$assignedToTableHeadingText' and '$actionTableHeadingText'" in {
         document.select(agentTableHeadingSelector).text() shouldBe agentTableHeadingText
-        document.select(ratingListTableHeadingSelector).text() shouldBe ratingListTableHeadingText
         document.select(assignedToTableHeadingSelector).text() shouldBe assignedToTableHeadingText
+        document.select(actionTableHeadingSelector).text shouldBe actionTableHeadingText
       }
 
-      s"has the correct table information for row one ($agentName, $bothListYearsText, 10 $ofText 10 properties)" in {
+      s"has the correct table information for row one ($agentName, ${ofPropertiesText(10, 10)}, $viewText)" in {
         document.select(agentNameSelector(1)).text() shouldBe agentName
-        document.select(agentNameSelector(1)).attr("href") shouldBe agentHref(1001)
-        document.select(ratingListSelector(1)).text shouldBe bothListYearsText
-        document.select(assignedPropertiesSelector(1)).text shouldBe s"10 $ofText 10"
+        document.select(assignedPropertiesSelector(1)).text shouldBe ofPropertiesText(10, 10)
+        document.select(actionSelector(1)).text() shouldBe viewText
+        document.select(actionSelector(1)).attr("href") shouldBe viewHref(1001)
       }
 
-      s"has the correct table information for row two (${agentName}2, $listYear2023Text, 5 $ofText 10 properties)" in {
+      s"has the correct table information for row two (${agentName}2, ${ofPropertiesText(5, 10)}, $viewText)" in {
         document.select(agentNameSelector(2)).text() shouldBe s"${agentName}2"
-        document.select(agentNameSelector(2)).attr("href") shouldBe agentHref(1002)
-        document.select(ratingListSelector(2)).text shouldBe listYear2023Text
-        document.select(assignedPropertiesSelector(2)).text shouldBe s"5 $ofText 10"
+        document.select(assignedPropertiesSelector(2)).text shouldBe ofPropertiesText(5, 10)
+        document.select(actionSelector(2)).text() shouldBe viewText
+        document.select(actionSelector(2)).attr("href") shouldBe viewHref(1002)
       }
 
-      s"has the correct table information for row three (${agentName}3, $listYear2017Text, 5 $ofText 10 properties)" in {
+      s"has the correct table information for row three (${agentName}3, ${ofPropertiesText(5, 10)}, $viewText)" in {
         document.select(agentNameSelector(3)).text() shouldBe s"${agentName}3"
-        document.select(agentNameSelector(3)).attr("href") shouldBe agentHref(1003)
-        document.select(ratingListSelector(3)).text shouldBe listYear2017Text
-        document.select(assignedPropertiesSelector(3)).text shouldBe s"5 $ofText 10"
+        document.select(assignedPropertiesSelector(3)).text shouldBe ofPropertiesText(5, 10)
+        document.select(actionSelector(3)).text() shouldBe viewText
+        document.select(actionSelector(3)).attr("href") shouldBe viewHref(1003)
       }
     }
 
@@ -139,22 +137,20 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(appointAgentLinkSelector).attr("href") shouldBe appointAgentHref
       }
 
-      s"has a '$helpWithAppointingLinkText' link that takes you to the Gov.uk Guidance page" in {
-        document.select(helpWithAppointingLinkSelector).text() shouldBe helpWithAppointingLinkText
-        document.select(helpWithAppointingLinkSelector).attr("href") shouldBe helpWithAppointingHref
+      s"doesn't have a '$helpWithAppointingLinkText' link" in {
+        document.select(helpWithAppointingLinkSelector).size() shouldBe 0
       }
 
-      s"doesn't have a table with the headings '$agentTableHeadingText', '$ratingListTableHeadingText' and '$assignedToTableHeadingText'" in {
+      s"doesn't have a table with the headings '$agentTableHeadingText', '$assignedToTableHeadingText' and '$actionTableHeadingText'" in {
         document.select(agentTableHeadingSelector).size() shouldBe 0
-        document.select(ratingListTableHeadingSelector).size() shouldBe 0
         document.select(assignedToTableHeadingSelector).size() shouldBe 0
+        document.select(actionTableHeadingSelector).size() shouldBe 0
       }
 
       s"has the text $noAgentsText" in {
         document.select(noAgentsSelector).text() shouldBe noAgentsText
       }
     }
-
 
     "display the 'Your agents' page with the correct text in Welsh when the user has agents appointed" which {
       lazy val document = getYourAgentsPage(language = Welsh, agentsAppointed = true)
@@ -177,36 +173,35 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(appointAgentLinkSelector).attr("href") shouldBe appointAgentHref
       }
 
-      s"has a '$helpWithAppointingLinkText' link that takes you to the Gov.uk Guidance page in Welsh" in {
-        document.select(helpWithAppointingLinkSelector).text() shouldBe helpWithAppointingLinkTextWelsh
-        document.select(helpWithAppointingLinkSelector).attr("href") shouldBe helpWithAppointingHref
+      s"doesn't have a '$helpWithAppointingLinkText' link in Welsh" in {
+        document.select(helpWithAppointingLinkSelector).size() shouldBe 0
       }
 
-      s"has a table with the headings '$agentTableHeadingText', '$ratingListTableHeadingText' and '$assignedToTableHeadingText' in Welsh" in {
+      s"has a table with the headings '$agentTableHeadingText', '$assignedToTableHeadingText' and '$actionTableHeadingText' in Welsh" in {
         document.select(agentTableHeadingSelector).text() shouldBe agentTableHeadingTextWelsh
-        document.select(ratingListTableHeadingSelector).text() shouldBe ratingListTableHeadingTextWelsh
         document.select(assignedToTableHeadingSelector).text() shouldBe assignedToTableHeadingTextWelsh
+        document.select(actionTableHeadingSelector).text shouldBe actionTableHeadingTextWelsh
       }
 
-      s"has the correct table information for row one ($agentName, $bothListYearsText, 10 $ofText 10 properties) in Welsh" in {
+      s"has the correct table information for row one ($agentName, ${ofPropertiesText(10, 10)}, $viewText) in Welsh" in {
         document.select(agentNameSelector(1)).text() shouldBe agentName
-        document.select(agentNameSelector(1)).attr("href") shouldBe agentHref(1001)
-        document.select(ratingListSelector(1)).text shouldBe bothListYearsTextWelsh
-        document.select(assignedPropertiesSelector(1)).text shouldBe s"10 $ofTextWelsh 10"
+        document.select(assignedPropertiesSelector(1)).text shouldBe ofPropertiesTextWelsh(10, 10)
+        document.select(actionSelector(1)).text() shouldBe viewTextWelsh
+        document.select(actionSelector(1)).attr("href") shouldBe viewHref(1001)
       }
 
-      s"has the correct table information for row two (${agentName}2, $listYear2023Text, 5 $ofText 10 properties) in Welsh" in {
+      s"has the correct table information for row two (${agentName}2, ${ofPropertiesText(5, 10)}, $viewText) in Welsh" in {
         document.select(agentNameSelector(2)).text() shouldBe s"${agentName}2"
-        document.select(agentNameSelector(2)).attr("href") shouldBe agentHref(1002)
-        document.select(ratingListSelector(2)).text shouldBe listYear2023TextWelsh
-        document.select(assignedPropertiesSelector(2)).text shouldBe s"5 $ofTextWelsh 10"
+        document.select(assignedPropertiesSelector(2)).text shouldBe ofPropertiesTextWelsh(5, 10)
+        document.select(actionSelector(2)).text() shouldBe viewTextWelsh
+        document.select(actionSelector(2)).attr("href") shouldBe viewHref(1002)
       }
 
-      s"has the correct table information for row three (${agentName}3, $listYear2017Text, 5 $ofText 10 properties) in Welsh" in {
+      s"has the correct table information for row three (${agentName}3, ${ofPropertiesText(5, 10)}, $viewText) in Welsh" in {
         document.select(agentNameSelector(3)).text() shouldBe s"${agentName}3"
-        document.select(agentNameSelector(3)).attr("href") shouldBe agentHref(1003)
-        document.select(ratingListSelector(3)).text shouldBe listYear2017TextWelsh
-        document.select(assignedPropertiesSelector(3)).text shouldBe s"5 $ofTextWelsh 10"
+        document.select(assignedPropertiesSelector(3)).text shouldBe ofPropertiesTextWelsh(5, 10)
+        document.select(actionSelector(3)).text() shouldBe viewTextWelsh
+        document.select(actionSelector(3)).attr("href") shouldBe viewHref(1003)
       }
     }
 
@@ -231,15 +226,14 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(appointAgentLinkSelector).attr("href") shouldBe appointAgentHref
       }
 
-      s"has a '$helpWithAppointingLinkText' link that takes you to the Gov.uk Guidance page in Welsh" in {
-        document.select(helpWithAppointingLinkSelector).text() shouldBe helpWithAppointingLinkTextWelsh
-        document.select(helpWithAppointingLinkSelector).attr("href") shouldBe helpWithAppointingHref
+      s"doesn't have a '$helpWithAppointingLinkText' link" in {
+        document.select(helpWithAppointingLinkSelector).size() shouldBe 0
       }
 
-      s"doesn't have a table with the headings '$agentTableHeadingText', '$ratingListTableHeadingText' and '$assignedToTableHeadingText' in Welsh" in {
+      s"doesn't have a table with the headings '$agentTableHeadingText', '$assignedToTableHeadingText' and '$actionTableHeadingText' in Welsh" in {
         document.select(agentTableHeadingSelector).size() shouldBe 0
-        document.select(ratingListTableHeadingSelector).size() shouldBe 0
         document.select(assignedToTableHeadingSelector).size() shouldBe 0
+        document.select(actionTableHeadingSelector).size() shouldBe 0
       }
 
       s"has the text $noAgentsText in Welsh" in {
