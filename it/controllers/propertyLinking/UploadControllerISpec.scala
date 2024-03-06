@@ -1289,9 +1289,9 @@ class UploadControllerISpec extends ISpecBase {
   "UploadController show method" should {
     val ariaLiveId = "ariaLiveRegion"
     val ariaFileRemovedWithNameText = "File image.png removed"
-    val ariaFileRemovedWithNameTextWelsh = "File image.png removed"
+    val ariaFileRemovedWithNameTextWelsh = "Ffeil image.png wedi’i dileu"
     val ariaFileRemovedWithoutNameText = "File removed"
-    val ariaFileRemovedWithoutNameTextWelsh = "File removed"
+    val ariaFileRemovedWithoutNameTextWelsh = "Ffeil wedi’i dileu"
 
     "display the aria correct content in English for when a user has used the remove file link with file name present" in {
       val document = testAriaLiveContent(fileRemoved = true, withFileName = true, English)
