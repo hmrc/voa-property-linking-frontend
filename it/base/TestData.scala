@@ -117,6 +117,9 @@ trait TestData {
         propertyCount = 1,
         listYears = Some(Seq("2017", "2023"))
       )))
+
+  val noAgentsList = AgentList(resultCount = 0, agents = List())
+
   val testResultCount = 2
   val testOwnerAuthResult = OwnerAuthResult(
     start = 0,
