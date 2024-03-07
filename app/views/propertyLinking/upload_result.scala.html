@@ -152,5 +152,8 @@
     <span class="govuk-visually-hidden" id="messageKeyUrl">@{
         s"${controllers.propertyLinking.routes.UploadResultController.getMessageKeys}"
     }</span>
+
+    <p id="fileRef" class="govuk-visually-hidden">@fileReference</p>
+
     <input class="govuk-visually-hidden" id="submitUrlPrefix" value="@controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, "")">
 }
