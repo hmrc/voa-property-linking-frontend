@@ -99,10 +99,6 @@
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@title</h1>
 
-    @if(fileRemoved) {
-        <span id="ariaLiveRegion" class="govuk-visually-hidden" aria-live="polite">@fileRemovedAriaLiveContent</span>
-    }
-
     @form(
         Call("POST", preparedUpload.uploadRequest.href),
         Symbol("enctype") -> "multipart/form-data",
@@ -113,6 +109,11 @@
         @for(field <- preparedUpload.uploadRequest.fields) {
             <input type="hidden" name="@field._1" value="@field._2"/>
         }
+
+        @if(fileRemoved) {
+            <span id="ariaLiveRegion" class="govuk-visually-hidden" aria-live="polite">@fileRemovedAriaLiveContent</span>
+        }
+
         @govukFileUpload(FileUpload(
             name = "file",
             id = "choose-file",

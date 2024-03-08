@@ -90,7 +90,7 @@
         function getAriaLiveText(status) {
             switch (status) {
                 case "READY":
-                    return messages[4];
+                    return messages[3];
                 default:
                     return "";
             }

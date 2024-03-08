@@ -176,7 +176,12 @@ class UploadController @Inject()(
             linkingSession = request.ses
           ))), {
           case UnableToProvide =>
-            Future.successful(Redirect(routes.UploadController.cannotProvideEvidence))
+            businessRatesAttachmentsService
+              .persistSessionData(
+                request.ses.copy(evidenceType = Some(UnableToProvide)),
+                request.ses.uploadEvidenceData
+                  .copy(fileInfo = Some(PartialFileInfo(UnableToProvide))))
+              .map(_ => Redirect(routes.UploadController.cannotProvideEvidence))
           case formData if request.ses.evidenceType.contains(formData) =>
             request.ses.uploadEvidenceData.fileInfo match {
               case Some(CompleteFileInfo(_, _)) =>
@@ -261,7 +266,9 @@ class UploadController @Inject()(
       businessRatesAttachmentsService
         .persistSessionData(
           request.ses.copy(uploadEvidenceData = UploadEvidenceData.empty),
-          session.uploadEvidenceData.copy(fileInfo = None))
+          session.uploadEvidenceData.copy(
+            fileInfo = Option(PartialFileInfo(getEvidenceType(evidence, request.ses.evidenceType))))
+        )
         .map(_ => Redirect(routes.UploadController.show(evidence, fileRemoved = true, removedFileName = optFileName)))
     }
 

@@ -133,7 +133,8 @@
                         ActionItem(
                             href = controllers.propertyLinking.routes.UploadController.remove(evidenceChoice).url,
                             content = Text(messages("fileUploadResult.remove")),
-                            visuallyHiddenText = Some(attachmentFileName)
+                            visuallyHiddenText = Some(attachmentFileName),
+                            attributes = Map("id" -> "remove-file-link")
                         )
                     )
                 )))
