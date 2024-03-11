@@ -82,7 +82,6 @@ class DeclarationController @Inject()(
           case (Lease, Occupier | Owner | OwnerOccupier | Occupier)     => EvidenceChoices.LEASE
           case (License, Occupier | Owner | OwnerOccupier | Occupier)   => EvidenceChoices.LICENSE
           case (_, Owner | OwnerOccupier | Occupier)                    => EvidenceChoices.OTHER
-          case (_, Occupier)                                            => EvidenceChoices.NO_LEASE_OR_LICENSE
         }
 
         evidenceChoice.fold {

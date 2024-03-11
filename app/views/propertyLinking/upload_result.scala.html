@@ -63,6 +63,7 @@
             messages("uploadRatesBill.show.client.title")
         }
         case (Some(_), _) => {
+//            TODO: I wonder if we need content that mentions client for these other evidence types
             messages(s"uploadEvidence.$evidenceType.title")
         }
         case (None, Lease) => {

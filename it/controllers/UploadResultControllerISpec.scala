@@ -20,7 +20,6 @@ import java.util.UUID
 
 class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
-  //  TODO: Add in welsh translations
   lazy val mockRepository: PropertyLinkingSessionRepository = app.injector.instanceOf[PropertyLinkingSessionRepository]
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
