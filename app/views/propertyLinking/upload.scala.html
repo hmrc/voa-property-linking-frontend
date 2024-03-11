@@ -111,7 +111,7 @@
         }
 
         @if(fileRemoved) {
-            <span id="ariaLiveRegion" class="govuk-visually-hidden" aria-live="polite">@fileRemovedAriaLiveContent</span>
+            <span id="ariaLiveRegion" class="govuk-visually-hidden">@fileRemovedAriaLiveContent</span>
         }
 
         @govukFileUpload(FileUpload(
@@ -119,9 +119,7 @@
             id = "choose-file",
             attributes = Map(
                 "accept" -> ".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png",
-                "type" -> "file",
-                "multiple" -> "false"
-            ),
+                "type" -> "file"),
             errorMessage = Option(errorCode).filter(_.nonEmpty).map { err => ErrorMessage(content = Text(messages(errorMessageKey(errorCode)))) },
             label = Label(
                 isPageHeading = false,
