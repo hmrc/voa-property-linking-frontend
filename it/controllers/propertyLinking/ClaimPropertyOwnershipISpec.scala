@@ -31,7 +31,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val titleTextAgent = "When your client became the owner or occupier of the property - Valuation Office Agency - GOV.UK"
   val backLinkText = "Back"
   val localCouncilText = s"Local council reference: $localCouncilReferenceValue"
-  val propertyDetailsText = s"Property: $propertyAddress"
   val captionText = "Add a property"
   val headingText = "When you became the owner or occupier of the property"
   val headingTextAgent = "When your client became the owner or occupier of the property"
@@ -73,7 +72,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val titleTextAgentWelsh = "Pryd ddaeth eich cleient yn berchennog neu’n feddiannydd yr eiddo - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val localCouncilTextWelsh = s"Cyfeirnod yr awdurdod lleol: $localCouncilReferenceValue"
-  val propertyDetailsTextWelsh = s"Eiddo: $propertyAddress"
   val captionTextWelsh = "Ychwanegu eiddo"
   val headingTextWelsh = "Pryd y daethoch yn berchennog neu’n feddiannydd yr eiddo"
   val headingTextAgentWelsh = "Pryd ddaeth eich cleient yn berchennog neu’n feddiannydd yr eiddo"
@@ -112,8 +110,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val errorSummaryTitleTextWelsh = "Mae yna broblem"
 
   val backLinkSelector = "#back-link"
-  val localCouncilSelector = "#local-authority-reference"
-  val propertyDetailsSelector = "#address"
   val captionSelector = "span.govuk-caption-l"
   val headingSelector = "#main-content > div > div > h1"
   val iHaveOwnedSelector = "#multipleOwnership > summary > span"
@@ -148,14 +144,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
       "has a back link which takes you to the claim property links page" in {
         document.select(backLinkSelector).text() shouldBe backLinkText
         document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-      }
-
-      s"has text on the screen of the $localCouncilText" in {
-        document.select(localCouncilSelector).text() shouldBe localCouncilText
-      }
-
-      s"has text on the screen of the $propertyDetailsText" in {
-        document.select(propertyDetailsSelector).text() shouldBe propertyDetailsText
       }
 
       s"has a header of $headingText with a caption above of '$captionText'" in {
@@ -213,14 +201,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(backLinkSelector).attr("href") shouldBe backLinkHref
       }
 
-      s"has text on the screen of the $localCouncilText" in {
-        document.select(localCouncilSelector).text() shouldBe localCouncilText
-      }
-
-      s"has text on the screen of the $propertyDetailsText" in {
-        document.select(propertyDetailsSelector).text() shouldBe propertyDetailsText
-      }
-
       s"has a header of $headingTextAgent with a caption above of '$captionText'" in {
         document.select(headingSelector).text shouldBe headingTextAgent
         document.select(captionSelector).text shouldBe captionText
@@ -274,14 +254,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
       "has a back link which takes you to the claim property links page in welsh" in {
         document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
         document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-      }
-
-      s"has text on the screen of the $localCouncilText in welsh" in {
-        document.select(localCouncilSelector).text() shouldBe localCouncilTextWelsh
-      }
-
-      s"has text on the screen of the $propertyDetailsText in welsh" in {
-        document.select(propertyDetailsSelector).text() shouldBe propertyDetailsTextWelsh
       }
 
       s"has a header of $headingText with a caption above of '$captionText' in welsh" in {
@@ -339,14 +311,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(backLinkSelector).attr("href") shouldBe backLinkHref
       }
 
-      s"has text on the screen of the $localCouncilText in welsh" in {
-        document.select(localCouncilSelector).text() shouldBe localCouncilTextWelsh
-      }
-
-      s"has text on the screen of the $propertyDetailsText in welsh" in {
-        document.select(propertyDetailsSelector).text() shouldBe propertyDetailsTextWelsh
-      }
-
       s"has a header of $headingTextAgent with a caption above of '$captionText' in welsh" in {
         document.select(headingSelector).text shouldBe headingTextAgentWelsh
         document.select(captionSelector).text shouldBe captionTextWelsh
@@ -400,14 +364,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
       "has a back link which takes you to the summary page" in {
         document.select(backLinkSelector).text() shouldBe backLinkText
         document.select(backLinkSelector).attr("href") shouldBe backLinkFromCyaHref
-      }
-
-      s"has text on the screen of the $localCouncilText" in {
-        document.select(localCouncilSelector).text() shouldBe localCouncilText
-      }
-
-      s"has text on the screen of the $propertyDetailsText" in {
-        document.select(propertyDetailsSelector).text() shouldBe propertyDetailsText
       }
 
       s"has a header of $headingText with a caption above of '$captionText'" in {
@@ -1261,14 +1217,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
       document.select(backLinkSelector).attr("href") shouldBe backLinkFromCyaHref
     }
 
-    s"has text on the screen of the $localCouncilText" in {
-      document.select(localCouncilSelector).text() shouldBe localCouncilText
-    }
-
-    s"has text on the screen of the $propertyDetailsText" in {
-      document.select(propertyDetailsSelector).text() shouldBe propertyDetailsText
-    }
-
     s"has a header of $headingText with a caption above of '$captionText'" in {
       document.select(headingSelector).text shouldBe headingText
       document.select(captionSelector).text shouldBe captionText
@@ -1319,14 +1267,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     "has a back link which takes you to the claim property links page" in {
       document.select(backLinkSelector).text() shouldBe backLinkText
       document.select(backLinkSelector).attr("href") shouldBe backLinkFromCyaHref
-    }
-
-    s"has text on the screen of the $localCouncilText" in {
-      document.select(localCouncilSelector).text() shouldBe localCouncilText
-    }
-
-    s"has text on the screen of the $propertyDetailsText" in {
-      document.select(propertyDetailsSelector).text() shouldBe propertyDetailsText
     }
 
     s"has a header of $headingTextAgent with a caption above of '$captionText'" in {
@@ -1381,14 +1321,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
       document.select(backLinkSelector).attr("href") shouldBe backLinkFromCyaHref
     }
 
-    s"has text on the screen of the $localCouncilText in welsh" in {
-      document.select(localCouncilSelector).text() shouldBe localCouncilTextWelsh
-    }
-
-    s"has text on the screen of the $propertyDetailsText in welsh" in {
-      document.select(propertyDetailsSelector).text() shouldBe propertyDetailsTextWelsh
-    }
-
     s"has a header of $headingText with a caption above of '$captionText' in welsh" in {
       document.select(headingSelector).text shouldBe headingTextWelsh
       document.select(captionSelector).text shouldBe captionTextWelsh
@@ -1439,14 +1371,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     "has a back link which takes you to the claim property links page in welsh" in {
       document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
       document.select(backLinkSelector).attr("href") shouldBe backLinkFromCyaHref
-    }
-
-    s"has text on the screen of the $localCouncilText in welsh" in {
-      document.select(localCouncilSelector).text() shouldBe localCouncilTextWelsh
-    }
-
-    s"has text on the screen of the $propertyDetailsText in welsh" in {
-      document.select(propertyDetailsSelector).text() shouldBe propertyDetailsTextWelsh
     }
 
     s"has a header of $headingTextAgent with a caption above of '$captionText' in welsh" in {

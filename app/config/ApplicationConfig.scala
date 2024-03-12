@@ -61,6 +61,7 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   lazy val ivBaseUrl = loadConfig("microservice.services.identity-verification.url")
   lazy val vmvUrl = loadConfig("vmv-frontend.url")
   lazy val basGatewaySignInUrl: String = loadConfig("bas-gateway-sign-in.url")
+  lazy val attachmentsUrl: String = loadConfig("business-rates-attachments.url")
   lazy val ggRegistrationUrl: String = loadConfig("gg-registration.url")
   lazy val serviceUrl: String = loadConfig("voa-property-linking-frontend.url")
   lazy val upliftCompletionUrl: String = loadConfig("upliftCompletion.url")

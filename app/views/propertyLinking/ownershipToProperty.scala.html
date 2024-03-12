@@ -19,7 +19,6 @@
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyOwnershipVM
-@import views.html.includes.assessmentHeading
 @import helpers._
 
 @this(
@@ -82,8 +81,6 @@
             )
         )
     }
-
-    @assessmentHeading(model.localAuthorityReference, model.address)
 
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@messages(s"declareCapacity.title$clientSuffix")</h1>

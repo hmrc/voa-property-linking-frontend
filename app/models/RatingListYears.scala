@@ -18,8 +18,6 @@ package models
 
 import play.api.libs.json.Json
 
-import java.time.LocalDate
-
 case class RatingListYears(
       multipleListYears: Boolean
 )

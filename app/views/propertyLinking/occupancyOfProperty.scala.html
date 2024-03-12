@@ -20,7 +20,6 @@
 @import config.ApplicationConfig
 @import helpers._
 @import play.api.data._
-@import views.html.includes.assessmentHeading
 
 
 @this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
@@ -109,8 +108,6 @@ val helper = request.ses.propertyRelationship.map(_.capacity).fold(
             )
         )
     }
-
-    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
     <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
     <h1 id="page-header" class="govuk-heading-l">@messages(s"propertyOccupancy.title$clientSuffix")</h1>

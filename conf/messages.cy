@@ -1048,6 +1048,16 @@ uploadEvidence.noEvidence.p1=<p>Os na allwch ddarparu un o’r dogfennau a restr
 uploadEvidence.noEvidence.p2=<p>Bydd angen i chi gysylltu â ni i drafod dogfennau eraill sy’n profi eich cysylltiad â’r eiddo hwn.</p>
 uploadEvidence.noEvidence.p3=<p>E-bost: <a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a></p>
 
+#FILE UPLOAD RESULTS PAGE
+fileUploadResult.hintText=Rhaid i’r ffeil a ddewiswyd fod yn ddogfen Word, taenlen Excel, PDF neu ddelwedd (PNG neu JPG) ac yn llai na 10MB.
+fileUploadResult.remove=Dileu
+fileUploadResult.uploading=Wrthi’n lanlwytho
+fileUploadResult.uploaded=Wedi ei lanlwytho
+fileUploadResult.failed=methu
+fileUploadResult.uploaded-aria-live=Ffeil wedi’i huwchlwytho
+fileUploadResult.removed-file-aria-live=Ffeil wedi’i dileu
+fileUploadResult.removed-file-name-aria-live=Ffeil {0} wedi’i dileu
+
 evidenceType.assignment=Aseiniad
 evidenceType.label=Math o dystiolaeth
 evidenceType.lease=Prydles
@@ -1059,7 +1069,6 @@ evidenceType.otherUtilityBill=bil cyfleustodau arall
 evidenceType.ratesBill=Bil trethi
 evidenceType.landRegistryTitle=Teitl y Gofrestrfa Tir
 
-fileupload.chooseFile=Dewis ffeil
 
 label.evidence=Lanlwythwch dystiolaeth fel bod modd i ni wirio eich cysylltiad â’r eiddo
 evidence.label=Darparu tystiolaeth arall
@@ -1864,6 +1873,12 @@ fileUpload.descriptionList.key=Tystiolaeth
 fileUpload.descriptionList.action=Dileu
 fileUpload.pleaseWait=Arhoswch tra bod eich ffeil yn lanlwytho. Gall hyn gymryd peth amser.
 fileUpload.allowedTypes =Rhaid i’r ffeil fod yn ddogfen Word, taenlen Excel, PDF neu ddelwedd (PNG neu JPG) a bod yn llai na 10MB.
+
+fileUpload.failed=Nid oedd modd lanlwytho’r ffeil a ddewiswyd - rhowch gynnig arall arni
+fileUpload.InvalidArgument=Dewis bil ardrethi
+fileUpload.EntityTooLarge=Rhaid i’r ffeil a ddewiswyd fod yn llai na 10MB
+fileUpload.rejected=Rhaid i’r ffeil a ddewiswyd fod yn ddogfen Word, taenlen Excel, PDF, PNG neu JPG
+
 label.selectValue=Dewiswch gyfeiriad
 addressHelp=Dylai hwn fod yn gyfeiriad cyswllt post a ffefrir ar gyfer eich busnes
 error.postcodeLookupError=Nodwch god post dilys

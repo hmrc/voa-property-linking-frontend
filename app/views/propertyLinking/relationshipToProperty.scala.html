@@ -16,7 +16,6 @@
 
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyRelationshipVM
-@import views.html.includes.assessmentHeading
 
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
 
@@ -45,8 +44,6 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = getEnrichedErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-
-    @assessmentHeading(model.localAuthorityReference, model.address)
 
     <span class="govuk-caption-l" >@messages("caption.add.property")</span>
     <h1 class="govuk-heading-l">@messages("declarePropertyRelationship.title"):</h1>

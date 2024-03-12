@@ -82,6 +82,7 @@ val playSettings: Seq[Setting[_]] = Seq(
   routesImport ++= Seq(
     "binders.propertylinks._",
     "binders.propertylinks.EvidenceChoices._",
+    "models.upscan.FileStatus._",
     "binders.propertylinks.ClaimPropertyReturnToPage._",
     "binders.propertylinks.ExternalPropertyLinkManagementSortField._",
     "binders.pagination._",
@@ -99,7 +100,7 @@ lazy val scoverageSettings = {
   import scoverage.ScoverageKeys
   Seq(
     ScoverageKeys.coverageExcludedPackages := "<empty>;.*Reverse.*;controllers.test.*;connectors.test.*;views.*;config.*;poc.view.*;poc.config.*;.*(AuthService|BuildInfo|Routes).*;.*models.*;.*modules.*;.*utils.Conditionals.*;.*auth.GovernmentGatewayProvider*;.*services.test;",
-    ScoverageKeys.coverageMinimum := 70,
+    ScoverageKeys.coverageMinimumStmtTotal := 70,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true,
     Test / unmanagedSourceDirectories := (Test / baseDirectory)(base => Seq(base / "test")).value,

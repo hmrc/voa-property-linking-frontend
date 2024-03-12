@@ -19,7 +19,6 @@
 @import controllers.propertyLinking.routes._
 @import models.upscan._
 @import models._
-@import views.html.includes.assessmentHeading
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import _root_.utils.Formatters._
 @import helpers._
@@ -34,18 +33,10 @@
 
 @(
         submissionId: String,
-        errors: List[String] = Nil,
         uploadedFiles: Map[String, UploadedFileDetails] = Map(),
         formEvidence: Form[_],
         linkingSession: LinkingSession
 )(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
-
-
-@fileUploadErrorLinks = @{
-    errors.map{ error =>
-        ErrorLink(href = Some(s"#newFileButton"),
-            content = HtmlContent(messages(error)) )}
-}
 
 @dynamicOptions = @{
     request.ses.propertyRelationship match {
@@ -73,29 +64,14 @@
 @mainLayout(
     pageTitle = Messages("uploadOtherEvidence.title"),
     backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url),
-    hasErrors = formEvidence.hasErrors || errors.nonEmpty
+    hasErrors = formEvidence.hasErrors
 ) {
     @if(formEvidence.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = formEvidence.errors.asTextErrorLinks ++ fileUploadErrorLinks , title = Text(messages("errors.heading.title"))))
+        @govukErrorSummary(ErrorSummary(errorList = formEvidence.errors.asTextErrorLinks, title = Text(messages("errors.heading.title"))))
     }
-    @if(formEvidence.errors.isEmpty && errors.nonEmpty) {
-        <div class="govuk-error-summary" aria-labelledby="error-summary-heading" role="alert" tabindex="-1" data-module="govuk-error-summary">
-
-            <h2 class="govuk-error-summary__title" id="error-summary-heading">@messages("error.summary.title")</h2>
-            <div class="govuk-error-summary__body">
-                <ul class="govuk-list govuk-error-summary__list">
-                @errors.map { error =>
-                    <li><a href="#newFileButton">@messages(error)</a></li>
-                }
-                </ul>
-            </div>
-        </div>
-    }
-
-    @assessmentHeading(request.ses.localAuthorityReference, request.ses.address)
 
     <span class="govuk-caption-l">@messages("caption.add.property")</span>
-    @formWithCSRF(action = UploadController.continue(EvidenceChoices.OTHER)) {
+    @formWithCSRF(action = UploadController.continue) {
         @govukRadios(Radios(
             fieldset = Some(Fieldset(
               legend = Some(Legend(

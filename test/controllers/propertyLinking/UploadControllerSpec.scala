@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,8 @@ package controllers.propertyLinking
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
-import binders.propertylinks.EvidenceChoices.EvidenceChoices
 import controllers.VoaPropertyLinkingSpec
-import models.{CapacityType, Occupier, Owner, RatesBillType, StampDutyLandTaxForm, UploadEvidenceData}
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Element
+import models._
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import play.api.http.Status.{OK => _}
@@ -71,21 +68,9 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val result = agentController.remove("01222333", EvidenceChoices.RATES_BILL)(request)
+    val result = agentController.remove(EvidenceChoices.RATES_BILL)(request)
 
     status(result) shouldBe SEE_OTHER
-  }
-
-  "OTHER Evidence file upload page" should "display expected error message when upscan returns file to large error" in {
-    val res =
-      agentController.show(EvidenceChoices.OTHER, Some("Your proposed upload exceeds the maximum allowed size"))(
-        FakeRequest())
-    status(res) shouldBe OK
-
-    val html = HtmlPage(res)
-    html.shouldNotContainText("Your proposed upload exceeds the maximum allowed size")
-    html.shouldContainText("The selected file must be smaller than 10MB")
-
   }
 
   "OTHER Evidence file initiate" should "return file upload initiate success" in {
@@ -105,7 +90,7 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
     when(mockBusinessRatesChallengeService.persistSessionData(any(), any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(()))
 
-    val result = agentController.remove("01222333", EvidenceChoices.OTHER)(request)
+    val result = agentController.remove(EvidenceChoices.OTHER)(request)
 
     status(result) shouldBe SEE_OTHER
   }
@@ -134,9 +119,11 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
         mockCustomErrorHandler,
         authenticatedAction,
         linkingSession,
+        mockSessionRepository,
         mockBusinessRatesChallengeService,
-        uploadRatesBillLeaseOrLicenseView,
+        uploadView,
         uploadEvidenceView,
+        uploadResultView,
         cannotProvideEvidenceView
       )
 }

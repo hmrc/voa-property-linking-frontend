@@ -1,0 +1,141 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import actions.propertylinking.requests.LinkingSessionRequest
+@import binders.propertylinks.EvidenceChoices.EvidenceChoices
+@import binders.propertylinks._
+@import config.ApplicationConfig
+@import models.{EvidenceType, _}
+@import models.upscan._
+@import views.html.helper.CSRF
+@import views.html.helper.form
+
+@this(govukButton: GovukButton, govukFileUpload: GovukFileUpload, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
+
+@(
+        evidenceType: EvidenceType,
+        evidenceChoice: EvidenceChoices,
+        submissionId: String,
+        errorCode: Option[String] = None,
+        preparedUpload: PreparedUpload,
+        fileRemoved: Boolean,
+        removedFileName: Option[String] = None
+)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+
+
+@errorMessageKey(errorCode: Option[String]) = @{
+    errorCode match {
+        case Some("EntityTooLarge") => "fileUpload.EntityTooLarge"
+        case Some("InvalidArgument") => "fileUpload.InvalidArgument"
+        case Some("REJECTED") => "fileUpload.rejected"
+        case _ => "fileUpload.failed"
+    }
+}
+
+@title = @{
+    (request.ses.clientDetails, evidenceType) match {
+        case (Some(_), Lease) => {messages("uploadEvidence.lease.client.title")}
+        case (Some(_), License) => {messages("uploadEvidence.license.client.title")}
+        case (Some(_), RatesBillType) => {messages("uploadRatesBill.show.client.title")}
+        case(Some(_), _) => {messages(s"uploadEvidence.$evidenceType.title")}
+        case (None, Lease) => {messages("uploadEvidence.lease.title")}
+        case (None, License) => {messages("uploadEvidence.license.title")}
+        case (None, RatesBillType) => {messages("uploadRatesBill.show.title")}
+        case (None, _) => {messages(s"uploadEvidence.$evidenceType.title")}
+    }
+}
+
+@fileRemovedAriaLiveContent = @{
+    removedFileName match {
+        case Some(removedFileName) =>
+            messages("fileUploadResult.removed-file-name-aria-live", removedFileName)
+        case _ => messages("fileUploadResult.removed-file-aria-live")
+    }
+}
+
+@backUri = @{
+    val propertyRelationship = request.ses.propertyRelationship.map(_.capacity).get
+    (evidenceType, propertyRelationship) match {
+        case (Lease, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (License, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (Lease, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (License, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (noLeaseOrLicense, Occupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (RatesBillType, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (_, _) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+    }
+}
+
+@mainLayout(
+    pageTitle = title,
+    backUri = backUri,
+    hasErrors = errorCode.nonEmpty
+) {
+    @if(errorCode.nonEmpty) {
+        @govukErrorSummary(
+            ErrorSummary(
+                errorList = Seq(ErrorLink(
+                    href = Some("#choose-file"),
+                    content = Text(messages(errorMessageKey(errorCode)))
+                )),
+                title = Text(messages("error.propertyRepresentation.title"))
+            )
+        )
+    }
+
+    <span class="govuk-caption-l">@messages("caption.add.property")</span>
+    <h1 class="govuk-heading-l">@title</h1>
+
+    @form(
+        Call("POST", preparedUpload.uploadRequest.href),
+        Symbol("enctype") -> "multipart/form-data",
+        Symbol("id") -> "upload-form") {
+        @{
+            play.filters.csrf.CSRF.getToken(request).map {token => CSRF.formField(request)}
+        }
+        @for(field <- preparedUpload.uploadRequest.fields) {
+            <input type="hidden" name="@field._1" value="@field._2"/>
+        }
+
+        @if(fileRemoved) {
+            <span id="ariaLiveRegion" class="govuk-visually-hidden">@fileRemovedAriaLiveContent</span>
+        }
+
+        @govukFileUpload(FileUpload(
+            name = "file",
+            id = "choose-file",
+            attributes = Map(
+                "accept" -> ".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png",
+                "type" -> "file"),
+            errorMessage = Option(errorCode).filter(_.nonEmpty).map { err => ErrorMessage(content = Text(messages(errorMessageKey(errorCode)))) },
+            label = Label(
+                isPageHeading = false,
+                classes = "govuk-visually-hidden",
+                content = Text(title)
+            ),
+            hint = Some(Hint(
+                content = Text(messages("fileUpload.allowedTypes")),
+                id = Some("fileTypesText")
+            ))
+        ))
+        @govukButton(Button(
+            inputType = Some("submit"),
+            classes = "button",
+            content = Text(messages("label.continue")),
+            attributes = Map("id" -> "continue")
+        ))
+    }
+}

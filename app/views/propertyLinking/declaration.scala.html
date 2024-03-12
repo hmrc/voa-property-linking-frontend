@@ -70,7 +70,7 @@
 
 @strippedFileName = @{
     request.ses.uploadEvidenceData.fileInfo match {
-        case Some(complete: CompleteFileInfo) => complete.name.replaceAll("^([^-]+)-", "")
+        case Some(complete: CompleteFileInfo) => complete.name.replaceAll("-", " ")
         case _ => ""
     }
 }

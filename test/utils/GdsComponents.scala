@@ -70,6 +70,7 @@ trait GdsComponents {
   lazy val govukTemplate = new GovukTemplate(govukHeader, govukFooter, govukSkipLink, new FixedWidthPageLayout())
   lazy val govukTextarea = new GovukTextarea(govukErrorMessage, govukHint, govukLabel)
   lazy val govukWarningText = new GovukWarningText
+  lazy val govukFileUpload = new GovukFileUpload(govukErrorMessage, govukHint, govukLabel)
   lazy val hmrcFooter = new HmrcFooter()
   lazy val hmrcFooterItems = new HmrcFooterItems(new AccessibilityStatementConfig(minimalConfiguration))
   lazy val hmrcStandardFooter = new HmrcStandardFooter(hmrcFooter, hmrcFooterItems)

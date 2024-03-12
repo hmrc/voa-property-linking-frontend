@@ -27,8 +27,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val headingText = "Connection to the property:"
   val captionText = "Add a property"
   val backLinkText = "Back"
-  val localCouncilReferenceText = "Local council reference: 2050466366770"
-  val propertyText = "Property: Test Address, Test Lane, T35 T3R"
   val errorSummaryTitleText = "There is a problem"
   val errorSummaryMessageText = "What is your connection to the property? - Select an option"
   val errorSummaryMessageTextAgent = "What is your client’s connection to the property? - Select an option"
@@ -55,8 +53,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val headingTextWelsh = "Cysylltiad â’r eiddo:"
   val captionTextWelsh = "Ychwanegu eiddo"
   val backLinkTextWelsh = "Yn ôl"
-  val localCouncilReferenceTextWelsh = "Cyfeirnod yr awdurdod lleol: 2050466366770"
-  val propertyTextWelsh = "Eiddo: Test Address, Test Lane, T35 T3R"
   val errorSummaryTitleTextWelsh = "Mae yna broblem"
   val errorSummaryMessageTextWelsh = "Beth yw eich cysylltiad chi â’r eiddo? - Dewiswch opsiwn"
   val errorSummaryMessageTextAgentWelsh = "Beth yw cysylltiad eich cleient â’r eiddo? - Dewiswch opsiwn"
@@ -81,8 +77,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val headingLocator = "h1"
   val captionLocator = "#main-content > div > div > span"
   val backLinkLocator = "back-link"
-  val localCouncilReferenceLocator = "local-authority-reference"
-  val propertyTextLocator = "address"
   val errorSummaryTitleLocator = "#main-content > div > div > div.govuk-error-summary > div > h2"
   val errorSummaryMessageLocator = "#main-content > div > div > div.govuk-error-summary > div > div > ul > li > a"
   val radioErrorMessageLocator = "capacity-error"
@@ -124,14 +118,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     "has a back link with the correct href" in {
       document.getElementById(backLinkLocator).text shouldBe backLinkText
       document.getElementById(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    s"has text of $localCouncilReferenceText" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
-    s"has text of $propertyText" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyText
     }
 
     s"has a $ownOrOccupySummaryLinkText link with correct content" in {
@@ -192,14 +178,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       document.getElementById(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    s"has text of $localCouncilReferenceText" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
-    s"has text of $propertyText" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyText
-    }
-
     s"has a $ownOrOccupySummaryLinkTextAgent link with correct content" in {
       document.select(ownOrOccupySummaryLinkLocator).text shouldBe ownOrOccupySummaryLinkTextAgent
       document.select(ownOrOccupySummaryContentLocator).text shouldBe ownOrOccupySummaryContentTextAgent
@@ -258,14 +236,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       document.getElementById(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    s"has text of $localCouncilReferenceText in Welsh" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
-    s"has text of $propertyText in Welsh" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyTextWelsh
-    }
-
     s"has a $ownOrOccupySummaryLinkText link with correct content in Welsh" in {
       document.select(ownOrOccupySummaryLinkLocator).text shouldBe ownOrOccupySummaryLinkTextWelsh
       document.select(ownOrOccupySummaryContentLocator).text shouldBe ownOrOccupySummaryContentTextWelsh
@@ -322,14 +292,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     "has a back link with the correct href in Welsh" in {
       document.getElementById(backLinkLocator).text shouldBe backLinkTextWelsh
       document.getElementById(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    s"has text of $localCouncilReferenceText in Welsh" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
-    s"has text of $propertyText in Welsh" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyTextWelsh
     }
 
     s"has a $ownOrOccupySummaryLinkTextAgent link with correct content in Welsh" in {
@@ -404,14 +366,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       document.getElementById(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    s"has text of $localCouncilReferenceText" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
-    s"has text of $propertyText" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyText
-    }
-
     s"has a $ownOrOccupySummaryLinkText link with correct content" in {
       document.select(ownOrOccupySummaryLinkLocator).text shouldBe ownOrOccupySummaryLinkText
       document.select(ownOrOccupySummaryContentLocator).text shouldBe ownOrOccupySummaryContentText
@@ -480,14 +434,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     "has a back link with the correct href" in {
       document.getElementById(backLinkLocator).text shouldBe backLinkText
       document.getElementById(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    s"has text of $localCouncilReferenceText" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
-    s"has text of $propertyText" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyText
     }
 
     s"has a $ownOrOccupySummaryLinkTextAgent link with correct content" in {
@@ -560,14 +506,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       document.getElementById(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    s"has text of $localCouncilReferenceText in Welsh" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
-    s"has text of $propertyText in Welsh" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyTextWelsh
-    }
-
     s"has a $ownOrOccupySummaryLinkText link with correct content in Welsh" in {
       document.select(ownOrOccupySummaryLinkLocator).text shouldBe ownOrOccupySummaryLinkTextWelsh
       document.select(ownOrOccupySummaryContentLocator).text shouldBe ownOrOccupySummaryContentTextWelsh
@@ -636,14 +574,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     "has a back link with the correct href in Welsh" in {
       document.getElementById(backLinkLocator).text shouldBe backLinkTextWelsh
       document.getElementById(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    s"has text of $localCouncilReferenceText in Welsh" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
-    s"has text of $propertyText in Welsh" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyTextWelsh
     }
 
     s"has a $ownOrOccupySummaryLinkTextAgent link with correct content in Welsh" in {
@@ -817,14 +747,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
     }
 
-    s"has text of $localCouncilReferenceText" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
-    s"has text of $propertyText" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyText
-    }
-
     s"has a $ownOrOccupySummaryLinkText link with correct content" in {
       document.select(ownOrOccupySummaryLinkLocator).text shouldBe ownOrOccupySummaryLinkText
       document.select(ownOrOccupySummaryContentLocator).text shouldBe ownOrOccupySummaryContentText
@@ -881,14 +803,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     "has a back link with the correct href" in {
       document.getElementById(backLinkLocator).text shouldBe backLinkText
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
-    }
-
-    s"has text of $localCouncilReferenceText" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
-    s"has text of $propertyText" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyText
     }
 
     s"has a $ownOrOccupySummaryLinkText link with correct content" in {
@@ -949,14 +863,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
     }
 
-    s"has text of $localCouncilReferenceText" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
-    s"has text of $propertyText" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyText
-    }
-
     s"has a $ownOrOccupySummaryLinkText link with correct content" in {
       document.select(ownOrOccupySummaryLinkLocator).text shouldBe ownOrOccupySummaryLinkText
       document.select(ownOrOccupySummaryContentLocator).text shouldBe ownOrOccupySummaryContentText
@@ -1013,14 +919,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     "has a back link with the correct href" in {
       document.getElementById(backLinkLocator).text shouldBe backLinkText
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
-    }
-
-    s"has text of $localCouncilReferenceText" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
-    s"has text of $propertyText" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyText
     }
 
     s"has a $ownOrOccupySummaryLinkTextAgent link with correct content" in {
@@ -1081,14 +979,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
     }
 
-    s"has text of $localCouncilReferenceText" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
-    s"has text of $propertyText" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyText
-    }
-
     s"has a $ownOrOccupySummaryLinkTextAgent link with correct content" in {
       document.select(ownOrOccupySummaryLinkLocator).text shouldBe ownOrOccupySummaryLinkTextAgent
       document.select(ownOrOccupySummaryContentLocator).text shouldBe ownOrOccupySummaryContentTextAgent
@@ -1145,14 +1035,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     "has a back link with the correct href" in {
       document.getElementById(backLinkLocator).text shouldBe backLinkText
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
-    }
-
-    s"has text of $localCouncilReferenceText" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
-    s"has text of $propertyText" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyText
     }
 
     s"has a $ownOrOccupySummaryLinkTextAgent link with correct content" in {
@@ -1213,14 +1095,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
     }
 
-    s"has text of $localCouncilReferenceText in Welsh" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
-    s"has text of $propertyText in Welsh" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyTextWelsh
-    }
-
     s"has a $ownOrOccupySummaryLinkText link with correct content in Welsh" in {
       document.select(ownOrOccupySummaryLinkLocator).text shouldBe ownOrOccupySummaryLinkTextWelsh
       document.select(ownOrOccupySummaryContentLocator).text shouldBe ownOrOccupySummaryContentTextWelsh
@@ -1277,14 +1151,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     "has a back link with the correct href in Welsh" in {
       document.getElementById(backLinkLocator).text shouldBe backLinkTextWelsh
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
-    }
-
-    s"has text of $localCouncilReferenceText in Welsh" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
-    s"has text of $propertyText in Welsh" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyTextWelsh
     }
 
     s"has a $ownOrOccupySummaryLinkText link with correct content in Welsh" in {
@@ -1345,14 +1211,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
     }
 
-    s"has text of $localCouncilReferenceText in Welsh" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
-    s"has text of $propertyText in Welsh" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyTextWelsh
-    }
-
     s"has a $ownOrOccupySummaryLinkText link with correct content in Welsh" in {
       document.select(ownOrOccupySummaryLinkLocator).text shouldBe ownOrOccupySummaryLinkTextWelsh
       document.select(ownOrOccupySummaryContentLocator).text shouldBe ownOrOccupySummaryContentTextWelsh
@@ -1409,14 +1267,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     "has a back link with the correct href in Welsh" in {
       document.getElementById(backLinkLocator).text shouldBe backLinkTextWelsh
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
-    }
-
-    s"has text of $localCouncilReferenceText in Welsh" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
-    s"has text of $propertyText in Welsh" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyTextWelsh
     }
 
     s"has a $ownOrOccupySummaryLinkTextAgent link with correct content in Welsh" in {
@@ -1477,14 +1327,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
     }
 
-    s"has text of $localCouncilReferenceText in Welsh" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
-    s"has text of $propertyText in Welsh" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyTextWelsh
-    }
-
     s"has a $ownOrOccupySummaryLinkTextAgent link with correct content in Welsh" in {
       document.select(ownOrOccupySummaryLinkLocator).text shouldBe ownOrOccupySummaryLinkTextAgentWelsh
       document.select(ownOrOccupySummaryContentLocator).text shouldBe ownOrOccupySummaryContentTextAgentWelsh
@@ -1541,14 +1383,6 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     "has a back link with the correct href in Welsh" in {
       document.getElementById(backLinkLocator).text shouldBe backLinkTextWelsh
       document.getElementById(backLinkLocator).attr("href") shouldBe checkYourAnswersHref
-    }
-
-    s"has text of $localCouncilReferenceText in Welsh" in {
-      document.getElementById(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
-    s"has text of $propertyText in Welsh" in {
-      document.getElementById(propertyTextLocator).text shouldBe propertyTextWelsh
     }
 
     s"has a $ownOrOccupySummaryLinkTextAgent link with correct content in Welsh" in {

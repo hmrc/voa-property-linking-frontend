@@ -23,9 +23,8 @@ import com.google.inject.{Inject, Singleton}
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
-import javax.inject.Named
-import models.propertylinking.requests.PropertyLinkRequest
 import models._
+import models.propertylinking.requests.PropertyLinkRequest
 import play.api.Logging
 import play.api.data.{Form, FormError, Forms}
 import play.api.i18n.MessagesApi
@@ -36,6 +35,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.propertylinking.exceptions.attachments.{MissingRequiredNumberOfFiles, NotAllFilesReadyToUpload}
 import utils.Cats
 
+import javax.inject.Named
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
@@ -72,18 +72,16 @@ class DeclarationController @Inject()(
       .map { _ =>
         val evidenceType: Option[EvidenceType] = request.ses.uploadEvidenceData.fileInfo.map(_.evidenceType)
         val capacityType: Option[CapacityType] = request.ses.propertyRelationship.map(_.capacity)
-
         val evidenceChoice: Option[EvidenceChoices.Value] = evidenceType.zip(capacityType).headOption.map {
-          case (RatesBillType, Owner | OwnerOccupier)        => EvidenceChoices.RATES_BILL
-          case (ServiceCharge, Owner | OwnerOccupier)        => EvidenceChoices.SERVICE_CHARGE
-          case (StampDutyLandTaxForm, Owner | OwnerOccupier) => EvidenceChoices.STAMP_DUTY
-          case (LandRegistryTitle, Owner | OwnerOccupier)    => EvidenceChoices.LAND_REGISTRY
-          case (WaterRateDemand, Owner | OwnerOccupier)      => EvidenceChoices.WATER_RATE
-          case (OtherUtilityBill, Owner | OwnerOccupier)     => EvidenceChoices.UTILITY_RATE
-          case (Lease, Occupier | Owner | OwnerOccupier)     => EvidenceChoices.LEASE
-          case (License, Occupier | Owner | OwnerOccupier)   => EvidenceChoices.LICENSE
-          case (_, Owner | OwnerOccupier)                    => EvidenceChoices.OTHER
-          case (_, Occupier)                                 => EvidenceChoices.NO_LEASE_OR_LICENSE
+          case (RatesBillType, Owner | OwnerOccupier | Occupier)        => EvidenceChoices.RATES_BILL
+          case (ServiceCharge, Owner | OwnerOccupier | Occupier)        => EvidenceChoices.SERVICE_CHARGE
+          case (StampDutyLandTaxForm, Owner | OwnerOccupier | Occupier) => EvidenceChoices.STAMP_DUTY
+          case (LandRegistryTitle, Owner | OwnerOccupier | Occupier)    => EvidenceChoices.LAND_REGISTRY
+          case (WaterRateDemand, Owner | OwnerOccupier | Occupier)      => EvidenceChoices.WATER_RATE
+          case (OtherUtilityBill, Owner | OwnerOccupier | Occupier)     => EvidenceChoices.UTILITY_RATE
+          case (Lease, Occupier | Owner | OwnerOccupier | Occupier)     => EvidenceChoices.LEASE
+          case (License, Occupier | Owner | OwnerOccupier | Occupier)   => EvidenceChoices.LICENSE
+          case (_, Owner | OwnerOccupier | Occupier)                    => EvidenceChoices.OTHER
         }
 
         evidenceChoice.fold {
@@ -92,7 +90,7 @@ class DeclarationController @Inject()(
             else routes.ClaimPropertyRelationshipController.back
           )
         } { choice =>
-          Redirect(routes.UploadController.show(choice))
+          Redirect(routes.UploadResultController.show(choice))
         }
       }
   }

@@ -64,7 +64,7 @@ class UploadControllerISpec extends ISpecBase {
   val waterRateHeadingTextWelsh = "Lanlwytho eich archeb trethi dŵr"
   val waterRateHeadingTextAgent = "Upload your water rate demand"
   val waterRateHeadingTextAgentWelsh = "Lanlwytho eich archeb trethi dŵr"
-  
+
   // Utility bill
   val utilityBillHeadingText = "Upload your utility bill"
   val utilityBillHeadingTextWelsh = "Lanlwytho eich bil cyfleustodau"
@@ -121,27 +121,19 @@ class UploadControllerISpec extends ISpecBase {
   val cannotProvideEvidenceP3Welsh = "E-bost: ccaservice@voa.gov.uk"
 
   // Common page text
-  val captionText = "Add a property"
   val backLinkText = "Back"
-  val localCouncilReferenceText = "Local council reference: 2050466366770"
-  val propertyText = "Property: Test Address, Test Lane, T35 T3R"
+  val captionText = "Add a property"
   val hintText = "The file must be a Word document, Excel spreadsheet, PDF or image (PNG or JPG) and be less than 10MB."
   val continueButtonText = "Continue"
-  val evidenceText = "Evidence"
   val fileNameText = "test_file.pdf"
-  val removeFileText = "Remove"
   val errorText = "Error:"
   val errorSummaryText = "There is a problem"
   val errorMessageText = "Select a file"
 
-  val captionTextWelsh = "Ychwanegu eiddo"
   val backLinkTextWelsh = "Yn ôl"
-  val localCouncilReferenceTextWelsh = "Cyfeirnod yr awdurdod lleol: 2050466366770"
-  val propertyTextWelsh = "Eiddo: Test Address, Test Lane, T35 T3R"
+  val captionTextWelsh = "Ychwanegu eiddo"
   val hintTextWelsh = "Rhaid i’r ffeil fod yn ddogfen Word, taenlen Excel, PDF neu ddelwedd (PNG neu JPG) a bod yn llai na 10MB."
   val continueButtonTextWelsh = "Parhau"
-  val evidenceTextWelsh = "Tystiolaeth"
-  val removeFileTextWelsh = "Dileu"
   val errorTextWelsh = "Gwall:"
   val errorSummaryTextWelsh = "Mae yna broblem"
   val errorMessageTextWelsh = "Dewis bil ardrethi"
@@ -150,18 +142,15 @@ class UploadControllerISpec extends ISpecBase {
   val headingLocator = "h1"
   val captionLocator = "#main-content > div > div > span"
   val backLinkLocator = "#back-link"
-  val localCouncilReferenceLocator = "#local-authority-reference"
-  val propertyLocator = "#address"
-  val hintTextLocator = "#fileTypesText"
-  val fileUploadComponentLocator = "#newFile"
-  val fileUploadButtonLocator = "#newFileButton"
+  val hintTextLocator = "choose-file-hint"
+  val fileUploadComponentLocator = "choose-file"
   val evidenceLocator = "#main-content > div > div > dl > div > dt"
   val fileNameLocator = "#main-content > div > div > dl > div > dd.govuk-summary-list__value"
   val removeFileLocator = "#remove-file"
   val continueButtonLocator = "#continue"
-  val errorSummaryTitleLocator = "#error-summary-heading"
-  val errorSummaryMessageLocator = "#main-content > div > div > div.govuk-error-summary > div > ul > li > a"
-  val errorMessageLocator = "#file-upload-1-error"
+  val errorSummaryTitleLocator = "#main-content > div > div > div.govuk-error-summary > div > h2"
+  val errorSummaryMessageLocator = "#main-content > div > div > div.govuk-error-summary > div > div > ul > li > a"
+  val errorMessageLocator = "#choose-file-error"
 
   val otherEvidenceHintLocator = "#evidenceType-hint"
   val otherEvidenceRadioLocator: Int => String = (radioNumber: Int) => s"#upload-evidence-options > div:nth-child($radioNumber) > input"
@@ -171,19 +160,19 @@ class UploadControllerISpec extends ISpecBase {
   val otherEvidenceErrorMessageLocator = "#evidenceType-error"
   val orLocator = "#upload-evidence-options > div.govuk-radios__divider"
 
-  val cannotProvideEvidenceP1Locator = "#main-content > div > div > p:nth-child(4)"
-  val cannotProvideEvidenceP2Locator = "#main-content > div > div > p:nth-child(5)"
-  val cannotProvideEvidenceP3Locator = "#main-content > div > div > p:nth-child(6)"
-  val cannotProvideEvidenceEmailLocator = "#main-content > div > div > p:nth-child(6) > a"
+  val cannotProvideEvidenceP1Locator = "#main-content > div > div > p:nth-child(3)"
+  val cannotProvideEvidenceP2Locator = "#main-content > div > div > p:nth-child(4)"
+  val cannotProvideEvidenceP3Locator = "#main-content > div > div > p:nth-child(5)"
+  val cannotProvideEvidenceEmailLocator = "#main-content > div > div > p:nth-child(5) > a"
 
   // Links
   val emailHref = "mailto:ccaservice@voa.gov.uk"
   val backToEvidenceQuestionHref = "/business-rates-property-linking/my-organisation/claim/property-links/evidence"
   val backToOtherEvidenceHref = "/business-rates-property-linking/my-organisation/claim/property-links/evidence/OTHER/upload"
-  val errorMessageHref = "#newFileButton"
+  val errorMessageHref = "#choose-file"
   val otherEvidenceErrorMessageHref = "#evidenceType"
   val evidenceTypeRedirectUrl: String => String = (evidenceType: String) => s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceType/upload"
-  val checkYourAnswersRedirectUrl = "/business-rates-property-linking/my-organisation/claim/property-links/summary"
+  def UploadResultsRedirectUrl(evidenceType: String) = s"/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceType/upload"
 
   "UploadController show method" should {
 
@@ -616,48 +605,8 @@ class UploadControllerISpec extends ISpecBase {
     }
   }
 
+  //TODO: update these tests as this method is only used for other evidence types
   "UploadController continue method" should {
-
-    // Errors - English
-    "display an error message in English when an IP (Owner) attempts to continue without uploading a Business rates bill" which {
-      commonEvidencePageTests(language = English,
-        evidenceType = "RATES_BILL",
-        userIsAgent = false,
-        relationship = "Owner",
-        backLink = backToEvidenceQuestionHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in English when an IP (Owner) attempts to continue without uploading a Licence to occupy" which {
-      commonEvidencePageTests(language = English,
-        evidenceType = "LICENSE",
-        userIsAgent = false,
-        relationship = "Owner",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in English when an IP (Owner) attempts to continue without uploading a Service charge statement" which {
-      commonEvidencePageTests(language = English,
-        evidenceType = "SERVICE_CHARGE",
-        userIsAgent = false,
-        relationship = "Owner",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in English when an IP (Owner) attempts to continue without uploading a Land registry title" which {
-      commonEvidencePageTests(language = English,
-        evidenceType = "LAND_REGISTRY",
-        userIsAgent = false,
-        relationship = "Owner",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
 
     "display an error message in English when an IP (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which {
       otherEvidencePageTests(language = English, relationship = "Owner", userIsAgent = false, fromCya = false, errorPage = true)
@@ -665,46 +614,6 @@ class UploadControllerISpec extends ISpecBase {
 
     "display the 'Cannot provide evidence' page in English (Owner) when an IP selects 'I cannot provide evidence'" which {
       unableToProvideEvidencePageTests(language = English, userIsAgent = false)
-    }
-
-    "display an error message in English when an Agent (Occupier) attempts to continue without uploading a Lease" which {
-      commonEvidencePageTests(language = English,
-        evidenceType = "LEASE",
-        userIsAgent = true,
-        relationship = "Occupier",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in English when an Agent (Occupier) attempts to continue without uploading a Water rate demand" which {
-      commonEvidencePageTests(language = English,
-        evidenceType = "WATER_RATE",
-        userIsAgent = true,
-        relationship = "Occupier",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in English when an Agent (Occupier) attempts to continue without uploading a Stamp duty land tax form" which {
-      commonEvidencePageTests(language = English,
-        evidenceType = "STAMP_DUTY",
-        userIsAgent = true,
-        relationship = "Occupier",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in English when an Agent (Owner and occupier) attempts to continue without uploading a Utility bill" which {
-      commonEvidencePageTests(language = English,
-        evidenceType = "UTILITY_RATE",
-        userIsAgent = true,
-        relationship = "Owner and occupier",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
     }
 
     "display an error message in English when an Agent (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which {
@@ -715,93 +624,12 @@ class UploadControllerISpec extends ISpecBase {
       unableToProvideEvidencePageTests(language = English, userIsAgent = true)
     }
 
-    // Errors - Welsh
-    "display an error message in Welsh when an IP (Occupier) attempts to continue without uploading a Business rates bill" which {
-      commonEvidencePageTests(language = Welsh,
-        evidenceType = "RATES_BILL",
-        userIsAgent = false,
-        relationship = "Occupier",
-        backLink = backToEvidenceQuestionHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in Welsh when an IP (Occupier) attempts to continue without uploading a Licence to occupy" which {
-      commonEvidencePageTests(language = Welsh,
-        evidenceType = "LICENSE",
-        userIsAgent = false,
-        relationship = "Occupier",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in Welsh when an IP (Owner and occupier) attempts to continue without uploading a Service charge statement" which {
-      commonEvidencePageTests(language = Welsh,
-        evidenceType = "SERVICE_CHARGE",
-        userIsAgent = false,
-        relationship = "Owner and occupier",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in Welsh when an IP (Occupier) attempts to continue without uploading a Land registry title" which {
-      commonEvidencePageTests(language = Welsh,
-        evidenceType = "LAND_REGISTRY",
-        userIsAgent = false,
-        relationship = "Occupier",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
     "display an error message in Welsh when an IP (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which {
       otherEvidencePageTests(language = Welsh, relationship = "Owner", userIsAgent = false, fromCya = false, errorPage = true)
     }
 
     "display the 'Cannot provide evidence' page in Welsh when an IP (Owner) selects 'I cannot provide evidence'" which {
       unableToProvideEvidencePageTests(language = Welsh, userIsAgent = false)
-    }
-
-    "display an error message in Welsh when an Agent (Owner) attempts to continue without uploading a Lease" which {
-      commonEvidencePageTests(language = Welsh,
-        evidenceType = "LEASE",
-        userIsAgent = true,
-        relationship = "Owner",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in Welsh when an Agent (Occupier) attempts to continue without uploading a Water rate demand" which {
-      commonEvidencePageTests(language = Welsh,
-        evidenceType = "WATER_RATE",
-        userIsAgent = true,
-        relationship = "Occupier",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in Welsh when an Agent (Occupier) attempts to continue without uploading a Stamp duty land tax form" which {
-      commonEvidencePageTests(language = Welsh,
-        evidenceType = "STAMP_DUTY",
-        userIsAgent = true,
-        relationship = "Occupier",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
-    }
-
-    "display an error message in Welsh when an Agent (Owner and occupier) attempts to continue without uploading a Utility bill" which {
-      commonEvidencePageTests(language = Welsh,
-        evidenceType = "UTILITY_RATE",
-        userIsAgent = true,
-        relationship = "Owner and occupier",
-        backLink = backToOtherEvidenceHref,
-        fromCya = false,
-        errorPage = true)
     }
 
     "display an error message in Welsh when an Agent (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which {
@@ -877,78 +705,69 @@ class UploadControllerISpec extends ISpecBase {
     }
 
     // Success - Individual evidence page
-    "return a 303 and redirects the user (Owner) to the 'Check your answers' page when uploading a 'Business rates bill' and clicking 'Continue'" which {
-      lazy val res = postUploadEvidencePage(language = English, "RATES_BILL", userIsAgent = false, errorPage = false, selectedEvidenceType = Some("RatesBillType"))
 
-      "has the correct status and redirect location" in {
-        res.status shouldBe SEE_OTHER
-        res.header("location") shouldBe Some(checkYourAnswersRedirectUrl)
-      }
-    }
-
-    "return a 303 and redirects the user (Owner) to the 'Check your answers' page when uploading a 'Lease' and clicking 'Continue'" which {
+    "return a 303 and redirects the user (Owner) to the 'Upload Results' page when uploading a 'Lease' and clicking 'Continue'" which {
       lazy val res = postUploadEvidencePage(language = English, "LEASE", userIsAgent = true, errorPage = false, selectedEvidenceType = Some("Lease"))
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
-        res.header("location") shouldBe Some(checkYourAnswersRedirectUrl)
+        res.header("location") shouldBe Some(UploadResultsRedirectUrl("LEASE"))
       }
     }
 
-    "return a 303 and redirects the user (Owner) to the 'Check your answers' page when uploading a 'Licence to occupy' and clicking 'Continue'" which {
+    "return a 303 and redirects the user (Owner) to the 'Upload Results' page when uploading a 'Licence to occupy' and clicking 'Continue'" which {
       lazy val res = postUploadEvidencePage(language = English, "LICENSE", userIsAgent = false, errorPage = false, selectedEvidenceType = Some("License"))
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
-        res.header("location") shouldBe Some(checkYourAnswersRedirectUrl)
+        res.header("location") shouldBe Some(UploadResultsRedirectUrl("LICENSE"))
       }
     }
 
-    "return a 303 and redirects the user (Owner) to the 'Check your answers' page when uploading a 'Service charge statement' and clicking 'Continue'" which {
+    "return a 303 and redirects the user (Owner) to the 'Upload Results' page when uploading a 'Service charge statement' and clicking 'Continue'" which {
       lazy val res = postUploadEvidencePage(language = English, "SERVICE_CHARGE", userIsAgent = true, errorPage = false, selectedEvidenceType = Some("ServiceCharge"))
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
-        res.header("location") shouldBe Some(checkYourAnswersRedirectUrl)
+        res.header("location") shouldBe Some(UploadResultsRedirectUrl("SERVICE_CHARGE"))
       }
     }
 
-    "return a 303 and redirects the user (Owner) to the 'Check your answers' page when uploading a 'Stamp Duty Land Tax form' and clicking 'Continue'" which {
+    "return a 303 and redirects the user (Owner) to the 'Upload Results' page when uploading a 'Stamp Duty Land Tax form' and clicking 'Continue'" which {
       lazy val res = postUploadEvidencePage(language = English, "STAMP_DUTY", userIsAgent = false, errorPage = false, selectedEvidenceType = Some("StampDutyLandTaxForm"))
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
-        res.header("location") shouldBe Some(checkYourAnswersRedirectUrl)
+        res.header("location") shouldBe Some(UploadResultsRedirectUrl("STAMP_DUTY"))
       }
     }
 
-    "return a 303 and redirects the user (Owner) to the 'Check your answers' page when uploading a 'Land Registry title' and clicking 'Continue'" which {
+    "return a 303 and redirects the user (Owner) to the 'Upload Results' page when uploading a 'Land Registry title' and clicking 'Continue'" which {
       lazy val res = postUploadEvidencePage(language = English, "LAND_REGISTRY", userIsAgent = true, errorPage = false, selectedEvidenceType = Some("LandRegistryTitle"))
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
-        res.header("location") shouldBe Some(checkYourAnswersRedirectUrl)
+        res.header("location") shouldBe Some(UploadResultsRedirectUrl("LAND_REGISTRY"))
       }
     }
 
-    "return a 303 and redirects the user (Owner) to the 'Check your answers' page when uploading a 'Water rate demand' and clicking 'Continue'" which {
+    "return a 303 and redirects the user (Owner) to the 'Upload Results' page when uploading a 'Water rate demand' and clicking 'Continue'" which {
       lazy val res = postUploadEvidencePage(language = English, "WATER_RATE", userIsAgent = false, errorPage = false, selectedEvidenceType = Some("WaterRateDemand"))
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
-        res.header("location") shouldBe Some(checkYourAnswersRedirectUrl)
+        res.header("location") shouldBe Some(UploadResultsRedirectUrl("WATER_RATE"))
       }
     }
 
-    "return a 303 and redirects the user (Owner) to the 'Check your answers' page when uploading a 'Utility bill' and clicking 'Continue'" which {
+    "return a 303 and redirects the user (Owner) to the 'Upload Results' page when uploading a 'Utility bill' and clicking 'Continue'" which {
       lazy val res = postUploadEvidencePage(language = English, "UTILITY_RATE", userIsAgent = true, errorPage = false, selectedEvidenceType = Some("OtherUtilityBill"))
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
-        res.header("location") shouldBe Some(checkYourAnswersRedirectUrl)
+        res.header("location") shouldBe Some(UploadResultsRedirectUrl("UTILITY_RATE"))
       }
     }
-
   }
 
   private def commonSetup(evidenceType: String, relationship: String, userIsAgent: Boolean, fromCya: Boolean, fileUploaded: Boolean = false): Unit = {
@@ -964,6 +783,14 @@ class UploadControllerISpec extends ISpecBase {
       post("/auth/authorise")
         .willReturn {
           aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    stubFor {
+      post("/business-rates-attachments/initiate-upload")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(PreparedUpload(Reference("12345678910111213"), UploadFormTemplate("http://localhost/upscan", Map()))
+          ).toString())
         }
     }
 
@@ -1033,13 +860,13 @@ class UploadControllerISpec extends ISpecBase {
     Jsoup.parse(res.body)
   }
 
-  private def postUploadEvidencePage(language: Language, evidenceType: String, userIsAgent: Boolean, errorPage: Boolean, selectedEvidenceType: Option[String] = None) = {
-    commonSetup(evidenceType, relationship = "Owner", userIsAgent, fromCya = false, fileUploaded = !errorPage)
+  private def postUploadEvidencePage(language: Language, evidenceType: String, userIsAgent: Boolean, errorPage: Boolean, selectedEvidenceType: Option[String] = None, relationship: String = "Owner") = {
+    commonSetup(evidenceType, relationship = relationship, userIsAgent, fromCya = false, fileUploaded = !errorPage)
 
     val body: JsObject = if (errorPage) Json.obj("evidenceType" -> "") else Json.obj("evidenceType" -> JsString(selectedEvidenceType.getOrElse("")))
 
     await(
-      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceType/upload")
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/upload")
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .withFollowRedirects(follow = false)
@@ -1065,10 +892,7 @@ class UploadControllerISpec extends ISpecBase {
       if (errorPage) s"$error $title" else title
     }
     val heading = if (language == English) otherEvidenceHeadingText else otherEvidenceHeadingTextWelsh
-    val caption = if (language == English) captionText else captionTextWelsh
     val back = if (language == English) backLinkText else backLinkTextWelsh
-    val localCouncilRef = if (language == English) localCouncilReferenceText else localCouncilReferenceTextWelsh
-    val property = if (language == English) propertyText else propertyTextWelsh
     val hint = if (language == English) otherEvidenceHintText else otherEvidenceHintTextWelsh
     val continue = if (language == English) continueButtonText else continueButtonTextWelsh
     val busRates = if (language == English) businessRatesBillText else businessRatesBillTextWelsh
@@ -1092,21 +916,9 @@ class UploadControllerISpec extends ISpecBase {
       document.getElementsByTag(headingLocator).text shouldBe heading
     }
 
-    s"has a caption of $caption" in {
-      document.select(captionLocator).text shouldBe caption
-    }
-
     s"has a back link that goes back to the evidence question page" in {
       document.select(backLinkLocator).text shouldBe back
       document.select(backLinkLocator).attr("href") shouldBe backToEvidenceQuestionHref
-    }
-
-    s"has the $localCouncilRef at the top of the page" in {
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilRef
-    }
-
-    s"has the $property at the top of the page" in {
-      document.select(propertyLocator).text shouldBe property
     }
 
     s"has hint text of $hint" in {
@@ -1223,11 +1035,11 @@ class UploadControllerISpec extends ISpecBase {
       commonSetup(evidenceType = "OTHER", relationship = "Owner", userIsAgent, fromCya = false)
 
       val res = await(
-        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/OTHER/upload")
+        ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/cannot-provide-evidence")
           .withCookies(languageCookie(language), getSessionCookie(testSessionId))
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .withFollowRedirects(follow = false)
-          .post(Json.obj("evidenceType" -> "unableToProvide"))
+          .get()
       )
 
       res.status shouldBe OK
@@ -1257,8 +1069,6 @@ class UploadControllerISpec extends ISpecBase {
     val heading = if (language == English) cannotProvideEvidenceHeadingText else cannotProvideEvidenceHeadingTextWelsh
     val caption = if (language == English) captionText else captionTextWelsh
     val back = if (language == English) backLinkText else backLinkTextWelsh
-    val localCouncilRef = if (language == English) localCouncilReferenceText else localCouncilReferenceTextWelsh
-    val property = if (language == English) propertyText else propertyTextWelsh
     val (p1, p2) = getParagraph1and2()
     val p3 = if (language == English) cannotProvideEvidenceP3 else cannotProvideEvidenceP3Welsh
 
@@ -1277,14 +1087,6 @@ class UploadControllerISpec extends ISpecBase {
     s"has a back link that goes back to the evidence question page" in {
       document.select(backLinkLocator).text shouldBe back
       document.select(backLinkLocator).attr("href") shouldBe backToOtherEvidenceHref
-    }
-
-    s"has the $localCouncilRef at the top of the page" in {
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilRef
-    }
-
-    s"has the $property at the top of the page" in {
-      document.select(propertyLocator).text shouldBe property
     }
 
     s"has a first paragraph of $p1" in {
@@ -1335,12 +1137,8 @@ class UploadControllerISpec extends ISpecBase {
 
     val caption = if (language == English) captionText else captionTextWelsh
     val back = if (language == English) backLinkText else backLinkTextWelsh
-    val localCouncilRef = if (language == English) localCouncilReferenceText else localCouncilReferenceTextWelsh
-    val property = if (language == English) propertyText else propertyTextWelsh
     val hint = if (language == English) hintText else hintTextWelsh
     val continue = if (language == English) continueButtonText else continueButtonTextWelsh
-    val evidence = if (language == English) evidenceText else evidenceTextWelsh
-    val remove = if (language == English) removeFileText else removeFileTextWelsh
     val error = if (language == English) errorText else errorTextWelsh
     val errorMessage = if (language == English) errorMessageText else errorMessageTextWelsh
     val errorSummary = if (language == English) errorSummaryText else errorSummaryTextWelsh
@@ -1371,33 +1169,16 @@ class UploadControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLink
     }
 
-    s"has the $localCouncilRef at the top of the page" in {
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilRef
-    }
-
-    s"has the $property at the top of the page" in {
-      document.select(propertyLocator).text shouldBe property
-    }
-
     s"has hint text of $hint" in {
-      document.select(hintTextLocator).text shouldBe hint
+      document.getElementById(hintTextLocator).text shouldBe hint
     }
 
     s"has a $continue button" in {
       document.select(continueButtonLocator).text shouldBe continue
     }
 
-    if (fromCya) {
-      "has the correct file information shown" in {
-        document.select(evidenceLocator).text shouldBe evidence
-        document.select(fileNameLocator).text shouldBe fileNameText
-        document.select(removeFileLocator).text shouldBe remove
-      }
-    } else {
-      "has a file upload component" in {
-        document.select(fileUploadComponentLocator).hasClass("govuk-file-upload") shouldBe true
-        document.select(fileUploadButtonLocator).hasClass("govuk-file-upload") shouldBe true
-      }
+    "has a file upload component" in {
+      document.getElementById(fileUploadComponentLocator).hasClass("govuk-file-upload") shouldBe true
     }
 
     if (errorPage) {
@@ -1408,8 +1189,146 @@ class UploadControllerISpec extends ISpecBase {
       }
 
       s"has an error message of $errorMessage above the radio buttons" in {
-        document.select(errorMessageLocator).text shouldBe s"$error $errorMessage"
+        //File upload component doesn't appear to translate to welsh
+        document.select(errorMessageLocator).text shouldBe s"Error: $errorMessage"
       }
     }
   }
+
+  private def commonOtherEvidencePageTests(language: Language, evidenceType: String, userIsAgent: Boolean, relationship: String, backLink: String, fromCya: Boolean, errorPage: Boolean = false): Unit = {
+
+    def getTitleAndHeading(): (String, String) = {
+      val heading = (evidenceType, userIsAgent) match {
+        case ("RATES_BILL", false) => if (language == English) ratesBillHeadingText else ratesBillHeadingTextWelsh
+        case ("RATES_BILL", true) => if (language == English) ratesBillHeadingTextAgent else ratesBillHeadingTextAgentWelsh
+        case ("LEASE", false) => if (language == English) leaseHeadingText else leaseHeadingTextWelsh
+        case ("LEASE", true) => if (language == English) leaseHeadingTextAgent else leaseHeadingTextAgentWelsh
+        case ("LICENSE", false) => if (language == English) licenceHeadingText else licenceHeadingTextWelsh
+        case ("LICENSE", true) => if (language == English) licenceHeadingTextAgent else licenceHeadingTextAgentWelsh
+        case ("SERVICE_CHARGE", false) => if (language == English) serviceChargeHeadingText else serviceChargeHeadingTextWelsh
+        case ("SERVICE_CHARGE", true) => if (language == English) serviceChargeHeadingTextAgent else serviceChargeHeadingTextAgentWelsh
+        case ("STAMP_DUTY", false) => if (language == English) stampDutyHeadingText else stampDutyHeadingTextWelsh
+        case ("STAMP_DUTY", true) => if (language == English) stampDutyHeadingTextAgent else stampDutyHeadingTextAgentWelsh
+        case ("LAND_REGISTRY", false) => if (language == English) landRegistryHeadingText else landRegistryHeadingTextWelsh
+        case ("LAND_REGISTRY", true) => if (language == English) landRegistryHeadingTextAgent else landRegistryHeadingTextAgentWelsh
+        case ("WATER_RATE", false) => if (language == English) waterRateHeadingText else waterRateHeadingTextWelsh
+        case ("WATER_RATE", true) => if (language == English) waterRateHeadingTextAgent else waterRateHeadingTextAgentWelsh
+        case ("UTILITY_RATE", false) => if (language == English) utilityBillHeadingText else utilityBillHeadingTextWelsh
+        case ("UTILITY_RATE", true) => if (language == English) utilityBillHeadingTextAgent else utilityBillHeadingTextAgentWelsh
+      }
+
+      val title = {
+        val errorPrefix = if (language == English) errorText else errorTextWelsh
+        val titleSuffix = "- Valuation Office Agency - GOV.UK"
+        if (errorPage) s"$errorPrefix $heading $titleSuffix" else s"$heading $titleSuffix"
+      }
+
+      (title, heading)
+    }
+
+    val caption = if (language == English) captionText else captionTextWelsh
+    val back = if (language == English) backLinkText else backLinkTextWelsh
+    val hint = if (language == English) hintText else hintTextWelsh
+    val continue = if (language == English) continueButtonText else continueButtonTextWelsh
+    val error = if (language == English) errorText else errorTextWelsh
+    val errorMessage = if (language == English) errorMessageText else errorMessageTextWelsh
+    val errorSummary = if (language == English) errorSummaryText else errorSummaryTextWelsh
+    val (title, heading) = getTitleAndHeading()
+
+    lazy val document = if (errorPage) {
+      lazy val res = postUploadEvidencePage(language, evidenceType, userIsAgent, errorPage)
+      res.status shouldBe BAD_REQUEST
+      Jsoup.parse(res.body)
+    } else {
+      getUploadEvidencePage(language, evidenceType, relationship, userIsAgent, fromCya)
+    }
+
+    s"has a title of $title" in {
+      document.title() shouldBe title
+    }
+
+    s"has a heading of $heading" in {
+      document.getElementsByTag(headingLocator).text shouldBe heading
+    }
+
+    s"has a caption of $caption" in {
+      document.select(captionLocator).text shouldBe caption
+    }
+
+    s"has a back link with the correct href" in {
+      document.select(backLinkLocator).text shouldBe back
+      document.select(backLinkLocator).attr("href") shouldBe backLink
+    }
+
+    s"has hint text of $hint" in {
+      document.getElementById(hintTextLocator).text shouldBe hint
+    }
+
+    s"has a $continue button" in {
+      document.select(continueButtonLocator).text shouldBe continue
+    }
+
+    "has a file upload component" in {
+      document.getElementById(fileUploadComponentLocator).hasClass("govuk-file-upload") shouldBe true
+    }
+
+    if (errorPage) {
+      s"has an error summary with a message of $errorMessage" in {
+        document.select(errorSummaryTitleLocator).text shouldBe errorSummary
+        document.select(errorSummaryMessageLocator).text shouldBe errorMessage
+        document.select(errorSummaryMessageLocator).attr("href") shouldBe errorMessageHref
+      }
+
+      s"has an error message of $errorMessage above the radio buttons" in {
+        //File upload component doesn't appear to translate to welsh
+        document.select(errorMessageLocator).text shouldBe s"Error: $errorMessage"
+      }
+    }
+  }
+
+  "UploadController show method" should {
+    val ariaLiveId = "ariaLiveRegion"
+    val ariaFileRemovedWithNameText = "File image.png removed"
+    val ariaFileRemovedWithNameTextWelsh = "Ffeil image.png wedi’i dileu"
+    val ariaFileRemovedWithoutNameText = "File removed"
+    val ariaFileRemovedWithoutNameTextWelsh = "Ffeil wedi’i dileu"
+
+    "display the aria correct content in English for when a user has used the remove file link with file name present" in {
+      val document = testAriaLiveContent(fileRemoved = true, withFileName = true, English)
+      document.getElementsByTag(headingLocator).text shouldBe ratesBillHeadingText
+      document.getElementById(ariaLiveId).text() shouldBe ariaFileRemovedWithNameText
+    }
+
+    "display the aria correct content in Welsh for when a user has used the remove file link with file name present" in {
+      val document = testAriaLiveContent(fileRemoved = true, withFileName = true, Welsh)
+      document.getElementsByTag(headingLocator).text shouldBe ratesBillHeadingTextWelsh
+      document.getElementById(ariaLiveId).text() shouldBe ariaFileRemovedWithNameTextWelsh
+    }
+
+    "display the aria correct content in English for when a user has used the remove file link with no file name present" in {
+      val document = testAriaLiveContent(fileRemoved = true, withFileName = false, English)
+      document.getElementsByTag(headingLocator).text shouldBe ratesBillHeadingText
+      document.getElementById(ariaLiveId).text() shouldBe ariaFileRemovedWithoutNameText
+    }
+
+    "display the aria correct content in Welsh for when a user has used the remove file link with no file name present" in {
+      val document = testAriaLiveContent(fileRemoved = true, withFileName = false, Welsh)
+      document.getElementsByTag(headingLocator).text shouldBe ratesBillHeadingTextWelsh
+      document.getElementById(ariaLiveId).text() shouldBe ariaFileRemovedWithoutNameTextWelsh
+    }
+  }
+
+  def testAriaLiveContent(fileRemoved: Boolean = false, withFileName: Boolean = false, language: Language) = {
+    commonSetup(evidenceType = "RATES_BILL", relationship = "Owner", false, fromCya = false)
+    val optFileName = if(withFileName) "&removedFileName=image.png" else ""
+    val res = await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?fileRemoved=$fileRemoved$optFileName")
+        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .get()
+    )
+    res.status shouldBe OK
+    Jsoup.parse(res.body)
+  }
+
 }

@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package models.upscan
+package models.attachment
 
-import utils.JsonUtils
+import play.api.libs.json.{Json, OFormat}
 
-object FileStatus extends Enumeration {
-  type FileStatus = Value
+case class AttachmentId(reference: String)
 
-  val READY = Value("READY")
-  val UPLOADING = Value("UPLOADING")
-  val FAILED = Value("FAILED")
-
-  implicit val format = JsonUtils.enumFormat(FileStatus)
+object AttachmentId {
+  implicit val fmt: OFormat[AttachmentId] = Json.format[AttachmentId]
 }

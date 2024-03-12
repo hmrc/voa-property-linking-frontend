@@ -1,0 +1,161 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import actions.propertylinking.requests.LinkingSessionRequest
+@import binders.propertylinks.EvidenceChoices.EvidenceChoices
+@import binders.propertylinks.EvidenceChoices
+@import config.ApplicationConfig
+@import models.{EvidenceType, _}
+@import models.attachment.Attachment
+@import models.upscan.FileStatus.FileStatus
+@import models.upscan._
+
+
+@this(govukTag: GovukTag, govukSummaryList: GovukSummaryList, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukButton: GovukButton, govukErrorSummary: GovukErrorSummary)
+
+@(
+        evidenceType: EvidenceType,
+        evidenceChoice: EvidenceChoices,
+        submissionId: String,
+        uploadedFiles: Map[String, UploadedFileDetails] = Map(),
+        status: FileStatus,
+        fileReference: Option[String],
+        optAttachment: Option[Attachment])(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
+
+@attachmentFileName = @{
+    optAttachment.map(_.fileName).getOrElse("")
+}
+
+@attachmentDownloadLink = @{
+    optAttachment.flatMap(_.scanResult.flatMap(_.downloadUrl))
+}
+
+@attachmentFileNameHtml = {
+@if(attachmentDownloadLink.isDefined) {
+    <a class="govuk-link" href="@attachmentDownloadLink.get">@attachmentFileName</a>
+} else {
+    <a class="govuk-link" href=""></a>
+}
+}
+
+@title = @{
+    (request.ses.clientDetails, evidenceType) match {
+        case (Some(_), Lease) => {
+            messages("uploadEvidence.lease.client.title")
+        }
+        case (Some(_), License) => {
+            messages("uploadEvidence.license.client.title")
+        }
+        case (Some(_), RatesBillType) => {
+            messages("uploadRatesBill.show.client.title")
+        }
+        case (Some(_), _) => {
+//            TODO: I wonder if we need content that mentions client for these other evidence types
+            messages(s"uploadEvidence.$evidenceType.title")
+        }
+        case (None, Lease) => {
+            messages("uploadEvidence.lease.title")
+        }
+        case (None, License) => {
+            messages("uploadEvidence.license.title")
+        }
+        case (None, RatesBillType) => {
+            messages("uploadRatesBill.show.title")
+        }
+        case (None, _) => {
+            messages(s"uploadEvidence.$evidenceType.title")
+        }
+    }
+}
+
+@tag(status: FileStatus) = @{
+    status match {
+        case _@FileStatus.UPLOADING => govukTag(Tag(content = Text(messages("fileUploadResult.uploading")), classes = "govuk-tag--yellow", attributes = Map("id" -> "uploadStatus")))
+        case _@FileStatus.READY => govukTag(Tag(content = Text(messages("fileUploadResult.uploaded")), classes = "govuk-tag--green", attributes = Map("id" -> "uploadStatus")))
+        case _@FileStatus.FAILED => govukTag(Tag(content = Text(messages("fileUploadResult.failed")), classes = "govuk-tag--red", attributes = Map("id" -> "uploadStatus")))
+    }
+}
+
+@fileStatusConverter(fileStatus: String) = @{
+    fileStatus match {
+        case "UPLOADING" => FileStatus.UPLOADING
+        case "READY" => FileStatus.READY
+        case "FAILED" => FileStatus.FAILED
+        case _ => status
+
+    }
+}
+
+@backUri = @{
+    val propertyRelationship = request.ses.propertyRelationship.map(_.capacity).get
+    (evidenceType, propertyRelationship) match {
+        case (Lease, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (License, Owner | OwnerOccupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (Lease, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (License, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (noLeaseOrLicense, Occupier) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+        case (RatesBillType, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
+        case (_, _) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
+    }
+}
+
+@mainLayout(
+    pageTitle = title,
+    backUri = backUri
+) {
+
+    <span class="govuk-caption-l">@messages("caption.add.property")</span>
+    <h1 class="govuk-heading-l">@title</h1>
+    <p class="govuk-hint">@messages("fileUploadResult.hintText")</p>
+
+    <span id="ariaLiveRegion" class="govuk-visually-hidden" aria-live="polite"></span>
+
+    @govukSummaryList(SummaryList(
+        classes = "govuk-summary-list--long-key",
+        rows = Seq(
+            SummaryListRow(
+                key = Key(content = HtmlContent(attachmentFileNameHtml)),
+                value = Value(content = HtmlContent(tag(status))),
+                actions = Some(Actions(
+                    items = Seq(
+                        ActionItem(
+                            href = controllers.propertyLinking.routes.UploadController.remove(evidenceChoice).url,
+                            content = Text(messages("fileUploadResult.remove")),
+                            visuallyHiddenText = Some(attachmentFileName),
+                            attributes = Map("id" -> "remove-file-link")
+                        )
+                    )
+                )))
+    )))
+
+    @formWithCSRF(action = controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, status.toString), Symbol("id") -> "fileUploadForm") {
+        @govukButton(Button(
+            content = Text(messages("label.continue")),
+            attributes = Map("id" -> "continue")
+        ))
+    }
+
+    <span class="govuk-visually-hidden" id="fileUploadStatusUrl">@{
+        s"${controllers.propertyLinking.routes.UploadResultController.getUploadStatus}"
+    }</span>
+    <span class="govuk-visually-hidden" id="messageKeyUrl">@{
+        s"${controllers.propertyLinking.routes.UploadResultController.getMessageKeys}"
+    }</span>
+
+    <p id="fileRef" class="govuk-visually-hidden">@fileReference</p>
+
+    <input class="govuk-visually-hidden" id="submitUrlPrefix" value="@controllers.propertyLinking.routes.UploadResultController.submit(evidenceChoice, "")">
+}

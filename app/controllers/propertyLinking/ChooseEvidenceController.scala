@@ -19,20 +19,20 @@ package controllers.propertyLinking
 import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import binders.propertylinks.EvidenceChoices
+import binders.propertylinks.EvidenceChoices.{EvidenceChoices, OTHER, RATES_BILL}
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings._
-import models.{EvidenceType, Lease, LinkingSession, NoLeaseOrLicense, OccupierEvidenceType, UploadEvidenceData}
+import models.{CompleteFileInfo, EvidenceType, LandRegistryTitle, Lease, License, LinkingSession, NoLeaseOrLicense, OccupierEvidenceType, OtherUtilityBill, RatesBillType, ServiceCharge, StampDutyLandTaxForm, UploadEvidenceData, WaterRateDemand}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
+
 import java.time.LocalDate
-
 import javax.inject.Inject
-
 import scala.concurrent.{ExecutionContext, Future}
 
 class ChooseEvidenceController @Inject()(
@@ -70,32 +70,53 @@ class ChooseEvidenceController @Inject()(
   private def backlink(session: LinkingSession): String =
     if (session.earliestStartDate.isAfter(LocalDate.now))
       controllers.propertyLinking.routes.ClaimPropertyRelationshipController.back.url
-//    keeping this because it will need to be re-implemented after VTCCA-5189 is complete
-//    else if (session.fromCya.contains(true))
-//      controllers.propertyLinking.routes.DeclarationController.show().url
+    //    keeping this because it will need to be re-implemented after VTCCA-5189 is complete
+    //    else if (session.fromCya.contains(true))
+    //      controllers.propertyLinking.routes.DeclarationController.show().url
     else
       controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy.url
 
   def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    def updateSession(newAnswer: Boolean): Future[Unit] =
-      // if the same answer was already in the linking session, then do nothing
-      if (request.ses.hasRatesBill.contains(newAnswer)) Future.successful((): Unit)
-      else {
-        businessRatesAttachmentService.persistSessionData(
-          request.ses.copy(hasRatesBill = Some(newAnswer), uploadEvidenceData = UploadEvidenceData.empty))
-      }
-
     ChooseEvidence.form
       .bindFromRequest()
       .fold(
         errors => Future.successful(BadRequest(chooseEvidenceView(errors, Some(backlink(request.ses))))),
-        hasRatesBill =>
-          updateSession(hasRatesBill).map { _ =>
-            if (hasRatesBill) Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
-            else Redirect(routes.UploadController.show(EvidenceChoices.OTHER))
+        hasRatesBill => {
+          val evidence = if (hasRatesBill) RATES_BILL else OTHER
+
+          request.ses.hasRatesBill match {
+            case Some(bool) if bool == hasRatesBill =>
+              if (hasRatesBill) {
+                request.ses.uploadEvidenceData.fileInfo match {
+                  case Some(CompleteFileInfo(_, evidenceType)) =>
+                    Future.successful(
+                      Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(evidenceType)))))
+                  case _ =>
+                    Future.successful(Redirect(routes.UploadController.show(evidence)))
+                }
+              } else Future.successful(Redirect(routes.UploadController.show(evidence)))
+            case _ =>
+              businessRatesAttachmentService
+                .persistSessionData(
+                  request.ses.copy(hasRatesBill = Some(hasRatesBill), uploadEvidenceData = UploadEvidenceData.empty))
+                .map(_ => Redirect(routes.UploadController.show(evidence)))
+          }
         }
       )
   }
+
+  private def getEvidenceChoice(evidenceType: Option[EvidenceType] = None): EvidenceChoices =
+    evidenceType match {
+      case Some(RatesBillType)        => EvidenceChoices.RATES_BILL
+      case Some(Lease)                => EvidenceChoices.LEASE
+      case Some(License)              => EvidenceChoices.LICENSE
+      case Some(ServiceCharge)        => EvidenceChoices.SERVICE_CHARGE
+      case Some(StampDutyLandTaxForm) => EvidenceChoices.STAMP_DUTY
+      case Some(LandRegistryTitle)    => EvidenceChoices.LAND_REGISTRY
+      case Some(WaterRateDemand)      => EvidenceChoices.WATER_RATE
+      case Some(OtherUtilityBill)     => EvidenceChoices.UTILITY_RATE
+
+    }
 
   def submitOccupierForm: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async {
     implicit request =>
@@ -117,12 +138,19 @@ class ChooseEvidenceController @Inject()(
                 if (formData == NoLeaseOrLicense) EvidenceChoices.NO_LEASE_OR_LICENSE
                 else if (formData == Lease) EvidenceChoices.LEASE
                 else EvidenceChoices.LICENSE
-              Redirect(routes.UploadController.show(choice))
+              if (request.ses.evidenceType.contains(formData)) {
+                request.ses.uploadEvidenceData.fileInfo match {
+                  case Some(CompleteFileInfo(_, evidenceType)) =>
+                    Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(evidenceType))))
+                  case _ =>
+                    Redirect(routes.UploadController.show(choice))
+                }
+              } else {
+                Redirect(routes.UploadController.show(choice))
+              }
           }
         )
-
   }
-
 }
 
 object ChooseEvidence {

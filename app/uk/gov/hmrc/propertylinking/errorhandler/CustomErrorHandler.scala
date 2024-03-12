@@ -16,11 +16,8 @@
 
 package uk.gov.hmrc.propertylinking.errorhandler
 
-import java.time.{Clock, Instant, LocalDateTime, ZoneId}
-
 import config.ApplicationConfig
 import connectors.authorisation.errorhandler.exceptions.AuthorisationFailure
-import javax.inject.Inject
 import play.api.Logging
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.mvc.Results.{Forbidden, NotFound, Redirect}
@@ -30,6 +27,8 @@ import play.twirl.api.Html
 import uk.gov.hmrc.http.{HeaderNames, UpstreamErrorResponse}
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
 
+import java.time.{Clock, LocalDateTime}
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class CustomErrorHandler @Inject()(

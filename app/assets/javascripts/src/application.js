@@ -10,9 +10,9 @@
         new VOA.postcodeLookup();
         new VOA.ErrorSummary();
         new VOA.viewMessage();
-        new VOA.FileUpload();
         new VOA.UpdateEvidenceType();
         new VOA.UpdateOtherEvidencePage();
+        new VOA.FileUploadNew();
     };
 
 }(window.VOA = window.VOA|| {}, jQuery));

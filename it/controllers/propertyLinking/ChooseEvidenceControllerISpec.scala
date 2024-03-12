@@ -33,8 +33,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
   val clientOccupierHeadingText = "Do you have your client’s lease or licence to occupy for this property?"
   val captionText = "Add a property"
   val backLinkText = "Back"
-  val localCouncilReferenceText = "Local council reference: 2050466366770"
-  val propertyText = "Property: Test Address, Test Lane, T35 T3R"
   val hintText = "The bill should be for Test Address, Test Lane, T35 T3R."
   val occupierHintText = "The lease or licence to occupy should be for Test Address, Test Lane, T35 T3R."
   val yesRadioText = "Yes"
@@ -58,8 +56,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
   val clientOccupierHeadingTextWelsh = "Oes gennych chi brydles neu drwydded eich cleient i feddiannu ar gyfer yr eiddo hwn?"
   val captionTextWelsh = "Ychwanegu eiddo"
   val backLinkTextWelsh = "Yn ôl"
-  val localCouncilReferenceTextWelsh = "Cyfeirnod yr awdurdod lleol: 2050466366770"
-  val propertyTextWelsh = "Eiddo: Test Address, Test Lane, T35 T3R"
   val hintTextWelsh = "Dylai’r bil fod ar gyfer Test Address, Test Lane, T35 T3R."
   val occupierHintTextWelsh = "Dylai’r brydles neu’r drwydded i feddiannu fod ar gyfer Test Address, Test Lane, T35 T3R."
   val yesRadioTextWelsh = "Oes"
@@ -76,8 +72,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
   val headingLocator = "h1"
   val captionLocator = "#main-content > div > div > h2"
   val backLinkLocator = "#back-link"
-  val localCouncilReferenceLocator = "#local-authority-reference"
-  val propertyLocator = "#address"
   val hintTextLocator = "#hasRatesBill-hint"
   val occupierHintTextLocator = "#occupierEvidenceType-hint"
   val yesRadioLocator = "#hasRatesBill-yes"
@@ -122,11 +116,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
     s"has hint text of $hintText" in {
       document.select(hintTextLocator).text shouldBe hintText
     }
@@ -166,11 +155,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     "has a back link that goes to the occupancy page" in {
       document.select(backLinkLocator).text shouldBe backLinkText
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
     }
 
     s"has hint text of $occupierHintText" in {
@@ -220,11 +204,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
     s"has hint text of $hintText" in {
       document.select(hintTextLocator).text shouldBe hintText
     }
@@ -266,11 +245,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
     s"has hint text of $hintText" in {
       document.select(hintTextLocator).text shouldBe hintText
     }
@@ -310,11 +284,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     "has a back link that goes to the occupancy page" in {
       document.select(backLinkLocator).text shouldBe backLinkText
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
     }
 
     s"has hint text of $occupierHintText" in {
@@ -364,11 +333,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
     s"has hint text of $hintText" in {
       document.select(hintTextLocator).text shouldBe hintText
     }
@@ -410,11 +374,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
     s"has hint text of $hintText in Welsh" in {
       document.select(hintTextLocator).text shouldBe hintTextWelsh
     }
@@ -454,11 +413,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     "has a back link that goes to the occupancy page in Welsh" in {
       document.select(backLinkLocator).text shouldBe backLinkTextWelsh
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
     }
 
     s"has hint text of $occupierHintText in Welsh" in {
@@ -508,11 +462,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
     s"has hint text of $hintText in Welsh" in {
       document.select(hintTextLocator).text shouldBe hintTextWelsh
     }
@@ -554,11 +503,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
     s"has hint text of $hintText in Welsh" in {
       document.select(hintTextLocator).text shouldBe hintTextWelsh
     }
@@ -598,11 +542,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     "has a back link that goes to the occupancy page in Welsh" in {
       document.select(backLinkLocator).text shouldBe backLinkTextWelsh
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
     }
 
     s"has hint text of $occupierHintText in Welsh" in {
@@ -652,11 +591,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
     s"has hint text of $hintText in Welsh" in {
       document.select(hintTextLocator).text shouldBe hintTextWelsh
     }
@@ -703,11 +637,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
     s"has hint text of $hintText" in {
       document.select(hintTextLocator).text shouldBe hintText
     }
@@ -751,11 +680,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     "has a back link that goes to the occupancy page" in {
       document.select(backLinkLocator).text shouldBe backLinkText
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
     }
 
     s"has hint text of $occupierHintText" in {
@@ -809,11 +733,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
     s"has hint text of $occupierHintText" in {
       document.select(occupierHintTextLocator).text shouldBe occupierHintText
     }
@@ -865,11 +784,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
-    }
-
     s"has hint text of $hintText in Welsh" in {
       document.select(hintTextLocator).text shouldBe hintTextWelsh
     }
@@ -913,11 +827,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     "has a back link that goes to the occupancy page in Welsh" in {
       document.select(backLinkLocator).text shouldBe backLinkTextWelsh
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
     }
 
     s"has hint text of $occupierHintText in Welsh" in {
@@ -983,11 +892,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
     s"has hint text of $hintText" in {
       document.select(hintTextLocator).text shouldBe hintText
     }
@@ -1042,11 +946,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     "has a back link that goes to the occupancy page in Welsh" in {
       document.select(backLinkLocator).text shouldBe backLinkTextWelsh
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
     }
 
     s"has hint text of $hintText in Welsh" in {
@@ -1105,11 +1004,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
     s"has hint text of $hintText" in {
       document.select(hintTextLocator).text shouldBe hintText
     }
@@ -1164,11 +1058,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     "has a back link that goes to the occupancy page in Welsh" in {
       document.select(backLinkLocator).text shouldBe backLinkTextWelsh
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
     }
 
     s"has hint text of $hintText in Welsh" in {
@@ -1263,11 +1152,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
     s"has hint text of $occupierHintText" in {
       document.select(occupierHintTextLocator).text shouldBe occupierHintText
     }
@@ -1328,11 +1212,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     "has a back link that goes to the occupancy page in Welsh" in {
       document.select(backLinkLocator).text shouldBe backLinkTextWelsh
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
     }
 
     s"has hint text of $occupierHintText in Welsh" in {
@@ -1397,11 +1276,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    "has the address and local council reference" in {
-      document.select(propertyLocator).text shouldBe propertyText
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceText
-    }
-
     s"has hint text of $occupierHintText" in {
       document.select(occupierHintTextLocator).text shouldBe occupierHintText
     }
@@ -1462,11 +1336,6 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     "has a back link that goes to the occupancy page in Welsh" in {
       document.select(backLinkLocator).text shouldBe backLinkTextWelsh
       document.select(backLinkLocator).attr("href") shouldBe backLinkHref
-    }
-
-    "has the address and local council reference in Welsh" in {
-      document.select(propertyLocator).text shouldBe propertyTextWelsh
-      document.select(localCouncilReferenceLocator).text shouldBe localCouncilReferenceTextWelsh
     }
 
     s"has hint text of $occupierHintText in Welsh" in {
