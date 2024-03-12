@@ -56,7 +56,7 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
   val clientOccupierHeadingTextWelsh = "Oes gennych chi brydles neu drwydded eich cleient i feddiannu ar gyfer yr eiddo hwn?"
   val captionTextWelsh = "Ychwanegu eiddo"
   val backLinkTextWelsh = "Yn ôl"
-  val hintTextWelsh = "Dylai’r bil ardrethi busnes hwn fod y bil mwyaf diweddar sydd gennych ar gyfer yr eiddo, ar gyfer y cyfnod mai chi oedd y perchennog neu’r meddiannydd." //VTCCA-6436 raised as this doesn't match the English text
+  val hintTextWelsh = "Dylai’r bil fod ar gyfer Test Address, Test Lane, T35 T3R."
   val occupierHintTextWelsh = "Dylai’r brydles neu’r drwydded i feddiannu fod ar gyfer Test Address, Test Lane, T35 T3R."
   val yesRadioTextWelsh = "Oes"
   val noRadioTextWelsh = "Nac oes"

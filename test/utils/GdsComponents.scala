@@ -19,7 +19,7 @@ package utils
 import com.typesafe.config.{Config, ConfigFactory}
 import play.api.Configuration
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TimeoutDialogConfig, TrackingConsentConfig}
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TimeoutDialogConfig, TrackingConsentConfig, TudorCrownConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
 import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcTimeoutDialog}
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardFooter, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
@@ -53,7 +53,7 @@ trait GdsComponents {
   lazy val govukErrorSummary = new GovukErrorSummary
   lazy val govukFieldset = new GovukFieldset
   lazy val govukFooter = new GovukFooter
-  lazy val govukHeader = new GovukHeader
+  lazy val govukHeader = new GovukHeader(TudorCrownConfig(minimalConfiguration))
   lazy val govukHint = new GovukHint
   lazy val govukInput = new GovukInput(govukErrorMessage, govukHint, govukLabel)
   lazy val govukInsetText = new GovukInsetText
