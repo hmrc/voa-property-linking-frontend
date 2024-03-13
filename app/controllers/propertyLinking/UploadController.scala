@@ -245,10 +245,13 @@ class UploadController @Inject()(
 
     Upscan should return the fileReference with the error ???
    */
-  def upscanFailure(evidence: EvidenceChoices, errorCode: Option[String]): Action[AnyContent] =
+  def upscanFailure(
+        evidence: EvidenceChoices,
+        errorCode: Option[String],
+        errorMessage: Option[String]): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
-
+      logger.info(s"Upscan failed with ErrorCode: $errorCode, ErrorMessage: $errorMessage ")
       businessRatesAttachmentsService
         .persistSessionData(
           session.copy(evidenceType = None),

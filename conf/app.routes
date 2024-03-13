@@ -216,7 +216,7 @@ GET         /my-organisation/claim/property-links/evidence/message-key          
 GET         /my-organisation/claim/property-links/evidence/:choice/upload                     controllers.propertyLinking.UploadController.show(choice: EvidenceChoices, errorCode: Option[String] ?= None, fileRemoved: Boolean ?= false, removedFileName: Option[String] ?= None)
 POST        /my-organisation/claim/property-links/evidence/upload                             controllers.propertyLinking.UploadController.continue
 POST        /my-organisation/claim/property-links/evidence/:choice/upload/initiate            controllers.propertyLinking.UploadController.initiate(choice: EvidenceChoices)
-GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorCode: Option[String] ?= None)
+GET         /my-organisation/claim/property-links/evidence/:choice/upload/clear               controllers.propertyLinking.UploadController.upscanFailure(choice: EvidenceChoices, errorCode: Option[String] ?= None, errorMessage: Option[String] ?= None)
 GET         /my-organisation/claim/property-links/evidence/:choice/upload/remove              controllers.propertyLinking.UploadController.remove(choice: EvidenceChoices)
 POST        /my-organisation/claim/property-links/evidence/evidence-type                      controllers.propertyLinking.UploadController.updateEvidenceType
 GET         /my-organisation/claim/property-links/evidence/cannot-provide-evidence            controllers.propertyLinking.UploadController.cannotProvideEvidence
