@@ -103,9 +103,6 @@
         Call("POST", preparedUpload.uploadRequest.href),
         Symbol("enctype") -> "multipart/form-data",
         Symbol("id") -> "upload-form") {
-        @{
-            play.filters.csrf.CSRF.getToken(request).map {token => CSRF.formField(request)}
-        }
         @for(field <- preparedUpload.uploadRequest.fields) {
             <input type="hidden" name="@field._1" value="@field._2"/>
         }
