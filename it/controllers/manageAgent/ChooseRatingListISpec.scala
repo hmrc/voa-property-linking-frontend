@@ -60,9 +60,9 @@ class ChooseRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
   val headerTextWelsh = "Dewis rhestr ardrethu y gall Test Agent ei gweithredu ar eich rhan"
-  val currentlyThisTextMultipleWelsh = "Welsh Currently this agent can act for you on the 2023 and 2017 rating lists"
+  val currentlyThisTextMultipleWelsh = "Ar hyn o bryd, gall yr asiant hwn weithredu ar restrau ardrethu 2023 a 2017 ar eich rhan"
   def currentlyThisTextSingleWelsh(listYear: String) =
-    s"Welsh Currently this agent can act for you on the $listYear rating list"
+    s"Ar hyn o bryd, gall yr asiant hwn weithredu ar restr ardrethu $listYear ar eich rhan"
   val thisAgentTextWelsh = "Gall yr asiant hwn weithredu ar y canlynol ar eich rhan:"
   val the2023RatingListTextWelsh = "rhestr ardrethu 2023"
   val the2017RatingListTextWelsh = "rhestr ardrethu 2017"
@@ -76,8 +76,8 @@ class ChooseRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   val the2017ListTextWelsh =
     "Mae prisiadau blaenorol eich eiddo ar restr ardrethu 2017 – sef y prisiadau sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023."
   val choosingAListTextWelsh =
-    "Welsh Choosing a rating list is different to assigning properties to the agent. You can assign properties to them by managing your agent."
-  val managingAgentTextWelsh = "managing your agent"
+    "Mae dewis rhestr ardrethu yn wahanol i neilltuo eiddo i’r asiant. Gallwch neilltuo eiddo iddo drwy reoli’ch asiant."
+  val managingAgentTextWelsh = "reoli’ch asiant"
   val doYouWantTextWelsh = "A hoffech i’r asiant hwn weithredu ar y ddwy restr ardrethu ar eich rhan?"
   val yesTextWelsh = "Iawn"
   val thisAgentCanTextWelsh =
