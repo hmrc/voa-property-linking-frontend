@@ -44,7 +44,7 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
   val headerTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017"
-  val currentlyThisTextMultipleWelsh = "Welsh Currently this agent can act for you on the 2023 and 2017 rating lists"
+  val currentlyThisTextMultipleWelsh = "Ar hyn o bryd, gall yr asiant hwn weithredu ar restrau ardrethu 2023 a 2017 ar eich rhan"
   val theRatingListTextWelsh =
     "Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac i’r rheiny maen nhw’n ychwanegu at eich cyfrif."
   val theAgentTextWelsh =
@@ -82,7 +82,7 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   def currentlyThisTextSingle(listYear: String) = s"Currently this agent can act for you on the $listYear rating list"
 
   def currentlyThisTextSingleWelsh(listYear: String) =
-    s"Welsh Currently this agent can act for you on the $listYear rating list"
+    s"Ar hyn o bryd, gall yr asiant hwn weithredu ar restr ardrethu $listYear ar eich rhan"
 
   "WhichRatingListController show method" should {
     "Show an English which rating list screen with the correct text for already being on both lists when the language is set to English" which {

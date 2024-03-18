@@ -38,7 +38,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val radioChangeText = "Change which rating list they can act on for you"
   val radioRemoveText = "Remove from your account"
 
-  val titleTextWelsh = "What do you want to do with your agent Test Agent? - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Beth hoffech ei wneud â’ch asiant Test Agent? - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val continueButtonTextWelsh = "Parhau"
   val captionTextWelsh = "Rheoli asiant"
@@ -47,13 +47,12 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
   val radioAssignYourTextWelsh = "Neilltuo i’ch eiddo"
   val radioAssignAllTextWelsh = "Neilltuo i bob eiddo"
-  val radioAssignASomeTextWelsh = "Assign to one or more properties"
+  val radioAssignASomeTextWelsh = "Neilltuo un eiddo neu fwy iddo"
   val radioUnassignedAllTextWelsh = "Dad-neilltuo o’ch holl eiddo"
-  val radioUnassignedASomeTextWelsh = "Unassign from one or more properties"
-  val radioChangeTextWelsh = "Change which rating list they can act on for you"
+  val radioUnassignedASomeTextWelsh = "Tynnu o un eiddo neu fwy"
+  val radioChangeTextWelsh = "Newid pa restr ardrethu y gall yr asiant hwn weithredu arni ar eich rhan"
   val radioRemoveTextWelsh = "Dileu o’ch cyfrif"
-  val radioUnAssignYourTextWelsh = "Unassign from my property"
-
+  val radioUnAssignYourTextWelsh = "Tynnu o’m heiddo"
 
   val backLinkSelector = "#back-link"
   val captionSelector = ".govuk-caption-l"

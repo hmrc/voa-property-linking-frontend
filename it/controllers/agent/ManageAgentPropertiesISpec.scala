@@ -37,16 +37,16 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
   def assignedPropertyListElement(address: String) = address
 
-  def singleRatingListTextWelsh(ratingList: String) = s"This agent can act for you on your property valuations on the $ratingList rating list, for properties that you assign them to or they add to your account."
+  def singleRatingListTextWelsh(ratingList: String) = s"Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu $ratingList, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif."
 
   val titleTextWelsh = "Eich asiant - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Asiant"
-  val noOrMultipleRatingListTextWelsh = "This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign them to or they add to your account."
+  val noOrMultipleRatingListTextWelsh = "Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif."
   val manageButtonTextWelsh = "Rheoli’r asiant hwn"
-  val ratingListSectionHeadingWelsh = "Rhestrau ardrethu y gallant weithredu arnynt ar eich rhan"
+  val ratingListSectionHeadingWelsh = "Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan"
   val assignedPropertiesHeadingWelsh = "Eiddo wedi’u neilltuo"
-  val assignedToNoPropertiesWelsh = "This agent is not assigned to any properties"
+  val assignedToNoPropertiesWelsh = "Nid oes eiddo wedi’i neilltuo i’r asiant hwn."
 
   val backLinkSelector = "#back-link"
   val captionSelector = ".govuk-caption-l"
