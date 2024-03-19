@@ -25,13 +25,13 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
   val confirmText = "Confirm"
   val cancelText = "Cancel"
 
-  def titleTextWelsh(listYear: String) = s"Welsh Are you sure you want Test Agent to act for you on the $listYear rating list? - Valuation Office Agency - GOV.UK"
+  def titleTextWelsh(listYear: String) = s"A ydych yn siŵr eich bod am i Test Agent weithredu ar restr ardrethu $listYear ar eich rhan? - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
-  def headerTextWelsh(listYear: String) = s"Welsh Are you sure you want Test Agent to act for you on the $listYear rating list?"
-  def thisAgentTextWelsh(listYear: String) = s"Welsh This agent will only be able to act for you on the $listYear rating list."
-  def theyWillTextWelsh(otherListYear: String) = s"Welsh They will not be able to see valuations on the $otherListYear rating list, or act on them for you."
-  val restrictingTextWelsh = "Rhybudd Welsh Restricting an agent to a single rating list when they have Check and Challenge cases in progress on the other rating list means they will no longer be able to act on them for you."
+  def headerTextWelsh(listYear: String) = s"A ydych yn siŵr eich bod am i Test Agent weithredu ar restr ardrethu $listYear ar eich rhan?"
+  def thisAgentTextWelsh(listYear: String) = s"Bydd yr asiant hwn ond yn gallu gweithredu ar restr ardrethu $listYear ar eich rhan."
+  def theyWillTextWelsh(otherListYear: String) = s"Ni fydd modd iddo weld prisiadau o restr ardrethu $otherListYear na gweithredu arnynt ar eich rhan."
+  val restrictingTextWelsh = "Rhybudd Bydd cyfyngu asiant i un rhestr ardrethu tra bo achosion Gwirio a Herio ar y gweill ganddo ar restr ardrethu arall yn golygu na fydd modd iddo weithredu arnynt ar eich rhan mwyach."
   val confirmTextWelsh = "Cadarnhau"
   val cancelTextWelsh = "Canslo"
 

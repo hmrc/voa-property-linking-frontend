@@ -425,7 +425,7 @@ assessments.draft.title=Y prisiad yn y dyfodol
 assessments.historic.title=Prisiadau blaenorol
 assessments.current.text=Presennol
 assessments.draft.text=Drafft
-assessments.historic.text=HanepropertyRepresentation.onePropertyNoExistingAgent.questionsyddol
+assessments.historic.text=Hanesyddol
 assessments.aria.label.full=Dewiswch y prisiad hwn - {0} o {1} i {2}
 assessments.aria.label.partial=Dewiswch y prisiad hwn - {0} o {1}
 assessments.selectValuation.to=i
@@ -574,11 +574,11 @@ propertyRepresentation.confirmation.thisAgentCan=Gall yr asiant hwn:
 propertyRepresentation.confirmation.thisAgentCan.list.1=ychwanegu eiddo at eich cyfrif
 propertyRepresentation.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
 propertyRepresentation.confirmation.whatHappensNext.p1=Gallwch neilltuo neu ddadneilltuo’r asiant hwn o’ch eiddo trwy <a class="govuk-link" id="manage-agents-link" href="{0}">reoli eich asiantiaid</a>.
-propertyRepresentation.confirmation.secondBulletPoint.both_years= act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account
-propertyRepresentation.confirmation.secondBulletPoint.2017= act for you on your property valuations on the 2017 rating list, for properties that you assign to them or they add to your account
-propertyRepresentation.confirmation.secondBulletPoint.2023= act for you on your property valuations on the 2023 rating list, for properties that you assign to them or they add to your account
-propertyRepresentation.confirmation.whatHappensNext.new.p1=You can assign or unassign this agent from your properties or change the rating lists they can act for you on by
-propertyRepresentation.confirmation.whatHappensNext.new.p1.link=managing your agents
+propertyRepresentation.confirmation.secondBulletPoint.both_years=gweithredu ar eich rhan ar brisiadau eich eiddo o restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+propertyRepresentation.confirmation.secondBulletPoint.2017=gweithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+propertyRepresentation.confirmation.secondBulletPoint.2023=gweithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu 2023, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+propertyRepresentation.confirmation.whatHappensNext.new.p1=Gallwch neilltuo’ch eiddo i’r asiant hwn neu dynnu’r asiant, neu newid y rhestrau ardrethu y gall weithredu arnynt ar eich rhan, drwy
+propertyRepresentation.confirmation.whatHappensNext.new.p1.link=reoli eich asiantau
 
 error.propertyRepresentation.title=Mae yna broblem
 error.propertyRepresentation.unknownAgent=Does ddim asiant ar gyfer y cod asiant a ddarparwyd;
@@ -592,18 +592,18 @@ propertyRepresentation.showAgents.label.action=Gweithred
 propertyRepresentation.showAgents.title=Eich asiantiaid
 propertyRepresentation.showAgents.appointNewAgent.link=Penodi asiant
 propertyRepresentation.noAgents=Does gennych chi ddim asiantiaid.
-propertyRepresentation.showAgents.help.link=Help gyda phenodi a rheoli asiantiaid
-propertyRepresentation.showAgents.label.rating=Rhestrau ardrethu y gallant weithredu arnynt ar eich rhan
+propertyRepresentation.showAgents.help.link=Help gyda phenodi a rheoli asiantau
+propertyRepresentation.showAgents.label.rating=Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan
 propertyRepresentation.showAgents.properties.assigned={0} o {1}
 propertyRepresentation.showAgents.ratingList=Rhestrau ardrethu {0}
-propertyRepresentation.showAgents.ratingLists=Rhestrau ardrethu 2023 a 2017
-propertyRepresentation.showAgents.viewAgent=Gweld asiant
+propertyRepresentation.showAgents.ratingLists=Rhestr ardrethu 2023 a rhestr ardrethu 2017
+propertyRepresentation.showAgents.viewAgent=Bwrw golwg dros asiant
 propertyRepresentation.caption=Asiant
-propertyRepresentation.ratingLists.heading=Rhestrau ardrethu y gallant weithredu arnynt ar eich rhan
-propertyRepresentation.ratingList.p=This agent can act for you on your property valuations on the {0} rating list, for properties that you assign them to or they add to your account.
-propertyRepresentation.ratingLists.p=This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign them to or they add to your account.
-propertyRepresentation.agentProperties.assigned.none=This agent is not assigned to any properties.
-propertyRepresentation.manageAgent.options.changeRatingList=Change which rating list they can act on for you
+propertyRepresentation.ratingLists.heading=Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan
+propertyRepresentation.ratingList.p=Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu {0}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif.
+propertyRepresentation.ratingLists.p=Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif.
+propertyRepresentation.agentProperties.assigned.none=Nid oes eiddo wedi’i neilltuo i’r asiant hwn.
+propertyRepresentation.manageAgent.options.changeRatingList=Newid pa restr ardrethu y gall yr asiant hwn weithredu arni ar eich rhan
 
 propertyRepresentation.agentProperties.assigned.title=Eich asiant
 propertyRepresentation.agentProperties.assigned=Eiddo wedi’u neilltuo
@@ -616,7 +616,7 @@ error.agentProperties.filter=Rhaid i chi nodi rhywbeth i chwilio amdano
 
 #Manage Agent
 propertyRepresentation.manageAgent.title=Rheoli asiant
-propertyRepresentation.manageAgent.question=What do you want to do with your agent {0}?
+propertyRepresentation.manageAgent.question=Beth hoffech ei wneud â’ch asiant {0}?
 propertyRepresentation.manageAgent.question.old=Beth ydych chi eisiau ei wneud i’r asiant {0}?
 
 propertyRepresentation.manageAgent.removeFromAccount.title=Dileu’r asiant o’ch cyfrif
@@ -644,14 +644,14 @@ propertyRepresentation.manageAgent.unassignFromProperties.li3=gweld gwybodaeth e
 propertyRepresentation.manageAgent.unassignFromProperties.warningText=Mae dadneilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach.
 propertyRepresentation.manageAgent.unassignFromProperties.confirm=Cadarnhau a dadneilltuo
 
-propertyRepresentation.manageAgent.options.unassignFromOneOrMoreProperties=Unassign from one or more properties
-propertyRepresentation.manageAgent.options.assignToOneOrMoreProperties=Assign to one or more properties
+propertyRepresentation.manageAgent.options.unassignFromOneOrMoreProperties=Tynnu o un eiddo neu fwy
+propertyRepresentation.manageAgent.options.assignToOneOrMoreProperties=Neilltuo un eiddo neu fwy iddo
 propertyRepresentation.manageAgent.options.assignToAllProperties=Neilltuo i bob eiddo
 propertyRepresentation.manageAgent.options.assignToSomeProperties=Neilltuo i ambell eiddo
 propertyRepresentation.manageAgent.options.unassignFromAllProperties=Dad-neilltuo o’ch holl eiddo
 propertyRepresentation.manageAgent.options.unassignFromSomeProperties=Dad-neilltuo o rhai eiddo
 propertyRepresentation.manageAgent.options.assignToYourProperty=Neilltuo i’ch eiddo
-propertyRepresentation.manageAgent.options.unassignFromYourProperty= Unassign from my property
+propertyRepresentation.manageAgent.options.unassignFromYourProperty= Tynnu o’m heiddo
 propertyRepresentation.manageAgent.options.removeFromYourAccount=Dileu o’ch cyfrif
 
 propertyRepresentation.manageAgent.assignToAllProperties.title.multiple=Ydych chi’n siŵr eich bod am neilltuo {0} i’ch holl eiddo?
@@ -802,8 +802,8 @@ propertyRepresentation.agentSummary.homeLink=Ewch i hafan eich cyfrif
 
 #Choose rating list years
 chooseRatingList.header = Dewis rhestr ardrethu y gall {0} ei gweithredu ar eich rhan
-chooseRatingList.currentlyThis.multiple = Welsh Currently this agent can act for you on the 2023 and 2017 rating lists
-chooseRatingList.currentlyThis.single = Welsh Currently this agent can act for you on the {0} rating list
+chooseRatingList.currentlyThis.multiple =Ar hyn o bryd, gall yr asiant hwn weithredu ar restrau ardrethu 2023 a 2017 ar eich rhan
+chooseRatingList.currentlyThis.single = Ar hyn o bryd, gall yr asiant hwn weithredu ar restr ardrethu {0} ar eich rhan
 chooseRatingList.thisAgentCan = Gall yr asiant hwn weithredu ar y canlynol ar eich rhan:
 chooseRatingList.the2023List = rhestr ardrethu 2023
 chooseRatingList.the2017List = rhestr ardrethu 2017
@@ -813,7 +813,7 @@ chooseRatingList.theVoaCalculates = Mae Asiantaeth y Swyddfa Brisio (VOA) yn cyf
 chooseRatingList.theVoaUpdates = Mae’r VOA yn diweddaru gwerthoedd ardrethol ac yn cyhoeddi rhestr ardrethu newydd bob ychydig flynyddoedd.
 chooseRatingList.the2023RatingList = Rhestr ardrethu 2023 yw’r rhestr ardrethu presennol, ac mae ganddi brisiad cyfredol eich eiddo. Os oes gan eich eiddo brisiadau blaenorol a ddaeth i rym ar ôl 1 Ebrill 2023, mae’n bosibl bod y prisiadau hyn ar restr ardrethu 2023 hefyd.
 chooseRatingList.the2017RatingList = Mae prisiadau blaenorol eich eiddo ar restr ardrethu 2017 – sef y prisiadau sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023.
-chooseRatingList.choosingAList = Welsh Choosing a rating list is different to assigning properties to the agent. You can assign properties to them by <a class="govuk-link" href="{0}">managing your agent</a>.
+chooseRatingList.choosingAList =Mae dewis rhestr ardrethu yn wahanol i neilltuo eiddo i’r asiant. Gallwch neilltuo eiddo iddo drwy <a class="govuk-link" href="{0}">reoli’ch asiant</a>.
 chooseRatingList.doYouWant = A hoffech i’r asiant hwn weithredu ar y ddwy restr ardrethu ar eich rhan?
 chooseRatingList.yes = Iawn
 chooseRatingList.thisAgentBoth = Gall yr asiant hwn weithredu ar restr ardrethu 2023 a rhestr ardrethu 2017 ar eich rhan. Dewiswch yr opsiwn hwn os nad ydych yn siŵr.
@@ -822,8 +822,8 @@ chooseRatingList.youWantToChoose = Rydych am ddewis naill ai restr ardrethu 2023
 
 #Which rating list years
 whichRatingList.header = Dewiswch restr ardrethu 2023 neu 2017
-whichRatingList.currentYears.single = Welsh Currently this agent can act for you on the {0} rating list
-whichRatingList.currentYears.multiple = Welsh Currently this agent can act for you on the 2023 and 2017 rating lists
+whichRatingList.currentYears.single = Ar hyn o bryd, gall yr asiant hwn weithredu ar restr ardrethu {0} ar eich rhan
+whichRatingList.currentYears.multiple = Ar hyn o bryd, gall yr asiant hwn weithredu ar restrau ardrethu 2023 a 2017 ar eich rhan
 whichRatingList.theRatingList = Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac i’r rheiny maen nhw’n ychwanegu at eich cyfrif.
 whichRatingList.theAgentWill = Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan.
 whichRatingList.whichRatingList = Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?
@@ -834,24 +834,24 @@ whichRatingList.2017ListHelp = Dim ond ar brisiadau blaenorol ar gyfer eich eidd
 whichRatingList.error = Dewis ar ba restr ardrethu chi am i’r asiant hwn weithredu ar eich rhan
 
 #Rating list years confirmation screen
-ratingsListConfirmation.multiple.header = Welsh Are you sure you want {0} to act for you on the 2023 and 2017 rating lists?
-ratingsListConfirmation.multiple.forAllYour = Welsh For all your property valuations on the 2023 and 2017 rating lists, this agent will be able to:
-ratingsListConfirmation.multiple.seeDetailed = Welsh see detailed property information
-ratingsListConfirmation.multiple.seeCheck = Welsh see Check and Challenge case correspondence such as messages and emails
-ratingsListConfirmation.multiple.sendCheck = Welsh send Check and Challenge cases
-ratingsListConfirmation.multiple.thisApplies = Welsh This applies to properties that you assign to them or they add to your account
-ratingsListConfirmation.header = Welsh Are you sure you want {0} to act for you on the {1} rating list?
-ratingsListConfirmation.thisAgentWill = Welsh This agent will only be able to act for you on the {0} rating list.
-ratingsListConfirmation.theyWillNot = Welsh They will not be able to see valuations on the {0} rating list, or act on them for you.
-ratingsListConfirmation.restricting = Welsh Restricting an agent to a single rating list when they have Check and Challenge cases in progress on the other rating list means they will no longer be able to act on them for you.
+ratingsListConfirmation.multiple.header = A ydych yn siŵr eich bod am i {0} weithredu ar restrau ardrethu 2023 a 2017 ar eich rhan?
+ratingsListConfirmation.multiple.forAllYour = Bydd yr asiant hwn yn gallu gwneud y canlynol ar gyfer pob un o’ch prisiadau eiddo o restrau ardrethu 2023 a 2017:
+ratingsListConfirmation.multiple.seeDetailed = gweld gwybodaeth fanwl am eiddo
+ratingsListConfirmation.multiple.seeCheck = gweld gohebiaeth ynghylch achosion Gwirio a Herio, megis negeseuon ac e-byst
+ratingsListConfirmation.multiple.sendCheck = anfon achosion Gwirio a Herio
+ratingsListConfirmation.multiple.thisApplies = Mae hyn yn berthnasol i eiddo rydych yn eu neilltuo iddo, ac i eiddo y mae’n eu hychwanegu at eich cyfrif
+ratingsListConfirmation.header = A ydych yn siŵr eich bod am i {0} weithredu ar restr ardrethu {1} ar eich rhan?
+ratingsListConfirmation.thisAgentWill = Bydd yr asiant hwn ond yn gallu gweithredu ar restr ardrethu {0} ar eich rhan.
+ratingsListConfirmation.theyWillNot = Ni fydd modd iddo weld prisiadau o restr ardrethu {0} na gweithredu arnynt ar eich rhan.
+ratingsListConfirmation.restricting = Bydd cyfyngu asiant i un rhestr ardrethu tra bo achosion Gwirio a Herio ar y gweill ganddo ar restr ardrethu arall yn golygu na fydd modd iddo weithredu arnynt ar eich rhan mwyach.
 
 #Rating list years confirmed screen
-ratingsListConfirmed.header = Welsh The rating lists that {0} can act for you on has been changed
-ratingsListConfirmed.thisAgent.multiple = Welsh This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account
-ratingsListConfirmed.thisAgent.single = Welsh This agent can act for you on your property valuations on the {0} rating list, for properties that you assign to them or they add to your account
-ratingsListConfirmed.whatHappens = Welsh What happens next
-ratingsListConfirmed.youCanChange = Welsh You can change the rating lists this agent can act for you on at any time.
-ratingsListConfirmed.goToYour = Welsh Go to your account home
+ratingsListConfirmed.header = Mae’r rhestrau ardrethu y gall {0} weithredu arnynt ar eich rhan wedi newid
+ratingsListConfirmed.thisAgent.multiple = Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+ratingsListConfirmed.thisAgent.single = Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu {0}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+ratingsListConfirmed.whatHappens = Yr hyn sy’n digwydd nesaf
+ratingsListConfirmed.youCanChange = Gallwch newid pa restrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan ar unrhyw adeg.
+ratingsListConfirmed.goToYour = Ewch i hafan eich cyfrif
 
 #VIEW REPRESENTATIONS (AGENT)
 p.agentCode=Eich cod asiant yw {0}
@@ -1141,7 +1141,6 @@ requestDetailedValuation.button=Gwneud cais am brisiad
 
 auto.requestDetailedValuation.smallTitle.yourProperty=Eich eidd
 auto.requestDetailedValuation.localCouncilRef=Cyfeirnod yr awdurdod lleol:
-
 auto.requestDetailedValuation.subhead.valuation=Prisiad
 auto.requestDetailedValuation.rv.caption.future=Gwerth ardrethol y dyfodol (o {0})
 auto.requestDetailedValuation.rv.caption.current=Gwerth ardrethol cyfredol ({0} i presennol)
