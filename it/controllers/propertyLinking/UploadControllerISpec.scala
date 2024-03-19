@@ -1319,11 +1319,6 @@ class UploadControllerISpec extends ISpecBase {
   }
 
   "UploadController show method displays correct error messages" should {
-    val ariaLiveId = "ariaLiveRegion"
-    val ariaFileRemovedWithNameText = "File image.png removed"
-    val ariaFileRemovedWithNameTextWelsh = "Ffeil image.png wedi’i dileu"
-    val ariaFileRemovedWithoutNameText = "File removed"
-    val ariaFileRemovedWithoutNameTextWelsh = "Ffeil wedi’i dileu"
 
     "display the correct content in English for when a upscan return 'REJECTED'" in {
       val document = testupscanErrorContent(errorCode = "REJECTED", English)

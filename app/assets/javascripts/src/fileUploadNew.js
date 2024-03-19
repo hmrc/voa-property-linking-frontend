@@ -32,7 +32,6 @@
                     if (fileName && fileDownloadLink) {
                         updateFileName(fileName, fileDownloadLink);
                     }
-                    //TODO: check this
                     if (fileStatus === "READY" || fileStatus === "FAILED") {
                         clearInterval(intervalId);
                     }
