@@ -1141,7 +1141,6 @@ requestDetailedValuation.button=Gwneud cais am brisiad
 
 auto.requestDetailedValuation.smallTitle.yourProperty=Eich eidd
 auto.requestDetailedValuation.localCouncilRef=Cyfeirnod yr awdurdod lleol:
-
 auto.requestDetailedValuation.subhead.valuation=Prisiad
 auto.requestDetailedValuation.rv.caption.future=Gwerth ardrethol y dyfodol (o {0})
 auto.requestDetailedValuation.rv.caption.current=Gwerth ardrethol cyfredol ({0} i presennol)
