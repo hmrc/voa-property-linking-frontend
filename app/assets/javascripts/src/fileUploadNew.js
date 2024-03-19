@@ -27,9 +27,13 @@
                     var fileDownloadLink = responseBody[2];
                     updateTag(fileStatus);
                     updateFormAction(fileStatus);
-                    updateFileName(fileName, fileDownloadLink);
                     updateLiveRegion(fileStatus);
-                    if (fileStatus === "READY") {
+                    // Only update filename & download link if present
+                    if (fileName && fileDownloadLink) {
+                        updateFileName(fileName, fileDownloadLink);
+                    }
+                    //TODO: check this
+                    if (fileStatus === "READY" || fileStatus === "FAILED") {
                         clearInterval(intervalId);
                     }
                 },
@@ -83,7 +87,7 @@
                 case "FAILED":
                     return messages[2];
                 default:
-                    return "";
+                    return messages[0];
             }
         }
 
