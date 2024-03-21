@@ -64,7 +64,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
   val onePropertySelector = "#assigned-to"
   val thisAgentCanSelector = "#agent-can-text"
   val addPropertiesSelector = "#add-properties-text"
-  val actForYouSelector = "#act-on-valuations"
+  val actForYouSelector = "#act-on-valuations-text"
   val whatHappensNextSelector = "#what-happens-next-title"
   val youCanAssignSelector = "#what-happens-next-text"
   val managingAgentsLinkSelector = "#manage-agents-link"
@@ -100,7 +100,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       }
 
       s"has a bullet point on the screen of $actForYouText" in {
-        document.select(actForYouSelector).size() shouldBe actForYouText
+        document.select(actForYouSelector).text shouldBe actForYouText
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -148,7 +148,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       }
 
       s"has a bullet point on the screen of $actForYouText" in {
-        document.select(actForYouSelector).size() shouldBe actForYouText
+        document.select(actForYouSelector).text shouldBe actForYouText
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -196,7 +196,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       }
 
       s"has a bullet point on the screen of $actForYouText" in {
-        document.select(actForYouSelector).size() shouldBe actForYouText
+        document.select(actForYouSelector).text shouldBe actForYouText
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -244,7 +244,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       }
 
       s"has a bullet point on the screen of $actForYouText" in {
-        document.select(actForYouSelector).size() shouldBe actForYouText
+        document.select(actForYouSelector).text shouldBe actForYouText
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -292,7 +292,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       }
 
       s"has a bullet point on the screen of $actForYouText in Welsh" in {
-        document.select(actForYouSelector).size() shouldBe actForYouTextWelsh
+        document.select(actForYouSelector).text shouldBe actForYouTextWelsh
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
@@ -340,7 +340,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       }
 
       s"has a bullet point on the screen of $actForYouText in Welsh" in {
-        document.select(actForYouSelector).size() shouldBe actForYouTextWelsh
+        document.select(actForYouSelector).text shouldBe actForYouTextWelsh
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
@@ -388,7 +388,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       }
 
       s"has a bullet point on the screen of $actForYouText in Welsh" in {
-        document.select(actForYouSelector).size() shouldBe actForYouTextWelsh
+        document.select(actForYouSelector).text shouldBe actForYouTextWelsh
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
@@ -436,7 +436,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       }
 
       s"has a bullet point on the screen of $actForYouText in Welsh" in {
-        document.select(actForYouSelector).size() shouldBe actForYouTextWelsh
+        document.select(actForYouSelector).text shouldBe actForYouTextWelsh
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {

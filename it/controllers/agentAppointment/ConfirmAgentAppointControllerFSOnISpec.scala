@@ -55,7 +55,7 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
   val assignedToPropertiesSelector = "#assigned-to"
   val thisAgentCanSelector = "#agent-can-text"
   val addPropertiesSelector = "#add-properties-text"
-  val ratingsListSelector = "#act-on-valuations"
+  val ratingsListSelector = "#act-on-valuations-text"
   val whatHappensNextSelector = "#what-happens-next-title"
   val youCanAssignSelector = "#main-content > div > div > p:nth-child(5)"
   val managingAgentsLinkSelector = "#showAgent"
