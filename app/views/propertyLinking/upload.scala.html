@@ -40,6 +40,7 @@
     errorCode match {
         case Some("EntityTooLarge") => "fileUpload.EntityTooLarge"
         case Some("InvalidArgument") => "fileUpload.InvalidArgument"
+        case Some("EntityTooSmall") => "fileUpload.InvalidArgument"
         case Some("REJECTED") => "fileUpload.rejected"
         case _ => "fileUpload.failed"
     }

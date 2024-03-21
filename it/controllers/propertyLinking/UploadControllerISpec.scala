@@ -1318,6 +1318,51 @@ class UploadControllerISpec extends ISpecBase {
     }
   }
 
+  "UploadController show method displays correct error messages" should {
+
+    "display the correct content in English for when a upscan return 'REJECTED'" in {
+      val document = testupscanErrorContent(errorCode = "REJECTED", English)
+      document.select("#main-content > div > div > div > div > h2").text() shouldBe errorSummaryText
+      document.select("#main-content > div > div > div > div > div > ul > li > a").text() shouldBe "The selected file must be a Word doc, Excel sheet, PDF, PNG or JPG"
+      document.select("#choose-file-error").text() shouldBe "Error: The selected file must be a Word doc, Excel sheet, PDF, PNG or JPG"
+    }
+
+    "display the correct content in Welsh for when a upscan return 'REJECTED'" in {
+      val document = testupscanErrorContent(errorCode = "REJECTED", Welsh)
+      document.select("#main-content > div > div > div > div > h2").text() shouldBe errorSummaryTextWelsh
+      document.select("#main-content > div > div > div > div > div > ul > li > a").text() shouldBe "Rhaid i’r ffeil a ddewiswyd fod yn ddogfen Word, taenlen Excel, PDF, PNG neu JPG"
+      document.select("#choose-file-error").text() shouldBe "Error: Rhaid i’r ffeil a ddewiswyd fod yn ddogfen Word, taenlen Excel, PDF, PNG neu JPG"
+    }
+
+    "display the correct content in English for when a upscan return 'EntityTooSmall'" in {
+      val document = testupscanErrorContent(errorCode = "EntityTooSmall", English)
+      document.select("#main-content > div > div > div > div > h2").text() shouldBe errorSummaryText
+      document.select("#main-content > div > div > div > div > div > ul > li > a").text() shouldBe "Select a file"
+      document.select("#choose-file-error").text() shouldBe "Error: Select a file"
+    }
+
+    "display the correct content in Welsh for when a upscan return 'EntityTooSmall'" in {
+      val document = testupscanErrorContent(errorCode = "EntityTooSmall", Welsh)
+      document.select("#main-content > div > div > div > div > h2").text() shouldBe errorSummaryTextWelsh
+      document.select("#main-content > div > div > div > div > div > ul > li > a").text() shouldBe "Dewis bil ardrethi"
+      document.select("#choose-file-error").text() shouldBe "Error: Dewis bil ardrethi"
+    }
+
+    "display the correct content in English for when a upscan return 'EntityTooLarge'" in {
+      val document = testupscanErrorContent(errorCode = "EntityTooLarge", English)
+      document.select("#main-content > div > div > div > div > h2").text() shouldBe errorSummaryText
+      document.select("#main-content > div > div > div > div > div > ul > li > a").text() shouldBe "The selected file must be smaller than 10MB"
+      document.select("#choose-file-error").text() shouldBe "Error: The selected file must be smaller than 10MB"
+    }
+
+    "display the correct content in Welsh for when a upscan return 'EntityTooLarge'" in {
+      val document = testupscanErrorContent(errorCode = "EntityTooLarge", Welsh)
+      document.select("#main-content > div > div > div > div > h2").text() shouldBe errorSummaryTextWelsh
+      document.select("#main-content > div > div > div > div > div > ul > li > a").text() shouldBe "Rhaid i’r ffeil a ddewiswyd fod yn llai na 10MB"
+      document.select("#choose-file-error").text() shouldBe "Error: Rhaid i’r ffeil a ddewiswyd fod yn llai na 10MB"
+    }
+  }
+
   def testAriaLiveContent(fileRemoved: Boolean = false, withFileName: Boolean = false, language: Language) = {
     commonSetup(evidenceType = "RATES_BILL", relationship = "Owner", false, fromCya = false)
     val optFileName = if(withFileName) "&removedFileName=image.png" else ""
@@ -1331,4 +1376,15 @@ class UploadControllerISpec extends ISpecBase {
     Jsoup.parse(res.body)
   }
 
+  def testupscanErrorContent(errorCode: String, language: Language) = {
+    commonSetup(evidenceType = "RATES_BILL", relationship = "Owner", false, fromCya = false)
+    val res = await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorCode=$errorCode")
+        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .get()
+    )
+    res.status shouldBe OK
+    Jsoup.parse(res.body)
+  }
 }
