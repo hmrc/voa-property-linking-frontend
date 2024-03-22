@@ -25,14 +25,11 @@
                     var fileStatus = responseBody[0];
                     var fileName = responseBody[1];
                     var fileDownloadLink = responseBody[2];
-                    updateTag(fileStatus);
-                    updateFormAction(fileStatus);
                     updateLiveRegion(fileStatus);
-                    // Only update filename & download link if present
-                    if (fileName && fileDownloadLink) {
-                        updateFileName(fileName, fileDownloadLink);
-                    }
                     if (fileStatus === "READY" || fileStatus === "FAILED") {
+                        updateTag(fileStatus);
+                        updateFormAction(fileStatus);
+                        updateFileName(fileName, fileDownloadLink);
                         clearInterval(intervalId);
                     }
                 },
@@ -86,7 +83,7 @@
                 case "FAILED":
                     return messages[2];
                 default:
-                    return messages[0];
+                    return "";
             }
         }
 
