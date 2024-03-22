@@ -27,9 +27,11 @@
                     var fileDownloadLink = responseBody[2];
                     updateLiveRegion(fileStatus);
                     if (fileStatus === "READY" || fileStatus === "FAILED") {
+                        if (fileName && fileDownloadLink) {
+                            updateFileName(fileName, fileDownloadLink);
+                        }
                         updateTag(fileStatus);
                         updateFormAction(fileStatus);
-                        updateFileName(fileName, fileDownloadLink);
                         clearInterval(intervalId);
                     }
                 },
