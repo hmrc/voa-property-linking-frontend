@@ -39,6 +39,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
   val onePropertyText = "They have also been assigned to your property."
   val thisAgentCanText = "This agent can:"
   val addPropertiesText = "add properties to your account"
+  val actForYouText = "act for you on your property valuations for properties that you assign to them or they add to your account"
   val whatHappensNextText = "What happens next"
   val youCanAssignText = "You can assign or unassign this agent from your properties by managing your agents."
   val managingAgentsText = "managing your agents"
@@ -51,6 +52,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
   val onePropertyTextWelsh = "Maent hefyd wedi’u neilltuo i’ch eiddo."
   val thisAgentCanTextWelsh = "Gall yr asiant hwn:"
   val addPropertiesTextWelsh = "ychwanegu eiddo at eich cyfrif"
+  val actForYouTextWelsh = "gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo ar gyfer eiddo rydych chi’n eu haseinio iddynt neu maen nhw’n eu hychwanegu at eich cyfrif"
   val whatHappensNextTextWelsh = "Beth sy’n digwydd nesaf"
   val youCanAssignTextWelsh = "Gallwch neilltuo neu ddadneilltuo’r asiant hwn o’ch eiddo trwy reoli eich asiantiaid."
   val managingAgentsTextWelsh = "reoli eich asiantiaid"
@@ -61,12 +63,12 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
   val allPropertiesSelector = "#assigned-to"
   val onePropertySelector = "#assigned-to"
   val thisAgentCanSelector = "#agent-can-text"
-  val addPropertiesSelector = "#agent-can-list > li"
+  val addPropertiesSelector = "#add-properties-text"
+  val actForYouSelector = "#act-on-valuations-text"
   val whatHappensNextSelector = "#what-happens-next-title"
   val youCanAssignSelector = "#what-happens-next-text"
   val managingAgentsLinkSelector = "#manage-agents-link"
   val goToHomeSelector = "#go-home-link"
-  val ratingsListSelector = "#rates-for"
 
   val managingAgentsLinkHref = "/business-rates-property-linking/my-organisation/agents"
   val goToHomeLinkHref = "/business-rates-dashboard/home"
@@ -97,8 +99,8 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
-      s"should not have a bullet point on the screen for the ratings list years" in {
-        document.select(ratingsListSelector).size() shouldBe 0
+      s"has a bullet point on the screen of $actForYouText" in {
+        document.select(actForYouSelector).text shouldBe actForYouText
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -145,8 +147,8 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
-      s"should not have a bullet point on the screen for the ratings list years" in {
-        document.select(ratingsListSelector).size() shouldBe 0
+      s"has a bullet point on the screen of $actForYouText" in {
+        document.select(actForYouSelector).text shouldBe actForYouText
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -193,8 +195,8 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
-      s"should not have a bullet point on the screen for the ratings list years" in {
-        document.select(ratingsListSelector).size() shouldBe 0
+      s"has a bullet point on the screen of $actForYouText" in {
+        document.select(actForYouSelector).text shouldBe actForYouText
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -241,8 +243,8 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
-      s"should not have a bullet point on the screen for the ratings list years" in {
-        document.select(ratingsListSelector).size() shouldBe 0
+      s"has a bullet point on the screen of $actForYouText" in {
+        document.select(actForYouSelector).text shouldBe actForYouText
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -289,8 +291,8 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
-      s"should not have a bullet point on the screen for the ratings list years" in {
-        document.select(ratingsListSelector).size() shouldBe 0
+      s"has a bullet point on the screen of $actForYouText in Welsh" in {
+        document.select(actForYouSelector).text shouldBe actForYouTextWelsh
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
@@ -337,8 +339,8 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
-      s"should not have a bullet point on the screen for the ratings list years" in {
-        document.select(ratingsListSelector).size() shouldBe 0
+      s"has a bullet point on the screen of $actForYouText in Welsh" in {
+        document.select(actForYouSelector).text shouldBe actForYouTextWelsh
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
@@ -385,8 +387,8 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
-      s"should not have a bullet point on the screen for the ratings list years" in {
-        document.select(ratingsListSelector).size() shouldBe 0
+      s"has a bullet point on the screen of $actForYouText in Welsh" in {
+        document.select(actForYouSelector).text shouldBe actForYouTextWelsh
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
@@ -433,8 +435,8 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
-      s"should not have a bullet point on the screen for the ratings list years" in {
-        document.select(ratingsListSelector).size() shouldBe 0
+      s"has a bullet point on the screen of $actForYouText in Welsh" in {
+        document.select(actForYouSelector).text shouldBe actForYouTextWelsh
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {

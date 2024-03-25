@@ -469,41 +469,6 @@ class AddAgentController @Inject()(
         fromManageAgentJourney = false
       ))
 
-  def confirmAppointAgent: Action[AnyContent] = authenticated.andThen(withAppointAgentSession) { implicit request =>
-    request.sessionData match {
-      case data: ManagingProperty =>
-        val key = {
-          if (featureSwitch.isAgentListYearsEnabled == false) {
-            if (data.singleProperty)
-              Some("propertyRepresentation.confirmation.yourProperty")
-            else {
-              data.managingPropertyChoice match {
-                case All.name            => Some("propertyRepresentation.confirmation.allProperties")
-                case ChooseFromList.name => Some("propertyRepresentation.confirmation.selectedProperties")
-                case _                   => None
-              }
-            }
-          } else None
-        }
-        val secondKey: Option[String] = {
-          (data.bothRatingLists, data.specificRatingList) match {
-            case (Some(true), _) if (featureSwitch.isAgentListYearsEnabled) =>
-              Some("propertyRepresentation.confirmation.secondBulletPoint.both_years")
-            case (Some(false), Some("2023")) if (featureSwitch.isAgentListYearsEnabled) =>
-              Some("propertyRepresentation.confirmation.secondBulletPoint.2023")
-            case (Some(false), Some("2017")) if (featureSwitch.isAgentListYearsEnabled) =>
-              Some("propertyRepresentation.confirmation.secondBulletPoint.2017")
-            case _ => None
-          }
-        }
-        Ok(
-          confirmationView(
-            agentName = request.agentDetails.name,
-            assignedToMessageKey = key,
-            secondBulletPoint = secondKey))
-    }
-  }
-
   private def getBacklink(fromCya: Boolean)(implicit request: AppointAgentSessionRequest[AnyContent]) =
     if (fromCya) routes.CheckYourAnswersController.onPageLoad().url else getBackLinkFromSession
 

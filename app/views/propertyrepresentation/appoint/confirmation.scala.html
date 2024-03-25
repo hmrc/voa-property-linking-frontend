@@ -38,15 +38,15 @@
 
     <p class="govuk-body" id="agent-can-text">@messages("propertyRepresentation.confirmation.thisAgentCan")</p>
     <ul class="govuk-list govuk-list--bullet" id="agent-can-list">
-        <li>@messages("propertyRepresentation.confirmation.thisAgentCan.list.1")</li>
+        <li id="add-properties-text">@messages("propertyRepresentation.confirmation.thisAgentCan.list.1")</li>
         @secondBulletPoint.map{ messageKey =>
-            <li id="rates-for">@messages(messageKey)</li>
+            <li id="act-on-valuations-text">@messages(messageKey)</li>
         }
     </ul>
 
     <h2 id="what-happens-next-title" class="govuk-heading-m">@messages("propertyRepresentation.confirmation.whatHappensNext")</h2>
 
-    @if(secondBulletPoint.nonEmpty) {
+    @if(config.agentListYears) {
     @link(
         preLinkText = Some(messages("propertyRepresentation.confirmation.whatHappensNext.new.p1")),
         linkText = messages("propertyRepresentation.confirmation.whatHappensNext.new.p1.link"),

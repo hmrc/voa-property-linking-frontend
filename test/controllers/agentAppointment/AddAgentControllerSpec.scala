@@ -254,21 +254,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     val continueButton: String = doc.getElementById("continue-button").text()
   }
 
-  trait ConfirmationPageTestCase {
-    self: RequestLang =>
-    stubWithAppointAgentSession.stubSession(managingProperty, detailedIndividualAccount, groupAccount(false))
-
-    val doc: Document = Jsoup.parse(contentAsString(testController.confirmAppointAgent()(FakeRequest())))
-    val heading: String = doc.getElementsByTag("h1").text
-    val dynamicPropertiesAssignedToText: String = doc.getElementById("assigned-to").text
-    val agentCanText: String = doc.getElementById("agent-can-text").text
-    val agentCanList: Element = doc.getElementById("agent-can-list")
-    val whatHappensNextTitle: String = doc.getElementById("what-happens-next-title").text
-    val whatHappensNextText: String = doc.getElementById("what-happens-next-text").text
-    val manageAgentsLink = doc.getElementById("manage-agents-link")
-    val homeLink: Element = doc.getElementById("go-home-link")
-  }
-
   trait IsThisYourAgentPageTestCase {
     self: RequestLang =>
     stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))

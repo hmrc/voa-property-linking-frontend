@@ -60,17 +60,18 @@ class ConfirmAgentAppointController @Inject()(
           } else None
         }
 
-        val secondKey: Option[String] = {
-          (data.bothRatingLists, data.specificRatingList) match {
-            case (Some(true), _) if (featureSwitch.isAgentListYearsEnabled) =>
-              Some("propertyRepresentation.confirmation.secondBulletPoint.both_years")
-            case (Some(false), Some("2023")) if (featureSwitch.isAgentListYearsEnabled) =>
-              Some("propertyRepresentation.confirmation.secondBulletPoint.2023")
-            case (Some(false), Some("2017")) if (featureSwitch.isAgentListYearsEnabled) =>
-              Some("propertyRepresentation.confirmation.secondBulletPoint.2017")
-            case _ => None
+        val secondKey: Option[String] =
+          if (!featureSwitch.isAgentListYearsEnabled) {
+            Some("propertyRepresentation.confirmation.thisAgentCan.list.2")
+          } else {
+            (data.bothRatingLists, data.specificRatingList) match {
+              case (Some(true), _)             => Some("propertyRepresentation.confirmation.secondBulletPoint.both_years")
+              case (Some(false), Some("2023")) => Some("propertyRepresentation.confirmation.secondBulletPoint.2023")
+              case (Some(false), Some("2017")) => Some("propertyRepresentation.confirmation.secondBulletPoint.2017")
+              case _                           => None
+            }
           }
-        }
+
         Ok(
           confirmationView(
             agentName = request.agentDetails.name,
