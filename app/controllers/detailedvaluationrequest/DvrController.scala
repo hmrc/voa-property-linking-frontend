@@ -628,8 +628,10 @@ class DvrController @Inject()(
               formWithErrors = Some(formWithErrors))(request),
           form =>
             for {
-
               createCheck <- {
+
+                println("the propertylink submission id is : " + propertyLinkSubmissionId)
+
                 checkConnector.start(
                   propertyLinkId = PropertyLinkId(form.authorisationId.getOrElse("no-property-link-id").toLong),
                   assessmentRef = AssessmentRef(valuationId),

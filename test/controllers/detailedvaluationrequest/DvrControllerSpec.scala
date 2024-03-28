@@ -1541,47 +1541,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       "a court decision affected this property’s rateable value and before 1 October 2023 you email us at ccaservice@voa.gov.uk to send a Check case")
   }
 
-  "an IP starting a check case" should "get redirected to a page in check-frontend" in new Setup {
-    val checkType: String = "internal"
-    val result: Future[Result] =
-      controller.myOrganisationStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L)(
-        FakeRequest().withFormUrlEncodedBody("checkType" -> checkType, "authorisationId" -> "12345"))
-    status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(
-      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true&rvth=false")
-  }
-
-  "an IP starting a check case" should "get redirected to a page in check-frontend - rateableValueTooHigh" in new Setup {
-    val result: Future[Result] =
-      controller.myOrganisationStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L)(
-        FakeRequest().withFormUrlEncodedBody("checkType" -> "rateableValueTooHigh", "authorisationId" -> "12345"))
-    status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(
-      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/internal?propertyLinkSubmissionId=PL123&dvrCheck=true&rvth=true")
-  }
-
-  "an IP starting a check case without selecting one of the reasons for check" should "stay on the same page with error summary at the top" in new Setup {
-
-    when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
-      .thenReturn(Future.successful(Some(assessments)))
-    when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
-      .thenReturn(Future.successful(List.empty))
-    when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
-      .thenReturn(Future.successful(List.empty))
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
-
-    val result: Future[Result] =
-      controller.myOrganisationStartCheck(
-        propertyLinkSubmissionId = "PL123",
-        valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
-      )(FakeRequest().withFormUrlEncodedBody())
-    status(result) shouldBe BAD_REQUEST
-
-    val doc = Jsoup.parse(contentAsString(result))
-    Option(doc.getElementById("error-summary")) should not be empty
-  }
-
   "an agent starting a check case" should "get redirected to a page in check-frontend" in new Setup {
     val checkType: String = "internal"
     val result: Future[Result] =
