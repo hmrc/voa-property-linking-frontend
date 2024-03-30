@@ -613,7 +613,6 @@ class DvrController @Inject()(
               "checkId"                  -> checkId
             )
 
-        println("path to first screen was: " + pathToFirstScreen)
         config.businessRatesCheckUrl(pathToFirstScreen)
       }
 
@@ -629,9 +628,6 @@ class DvrController @Inject()(
           form =>
             for {
               createCheck <- {
-
-                println("the propertylink submission id is : " + propertyLinkSubmissionId)
-
                 checkConnector.start(
                   propertyLinkId = PropertyLinkId(form.authorisationId.getOrElse("no-property-link-id").toLong),
                   assessmentRef = AssessmentRef(valuationId),
@@ -644,18 +640,15 @@ class DvrController @Inject()(
               }
 
               checkId <- createCheck match {
-                case Right(checkId) => Future.successful(checkId)
-                case Left(failure) => Future.failed(new Exception("Request failed: " + failure))
-              }
-
-              createResumeCheck = createCheck match {
-                case Right(checkId) =>
-                  checkConnector.updateResumeCheckUrl(checkId, Url(startCheckUrl(form, checkId)).urlWithoutHost.toString)
-                case Left(failure) => Future.failed(new Exception("Request failed: " + failure))
-              }
+                          case Right(checkId) =>
+                            checkConnector
+                              .updateResumeCheckUrl(checkId, Url(startCheckUrl(form, checkId)).urlWithoutHost.toString)
+                            Future.successful(checkId)
+                          case Left(failure) => Future.failed(new Exception("Request failed: " + failure))
+                        }
             } yield {
               Redirect(startCheckUrl(form, checkId))
-            }
+          }
         )
 
     }

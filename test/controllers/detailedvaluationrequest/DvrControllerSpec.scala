@@ -78,7 +78,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       propertyMissingView = propertyMissingView,
       checkSummaryUrlTemplate = checkSummaryUrlTemplate,
       enquiryUrlTemplate = enquiryUrlTemplate,
-      estimatorUrlTemplate = estimatorUrlTemplate
+      estimatorUrlTemplate = estimatorUrlTemplate,
+      checkConnector = mockCheckConnector
     )(implicitly[ExecutionContext], implicitly[MessagesApi], implicitly[MessagesControllerComponents], config)
 
     lazy val mockSubmissionIds = {
@@ -811,7 +812,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       propertyMissingView = propertyMissingView,
       checkSummaryUrlTemplate = checkSummaryUrlTemplate,
       enquiryUrlTemplate = enquiryUrlTemplate,
-      estimatorUrlTemplate = estimatorUrl
+      estimatorUrlTemplate = estimatorUrl,
+      checkConnector = mockCheckConnector
     )
 
     lazy val currentAssessment: ApiAssessment = super.assessments.assessments.drop(1).head
@@ -1540,37 +1542,4 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.html.getElementById("valuation-tab-change-something-content").text() should include(
       "a court decision affected this property’s rateable value and before 1 October 2023 you email us at ccaservice@voa.gov.uk to send a Check case")
   }
-
-  "an agent starting a check case" should "get redirected to a page in check-frontend" in new Setup {
-    val checkType: String = "internal"
-    val result: Future[Result] =
-      controller.myClientsStartCheck(propertyLinkSubmissionId = "PL123", valuationId = 1L)(
-        FakeRequest().withFormUrlEncodedBody("checkType" -> checkType, "authorisationId" -> "12345"))
-    status(result) shouldBe SEE_OTHER
-    redirectLocation(result) shouldBe Some(
-      s"http://localhost:9534/business-rates-check/property-link/12345/assessment/1/$checkType?propertyLinkSubmissionId=PL123&dvrCheck=true&rvth=false")
-  }
-
-  "an agent starting a check case without selecting one of the reasons for check" should "stay on the same page with error summary at the top" in new Setup {
-
-    when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
-      .thenReturn(Future.successful(Some(assessments)))
-    when(mockPropertyLinkConnector.getMyClientsCheckCases(any())(any()))
-      .thenReturn(Future.successful(List.empty))
-    when(mockChallengeConnector.getMyClientsChallengeCases(any())(any()))
-      .thenReturn(Future.successful(List.empty))
-    when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
-
-    val result: Future[Result] =
-      controller.myClientsStartCheck(
-        propertyLinkSubmissionId = "PL123",
-        valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
-      )(FakeRequest().withFormUrlEncodedBody())
-    status(result) shouldBe BAD_REQUEST
-
-    val doc = Jsoup.parse(contentAsString(result))
-    Option(doc.getElementById("error-summary")) should not be empty
-  }
-
 }

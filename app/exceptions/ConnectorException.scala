@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package connectors.check
+package exceptions
 
 import uk.gov.hmrc.http.HttpResponse
 

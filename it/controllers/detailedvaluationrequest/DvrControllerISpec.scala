@@ -196,8 +196,6 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       lazy val doc: Document = Jsoup.parse(res.body)
 
-      println(doc)
-
       doc.title shouldBe errorTitleText
       doc.select(errorSummarySelector).text shouldBe noRadioSelectedErrorText
       doc.select(errorAtRadioSelector).text shouldBe errorText + noRadioSelectedErrorText

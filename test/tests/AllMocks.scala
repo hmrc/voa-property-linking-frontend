@@ -24,6 +24,7 @@ import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.challenge.ChallengeConnector
+import connectors.check.CheckConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import connectors.{Addresses, BusinessRatesValuationConnector, DVRCaseManagementConnector}
@@ -65,6 +66,7 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockAgentRelationshipService: AgentRelationshipService = mock[AgentRelationshipService]
   val mockChallengeConnector: ChallengeConnector = mock[ChallengeConnector]
   val mockVmvConnector: VmvConnector = mock[VmvConnector]
+  val mockCheckConnector: CheckConnector = mock[CheckConnector]
   val mockApplicationConfig: ApplicationConfig = mock[ApplicationConfig]
   val mockManageAgentSessionRepository: ManageAgentSessionRepository = mock[ManageAgentSessionRepository]
 

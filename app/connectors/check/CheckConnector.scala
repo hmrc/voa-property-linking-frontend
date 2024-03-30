@@ -16,6 +16,8 @@
 
 package connectors.check
 
+import exceptions.ConnectorException
+import models.PartialCheckFormats
 import models.check.CheckId
 import models.dvr.cases.check.CheckType
 import play.api.Logging
@@ -24,7 +26,6 @@ import play.api.libs.json._
 import uk.gov.hmrc.http._
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
-
 import uk.gov.voa.businessrates.values._
 import uk.gov.voa.businessrates.values.connectors.RequestResult._
 
@@ -58,9 +59,7 @@ class CheckConnector @Inject()(http: HttpClient, servicesConfig: ServicesConfig)
       .map {
         case Right(response) =>
           Right(response.json.as[CheckIdWrapper].id)
-        case Left(failure) =>
-          println("the check type was: " + checkType)
-          Left(failure)
+        case Left(failure) => Left(failure)
       }
   }
 

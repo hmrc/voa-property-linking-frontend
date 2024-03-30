@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package connectors.check
+package models
 
 import models.check.CheckId
 import uk.gov.voa.valuetype.play.formats.ValueTypeFormat
