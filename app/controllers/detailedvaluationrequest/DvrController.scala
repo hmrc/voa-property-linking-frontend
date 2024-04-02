@@ -20,10 +20,10 @@ import actions.AuthenticatedAction
 import cats.data.OptionT
 import config.ApplicationConfig
 import connectors.challenge.ChallengeConnector
-import connectors.check.CheckConnector
+import connectors.check.BusinessRatesCheckConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
-import connectors.{DVRCaseManagementConnector, _}
+import connectors._
 import controllers.PropertyLinkingController
 import models.ListType.ListType
 import models.check.{CheckId, Url}
@@ -36,7 +36,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.http.HttpEntity
 import play.api.i18n.{Messages, MessagesApi}
-import play.api.mvc.{Action, _}
+import play.api.mvc._
 import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
@@ -46,6 +46,7 @@ import java.time.format.DateTimeFormatter
 import javax.inject.{Inject, Named}
 import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
 import models.dvr.cases.check.common.{Agent, AgentCount}
+import services.BusinessRatesCheckService
 import uk.gov.voa.businessrates.values.{AssessmentRef, PropertyLinkId}
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -55,7 +56,7 @@ class DvrController @Inject()(
       propertyLinks: PropertyLinkConnector,
       challengeConnector: ChallengeConnector,
       vmvConnector: VmvConnector,
-      checkConnector: CheckConnector,
+      checkService: BusinessRatesCheckService,
       authenticated: AuthenticatedAction,
       submissionIds: SubmissionIdConnector,
       dvrCaseManagement: DVRCaseManagementConnector,
@@ -628,7 +629,7 @@ class DvrController @Inject()(
           form =>
             for {
               createCheck <- {
-                checkConnector.start(
+                checkService.start(
                   propertyLinkId = PropertyLinkId(form.authorisationId.getOrElse("no-property-link-id").toLong),
                   assessmentRef = AssessmentRef(valuationId),
                   checkType = CheckType.of(getCheckType(form.checkType)),
@@ -641,7 +642,7 @@ class DvrController @Inject()(
 
               checkId <- createCheck match {
                           case Right(checkId) =>
-                            checkConnector
+                            checkService
                               .updateResumeCheckUrl(checkId, Url(startCheckUrl(form, checkId)).urlWithoutHost.toString)
                             Future.successful(checkId)
                           case Left(failure) => Future.failed(new Exception("Request failed: " + failure))

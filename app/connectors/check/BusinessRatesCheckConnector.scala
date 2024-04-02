@@ -16,7 +16,6 @@
 
 package connectors.check
 
-import exceptions.ConnectorException
 import models.PartialCheckFormats
 import models.check.CheckId
 import models.dvr.cases.check.CheckType
@@ -28,11 +27,12 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
 import uk.gov.voa.businessrates.values._
 import uk.gov.voa.businessrates.values.connectors.RequestResult._
+import utils.HttpReads.createReads
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class CheckConnector @Inject()(http: HttpClient, servicesConfig: ServicesConfig)(
+class BusinessRatesCheckConnector @Inject()(http: HttpClient, servicesConfig: ServicesConfig)(
       implicit executionContext: ExecutionContext
 ) extends Logging with UriTemplateSyntax with PartialCheckFormats {
   protected lazy val serviceUrl: String = servicesConfig.baseUrl("business-rates-check")
@@ -47,7 +47,7 @@ class CheckConnector @Inject()(http: HttpClient, servicesConfig: ServicesConfig)
         uarn: Option[Long] = None,
         dvrCheck: Boolean = false,
         rateableValueTooHigh: Option[Boolean] = None
-  )(implicit hc: HeaderCarrier): Future[Either[RequestFailure, CheckId]] = {
+  )(implicit hc: HeaderCarrier): Future[Either[RequestFailure, HttpResponse]] = {
     implicit val httpReads: HttpReads[Either[RequestFailure, HttpResponse]] =
       createReads(CREATED, Map(FORBIDDEN -> Forbidden))
     http
@@ -56,40 +56,19 @@ class CheckConnector @Inject()(http: HttpClient, servicesConfig: ServicesConfig)
           s"property-link/$propertyLinkId/assessment/$assessmentRef/start-check/${checkType.value}${queryParams(propertyLinkSubmissionId, uarn, Some(dvrCheck), rateableValueTooHigh)}"
         )
       )
-      .map {
-        case Right(response) =>
-          Right(response.json.as[CheckIdWrapper].id)
-        case Left(failure) => Left(failure)
-      }
   }
 
   def updateResumeCheckUrl(checkId: CheckId, resumeUrl: String)(
         implicit hc: HeaderCarrier
-  ): Future[Either[RequestFailure, RequestSuccess]] = {
+  ): Future[Either[RequestFailure, HttpResponse]] = {
 
     implicit val httpReads = createReads(NO_CONTENT, Map(FORBIDDEN -> Forbidden, NOT_FOUND -> NotFound))
 
     http.PUT[JsValue, Either[RequestFailure, HttpResponse]](
       url(s"partial-check/$checkId/resume"),
       Json.obj("resumeUrl" -> resumeUrl)
-    ) map {
-      case Right(_)      => Right(Success)
-      case Left(failure) => Left(failure)
-    }
+    )
   }
-
-  private def createReads(okStatus: Int, errorMap: Map[Int, RequestFailure]) =
-    new HttpReads[Either[RequestFailure, HttpResponse]] {
-
-      def read(method: String, url: String, response: HttpResponse): Either[RequestFailure, HttpResponse] =
-        response.status match {
-          case status if status == okStatus        => Right(response)
-          case status if errorMap.contains(status) => Left(errorMap(status))
-          case unexpectedStatus =>
-            logger.warn(s"[$method $url] failed: status: $unexpectedStatus, body: ${response.body}")
-            throw ConnectorException(method, url, response)
-        }
-    }
 
   private def queryParams(
         propertyLinkSubmissionId: Option[String],
@@ -103,11 +82,5 @@ class CheckConnector @Inject()(http: HttpClient, servicesConfig: ServicesConfig)
       dvrCheck.map(d => s"dvrCheck=$d"),
       rateableValueTooHigh.map(r => s"rateableValueTooHigh=$r")
     ).flatten.mkString("?", "&", "")
-
-  private case class CheckIdWrapper(id: CheckId)
-
-  private object CheckIdWrapper extends PartialCheckFormats {
-    implicit val format: Reads[CheckIdWrapper] = Json.reads[CheckIdWrapper]
-  }
 
 }

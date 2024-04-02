@@ -79,7 +79,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       checkSummaryUrlTemplate = checkSummaryUrlTemplate,
       enquiryUrlTemplate = enquiryUrlTemplate,
       estimatorUrlTemplate = estimatorUrlTemplate,
-      checkConnector = mockCheckConnector
+      checkService = mockCheckService
     )(implicitly[ExecutionContext], implicitly[MessagesApi], implicitly[MessagesControllerComponents], config)
 
     lazy val mockSubmissionIds = {
@@ -813,7 +813,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       checkSummaryUrlTemplate = checkSummaryUrlTemplate,
       enquiryUrlTemplate = enquiryUrlTemplate,
       estimatorUrlTemplate = estimatorUrl,
-      checkConnector = mockCheckConnector
+      checkService = mockCheckService
     )
 
     lazy val currentAssessment: ApiAssessment = super.assessments.assessments.drop(1).head
