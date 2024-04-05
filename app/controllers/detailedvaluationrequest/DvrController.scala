@@ -644,7 +644,7 @@ class DvrController @Inject()(
                           case Right(checkId) =>
                             checkService
                               .updateResumeCheckUrl(checkId, Url(startCheckUrl(form, checkId)).urlWithoutHost.toString)
-                            Future.successful(checkId)
+                              .map(_ => checkId)
                           case Left(failure) => Future.failed(new Exception("Request failed: " + failure))
                         }
             } yield {

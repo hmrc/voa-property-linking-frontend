@@ -6,7 +6,7 @@ import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
-import play.api.http.Status.OK
+import play.api.http.Status.{NO_CONTENT, OK}
 import play.api.libs.json.Json
 import play.api.libs.json.Json.toJson
 import play.api.libs.ws.WSResponse
@@ -331,7 +331,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     stubFor {
       put(s"/partial-check/$checkId/resume")
         .willReturn {
-          aResponse.withStatus(OK).withBody(checkStartBody.toString())
+          aResponse.withStatus(NO_CONTENT).withBody(checkStartBody.toString())
         }
     }
   }
