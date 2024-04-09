@@ -1256,9 +1256,7 @@ auto.requestDetailedValuation.request.button=Request the detailed valuation
 auto.requestDetailedValuation.subhead.change=If you want to change something in this valuation
 auto.requestDetailedValuation.change.startCheck=If the property details need changing, or you think the rateable value is too high, you must first request the detailed valuation so you can start a Check case.
 auto.requestDetailedValuation.change.alreadySent=If you have already sent us a Check case, we will contact you with the decision.
-auto.requestDetailedValuation.change.challenge.preLink=If you disagree with our Check case decision, you can
-auto.requestDetailedValuation.change.challenge.link=start a Challenge case
-auto.requestDetailedValuation.change.challenge.postLink=You must complete a Check case before sending a Challenge case.
+auto.requestDetailedValuation.change.challenge.text=If you disagree with our Check case decision, you can start a Challenge case. You must complete a Check case before sending a Challenge case.
 
 auto.requestDetailedValuation.future.tabName=Valuation
 auto.requestDetailedValuation.future.rv.caption=Future rateable value (from {0})

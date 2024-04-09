@@ -1157,8 +1157,7 @@ auto.requestDetailedValuation.request.button=Gwneud cais am y prisiad manwl
 auto.requestDetailedValuation.subhead.change=Os ydych eisiau newid rhywbeth yn y prisiad hwn
 auto.requestDetailedValuation.change.startCheck=Os oes angen newid manylion yr eiddo, neu os ydych yn credu bod y gwerth ardrethol yn rhy uchel, mae’n rhaid i chi wneud cais am y prisiad manwl yn gyntaf fel bod modd i chi ddechrau achos Gwirio.
 auto.requestDetailedValuation.change.alreadySent=Os ydych wedi anfon achos Gwirio atom yn barod, byddwn yn cysylltu â chi gyda’r penderfyniad.
-auto.requestDetailedValuation.change.challenge.preLink=Os ydych yn anghytuno â’n penderfyniad ar yr achos Gwirio, gallwch chi
-auto.requestDetailedValuation.change.challenge.link=ddechrau achos Herio
+auto.requestDetailedValuation.change.challenge.text=Os ydych yn anghytuno â’n penderfyniad ar yr achos Gwirio, gallwch chi ddechrau achos Herio. Mae’n rhaid i chi gwblhau achos Gwirio cyn danfon achos i Herio.
 auto.requestDetailedValuation.change.challenge.postLink=Mae’n rhaid i chi gwblhau achos Gwirio cyn danfon achos i Herio.
 
 requestDetailedValuation.heading.challenge=Wedi cwblhau gwiriad yn barod?

@@ -182,14 +182,7 @@
 
             <p class="govuk-body">@messages("auto.requestDetailedValuation.change.alreadySent")</p>
 
-            @link(
-              linkSentence = true,
-              preLinkText = Some(messages("auto.requestDetailedValuation.change.challenge.preLink")),
-              linkText = messages("auto.requestDetailedValuation.change.challenge.link"),
-              postLinkText = Some(messages("auto.requestDetailedValuation.change.challenge.postLink")),
-              location = config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl"),
-              linkId = Some("change-something-challenge-link"),
-            )
+            <p class="govuk-body">@messages("auto.requestDetailedValuation.change.challenge.text")</p>
         </div>
     }
 }
