@@ -24,7 +24,6 @@ import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.challenge.ChallengeConnector
-import connectors.check.BusinessRatesCheckConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import connectors.{Addresses, BusinessRatesValuationConnector, DVRCaseManagementConnector}
@@ -35,7 +34,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Request
 import repositories.{ManageAgentSessionRepository, PersonalDetailsSessionRepository, SessionRepository}
 import services.propertylinking.PropertyLinkingService
-import services.{AgentRelationshipService, BusinessRatesAttachmentsService, BusinessRatesCheckService, EnrolmentService}
+import services.{AgentRelationshipService, BusinessRatesAttachmentsService, EnrolmentService}
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.propertylinking.services.PropertyLinkService
@@ -66,7 +65,6 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockAgentRelationshipService: AgentRelationshipService = mock[AgentRelationshipService]
   val mockChallengeConnector: ChallengeConnector = mock[ChallengeConnector]
   val mockVmvConnector: VmvConnector = mock[VmvConnector]
-  val mockCheckService: BusinessRatesCheckService = mock[BusinessRatesCheckService]
   val mockApplicationConfig: ApplicationConfig = mock[ApplicationConfig]
   val mockManageAgentSessionRepository: ManageAgentSessionRepository = mock[ManageAgentSessionRepository]
 

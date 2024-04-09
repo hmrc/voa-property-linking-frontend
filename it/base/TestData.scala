@@ -1,16 +1,12 @@
 package base
 
-import models.challenge.myclients.ChallengeCasesWithClient
-import models.dvr.cases.check.myclients.CheckCasesWithClient
-import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
 import models.properties.{AllowedAction, PropertyHistory, PropertyValuation, ValuationStatus}
 import models.propertyrepresentation.{AgentDetails, AgentList, AgentSummary}
 import models.referencedata.ReferenceData
 import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
-import models.{Accounts, Address, ApiAssessment, ApiAssessments, DetailedIndividualAccount, GroupAccount, IndividualDetails, ListType, Party, PropertyAddress}
+import models.{Accounts, Address, DetailedIndividualAccount, GroupAccount, IndividualDetails, ListType}
 
 import java.time.LocalDate
-import java.time.LocalDateTime.now
 
 trait TestData {
 
@@ -27,68 +23,6 @@ trait TestData {
       individualId = 2L,
       details = IndividualDetails(firstName = "", lastName = "", email = "individual@test.com", phone1 = "", phone2 = None, addressId = 12)
     )
-
-  def submissionId: String = ""
-  def uarn: Long = 1L
-  def valuationId: Long = 1L
-  def propertyLinkId: Long = 1L
-
-  lazy val april2017: LocalDate = LocalDate.of(2017, 4, 1)
-  lazy val april2023: LocalDate = LocalDate.of(2023, 4, 1)
-  val localAuthorityRef = "AMBER-VALLEY-REF"
-
-  val ownerAuthAgent = Party(
-    authorisedPartyId = 12L,
-    organisationId = 1L,
-    organisationName = "Some Org name",
-    agentCode = 6754L
-  )
-
-  val ownerAuthAgent2 = Party(
-    authorisedPartyId = 1222L,
-    organisationId = 122L,
-    organisationName = "Some Org name 2",
-    agentCode = 6754L
-  )
-
-  val apiAssessment: ApiAssessment = ApiAssessment(
-    authorisationId = propertyLinkId,
-    assessmentRef = valuationId,
-    listYear = "2017",
-    uarn = uarn,
-    effectiveDate = Some(april2017),
-    rateableValue = Some(123L),
-    address = PropertyAddress(Seq("7", "The Strand", "Worthing", "", ""), "BN12 6DL"),
-    billingAuthorityReference = localAuthorityRef,
-    billingAuthorityCode = Some("2715"),
-    listType = ListType.CURRENT,
-    allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION, AllowedAction.CHECK),
-    currentFromDate = Some(april2017),
-    currentToDate = Some(april2017.plusMonths(2L))
-  )
-
-  lazy val currentApiAssessment: ApiAssessment = apiAssessment.copy(
-    listYear = "2023",
-    effectiveDate = Some(april2023),
-    currentToDate = None
-  )
-
-  lazy val previousApiAssessment: ApiAssessment = apiAssessment.copy(
-    listType = ListType.PREVIOUS,
-    assessmentRef = valuationId
-  )
-
-  val testApiAssessments = ApiAssessments(
-    authorisationId = propertyLinkId,
-    submissionId = submissionId,
-    uarn = uarn,
-    address = "ADDRESS",
-    pending = false,
-    clientOrgName = None,
-    capacity = Some("OWNER"),
-    assessments = List(currentApiAssessment, previousApiAssessment),
-    Seq(ownerAuthAgent, ownerAuthAgent2)
-  )
 
   def groupAccount(agent: Boolean): GroupAccount =
     GroupAccount(
@@ -331,16 +265,5 @@ trait TestData {
       ))
     ))
   )
-
-  val someDvrDocumentFiles: Some[DvrDocumentFiles] = Some(
-    DvrDocumentFiles(
-      checkForm = Document(DocumentSummary("1L", "Check Document", now)),
-      detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-    ))
-
-  val testCheckCasesWithClient = CheckCasesWithClient(1,100,0,0,List())
-
-  val testChallengeCasesWithClient = ChallengeCasesWithClient(1, 100, 0, 0, List())
-
 
 }
