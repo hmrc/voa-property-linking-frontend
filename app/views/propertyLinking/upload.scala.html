@@ -133,7 +133,9 @@
             inputType = Some("submit"),
             classes = "button",
             content = Text(messages("label.continue")),
-            attributes = Map("id" -> "continue")
+            id = Some("file-upload-continue")
         ))
     }
+
+    <span id="submissionId" class="govuk-!-display-none">@submissionId</span>
 }

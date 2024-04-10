@@ -36,7 +36,10 @@
         optAttachment: Option[Attachment])(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @attachmentFileName = @{
-    optAttachment.map(_.fileName).getOrElse("")
+    optAttachment.map(_.fileName) match {
+        case Some(name) => name.dropWhile(_ != '-').drop(1)
+        case None => ""
+    }
 }
 
 @attachmentDownloadLink = @{

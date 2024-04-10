@@ -8,13 +8,14 @@
         root.VOA = {};
     }
 
-    // Check if the fileUploadForm element exists on the page
-    var fileUploadFormElement = document.querySelector('#fileUploadForm');
-    if (!fileUploadFormElement) {
-        return; // If the form doesn't exist, exit the script
-    }
-
     var FileUploadNew = function (){
+
+        // Check if the fileUploadForm element exists on the page
+        var fileUploadFormElement = document.querySelector('#fileUploadForm');
+        if (!fileUploadFormElement) {
+            return; // If the form doesn't exist, exit the script
+        }
+
         function makeGetRequest() {
 
             $.ajax({
@@ -54,7 +55,7 @@
             var element = document.querySelector('#main-content > div > div > dl > div > dt > a');
             if (element) {
                 // Use the implicit Messages for the current language
-                element.textContent = fileName;
+                element.textContent = removeTextBeforeHyphen(fileName);
                 element.href = fileDownloadLink;
             }
         }
@@ -132,6 +133,19 @@
         // 2 second interval for update view
         var intervalId = setInterval(makeGetRequest, 2000);
     };
+
+    function removeTextBeforeHyphen(inputString) {
+        // Find the index of the first hyphen (-)
+        var hyphenIndex = inputString.indexOf('-');
+
+        // If a hyphen is found, return the substring after the hyphen
+        if (hyphenIndex !== -1) {
+            return inputString.substring(hyphenIndex + 1);
+        } else {
+            // If no hyphen is found, return the original string
+            return inputString;
+        }
+    }
 
     root.VOA.FileUploadNew = FileUploadNew;
 

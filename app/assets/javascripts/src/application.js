@@ -13,6 +13,7 @@
         new VOA.UpdateEvidenceType();
         new VOA.UpdateOtherEvidencePage();
         new VOA.FileUploadNew();
+        new VOA.PrefixFileName();
     };
 
-}(window.VOA = window.VOA|| {}, jQuery));
+}(window.VOA = window.VOA || {}, jQuery));
