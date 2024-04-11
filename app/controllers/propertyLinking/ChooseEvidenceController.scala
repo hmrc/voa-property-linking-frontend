@@ -140,8 +140,8 @@ class ChooseEvidenceController @Inject()(
                 else EvidenceChoices.LICENSE
               if (request.ses.evidenceType.contains(formData)) {
                 request.ses.uploadEvidenceData.fileInfo match {
-                  case Some(CompleteFileInfo(_, evidenceType)) =>
-                    Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(evidenceType))))
+                  case Some(CompleteFileInfo(_, _)) =>
+                    Redirect(routes.UploadResultController.show(choice))
                   case _ =>
                     Redirect(routes.UploadController.show(choice))
                 }

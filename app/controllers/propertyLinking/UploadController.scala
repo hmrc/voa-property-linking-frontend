@@ -20,7 +20,7 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
 import binders.propertylinks.EvidenceChoices
-import binders.propertylinks.EvidenceChoices.EvidenceChoices
+import binders.propertylinks.EvidenceChoices.{EvidenceChoices, RATES_BILL}
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import models.EvidenceType.form
@@ -69,9 +69,15 @@ class UploadController @Inject()(
         case EvidenceChoices.RATES_BILL | EvidenceChoices.LEASE | EvidenceChoices.LICENSE |
             EvidenceChoices.SERVICE_CHARGE | EvidenceChoices.STAMP_DUTY | EvidenceChoices.LAND_REGISTRY |
             EvidenceChoices.WATER_RATE | EvidenceChoices.UTILITY_RATE =>
+          val linkBasis = if (evidence == RATES_BILL) RatesBillFlag else OtherEvidenceFlag
           for {
             preparedUpload <- requestNewUpscanForm(evidence)
-            _              <- sessionRepository.saveOrUpdate(request.ses.copy(fileReference = Some(preparedUpload.reference.value)))
+            _ <- businessRatesAttachmentsService.persistSessionData(
+                  request.ses
+                    .copy(fileReference = Some(preparedUpload.reference.value))
+                    .copy(evidenceType = Some(getEvidenceType(evidence))),
+                  request.ses.uploadEvidenceData.copy(linkBasis = linkBasis)
+                )
           } yield {
             Ok(
               uploadView(
@@ -188,14 +194,14 @@ class UploadController @Inject()(
                 Future.successful(Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(formData)))))
               case _ =>
                 Future.successful(Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
-
             }
           case formData =>
             businessRatesAttachmentsService
               .persistSessionData(
                 request.ses.copy(evidenceType = Some(formData)),
                 request.ses.uploadEvidenceData
-                  .copy(fileInfo = Some(PartialFileInfo(formData))))
+                  .copy(fileInfo = Some(PartialFileInfo(formData)), linkBasis = OtherEvidenceFlag)
+              )
               .map(_ => Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
         }
       )
@@ -268,9 +274,10 @@ class UploadController @Inject()(
       }
       businessRatesAttachmentsService
         .persistSessionData(
-          request.ses.copy(uploadEvidenceData = UploadEvidenceData.empty),
+          request.ses,
           session.uploadEvidenceData.copy(
-            fileInfo = Option(PartialFileInfo(getEvidenceType(evidence, request.ses.evidenceType))))
+            fileInfo = Option(PartialFileInfo(getEvidenceType(evidence, request.ses.evidenceType))),
+            attachments = Some(Map.empty))
         )
         .map(_ => Redirect(routes.UploadController.show(evidence, fileRemoved = true, removedFileName = optFileName)))
     }

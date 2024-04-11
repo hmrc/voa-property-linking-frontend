@@ -184,6 +184,11 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Owner",
         backLink = backToEvidenceQuestionHref,
         fromCya = false)
+
+      "should cache correct evidence type & link basis" in {
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(RatesBillType))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe RatesBillFlag)
+      }
     }
 
     "display the correct content in English for an IP (Occupier) that is uploading a lease" which {
@@ -193,6 +198,11 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
         fromCya = false)
+
+      "should cache correct evidence type & link basis" in {
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(Lease))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
+      }
     }
 
     "display the correct content in English for an IP (Occupier) that is uploading a licence to occupy" which {
@@ -202,6 +212,11 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
         fromCya = false)
+
+      "should cache correct evidence type & link basis" in {
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(License))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
+      }
     }
 
     "display the correct content in English for an IP (Occupier) that is uploading a service charge statement" which {
@@ -211,6 +226,25 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
         fromCya = false)
+
+      "should cache correct evidence type & link basis" in {
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(ServiceCharge))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
+      }
+    }
+
+    "display the correct content in English for an IP (Occupier) that is uploading a rates bill" which {
+      commonEvidencePageTests(language = English,
+        evidenceType = "RATES_BILL",
+        userIsAgent = false,
+        relationship = "Occupier",
+        backLink = backToOtherEvidenceHref,
+        fromCya = false)
+
+      "should cache correct evidence type & link basis" in {
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(RatesBillType))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe RatesBillFlag)
+      }
     }
 
     "display the correct content in English for an IP (Owner) that is uploading a stamp duty land tax form" which {
@@ -220,6 +254,11 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
         fromCya = false)
+
+      "should cache correct evidence type & link basis" in {
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(StampDutyLandTaxForm))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
+      }
     }
 
     "display the correct content in English for an IP (Owner and occupier) that is uploading a land registry title" which {
@@ -229,6 +268,11 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Owner and occupier",
         backLink = backToOtherEvidenceHref,
         fromCya = false)
+
+      "should cache correct evidence type & link basis" in {
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(LandRegistryTitle))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
+      }
     }
 
     "display the correct content in English for an IP (Occupier) that is uploading a water rate demand" which {
@@ -238,6 +282,11 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
         fromCya = false)
+
+      "should cache correct evidence type & link basis" in {
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(WaterRateDemand))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
+      }
     }
 
     "display the correct content in English for an IP (Owner) that is uploading a utility bill" which {
@@ -247,6 +296,11 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
         fromCya = false)
+
+      "should cache correct evidence type & link basis" in {
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(OtherUtilityBill))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
+      }
     }
 
     "display the correct content in English for an IP (Occupier) that is uploading other evidence (Occupier)" which {
@@ -647,6 +701,8 @@ class UploadControllerISpec extends ISpecBase {
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("location") shouldBe Some(evidenceTypeRedirectUrl("LEASE"))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(Lease))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
       }
     }
 
@@ -656,6 +712,8 @@ class UploadControllerISpec extends ISpecBase {
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("location") shouldBe Some(evidenceTypeRedirectUrl("LICENSE"))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(License))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
       }
     }
 
@@ -665,6 +723,8 @@ class UploadControllerISpec extends ISpecBase {
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("location") shouldBe Some(evidenceTypeRedirectUrl("STAMP_DUTY"))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(StampDutyLandTaxForm))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
       }
     }
 
@@ -674,6 +734,8 @@ class UploadControllerISpec extends ISpecBase {
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("location") shouldBe Some(evidenceTypeRedirectUrl("LAND_REGISTRY"))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(LandRegistryTitle))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
       }
     }
 
@@ -683,6 +745,8 @@ class UploadControllerISpec extends ISpecBase {
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("location") shouldBe Some(evidenceTypeRedirectUrl("WATER_RATE"))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(WaterRateDemand))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
       }
     }
 
@@ -692,6 +756,8 @@ class UploadControllerISpec extends ISpecBase {
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("location") shouldBe Some(evidenceTypeRedirectUrl("UTILITY_RATE"))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(OtherUtilityBill))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
       }
     }
 
@@ -701,6 +767,8 @@ class UploadControllerISpec extends ISpecBase {
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("location") shouldBe Some(evidenceTypeRedirectUrl("SERVICE_CHARGE"))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(ServiceCharge))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe OtherEvidenceFlag)
       }
     }
 
