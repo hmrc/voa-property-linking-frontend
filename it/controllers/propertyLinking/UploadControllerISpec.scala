@@ -233,6 +233,20 @@ class UploadControllerISpec extends ISpecBase {
       }
     }
 
+    "display the correct content in English for an IP (Occupier) that is uploading a rates bill" which {
+      commonEvidencePageTests(language = English,
+        evidenceType = "RATES_BILL",
+        userIsAgent = false,
+        relationship = "Occupier",
+        backLink = backToOtherEvidenceHref,
+        fromCya = false)
+
+      "should cache correct evidence type & link basis" in {
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(RatesBillType))
+        await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.uploadEvidenceData.linkBasis shouldBe RatesBillFlag)
+      }
+    }
+
     "display the correct content in English for an IP (Owner) that is uploading a stamp duty land tax form" which {
       commonEvidencePageTests(language = English,
         evidenceType = "STAMP_DUTY",

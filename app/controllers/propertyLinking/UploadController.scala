@@ -194,7 +194,6 @@ class UploadController @Inject()(
                 Future.successful(Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(formData)))))
               case _ =>
                 Future.successful(Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
-
             }
           case formData =>
             businessRatesAttachmentsService
