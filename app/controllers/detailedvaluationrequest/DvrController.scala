@@ -20,11 +20,13 @@ import actions.AuthenticatedAction
 import cats.data.OptionT
 import config.ApplicationConfig
 import connectors.challenge.ChallengeConnector
+import connectors.check.BusinessRatesCheckConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
-import connectors.{DVRCaseManagementConnector, _}
+import connectors._
 import controllers.PropertyLinkingController
 import models.ListType.ListType
+import models.check.{CheckId, Url}
 import models.dvr.cases.check.{CheckType, StartCheckForm}
 import models.dvr.DetailedValuationRequest
 import models.dvr.cases.check.projection.CaseDetails
@@ -34,7 +36,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.http.HttpEntity
 import play.api.i18n.{Messages, MessagesApi}
-import play.api.mvc.{Action, _}
+import play.api.mvc._
 import uk.gov.hmrc.http.NotFoundException
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
@@ -44,6 +46,8 @@ import java.time.format.DateTimeFormatter
 import javax.inject.{Inject, Named}
 import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
 import models.dvr.cases.check.common.{Agent, AgentCount}
+import services.BusinessRatesCheckService
+import uk.gov.voa.businessrates.values.{AssessmentRef, PropertyLinkId}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -52,6 +56,7 @@ class DvrController @Inject()(
       propertyLinks: PropertyLinkConnector,
       challengeConnector: ChallengeConnector,
       vmvConnector: VmvConnector,
+      checkService: BusinessRatesCheckService,
       authenticated: AuthenticatedAction,
       submissionIds: SubmissionIdConnector,
       dvrCaseManagement: DVRCaseManagementConnector,
@@ -594,10 +599,10 @@ class DvrController @Inject()(
 
   private def startCheck(propertyLinkSubmissionId: String, valuationId: Long, isOwner: Boolean): Action[AnyContent] =
     authenticated.async { implicit request =>
-      def startCheckUrl(form: StartCheckForm): String = {
+      def startCheckUrl(form: StartCheckForm, checkId: CheckId): String = {
         val rvth = form.checkType == RateableValueTooHigh
         val pathToFirstScreen =
-          "property-link/{propertyLinkId}/assessment/{valuationId}/{checkType}{?propertyLinkSubmissionId,uarn,dvrCheck,rvth}"
+          "property-link/{propertyLinkId}/assessment/{valuationId}/{checkType}/{checkId}{?propertyLinkSubmissionId,uarn,dvrCheck,rvth}"
             .templated(
               "propertyLinkId"           -> form.authorisationId,
               "valuationId"              -> valuationId,
@@ -605,8 +610,10 @@ class DvrController @Inject()(
               "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
               "uarn"                     -> form.uarn,
               "dvrCheck"                 -> true,
-              "rvth"                     -> rvth
+              "rvth"                     -> rvth,
+              "checkId"                  -> checkId
             )
+
         config.businessRatesCheckUrl(pathToFirstScreen)
       }
 
@@ -619,7 +626,30 @@ class DvrController @Inject()(
               valuationId = valuationId,
               owner = isOwner,
               formWithErrors = Some(formWithErrors))(request),
-          form => Future.successful(Redirect(startCheckUrl(form)))
+          form =>
+            for {
+              createCheck <- {
+                checkService.start(
+                  propertyLinkId = PropertyLinkId(form.authorisationId.getOrElse("no-property-link-id").toLong),
+                  assessmentRef = AssessmentRef(valuationId),
+                  checkType = CheckType.of(getCheckType(form.checkType)),
+                  propertyLinkSubmissionId = Some(propertyLinkSubmissionId),
+                  uarn = form.uarn,
+                  dvrCheck = true,
+                  rateableValueTooHigh = Some(form.checkType.equals(RateableValueTooHigh))
+                )
+              }
+
+              checkId <- createCheck match {
+                          case Right(checkId) =>
+                            checkService
+                              .updateResumeCheckUrl(checkId, Url(startCheckUrl(form, checkId)).urlWithoutHost.toString)
+                              .map(_ => checkId)
+                          case Left(failure) => Future.failed(new Exception("Request failed: " + failure))
+                        }
+            } yield {
+              Redirect(startCheckUrl(form, checkId))
+          }
         )
 
     }
