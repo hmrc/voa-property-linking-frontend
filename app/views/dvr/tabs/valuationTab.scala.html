@@ -68,18 +68,8 @@
 
         <ul class="govuk-list govuk-list--bullet">
         @if(currentValuationUrl.nonEmpty) {
-            <li>@link(preLinkText = Some(messages("available.requestvaluation.listYear.2017.li4")),
-                linkText = messages("available.requestvaluation.listYear.2017.link.text"),
-                location = currentValuationsUrl,
-                pClass = "govuk-body govuk-!-margin-bottom-0" ,
-                linkId = Some("current-valuation-alteration"))
-            </li>
-            <li>@link(preLinkText = Some(messages("available.requestvaluation.listYear.2017.li5")),
-                linkText = messages("available.requestvaluation.listYear.2017.link.text"),
-                location = currentValuationsUrl,
-                pClass = "govuk-body govuk-!-margin-bottom-0" ,
-                linkId = Some("current-valuation-court-decision"))
-            </li>
+            <li id="valuation-tab-li4" class="govuk-body govuk-!-margin-bottom-0">@messages("available.requestvaluation.listYear.2017.li4")</li>
+            <li id="valuation-tab-li5" class="govuk-body govuk-!-margin-bottom-0">@messages("available.requestvaluation.listYear.2017.li5")</li>
         } else {
             <li>@Html(messages("available.requestvaluation.listYear.2017.noCurrent.altered"))</li>
             <li>@Html(messages("available.requestvaluation.listYear.2017.noCurrent.court"))</li>

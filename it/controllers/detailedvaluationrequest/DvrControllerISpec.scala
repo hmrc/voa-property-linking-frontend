@@ -336,4 +336,75 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
+  "DvrController myOrganisationRequestDetailValuationCheck method" should {
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English" in {
+
+      val res = getDvrFilesPage(English)
+      val doc = Jsoup.parse(res.body)
+      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.getElementById("valuation-tab-li4").text() shouldBe "we have altered this valuation in the last 6 months and you send a Check case from the current valuation."
+      doc.getElementById("valuation-tab-li5").text() shouldBe "a court decision affected this property’s rateable value and before 1 October 2023 you send a Check case from the current valuation."
+    }
+
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh" in {
+      val res = getDvrFilesPage(Welsh)
+      val doc = Jsoup.parse(res.body)
+      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.getElementById("valuation-tab-li4").text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
+      doc.getElementById("valuation-tab-li5").text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2023, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
+    }
+  }
+
+  private def getDvrFilesPage(language: Language): WSResponse = {
+
+    getRequestStubs
+
+    await(
+      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId")
+        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck", "Content-Type" -> "application/x-www-form-urlencoded")
+        .get
+    )
+  }
+
+  def getRequestStubs: StubMapping = {
+
+    authStubs
+
+    stubFor {
+      get(s"/business-rates-challenge/my-organisations/challenge-cases?submissionId=$submissionId")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testChallengeCasesWithClient).toString())
+        }
+    }
+
+    stubFor {
+      get(s"/property-linking/dashboard/owner/assessments/$submissionId")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testApiAssessmentsNoCheck).toString())
+        }
+    }
+
+    stubFor {
+      get(s"/property-linking/properties/$uarn/valuation/$valuationId/files?propertyLinkId=$submissionId")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(someDvrDocumentFiles).toString())
+        }
+    }
+
+    stubFor {
+      get(s"/property-linking/check-cases/$submissionId/client")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testCheckCasesWithClient).toString())
+        }
+    }
+
+    stubFor {
+      get(s"/business-rates-challenge/my-organisations/challenge-cases?submissionId=$submissionId")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testChallengeCasesWithClient).toString())
+        }
+    }
+  }
 }
