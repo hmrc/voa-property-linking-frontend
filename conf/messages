@@ -1300,9 +1300,8 @@ available.requestvaluation.listYear.2017.li1=you send the Challenge case within 
 available.requestvaluation.listYear.2017.li2=you have waited more than 12 months and not received our Check case decision
 available.requestvaluation.listYear.2017.li3=the Challenge case is about a change in the local area (such as long-term roadworks), you send it within 16 months of sending the Check case and you have received our Check case decision
 available.requestvaluation.listYear.2017.p3=You can also send us a Challenge case if (any of these apply):
-available.requestvaluation.listYear.2017.li4=we have altered this valuation in the last 6 months and you
-available.requestvaluation.listYear.2017.li5=a court decision affected this property’s rateable value and before 1 October 2023 you
-available.requestvaluation.listYear.2017.link.text=send a Check case from the current valuation
+available.requestvaluation.listYear.2017.li4=we have altered this valuation in the last 6 months and you send a Check case from the current valuation.
+available.requestvaluation.listYear.2017.li5=a court decision affected this property’s rateable value and before 1 October 2023 you send a Check case from the current valuation.
 available.requestvaluation.listYear.2017.noCurrent.altered=we have altered this valuation in the last 6 months and you email us at  <a id="cca-service-link-1" class="govuk-link"  href="mailto:CCAService@voa.gov.uk">ccaservice@voa.gov.uk</a> to send a Check case
 available.requestvaluation.listYear.2017.noCurrent.court=a court decision affected this property’s rateable value and before 1 October 2023 you email us at  <a id="cca-service-link-2" class="govuk-link"  href="mailto:CCAService@voa.gov.uk">ccaservice@voa.gov.uk</a> to send a Check case
 

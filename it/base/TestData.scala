@@ -90,6 +90,25 @@ trait TestData {
     Seq(ownerAuthAgent, ownerAuthAgent2)
   )
 
+  val testApiAssessmentsNoCheck = ApiAssessments(
+    authorisationId = propertyLinkId,
+    submissionId = submissionId,
+    uarn = uarn,
+    address = "ADDRESS",
+    pending = false,
+    clientOrgName = None,
+    capacity = Some("OWNER"),
+    assessments = List(currentApiAssessmentNoCheck, previousApiAssessment),
+    Seq(ownerAuthAgent, ownerAuthAgent2)
+  )
+
+  lazy val currentApiAssessmentNoCheck: ApiAssessment = apiAssessment.copy(
+    listYear = "2023",
+    effectiveDate = Some(april2023),
+    currentToDate = None,
+    allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION)
+  )
+
   def groupAccount(agent: Boolean): GroupAccount =
     GroupAccount(
       id = 1L,
