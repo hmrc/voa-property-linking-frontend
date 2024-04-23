@@ -344,6 +344,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
       doc.getElementById("valuation-tab-li4").text() shouldBe "we have altered this valuation in the last 6 months and you send a Check case from the current valuation."
       doc.getElementById("valuation-tab-li5").text() shouldBe "a court decision affected this property’s rateable value and before 1 October 2023 you send a Check case from the current valuation."
+      doc.getElementById("valuation-tab-p4").text() shouldBe "If the assessment has been deleted for either example, you can send a check case from the most recent live valuation."
     }
 
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh" in {
@@ -352,6 +353,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
       doc.getElementById("valuation-tab-li4").text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
       doc.getElementById("valuation-tab-li5").text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2023, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
+      doc.getElementById("valuation-tab-p4").text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
     }
   }
 

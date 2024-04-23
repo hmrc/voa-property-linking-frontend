@@ -1304,7 +1304,7 @@ available.requestvaluation.listYear.2017.li4=we have altered this valuation in t
 available.requestvaluation.listYear.2017.li5=a court decision affected this property’s rateable value and before 1 October 2023 you send a Check case from the current valuation.
 available.requestvaluation.listYear.2017.noCurrent.altered=we have altered this valuation in the last 6 months and you email us at  <a id="cca-service-link-1" class="govuk-link"  href="mailto:CCAService@voa.gov.uk">ccaservice@voa.gov.uk</a> to send a Check case
 available.requestvaluation.listYear.2017.noCurrent.court=a court decision affected this property’s rateable value and before 1 October 2023 you email us at  <a id="cca-service-link-2" class="govuk-link"  href="mailto:CCAService@voa.gov.uk">ccaservice@voa.gov.uk</a> to send a Check case
-
+available.requestvaluation.listYear.2017.p4=If the assessment has been deleted for either example, you can send a check case from the most recent live valuation.
 
 available.requestvaluation.downloadValuationButton=Download the detailed valuation
 available.requestvaluation.changeValuation=If you want to change something in this valuation
