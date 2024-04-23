@@ -1226,6 +1226,8 @@ available.requestvaluation.listYear.2017.li3=mae’r achos Herio yn ymwneud â n
 available.requestvaluation.listYear.2017.p3=Gallwch hefyd anfon achos Herio atom os (mae unrhyw un o’r rhain yn berthnasol):
 available.requestvaluation.listYear.2017.li4=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol.
 available.requestvaluation.listYear.2017.li5=effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2023, rydych yn anfon achos Gwirio o’r prisiad cyfredol.
+available.requestvaluation.listYear.2017.p4=Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar.
+
 
 available.requestvaluation.listYear.2017.noCurrent.altered=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon e-bost atom i <a id="cca-service-link-1" class="govuk-link" href="mailto:CCAService@voa.gov.uk">ccaservice@voa.gov.uk</a> er mwyn anfon achos Gwirio
 available.requestvaluation.listYear.2017.noCurrent.court=yw penderfyniad llys wedi effeithio ar werth ardrethol yr eiddo hwn ac eich bod yn anfon e-bost atom i <a id="cca-service-link-2" class="govuk-link"  href="mailto:CCAService@voa.gov.uk">ccaservice@voa.gov.uk</a> cyn 1 Hydref 2023 er mwyn anfon achos Gwirio
