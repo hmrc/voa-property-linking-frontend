@@ -16,7 +16,7 @@
 
 package models.attachment
 
-import ai.x.play.json.Jsonx
+import play.api.libs.json._
 sealed trait AttachmentState extends Product with Serializable
 
 case object Received extends AttachmentState
@@ -35,7 +35,42 @@ case object UploadScanResultsFailed extends AttachmentState
 case object UploadScanResultsComplete extends AttachmentState
 
 object AttachmentState {
-  import ai.x.play.json.SingletonEncoder.simpleName
-  import ai.x.play.json.implicits.formatSingleton
-  implicit val format = Jsonx.formatSealed[AttachmentState]
+  implicit val format: Format[AttachmentState] = new Format[AttachmentState] {
+    override def reads(json: JsValue): JsResult[AttachmentState] =
+      json match {
+        case JsString("Received")                  => JsSuccess(Received)
+        case JsString("Initiated")                 => JsSuccess(Initiated)
+        case JsString("ValidationFailed")          => JsSuccess(ValidationFailed)
+        case JsString("ScanPending")               => JsSuccess(ScanPending)
+        case JsString("ScanReceived")              => JsSuccess(ScanReceived)
+        case JsString("MetadataPending")           => JsSuccess(MetadataPending)
+        case JsString("MetadataReceived")          => JsSuccess(MetadataReceived)
+        case JsString("UploadPending")             => JsSuccess(UploadPending)
+        case JsString("Uploading")                 => JsSuccess(Uploading)
+        case JsString("UploadAttachmentFailed")    => JsSuccess(UploadAttachmentFailed)
+        case JsString("UploadAttachmentComplete")  => JsSuccess(UploadAttachmentComplete)
+        case JsString("UploadingScanResults")      => JsSuccess(UploadingScanResults)
+        case JsString("UploadScanResultsFailed")   => JsSuccess(UploadScanResultsFailed)
+        case JsString("UploadScanResultsComplete") => JsSuccess(UploadScanResultsComplete)
+        case _                                     => JsError("Invalid AttachmentState")
+      }
+
+    override def writes(o: AttachmentState): JsValue = o match {
+      case Received                  => JsString("Received")
+      case Initiated                 => JsString("Initiated")
+      case ValidationFailed          => JsString("ValidationFailed")
+      case ScanPending               => JsString("ScanPending")
+      case ScanReceived              => JsString("ScanReceived")
+      case MetadataPending           => JsString("MetadataPending")
+      case MetadataReceived          => JsString("MetadataReceived")
+      case UploadPending             => JsString("UploadPending")
+      case Uploading                 => JsString("Uploading")
+      case UploadAttachmentFailed    => JsString("UploadAttachmentFailed")
+      case UploadAttachmentComplete  => JsString("UploadAttachmentComplete")
+      case UploadingScanResults      => JsString("UploadingScanResults")
+      case UploadScanResultsFailed   => JsString("UploadScanResultsFailed")
+      case UploadScanResultsComplete => JsString("UploadScanResultsComplete")
+      case _                         => throw new IllegalStateException(s"Unsupported AttachmentState: ${o.getClass.getSimpleName}")
+    }
+  }
 }

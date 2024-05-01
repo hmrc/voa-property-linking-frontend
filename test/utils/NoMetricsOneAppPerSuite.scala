@@ -28,7 +28,6 @@ trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite { this: TestSuite =>
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
-      .disable[com.kenshoo.play.metrics.PlayModule]
       .configure(additionalAppConfig: _*)
       .build()
 }

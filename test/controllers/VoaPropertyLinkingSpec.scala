@@ -22,7 +22,7 @@ import actions.propertylinking.requests.LinkingSessionRequest
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
 import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import actions.requests.{BasicAuthenticatedRequest, StaticPageRequest}
-import akka.stream.Materializer
+import org.apache.pekko.stream.Materializer
 import binders.propertylinks.ClaimPropertyReturnToPage
 import config.ApplicationConfig
 import models._
