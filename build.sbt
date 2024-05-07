@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,36 +15,28 @@
  */
 
 import sbt.Tests.{Group, SubProcess}
-import uk.gov.hmrc.DefaultBuildSettings._
+import uk.gov.hmrc.DefaultBuildSettings
+import uk.gov.hmrc.DefaultBuildSettings.*
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
 import uk.gov.hmrc.versioning.SbtGitVersioning
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
+ThisBuild / majorVersion := 0
+ThisBuild / scalaVersion := "2.13.12"
+
 lazy val TemplateTest = config("tt") extend Test
-lazy val TemplateItTest = config("tit") extend IntegrationTest
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtWeb)
   .disablePlugins(sbt.plugins.JUnitXmlReportPlugin)
-  .settings(playSettings ++ scoverageSettings: _*)
-  .settings(scalaSettings: _*)
+  .settings((playSettings ++ scoverageSettings) *)
+  .settings(scalaSettings *)
   .settings(PlayKeys.playDefaultPort := 9523)
-  .settings(majorVersion := 0)
   .settings(
-    targetJvm := "jvm-1.8",
+    targetJvm := "jvm-11",
     libraryDependencies ++= compileDependencies ++ testDependencies
   )
-  .settings(inConfig(TemplateTest)(Defaults.testSettings): _*)
-  .configs(IntegrationTest)
-  .settings(
-    inConfig(IntegrationTest)(Defaults.itSettings),
-    IntegrationTest / Keys.fork := false,
-    IntegrationTest / unmanagedSourceDirectories := (IntegrationTest / baseDirectory)(base => Seq(base / "it")).value,
-    addTestReportOption(IntegrationTest, "int-test-reports"),
-    IntegrationTest / testGrouping := oneForkedJvmPerTest((IntegrationTest / definedTests).value),
-    IntegrationTest / parallelExecution := false
-  )
-  .settings(scalaVersion := "2.13.8")
+  .settings(inConfig(TemplateTest)(Defaults.testSettings) *)
   .settings(
     TwirlKeys.templateImports ++= Seq(
       "uk.gov.hmrc.govukfrontend.views.html.components._",
@@ -60,6 +52,7 @@ lazy val microservice = Project(appName, file("."))
     Concat.groups := Seq(
       "javascripts/all-services.js" -> group((baseDirectory.value / "app" / "assets" / "javascripts" / "src" * "*.js"))
     ),
+    uglifyOps := UglifyOps.singleFile,
     // prevent removal of unused code which generates warning errors due to use of third-party libs
     uglifyCompressOptions := Seq("unused=false", "dead_code=false"),
     pipelineStages := Seq(digest),
@@ -72,13 +65,20 @@ lazy val microservice = Project(appName, file("."))
      "uk.gov.hmrc.play.bootstrap.binders.RedirectUrl"
   ))
 
+lazy val it = project
+  .enablePlugins(PlayScala)
+  .dependsOn(microservice % "test->test") // the "test->test" allows reusing test code and test dependencies
+  .settings(DefaultBuildSettings.itSettings())
+  .settings(libraryDependencies ++= testDependencies)
+  .settings(Test / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.AllLibraryJars)
+
 def oneForkedJvmPerTest(tests: Seq[TestDefinition]) = tests.map { test =>
   Group(test.name, Seq(test), SubProcess(ForkOptions().withRunJVMOptions(Vector(s"-Dtest.name=${test.name}"))))
 }
 
 val appName = "voa-property-linking-frontend"
 
-val playSettings: Seq[Setting[_]] = Seq(
+val playSettings: Seq[Setting[?]] = Seq(
   routesImport ++= Seq(
     "binders.propertylinks._",
     "binders.propertylinks.EvidenceChoices._",
@@ -105,8 +105,6 @@ lazy val scoverageSettings = {
     ScoverageKeys.coverageHighlighting := true,
     Test / unmanagedSourceDirectories := (Test / baseDirectory)(base => Seq(base / "test")).value,
     Test / parallelExecution := false,
-    IntegrationTest / unmanagedSourceDirectories := (IntegrationTest / baseDirectory)(base => Seq(base / "it")).value,
-    IntegrationTest / parallelExecution := false
   )
 }
 
@@ -116,36 +114,38 @@ scalacOptions += "-Wconf:src=target/.*:s"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
-val bootstrapPlayVersion = "7.23.0"
+ThisBuild / excludeDependencies ++= Seq(
+  // As of Play 3.0, groupId has changed to org.playframework; exclude transitive dependencies to the old artifacts
+  // Specifically affects play-json-extensions
+  ExclusionRule(organization = "com.typesafe.play")
+)
+
+val bootstrapPlayVersion = "8.5.0"
+val hmrcMongoVersion = "1.9.0"
 
 lazy val compileDependencies = Seq(
   guice,
   filters,
   ws,
-  "ai.x"                 %% "play-json-extensions"          % "0.42.0",
-  "com.google.guava"     % "guava"                          % "18.0",
-  "org.typelevel"        %% "cats-core"                     % "2.6.1",
-  "uk.gov.hmrc"          %% "bootstrap-frontend-play-28"    % bootstrapPlayVersion,
-  "uk.gov.hmrc"          %% "play-frontend-hmrc-play-28"    % "8.5.0",
-  "uk.gov.hmrc"          %% "http-caching-client"           % "10.0.0-play-28",
-  "uk.gov.hmrc"          %% "play-conditional-form-mapping" % "1.13.0-play-28",
-  "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-28"            % "0.74.0",
-  "uk.gov.hmrc"          %% "uri-template"                  % "1.12.0",
-  "uk.gov.hmrc"          %% "business-rates-values"         % "2.104.0"
+  "ai.x"                 %% "play-json-extensions"                  % "0.42.0",
+  "com.google.guava"     % "guava"                                  % "18.0",
+  "org.typelevel"        %% "cats-core"                             % "2.10.0",
+  "uk.gov.hmrc"          %% "bootstrap-frontend-play-30"            % bootstrapPlayVersion,
+  "uk.gov.hmrc"          %% "play-frontend-hmrc-play-30"            % "8.5.0",
+  "uk.gov.hmrc"          %% "http-caching-client-play-30"           % "11.2.0",
+  "uk.gov.hmrc"          %% "play-conditional-form-mapping-play-30" % "2.0.0",
+  "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-30"                    % hmrcMongoVersion,
+  "uk.gov.hmrc"          %% "uri-template"                          % "1.12.0",
+  "uk.gov.hmrc"          %% "business-rates-values"                 % "3.0.0"
 )
 
 lazy val testDependencies = Seq(
-  "uk.gov.hmrc"            %% "bootstrap-test-play-28"  % bootstrapPlayVersion % "test, it",
-  "org.scalatestplus.play" %% "scalatestplus-play"      % "5.1.0"              % "test, it",
-  "org.scalatest"          %% "scalatest"               % "3.0.8"              % "test, it",
-  "org.scalacheck"         %% "scalacheck"              % "1.14.0"             % "test, it",
-  "org.scalatestplus"      %% "scalacheck-1-15"         % "3.2.10.0"           % "test, it",
-  "org.pegdown"            % "pegdown"                  % "1.6.0"              % "test, it",
-  "org.jsoup"              % "jsoup"                    % "1.12.1"             % "test, it",
-  "org.mockito"            % "mockito-core"             % "2.27.0"             % "test, it",
-  "org.scalatestplus"      %% "mockito-3-4"             % "3.2.9.0"            % "test, it",
-  "uk.gov.hmrc.mongo"      %% "hmrc-mongo-test-play-28" % "0.74.0"             % "test, it",
-  "com.vladsch.flexmark"   % "flexmark-all"             % "0.35.10"            % "test, it"
+  "uk.gov.hmrc"            %% "bootstrap-test-play-30"  % bootstrapPlayVersion % Test,
+  "org.scalacheck"         %% "scalacheck"              % "1.18.0"             % Test,
+  "org.scalatestplus"      %% "scalacheck-1-15"         % "3.2.11.0"           % Test,
+  "org.pegdown"            % "pegdown"                  % "1.6.0"              % Test,
+  "org.jsoup"              % "jsoup"                    % "1.17.2"             % Test,
+  "uk.gov.hmrc.mongo"      %% "hmrc-mongo-test-play-30" % hmrcMongoVersion     % Test
 )
 
-addCommandAlias("precommit", ";scalafmt;test:scalafmt;it:test::scalafmt;coverage;test;it:test;coverageReport")
+addCommandAlias("precommit", ";scalafmt;test:scalafmt;it/test:scalafmt;coverage;test;it/test;coverageReport")

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import actions.propertylinking.requests.LinkingSessionRequest
 import actions.registration.requests.{RequestWithSessionPersonDetails, RequestWithUserDetails}
 import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
 import actions.requests.{BasicAuthenticatedRequest, StaticPageRequest}
-import akka.stream.Materializer
+import org.apache.pekko.stream.Materializer
 import binders.propertylinks.ClaimPropertyReturnToPage
 import config.ApplicationConfig
 import models._

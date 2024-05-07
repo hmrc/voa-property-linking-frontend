@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ trait NoMetricsOneAppPerSuite extends GuiceOneAppPerSuite { this: TestSuite =>
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
-      .disable[com.kenshoo.play.metrics.PlayModule]
       .configure(additionalAppConfig: _*)
       .build()
 }

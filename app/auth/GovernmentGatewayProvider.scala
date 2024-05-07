@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,31 @@
 package auth
 
 import config.ApplicationConfig
+import play.api.mvc.Results.Redirect
+
 import javax.inject.Inject
 import play.api.mvc._
 import play.api.{Configuration, Environment}
-import uk.gov.hmrc.play.bootstrap.config.AuthRedirects
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.Future
 
 class GovernmentGatewayProvider @Inject()(
-      override val env: Environment,
-      override val config: Configuration
-)(applicationConfig: ApplicationConfig)
-    extends AuthRedirects { this: ServicesConfig =>
+      val env: Environment,
+      val config: Configuration
+)(applicationConfig: ApplicationConfig) { this: ServicesConfig =>
   def additionalLoginParameters: Map[String, Seq[String]] = Map("accountType" -> Seq("organisation"))
+
+  def ggLoginUrl: String = applicationConfig.signOutUrlWithoutParams
+
+  def toGGLogin(continueUrl: String): Result =
+    Redirect(
+      ggLoginUrl,
+      Map(
+        "continue_url" -> Seq(continueUrl),
+        "origin"       -> Seq("voa")
+      )
+    )
 
   def redirectToLogin(implicit request: Request[_]): Future[Result] =
     Future.successful(toGGLogin(request.uri))
