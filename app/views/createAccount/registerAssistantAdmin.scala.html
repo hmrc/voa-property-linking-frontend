@@ -26,25 +26,18 @@
 
 @this(address: address, mainLayout: mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, dateFields: dateFields, formWithCSRF: FormWithCSRF)
 
-@(form: Form[AdminInExistingOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @isAgent(selected: Boolean) = @{
     if(selected) """checked="checked""" else """ disabled="disabled" """
 }
 
-@mainLayout(pageTitle = messages("enrolment.title"),
-showTopNavigation = false,
-hasErrors = form.hasErrors) {
+@mainLayout(pageTitle = messages("admin.enrolment.title"),
+showTopNavigation = false) {
 
-        @if(form.errors.nonEmpty) {
-            @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "dob"), title = Text(messages("error.propertyRepresentation.title"))))
-        }
-
-        <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
-        <p class="govuk-body">@messages("registration.confirmation.weUseYourDetails")</p>
-        <p class="govuk-hint">@messages("enrolment.assistant.hint")</p>
+        <h1 class="govuk-heading-l">@messages("admin.enrolment.title")</h1>
+        <p class="govuk-body">@messages("admin.enrolment.p")</p>
         <h2 class="govuk-heading-m">@messages("enrolment.assistant.organisation.details.title")</h2>
-        @formWithCSRF(controllers.registration.routes.RegistrationController.submitAdminToExistingOrganisation) {
         <table class="govuk-table">
             <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
@@ -67,47 +60,12 @@ hasErrors = form.hasErrors) {
             </tr>
             </tbody>
         </table>
-        <h2 class="govuk-heading-m">@messages("label.your.details")</h2>
 
-        @govukInput(Input(
-            id = "firstName",
-            name = "firstName",
-            label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
-            value = form("firstName").value.orElse(Some(organisationFieldData.firstName)),
-            errorMessage = form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message,
-            err.args:_*)))),
-            classes = "govuk-input govuk-!-width-one-third"
-        ))
-
-        @govukInput(Input(
-            id = "lastName",
-            name = "lastName",
-            label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
-            value = form("lastName").value.orElse(Some(organisationFieldData.lastName)),
-            errorMessage = form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message,
-            err.args:_*)))),
-            classes = "govuk-input govuk-!-width-one-third"
-        ))
-
-        @dateFields(form = form, fieldName = "dob", label = Some("label.dob"))
-
-        @govukInput(Input(
-            id = "nino",
-            name = "nino",
-            label = Label(content = HtmlContent(messages("label.ninoText")), classes="govuk-label--m"),
-            value = form(keys.nino).value.orElse(Some(organisationFieldData.nino)),
-            errorMessage = form(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message,
-            err.args:_*)))),
-            classes = "govuk-input govuk-!-width-one-third",
-            hint = Some(Hint(
-            content = Text(messages("hint.nino"))
-        ))
-        ))
+    @formWithCSRF(controllers.registration.routes.RegistrationController.submitAdminToExistingOrganisation) {
 
         @govukButton(Button(
-         content = Text(messages("label.confirm")),
-         attributes = Map("id" -> "save-and-continue")
-        ))
-        }
+            content = Text(messages("label.confirm")),
+            attributes = Map("id" -> "save-and-continue")))
+    }
 
 }

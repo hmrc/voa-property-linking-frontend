@@ -62,14 +62,11 @@ GET         /planned-improvements                                               
 
 #Enrolment page
 GET         /complete-contact-details                                                         controllers.registration.RegistrationController.show
-POST        /complete-contact-details                                                         controllers.registration.RegistrationController.submitOrganisation
-POST        /complete-contact-details-uplift                                                  controllers.registration.RegistrationController.submitOrganisationUplift
+POST        /complete-contact-details                                                  controllers.registration.RegistrationController.submitOrganisation
 GET         /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.show
-POST        /complete-existing-business-contact-details                                       controllers.registration.RegistrationController.submitAdminToExistingOrganisation
-POST        /complete-existing-business-contact-details-uplift                                controllers.registration.RegistrationController.submitAdminToExistingOrganisationUplift
+POST        /complete-existing-business-contact-details                                controllers.registration.RegistrationController.submitAdminToExistingOrganisation
 GET         /complete-your-contact-details                                                    controllers.registration.RegistrationController.show
-POST        /complete-your-contact-details                                                    controllers.registration.RegistrationController.submitIndividual
-POST        /complete-your-contact-details-uplift                                             controllers.registration.RegistrationController.submitIndividualUplift
+POST        /complete-your-contact-details                                             controllers.registration.RegistrationController.submitIndividual
 GET         /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.show
 POST        /complete-business-contact-details-assistant                                      controllers.registration.RegistrationController.submitAssistant
 GET         /create-success                                                                   controllers.registration.RegistrationController.success(personId: Long)

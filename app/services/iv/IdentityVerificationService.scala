@@ -49,7 +49,5 @@ class IdentityVerificationService @Inject()(
   def continue(journeyId: Option[String], userDetails: UserDetails)(
         implicit hc: HeaderCarrier,
         xec: ExecutionContext): Future[Option[RegistrationResult]] =
-    if (config.ivUpliftEnabled) registrationService.continueUplift(journeyId, userDetails)
-    else registrationService.continue(journeyId, userDetails)
-
+    registrationService.continueUplift(journeyId, userDetails)
 }

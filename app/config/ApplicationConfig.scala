@@ -85,7 +85,6 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
   lazy val newRegistrationJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newRegistrationJourneyEnabled")
   lazy val agentListYears: Boolean = loadBooleanConfig("feature-switch.agentListYears.enabled")
-  lazy val ivUpliftEnabled: Boolean = loadBooleanConfig("feature-switch.ivUplift.enabled")
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
 

@@ -229,6 +229,15 @@ trait FakeObjects {
     tradingName = Some("Trading name"),
     selectedAddress = None
   )
+  val individualUserAccountDetailsUplift: IndividualUserAccountDetailsUplift = IndividualUserAccountDetailsUplift(
+    address = address,
+    phone = "03245262782",
+    mobilePhone = "04357282921",
+    email = email,
+    confirmedEmail = email,
+    tradingName = Some("Trading name"),
+    selectedAddress = None
+  )
   val adminInExistingOrganisationAccountDetails = AdminInExistingOrganisationAccountDetails(
     firstName = "Billy-Bob",
     lastName = "AdminInExistingOrganisation",

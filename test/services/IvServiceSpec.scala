@@ -33,13 +33,10 @@ import scala.concurrent.Future
 
 class IvServiceSpec extends ServiceSpec {
 
-  override def additionalAppConfig: Seq[(String, String)] =
-    Seq("feature-switch.ivUplift.enabled" -> "false")
-
   "continue" should {
     "return a successful registration result if registration was successful for a new organisation" in new TestCase {
       StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
-      when(mockRegistrationService.continue(any(), any())(any(), any()))
+      when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
         .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
       when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
@@ -49,7 +46,7 @@ class IvServiceSpec extends ServiceSpec {
 
     "return a failed registration result if registration failed for a new organisation" in new TestCase {
       StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
-      when(mockRegistrationService.continue(any(), any())(any(), any()))
+      when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
         .thenReturn(Future.successful(Some(EnrolmentFailure)))
       when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
@@ -61,7 +58,7 @@ class IvServiceSpec extends ServiceSpec {
       override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
       StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
       StubIndividualAccountConnector.stubAccount(detailedIndividualAccount)
-      when(mockRegistrationService.continue(any(), any())(any(), any()))
+      when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
         .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
       when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
@@ -73,7 +70,7 @@ class IvServiceSpec extends ServiceSpec {
       override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
       StubGroupAccountConnector.stubAccount(groupAccount(agent = true))
       StubIndividualAccountConnector.stubAccount(detailedIndividualAccount)
-      when(mockRegistrationService.continue(any(), any())(any(), any()))
+      when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
         .thenReturn(Future.successful(Some(EnrolmentFailure)))
       when(ivProxy.start(any[Journey])(any[HeaderCarrier])).thenReturn(Future.successful(Link("")))
 
@@ -89,8 +86,8 @@ class IvServiceSpec extends ServiceSpec {
       val f = mock[SessionRepo]
       when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-      when(f.get[AdminOrganisationAccountDetails](any(), any()))
-        .thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetails].sample))
+      when(f.get[AdminOrganisationAccountDetailsUplift](any(), any()))
+        .thenReturn(Future.successful(arbitrary[AdminOrganisationAccountDetailsUplift].sample))
       f
     }
 
@@ -98,8 +95,8 @@ class IvServiceSpec extends ServiceSpec {
       val f = mock[SessionRepo]
       when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
       when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
-      when(f.get[IndividualUserAccountDetails](any(), any()))
-        .thenReturn(Future.successful(arbitrary[IndividualUserAccountDetails].sample))
+      when(f.get[IndividualUserAccountDetailsUplift](any(), any()))
+        .thenReturn(Future.successful(arbitrary[IndividualUserAccountDetailsUplift].sample))
       f
     }
 
