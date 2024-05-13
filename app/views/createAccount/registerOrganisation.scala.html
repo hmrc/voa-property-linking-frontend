@@ -26,20 +26,14 @@
 
 @this(address: address, mainLayout: mainLayout, govukButton: GovukButton, dateFields: dateFields, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF)
 
-@(form: Form[AdminOrganisationAccountDetails], organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(form: Form[AdminOrganisationAccountDetailsUplift], organisationFieldData: FieldDataUplift)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("enrolment.title"),
     showTopNavigation = false,
     hasErrors = form.hasErrors) {
 
-    <div id="page-error-summary">
-    @if(form.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = formatErrorMessages(form, "dob"), title = Text(messages("error.propertyRepresentation.title"))))
-    }
-    </div>
     <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
-
     <p id="contactDetailsUse" class="govuk-body">@messages("details.contactDetailsUse")</p>
 
     @govukDetails(Details(
@@ -48,24 +42,6 @@
     ))
 
     @formWithCSRF(action = controllers.registration.routes.RegistrationController.submitOrganisation) {
-
-        @govukInput(Input(
-            id = "firstName",
-            name = "firstName",
-            label = Label(content = HtmlContent(messages("enrolment.firstName")), classes = "govuk-label--m"),
-            value = form("firstName").value.orElse(Some(organisationFieldData.firstName)),
-            errorMessage = form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
-            classes = "govuk-input govuk-!-width-one-third"
-        ))
-
-        @govukInput(Input(
-            id = "lastName",
-            name = "lastName",
-            label = Label(content = HtmlContent(messages("enrolment.lastName")), classes = "govuk-label--m"),
-            value = form("lastName").value.orElse(Some(organisationFieldData.lastName)),
-            errorMessage = form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
-            classes = "govuk-input govuk-!-width-one-third"
-        ))
 
         @govukInput(Input(
             id = "companyName",
@@ -147,26 +123,6 @@
 
         @govukInsetText(InsetText(
             content = Text(messages("isAgent.details"))
-        ))
-
-        @dateFields(form = form, fieldName = "dob", label = Some("label.dob"))
-
-        @govukInput(Input(
-            id = "nino",
-            name = "nino",
-            label = Label(content = HtmlContent(messages("label.ninoText")),
-                classes = "govuk-label--m"),
-            value = form(keys.nino).value.orElse(Some(organisationFieldData.nino)),
-            errorMessage = form(keys.nino).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
-            classes = "govuk-input govuk-!-width-one-third",
-            hint = Some(Hint(
-                content = Text(messages("hint.nino"))
-            ))
-        ))
-
-        @govukDetails(Details(
-            summary = HtmlContent(messages("start.registration.IdontHave")),
-            content = HtmlContent(messages("start.registration.IdontHave.answer"))
         ))
 
         @govukButton(Button(

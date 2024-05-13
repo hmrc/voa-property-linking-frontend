@@ -118,10 +118,10 @@ trait VoaPropertyLinkingSpec
         block(new RequestWithUserDetails[A](userDetails, request))
     }
 
-  def sessionUserDetailsAction(details: User): SessionUserDetailsAction =
+  def sessionUserDetailsAction: SessionUserDetailsAction =
     new SessionUserDetailsAction(mockPersonalDetailsSessionRepository) {
       override def transform[A](request: RequestWithUserDetails[A]): Future[RequestWithSessionPersonDetails[A]] =
-        Future successful new RequestWithSessionPersonDetails[A](Some(details), request)
+        Future successful new RequestWithSessionPersonDetails[A](None, request)
     }
 
   def unauthenticatedActionBuilder(): AuthenticatedAction =

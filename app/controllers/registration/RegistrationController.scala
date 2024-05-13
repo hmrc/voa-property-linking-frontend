@@ -52,11 +52,8 @@ class RegistrationController @Inject()(
       invalidAccountTypeView: errors.invalidAccountType,
       invalidAccountCreationView: errors.invalidAccountCreation,
       registerIndividualView: createAccount.registerIndividual,
-      registerIndividualUpliftView: createAccount.registerIndividualUplift,
       registerOrganisationView: createAccount.registerOrganisation,
-      registerOrganisationUpliftView: createAccount.registerOrganisationUplift,
       registerAssistantAdminView: createAccount.registerAssistantAdmin,
-      registerAssistantAdminUpliftView: createAccount.registerAssistantAdminUplift,
       registerAssistantView: createAccount.registerAssistant,
       registerConfirmationView: createAccount.registrationConfirmation,
       confirmationView: createAccount.confirmation,
@@ -74,11 +71,10 @@ class RegistrationController @Inject()(
         Future.successful(Redirect(config.dashboardUrl("home")))
       case None =>
         request.userDetails match {
-          case user @ IndividualUserDetails() =>
-            individualShow(user, request.sessionPersonDetails)
-          case user @ OrganisationUserDetails() =>
-            if (config.ivUpliftEnabled) orgShowUplift(user, request.sessionPersonDetails)
-            else orgShow(user, request.sessionPersonDetails)
+          case userDetails @ IndividualUserDetails() =>
+            individualShow(userDetails)
+          case userDetails @ OrganisationUserDetails() =>
+            orgShow(userDetails)
           case _ @AgentUserDetails() =>
             Future.successful(Ok(invalidAccountTypeView()))
           case _ => Future.successful(Ok(invalidAccountTypeView()))
@@ -87,22 +83,10 @@ class RegistrationController @Inject()(
   }
 
   def submitIndividual: Action[AnyContent] = ggAuthenticated.async { implicit request =>
-    AdminUser.individual
-      .bindFromRequest()
-      .fold(
-        errors => Future.successful(BadRequest(registerIndividualView(errors, FieldData()))),
-        (success: IndividualUserAccountDetails) =>
-          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
-            identityVerificationIfRequired(request)
-        }
-      )
-  }
-
-  def submitIndividualUplift: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     AdminUserUplift.individual
       .bindFromRequest()
       .fold(
-        errors => Future.successful(BadRequest(registerIndividualUpliftView(errors, FieldDataUplift()))),
+        errors => Future.successful(BadRequest(registerIndividualView(errors, FieldDataUplift()))),
         (success: IndividualUserAccountDetailsUplift) =>
           personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
             continueRegistration(request)
@@ -111,24 +95,12 @@ class RegistrationController @Inject()(
   }
 
   def submitOrganisation: Action[AnyContent] = ggAuthenticated.async { implicit request =>
-    AdminUser.organisation
-      .bindFromRequest()
-      .fold(
-        errors => Future.successful(BadRequest(registerOrganisationView(errors, FieldData()))),
-        (success: AdminOrganisationAccountDetails) =>
-          personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
-            identityVerificationIfRequired(request)
-        }
-      )
-  }
-
-  def submitOrganisationUplift: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     {
       AdminUserUplift.organisation
         .bindFromRequest()
         .fold(
           errors => {
-            Future.successful(BadRequest(registerOrganisationUpliftView(errors, FieldDataUplift())))
+            Future.successful(BadRequest(registerOrganisationView(errors, FieldDataUplift())))
           },
           (success: AdminOrganisationAccountDetailsUplift) =>
             personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
@@ -138,38 +110,7 @@ class RegistrationController @Inject()(
     }
   }
 
-  //TODO: Scenario not covered in VTCCA-5761 for registering Admin to org
   def submitAdminToExistingOrganisation: Action[AnyContent] = ggAuthenticated.async { implicit request =>
-    AdminInExistingOrganisationUser.organisation
-      .bindFromRequest()
-      .fold(
-        errors => {
-          getCompanyDetails(request.groupIdentifier).map {
-            case Some(fieldData) =>
-              BadRequest(
-                registerAssistantAdminView(
-                  errors,
-                  fieldData
-                ))
-            case _ =>
-              unableToRetrieveCompanyDetails
-          }
-        },
-        (success: AdminInExistingOrganisationAccountDetails) => {
-          getCompanyDetails(request.groupIdentifier).flatMap {
-            case Some(fieldData) =>
-              personalDetailsSessionRepo.saveOrUpdate(success.toAdminOrganisationAccountDetails(fieldData)) flatMap {
-                _ =>
-                  identityVerificationIfRequired(request)
-              }
-            case _ =>
-              unableToRetrieveCompanyDetails
-          }
-        }
-      )
-  }
-
-  def submitAdminToExistingOrganisationUplift: Action[AnyContent] = ggAuthenticated.async { implicit request =>
     getCompanyDetails(request.groupIdentifier).flatMap {
       case Some(fieldData) =>
         personalDetailsSessionRepo.saveOrUpdate(toAdminOrganisationAccountDetailsUplift(fieldData)) flatMap { _ =>
@@ -193,7 +134,7 @@ class RegistrationController @Inject()(
   private def identityVerificationIfRequired(request: RequestWithUserDetails[_])(
         implicit hc: HeaderCarrier): Future[Result] =
     if (request.userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
-      // push user through IV as their Confidence Level is insufficient
+      // push users through IV as their Confidence Level is insufficient
       Future.successful(Redirect(controllers.routes.IdentityVerification.startIv))
     } else {
       // skip IV as user's Confidence Level is sufficient
@@ -265,39 +206,7 @@ class RegistrationController @Inject()(
         request.individualAccount.details.email))
   }
 
-  private def orgShow(userDetails: UserDetails, sessionPersonDetails: Option[User])(
-        implicit request: Request[AnyContent]): Future[Result] =
-    getCompanyDetails(userDetails.groupIdentifier).map {
-      case Some(fieldData) =>
-        userDetails.credentialRole match {
-          case User =>
-            val data = sessionPersonDetails match {
-              case None                                       => fieldData
-              case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
-            }
-            Ok(registerAssistantAdminView(AdminInExistingOrganisationUser.organisation, data))
-          case Assistant =>
-            val data = sessionPersonDetails match {
-              case None                                                 => fieldData
-              case Some(spd: AdminInExistingOrganisationAccountDetails) => FieldData(spd)
-            }
-            Ok(registerAssistantView(AssistantUser.assistant, data))
-        }
-      case None =>
-        userDetails.credentialRole match {
-          case Assistant =>
-            Ok(invalidAccountCreationView())
-          case _ =>
-            val data = sessionPersonDetails match {
-              case None                                       => FieldData(userDetails)
-              case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
-            }
-            Ok(registerOrganisationView(AdminUser.organisation, data))
-        }
-    }
-
-  private def orgShowUplift(userDetails: UserDetails, sessionPersonDetails: Option[User])(
-        implicit request: Request[AnyContent]): Future[Result] =
+  private def orgShow(userDetails: UserDetails)(implicit request: Request[AnyContent]): Future[Result] =
     getCompanyDetails(userDetails.groupIdentifier).map {
       case Some(fieldData) =>
         userDetails.credentialRole match {
@@ -305,18 +214,10 @@ class RegistrationController @Inject()(
             if (userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
               Redirect(controllers.routes.IdentityVerification.upliftIv)
             } else {
-              val data = sessionPersonDetails match {
-                case None                                       => fieldData
-                case Some(spd: AdminOrganisationAccountDetails) => FieldData(spd)
-              }
-              Ok(registerAssistantAdminUpliftView(data))
+              Ok(registerAssistantAdminView(fieldData))
             }
           case Assistant =>
-            val data = sessionPersonDetails match {
-              case None                                                 => fieldData
-              case Some(spd: AdminInExistingOrganisationAccountDetails) => FieldData(spd)
-            }
-            Ok(registerAssistantView(AssistantUser.assistant, data))
+            Ok(registerAssistantView(AssistantUser.assistant, fieldData))
         }
       case None =>
         userDetails.credentialRole match {
@@ -326,34 +227,16 @@ class RegistrationController @Inject()(
             if (userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
               Redirect(controllers.routes.IdentityVerification.upliftIv)
             } else {
-              val upliftData = sessionPersonDetails match {
-                case None                                             => FieldDataUplift(userDetails)
-                case Some(spd: AdminOrganisationAccountDetailsUplift) => FieldDataUplift(spd)
-              }
-              Ok(registerOrganisationUpliftView(AdminUserUplift.organisation, upliftData))
+              Ok(registerOrganisationView(AdminUserUplift.organisation, FieldDataUplift(userDetails)))
             }
         }
     }
 
-  private def individualShow(userDetails: UserDetails, sessionPersonDetails: Option[User])(
-        implicit request: Request[AnyContent]): Future[Result] =
-    if (config.ivUpliftEnabled) {
-      if (userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
-        Future.successful(Redirect(controllers.routes.IdentityVerification.upliftIv))
-      } else {
-        val fieldDataUplift: FieldDataUplift = sessionPersonDetails match {
-          case None => FieldDataUplift(userDetails)
-          case Some(sessionPersonDetails: IndividualUserAccountDetailsUplift) =>
-            FieldDataUplift(sessionPersonDetails)
-        }
-        Future.successful(Ok(registerIndividualUpliftView(AdminUserUplift.individual, fieldDataUplift)))
-      }
+  private def individualShow(userDetails: UserDetails)(implicit request: Request[AnyContent]): Future[Result] =
+    if (userDetails.confidenceLevel.level < ConfidenceLevel.L200.level) {
+      Future.successful(Redirect(controllers.routes.IdentityVerification.upliftIv))
     } else {
-      val fieldData = sessionPersonDetails match {
-        case None                                                     => FieldData(userDetails)
-        case Some(sessionPersonDetails: IndividualUserAccountDetails) => FieldData(sessionPersonDetails)
-      }
-      Future.successful(Ok(registerIndividualView(AdminUser.individual, fieldData)))
+      Future.successful(Ok(registerIndividualView(AdminUserUplift.individual, FieldDataUplift(userDetails))))
     }
 
   private def getCompanyDetails[A](groupIdentifier: String)(implicit hc: HeaderCarrier): Future[Option[FieldData]] =

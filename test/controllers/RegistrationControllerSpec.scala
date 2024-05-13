@@ -18,9 +18,8 @@ package controllers
 
 import actions.registration.SessionUserDetailsAction
 import controllers.registration.RegistrationController
-import models.identityVerificationProxy.Link
 import models.registration.{RegistrationSuccess, User, UserDetails}
-import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
+import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
@@ -39,30 +38,25 @@ import scala.concurrent.Future
 
 class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
-  lazy val mockSessionRepo = {
+  lazy val mockSessionRepo: SessionRepo = {
     val f = mock[SessionRepo]
     when(f.start(any())(any(), any())).thenReturn(Future.successful(()))
     when(f.saveOrUpdate(any())(any(), any())).thenReturn(Future.successful(()))
     f
   }
 
-  override def additionalAppConfig: Seq[(String, String)] =
-    Seq("feature-switch.ivUplift.enabled" -> "false")
+  val mockIdentityVerificationService: IdentityVerificationService = mock[IdentityVerificationService]
 
-  val mockIdentityVerificationService = mock[IdentityVerificationService]
+  val mockRegistrationService: RegistrationService = mock[RegistrationService]
 
-  val mockRegistrationService = mock[RegistrationService]
+  val mockSessionUserDetailsAction: SessionUserDetailsAction = mock[SessionUserDetailsAction]
 
-  val mockSessionUserDetailsAction = mock[SessionUserDetailsAction]
-
-  private def testRegistrationController(
-        userDetails: UserDetails,
-        sessionUserDetails: User = adminOrganisationAccountDetails): RegistrationController =
+  private def testRegistrationController(userDetails: UserDetails): RegistrationController =
     new RegistrationController(
       errorHandler = mockCustomErrorHandler,
       ggAuthenticated = ggPreauthenticated(userDetails),
-      authenticated = preAuthenticatedActionBuilders(true),
-      sessionUserDetailsAction = sessionUserDetailsAction(sessionUserDetails),
+      authenticated = preAuthenticatedActionBuilders(),
+      sessionUserDetailsAction = sessionUserDetailsAction,
       groupAccounts = StubGroupAccountConnector,
       individualAccounts = StubIndividualAccountConnector,
       addresses = StubAddresses,
@@ -70,11 +64,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       invalidAccountTypeView = invalidAccountTypeView,
       invalidAccountCreationView = invalidAccountCreationView,
       registerIndividualView = registerIndividualView,
-      registerIndividualUpliftView = registerIndividualUpliftView,
       registerOrganisationView = registerOrganisationView,
-      registerOrganisationUpliftView = registerOrganisationUpliftView,
       registerAssistantAdminView = registerAssistantAdminView,
-      registerAssistantAdminUpliftView = registerAssistantAdminUpliftView,
       registerAssistantView = registerAssistantView,
       registerConfirmationView = registerConfirmationView,
       confirmationView = confirmationView,
@@ -97,16 +88,16 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val user = userDetails(affinityGroup = AffinityGroup.Individual)
 
-    val res = testRegistrationController(user, individualUserAccountDetails).show()(FakeRequest())
+    val res = testRegistrationController(user).show()(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
     html.shouldContainText("Mobile number")
     html.inputShouldContain("email", user.email)
     html.inputShouldContain("confirmedEmail", user.email)
-    html.inputShouldContain("firstName", user.firstName.get)
-    html.inputShouldContain("lastName", user.lastName.get)
-    html.inputShouldContain("address.postcode", user.postcode.get)
+    html.inputShouldContain("phone", "")
+    html.inputShouldContain("mobilePhone", "")
+    html.inputShouldContain("tradingName", "")
     html.html.getElementsByClass("manualAddress").hasClass("govuk-!-display-block") shouldBe true
     html.html.getElementsByClass("lookupAddressCancel").hasClass("govuk-!-display-none") shouldBe true
   }
@@ -127,13 +118,13 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.inputShouldContain("address.postcode", user.postcode.get)
+    html.inputShouldContain("postcodeSearch", user.postcode.get)
 
     html.shouldContainText("Business name")
     html.inputShouldContain("email", user.email)
     html.inputShouldContain("confirmedBusinessEmail", user.email)
-    html.inputShouldContain("firstName", user.firstName.get)
-    html.inputShouldContain("lastName", user.lastName.get)
+    html.inputShouldContain("companyName", "")
+    html.inputShouldContain("phone", "")
     html.html.getElementsByClass("manualAddress").hasClass("govuk-!-display-block") shouldBe true
     html.html.getElementsByClass("lookupAddressCancel").hasClass("govuk-!-display-none") shouldBe true
   }
@@ -144,7 +135,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val groupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = user.groupIdentifier)
     StubGroupAccountConnector.stubAccount(groupAccount)
 
-    val res = testRegistrationController(user, adminInExistingOrganisationAccountDetails).show()(FakeRequest())
+    val res = testRegistrationController(user).show()(FakeRequest())
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
@@ -178,11 +169,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
 
     val html = HtmlPage(res)
-    html.shouldContainText("You have been added as a user to your organisation, please confirm your details below")
-    html.shouldContainTextInput("#firstName")
-    html.shouldContainTextInput("#lastName")
-    html.shouldContainDateSelect("dob")
-    html.shouldContainTextInput("#nino")
+    html.shouldContainText(
+      "We use your organisation details to send you correspondence related to the service and your account. ")
   }
 
   "Going to the create account page when logged in as a new assistant user registering without an existing group account" should
@@ -196,159 +184,9 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       "Registration failed You can’t register until the Administrator from your organisation registers first.")
   }
 
-  trait SubmitIndividual {
+  "Call confirmation" should "return an valid page" in {
+
     val personId = 123L
-
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(RegistrationSuccess(personId)))
-
-    StubIndividualAccountConnector.stubAccount(
-      account = DetailedIndividualAccount(
-        externalId = "externalId",
-        trustId = None,
-        organisationId = 1L,
-        individualId = personId,
-        details =
-          IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
-      ))
-
-    val data = Map(
-      "firstName"        -> Seq("first"),
-      "lastName"         -> Seq("second"),
-      "email"            -> Seq("x@x.com"),
-      "confirmedEmail"   -> Seq("x@x.com"),
-      "phone"            -> Seq("01234 555 555"),
-      "mobilePhone"      -> Seq("07554 555 555"),
-      "address.line1"    -> Seq("1234567"),
-      "address.line2"    -> Seq(""),
-      "address.line3"    -> Seq(""),
-      "address.line4"    -> Seq(""),
-      "address.postcode" -> Seq("BN1 2CD"),
-      "nino"             -> Seq("AA000001B"),
-      "dob.day"          -> Seq("11"),
-      "dob.month"        -> Seq("02"),
-      "dob.year"         -> Seq("1980")
-    )
-
-    val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-
-  }
-
-  "Submitting a valid individual with low confidence level" should "return an IV redirect" in new SubmitIndividual {
-    when(mockIdentityVerificationService.start(any())(any())).thenReturn(Future.successful(Link("")))
-
-    val res =
-      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L50)).submitIndividual()(fakeRequest)
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some("/business-rates-property-linking/identity-verification/start")
-  }
-
-  "Submitting a valid individual with high confidence level" should "return a create-success redirect" in new SubmitIndividual {
-    when(mockRegistrationService.continue(any(), any())(any(), any()))
-      .thenReturn(Future.successful(Some(RegistrationSuccess(personId))))
-
-    val res =
-      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).submitIndividual()(fakeRequest)
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(s"/business-rates-property-linking/create-confirmation?personId=$personId")
-  }
-
-  "Call confirmation" should "return an valid page" in new SubmitOrganisation {
-    when(mockRegistrationService.continue(any(), any())(any(), any()))
-      .thenReturn(Future.successful(Some(RegistrationSuccess(personId))))
-
-    val res =
-      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).confirmation(100)(fakeRequest)
-    status(res) shouldBe OK
-    val html = HtmlPage(res)
-    //Page title
-    html.titleShouldMatch("Registration successful - Valuation Office Agency - GOV.UK")
-    //Page should contains VOA Person ID value 100
-    html.verifyElementText("personal-id", "100")
-    //Page should contains VOA Agent code value 300
-    html.verifyElementText("agent-code", "300")
-
-    html.verifyElementText("email-sent", "We have sent these details to")
-    html.verifyElementText("what-next", "What happens next")
-    html.verifyElementText("terms-of-use", "Terms of use")
-
-  }
-
-  "Submitting an individual form with invalid email, mobilePhone, phone, nino" should "return a bad request response" in {
-    val data = Map(
-      "phone"       -> Seq("01"),
-      "mobilePhone" -> Seq("11111222111"),
-      "nino"        -> Seq("0AQ"),
-      "email"       -> Seq("invalidEmail!!.com"))
-
-    val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-
-    val res = testRegistrationController(userDetails()).submitIndividual()(fakeRequest)
-    status(res) shouldBe BAD_REQUEST
-    val html = HtmlPage(res)
-    html.shouldContainText("Enter a valid email address")
-    html.shouldContainText("Enter a valid National Insurance number")
-    html.shouldContainText("Telephone number must be between 11 and 20 characters")
-    html.shouldContainText("Enter a telephone number, like 01623 960 001 or +44 0808 157 0192")
-  }
-
-  "Submitting an individual form with non-matching emails" should "return a bad request response" in {
-    val data = Map("email" -> Seq("x@x.com"), "confirmedEmail" -> Seq("1@1.com"))
-
-    val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-
-    val res = testRegistrationController(userDetails()).submitIndividual()(fakeRequest)
-    status(res) shouldBe BAD_REQUEST
-    val html = HtmlPage(res)
-    html.shouldContainText("Email addresses must match. Check them and try again")
-  }
-
-  "Submitting an empty individual form" should "return a bad request response" in {
-    val res = testRegistrationController(userDetails()).submitIndividual()(FakeRequest())
-    status(res) shouldBe BAD_REQUEST
-    val html = HtmlPage(res)
-    html.shouldContainText("Last name - This must be filled in")
-    html.shouldContainText("Date of birth - Enter a valid date")
-    html.shouldContainText("Address line 1 - This must be filled in")
-    html.shouldContainText("Postcode - This must be filled in")
-    html.shouldContainText("NINO - This must be filled in")
-    html.shouldContainText("Email - This must be filled in")
-    html.shouldContainText("Mobile number - This must be filled in")
-    html.shouldContainText("Phone - This must be filled in")
-
-    html.html.getElementsByClass("manualAddress").hasClass("govuk-!-display-none") shouldBe true
-  }
-
-  "Submitting an invalid organisation admin form" should "return a bad request response" in {
-    val user: UserDetails = userDetails(affinityGroup = Organisation, credentialRole = User)
-    val ga: GroupAccount = arbitrary[GroupAccount].sample.get.copy(groupId = user.groupIdentifier)
-    StubGroupAccountConnector.stubAccount(ga)
-
-    val res = testRegistrationController(user).submitAdminToExistingOrganisation()(FakeRequest())
-    status(res) shouldBe BAD_REQUEST
-    val html = HtmlPage(res)
-    html.shouldContainText("First name - This must be filled in")
-    html.shouldContainText("Last name - This must be filled in")
-    html.shouldContainText("Date of birth - Enter a valid date")
-    html.shouldContainText("NINO - This must be filled in")
-
-  }
-
-  trait SubmitOrganisation {
-    val personId = 123L
-
-    when(mockRegistrationService.create(any(), any(), any())(any())(any(), any()))
-      .thenReturn(Future.successful(RegistrationSuccess(personId)))
-
-    StubIndividualAccountConnector.stubAccount(
-      account = DetailedIndividualAccount(
-        externalId = "externalId",
-        trustId = None,
-        organisationId = 1L,
-        individualId = personId,
-        details =
-          IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
-      ))
 
     val data = Map(
       "companyName"            -> Seq("company"),
@@ -368,39 +206,27 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       "dob.month"              -> Seq("02"),
       "dob.year"               -> Seq("1980")
     )
+
     val fakeRequest: FakeRequest[AnyContent] = FakeRequest().withBody(AnyContentAsFormUrlEncoded(data))
-  }
 
-  "Submitting a valid organisation with low confidence level" should "return an IV redirect" in new SubmitOrganisation {
-    when(mockIdentityVerificationService.start(any())(any())).thenReturn(Future.successful(Link("")))
-
-    val res =
-      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L50)).submitOrganisation()(fakeRequest)
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some("/business-rates-property-linking/identity-verification/start")
-  }
-
-  "Submitting a valid organisation with high confidence level" should "return an create-success redirect" in new SubmitOrganisation {
     when(mockRegistrationService.continue(any(), any())(any(), any()))
       .thenReturn(Future.successful(Some(RegistrationSuccess(personId))))
 
     val res =
-      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).submitOrganisation()(fakeRequest)
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(s"/business-rates-property-linking/create-confirmation?personId=$personId")
-
-  }
-
-  "Submitting an invalid organisation form" should "return a bad request response" in {
-    val res = testRegistrationController(userDetails()).submitOrganisation()(FakeRequest())
-    status(res) shouldBe BAD_REQUEST
+      testRegistrationController(userDetails(confidenceLevel = ConfidenceLevel.L200)).confirmation(100)(fakeRequest)
+    status(res) shouldBe OK
     val html = HtmlPage(res)
-    html.shouldContainText("Last name - This must be filled in")
-    html.shouldContainText("Date of birth - Enter a valid date")
-    html.shouldContainText("Address line 1 - This must be filled in")
-    html.shouldContainText("Postcode - This must be filled in")
-    html.shouldContainText("NINO - This must be filled in")
-    html.shouldContainText("Email - This must be filled in")
+    //Page title
+    html.titleShouldMatch("Registration successful - Valuation Office Agency - GOV.UK")
+    //Page should contains VOA Person ID value 100
+    html.verifyElementText("personal-id", "100")
+    //Page should contains VOA Agent code value 300
+    html.verifyElementText("agent-code", "300")
+
+    html.verifyElementText("email-sent", "We have sent these details to")
+    html.verifyElementText("what-next", "What happens next")
+    html.verifyElementText("terms-of-use", "Terms of use")
+
   }
 
   override protected def beforeEach(): Unit = {

@@ -18,7 +18,7 @@ import binders.propertylinks.ClaimPropertyReturnToPage
 import models._
 import models.domain._
 import models.messages.{Message, MessageSearchResults}
-import models.registration.{AdminOrganisationAccountDetails, IndividualUserAccountDetails}
+import models.registration.{AdminOrganisationAccountDetails, AdminOrganisationAccountDetailsUplift, IndividualUserAccountDetails, IndividualUserAccountDetailsUplift}
 import models.searchApi.{AgentAuthClient, AgentAuthorisation, OwnerAuthAgent, OwnerAuthorisation}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen.{alphaChar, listOfN}
@@ -354,6 +354,28 @@ package object utils {
   implicit val arbitraryEnrolmentOrganisationAccountDetails: Arbitrary[AdminOrganisationAccountDetails] = Arbitrary(
     enrolmentOrgAccountDetailsGen)
 
+  private val enrolmentOrgAccountDetailsUpliftGen: Gen[AdminOrganisationAccountDetailsUplift] = for {
+    companyName     <- shortString
+    address         <- arbitrary[Address]
+    phone           <- shortString
+    email           <- shortString
+    confirmedEmail  <- shortString
+    isAgent         <- arbitrary[Boolean]
+    selectedAddress <- shortString
+  } yield
+    AdminOrganisationAccountDetailsUplift(
+      companyName = companyName,
+      address = address,
+      phone = phone,
+      email = email,
+      confirmedEmail = confirmedEmail,
+      isAgent = isAgent,
+      selectedAddress = Some(selectedAddress)
+    )
+
+  implicit val arbitraryEnrolmentOrganisationAccountDetailsUplift: Arbitrary[AdminOrganisationAccountDetailsUplift] =
+    Arbitrary(enrolmentOrgAccountDetailsUpliftGen)
+
   private val enrolmentIndAccountDetailsGen: Gen[IndividualUserAccountDetails] = for {
     firstName <- shortString
     lastName  <- shortString
@@ -379,6 +401,28 @@ package object utils {
 
   implicit val arbitraryEnrolmentIndividualAccountDetails: Arbitrary[IndividualUserAccountDetails] = Arbitrary(
     enrolmentIndAccountDetailsGen)
+
+  private val enrolmentIndAccountDetailsGenUplift: Gen[IndividualUserAccountDetailsUplift] = for {
+    address         <- arbitrary[Address]
+    phone           <- shortString
+    mobilePhone     <- shortString
+    email           <- shortString
+    confirmedEmail  <- shortString
+    tradingName     <- shortString
+    selectedAddress <- shortString
+  } yield
+    IndividualUserAccountDetailsUplift(
+      address = address,
+      phone = phone.mkString,
+      mobilePhone = mobilePhone.mkString,
+      email = email,
+      confirmedEmail = confirmedEmail,
+      tradingName = Some(tradingName),
+      selectedAddress = Some(selectedAddress)
+    )
+
+  implicit val arbitraryEnrolmentIndividualAccountDetailsUplift: Arbitrary[IndividualUserAccountDetailsUplift] =
+    Arbitrary(enrolmentIndAccountDetailsGenUplift)
 
   private val linkingSessionGen: Gen[LinkingSession] = for {
     address                 <- shortString
