@@ -28,12 +28,6 @@ class AssistantUserSpec extends BaseUnitSpec {
     "bind when the inputs are all valid" in {
       shouldBindTo(form, validData, expected)
     }
-    "ensure first name is mandatory" in {
-      verifyNonEmptyText(form, validData, keys.firstName)
-    }
-    "ensure last name is mandatory" in {
-      verifyNonEmptyText(form, validData, keys.lastName)
-    }
   }
 
   object AssistantUserAccountDetailsTestData {

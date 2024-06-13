@@ -59,6 +59,8 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val errorText = "Error: "
   val addressLengthLine1ErrorText = "This field must be 80 characters or less"
   val addressLengthErrorText = "This field must be 30 characters or less"
+  val emailInvalidErrorText = "Enter a valid email address"
+  val emailLengthErrorText = "This field must be 150 characters or less"
 
   val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Valuation Office Agency - GOV.UK"
   val headingTextWelsh = "Cwblhewch eich manylion cyswllt"
@@ -90,6 +92,8 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val errorTextWelsh = "Gwall: "
   val addressLengthErrorTextWelsh = "Mae’n rhaid i’r maes hwn fod yn 30 o gymeriadau neu lai"
   val addressLengthLine1ErrorTextWelsh = "Mae’n rhaid i’r maes hwn fod yn 80 o gymeriadau neu lai"
+  val emailInvalidErrorTextWelsh = "Nodwch gyfeiriad e-bost dilys"
+  val emailLengthErrorTextWelsh = "Mae’n rhaid i’r maes hwn fod yn 150 o gymeriadau neu lai"
 
   val headingSelector = "#main-content > div > div > h1"
   val weUseYourSelector = "#contactDetailsUse"
@@ -129,6 +133,7 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val addressLine2ErrorSelector = "p[id='address.line2-error']"
   val addressLine3ErrorSelector = "p[id='address.line3-error']"
   val addressLine4ErrorSelector = "p[id='address.line4-error']"
+  val emailErrorSelector = "p[id='email-error']"
 
   "RegistrationController show method for a new organisation" should {
     "Show an English registration contact details screen with the correct text" which {
@@ -197,11 +202,107 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
       s"has a text input field for the $emailAddressText" in {
         document.select(emailSelector).text() shouldBe emailAddressText
         document.select(emailInputSelector).attr("type") shouldBe "text"
+        document.select(emailInputSelector).attr("value") shouldBe "test@test.com"
       }
 
       s"has a text input field for the $confirmEmailAddressText" in {
         document.select(confirmEmailSelector).text() shouldBe confirmEmailAddressText
         document.select(confirmEmailInputSelector).attr("type") shouldBe "text"
+        document.select(confirmEmailInputSelector).attr("value") shouldBe "test@test.com"
+      }
+
+      s"has radio input fields for the $doYouWantToRegisterAsAgentText" in {
+        document.select(doYouWantToRegisterAsAgentSelector).text() shouldBe doYouWantToRegisterAsAgentText
+        document.select(yesSelector).text() shouldBe yesText
+        document.select(yesInputSelector).attr("type") shouldBe "radio"
+        document.select(noSelector).text() shouldBe noText
+        document.select(noInputSelector).attr("type") shouldBe "radio"
+      }
+
+      s"has text on the screen of $representAnotherBusinessText" in {
+        document.select(representAnotherBusinessSelector).text() shouldBe representAnotherBusinessText
+      }
+
+      s"has a $saveAndContinueText button" in {
+        document.select(saveAndContinueSelector).text() shouldBe saveAndContinueText
+      }
+    }
+
+    "Show an English registration contact details screen with the email stripped if its over 150 characters long" which {
+
+      val longEmail =
+        "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com"
+      lazy val document: Document = getSuccessPage(English, longEmail)
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      s"has a header of $headingText" in {
+        document.select(headingSelector).text() shouldBe headingText
+      }
+
+      s"has text on the screen of $weUseYourText" in {
+        document.select(weUseYourSelector).text() shouldBe weUseYourText
+      }
+
+      s"has text on the screen of $registeringAsAgentText" in {
+        document.select(registeringAsAgentSelector).text() shouldBe registeringAsAgentText
+        document.select(registeringAsAgentExpandedSelector).text() shouldBe registeringAsAgentExpandedText
+      }
+
+      s"has a text input field for the $businessNameText" in {
+        document.select(businessNameSelector).text() shouldBe businessNameText
+        document.select(businessNameInputSelector).attr("type") shouldBe "text"
+      }
+
+      s"has a link to $enterAddressManuallyText" in {
+        document.select(enterAddressManuallySelector).text() shouldBe enterAddressManuallyText
+      }
+
+      s"has a link to $findAddressByPostcodeText" in {
+        document.select(findAddressByPostcodeSelector).text() shouldBe findAddressByPostcodeText
+      }
+
+      s"has a $findAddressButtonText button" in {
+        document.select(findAddressButtonSelector).text() shouldBe findAddressButtonText
+      }
+
+      s"has text input fields for the $addressText" in {
+        document.select(addressSelector).text() shouldBe addressText
+        document.select(addressLineOneInputSelector).attr("type") shouldBe "text"
+        document.select(addressLineTwoInputSelector).attr("type") shouldBe "text"
+        document.select(addressLineThreeInputSelector).attr("type") shouldBe "text"
+        document.select(addressLineFourInputSelector).attr("type") shouldBe "text"
+        document.select(addressPostcodeSelector).text() shouldBe postcodeText
+        document.select(addressPostcodeInputSelector).attr("type") shouldBe "text"
+      }
+
+      s"has text input fields for the $postcodeText" in {
+        document.select(postcodeSelector).text() shouldBe postcodeText
+        document.select(postcodeInputSelector).attr("type") shouldBe "text"
+      }
+
+      s"has text on the screen of $moreThanOneAddressText" in {
+        document.select(moreThanOneAddressSelector).text() shouldBe moreThanOneAddressText
+        document.select(moreThanOneAddressExpandedSelector).text() shouldBe moreThanOneAddressExpandedText
+      }
+
+      s"has a text input field for the $phoneNumText" in {
+        document.select(phoneNumSelector).text() shouldBe phoneNumText
+        document.select(phoneNumInputSelector).attr("type") shouldBe "text"
+      }
+
+      s"has a text input field for the $emailAddressText" in {
+        document.select(emailSelector).text() shouldBe emailAddressText
+        document.select(emailInputSelector).attr("type") shouldBe "text"
+        document.select(emailInputSelector).attr("value") shouldBe ""
+      }
+
+      s"has a text input field for the $confirmEmailAddressText" in {
+        document.select(confirmEmailSelector).text() shouldBe confirmEmailAddressText
+        document.select(confirmEmailInputSelector).attr("type") shouldBe "text"
+        document.select(confirmEmailInputSelector).attr("value") shouldBe ""
       }
 
       s"has radio input fields for the $doYouWantToRegisterAsAgentText" in {
@@ -315,7 +416,7 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   "RegistrationController onPageLoad method" should {
 
     "with confidence level 50 redirects to IV uplift start" in {
-      stubsSetup
+      stubsSetup(email = "test@test.com")
 
       val authResponseBody =
         """{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalItmpName": {"givenName": "Test First Name", "familyName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 50}"""
@@ -339,9 +440,9 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
     }
   }
 
-  private def getSuccessPage(language: Language): Document = {
+  private def getSuccessPage(language: Language, email: String = "test@test.com"): Document = {
 
-    stubsSetup
+    stubsSetup(email)
 
     val res = await(
       ws.url(s"http://localhost:$port/business-rates-property-linking/complete-contact-details")
@@ -354,7 +455,7 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
     Jsoup.parse(res.body)
   }
 
-  private def stubsSetup: StubMapping = {
+  private def stubsSetup(email: String): StubMapping = {
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -364,7 +465,7 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
     }
 
     val authResponseBody =
-      """{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalName": {"name": "Test First Name", "lastName": "Test Last Name"}, "email": "test@test.com", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
+      s"""{ "affinityGroup": "Organisation", "credentialRole": "User", "optionalName": {"name": "Test First Name", "lastName": "Test Last Name"}, "email": "$email", "groupIdentifier": "1", "externalId": "3", "confidenceLevel": 200}"""
 
     stubFor {
       post("/auth/authorise")
@@ -453,6 +554,76 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
     }
 
+    "Return a bad request with the relevant errors when the email is greater than 150 characters in English" which {
+
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1"    -> "Address line 1",
+          "line2"    -> "Address line of 2",
+          "line3"    -> "Address line of 3",
+          "line4"    -> "Address line of 4",
+          "postcode" -> "LS1 3SP"
+        ),
+        "phone"          -> "0177728837298",
+        "mobilePhone"    -> "07829879332",
+        "email"          -> "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com",
+        "confirmedEmail" -> "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com",
+        "tradingName"    -> "test trade name"
+      )
+
+      lazy val res = postContactDetailsPage(language = English, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText}" in {
+        document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error above the email field of ${errorText + emailLengthErrorText}" in {
+        document.select(emailErrorSelector).text() shouldBe errorText + emailLengthErrorText
+      }
+
+    }
+
+    "Return a bad request with the relevant errors when the email is in the wrong format in English" which {
+
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1"    -> "Address line 1",
+          "line2"    -> "Address line of 2",
+          "line3"    -> "Address line of 3",
+          "line4"    -> "Address line of 4",
+          "postcode" -> "LS1 3SP"
+        ),
+        "phone"          -> "0177728837298",
+        "mobilePhone"    -> "07829879332",
+        "email"          -> "invalidEmailFormat",
+        "confirmedEmail" -> "invalidEmailFormat",
+        "tradingName"    -> "test trade name"
+      )
+
+      lazy val res = postContactDetailsPage(language = English, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText}" in {
+        document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error above the email field of ${errorText + emailInvalidErrorText}" in {
+        document.select(emailErrorSelector).text() shouldBe errorText + emailInvalidErrorText
+      }
+
+    }
+
     "Return a bad request with the relevant errors when each address line is greater than 30 characters in Welsh" which {
 
       val requestBody: JsObject = Json.obj(
@@ -500,6 +671,78 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
       s"has an error above the address line 4 field of ${errorText + addressLengthErrorText} in welsh" in {
         // The below is a bug, it should translate the Error part to welsh too
         document.select(addressLine4ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+      }
+
+    }
+
+    "Return a bad request with the relevant errors when the email is greater than 150 characters in Welsh" which {
+
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1"    -> "Address line 1",
+          "line2"    -> "Address line of 2",
+          "line3"    -> "Address line of 3",
+          "line4"    -> "Address line of 4",
+          "postcode" -> "LS1 3SP"
+        ),
+        "phone"          -> "0177728837298",
+        "mobilePhone"    -> "07829879332",
+        "email"          -> "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com",
+        "confirmedEmail" -> "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com",
+        "tradingName"    -> "test trade name"
+      )
+
+      lazy val res = postContactDetailsPage(language = Welsh, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText} in welsh" in {
+        document.title() shouldBe errorTextWelsh + titleTextWelsh
+      }
+
+//      TODO: The below is a bug and should translate error to welsh
+      s"has an error above the email field of ${errorText + emailLengthErrorText} in welsh" in {
+        document.select(emailErrorSelector).text() shouldBe errorText + emailLengthErrorTextWelsh
+      }
+
+    }
+
+    "Return a bad request with the relevant errors when the email is in the wrong format in Welsh" which {
+
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1"    -> "Address line 1",
+          "line2"    -> "Address line of 2",
+          "line3"    -> "Address line of 3",
+          "line4"    -> "Address line of 4",
+          "postcode" -> "LS1 3SP"
+        ),
+        "phone"          -> "0177728837298",
+        "mobilePhone"    -> "07829879332",
+        "email"          -> "invalidEmailFormat",
+        "confirmedEmail" -> "invalidEmailFormat",
+        "tradingName"    -> "test trade name"
+      )
+
+      lazy val res = postContactDetailsPage(language = Welsh, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText} in welsh" in {
+        document.title() shouldBe errorTextWelsh + titleTextWelsh
+      }
+
+//      TODO: The below is a bug and should translate error to welsh
+      s"has an error above the email field of ${errorText + emailInvalidErrorText} in welsh" in {
+        document.select(emailErrorSelector).text() shouldBe errorText + emailInvalidErrorTextWelsh
       }
 
     }

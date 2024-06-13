@@ -15,6 +15,9 @@
  */
 
 package utils
+
+import play.api.data.Forms.text
+
 object EmailAddressValidation {
   final private val validEmail = """^([a-zA-Z0-9.!#$%&’'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+)$""".r
 
@@ -22,4 +25,9 @@ object EmailAddressValidation {
     case validEmail(_, _) => true
     case invalidEmail     => false
   }
+
+  def isValidEmail =
+    text
+      .verifying("error.emailLength", txt => txt.trim.length < 151 && txt.trim.nonEmpty)
+      .verifying("error.invalidEmail", EmailAddressValidation.isValid(_))
 }

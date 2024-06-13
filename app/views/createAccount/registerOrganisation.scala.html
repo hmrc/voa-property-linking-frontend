@@ -28,6 +28,13 @@
 
 @(form: Form[AdminOrganisationAccountDetailsUplift], organisationFieldData: FieldDataUplift)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@emailLengthCheck: Option[String] = @{
+    organisationFieldData.email match {
+        case email => if (email.length < 151) Some(email) else None
+        case _ => None
+    }
+}
+
 @mainLayout(
     pageTitle = messages("enrolment.title"),
     showTopNavigation = false,
@@ -82,7 +89,7 @@
             id = "email",
             name = "email",
             label = Label(content = HtmlContent(messages("enrolment.emailAddress")), classes = "govuk-label--m"),
-            value = form(keys.email).value.orElse(Some(organisationFieldData.email)),
+            value = form(keys.email).value.orElse(emailLengthCheck),
             errorMessage = form(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
         ))
@@ -91,7 +98,7 @@
             id = "confirmedBusinessEmail",
             name = "confirmedBusinessEmail",
             label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress")), classes = "govuk-label--m"),
-            value = form(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
+            value = form(keys.confirmedBusinessEmail).value.orElse(emailLengthCheck),
             errorMessage = form(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
         ))

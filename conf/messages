@@ -221,6 +221,9 @@ error.title=There is a problem
 error.phoneNumber.required=Enter a telephone number
 error.phoneNumber.invalidLength=Telephone number must be between 11 and 20 characters
 error.phoneNumber.invalidFormat=Enter a telephone number, like 01623 960 001 or +44 0808 157 0192
+error.firstNameLength = This field must be 100 characters or less
+error.lastNameLength = This field must be 100 characters or less
+error.emailLength = This field must be 150 characters or less
 
 createAccount.p1=You’ll need to provide information about your business in order to complete the registration process.
 label.createAccount.postcode.help=This should be your preferred postal contact address for your business. <br> <br> You can search for an address in England, Scotland and Wales. If your property is in Northern Ireland or outside of the UK, you’ll need to enter it manually.
