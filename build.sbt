@@ -27,7 +27,7 @@ ThisBuild / scalaVersion := "2.13.12"
 lazy val TemplateTest = config("tt") extend Test
 
 lazy val microservice = Project(appName, file("."))
-  .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtWeb)
+  .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin, SbtWeb)
   .disablePlugins(sbt.plugins.JUnitXmlReportPlugin)
   .settings((playSettings ++ scoverageSettings) *)
   .settings(scalaSettings *)
@@ -71,10 +71,6 @@ lazy val it = project
   .settings(DefaultBuildSettings.itSettings())
   .settings(libraryDependencies ++= testDependencies)
   .settings(Test / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.AllLibraryJars)
-
-def oneForkedJvmPerTest(tests: Seq[TestDefinition]) = tests.map { test =>
-  Group(test.name, Seq(test), SubProcess(ForkOptions().withRunJVMOptions(Vector(s"-Dtest.name=${test.name}"))))
-}
 
 val appName = "voa-property-linking-frontend"
 
