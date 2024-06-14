@@ -28,6 +28,13 @@
 
 @(form: Form[AdminOrganisationAccountDetailsUplift], organisationFieldData: FieldDataUplift)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@emailLengthCheck: Option[String] = @{
+    organisationFieldData.email match {
+        case email => if (email.length < 151) Some(email) else None
+        case _ => None
+    }
+}
+
 @mainLayout(
     pageTitle = messages("enrolment.title"),
     showTopNavigation = false,
@@ -48,7 +55,7 @@
             name = "companyName",
             label = Label(content = HtmlContent(messages("enrolment.organisation.name")), classes = "govuk-label--m"),
             value = form("companyName").value.orElse(Some(organisationFieldData.businessName)),
-            errorMessage = form("companyName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            errorMessage = form("companyName").error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
         ))
 
@@ -74,7 +81,7 @@
             name = "phone",
             label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber")), classes = "govuk-label--m"),
             value = form(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
-            errorMessage = form(keys.phone).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            errorMessage = form(keys.phone).error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
         ))
 
@@ -82,8 +89,8 @@
             id = "email",
             name = "email",
             label = Label(content = HtmlContent(messages("enrolment.emailAddress")), classes = "govuk-label--m"),
-            value = form(keys.email).value.orElse(Some(organisationFieldData.email)),
-            errorMessage = form(keys.email).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            value = form(keys.email).value.orElse(emailLengthCheck),
+            errorMessage = form(keys.email).error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
         ))
 
@@ -91,8 +98,8 @@
             id = "confirmedBusinessEmail",
             name = "confirmedBusinessEmail",
             label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress")), classes = "govuk-label--m"),
-            value = form(keys.confirmedBusinessEmail).value.orElse(Some(organisationFieldData.email)),
-            errorMessage = form(keys.confirmedBusinessEmail).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            value = form(keys.confirmedBusinessEmail).value.orElse(emailLengthCheck),
+            errorMessage = form(keys.confirmedBusinessEmail).error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
         ))
 
@@ -103,7 +110,7 @@
                     classes = "govuk-fieldset__legend--m"
                 ))
             )),
-            errorMessage = form(keys.isAgent).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args: _*)))),
+            errorMessage = form(keys.isAgent).error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             idPrefix = Some("isAgent"),
             name = "isAgent",
             items = Seq(

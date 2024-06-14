@@ -23,7 +23,7 @@ import models.{Address, IndividualAccountSubmission, IndividualDetails, email =>
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json._
-import utils.EmailAddressValidation
+import utils.EmailAddressValidation.isValidEmail
 import utils.PhoneNumberValidation.validatePhoneNumber
 import views.helpers.Errors
 
@@ -61,7 +61,7 @@ object AdminUserUplift {
       keys.address         -> addressMapping,
       keys.phone           -> validatePhoneNumber,
       keys.mobilePhone     -> validatePhoneNumber, //FIXME mobile phone regex
-      keys.email           -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
+      keys.email           -> isValidEmail,
       keys.confirmedEmail  -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.tradingName     -> optional(text(maxLength = 45)),
       keys.selectedAddress -> optional(text)
@@ -72,7 +72,7 @@ object AdminUserUplift {
       keys.companyName            -> nonEmptyText(maxLength = 45),
       keys.address                -> addressMapping,
       keys.phone                  -> validatePhoneNumber,
-      keys.email                  -> text.verifying("error.invalidEmail", EmailAddressValidation.isValid(_)),
+      keys.email                  -> isValidEmail,
       keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.isAgent                -> mandatoryBoolean,
       keys.selectedAddress        -> optional(text)

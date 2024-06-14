@@ -39,8 +39,8 @@ object AssistantUser {
 
   lazy val assistant = Form(
     mapping(
-      keys.firstName -> nonEmptyText,
-      keys.lastName  -> nonEmptyText
+      keys.firstName -> text.verifying("error.firstNameLength", txt => txt.trim.length < 101 && txt.trim.nonEmpty),
+      keys.lastName  -> text.verifying("error.lastNameLength", txt => txt.trim.length < 101 && txt.trim.nonEmpty)
     )(AssistantUserAccountDetails.apply)(AssistantUserAccountDetails.unapply))
 
 }

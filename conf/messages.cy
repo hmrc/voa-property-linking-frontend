@@ -212,6 +212,9 @@ error.title=Mae yna broblem
 error.phoneNumber.required=Nodwch rif ffôn
 error.phoneNumber.invalidLength=Rhaid i’r rhif ffôn fod rhwng 11 ac 20 o nodau
 error.phoneNumber.invalidFormat=Nodwch rif ffôn, fel 01623 960 001 neu +44 0808 157 0192
+error.firstNameLength=Mae’n rhaid i’r maes hwn fod yn 100 o gymeriadau neu lai
+error.lastNameLength=Mae’n rhaid i’r maes hwn fod yn 100 o gymeriadau neu lai
+error.emailLength=Mae’n rhaid i’r maes hwn fod yn 150 o gymeriadau neu lai
 
 createAccount.p1=Bydd angen i chi ddarparu gwybodaeth am eich busnes er mwyn cwblhau’r broses gofrestru.
 label.createAccount.postcode.help=Hwn ddylai fod eich hoff gyfeiriad cyswllt post ar gyfer eich busnes. <br> <br>Gallwch chwilio am gyfeiriad yng Nghymru, Lloegr a’r Alban. Os yw eich eiddo yng Ngogledd Iwerddon neu y tu allan i’r DU, bydd angen i chi ei nodi â llaw.
