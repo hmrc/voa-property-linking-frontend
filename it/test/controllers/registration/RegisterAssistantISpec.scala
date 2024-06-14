@@ -458,9 +458,8 @@ class RegisterAssistantISpec extends ISpecBase with HtmlComponentHelpers with Li
         document.select(yourDetailsSelector).text() shouldBe yourDetailsTextWelsh
       }
 
-//      TODO: The below doesnt translate the Error part to welsh
       s"has an error at the $firstNameText input field in welsh" in {
-        document.select(firstNameFieldErrorSelector).text() shouldBe errorText + firstNameErrorTextWelsh
+        document.select(firstNameFieldErrorSelector).text() shouldBe errorTextWelsh + firstNameErrorTextWelsh
       }
 
       s"has a text input field for the $firstNameText in welsh" in {
@@ -468,9 +467,8 @@ class RegisterAssistantISpec extends ISpecBase with HtmlComponentHelpers with Li
         document.select(firstNameInputSelector).attr("type") shouldBe "text"
       }
 
-//      TODO: The below doesnt translate the Error part to welsh
       s"has an error at the $lastNameText input field in welsh" in {
-        document.select(lastNameFieldErrorSelector).text() shouldBe errorText + lastNameErrorTextWelsh
+        document.select(lastNameFieldErrorSelector).text() shouldBe errorTextWelsh + lastNameErrorTextWelsh
       }
 
       s"has a text input field for the $lastNameText in welsh" in {
@@ -548,9 +546,8 @@ class RegisterAssistantISpec extends ISpecBase with HtmlComponentHelpers with Li
         document.select(yourDetailsSelector).text() shouldBe yourDetailsTextWelsh
       }
 
-//      TODO: The below doesnt translate the Error part to welsh
       s"has an error at the $firstNameText input field in welsh" in {
-        document.select(firstNameFieldErrorSelector).text() shouldBe errorText + firstNameErrorTextWelsh
+        document.select(firstNameFieldErrorSelector).text() shouldBe errorTextWelsh + firstNameErrorTextWelsh
       }
 
       s"has a text input field for the $firstNameText in welsh" in {
@@ -558,9 +555,8 @@ class RegisterAssistantISpec extends ISpecBase with HtmlComponentHelpers with Li
         document.select(firstNameInputSelector).attr("type") shouldBe "text"
       }
 
-//      TODO: The below doesnt translate the Error part to welsh
       s"has an error at the $lastNameText input field in welsh" in {
-        document.select(lastNameFieldErrorSelector).text() shouldBe errorText + lastNameErrorTextWelsh
+        document.select(lastNameFieldErrorSelector).text() shouldBe errorTextWelsh + lastNameErrorTextWelsh
       }
 
       s"has a text input field for the $lastNameText in welsh" in {

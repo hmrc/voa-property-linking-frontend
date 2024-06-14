@@ -636,9 +636,8 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
         document.title() shouldBe errorTextWelsh + titleTextWelsh
       }
 
-      //      TODO: The below is a bug and should translate error to welsh
       s"has an error above the email field of ${errorText + emailLengthErrorText} in welsh" in {
-        document.select(emailErrorSelector).text() shouldBe errorText + emailLengthErrorTextWelsh
+        document.select(emailErrorSelector).text() shouldBe errorTextWelsh + emailLengthErrorTextWelsh
       }
 
     }
@@ -672,9 +671,8 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
         document.title() shouldBe errorTextWelsh + titleTextWelsh
       }
 
-      //      TODO: The below is a bug and should translate error to welsh
       s"has an error above the email field of ${errorText + emailInvalidErrorText} in welsh" in {
-        document.select(emailErrorSelector).text() shouldBe errorText + emailInvalidErrorTextWelsh
+        document.select(emailErrorSelector).text() shouldBe errorTextWelsh + emailInvalidErrorTextWelsh
       }
 
     }
