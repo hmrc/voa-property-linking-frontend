@@ -36,7 +36,7 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
     val mockTestTimeString = "2017-05-31T13:00:00"
 
     when(mockDateTimeUtil.getDateTime)
-      .thenReturn(ZonedDateTime.parse(mockTestTimeString+"Z").withZoneSameLocal(ZoneId.of("Europe/London")))
+      .thenReturn(ZonedDateTime.parse(mockTestTimeString + "Z").withZoneSameLocal(ZoneId.of("Europe/London")))
 
     val testErrorHandler =
       new CustomErrorHandler(
@@ -64,10 +64,9 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
       FakeRequest()
         .withHeaders(HeaderNames.xRequestId -> "govuk-tax-253f442d-1bb2-4d3c-9943-248f5d96a812"))
 
-    result shouldBe technicalDifficultiesView(Some("253f442d-1bb2-4d3c-9943-248f5d96a812"), LocalDateTime.parse(mockTestTimeString))(
-      FakeRequest(),
-      messagesApi.preferred(FakeRequest()),
-      appConfig)
+    result shouldBe technicalDifficultiesView(
+      Some("253f442d-1bb2-4d3c-9943-248f5d96a812"),
+      LocalDateTime.parse(mockTestTimeString))(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
   }
   it should "display the technical difficulties page with the error reference and time with new requestId format" in new Setup {
     val result = testErrorHandler.internalServerErrorTemplate(
