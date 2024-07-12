@@ -26,8 +26,9 @@ import play.mvc.Http.Status.{FORBIDDEN, NOT_FOUND}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.{HeaderNames, UpstreamErrorResponse}
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
+import utils.DateTimeUtil
 
-import java.time.{Clock, LocalDateTime}
+import java.time.LocalDateTime
 import javax.inject.Inject
 import scala.concurrent.Future
 
@@ -37,7 +38,7 @@ class CustomErrorHandler @Inject()(
       technicalDifficultiesView: views.html.errors.technicalDifficulties,
       notFoundView: views.html.errors.notFound,
       alreadySubmittedView: views.html.errors.alreadySubmitted,
-      clock: Clock)(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig)
+      dateTime: DateTimeUtil)(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig)
     extends FrontendErrorHandler with Logging with I18nSupport {
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(
@@ -45,7 +46,7 @@ class CustomErrorHandler @Inject()(
     errorView(pageTitle, heading, message)
 
   override def internalServerErrorTemplate(implicit request: Request[_]): Html =
-    technicalDifficultiesView(extractErrorReference(request), getDateTime)
+    technicalDifficultiesView(extractErrorReference(request), dateTime.getDateTime.toLocalDateTime)
 
   def forbiddenErrorTemplate(implicit request: RequestHeader): Html = {
     val messages: Messages = messagesApi.preferred(request)
@@ -59,8 +60,6 @@ class CustomErrorHandler @Inject()(
     val messages: Messages = messagesApi.preferred(request)
     alreadySubmittedView()(request, messages, appConfig)
   }
-
-  private def getDateTime = LocalDateTime.now(clock)
 
   private def extractErrorReference(request: Request[_]): Option[String] = {
     val requestId = request.headers.get(HeaderNames.xRequestId)

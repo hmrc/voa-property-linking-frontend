@@ -18,28 +18,38 @@ package handlers
 
 import config.ApplicationConfig
 import controllers.VoaPropertyLinkingSpec
+import org.mockito.Mockito.when
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.{HeaderCarrier, HeaderNames}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
-import utils.Configs
-import java.time.LocalDateTime
+import utils.{Configs, DateTimeUtil}
+
+import java.time.{Instant, LocalDateTime, ZoneId, ZonedDateTime}
 
 class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
 
   implicit val appConfig: ApplicationConfig = Configs.applicationConfig
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
-  val testErrorHandler =
-    new CustomErrorHandler(
-      errorView,
-      forbiddenView,
-      technicalDifficultiesView,
-      notFoundView,
-      alreadySubmittedView,
-      clock)
+  trait Setup {
+    val mockDateTimeUtil: DateTimeUtil = mock[DateTimeUtil]
+    val mockTestTimeString = "2017-05-31T13:00:00"
+
+    when(mockDateTimeUtil.getDateTime)
+      .thenReturn(ZonedDateTime.parse(mockTestTimeString+"Z").withZoneSameLocal(ZoneId.of("Europe/London")))
+
+    val testErrorHandler =
+      new CustomErrorHandler(
+        errorView,
+        forbiddenView,
+        technicalDifficultiesView,
+        notFoundView,
+        alreadySubmittedView,
+        mockDateTimeUtil)
+  }
 
   "standardErrorTemplate" should
-    "display the standard error page with the given page title, heading and message" in {
+    "display the standard error page with the given page title, heading and message" in new Setup {
     val result = testErrorHandler.standardErrorTemplate("Test title", "Test heading", "Test message")(FakeRequest())
 
     result shouldBe errorView("Test title", "Test heading", "Test message")(
@@ -49,25 +59,23 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
   }
 
   "internalServerErrorTemplate" should
-    "display the technical difficulties page with the error reference and time" in {
+    "display the technical difficulties page with the error reference and time" in new Setup {
     val result = testErrorHandler.internalServerErrorTemplate(
       FakeRequest()
         .withHeaders(HeaderNames.xRequestId -> "govuk-tax-253f442d-1bb2-4d3c-9943-248f5d96a812"))
 
-    result shouldBe technicalDifficultiesView(Some("253f442d-1bb2-4d3c-9943-248f5d96a812"), LocalDateTime.now(clock))(
+    result shouldBe technicalDifficultiesView(Some("253f442d-1bb2-4d3c-9943-248f5d96a812"), LocalDateTime.parse(mockTestTimeString))(
       FakeRequest(),
       messagesApi.preferred(FakeRequest()),
       appConfig)
   }
-
-  "internalServerErrorTemplate" should
-    "display the technical difficulties page with the error reference and time with new requestId format" in {
+  it should "display the technical difficulties page with the error reference and time with new requestId format" in new Setup {
     val result = testErrorHandler.internalServerErrorTemplate(
       FakeRequest()
         .withHeaders(HeaderNames.xRequestId -> "05HyDTzoaHs5NmHMyzggyG-s3cURERsPiWvS6oD5XRVA9KGtYWzGkQ=="))
 
     result shouldBe technicalDifficultiesView(
       Some("05HyDTzoaHs5NmHMyzggyG-s3cURERsPiWvS6oD5XRVA9KGtYWzGkQ=="),
-      LocalDateTime.now(clock))(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
+      LocalDateTime.parse(mockTestTimeString))(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
   }
 }
