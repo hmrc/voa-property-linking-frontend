@@ -107,7 +107,7 @@ class AuthenticatedAction @Inject()(
       case _: NoActiveSession =>
         provider.redirectToLogin
       case otherException =>
-        logger.warn(s"Exception thrown on authorisation with message:", otherException)
+        logger.warn(s"Exception thrown on authorisation with message: ${otherException.getMessage}")
         throw otherException
     }
 
