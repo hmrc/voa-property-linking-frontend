@@ -61,10 +61,11 @@ class GgAuthenticatedAction @Inject()(
       case _: NoActiveSession =>
         provider.redirectToLogin
       case unsupportedAffinityGroup: UnsupportedAffinityGroup =>
-        logger.warn("invalid account type:", unsupportedAffinityGroup)
+        logger.warn(
+          s"invalid account type with message: ${unsupportedAffinityGroup.msg}, for reason: ${unsupportedAffinityGroup.reason}")
         Future.successful(Ok(invalidAccountTypeView()))
       case otherException: Throwable =>
-        logger.debug(s"Exception thrown on authorisation with message:", otherException)
+        logger.debug(s"Exception thrown on authorisation with message: ${otherException.getMessage}")
         throw otherException
     }
 
