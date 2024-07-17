@@ -8,13 +8,14 @@
         root.VOA = {};
     }
 
-    // Check if the fileUploadForm element exists on the page
-    var fileUploadFormElement = document.querySelector('#fileUploadForm');
-    if (!fileUploadFormElement) {
-        return; // If the form doesn't exist, exit the script
-    }
-
     var FileUploadNew = function (){
+
+        // Check if the fileUploadForm element exists on the page
+        var fileUploadFormElement = document.querySelector('#fileUploadForm');
+        if (!fileUploadFormElement) {
+            return; // If the form doesn't exist, exit the script
+        }
+
         function makeGetRequest() {
 
             $.ajax({

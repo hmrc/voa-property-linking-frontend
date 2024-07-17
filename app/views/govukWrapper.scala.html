@@ -20,12 +20,16 @@
 @import play.twirl.api.HtmlFormat
 @import views.html.includes._
 @import actions.requests.CcaWrappedRequestHelper.RequestOps
+@import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
 
 @this(
         govukTemplate: GovukTemplate,
         govukHeader: GovukHeader,
         govukPhaseBanner: GovukPhaseBanner,
         hmrcStandardFooter: HmrcStandardFooter,
+        hmrcScripts: HmrcScripts,
+        standardBetaBanner: StandardBetaBanner,
         hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet,
         hmrcTimeoutDialogHelper: HmrcTimeoutDialogHelper
 )
@@ -55,7 +59,7 @@
 
     @bodyEnd = {
         @scriptElem
-        @scripts()
+        @hmrcScripts(Some(scripts()))
         @views.html.includes.analytics()
     }
 
@@ -75,13 +79,9 @@
         }
     }
 
-
     @phaseBanner = {
     @govukPhaseBanner(
-        PhaseBanner(
-            tag = Some(Tag(Text("beta"))),
-            content = HtmlContent(messages("label.phase.banner.text", s"${config.vmvUrl}/send-beta-feedback?serviceIdentifier=CCA"))
-        )
+        standardBetaBanner(url = s"${config.vmvUrl}/send-beta-feedback?serviceIdentifier=CCA")
     )
     }
 
