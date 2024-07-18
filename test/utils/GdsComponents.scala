@@ -19,10 +19,11 @@ package utils
 import com.typesafe.config.{Config, ConfigFactory}
 import play.api.Configuration
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TimeoutDialogConfig, TrackingConsentConfig, TudorCrownConfig}
-import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, AssetsConfig, TimeoutDialogConfig, TrackingConsentConfig, TudorCrownConfig}
+import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems, StandardBetaBanner}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcTimeoutDialog}
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardFooter, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcScripts, HmrcStandardFooter, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
+import views.html.includes.scripts
 
 trait GdsComponents {
 
@@ -71,10 +72,12 @@ trait GdsComponents {
   lazy val govukTextarea = new GovukTextarea(govukErrorMessage, govukHint, govukLabel)
   lazy val govukWarningText = new GovukWarningText
   lazy val govukFileUpload = new GovukFileUpload(govukErrorMessage, govukHint, govukLabel)
-  lazy val hmrcFooter = new HmrcFooter()
+  lazy val hmrcFooter = new HmrcFooter(govukFooter)
   lazy val hmrcFooterItems = new HmrcFooterItems(new AccessibilityStatementConfig(minimalConfiguration))
   lazy val hmrcStandardFooter = new HmrcStandardFooter(hmrcFooter, hmrcFooterItems)
   lazy val hmrcTrackingConsentSnippet = new HmrcTrackingConsentSnippet(new TrackingConsentConfig(minimalConfiguration))
   lazy val hmrcTimeoutDialogHelper =
     new HmrcTimeoutDialogHelper(new HmrcTimeoutDialog, new TimeoutDialogConfig(minimalConfiguration))
+  lazy val standardBetaBanner = new StandardBetaBanner
+  lazy val hmrcScripts = new HmrcScripts(new AssetsConfig)
 }

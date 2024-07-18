@@ -28,6 +28,7 @@ import views.html._
 import views.html.dvr.tabs.{agentsTab, challengeCasesDetailsTab, checkCasesDetailsTab, startCheckTab, valuationTab}
 import views.html.propertyrepresentation.manage._
 import views.html.propertyrepresentation._
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
 
 trait FakeViews extends GdsComponents {
 
@@ -36,6 +37,8 @@ trait FakeViews extends GdsComponents {
     govukHeader,
     govukPhaseBanner,
     hmrcStandardFooter,
+    hmrcScripts,
+    standardBetaBanner,
     hmrcTrackingConsentSnippet,
     hmrcTimeoutDialogHelper
   )
