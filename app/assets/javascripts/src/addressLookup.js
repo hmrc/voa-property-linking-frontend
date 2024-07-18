@@ -103,7 +103,7 @@
                     success: function(data) {
                         $("#error-summary").remove();
                         if (data.length > 0) {
-                            $('.postcode-lookup-group').prepend('<label for="addressSelect" class="govuk-label--m govuk-!-display-block">'+
+                            $('.postcode-lookup-group').prepend('<label for="addressSelect" class="govuk-label govuk-label--m govuk-!-display-block">'+
                             $("#selectValue").text() +'</label><span class="govuk-hint govuk-!-display-block" id="addressHint">' +
                             $("#addressHelp").text() + '</span><select id="addressSelect" class="addressList govuk-select"></select>');
                             $('#addressSelect').append('<option value="" selected disabled>' + $("#selectValue").text() + '</option>');
