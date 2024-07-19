@@ -252,7 +252,6 @@
                         attributes = Map("id" -> "agent-select-label")
                     ),
                     items = SelectItem(
-//                        value = params.agent,
                         value = Some(params.agent.getOrElse("")),
                         text = params.agent.getOrElse(
                             if (organisationAgents.resultCount > 2 && agentAlreadyAppointed) {
