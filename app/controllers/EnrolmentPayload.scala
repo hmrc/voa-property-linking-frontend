@@ -16,23 +16,23 @@
 
 package controllers
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class EnrolmentPayload(identifiers: List[KeyValuePair], verifiers: List[KeyValuePair])
 
 object EnrolmentPayload {
-  implicit val keyValue = Json.format[KeyValuePair]
-  implicit val previous = Json.format[Previous]
-  implicit val format = Json.format[PayLoad]
-  implicit val enrolmentPayload = Json.format[EnrolmentPayload]
+  implicit val keyValue: OFormat[KeyValuePair] = Json.format[KeyValuePair]
+  implicit val previous: OFormat[Previous] = Json.format[Previous]
+  implicit val format: OFormat[PayLoad] = Json.format[PayLoad]
+  implicit val enrolmentPayload: OFormat[EnrolmentPayload] = Json.format[EnrolmentPayload]
 }
 
 case class PayLoad(verifiers: Seq[KeyValuePair], legacy: Option[Previous] = None)
 
 object PayLoad {
-  implicit val keyValue = Json.format[KeyValuePair]
-  implicit val previous = Json.format[Previous]
-  implicit val format = Json.format[PayLoad]
+  implicit val keyValue: OFormat[KeyValuePair] = Json.format[KeyValuePair]
+  implicit val previous: OFormat[Previous] = Json.format[Previous]
+  implicit val format: OFormat[PayLoad] = Json.format[PayLoad]
 }
 
 case class KeyValuePair(key: String, value: String)

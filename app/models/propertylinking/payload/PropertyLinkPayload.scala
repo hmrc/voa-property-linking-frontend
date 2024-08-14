@@ -17,10 +17,9 @@
 package models.propertylinking.payload
 
 import java.time.Instant
-
 import models.propertylinking.requests.PropertyLinkRequest
 import models.{Capacity, FileInfo, LinkBasis}
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class PropertyLinkPayload(
       uarn: Long,
@@ -34,7 +33,7 @@ case class PropertyLinkPayload(
 )
 
 object PropertyLinkPayload {
-  implicit val format = Json.format[PropertyLinkPayload]
+  implicit val format: OFormat[PropertyLinkPayload] = Json.format[PropertyLinkPayload]
 
   def apply(request: PropertyLinkRequest): PropertyLinkPayload =
     PropertyLinkPayload(

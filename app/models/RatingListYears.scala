@@ -16,12 +16,12 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class RatingListYears(
       multipleListYears: Boolean
 )
 
 object RatingListYears {
-  implicit val format = Json.format[RatingListYears]
+  implicit val format: OFormat[RatingListYears] = Json.format[RatingListYears]
 }

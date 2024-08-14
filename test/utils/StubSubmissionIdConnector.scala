@@ -21,8 +21,9 @@ import config.ApplicationConfig
 import connectors.SubmissionIdConnector
 import org.mockito.Mockito.mock
 import play.api.Configuration
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -37,7 +38,8 @@ trait Configs {
 
 object Configs extends Configs
 
-object StubSubmissionIdConnector extends SubmissionIdConnector(Configs.servicesConfig, mock(classOf[HttpClient])) {
+object StubSubmissionIdConnector
+    extends SubmissionIdConnector(Configs.servicesConfig, mock(classOf[DefaultHttpClient])) {
   private var stubbedId: Option[String] = None
 
   override def get(prefix: String)(implicit hc: HeaderCarrier): Future[String] = Future {

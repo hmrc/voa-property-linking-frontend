@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class AppointAgent(
       agentCode: Option[Long],
@@ -29,7 +29,7 @@ case class AppointAgent(
 }
 
 object AppointAgent {
-  implicit val format = Json.format[AppointAgent]
+  implicit val format: OFormat[AppointAgent] = Json.format[AppointAgent]
 }
 
 case class AgentAppointBulkAction(
@@ -40,7 +40,7 @@ case class AgentAppointBulkAction(
 )
 
 object AgentAppointBulkAction {
-  implicit val format = Json.format[AgentAppointBulkAction]
+  implicit val format: OFormat[AgentAppointBulkAction] = Json.format[AgentAppointBulkAction]
 }
 
 case class AgentRevokeBulkAction(
@@ -51,5 +51,5 @@ case class AgentRevokeBulkAction(
 )
 
 object AgentRevokeBulkAction {
-  implicit val format = Json.format[AgentRevokeBulkAction]
+  implicit val format: OFormat[AgentRevokeBulkAction] = Json.format[AgentRevokeBulkAction]
 }

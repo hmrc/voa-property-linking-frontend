@@ -16,7 +16,7 @@
 
 package models.identityVerificationProxy
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class Link(link: String) {
 
@@ -24,5 +24,5 @@ case class Link(link: String) {
 }
 
 object Link {
-  implicit val format = Json.format[Link]
+  implicit val format: OFormat[Link] = Json.format[Link]
 }

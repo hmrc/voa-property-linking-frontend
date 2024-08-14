@@ -217,7 +217,7 @@ class ValuationsControllerISpec extends ISpecBase with HtmlComponentHelpers {
     stubFor {
       get(s"/property-linking/dashboard/$owner/assessments/$plSubId")
         .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(apiAssessments).toString())
+          aResponse.withStatus(OK).withBody(Json.toJson(apiAssessments()).toString())
         }
     }
 

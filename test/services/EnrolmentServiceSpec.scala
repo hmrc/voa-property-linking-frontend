@@ -21,6 +21,7 @@ import connectors.TaxEnrolmentConnector
 import models.Address
 import org.mockito.ArgumentMatchers.{any, eq => mEq}
 import org.mockito.Mockito._
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -32,7 +33,7 @@ class EnrolmentServiceSpec extends ServiceSpec {
   val mockAuditing = mock[AuditingService]
   val enrolmentService: EnrolmentService = new EnrolmentService(mockTaxEnrolmentConnector, mockAddresses, mockAuditing)
 
-  implicit val fakeRequest = FakeRequest()
+  implicit val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
   "enrol" should {
     "return success with valid details" in {

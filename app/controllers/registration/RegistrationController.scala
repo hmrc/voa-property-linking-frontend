@@ -138,22 +138,22 @@ class RegistrationController @Inject()(
       Future.successful(Redirect(controllers.routes.IdentityVerification.startIv))
     } else {
       // skip IV as user's Confidence Level is sufficient
-      registrationService.continue(None, request.userDetails).map {
+      registrationService.continue(None, request.userDetails).flatMap {
         case Some(RegistrationSuccess(personId)) =>
           if (config.newRegistrationJourneyEnabled)
-            Redirect(routes.RegistrationController.confirmation(personId))
-          else Redirect(routes.RegistrationController.success(personId))
-        case _ => InternalServerError(errorHandler.internalServerErrorTemplate(request))
+            Future.successful(Redirect(routes.RegistrationController.confirmation(personId)))
+          else Future.successful(Redirect(routes.RegistrationController.success(personId)))
+        case _ => errorHandler.internalServerErrorTemplate(request).map(html => InternalServerError(html))
       }
     }
 
   private def continueRegistration(request: RequestWithUserDetails[_])(implicit hc: HeaderCarrier): Future[Result] =
-    registrationService.continueUplift(None, request.userDetails).map {
+    registrationService.continueUplift(None, request.userDetails).flatMap {
       case Some(RegistrationSuccess(personId)) =>
         if (config.newRegistrationJourneyEnabled)
-          Redirect(routes.RegistrationController.confirmation(personId))
-        else Redirect(routes.RegistrationController.success(personId))
-      case _ => InternalServerError(errorHandler.internalServerErrorTemplate(request))
+          Future.successful(Redirect(routes.RegistrationController.confirmation(personId)))
+        else Future.successful(Redirect(routes.RegistrationController.success(personId)))
+      case _ => errorHandler.internalServerErrorTemplate(request).map(html => InternalServerError(html))
     }
 
   def submitAssistant: Action[AnyContent] = ggAuthenticated.async { implicit request =>
@@ -177,13 +177,15 @@ class RegistrationController @Inject()(
               registrationService
                 .create(success.toGroupDetails(fieldData), request.userDetails, Some(Organisation))(
                   success.toIndividualAccountSubmission(fieldData))
-                .map {
+                .flatMap {
                   case RegistrationSuccess(personId) =>
                     if (config.newRegistrationJourneyEnabled)
-                      Redirect(routes.RegistrationController.confirmation(personId))
-                    else Redirect(routes.RegistrationController.success(personId))
-                  case EnrolmentFailure => InternalServerError(errorHandler.internalServerErrorTemplate)
-                  case DetailsMissing   => InternalServerError(errorHandler.internalServerErrorTemplate)
+                      Future.successful(Redirect(routes.RegistrationController.confirmation(personId)))
+                    else Future.successful(Redirect(routes.RegistrationController.success(personId)))
+                  case EnrolmentFailure =>
+                    errorHandler.internalServerErrorTemplate(request).map(html => InternalServerError(html))
+                  case DetailsMissing =>
+                    errorHandler.internalServerErrorTemplate(request).map(html => InternalServerError(html))
                 }
             case _ => unableToRetrieveCompanyDetails
           }

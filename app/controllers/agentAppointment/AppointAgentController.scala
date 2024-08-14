@@ -34,7 +34,7 @@ import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import repositories.SessionRepo
 import services.AgentRelationshipService
 import uk.gov.hmrc.http.HeaderCarrier
@@ -180,13 +180,14 @@ class AppointAgentController @Inject()(
     }
   }
 
+  //todo fix this
   private def searchForAppointableProperties(
         pagination: PaginationParameters,
         agentCode: Long,
         agentAppointed: Option[String],
         backLinkUrl: RedirectUrl,
         searchParamsOpt: Option[GetPropertyLinksParameters] = None,
-        fromManageAgentJourney: Boolean)(implicit request: AuthenticatedRequest[_], hc: HeaderCarrier) =
+        fromManageAgentJourney: Boolean)(implicit request: AuthenticatedRequest[_], hc: HeaderCarrier): Future[Result] =
     for {
       sessionDataOpt    <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
       agentOrganisation <- accounts.withAgentCode(agentCode.toString)
@@ -222,36 +223,35 @@ class AppointAgentController @Inject()(
             sessionDataOpt.fold(AppointAgentToSomePropertiesSession(filters = searchFilters))(data =>
               data.copy(filters = searchFilters)))
       _ <- propertyLinksSessionRepo.saveOrUpdate(SessionPropertyLinks(response))
-    } yield {
-      agentOrganisation match {
-        case Some(organisation) =>
-          Ok(
-            appointAgentPropertiesView(
-              f = None,
-              model = AppointAgentPropertiesVM(
-                organisation,
-                response,
-                Some(agentCode),
-                !agentAppointed.contains("NO")
-              ),
-              pagination = pagination,
-              params = searchParams,
-              agentCode = agentCode,
-              agentAppointed = agentAppointed,
-              organisationAgents = agentList,
-              backLink = Some(config.safeRedirect(backLinkUrl)),
-              manageJourneyFlag = fromManageAgentJourney
-            ))
-        case None =>
-          notFound
-      }
-    }
+      result <- agentOrganisation match {
+                 case Some(organisation) =>
+                   Future.successful(
+                     Ok(
+                       appointAgentPropertiesView(
+                         f = None,
+                         model = AppointAgentPropertiesVM(
+                           organisation,
+                           response,
+                           Some(agentCode),
+                           !agentAppointed.contains("NO")),
+                         pagination = pagination,
+                         params = searchParams,
+                         agentCode = agentCode,
+                         agentAppointed = agentAppointed,
+                         organisationAgents = agentList,
+                         backLink = Some(config.safeRedirect(backLinkUrl)),
+                         manageJourneyFlag = fromManageAgentJourney
+                       )))
+                 case None =>
+                   notFound
+               }
+    } yield result
 
   def confirmAppointAgentToSome: Action[AnyContent] = authenticated.async { implicit request =>
-    appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].map {
+    appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession].flatMap {
       case Some(AppointAgentToSomePropertiesSession(Some(agent), _)) =>
-        Ok(appointAgentSummaryView(action = agent))
-      case _ => NotFound(errorHandler.notFoundTemplate)
+        Future.successful(Ok(appointAgentSummaryView(action = agent)))
+      case _ => errorHandler.notFoundTemplate.map(html => NotFound(html))
     }
   }
 
@@ -332,8 +332,7 @@ class AppointAgentController @Inject()(
                     }
                   case e: Exception => throw e
                 }
-              case None =>
-                Future.successful(notFound)
+              case None => notFound
             }
           }
         )
@@ -367,8 +366,7 @@ class AppointAgentController @Inject()(
               backLink = Some(config.safeRedirect(backLinkUrl)),
               manageJourneyFlag = true
             ))
-      case None =>
-        Future.successful(notFound)
+      case None => notFound
     }
 
   def selectAgentPropertiesSearchSort(pagination: PaginationParameters, agentCode: Long): Action[AnyContent] =
@@ -493,10 +491,10 @@ class AppointAgentController @Inject()(
     }
 
   def confirmRevokeAgentFromSome: Action[AnyContent] = authenticated.async { implicit request =>
-    revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession].map {
+    revokeAgentPropertiesSessionRepo.get[RevokeAgentFromSomePropertiesSession].flatMap {
       case Some(RevokeAgentFromSomePropertiesSession(Some(agent), _)) =>
-        Ok(revokeAgentSummaryView(action = agent, agentOrganisation = agent.name))
-      case _ => NotFound(errorHandler.notFoundTemplate)
+        Future.successful(Ok(revokeAgentSummaryView(action = agent, agentOrganisation = agent.name)))
+      case _ => errorHandler.notFoundTemplate.map(html => NotFound(html))
     }
   }
   // this endpoint only exists so we don't 404 when changing language after getting an error on submit
@@ -550,8 +548,7 @@ class AppointAgentController @Inject()(
                     backLink = data("backLinkUrl")
                   ))
                 }
-              case _ =>
-                Future.successful(notFound)
+              case _ => notFound
             }
           },
           success = (action: AgentRevokeBulkAction) => {
@@ -598,8 +595,7 @@ class AppointAgentController @Inject()(
                       ))
                   case e: Exception => throw e
                 }
-              case None =>
-                Future.successful(notFound)
+              case None => notFound
             }
           }
         )

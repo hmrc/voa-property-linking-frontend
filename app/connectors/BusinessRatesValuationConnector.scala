@@ -18,12 +18,13 @@ package connectors
 
 import javax.inject.Inject
 import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: HttpClient)(
+class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: DefaultHttpClient)(
       implicit val executionContext: ExecutionContext) {
 
   def isViewable(uarn: Long, valuationId: Long, propertyLinkSubmissionId: String)(

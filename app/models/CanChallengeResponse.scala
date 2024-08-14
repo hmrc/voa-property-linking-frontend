@@ -16,10 +16,10 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class CanChallengeResponse(result: Boolean, reasonCode: Option[String], reason: Option[String])
 
 object CanChallengeResponse {
-  implicit val format = Json.format[CanChallengeResponse]
+  implicit val format: OFormat[CanChallengeResponse] = Json.format[CanChallengeResponse]
 }

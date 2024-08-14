@@ -20,7 +20,7 @@
 
 @this(mainLayout: views.html.mainLayout)
 
-@(reference: Option[String], dateTime: LocalDateTime)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(reference: Option[String], dateTime: LocalDateTime)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
 @mainLayout(pageTitle = messages("global.error.InternalServerError500.title"), showTopNavigation = false) {
 

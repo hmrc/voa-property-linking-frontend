@@ -17,6 +17,7 @@
 package controllers
 
 import models.searchApi.AgentPropertiesFilter.Both
+import org.apache.pekko.actor.TypedActor.dispatcher
 import play.api.mvc.{AnyContent, QueryStringBindable, Request, Result}
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
 import utils.Formatters._
@@ -31,7 +32,7 @@ trait ValidPagination extends PropertyLinkingController {
   protected def withValidPagination(page: Int, pageSize: Int, getTotal: Boolean = true)(
         default: Pagination => Future[Result])(implicit request: Request[AnyContent]): Future[Result] =
     if (page <= 0 || pageSize < 10 || pageSize > 100) {
-      Future.successful(BadRequest(errorHandler.badRequestTemplate))
+      errorHandler.badRequestTemplate.map(html => BadRequest(html))
     } else {
       default(Pagination(pageNumber = page, pageSize = pageSize, resultCount = getTotal))
     }

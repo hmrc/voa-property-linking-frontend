@@ -25,7 +25,7 @@ import scala.concurrent.Future
 
 class PropertyRepresentationConnectorSpec extends VoaPropertyLinkingSpec {
 
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   class Setup {
     val connector = new PropertyRepresentationConnector(servicesConfig, mockHttpClient) {

@@ -436,7 +436,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
           HeaderNames.COOKIE -> "sessionId",
           "Csrf-Token"       -> "nocheck",
           "Content-Type"     -> "application/x-www-form-urlencoded")
-        .get
+        .get()
     )
   }
 

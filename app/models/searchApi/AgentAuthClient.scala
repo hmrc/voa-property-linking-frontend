@@ -16,7 +16,7 @@
 
 package models.searchApi
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class AgentAuthClient(
       organisationId: Long,
@@ -24,5 +24,5 @@ case class AgentAuthClient(
 )
 
 object AgentAuthClient {
-  implicit val agentAuthClient = Json.format[AgentAuthClient]
+  implicit val agentAuthClient: OFormat[AgentAuthClient] = Json.format[AgentAuthClient]
 }

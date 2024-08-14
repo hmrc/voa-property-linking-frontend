@@ -24,7 +24,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HeaderNames}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import utils.{Configs, DateTimeUtil}
 
-import java.time.{Instant, LocalDateTime, ZoneId, ZonedDateTime}
+import java.time.{LocalDateTime, ZoneId, ZonedDateTime}
 
 class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
 
@@ -52,7 +52,7 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
     "display the standard error page with the given page title, heading and message" in new Setup {
     val result = testErrorHandler.standardErrorTemplate("Test title", "Test heading", "Test message")(FakeRequest())
 
-    result shouldBe errorView("Test title", "Test heading", "Test message")(
+    await(result) shouldBe errorView("Test title", "Test heading", "Test message")(
       FakeRequest(),
       messagesApi.preferred(FakeRequest()),
       appConfig)
@@ -64,7 +64,7 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
       FakeRequest()
         .withHeaders(HeaderNames.xRequestId -> "govuk-tax-253f442d-1bb2-4d3c-9943-248f5d96a812"))
 
-    result shouldBe technicalDifficultiesView(
+    await(result) shouldBe technicalDifficultiesView(
       Some("253f442d-1bb2-4d3c-9943-248f5d96a812"),
       LocalDateTime.parse(mockTestTimeString))(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
   }
@@ -73,7 +73,7 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
       FakeRequest()
         .withHeaders(HeaderNames.xRequestId -> "05HyDTzoaHs5NmHMyzggyG-s3cURERsPiWvS6oD5XRVA9KGtYWzGkQ=="))
 
-    result shouldBe technicalDifficultiesView(
+    await(result) shouldBe technicalDifficultiesView(
       Some("05HyDTzoaHs5NmHMyzggyG-s3cURERsPiWvS6oD5XRVA9KGtYWzGkQ=="),
       LocalDateTime.parse(mockTestTimeString))(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
   }

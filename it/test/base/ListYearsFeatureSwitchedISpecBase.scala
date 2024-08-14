@@ -64,7 +64,7 @@ trait ListYearsFeatureSwitchedISpecBase
 
   override lazy val app: Application = new GuiceApplicationBuilder()
     .configure(config)
-    .build
+    .build()
 
   implicit val ws: WSClient = app.injector.instanceOf[WSClient]
 

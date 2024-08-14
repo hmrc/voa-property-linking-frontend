@@ -26,7 +26,7 @@ import scala.concurrent.Future
 
 class BusinessRatesValuationConnectorSpec extends VoaPropertyLinkingSpec {
 
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   class Setup {
     val connector = new BusinessRatesValuationConnector(servicesConfig, mockHttpClient)

@@ -17,7 +17,7 @@
 package models.propertyrepresentation
 
 import models.{EnumFormat, NamedEnum, NamedEnumSupport}
-import play.api.libs.json.Json
+import play.api.libs.json.{Format, Json, OFormat}
 
 sealed trait ManageAgentOptions extends NamedEnum {
   val name: String
@@ -67,7 +67,7 @@ case object UnassignFromOneOrMoreProperties extends ManageAgentOptions {
 
 object ManageAgentOptions extends NamedEnumSupport[ManageAgentOptions] {
 
-  implicit val format = EnumFormat(ManageAgentOptions)
+  implicit val format: Format[ManageAgentOptions] = EnumFormat(ManageAgentOptions)
 
   override def all: List[ManageAgentOptions] =
     List(
@@ -90,5 +90,5 @@ case class ManageAgentOptionItem(value: ManageAgentOptions) {
 }
 
 object ManageAgentOptionItem {
-  implicit val format = Json.format[ManageAgentOptionItem]
+  implicit val format: OFormat[ManageAgentOptionItem] = Json.format[ManageAgentOptionItem]
 }

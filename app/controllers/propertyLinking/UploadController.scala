@@ -101,7 +101,7 @@ class UploadController @Inject()(
               session
             )))
         case _ =>
-          Future.successful(BadRequest(errorHandler.badRequestTemplate))
+          errorHandler.badRequestTemplate.map(html => BadRequest(html))
       }
     }
 
@@ -225,7 +225,6 @@ class UploadController @Inject()(
       case EvidenceChoices.RATES_BILL     => RatesBillType
       case EvidenceChoices.LEASE          => Lease
       case EvidenceChoices.LICENSE        => License
-      case EvidenceChoices.RATES_BILL     => RatesBillType
       case EvidenceChoices.SERVICE_CHARGE => ServiceCharge
       case EvidenceChoices.STAMP_DUTY     => StampDutyLandTaxForm
       case EvidenceChoices.LAND_REGISTRY  => LandRegistryTitle

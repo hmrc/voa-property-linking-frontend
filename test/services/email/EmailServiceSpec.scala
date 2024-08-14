@@ -27,21 +27,22 @@ import play.api.libs.json.Writes
 import play.api.test.{DefaultAwaitTimeout, Helpers}
 import tests.BaseUnitSpec
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReads, HttpResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import utils.HttpResponseUtils
 
 import scala.concurrent.Future
 
 class EmailServiceSpec extends BaseUnitSpec with MockitoSugar with HttpResponseUtils with DefaultAwaitTimeout {
 
-  private implicit val headerCarrier = HeaderCarrier()
+  private implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
   val config = mock[ServicesConfig]
 
   "EmailService" should {
 
     "send new enrolment success email" in {
-      val mockWSHttp = mock[HttpClient]
+      val mockWSHttp = mock[DefaultHttpClient]
       val emailConnector = new EmailConnector(config, mockWSHttp)
       val emailService = new EmailService(emailConnector)
 

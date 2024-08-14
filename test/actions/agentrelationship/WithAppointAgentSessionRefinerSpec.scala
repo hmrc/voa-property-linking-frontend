@@ -43,7 +43,7 @@ class WithAppointAgentSessionRefinerSpec extends BaseUnitSpec with MockitoSugar 
     val grpAccount: GroupAccount = groupAccount(true)
     val individualAccount = detailedIndividualAccount
 
-    when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Html("not found"))
+    when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Future.successful(Html("not found")))
 
     val basicRequest: BasicAuthenticatedRequest[AnyContent] =
       BasicAuthenticatedRequest(grpAccount, individualAccount, fakeRequest)

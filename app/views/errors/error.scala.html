@@ -19,7 +19,7 @@
 @this(mainLayout: views.html.mainLayout)
 
 
-@(title: String, heading: String, message: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(title: String, heading: String, message: String)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
 
 @mainLayout(pageTitle = title, showTopNavigation = false) {

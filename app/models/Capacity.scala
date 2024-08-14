@@ -17,14 +17,13 @@
 package models
 
 import java.time.LocalDate
-
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 import exceptions._
 
 case class Capacity(capacity: CapacityType, fromDate: LocalDate, toDate: Option[LocalDate])
 
 object Capacity {
-  implicit val format = Json.format[Capacity]
+  implicit val format: OFormat[Capacity] = Json.format[Capacity]
 
   def apply(linkingSession: LinkingSession): Capacity =
     Capacity(

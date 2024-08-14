@@ -44,7 +44,7 @@
             classes = "form-control govuk-input--width-20",
             label = Label(
                 isPageHeading = false,
-                classes = "govuk-label--m",
+                classes = "govuk-label govuk-label--m",
                 content = Text(messages("details.edit.label.firstName"))
             ),
             errorMessage = model.form("firstName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
@@ -57,7 +57,7 @@
             classes = "form-control govuk-input--width-20",
             label = Label(
                 isPageHeading = false,
-                classes = "govuk-label--m",
+                classes = "govuk-label govuk-label--m",
                 content = Text(messages("details.edit.label.lastName"))
             ),
             errorMessage = model.form("lastName").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))

@@ -100,7 +100,7 @@ trait DateMappings {
   private def number(min: Int, max: Int) =
     Forms.of[Int](trimmingNumberFormatter).verifying(Constraints.min(min)).verifying(Constraints.max(max))
 
-  implicit lazy val trimmingNumberFormatter = new Formatter[Int] {
+  implicit lazy val trimmingNumberFormatter: Formatter[Int] = new Formatter[Int] {
     override val format: Option[(String, Seq[Any])] = Formats.intFormat.format
 
     override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], Int] =

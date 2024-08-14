@@ -37,7 +37,7 @@ import java.time.LocalDate
 import scala.concurrent.Future
 
 class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   trait Setup {
     lazy val mockSessionRepo = {

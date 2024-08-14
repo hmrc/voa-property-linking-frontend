@@ -16,14 +16,14 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class PropertyAddress(lines: Seq[String], postcode: String) {
   override def toString = lines :+ postcode mkString ", "
 }
 
 object PropertyAddress {
-  implicit val addressFormat = Json.format[PropertyAddress]
+  implicit val addressFormat: OFormat[PropertyAddress] = Json.format[PropertyAddress]
   def fromString(str: String) = str.split(",").toList.reverse match {
     case s :: Nil                  => PropertyAddress(Nil, s)
     case postCode :: reversedLines => PropertyAddress(reversedLines.reverse, postCode)

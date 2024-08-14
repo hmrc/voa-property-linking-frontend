@@ -86,7 +86,7 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
       lazy val document = getYourAgentsPropertiesPage(English, testOwnerAuthResultMultipleProperty, testAgentList)
 
-      "has a title of $titleText" in {
+      s"has a title of $titleText" in {
         document.title() shouldBe titleText
       }
       "displays a correct header with agent name included" in {
@@ -157,7 +157,7 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
       lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultMultipleProperty, testAgentList)
 
-      "has a title of $titleText" in {
+      s"has a title of $titleText" in {
         document.title() shouldBe titleTextWelsh
       }
       "displays a correct header with agent name included" in {

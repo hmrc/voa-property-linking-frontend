@@ -72,7 +72,7 @@ package object utils {
     lines    <- Gen.nonEmptyListOf(shortString)
     postcode <- shortString
   } yield PropertyAddress(lines, postcode)
-  implicit val arbitraryPropertyAddress = Arbitrary(for { p <- propertyAddressGen } yield p)
+  implicit val arbitraryPropertyAddress: Arbitrary[PropertyAddress] = Arbitrary(for { p <- propertyAddressGen } yield p)
 
   val propertyGen: Gen[Property] = for {
     uarn                      <- positiveLong
@@ -80,15 +80,15 @@ package object utils {
     address                   <- propertyAddressGen
     specialCategoryCode       <- shortString
   } yield Property(uarn, billingAuthorityReference, address.toString, specialCategoryCode)
-  implicit val arbitraryProperty = Arbitrary(for { p <- propertyGen } yield p)
+  implicit val arbitraryProperty: Arbitrary[Property] = Arbitrary(for { p <- propertyGen } yield p)
 
   val capacityTypeGen: Gen[CapacityType] = Gen.oneOf(Owner, OwnerOccupier, Occupier)
-  implicit val arbitraryCapacityType = Arbitrary(capacityTypeGen)
+  implicit val arbitraryCapacityType: Arbitrary[CapacityType] = Arbitrary(capacityTypeGen)
 
   val propertyOwnershipGen: Gen[PropertyOwnership] =
     dateAfterApril2017.map(PropertyOwnership.apply)
 
-  implicit val arbitrarypropertyOwnership = Arbitrary(propertyOwnershipGen)
+  implicit val arbitrarypropertyOwnership: Arbitrary[PropertyOwnership] = Arbitrary(propertyOwnershipGen)
 
   val propertyOccupancyGen: Gen[PropertyOccupancy] = for {
     stillOccupied <- arbitrary[Boolean]
@@ -100,13 +100,13 @@ package object utils {
       stillOccupied = stillOccupied,
       lastOccupiedDate = Some(las)
     )
-  implicit val arbitraryPropertyOccupancy = Arbitrary(propertyOccupancyGen)
+  implicit val arbitraryPropertyOccupancy: Arbitrary[PropertyOccupancy] = Arbitrary(propertyOccupancyGen)
 
   val propertyRelationshipGen: Gen[PropertyRelationship] = for {
     capacity <- arbitrary[CapacityType]
     uarn     <- positiveLong
   } yield PropertyRelationship(capacity, uarn)
-  implicit val arbitraryPropertyRelationshipGen = Arbitrary(propertyRelationshipGen)
+  implicit val arbitraryPropertyRelationshipGen: Arbitrary[PropertyRelationship] = Arbitrary(propertyRelationshipGen)
 
   val addressGen: Gen[Address] = for {
     id       <- arbitrary[Int]
@@ -116,7 +116,7 @@ package object utils {
     line4    <- shortString
     postcode <- postcodeGen
   } yield Address(Some(id), line1, line2, line3, line4, postcode)
-  implicit val arbitraryAddress = Arbitrary(addressGen)
+  implicit val arbitraryAddress: Arbitrary[Address] = Arbitrary(addressGen)
 
   val detailedAddressGen: Gen[DetailedAddress] = for {
     addressUnitId             <- arbitrary[Int]
@@ -148,7 +148,7 @@ package object utils {
       postTown,
       postcode
     )
-  implicit val arbitraryDetailedAddress = Arbitrary(detailedAddressGen)
+  implicit val arbitraryDetailedAddress: Arbitrary[DetailedAddress] = Arbitrary(detailedAddressGen)
 
   val individualDetailsGen: Gen[IndividualDetails] = for {
     fistName  <- shortString
@@ -157,7 +157,7 @@ package object utils {
     phone2    <- Gen.option(listOfN(8, Gen.numChar).map(_.mkString))
     addressId <- arbitrary[Int]
   } yield IndividualDetails(fistName, lastName, randomEmail, phone1.mkString, phone2, addressId)
-  implicit val arbitraryIndividualDetails = Arbitrary(individualDetailsGen)
+  implicit val arbitraryIndividualDetails: Arbitrary[IndividualDetails] = Arbitrary(individualDetailsGen)
 
   val individualGen: Gen[DetailedIndividualAccount] = for {
     externalId        <- shortString
@@ -166,7 +166,7 @@ package object utils {
     individualId      <- arbitrary[Int]
     individualDetails <- arbitrary[IndividualDetails]
   } yield DetailedIndividualAccount(externalId, trustId, organisationId, individualId, individualDetails)
-  implicit val arbitraryIndividual = Arbitrary(individualGen)
+  implicit val arbitraryIndividual: Arbitrary[DetailedIndividualAccount] = Arbitrary(individualGen)
 
   val groupAccountGen: Gen[GroupAccount] = for {
     id          <- positiveInt
@@ -187,14 +187,14 @@ package object utils {
       isAgent = isAgent,
       agentCode = Some(agentCode).filter(_ => isAgent)
     )
-  implicit val arbitraryGroupAccount = Arbitrary(groupAccountGen)
+  implicit val arbitraryGroupAccount: Arbitrary[GroupAccount] = Arbitrary(groupAccountGen)
 
   val capacityGen: Gen[Capacity] = for {
     capacity <- arbitrary[CapacityType]
     fromDate <- arbitrary[LocalDate]
     toDate   <- arbitrary[Option[LocalDate]]
   } yield Capacity(capacity, fromDate, toDate)
-  implicit val arbitraryCapacity = Arbitrary(capacityGen)
+  implicit val arbitraryCapacity: Arbitrary[Capacity] = Arbitrary(capacityGen)
 
   val assessmentGen: Gen[Assessment] = for {
     linkId                    <- arbitrary[Int]
@@ -220,7 +220,7 @@ package object utils {
       currentToDate = None,
       capacity = capacity
     )
-  implicit val arbitraryAssessment = Arbitrary(assessmentGen)
+  implicit val arbitraryAssessment: Arbitrary[Assessment] = Arbitrary(assessmentGen)
 
   val party: Gen[Party] = for {
     authorisedPartyId <- arbitrary[Long]
@@ -229,10 +229,10 @@ package object utils {
     organisationId    <- arbitrary[Long]
   } yield models.Party(authorisedPartyId, agentCode, organisationName, organisationId)
 
-  implicit val arbitraryParty = Arbitrary(party)
+  implicit val arbitraryParty: Arbitrary[Party] = Arbitrary(party)
 
   val propertyLinkingStatusGen: Gen[PropertyLinkingStatus] = Gen.oneOf(PropertyLinkingApproved, PropertyLinkingPending)
-  implicit val propertyLinkingStatusGenType = Arbitrary(propertyLinkingStatusGen)
+  implicit val propertyLinkingStatusGenType: Arbitrary[PropertyLinkingStatus] = Arbitrary(propertyLinkingStatusGen)
 
   val clientDetailsGen: Gen[ClientDetails] = for {
     organisationId   <- arbitrary[Long]
@@ -242,7 +242,7 @@ package object utils {
       organisationId,
       organisationName
     )
-  implicit val arbitaryClientDetailsGen = Arbitrary(clientDetailsGen)
+  implicit val arbitaryClientDetailsGen: Arbitrary[ClientDetails] = Arbitrary(clientDetailsGen)
 
   val clientPropertyLinkGen: Gen[ClientPropertyLink] = for {
     authorisationId   <- arbitrary[Long]
@@ -270,7 +270,7 @@ package object utils {
       localAuthorityRef,
       client
     )
-  implicit val arbitaryClientPropertyLinkGen = Arbitrary(clientPropertyLinkGen)
+  implicit val arbitaryClientPropertyLinkGen: Arbitrary[ClientPropertyLink] = Arbitrary(clientPropertyLinkGen)
 
   val propertyLinkGen: Gen[PropertyLink] = for {
     linkId       <- arbitrary[Int]
@@ -286,7 +286,7 @@ package object utils {
       address = address.toString,
       agents = agents)
   }
-  implicit val arbitraryPropertyLink = Arbitrary(propertyLinkGen)
+  implicit val arbitraryPropertyLink: Arbitrary[PropertyLink] = Arbitrary(propertyLinkGen)
 
   private val ninoGen: Gen[Nino] = for {
     prefix <- (for {
@@ -297,7 +297,7 @@ package object utils {
     suffix <- Gen.oneOf('A' to 'D')
   } yield Nino(s"$prefix${number.mkString}$suffix".grouped(2).mkString(" "))
 
-  implicit val arbitraryNino = Arbitrary(ninoGen)
+  implicit val arbitraryNino: Arbitrary[Nino] = Arbitrary(ninoGen)
 
   private val ivDetailsGen: Gen[IVDetails] = for {
     firstName <- shortString
@@ -306,7 +306,7 @@ package object utils {
     nino      <- arbitrary[Nino]
   } yield IVDetails(firstName, lastName, Some(dob), Some(nino))
 
-  implicit val arbitraryIVDetails = Arbitrary(ivDetailsGen)
+  implicit val arbitraryIVDetails: Arbitrary[IVDetails] = Arbitrary(ivDetailsGen)
 
   private val accountsGenerator = for {
     group      <- arbitrary[GroupAccount]
@@ -477,7 +477,7 @@ package object utils {
   } yield {
     AgentAuthClient(organisationId, organisationName)
   }
-  implicit val agentAuthClient = Arbitrary(agentAuthClientGen)
+  implicit val agentAuthClient: Arbitrary[AgentAuthClient] = Arbitrary(agentAuthClientGen)
 
   val ownerAuthAgentGen: Gen[OwnerAuthAgent] = for {
     authorisedPartyId <- arbitrary[Long]
@@ -488,7 +488,7 @@ package object utils {
     OwnerAuthAgent(authorisedPartyId, organisationId, organisationName, agentCode)
   }
 
-  implicit val ownerAuthAgent = Arbitrary(ownerAuthAgentGen)
+  implicit val ownerAuthAgent: Arbitrary[OwnerAuthAgent] = Arbitrary(ownerAuthAgentGen)
 
   val agentAuthorisationGen: Gen[AgentAuthorisation] = for {
     authorisationId   <- arbitrary[Long]
@@ -510,7 +510,7 @@ package object utils {
       client = client
     )
   }
-  implicit val arbitraryAgentAuthorisationGen = Arbitrary(agentAuthorisationGen)
+  implicit val arbitraryAgentAuthorisationGen: Arbitrary[AgentAuthorisation] = Arbitrary(agentAuthorisationGen)
 
   val ownerAuthorisationGen: Gen[OwnerAuthorisation] = for {
     id                <- arbitrary[Long]
@@ -529,7 +529,7 @@ package object utils {
       localAuthorityRef = localAuthorityRef,
       agents = agents)
   }
-  implicit val arbitraryOwnerAuthorisationGen = Arbitrary(ownerAuthorisationGen)
+  implicit val arbitraryOwnerAuthorisationGen: Arbitrary[OwnerAuthorisation] = Arbitrary(ownerAuthorisationGen)
 
   val messageGen: Gen[Message] = for {
     id             <- shortString
@@ -564,7 +564,7 @@ package object utils {
     )
   }
 
-  implicit val arbitraryMessageGen = Arbitrary(messageGen)
+  implicit val arbitraryMessageGen: Arbitrary[Message] = Arbitrary(messageGen)
 
   val messageSearchResultsGen: Gen[MessageSearchResults] = for {
     start    <- Gen.choose[Int](min = 1, max = 30)
@@ -574,7 +574,7 @@ package object utils {
     MessageSearchResults(start = start, size = size, messages = messages)
   }
 
-  implicit val arbitraryMessageSearchResultsGen = Arbitrary(messageSearchResultsGen)
+  implicit val arbitraryMessageSearchResultsGen: Arbitrary[MessageSearchResults] = Arbitrary(messageSearchResultsGen)
 
   val updatedOrganisationAccountGen: Gen[UpdatedOrganisationAccount] = for {
     governmentGatewayGroupId    <- shortString
@@ -597,6 +597,7 @@ package object utils {
     )
   }
 
-  implicit val arbitraryUpdatedOrganisationAccountGen = Arbitrary(updatedOrganisationAccountGen)
+  implicit val arbitraryUpdatedOrganisationAccountGen: Arbitrary[UpdatedOrganisationAccount] = Arbitrary(
+    updatedOrganisationAccountGen)
 
 }

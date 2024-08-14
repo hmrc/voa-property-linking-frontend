@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class RepresentationResponse(
       submissionId: String,
@@ -25,5 +25,5 @@ case class RepresentationResponse(
 )
 
 object RepresentationResponse {
-  implicit val format = Json.format[RepresentationResponse]
+  implicit val format: OFormat[RepresentationResponse] = Json.format[RepresentationResponse]
 }

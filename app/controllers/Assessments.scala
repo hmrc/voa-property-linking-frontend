@@ -94,7 +94,7 @@ class Assessments @Inject()(
                     )
               )
           }
-      case None => Future.successful(notFound)
+      case None => notFound
     }
   }
 

@@ -53,7 +53,7 @@
         @govukInput(Input(
             id = "companyName",
             name = "companyName",
-            label = Label(content = HtmlContent(messages("enrolment.organisation.name")), classes = "govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.organisation.name")), classes = "govuk-label govuk-label--m"),
             value = form("companyName").value.orElse(Some(organisationFieldData.businessName)),
             errorMessage = form("companyName").error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
@@ -79,7 +79,7 @@
         @govukInput(Input(
             id = "phone",
             name = "phone",
-            label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber")), classes = "govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.businessPhoneNumber")), classes = "govuk-label govuk-label--m"),
             value = form(keys.phone).value.orElse(Some(organisationFieldData.businessPhoneNumber)),
             errorMessage = form(keys.phone).error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
@@ -88,7 +88,7 @@
         @govukInput(Input(
             id = "email",
             name = "email",
-            label = Label(content = HtmlContent(messages("enrolment.emailAddress")), classes = "govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.emailAddress")), classes = "govuk-label govuk-label--m"),
             value = form(keys.email).value.orElse(emailLengthCheck),
             errorMessage = form(keys.email).error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
@@ -97,7 +97,7 @@
         @govukInput(Input(
             id = "confirmedBusinessEmail",
             name = "confirmedBusinessEmail",
-            label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress")), classes = "govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.confirmEmailAddress")), classes = "govuk-label govuk-label--m"),
             value = form(keys.confirmedBusinessEmail).value.orElse(emailLengthCheck),
             errorMessage = form(keys.confirmedBusinessEmail).error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"

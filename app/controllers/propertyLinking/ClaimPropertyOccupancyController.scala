@@ -31,7 +31,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepo
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.voa.play.form.ConditionalMappings._
-import views.helpers.Errors
 
 import java.time.LocalDate
 import javax.inject.{Inject, Named}

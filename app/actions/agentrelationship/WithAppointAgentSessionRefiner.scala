@@ -41,9 +41,10 @@ class WithAppointAgentSessionRefiner @Inject()(
 
   override protected def refine[A](
         request: BasicAuthenticatedRequest[A]): Future[Either[Result, AppointAgentSessionRequest[A]]] =
-    sessionRepository.get[AppointNewAgentSession](implicitly[Reads[AppointNewAgentSession]], hc(request)).map {
+    sessionRepository.get[AppointNewAgentSession](implicitly[Reads[AppointNewAgentSession]], hc(request)).flatMap {
       case Some(s) =>
-        Right(AppointAgentSessionRequest(s, request.individualAccount, request.organisationAccount, request))
-      case None => Left(NotFound(errorHandler.notFoundTemplate(request)))
+        Future.successful(
+          Right(AppointAgentSessionRequest(s, request.individualAccount, request.organisationAccount, request)))
+      case None => errorHandler.notFoundTemplate(request).map(html => Left(NotFound(html)))
     }
 }

@@ -16,15 +16,16 @@
 
 package connectors.vmv
 
-import javax.inject.{Inject, Named}
 import models.properties.PropertyHistory
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
 
+import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 class VmvConnector @Inject()(
-      http: HttpClient,
+      http: DefaultHttpClient,
       @Named("vmv.singularPropertyUrl") propertyHistoryUrl: String
 )(implicit ec: ExecutionContext)
     extends UriTemplateSyntax {

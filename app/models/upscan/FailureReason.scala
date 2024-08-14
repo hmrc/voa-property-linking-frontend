@@ -16,6 +16,8 @@
 
 package models.upscan
 
+import models.upscan
+import play.api.libs.json.Format
 import utils.JsonUtils
 
 object FailureReason extends Enumeration {
@@ -25,5 +27,5 @@ object FailureReason extends Enumeration {
   val REJECTED = Value("REJECTED")
   val UNKNOWN = Value("UNKNOWN")
 
-  implicit val format = JsonUtils.enumFormat(FailureReason)
+  implicit val format: Format[upscan.FailureReason.Value] = JsonUtils.enumFormat(FailureReason)
 }

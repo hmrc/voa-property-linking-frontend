@@ -20,7 +20,6 @@ import actions.AuthenticatedAction
 import cats.data.OptionT
 import config.ApplicationConfig
 import connectors.challenge.ChallengeConnector
-import connectors.check.BusinessRatesCheckConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import connectors._
@@ -313,22 +312,27 @@ class DvrController @Inject()(
       _ <- dvr
             .map(dvrCaseManagement.requestDetailedValuationV2)
             .getOrElse(Future.failed(throw new NotFoundException("property link does not exist")))
-    } yield {
-      pLink match {
-        case Some(p) =>
-          Redirect(
-            if (owner)
-              routes.DvrController
-                .myOrganisationRequestDetailValuationConfirmation(propertyLinkSubmissionId, submissionId, valuationId)
-            else
-              routes.DvrController
-                .myClientsRequestDetailValuationConfirmation(propertyLinkSubmissionId, submissionId, valuationId)
-          )
-        case None =>
-          notFound
-      }
-    }
-
+      result <- pLink match {
+                 case Some(p) =>
+                   Future.successful(
+                     Redirect(
+                       if (owner)
+                         routes.DvrController
+                           .myOrganisationRequestDetailValuationConfirmation(
+                             propertyLinkSubmissionId,
+                             submissionId,
+                             valuationId)
+                       else
+                         routes.DvrController
+                           .myClientsRequestDetailValuationConfirmation(
+                             propertyLinkSubmissionId,
+                             submissionId,
+                             valuationId)
+                     ))
+                 case None =>
+                   notFound
+               }
+    } yield result
   }
 
   def myOrganisationRequestDetailValuationConfirmation(

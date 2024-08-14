@@ -17,13 +17,14 @@
 package controllers
 
 import org.jsoup.Jsoup
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import views.html.downtimePage
 
 class DowntimePageSpec extends VoaPropertyLinkingSpec {
 
-  implicit val request = FakeRequest()
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
   val applicationTestController =
     new DowntimePage(

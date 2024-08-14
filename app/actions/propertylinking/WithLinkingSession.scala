@@ -41,17 +41,18 @@ class WithLinkingSession @Inject()(
 
   override protected def refine[A](
         request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
-    sessionRepository.get[LinkingSession](implicitly[Reads[LinkingSession]], hc(request)).map {
-      case Some(s) if s.isSubmitted == Some(true) => Left(Forbidden(errorHandler.alreadySubmittedTemplate(request)))
+    sessionRepository.get[LinkingSession](implicitly[Reads[LinkingSession]], hc(request)).flatMap {
+      case Some(s) if s.isSubmitted == Some(true) =>
+        Future.successful(Left(Forbidden(errorHandler.alreadySubmittedTemplate(request))))
       case Some(s) =>
-        Right(
-          LinkingSessionRequest(
+        Future.successful(
+          Right(LinkingSessionRequest(
             ses = s,
             organisationId = request.organisationAccount.id,
             individualAccount = request.individualAccount,
             organisationAccount = request.organisationAccount,
             request = request
-          ))
-      case None => Left(NotFound(errorHandler.notFoundTemplate(request)))
+          )))
+      case None => errorHandler.notFoundTemplate(request).map(html => Left(NotFound(html)))
     }
 }

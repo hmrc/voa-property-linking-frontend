@@ -20,14 +20,14 @@ import connectors.IndividualAccounts
 import models.{DetailedIndividualAccount, IndividualAccountSubmission}
 import org.mockito.Mockito.mock
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import utils.Configs._
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 
 object StubIndividualAccountConnector
-    extends IndividualAccounts(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
+    extends IndividualAccounts(servicesConfig, mock(classOf[DefaultHttpClient]))(ExecutionContext.global) {
 
   private var stubbedIndividuals: Seq[DetailedIndividualAccount] = Nil
 

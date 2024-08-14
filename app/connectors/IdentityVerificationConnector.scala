@@ -17,20 +17,22 @@
 package connectors
 
 import config.ApplicationConfig
+
 import javax.inject.Inject
 import models.identityVerificationProxy.IvResult
 import models.identityVerificationProxy.IvResult.IvFailure
 import play.api.libs.json.{JsObject, JsValue}
 import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentityVerificationConnector @Inject()(
       serverConfig: ServicesConfig,
       config: ApplicationConfig,
-      http: HttpClient
+      http: DefaultHttpClient
 )(implicit val executionContext: ExecutionContext) {
 
   val baseUrl = serverConfig.baseUrl("identity-verification")

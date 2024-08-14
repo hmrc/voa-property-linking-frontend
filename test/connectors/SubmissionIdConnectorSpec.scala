@@ -21,7 +21,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class SubmissionIdConnectorSpec extends VoaPropertyLinkingSpec {
 
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   class Setup {
     val connector = new SubmissionIdConnector(servicesConfig, mockHttpClient)(ec) {

@@ -17,10 +17,11 @@
 package models
 
 import models.check.CheckId
+import play.api.libs.json.Format
 import uk.gov.voa.valuetype.play.formats.ValueTypeFormat
 
 trait PartialCheckFormats extends ValueTypeFormat {
 
-  implicit val checkIdFormat = format(CheckId.apply)
+  implicit val checkIdFormat: Format[CheckId] = format(CheckId.apply)
 
 }

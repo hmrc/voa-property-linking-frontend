@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class Address(
       addressUnitId: Option[Long],
@@ -27,7 +27,7 @@ case class Address(
       postcode: String)
 
 object Address {
-  implicit val format = Json.format[Address]
+  implicit val format: OFormat[Address] = Json.format[Address]
 
-  val empty = Address(addressUnitId = None, line1 = "", line2 = "", line3 = "", line4 = "", postcode = "")
+  val empty: Address = Address(addressUnitId = None, line1 = "", line2 = "", line3 = "", line4 = "", postcode = "")
 }

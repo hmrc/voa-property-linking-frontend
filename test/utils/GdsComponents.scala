@@ -19,11 +19,11 @@ package utils
 import com.typesafe.config.{Config, ConfigFactory}
 import play.api.Configuration
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.html.helpers.{GovukFormGroup, GovukHintAndErrorMessage}
 import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, AssetsConfig, TimeoutDialogConfig, TrackingConsentConfig, TudorCrownConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems, StandardBetaBanner}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcTimeoutDialog}
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcScripts, HmrcStandardFooter, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
-import views.html.includes.scripts
 
 trait GdsComponents {
 
@@ -47,31 +47,34 @@ trait GdsComponents {
   lazy val govukBreadcrumbs = new GovukBreadcrumbs
   lazy val govukButton = new GovukButton
   lazy val govukCharacterCount = new GovukCharacterCount(govukTextarea, govukHint)
-  lazy val govukCheckboxes = new GovukCheckboxes(govukErrorMessage, govukFieldset, govukHint, govukLabel)
-  lazy val govukDateInput = new GovukDateInput(govukErrorMessage, govukHint, govukFieldset, govukInput)
+  lazy val govukCheckboxes =
+    new GovukCheckboxes(govukFieldset, govukHint, govukLabel, govukFormGroup, govukHintAndErrorMessage)
+  lazy val govukDateInput = new GovukDateInput(govukFieldset, govukInput, govukFormGroup, govukHintAndErrorMessage)
   lazy val govukDetails = new GovukDetails
   lazy val govukErrorMessage = new GovukErrorMessage
   lazy val govukErrorSummary = new GovukErrorSummary
   lazy val govukFieldset = new GovukFieldset
   lazy val govukFooter = new GovukFooter
+  lazy val govukFormGroup = new GovukFormGroup
   lazy val govukHeader = new GovukHeader(TudorCrownConfig(minimalConfiguration))
   lazy val govukHint = new GovukHint
-  lazy val govukInput = new GovukInput(govukErrorMessage, govukHint, govukLabel)
+  lazy val govukHintAndErrorMessage = new GovukHintAndErrorMessage(govukHint, govukErrorMessage)
+  lazy val govukInput = new GovukInput(govukLabel, govukFormGroup, govukHintAndErrorMessage)
   lazy val govukInsetText = new GovukInsetText
   lazy val govukLabel = new GovukLabel
   lazy val govukPanel = new GovukPanel
   lazy val govukPhaseBanner = new GovukPhaseBanner(govukTag)
-  lazy val govukRadios = new GovukRadios(govukErrorMessage, govukFieldset, govukHint, govukLabel)
-  lazy val govukSelect = new GovukSelect(govukErrorMessage, govukHint, govukLabel)
+  lazy val govukRadios = new GovukRadios(govukFieldset, govukHint, govukLabel, govukFormGroup, govukHintAndErrorMessage)
+  lazy val govukSelect = new GovukSelect(govukLabel, govukFormGroup, govukHintAndErrorMessage)
   lazy val govukSkipLink = new GovukSkipLink
   lazy val govukSummaryList = new GovukSummaryList
   lazy val govukTabs = new GovukTabs
   lazy val govukTable = new GovukTable
   lazy val govukTag = new GovukTag
   lazy val govukTemplate = new GovukTemplate(govukHeader, govukFooter, govukSkipLink, new FixedWidthPageLayout())
-  lazy val govukTextarea = new GovukTextarea(govukErrorMessage, govukHint, govukLabel)
+  lazy val govukTextarea = new GovukTextarea(govukLabel, govukFormGroup, govukHintAndErrorMessage)
   lazy val govukWarningText = new GovukWarningText
-  lazy val govukFileUpload = new GovukFileUpload(govukErrorMessage, govukHint, govukLabel)
+  lazy val govukFileUpload = new GovukFileUpload(govukLabel, govukFormGroup, govukHintAndErrorMessage)
   lazy val hmrcFooter = new HmrcFooter(govukFooter)
   lazy val hmrcFooterItems = new HmrcFooterItems(new AccessibilityStatementConfig(minimalConfiguration))
   lazy val hmrcStandardFooter = new HmrcStandardFooter(hmrcFooter, hmrcFooterItems)

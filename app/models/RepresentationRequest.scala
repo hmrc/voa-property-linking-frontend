@@ -17,8 +17,7 @@
 package models
 
 import java.time.Instant
-
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class RepresentationRequest(
       authorisationId: Long,
@@ -29,5 +28,5 @@ case class RepresentationRequest(
 )
 
 object RepresentationRequest {
-  implicit val format = Json.format[RepresentationRequest]
+  implicit val format: OFormat[RepresentationRequest] = Json.format[RepresentationRequest]
 }

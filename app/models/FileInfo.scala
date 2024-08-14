@@ -25,15 +25,15 @@ sealed trait FileInfo {
 case class PartialFileInfo(evidenceType: EvidenceType) extends FileInfo
 
 object PartialFileInfo {
-  implicit val format = Json.format[PartialFileInfo]
+  implicit val format: OFormat[PartialFileInfo] = Json.format[PartialFileInfo]
 }
 
 case class CompleteFileInfo(name: String, evidenceType: EvidenceType) extends FileInfo
 
 object CompleteFileInfo {
-  implicit val format = Json.format[CompleteFileInfo]
+  implicit val format: OFormat[CompleteFileInfo] = Json.format[CompleteFileInfo]
 }
 
 object FileInfo {
-  implicit val format = Json.format[FileInfo]
+  implicit val format: OFormat[FileInfo] = Json.format[FileInfo]
 }

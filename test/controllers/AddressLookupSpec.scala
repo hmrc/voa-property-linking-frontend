@@ -16,13 +16,14 @@
 
 package controllers
 
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import tests.AllMocks
 import utils.StubAddresses
 
 class AddressLookupSpec extends VoaPropertyLinkingSpec with AllMocks {
-  implicit val request = FakeRequest()
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
   object TestAddressLookupController
       extends AddressLookup(mockCustomErrorHandler, StubAddresses, stubMessagesControllerComponents())

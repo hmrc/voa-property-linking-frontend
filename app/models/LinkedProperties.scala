@@ -16,10 +16,10 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class LinkedProperties(added: Seq[PropertyLink], pending: Seq[PropertyLink])
 
 object LinkedProperties {
-  implicit val format = Json.format[LinkedProperties]
+  implicit val format: OFormat[LinkedProperties] = Json.format[LinkedProperties]
 }

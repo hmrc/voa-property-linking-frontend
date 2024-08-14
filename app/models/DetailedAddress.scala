@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class DetailedAddress(
       addressUnitId: Option[Long] = None,
@@ -35,5 +35,5 @@ case class DetailedAddress(
 )
 
 object DetailedAddress {
-  implicit val formats = Json.format[DetailedAddress]
+  implicit val formats: OFormat[DetailedAddress] = Json.format[DetailedAddress]
 }

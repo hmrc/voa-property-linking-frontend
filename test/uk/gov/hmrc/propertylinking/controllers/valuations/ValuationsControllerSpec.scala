@@ -28,6 +28,7 @@ import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers.{any, eq => mEq}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
@@ -37,7 +38,7 @@ import scala.concurrent.Future
 
 class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
 
-  implicit val request = FakeRequest()
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
   trait Setup {
 
@@ -47,7 +48,7 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
     when(mockSessionRepository.start(any())(any(), any())).thenReturn(Future.successful((): Unit))
     when(mockSessionRepository.get[AssessmentsPageSession](any(), any()))
       .thenReturn(Future.successful(Some(assessmentPageSession)))
-    when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Html("not found"))
+    when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Future.successful(Html("not found")))
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
       .thenReturn(Future.successful(organisationsAgentsListWithOneAgent))
 

@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 import java.time.LocalDate
 
@@ -25,5 +25,5 @@ case class PropertyOwnership(
 )
 
 object PropertyOwnership {
-  implicit val format = Json.format[PropertyOwnership]
+  implicit val format: OFormat[PropertyOwnership] = Json.format[PropertyOwnership]
 }

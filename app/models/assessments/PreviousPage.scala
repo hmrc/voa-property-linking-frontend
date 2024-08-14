@@ -16,16 +16,17 @@
 
 package models.assessments
 
+import play.api.libs.json.Format
 import utils.JsonUtils
 
 object PreviousPage extends Enumeration {
 
   type PreviousPage = Value
 
-  val AllClients = Value("AllClients")
-  val SelectedClient = Value("SelectedClient")
-  val MyProperties = Value("MyProperties")
-  val Dashboard = Value("Dashboard")
+  val AllClients: PreviousPage.Value = Value("AllClients")
+  val SelectedClient: PreviousPage.Value = Value("SelectedClient")
+  val MyProperties: PreviousPage.Value = Value("MyProperties")
+  val Dashboard: PreviousPage.Value = Value("Dashboard")
 
-  implicit val format = JsonUtils.enumFormat(PreviousPage)
+  implicit val format: Format[PreviousPage.Value] = JsonUtils.enumFormat(PreviousPage)
 }

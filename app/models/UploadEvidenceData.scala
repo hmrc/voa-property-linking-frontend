@@ -25,6 +25,6 @@ case class UploadEvidenceData(
       attachments: Option[Map[String, UploadedFileDetails]] = Some(Map()))
 
 object UploadEvidenceData {
-  implicit val format = Json.format[UploadEvidenceData]
-  val empty = UploadEvidenceData()
+  implicit val format: OFormat[UploadEvidenceData] = Json.format[UploadEvidenceData]
+  val empty: UploadEvidenceData = UploadEvidenceData()
 }

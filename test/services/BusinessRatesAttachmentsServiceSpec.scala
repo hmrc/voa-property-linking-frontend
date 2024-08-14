@@ -25,6 +25,7 @@ import models.attachment.request.InitiateAttachmentRequest
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import repositories.SessionRepo
 import utils._
@@ -41,11 +42,11 @@ class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
     "http://example.com",
     "http://example.com/failure")
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadRatesBillData)
-  implicit val request =
+  implicit val request: BasicAuthenticatedRequest[AnyContentAsEmpty.type] =
     BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
-  implicit val linkingSessionRequest =
+  implicit val linkingSessionRequest: LinkingSessionRequest[AnyContentAsEmpty.type] =
     LinkingSessionRequest(linkingSessionData, 1234L, detailedIndividualAccount, groupAccount(agent = true), request)
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   val businessRatesChallengeService = new BusinessRatesAttachmentsService(
     businessRatesAttachmentsConnector = businessRatesAttachmentConnector,

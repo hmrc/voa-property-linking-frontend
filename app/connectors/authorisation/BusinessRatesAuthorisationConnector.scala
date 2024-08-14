@@ -18,15 +18,16 @@ package connectors.authorisation
 
 import connectors.authorisation.errorhandler.exceptions.{AuthorisationExceptionThrowingReads, AuthorisationFailure}
 import models.Accounts
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class BusinessRatesAuthorisationConnector @Inject()(
       config: ServicesConfig,
-      http: HttpClient
+      http: DefaultHttpClient
 )(implicit executionContext: ExecutionContext)
     extends AuthorisationExceptionThrowingReads {
 

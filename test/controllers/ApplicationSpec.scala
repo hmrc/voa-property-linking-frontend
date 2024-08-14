@@ -16,14 +16,14 @@
 
 package controllers
 
-import play.api.mvc.Result
+import play.api.mvc.{AnyContentAsEmpty, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
 import scala.concurrent.Future
 
 class ApplicationSpec extends VoaPropertyLinkingSpec {
-  implicit val request = FakeRequest()
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
   val applicationTestController = new Application(
     errorHandler = mockCustomErrorHandler,

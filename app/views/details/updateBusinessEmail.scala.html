@@ -43,7 +43,7 @@
             classes = "form-control govuk-input--width-20",
             label = Label(
                 isPageHeading = false,
-                classes = "govuk-label--m",
+                classes = "govuk-label govuk-label--m",
                 content = Text(Messages("label.createAccount.businessEmail"))
             ),
             errorMessage = model.form("email").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
@@ -56,7 +56,7 @@
             classes = "form-control govuk-input--width-20",
             label = Label(
                 isPageHeading = false,
-                classes = "govuk-label--m",
+                classes = "govuk-label govuk-label--m",
                 content = Text(messages("label.createAccount.confirmedBusinessEmail"))
             ),
             errorMessage = model.form("confirmedEmail").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))

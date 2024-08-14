@@ -21,16 +21,15 @@ import connectors.authorisation.errorhandler.exceptions.AuthorisationFailure
 import play.api.Logging
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.mvc.Results.{Forbidden, NotFound, Redirect}
-import play.api.mvc.{Request, RequestHeader, Result}
+import play.api.mvc.{RequestHeader, Result}
 import play.mvc.Http.Status.{FORBIDDEN, NOT_FOUND}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.{HeaderNames, UpstreamErrorResponse}
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
 import utils.DateTimeUtil
 
-import java.time.LocalDateTime
 import javax.inject.Inject
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class CustomErrorHandler @Inject()(
       errorView: views.html.errors.error,
@@ -38,15 +37,18 @@ class CustomErrorHandler @Inject()(
       technicalDifficultiesView: views.html.errors.technicalDifficulties,
       notFoundView: views.html.errors.notFound,
       alreadySubmittedView: views.html.errors.alreadySubmitted,
-      dateTime: DateTimeUtil)(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig)
+      dateTime: DateTimeUtil)(
+      implicit override val messagesApi: MessagesApi,
+      appConfig: ApplicationConfig,
+      implicit val ec: ExecutionContext)
     extends FrontendErrorHandler with Logging with I18nSupport {
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(
-        implicit request: Request[_]): Html =
-    errorView(pageTitle, heading, message)
+        implicit request: RequestHeader): Future[Html] =
+    Future.successful(errorView(pageTitle, heading, message))
 
-  override def internalServerErrorTemplate(implicit request: Request[_]): Html =
-    technicalDifficultiesView(extractErrorReference(request), dateTime.getDateTime.toLocalDateTime)
+  override def internalServerErrorTemplate(implicit request: RequestHeader): Future[Html] =
+    Future.successful(technicalDifficultiesView(extractErrorReference(request), dateTime.getDateTime.toLocalDateTime))
 
   def forbiddenErrorTemplate(implicit request: RequestHeader): Html = {
     val messages: Messages = messagesApi.preferred(request)
@@ -61,7 +63,7 @@ class CustomErrorHandler @Inject()(
     alreadySubmittedView()(request, messages, appConfig)
   }
 
-  private def extractErrorReference(request: Request[_]): Option[String] = {
+  private def extractErrorReference(request: RequestHeader): Option[String] = {
     val requestId = request.headers.get(HeaderNames.xRequestId)
     if (requestId.exists(_.contains("govuk-tax-"))) {
       // old xRequestId format with gov-uk-tax prefix

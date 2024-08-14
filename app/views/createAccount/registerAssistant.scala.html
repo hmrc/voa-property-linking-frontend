@@ -85,7 +85,7 @@ hasErrors = form.hasErrors) {
         @govukInput(Input(
             id = "firstName",
             name = "firstName",
-            label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.firstName")), classes="govuk-label govuk-label--m"),
             value = form("firstName").value.orElse(Some(assistantFieldData.firstName)),
             errorMessage = form("firstName").error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message,
             err.args:_*)))),
@@ -95,7 +95,7 @@ hasErrors = form.hasErrors) {
         @govukInput(Input(
             id = "lastName",
             name = "lastName",
-            label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.lastName")), classes="govuk-label govuk-label--m"),
             value = form("lastName").value.orElse(Some(assistantFieldData.lastName)),
             errorMessage = form("lastName").error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message,
             err.args:_*)))),

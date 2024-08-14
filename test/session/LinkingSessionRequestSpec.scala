@@ -22,6 +22,7 @@ import controllers.VoaPropertyLinkingSpec
 import models.LinkingSession
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import repositories.SessionRepo
 import uk.gov.hmrc.http.HeaderCarrier
@@ -30,8 +31,8 @@ import scala.concurrent.Future
 
 class LinkingSessionRequestSpec extends VoaPropertyLinkingSpec {
 
-  implicit val request = FakeRequest()
-  implicit val hc = HeaderCarrier()
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   val mockLinkingSession = mock[LinkingSession]
   val mockSessionRepo = mock[SessionRepo]

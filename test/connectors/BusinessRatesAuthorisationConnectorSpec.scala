@@ -27,7 +27,7 @@ import utils._
 
 class BusinessRatesAuthorisationConnectorSpec extends VoaPropertyLinkingSpec {
 
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   class Setup {
     val connector = new BusinessRatesAuthorisationConnector(servicesConfig, mockHttpClient) {

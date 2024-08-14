@@ -16,7 +16,7 @@
 
 package models.test
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class TestUserDetails(
       personId: Long,
@@ -27,5 +27,5 @@ case class TestUserDetails(
       agentCode: Option[Long])
 
 object TestUserDetails {
-  implicit val format = Json.format[TestUserDetails]
+  implicit val format: OFormat[TestUserDetails] = Json.format[TestUserDetails]
 }

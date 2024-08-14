@@ -22,12 +22,13 @@ import javax.inject.Inject
 import models.propertyrepresentation.AgentDetails
 import play.api.Logging
 import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse, UpstreamErrorResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, UpstreamErrorResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: HttpClient)(
+class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: DefaultHttpClient)(
       implicit ec: ExecutionContext)
     extends Logging {
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"

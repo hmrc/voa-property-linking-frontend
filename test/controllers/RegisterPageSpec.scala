@@ -17,14 +17,15 @@
 package controllers
 
 import com.google.inject.Inject
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.{Configuration, Mode}
 
 class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaPropertyLinkingSpec {
-  implicit val request = FakeRequest()
-  implicit val mode = Mode.Test
-  implicit val runConfig = configuration
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
+  implicit val mode: Mode = Mode.Test
+  implicit val runConfig: Configuration = configuration
 
   val applicationTestController = new Register(mockCustomErrorHandler, startView, startViewOld)
 

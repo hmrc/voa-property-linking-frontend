@@ -17,6 +17,7 @@
 package models.propertyrepresentation
 
 import models.{EnumFormat, NamedEnum, NamedEnumSupport}
+import play.api.libs.json.Format
 
 sealed trait AppointAgentJourneyStatus extends NamedEnum {
   val name: String
@@ -41,7 +42,7 @@ case object ManagingPropertySelected extends AppointAgentJourneyStatus {
 }
 
 object AppointAgentJourneyStatus extends NamedEnumSupport[AppointAgentJourneyStatus] {
-  implicit val format = EnumFormat(AppointAgentJourneyStatus)
+  implicit val format: Format[AppointAgentJourneyStatus] = EnumFormat(AppointAgentJourneyStatus)
 
   override def all: List[AppointAgentJourneyStatus] =
     List(StartJourney, AgentSearched, AgentSelected, ManagingPropertySelected)

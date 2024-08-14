@@ -17,8 +17,7 @@
 package models
 
 import java.time.LocalDate
-
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class PropertyOccupancy(
       stillOccupied: Boolean,
@@ -26,5 +25,5 @@ case class PropertyOccupancy(
 )
 
 object PropertyOccupancy {
-  implicit val format = Json.format[PropertyOccupancy]
+  implicit val format: OFormat[PropertyOccupancy] = Json.format[PropertyOccupancy]
 }

@@ -20,13 +20,13 @@ import connectors.PropertyRepresentationConnector
 import models.searchApi.{AgentAuthResult, AgentAuthorisation}
 import org.mockito.Mockito.mock
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import utils.Configs._
 
 import scala.concurrent.{ExecutionContext, Future}
 
 object StubPropertyRepresentationConnector
-    extends PropertyRepresentationConnector(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
+    extends PropertyRepresentationConnector(servicesConfig, mock(classOf[DefaultHttpClient]))(ExecutionContext.global) {
 
   private var stubbedValidCodes: Seq[Long] = Nil
   private var stubbedAgentAuthResult: AgentAuthResult =

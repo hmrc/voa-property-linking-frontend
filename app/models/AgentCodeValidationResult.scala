@@ -16,10 +16,10 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class AgentCodeValidationResult(organisationId: Option[Long], failureCode: Option[String])
 
 object AgentCodeValidationResult {
-  implicit val format = Json.format[AgentCodeValidationResult]
+  implicit val format: OFormat[AgentCodeValidationResult] = Json.format[AgentCodeValidationResult]
 }

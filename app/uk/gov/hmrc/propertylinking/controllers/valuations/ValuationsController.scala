@@ -107,7 +107,7 @@ class ValuationsController @Inject()(
       }
       assessments
         .flatMap {
-          case None => Future.successful(notFound)
+          case None => notFound
           case Some(assessments) =>
             if (owner) {
               Future.successful(okResponse(assessments, backlink = calculateOwnerBackLink, None))
@@ -116,7 +116,7 @@ class ValuationsController @Inject()(
                 case Some(clientPropertyLink: ClientPropertyLink) =>
                   calculateAgentBackLink(submissionId).map(backlink =>
                     okResponse(assessments, backlink, Some(clientPropertyLink)))
-                case None => Future.successful(notFound)
+                case None => notFound
               }
             }
         }

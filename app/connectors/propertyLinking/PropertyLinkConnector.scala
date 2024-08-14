@@ -25,19 +25,20 @@ import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
 import models.propertylinking.payload.PropertyLinkPayload
-import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesRequest, AgentAppointmentChangesResponse, AgentList, AppointAgentToSomePropertiesRequest}
+import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentList}
 import models.searchApi.OwnerAuthResult
 import play.api.Logging
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http._
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class PropertyLinkConnector @Inject()(config: ServicesConfig, http: HttpClient)(implicit ec: ExecutionContext)
+class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext)
     extends Logging {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
   lazy val vmBaseUrl: String = config.baseUrl("vmv") + s"/vmv"
