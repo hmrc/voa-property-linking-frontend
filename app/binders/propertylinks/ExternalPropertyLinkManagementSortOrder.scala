@@ -16,7 +16,6 @@
 
 package binders.propertylinks
 
-import binders.propertylinks
 import play.api.libs.json.Format
 import utils.JsonUtils
 
@@ -26,6 +25,6 @@ object ExternalPropertyLinkManagementSortOrder extends Enumeration {
   val ASC = Value("ASC")
   val DESC = Value("DESC")
 
-  implicit val format: Format[propertylinks.ExternalPropertyLinkManagementSortOrder.Value] =
+  implicit val format: Format[ExternalPropertyLinkManagementSortOrder.Value] =
     JsonUtils.enumFormat(ExternalPropertyLinkManagementSortOrder)
 }
