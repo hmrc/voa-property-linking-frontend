@@ -16,10 +16,10 @@
 
 package models.dvr.cases.check.common
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class Client(organisationId: Long, organisationName: String)
 
 object Client {
-  implicit val format = Json.format[Client]
+  implicit val format: OFormat[Client] = Json.format[Client]
 }

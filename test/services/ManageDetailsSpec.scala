@@ -22,6 +22,7 @@ import connectors.TaxEnrolmentConnector
 import models.Address
 import org.mockito.ArgumentMatchers.{any, anyLong, eq => matches}
 import org.mockito.Mockito.{never, verify, when}
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -30,7 +31,7 @@ import scala.concurrent.{Await, Future}
 
 class ManageDetailsSpec extends ServiceSpec {
 
-  implicit val request =
+  implicit val request: BasicAuthenticatedRequest[AnyContentAsEmpty.type] =
     BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
 
   "updatePostcode" should {

@@ -23,7 +23,7 @@ import models.properties.{AllowedAction, PropertyHistory, PropertyValuation, Val
 import models.propertyrepresentation.{AgentDetails, AgentList, AgentSummary}
 import models.referencedata.ReferenceData
 import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
-import models.{Accounts, Address, ApiAssessment, ApiAssessments, DetailedIndividualAccount, GroupAccount, IndividualDetails, ListType, Party, PropertyAddress}
+import models.{Accounts, ApiAssessment, ApiAssessments, DetailedIndividualAccount, GroupAccount, IndividualDetails, ListType, Party, PropertyAddress}
 
 import java.time.LocalDate
 import java.time.LocalDateTime.now

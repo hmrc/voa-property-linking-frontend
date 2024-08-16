@@ -16,7 +16,7 @@
 
 package models.searchApi
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class OwnerAuthResult(
       start: Int,
@@ -28,6 +28,6 @@ case class OwnerAuthResult(
 }
 
 object OwnerAuthResult {
-  implicit val ownerAuthResult = Json.format[OwnerAuthResult]
+  implicit val ownerAuthResult: OFormat[OwnerAuthResult] = Json.format[OwnerAuthResult]
 
 }

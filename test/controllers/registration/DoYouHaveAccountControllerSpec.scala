@@ -18,11 +18,12 @@ package controllers.registration
 
 import controllers.VoaPropertyLinkingSpec
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
 class DoYouHaveAccountControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar {
-  implicit val request = FakeRequest()
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
   private lazy val loginPage = controllers.routes.Login.show.url
   private lazy val accountTypePage = controllers.registration.routes.AccountTypeController.show.url

@@ -21,24 +21,22 @@ import models.{GroupAccount, GroupAccountSubmission}
 import org.mockito.Mockito.mock
 import org.scalacheck.Arbitrary.arbitrary
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 import Configs._
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 object StubGroupAccountConnector
-    extends GroupAccounts(servicesConfig, mock(classOf[HttpClient]))(ExecutionContext.global) {
+    extends GroupAccounts(servicesConfig, mock(classOf[DefaultHttpClient]))(ExecutionContext.global) {
 
   private var stubbedGroups: Seq[GroupAccount] = Nil
 
-  def stubAccount(account: GroupAccount) {
+  def stubAccount(account: GroupAccount): Unit =
     stubbedGroups = stubbedGroups :+ account
-  }
 
-  def reset() {
+  def reset(): Unit =
     stubbedGroups = Nil
-  }
 
   override def get(organisationId: Long)(implicit hc: HeaderCarrier): Future[Option[GroupAccount]] =
     Future.successful(stubbedGroups.find(_.id == organisationId))

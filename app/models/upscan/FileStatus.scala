@@ -16,6 +16,8 @@
 
 package models.upscan
 
+import models.upscan
+import play.api.libs.json.Format
 import utils.JsonUtils
 
 object FileStatus extends Enumeration {
@@ -25,5 +27,5 @@ object FileStatus extends Enumeration {
   val UPLOADING = Value("UPLOADING")
   val FAILED = Value("FAILED")
 
-  implicit val format = JsonUtils.enumFormat(FileStatus)
+  implicit val format: Format[upscan.FileStatus.Value] = JsonUtils.enumFormat(FileStatus)
 }

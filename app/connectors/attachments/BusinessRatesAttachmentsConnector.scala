@@ -21,15 +21,16 @@ import models.attachment.request.{InitiatedUpload, MetaDataRequest, UpscanInitia
 import models.upscan.PreparedUpload
 import play.api.Logging
 import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class BusinessRatesAttachmentsConnector @Inject()(
-      val http: HttpClient,
+      val http: DefaultHttpClient,
       val servicesConfig: ServicesConfig
 )(implicit executionContext: ExecutionContext)
     extends Logging {

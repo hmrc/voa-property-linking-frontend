@@ -71,18 +71,19 @@ class AppointPropertiesController @Inject()(
                       data.copy(agentAppointAction = Some(action))))
               propertySelectionSize <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
               agentSessionData      <- appointNewAgentSession.get[AppointNewAgentSession]
-              result = agentSessionData match {
-                case Some(data: ManagingProperty) =>
-                  appointNewAgentSession.saveOrUpdate(
-                    data.copy(
-                      propertySelectedSize = action.propertyLinkIds.size,
-                      totalPropertySelectionSize = propertySelectionSize,
-                      backLink = Some(config.safeRedirect(backLinkUrl))
-                    ))
-                  Redirect(agentAppointment.routes.CheckYourAnswersController.onPageLoad())
-                case _ =>
-                  NotFound(errorHandler.notFoundTemplate)
-              }
+              result <- agentSessionData match {
+                         case Some(data: ManagingProperty) =>
+                           appointNewAgentSession
+                             .saveOrUpdate(
+                               data.copy(
+                                 propertySelectedSize = action.propertyLinkIds.size,
+                                 totalPropertySelectionSize = propertySelectionSize,
+                                 backLink = Some(config.safeRedirect(backLinkUrl))
+                               ))
+                             .map(_ => Redirect(agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
+                         case _ =>
+                           errorHandler.notFoundTemplate.map(html => NotFound(html))
+                       }
             } yield result
           }
         )
@@ -115,8 +116,7 @@ class AppointPropertiesController @Inject()(
               agentList,
               backLink = Some(config.safeRedirect(backLinkUrl))
             ))
-      case None =>
-        Future.successful(notFound)
+      case None => notFound
     }
 
   def appointAgentBulkActionForm: Form[AgentAppointBulkAction] =

@@ -32,7 +32,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary._
 import play.api.http.Status._
-import play.api.libs.json.{JsNull, Json}
+import play.api.libs.json.Json
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, NotFoundException}
 import utils._
 
@@ -40,7 +40,7 @@ import scala.concurrent.Future
 
 class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
 
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   override protected def beforeEach(): Unit =
     Mockito.reset(mockHttpClient)

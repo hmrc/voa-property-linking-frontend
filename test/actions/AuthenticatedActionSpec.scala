@@ -41,7 +41,7 @@ class AuthenticatedActionSpec
     extends BaseUnitSpec with MockitoSugar with BeforeAndAfterEach with AllMocks with NoMetricsOneAppPerSuite
     with FakeViews {
 
-  implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
+  implicit lazy val messageApi: MessagesApi = app.injector.instanceOf[MessagesApi]
   implicit lazy val messagesControllerComponents: MessagesControllerComponents =
     app.injector.instanceOf[MessagesControllerComponents]
 

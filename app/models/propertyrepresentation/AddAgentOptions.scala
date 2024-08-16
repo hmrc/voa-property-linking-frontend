@@ -17,6 +17,7 @@
 package models.propertyrepresentation
 
 import models.{EnumFormat, NamedEnum, NamedEnumSupport}
+import play.api.libs.json.Format
 
 sealed trait AddAgentOptions extends NamedEnum {
   val name: String
@@ -45,7 +46,7 @@ case object Yes extends AddAgentOptions {
 }
 
 object AddAgentOptions extends NamedEnumSupport[AddAgentOptions] {
-  implicit val format = EnumFormat(AddAgentOptions)
+  implicit val format: Format[AddAgentOptions] = EnumFormat(AddAgentOptions)
 
   override def all: List[AddAgentOptions] = List(All, NoProperties, ChooseFromList, Yes, No)
 }

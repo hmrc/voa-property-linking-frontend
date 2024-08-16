@@ -23,7 +23,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class IdentityVerificationConnectorSpec extends VoaPropertyLinkingSpec {
 
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   class Setup {
     val connector = new IdentityVerificationConnector(servicesConfig, applicationConfig, mockHttpClient)

@@ -71,7 +71,7 @@ class IdentityVerification @Inject()(
   }
 
   def fail(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
-    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+    journeyId.fold(errorHandler.internalServerErrorTemplate.map(html => Unauthorized(html))) { id =>
       identityVerificationConnector.journeyStatus(id).map {
         case IvResult.IvSuccess =>
           Redirect(controllers.routes.IdentityVerification.success(journeyId))
@@ -83,35 +83,35 @@ class IdentityVerification @Inject()(
   }
 
   def success(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
-    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+    journeyId.fold(errorHandler.internalServerErrorTemplate.map(html => Unauthorized(html))) { id =>
       identityVerificationConnector.verifySuccess(id).flatMap {
         case true =>
-          identityVerificationService.continue(journeyId, request.userDetails).map {
+          identityVerificationService.continue(journeyId, request.userDetails).flatMap {
             case Some(RegistrationSuccess(personId)) =>
               if (config.newRegistrationJourneyEnabled)
-                Redirect(registration.routes.RegistrationController.confirmation(personId))
-              else Redirect(registration.routes.RegistrationController.success(personId))
-            case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+                Future.successful(Redirect(registration.routes.RegistrationController.confirmation(personId)))
+              else Future.successful(Redirect(registration.routes.RegistrationController.success(personId)))
+            case _ => errorHandler.internalServerErrorTemplate.map(html => InternalServerError(html))
           }
-        case false => Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
+        case false => errorHandler.internalServerErrorTemplate.map(html => Unauthorized(html))
       }
     }
   }
 
   def upliftSuccess(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
-    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+    journeyId.fold(errorHandler.internalServerErrorTemplate.map(html => Unauthorized(html))) { id =>
       identityVerificationConnector.verifySuccess(id).flatMap {
         case true => Future.successful(Redirect(registration.routes.RegistrationController.show))
         case _    =>
           //TODO: should this go to iv failure screen?
           //TODO: Need to clear cached user answers on failure
-          Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))
+          errorHandler.internalServerErrorTemplate.map(html => Unauthorized(html))
       }
     }
   }
 
   def upliftFail(journeyId: Option[String]): Action[AnyContent] = ggAction.async { implicit request =>
-    journeyId.fold(Future.successful(Unauthorized(errorHandler.internalServerErrorTemplate))) { id =>
+    journeyId.fold(errorHandler.internalServerErrorTemplate.map(html => Unauthorized(html))) { id =>
       identityVerificationConnector.journeyStatus(id).map {
         case IvResult.IvSuccess =>
           Redirect(registration.routes.RegistrationController.show)

@@ -18,7 +18,7 @@ package controllers
 
 import actions.registration.SessionUserDetailsAction
 import controllers.registration.RegistrationController
-import models.registration.{RegistrationSuccess, User, UserDetails}
+import models.registration.{RegistrationSuccess, UserDetails}
 import models.{DetailedIndividualAccount, GroupAccount}
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._

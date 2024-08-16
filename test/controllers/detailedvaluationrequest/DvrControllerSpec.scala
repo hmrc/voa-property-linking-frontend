@@ -26,7 +26,7 @@ import models.dvr.DvrRecord
 import models.dvr.cases.check.CheckCaseStatus
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
 import org.mockito.ArgumentMatchers.{any, eq => matching}
-import org.mockito.Mockito.{never, verify, when}
+import org.mockito.Mockito.{verify, when}
 import org.scalacheck.Arbitrary.arbitrary
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -42,7 +42,7 @@ import org.jsoup.select.Elements
 import org.mockito.Mockito
 import org.scalatest.Inspectors
 import play.api.i18n.MessagesApi
-import play.api.mvc.{MessagesControllerComponents, Result}
+import play.api.mvc.{AnyContentAsEmpty, MessagesControllerComponents, Result}
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.jdk.CollectionConverters.ListHasAsScala
@@ -54,7 +54,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     spyConfig
   }
   trait Setup {
-    implicit val request = FakeRequest()
+    implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
     val checkSummaryUrlTemplate =
       "/check-case/{checkRef}/summary?propertyLinkSubmissionId={propertyLinkSubmissionId}&isOwner={isOwner}&valuationId={valuationId}"
     val enquiryUrlTemplate = "/draft-list-enquiry/start-from-dvr-valuation"

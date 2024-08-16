@@ -117,8 +117,9 @@ case class AdminInExistingOrganisationAccountDetailsUplift(
 }
 
 object AdminInExistingOrganisationAccountDetailsUplift {
-  implicit val format = Json.format[AdminInExistingOrganisationAccountDetailsUplift]
-  implicit val formatGroupAccountDetails = Json.format[GroupAccountDetails]
+  implicit val format: OFormat[AdminInExistingOrganisationAccountDetailsUplift] =
+    Json.format[AdminInExistingOrganisationAccountDetailsUplift]
+  implicit val formatGroupAccountDetails: OFormat[GroupAccountDetails] = Json.format[GroupAccountDetails]
 }
 
 case class AdminOrganisationAccountDetailsUplift(
@@ -142,7 +143,8 @@ case class AdminOrganisationAccountDetailsUplift(
 }
 
 object AdminOrganisationAccountDetailsUplift {
-  implicit val format = Json.format[AdminOrganisationAccountDetailsUplift]
+  implicit val format: OFormat[AdminOrganisationAccountDetailsUplift] =
+    Json.format[AdminOrganisationAccountDetailsUplift]
 }
 
 case class IndividualUserAccountDetailsUplift(
@@ -191,5 +193,5 @@ case class IndividualUserAccountDetailsUplift(
 }
 
 object IndividualUserAccountDetailsUplift {
-  implicit val format = Json.format[IndividualUserAccountDetailsUplift]
+  implicit val format: OFormat[IndividualUserAccountDetailsUplift] = Json.format[IndividualUserAccountDetailsUplift]
 }

@@ -20,7 +20,7 @@ import binders.pagination.PaginationParameters
 import binders.propertylinks.ExternalPropertyLinkManagementSortField.{ADDRESS, AGENT}
 import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder}
 import controllers.VoaPropertyLinkingSpec
-import models.{AgentAppointBulkAction, AgentRevokeBulkAction, SessionPropertyLinks}
+import models.{AgentAppointBulkAction, SessionPropertyLinks}
 import models.propertyrepresentation._
 import models.searchApi._
 import org.jsoup.Jsoup
@@ -495,7 +495,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("id")))
     when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
       .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
-    when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Html("not found"))
+    when(mockCustomErrorHandler.notFoundTemplate(any())).thenReturn(Future.successful(Html("not found")))
 
     val res = testController.confirmAppointAgentToSome()(FakeRequest())
 

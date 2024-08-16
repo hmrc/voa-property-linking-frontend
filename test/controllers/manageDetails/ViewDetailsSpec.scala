@@ -24,6 +24,7 @@ import models.messages.MessageCount
 import org.mockito.ArgumentMatchers.{any, anyLong}
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
@@ -32,7 +33,7 @@ import scala.concurrent.Future
 
 class ViewDetailsSpec extends VoaPropertyLinkingSpec with MockitoSugar {
 
-  implicit val request = FakeRequest()
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
   val addressesConnector = mock[Addresses]
   val mockConfig = mock[ApplicationConfig]

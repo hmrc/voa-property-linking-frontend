@@ -16,10 +16,10 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class Property(uarn: Long, billingAuthorityReference: String, address: String, specialCategoryCode: String)
 
 object Property {
-  implicit val propertyFormat = Json.format[Property]
+  implicit val propertyFormat: OFormat[Property] = Json.format[Property]
 }

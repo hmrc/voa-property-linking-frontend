@@ -93,13 +93,13 @@ class UploadResultController @Inject()(
       }
 
       result.value
-        .map {
+        .flatMap {
           case Some(attachment) =>
             val fileStatus = attachment.scanResult.map(_.fileStatus).getOrElse(FileStatus.UPLOADING)
-            resultPage(fileStatus, Some(attachment))
+            Future.successful(resultPage(fileStatus, Some(attachment)))
           case None =>
             //todo I think this needs to be something else
-            BadRequest(errorHandler.badRequestTemplate)
+            errorHandler.badRequestTemplate.map(html => BadRequest(html))
         }
         .recover {
           case _ @UpstreamErrorResponse.WithStatusCode(EXPECTATION_FAILED) =>
@@ -166,7 +166,6 @@ class UploadResultController @Inject()(
       case EvidenceChoices.RATES_BILL          => RatesBillType
       case EvidenceChoices.LEASE               => Lease
       case EvidenceChoices.LICENSE             => License
-      case EvidenceChoices.RATES_BILL          => RatesBillType
       case EvidenceChoices.SERVICE_CHARGE      => ServiceCharge
       case EvidenceChoices.STAMP_DUTY          => StampDutyLandTaxForm
       case EvidenceChoices.LAND_REGISTRY       => LandRegistryTitle
@@ -186,14 +185,14 @@ class UploadResultController @Inject()(
         fullAttachment
       }
       result.value
-        .map {
+        .flatMap {
           case Some(attachment) =>
             val fileStatus = attachment.scanResult.map(_.fileStatus).getOrElse(FileStatus.UPLOADING)
             val fileName = attachment.fileName
             val fileDownloadLink = attachment.scanResult.map(_.downloadUrl)
-            Ok(Json.toJson(fileStatus, fileName, fileDownloadLink))
+            Future.successful(Ok(Json.toJson(fileStatus, fileName, fileDownloadLink)))
           case None =>
-            BadRequest(errorHandler.badRequestTemplate)
+            errorHandler.badRequestTemplate.map(html => BadRequest(html))
         }
         .recover {
           case _ @UpstreamErrorResponse.WithStatusCode(EXPECTATION_FAILED) =>

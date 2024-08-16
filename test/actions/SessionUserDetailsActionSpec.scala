@@ -23,6 +23,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.ScalaFutures
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import repositories.PersonalDetailsSessionRepository
 import tests.{AllMocks, BaseUnitSpec}
@@ -40,8 +41,10 @@ class SessionUserDetailsActionSpec
       val eventualSomeDetails = Future successful Some(individualUserAccountDetails)
       when(mockPersonalDetailsSessionRepository.get[User](any(), any())).thenReturn(eventualSomeDetails)
 
-      implicit val fakeRequest = FakeRequest().withHeaders(("", "")).withSession(("", ""))
-      implicit val request = new RequestWithUserDetails(individualUserDetails, fakeRequest)
+      implicit val fakeRequest: FakeRequest[AnyContentAsEmpty.type] =
+        FakeRequest().withHeaders(("", "")).withSession(("", ""))
+      implicit val request: RequestWithUserDetails[AnyContentAsEmpty.type] =
+        new RequestWithUserDetails(individualUserDetails, fakeRequest)
 
       val action = new Harness(mockPersonalDetailsSessionRepository)
 
@@ -59,8 +62,10 @@ class SessionUserDetailsActionSpec
       val eventualSomeDetails = Future successful Some(adminInExistingOrganisationAccountDetails)
       when(mockPersonalDetailsSessionRepository.get[User](any(), any())).thenReturn(eventualSomeDetails)
 
-      implicit val fakeRequest = FakeRequest().withHeaders(("", "")).withSession(("", ""))
-      implicit val request = new RequestWithUserDetails(orgUserDetails, fakeRequest)
+      implicit val fakeRequest: FakeRequest[AnyContentAsEmpty.type] =
+        FakeRequest().withHeaders(("", "")).withSession(("", ""))
+      implicit val request: RequestWithUserDetails[AnyContentAsEmpty.type] =
+        new RequestWithUserDetails(orgUserDetails, fakeRequest)
 
       val action = new Harness(mockPersonalDetailsSessionRepository)
 
@@ -79,8 +84,10 @@ class SessionUserDetailsActionSpec
       val eventualSomeDetails = Future successful Some(adminOrganisationAccountDetails)
       when(mockPersonalDetailsSessionRepository.get[User](any(), any())).thenReturn(eventualSomeDetails)
 
-      implicit val fakeRequest = FakeRequest().withHeaders(("", "")).withSession(("", ""))
-      implicit val request = new RequestWithUserDetails(orgUserDetails, fakeRequest)
+      implicit val fakeRequest: FakeRequest[AnyContentAsEmpty.type] =
+        FakeRequest().withHeaders(("", "")).withSession(("", ""))
+      implicit val request: RequestWithUserDetails[AnyContentAsEmpty.type] =
+        new RequestWithUserDetails(orgUserDetails, fakeRequest)
 
       val action = new Harness(mockPersonalDetailsSessionRepository)
 

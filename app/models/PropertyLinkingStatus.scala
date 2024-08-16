@@ -16,6 +16,8 @@
 
 package models
 
+import play.api.libs.json.Format
+
 sealed trait PropertyLinkingStatus extends NamedEnum {
   val name: String
   val key = "propertyLinkingStatus"
@@ -43,7 +45,7 @@ case object PropertyLinkingMoreEvidenceRequired extends PropertyLinkingStatus {
 }
 
 object PropertyLinkingStatus extends NamedEnumSupport[PropertyLinkingStatus] {
-  implicit val format = EnumFormat(PropertyLinkingStatus)
+  implicit val format: Format[PropertyLinkingStatus] = EnumFormat(PropertyLinkingStatus)
 
   override def all: List[PropertyLinkingStatus] =
     List(

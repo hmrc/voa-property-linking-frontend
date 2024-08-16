@@ -22,5 +22,6 @@ import views.html.helper.FieldConstructor
 import scala.language.implicitConversions
 
 object Helper {
-  implicit def myFields(messages: Messages) = FieldConstructor(views.html.helpers.fieldConstructor.f(_)(messages))
+  implicit def myFields(messages: Messages): FieldConstructor =
+    FieldConstructor(views.html.helpers.fieldConstructor.f(_)(messages))
 }

@@ -135,9 +135,9 @@ class ManageAgentController @Inject()(
   }
 
   def showManageAgent: Action[AnyContent] = authenticated.async { implicit request =>
-    getManageAgentView().map {
-      case None       => NotFound(errorHandler.notFoundTemplate)
-      case Some(page) => Ok(page)
+    getManageAgentView().flatMap {
+      case None       => errorHandler.notFoundTemplate.map(html => NotFound(html))
+      case Some(page) => Future.successful(Ok(page))
     }
   }
 
@@ -282,32 +282,34 @@ class ManageAgentController @Inject()(
     }
 
   def submitManageAgent(agentCode: Long): Action[AnyContent] = authenticated.async { implicit request =>
-    ManageAgentRequest.submitManageAgentRequest.bindFromRequest.fold(
-      errors => {
-        getManageAgentView(errors).map {
-          case None       => NotFound(errorHandler.notFoundTemplate)
-          case Some(page) => BadRequest(page)
+    ManageAgentRequest.submitManageAgentRequest
+      .bindFromRequest()
+      .fold(
+        errors => {
+          getManageAgentView(errors).flatMap {
+            case None       => errorHandler.notFoundTemplate.map(html => NotFound(html))
+            case Some(page) => Future.successful(BadRequest(page))
+          }
+        }, { success =>
+          success.manageAgentOption match {
+            case AssignToSomeProperties | AssignToOneOrMoreProperties =>
+              Future.successful(joinOldAgentAppointJourney(agentCode))
+            case AssignToAllProperties | AssignToYourProperty =>
+              Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showAssignToAll))
+            case UnassignFromAllProperties =>
+              Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll))
+            case UnassignFromSomeProperties | UnassignFromOneOrMoreProperties =>
+              Future.successful(joinOldAgentRevokeJourney(agentCode))
+            case RemoveFromYourAccount =>
+              Future.successful(
+                Redirect(controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation))
+            case ChangeRatingList =>
+              Future.successful(Redirect(controllers.manageAgent.routes.ChooseRatingListController.show))
+            case UnassignFromYourProperty =>
+              Future.successful((Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll)))
+          }
         }
-      }, { success =>
-        success.manageAgentOption match {
-          case AssignToSomeProperties | AssignToOneOrMoreProperties =>
-            Future.successful(joinOldAgentAppointJourney(agentCode))
-          case AssignToAllProperties | AssignToYourProperty =>
-            Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showAssignToAll))
-          case UnassignFromAllProperties =>
-            Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll))
-          case UnassignFromSomeProperties | UnassignFromOneOrMoreProperties =>
-            Future.successful(joinOldAgentRevokeJourney(agentCode))
-          case RemoveFromYourAccount =>
-            Future.successful(
-              Redirect(controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation))
-          case ChangeRatingList =>
-            Future.successful(Redirect(controllers.manageAgent.routes.ChooseRatingListController.show))
-          case UnassignFromYourProperty =>
-            Future.successful((Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll)))
-        }
-      }
-    )
+      )
   }
 
   def showAssignToAll: Action[AnyContent] = authenticated.async { implicit request =>
@@ -347,54 +349,58 @@ class ManageAgentController @Inject()(
 
   def assignAgentToAll(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
     implicit request =>
-      submitAgentAppointmentRequest.bindFromRequest.fold(
-        errors => {
-          agentRelationshipService
-            .getMyOrganisationPropertyLinksCount()
-            .map(linkCount =>
-              BadRequest(
-                addAgentToAllPropertiesView(errors, agentName, agentCode, multiplePropertyLinks = linkCount > 1)))
-        }, { success =>
-          for {
-            agentListYears <- agentRelationshipService.getMyOrganisationAgents()
-            listYears = agentListYears.agents
-              .find(_.representativeCode == agentCode)
-              .flatMap(_.listYears)
-              .getOrElse(Seq("2017", "2023"))
-              .toList
-            _ <- agentRelationshipService
-                  .postAgentAppointmentChange(
-                    AgentAppointmentChangeRequest(
-                      action = AppointmentAction.APPOINT,
-                      scope = AppointmentScope.ALL_PROPERTIES,
-                      agentRepresentativeCode = success.agentRepresentativeCode,
-                      propertyLinks = None,
-                      listYears = Some(listYears)
-                    ))
-          } yield Redirect(controllers.agent.routes.ManageAgentController.confirmAssignAgentToAll)
-        }
-      )
+      submitAgentAppointmentRequest
+        .bindFromRequest()
+        .fold(
+          errors => {
+            agentRelationshipService
+              .getMyOrganisationPropertyLinksCount()
+              .map(linkCount =>
+                BadRequest(
+                  addAgentToAllPropertiesView(errors, agentName, agentCode, multiplePropertyLinks = linkCount > 1)))
+          }, { success =>
+            for {
+              agentListYears <- agentRelationshipService.getMyOrganisationAgents()
+              listYears = agentListYears.agents
+                .find(_.representativeCode == agentCode)
+                .flatMap(_.listYears)
+                .getOrElse(Seq("2017", "2023"))
+                .toList
+              _ <- agentRelationshipService
+                    .postAgentAppointmentChange(
+                      AgentAppointmentChangeRequest(
+                        action = AppointmentAction.APPOINT,
+                        scope = AppointmentScope.ALL_PROPERTIES,
+                        agentRepresentativeCode = success.agentRepresentativeCode,
+                        propertyLinks = None,
+                        listYears = Some(listYears)
+                      ))
+            } yield Redirect(controllers.agent.routes.ManageAgentController.confirmAssignAgentToAll)
+          }
+        )
   }
 
   def unassignAgentFromAll(agentCode: Long, agentName: String): Action[AnyContent] = authenticated.async {
     implicit request =>
-      submitAgentAppointmentRequest.bindFromRequest.fold(
-        errors => {
-          Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
-        }, { success =>
-          agentRelationshipService
-            .postAgentAppointmentChange(AgentAppointmentChangeRequest(
-              agentRepresentativeCode = success.agentRepresentativeCode,
-              action = AppointmentAction.REVOKE,
-              scope = AppointmentScope.ALL_PROPERTIES,
-              propertyLinks = None,
-              listYears = None
-            ))
-            .map { _ =>
-              Redirect(controllers.agent.routes.ManageAgentController.confirmationUnassignAgentFromAll.url)
-            }
-        }
-      )
+      submitAgentAppointmentRequest
+        .bindFromRequest()
+        .fold(
+          errors => {
+            Future.successful(BadRequest(unassignAgentFromAllPropertiesView(errors, agentName, agentCode)))
+          }, { success =>
+            agentRelationshipService
+              .postAgentAppointmentChange(AgentAppointmentChangeRequest(
+                agentRepresentativeCode = success.agentRepresentativeCode,
+                action = AppointmentAction.REVOKE,
+                scope = AppointmentScope.ALL_PROPERTIES,
+                propertyLinks = None,
+                listYears = None
+              ))
+              .map { _ =>
+                Redirect(controllers.agent.routes.ManageAgentController.confirmationUnassignAgentFromAll.url)
+              }
+          }
+        )
   }
 
   def confirmationUnassignAgentFromAll: Action[AnyContent] = authenticated.async { implicit request =>
@@ -430,22 +436,25 @@ class ManageAgentController @Inject()(
 
   def removeAgentFromIpOrganisation(agentCode: Long, agentName: String, backLinkUrl: RedirectUrl): Action[AnyContent] =
     authenticated.async { implicit request =>
-      submitAgentAppointmentRequest.bindFromRequest.fold(
-        errors => {
-          Future.successful(
-            BadRequest(removeAgentFromOrganisationView(errors, agentCode, agentName, config.safeRedirect(backLinkUrl))))
-        }, { success =>
-          agentRelationshipService
-            .postAgentAppointmentChange(AgentAppointmentChangeRequest(
-              agentRepresentativeCode = success.agentRepresentativeCode,
-              action = AppointmentAction.REVOKE,
-              scope = AppointmentScope.RELATIONSHIP,
-              propertyLinks = None,
-              listYears = None
-            ))
-            .map(_ => Redirect(controllers.agent.routes.ManageAgentController.confirmRemoveAgentFromOrganisation))
-        }
-      )
+      submitAgentAppointmentRequest
+        .bindFromRequest()
+        .fold(
+          errors => {
+            Future.successful(
+              BadRequest(
+                removeAgentFromOrganisationView(errors, agentCode, agentName, config.safeRedirect(backLinkUrl))))
+          }, { success =>
+            agentRelationshipService
+              .postAgentAppointmentChange(AgentAppointmentChangeRequest(
+                agentRepresentativeCode = success.agentRepresentativeCode,
+                action = AppointmentAction.REVOKE,
+                scope = AppointmentScope.RELATIONSHIP,
+                propertyLinks = None,
+                listYears = None
+              ))
+              .map(_ => Redirect(controllers.agent.routes.ManageAgentController.confirmRemoveAgentFromOrganisation))
+          }
+        )
     }
 
   def confirmRemoveAgentFromOrganisation: Action[AnyContent] = authenticated.async { implicit request =>

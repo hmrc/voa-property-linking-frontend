@@ -27,7 +27,8 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import uk.gov.hmrc.auth.core.ConfidenceLevel
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import utils.{Configs, GlobalExecutionContext}
 
 import scala.concurrent.Future
@@ -38,12 +39,12 @@ class IdentityVerificationProxyConnectorSpec
 
   import utils._
 
-  implicit val headerCarrier = HeaderCarrier()
+  implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
 
   "IdentityVerificationProxy" should "make a successful POST to Identity Verification Proxy Service" in {
 
     val mockLink = mock[Link]
-    val mockHttp = mock[HttpClient]
+    val mockHttp = mock[DefaultHttpClient]
 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any(), any())) thenReturn Future
       .successful(mockLink)
@@ -58,7 +59,7 @@ class IdentityVerificationProxyConnectorSpec
 
   it should "handle an unsuccessful POST to Identity Verification Proxy Service" in {
     val mockEx = new RuntimeException("something went wrong")
-    val mockHttp = mock[HttpClient]
+    val mockHttp = mock[DefaultHttpClient]
 
     when(mockHttp.POST[Journey, Link](anyString(), any[Journey], any())(any(), any(), any(), any()))
       .thenReturn(Future.failed(mockEx))

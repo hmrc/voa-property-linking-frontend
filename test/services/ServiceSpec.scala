@@ -35,7 +35,7 @@ trait ServiceSpec
   override implicit def patienceConfig: PatienceConfig =
     PatienceConfig(timeout = Span(10, Seconds), interval = Span(20, Millis))
 
-  implicit lazy val messageApi = app.injector.instanceOf[MessagesApi]
+  implicit lazy val messageApi: MessagesApi = app.injector.instanceOf[MessagesApi]
 
   override protected def beforeEach(): Unit = {
     super.beforeEach()

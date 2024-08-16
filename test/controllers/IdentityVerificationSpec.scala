@@ -69,7 +69,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
   "Successfully verifying identity" should
     "return internal server error when the registration or enrolment fails" in new TestCase {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
-      .thenReturn(Html("INTERNAL SERVER ERROR"))
+      .thenReturn(Future.successful(Html("INTERNAL SERVER ERROR")))
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
     when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
       .thenReturn(Future.successful(Some(EnrolmentFailure)))
@@ -83,7 +83,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
   "Successfully verifying identity" should
     "return internal server error when there are details missing" in new TestCase {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
-      .thenReturn(Html("INTERNAL SERVER ERROR"))
+      .thenReturn(Future.successful(Html("INTERNAL SERVER ERROR")))
     StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
     when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
       .thenReturn(Future.successful(Some(DetailsMissing)))
@@ -96,7 +96,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
 
   "Manually navigating to the iv success page after failing identity verification" should "return a 401 Unauthorised response" in new TestCase {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
-      .thenReturn(Html(""))
+      .thenReturn(Future.successful(Html("")))
 
     StubIdentityVerification.stubFailedJourney("somejourneyid")
     val res = testIdentityVerification(userDetails(Organisation))

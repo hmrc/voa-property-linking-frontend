@@ -17,7 +17,7 @@
 package models.dvr.cases.check.common
 
 import models.Party
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class Agent(organisationId: Long, code: Long, organisationName: String)
 
@@ -30,5 +30,5 @@ object Agent {
       organisationName = legacyParty.organisationName
     )
 
-  implicit val format = Json.format[Agent]
+  implicit val format: OFormat[Agent] = Json.format[Agent]
 }

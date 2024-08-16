@@ -19,7 +19,7 @@ package models
 import binders.propertylinks.ClaimPropertyReturnToPage.ClaimPropertyReturnToPage
 import models.attachment.Attachment
 import models.upscan.PreparedUpload
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 import java.time.LocalDate
 
@@ -48,6 +48,6 @@ case class LinkingSession(
       attachment: Option[Attachment] = None)
 
 object LinkingSession {
-  implicit val format = Json.format[LinkingSession]
+  implicit val format: OFormat[LinkingSession] = Json.format[LinkingSession]
 
 }

@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class RepresentationBulkAction(
       page: Int,
@@ -27,5 +27,5 @@ case class RepresentationBulkAction(
 )
 
 object RepresentationBulkAction {
-  implicit val format = Json.format[RepresentationBulkAction]
+  implicit val format: OFormat[RepresentationBulkAction] = Json.format[RepresentationBulkAction]
 }

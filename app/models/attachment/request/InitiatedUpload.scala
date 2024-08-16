@@ -19,13 +19,13 @@ package models.attachment.request
 import models.attachment.Destinations
 import models.attachment.Destinations.Destinations
 import models.upscan.PreparedUpload
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class InitiatedUpload(id: String, destination: Destinations, preparedUpload: PreparedUpload)
 
 object InitiatedUpload {
 
-  implicit val format = Json.format[InitiatedUpload]
+  implicit val format: OFormat[InitiatedUpload] = Json.format[InitiatedUpload]
 
   def apply(preparedUpload: PreparedUpload): InitiatedUpload =
     InitiatedUpload(preparedUpload.reference.value, Destinations.PROPERTY_LINK_EVIDENCE_DFE, preparedUpload)

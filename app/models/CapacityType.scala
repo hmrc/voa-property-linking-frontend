@@ -16,6 +16,8 @@
 
 package models
 
+import play.api.libs.json.Format
+
 sealed trait CapacityType extends NamedEnum {
   val name: String
   val key = "capacity"
@@ -35,7 +37,7 @@ case object OwnerOccupier extends CapacityType {
 }
 
 object CapacityType extends NamedEnumSupport[CapacityType] {
-  implicit val format = EnumFormat(CapacityType)
+  implicit val format: Format[CapacityType] = EnumFormat(CapacityType)
 
   override def all: List[CapacityType] = List(Owner, Occupier, OwnerOccupier)
 }

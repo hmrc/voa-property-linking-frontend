@@ -16,6 +16,8 @@
 
 package models
 
+import play.api.libs.json.Format
+
 sealed trait RepresentationResponseStatus extends NamedEnum {
   val name: String
   val key = "propReprStatus"
@@ -31,7 +33,7 @@ case object RepresentationResponseDeclined extends RepresentationResponseStatus 
 }
 
 object RepresentationResponseStatus extends NamedEnumSupport[RepresentationResponseStatus] {
-  implicit val format = EnumFormat(RepresentationResponseStatus)
+  implicit val format: Format[RepresentationResponseStatus] = EnumFormat(RepresentationResponseStatus)
 
   override def all: List[RepresentationResponseStatus] =
     List(RepresentationResponseApproved, RepresentationResponseDeclined)

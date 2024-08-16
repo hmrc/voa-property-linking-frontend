@@ -17,7 +17,7 @@
 package models.identityVerificationProxy
 
 import models.IVDetails
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 import uk.gov.hmrc.auth.core.ConfidenceLevel
 
 case class Journey(
@@ -28,5 +28,5 @@ case class Journey(
       userData: IVDetails)
 
 object Journey {
-  implicit val formats = Json.format[Journey]
+  implicit val formats: OFormat[Journey] = Json.format[Journey]
 }

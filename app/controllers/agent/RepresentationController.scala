@@ -55,8 +55,8 @@ class RepresentationController @Inject()(
   }
 
   def revokeClient(plSubmissionId: String): Action[AnyContent] = authenticated.async { implicit request =>
-    propertyLinkConnector.clientPropertyLink(plSubmissionId) map {
-      case Some(property) => Ok(revokeClientPropertyView(property))
+    propertyLinkConnector.clientPropertyLink(plSubmissionId).flatMap {
+      case Some(property) => Future.successful(Ok(revokeClientPropertyView(property)))
       case None           => notFound
     }
   }

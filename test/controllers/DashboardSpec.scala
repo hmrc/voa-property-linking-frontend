@@ -21,6 +21,7 @@ import models.searchApi.{OwnerAuthResult, OwnerAuthorisation}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary._
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.AgentRelationshipService
@@ -29,7 +30,7 @@ import utils._
 import scala.concurrent.Future
 
 class DashboardSpec extends VoaPropertyLinkingSpec {
-  implicit val request = FakeRequest()
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
   private val stubbedOwnerAuthResult: OwnerAuthResult =
     OwnerAuthResult(start = 1, total = 15, size = 15, filterTotal = 15, authorisations = Seq.empty[OwnerAuthorisation])

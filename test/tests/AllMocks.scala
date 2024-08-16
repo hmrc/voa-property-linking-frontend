@@ -24,7 +24,6 @@ import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.challenge.ChallengeConnector
-import connectors.check.BusinessRatesCheckConnector
 import connectors.propertyLinking.PropertyLinkConnector
 import connectors.vmv.VmvConnector
 import connectors.{Addresses, BusinessRatesValuationConnector, DVRCaseManagementConnector}

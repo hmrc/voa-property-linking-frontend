@@ -19,15 +19,17 @@ package connectors
 import auditing.AuditingService
 import connectors.errorhandler.exceptions.ExceptionThrowingReadsInstances
 import controllers.{EnrolmentPayload, KeyValuePair, PayLoad, Previous}
+
 import javax.inject.Inject
 import services.{EnrolmentResult, Success}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class TaxEnrolmentConnector @Inject()(
-      http: HttpClient,
+      http: DefaultHttpClient,
       auditingService: AuditingService,
       servicesConfig: ServicesConfig
 ) {

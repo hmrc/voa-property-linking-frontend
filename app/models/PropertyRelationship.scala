@@ -16,12 +16,12 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class PropertyRelationship(capacity: CapacityType, uarn: Long) {
   def isOccupier = capacity == Occupier
 }
 
 object PropertyRelationship {
-  implicit val format = Json.format[PropertyRelationship]
+  implicit val format: OFormat[PropertyRelationship] = Json.format[PropertyRelationship]
 }

@@ -46,7 +46,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
   val httpResponse = emptyJsonHttpResponse(200)
   val clientId = 100
   val mockPropertyLinkRequest = mock[PropertyLinkRequest]
-  implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
+  implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId("1111")))
 
   implicit def linkingSessionRequest(
         clientDetails: Option[ClientDetails] = None): LinkingSessionRequest[AnyContentAsEmpty.type] =
@@ -101,7 +101,7 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
   }
 
   trait EarliestStartDateSetup {
-    implicit val linkingSession = linkingSessionRequest()
+    implicit val linkingSession: LinkingSessionRequest[AnyContentAsEmpty.type] = linkingSessionRequest()
 
     when(mockApplicationConfig.earliestEnglishStartDate).thenReturn(earliestEnglishStartDate)
     when(mockApplicationConfig.earliestWelshStartDate).thenReturn(earliestWelshStartDate)

@@ -26,7 +26,7 @@ import org.apache.pekko.stream.Materializer
 import binders.propertylinks.ClaimPropertyReturnToPage
 import config.ApplicationConfig
 import models._
-import models.registration.{User, UserDetails}
+import models.registration.UserDetails
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.flatspec.AnyFlatSpec

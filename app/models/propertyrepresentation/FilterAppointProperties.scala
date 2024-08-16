@@ -18,7 +18,7 @@ package models.propertyrepresentation
 
 import binders.propertylinks.ExternalPropertyLinkManagementSortOrder
 import binders.propertylinks.ExternalPropertyLinkManagementSortOrder.ExternalPropertyLinkManagementSortOrder
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class FilterAppointProperties(
       address: Option[String],
@@ -26,5 +26,5 @@ case class FilterAppointProperties(
       sortOrder: ExternalPropertyLinkManagementSortOrder = ExternalPropertyLinkManagementSortOrder.ASC)
 
 object FilterAppointProperties {
-  implicit val format = Json.format[FilterAppointProperties]
+  implicit val format: OFormat[FilterAppointProperties] = Json.format[FilterAppointProperties]
 }

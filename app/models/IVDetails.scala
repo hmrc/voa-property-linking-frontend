@@ -17,12 +17,11 @@
 package models
 
 import java.time.LocalDate
-
 import models.domain._
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class IVDetails(firstName: String, lastName: String, dateOfBirth: Option[LocalDate], nino: Option[Nino])
 
 object IVDetails {
-  implicit val formats = Json.format[IVDetails]
+  implicit val formats: OFormat[IVDetails] = Json.format[IVDetails]
 }

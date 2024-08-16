@@ -18,7 +18,7 @@ package models.registration
 
 import play.api.data.Form
 import tests.BaseUnitSpec
-import utils.FormBindingVerification.{shouldBindTo, verifyNonEmptyText}
+import utils.FormBindingVerification.shouldBindTo
 
 class AssistantUserSpec extends BaseUnitSpec {
 

@@ -16,13 +16,14 @@
 
 package models.properties
 
+import play.api.libs.json.Format
 import utils.JsonUtils
 
 object ValuationStatus extends Enumeration {
   type ValuationStatus = Value
 
-  val HISTORIC = Value("HISTORIC")
-  val CURRENT = Value("CURRENT")
+  val HISTORIC: ValuationStatus.Value = Value("HISTORIC")
+  val CURRENT: ValuationStatus.Value = Value("CURRENT")
 
-  implicit val format = JsonUtils.enumFormat(ValuationStatus)
+  implicit val format: Format[ValuationStatus.Value] = JsonUtils.enumFormat(ValuationStatus)
 }

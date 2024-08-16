@@ -24,7 +24,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 class ChallengeConnectorSpec extends VoaPropertyLinkingSpec {
 
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   class Setup {
     val connector = new ChallengeConnector(servicesConfig, mockHttpClient) {

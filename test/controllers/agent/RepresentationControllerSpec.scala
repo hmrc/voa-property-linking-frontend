@@ -80,7 +80,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   }
   it should "revoke an agent should return not found when clientPropertyLink cannot be found" in {
     when(mockCustomErrorHandler.notFoundTemplate(any()))
-      .thenReturn(Html("NOT FOUND"))
+      .thenReturn(Future.successful(Html("NOT FOUND")))
 
     val res = TestController.revokeClient("some-id")(request)
     status(res) should be(NOT_FOUND)

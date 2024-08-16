@@ -30,7 +30,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import services.BusinessRatesAttachmentsService
 import uk.gov.hmrc.http.HeaderCarrier
-import utils._
 
 import scala.concurrent.Future
 
@@ -39,8 +38,8 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
   override implicit val messagesControllerComponents: MessagesControllerComponents =
     app.injector.instanceOf[MessagesControllerComponents]
   lazy val linkingSession: WithLinkingSession = preEnrichedActionRefiner()
-  implicit lazy val request = FakeRequest().withHeaders(HOST -> "localhost:9523")
-  implicit lazy val hc = HeaderCarrier()
+  implicit lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest().withHeaders(HOST -> "localhost:9523")
+  implicit lazy val hc: HeaderCarrier = HeaderCarrier()
 
   def agentController = new TestFileUploadController(linkingSession)
 

@@ -468,10 +468,6 @@ class AddAgentController @Inject()(
         backLinkUrl = RedirectUrl(routes.AddAgentController.multipleProperties().url),
         fromManageAgentJourney = false
       ))
-
-  private def getBacklink(fromCya: Boolean)(implicit request: AppointAgentSessionRequest[AnyContent]) =
-    if (fromCya) routes.CheckYourAnswersController.onPageLoad().url else getBackLinkFromSession
-
 }
 
 case class NoAgentSavedException(message: String) extends Exception(message)

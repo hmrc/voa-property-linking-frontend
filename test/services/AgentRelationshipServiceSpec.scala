@@ -39,7 +39,7 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
 
   private lazy val mockSessionRepo = mock[SessionRepo]
 
-  implicit val hc = HeaderCarrier(sessionId = Some(SessionId("1111")))
+  implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId("1111")))
 
   "getMyAgentPropertyLinks" should {
     "return OwnerAuthResult when successful" in {

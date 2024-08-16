@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class GroupAccount(
       id: Long,
@@ -30,7 +30,7 @@ case class GroupAccount(
 )
 
 object GroupAccount {
-  implicit val format = Json.format[GroupAccount]
+  implicit val format: OFormat[GroupAccount] = Json.format[GroupAccount]
 
   object AgentGroupAccount {
     def unapply(account: GroupAccount): Option[(GroupAccount, Long)] =

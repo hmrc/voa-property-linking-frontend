@@ -16,12 +16,12 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 case class PropertyLinkIds(caseCreator: CaseCreator, interestedParty: InterestedParty)
 object PropertyLinkIds {
-  implicit val formatInterestedParty = Json.format[InterestedParty]
-  implicit val formatCaseCreator = Json.format[CaseCreator]
-  implicit val format = Json.format[PropertyLinkIds]
+  implicit val formatInterestedParty: OFormat[InterestedParty] = Json.format[InterestedParty]
+  implicit val formatCaseCreator: OFormat[CaseCreator] = Json.format[CaseCreator]
+  implicit val format: OFormat[PropertyLinkIds] = Json.format[PropertyLinkIds]
 }
 
 case class InterestedParty(personId: Long, organisationId: Long)

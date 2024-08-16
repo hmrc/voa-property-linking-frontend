@@ -24,6 +24,7 @@ import play.api.http.Status._
 import play.api.libs.json._
 import uk.gov.hmrc.http._
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
 import uk.gov.voa.businessrates.values._
 import uk.gov.voa.businessrates.values.connectors.RequestResult._
@@ -32,7 +33,7 @@ import utils.HttpReads.createReads
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class BusinessRatesCheckConnector @Inject()(http: HttpClient, servicesConfig: ServicesConfig)(
+class BusinessRatesCheckConnector @Inject()(http: DefaultHttpClient, servicesConfig: ServicesConfig)(
       implicit executionContext: ExecutionContext
 ) extends Logging with UriTemplateSyntax with PartialCheckFormats {
   protected lazy val serviceUrl: String = servicesConfig.baseUrl("business-rates-check")

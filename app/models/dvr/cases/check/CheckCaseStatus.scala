@@ -16,20 +16,21 @@
 
 package models.dvr.cases.check
 
+import play.api.libs.json.Format
 import utils.JsonUtils
 
 object CheckCaseStatus extends Enumeration {
 
   type CheckCaseStatus = Value
 
-  val PENDING = Value("PENDING")
-  val RECEIVED = Value("RECEIVED")
-  val ASSIGNED = Value("ASSIGNED")
-  val UNDER_REVIEW = Value("UNDER_REVIEW")
-  val DECISION_SENT = Value("DECISION_SENT")
-  val CANCELLED = Value("CANCELLED")
-  val OPEN = Value("OPEN")
-  val CLOSED = Value("CLOSED")
+  val PENDING: CheckCaseStatus.Value = Value("PENDING")
+  val RECEIVED: CheckCaseStatus.Value = Value("RECEIVED")
+  val ASSIGNED: CheckCaseStatus.Value = Value("ASSIGNED")
+  val UNDER_REVIEW: CheckCaseStatus.Value = Value("UNDER_REVIEW")
+  val DECISION_SENT: CheckCaseStatus.Value = Value("DECISION_SENT")
+  val CANCELLED: CheckCaseStatus.Value = Value("CANCELLED")
+  val OPEN: CheckCaseStatus.Value = Value("OPEN")
+  val CLOSED: CheckCaseStatus.Value = Value("CLOSED")
 
-  implicit val format = JsonUtils.enumFormat(CheckCaseStatus)
+  implicit val format: Format[CheckCaseStatus.Value] = JsonUtils.enumFormat(CheckCaseStatus)
 }

@@ -26,7 +26,7 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 class TaxEnrolmentConnectorSpec @Inject()(servicesConfig: ServicesConfig) extends VoaPropertyLinkingSpec with AllMocks {
 
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   class Setup {
     val connector = new TaxEnrolmentConnector(mockHttpClient, mockAuditingService, servicesConfig)

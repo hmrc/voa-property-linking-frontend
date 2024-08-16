@@ -21,12 +21,14 @@ import models.registration.GroupAccountDetails
 import models.{Address, DetailedAddress}
 import play.api.libs.json.{JsDefined, JsNumber, JsValue}
 import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class Addresses @Inject()(config: ServicesConfig, http: HttpClient)(implicit executionContext: ExecutionContext) {
+class Addresses @Inject()(config: ServicesConfig, http: DefaultHttpClient)(
+      implicit executionContext: ExecutionContext) {
 
   val url: String = config.baseUrl("property-linking") + "/property-linking/address"
 

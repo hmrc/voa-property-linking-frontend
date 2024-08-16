@@ -19,7 +19,7 @@ package controllers.agentAppointment
 import controllers.VoaPropertyLinkingSpec
 import models.propertyrepresentation._
 import org.jsoup.Jsoup
-import org.jsoup.nodes.{Document, Element}
+import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
@@ -33,7 +33,6 @@ import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 import utils.StubWithAppointAgentSessionRefiner
 
 import scala.concurrent.Future
-import scala.jdk.CollectionConverters.ListHasAsScala
 
 class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar with AllMocks {
 

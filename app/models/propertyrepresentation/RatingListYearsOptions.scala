@@ -17,6 +17,7 @@
 package models.propertyrepresentation
 
 import models.{EnumFormat, NamedEnum, NamedEnumSupport}
+import play.api.libs.json.Format
 
 sealed trait RatingListYearsOptions extends NamedEnum {
   val name: String
@@ -33,7 +34,7 @@ case object ratingList2017 extends RatingListYearsOptions {
 }
 
 object RatingListYearsOptions extends NamedEnumSupport[RatingListYearsOptions] {
-  implicit val format = EnumFormat(RatingListYearsOptions)
+  implicit val format: Format[RatingListYearsOptions] = EnumFormat(RatingListYearsOptions)
 
   override def all: List[RatingListYearsOptions] = List(ratingList2017, ratingList2023)
 }

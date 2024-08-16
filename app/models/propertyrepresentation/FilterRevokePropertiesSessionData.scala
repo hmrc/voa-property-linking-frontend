@@ -18,7 +18,7 @@ package models.propertyrepresentation
 
 import binders.propertylinks.ExternalPropertyLinkManagementSortOrder
 import binders.propertylinks.ExternalPropertyLinkManagementSortOrder.ExternalPropertyLinkManagementSortOrder
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class FilterRevokePropertiesSessionData(
       address: Option[String],
@@ -27,5 +27,5 @@ case class FilterRevokePropertiesSessionData(
 
 object FilterRevokePropertiesSessionData {
 
-  implicit val format = Json.format[FilterRevokePropertiesSessionData]
+  implicit val format: OFormat[FilterRevokePropertiesSessionData] = Json.format[FilterRevokePropertiesSessionData]
 }

@@ -21,13 +21,13 @@ import models.identityVerificationProxy.IvResult
 import models.identityVerificationProxy.IvResult.{IvFailure, IvSuccess}
 import org.mockito.Mockito
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import utils.Configs._
 
 import scala.concurrent.{ExecutionContext, Future}
 
 object StubIdentityVerification
-    extends IdentityVerificationConnector(servicesConfig, null, Mockito.mock(classOf[HttpClient]))(
+    extends IdentityVerificationConnector(servicesConfig, null, Mockito.mock(classOf[DefaultHttpClient]))(
       ExecutionContext.global) {
 
   private var journeyResult: (String, IvResult) = ("", IvSuccess)

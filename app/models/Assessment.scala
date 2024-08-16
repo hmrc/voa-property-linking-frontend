@@ -17,8 +17,7 @@
 package models
 
 import java.time.LocalDate
-
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class Assessment(
       authorisationId: Long,
@@ -35,6 +34,6 @@ case class Assessment(
 )
 
 object Assessment {
-  implicit private val capacityFmt = Json.format[Capacity]
-  implicit val formats = Json.format[Assessment]
+  implicit private val capacityFmt: OFormat[Capacity] = Json.format[Capacity]
+  implicit val formats: OFormat[Assessment] = Json.format[Assessment]
 }

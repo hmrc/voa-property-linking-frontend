@@ -59,7 +59,7 @@
         @govukInput(Input(
             id = "email",
             name = "email",
-            label = Label(content = HtmlContent(messages("enrolment.email")), classes = "govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.email")), classes = "govuk-label govuk-label--m"),
             value = form("email").value.orElse(emailLengthCheck),
             errorMessage = form("email").error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
@@ -68,7 +68,7 @@
         @govukInput(Input(
             id = "confirmedEmail",
             name = "confirmedEmail",
-            label = Label(content = HtmlContent(messages("enrolment.confirmedEmail")), classes = "govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.confirmedEmail")), classes = "govuk-label govuk-label--m"),
             value = form("confirmedEmail").value.orElse(emailLengthCheck),
             errorMessage = form("confirmedEmail").error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
@@ -77,7 +77,7 @@
         @govukInput(Input(
             id = "phone",
             name = "phone",
-            label = Label(content = HtmlContent(messages("enrolment.phone")), classes = "govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.phone")), classes = "govuk-label govuk-label--m"),
             value = form("phone").value.orElse(Some(individualFieldData.businessPhoneNumber)),
             errorMessage = form("phone").error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
@@ -86,7 +86,7 @@
         @govukInput(Input(
             id = "mobilePhone",
             name = "mobilePhone",
-            label = Label(content = HtmlContent(messages("enrolment.mobphone")), classes = "govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.mobphone")), classes = "govuk-label govuk-label--m"),
             value = form("mobilePhone").value.orElse(Some(individualFieldData.mobilePhone)),
             errorMessage = form("mobilePhone").error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args: _*)))),
             classes = "govuk-input govuk-!-width-one-third"
@@ -95,7 +95,7 @@
         @govukInput(Input(
             id = "tradingName",
             name = "tradingName",
-            label = Label(content = HtmlContent(messages("enrolment.tradeName")), classes = "govuk-label--m"),
+            label = Label(content = HtmlContent(messages("enrolment.tradeName")), classes = "govuk-label govuk-label--m"),
             value = form("tradingName").value.orElse(Some(individualFieldData.businessName)),
             hint = Some(Hint(content = Text(messages("optional.label")))),
             classes = "govuk-input govuk-!-width-one-third"

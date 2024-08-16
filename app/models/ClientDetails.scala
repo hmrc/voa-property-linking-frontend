@@ -17,17 +17,17 @@
 package models
 
 import binders.validation.ValidationUtils
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 import play.api.mvc.QueryStringBindable
 
 case class ClientDetails(organisationId: Long, organisationName: String)
 
 object ClientDetails extends ValidationUtils {
-  implicit val format = Json.format[ClientDetails]
+  implicit val format: OFormat[ClientDetails] = Json.format[ClientDetails]
 
   implicit def queryStringBinder(
         implicit strBinder: QueryStringBindable[String],
-        longBinder: QueryStringBindable[Long]) =
+        longBinder: QueryStringBindable[Long]): QueryStringBindable[Option[ClientDetails]] =
     new QueryStringBindable[Option[ClientDetails]] {
       override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, Option[ClientDetails]]] =
         for {

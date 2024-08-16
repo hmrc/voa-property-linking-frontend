@@ -16,24 +16,25 @@
 
 package models.challenge
 
+import play.api.libs.json.Format
 import utils.JsonUtils
 
 object ChallengeCaseStatus extends Enumeration {
   type ChallengeCaseStatus = Value
 
-  val PENDING = Value("PENDING")
-  val RECEIVED = Value("RECEIVED") // CDB case created, ack received
-  val ASSIGNED = Value("ASSIGNED")
-  val MORE_INFO_NEEDED = Value("MORE_INFO_NEEDED")
-  val UNDER_REVIEW = Value("UNDER_REVIEW")
-  val INITIAL_RESPONSE = Value("INITIAL_RESPONSE")
-  val DECISION_SENT = Value("DECISION_SENT")
+  val PENDING: ChallengeCaseStatus.Value = Value("PENDING")
+  val RECEIVED: ChallengeCaseStatus.Value = Value("RECEIVED") // CDB case created, ack received
+  val ASSIGNED: ChallengeCaseStatus.Value = Value("ASSIGNED")
+  val MORE_INFO_NEEDED: ChallengeCaseStatus.Value = Value("MORE_INFO_NEEDED")
+  val UNDER_REVIEW: ChallengeCaseStatus.Value = Value("UNDER_REVIEW")
+  val INITIAL_RESPONSE: ChallengeCaseStatus.Value = Value("INITIAL_RESPONSE")
+  val DECISION_SENT: ChallengeCaseStatus.Value = Value("DECISION_SENT")
 
   // old statuses still possibly will be returned in some cases
-  val CANCELLED = Value("CANCELLED")
-  val OPEN = Value("OPEN")
-  val CLOSED = Value("CLOSED")
+  val CANCELLED: ChallengeCaseStatus.Value = Value("CANCELLED")
+  val OPEN: ChallengeCaseStatus.Value = Value("OPEN")
+  val CLOSED: ChallengeCaseStatus.Value = Value("CLOSED")
 
-  implicit val format = JsonUtils.enumFormat(ChallengeCaseStatus)
+  implicit val format: Format[ChallengeCaseStatus.Value] = JsonUtils.enumFormat(ChallengeCaseStatus)
 
 }

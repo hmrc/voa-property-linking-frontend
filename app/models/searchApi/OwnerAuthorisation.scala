@@ -16,7 +16,7 @@
 
 package models.searchApi
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class OwnerAuthorisation(
       authorisationId: Long,
@@ -29,5 +29,5 @@ case class OwnerAuthorisation(
 )
 
 object OwnerAuthorisation {
-  implicit val ownerAuthorisation = Json.format[OwnerAuthorisation]
+  implicit val ownerAuthorisation: OFormat[OwnerAuthorisation] = Json.format[OwnerAuthorisation]
 }

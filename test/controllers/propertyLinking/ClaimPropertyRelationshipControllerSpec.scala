@@ -26,8 +26,6 @@ import org.jsoup.nodes.Document
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.Gen
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks.forAll
 import play.api.mvc.Result
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -38,7 +36,7 @@ import scala.concurrent.Future
 
 class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
-  implicit val hc = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepository)
 
