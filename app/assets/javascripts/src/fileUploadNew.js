@@ -52,11 +52,26 @@
 
         // Function to update view with file name and download link
         function updateFileName(fileName, fileDownloadLink) {
-            var element = document.querySelector('#main-content > div > div > dl > div > dt > a');
-            if (element) {
-                // Use the implicit Messages for the current language
-                element.textContent = fileName;
-                element.href = fileDownloadLink;
+            // Create a new anchor element
+            var newElement = document.createElement('a');
+
+            // Set class, href, and text content
+            newElement.classList.add('govuk-link');
+            newElement.href = fileDownloadLink;
+            newElement.textContent = fileName;
+
+            // Append or replace the anchor in the DOM at the desired location
+            var container = document.querySelector('#main-content > div > div > dl > div > dt');
+
+            if (container) {
+                // If there's already an existing anchor, replace it
+                var existingAnchor = container.querySelector('a');
+                if (existingAnchor) {
+                    container.replaceChild(newElement, existingAnchor);
+                } else {
+                    // Otherwise, just append the new anchor
+                    container.appendChild(newElement);
+                }
             }
         }
 
