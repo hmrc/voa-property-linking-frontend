@@ -31,8 +31,8 @@
                         if (fileName && fileDownloadLink) {
                             updateFileName(fileName, fileDownloadLink);
                         }
-                        updateTag(fileStatus);
                         updateFormAction(fileStatus);
+                        updateTag(fileStatus);
                         clearInterval(intervalId);
                     }
                 },
@@ -132,7 +132,7 @@
         function updateFormAction(newStatus) {
             var formElement = document.querySelector('#fileUploadForm');
             if (formElement) {
-                var submitUrlPrefix = document.getElementById('submitUrlPrefix').value;
+                var submitUrlPrefix = document.getElementById('submitUrlPrefix').textContent;
                 formElement.action = submitUrlPrefix + newStatus;
             }
         }
