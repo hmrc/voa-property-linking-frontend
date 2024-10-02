@@ -100,37 +100,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpC
   def getMyClientsPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
     http.GET[Option[PropertyLink]](s"$baseUrl/agent/property-links/$submissionId")
 
-  def getMyOrganisationPropertyLinksWithAgentFiltering2(
-        searchParams: GetPropertyLinksParameters,
-        pagination: PaginationParams,
-        organisationId: Long,
-        agentOrganisationId: Long,
-        agentAppointed: Option[String] = None,
-        agentCode: Long
-  )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
-
-    val ownerAuthResult = if (agentAppointed.contains("NO")) {
-      getMyOrganisationsPropertyLinks(searchParams, pagination)
-    } else {
-      http.GET[OwnerAuthResult](
-        s"$baseUrl/my-organisation/agents/$agentCode/available-property-links",
-        List(
-          searchParams.address.map("address" -> _),
-          searchParams.agent.map("agent"     -> _)
-        ).flatten ++ List(
-          "sortField"            -> searchParams.sortfield.toString,
-          "sortOrder"            -> searchParams.sortorder.toString,
-          "startPoint"           -> pagination.startPoint.toString,
-          "pageSize"             -> pagination.pageSize.toString,
-          "requestTotalRowCount" -> pagination.requestTotalRowCount.toString
-        )
-      )
-    }
-    // filter agents on representationStatus
-    ownerAuthResult.map(oar =>
-      oar.copy(authorisations = oar.authorisations.map(auth => auth.copy(agents = auth.agents))))
-  }
-
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         searchParams: GetPropertyLinksParameters,
         pagination: PaginationParams,
