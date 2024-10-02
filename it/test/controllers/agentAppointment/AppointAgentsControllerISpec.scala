@@ -138,7 +138,7 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a p1 of $p1Text" in {
-        document.select(p1Locator).text shouldBe p1TextF
+        document.select(p1Locator).text shouldBe p1Text
       }
 
       s"has a bullet point of $bullet1Text" in {
