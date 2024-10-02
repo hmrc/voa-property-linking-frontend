@@ -319,17 +319,6 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(checkBox2Locator).attr("value") shouldBe "123456"
       }
 
-      // This is triggered by JS & not loaded in document (Not sure why JS is needed)
-      //      s"has a clear search link of $selectAllLink" in {
-      //        document.select(selectAllLinkLocator).text shouldBe selectAllLink
-      //        document.select(selectAllLinkLocator).attr("href") shouldBe clearSearchLink
-      //      }
-      //
-      //      s"has a clear search link of $showWithoutAgentsAssignedLink" in {
-      //        document.select(showWithoutAgentsAssignedLinkLocator).text shouldBe showWithoutAgentsAssignedLink
-      //        document.select(showWithoutAgentsAssignedLinkLocator).attr("href") shouldBe clearSearchLink
-      //      }
-
       s"has a $continueButtonText button" in {
         document.select(continueButtonLocator).text shouldBe continueButtonTextWelsh
       }
