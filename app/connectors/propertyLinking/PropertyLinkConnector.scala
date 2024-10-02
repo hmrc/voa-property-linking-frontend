@@ -53,6 +53,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpC
     import ExceptionThrowingReadsInstances._
     http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/clients/$clientId/property-links", propertyLinkPayload)
   }
+
   def getMyOrganisationPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
     http.GET[Option[PropertyLink]](s"$baseUrl/owner/property-links/$submissionId")
 
@@ -99,7 +100,7 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpC
   def getMyClientsPropertyLink(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
     http.GET[Option[PropertyLink]](s"$baseUrl/agent/property-links/$submissionId")
 
-  def getMyOrganisationPropertyLinksWithAgentFiltering(
+  def getMyOrganisationPropertyLinksWithAgentFiltering2(
         searchParams: GetPropertyLinksParameters,
         pagination: PaginationParams,
         organisationId: Long,
@@ -129,6 +130,37 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpC
     ownerAuthResult.map(oar =>
       oar.copy(authorisations = oar.authorisations.map(auth => auth.copy(agents = auth.agents))))
   }
+
+  def getMyOrganisationPropertyLinksWithAgentFiltering(
+        searchParams: GetPropertyLinksParameters,
+        pagination: PaginationParams,
+        organisationId: Long,
+        agentOrganisationId: Long,
+        agentAppointed: Option[String] = None,
+        agentCode: Long
+  )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
+    if (agentAppointed.contains("NO")) {
+      getMyOrganisationsPropertyLinks(searchParams, pagination).map(oar => {
+        val filteredAuthorisations = oar.authorisations.filter(auth => auth.agents.isEmpty)
+        oar.copy(authorisations = filteredAuthorisations, filterTotal = filteredAuthorisations.size)
+      })
+    } else {
+      http
+        .GET[OwnerAuthResult](
+          s"$baseUrl/my-organisation/agents/$agentCode/available-property-links",
+          List(
+            searchParams.address.map("address" -> _),
+            searchParams.agent.map("agent"     -> _)
+          ).flatten ++ List(
+            "sortField"            -> searchParams.sortfield.toString,
+            "sortOrder"            -> searchParams.sortorder.toString,
+            "startPoint"           -> pagination.startPoint.toString,
+            "pageSize"             -> pagination.pageSize.toString,
+            "requestTotalRowCount" -> pagination.requestTotalRowCount.toString
+          )
+        )
+        .map(oar => oar.copy(authorisations = oar.authorisations.map(auth => auth.copy(agents = auth.agents))))
+    }
 
   def clientPropertyLink(plSubmissionId: String)(implicit hc: HeaderCarrier): Future[Option[ClientPropertyLink]] = {
     val url =

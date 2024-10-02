@@ -60,7 +60,7 @@
     if(manageJourneyFlag)
         agentAppointment.routes.AppointAgentController.appointAgentSummary(agentCode, agentAppointed, RedirectUrl(submitBackLinkAsString))
     else
-        agentAppointment.routes.AppointPropertiesController.onSubmit(agentCode, agentAppointed, RedirectUrl(submitBackLinkAsString))
+        agentAppointment.routes.AppointPropertiesController.onSubmit(pagination, agentCode, agentAppointed, RedirectUrl(submitBackLinkAsString), fromManageAgentJourney = manageJourneyFlag)
 }
 @agentPropertiesFilter(showAllProperties: Boolean, backLink: String) = @{
     if(showAllProperties){
@@ -135,7 +135,7 @@
         <input class="govuk-checkboxes__input" id="@id" name="linkIds[]" type="checkbox" value="@value">
         <label class="govuk-label govuk-checkboxes__label" for="@id">
             <span class="govuk-visually-hidden">@messages("label.appoint")</span>
-            <span data-address>@Formatters.capitalisedAddress(address)</span>
+            <span data-address>@Formatters.capitalizedAddress(address)</span>
         </label>
     </div>
 }

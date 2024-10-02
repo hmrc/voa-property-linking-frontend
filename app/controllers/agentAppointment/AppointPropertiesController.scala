@@ -38,7 +38,7 @@ import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.{Inject, Named}
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 class AppointPropertiesController @Inject()(
       val errorHandler: CustomErrorHandler,
@@ -57,12 +57,41 @@ class AppointPropertiesController @Inject()(
 ) extends PropertyLinkingController {
   val logger: Logger = Logger(this.getClass)
 
-  def onSubmit(agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl): Action[AnyContent] =
+  def onSubmit(
+        paginationParameters: PaginationParameters,
+        agentCode: Long,
+        agentAppointed: Option[String],
+        backLinkUrl: RedirectUrl,
+        fromManageAgentJourney: Boolean): Action[AnyContent] =
     authenticated.async { implicit request =>
       appointAgentBulkActionForm
         .bindFromRequest()
         .fold(
-          errors => appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl),
+          errors =>
+            accounts.withAgentCode(agentCode.toString).flatMap {
+              case Some(group) =>
+                for {
+                  agentList <- agentRelationshipService.getMyOrganisationAgents()
+                  response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
+                               GetPropertyLinksParameters(),
+                               AgentPropertiesParameters(agentCode),
+                               request.organisationAccount.id,
+                               group.id
+                             )
+                } yield
+                  BadRequest(appointAgentPropertiesView(
+                    Some(errors),
+                    AppointAgentPropertiesVM(group, response),
+                    paginationParameters,
+                    GetPropertyLinksParameters(),
+                    agentCode,
+                    agentAppointed,
+                    agentList,
+                    backLink = Some(config.safeRedirect(backLinkUrl)),
+                    fromManageAgentJourney
+                  ))
+              case None => notFound
+          },
           success = (action: AgentAppointBulkAction) => {
             for {
               sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
@@ -87,36 +116,6 @@ class AppointPropertiesController @Inject()(
             } yield result
           }
         )
-    }
-
-  private def appointAgentPropertiesBadRequest(
-        errors: Form[_],
-        agentCode: Long,
-        agentAppointed: Option[String],
-        backLinkUrl: RedirectUrl)(implicit request: BasicAuthenticatedRequest[_]) =
-    accounts.withAgentCode(agentCode.toString).flatMap {
-      case Some(group) =>
-        for {
-          agentList <- agentRelationshipService.getMyOrganisationAgents()
-          response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
-                       GetPropertyLinksParameters(),
-                       AgentPropertiesParameters(agentCode),
-                       request.organisationAccount.id,
-                       group.id
-                     )
-        } yield
-          BadRequest(
-            appointAgentPropertiesView(
-              Some(errors),
-              AppointAgentPropertiesVM(group, response),
-              PaginationParameters(),
-              GetPropertyLinksParameters(),
-              agentCode,
-              agentAppointed,
-              agentList,
-              backLink = Some(config.safeRedirect(backLinkUrl))
-            ))
-      case None => notFound
     }
 
   def appointAgentBulkActionForm: Form[AgentAppointBulkAction] =
