@@ -58,7 +58,7 @@
 
 @submitControllerRoute =@{
     if(manageJourneyFlag)
-        agentAppointment.routes.AppointAgentController.appointAgentSummary(agentCode, agentAppointed, RedirectUrl(submitBackLinkAsString))
+        agentAppointment.routes.AppointAgentController.appointAgentSummary(agentCode, agentAppointed, RedirectUrl(submitBackLinkAsString), fromManageAgentJourney = manageJourneyFlag)
     else
         agentAppointment.routes.AppointPropertiesController.onSubmit(pagination, agentCode, agentAppointed, RedirectUrl(submitBackLinkAsString), fromManageAgentJourney = manageJourneyFlag)
 }

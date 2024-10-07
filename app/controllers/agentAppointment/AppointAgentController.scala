@@ -117,7 +117,8 @@ class AppointAgentController @Inject()(
     filterAppointPropertiesForm
       .bindFromRequest()
       .fold(
-        hasErrors = errors => appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl),
+        hasErrors = errors =>
+          appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl, fromManageAgentJourney),
         success = (filter: FilterAppointPropertiesForm) =>
           searchForAppointableProperties(
             pagination,
@@ -272,13 +273,14 @@ class AppointAgentController @Inject()(
   def appointAgentSummary(
         agentCode: Long,
         agentAppointed: Option[String],
-        backLinkUrl: RedirectUrl): Action[AnyContent] =
+        backLinkUrl: RedirectUrl,
+        fromManageAgentJourney: Boolean): Action[AnyContent] =
     authenticated.async { implicit request =>
       appointAgentBulkActionForm
         .bindFromRequest()
         .fold(
           errors => {
-            appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl)
+            appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl, fromManageAgentJourney)
           },
           success = (action: AgentAppointBulkAction) => {
             accounts.withAgentCode(action.agentCode.toString).flatMap {
@@ -342,7 +344,8 @@ class AppointAgentController @Inject()(
         errors: Form[_],
         agentCode: Long,
         agentAppointed: Option[String],
-        backLinkUrl: RedirectUrl)(implicit request: BasicAuthenticatedRequest[_]) =
+        backLinkUrl: RedirectUrl,
+        fromManageAgentJourney: Boolean)(implicit request: BasicAuthenticatedRequest[_]) =
     accounts.withAgentCode(agentCode.toString).flatMap {
       case Some(group) =>
         for {
