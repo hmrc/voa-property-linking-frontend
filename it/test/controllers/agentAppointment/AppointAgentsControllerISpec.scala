@@ -96,19 +96,26 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val showWithoutAgentsAssignedLinkLocator = "Only show properties with no agent"
   val showAllLinkLocator = "Show all properties"
   val addressHeaderSortableLocator = "#sort-by-address-link"
-  val addressValue1Locator = "#agentPropertiesTableBody > tbody > tr:nth-child(1) > td:nth-child(1) > div > label > span:nth-child(2)"
-  val addressValue2Locator = "#agentPropertiesTableBody > tbody > tr:nth-child(2) > td:nth-child(1) > div > label > span:nth-child(2)"
+  val addressValue1Locator =
+    "#agentPropertiesTableBody > tbody > tr:nth-child(1) > td:nth-child(1) > div > label > span:nth-child(2)"
+  val addressValue2Locator =
+    "#agentPropertiesTableBody > tbody > tr:nth-child(2) > td:nth-child(1) > div > label > span:nth-child(2)"
   val appointedAgentsHeaderSortableLocator = "#sort-by-agent-link"
-  val appointedAgentsValue1Locator = "#agentPropertiesTableBody > tbody > tr:nth-child(1) > td.govuk-table__cell.govuk-\\!-padding-top-3 > ul > li"
-  val appointedAgentsValue2Locator = "#agentPropertiesTableBody > tbody > tr:nth-child(2) > td.govuk-table__cell.govuk-\\!-padding-top-3 > ul > li"
+  val appointedAgentsValue1Locator =
+    "#agentPropertiesTableBody > tbody > tr:nth-child(1) > td.govuk-table__cell.govuk-\\!-padding-top-3 > ul > li"
+  val appointedAgentsValue2Locator =
+    "#agentPropertiesTableBody > tbody > tr:nth-child(2) > td.govuk-table__cell.govuk-\\!-padding-top-3 > ul > li"
   val checkBox1Locator = "#checkbox-1"
   val checkBox2Locator = "#checkbox-2"
   val continueButtonLocator = "#submit-button"
 
   val defaultBackLinkHref = "http://localhost/some-back-link"
-  val clearSearchLinkHref = "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
-  val addressHeaderSortableHref = "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=ADDRESS&page=1&pageSize=15&agentCode=1001&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
-  val appointedAgentHeaderSortableHref = "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=AGENT&page=1&pageSize=15&agentCode=1001&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
+  val clearSearchLinkHref =
+    "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
+  val addressHeaderSortableHref =
+    "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=ADDRESS&page=1&pageSize=15&agentCode=1001&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
+  val appointedAgentHeaderSortableHref =
+    "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=AGENT&page=1&pageSize=15&agentCode=1001&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
 
   "getMyOrganisationPropertyLinksWithAgentFiltering" should {
     "display the correct content in English - No agents assigned" which {
@@ -537,7 +544,10 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     "display the correct content in English - With show only properties without agents assigned filter" which {
-      lazy val res = getMyOrganisationPropertyLinksWithAgentFilteringPage(language = English, withAgents = true, withAgentsNotAppointed = true)
+      lazy val res = getMyOrganisationPropertyLinksWithAgentFilteringPage(
+        language = English,
+        withAgents = true,
+        withAgentsNotAppointed = true)
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -598,12 +608,16 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a clear search link of $clearSearchLink" in {
         document.select(clearSearchLinkLocator).text shouldBe clearSearchLink
-        document.select(clearSearchLinkLocator).attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
+        document
+          .select(clearSearchLinkLocator)
+          .attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
       }
 
       s"has a sortable table header of $addressHeaderSortable" in {
         document.select(addressHeaderSortableLocator).text shouldBe addressHeaderSortable
-        document.select(addressHeaderSortableLocator).attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=ADDRESS&page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
+        document
+          .select(addressHeaderSortableLocator)
+          .attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=ADDRESS&page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
       }
 
       "has the correct address value in row 1" in {
@@ -616,7 +630,9 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a sortable table header of $appointedAgentsHeaderSortable" in {
         document.select(appointedAgentsHeaderSortableLocator).text shouldBe appointedAgentsHeaderSortable
-        document.select(appointedAgentsHeaderSortableLocator).attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=AGENT&page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
+        document
+          .select(appointedAgentsHeaderSortableLocator)
+          .attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=AGENT&page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
       }
 
       "has the correct appointed agent value in row 1" in {
@@ -638,7 +654,10 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     "display the correct content in Welsh - With show only properties without agents assigned filter" which {
-      lazy val res = getMyOrganisationPropertyLinksWithAgentFilteringPage(language = Welsh, withAgents = true, withAgentsNotAppointed = true)
+      lazy val res = getMyOrganisationPropertyLinksWithAgentFilteringPage(
+        language = Welsh,
+        withAgents = true,
+        withAgentsNotAppointed = true)
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -699,12 +718,16 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a clear search link of $clearSearchLink" in {
         document.select(clearSearchLinkLocator).text shouldBe clearSearchLinkWelsh
-        document.select(clearSearchLinkLocator).attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
+        document
+          .select(clearSearchLinkLocator)
+          .attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
       }
 
       s"has a sortable table header of $addressHeaderSortable" in {
         document.select(addressHeaderSortableLocator).text shouldBe addressHeaderSortableWelsh
-        document.select(addressHeaderSortableLocator).attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=ADDRESS&page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
+        document
+          .select(addressHeaderSortableLocator)
+          .attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=ADDRESS&page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
       }
 
       "has the correct address value in row 1" in {
@@ -717,7 +740,9 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a sortable table header of $appointedAgentsHeaderSortable" in {
         document.select(appointedAgentsHeaderSortableLocator).text shouldBe appointedAgentsHeaderSortableWelsh
-        document.select(appointedAgentsHeaderSortableLocator).attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=AGENT&page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
+        document
+          .select(appointedAgentsHeaderSortableLocator)
+          .attr("href") shouldBe "/business-rates-property-linking/my-organisation/appoint/properties/sort?sortField=AGENT&page=1&pageSize=15&agentCode=1001&agentAppointed=NO&backLinkUrl=http%3A%2F%2Flocalhost%2Fsome-back-link&fromManageAgentJourney=true"
       }
 
       "has the correct appointed agent value in row 1" in {
@@ -739,7 +764,10 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
-  def getMyOrganisationPropertyLinksWithAgentFilteringPage(language: Language, withAgents: Boolean = false, withAgentsNotAppointed: Boolean = false) = {
+  def getMyOrganisationPropertyLinksWithAgentFilteringPage(
+        language: Language,
+        withAgents: Boolean = false,
+        withAgentsNotAppointed: Boolean = false) = {
     val testSessionId = s"stubbed-${UUID.randomUUID}"
     val agentsCode = 1001L
     val agentName = "Test Agent"
@@ -787,14 +815,14 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
       )
     )
 
-
     val ownerAuths = if (withAgents) ownerAuthorisation else ownerAuthorisation.copy(agents = Seq.empty)
     val testOwnerAuthResult = OwnerAuthResult(
       start = 1,
       size = 15,
       filterTotal = 2,
       total = 10,
-      authorisations = Seq(ownerAuths,
+      authorisations = Seq(
+        ownerAuths,
         OwnerAuthorisation(
           authorisationId = 2,
           status = "",
@@ -803,7 +831,9 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
           address = "No.2 Test Address ",
           localAuthorityRef = "123454",
           agents = Seq.empty
-        )))
+        )
+      )
+    )
 
     await(mockAppointAgentSessionRepository.saveOrUpdate(propertiesSessionData))
 
@@ -846,10 +876,10 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
         }
     }
 
-    val agentAppointedParam = if(withAgentsNotAppointed) "&agentAppointed=NO" else ""
+    val agentAppointedParam = if (withAgentsNotAppointed) "&agentAppointed=NO" else ""
     await(
       ws.url(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true$agentAppointedParam")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true$agentAppointedParam")
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")

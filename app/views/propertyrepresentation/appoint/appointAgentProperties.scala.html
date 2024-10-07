@@ -337,6 +337,19 @@
 
     <div id="linkIdsGroup" class="govuk-grid-row">
         <div class="govuk-grid-column-full">
+           <div class="hide-if-no-js govuk-body">
+                <p>
+                    @if(model.response.filterTotal > 0) {
+                        <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
+                        <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
+                        <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
+                        &nbsp;|&nbsp;
+                    }
+                    @if(organisationAgents.resultCount > 1 || (organisationAgents.resultCount == 1 && !agentAlreadyAppointed)) {
+                            @agentPropertiesFilter(model.showAllProperties, backLinkAsString)
+                    }
+                </p>
+            </div>
         @if(model.response.authorisations.isEmpty){
             <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
         } else {
@@ -344,17 +357,6 @@
                 <input type="hidden" name="agentCode" value="@agentCode">
                 <input type="hidden" name="name" value="@model.agentGroup.companyName">
                 <input type="hidden" name="backLinkUrl" value="@backLink">
-
-                <div class="hide-if-no-js govuk-body">
-                    <p>
-                        <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
-                        <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
-                        <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
-                        @if(organisationAgents.resultCount > 1 || (organisationAgents.resultCount == 1 && !agentAlreadyAppointed)) {
-                                &nbsp;|&nbsp; @agentPropertiesFilter(model.showAllProperties, backLinkAsString)
-                        }
-                    </p>
-                </div>
 
                 <div class="@formErrorClass("linkIds")">
 

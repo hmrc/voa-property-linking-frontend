@@ -17,7 +17,6 @@
 package controllers.agentAppointment
 
 import actions.AuthenticatedAction
-import actions.requests.BasicAuthenticatedRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
 import config.ApplicationConfig
