@@ -343,10 +343,9 @@
                         <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
                         <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
                         <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
-                        &nbsp;|&nbsp;
                     }
                     @if(organisationAgents.resultCount > 1 || (organisationAgents.resultCount == 1 && !agentAlreadyAppointed)) {
-                            @agentPropertiesFilter(model.showAllProperties, backLinkAsString)
+                        &nbsp;|&nbsp;@agentPropertiesFilter(model.showAllProperties, backLinkAsString)
                     }
                 </p>
             </div>
