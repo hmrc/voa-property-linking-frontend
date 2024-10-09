@@ -345,7 +345,8 @@
                         <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
                     }
                     @if(organisationAgents.resultCount > 1 || (organisationAgents.resultCount == 1 && !agentAlreadyAppointed)) {
-                        &nbsp;|&nbsp;@agentPropertiesFilter(model.showAllProperties, backLinkAsString)
+                        @if(model.response.filterTotal > 0) {&nbsp;|&nbsp;}
+                        @agentPropertiesFilter(model.showAllProperties, backLinkAsString)
                     }
                 </p>
             </div>
