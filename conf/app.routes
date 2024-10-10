@@ -93,7 +93,7 @@ POST        /my-organisation/appoint/properties/filter                          
 GET         /my-organisation/appoint/properties/confirm                                                                   controllers.agentAppointment.AppointAgentController.confirmAppointAgentToSome
 
 GET         /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.showAppointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl, fromManageAgentJourney: Boolean)
-POST        /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl)
+POST        /my-organisation/appoint/properties/create                                                                    controllers.agentAppointment.AppointAgentController.appointAgentSummary(agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl, fromManageAgentJourney: Boolean)
 
 #NEW AGENT APPOINT JOURNEY
 GET         /my-organisation/appoint-new-agent                                                                            controllers.agentAppointment.AddAgentController.start(propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None)
@@ -115,7 +115,7 @@ POST        /my-organisation/appoint-new-agent/multiple-properties              
 
 #CHOOSE PROPERTIES TO APPOINT
 GET         /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointAgentController.getMyOrganisationPropertyLinksWithAgentFiltering(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl, fromManageAgentJourney: Boolean)
-POST        /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointPropertiesController.onSubmit(agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl)
+POST        /my-organisation/appoint/properties                                                                           controllers.agentAppointment.AppointPropertiesController.onSubmit(pagination: PaginationParameters, agentCode: Long, agentAppointed: Option[String], backLinkUrl: RedirectUrl, fromManageAgentJourney: Boolean)
 
 #CHECK YOUR ANSWERS
 GET         /my-organisation/appoint-new-agent/check-your-answers                                                         controllers.agentAppointment.CheckYourAnswersController.onPageLoad()

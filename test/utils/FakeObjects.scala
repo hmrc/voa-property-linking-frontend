@@ -68,6 +68,16 @@ trait FakeObjects {
     localAuthorityRef = "BAREF",
     agents = Seq(ownerAuthAgent)
   )
+
+  lazy val ownerAuthorisationNoAgents = OwnerAuthorisation(
+    authorisationId = 2222211L,
+    status = "APPROVED",
+    submissionId = "PLSubId",
+    uarn = 999000111L,
+    address = "321, SOME ADDRESS, SOME TOWN, AB1 CD2",
+    localAuthorityRef = "BAREF",
+    agents = Seq.empty
+  )
   lazy val ownerCheckCase = CheckCaseWithAgent(
     checkCaseSubmissionId = "123344",
     checkCaseReference = "CHK10000732",

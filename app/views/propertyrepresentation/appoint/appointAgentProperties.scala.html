@@ -58,9 +58,9 @@
 
 @submitControllerRoute =@{
     if(manageJourneyFlag)
-        agentAppointment.routes.AppointAgentController.appointAgentSummary(agentCode, agentAppointed, RedirectUrl(submitBackLinkAsString))
+        agentAppointment.routes.AppointAgentController.appointAgentSummary(agentCode, agentAppointed, RedirectUrl(submitBackLinkAsString), fromManageAgentJourney = manageJourneyFlag)
     else
-        agentAppointment.routes.AppointPropertiesController.onSubmit(agentCode, agentAppointed, RedirectUrl(submitBackLinkAsString))
+        agentAppointment.routes.AppointPropertiesController.onSubmit(pagination, agentCode, agentAppointed, RedirectUrl(submitBackLinkAsString), fromManageAgentJourney = manageJourneyFlag)
 }
 @agentPropertiesFilter(showAllProperties: Boolean, backLink: String) = @{
     if(showAllProperties){
@@ -135,7 +135,7 @@
         <input class="govuk-checkboxes__input" id="@id" name="linkIds[]" type="checkbox" value="@value">
         <label class="govuk-label govuk-checkboxes__label" for="@id">
             <span class="govuk-visually-hidden">@messages("label.appoint")</span>
-            <span data-address>@Formatters.capitalisedAddress(address)</span>
+            <span data-address>@Formatters.capitalizedAddress(address)</span>
         </label>
     </div>
 }
@@ -337,6 +337,19 @@
 
     <div id="linkIdsGroup" class="govuk-grid-row">
         <div class="govuk-grid-column-full">
+           <div class="hide-if-no-js govuk-body">
+                <p>
+                    @if(model.response.filterTotal > 0) {
+                        <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
+                        <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
+                        <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
+                    }
+                    @if(organisationAgents.resultCount > 1 || (organisationAgents.resultCount == 1 && !agentAlreadyAppointed)) {
+                        @if(model.response.filterTotal > 0) {&nbsp;|&nbsp;}
+                        @agentPropertiesFilter(model.showAllProperties, backLinkAsString)
+                    }
+                </p>
+            </div>
         @if(model.response.authorisations.isEmpty){
             <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
         } else {
@@ -344,17 +357,6 @@
                 <input type="hidden" name="agentCode" value="@agentCode">
                 <input type="hidden" name="name" value="@model.agentGroup.companyName">
                 <input type="hidden" name="backLinkUrl" value="@backLink">
-
-                <div class="hide-if-no-js govuk-body">
-                    <p>
-                        <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
-                        <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
-                        <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
-                        @if(organisationAgents.resultCount > 1 || (organisationAgents.resultCount == 1 && !agentAlreadyAppointed)) {
-                                &nbsp;|&nbsp; @agentPropertiesFilter(model.showAllProperties, backLinkAsString)
-                        }
-                    </p>
-                </div>
 
                 <div class="@formErrorClass("linkIds")">
 

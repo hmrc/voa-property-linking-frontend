@@ -449,7 +449,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[AppointAgentToSomePropertiesSession](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
-    val res = testController.appointAgentSummary(agentCode, None, backLinkUrl)(
+    val res = testController.appointAgentSummary(agentCode, None, backLinkUrl, fromManageAgentJourney = true)(
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"           -> s"$agentCode",
         "name"                -> s"$companyName",
@@ -509,7 +509,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.postAgentAppointmentChange(any())(any[HeaderCarrier]))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("id")))
 
-    val res = testController.appointAgentSummary(agentCode, None, backLinkUrl)(
+    val res = testController.appointAgentSummary(agentCode, None, backLinkUrl, fromManageAgentJourney = true)(
       FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode", "backLinkUrl" -> "/some/back/link"))
 
     status(res) shouldBe BAD_REQUEST
@@ -524,7 +524,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.postAgentAppointmentChange(any())(any[HeaderCarrier]))
       .thenReturn(Future.failed(AppointRevokeException("")))
 
-    val res = testController.appointAgentSummary(agentCode, None, backLinkUrl)(
+    val res = testController.appointAgentSummary(agentCode, None, backLinkUrl, fromManageAgentJourney = true)(
       FakeRequest()
         .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "linkIds[]" -> "1", "backLinkUrl" -> "/some/back/link"))
 

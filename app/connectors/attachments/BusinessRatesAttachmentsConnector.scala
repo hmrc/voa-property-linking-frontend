@@ -17,7 +17,7 @@
 package connectors.attachments
 
 import models.attachment._
-import models.attachment.request.{InitiatedUpload, MetaDataRequest, UpscanInitiateRequest}
+import models.attachment.request.{MetaDataRequest, UpscanInitiateRequest}
 import models.upscan.PreparedUpload
 import play.api.Logging
 import uk.gov.hmrc.http.HttpReads.Implicits._
