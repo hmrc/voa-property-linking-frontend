@@ -16,7 +16,7 @@
 
 package controllers.propertyLinking
 
-import base.ISpecBase
+import base.ListYearsFeatureSwitchedISpecBase
 import models.ApiAssessment
 import models.assessments.AssessmentsPageSession
 import models.assessments.PreviousPage._
@@ -31,7 +31,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
-class ValuationsControllerISpec extends ISpecBase {
+class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitchedISpecBase {
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   lazy val mockAssessmentsPageSessionRepository: AssessmentsPageSessionRepository =
     app.injector.instanceOf[AssessmentsPageSessionRepository]
@@ -66,14 +66,6 @@ class ValuationsControllerISpec extends ISpecBase {
   val ownerText = "Owner"
   val ownerAndOccupierText = "Owner and occupier"
   val occupierText = "Occupier"
-  val onlyShowValuationsWhenOwnedText = "We only show valuations for when you owned or occupied the property."
-  val otherValuationsText = "Valuations for other periods may be available."
-  val findValuationsLinkText = "Find public versions of all valuations for this property"
-  val noValuationsText = "There are no valuations available for this property."
-  val onlyShowValuationsAgentText = "We only show valuations:"
-  val agentBulletOneText = "for the rating lists your client wants you to act on"
-  val agentBulletTwoText = "for when your client owned or occupied the property"
-  val contactClientText = "Contact your client if you need to change which lists you can act on."
   val noRvText = "N/A"
   val helpWithNaRvText = "Help with rateable value not available (N/A)"
   val rateableValueNaWhenRemovedText =
@@ -114,16 +106,6 @@ class ValuationsControllerISpec extends ISpecBase {
   val ownerTextWelsh = "Perchennog"
   val ownerAndOccupierTextWelsh = "Perchennog a meddiannydd"
   val occupierTextWelsh = "Meddiannydd"
-  val onlyShowValuationsWhenOwnedTextWelsh =
-    "Rydym ond yn dangos prisiadau ar gyfer yr adeg yr oeddech yn berchen ar yr eiddo neu’n ei feddiannu."
-  val otherValuationsTextWelsh = "Mae’n bosibl bod prisiadau ar gyfer cyfnodau eraill ar gael."
-  val findValuationsLinkTextWelsh = "Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn"
-  val noValuationsTextWelsh = "Nid oes prisiadau ar gael ar gyfer yr eiddo hwn."
-  val onlyShowValuationsAgentTextWelsh = "Rydym ond yn dangos prisiadau ar gyfer:"
-  val agentBulletOneTextWelsh = "y rhestrau ardrethu y mae’ch cleient am i chi eu gweithredu"
-  val agentBulletTwoTextWelsh = "yr adeg yr oedd eich cleient yn berchen ar yr eiddo neu’n ei feddiannu"
-  val contactClientTextWelsh =
-    "Cysylltwch â’ch cleient os oes angen i chi newid y rhestrau mae gennych ganiatâd i weithredu arnynt."
   val noRvTextWelsh = "Dim ar gael"
   val helpWithNaRvTextWelsh = "Cymorth gyda gwerth ardrethol sydd ddim ar gael"
   val rateableValueNaWhenRemovedTextWelsh =
@@ -142,10 +124,6 @@ class ValuationsControllerISpec extends ISpecBase {
     "Gall yr eiddo hefyd gael ei dynnu oddi ar y rhestr ardrethu a bod y gwerth ardrethol ddim ar gael pan na chaiff ei ddefnyddio mwyach ar gyfer busnes. Er enghraifft, gall yr eiddo fod yn cael ei ailddatblygu, wedi’i eithrio neu wedi’i newid i ddefnydd domestig"
   val toTextWelsh = "i"
 
-  val findValuationsHref =
-    s"http://localhost:9300/business-rates-find/valuations/start/$uarn?rtp=your_assessments&submissionId=$plSubmissionId"
-  val agentFindValuationsHref =
-    s"http://localhost:9300/business-rates-find/valuations/start/$uarn?rtp=client_assessments&submissionId=$plSubmissionId"
   val returnToPropertiesHref = "/business-rates-dashboard/return-to-your-properties"
   val returnToClientPropertiesHref = "/business-rates-dashboard/return-to-client-properties"
   val returnToSelectedClientPropertiesHref =
@@ -175,13 +153,6 @@ class ValuationsControllerISpec extends ISpecBase {
   val valuationEffectiveDateLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(2)"
   val valuationConnectionLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(3)"
   val valuationRvLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(4)"
-  val onlyShowValuationsOwnerLocator = "#owner-section > p"
-  val otherValuationsLocator = (user: String) => s"#$user-section > span"
-  val findValuationsLinkLocator = "#explanatory-link"
-  val onlyShowValuationsAgentLocator = "#agent-section > p:nth-child(1)"
-  val agentBulletOneLocator = "#reasons-list > li:nth-child(1)"
-  val agentBulletTwoLocator = "#reasons-list > li:nth-child(2)"
-  val contactClientLocator = "#contact-text"
   val noValuationsLocator = "#no-valuation-text"
   val helpWithNaRvLocator = "#main-content > div > div > details:nth-child(2) > summary > span"
   val rateableValueNaWhenRemovedLocator =
@@ -825,17 +796,6 @@ class ValuationsControllerISpec extends ISpecBase {
     val helpWithEffectiveDate = if (language == English) helpWithEffectiveDateText else helpWithEffectiveDateTextWelsh
     val connectionToProperty = if (language == English) connectionToPropertyText else connectionToPropertyTextWelsh
     val rateableValue = if (language == English) rateableValueText else rateableValueTextWelsh
-    val onlyShowValuationsWhenOwned =
-      if (language == English) onlyShowValuationsWhenOwnedText else onlyShowValuationsWhenOwnedTextWelsh
-    val otherValuations = if (language == English) otherValuationsText else otherValuationsTextWelsh
-    val findValuationsLink = if (language == English) findValuationsLinkText else findValuationsLinkTextWelsh
-    val noValuations = if (language == English) noValuationsText else noValuationsTextWelsh
-    val onlyShowValuationsAgent =
-      if (language == English) onlyShowValuationsAgentText else onlyShowValuationsAgentTextWelsh
-    val agentBulletOne = if (language == English) agentBulletOneText else agentBulletOneTextWelsh
-    val agentBulletTwo = if (language == English) agentBulletTwoText else agentBulletTwoTextWelsh
-    val contactClient = if (language == English) contactClientText else contactClientTextWelsh
-    val expFindValuationsHref = if (userIsAgent) agentFindValuationsHref else findValuationsHref
     val expBackHref = previousPage match {
       case Dashboard      => homeHref
       case AllClients     => returnToClientPropertiesHref
@@ -874,53 +834,22 @@ class ValuationsControllerISpec extends ISpecBase {
       page.select(valuationsForThisPropertyLocator).text() shouldBe valuationsForThisProperty
     }
 
-    if (hasAssessments) {
-      s"has a $valuationText table heading with help link in $language" in {
-        page.select(valuationTableHeadingLocator).text() shouldBe s"$valuation $helpWithValuation"
-        page.select(valuationHelpLinkLocator).attr("href") shouldBe valuationHelpHref
-      }
-
-      s"has a $effectiveDateText table heading with help link in $language" in {
-        page.select(effectiveDateTableHeadingLocator).text() shouldBe s"$effectiveDate $helpWithEffectiveDate"
-        page.select(effectiveDateHelpLinkLocator).attr("href") shouldBe effectiveDateHelpHref
-      }
-
-      s"has a $connectionToPropertyText table heading in $language" in {
-        page.select(connectionTableHeadingLocator).text() shouldBe connectionToProperty
-      }
-
-      s"has a $rateableValueText table heading in $language" in {
-        page.select(rvTableHeadingLocator).text() shouldBe rateableValue
-      }
-
-    } else {
-      s"has text of $noValuationsText in $language" in {
-        page.select(noValuationsLocator).text() shouldBe noValuations
-      }
+    s"has a $valuationText table heading with help link in $language" in {
+      page.select(valuationTableHeadingLocator).text() shouldBe s"$valuation $helpWithValuation"
+      page.select(valuationHelpLinkLocator).attr("href") shouldBe valuationHelpHref
     }
 
-    if (userIsAgent) {
-      s"has text of $onlyShowValuationsAgentText with two bullets of $agentBulletOneText and $agentBulletTwoText in $language" in {
-        page.select(onlyShowValuationsAgentLocator).text() shouldBe onlyShowValuationsAgent
-        page.select(agentBulletOneLocator).text() shouldBe agentBulletOne
-        page.select(agentBulletTwoLocator).text() shouldBe agentBulletTwo
-      }
-
-      s"has text of $contactClientText in $language" in {
-        page.select(contactClientLocator).text() shouldBe contactClient
-      }
-
-    } else {
-      s"has text of $onlyShowValuationsWhenOwnedText in $language" in {
-        page.select(onlyShowValuationsOwnerLocator).text() shouldBe onlyShowValuationsWhenOwned
-      }
+    s"has a $effectiveDateText table heading with help link in $language" in {
+      page.select(effectiveDateTableHeadingLocator).text() shouldBe s"$effectiveDate $helpWithEffectiveDate"
+      page.select(effectiveDateHelpLinkLocator).attr("href") shouldBe effectiveDateHelpHref
     }
 
-    s"has text of $otherValuationsText $findValuationsLinkText with the correct href in $language" in {
-      val user = if (userIsAgent) "agent" else "owner"
-      page.select(otherValuationsLocator(user)).text() shouldBe otherValuations
-      page.select(findValuationsLinkLocator).text() shouldBe findValuationsLink
-      page.select(findValuationsLinkLocator).attr("href") shouldBe expFindValuationsHref
+    s"has a $connectionToPropertyText table heading in $language" in {
+      page.select(connectionTableHeadingLocator).text() shouldBe connectionToProperty
+    }
+
+    s"has a $rateableValueText table heading in $language" in {
+      page.select(rvTableHeadingLocator).text() shouldBe rateableValue
     }
   }
 

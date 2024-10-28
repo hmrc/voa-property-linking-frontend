@@ -32,7 +32,7 @@ import uk.gov.hmrc.http.SessionKeys
 import uk.gov.hmrc.play.bootstrap.frontend.filters.crypto.SessionCookieCrypto
 
 trait ListYearsFeatureSwitchedISpecBase
-    extends AnyWordSpec with Matchers with GuiceOneServerPerSuite with BeforeAndAfterAll with TestData {
+    extends AnyWordSpec with Matchers with GuiceOneServerPerSuite with BeforeAndAfterAll with CommonStubs {
   sealed trait Language
 
   case object English extends Language
@@ -54,7 +54,8 @@ trait ListYearsFeatureSwitchedISpecBase
     "auditing.enabled"                                        -> "false",
     "feature-switch.agentListYears.enabled"                   -> "false",
     "play.filters.csrf.header.bypassHeaders.Csrf-Token"       -> "nocheck",
-    "play.filters.csrf.header.bypassHeaders.X-Requested-With" -> "*"
+    "play.filters.csrf.header.bypassHeaders.X-Requested-With" -> "*",
+    "business-rates-dashboard-frontend.url"                   -> "/business-rates-dashboard"
   ) ++ mockedMicroservices.flatMap { serviceName =>
     Map(
       s"microservice.services.$serviceName.host" -> mockHost,

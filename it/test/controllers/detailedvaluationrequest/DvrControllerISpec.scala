@@ -345,7 +345,9 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     stubFor {
       get(s"/property-linking/dashboard/owner/assessments/$submissionId")
         .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testApiAssessments).toString())
+          aResponse
+            .withStatus(OK)
+            .withBody(Json.toJson(testApiAssessments(List(currentApiAssessment, previousApiAssessment))).toString())
         }
     }
 

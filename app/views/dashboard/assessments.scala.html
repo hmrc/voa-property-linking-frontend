@@ -27,10 +27,10 @@
       assessmentDetailsWithRatingListView: assessmentDetailsWithRatingList,
       naRateableDetailSection: naRateableDetailSection)
 
-@(model: controllers.AssessmentsVM, owner: Boolean, rateableNA: Boolean, vmvLink: String, address: Option[String], localAuthRef: Option[String])(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
+@(model: controllers.AssessmentsVM, owner: Boolean, rateableNA: Boolean, vmvLink: String, address: String, localAuthRef: Option[String])(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
     @formattedAddress =@{
-        if (model.assessmentsWithLinks.nonEmpty) Formatters.capitalisedAddress(model.address) else Formatters.capitalisedAddress(address.getOrElse(messages("assessments.na")))
+        if (model.assessmentsWithLinks.nonEmpty) Formatters.capitalisedAddress(model.address) else Formatters.capitalisedAddress(address)
     }
     @mainLayout(
     pageTitle = formattedAddress ,

@@ -432,6 +432,7 @@ assessments.historic.text=Hanesyddol
 assessments.aria.label.full=Dewiswch y prisiad hwn - {0} o {1} i {2}
 assessments.aria.label.partial=Dewiswch y prisiad hwn - {0} o {1}
 assessments.selectValuation.to=i
+assessments.from.text=o
 
 assessments.na.help.summary=Cymorth gyda gwerth ardrethol sydd ddim ar gael
 assessments.na.help.first.sentence=Nid yw’r gwerth ardrethol ar gael oherwydd bod yr eiddo wedi’i dynnu oddi ar y rhestr ardrethu.

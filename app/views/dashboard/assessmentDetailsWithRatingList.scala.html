@@ -53,6 +53,14 @@
     } else None
 }
 
+@valuationDates(assessment: ApiAssessment, isDraft: Boolean, tableType: String) = @{
+    if (isDraft) {
+        s"${messages("assessments.from.text")} ${fromDate(assessment)}"
+    } else {
+        s"${fromDate(assessment)} ${messages("assessments.selectValuation.to")} ${endDate(assessment, isDraft, tableType).getOrElse("")}"
+    }
+}
+
 @ariaLabel(assessment: ApiAssessment, tableType: String, isDraft: Boolean) = @{
     val typeText = messages(s"assessments.$tableType.text")
     val fromText = fromDate(assessment)
@@ -89,10 +97,12 @@
             id="viewAssessmentLink-@assessment.assessmentRef"
             href="@url"
             aria-label="@ariaLabel(assessment, tableType, isDraft)">
-                @fromDate(assessment) @messages("assessments.selectValuation.to") @endDate(assessment, isDraft, tableType).getOrElse("")
+                @valuationDates(assessment, isDraft, tableType)
             </a>
         } else {
-            @fromDate(assessment) @messages("assessments.selectValuation.to") @endDate(assessment, isDraft, tableType).getOrElse("")
+            <span>
+                @valuationDates(assessment, isDraft, tableType)
+            </span>
         }
     </td>
 
@@ -142,17 +152,17 @@
                     </tr>
                 </thead>
                 <tbody class="govuk-table__body">
-                    @if(model.currentAssessments.nonEmpty) {
-                        @tableRows(model.currentAssessments, tableType = "current", isDraft = false)
-                    }
+                @if(model.draftAssessments.nonEmpty){
+                    @tableRows(model.draftAssessments, tableType = "draft", isDraft = true)
+                }
 
-                    @if(model.draftAssessments.nonEmpty) {
-                        @tableRows(model.draftAssessments, tableType = "draft", isDraft = true)
-                    }
+                @if(model.currentAssessments.nonEmpty){
+                    @tableRows(model.currentAssessments, tableType = "current", isDraft = false)
+                }
 
-                    @if(model.historicAssessments.nonEmpty) {
-                        @tableRows(model.historicAssessments, tableType = "historic", isDraft = false)
-                    }
+                @if(model.historicAssessments.nonEmpty){
+                    @tableRows(model.historicAssessments, tableType = "historic", isDraft = false)
+                }
                 </tbody>
             </table>
         }
