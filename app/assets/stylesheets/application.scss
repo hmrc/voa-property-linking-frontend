@@ -6,11 +6,6 @@ $hmrc-assets-path: "/business-rates-property-linking/assets/lib/hmrc-frontend/hm
 @import 'sortable';
 @import "../sass/modules/helpIcon";
 
-.app-reference-number {
-  display: block;
-  font-weight: bold;
-}
-
 .new-centered-content {
     display: block;
     max-width: 960px;
@@ -79,13 +74,6 @@ details#report-a-problem {
 }
 .cca-nowrap {
     white-space: nowrap;
-}
-
-.break-word {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
-    max-width: 7em;
 }
 
 // Header account menu
