@@ -27,7 +27,7 @@ import controllers.{AssessmentsVM, PropertyLinkingController}
 import javax.inject.{Inject, Named, Singleton}
 import models.assessments.{AssessmentsPageSession, PreviousPage}
 import models.properties.AllowedAction
-import models.{ApiAssessment, ApiAssessments, ClientPropertyLink}
+import models.{ApiAssessment, ApiAssessments, ClientPropertyLink, PropertyLink}
 import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -82,9 +82,8 @@ class ValuationsController @Inject()(
         else
           propertyLinks.getClientAssessments(submissionId)
       }
-      val propertyLink = propertyLinks.clientPropertyLink(submissionId)
 
-      def okResponse(assessments: ApiAssessments, backlink: String, clientPropertyLink: Option[ClientPropertyLink])
+      def okResponse(assessments: ApiAssessments, backlink: String, address: String, localAuthorityRef: Option[String])
         : Result = {
         val rateableNA = assessments.assessments.map(_.rateableValue).contains(None)
         val rtp = if (owner) "your_assessments" else "client_assessments"
@@ -101,8 +100,8 @@ class ValuationsController @Inject()(
             owner,
             rateableNA,
             vmvLink,
-            if (owner) None else clientPropertyLink.map(propertyLink => propertyLink.address),
-            if (owner) None else clientPropertyLink.map(propertyLink => propertyLink.localAuthorityRef)
+            address,
+            localAuthorityRef
           ))
       }
       assessments
@@ -110,12 +109,22 @@ class ValuationsController @Inject()(
           case None => notFound
           case Some(assessments) =>
             if (owner) {
-              Future.successful(okResponse(assessments, backlink = calculateOwnerBackLink, None))
+              propertyLinks.getMyOrganisationPropertyLink(submissionId).flatMap {
+                case Some(propertyLink: PropertyLink) =>
+                  Future.successful(
+                    okResponse(assessments, backlink = calculateOwnerBackLink, propertyLink.address, None))
+                case None => notFound
+              }
             } else {
-              propertyLink.flatMap {
+              propertyLinks.clientPropertyLink(submissionId).flatMap {
                 case Some(clientPropertyLink: ClientPropertyLink) =>
-                  calculateAgentBackLink(submissionId).map(backlink =>
-                    okResponse(assessments, backlink, Some(clientPropertyLink)))
+                  calculateAgentBackLink(submissionId).map(
+                    backlink =>
+                      okResponse(
+                        assessments,
+                        backlink,
+                        clientPropertyLink.address,
+                        Some(clientPropertyLink.localAuthorityRef)))
                 case None => notFound
               }
             }

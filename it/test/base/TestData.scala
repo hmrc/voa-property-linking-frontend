@@ -16,6 +16,7 @@
 
 package base
 
+import models.ListType.{CURRENT, DRAFT, ListType, PREVIOUS}
 import models.challenge.myclients.ChallengeCasesWithClient
 import models.dvr.cases.check.myclients.CheckCasesWithClient
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
@@ -23,7 +24,7 @@ import models.properties.{AllowedAction, PropertyHistory, PropertyValuation, Val
 import models.propertyrepresentation.{AgentDetails, AgentList, AgentSummary}
 import models.referencedata.ReferenceData
 import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
-import models.{Accounts, ApiAssessment, ApiAssessments, DetailedIndividualAccount, GroupAccount, IndividualDetails, ListType, Party, PropertyAddress}
+import models.{Accounts, ApiAssessment, ApiAssessments, ClientDetails, ClientPropertyLink, DetailedIndividualAccount, GroupAccount, IndividualDetails, ListType, Party, PropertyAddress, PropertyLink, PropertyLinkingApproved}
 
 import java.time.LocalDate
 import java.time.LocalDateTime.now
@@ -34,6 +35,7 @@ trait TestData {
   val ggExternalId = "gg-ext-id"
   val email = "some@email.com"
   val phone = "01293666666"
+  val plSubmissionId = "PL1ZD123"
 
   val detailedIndividualAccount: DetailedIndividualAccount =
     DetailedIndividualAccount(
@@ -56,7 +58,9 @@ trait TestData {
   def propertyLinkId: Long = 1L
 
   lazy val april2017: LocalDate = LocalDate.of(2017, 4, 1)
+  lazy val march2023: LocalDate = LocalDate.of(2023, 3, 31)
   lazy val april2023: LocalDate = LocalDate.of(2023, 4, 1)
+  lazy val april2026: LocalDate = LocalDate.of(2026, 4, 1)
   val localAuthorityRef = "AMBER-VALLEY-REF"
 
   val ownerAuthAgent = Party(
@@ -89,28 +93,44 @@ trait TestData {
     currentToDate = Some(april2017.plusMonths(2L))
   )
 
+  lazy val draftApiAssessment: ApiAssessment = apiAssessment.copy(
+    listYear = "2026",
+    listType = ListType.DRAFT,
+    effectiveDate = Some(april2026),
+    currentFromDate = Some(april2026),
+    currentToDate = None,
+    rateableValue = Some(1000L)
+  )
+
   lazy val currentApiAssessment: ApiAssessment = apiAssessment.copy(
     listYear = "2023",
     effectiveDate = Some(april2023),
-    currentToDate = None
+    currentFromDate = Some(april2023),
+    currentToDate = None,
+    rateableValue = Some(2000L)
   )
 
   lazy val previousApiAssessment: ApiAssessment = apiAssessment.copy(
     listType = ListType.PREVIOUS,
-    assessmentRef = valuationId
+    currentToDate = Some(march2023),
+    rateableValue = Some(3000L)
   )
 
-  val testApiAssessments = ApiAssessments(
-    authorisationId = propertyLinkId,
-    submissionId = submissionId,
-    uarn = uarn,
-    address = "ADDRESS",
-    pending = false,
-    clientOrgName = None,
-    capacity = Some("OWNER"),
-    assessments = List(currentApiAssessment, previousApiAssessment),
-    Seq(ownerAuthAgent, ownerAuthAgent2)
-  )
+  def testApiAssessments(
+        assessments: List[ApiAssessment],
+        connectionToProperty: String = "OWNER",
+        isAgent: Boolean = false) =
+    ApiAssessments(
+      authorisationId = propertyLinkId,
+      submissionId = submissionId,
+      uarn = uarn,
+      address = "ADDRESS",
+      pending = false,
+      clientOrgName = if (isAgent) Some("Client Name") else None,
+      capacity = Some(connectionToProperty),
+      assessments = assessments,
+      Seq(ownerAuthAgent, ownerAuthAgent2)
+    )
 
   val testApiAssessmentsNoCheck = ApiAssessments(
     authorisationId = propertyLinkId,
@@ -388,5 +408,27 @@ trait TestData {
   val testCheckCasesWithClient = CheckCasesWithClient(1, 100, 0, 0, List())
 
   val testChallengeCasesWithClient = ChallengeCasesWithClient(1, 100, 0, 0, List())
+
+  val clientPropertyLink = ClientPropertyLink(
+    authorisationId = 1111L,
+    authorisedPartyId = 1234L,
+    status = PropertyLinkingApproved,
+    startDate = LocalDate.of(2017, 4, 1),
+    endDate = None,
+    submissionId = plSubmissionId,
+    capacity = "Owner",
+    uarn = 1111L,
+    address = "ADDRESS",
+    localAuthorityRef = localAuthorityRef,
+    client = ClientDetails(12345L, "Test Organisation name")
+  )
+
+  val propertyLink = PropertyLink(
+    authorisationId = 1111L,
+    submissionId = plSubmissionId,
+    uarn = uarn,
+    address = "ADDRESS",
+    agents = Seq.empty
+  )
 
 }

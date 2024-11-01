@@ -33,7 +33,7 @@ import uk.gov.hmrc.play.bootstrap.frontend.filters.crypto.SessionCookieCrypto
 
 trait ISpecBase
     extends AnyWordSpec with Matchers with GuiceOneServerPerSuite with BeforeAndAfterAll with BeforeAndAfterEach
-    with TestData {
+    with CommonStubs {
   sealed trait Language
 
   case object English extends Language

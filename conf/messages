@@ -494,6 +494,7 @@ assessments.current.text=Current
 assessments.draft.text=Draft
 assessments.historic.text=Historic
 assessments.selectValuation.to=to
+assessments.from.text=from
 assessments.aria.label.full=Select this valuation - {0} from {1} to {2}
 assessments.aria.label.partial=Select this valuation - {0} from {1}
 
