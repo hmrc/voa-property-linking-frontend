@@ -22,9 +22,9 @@ import utils.JsonUtils
 object ListType extends Enumeration {
   type ListType = Value
 
-  val DRAFT = Value("draft")
-  val CURRENT = Value("current")
-  val PREVIOUS = Value("previous")
+  val DRAFT: ListType.Value = Value("draft")
+  val CURRENT: ListType.Value = Value("current")
+  val PREVIOUS: ListType.Value = Value("previous")
 
   implicit val format: Format[ListType] = JsonUtils.enumFormat(ListType)
 
