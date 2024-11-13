@@ -1844,7 +1844,7 @@ auto.requestDetailedValuation.future.rv.caption=Gwerth ardrethol y dyfodol (o {0
 auto.requestDetailedValuation.future.rv.inset=Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 auto.requestDetailedValuation.future.rv.inset.link=Amcangyfrif beth all y bil ardrethi busnes fod o {0}
 auto.requestDetailedValuation.future.p.1=Ni fydd y prisiad manwl hwn ar gael tan {0}. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw
-auto.requestDetailedValuation.future.p.2= Gellir gwneud cais am y prisiad manwl cyfredol {0} o’r {1}.
+auto.requestDetailedValuation.future.p.2= Gellir gwneud cais am y prisiad manwl cyfredol {0} o’r prisiad cyfredol.
 auto.requestDetailedValuation.future.p.2.link=<a class="govuk-link" id="current-valuation-link" href="{0}">prisiad cyfredol</a>
 available.requestvaluation.agentsTab.title=Asiantiaid({0})
 available.requestvaluation.agentsTab.noAgents.title=Asiantiaid
