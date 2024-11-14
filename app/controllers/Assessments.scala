@@ -49,12 +49,16 @@ class Assessments @Inject()(
         fromValuation: Option[Long] = None,
         challengeCaseRef: Option[String] = None
   ): Action[AnyContent] = authenticated.async { implicit request =>
+    println(Console.YELLOW + "here" + Console.RESET)
     propertyLinkService.getSingularPropertyLink(submissionId, owner).flatMap {
       case Some(propertyLink) =>
+        println(Console.YELLOW + "with property link" + Console.RESET)
         businessRatesValuations
           .isViewable(propertyLink.uarn, assessmentRef, submissionId)
           .map {
             case true =>
+              println(Console.YELLOW + "is viewable" + Console.RESET)
+
               if (owner) {
                 Redirect(config.businessRatesValuationFrontendUrl(
                   s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${Seq(
@@ -71,6 +75,7 @@ class Assessments @Inject()(
                   ).mkString}"))
               }
             case false =>
+              println(Console.YELLOW + "not viewable" + Console.RESET)
               Redirect(
                 if (owner)
                   controllers.detailedvaluationrequest.routes.DvrController

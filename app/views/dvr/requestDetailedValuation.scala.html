@@ -18,6 +18,7 @@
 @import config.ApplicationConfig
 @import controllers.detailedvaluationrequest.RequestDetailedValuationWithoutForm
 @import views.html.components.link
+@import views.html.dvr.tabs.futureHelpTab
 
 @this(
   mainLayout: views.html.mainLayout,
@@ -26,6 +27,7 @@
   govukTabs: GovukTabs,
   formWithCSRF: FormWithCSRF,
   govukSummaryList: GovukSummaryList,
+  requestFutureValuationTab: views.html.dvr.tabs.requestFutureValuationTab
 )
 
 @(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String, enquiryUrl: String, estimatorUrl: String, localCouncilRef: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -67,7 +69,37 @@
                     classes = "govuk-summary-list--no-border"
                 ))
             </div>
-
+            <div class="govuk-grid-column-full">
+            @govukTabs(Tabs(
+                id = Some("request-valuation-tabs"),
+                items = Seq(
+                    TabItem(
+                        id = Some("valuation-tab"),
+                        label = messages("auto.requestDetailedValuation.future.tabName"),
+                        panel = TabPanel(HtmlContent(requestFutureValuationTab(
+                            model.rateableValueFormatted,
+                            model.effectiveDate,
+                            estimatorUrl,
+                            model.currentValuationUrl,
+                            model.valuationsUrl,
+                            model.isWelsh
+                        )))
+                    ),
+                    TabItem(
+                        id = Some("help-tab"),
+                        label = messages("requestValuation.future.help.title"),
+                        panel = TabPanel(HtmlContent(futureHelpTab(
+                            model.effectiveDate,
+                            currentValuationCheckTabUrl = model.currentValuationUrl,
+                            model.valuationsUrl,
+                            enquiryUrl,
+                            estimatorUrl,
+                            model.isWelsh
+                        )))
+                    )
+                )
+            ))
+            </div>
         </div>
     }
 

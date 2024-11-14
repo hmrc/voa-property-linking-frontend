@@ -1232,9 +1232,24 @@ available.requestvaluation.listYear.2017.li4=ydym wedi newid y prisiad hwn yn ys
 available.requestvaluation.listYear.2017.li5=effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2023, rydych yn anfon achos Gwirio o’r prisiad cyfredol.
 available.requestvaluation.listYear.2017.p4=Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar.
 
-
 available.requestvaluation.listYear.2017.noCurrent.altered=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon e-bost atom i <a id="cca-service-link-1" class="govuk-link" href="mailto:CCAService@voa.gov.uk">ccaservice@voa.gov.uk</a> er mwyn anfon achos Gwirio
 available.requestvaluation.listYear.2017.noCurrent.court=yw penderfyniad llys wedi effeithio ar werth ardrethol yr eiddo hwn ac eich bod yn anfon e-bost atom i <a id="cca-service-link-2" class="govuk-link"  href="mailto:CCAService@voa.gov.uk">ccaservice@voa.gov.uk</a> cyn 1 Hydref 2023 er mwyn anfon achos Gwirio
+
+requestValuation.future.help.title=Cymorth gyda’ch prisiad yn y dyfodol
+requestValuation.future.help.subheading.1=Gall eich gwerth ardrethol newid ar {0}
+requestValuation.future.help.subheading.2=Mae angen newid manylion eich eiddo
+requestValuation.future.help.subheading.3=Rydych chi’n meddwl bod y gwerth ardrethol yn rhy uchel
+requestValuation.future.help.subheading.4=You have some other question about your valuation
+
+requestValuation.future.help.p.1=Rydym yn diweddaru gwerthoedd ardrethol pob eiddo busnes yng Nghymru a Lloegr yn rheolaidd i adlewyrchu newidiadau yn y farchnad eiddo. Bydd yr ailbrisiad nesaf yn dod i rym ar {0}.
+requestValuation.future.help.p.2=Anfonwch achos Gwirio atom ni i ddweud wrthym fod angen newid manylion eich eiddo (megis meintiau arwynebedd llawr a pharcio). Efallai byddwn yn derbyn eich newidiadau ac yn diweddaru?r prisiadau cyfredol a dyfodol.
+requestValuation.future.help.p.4=O’r {0}, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel.
+requestValuation.future.help.p.5=Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Herio atom.
+requestValuation.future.help.p.6=Cyn {0}, <a class="govuk-link" id="future-valuation-enquiry-link" href="{1}">anfon ymholiad</a>.
+requestValuation.future.help.help.link.1=<a class="govuk-link" id="how-to-use-account" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">Sut i ddefnyddio cyfrif prisio ardrethi busnes</a>
+requestValuation.future.help.help.link.2=<a class="govuk-link" id="how-properties-are-valued" href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">Sut y prisir eiddo busnes</a>
+requestValuation.future.help.help.link.3=Amcangyfrif beth all bil ardrethi busnes yr eiddo hwn fod o {0}
+requestValuation.future.help.help.link.4=<a class="govuk-link"  id="rates-relief" href="https://www.gov.uk/apply-for-business-rate-relief">Rhyddhad Ardrethi Busnesau</a>
 
 cannotRaiseChallenge.title=Nid oes modd I chi herio’r prisiad hwn
 
@@ -1843,7 +1858,7 @@ auto.requestDetailedValuation.future.tabName=Prisiad
 auto.requestDetailedValuation.future.rv.caption=Gwerth ardrethol y dyfodol (o {0})
 auto.requestDetailedValuation.future.rv.inset=Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 auto.requestDetailedValuation.future.rv.inset.link=Amcangyfrif beth all y bil ardrethi busnes fod o {0}
-auto.requestDetailedValuation.future.p.1=Ni fydd y prisiad manwl hwn ar gael tan {0}. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw
+auto.requestDetailedValuation.future.p.1=Ni fydd y prisiad manwl hwn ar gael tan {0}. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw.
 auto.requestDetailedValuation.future.p.2= Gellir gwneud cais am y prisiad manwl cyfredol {0} o’r prisiad cyfredol.
 auto.requestDetailedValuation.future.p.2.link=<a class="govuk-link" id="current-valuation-link" href="{0}">prisiad cyfredol</a>
 available.requestvaluation.agentsTab.title=Asiantiaid({0})

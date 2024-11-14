@@ -113,5 +113,3 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
-
-

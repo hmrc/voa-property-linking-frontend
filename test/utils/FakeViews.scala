@@ -25,7 +25,7 @@ import views.html.{addUserToGG, startOldJourney}
 import views.html.helpers._
 import views.html.propertyLinking._
 import views.html._
-import views.html.dvr.tabs.{agentsTab, challengeCasesDetailsTab, checkCasesDetailsTab, startCheckTab, valuationTab}
+import views.html.dvr.tabs.{agentsTab, challengeCasesDetailsTab, checkCasesDetailsTab, requestFutureValuationTab, startCheckTab, valuationTab}
 import views.html.propertyrepresentation.manage._
 import views.html.propertyrepresentation._
 
@@ -51,8 +51,17 @@ trait FakeViews extends GdsComponents {
   lazy val alreadyRequestedDetailedValuationView =
     new alreadyRequestedDetailedValuation(mainLayout, govukInsetText, govukSummaryList)
   lazy val requestDetailedValuationView =
-    new requestDetailedValuation(mainLayout, govukButton, govukInsetText, govukTabs, formWithCSRF, govukSummaryList)
-  lazy val requestedDetailedValuationView = new requestedDetailedValuation(mainLayout, govukPanel, govukSummaryList)
+    new requestDetailedValuation(
+      mainLayout,
+      govukButton,
+      govukInsetText,
+      govukTabs,
+      formWithCSRF,
+      govukSummaryList,
+      requestFutureValuationTabView)
+  lazy val requestedDetailedValuationView =
+    new requestedDetailedValuation(mainLayout, govukPanel, govukSummaryList)
+  lazy val requestFutureValuationTabView = new requestFutureValuationTab(govukInsetText)
   lazy val agentsTab = new agentsTab(govukTable)
   lazy val challengeCasesDetailsTab = new challengeCasesDetailsTab(govukDetails, govukTable)
   lazy val checkCasesDetailsTab = new checkCasesDetailsTab(govukButton, govukDetails, govukTable, govukWarningText)
