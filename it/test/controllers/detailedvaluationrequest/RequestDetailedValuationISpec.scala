@@ -31,7 +31,6 @@ import java.util.UUID
 
 class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers {
 
-
   override def submissionId = "PL1ZRPBP7"
   override def uarn: Long = 7651789000L
   override def valuationId: Long = 10028428L
@@ -61,7 +60,8 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   //Valuation tab content - draft
   val valuationTabText = "Valuation"
   val valuationTabTextWelsh = "Prisiad"
-  val valuationTabTextSelector = "#request-valuation-tabs > ul > li.govuk-tabs__list-item.govuk-tabs__list-item--selected"
+  val valuationTabTextSelector =
+    "#request-valuation-tabs > ul > li.govuk-tabs__list-item.govuk-tabs__list-item--selected"
 
   val valuationTabHeading = "Valuation"
   val valuationTabHeadingWelsh = "Prisiad"
@@ -74,17 +74,22 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val rateableValue = "£1,000"
   val rateableValueSelector = "#future-valuation-rv"
 
-  val valuationTabInsetText = "This will be the rateable value for the property. It is not what you will pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill."
-  val valuationTabInsetTextWelsh = "Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes."
+  val valuationTabInsetText =
+    "This will be the rateable value for the property. It is not what you will pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill."
+  val valuationTabInsetTextWelsh =
+    "Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
 
   val valuationTabInsetLinkText = "Estimate what the business rates bill may be from 1 April 2026"
   val valuationTabInsetLinkTextWelsh = "Amcangyfrif beth all y bil ardrethi busnes fod o 1 April 2026"
   val valuationTabInsetLinkTextSelector = "#future-estimate-link"
-  val valuationTabInsetLinkHref = "http://localhost:9300/business-rates-find/estimate-your-business-rates/start-from-dvr-valuation?authorisationId=1&propertyLinkSubmissionId=PL1ZRPBP7&valuationId=10028428&isOwner=true&uarn=7651789000&tabName=valuation-tab"
+  val valuationTabInsetLinkHref =
+    "http://localhost:9300/business-rates-find/estimate-your-business-rates/start-from-dvr-valuation?authorisationId=1&propertyLinkSubmissionId=PL1ZRPBP7&valuationId=10028428&isOwner=true&uarn=7651789000&tabName=valuation-tab"
 
-  val valuationTabP1 = "This detailed valuation will not be available until 1 April 2026. You will be able to request it from that date."
-  val valuationTabP1Welsh = "Ni fydd y prisiad manwl hwn ar gael tan 1 April 2026. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw."
+  val valuationTabP1 =
+    "This detailed valuation will not be available until 1 April 2026. You will be able to request it from that date."
+  val valuationTabP1Welsh =
+    "Ni fydd y prisiad manwl hwn ar gael tan 1 April 2026. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw."
   val valuationTabP1Selector = "#future-valuation-not-available"
 
   val valuationTabP2 = "The current 2023 detailed valuation can be requested from the current valuation."
@@ -104,28 +109,36 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationHelpTabRvMayChangeHeadingTextWelsh = "Gall eich gwerth ardrethol newid ar 1 April 2026"
   val valuationHelpTabRvMayChangeHeadingTextSelector = "#rateable-value-may-change-subhead"
 
-  val valuationHelpTabRvMayChangeText = "We regularly update the rateable values of all business properties in England and Wales to reflect changes in the property market. The next revaluation will come into effect on 1 April 2026."
-  val valuationHelpTabRvMayChangeTextWelsh = "Rydym yn diweddaru gwerthoedd ardrethol pob eiddo busnes yng Nghymru a Lloegr yn rheolaidd i adlewyrchu newidiadau yn y farchnad eiddo. Bydd yr ailbrisiad nesaf yn dod i rym ar 1 April 2026."
+  val valuationHelpTabRvMayChangeText =
+    "We regularly update the rateable values of all business properties in England and Wales to reflect changes in the property market. The next revaluation will come into effect on 1 April 2026."
+  val valuationHelpTabRvMayChangeTextWelsh =
+    "Rydym yn diweddaru gwerthoedd ardrethol pob eiddo busnes yng Nghymru a Lloegr yn rheolaidd i adlewyrchu newidiadau yn y farchnad eiddo. Bydd yr ailbrisiad nesaf yn dod i rym ar 1 April 2026."
   val valuationHelpTabRvMayChangeTextSelector = "#rateable-value-may-change-content"
 
   val valuationHelpTabPropertyDetailsChangeHeadingText = "Your property details need changing"
   val valuationHelpTabPropertyDetailsChangeHeadingTextWelsh = "Mae angen newid manylion eich eiddo"
   val valuationHelpTabPropertyDetailsChangeHeadingTextSelector = "#property-details-changing-subhead"
 
-  val valuationHelpTabPropertyDetailsChangeText = "Send us a Check case to tell us that your property details (such as floor area sizes and parking) need changing. We may accept your changes and update the current and future valuations."
-  val valuationHelpTabPropertyDetailsChangeTextWelsh = "Anfonwch achos Gwirio atom ni i ddweud wrthym fod angen newid manylion eich eiddo (megis meintiau arwynebedd llawr a pharcio). Efallai byddwn yn derbyn eich newidiadau ac yn diweddaru?r prisiadau cyfredol a dyfodol."
+  val valuationHelpTabPropertyDetailsChangeText =
+    "Send us a Check case to tell us that your property details (such as floor area sizes and parking) need changing. We may accept your changes and update the current and future valuations."
+  val valuationHelpTabPropertyDetailsChangeTextWelsh =
+    "Anfonwch achos Gwirio atom ni i ddweud wrthym fod angen newid manylion eich eiddo (megis meintiau arwynebedd llawr a pharcio). Efallai byddwn yn derbyn eich newidiadau ac yn diweddaru’r prisiadau cyfredol a dyfodol."
   val valuationHelpTabPropertyDetailsChangeTextSelector = "#property-details-changing-content"
 
   val valuationHelpTabRvTooHighHeadingText = "You think the rateable value is too high"
   val valuationHelpTabRvTooHighHeadingTextWelsh = "Rydych chi’n meddwl bod y gwerth ardrethol yn rhy uchel"
   val valuationHelpTabRvTooHighHeadingTextSelector = "#rateable-value-too-high-subhead"
 
-  val valuationHelpTabRvTooHighP1Text = "From 1 April 2026, send us a Challenge case to tell us you think the rateable value is too high."
-  val valuationHelpTabRvTooHighP1TextWelsh = "O’r 1 April 2026, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel."
+  val valuationHelpTabRvTooHighP1Text =
+    "From 1 April 2026, send us a Challenge case to tell us you think the rateable value is too high."
+  val valuationHelpTabRvTooHighP1TextWelsh =
+    "O’r 1 April 2026, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel."
   val valuationHelpTabRvTooHighP1TextSelector = "#rateable-value-too-high-content-1"
 
-  val valuationHelpTabRvTooHighP2Text = "You must complete a Check case before sending a Challenge case. When you get our decision on your Check case, you have 4 months in which to send us a Challenge case."
-  val valuationHelpTabRvTooHighP2TextWelsh = "Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Herio atom."
+  val valuationHelpTabRvTooHighP2Text =
+    "You must complete a Check case before sending a Challenge case. When you get our decision on your Check case, you have 4 months in which to send us a Challenge case."
+  val valuationHelpTabRvTooHighP2TextWelsh =
+    "Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Herio atom."
   val valuationHelpTabRvTooHighP2TextSelector = "#rateable-value-too-high-content-2"
 
   val valuationHelpTabValuationQuestionsHeadingText = "You have some other question about your valuation"
@@ -152,10 +165,11 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val link2Selector = "#how-properties-are-valued"
   val link2Href = "https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued"
 
-  val link3Text = "Estimate what this property?s business rates bill may be from 1 April 2026"
+  val link3Text = "Estimate what this property’s business rates bill may be from 1 April 2026"
   val link3TextWelsh = "Amcangyfrif beth all bil ardrethi busnes yr eiddo hwn fod o 1 April 2026"
   val link3Selector = "#help-estimator-link"
-  val link3Href = "http://localhost:9300/business-rates-find/estimate-your-business-rates/start-from-dvr-valuation?authorisationId=1&propertyLinkSubmissionId=PL1ZRPBP7&valuationId=10028428&isOwner=true&uarn=7651789000&tabName=help-tab"
+  val link3Href =
+    "http://localhost:9300/business-rates-find/estimate-your-business-rates/start-from-dvr-valuation?authorisationId=1&propertyLinkSubmissionId=PL1ZRPBP7&valuationId=10028428&isOwner=true&uarn=7651789000&tabName=help-tab"
 
   val link4Text = "Business rates relief"
   val link4TextWelsh = "Rhyddhad Ardrethi Busnesau"
@@ -224,7 +238,9 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     s"has a section heading of $valuationHelpTabRvMayChangeHeadingText" in {
-      document.select(valuationHelpTabRvMayChangeHeadingTextSelector).text shouldBe valuationHelpTabRvMayChangeHeadingText
+      document
+        .select(valuationHelpTabRvMayChangeHeadingTextSelector)
+        .text shouldBe valuationHelpTabRvMayChangeHeadingText
     }
 
     s"has correct content within $valuationHelpTabRvMayChangeHeadingText section" in {
@@ -232,11 +248,15 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     s"has a section heading of $valuationHelpTabPropertyDetailsChangeHeadingText" in {
-      document.select(valuationHelpTabPropertyDetailsChangeHeadingTextSelector).text shouldBe valuationHelpTabPropertyDetailsChangeHeadingText
+      document
+        .select(valuationHelpTabPropertyDetailsChangeHeadingTextSelector)
+        .text shouldBe valuationHelpTabPropertyDetailsChangeHeadingText
     }
 
     s"has correct content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
-      document.select(valuationHelpTabPropertyDetailsChangeTextSelector).text shouldBe valuationHelpTabPropertyDetailsChangeText
+      document
+        .select(valuationHelpTabPropertyDetailsChangeTextSelector)
+        .text shouldBe valuationHelpTabPropertyDetailsChangeText
     }
 
     s"has a section heading of $valuationHelpTabRvTooHighHeadingText" in {
@@ -252,15 +272,21 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     s"has a section heading of $valuationHelpTabValuationQuestionsHeadingText" in {
-      document.select(valuationHelpTabValuationQuestionsHeadingTextSelector).text shouldBe valuationHelpTabValuationQuestionsHeadingText
+      document
+        .select(valuationHelpTabValuationQuestionsHeadingTextSelector)
+        .text shouldBe valuationHelpTabValuationQuestionsHeadingText
     }
 
     s"has correct p1 content within $valuationHelpTabValuationQuestionsHeadingText section" in {
-      document.select(valuationHelpTabValuationQuestionsTextSelector).text shouldBe valuationHelpTabValuationQuestionsText
+      document
+        .select(valuationHelpTabValuationQuestionsTextSelector)
+        .text shouldBe valuationHelpTabValuationQuestionsText
     }
 
     s"has correct link content within $valuationHelpTabValuationQuestionsHeadingText section" in {
-      document.select(valuationHelpTabValuationQuestionsLinkTextSelector).text shouldBe valuationHelpTabValuationQuestionsLinkText
+      document
+        .select(valuationHelpTabValuationQuestionsLinkTextSelector)
+        .text shouldBe valuationHelpTabValuationQuestionsLinkText
     }
 
     s"has link for $link1Text" in {
@@ -346,7 +372,9 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     s"has a section heading of $valuationHelpTabRvMayChangeHeadingText" in {
-      document.select(valuationHelpTabRvMayChangeHeadingTextSelector).text shouldBe valuationHelpTabRvMayChangeHeadingTextWelsh
+      document
+        .select(valuationHelpTabRvMayChangeHeadingTextSelector)
+        .text shouldBe valuationHelpTabRvMayChangeHeadingTextWelsh
     }
 
     s"has correct content within $valuationHelpTabRvMayChangeHeadingText section" in {
@@ -354,15 +382,21 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     s"has a section heading of $valuationHelpTabPropertyDetailsChangeHeadingText" in {
-      document.select(valuationHelpTabPropertyDetailsChangeHeadingTextSelector).text shouldBe valuationHelpTabPropertyDetailsChangeHeadingTextWelsh
+      document
+        .select(valuationHelpTabPropertyDetailsChangeHeadingTextSelector)
+        .text shouldBe valuationHelpTabPropertyDetailsChangeHeadingTextWelsh
     }
 
     s"has correct content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
-      document.select(valuationHelpTabPropertyDetailsChangeTextSelector).text shouldBe valuationHelpTabPropertyDetailsChangeTextWelsh
+      document
+        .select(valuationHelpTabPropertyDetailsChangeTextSelector)
+        .text shouldBe valuationHelpTabPropertyDetailsChangeTextWelsh
     }
 
     s"has a section heading of $valuationHelpTabRvTooHighHeadingText" in {
-      document.select(valuationHelpTabRvTooHighHeadingTextSelector).text shouldBe valuationHelpTabRvTooHighHeadingTextWelsh
+      document
+        .select(valuationHelpTabRvTooHighHeadingTextSelector)
+        .text shouldBe valuationHelpTabRvTooHighHeadingTextWelsh
     }
 
     s"has correct p1 content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
@@ -374,15 +408,21 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     s"has a section heading of $valuationHelpTabValuationQuestionsHeadingText" in {
-      document.select(valuationHelpTabValuationQuestionsHeadingTextSelector).text shouldBe valuationHelpTabValuationQuestionsHeadingTextWelsh
+      document
+        .select(valuationHelpTabValuationQuestionsHeadingTextSelector)
+        .text shouldBe valuationHelpTabValuationQuestionsHeadingTextWelsh
     }
 
     s"has correct p1 content within $valuationHelpTabValuationQuestionsHeadingText section" in {
-      document.select(valuationHelpTabValuationQuestionsTextSelector).text shouldBe valuationHelpTabValuationQuestionsTextWelsh
+      document
+        .select(valuationHelpTabValuationQuestionsTextSelector)
+        .text shouldBe valuationHelpTabValuationQuestionsTextWelsh
     }
 
     s"has correct link content within $valuationHelpTabValuationQuestionsHeadingText section" in {
-      document.select(valuationHelpTabValuationQuestionsLinkTextSelector).text shouldBe valuationHelpTabValuationQuestionsLinkTextWelsh
+      document
+        .select(valuationHelpTabValuationQuestionsLinkTextSelector)
+        .text shouldBe valuationHelpTabValuationQuestionsLinkTextWelsh
     }
 
     s"has link for $link1Text" in {
@@ -406,7 +446,6 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
   }
 
-
   def authStubs: StubMapping = {
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -429,13 +468,13 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
     val res = await(
       ws.url(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/exists")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/exists")
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
-          "Csrf-Token" -> "nocheck",
-          "Content-Type" -> "application/x-www-form-urlencoded")
+          "Csrf-Token"       -> "nocheck",
+          "Content-Type"     -> "application/x-www-form-urlencoded")
         .get()
     )
 
@@ -450,7 +489,9 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     stubFor {
       get(s"/property-linking/dashboard/owner/assessments/$submissionId")
         .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testApiAssessments(assessments = List(draftApiAssessment))).toString())
+          aResponse
+            .withStatus(OK)
+            .withBody(Json.toJson(testApiAssessments(assessments = List(draftApiAssessment))).toString())
         }
     }
 

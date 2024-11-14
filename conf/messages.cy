@@ -1242,7 +1242,7 @@ requestValuation.future.help.subheading.3=Rydych chi’n meddwl bod y gwerth ard
 requestValuation.future.help.subheading.4=You have some other question about your valuation
 
 requestValuation.future.help.p.1=Rydym yn diweddaru gwerthoedd ardrethol pob eiddo busnes yng Nghymru a Lloegr yn rheolaidd i adlewyrchu newidiadau yn y farchnad eiddo. Bydd yr ailbrisiad nesaf yn dod i rym ar {0}.
-requestValuation.future.help.p.2=Anfonwch achos Gwirio atom ni i ddweud wrthym fod angen newid manylion eich eiddo (megis meintiau arwynebedd llawr a pharcio). Efallai byddwn yn derbyn eich newidiadau ac yn diweddaru?r prisiadau cyfredol a dyfodol.
+requestValuation.future.help.p.2=Anfonwch achos Gwirio atom ni i ddweud wrthym fod angen newid manylion eich eiddo (megis meintiau arwynebedd llawr a pharcio). Efallai byddwn yn derbyn eich newidiadau ac yn diweddaru’r prisiadau cyfredol a dyfodol.
 requestValuation.future.help.p.4=O’r {0}, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel.
 requestValuation.future.help.p.5=Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Herio atom.
 requestValuation.future.help.p.6=Cyn {0}, <a class="govuk-link" id="future-valuation-enquiry-link" href="{1}">anfon ymholiad</a>.

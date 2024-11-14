@@ -21,10 +21,7 @@
 
 @(rateableValueFormatted: Option[String],
         effectiveDate: String,
-        estimatorUrl: String,
-        currentValuationUrl: Option[String],
-        valuationsUrl: String,
-        isWelshProperty: Boolean)(implicit config: ApplicationConfig, messages: Messages)
+        estimatorUrl: String)(implicit config: ApplicationConfig, messages: Messages)
 
 @insetMessages = {
     <p>@messages("auto.requestDetailedValuation.future.rv.inset")</p>

@@ -79,10 +79,7 @@
                         panel = TabPanel(HtmlContent(requestFutureValuationTab(
                             model.rateableValueFormatted,
                             model.effectiveDate,
-                            estimatorUrl,
-                            model.currentValuationUrl,
-                            model.valuationsUrl,
-                            model.isWelsh
+                            estimatorUrl
                         )))
                     ),
                     TabItem(
@@ -93,9 +90,7 @@
                             currentValuationCheckTabUrl = model.currentValuationUrl,
                             model.valuationsUrl,
                             enquiryUrl,
-                            estimatorUrl,
-                            model.isWelsh
-                        )))
+                            estimatorUrl)))
                     )
                 )
             ))

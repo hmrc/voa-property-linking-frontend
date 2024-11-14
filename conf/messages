@@ -1375,7 +1375,7 @@ requestValuation.future.help.p.5=You must complete a Check case before sending a
 requestValuation.future.help.p.6=Before {0}, <a class="govuk-link" id="future-valuation-enquiry-link" href="{1}">send an enquiry</a>.
 requestValuation.future.help.help.link.1=<a class="govuk-link" id="how-to-use-account" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">How to use a business rates valuation account</a>
 requestValuation.future.help.help.link.2=<a class="govuk-link" id="how-properties-are-valued" href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">How business properties are valued</a>
-requestValuation.future.help.help.link.3=Estimate what this property?s business rates bill may be from {0}
+requestValuation.future.help.help.link.3=Estimate what this property’s business rates bill may be from {0}
 requestValuation.future.help.help.link.4=<a class="govuk-link"  id="rates-relief" href="https://www.gov.uk/apply-for-business-rate-relief">Business rates relief</a>
 
 cannotRaiseChallenge.title=You cannot challenge this valuation
