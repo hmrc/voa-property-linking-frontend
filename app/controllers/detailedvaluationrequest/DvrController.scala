@@ -421,7 +421,6 @@ class DvrController @Inject()(
       if (owner) propertyLinks.getOwnerAssessments(submissionId) else propertyLinks.getClientAssessments(submissionId)
     pLink.flatMap {
       case Some(link) =>
-        println(Console.YELLOW + "have api assessment" + Console.RESET)
         val assessment = link.assessments
           .find(a => a.assessmentRef == valuationId)
           .getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
@@ -439,7 +438,6 @@ class DvrController @Inject()(
           }
         } yield {
           record.fold {
-            println(Console.YELLOW + "No dvr returned" + Console.RESET)
             Ok(
               requestDetailedValuationView(
                 submissionId = submissionId,
