@@ -102,12 +102,14 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
     .getOptional[String]("plannedImprovementsContent")
     .map(e => new String(Base64.getUrlDecoder.decode(e)))
 
-  val default2017AssessmentEndDate = LocalDate.of(2023, 3, 31)
+  val default2017AssessmentEndDate: LocalDate = LocalDate.of(2023, 3, 31)
 
   lazy val environmentHost: String = configuration.get[String]("environment-base.host")
 
   def safeRedirect(url: RedirectUrl): String =
     url.get(AbsoluteWithHostnameFromAllowlist(environmentHost) | OnlyRelative).url
+
+  lazy val currentListYear: String = loadConfig("currentListYear")
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
