@@ -15,12 +15,9 @@
  *@
 
 @(effectiveDate: String,
-        currentValuationCheckTabUrl: Option[String],
-        valuationsUrl: String,
         enquiryUrl: String,
         estimatorUrl: String)(implicit messages: Messages)
 
-@currentValuationUrl = @{s"${currentValuationCheckTabUrl.getOrElse(valuationsUrl)}&tabName=help-tab#start-check-tab"}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds" id="future-help-content">
 
